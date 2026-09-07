@@ -1,0 +1,56 @@
+# Undersigned
+
+A Seeker dApp that puts a **sybil-resistant, on-chain review and trust layer** on top of the Solana
+dApp Store. One Genesis Token = one voice. Reviews are memo transactions the reviewer signs in their
+own wallet; ranking is deterministic from the chain; the phone adds the facts it can prove about
+installed apps (certificate changes, permission drift). No server, no token, no prizes, no money.
+
+CLOCK IN hackathon entry (8 Sep – 8 Oct 2026). See `docs/SPEC.md` (protocol), `docs/LEGAL_GATES.md`
+(compliance), and this file's "How it exists" section for the relationship to the store.
+
+## How it exists relative to the Solana dApp Store
+
+**It is not part of the store and does not modify it.** It is an ordinary third-party dApp, submitted
+and published through the same portal as the rest of the fleet, sitting *beside* the store:
+
+| Layer | Who owns it | What Undersigned does with it |
+|---|---|---|
+| Store catalogue (apps, versions, categories) | Solana Mobile | **Reads** it through the same public GraphQL feed the AarDappvark Toolkit has used in production since its 2026-05-06 approval. Never writes. |
+| Store's own star ratings and reviews | Solana Mobile | **Untouched.** Not read, not mirrored, not replaced. The app never claims to be, or to speak for, the store. |
+| The review ledger | Nobody — it is public chain data | **Created by users**, one signed transaction per review, discoverable by anyone through a fixed reference address. Solana Mobile, Guardians, or any other app can read the same ledger; it is open data by construction. |
+| Installed-app facts (cert, permissions) | The user's device | Computed on-device with PackageManager, compared with the device's own earlier snapshot, never uploaded. |
+| Launching / installing an app | Solana Mobile | Deep-links out: `solanadappstore://details?id=<package>` (the Toolkit's existing path). Undersigned never installs, updates or removes anything. |
+
+So the honest one-line answer to "is this the dApp Store?" is: *no, it is an independent trust
+layer that reads the store's public catalogue and lets verified Seeker owners publish signed
+opinions about it to Solana, where anyone can read them.* If Solana Mobile's Guardian curation
+programme wants the data, it is already theirs to read; nothing about the design depends on them
+adopting it, and nothing about it competes with their install flow.
+
+Three lines of copy that must appear in the listing, onboarding and terms, for trademark and
+"not misleading" reasons: **not affiliated with Solana Mobile**; **reviews are the signed opinions of
+individual Seeker owners, not the store's ratings**; **the facts panel reports what your device can
+verify, it is not a safety verdict.**
+
+## Repo layout
+
+```
+protocol/   pure-Kotlin JVM module: memo codec, ranking, safety-fact model, unit tests (runs today)
+docs/       SPEC.md (wire format, registry, reader), LEGAL_GATES.md (compliance, feature gates)
+app/        NOT YET — bootstrap from the fleet scaffold (Sol Quotes / ScreenRecSkr pattern) once the
+            owner fixes the name; the Android shell wires protocol/ to MWA, PackageManager, the store
+            GraphQL crawler (Toolkit tools/refresh_catalogue.py query) and the RPC pool (Helius key 3
+            via ~/.gradle/gradle.properties, appended LAST per the fleet rule).
+```
+
+Run the protocol tests: `JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :protocol:test`
+
+## Owner decisions still open
+
+1. **Name** — DONE 8 Sep: Undersigned (web-screened clean; store/Play/IP Australia screen still owed).
+2. **Registry PDA** — DONE 8 Sep: `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs` (seeds `review-ledger`,`v1`, bump 255); app re-derives at startup.
+3. **Free or Pro** — the hackathon build is free. If a Pro tier is added later it is the fleet payment
+   cluster, ported by diff, behind the payment-cluster gate; it changes none of the legal analysis
+   (a software licence fee, as in every other fleet app).
+4. **Package visibility** — `QUERY_ALL_PACKAGES` with a disclosure (the Toolkit precedent) or a generated
+   `<queries>` list from the catalogue. The former is simpler and already store-approved in the fleet.

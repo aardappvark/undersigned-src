@@ -1,0 +1,67 @@
+package com.undersigned.protocol
+
+import kotlin.math.ln
+import kotlin.math.min
+
+/** One ledger entry after the chain has been read: the signer is the identity, never the payload. */
+data class LedgerEntry(
+    val signature: String,
+    val signer: String,            // base58 wallet that signed the transaction
+    val blockTime: Long,
+    val memo: ReviewMemo,
+)
+
+/** Facts read live from the chain about a signer, at ranking time. Both are READ-ONLY lookups. */
+data class SignerFacts(
+    /** Holds a Seeker Genesis Token (one per device) — the sybil gate. Reviews from wallets without one are never counted. */
+    val hasGenesisToken: Boolean,
+    /** Staked SKR in whole tokens, as read from the staking program (SeekerVerify `Season1RpcClient` shape). Weighting only; nothing is staked, moved or promoted by this app. */
+    val stakedSkr: Double,
+)
+
+data class AppScore(
+    val packageName: String,
+    val countedReviews: Int,
+    val weightedRating: Double,      // 1..5, Bayesian-shrunk toward the prior
+    val tagCounts: Map<ReviewMemo.Tag, Int>,
+    val latestVersionReviewed: Long,
+)
+
+object Ranking {
+    /** ln-damped: 0 SKR → 1.0, 1k → ~1.69, 100k → ~5.6 but CAPPED at [MAX_WEIGHT]. Whales cannot buy a listing. */
+    const val MAX_WEIGHT = 3.0
+    /** Bayesian prior: every app starts as an average app with the strength of [PRIOR_WEIGHT] reviews. */
+    const val PRIOR_MEAN = 3.0
+    const val PRIOR_WEIGHT = 5.0
+
+    fun weight(f: SignerFacts): Double = if (!f.hasGenesisToken) 0.0 else min(MAX_WEIGHT, 1.0 + ln(1.0 + f.stakedSkr / 1_000.0))
+
+    /**
+     * Rules, in order: (1) revocations remove the review they name, whoever posted the revocation
+     * — but only if the same wallet signed both; (2) one counted review per wallet per package,
+     * the newest wins; (3) wallets without a Genesis Token weigh zero; (4) weights are damped and
+     * capped. Everything here is deterministic given the chain, so any reader reaches the same
+     * ranking — that is the point of putting it on-chain.
+     */
+    fun score(entries: List<LedgerEntry>, facts: (signer: String) -> SignerFacts): List<AppScore> {
+        val bySig = entries.associateBy { it.signature }
+        val revoked = entries.mapNotNull { e ->
+            (e.memo as? ReviewMemo.Revocation)?.let { r -> bySig[r.reviewSignature]?.takeIf { it.signer == e.signer }?.signature }
+        }.toSet()
+        val live = entries.filter { it.signature !in revoked && it.memo is ReviewMemo.Review }
+        val newestPerWalletPerApp = live
+            .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
+            .map { (_, v) -> v.maxBy { it.blockTime } }
+        return newestPerWalletPerApp
+            .groupBy { (it.memo as ReviewMemo.Review).packageName }
+            .map { (pkg, list) ->
+                val weighted = list.map { it to weight(facts(it.signer)) }.filter { it.second > 0.0 }
+                val wSum = weighted.sumOf { it.second }
+                val rSum = weighted.sumOf { (e, w) -> (e.memo as ReviewMemo.Review).rating * w }
+                val rating = (PRIOR_MEAN * PRIOR_WEIGHT + rSum) / (PRIOR_WEIGHT + wSum)
+                val tags = weighted.flatMap { (e, _) -> (e.memo as ReviewMemo.Review).tags }.groupingBy { it }.eachCount()
+                AppScore(pkg, weighted.size, rating, tags, weighted.maxOfOrNull { (e, _) -> (e.memo as ReviewMemo.Review).versionCode } ?: 0L)
+            }
+            .sortedWith(compareByDescending<AppScore> { it.weightedRating }.thenByDescending { it.countedReviews })
+    }
+}
