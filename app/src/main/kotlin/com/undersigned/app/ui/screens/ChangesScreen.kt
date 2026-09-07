@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.undersigned.app.R
 import com.undersigned.app.ui.MainViewModel
+import com.undersigned.app.ui.components.DAppIcon
 import com.undersigned.app.ui.components.GlassCard
 import com.undersigned.app.ui.theme.RbColors
 import java.text.DateFormat
@@ -26,6 +27,7 @@ import java.util.Date
 fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit) {
     val changes by vm.changes.collectAsState()
     val catalogue by vm.catalogue.collectAsState()
+    val icons by vm.iconCache.state.collectAsState()
     val real = changes.filter { !it.firstSeen }
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -39,7 +41,11 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
             items(real, key = { it.packageName + it.at }) { c ->
                 val name = catalogue.firstOrNull { it.packageName == c.packageName }?.name ?: c.packageName
                 GlassCard(modifier = Modifier.clickable { onOpen(c.packageName) }, accent = if (c.signerChanged) RbColors.negative else RbColors.glassBorder) {
-                    Text(name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        DAppIcon(c.packageName, name, icons[c.packageName]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(36.dp))
+                        Spacer(Modifier.width(10.dp))
+                        Text(name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                    }
                     Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(c.at)), color = RbColors.textTertiary, fontSize = 11.sp)
                     Spacer(Modifier.height(6.dp))
                     if (c.signerChanged) Text(stringResource(R.string.fact_signer_changed), color = RbColors.negative, fontSize = 13.sp, fontWeight = FontWeight.Bold)

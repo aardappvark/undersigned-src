@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.data.CatalogueRepository
+import com.undersigned.app.data.DAppIconCache
 import com.undersigned.app.data.LedgerCache
 import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.device.DeviceChange
@@ -40,6 +41,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val reader = LedgerReader(cache = ledgerCache)
     private val factsService = SignerFactsService()
     private val txService = ReviewTxService()
+    val iconCache = DAppIconCache(app)
 
     val catalogue = MutableStateFlow<List<CatalogueApp>>(emptyList())
     val installed = MutableStateFlow<Set<String>>(emptySet())
@@ -57,6 +59,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             val cat = catalogueRepo.load(); catalogue.value = cat
             installed.value = installedApps.installedPackages()
+            runCatching { iconCache.resolve(cat.map { it.packageName }.filter { it in installed.value }) }
             runCatching { installedApps.refreshSnapshot(cat.map { it.packageName }) }
             changes.value = installedApps.changeLog()
             entries.value = ledgerCache.load()
@@ -128,6 +131,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             onResult(r)
         }
     }
+
+    /** Icons for the rows currently on screen; cached results are never refetched. */
+    fun resolveIcons(packages: List<String>) { if (packages.isNotEmpty()) viewModelScope.launch(Dispatchers.IO) { runCatching { iconCache.resolve(packages) } } }
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback
     fun deviceFacts(pkg: String) = installedApps.factsWithDelta(pkg)

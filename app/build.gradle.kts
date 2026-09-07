@@ -69,6 +69,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // Solana Mobile Wallet Adapter (SIWS + signAndSendTransactions)
     implementation("com.solanamobile:mobile-wallet-adapter-clientlib-ktx:2.0.3")
+    // dApp icons from the store's icon URIs (Toolkit pattern)
+    implementation("io.coil-kt:coil-compose:2.7.0")
     // Seeker Genesis Token check (fleet library, read-only)
     implementation("com.github.aardappvark:seeker-verify:1.1.0")
     testImplementation("junit:junit:4.13.2")

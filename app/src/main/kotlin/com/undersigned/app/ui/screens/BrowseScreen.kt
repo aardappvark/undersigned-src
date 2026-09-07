@@ -22,6 +22,7 @@ import com.undersigned.app.R
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.ui.LedgerStatus
 import com.undersigned.app.ui.MainViewModel
+import com.undersigned.app.ui.components.DAppIcon
 import com.undersigned.app.ui.components.Pill
 import com.undersigned.app.ui.components.RatingStars
 import com.undersigned.app.ui.components.TagChip
@@ -37,6 +38,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     val scores by vm.scores.collectAsState()
     val status by vm.ledgerStatus.collectAsState()
     val changes by vm.changes.collectAsState()
+    val icons by vm.iconCache.state.collectAsState()
     var query by remember { mutableStateOf("") }
     var tab by remember { mutableStateOf(Tab.INSTALLED) }
 
@@ -48,6 +50,8 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             .sortedWith(compareByDescending<CatalogueApp> { scores[it.packageName]?.weightedRating ?: -1.0 }.thenByDescending { it.updated })
             .toList()
     }
+
+    LaunchedEffect(rows) { vm.resolveIcons(rows.take(60).map { it.packageName }) }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -83,16 +87,18 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             }
         } else {
             LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
-                items(rows, key = { it.packageName }) { app -> AppRow(app, scores[app.packageName], app.packageName in installed) { onOpen(app.packageName) } }
+                items(rows, key = { it.packageName }) { app -> AppRow(app, scores[app.packageName], app.packageName in installed, icons[app.packageName]?.takeIf { it.isNotEmpty() }) { onOpen(app.packageName) } }
             }
         }
     }
 }
 
 @Composable
-private fun AppRow(app: CatalogueApp, score: AppScore?, installed: Boolean, onClick: () -> Unit) {
+private fun AppRow(app: CatalogueApp, score: AppScore?, installed: Boolean, iconUrl: String?, onClick: () -> Unit) {
     Column(Modifier.fillMaxWidth().clickable { onClick() }.padding(horizontal = 20.dp, vertical = 10.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
+            DAppIcon(app.packageName, app.name, iconUrl)
+            Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
                 Text(app.name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                 Text(app.packageName, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1)

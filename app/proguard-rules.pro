@@ -11,3 +11,4 @@
 -keep class com.midmightbit.sgt.** { *; }
 -dontwarn okhttp3.**
 -dontwarn okio.**
+-dontwarn coil.**
