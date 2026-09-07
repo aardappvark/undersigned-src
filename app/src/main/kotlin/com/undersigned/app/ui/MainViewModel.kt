@@ -54,6 +54,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val changes = MutableStateFlow<List<DeviceChange>>(emptyList())
     val wallet: StateFlow<String?> = UserPreferences.walletAddress
     val hidden: StateFlow<Set<String>> = UserPreferences.hidden
+    val follows: StateFlow<Set<String>> = UserPreferences.follows
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -75,7 +76,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             ledgerStatus.value = LedgerStatus.Syncing(0, 0)
             reader.sync { p -> ledgerStatus.value = LedgerStatus.Syncing(p.fetched, p.total) }.fold(
-                onSuccess = { list -> entries.value = list; rank(); ledgerStatus.value = LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review }, list.map { it.signer }.distinct().size) },
+                onSuccess = { list -> entries.value = list; rank(); val rv = Ranking.revoked(list); ledgerStatus.value = LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review && it.signature !in rv }, list.filter { it.memo is ReviewMemo.Review }.map { it.signer }.distinct().size) },
                 onFailure = { ledgerStatus.value = LedgerStatus.Error(it.message?.take(80) ?: "unknown") },
             )
         }
@@ -114,6 +115,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun hide(signature: String) = UserPreferences.hide(signature)
+    fun toggleFollow(pkg: String) { if (pkg in follows.value) UserPreferences.unfollow(pkg) else UserPreferences.follow(pkg) }
+
+    /** Signed replies under one review, oldest first, hidden ones removed. */
+    fun repliesFor(reviewSignature: String): List<LedgerEntry> {
+        val hid = hidden.value
+        return entries.value.filter { (it.memo as? ReviewMemo.Reply)?.reviewSignature == reviewSignature && it.signature !in hid }.sortedBy { it.blockTime }
+    }
 
     fun publish(sender: ActivityResultSender, memo: ReviewMemo, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
@@ -122,6 +130,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             val r = txService.publish(adapter, sender, w, text, onStage)
             r.onSuccess { sig ->
+                (memo as? ReviewMemo.Review)?.let { UserPreferences.follow(it.packageName) }   // you hear about replies and other owners' reviews
                 // Optimistic local insert so the user sees their own review immediately; the reader will confirm it.
                 entries.value = (listOf(LedgerEntry(sig, w, System.currentTimeMillis() / 1000, memo)) + entries.value).distinctBy { it.signature }
                 ledgerCache.save(entries.value)

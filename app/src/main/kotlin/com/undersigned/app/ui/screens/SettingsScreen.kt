@@ -1,6 +1,11 @@
 package com.undersigned.app.ui.screens
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import com.undersigned.app.notify.LedgerWatchWorker
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,6 +49,9 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val selfFacts by vm.selfFacts.collectAsState()
     val selfLoading by vm.selfFactsLoading.collectAsState()
     val hidden by vm.hidden.collectAsState()
+    val follows by vm.follows.collectAsState()
+    val alerts by UserPreferences.alertsEnabled.collectAsState()
+    val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
     val termsService = remember { TermsAcceptanceService(context) }
     var licenceText by remember { mutableStateOf<String?>(null) }
     var signing by remember { mutableStateOf(false) }
@@ -88,6 +96,21 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                     Spacer(Modifier.height(6.dp))
                     Text(stringResource(R.string.standing_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                }
+            }
+
+            SectionTitle(stringResource(R.string.alerts_title))
+            GlassCard {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.alerts_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                        Text(stringResource(R.string.alerts_follows, follows.size), color = RbColors.textTertiary, fontSize = 11.sp)
+                    }
+                    Switch(checked = alerts, onCheckedChange = { on ->
+                        if (!on) { UserPreferences.setAlerts(false); LedgerWatchWorker.cancel(context) }
+                        else if (Build.VERSION.SDK_INT >= 33) askNotif.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        else { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) }
+                    }, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
             }
 

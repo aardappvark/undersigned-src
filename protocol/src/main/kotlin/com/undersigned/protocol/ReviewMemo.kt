@@ -8,8 +8,10 @@ import java.util.Base64
  *
  *   SRL1|rev|<package>|<rating 1-5>|<tags a,b,c>|<versionCode>|<b64 text or empty>
  *   SRL1|rvk|<signature of the review tx being withdrawn>
+ *   SRL1|rep|<signature of the review being answered>|<b64 text>
  *
- * Only these two record types exist in v1. Anything else, any unknown tag, any oversize field
+ * Three record types. A reply is a signed public comment under a review — anyone may post one
+ * (the publisher answering, another owner disagreeing); replies never affect ranking. Anything else, any unknown tag, any oversize field
  * or any field that fails validation is IGNORED by readers, never "partially" accepted.
  *
  * What is deliberately NOT here: reviewer identity (it is the transaction signer — read from
@@ -27,6 +29,8 @@ sealed class ReviewMemo {
     ) : ReviewMemo()
 
     data class Revocation(val reviewSignature: String) : ReviewMemo()
+
+    data class Reply(val reviewSignature: String, val text: String) : ReviewMemo()
 
     /** Fixed vocabulary: rankable, translatable, and never defamatory free prose. */
     enum class Tag(val wire: String) {
@@ -65,6 +69,13 @@ sealed class ReviewMemo {
                 "${Registry.PROTOCOL}|rev|${m.packageName}|${m.rating}|${m.tags.joinToString(",") { it.wire }}|${m.versionCode}|$b64"
             }
             is Revocation -> { require(SIGNATURE.matches(m.reviewSignature)) { "signature" }; "${Registry.PROTOCOL}|rvk|${m.reviewSignature}" }
+            is Reply -> {
+                require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
+                val text = m.text.trim()
+                require(text.isNotEmpty() && text.length <= MAX_TEXT_CHARS && text.toByteArray(StandardCharsets.UTF_8).size <= MAX_TEXT_BYTES) { "reply text" }
+                require(text.none { it == '|' || it == '\n' || it == '\r' }) { "text chars" }
+                "${Registry.PROTOCOL}|rep|${m.reviewSignature}|" + Base64.getUrlEncoder().withoutPadding().encodeToString(text.toByteArray(StandardCharsets.UTF_8))
+            }
         }.also { require(it.toByteArray(StandardCharsets.UTF_8).size <= MAX_MEMO_BYTES) { "memo > $MAX_MEMO_BYTES bytes" } }
 
         /** Lenient on input only in the sense that garbage returns null; never throws on untrusted data. */
@@ -86,6 +97,12 @@ sealed class ReviewMemo {
                     Review(pkg, rating, tags, vc, text)
                 }
                 "rvk" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Revocation(f[2]) else null
+                "rep" -> {
+                    if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
+                    val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }
+                        ?.takeIf { it.isNotBlank() && it.length <= MAX_TEXT_CHARS && it.none { c -> c == '\n' || c == '\r' } } ?: return null
+                    Reply(f[2], text)
+                }
                 else -> null
             }
         }.getOrNull()

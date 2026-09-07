@@ -22,7 +22,8 @@ data class SignerFacts(
 data class AppScore(
     val packageName: String,
     val countedReviews: Int,
-    val weightedRating: Double,      // 1..5, Bayesian-shrunk toward the prior
+    val weightedRating: Double,      // 1..5, Bayesian-shrunk toward the prior — use for ORDERING
+    val weightedMean: Double,        // 1..5, weighted mean of the counted reviews, no prior — use for DISPLAY
     val tagCounts: Map<ReviewMemo.Tag, Int>,
     val latestVersionReviewed: Long,
 )
@@ -64,8 +65,9 @@ object Ranking {
                 val wSum = weighted.sumOf { it.second }
                 val rSum = weighted.sumOf { (e, w) -> (e.memo as ReviewMemo.Review).rating * w }
                 val rating = (PRIOR_MEAN * PRIOR_WEIGHT + rSum) / (PRIOR_WEIGHT + wSum)
+                val mean = if (wSum > 0.0) rSum / wSum else 0.0
                 val tags = weighted.flatMap { (e, _) -> (e.memo as ReviewMemo.Review).tags }.groupingBy { it }.eachCount()
-                AppScore(pkg, weighted.size, rating, tags, weighted.maxOfOrNull { (e, _) -> (e.memo as ReviewMemo.Review).versionCode } ?: 0L)
+                AppScore(pkg, weighted.size, rating, mean, tags, weighted.maxOfOrNull { (e, _) -> (e.memo as ReviewMemo.Review).versionCode } ?: 0L)
             }
             .sortedWith(compareByDescending<AppScore> { it.weightedRating }.thenByDescending { it.countedReviews })
     }

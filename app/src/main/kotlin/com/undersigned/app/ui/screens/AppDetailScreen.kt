@@ -3,11 +3,16 @@ package com.undersigned.app.ui.screens
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -49,6 +54,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var revokeDialog by remember { mutableStateOf(false) }
     var revokeStage by remember { mutableStateOf<String?>(null) }
     val icons by vm.iconCache.state.collectAsState()
+    val follows by vm.follows.collectAsState()
+    var replyTo by remember { mutableStateOf<String?>(null) }
+    var replyText by remember { mutableStateOf("") }
+    var replyConsent by remember { mutableStateOf(false) }
+    var replyStage by remember { mutableStateOf<String?>(null) }
+    var replyError by remember { mutableStateOf<String?>(null) }
     LaunchedEffect(pkg) { vm.resolveIcons(listOf(pkg)) }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
 
@@ -64,6 +75,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 Text(name, color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, maxLines = 1)
                 Text(pkg + (app?.updated?.takeIf { it.isNotEmpty() }?.let { " · $it" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1)
             }
+            IconButton(onClick = { vm.toggleFollow(pkg) }) {
+                Icon(if (pkg in follows) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = stringResource(if (pkg in follows) R.string.following else R.string.follow), tint = if (pkg in follows) RbColors.negative else RbColors.textSecondary)
+            }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             Spacer(Modifier.height(6.dp))
@@ -78,10 +92,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             GlassCard {
                 if (score != null) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(String.format(java.util.Locale.US, "%.1f", score.weightedRating), color = RbColors.textPrimary, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold)
+                        Text(String.format(java.util.Locale.US, "%.1f", score.weightedMean), color = RbColors.textPrimary, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold)
                         Spacer(Modifier.width(12.dp))
-                        Column { RatingStars(score.weightedRating, size = 18); Text(stringResource(R.string.row_signed_count, score.countedReviews), color = RbColors.textSecondary, fontSize = 12.sp) }
+                        Column { RatingStars(score.weightedMean, size = 18); Text(stringResource(R.string.row_signed_count, score.countedReviews), color = RbColors.textSecondary, fontSize = 12.sp) }
                     }
+                    Spacer(Modifier.height(4.dp))
+                    Text(stringResource(R.string.detail_rank_score, String.format(java.util.Locale.US, "%.2f", score.weightedRating)), color = RbColors.textTertiary, fontSize = 11.sp)
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -127,8 +143,18 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.wire) } }
                     r.text?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
                     Spacer(Modifier.height(6.dp))
+                    val replies = remember(entries, hidden) { vm.repliesFor(e.signature) }
+                    replies.forEach { rp ->
+                        Spacer(Modifier.height(6.dp))
+                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
+                            Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else shortKey(rp.signer, 4, 4)) + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
+                            Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                        }
+                    }
+                    Spacer(Modifier.height(4.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
+                        if (wallet != null) TextButton(onClick = { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontSize = 12.sp) }
                         if (e.signer != wallet) {
                             TextButton(onClick = { vm.hide(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_hide), color = RbColors.textTertiary, fontSize = 12.sp) }
                             TextButton(onClick = { report(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_report), color = RbColors.textTertiary, fontSize = 12.sp) }
@@ -140,6 +166,41 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             if (hiddenCount > 0) Text(stringResource(R.string.review_hidden_note, hiddenCount), color = RbColors.textTertiary, fontSize = 11.sp)
             Spacer(Modifier.height(32.dp))
         }
+    }
+
+    replyTo?.let { target ->
+        val bytes = replyText.toByteArray(Charsets.UTF_8).size
+        val ok = replyText.isNotBlank() && replyText.length <= ReviewMemo.MAX_TEXT_CHARS && bytes <= ReviewMemo.MAX_TEXT_BYTES && replyText.none { it == '|' || it == '\n' || it == '\r' }
+        AlertDialog(
+            onDismissRequest = { if (replyStage == null) replyTo = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.reply_title), color = RbColors.textPrimary) },
+            text = {
+                Column {
+                    OutlinedTextField(value = replyText, onValueChange = { if (replyStage == null) replyText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = replyText.isNotEmpty() && !ok,
+                        placeholder = { Text(stringResource(R.string.reply_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                    Text(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - replyText.length, ReviewMemo.MAX_TEXT_BYTES - bytes), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Spacer(Modifier.height(8.dp))
+                    Text(stringResource(R.string.review_consent_body), color = RbColors.textSecondary, fontSize = 11.sp, lineHeight = 15.sp)
+                    Row(Modifier.fillMaxWidth().clickable(enabled = replyStage == null) { replyConsent = !replyConsent }, verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = replyConsent, onCheckedChange = { replyConsent = it }, enabled = replyStage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.warning))
+                        Text(stringResource(R.string.review_consent_check), color = RbColors.textPrimary, fontSize = 11.sp)
+                    }
+                    replyStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                    replyError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp) }
+                }
+            },
+            confirmButton = {
+                TextButton(enabled = ok && replyConsent && replyStage == null && sender != null, onClick = {
+                    val s = sender ?: return@TextButton
+                    replyError = null
+                    vm.publish(s, ReviewMemo.Reply(target, replyText.trim()), onStage = { st ->
+                        replyStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
+                    }) { r -> replyStage = null; r.fold(onSuccess = { replyTo = null }, onFailure = { replyError = it.message }) }
+                }) { Text(stringResource(R.string.reply_publish), color = RbColors.purpleLight) }
+            },
+            dismissButton = { TextButton(enabled = replyStage == null, onClick = { replyTo = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
+        )
     }
 
     if (revokeDialog && mine != null) {

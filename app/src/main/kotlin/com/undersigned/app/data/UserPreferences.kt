@@ -17,6 +17,9 @@ object UserPreferences {
     private const val KEY_CATALOGUE_REFRESH = "catalogue_refreshed_at"
     private const val KEY_DEVICE_SNAPSHOT = "device_snapshot"
     private const val KEY_CHANGES = "device_changes"
+    private const val KEY_FOLLOWS = "followed_packages"
+    private const val KEY_ALERTS = "alerts_enabled"
+    private const val KEY_LAST_NOTIFIED = "last_notified_signature"
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -27,6 +30,10 @@ object UserPreferences {
     val onboardingSeen: StateFlow<Boolean> = _onboardingSeen
     private val _hidden = MutableStateFlow<Set<String>>(emptySet())
     val hidden: StateFlow<Set<String>> = _hidden
+    private val _follows = MutableStateFlow<Set<String>>(emptySet())
+    val follows: StateFlow<Set<String>> = _follows
+    private val _alertsEnabled = MutableStateFlow(false)
+    val alertsEnabled: StateFlow<Boolean> = _alertsEnabled
 
     fun init(context: Context) {
         val p = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -34,7 +41,16 @@ object UserPreferences {
         _walletAddress.value = p.getString(KEY_WALLET, null)
         _onboardingSeen.value = p.getBoolean(KEY_ONBOARDING_SEEN, false)
         _hidden.value = p.getStringSet(KEY_HIDDEN, emptySet()) ?: emptySet()
+        _follows.value = p.getStringSet(KEY_FOLLOWS, emptySet()) ?: emptySet()
+        _alertsEnabled.value = p.getBoolean(KEY_ALERTS, false)
     }
+
+    fun follow(pkg: String) { val s = _follows.value + pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
+    fun unfollow(pkg: String) { val s = _follows.value - pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
+    fun setAlerts(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ALERTS, v)?.apply(); _alertsEnabled.value = v }
+    var lastNotifiedSignature: String?
+        get() = prefs?.getString(KEY_LAST_NOTIFIED, null)
+        set(v) { prefs?.edit()?.putString(KEY_LAST_NOTIFIED, v)?.apply() }
 
     fun setWallet(address: String?) { prefs?.edit()?.putString(KEY_WALLET, address)?.apply(); _walletAddress.value = address }
     fun setOnboardingSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ONBOARDING_SEEN, v)?.apply(); _onboardingSeen.value = v }
@@ -66,5 +82,5 @@ object UserPreferences {
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
 
-    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false }
+    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false }
 }

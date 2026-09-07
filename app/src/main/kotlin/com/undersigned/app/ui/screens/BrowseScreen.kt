@@ -110,9 +110,9 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, installed: Boolean, icon
         Spacer(Modifier.height(6.dp))
         if (score != null) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                RatingStars(score.weightedRating)
+                RatingStars(score.weightedMean)
                 Spacer(Modifier.width(6.dp))
-                Text(String.format(java.util.Locale.US, "%.1f", score.weightedRating), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                Text(String.format(java.util.Locale.US, "%.1f", score.weightedMean), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.width(8.dp))
                 Text(stringResource(R.string.row_signed_count, score.countedReviews), color = RbColors.textSecondary, fontSize = 12.sp)
                 Spacer(Modifier.width(8.dp))

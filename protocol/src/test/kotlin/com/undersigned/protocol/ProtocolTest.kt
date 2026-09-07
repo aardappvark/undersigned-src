@@ -26,6 +26,16 @@ class ProtocolTest {
         assertEquals(ReviewMemo.Revocation(sig), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Revocation(sig))))
     }
 
+    @Test fun `reply round-trips and is ignored by ranking`() {
+        val r = ReviewMemo.Reply(sig, "Thanks — fixed in v13 ✓")
+        assertEquals(r, ReviewMemo.decode(ReviewMemo.encode(r)))
+        assertNull(ReviewMemo.decode("SRL1|rep|$sig|"))
+        assertFailsWith<IllegalArgumentException> { ReviewMemo.encode(ReviewMemo.Reply(sig, "  ")) }
+        val entries = listOf(rev("1" + "A".repeat(86), "w", 1, "com.x", 4), LedgerEntry("2" + "A".repeat(86), "z", 2, r))
+        val s = Ranking.score(entries) { SignerFacts(true, 0.0) }.single()
+        assertEquals(1, s.countedReviews); assertEquals(4.0, s.weightedMean, 1e-9)
+    }
+
     @Test fun `garbage and hostile input decode to null, never throw`() {
         listOf("", "SRL1", "SRL1|rev", "SRL1|rev|com.a|6|works|1|", "SRL1|rev|com.a|3|nonsense|1|",
                "SRL1|rev|com.a|3|works,works|1|", "SRL1|rev|../etc|3|works|1|", "SRL2|rev|com.a|3|works|1|",

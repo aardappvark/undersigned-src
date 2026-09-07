@@ -12,3 +12,4 @@
 -dontwarn okhttp3.**
 -dontwarn okio.**
 -dontwarn coil.**
+-keep class com.undersigned.app.notify.** { *; }

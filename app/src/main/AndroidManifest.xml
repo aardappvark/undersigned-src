@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Local alerts only (new signed reviews on apps you follow, replies to your reviews). Asked on opt-in. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- Installed-app facts (signing certificate, permission drift) are computed ON-DEVICE and never
          uploaded. Disclosed in the privacy policy; same grant the AarDappvark Toolkit ships with. -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
