@@ -1,0 +1,54 @@
+package com.undersigned.app.ui.screens
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.undersigned.app.R
+import com.undersigned.app.ui.MainViewModel
+import com.undersigned.app.ui.components.GlassCard
+import com.undersigned.app.ui.theme.RbColors
+import java.text.DateFormat
+import java.util.Date
+
+@Composable
+fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit) {
+    val changes by vm.changes.collectAsState()
+    val catalogue by vm.catalogue.collectAsState()
+    val real = changes.filter { !it.firstSeen }
+    Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            Text(stringResource(R.string.changes_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
+        }
+        Text(stringResource(R.string.changes_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp))
+        Spacer(Modifier.height(8.dp))
+        if (real.isEmpty()) Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(R.string.changes_empty), color = RbColors.textSecondary, fontSize = 14.sp) }
+        else LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
+            items(real, key = { it.packageName + it.at }) { c ->
+                val name = catalogue.firstOrNull { it.packageName == c.packageName }?.name ?: c.packageName
+                GlassCard(modifier = Modifier.clickable { onOpen(c.packageName) }, accent = if (c.signerChanged) RbColors.negative else RbColors.glassBorder) {
+                    Text(name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                    Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(c.at)), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Spacer(Modifier.height(6.dp))
+                    if (c.signerChanged) Text(stringResource(R.string.fact_signer_changed), color = RbColors.negative, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    if (c.versionChanged) Text(stringResource(R.string.change_new_version, c.versionCode), color = RbColors.textSecondary, fontSize = 12.sp)
+                    if (c.permsAdded.isNotEmpty()) Text(stringResource(R.string.fact_perms_added, c.permsAdded.joinToString(", ")), color = RbColors.warning, fontSize = 12.sp)
+                    if (c.permsRemoved.isNotEmpty()) Text(stringResource(R.string.fact_perms_removed, c.permsRemoved.joinToString(", ")), color = RbColors.textSecondary, fontSize = 12.sp)
+                }
+                Spacer(Modifier.height(8.dp))
+            }
+        }
+    }
+}

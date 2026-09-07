@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Undersigned</string>
+
+    <!-- Region gate -->
+    <string name="blocked_title">Not available in your region</string>
+    <string name="blocked_body">Undersigned is not offered in %1$s because of sanctions and legal restrictions. This check runs on your device only.</string>
+
+    <!-- Terms gate -->
+    <string name="terms_welcome">Welcome to Undersigned</string>
+    <string name="terms_intro">Signed app reviews from Seeker owners, written to Solana. Not affiliated with Solana Mobile. Reviews are the opinions of individual owners, not the store\'s ratings.</string>
+    <string name="terms_confirm_heading">By signing in you confirm that you:</string>
+    <string name="terms_point_age">are at least 18 years old;</string>
+    <string name="terms_point_region">are not in a sanctioned jurisdiction or on any sanctions list;</string>
+    <string name="terms_point_docs">accept the Terms, Privacy Policy and EULA (v%1$s);</string>
+    <string name="terms_point_permanent">understand that a review you publish is written to a public blockchain and cannot be deleted by anyone;</string>
+    <string name="terms_point_nofunds">understand this app never holds your keys or funds and moves nothing but your own network fee.</string>
+    <string name="terms_link_terms">Terms</string>
+    <string name="terms_link_privacy">Privacy</string>
+    <string name="terms_link_disclaimer">Disclaimer</string>
+    <string name="terms_signing">Waiting for your wallet…</string>
+    <string name="terms_sign_accept">Sign in with your wallet</string>
+    <string name="terms_no_wallet_hint">No wallet found on this device. You can still browse.</string>
+    <string name="terms_continue_without">Browse without a wallet</string>
+    <string name="terms_checkbox">I accept the Terms, Privacy Policy and EULA, am 18+, and am not in a sanctioned jurisdiction.</string>
+    <string name="terms_accept_continue">Accept and continue</string>
+    <string name="terms_preview_only_note">Without a wallet you can read the ledger and your device facts. Posting a review needs a Seeker wallet with a Genesis Token.</string>
+    <string name="wallet_sanctioned">This wallet address appears on a sanctions list and cannot be used with this app.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">One Seeker, one voice</string>
+    <string name="onboarding_subtitle">A trust layer for the dApp Store that nobody owns.</string>
+    <string name="onboarding_step1_title">Reviews are signed, not typed</string>
+    <string name="onboarding_step1_body">Each review is a memo transaction your wallet signs. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice.</string>
+    <string name="onboarding_step2_title">Nobody can edit the ledger</string>
+    <string name="onboarding_step2_body">Reviews live on Solana at a fixed address no one controls. Anyone can read them. You can withdraw your review from the ranking, but the text stays on-chain forever.</string>
+    <string name="onboarding_step3_title">Your phone adds the facts</string>
+    <string name="onboarding_step3_body">For apps you have installed, Undersigned shows what the device can verify: the signing certificate and permission changes between versions. Facts, never verdicts.</string>
+    <string name="onboarding_step4_title">Not the dApp Store</string>
+    <string name="onboarding_step4_body">Undersigned reads the store\'s public catalogue and opens listings in the store. It never installs anything and is not affiliated with Solana Mobile.</string>
+    <string name="onboarding_cta">Start browsing</string>
+
+    <!-- Browse -->
+    <string name="browse_title">Undersigned</string>
+    <string name="browse_search_hint">Search apps</string>
+    <string name="tab_installed">Installed</string>
+    <string name="tab_signed">Signed</string>
+    <string name="tab_all">All apps</string>
+    <string name="row_signed_count">%1$d signed</string>
+    <string name="row_no_reviews">No signed reviews yet</string>
+    <string name="ledger_syncing">Reading the ledger…</string>
+    <string name="ledger_synced">Ledger: %1$d reviews from %2$d Seekers</string>
+    <string name="ledger_error">Ledger read failed: %1$s</string>
+    <string name="catalogue_count">%1$d apps in the store catalogue</string>
+    <string name="empty_installed">No store apps installed on this device yet.</string>
+    <string name="empty_signed">No signed reviews yet. Be the first.</string>
+    <string name="empty_search">Nothing matches.</string>
+
+    <!-- App detail -->
+    <string name="detail_open_store">Open in dApp Store</string>
+    <string name="detail_write_review">Write a signed review</string>
+    <string name="detail_update_review">Update my review</string>
+    <string name="detail_revoke_review">Withdraw my review</string>
+    <string name="detail_score_title">Signed score</string>
+    <string name="detail_score_sub">Bayesian average of Genesis-Token-verified reviews, weighted by staked SKR (capped at 3×). Opinions of individual Seeker owners, not the store\'s rating.</string>
+    <string name="detail_tags_title">What owners tagged</string>
+    <string name="detail_facts_title">What your device can verify</string>
+    <string name="detail_facts_sub">Read from this phone\'s package manager. Facts and changes only; not a safety verdict.</string>
+    <string name="fact_version">Installed version code</string>
+    <string name="fact_signer">Signing certificate (SHA-256)</string>
+    <string name="fact_perms">Dangerous permissions</string>
+    <string name="fact_signer_changed">Signing certificate CHANGED since the last version seen on this device</string>
+    <string name="fact_perms_added">Permissions added: %1$s</string>
+    <string name="fact_perms_removed">Permissions removed: %1$s</string>
+    <string name="fact_not_installed">Not installed on this device. Install it from the dApp Store to see device facts.</string>
+    <string name="reviews_title">Signed reviews</string>
+    <string name="review_weight_verified">Genesis ✓</string>
+    <string name="review_weight_unverified">not counted</string>
+    <string name="review_hide">Hide</string>
+    <string name="review_report">Report</string>
+    <string name="review_hidden_note">%1$d hidden on this device</string>
+    <string name="review_by_you">You</string>
+
+    <!-- Review composer -->
+    <string name="review_title">Sign a review</string>
+    <string name="review_for">for %1$s</string>
+    <string name="review_rating">Rating</string>
+    <string name="review_tags">Tags (pick 1 to 3)</string>
+    <string name="review_text_label">Optional note (%1$d chars, %2$d bytes left)</string>
+    <string name="review_text_hint">Short, factual, your own words.</string>
+    <string name="review_consent_title">This is permanent</string>
+    <string name="review_consent_body">Your note will be written to the Solana blockchain. It is public and permanent. It cannot be deleted by you, by us, or by anyone. You can withdraw it from this app\'s ranking later, but the text itself stays on-chain forever. Do not include personal data, and only state what you know to be true.</string>
+    <string name="review_consent_check">I understand this text is permanent and I am responsible for it.</string>
+    <string name="review_needs_wallet">Sign in with your Seeker wallet to post.</string>
+    <string name="review_needs_sgt">This wallet holds no Seeker Genesis Token, so its reviews would not be counted. Posting is disabled to save you the network fee.</string>
+    <string name="review_checking_sgt">Checking for a Genesis Token…</string>
+    <string name="review_fee_note">Your wallet pays only the Solana network fee (about 0.000005 SOL). No value moves. Undersigned takes nothing.</string>
+    <string name="review_submit">Sign and publish</string>
+    <string name="review_simulating">Checking the transaction…</string>
+    <string name="review_signing">Waiting for your wallet…</string>
+    <string name="review_confirming">Confirming on Solana…</string>
+    <string name="review_done">Published. Signature %1$s</string>
+    <string name="review_failed">Could not publish: %1$s</string>
+    <string name="revoke_title">Withdraw your review?</string>
+    <string name="revoke_body">A revocation record will be signed and written on-chain. Readers stop counting your review. The original stays on-chain; nothing can remove it.</string>
+    <string name="revoke_confirm">Sign the withdrawal</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Changes feed -->
+    <string name="changes_title">What changed</string>
+    <string name="changes_sub">Installed store apps whose signing certificate, permissions or version changed since this device last looked.</string>
+    <string name="changes_empty">Nothing has changed since the last check.</string>
+    <string name="change_new_version">Updated to version code %1$d</string>
+    <string name="change_first_seen">First seen on this device</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="settings_wallet">Wallet</string>
+    <string name="settings_no_wallet">No wallet connected</string>
+    <string name="disconnect_wallet">Disconnect</string>
+    <string name="settings_signin">Sign in with wallet</string>
+    <string name="settings_standing">Your standing</string>
+    <string name="standing_sgt_yes">Genesis Token found: your reviews count.</string>
+    <string name="standing_sgt_no">No Genesis Token in this wallet: your reviews would not be counted.</string>
+    <string name="standing_stake">Staked SKR read on-chain: %1$s (weight %2$s×)</string>
+    <string name="standing_note">Weights are read from the chain. Undersigned never asks you to stake, buy or hold anything.</string>
+    <string name="settings_ledger">Ledger</string>
+    <string name="settings_ledger_body">Registry address %1$s. Every review is discoverable by anyone through this address. Undersigned runs no server.</string>
+    <string name="settings_refresh_ledger">Re-read the ledger</string>
+    <string name="settings_hidden">Hidden reviews</string>
+    <string name="settings_hidden_body">%1$d reviews hidden on this device.</string>
+    <string name="settings_unhide_all">Unhide all</string>
+    <string name="settings_legal">Legal</string>
+    <string name="settings_sanctions">Restricted jurisdictions</string>
+    <string name="settings_licence">Licence</string>
+    <string name="settings_font_licence">Font licence (Manrope, OFL 1.1)</string>
+    <string name="settings_data">Your data</string>
+    <string name="settings_data_body">Nothing leaves this device except the public addresses in your RPC requests and the reviews you choose to sign. Consent records, hidden lists and device snapshots stay local.</string>
+    <string name="settings_export_consent">Export consent record</string>
+    <string name="settings_delete_data">Delete local data</string>
+    <string name="settings_about">Undersigned v%1$s — not affiliated with Solana Mobile, Solana Foundation or any wallet.</string>
+    <string name="settings_contact">aardappvark@proton.me</string>
+    <string name="settings_affiliation">Undersigned reads the public dApp Store catalogue and opens listings in the store. It never installs, updates or removes apps.</string>
+</resources>

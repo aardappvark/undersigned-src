@@ -1,0 +1,75 @@
+import java.util.Properties
+
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+}
+
+val localProperties = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) load(f.inputStream())
+}
+
+android {
+    namespace = "com.undersigned.app"
+    compileSdk = 35
+
+    defaultConfig {
+        resourceConfigurations += listOf("en")
+        applicationId = "com.undersigned.app"
+        minSdk = 26
+        targetSdk = 35
+        versionCode = 1
+        versionName = "0.1.0"
+        // Keyed RPC provider from local.properties — never in source control. Empty = public pools only.
+        resValue("string", "helius_api_key", localProperties.getProperty("HELIUS_API_KEY", ""))
+        // Fleet last-resort key: lives ONLY in ~/.gradle/gradle.properties (never committed). Appended LAST.
+        resValue("string", "helius_api_key_3", (project.findProperty("HELIUS_API_KEY_3") as? String) ?: localProperties.getProperty("HELIUS_API_KEY_3", ""))
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("../release-keystore.jks")
+            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
+            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+
+    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+    kotlinOptions { jvmTarget = "17" }
+    buildFeatures { compose = true; buildConfig = true }
+    packaging { resources { excludes += "win32-x86/**"; excludes += "win32-x86-64/**" } }
+}
+
+dependencies {
+    implementation(project(":protocol"))
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.animation:animation")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    // Solana Mobile Wallet Adapter (SIWS + signAndSendTransactions)
+    implementation("com.solanamobile:mobile-wallet-adapter-clientlib-ktx:2.0.3")
+    // Seeker Genesis Token check (fleet library, read-only)
+    implementation("com.github.aardappvark:seeker-verify:1.1.0")
+    testImplementation("junit:junit:4.13.2")
+}

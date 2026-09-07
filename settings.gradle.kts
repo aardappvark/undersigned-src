@@ -1,8 +1,13 @@
-pluginManagement { repositories { gradlePluginPortal(); mavenCentral(); google() } }
+pluginManagement {
+    repositories {
+        google { content { includeGroupByRegex("com\\.android.*"); includeGroupByRegex("com\\.google.*"); includeGroupByRegex("androidx.*") } }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories { mavenCentral(); google() }
+    repositories { google(); mavenCentral(); maven("https://jitpack.io") }
 }
 rootProject.name = "Undersigned"
-include(":protocol")
-// ":app" (Android shell) is bootstrapped from the fleet scaffold once the owner fixes the name — see README.
+include(":protocol", ":app")

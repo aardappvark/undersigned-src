@@ -43,11 +43,16 @@ object Ranking {
      * capped. Everything here is deterministic given the chain, so any reader reaches the same
      * ranking — that is the point of putting it on-chain.
      */
-    fun score(entries: List<LedgerEntry>, facts: (signer: String) -> SignerFacts): List<AppScore> {
+    /** Signatures withdrawn by a revocation from the SAME wallet that signed the review. */
+    fun revoked(entries: List<LedgerEntry>): Set<String> {
         val bySig = entries.associateBy { it.signature }
-        val revoked = entries.mapNotNull { e ->
+        return entries.mapNotNull { e ->
             (e.memo as? ReviewMemo.Revocation)?.let { r -> bySig[r.reviewSignature]?.takeIf { it.signer == e.signer }?.signature }
         }.toSet()
+    }
+
+    fun score(entries: List<LedgerEntry>, facts: (signer: String) -> SignerFacts): List<AppScore> {
+        val revoked = revoked(entries)
         val live = entries.filter { it.signature !in revoked && it.memo is ReviewMemo.Review }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }

@@ -1,0 +1,13 @@
+# Undersigned — R8 rules for the Solana dApp Store release
+-keep class com.undersigned.app.UndersignedApp { *; }
+-keep class com.undersigned.app.MainActivity { *; }
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepclassmembers class kotlinx.coroutines.** { volatile <fields>; }
+-keep class androidx.compose.runtime.** { *; }
+-keepclassmembers class * { @androidx.compose.runtime.Composable <methods>; }
+-keep class com.solana.mobilewalletadapter.** { *; }
+-dontwarn com.solana.mobilewalletadapter.**
+-keep class com.midmightbit.sgt.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**

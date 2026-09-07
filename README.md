@@ -37,13 +37,26 @@ verify, it is not a safety verdict.**
 ```
 protocol/   pure-Kotlin JVM module: memo codec, ranking, safety-fact model, unit tests (runs today)
 docs/       SPEC.md (wire format, registry, reader), LEGAL_GATES.md (compliance, feature gates)
-app/        NOT YET — bootstrap from the fleet scaffold (Sol Quotes / ScreenRecSkr pattern) once the
-            owner fixes the name; the Android shell wires protocol/ to MWA, PackageManager, the store
-            GraphQL crawler (Toolkit tools/refresh_catalogue.py query) and the RPC pool (Helius key 3
-            via ~/.gradle/gradle.properties, appended LAST per the fleet rule).
+app/        Android shell (Compose, MWA 2.0.3, seeker-verify 1.1.0), bootstrapped 8 Sep from the RentBack Sol
+            scaffold: terms gate (SIWS), onboarding, Browse (Installed / Signed / All), App detail (signed score,
+            tags, device facts, reviews, hide/report), Review composer (rating + tags + double-consented note,
+            Genesis-Token gate, simulate → sign → confirm), What-changed feed, Settings. Bundled catalogue
+            snapshot (1,333 apps) + background GraphQL refresh; ledger reader with on-device cache.
+            Debug build verified on a throwaway AVD 8 Sep (all screens, live catalogue refresh, ledger sync).
 ```
 
 Run the protocol tests: `JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :protocol:test`
+
+## Status 8 Sep 2026 — what is NOT done yet
+
+- **Signing path untested end-to-end**: needs a Seeker wallet holding a Genesis Token (owner smoke on the
+  Seeker, one device). Simulation of the exact carrier tx is green on mainnet; MWA flow is the fleet's.
+- **Launcher icon is RentBack Sol's placeholder** — the fleet icon rule (one 512 source drives store icon,
+  launcher layers, legal favicon = MWA identity icon, banner) must be applied before any submission.
+- **Legal site** `undersigned-legal` not created (legal last); it is also the MWA identity URI, so it must be
+  pushed before the first real sign-in on a device.
+- English only (fleet apps ship 28 locales); store assets, demo video, pitch deck.
+- `FLEET_PACKAGES` lock-step on publish; memo code for a future Pro tier not reserved (none needed now).
 
 ## Owner decisions still open
 
