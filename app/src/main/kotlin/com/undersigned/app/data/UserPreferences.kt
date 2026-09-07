@@ -20,6 +20,7 @@ object UserPreferences {
     private const val KEY_FOLLOWS = "followed_packages"
     private const val KEY_ALERTS = "alerts_enabled"
     private const val KEY_LAST_NOTIFIED = "last_notified_signature"
+    private const val KEY_DOMAINS = "skr_domains"
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -70,6 +71,12 @@ object UserPreferences {
         prefs?.edit()?.putString(KEY_FACTS, all.toString())?.apply()
     }
     fun clearFacts() { prefs?.edit()?.remove(KEY_FACTS)?.apply() }
+
+    fun cachedDomain(wallet: String): String? = runCatching { JSONObject(prefs?.getString(KEY_DOMAINS, "{}") ?: "{}").let { if (it.has(wallet)) it.optString(wallet) else null } }.getOrNull()
+    fun cacheDomain(wallet: String, name: String) {
+        val all = runCatching { JSONObject(prefs?.getString(KEY_DOMAINS, "{}") ?: "{}") }.getOrDefault(JSONObject()); all.put(wallet, name)
+        prefs?.edit()?.putString(KEY_DOMAINS, all.toString())?.apply()
+    }
 
     var catalogueRefreshedAt: Long
         get() = prefs?.getLong(KEY_CATALOGUE_REFRESH, 0L) ?: 0L

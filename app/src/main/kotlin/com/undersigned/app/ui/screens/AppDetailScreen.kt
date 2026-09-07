@@ -28,6 +28,8 @@ import com.undersigned.app.solana.ReviewTxService
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.*
+import com.undersigned.app.ui.components.label
+import androidx.compose.foundation.layout.Box
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.ReviewMemo
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
@@ -60,7 +62,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var replyConsent by remember { mutableStateOf(false) }
     var replyStage by remember { mutableStateOf<String?>(null) }
     var replyError by remember { mutableStateOf<String?>(null) }
-    LaunchedEffect(pkg) { vm.resolveIcons(listOf(pkg)) }
+    LaunchedEffect(pkg) { vm.resolveIcons(listOf(pkg)); vm.loadStoreMirror(pkg) }
+    val storeRatings by vm.storeRatings.collectAsState()
+    val storeReviews by vm.storeReviews.collectAsState()
+    val myStore by vm.myStoreReviews.collectAsState()
+    val domainNames by vm.domainNames.collectAsState()
+    LaunchedEffect(reviews) { vm.resolveDomains(reviews.map { it.first.signer }) }
+    var importStage by remember { mutableStateOf<String?>(null) }
+    var importMsg by remember { mutableStateOf<String?>(null) }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
@@ -106,7 +115,55 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             if (score != null && score.tagCounts.isNotEmpty()) {
                 SectionTitle(stringResource(R.string.detail_tags_title))
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    score.tagCounts.entries.sortedByDescending { it.value }.forEach { (t, n) -> TagChip(t.wire, n) }
+                    score.tagCounts.entries.sortedByDescending { it.value }.forEach { (t, n) -> TagChip(t.label(), n) }
+                }
+            }
+
+            SectionTitle(stringResource(R.string.store_title))
+            GlassCard {
+                val sr = storeRatings[pkg]
+                if (sr == null || sr.total == 0) Text(stringResource(R.string.store_none), color = RbColors.textSecondary, fontSize = 13.sp)
+                else {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(String.format(java.util.Locale.US, "%.1f", sr.average), color = RbColors.textPrimary, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
+                        Spacer(Modifier.width(12.dp))
+                        Column { RatingStars(sr.average, size = 16); Text(stringResource(R.string.store_total, sr.total), color = RbColors.textSecondary, fontSize = 12.sp) }
+                    }
+                    Spacer(Modifier.height(6.dp))
+                    val max = (sr.byStar.maxOrNull() ?: 1).coerceAtLeast(1)
+                    (5 downTo 1).forEach { star ->
+                        val n = sr.byStar.getOrNull(star - 1) ?: 0
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("$star★", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.width(26.dp))
+                            Box(Modifier.weight(1f).height(6.dp).clip(RoundedCornerShape(3.dp)).background(RbColors.surfaceVariant)) { Box(Modifier.fillMaxWidth(n.toFloat() / max).height(6.dp).background(RbColors.purple)) }
+                            Text("$n", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.width(36.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
+                        }
+                    }
+                }
+                Spacer(Modifier.height(6.dp))
+                Text(stringResource(R.string.store_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                myStore[pkg]?.let { mine ->
+                    Spacer(Modifier.height(8.dp))
+                    Text(stringResource(R.string.store_mine_found, mine.rating, mine.createdAt.take(10)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                    if (vm.myReview(pkg) == null) {
+                        Spacer(Modifier.height(6.dp))
+                        SecondaryButton(importStage ?: stringResource(R.string.store_import_one), enabled = importStage == null && sender != null, onClick = {
+                            val s = sender ?: return@SecondaryButton
+                            vm.importStoreReviews(s, listOf(pkg to mine), onStage = { st -> importStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; importMsg = r.fold({ context.getString(R.string.import_done, it) }, { it.message }) }
+                        })
+                    }
+                    importMsg?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp) }
+                }
+                storeReviews[pkg]?.take(3)?.forEach { r ->
+                    Spacer(Modifier.height(8.dp))
+                    Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp))
+                            Text((r.domain ?: r.walletAddress?.let { shortKey(it, 4, 4) } ?: "anonymous") + " · " + r.createdAt.take(10), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
+                            if (r.publisherReply != null) Pill(stringResource(R.string.store_publisher_replied), RbColors.info)
+                        }
+                        r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 4) }
+                    }
                 }
             }
 
@@ -136,18 +193,18 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RatingStars(r.rating.toDouble())
                         Spacer(Modifier.width(8.dp))
-                        Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else shortKey(e.signer, 4, 4), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f))
+                        Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f))
                         if (w > 0) Pill(stringResource(R.string.review_weight_verified) + if (w > 1.0) String.format(java.util.Locale.US, " %.1f×", w) else "", RbColors.green) else Pill(stringResource(R.string.review_weight_unverified), RbColors.textTertiary)
                     }
                     Spacer(Modifier.height(6.dp))
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.wire) } }
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
                     r.text?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
                     Spacer(Modifier.height(6.dp))
                     val replies = remember(entries, hidden) { vm.repliesFor(e.signature) }
                     replies.forEach { rp ->
                         Spacer(Modifier.height(6.dp))
                         Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
-                            Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else shortKey(rp.signer, 4, 4)) + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
+                            Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[rp.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(rp.signer, 4, 4))) + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
                             Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
                         }
                     }

@@ -60,5 +60,48 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         return Result.success(signature)
     }
 
+    /**
+     * Publish many records with ONE wallet approval: records are packed into as few transactions as
+     * fit, every transaction is simulated first, then signAndSendTransactions takes the whole set.
+     * Returns the transaction signatures in order (records map to them through chunk order).
+     */
+    suspend fun publishBatch(adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, memoTexts: List<String>, onStage: (Stage) -> Unit): Result<List<Pair<String, List<String>>>> {
+        val signer = Base58.decode(signerAddress); require(signer.size == 32)
+        val chunks = TxBuilder.chunkForBatches(signer, memoTexts)
+        onStage(Stage.Simulating)
+        for (c in chunks) {
+            val sim = rpc.simulateTransaction(TxBuilder.batchTransaction(signer, c, TxBuilder.ZERO_BLOCKHASH), replaceBlockhash = true)
+                .getOrElse { return Result.failure(Exception("Could not reach Solana to check the transactions: ${it.message?.take(80)}")) }
+            if (sim.err != null) return Result.failure(Exception("The cluster rejected a transaction: ${sim.err.take(120)}"))
+        }
+        onStage(Stage.Signing)
+        val result = try {
+            adapter.transact(sender) {
+                val auth = authorize(identityUri = Uri.parse(AppConfig.Identity.URI), iconUri = Uri.parse(AppConfig.Identity.ICON_PATH), identityName = AppConfig.Identity.NAME, chain = "solana:mainnet")
+                val walletKey = auth.accounts.firstOrNull()?.publicKey ?: throw Exception("No account returned from wallet authorization")
+                if (!walletKey.contentEquals(signer)) throw Exception("The wallet returned a different account (${shortKey(Base58.encode(walletKey))}) from the one signed in.")
+                val bh = rpc.getLatestBlockhash("confirmed").getOrThrow()
+                val bhBytes = Base58.decode(bh.blockhash); require(bhBytes.size == 32)
+                val txs = chunks.map { TxBuilder.batchTransaction(signer, it, bhBytes) }
+                val r = signAndSendTransactions(transactions = txs.toTypedArray())
+                r.signatures.map { Base58.encode(it) }
+            }
+        } catch (e: Exception) { Log.e(TAG, "publishBatch failed", e); TransactionResult.Failure<List<String>>(e.message ?: "The wallet did not complete the request.", e) }
+        val sigs = when (result) {
+            is TransactionResult.Success -> result.payload
+            is TransactionResult.NoWalletFound -> return Result.failure(Exception("No Solana wallet found."))
+            is TransactionResult.Failure -> return Result.failure(Exception(result.e.message ?: "The wallet declined the request."))
+        }
+        onStage(Stage.Confirming)
+        val deadline = System.currentTimeMillis() + AppConfig.Ledger.CONFIRM_TIMEOUT_MS
+        while (System.currentTimeMillis() < deadline) {
+            delay(2500)
+            val st = rpc.getSignatureStatuses(sigs).getOrNull() ?: continue
+            if (st.any { it?.err != null }) return Result.failure(Exception("A transaction failed on-chain"))
+            if (st.all { it != null && (it.confirmationStatus == "confirmed" || it.confirmationStatus == "finalized") }) break
+        }
+        return Result.success(sigs.zip(chunks))
+    }
+
     companion object { private const val TAG = "ReviewTx" }
 }

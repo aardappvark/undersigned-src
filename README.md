@@ -47,7 +47,23 @@ app/        Android shell (Compose, MWA 2.0.3, seeker-verify 1.1.0), bootstrappe
 
 Run the protocol tests: `JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :protocol:test`
 
-## Status 8 Sep 2026 — what is NOT done yet
+## Live on mainnet (8 Sep 2026, owner's Seeker `airdropper.skr`)
+
+Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the owner's wallet, wallet-set fee
+47,000 lamports each. Genesis Token + staked-SKR reads worked against the real wallet (weight capped at 3×).
+
+## Built on top since (same day)
+
+- Real icons (installed launcher icon → store icon URI → letter badge), Toolkit pattern.
+- Follow apps; local 6-hourly ledger alerts (new signed reviews on followed apps, replies to yours); signed replies (`SRL1|rep`).
+- Score display = true weighted mean; the Bayesian value is shown only as a "rank score" and used only to order lists.
+- **Store mirror**: the native store's public rating histogram + reviews (`.skr` names, publisher-replied badge) read through the
+  store's own `DAppByPackageSummary` / `DAppReviews` operations, which answer without any token (probed 8 Sep). Read-only.
+- **Import my store reviews**: scans installed + followed apps' public store reviews for the user's own wallet address and
+  re-signs the chosen ones as ledger records in ONE wallet approval (multi-memo transactions, record ids `sig`, `sig:1`, …).
+- `.skr` main-domain names for ledger signers (AllDomains MainDomain PDA), cached on-device.
+
+## Status — what is NOT done yet
 
 - **Signing path untested end-to-end**: needs a Seeker wallet holding a Genesis Token (owner smoke on the
   Seeker, one device). Simulation of the exact carrier tx is green on mainnet; MWA flow is the fleet's.

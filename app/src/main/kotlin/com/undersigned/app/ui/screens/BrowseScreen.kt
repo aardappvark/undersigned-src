@@ -26,6 +26,7 @@ import com.undersigned.app.ui.components.DAppIcon
 import com.undersigned.app.ui.components.Pill
 import com.undersigned.app.ui.components.RatingStars
 import com.undersigned.app.ui.components.TagChip
+import com.undersigned.app.ui.components.label
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.AppScore
 
@@ -116,7 +117,7 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, installed: Boolean, icon
                 Spacer(Modifier.width(8.dp))
                 Text(stringResource(R.string.row_signed_count, score.countedReviews), color = RbColors.textSecondary, fontSize = 12.sp)
                 Spacer(Modifier.width(8.dp))
-                score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.wire, n); Spacer(Modifier.width(4.dp)) }
+                score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.label(), n); Spacer(Modifier.width(4.dp)) }
             }
         } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textTertiary, fontSize = 12.sp)
     }

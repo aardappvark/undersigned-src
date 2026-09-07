@@ -22,6 +22,7 @@ import com.undersigned.app.solana.ReviewTxService
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.*
+import com.undersigned.app.ui.components.label
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.ReviewMemo
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
@@ -70,7 +71,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ReviewMemo.Tag.entries.forEach { t ->
                     val sel = t in tags
-                    TagChip(t.wire, selected = sel) { if (stage != null) return@TagChip; tags = if (sel) tags - t else if (tags.size < ReviewMemo.MAX_TAGS) tags + t else tags }
+                    TagChip(t.label(), selected = sel) { if (stage != null) return@TagChip; tags = if (sel) tags - t else if (tags.size < ReviewMemo.MAX_TAGS) tags + t else tags }
                 }
             }
             SectionTitle(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - text.length, ReviewMemo.MAX_TEXT_BYTES - bytes))

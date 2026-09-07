@@ -7,6 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.data.CatalogueRepository
 import com.undersigned.app.data.DAppIconCache
+import com.undersigned.app.data.StoreRating
+import com.undersigned.app.data.StoreReview
+import com.undersigned.app.data.StoreReviewsClient
+import com.undersigned.app.solana.DomainClient
 import com.undersigned.app.data.LedgerCache
 import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.device.DeviceChange
@@ -42,6 +46,17 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val factsService = SignerFactsService()
     private val txService = ReviewTxService()
     val iconCache = DAppIconCache(app)
+    private val store = StoreReviewsClient()
+    private val domains = DomainClient()
+
+    /** Native store mirror per package (read-only): rating summary + first page of public reviews. */
+    val storeRatings = MutableStateFlow<Map<String, StoreRating>>(emptyMap())
+    val storeReviews = MutableStateFlow<Map<String, List<StoreReview>>>(emptyMap())
+    /** wallet → main .skr name ("" = none). */
+    val domainNames = MutableStateFlow<Map<String, String>>(emptyMap())
+    /** My own historical store reviews found by wallet: package → review. */
+    val myStoreReviews = MutableStateFlow<Map<String, StoreReview>>(emptyMap())
+    val importScan = MutableStateFlow<String?>(null)   // progress text while scanning
 
     val catalogue = MutableStateFlow<List<CatalogueApp>>(emptyList())
     val installed = MutableStateFlow<Set<String>>(emptySet())
@@ -96,6 +111,61 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             selfFactsLoading.value = true
             selfFacts.value = runCatching { factsService.facts(address, force = true) }.getOrNull()
             selfFactsLoading.value = false
+        }
+    }
+
+    fun loadStoreMirror(pkg: String) {
+        if (storeRatings.value.containsKey(pkg)) return
+        viewModelScope.launch(Dispatchers.IO) {
+            store.rating(pkg)?.let { r -> storeRatings.value = storeRatings.value + (pkg to r) }
+            val list = store.reviews(pkg, pageSize = 10, maxPages = 1)
+            storeReviews.value = storeReviews.value + (pkg to list)
+            wallet.value?.let { w -> list.firstOrNull { it.walletAddress == w }?.let { mine -> myStoreReviews.value = myStoreReviews.value + (pkg to mine) } }
+        }
+    }
+
+    fun resolveDomains(wallets: Collection<String>) {
+        val todo = wallets.distinct().filter { it !in domainNames.value }
+        if (todo.isEmpty()) return
+        viewModelScope.launch(Dispatchers.IO) { for (w in todo) { val n = domains.mainDomain(w) ?: ""; domainNames.value = domainNames.value + (w to n) } }
+    }
+    fun displayName(wallet: String): String = domainNames.value[wallet]?.takeIf { it.isNotEmpty() } ?: com.undersigned.app.solana.shortKey(wallet, 4, 4)
+
+    /** Scan installed + followed apps' public store reviews for ones signed by MY wallet (paged, stops on hit). */
+    fun scanMyStoreReviews() {
+        val w = wallet.value ?: return
+        if (importScan.value != null) return
+        viewModelScope.launch(Dispatchers.IO) {
+            val targets = (installed.value + follows.value).filter { p -> catalogue.value.any { it.packageName == p } }.distinct()
+            val found = HashMap(myStoreReviews.value)
+            targets.forEachIndexed { i, pkg ->
+                importScan.value = "${i + 1}/${targets.size} · $pkg"
+                val hit = store.reviews(pkg, pageSize = 20, maxPages = 25) { it.walletAddress == w }.firstOrNull { it.walletAddress == w }
+                if (hit != null) found[pkg] = hit
+            }
+            myStoreReviews.value = found
+            importScan.value = null
+        }
+    }
+
+    /** Re-sign chosen store reviews as ledger records — one wallet approval for the lot. */
+    fun importStoreReviews(sender: ActivityResultSender, chosen: List<Pair<String, StoreReview>>, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<Int>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        val memos = chosen.map { (pkg, r) -> ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), listOf(ReviewMemo.Tag.WORKS).takeIf { r.rating >= 4 } ?: listOf(ReviewMemo.Tag.CONFUSING), 1L, r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }) }
+        val texts = memos.map { runCatching { ReviewMemo.encode(it) }.getOrElse { return onResult(Result.failure(it)) } }
+        viewModelScope.launch {
+            val r = txService.publishBatch(adapter, sender, w, texts, onStage)
+            r.onSuccess { sigs ->
+                val now = System.currentTimeMillis() / 1000
+                val fresh = ArrayList<LedgerEntry>()
+                sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
+                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                ledgerCache.save(entries.value)
+                memos.forEach { UserPreferences.follow(it.packageName) }
+                launch(Dispatchers.IO) { rank() }
+            }
+            onResult(r.map { it.sumOf { c -> c.second.size } })
         }
     }
 

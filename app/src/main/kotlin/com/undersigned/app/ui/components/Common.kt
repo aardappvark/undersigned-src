@@ -103,3 +103,6 @@ fun TagChip(text: String, count: Int? = null, selected: Boolean = false, onClick
     val m = Modifier.clip(RoundedCornerShape(50)).background(bg).let { if (onClick != null) it.clickable { onClick() } else it }.padding(horizontal = 10.dp, vertical = 5.dp)
     Text(if (count != null) "$text · $count" else text, color = fg, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = m)
 }
+
+/** Display label for a protocol tag: "wallet-fails" → "Wallet fails". The wire value never changes. */
+fun com.undersigned.protocol.ReviewMemo.Tag.label(): String = wire.replace('-', ' ').replaceFirstChar { it.uppercase() }

@@ -53,7 +53,9 @@ sealed class ReviewMemo {
         const val MAX_PACKAGE_CHARS = 100
         const val MAX_TAGS = 3
         private val PACKAGE = Regex("^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$")
-        private val SIGNATURE = Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}$")
+        /** A record id: the transaction signature, plus ":<n>" for the n-th memo of a batched (import) transaction. */
+        private val SIGNATURE = Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}(:[1-9][0-9]?)?$")
+        fun recordId(txSignature: String, memoIndex: Int): String = if (memoIndex == 0) txSignature else "$txSignature:$memoIndex"
 
         fun encode(m: ReviewMemo): String = when (m) {
             is Review -> {

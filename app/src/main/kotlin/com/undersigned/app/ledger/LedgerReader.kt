@@ -30,8 +30,10 @@ class LedgerReader(private val rpc: SolanaRpcClient = SolanaRpcClient(), private
                 for ((i, row) in candidates.withIndex()) {
                     onProgress(Progress(fresh.size + i, fresh.size + candidates.size))
                     val tx = rpc.getLedgerTx(row.signature).getOrNull() ?: continue
-                    val memo = tx.memo?.let { ReviewMemo.decode(it) } ?: continue
-                    fresh.add(LedgerEntry(row.signature, tx.signer, if (tx.blockTime > 0) tx.blockTime else row.blockTime, memo))
+                    tx.memos.forEachIndexed { idx, raw ->
+                        val memo = ReviewMemo.decode(raw) ?: return@forEachIndexed
+                        fresh.add(LedgerEntry(ReviewMemo.recordId(row.signature, idx), tx.signer, if (tx.blockTime > 0) tx.blockTime else row.blockTime, memo))
+                    }
                 }
                 if (page.size < AppConfig.Ledger.PAGE) break
                 before = page.last().signature
@@ -41,7 +43,7 @@ class LedgerReader(private val rpc: SolanaRpcClient = SolanaRpcClient(), private
             if (fresh.isEmpty() && known.isEmpty()) return Result.failure(e)
         }
         // fresh is newest-first; keep the cache newest-first too
-        val merged = (fresh + known).distinctBy { it.signature }.sortedByDescending { it.blockTime }
+        val merged = (fresh + known).distinctBy { it.signature }.sortedWith(compareByDescending<LedgerEntry> { it.blockTime }.thenBy { it.signature })
         cache.save(merged)
         return Result.success(merged)
     }

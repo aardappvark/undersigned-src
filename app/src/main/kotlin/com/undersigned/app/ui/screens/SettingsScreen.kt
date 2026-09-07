@@ -53,6 +53,12 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val alerts by UserPreferences.alertsEnabled.collectAsState()
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
     val termsService = remember { TermsAcceptanceService(context) }
+    val myStore by vm.myStoreReviews.collectAsState()
+    val scan by vm.importScan.collectAsState()
+    var chosen by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var importStage by remember { mutableStateOf<String?>(null) }
+    var importMsg by remember { mutableStateOf<String?>(null) }
+    val catalogue by vm.catalogue.collectAsState()
     var licenceText by remember { mutableStateOf<String?>(null) }
     var signing by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -96,6 +102,35 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                     Spacer(Modifier.height(6.dp))
                     Text(stringResource(R.string.standing_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                }
+            }
+
+            if (wallet != null) {
+                SectionTitle(stringResource(R.string.import_title))
+                GlassCard {
+                    Text(stringResource(R.string.import_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    Spacer(Modifier.height(10.dp))
+                    SecondaryButton(scan?.let { stringResource(R.string.import_scanning, it) } ?: stringResource(R.string.import_scan), enabled = scan == null && importStage == null, onClick = { vm.scanMyStoreReviews() })
+                    val importable = myStore.filter { (pkg, _) -> vm.myReview(pkg) == null }
+                    if (scan == null && myStore.isNotEmpty()) {
+                        Spacer(Modifier.height(8.dp))
+                        Text(stringResource(R.string.import_found, myStore.size), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                        importable.forEach { (pkg, r) ->
+                            Row(Modifier.fillMaxWidth().clickable(enabled = importStage == null) { chosen = if (pkg in chosen) chosen - pkg else chosen + pkg }, verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = pkg in chosen, onCheckedChange = { chosen = if (it) chosen + pkg else chosen - pkg }, enabled = importStage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
+                                Column { Text(catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg, color = RbColors.textPrimary, fontSize = 13.sp); Text("${r.rating}★ · ${r.createdAt.take(10)}" + (r.text?.let { " · ${it.take(60)}" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2) }
+                            }
+                        }
+                        if (importable.isNotEmpty()) {
+                            Spacer(Modifier.height(6.dp))
+                            SecondaryButton(importStage ?: stringResource(R.string.import_publish, chosen.size), enabled = chosen.isNotEmpty() && importStage == null && sender != null, onClick = {
+                                val s = sender ?: return@SecondaryButton
+                                vm.importStoreReviews(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importMsg = r.fold({ context.getString(R.string.import_done, it) }, { it.message }) }
+                            })
+                            Text(stringResource(R.string.import_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                        }
+                    } else if (scan == null && importMsg == null) Text(stringResource(R.string.import_none), color = RbColors.textTertiary, fontSize = 11.sp)
+                    importMsg?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.green, fontSize = 12.sp) }
                 }
             }
 

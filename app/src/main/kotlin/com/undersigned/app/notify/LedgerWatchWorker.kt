@@ -57,7 +57,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         for (e in fresh) {
             when (val m = e.memo) {
                 is ReviewMemo.Review -> if (m.packageName in follows && e.signer != me)
-                    notify(ctx, id++, ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { it.wire }), m.packageName)
+                    notify(ctx, id++, ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { it.wire.replace('-', ' ').replaceFirstChar { c -> c.uppercase() } }), m.packageName)
                 is ReviewMemo.Reply -> mineBySig[m.reviewSignature]?.let { mine ->
                     if (e.signer != me) { val pkg = (mine.memo as ReviewMemo.Review).packageName; notify(ctx, id++, ctx.getString(R.string.notif_reply_title, names[pkg] ?: pkg), m.text, pkg) }
                 }

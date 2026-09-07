@@ -29,6 +29,25 @@ object TxBuilder {
         return tx
     }
 
+    /** Several records in one transaction (imports): memo instructions in order, then the carrier. Readers id them sig, sig:1, sig:2 … */
+    fun batchTransaction(signer: ByteArray, memoTexts: List<String>, blockhash: ByteArray): ByteArray {
+        require(memoTexts.isNotEmpty())
+        val ixs = memoTexts.map { memoInstruction(it) } + systemTransfer(signer, signer, 0L, REGISTRY)
+        return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
+    }
+
+    /** Greedy packing under the wire limit with headroom for the wallet's ComputeBudget rewrite (~120 B). */
+    fun chunkForBatches(signer: ByteArray, memoTexts: List<String>): List<List<String>> {
+        val out = ArrayList<List<String>>(); var cur = ArrayList<String>()
+        for (t in memoTexts) {
+            val trial = cur + t
+            if (batchTransaction(signer, trial, ZERO_BLOCKHASH).size <= AppConfig.Solana.MAX_TX_BYTES - 120) cur = ArrayList(trial)
+            else { if (cur.isNotEmpty()) out.add(cur); cur = arrayListOf(t) }
+        }
+        if (cur.isNotEmpty()) out.add(cur)
+        return out
+    }
+
     fun systemTransfer(from: ByteArray, to: ByteArray, lamports: Long, reference: ByteArray?): Instruction {
         val data = ByteBuffer.allocate(12).order(ByteOrder.LITTLE_ENDIAN)
         data.putInt(2); data.putLong(lamports)

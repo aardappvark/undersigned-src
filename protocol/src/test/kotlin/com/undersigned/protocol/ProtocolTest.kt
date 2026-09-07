@@ -22,8 +22,13 @@ class ProtocolTest {
         assertEquals(r, ReviewMemo.decode(ReviewMemo.encode(r)))
     }
 
-    @Test fun `revocation round-trips`() {
+    @Test fun `revocation round-trips, batched ids too`() {
         assertEquals(ReviewMemo.Revocation(sig), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Revocation(sig))))
+        val batched = ReviewMemo.recordId(sig, 3)
+        assertEquals("$sig:3", batched)
+        assertEquals(ReviewMemo.Revocation(batched), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Revocation(batched))))
+        assertNull(ReviewMemo.decode("SRL1|rvk|$sig:0"))
+        assertEquals(sig, ReviewMemo.recordId(sig, 0))
     }
 
     @Test fun `reply round-trips and is ignored by ranking`() {
