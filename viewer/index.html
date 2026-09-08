@@ -1,0 +1,69 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Undersigned — open ledger</title>
+<style>
+:root{--bg:#000;--card:#120e22;--line:#339945ff;--p:#9945ff;--pl:#b98cff;--g:#14f195;--t:#f2eeff;--t2:#b7aed1;--t3:#7c7396;--w:#ffc46b}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 48px}h1{font-size:26px;margin:0 0 4px}.sub{color:var(--t2);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:10px 0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.name{font-weight:700}.pkg,.meta{color:var(--t3);font-size:12px}
+.stars{color:var(--w);letter-spacing:1px}.pill{font-size:11px;font-weight:700;border-radius:99px;padding:3px 9px;background:#1f1a33;color:var(--pl)}
+.pill.g{color:var(--g);background:#0f2a1f}.pill.i{color:#6bb9ff;background:#0e1e33}.tag{font-size:12px;color:var(--t2);background:#17122a;border-radius:99px;padding:3px 9px}
+.txt{margin:6px 0 0;color:var(--t)}.rev{border-top:1px solid #1e1830;padding:10px 0}.small{font-size:12px;color:var(--t3)}
+input{width:100%;box-sizing:border-box;background:#0e0b18;border:1px solid var(--line);border-radius:12px;color:var(--t);padding:10px 12px;font-size:15px;margin:8px 0 12px}
+a{color:var(--pl)}code{color:var(--t2);font-size:12px}
+</style></head><body><main>
+<h1>Undersigned</h1>
+<p class="sub">Signed dApp Store reviews from Seeker owners, read straight from Solana in your browser. No server. Not affiliated with Solana Mobile; reviews are the opinions of individual owners, not the store's ratings.</p>
+<div class="card small">Registry <code id="reg"></code> · records are memo transactions signed by the reviewer's wallet · <span id="status">reading the ledger…</span>
+<br>This page shows every record and the plain average per app. The Seeker app additionally weights by staked SKR and counts only Genesis-Token wallets; those lookups are too heavy for a browser page, so treat the averages here as unweighted.</div>
+<input id="q" placeholder="Filter by app name or package">
+<div id="apps"></div>
+</main>
+<script>
+const RPC=["https://api.mainnet-beta.solana.com","https://solana-rpc.publicnode.com"];
+const REG="BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs", LIGHTHOUSE="L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95";
+document.getElementById('reg').textContent=REG;
+const TAGS={"works":"Works","crashes":"Crashes","wallet-ok":"Wallet ok","wallet-fails":"Wallet fails","fast":"Fast","slow":"Slow","battery":"Battery","ads":"Ads","paywall":"Paywall","fair-price":"Fair price","overpriced":"Overpriced","perms-ok":"Perms ok","perms-excess":"Perms excess","spam-reviews":"Spam reviews","misleading":"Misleading","suspected-scam":"Suspected scam","abandoned":"Abandoned","active-dev":"Active dev","onboarding-ok":"Onboarding ok","confusing":"Confusing","offline-ok":"Offline ok","needs-account":"Needs account","seeker-native":"Seeker native","webview":"Webview"};
+async function rpc(m,p){let last;for(const u of RPC){try{const r=await fetch(u,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:m,params:p})});const j=await r.json();if(j.error)throw new Error(j.error.message);return j.result}catch(e){last=e}}throw last}
+function b64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';try{return decodeURIComponent(escape(atob(s)))}catch{return null}}
+function decode(raw){const f=raw.split('|');if(f[0]!=='SRL1')return null;
+ if(f[1]==='rev'&&f.length===7){const r=+f[3];if(!(r>=1&&r<=5))return null;const tags=f[4].split(',');if(!tags.every(t=>TAGS[t]))return null;return{t:'rev',pkg:f[2],rating:r,tags,vc:f[5],text:f[6]?b64u(f[6]):null}}
+ if(f[1]==='rvk'&&f.length===3)return{t:'rvk',target:f[2]};
+ if(f[1]==='rep'&&f.length===4)return{t:'rep',target:f[2],text:b64u(f[3])};
+ if(f[1]==='clm'&&f.length===3)return{t:'clm',pkg:f[2]};return null}
+function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+let entries=[],names={};
+async function load(){
+ try{names=Object.fromEntries((await (await fetch('catalogue.json')).json()).map(a=>[a.p,a.n]))}catch{}
+ const sigs=await rpc("getSignaturesForAddress",[REG,{limit:1000}]);
+ const st=document.getElementById('status');st.textContent=`${sigs.length} transactions on the registry`;
+ for(const s of sigs){if(s.err||!s.memo||!s.memo.includes('SRL1|'))continue;
+  const tx=await rpc("getTransaction",[s.signature,{encoding:"jsonParsed",maxSupportedTransactionVersion:0}]);if(!tx||tx.meta.err)continue;
+  const keys=tx.transaction.message.accountKeys;const signer=keys[0].pubkey||keys[0];
+  const ixs=tx.transaction.message.instructions;const seeker=ixs.some(i=>i.programId===LIGHTHOUSE)&&ixs.some(i=>i.programId==="ComputeBudget111111111111111111111111111111");
+  let i=0;for(const ix of ixs){if(ix.program==='spl-memo'&&typeof ix.parsed==='string'){const m=decode(ix.parsed);if(m)entries.push({id:i?`${s.signature}:${i}`:s.signature,signer,t:tx.blockTime||s.blockTime,seeker,fee:tx.meta.fee,m});i++}}}
+ render()}
+function render(){
+ const q=(document.getElementById('q').value||'').toLowerCase();
+ const bySig=Object.fromEntries(entries.map(e=>[e.id,e]));
+ const revoked=new Set(entries.filter(e=>e.m.t==='rvk'&&bySig[e.m.target]&&bySig[e.m.target].signer===e.signer).map(e=>e.m.target));
+ const live=entries.filter(e=>e.m.t==='rev'&&!revoked.has(e.id));
+ const newest={};for(const e of live.sort((a,b)=>b.t-a.t)){const k=e.signer+'|'+e.m.pkg;if(!newest[k])newest[k]=e}
+ const byApp={};for(const e of Object.values(newest)){(byApp[e.m.pkg]=byApp[e.m.pkg]||[]).push(e)}
+ const replies={};for(const e of entries.filter(e=>e.m.t==='rep')){(replies[e.m.target]=replies[e.m.target]||[]).push(e)}
+ const claims={};for(const e of entries.filter(e=>e.m.t==='clm')){(claims[e.m.pkg]=claims[e.m.pkg]||[]).push(e.signer)}
+ const out=[];for(const [pkg,list] of Object.entries(byApp).sort((a,b)=>b[1].length-a[1].length)){
+  const name=names[pkg]||pkg;if(q&&!(name.toLowerCase().includes(q)||pkg.toLowerCase().includes(q)))continue;
+  const mean=list.reduce((s,e)=>s+e.m.rating,0)/list.length;
+  const tagCounts={};list.forEach(e=>e.m.tags.forEach(t=>tagCounts[t]=(tagCounts[t]||0)+1));
+  out.push(`<div class="card"><div class="row"><span class="name">${esc(name)}</span><span class="pkg">${esc(pkg)}</span></div>
+  <div class="row"><span class="stars">${stars(mean)}</span><b>${mean.toFixed(1)}</b><span class="meta">${list.length} signed (unweighted)</span>${claims[pkg]?`<span class="pill g">publisher claim on-chain</span>`:''}</div>
+  <div class="row">${Object.entries(tagCounts).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="tag">${TAGS[t]} · ${n}</span>`).join('')}</div>
+  ${list.map(e=>`<div class="rev"><div class="row"><span class="stars">${stars(e.m.rating)}</span><span class="meta">${esc(e.signer.slice(0,4))}…${esc(e.signer.slice(-4))} · ${new Date(e.t*1000).toISOString().slice(0,10)} · v${esc(e.m.vc)}</span>${e.seeker?'<span class="pill i">Seeker wallet</span>':''}<a class="small" href="https://solscan.io/tx/${e.id.split(':')[0]}" target="_blank" rel="noopener">tx</a></div>
+   <div class="row">${e.m.tags.map(t=>`<span class="tag">${TAGS[t]}</span>`).join('')}</div>${e.m.text?`<p class="txt">${esc(e.m.text)}</p>`:''}
+   ${(replies[e.id]||[]).map(r=>`<div class="small" style="margin:6px 0 0 12px">↳ ${esc(r.signer.slice(0,4))}…${esc(r.signer.slice(-4))}${(claims[pkg]||[]).includes(r.signer)?' <span class="pill g">publisher claim</span>':''}: ${esc(r.text||'')}</div>`).join('')}</div>`).join('')}</div>`)}
+ document.getElementById('apps').innerHTML=out.join('')||'<p class="small">No signed reviews match.</p>';
+ document.getElementById('status').textContent=`${live.length} live signed reviews from ${new Set(live.map(e=>e.signer)).size} wallets · ${revoked.size} withdrawn`}
+document.getElementById('q').addEventListener('input',render);load().catch(e=>{document.getElementById('status').textContent='Could not read the ledger: '+e.message});
+</script></body></html>
