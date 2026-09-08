@@ -52,15 +52,16 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
         val keys = msg.optJSONArray("accountKeys") ?: return@rpc null
         val first = keys.optJSONObject(0)?.optString("pubkey") ?: keys.optString(0)
         if (first.isNullOrEmpty()) return@rpc null
-        val memos = ArrayList<String>()
+        val memos = ArrayList<String>(); var lighthouse = false; var computeBudget = false
         val ixs = msg.optJSONArray("instructions") ?: JSONArray()
         for (i in 0 until ixs.length()) {
             val ix = ixs.optJSONObject(i) ?: continue
-            if (ix.optString("programId") == AppConfig.Solana.MEMO_PROGRAM || ix.optString("program") == "spl-memo") {
-                val parsed = ix.opt("parsed"); if (parsed is String) memos.add(parsed)
-            }
+            val pid = ix.optString("programId")
+            if (pid == AppConfig.Solana.MEMO_PROGRAM || ix.optString("program") == "spl-memo") { val parsed = ix.opt("parsed"); if (parsed is String) memos.add(parsed) }
+            if (pid == AppConfig.Solana.LIGHTHOUSE_PROGRAM) lighthouse = true
+            if (pid == AppConfig.Solana.COMPUTE_BUDGET_PROGRAM) computeBudget = true
         }
-        LedgerTx(first, tx.optLong("blockTime", 0L), memos)
+        LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget)
     }
 
     suspend fun getAccountDataBase64(pubkey: String): Result<ByteArray?> = rpc {

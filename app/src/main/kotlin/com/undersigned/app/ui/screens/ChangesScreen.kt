@@ -24,7 +24,7 @@ import java.text.DateFormat
 import java.util.Date
 
 @Composable
-fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit) {
+fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit = onOpen) {
     val changes by vm.changes.collectAsState()
     val catalogue by vm.catalogue.collectAsState()
     val icons by vm.iconCache.state.collectAsState()
@@ -52,6 +52,7 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
                     if (c.versionChanged) Text(stringResource(R.string.change_new_version, c.versionCode), color = RbColors.textSecondary, fontSize = 12.sp)
                     if (c.permsAdded.isNotEmpty()) Text(stringResource(R.string.fact_perms_added, c.permsAdded.joinToString(", ")), color = RbColors.warning, fontSize = 12.sp)
                     if (c.permsRemoved.isNotEmpty()) Text(stringResource(R.string.fact_perms_removed, c.permsRemoved.joinToString(", ")), color = RbColors.textSecondary, fontSize = 12.sp)
+                    if (c.versionChanged) { Spacer(Modifier.height(6.dp)); com.undersigned.app.ui.components.SecondaryButton(stringResource(R.string.change_rate_version), onClick = { onReview(c.packageName) }) }
                 }
                 Spacer(Modifier.height(8.dp))
             }

@@ -21,6 +21,9 @@ object UserPreferences {
     private const val KEY_ALERTS = "alerts_enabled"
     private const val KEY_LAST_NOTIFIED = "last_notified_signature"
     private const val KEY_DOMAINS = "skr_domains"
+    private const val KEY_CLAIMS = "publisher_claims"
+    private const val KEY_DIVERGENCE = "divergence_marks"
+    private const val KEY_WAVES = "wave_marks"
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -71,6 +74,28 @@ object UserPreferences {
         prefs?.edit()?.putString(KEY_FACTS, all.toString())?.apply()
     }
     fun clearFacts() { prefs?.edit()?.remove(KEY_FACTS)?.apply() }
+
+    /** True the first time this (rounded) divergence is seen for the package; suppresses repeat alerts. */
+    fun markDivergence(pkg: String, signed: Double, store: Double): Boolean {
+        val key = "$pkg|${"%.1f".format(java.util.Locale.US, signed)}|${"%.1f".format(java.util.Locale.US, store)}"
+        val all = runCatching { JSONObject(prefs?.getString(KEY_DIVERGENCE, "{}") ?: "{}") }.getOrDefault(JSONObject())
+        if (all.has(key)) return false
+        all.put(key, System.currentTimeMillis()); prefs?.edit()?.putString(KEY_DIVERGENCE, all.toString())?.apply(); return true
+    }
+    fun markWave(pkg: String, newestReviewId: String): Boolean {
+        val all = runCatching { JSONObject(prefs?.getString(KEY_WAVES, "{}") ?: "{}") }.getOrDefault(JSONObject())
+        if (all.optString(pkg) == newestReviewId) return false
+        all.put(pkg, newestReviewId); prefs?.edit()?.putString(KEY_WAVES, all.toString())?.apply(); return true
+    }
+
+    fun cachedClaim(pkg: String, wallet: String, ttl: Long): Boolean? = runCatching {
+        val o = JSONObject(prefs?.getString(KEY_CLAIMS, "{}") ?: "{}").optJSONObject("$pkg|$wallet") ?: return null
+        if (System.currentTimeMillis() - o.optLong("at") > ttl) null else o.optBoolean("ok")
+    }.getOrNull()
+    fun cacheClaim(pkg: String, wallet: String, ok: Boolean) {
+        val all = runCatching { JSONObject(prefs?.getString(KEY_CLAIMS, "{}") ?: "{}") }.getOrDefault(JSONObject())
+        all.put("$pkg|$wallet", JSONObject().put("ok", ok).put("at", System.currentTimeMillis())); prefs?.edit()?.putString(KEY_CLAIMS, all.toString())?.apply()
+    }
 
     fun cachedDomain(wallet: String): String? = runCatching { JSONObject(prefs?.getString(KEY_DOMAINS, "{}") ?: "{}").let { if (it.has(wallet)) it.optString(wallet) else null } }.getOrNull()
     fun cacheDomain(wallet: String, name: String) {

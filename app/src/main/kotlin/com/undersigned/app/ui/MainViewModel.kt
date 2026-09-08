@@ -7,7 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.data.CatalogueRepository
 import com.undersigned.app.data.DAppIconCache
+import com.undersigned.app.data.StoreDetails
 import com.undersigned.app.data.StoreRating
+import com.undersigned.app.ledger.PublisherVerifier
+import com.undersigned.app.solana.TxMeta
+import com.undersigned.protocol.Reputation
+import com.undersigned.protocol.SignerStanding
 import com.undersigned.app.data.StoreReview
 import com.undersigned.app.data.StoreReviewsClient
 import com.undersigned.app.solana.DomainClient
@@ -57,6 +62,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** My own historical store reviews found by wallet: package → review. */
     val myStoreReviews = MutableStateFlow<Map<String, StoreReview>>(emptyMap())
     val importScan = MutableStateFlow<String?>(null)   // progress text while scanning
+    val storeDetails = MutableStateFlow<Map<String, StoreDetails>>(emptyMap())
+    /** package → wallets whose publisher claim verified against the store-listed website. */
+    val verifiedPublishers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
+    val txMeta = MutableStateFlow<Map<String, TxMeta>>(emptyMap())
+    val standings = MutableStateFlow<Map<String, SignerStanding>>(emptyMap())
 
     val catalogue = MutableStateFlow<List<CatalogueApp>>(emptyList())
     val installed = MutableStateFlow<Set<String>>(emptySet())
@@ -78,7 +88,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             runCatching { iconCache.resolve(cat.map { it.packageName }.filter { it in installed.value }) }
             runCatching { installedApps.refreshSnapshot(cat.map { it.packageName }) }
             changes.value = installedApps.changeLog()
-            entries.value = ledgerCache.load()
+            entries.value = ledgerCache.load(); txMeta.value = ledgerCache.loadMeta()
             rank()
             syncLedger()
             if (catalogueRepo.isStale()) catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
@@ -91,7 +101,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             ledgerStatus.value = LedgerStatus.Syncing(0, 0)
             reader.sync { p -> ledgerStatus.value = LedgerStatus.Syncing(p.fetched, p.total) }.fold(
-                onSuccess = { list -> entries.value = list; rank(); val rv = Ranking.revoked(list); ledgerStatus.value = LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review && it.signature !in rv }, list.filter { it.memo is ReviewMemo.Review }.map { it.signer }.distinct().size) },
+                onSuccess = { list -> entries.value = list; txMeta.value = ledgerCache.loadMeta(); rank(); val rv = Ranking.revoked(list); ledgerStatus.value = LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review && it.signature !in rv }, list.filter { it.memo is ReviewMemo.Review }.map { it.signer }.distinct().size) },
                 onFailure = { ledgerStatus.value = LedgerStatus.Error(it.message?.take(80) ?: "unknown") },
             )
         }
@@ -103,7 +113,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val map = HashMap(facts.value)
         for (s in list.map { it.signer }.distinct()) if (s !in map) map[s] = runCatching { factsService.facts(s) }.getOrElse { SignerFacts(false, 0.0) }
         facts.value = map
-        scores.value = Ranking.score(list) { map[it] ?: SignerFacts(false, 0.0) }.associateBy { it.packageName }
+        val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
+        scores.value = Ranking.score(list, f).associateBy { it.packageName }
+        standings.value = Reputation.standing(list, f)
+        verifyClaims(list)
     }
 
     private fun loadSelfFacts(address: String) {
@@ -114,10 +127,34 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /** Every claim on-chain is checked against the store-listed website (cached 24 h). */
+    private suspend fun verifyClaims(list: List<LedgerEntry>) {
+        val claims = list.filter { it.memo is ReviewMemo.Claim }
+        if (claims.isEmpty()) return
+        val out = HashMap<String, MutableSet<String>>()
+        for (c in claims) {
+            val pkg = (c.memo as ReviewMemo.Claim).packageName
+            val d = storeDetails.value[pkg] ?: store.details(pkg)?.also { storeDetails.value = storeDetails.value + (pkg to it) }
+            if (PublisherVerifier.verify(pkg, c.signer, d)) out.getOrPut(pkg) { HashSet() }.add(c.signer)
+        }
+        verifiedPublishers.value = out
+    }
+    fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
+    fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
+    fun versionScores(pkg: String) = Reputation.byVersion(entries.value, pkg) { facts.value[it] ?: SignerFacts(false, 0.0) }
+    /** Signer facts for arbitrary wallets (store reviewers), cached; fills [facts]. */
+    fun resolveFacts(wallets: Collection<String>) {
+        val todo = wallets.distinct().filter { it !in facts.value }
+        if (todo.isEmpty()) return
+        viewModelScope.launch(Dispatchers.IO) { for (w in todo) { val f = runCatching { factsService.facts(w) }.getOrElse { SignerFacts(false, 0.0) }; facts.value = facts.value + (w to f) } }
+    }
+    fun ledgerSigners(): Set<String> = entries.value.filter { it.memo is ReviewMemo.Review }.map { it.signer }.toSet()
+
     fun loadStoreMirror(pkg: String) {
         if (storeRatings.value.containsKey(pkg)) return
         viewModelScope.launch(Dispatchers.IO) {
             store.rating(pkg)?.let { r -> storeRatings.value = storeRatings.value + (pkg to r) }
+            if (!storeDetails.value.containsKey(pkg)) store.details(pkg)?.let { d -> storeDetails.value = storeDetails.value + (pkg to d) }
             val list = store.reviews(pkg, pageSize = 10, maxPages = 1)
             storeReviews.value = storeReviews.value + (pkg to list)
             wallet.value?.let { w -> list.firstOrNull { it.walletAddress == w }?.let { mine -> myStoreReviews.value = myStoreReviews.value + (pkg to mine) } }

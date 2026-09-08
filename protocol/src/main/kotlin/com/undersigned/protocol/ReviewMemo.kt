@@ -9,6 +9,8 @@ import java.util.Base64
  *   SRL1|rev|<package>|<rating 1-5>|<tags a,b,c>|<versionCode>|<b64 text or empty>
  *   SRL1|rvk|<signature of the review tx being withdrawn>
  *   SRL1|rep|<signature of the review being answered>|<b64 text>
+ *   SRL1|clm|<package>            — "I publish this app"; readers verify it against the website the
+ *                                   store lists for the package (/.well-known/undersigned.txt names the wallet)
  *
  * Three record types. A reply is a signed public comment under a review — anyone may post one
  * (the publisher answering, another owner disagreeing); replies never affect ranking. Anything else, any unknown tag, any oversize field
@@ -31,6 +33,8 @@ sealed class ReviewMemo {
     data class Revocation(val reviewSignature: String) : ReviewMemo()
 
     data class Reply(val reviewSignature: String, val text: String) : ReviewMemo()
+
+    data class Claim(val packageName: String) : ReviewMemo()
 
     /** Fixed vocabulary: rankable, translatable, and never defamatory free prose. */
     enum class Tag(val wire: String) {
@@ -71,6 +75,7 @@ sealed class ReviewMemo {
                 "${Registry.PROTOCOL}|rev|${m.packageName}|${m.rating}|${m.tags.joinToString(",") { it.wire }}|${m.versionCode}|$b64"
             }
             is Revocation -> { require(SIGNATURE.matches(m.reviewSignature)) { "signature" }; "${Registry.PROTOCOL}|rvk|${m.reviewSignature}" }
+            is Claim -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|clm|${m.packageName}" }
             is Reply -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
                 val text = m.text.trim()
@@ -99,6 +104,7 @@ sealed class ReviewMemo {
                     Review(pkg, rating, tags, vc, text)
                 }
                 "rvk" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Revocation(f[2]) else null
+                "clm" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Claim(f[2]) else null
                 "rep" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
                     val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }

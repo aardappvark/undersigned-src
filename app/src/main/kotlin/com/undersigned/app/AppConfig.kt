@@ -46,6 +46,9 @@ object AppConfig {
 
     object Solana {
         const val MEMO_PROGRAM = Registry.MEMO_PROGRAM
+        /** The Seeker wallet appends a Lighthouse assertion + ComputeBudget to every tx it signs (observed on the owner's reviews, 8 Sep 2026). */
+        const val LIGHTHOUSE_PROGRAM = "L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95"
+        const val COMPUTE_BUDGET_PROGRAM = "ComputeBudget111111111111111111111111111111"
         const val SKR_MINT = "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3"
         /** SKR staking program + config + Solana Mobile guardian pool (SeekerVerify `StakingRpcClient` layout). */
         const val SKR_STAKING_PROGRAM = "SKRskrmtL83pcL4YqLWt6iPefDqwXQWHSw9S9vz94BZ"

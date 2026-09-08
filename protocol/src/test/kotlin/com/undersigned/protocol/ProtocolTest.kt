@@ -41,6 +41,27 @@ class ProtocolTest {
         assertEquals(1, s.countedReviews); assertEquals(4.0, s.weightedMean, 1e-9)
     }
 
+    @Test fun `claim round-trips and is ignored by ranking`() {
+        val c = ReviewMemo.Claim("com.example.app")
+        assertEquals(c, ReviewMemo.decode(ReviewMemo.encode(c)))
+        assertNull(ReviewMemo.decode("SRL1|clm|not a package"))
+        val entries = listOf(rev("1" + "A".repeat(86), "w", 1, "com.x", 2), LedgerEntry("2" + "A".repeat(86), "pub", 2, c))
+        assertEquals(1, Ranking.score(entries) { SignerFacts(true, 0.0) }.single().countedReviews)
+    }
+
+    @Test fun `standing counts replies received and agreement`() {
+        val a = "1" + "A".repeat(86); val b = "2" + "A".repeat(86); val c = "3" + "A".repeat(86)
+        val entries = listOf(
+            LedgerEntry(a, "alice", 10, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS, ReviewMemo.Tag.FAST), 1, null)),
+            LedgerEntry(b, "bob", 20, ReviewMemo.Review("com.x", 4, listOf(ReviewMemo.Tag.WORKS), 1, null)),
+            LedgerEntry(c, "bob", 30, ReviewMemo.Reply(a, "agree")),
+        )
+        val st = Reputation.standing(entries) { SignerFacts(true, 0.0) }
+        assertEquals(1, st["alice"]!!.repliesReceived); assertEquals(0.5, st["alice"]!!.agreement); assertEquals(1, st["bob"]!!.repliesGiven)
+        val v = Reputation.byVersion(entries, "com.x") { SignerFacts(true, 0.0) }
+        assertEquals(1, v.size); assertEquals(4.5, v[0].mean, 1e-9)
+    }
+
     @Test fun `garbage and hostile input decode to null, never throw`() {
         listOf("", "SRL1", "SRL1|rev", "SRL1|rev|com.a|6|works|1|", "SRL1|rev|com.a|3|nonsense|1|",
                "SRL1|rev|com.a|3|works,works|1|", "SRL1|rev|../etc|3|works|1|", "SRL2|rev|com.a|3|works|1|",

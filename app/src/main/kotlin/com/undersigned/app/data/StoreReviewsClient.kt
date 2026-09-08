@@ -13,6 +13,8 @@ import java.util.Locale
 /** One of the native dApp Store's own public reviews. Read-only; the store owns these. */
 data class StoreReview(val id: String, val createdAt: String, val rating: Int, val text: String?, val walletAddress: String?, val domain: String?, val publisherReply: String?)
 data class StoreRating(val average: Double, val byStar: List<Int>) { val total get() = byStar.sum() }
+/** The store's listed publisher and the certificate the store's release was signed with. */
+data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?)
 
 /**
  * READ-ONLY mirror of the store's public rating and reviews, through the same operations the store
@@ -31,6 +33,16 @@ class StoreReviewsClient {
             val arr = r.optJSONArray("reviewsByRating") ?: return@runCatching null
             StoreRating(r.optDouble("rating", 0.0), (0 until arr.length()).map { arr.optInt(it) })
         }.getOrElse { Log.w(TAG, "rating failed: ${it.message?.take(80)}"); null }
+    }
+
+    suspend fun details(pkg: String): StoreDetails? = withContext(Dispatchers.IO) {
+        runCatching {
+            val d = post("DAppByPackageSummary", Q_DETAILS, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
+            val rel = d.optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return@runCatching null
+            val ad = rel.optJSONObject("androidDetails"); val pd = rel.optJSONObject("publisherDetails")
+            StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.optString("certFingerprint", null)?.takeIf { it.isNotBlank() }?.lowercase()?.filter { c -> c in "0123456789abcdef" },
+                pd?.optString("name", null)?.takeIf { it.isNotBlank() }, pd?.optString("website", null)?.takeIf { it.isNotBlank() }, pd?.optString("supportEmail", null)?.takeIf { it.isNotBlank() })
+        }.getOrElse { Log.w(TAG, "details failed: ${it.message?.take(80)}"); null }
     }
 
     /** Newest first. Stops after [maxPages]; [stopWhen] lets a wallet scan end early. */
@@ -74,6 +86,7 @@ class StoreReviewsClient {
     companion object {
         private const val TAG = "StoreReviews"
         private const val Q_RATING = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { __typename androidPackage rating { rating reviewsByRating } } }"
+        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
         private const val Q_REVIEWS = "query DAppReviews(\$systemContext: SystemContext!, \$androidPackage: String!, \$first: Int!, \$after: String) { dAppReviews(systemContext: \$systemContext, androidPackage: \$androidPackage, first: \$first, after: \$after) { edges { node { __typename ...DAppReviewFragment } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } } }  fragment DAppReviewFragment on DAppReview { id createdAt rating review walletAddress domain isReviewerAccountDeleted reply { reply } }"
     }
 }
