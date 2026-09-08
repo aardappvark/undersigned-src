@@ -36,6 +36,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- undersigned://reply?target=<record id>&text=<base64url> — a reply prepared on another device (desktop MCP); the phone still signs it. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="undersigned" android:host="reply" />
+            </intent-filter>
         </activity>
 
         <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity" tools:node="remove" />

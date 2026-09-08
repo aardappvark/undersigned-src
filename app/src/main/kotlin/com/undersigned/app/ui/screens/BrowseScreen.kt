@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Update
+import androidx.compose.material.icons.filled.Inbox
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,7 +34,7 @@ import com.undersigned.protocol.AppScore
 private enum class Tab { INSTALLED, SIGNED, ALL }
 
 @Composable
-fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit) {
+fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit, onInbox: () -> Unit = {}) {
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
@@ -57,6 +58,11 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = 24.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.weight(1f))
+            val entriesAll by vm.entries.collectAsState()
+            val inboxCount = remember(entriesAll) { vm.unanswered().size + vm.repliesToMe().size }
+            IconButton(onClick = onInbox) {
+                BadgedBox(badge = { if (inboxCount > 0) Badge(containerColor = RbColors.purple) { Text("$inboxCount") } }) { Icon(Icons.Default.Inbox, contentDescription = stringResource(R.string.inbox), tint = RbColors.textSecondary) }
+            }
             IconButton(onClick = onChanges) {
                 BadgedBox(badge = { if (changes.any { !it.firstSeen }) Badge(containerColor = RbColors.warning) }) { Icon(Icons.Default.Update, contentDescription = stringResource(R.string.changes_title), tint = RbColors.textSecondary) }
             }

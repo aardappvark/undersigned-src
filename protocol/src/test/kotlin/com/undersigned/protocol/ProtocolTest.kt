@@ -62,6 +62,61 @@ class ProtocolTest {
         assertEquals(1, v.size); assertEquals(4.5, v[0].mean, 1e-9)
     }
 
+    @Test fun `flags reach consensus, hide the record from ranking, and feed credibility`() {
+        val r1 = "1" + "A".repeat(86); val f1 = "2" + "A".repeat(86); val f2 = "3" + "A".repeat(86); val f3 = "4" + "A".repeat(86)
+        val flag = ReviewMemo.Flag(r1, ReviewMemo.FlagReason.SPAM)
+        assertEquals(flag, ReviewMemo.decode(ReviewMemo.encode(flag)))
+        val entries = listOf(
+            LedgerEntry(r1, "spammer", 10, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS), 1, null)),
+            LedgerEntry(f1, "a", 20, flag), LedgerEntry(f2, "b", 21, flag), LedgerEntry(f3, "spammer", 22, flag),   // self-flag ignored
+        )
+        val facts = { _: String -> SignerFacts(true, 0.0) }
+        assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries, facts))
+        assertTrue(Ranking.score(entries, facts).isEmpty())
+        val st = Reputation.standing(entries, facts)
+        assertEquals(1, st["a"]!!.flagsUpheld); assertEquals(60, st["a"]!!.credibility)
+        assertEquals(1, st["spammer"]!!.recordsHidden); assertEquals(0, st["spammer"]!!.credibility)
+        // one flag alone is not consensus
+        assertTrue(Reputation.hiddenByConsensus(entries.take(2), facts).isEmpty())
+    }
+
+    @Test fun `publisher responsiveness buckets by median hours`() {
+        val r = "1" + "A".repeat(86); val p = "2" + "A".repeat(86)
+        val entries = listOf(
+            LedgerEntry(r, "u", 0, ReviewMemo.Review("com.x", 3, listOf(ReviewMemo.Tag.SLOW), 1, null)),
+            LedgerEntry(p, "pub", 5 * 3600, ReviewMemo.Reply(r, "on it")),
+        )
+        val resp = Reputation.responsiveness(entries, "com.x", setOf("pub"))
+        assertEquals(1, resp.answered); assertEquals("hours", resp.bucket); assertEquals(5.0, resp.medianHours!!, 1e-9)
+        assertEquals("never", Reputation.responsiveness(entries, "com.x", emptySet()).bucket)
+    }
+
+    @Test fun `upvotes weigh once per wallet, disputes double the hiding bar, similarity labels but never hides`() {
+        val r1 = "1" + "A".repeat(86); val r2 = "2" + "A".repeat(86)
+        val up = ReviewMemo.Upvote(r1); assertEquals(up, ReviewMemo.decode(ReviewMemo.encode(up)))
+        val dsp = ReviewMemo.Dispute(r1, "This is my honest review, see my other 20."); assertEquals(dsp, ReviewMemo.decode(ReviewMemo.encode(dsp)))
+        val note = "The wallet connection fails every time I open the app after an update"
+        val entries = listOf(
+            LedgerEntry(r1, "alice", 10, ReviewMemo.Review("com.x", 2, listOf(ReviewMemo.Tag.WALLET_FAILS), 1, note)),
+            LedgerEntry(r2, "alice", 11, ReviewMemo.Review("com.y", 2, listOf(ReviewMemo.Tag.WALLET_FAILS), 1, note)),
+            LedgerEntry("3" + "A".repeat(86), "bob", 20, ReviewMemo.Upvote(r1)),
+            LedgerEntry("4" + "A".repeat(86), "bob", 21, ReviewMemo.Upvote(r1)),      // second vote by the same wallet does not count twice
+            LedgerEntry("5" + "A".repeat(86), "alice", 22, ReviewMemo.Upvote(r1)),    // self-vote ignored
+            LedgerEntry("6" + "A".repeat(86), "carol", 30, ReviewMemo.Flag(r1, ReviewMemo.FlagReason.SPAM)),
+            LedgerEntry("7" + "A".repeat(86), "dave", 31, ReviewMemo.Flag(r1, ReviewMemo.FlagReason.SPAM)),
+            LedgerEntry("8" + "A".repeat(86), "alice", 40, dsp),
+        )
+        val facts = { _: String -> SignerFacts(true, 0.0) }
+        assertEquals(1.0, Reputation.helpfulWeights(entries, facts)[r1])
+        assertTrue(Reputation.hiddenByConsensus(entries, facts).isEmpty(), "two flags no longer hide a disputed record")
+        assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries.filterNot { it.memo is ReviewMemo.Dispute }, facts))
+        val f = Similarity.findings(entries)
+        assertTrue(f[r1]!!.copiedAcrossApps && f[r2]!!.copiedAcrossApps)
+        assertTrue(Similarity.similarToExisting("the wallet connection fails every time i open the app after an update!!", entries))
+        assertTrue(!Similarity.similarToExisting("Works great", entries))
+        assertTrue(Ranking.score(entries, facts).size == 2, "similarity never removes a review from ranking")
+    }
+
     @Test fun `garbage and hostile input decode to null, never throw`() {
         listOf("", "SRL1", "SRL1|rev", "SRL1|rev|com.a|6|works|1|", "SRL1|rev|com.a|3|nonsense|1|",
                "SRL1|rev|com.a|3|works,works|1|", "SRL1|rev|../etc|3|works|1|", "SRL2|rev|com.a|3|works|1|",

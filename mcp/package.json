@@ -1,0 +1,14 @@
+{
+  "name": "undersigned-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for the Undersigned review ledger: publisher inbox, profiles, store mirror, reply hand-off to the Seeker, optional local signing, real-time watch with macOS notifications.",
+  "type": "module",
+  "bin": { "undersigned-mcp": "server.js" },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@solana/web3.js": "^1.95.0",
+    "ws": "^8.18.0",
+    "zod": "^3.23.8"
+  }
+}

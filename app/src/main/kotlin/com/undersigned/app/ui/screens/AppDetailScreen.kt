@@ -12,6 +12,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,9 +38,9 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import java.text.DateFormat
 import java.util.Date
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit) {
+fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}) {
     val context = LocalContext.current
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
@@ -81,6 +83,25 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val versionScores = remember(entries, factsMap) { vm.versionScores(pkg) }
     LaunchedEffect(storeReviews[pkg]) { storeReviews[pkg]?.mapNotNull { it.walletAddress }?.let { vm.resolveFacts(it) } }
     val ledgerSigners = remember(entries) { vm.ledgerSigners() }
+    val starred by vm.starred.collectAsState()
+    val flagWeights by vm.flagWeights.collectAsState()
+    val consensusHidden by vm.hiddenByConsensus.collectAsState()
+    var revealed by remember { mutableStateOf<Set<String>>(emptySet()) }
+    var flagTarget by remember { mutableStateOf<String?>(null) }
+    var flagStage by remember { mutableStateOf<String?>(null) }
+    var fromLink by remember { mutableStateOf(false) }
+    val pendingReply by com.undersigned.app.ui.NavIntents.pendingReply.collectAsState()
+    LaunchedEffect(pendingReply, entries) {
+        pendingReply?.let { (target, txt) -> if (vm.packageOf(target) == pkg) { com.undersigned.app.ui.NavIntents.pendingReply.value = null; replyTo = target; replyText = txt; replyConsent = false; replyError = null; fromLink = true } }
+    }
+    val responsiveness = remember(entries, verified) { vm.responsiveness(pkg) }
+    val helpful by vm.helpfulWeights.collectAsState()
+    val disputesMap by vm.disputes.collectAsState()
+    val similar by vm.similarity.collectAsState()
+    var disputeTarget by remember { mutableStateOf<String?>(null) }
+    var disputeText by remember { mutableStateOf("") }
+    var disputeStage by remember { mutableStateOf<String?>(null) }
+    var voteStage by remember { mutableStateOf<String?>(null) }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
@@ -128,7 +149,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 val d = details[pkg]
                 d?.publisherName?.let { Text(stringResource(R.string.publisher_listed, it + (d.website?.let { w -> " · $w" } ?: "")), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
                 val vp = verified[pkg].orEmpty()
-                if (vp.isNotEmpty()) vp.forEach { w -> Text(stringResource(R.string.publisher_verified, (d?.website ?: "").removePrefix("https://").removePrefix("http://")) + " · " + (domainNames[w]?.takeIf { it.isNotEmpty() } ?: shortKey(w, 4, 4)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold) }
+                if (vp.isNotEmpty()) {
+                    vp.forEach { w -> Text(stringResource(R.string.publisher_verified, (d?.website ?: "").removePrefix("https://").removePrefix("http://")) + " · " + (domainNames[w]?.takeIf { it.isNotEmpty() } ?: shortKey(w, 4, 4)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable { onProfile(w) }) }
+                    val b = when (responsiveness.bucket) { "hours" -> stringResource(R.string.bucket_hours); "days" -> stringResource(R.string.bucket_days); "weeks" -> stringResource(R.string.bucket_weeks); "months" -> stringResource(R.string.bucket_months); else -> responsiveness.bucket }
+                    Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
+                }
                 else Text(stringResource(R.string.publisher_none), color = RbColors.textTertiary, fontSize = 12.sp)
                 if (wallet != null && d?.website != null) {
                     Spacer(Modifier.height(8.dp))
@@ -239,20 +264,39 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
 
             SectionTitle(stringResource(R.string.reviews_title))
             if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
+            else Text(stringResource(R.string.swipe_hint), color = RbColors.textTertiary, fontSize = 11.sp)
             reviews.forEach { (e, w) ->
                 val r = e.memo as ReviewMemo.Review
+                if (e.signature in consensusHidden && e.signature !in revealed) {
+                    GlassCard(accent = RbColors.surfaceVariant) {
+                        Text(stringResource(R.string.flagged_hidden, String.format(java.util.Locale.US, "%.1f", flagWeights[e.signature] ?: 0.0)), color = RbColors.textTertiary, fontSize = 12.sp)
+                        disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 12.sp) }
+                        Row {
+                            TextButton(onClick = { revealed = revealed + e.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 12.sp) }
+                            if (e.signer == wallet && disputesMap[e.signature] == null) { Spacer(Modifier.width(12.dp)); TextButton(onClick = { disputeTarget = e.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.warning, fontSize = 12.sp) } }
+                        }
+                    }
+                    Spacer(Modifier.height(8.dp)); return@forEach
+                }
+                val swipe = rememberSwipeToDismissBoxState(confirmValueChange = { v -> if (v == SwipeToDismissBoxValue.StartToEnd && wallet != null) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }; false })
+                SwipeToDismissBox(state = swipe, enableDismissFromEndToStart = false, backgroundContent = { Box(Modifier.fillMaxSize().padding(start = 16.dp), contentAlignment = Alignment.CenterStart) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontWeight = FontWeight.Bold) } }) {
                 GlassCard(accent = if (w > 0) RbColors.glassBorder else RbColors.surfaceVariant) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RatingStars(r.rating.toDouble())
                         Spacer(Modifier.width(8.dp))
-                        Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f))
+                        Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f).clickable { onProfile(e.signer) })
+                        IconButton(onClick = { vm.toggleStar(e.signature) }, modifier = Modifier.size(28.dp)) { Icon(if (e.signature in starred) Icons.Default.Star else Icons.Default.StarBorder, contentDescription = stringResource(R.string.star), tint = if (e.signature in starred) RbColors.warning else RbColors.textTertiary, modifier = Modifier.size(18.dp)) }
                         if (w > 0) Pill(stringResource(R.string.review_weight_verified) + if (w > 1.0) String.format(java.util.Locale.US, " %.1f×", w) else "", RbColors.green) else Pill(stringResource(R.string.review_weight_unverified), RbColors.textTertiary)
                     }
                     Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                         if (txMeta[e.signature.substringBefore(':')]?.seekerWallet == true) { Pill(stringResource(R.string.seeker_signed), RbColors.info); Spacer(Modifier.width(6.dp)) }
                         if (vm.isVerifiedPublisher(pkg, e.signer)) { Pill(stringResource(R.string.publisher_badge), RbColors.green); Spacer(Modifier.width(6.dp)) }
-                        standings[e.signer]?.let { st -> TextButton(onClick = { standingFor = e.signer }, contentPadding = PaddingValues(0.dp)) { Text("${st.countedReviews} signed", color = RbColors.textTertiary, fontSize = 11.sp) } }
+                        standings[e.signer]?.let { st -> TextButton(onClick = { onProfile(e.signer) }, contentPadding = PaddingValues(0.dp)) { Text("${st.countedReviews} signed · ${st.credibility}", color = RbColors.textTertiary, fontSize = 11.sp) } }
+                        flagWeights[e.signature]?.let { fw -> Spacer(Modifier.width(6.dp)); Pill(stringResource(R.string.flagged_count, String.format(java.util.Locale.US, "%.1f", fw)), RbColors.warning) }
+                        helpful[e.signature]?.let { hw -> Spacer(Modifier.width(6.dp)); Pill(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), RbColors.green) }
+                        similar[e.signature]?.let { sf -> Spacer(Modifier.width(6.dp)); Pill(stringResource(if (sf.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge), RbColors.warning) }
                     }
+                    disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 11.sp) }
                     Spacer(Modifier.height(6.dp))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
                     r.text?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
@@ -273,10 +317,16 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                         if (wallet != null) TextButton(onClick = { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontSize = 12.sp) }
                         if (e.signer != wallet) {
+                            if (wallet != null && !vm.myUpvote(e.signature)) TextButton(enabled = voteStage == null, onClick = {
+                                val s = sender ?: return@TextButton
+                                vm.publish(s, ReviewMemo.Upvote(e.signature), onStage = { st -> voteStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { voteStage = null }
+                            }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(voteStage ?: stringResource(R.string.helpful), color = RbColors.green, fontSize = 12.sp) }
+                            if (wallet != null) TextButton(onClick = { flagTarget = e.signature }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.flag), color = RbColors.warning, fontSize = 12.sp) }
                             TextButton(onClick = { vm.hide(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_hide), color = RbColors.textTertiary, fontSize = 12.sp) }
                             TextButton(onClick = { report(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_report), color = RbColors.textTertiary, fontSize = 12.sp) }
                         }
                     }
+                }
                 }
                 Spacer(Modifier.height(8.dp))
             }
@@ -322,6 +372,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             title = { Text(stringResource(R.string.reply_title), color = RbColors.textPrimary) },
             text = {
                 Column {
+                    if (fromLink) Text(stringResource(R.string.reply_from_link), color = RbColors.info, fontSize = 12.sp)
                     OutlinedTextField(value = replyText, onValueChange = { if (replyStage == null) replyText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = replyText.isNotEmpty() && !ok,
                         placeholder = { Text(stringResource(R.string.reply_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
@@ -345,8 +396,47 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }) { r -> replyStage = null; r.fold(onSuccess = { replyTo = null }, onFailure = { replyError = it.message }) }
                 }) { Text(stringResource(R.string.reply_publish), color = RbColors.purpleLight) }
             },
-            dismissButton = { TextButton(enabled = replyStage == null, onClick = { replyTo = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
+            dismissButton = { TextButton(enabled = replyStage == null, onClick = { replyTo = null; fromLink = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
         )
+    }
+
+    disputeTarget?.let { target ->
+        val ok = disputeText.isNotBlank() && disputeText.length <= ReviewMemo.MAX_TEXT_CHARS && disputeText.toByteArray().size <= ReviewMemo.MAX_TEXT_BYTES && disputeText.none { it == '|' || it == '\n' || it == '\r' }
+        AlertDialog(onDismissRequest = { if (disputeStage == null) disputeTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.dispute_title), color = RbColors.textPrimary) },
+            text = { Column {
+                Text(stringResource(R.string.dispute_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(value = disputeText, onValueChange = { if (disputeStage == null) disputeText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                Text(stringResource(R.string.review_consent_body), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                disputeStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+            } },
+            confirmButton = { TextButton(enabled = ok && disputeStage == null && sender != null, onClick = {
+                val s = sender ?: return@TextButton
+                vm.publish(s, ReviewMemo.Dispute(target, disputeText.trim()), onStage = { st -> disputeStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { disputeStage = null; disputeTarget = null }
+            }) { Text(stringResource(R.string.dispute_sign), color = RbColors.warning) } },
+            dismissButton = { TextButton(enabled = disputeStage == null, onClick = { disputeTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
+
+    flagTarget?.let { target ->
+        var reason by remember { mutableStateOf(ReviewMemo.FlagReason.SPAM) }
+        AlertDialog(onDismissRequest = { if (flagStage == null) flagTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.flag_title), color = RbColors.textPrimary) },
+            text = { Column {
+                Text(stringResource(R.string.flag_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    listOf(ReviewMemo.FlagReason.SPAM to R.string.flag_spam, ReviewMemo.FlagReason.ABUSE to R.string.flag_abuse, ReviewMemo.FlagReason.OFF_TOPIC to R.string.flag_offtopic, ReviewMemo.FlagReason.MISLEADING to R.string.flag_misleading)
+                        .forEach { (fr, label) -> TagChip(stringResource(label), selected = reason == fr) { if (flagStage == null) reason = fr } }
+                }
+                flagStage?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+            } },
+            confirmButton = { TextButton(enabled = flagStage == null && sender != null, onClick = {
+                val s = sender ?: return@TextButton
+                vm.publish(s, ReviewMemo.Flag(target, reason), onStage = { st -> flagStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { flagStage = null; flagTarget = null }
+            }) { Text(stringResource(R.string.flag_sign), color = RbColors.warning) } },
+            dismissButton = { TextButton(enabled = flagStage == null, onClick = { flagTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     if (revokeDialog && mine != null) {

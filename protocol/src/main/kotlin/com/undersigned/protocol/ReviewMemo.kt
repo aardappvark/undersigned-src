@@ -9,6 +9,9 @@ import java.util.Base64
  *   SRL1|rev|<package>|<rating 1-5>|<tags a,b,c>|<versionCode>|<b64 text or empty>
  *   SRL1|rvk|<signature of the review tx being withdrawn>
  *   SRL1|rep|<signature of the review being answered>|<b64 text>
+ *   SRL1|flg|<record id>|<reason>  — "this record is spam/abuse/off-topic/misleading"; from Genesis wallets only
+ *   SRL1|up|<record id>            — "helpful"; one per wallet per record, Genesis-weighted; orders reviews, never hides
+ *   SRL1|dsp|<record id>|<b64 text> — the AUTHOR disputes consensus hiding of their own record; raises the bar to 2× and shows the text
  *   SRL1|clm|<package>            — "I publish this app"; readers verify it against the website the
  *                                   store lists for the package (/.well-known/undersigned.txt names the wallet)
  *
@@ -35,6 +38,12 @@ sealed class ReviewMemo {
     data class Reply(val reviewSignature: String, val text: String) : ReviewMemo()
 
     data class Claim(val packageName: String) : ReviewMemo()
+
+    data class Flag(val recordId: String, val reason: FlagReason) : ReviewMemo()
+    data class Upvote(val recordId: String) : ReviewMemo()
+    data class Dispute(val recordId: String, val text: String) : ReviewMemo()
+    enum class FlagReason(val wire: String) { SPAM("spam"), ABUSE("abuse"), OFF_TOPIC("offtopic"), MISLEADING("misleading");
+        companion object { fun fromWire(s: String) = entries.firstOrNull { it.wire == s } } }
 
     /** Fixed vocabulary: rankable, translatable, and never defamatory free prose. */
     enum class Tag(val wire: String) {
@@ -75,6 +84,14 @@ sealed class ReviewMemo {
                 "${Registry.PROTOCOL}|rev|${m.packageName}|${m.rating}|${m.tags.joinToString(",") { it.wire }}|${m.versionCode}|$b64"
             }
             is Revocation -> { require(SIGNATURE.matches(m.reviewSignature)) { "signature" }; "${Registry.PROTOCOL}|rvk|${m.reviewSignature}" }
+            is Upvote -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|up|${m.recordId}" }
+            is Dispute -> {
+                require(SIGNATURE.matches(m.recordId)) { "record id" }
+                val text = m.text.trim()
+                require(text.isNotEmpty() && text.length <= MAX_TEXT_CHARS && text.toByteArray(StandardCharsets.UTF_8).size <= MAX_TEXT_BYTES && text.none { it == '|' || it == '\n' || it == '\r' }) { "dispute text" }
+                "${Registry.PROTOCOL}|dsp|${m.recordId}|" + Base64.getUrlEncoder().withoutPadding().encodeToString(text.toByteArray(StandardCharsets.UTF_8))
+            }
+            is Flag -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|flg|${m.recordId}|${m.reason.wire}" }
             is Claim -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|clm|${m.packageName}" }
             is Reply -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
@@ -104,6 +121,14 @@ sealed class ReviewMemo {
                     Review(pkg, rating, tags, vc, text)
                 }
                 "rvk" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Revocation(f[2]) else null
+                "up" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Upvote(f[2]) else null
+                "dsp" -> {
+                    if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
+                    val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }
+                        ?.takeIf { it.isNotBlank() && it.length <= MAX_TEXT_CHARS && it.none { c -> c == '\n' || c == '\r' } } ?: return null
+                    Dispute(f[2], text)
+                }
+                "flg" -> if (f.size == 4 && SIGNATURE.matches(f[2])) FlagReason.fromWire(f[3])?.let { Flag(f[2], it) } else null
                 "clm" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Claim(f[2]) else null
                 "rep" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null

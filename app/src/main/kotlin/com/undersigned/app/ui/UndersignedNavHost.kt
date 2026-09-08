@@ -17,6 +17,9 @@ object Routes {
     const val REVIEW = "review/{pkg}"
     const val CHANGES = "changes"
     const val SETTINGS = "settings"
+    const val INBOX = "inbox"
+    const val PROFILE = "profile/{wallet}"
+    fun profile(w: String) = "profile/$w"
     fun detail(pkg: String) = "detail/$pkg"
     fun review(pkg: String) = "review/$pkg"
 }
@@ -34,11 +37,16 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     val vm: MainViewModel = viewModel()
     val pending by NavIntents.pendingPackage.collectAsState()
     LaunchedEffect(pending) { pending?.let { NavIntents.pendingPackage.value = null; nav.navigate(Routes.detail(it)) } }
+    val pendingReply by NavIntents.pendingReply.collectAsState()
+    val entries by vm.entries.collectAsState()
+    LaunchedEffect(pendingReply, entries) { pendingReply?.let { (target, _) -> vm.packageOf(target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) } } }
     NavHost(navController = nav, startDestination = Routes.BROWSE) {
-        composable(Routes.BROWSE) { BrowseScreen(vm, onOpen = { nav.navigate(Routes.detail(it)) }, onChanges = { nav.navigate(Routes.CHANGES) }, onSettings = { nav.navigate(Routes.SETTINGS) }) }
-        composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }) }
+        composable(Routes.BROWSE) { BrowseScreen(vm, onOpen = { nav.navigate(Routes.detail(it)) }, onChanges = { nav.navigate(Routes.CHANGES) }, onSettings = { nav.navigate(Routes.SETTINGS) }, onInbox = { nav.navigate(Routes.INBOX) }) }
+        composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onProfile = { nav.navigate(Routes.profile(it)) }) }
         composable(Routes.REVIEW) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; ReviewScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onPublished = { nav.popBackStack() }) }
         composable(Routes.CHANGES) { ChangesScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }) }
         composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }) }
+        composable(Routes.INBOX) { InboxScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
+        composable(Routes.PROFILE) { b -> val w = b.arguments?.getString("wallet") ?: return@composable; ProfileScreen(vm, w, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
     }
 }

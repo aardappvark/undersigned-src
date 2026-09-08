@@ -30,7 +30,10 @@ function decode(raw){const f=raw.split('|');if(f[0]!=='SRL1')return null;
  if(f[1]==='rev'&&f.length===7){const r=+f[3];if(!(r>=1&&r<=5))return null;const tags=f[4].split(',');if(!tags.every(t=>TAGS[t]))return null;return{t:'rev',pkg:f[2],rating:r,tags,vc:f[5],text:f[6]?b64u(f[6]):null}}
  if(f[1]==='rvk'&&f.length===3)return{t:'rvk',target:f[2]};
  if(f[1]==='rep'&&f.length===4)return{t:'rep',target:f[2],text:b64u(f[3])};
- if(f[1]==='clm'&&f.length===3)return{t:'clm',pkg:f[2]};return null}
+ if(f[1]==='clm'&&f.length===3)return{t:'clm',pkg:f[2]};
+ if(f[1]==='flg'&&f.length===4)return{t:'flg',target:f[2],reason:f[3]};
+ if(f[1]==='up'&&f.length===3)return{t:'up',target:f[2]};
+ if(f[1]==='dsp'&&f.length===4)return{t:'dsp',target:f[2],text:b64u(f[3])};return null}
 function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 let entries=[],names={};
@@ -53,6 +56,9 @@ function render(){
  const byApp={};for(const e of Object.values(newest)){(byApp[e.m.pkg]=byApp[e.m.pkg]||[]).push(e)}
  const replies={};for(const e of entries.filter(e=>e.m.t==='rep')){(replies[e.m.target]=replies[e.m.target]||[]).push(e)}
  const claims={};for(const e of entries.filter(e=>e.m.t==='clm')){(claims[e.m.pkg]=claims[e.m.pkg]||[]).push(e.signer)}
+ const flags={};for(const e of entries.filter(e=>e.m.t==='flg')){if(bySig[e.m.target]&&bySig[e.m.target].signer===e.signer)continue;(flags[e.m.target]=flags[e.m.target]||new Set()).add(e.signer)}
+ const ups={};for(const e of entries.filter(e=>e.m.t==='up')){if(bySig[e.m.target]&&bySig[e.m.target].signer===e.signer)continue;(ups[e.m.target]=ups[e.m.target]||new Set()).add(e.signer)}
+ const disputes={};for(const e of entries.filter(e=>e.m.t==='dsp')){if(bySig[e.m.target]&&bySig[e.m.target].signer===e.signer&&!disputes[e.m.target])disputes[e.m.target]=e.m.text}
  const out=[];for(const [pkg,list] of Object.entries(byApp).sort((a,b)=>b[1].length-a[1].length)){
   const name=names[pkg]||pkg;if(q&&!(name.toLowerCase().includes(q)||pkg.toLowerCase().includes(q)))continue;
   const mean=list.reduce((s,e)=>s+e.m.rating,0)/list.length;
@@ -60,7 +66,7 @@ function render(){
   out.push(`<div class="card"><div class="row"><span class="name">${esc(name)}</span><span class="pkg">${esc(pkg)}</span></div>
   <div class="row"><span class="stars">${stars(mean)}</span><b>${mean.toFixed(1)}</b><span class="meta">${list.length} signed (unweighted)</span>${claims[pkg]?`<span class="pill g">publisher claim on-chain</span>`:''}</div>
   <div class="row">${Object.entries(tagCounts).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="tag">${TAGS[t]} · ${n}</span>`).join('')}</div>
-  ${list.map(e=>`<div class="rev"><div class="row"><span class="stars">${stars(e.m.rating)}</span><span class="meta">${esc(e.signer.slice(0,4))}…${esc(e.signer.slice(-4))} · ${new Date(e.t*1000).toISOString().slice(0,10)} · v${esc(e.m.vc)}</span>${e.seeker?'<span class="pill i">Seeker wallet</span>':''}<a class="small" href="https://solscan.io/tx/${e.id.split(':')[0]}" target="_blank" rel="noopener">tx</a></div>
+  ${list.map(e=>`<div class="rev"><div class="row"><span class="stars">${stars(e.m.rating)}</span><span class="meta">${esc(e.signer.slice(0,4))}…${esc(e.signer.slice(-4))} · ${new Date(e.t*1000).toISOString().slice(0,10)} · v${esc(e.m.vc)}</span>${e.seeker?'<span class="pill i">Seeker wallet</span>':''}${ups[e.id]?`<span class="pill g">helpful · ${ups[e.id].size}</span>`:''}${flags[e.id]?`<span class="pill" style="color:var(--w)">flags · ${flags[e.id].size}</span>`:''}${disputes[e.id]?`<span class="pill" style="color:var(--w)">disputed</span>`:''}<a class="small" href="https://solscan.io/tx/${e.id.split(':')[0]}" target="_blank" rel="noopener">tx</a></div>
    <div class="row">${e.m.tags.map(t=>`<span class="tag">${TAGS[t]}</span>`).join('')}</div>${e.m.text?`<p class="txt">${esc(e.m.text)}</p>`:''}
    ${(replies[e.id]||[]).map(r=>`<div class="small" style="margin:6px 0 0 12px">↳ ${esc(r.signer.slice(0,4))}…${esc(r.signer.slice(-4))}${(claims[pkg]||[]).includes(r.signer)?' <span class="pill g">publisher claim</span>':''}: ${esc(r.text||'')}</div>`).join('')}</div>`).join('')}</div>`)}
  document.getElementById('apps').innerHTML=out.join('')||'<p class="small">No signed reviews match.</p>';

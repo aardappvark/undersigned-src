@@ -18,14 +18,14 @@ import com.undersigned.app.util.GeoBlocker
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 
 class MainActivity : ComponentActivity() {
-    override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); intent.getStringExtra("pkg")?.let { NavIntents.pendingPackage.value = it } }
+    override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); NavIntents.consume(intent) }
     private var activityResultSender: ActivityResultSender? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try { activityResultSender = ActivityResultSender(this) } catch (e: Exception) { Log.e("MainActivity", "ActivityResultSender init failed: ${e.message}") }
         try { enableEdgeToEdge() } catch (_: Exception) { }
-        intent?.getStringExtra("pkg")?.let { NavIntents.pendingPackage.value = it }
+        NavIntents.consume(intent)
         setContent {
             UndersignedTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = RbColors.background) {

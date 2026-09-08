@@ -12,6 +12,9 @@ import com.undersigned.app.data.StoreRating
 import com.undersigned.app.ledger.PublisherVerifier
 import com.undersigned.app.solana.TxMeta
 import com.undersigned.protocol.Reputation
+import com.undersigned.protocol.Responsiveness
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import com.undersigned.protocol.SignerStanding
 import com.undersigned.app.data.StoreReview
 import com.undersigned.app.data.StoreReviewsClient
@@ -67,6 +70,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val verifiedPublishers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
     val txMeta = MutableStateFlow<Map<String, TxMeta>>(emptyMap())
     val standings = MutableStateFlow<Map<String, SignerStanding>>(emptyMap())
+    val flagWeights = MutableStateFlow<Map<String, Double>>(emptyMap())
+    val hiddenByConsensus = MutableStateFlow<Set<String>>(emptySet())
+    val helpfulWeights = MutableStateFlow<Map<String, Double>>(emptyMap())
+    val disputes = MutableStateFlow<Map<String, LedgerEntry>>(emptyMap())
+    val similarity = MutableStateFlow<Map<String, com.undersigned.protocol.Similarity.Finding>>(emptyMap())
+    val starred: StateFlow<Set<String>> = UserPreferences.starred
 
     val catalogue = MutableStateFlow<List<CatalogueApp>>(emptyList())
     val installed = MutableStateFlow<Set<String>>(emptySet())
@@ -94,6 +103,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             if (catalogueRepo.isStale()) catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
         }
         viewModelScope.launch { UserPreferences.walletAddress.collect { w -> if (w == null) selfFacts.value = null else loadSelfFacts(w) } }
+        // Near-real-time while the app is open: one cheap tail read a minute (until = newest known signature).
+        viewModelScope.launch(Dispatchers.IO) { while (isActive) { delay(60_000); if (ledgerStatus.value !is LedgerStatus.Syncing) syncLedger() } }
     }
 
     fun syncLedger() {
@@ -116,6 +127,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
         scores.value = Ranking.score(list, f).associateBy { it.packageName }
         standings.value = Reputation.standing(list, f)
+        flagWeights.value = Reputation.flagWeights(list, f)
+        hiddenByConsensus.value = Reputation.hiddenByConsensus(list, f)
+        helpfulWeights.value = Reputation.helpfulWeights(list, f)
+        disputes.value = Reputation.disputes(list)
+        similarity.value = com.undersigned.protocol.Similarity.findings(list)
         verifyClaims(list)
     }
 
@@ -209,11 +225,35 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun revokedSignatures(): Set<String> = Ranking.revoked(entries.value)
 
-    /** Live (not revoked, not hidden) reviews for a package, newest first, with each signer's weight. */
+    /** Live (not revoked, not locally hidden) reviews for a package, newest first, with each signer's weight. Consensus-hidden ones are returned too; the UI collapses them. */
     fun reviewsFor(pkg: String): List<Pair<LedgerEntry, Double>> {
         val revoked = revokedSignatures(); val hid = hidden.value
         return entries.value.filter { it.memo is ReviewMemo.Review && (it.memo as ReviewMemo.Review).packageName == pkg && it.signature !in revoked && it.signature !in hid }
+            .sortedWith(compareByDescending<LedgerEntry> { helpfulWeights.value[it.signature] ?: 0.0 }.thenByDescending { it.blockTime })
             .map { it to Ranking.weight(facts.value[it.signer] ?: SignerFacts(false, 0.0)) }
+    }
+    fun toggleStar(id: String) = UserPreferences.toggleStar(id)
+    fun myUpvote(id: String): Boolean = wallet.value?.let { w -> entries.value.any { it.signer == w && (it.memo as? ReviewMemo.Upvote)?.recordId == id } } ?: false
+    fun draftLooksCopied(draft: String) = com.undersigned.protocol.Similarity.similarToExisting(draft, entries.value)
+    fun packageOf(recordId: String): String? = (entries.value.firstOrNull { it.signature == recordId }?.memo as? ReviewMemo.Review)?.packageName
+    fun myVerifiedPackages(): Set<String> = wallet.value?.let { w -> verifiedPublishers.value.filter { w in it.value }.keys } ?: emptySet()
+    fun responsiveness(pkg: String): Responsiveness = Reputation.responsiveness(entries.value, pkg, verifiedPublishers.value[pkg].orEmpty())
+    fun entriesBy(wallet: String): List<LedgerEntry> = entries.value.filter { it.signer == wallet && it.memo is ReviewMemo.Review && it.signature !in revokedSignatures() }
+    fun publishedBy(wallet: String): List<String> = verifiedPublishers.value.filter { wallet in it.value }.keys.sorted()
+
+    /** Publisher queue: signed reviews on my verified apps with no reply from me. */
+    fun unanswered(): List<LedgerEntry> {
+        val w = wallet.value ?: return emptyList(); val mine = myVerifiedPackages(); if (mine.isEmpty()) return emptyList()
+        val revoked = revokedSignatures()
+        val myReplies = entries.value.filter { it.signer == w && it.memo is ReviewMemo.Reply }.map { (it.memo as ReviewMemo.Reply).reviewSignature }.toSet()
+        return entries.value.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName in mine && it.signer != w && it.signature !in myReplies }
+    }
+    /** Replies by others on my records, newest first. */
+    fun repliesToMe(): List<Pair<LedgerEntry, LedgerEntry>> {
+        val w = wallet.value ?: return emptyList()
+        val mine = entries.value.filter { it.signer == w }.associateBy { it.signature }
+        return entries.value.filter { it.signer != w && it.memo is ReviewMemo.Reply && (it.memo as ReviewMemo.Reply).reviewSignature in mine }
+            .map { it to mine[(it.memo as ReviewMemo.Reply).reviewSignature]!! }
     }
 
     fun myReview(pkg: String): LedgerEntry? {

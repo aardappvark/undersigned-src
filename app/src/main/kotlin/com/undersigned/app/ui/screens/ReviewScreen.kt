@@ -80,6 +80,8 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 placeholder = { Text(stringResource(R.string.review_text_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight, errorBorderColor = RbColors.negative),
             )
+            val looksCopied = remember(text) { vm.draftLooksCopied(text) }
+            if (looksCopied) { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.compose_similar_warning), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp) }
             if (text.isNotEmpty()) {
                 Spacer(Modifier.height(10.dp))
                 GlassCard(accent = RbColors.warning) {

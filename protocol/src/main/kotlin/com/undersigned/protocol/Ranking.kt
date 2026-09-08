@@ -54,7 +54,8 @@ object Ranking {
 
     fun score(entries: List<LedgerEntry>, facts: (signer: String) -> SignerFacts): List<AppScore> {
         val revoked = revoked(entries)
-        val live = entries.filter { it.signature !in revoked && it.memo is ReviewMemo.Review }
+        val hidden = Reputation.hiddenByConsensus(entries, facts)
+        val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
             .map { (_, v) -> v.maxBy { it.blockTime } }

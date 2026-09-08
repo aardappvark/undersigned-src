@@ -18,6 +18,7 @@ object UserPreferences {
     private const val KEY_DEVICE_SNAPSHOT = "device_snapshot"
     private const val KEY_CHANGES = "device_changes"
     private const val KEY_FOLLOWS = "followed_packages"
+    private const val KEY_STARRED = "starred_records"
     private const val KEY_ALERTS = "alerts_enabled"
     private const val KEY_LAST_NOTIFIED = "last_notified_signature"
     private const val KEY_DOMAINS = "skr_domains"
@@ -36,6 +37,8 @@ object UserPreferences {
     val hidden: StateFlow<Set<String>> = _hidden
     private val _follows = MutableStateFlow<Set<String>>(emptySet())
     val follows: StateFlow<Set<String>> = _follows
+    private val _starred = MutableStateFlow<Set<String>>(emptySet())
+    val starred: StateFlow<Set<String>> = _starred
     private val _alertsEnabled = MutableStateFlow(false)
     val alertsEnabled: StateFlow<Boolean> = _alertsEnabled
 
@@ -46,9 +49,11 @@ object UserPreferences {
         _onboardingSeen.value = p.getBoolean(KEY_ONBOARDING_SEEN, false)
         _hidden.value = p.getStringSet(KEY_HIDDEN, emptySet()) ?: emptySet()
         _follows.value = p.getStringSet(KEY_FOLLOWS, emptySet()) ?: emptySet()
+        _starred.value = p.getStringSet(KEY_STARRED, emptySet()) ?: emptySet()
         _alertsEnabled.value = p.getBoolean(KEY_ALERTS, false)
     }
 
+    fun toggleStar(id: String) { val s = if (id in _starred.value) _starred.value - id else _starred.value + id; prefs?.edit()?.putStringSet(KEY_STARRED, s)?.apply(); _starred.value = s }
     fun follow(pkg: String) { val s = _follows.value + pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
     fun unfollow(pkg: String) { val s = _follows.value - pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
     fun setAlerts(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ALERTS, v)?.apply(); _alertsEnabled.value = v }
