@@ -42,6 +42,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="undersigned" android:host="reply" />
+                <data android:scheme="undersigned" android:host="vote" />
+                <data android:scheme="undersigned" android:host="flag" />
+                <data android:scheme="undersigned" android:host="dispute" />
             </intent-filter>
         </activity>
 

@@ -95,6 +95,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
         pendingReply?.let { (target, txt) -> if (vm.packageOf(target) == pkg) { com.undersigned.app.ui.NavIntents.pendingReply.value = null; replyTo = target; replyText = txt; replyConsent = false; replyError = null; fromLink = true } }
     }
     val responsiveness = remember(entries, verified) { vm.responsiveness(pkg) }
+    val pendingAction by com.undersigned.app.ui.NavIntents.pendingAction.collectAsState()
     val helpful by vm.helpfulWeights.collectAsState()
     val disputesMap by vm.disputes.collectAsState()
     val similar by vm.similarity.collectAsState()
@@ -102,6 +103,17 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var disputeText by remember { mutableStateOf("") }
     var disputeStage by remember { mutableStateOf<String?>(null) }
     var voteStage by remember { mutableStateOf<String?>(null) }
+    var pendingVote by remember { mutableStateOf<String?>(null) }
+    LaunchedEffect(pendingAction, entries) {
+        pendingAction?.let { a -> if (vm.packageOf(a.target) == pkg) {
+            com.undersigned.app.ui.NavIntents.pendingAction.value = null
+            when (a.kind) {
+                "flag" -> flagTarget = a.target
+                "dispute" -> { disputeTarget = a.target; disputeText = a.arg }
+                "vote" -> pendingVote = a.target
+            }
+        } }
+    }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
@@ -398,6 +410,17 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             },
             dismissButton = { TextButton(enabled = replyStage == null, onClick = { replyTo = null; fromLink = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
         )
+    }
+
+    pendingVote?.let { target ->
+        AlertDialog(onDismissRequest = { if (voteStage == null) pendingVote = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.helpful_sign), color = RbColors.textPrimary) },
+            text = { Column { Text(stringResource(R.string.helpful_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp); voteStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) } } },
+            confirmButton = { TextButton(enabled = voteStage == null && sender != null && !vm.myUpvote(target), onClick = {
+                val s = sender ?: return@TextButton
+                vm.publish(s, ReviewMemo.Upvote(target), onStage = { st -> voteStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { voteStage = null; pendingVote = null }
+            }) { Text(stringResource(R.string.helpful), color = RbColors.green) } },
+            dismissButton = { TextButton(enabled = voteStage == null, onClick = { pendingVote = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     disputeTarget?.let { target ->
