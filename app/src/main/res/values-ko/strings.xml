@@ -108,10 +108,10 @@
     <string name="change_rate_version">이 버전 평가하기</string>
     <string name="store_title">dApp Store 평점</string>
     <string name="store_sub">스토어 자체의 공개 평점과 리뷰이며, 참고용으로 읽기 전용으로 표시됩니다. 이 데이터는 Solana Mobile이 소유합니다.</string>
-    <string name="store_total">스토어 리뷰 %1$d건</string>
+    <string name="store_total">스토어 리뷰 %1\$d건</string>
     <string name="store_none">이 앱에 대한 스토어 공개 리뷰가 아직 없습니다.</string>
     <string name="store_publisher_replied">퍼블리셔가 답글을 남겼습니다</string>
-    <string name="store_mine_found">%2$s에 dApp Store에서 이 앱을 %1$d★로 평가했습니다.</string>
+    <string name="store_mine_found">%2\$s에 dApp Store에서 이 앱을 %1\$d★로 평가했습니다.</string>
     <string name="store_import_one">서명된 리뷰로 가져오기</string>
     <string name="import_title">내 dApp Store 리뷰 가져오기</string>
     <string name="import_body">설치했거나 팔로우 중인 앱의 공개 스토어 리뷰를 스캔하여 내 지갑으로 서명된 리뷰를 찾습니다. 그런 다음 선택한 항목을 한 번의 지갑 승인으로 서명된 원장 기록으로 다시 게시합니다. 평점과 텍스트는 이미 사용자의 것이며, 가져오기는 여기에 서명만 추가할 뿐입니다.</string>

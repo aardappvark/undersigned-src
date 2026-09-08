@@ -192,6 +192,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val memos = chosen.map { (pkg, r) -> ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), listOf(ReviewMemo.Tag.WORKS).takeIf { r.rating >= 4 } ?: listOf(ReviewMemo.Tag.CONFUSING), 1L, r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }) }
         val texts = memos.map { runCatching { ReviewMemo.encode(it) }.getOrElse { return onResult(Result.failure(it)) } }
         viewModelScope.launch {
+            if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
             val r = txService.publishBatch(adapter, sender, w, texts, onStage)
             r.onSuccess { sigs ->
                 val now = System.currentTimeMillis() / 1000
@@ -235,6 +236,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
         val text = runCatching { ReviewMemo.encode(memo) }.getOrElse { return onResult(Result.failure(it)) }
         viewModelScope.launch {
+            // Fleet standard: screen the wallet again before every transaction it signs, not only at sign-in.
+            if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
             val r = txService.publish(adapter, sender, w, text, onStage)
             r.onSuccess { sig ->
                 (memo as? ReviewMemo.Review)?.let { UserPreferences.follow(it.packageName) }   // you hear about replies and other owners' reviews

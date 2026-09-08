@@ -16,7 +16,8 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        resourceConfigurations += listOf("en")
+        // Ship only the locales this app actually translates (fleet rule: the store reads the APK's locale set).
+        resourceConfigurations += listOf("en", "ar", "bn", "cs", "de", "el", "es", "fil", "fr", "hi", "hu", "in", "it", "ja", "ko", "nl", "pl", "pt-rBR", "ro", "ru", "sv", "th", "tr", "uk", "ur", "vi", "zh-rCN", "zh-rTW")
         applicationId = "com.undersigned.app"
         minSdk = 26
         targetSdk = 35
