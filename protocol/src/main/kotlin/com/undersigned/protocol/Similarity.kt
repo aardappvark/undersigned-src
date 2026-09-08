@@ -5,7 +5,7 @@ package com.undersigned.protocol
  * A note is "similar" to another when both have at least [MIN_WORDS] words and their 3-word shingle
  * sets overlap with Jaccard ≥ [THRESHOLD]. Short notes ("Works great") are exempt — many honest people
  * write those. Exact copies by the SAME wallet across different apps are reported separately as
- * "copied across apps", which is the pattern review farms show; a different person writing the same
+ * "copied across apps", which is the pattern automated review activity shows; a different person writing the same
  * sentence about the same app is not.
  */
 object Similarity {

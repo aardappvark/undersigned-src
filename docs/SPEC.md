@@ -44,6 +44,14 @@ does not parse exactly; there is no partial acceptance and no "unknown field" to
   is at most 3 ordinary Seekers. The app stakes nothing, unstakes nothing, and never tells anyone to.
 - **Dedup:** newest counted review per wallet per package wins. Bayesian prior 3.0 with strength 5.
 
+## 3a. Attested devices — the governed list
+
+"Counted" means the signer holds a credential on the **attestation list** (`app/src/main/assets/attestations.json`):
+soulbound Token-2022 collections identified by mint authority (+ metadata). Today the list has one entry, the Seeker
+Genesis Token. The list carries a `remoteUrl` slot so Solana Mobile — or an OEM programme — can publish an updated
+list and become the root of trust for every SMS phone's reviews; adding a device credential is a JSON entry, not an
+app release. Readers record which attestation matched (`SignerFacts.attestation`) so the UI can name it.
+
 ## 4. Reader
 
 ```

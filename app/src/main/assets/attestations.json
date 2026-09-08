@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "note": "Attested-device credentials that make a wallet one voice. Solana Mobile (or any OEM programme) can publish an updated list at remoteUrl; entries are soulbound Token-2022 mints identified by their mint authority and metadata address. The first entry is the Seeker Genesis Token.",
+  "remoteUrl": null,
+  "entries": [
+    { "id": "seeker-genesis", "label": "Seeker Genesis Token", "kind": "token2022-soulbound", "mintAuthority": "GT2zuHVaZQYZSyQMgJPLzvkmyztfyXg2NJunqFp4p3A4", "metadata": "GT22s89nU4iWFkNXj1Bw6uYhJJWDRPpShHt4Bk8f99Te" }
+  ]
+}

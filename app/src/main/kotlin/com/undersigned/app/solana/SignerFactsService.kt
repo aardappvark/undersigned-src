@@ -19,15 +19,45 @@ import java.nio.ByteOrder
  * Cached per signer for [AppConfig.Ledger.FACTS_TTL_MS] so ranking a ledger of N reviews costs
  * O(distinct signers) RPC calls, not O(N).
  */
-class SignerFactsService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
+class SignerFactsService(private val rpc: SolanaRpcClient = SolanaRpcClient(), private val attestations: List<Attestation> = emptyList()) {
 
     suspend fun facts(signer: String, force: Boolean = false): SignerFacts {
         if (!force) UserPreferences.cachedFacts(signer)?.let { return it }
-        val sgt = hasGenesisToken(signer)
-        val stake = if (sgt) stakedSkr(signer) else 0.0   // no-token wallets weigh zero; skip the second lookup
-        val f = SignerFacts(sgt, stake)
+        val att = attestationOf(signer)
+        val stake = if (att != null) stakedSkr(signer) else 0.0   // unattested wallets weigh zero; skip the second lookup
+        val f = SignerFacts(att != null, stake, att)
         UserPreferences.cacheFacts(signer, f)
         return f
+    }
+
+    /** First matching attestation id, or null. Genesis goes through the fleet library; other entries through a generic Token-2022 mint-authority check. */
+    private suspend fun attestationOf(address: String): String? {
+        for (a in attestations.ifEmpty { listOf(Attestation("seeker-genesis", "Seeker Genesis Token", com.midmightbit.sgt.SgtConstants.SGT_MINT_AUTHORITY, com.midmightbit.sgt.SgtConstants.SGT_METADATA_ADDRESS)) }) {
+            val hit = if (a.id == "seeker-genesis") hasGenesisToken(address) else holdsSoulboundFrom(address, a.mintAuthority)
+            if (hit) return a.id
+        }
+        return null
+    }
+
+    /**
+     * Does [address] hold (amount ≥ 1) a Token-2022 token whose mint authority is [mintAuthority]? The generic form of
+     * the Genesis check. Layouts: token account = mint[0..32] owner[32..64] amount u64 LE[64..72]; mint account =
+     * COption<Pubkey> mint_authority = u32 tag[0..4] (1 = Some) + pubkey[4..36].
+     */
+    private suspend fun holdsSoulboundFrom(address: String, mintAuthority: String): Boolean {
+        val accounts = rpc.getToken2022AccountsBase64(address).getOrNull() ?: return false
+        val mints = accounts.mapNotNull { (_, data) ->
+            if (data.size < 72) return@mapNotNull null
+            val amount = ByteBuffer.wrap(data, 64, 8).order(ByteOrder.LITTLE_ENDIAN).long
+            if (amount <= 0L) null else Base58.encode(data.copyOfRange(0, 32))
+        }.distinct()
+        for (m in mints) {
+            val mintData = rpc.getAccountDataBase64(m).getOrNull() ?: continue
+            if (mintData.size < 36) continue
+            val tag = ByteBuffer.wrap(mintData, 0, 4).order(ByteOrder.LITTLE_ENDIAN).int
+            if (tag == 1 && Base58.encode(mintData.copyOfRange(4, 36)) == mintAuthority) return true
+        }
+        return false
     }
 
     /** seeker-verify does its own RPC; try each endpoint of the pool in order (public pools may refuse getTokenAccountsByOwner). */

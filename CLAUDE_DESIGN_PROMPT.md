@@ -24,7 +24,7 @@ Live on mainnet since 8 Sep 2026. Open viewer: https://aardappvark.github.io/und
 
 ## Who uses it
 
-Seeker owners: crypto-literate, privacy-minded, allergic to spam reviews and to anything that smells like a
+Seeker owners: crypto-literate, privacy-minded, allergic to unnatural reviews and to anything that smells like a
 points scheme. Publishers of Seeker dApps who want reviews they can act on and a way to answer with proof of who
 they are. Solana Mobile and Guardian curators reading the ledger as open data.
 
@@ -32,7 +32,7 @@ they are. Solana Mobile and Guardian curators reading the ledger as open data.
 
 "earn", "reward", "points", "yield", "APY", "invest", "stake more", "safe", "unsafe", "scam" (as a verdict),
 "verified by us". Tags are a fixed vocabulary shown Capitalised: Works, Crashes, Wallet ok, Wallet fails, Fast,
-Slow, Battery, Ads, Paywall, Fair price, Overpriced, Perms ok, Perms excess, Spam reviews, Misleading,
+Slow, Battery, Ads, Paywall, Fair price, Overpriced, Perms ok, Perms excess, Unnatural reviews, Misleading,
 Suspected scam, Abandoned, Active dev, Onboarding ok, Confusing, Offline ok, Needs account, Seeker native, Webview.
 
 ---

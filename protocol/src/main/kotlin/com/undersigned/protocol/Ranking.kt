@@ -13,10 +13,12 @@ data class LedgerEntry(
 
 /** Facts read live from the chain about a signer, at ranking time. Both are READ-ONLY lookups. */
 data class SignerFacts(
-    /** Holds a Seeker Genesis Token (one per device) — the sybil gate. Reviews from wallets without one are never counted. */
+    /** Holds an attested-device credential from the governed list (today: the Seeker Genesis Token, one per device) — the one-device-one-voice gate. Reviews from wallets without one are never counted. */
     val hasGenesisToken: Boolean,
     /** Staked SKR in whole tokens, as read from the staking program (SeekerVerify `Season1RpcClient` shape). Weighting only; nothing is staked, moved or promoted by this app. */
     val stakedSkr: Double,
+    /** Which attestation matched (id from the list), e.g. "seeker-genesis". Null when none. */
+    val attestation: String? = if (hasGenesisToken) "seeker-genesis" else null,
 )
 
 data class AppScore(

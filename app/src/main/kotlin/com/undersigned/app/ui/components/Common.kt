@@ -105,4 +105,10 @@ fun TagChip(text: String, count: Int? = null, selected: Boolean = false, onClick
 }
 
 /** Display label for a protocol tag: "wallet-fails" → "Wallet fails". The wire value never changes. */
-fun com.undersigned.protocol.ReviewMemo.Tag.label(): String = wire.replace('-', ' ').replaceFirstChar { it.uppercase() }
+fun com.undersigned.protocol.ReviewMemo.Tag.label(): String = tagLabel(wire)
+
+/** Display label for a tag wire value. Wire values are on-chain vocabulary and never change; labels can. */
+fun tagLabel(wire: String): String = when (wire) {
+    "spam-reviews" -> "Unnatural reviews"
+    else -> wire.replace('-', ' ').replaceFirstChar { it.uppercase() }
+}

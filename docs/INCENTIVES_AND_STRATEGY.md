@@ -32,11 +32,11 @@ Their stated year: take SMS to other OEMs, keep dApp count and quality climbing,
 What the protocol gives them, in the order they would care:
 
 1. **One device, one voice, without owning the identity.** Today "counted" means "holds a Seeker Genesis Token". For OEM phones the protocol should accept **any soulbound device-attestation credential from a list Solana Mobile governs** (mint authorities or program ids). That single change makes Solana Mobile the root of trust for every SMS phone's reviews, without them running a review system. It is the first cross-OEM trust primitive in their stack, and it is the reason to adopt rather than copy.
-2. **Store spam control they never have to explain.** Flags with consensus, disputes, near-duplicate labels, "no Genesis found" on their own reviewers, review-wave alerts. All public, all recomputable. Guardians can moderate from it; the store can rank from it; nobody has to trust Undersigned.
+2. **Store integrity signals they never have to explain.** Flags with consensus, disputes, near-duplicate labels, "no Genesis found" on their own reviewers, review-wave alerts. All public, all recomputable. Guardians can moderate from it; the store can rank from it; nobody has to trust Undersigned.
 3. **Publisher verification they can reuse.** The claim-plus-well-known check binds a wallet to the website the store already lists. That is a verified-publisher registry for the store itself, for free.
 4. **Ecosystem telemetry without an SDK.** Version adoption, certificate changes, permission drift, responsiveness, per-version sentiment, all from consented device snapshots and the chain. No analytics SDK in 500 apps, no data broker.
 5. **Evidence that SKR staking correlates with good citizenship** (or does not). Weighting is read from the chain; the correlation between staked SKR and credibility, agreement and upheld flags is computable by anyone. That is a marketing fact for the token if it holds, and a design fact if it does not.
-6. **Season fraud signals.** Review farms and airdrop farms overlap. Duplicate-text clusters, no-Genesis waves and flag consensus are inputs their reward programmes can use.
+6. **Season integrity signals.** Automated review activity and airdrop-farming activity overlap. Duplicate-text clusters, no-Genesis waves and flag consensus are inputs their reward programmes can use.
 7. **A hackathon story that keeps giving:** "N signed reviews from real devices" is a number they can publish.
 
 ## 3. Marrying with the native store, in stages

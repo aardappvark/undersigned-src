@@ -51,7 +51,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val installedApps = InstalledApps(app)
     private val ledgerCache = LedgerCache(app)
     private val reader = LedgerReader(cache = ledgerCache)
-    private val factsService = SignerFactsService()
+    private val factsService = SignerFactsService(attestations = com.undersigned.app.solana.AttestationList.load(app))
     private val txService = ReviewTxService()
     val iconCache = DAppIconCache(app)
     private val store = StoreReviewsClient()

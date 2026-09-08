@@ -9,7 +9,7 @@ import java.util.Base64
  *   SRL1|rev|<package>|<rating 1-5>|<tags a,b,c>|<versionCode>|<b64 text or empty>
  *   SRL1|rvk|<signature of the review tx being withdrawn>
  *   SRL1|rep|<signature of the review being answered>|<b64 text>
- *   SRL1|flg|<record id>|<reason>  — "this record is spam/abuse/off-topic/misleading"; from Genesis wallets only
+ *   SRL1|flg|<record id>|<reason>  — "this record looks unnatural (suspected spam) / abusive / off-topic / misleading"; from Genesis wallets only
  *   SRL1|up|<record id>            — "helpful"; one per wallet per record, Genesis-weighted; orders reviews, never hides
  *   SRL1|dsp|<record id>|<b64 text> — the AUTHOR disputes consensus hiding of their own record; raises the bar to 2× and shows the text
  *   SRL1|clm|<package>            — "I publish this app"; readers verify it against the website the

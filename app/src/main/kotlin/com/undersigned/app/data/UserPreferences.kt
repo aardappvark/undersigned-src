@@ -71,11 +71,11 @@ object UserPreferences {
     fun cachedFacts(signer: String): SignerFacts? {
         val o = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}").optJSONObject(signer) }.getOrNull() ?: return null
         if (System.currentTimeMillis() - o.optLong("at", 0L) > FACTS_TTL_MS) return null
-        return SignerFacts(o.optBoolean("sgt", false), o.optDouble("skr", 0.0))
+        return SignerFacts(o.optBoolean("sgt", false), o.optDouble("skr", 0.0), o.optString("att", null)?.takeIf { it.isNotEmpty() && it != "null" } ?: if (o.optBoolean("sgt", false)) "seeker-genesis" else null)
     }
     fun cacheFacts(signer: String, f: SignerFacts) {
         val all = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}") }.getOrDefault(JSONObject())
-        all.put(signer, JSONObject().put("sgt", f.hasGenesisToken).put("skr", f.stakedSkr).put("at", System.currentTimeMillis()))
+        all.put(signer, JSONObject().put("sgt", f.hasGenesisToken).put("skr", f.stakedSkr).put("att", f.attestation ?: "").put("at", System.currentTimeMillis()))
         prefs?.edit()?.putString(KEY_FACTS, all.toString())?.apply()
     }
     fun clearFacts() { prefs?.edit()?.remove(KEY_FACTS)?.apply() }

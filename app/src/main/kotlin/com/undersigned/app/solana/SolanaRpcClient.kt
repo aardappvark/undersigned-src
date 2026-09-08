@@ -64,6 +64,13 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
         LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget)
     }
 
+    /** Token-2022 token accounts of [owner], raw base64 data (for the generic attestation check). */
+    suspend fun getToken2022AccountsBase64(owner: String): Result<List<Pair<String, ByteArray>>> = rpc {
+        val params = JSONArray().put(owner).put(JSONObject().put("programId", "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb")).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed"))
+        val arr = call("getTokenAccountsByOwner", params).getJSONObject("result").optJSONArray("value") ?: JSONArray()
+        (0 until arr.length()).mapNotNull { i -> val o = arr.optJSONObject(i) ?: return@mapNotNull null; val d = o.optJSONObject("account")?.optJSONArray("data")?.optString(0) ?: return@mapNotNull null; o.optString("pubkey") to Base64.decode(d, Base64.DEFAULT) }
+    }
+
     suspend fun getAccountDataBase64(pubkey: String): Result<ByteArray?> = rpc {
         val v = call("getAccountInfo", JSONArray().put(pubkey).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed"))).getJSONObject("result").opt("value")
         if (v == null || v == JSONObject.NULL) null

@@ -20,6 +20,7 @@ import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.GlassCard
 import com.undersigned.app.ui.components.RatingStars
+import com.undersigned.app.ui.components.tagLabel
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.LedgerEntry
 import com.undersigned.protocol.ReviewMemo
@@ -91,7 +92,7 @@ private fun ReviewRow(e: LedgerEntry, app: String, who: String, onClick: () -> U
             Text(who + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
         }
         when (val m = e.memo) {
-            is ReviewMemo.Review -> { Text(m.tags.joinToString(" · ") { it.wire.replace('-', ' ').replaceFirstChar { c -> c.uppercase() } }, color = RbColors.textSecondary, fontSize = 12.sp); m.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) } }
+            is ReviewMemo.Review -> { Text(m.tags.joinToString(" · ") { tagLabel(it.wire) }, color = RbColors.textSecondary, fontSize = 12.sp); m.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) } }
             is ReviewMemo.Reply -> Text(m.text, color = RbColors.textSecondary, fontSize = 13.sp)
             else -> {}
         }
