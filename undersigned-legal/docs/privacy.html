@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Undersigned</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #0A0A0E;
+            color: #E0E0E0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0A0A0E 100%);
+            border-bottom: 2px solid #9945FF;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        header h1 {
+            color: #14F195;
+            font-size: 2.5rem;
+            margin-bottom: 0.25rem;
+            letter-spacing: 1px;
+        }
+        header p {
+            color: #9945FF;
+            font-size: 1.1rem;
+        }
+        nav {
+            background-color: #111118;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
+        nav a {
+            color: #9945FF;
+            text-decoration: none;
+            margin: 0 0.75rem;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #14F195; }
+        nav a.active { color: #14F195; }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        h2 {
+            color: #14F195;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #222;
+        }
+        h3 {
+            color: #9945FF;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            color: #E0E0E0;
+        }
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            color: #E0E0E0;
+        }
+        .highlight {
+            background-color: #111118;
+            border-left: 3px solid #14F195;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .highlight p { margin-bottom: 0; }
+        .updated {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        footer {
+            border-top: 1px solid #222;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 3rem;
+        }
+        footer a {
+            color: #9945FF;
+            text-decoration: none;
+        }
+        footer a:hover { color: #14F195; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Undersigned</h1>
+        <p>Signed reviews for the Solana dApp Store</p>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="privacy.html" class="active">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="copyright.html">Copyright</a>
+        <a href="license.html">License</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="sanctions.html">Sanctions</a>
+    </nav>
+    <main>
+        <h2>Privacy Policy</h2>
+        <p class="updated">Last updated: 8 September 2026</p>
+
+        <h3>1. Introduction</h3>
+        <p>Undersigned ("the App") is developed by MidMightBit Games, trading as ADappvark ("we", "us"). This policy explains what the App does and does not do with data. The short version: there is no account, no analytics, no advertising and no server of ours in the loop. The App talks to public blockchain infrastructure and the Solana dApp Store's own public feed directly from your device.</p>
+
+        <h3>2. Information We Do Not Collect</h3>
+        <ul>
+            <li>No name, email address, phone number or account</li>
+            <li>No private keys or seed phrases &mdash; the App never asks for them and cannot see them</li>
+            <li>No device identifier, advertising identifier, install id or session id</li>
+            <li>No location data &mdash; region screening (section 12) runs on-device and sends nothing</li>
+            <li>No usage analytics, crash reports or telemetry of any kind</li>
+        </ul>
+
+        <h3>3. On-Device Data Storage</h3>
+        <p>The App stores, in its private app storage on your device only:</p>
+        <ul>
+            <li>Your wallet's public address after you sign in, so you can browse without signing in again</li>
+            <li>Your signed consent record (section 4)</li>
+            <li>Your locally hidden-review list (reviews you have reported or hidden) and your follow list (apps you follow for alerts)</li>
+            <li>A cache of the public review ledger and dApp Store catalogue data you have read, so reopening the App does not require re-fetching everything, and the on-device installed-app safety-fact snapshots (certificate hash, permission set, version) used to show what changed since you last checked</li>
+            <li>Your notification preference and the timestamp of the last local ledger check, if you have opted in to alerts</li>
+            <li>A cached copy of any <code>.skr</code> domain name resolved for a signer, and a cache of any publisher-verification result</li>
+        </ul>
+        <p>Nothing is backed up to any cloud by the App (Android backup is disabled). <strong>Settings &gt; Delete all app data</strong> erases all of it. Uninstalling the App does the same. None of this affects any review your wallet has already signed and published to the chain; see section 10.</p>
+
+        <h3>4. Sign In With Solana (SIWS)</h3>
+        <p>Signing in asks your wallet to sign a short consent statement. The signature, the statement, your wallet's public address and a timestamp are stored on your device as proof that you accepted the Terms. They are not sent to us. You can export this record as JSON from Settings, and delete it there.</p>
+
+        <h3>4A. What You Publish Is Public</h3>
+        <p>The App charges no fee. If you choose to sign and publish a review, revocation, or reply, that record is written directly by your wallet to the public Solana blockchain, and is not something we hold or can withdraw for you. See the <a href="terms.html">Terms</a>, section 9A, and the <a href="disclaimer.html">Disclaimer</a>, before you publish anything.</p>
+
+        <h3>5. Network Requests and Endpoints</h3>
+        <p>The App contacts these hosts, directly from your device:</p>
+        <ul>
+            <li><strong>Solana RPC providers</strong> &mdash; <strong>mainnet.helius-rpc.com</strong> (Helius), <strong>api.mainnet-beta.solana.com</strong> (Solana Foundation) and <strong>solana-rpc.publicnode.com</strong> (PublicNode), tried in that order. They receive the review-ledger reference address being read, the transaction signatures and transactions being fetched and decoded, the Genesis Token and staked-SKR account lookups for wallets whose reviews you are viewing, <code>.skr</code> domain-name lookups, and the transactions the App simulates and submits on your behalf. This is public blockchain data; the requests are how the App reads and writes it.</li>
+            <li><strong>dappstore.solanamobile.com</strong> &mdash; the Solana dApp Store's public GraphQL feed, queried for app catalogue metadata, the store's own star-rating summary, and the store's own reviews for an app. Read-only: the App holds no store credentials and never writes to the store. The request carries the package name being looked up and nothing about you.</li>
+            <li><strong>api.trmlabs.com</strong> &mdash; TRM Labs' public sanctions screening service, sent the connected wallet's public address before the App accepts it and before any review transaction, to check it against sanctions lists. A local copy of the OFAC SDN address list is checked first, on the device.</li>
+            <li><strong>The website a store listing names for a publisher</strong> &mdash; when verifying a publisher's right to reply, the App fetches <code>/.well-known/undersigned.txt</code> from the website the dApp Store lists for that app. This request carries no data about you.</li>
+            <li><strong>aardappvark.github.io</strong> &mdash; hosts these legal pages and the App's icon for the wallet approval sheet; contacted when you open a legal link or when your wallet fetches the icon.</li>
+        </ul>
+        <ul>
+            <li>None of these requests pass through any server we operate. We operate no server for this App.</li>
+            <li>Every host you contact necessarily receives your IP address. See each provider's own privacy policy for how it handles requests.</li>
+            <li>Your wallet app (for example the Seeker's built-in wallet) makes its own network requests when it simulates and submits a transaction; those are governed by its privacy policy.</li>
+        </ul>
+
+        <h3>6. Reading Public Data</h3>
+        <p>The review ledger, the dApp Store's public catalogue, and on-chain facts such as Genesis Token ownership, staked SKR, and <code>.skr</code> names are all public blockchain or public API data. Reading them &mdash; including data about wallets other than your own &mdash; does not require your own wallet's involvement and reveals nothing about you beyond the network requests described in section 5.</p>
+
+        <h3>7. Third-Party Services</h3>
+        <p>Undersigned integrates no third-party analytics SDK, advertising network, crash reporter or tracking service. We do not use:</p>
+        <ul>
+            <li>Google Analytics, Firebase, or similar analytics platforms</li>
+            <li>Advertising networks or ad SDKs</li>
+            <li>Crash reporting services (such as Crashlytics or Sentry)</li>
+            <li>Social media SDKs or login services (other than SIWS)</li>
+            <li>Push notification services &mdash; ledger alerts are local notifications scheduled on the device, triggered by the App's own periodic on-device ledger re-read; no notification service or server is involved</li>
+        </ul>
+        <p>The only third-party code that runs in the App is the Solana Mobile Wallet Adapter client library and the <code>seeker-verify</code> library, both of which talk to your wallet app or to public Solana infrastructure directly.</p>
+
+        <h3>8. Children's Privacy</h3>
+        <p>The App is not directed to anyone under 18 and we do not knowingly collect information from children. It requires a Solana wallet, which itself requires adulthood.</p>
+
+        <h3>9. Data Security</h3>
+        <p>Data stays in the App's private storage on your device, protected by Android's application sandbox. Network requests use HTTPS only; cleartext traffic is disabled in the App's network security configuration.</p>
+
+        <h3>10. Your Rights</h3>
+        <p>Because we hold no personal data about you on any server, there is nothing for us to access, correct, port or erase on our side. Everything the App stores on your device is under your control: export it or delete it from Settings.</p>
+        <p>If you have signed and published a review, note, or reply, that record includes your wallet's public address &mdash; pseudonymous personal data that you chose to publish, by your own act, to a public, permanent ledger the Developer does not host or control. We can honour your right to have the App stop counting and displaying it (a revocation you sign, and a local hide), but we cannot erase the underlying chain record, and no request to us can do so. If you believe we hold personal data about you beyond what is described in this policy, contact us and we will respond within 30 days.</p>
+
+        <h3>11. International Users</h3>
+        <p>The App is developed in Australia and can be used anywhere the Sanctions policy allows. The RPC providers, the dApp Store's feed, and the sanctions-screening service listed in section 5 operate globally; your requests may be processed in the country where their servers are located.</p>
+
+        <h3>12. On-Device Region Screening</h3>
+        <p>To comply with sanctions law the App checks, on-device, the country of your SIM card, mobile network, time zone and, only if no telephony signal exists, device locale, against a list of restricted jurisdictions. The result is used only to show a block screen. No location data is stored or transmitted. See <a href="sanctions.html">Sanctions &amp; Restricted Regions</a>.</p>
+
+        <h3>13. Changes to This Privacy Policy</h3>
+        <p>We may update this policy. The current version is published here with its date; a material change is presented in the App for acceptance.</p>
+
+        <h3>14. Contact Us</h3>
+        <p>MidMightBit Games, Melbourne, VIC, Australia &mdash; <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a></p>
+    </main>
+
+<!-- eu-gdpr-block v1 -->
+<h2>European Union and EEA Users &mdash; GDPR</h2>
+<p>This section applies if you are in the European Union or the European Economic Area, and explains
+how Regulation (EU) 2016/679 (GDPR) applies to Undersigned.</p>
+
+<h3>Controller</h3>
+<p>MidMightBit Games, a sole trader established in Australia, is the data controller for the data described
+in this policy. Contact:
+<a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a>. We have not appointed a Data Protection Officer; we are not
+required to.</p>
+
+<h3>Representative in the Union (Article 27)</h3>
+<p>We have not designated a representative in the Union. We rely on the exemption in Article 27(2)(a):
+our processing of EU personal data is occasional, does not include large-scale processing of special
+categories of data under Article 9 or data relating to criminal convictions under Article 10, and is
+unlikely to result in a risk to the rights and freedoms of natural persons. You can contact us
+directly at <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a> about any GDPR matter, and we answer in English.</p>
+
+<h3>What we process, and on what legal basis</h3>
+<ul>
+<li><strong>Data held on your device</strong> (your settings, your hide and follow lists, cached ledger
+reads, and any wallet public address you connect) &mdash; processed to perform the contract with you,
+Article 6(1)(b). This stays in app-private storage on your device. We do not receive it and cannot
+read it.</li>
+<li><strong>We do not collect anonymous usage counts, aggregated statistics, or any other telemetry.</strong>
+There is no analytics event of any kind in the App, and consequently no legitimate-interest processing
+of that kind to describe.</li>
+<li><strong>Sanctions and region screening</strong> &mdash; carried out on your device to comply with
+legal obligations to which we are subject, Article 6(1)(c), and our legitimate interest in not
+supplying restricted jurisdictions, Article 6(1)(f). The result is a yes or no evaluated on your
+device; it is not stored by us and never transmitted, except that your wallet's public address is sent
+to TRM Labs' public sanctions-screening service as described in section 5, under the same legal bases.</li>
+<li><strong>Content you choose to publish</strong> &mdash; if you sign and publish a review, note, or
+reply, that is your own act of publication to a public ledger, based on your explicit consent given at
+the second consent screen described in the Terms, Article 6(1)(a). We do not receive, store, or control
+that data; your wallet sends it directly to the Solana network.</li>
+<li><strong>Blockchain interactions</strong> &mdash; reading reviews, catalogue data, Genesis Token
+status and staked SKR involves sending a wallet's public address to public Solana RPC providers and the
+dApp Store's public feed to read on-chain or catalogue state. That is necessary to perform the contract,
+Article 6(1)(b). Anything written to a public blockchain is permanent, public, and outside our control
+&mdash; it cannot be erased or rectified by us or by anyone.</li>
+</ul>
+
+<h3>Storage on and access to your device (ePrivacy, Article 5(3))</h3>
+<p>Undersigned stores settings on your device using Android's app-private storage. That storage is strictly
+necessary to provide the service you asked for, so it does not require separate consent. The App sets
+no cookies, uses no advertising identifier, no device fingerprinting and no third-party analytics SDK,
+and does not read information stored on your device for any purpose other than running the App.</p>
+
+<h3>Transfers outside the EEA</h3>
+<p>We are established in Australia, which is not the subject of an adequacy decision under Article 45.
+In practice nothing is transferred to us: the App sends us no data. The RPC providers, the dApp Store's
+public feed, and the sanctions-screening service the App contacts directly (section 5) are independent
+controllers of the requests they receive; Helius Labs, Solana Mobile Inc. and TRM Labs are established
+outside the EEA and their own privacy policies describe the safeguards they apply. The requests carry a
+public wallet address or a public transaction, and your IP address, and nothing else.</p>
+
+<h3>Retention</h3>
+<p>Data on your device is kept until you delete it, clear the App's data, or uninstall the App.
+We operate no user accounts and hold no profile of you. Content you publish to the chain is retained by
+the Solana network indefinitely, independently of the App and of us.</p>
+
+<h3>Your rights</h3>
+<p>You have the rights of access (Article 15), rectification (16), erasure (17), restriction (18),
+data portability (20) and objection (21), and the right to withdraw consent at any time where consent
+is the basis. Because your data lives on your device and we hold no identifier for you, you exercise
+most of these directly: the data is visible in the App, and clearing the App's data or uninstalling it
+erases it. Content you have published to the public ledger is outside our custody or control, and the
+erasure right cannot compel its removal from the chain; the App instead offers the revocation and hide
+mechanisms described in section 10. For anything else, email
+<a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a> &mdash; we respond within one
+month, free of charge.</p>
+<p>There is no automated decision-making producing legal or similarly significant effects, and no
+profiling within the meaning of Article 22. Deterministic score ranking is not automated decision-making
+about you: it ranks apps, not people, from data anyone can independently verify on-chain.</p>
+
+<h3>Complaints</h3>
+<p>You have the right to lodge a complaint with the supervisory authority of your Member State of
+residence, place of work, or of the alleged infringement (Article 77). A list is published by the
+European Data Protection Board at
+<a href="https://www.edpb.europa.eu/about-edpb/about-edpb/members_en">edpb.europa.eu</a>. We would
+appreciate the chance to resolve it first.</p>
+
+<footer>
+        <p>&copy; 2026 ADappvark. All rights reserved.</p>
+        <p>Contact: <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a></p>
+        <p>Last updated: 8 September 2026</p>
+    </footer>
+</body>
+</html>

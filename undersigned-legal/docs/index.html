@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undersigned - Legal Documents</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #0A0A0E;
+            color: #E0E0E0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0A0A0E 100%);
+            border-bottom: 2px solid #9945FF;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        header h1 {
+            color: #14F195;
+            font-size: 2.5rem;
+            margin-bottom: 0.25rem;
+            letter-spacing: 1px;
+        }
+        header p {
+            color: #9945FF;
+            font-size: 1.1rem;
+        }
+        nav {
+            background-color: #111118;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
+        nav a {
+            color: #9945FF;
+            text-decoration: none;
+            margin: 0 0.75rem;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #14F195; }
+        nav a.active { color: #14F195; }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border: 1px solid #222;
+            border-radius: 8px;
+            background-color: #111118;
+        }
+        .intro h2 {
+            color: #14F195;
+            margin-bottom: 0.5rem;
+        }
+        .intro p {
+            color: #aaa;
+        }
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .doc-card {
+            background-color: #111118;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .doc-card:hover {
+            border-color: #9945FF;
+            transform: translateY(-2px);
+        }
+        .doc-card h3 {
+            color: #14F195;
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+        }
+        .doc-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .doc-card a {
+            color: #9945FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .doc-card a:hover { color: #14F195; }
+        footer {
+            border-top: 1px solid #222;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 3rem;
+        }
+        footer a {
+            color: #9945FF;
+            text-decoration: none;
+        }
+        footer a:hover { color: #14F195; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Undersigned</h1>
+        <p>Signed reviews for the Solana dApp Store</p>
+    </header>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="copyright.html">Copyright</a>
+        <a href="license.html">License</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="sanctions.html">Sanctions</a>
+    </nav>
+    <main>
+        <div class="intro">
+            <h2>Legal Documents</h2>
+            <p>Review the legal documents governing your use of Undersigned, a non-custodial, sybil-resistant on-chain review and trust layer for the Solana dApp Store, distributed via the Solana Seeker dApp Store.</p>
+        </div>
+        <div class="docs-grid">
+            <div class="doc-card">
+                <h3>Privacy Policy</h3>
+                <p>No accounts, no analytics, no server of ours. Lists every RPC provider, the dApp Store's public feed, and exactly what is stored on your device.</p>
+                <a href="privacy.html">Read Privacy Policy &rarr;</a>
+            </div>
+            <div class="doc-card">
+                <h3>Terms of Service</h3>
+                <p>What the app does, what it never does, and the double-consent rule for anything you choose to write to the public, permanent chain.</p>
+                <a href="terms.html">Read Terms of Service &rarr;</a>
+            </div>
+            <div class="doc-card">
+                <h3>Copyright Notice</h3>
+                <p>Copyright ownership and attributions for Solana, the Mobile Wallet Adapter, seeker-verify, AllDomains, RPC providers and the Manrope typeface.</p>
+                <a href="copyright.html">Read Copyright Notice &rarr;</a>
+            </div>
+            <div class="doc-card">
+                <h3>License</h3>
+                <p>Proprietary software licence, free of charge. Undersigned may not be redistributed, modified, or reverse-engineered. No purchases, no token.</p>
+                <a href="license.html">Read License &rarr;</a>
+            </div>
+            <div class="doc-card">
+                <h3>Disclaimer &amp; Risk Disclosure</h3>
+                <p>On-chain reviews are permanent and cannot be deleted by you, by us, or by anyone. Read this before you sign your first review.</p>
+                <a href="disclaimer.html">Read Disclaimer &rarr;</a>
+            </div>
+            <div class="doc-card">
+                <h3>Sanctions &amp; Restricted Regions</h3>
+                <p>The exact list of 17 countries where Undersigned blocks access, matching the app's on-device region check and wallet screening at sign-in.</p>
+                <a href="sanctions.html">Read Sanctions Policy &rarr;</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2026 ADappvark. All rights reserved.</p>
+        <p>Contact: <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a></p>
+        <p>Last updated: 8 September 2026</p>
+    </footer>
+</body>
+</html>

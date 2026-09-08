@@ -23,7 +23,13 @@ account → `err: null`, 19,488 CU, memo logged, 301 bytes. 1 lamport behaves id
 | Record | Wire | Notes |
 |---|---|---|
 | Review | `SRL1\|rev\|<package>\|<1-5>\|<tag,tag,tag>\|<versionCode>\|<b64url text or empty>` | 1–3 tags from the fixed vocabulary; text optional, ≤ 140 chars AND ≤ 280 UTF-8 bytes (3-byte scripts: ~93 chars), package ≤ 100 chars, behind a second consent |
-| Revocation | `SRL1\|rvk\|<signature>` | Only honoured if the same wallet signed the review it names |
+| Revocation | `SRL1\|rvk\|<record id>` | Only honoured if the same wallet signed the review it names |
+| Reply | `SRL1\|rep\|<record id>\|<b64url text>` | Anyone may reply; never affects ranking; publisher badge if the signer holds a verified claim |
+| Claim | `SRL1\|clm\|<package>` | "I publish this app"; verified when the website the STORE lists for the package serves `/.well-known/undersigned.txt` containing the signer wallet (GitHub sites read raw from the default branch); cached 24 h |
+
+**Record ids.** One record per memo instruction. The first memo of a transaction is addressed by the transaction signature; the n-th by `<signature>:<n>` (imports pack several records into one signature).
+
+**Transaction fingerprint.** A transaction that carries both a Lighthouse assertion (`L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95`) and ComputeBudget instructions was signed by the Seeker wallet (observed on every record it produced, 8 Sep 2026). Readers show it as a "Seeker wallet" mark. It is a fingerprint, not a proof; the Genesis Token gate is the proof of a Seeker-provisioned key.
 
 Codec, limits and the 24-tag vocabulary: `protocol/.../ReviewMemo.kt`. Readers reject anything that
 does not parse exactly; there is no partial acceptance and no "unknown field" tolerance in v1.
