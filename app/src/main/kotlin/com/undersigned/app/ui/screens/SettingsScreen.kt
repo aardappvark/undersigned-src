@@ -187,6 +187,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     try { (context as? android.app.Activity)?.recreate() } catch (_: Exception) { }
                 })
             }
+            Spacer(Modifier.height(12.dp))
+            SecondaryButton(stringResource(R.string.intro_replay), onClick = { UserPreferences.setOnboardingSeen(false) })
             Spacer(Modifier.height(20.dp))
             Text(stringResource(R.string.settings_about, BuildConfig.VERSION_NAME), color = RbColors.textDim, fontSize = 11.sp)
             Text(stringResource(R.string.settings_contact), color = RbColors.textDim, fontSize = 11.sp)

@@ -108,6 +108,15 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             error?.let { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_failed, it), color = RbColors.negative, fontSize = 12.sp) }
             done?.let {
                 Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_done, shortKey(it, 8, 8)), color = RbColors.green, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton(stringResource(R.string.review_also_store), onClick = {
+                    try {
+                        val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                        if (text.isNotBlank()) cm.setPrimaryClip(android.content.ClipData.newPlainText("review", text.trim()))
+                        context.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(com.undersigned.app.AppConfig.Store.DEEP_LINK + pkg)))
+                    } catch (_: Exception) { }
+                })
+                Text(stringResource(R.string.review_also_store_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 Spacer(Modifier.height(8.dp)); SecondaryButton("OK", onClick = onPublished)
             }
             Spacer(Modifier.height(32.dp))

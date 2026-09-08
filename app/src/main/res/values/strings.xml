@@ -39,6 +39,19 @@
     <string name="onboarding_step4_title">Not the dApp Store</string>
     <string name="onboarding_step4_body">Undersigned reads the store\'s public catalogue and opens listings in the store. It never installs anything and is not affiliated with Solana Mobile.</string>
     <string name="onboarding_cta">Start browsing</string>
+    <string name="intro_skip">Skip</string>
+    <string name="intro_next">Next</string>
+    <string name="intro_replay">Replay the intro</string>
+    <string name="intro1_title">One Seeker, one voice</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing to buy, stake or earn.</string>
+    <string name="intro2_title">Signed, not typed</string>
+    <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
+    <string name="intro3_title">Beside the store, not instead of it</string>
+    <string name="intro3_body">The store\'s own rating and reviews are shown next to the signed ones, credited. Installs open in the store. You can bring your existing store reviews across with one signature.</string>
+    <string name="intro4_title">What your phone can prove</string>
+    <string name="intro4_body">For apps you have installed, Undersigned shows whether the build matches the certificate the store lists and whether permissions changed. Facts, never verdicts.</string>
+    <string name="intro5_title">Follow, get told, reply</string>
+    <string name="intro5_body">Follow apps to hear about new signed reviews, updates and replies. Publishers claim their app by signing and answer with a verified badge. Everything you publish is permanent and public.</string>
 
     <!-- Browse -->
     <string name="browse_title">Undersigned</string>

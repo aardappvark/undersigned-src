@@ -205,4 +205,20 @@
     <string name="settings_about">Undersigned v%1$s — Solana Mobile، Solana Foundation یا کسی بھی والٹ سے وابستہ نہیں۔</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned عوامی dApp Store کیٹلاگ پڑھتا ہے اور فہرستیں اسٹور میں کھولتا ہے۔ یہ کبھی ایپس نصب، اپ ڈیٹ یا حذف نہیں کرتا۔</string>
+    <!-- TODO translate: intro slides (English fallback) -->
+    <string name="intro_skip">Skip</string>
+    <string name="intro_next">Next</string>
+    <string name="intro_replay">Replay the intro</string>
+    <string name="intro1_title">One Seeker, one voice</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing to buy, stake or earn.</string>
+    <string name="intro2_title">Signed, not typed</string>
+    <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
+    <string name="intro3_title">Beside the store, not instead of it</string>
+    <string name="intro3_body">The store\'s own rating and reviews are shown next to the signed ones, credited. Installs open in the store. You can bring your existing store reviews across with one signature.</string>
+    <string name="intro4_title">What your phone can prove</string>
+    <string name="intro4_body">For apps you have installed, Undersigned shows whether the build matches the certificate the store lists and whether permissions changed. Facts, never verdicts.</string>
+    <string name="intro5_title">Follow, get told, reply</string>
+    <string name="intro5_body">Follow apps to hear about new signed reviews, updates and replies. Publishers claim their app by signing and answer with a verified badge. Everything you publish is permanent and public.</string>
+    <string name="review_also_store">Also post in the dApp Store</string>
+    <string name="review_also_store_hint">Copies your note and opens the listing in the store. The store has no way for another app to post for you, so the last taps are yours.</string>
 </resources>
