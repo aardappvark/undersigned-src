@@ -38,7 +38,17 @@ Whichever is chosen, **one visual world for every image**: same lens family (85�
 [SUBJECT], photorealistic macro photograph, 90mm lens, f/2.2, shallow depth of field, single practical light with a [violet #9945FF | mint #14F195] gel, chiaroscuro, matte black background, cream paper and dark leather textures, fine grain, 8K, portrait 9:20 [or 2:1 for the banner, 1:1 for the icon and Editor's Choice], lower half falls to black for text, no text, no logos, no watermark, no faces, no illustration, no cartoon, no emoji
 ```
 
-Negative prompt for every generation: `text, letters, logo, watermark, emoji, emoticon, sticker, cartoon, illustration, 3d render, CGI look, plastic, neon signage, face, hands with jewellery, stock photo, oversaturated`.
+**What we learned generating the moodboard (8 Sep 2026, Higgsfield Soul 2.0, 2K, ~0.12 credits a frame).** The photographic model is excellent at ink, wax, leather and light, and unreliable about three things — plan for them:
+
+1. **It invents brands.** Unprompted it added a made-up wordmark, a circular logo and a human pictogram to the first banner attempt, and a small emblem to a notebook cover. Every prompt therefore has to say, in the positive text as well as the negative, that the scene is *unbranded and anonymous*, and every returned frame must be checked for invented marks before use.
+2. **It writes.** Asked for an abstract ink stroke it produces letterforms every time. Photographs may contain *illegible* handwriting where a signature genuinely belongs (slides 2 and 5, the banner); nothing else may contain characters.
+3. **It paints with the accent instead of lighting with it.** Say "mint-green light / reflection", never "mint-green object", or you get a mint notebook.
+
+**The icon is not photographic.** Three attempts produced violet lettering rather than a mark. The icon is authored as vector geometry instead (see `assets/design/icon/`): one tapered signature stroke resting on a mint rule — the line you sign *above*, which is what "the undersigned" means. It holds at 48 dp and 24 dp and gives a clean white monochrome layer. Refine that geometry; do not photograph it. Photography stays where it belongs: slides, gates, empty states, banner, Editor's Choice.
+
+Negative prompt for every generation: `text, letters, words, brand name, wordmark, logo, emblem, badge, icon, pictogram, human figure, watermark, emoji, emoticon, sticker, cartoon, illustration, 3d render, CGI look, plastic, neon signage, face, hands with jewellery, stock photo, oversaturated`.
+
+Approved reference frames from that session are in `assets/design/moodboard/` (five slide frames, banner study) and `assets/design/icon/` (icon, adaptive layers, monochrome, legibility proofs). Match their light, materials and depth of field.
 
 ---
 
