@@ -35,6 +35,12 @@ android {
             storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
             keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
             keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
+            // Sign v2 AND v3, matching the rest of the fleet. The build was emitting v2 only;
+            // v3 carries the signing-certificate lineage Android uses to reason about an app's
+            // identity. Same key, so installs still update in place. v1 adds nothing above minSdk 24.
+            enableV1Signing = false
+            enableV2Signing = true
+            enableV3Signing = true
         }
     }
 

@@ -144,6 +144,12 @@
         </ul>
         <p>Nothing is backed up to any cloud by the App (Android backup is disabled). <strong>Settings &gt; Delete all app data</strong> erases all of it. Uninstalling the App does the same. None of this affects any review your wallet has already signed and published to the chain; see section 10.</p>
 
+        <h3 id="permissions">3A. Permissions and What They Can See</h3>
+        <p>The App requests three permissions of its own: <code>INTERNET</code>, to read the public ledger, the dApp Store's public feed and the publisher verification file; <code>QUERY_ALL_PACKAGES</code>, to read which apps are installed on this device together with their version, signing certificate hash and requested dangerous permissions; and, only if you switch alerts on, <code>POST_NOTIFICATIONS</code>.</p>
+        <p><strong>The installed-app information read under <code>QUERY_ALL_PACKAGES</code> never leaves your device.</strong> It is compared with an earlier snapshot held in the App's own private storage so the App can show you what changed between versions, and it is not uploaded, transmitted, sold, shared with us, or included in anything you publish. Uninstalling the App deletes it.</p>
+        <p>Five further permissions (<code>ACCESS_NETWORK_STATE</code>, <code>WAKE_LOCK</code>, <code>RECEIVE_BOOT_COMPLETED</code>, <code>FOREGROUND_SERVICE</code>, <code>REORDER_TASKS</code>) are contributed by the Android libraries the App uses and appear on its store listing; each is explained in the Terms. The App requests no location, camera, microphone, contacts, storage, phone or SMS permission.</p>
+
+
         <h3>4. Sign In With Solana (SIWS)</h3>
         <p>Signing in asks your wallet to sign a short consent statement. The signature, the statement, your wallet's public address and a timestamp are stored on your device as proof that you accepted the Terms. They are not sent to us. You can export this record as JSON from Settings, and delete it there.</p>
 
