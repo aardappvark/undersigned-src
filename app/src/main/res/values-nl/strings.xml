@@ -262,4 +262,12 @@
     <string name="similar_copied">Same text across apps</string>
     <string name="similar_hint">Near-identical to %1\$d other notes. A label only; it never hides a review.</string>
     <string name="compose_similar_warning">This note is near-identical to a review already on the ledger. Copied text is labelled for everyone to see; your own words carry more weight with readers.</string>
+    <string name="unflag">Withdraw my flag</string>
+    <string name="clear">Looks genuine</string>
+    <string name="clear_sign">Sign a \"looks genuine\" vote</string>
+    <string name="clear_body">A clear vote offsets flags on this record. One per wallet, weighted like a flag. Use it when you think the flags are wrong.</string>
+    <string name="unvote">Withdraw my helpful vote</string>
+    <string name="flag_net">net %1\$s</string>
+    <string name="publisher_flags_ignored">Flags from a verified publisher on reviews of their own app do not count; reply instead.</string>
+    <string name="hidden_reply">Reply hidden by consensus</string>
 </resources>

@@ -48,16 +48,36 @@ data class Responsiveness(
 }
 
 object Reputation {
-    /** Community consensus: a record is hidden by readers when distinct Genesis wallets other than its author flag it with total weight ≥ [HIDE_WEIGHT]; after the author disputes, ≥ 2 × [HIDE_WEIGHT]. */
+    /**
+     * Community consensus: a record is hidden by readers when the NET flag weight — flags minus "looks genuine"
+     * clears, each one per attested wallet, author excluded, latest flag/withdrawal per wallet wins, and flags from
+     * a verified publisher of the reviewed app ignored — reaches [HIDE_WEIGHT]; after the author disputes, 2 × that.
+     * Every step is reversible on-chain: withdraw a flag (unf), add a clear (clr), dispute (dsp).
+     */
     const val HIDE_WEIGHT = 2.0
 
-    /** Genesis-weighted "helpful" votes per record, one per wallet, author's own vote excluded. */
+    /** Per (record, wallet): the latest "on"/"off" state of a toggle pair, by block time. */
+    private fun latestState(entries: List<LedgerEntry>, on: (ReviewMemo) -> String?, off: (ReviewMemo) -> String?): Map<String, Map<String, Boolean>> {
+        val out = HashMap<String, HashMap<String, Pair<Long, Boolean>>>()
+        for (e in entries.sortedBy { it.blockTime }) {
+            val target = on(e.memo)?.let { it to true } ?: off(e.memo)?.let { it to false } ?: continue
+            out.getOrPut(target.first) { HashMap() }[e.signer] = e.blockTime to target.second
+        }
+        return out.mapValues { (_, m) -> m.mapValues { it.value.second } }
+    }
+
+    /** Attestation-weighted "helpful" votes per record, one per wallet, withdrawable, author's own vote excluded. */
     fun helpfulWeights(entries: List<LedgerEntry>, facts: (String) -> SignerFacts): Map<String, Double> {
         val bySig = entries.associateBy { it.signature }
-        return entries.filter { it.memo is ReviewMemo.Upvote }.groupBy { (it.memo as ReviewMemo.Upvote).recordId }
-            .mapValues { (target, ups) -> val author = bySig[target]?.signer; ups.filter { it.signer != author }.distinctBy { it.signer }.sumOf { Ranking.weight(facts(it.signer)) } }
+        return latestState(entries, { (it as? ReviewMemo.Upvote)?.recordId }, { (it as? ReviewMemo.Unvote)?.recordId })
+            .mapValues { (target, m) -> val author = bySig[target]?.signer; m.filter { it.value && it.key != author }.keys.sumOf { Ranking.weight(facts(it)) } }
             .filterValues { it > 0 }
     }
+    /** Which wallets currently flag / clear a record (after withdrawals). */
+    fun currentFlaggers(entries: List<LedgerEntry>): Map<String, Set<String>> =
+        latestState(entries, { (it as? ReviewMemo.Flag)?.recordId }, { (it as? ReviewMemo.Unflag)?.recordId }).mapValues { (_, m) -> m.filter { it.value }.keys }
+    fun currentClearers(entries: List<LedgerEntry>): Map<String, Set<String>> =
+        entries.filter { it.memo is ReviewMemo.Clear }.groupBy { (it.memo as ReviewMemo.Clear).recordId }.mapValues { (_, l) -> l.map { it.signer }.toSet() }
     /** The author's dispute of consensus hiding, if any (first one counts). */
     fun disputes(entries: List<LedgerEntry>): Map<String, LedgerEntry> {
         val bySig = entries.associateBy { it.signature }
@@ -65,26 +85,31 @@ object Reputation {
             .sortedBy { it.blockTime }.associateBy { (it.memo as ReviewMemo.Dispute).recordId }
     }
 
-    fun flagWeights(entries: List<LedgerEntry>, facts: (String) -> SignerFacts): Map<String, Double> {
+    /** Net flag weight per record (flags − clears), never below zero. [verifiedPublishers]: package → wallets whose flags on that app's reviews are ignored. */
+    fun flagWeights(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Map<String, Double> {
         val bySig = entries.associateBy { it.signature }
+        val clears = currentClearers(entries)
         val out = HashMap<String, Double>()
-        entries.filter { it.memo is ReviewMemo.Flag }
-            .groupBy { (it.memo as ReviewMemo.Flag).recordId }
-            .forEach { (target, flags) ->
-                val author = bySig[target]?.signer
-                val w = flags.filter { it.signer != author }.distinctBy { it.signer }.sumOf { Ranking.weight(facts(it.signer)) }
-                if (w > 0) out[target] = w
-            }
+        for ((target, flaggers) in currentFlaggers(entries)) {
+            val rec = bySig[target]; val author = rec?.signer
+            val pkg = (rec?.memo as? ReviewMemo.Review)?.packageName ?: ((rec?.memo as? ReviewMemo.Reply)?.let { (bySig[it.reviewSignature]?.memo as? ReviewMemo.Review)?.packageName })
+            val excluded = pkg?.let { verifiedPublishers[it] }.orEmpty()
+            val fw = flaggers.filter { it != author && it !in excluded }.sumOf { Ranking.weight(facts(it)) }
+            val cw = clears[target].orEmpty().filter { it != author }.sumOf { Ranking.weight(facts(it)) }
+            val net = fw - cw
+            if (net > 0) out[target] = net
+        }
         return out
     }
-    fun hiddenByConsensus(entries: List<LedgerEntry>, facts: (String) -> SignerFacts): Set<String> {
+    fun hiddenByConsensus(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Set<String> {
         val disputed = disputes(entries).keys
-        return flagWeights(entries, facts).filter { (id, w) -> w >= (if (id in disputed) 2 * HIDE_WEIGHT else HIDE_WEIGHT) }.keys
+        return flagWeights(entries, verifiedPublishers, facts).filter { (id, w) -> w >= (if (id in disputed) 2 * HIDE_WEIGHT else HIDE_WEIGHT) }.keys
     }
 
-    fun standing(entries: List<LedgerEntry>, facts: (String) -> SignerFacts): Map<String, SignerStanding> {
+    fun standing(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Map<String, SignerStanding> {
         val revoked = Ranking.revoked(entries)
-        val hidden = hiddenByConsensus(entries, facts)
+        val hidden = hiddenByConsensus(entries, verifiedPublishers, facts)
+        val flaggersNow = currentFlaggers(entries)
         val live = entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && it.signature !in hidden }
         val counted = live.filter { facts(it.signer).hasGenesisToken }
         val bySig = entries.associateBy { it.signature }
@@ -102,7 +127,8 @@ object Reputation {
                 overlapPossible += r.tags.size; agreed += r.tags.count { it in otherTags }
             }
             val myRecords = entries.filter { it.signer == w }.map { it.signature }.toSet()
-            val myFlags = entries.filter { it.signer == w && it.memo is ReviewMemo.Flag && (it.memo as ReviewMemo.Flag).recordId !in myRecords }   // self-flags never count
+            // flags this wallet currently holds (withdrawn ones do not count), self-flags never count
+            val myFlags = flaggersNow.filter { (id, who) -> w in who && id !in myRecords }.keys.map { id -> entries.first { it.signer == w && (it.memo as? ReviewMemo.Flag)?.recordId == id } }
             val repliesOnMine = replies.filter { e -> e.signer != w && bySig[(e.memo as ReviewMemo.Reply).reviewSignature]?.signer == w }
             // reviewer responsiveness: of the threads where someone replied to me, in how many did I reply afterwards?
             val threads = repliesOnMine.map { (it.memo as ReviewMemo.Reply).reviewSignature }.distinct()
@@ -118,7 +144,7 @@ object Reputation {
                 firstSeen = entries.filter { it.signer == w }.minOfOrNull { it.blockTime } ?: 0L,
                 flagsGiven = myFlags.size,
                 flagsUpheld = myFlags.count { (it.memo as ReviewMemo.Flag).recordId in hidden },
-                flagsReceived = entries.filter { it.memo is ReviewMemo.Flag && (it.memo as ReviewMemo.Flag).recordId in myRecords && it.signer != w }.map { it.signer }.distinct().size,
+                flagsReceived = flaggersNow.filter { (id, _) -> id in myRecords }.values.flatten().filter { it != w }.distinct().size,
                 recordsHidden = myRecords.count { it in hidden },
                 repliedToReplies = if (threads.isEmpty()) null else answeredThreads.toDouble() / threads.size,
                 helpfulReceived = myRecords.sumOf { helpful[it] ?: 0.0 },

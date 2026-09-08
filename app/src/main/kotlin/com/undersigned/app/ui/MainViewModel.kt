@@ -73,6 +73,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val flagWeights = MutableStateFlow<Map<String, Double>>(emptyMap())
     val hiddenByConsensus = MutableStateFlow<Set<String>>(emptySet())
     val helpfulWeights = MutableStateFlow<Map<String, Double>>(emptyMap())
+    val currentFlaggers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
+    val currentClearers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
     val disputes = MutableStateFlow<Map<String, LedgerEntry>>(emptyMap())
     val similarity = MutableStateFlow<Map<String, com.undersigned.protocol.Similarity.Finding>>(emptyMap())
     val starred: StateFlow<Set<String>> = UserPreferences.starred
@@ -125,10 +127,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         for (s in list.map { it.signer }.distinct()) if (s !in map) map[s] = runCatching { factsService.facts(s) }.getOrElse { SignerFacts(false, 0.0) }
         facts.value = map
         val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
-        scores.value = Ranking.score(list, f).associateBy { it.packageName }
-        standings.value = Reputation.standing(list, f)
-        flagWeights.value = Reputation.flagWeights(list, f)
-        hiddenByConsensus.value = Reputation.hiddenByConsensus(list, f)
+        val vp = verifiedPublishers.value
+        scores.value = Ranking.score(list, vp, f).associateBy { it.packageName }
+        standings.value = Reputation.standing(list, vp, f)
+        flagWeights.value = Reputation.flagWeights(list, vp, f)
+        hiddenByConsensus.value = Reputation.hiddenByConsensus(list, vp, f)
+        currentFlaggers.value = Reputation.currentFlaggers(list)
+        currentClearers.value = Reputation.currentClearers(list)
         helpfulWeights.value = Reputation.helpfulWeights(list, f)
         disputes.value = Reputation.disputes(list)
         similarity.value = com.undersigned.protocol.Similarity.findings(list)
@@ -153,7 +158,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val d = storeDetails.value[pkg] ?: store.details(pkg)?.also { storeDetails.value = storeDetails.value + (pkg to it) }
             if (PublisherVerifier.verify(pkg, c.signer, d)) out.getOrPut(pkg) { HashSet() }.add(c.signer)
         }
+        val changed = verifiedPublishers.value != out
         verifiedPublishers.value = out
+        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, out, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, out, f); flagWeights.value = Reputation.flagWeights(list, out, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, out, f) }
     }
     fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
     fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
@@ -233,7 +240,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             .map { it to Ranking.weight(facts.value[it.signer] ?: SignerFacts(false, 0.0)) }
     }
     fun toggleStar(id: String) = UserPreferences.toggleStar(id)
-    fun myUpvote(id: String): Boolean = wallet.value?.let { w -> entries.value.any { it.signer == w && (it.memo as? ReviewMemo.Upvote)?.recordId == id } } ?: false
+    fun myUpvote(id: String): Boolean = wallet.value?.let { w -> (helpfulWeights.value.isNotEmpty() || true) && Reputation.helpfulWeights(entries.value.filter { it.signer == w || it.signature == id }) { SignerFacts(true, 0.0) }.containsKey(id) } ?: false
+    fun myFlag(id: String): Boolean = wallet.value?.let { w -> currentFlaggers.value[id]?.contains(w) == true } ?: false
+    fun myClear(id: String): Boolean = wallet.value?.let { w -> currentClearers.value[id]?.contains(w) == true } ?: false
     fun draftLooksCopied(draft: String) = com.undersigned.protocol.Similarity.similarToExisting(draft, entries.value)
     fun packageOf(recordId: String): String? = (entries.value.firstOrNull { it.signature == recordId }?.memo as? ReviewMemo.Review)?.packageName
     fun myVerifiedPackages(): Set<String> = wallet.value?.let { w -> verifiedPublishers.value.filter { w in it.value }.keys } ?: emptySet()

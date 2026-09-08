@@ -36,6 +36,9 @@ export function decode(raw) {
     case "rvk": return f.length === 3 && SIG.test(f[2]) ? { t: "rvk", target: f[2] } : null;
     case "rep": return f.length === 4 && SIG.test(f[2]) && f[3] ? { t: "rep", target: f[2], text: b64u(f[3]) } : null;
     case "clm": return f.length === 3 && PKG.test(f[2]) ? { t: "clm", pkg: f[2] } : null;
+    case "unv": return f.length === 3 && SIG.test(f[2]) ? { t: "unv", target: f[2] } : null;
+    case "unf": return f.length === 3 && SIG.test(f[2]) ? { t: "unf", target: f[2] } : null;
+    case "clr": return f.length === 3 && SIG.test(f[2]) ? { t: "clr", target: f[2] } : null;
     case "up": return f.length === 3 && SIG.test(f[2]) ? { t: "up", target: f[2] } : null;
     case "dsp": return f.length === 4 && SIG.test(f[2]) && f[3] ? { t: "dsp", target: f[2], text: b64u(f[3]) } : null;
     case "flg": return f.length === 4 && SIG.test(f[2]) && ["spam","abuse","offtopic","misleading"].includes(f[3]) ? { t: "flg", target: f[2], reason: f[3] } : null;
@@ -80,11 +83,14 @@ export function derive(entries) {
   const revoked = new Set(entries.filter((e) => e.m.t === "rvk" && bySig[e.m.target] && bySig[e.m.target].signer === e.signer).map((e) => e.m.target));
   const replies = {}; for (const e of entries.filter((e) => e.m.t === "rep")) (replies[e.m.target] = replies[e.m.target] || []).push(e);
   const claims = {}; for (const e of entries.filter((e) => e.m.t === "clm")) (claims[e.m.pkg] = claims[e.m.pkg] || new Set()).add(e.signer);
-  const flags = {}; for (const e of entries.filter((e) => e.m.t === "flg")) { const author = bySig[e.m.target]?.signer; if (author === e.signer) continue; (flags[e.m.target] = flags[e.m.target] || new Set()).add(e.signer); }
+  // latest flag / withdrawal per wallet wins; clears offset
+  const flagState = {}; for (const e of [...entries].sort((a, b) => a.t - b.t)) { if (e.m.t === "flg" || e.m.t === "unf") { (flagState[e.m.target] = flagState[e.m.target] || {})[e.signer] = e.m.t === "flg"; } }
+  const flags = {}; for (const [target, m] of Object.entries(flagState)) { const author = bySig[target]?.signer; const s = new Set(Object.entries(m).filter(([w, on]) => on && w !== author).map(([w]) => w)); if (s.size) flags[target] = s; }
+  const clears = {}; for (const e of entries.filter((e) => e.m.t === "clr")) { if (bySig[e.m.target]?.signer === e.signer) continue; (clears[e.m.target] = clears[e.m.target] || new Set()).add(e.signer); }
   const ups = {}; for (const e of entries.filter((e) => e.m.t === "up")) { const author = bySig[e.m.target]?.signer; if (author === e.signer) continue; (ups[e.m.target] = ups[e.m.target] || new Set()).add(e.signer); }
   const disputes = {}; for (const e of entries.filter((e) => e.m.t === "dsp")) if (bySig[e.m.target]?.signer === e.signer && !disputes[e.m.target]) disputes[e.m.target] = e.m.text;
   const live = entries.filter((e) => e.m.t === "rev" && !revoked.has(e.id));
-  return { bySig, revoked, replies, claims, flags, ups, disputes, live };
+  return { bySig, revoked, replies, claims, flags, clears, ups, disputes, live };
 }
 
 export function stars() { try { return new Set(JSON.parse(fs.readFileSync(STARS, "utf8"))); } catch { return new Set(); } }

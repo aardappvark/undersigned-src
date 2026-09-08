@@ -33,6 +33,9 @@ function decode(raw){const f=raw.split('|');if(f[0]!=='SRL1')return null;
  if(f[1]==='clm'&&f.length===3)return{t:'clm',pkg:f[2]};
  if(f[1]==='flg'&&f.length===4)return{t:'flg',target:f[2],reason:f[3]};
  if(f[1]==='up'&&f.length===3)return{t:'up',target:f[2]};
+ if(f[1]==='unv'&&f.length===3)return{t:'unv',target:f[2]};
+ if(f[1]==='unf'&&f.length===3)return{t:'unf',target:f[2]};
+ if(f[1]==='clr'&&f.length===3)return{t:'clr',target:f[2]};
  if(f[1]==='dsp'&&f.length===4)return{t:'dsp',target:f[2],text:b64u(f[3])};return null}
 function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}

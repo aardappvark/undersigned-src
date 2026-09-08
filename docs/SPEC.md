@@ -27,6 +27,8 @@ account → `err: null`, 19,488 CU, memo logged, 301 bytes. 1 lamport behaves id
 | Reply | `SRL1\|rep\|<record id>\|<b64url text>` | Anyone may reply; never affects ranking; publisher badge if the signer holds a verified claim |
 | Claim | `SRL1\|clm\|<package>` | "I publish this app"; verified when the website the STORE lists for the package serves `/.well-known/undersigned.txt` containing the signer wallet (GitHub sites read raw from the default branch); cached 24 h |
 
+**Reversibility.** `unf` withdraws my flag, `unv` my helpful vote (latest per wallet wins); `clr` is a "looks genuine" vote that offsets flags; `dsp` is the author's dispute (doubles the bar). Hiding is computed from NET weight = flags − clears, author excluded, and flags from a verified publisher of the reviewed app are ignored. Nothing is ever deleted; every state is recomputable from the chain.
+
 **Record ids.** One record per memo instruction. The first memo of a transaction is addressed by the transaction signature; the n-th by `<signature>:<n>` (imports pack several records into one signature).
 
 **Transaction fingerprint.** A transaction that carries both a Lighthouse assertion (`L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95`) and ComputeBudget instructions was signed by the Seeker wallet (observed on every record it produced, 8 Sep 2026). Readers show it as a "Seeker wallet" mark. It is a fingerprint, not a proof; the Genesis Token gate is the proof of a Seeker-provisioned key.

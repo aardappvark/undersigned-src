@@ -71,13 +71,13 @@ class ProtocolTest {
             LedgerEntry(f1, "a", 20, flag), LedgerEntry(f2, "b", 21, flag), LedgerEntry(f3, "spammer", 22, flag),   // self-flag ignored
         )
         val facts = { _: String -> SignerFacts(true, 0.0) }
-        assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries, facts))
-        assertTrue(Ranking.score(entries, facts).isEmpty())
-        val st = Reputation.standing(entries, facts)
+        assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries, facts = facts))
+        assertTrue(Ranking.score(entries, facts = facts).isEmpty())
+        val st = Reputation.standing(entries, facts = facts)
         assertEquals(1, st["a"]!!.flagsUpheld); assertEquals(60, st["a"]!!.credibility)
         assertEquals(1, st["spammer"]!!.recordsHidden); assertEquals(0, st["spammer"]!!.credibility)
         // one flag alone is not consensus
-        assertTrue(Reputation.hiddenByConsensus(entries.take(2), facts).isEmpty())
+        assertTrue(Reputation.hiddenByConsensus(entries.take(2), facts = facts).isEmpty())
     }
 
     @Test fun `publisher responsiveness buckets by median hours`() {
@@ -107,14 +107,39 @@ class ProtocolTest {
             LedgerEntry("8" + "A".repeat(86), "alice", 40, dsp),
         )
         val facts = { _: String -> SignerFacts(true, 0.0) }
-        assertEquals(1.0, Reputation.helpfulWeights(entries, facts)[r1])
-        assertTrue(Reputation.hiddenByConsensus(entries, facts).isEmpty(), "two flags no longer hide a disputed record")
-        assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries.filterNot { it.memo is ReviewMemo.Dispute }, facts))
+        assertEquals(1.0, Reputation.helpfulWeights(entries, facts = facts)[r1])
+        assertTrue(Reputation.hiddenByConsensus(entries, facts = facts).isEmpty(), "two flags no longer hide a disputed record")
+        assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries.filterNot { it.memo is ReviewMemo.Dispute }, facts = facts))
         val f = Similarity.findings(entries)
         assertTrue(f[r1]!!.copiedAcrossApps && f[r2]!!.copiedAcrossApps)
         assertTrue(Similarity.similarToExisting("the wallet connection fails every time i open the app after an update!!", entries))
         assertTrue(!Similarity.similarToExisting("Works great", entries))
-        assertTrue(Ranking.score(entries, facts).size == 2, "similarity never removes a review from ranking")
+        assertTrue(Ranking.score(entries, facts = facts).size == 2, "similarity never removes a review from ranking")
+    }
+
+    @Test fun `flags can be withdrawn, clears offset flags, publisher flags on their own app are ignored`() {
+        val r = "1" + "A".repeat(86)
+        val review = LedgerEntry(r, "u", 10, ReviewMemo.Review("com.x", 1, listOf(ReviewMemo.Tag.CRASHES), 1, null))
+        val flagA = LedgerEntry("2" + "A".repeat(86), "a", 20, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        val flagB = LedgerEntry("3" + "A".repeat(86), "b", 21, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        val facts = { _: String -> SignerFacts(true, 0.0) }
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, flagA, flagB), facts = facts))
+        // a withdraws → 1.0 net → visible again
+        val unflag = LedgerEntry("4" + "A".repeat(86), "a", 30, ReviewMemo.Unflag(r))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, flagA, flagB, unflag), facts = facts).isEmpty())
+        // a re-flags later (latest wins) → hidden; then c clears → 1.0 net → visible
+        val reflag = LedgerEntry("5" + "A".repeat(86), "a", 40, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, flagA, flagB, unflag, reflag), facts = facts))
+        val clear = LedgerEntry("6" + "A".repeat(86), "c", 50, ReviewMemo.Clear(r))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, flagA, flagB, unflag, reflag, clear), facts = facts).isEmpty())
+        // the verified publisher of com.x flagging a 1-star review of com.x counts for nothing
+        val pubFlag = LedgerEntry("7" + "A".repeat(86), "pub", 60, ReviewMemo.Flag(r, ReviewMemo.FlagReason.MISLEADING))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, flagB, pubFlag), mapOf("com.x" to setOf("pub")), facts = facts).isEmpty())
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, flagB, pubFlag), facts = facts))
+        // vote withdrawal
+        val up = LedgerEntry("8" + "A".repeat(86), "d", 70, ReviewMemo.Upvote(r)); val unv = LedgerEntry("9" + "A".repeat(86), "d", 71, ReviewMemo.Unvote(r))
+        assertEquals(1.0, Reputation.helpfulWeights(listOf(review, up), facts = facts)[r]); assertNull(Reputation.helpfulWeights(listOf(review, up, unv), facts = facts)[r])
+        assertEquals(ReviewMemo.Clear(r), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Clear(r))))
     }
 
     @Test fun `garbage and hostile input decode to null, never throw`() {
@@ -166,12 +191,12 @@ class ProtocolTest {
             rev("5" + "A".repeat(86), "sybil", 400, "com.x", 5),      // no genesis token
         )
         val facts = { s: String -> SignerFacts(hasGenesisToken = s != "sybil", stakedSkr = 0.0) }
-        val score = Ranking.score(entries, facts).single()
+        val score = Ranking.score(entries, facts = facts).single()
         assertEquals(2, score.countedReviews)
         // prior 3.0×5 + (2 + 5) = 22 / 7
         assertEquals(22.0 / 7.0, score.weightedRating, 1e-9)
         // now B revokes their own review
         val withRvk = entries + LedgerEntry("6" + "A".repeat(86), "walletB", 500, ReviewMemo.Revocation(s3))
-        assertEquals(1, Ranking.score(withRvk, facts).single().countedReviews)
+        assertEquals(1, Ranking.score(withRvk, facts = facts).single().countedReviews)
     }
 }

@@ -46,7 +46,7 @@ server.tool("inbox", "Publisher and reviewer queues for the operator's wallets (
 
 server.tool("app_reviews", "Signed reviews of one package from the ledger, with replies, flags and withdrawal state.", { package: z.string() }, async ({ package: pkg }) => {
   const entries = L.loadCache().entries; const d = L.derive(entries);
-  const rows = d.live.filter((e) => e.m.pkg === pkg).map((e) => ({ id: e.id, rating: e.m.rating, tags: e.m.tags, text: e.m.text, version: e.m.vc, by: who(e), signer: e.signer, seekerWallet: e.seeker, at: new Date(e.t * 1000).toISOString(), flags: d.flags[e.id]?.size || 0, helpful: d.ups[e.id]?.size || 0, dispute: d.disputes[e.id] || null, replies: (d.replies[e.id] || []).map((r) => ({ id: r.id, by: who(r), text: r.m.text, at: new Date(r.t * 1000).toISOString() })) }));
+  const rows = d.live.filter((e) => e.m.pkg === pkg).map((e) => ({ id: e.id, rating: e.m.rating, tags: e.m.tags, text: e.m.text, version: e.m.vc, by: who(e), signer: e.signer, seekerWallet: e.seeker, at: new Date(e.t * 1000).toISOString(), flags: d.flags[e.id]?.size || 0, clears: d.clears[e.id]?.size || 0, helpful: d.ups[e.id]?.size || 0, dispute: d.disputes[e.id] || null, replies: (d.replies[e.id] || []).map((r) => ({ id: r.id, by: who(r), text: r.m.text, at: new Date(r.t * 1000).toISOString() })) }));
   const mean = rows.length ? rows.reduce((s, r) => s + r.rating, 0) / rows.length : null;
   return text({ package: pkg, signed: rows.length, unweightedMean: mean, verifiedClaimsOnChain: [...(d.claims[pkg] || [])], reviews: rows });
 });
@@ -74,9 +74,9 @@ server.tool("reply_handoff", "Prepare a signed reply on the Seeker: builds an un
   return text({ link, copiedToClipboard: process.platform === "darwin", next: "Open the link on the Seeker (paste into Chrome or tap it from Notes); Undersigned opens the reply pre-filled for you to sign." });
 });
 
-server.tool("action_handoff", "Prepare a helpful vote, a flag or a dispute to sign on the Seeker: returns an undersigned:// link (copied to the clipboard). kind = up | flg | dsp; reason for flg = spam|abuse|offtopic|misleading; text for dsp.", { id: z.string(), kind: z.enum(["up", "flg", "dsp"]), reason: z.enum(["spam", "abuse", "offtopic", "misleading"]).optional(), text: z.string().optional() }, async ({ id, kind, reason, text: t }) => {
+server.tool("action_handoff", "Prepare a helpful vote, a flag or a dispute to sign on the Seeker: returns an undersigned:// link (copied to the clipboard). kind = up | unv | flg | unf | clr | dsp; reason for flg = spam|abuse|offtopic|misleading; text for dsp.", { id: z.string(), kind: z.enum(["up", "unv", "flg", "unf", "clr", "dsp"]), reason: z.enum(["spam", "abuse", "offtopic", "misleading"]).optional(), text: z.string().optional() }, async ({ id, kind, reason, text: t }) => {
   const q = kind === "flg" ? `&reason=${reason || "spam"}` : kind === "dsp" ? `&text=${L.b64uEnc((t || "").trim())}` : "";
-  const link = `undersigned://${kind === "up" ? "vote" : kind === "flg" ? "flag" : "dispute"}?target=${encodeURIComponent(id)}${q}`;
+  const link = `undersigned://${({ up: "vote", unv: "unvote", flg: "flag", unf: "unflag", clr: "clear", dsp: "dispute" })[kind]}?target=${encodeURIComponent(id)}${q}`;
   if (process.platform === "darwin") await new Promise((res) => { const p = execFile("pbcopy"); p.stdin.end(link); p.on("exit", res); });
   return text({ link, copiedToClipboard: process.platform === "darwin" });
 });

@@ -45,6 +45,9 @@
                 <data android:scheme="undersigned" android:host="vote" />
                 <data android:scheme="undersigned" android:host="flag" />
                 <data android:scheme="undersigned" android:host="dispute" />
+                <data android:scheme="undersigned" android:host="unvote" />
+                <data android:scheme="undersigned" android:host="unflag" />
+                <data android:scheme="undersigned" android:host="clear" />
             </intent-filter>
         </activity>
 

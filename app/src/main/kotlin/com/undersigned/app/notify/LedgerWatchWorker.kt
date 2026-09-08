@@ -63,7 +63,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             val factsSvc = SignerFactsService(); val store = StoreReviewsClient()
             val cachedFacts = HashMap<String, SignerFacts>()
             val f = { w: String -> cachedFacts.getOrPut(w) { UserPreferences.cachedFacts(w) ?: SignerFacts(false, 0.0) } }
-            val scores = Ranking.score(after, f).associateBy { it.packageName }
+            val scores = Ranking.score(after, facts = f).associateBy { it.packageName }
             for (pkg in follows) {
                 val sc = scores[pkg]; val sr = store.rating(pkg)
                 if (sc != null && sr != null && sc.countedReviews >= 3 && sr.total >= 3 && kotlin.math.abs(sc.weightedMean - sr.average) >= 1.5 && UserPreferences.markDivergence(pkg, sc.weightedMean, sr.average))

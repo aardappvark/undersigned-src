@@ -25,6 +25,7 @@ object NavIntents {
             "vote" -> pendingAction.value = Action("vote", target, "")
             "flag" -> pendingAction.value = Action("flag", target, u.getQueryParameter("reason") ?: "spam")
             "dispute" -> pendingAction.value = Action("dispute", target, text)
+            "unvote", "unflag", "clear" -> pendingAction.value = Action(u.host!!, target, "")
         }
     }
 }

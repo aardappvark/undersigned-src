@@ -10,7 +10,10 @@ import java.util.Base64
  *   SRL1|rvk|<signature of the review tx being withdrawn>
  *   SRL1|rep|<signature of the review being answered>|<b64 text>
  *   SRL1|flg|<record id>|<reason>  — "this record looks unnatural (suspected spam) / abusive / off-topic / misleading"; from Genesis wallets only
- *   SRL1|up|<record id>            — "helpful"; one per wallet per record, Genesis-weighted; orders reviews, never hides
+ *   SRL1|up|<record id>            — "helpful"; one per wallet per record, attestation-weighted; orders reviews, never hides
+ *   SRL1|unv|<record id>           — withdraw my helpful vote     (latest of up/unv per wallet wins)
+ *   SRL1|unf|<record id>           — withdraw my flag             (latest of flg/unf per wallet wins)
+ *   SRL1|clr|<record id>           — "looks genuine": a clear vote that offsets flags, one per wallet, attested only
  *   SRL1|dsp|<record id>|<b64 text> — the AUTHOR disputes consensus hiding of their own record; raises the bar to 2× and shows the text
  *   SRL1|clm|<package>            — "I publish this app"; readers verify it against the website the
  *                                   store lists for the package (/.well-known/undersigned.txt names the wallet)
@@ -41,6 +44,9 @@ sealed class ReviewMemo {
 
     data class Flag(val recordId: String, val reason: FlagReason) : ReviewMemo()
     data class Upvote(val recordId: String) : ReviewMemo()
+    data class Unvote(val recordId: String) : ReviewMemo()
+    data class Unflag(val recordId: String) : ReviewMemo()
+    data class Clear(val recordId: String) : ReviewMemo()
     data class Dispute(val recordId: String, val text: String) : ReviewMemo()
     enum class FlagReason(val wire: String) { SPAM("spam"), ABUSE("abuse"), OFF_TOPIC("offtopic"), MISLEADING("misleading");
         companion object { fun fromWire(s: String) = entries.firstOrNull { it.wire == s } } }
@@ -85,6 +91,9 @@ sealed class ReviewMemo {
             }
             is Revocation -> { require(SIGNATURE.matches(m.reviewSignature)) { "signature" }; "${Registry.PROTOCOL}|rvk|${m.reviewSignature}" }
             is Upvote -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|up|${m.recordId}" }
+            is Unvote -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|unv|${m.recordId}" }
+            is Unflag -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|unf|${m.recordId}" }
+            is Clear -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|clr|${m.recordId}" }
             is Dispute -> {
                 require(SIGNATURE.matches(m.recordId)) { "record id" }
                 val text = m.text.trim()
@@ -122,6 +131,9 @@ sealed class ReviewMemo {
                 }
                 "rvk" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Revocation(f[2]) else null
                 "up" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Upvote(f[2]) else null
+                "unv" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unvote(f[2]) else null
+                "unf" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unflag(f[2]) else null
+                "clr" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Clear(f[2]) else null
                 "dsp" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
                     val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }

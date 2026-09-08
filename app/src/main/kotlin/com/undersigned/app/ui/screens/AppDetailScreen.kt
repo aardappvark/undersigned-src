@@ -104,6 +104,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var disputeStage by remember { mutableStateOf<String?>(null) }
     var voteStage by remember { mutableStateOf<String?>(null) }
     var pendingVote by remember { mutableStateOf<String?>(null) }
+    var simpleStage by remember { mutableStateOf<String?>(null) }
+    fun sign(memo: ReviewMemo) {
+        val s = sender ?: return
+        vm.publish(s, memo, onStage = { st -> simpleStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { simpleStage = null }
+    }
     LaunchedEffect(pendingAction, entries) {
         pendingAction?.let { a -> if (vm.packageOf(a.target) == pkg) {
             com.undersigned.app.ui.NavIntents.pendingAction.value = null
@@ -111,6 +116,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 "flag" -> flagTarget = a.target
                 "dispute" -> { disputeTarget = a.target; disputeText = a.arg }
                 "vote" -> pendingVote = a.target
+                "unvote" -> sign(ReviewMemo.Unvote(a.target))
+                "unflag" -> sign(ReviewMemo.Unflag(a.target))
+                "clear" -> sign(ReviewMemo.Clear(a.target))
             }
         } }
     }
@@ -286,6 +294,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Row {
                             TextButton(onClick = { revealed = revealed + e.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 12.sp) }
                             if (e.signer == wallet && disputesMap[e.signature] == null) { Spacer(Modifier.width(12.dp)); TextButton(onClick = { disputeTarget = e.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.warning, fontSize = 12.sp) } }
+                            if (wallet != null && e.signer != wallet) {
+                                Spacer(Modifier.width(12.dp))
+                                if (vm.myFlag(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(e.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.unflag), color = RbColors.warning, fontSize = 12.sp) }
+                                else if (!vm.myClear(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(e.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(simpleStage ?: stringResource(R.string.clear), color = RbColors.info, fontSize = 12.sp) }
+                            }
                         }
                     }
                     Spacer(Modifier.height(8.dp)); return@forEach
@@ -316,12 +329,29 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val replies = remember(entries, hidden) { vm.repliesFor(e.signature) }
                     replies.forEach { rp ->
                         Spacer(Modifier.height(6.dp))
+                        if (rp.signature in consensusHidden && rp.signature !in revealed) {
+                            Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
+                                Text(stringResource(R.string.hidden_reply) + " · " + stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", flagWeights[rp.signature] ?: 0.0)), color = RbColors.textTertiary, fontSize = 11.sp)
+                                disputesMap[rp.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 11.sp) }
+                                Row {
+                                    TextButton(onClick = { revealed = revealed + rp.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 11.sp) }
+                                    if (rp.signer == wallet && disputesMap[rp.signature] == null) { Spacer(Modifier.width(10.dp)); TextButton(onClick = { disputeTarget = rp.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.warning, fontSize = 11.sp) } }
+                                    if (wallet != null && rp.signer != wallet && !vm.myClear(rp.signature)) { Spacer(Modifier.width(10.dp)); TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(rp.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.clear), color = RbColors.info, fontSize = 11.sp) } }
+                                }
+                            }
+                            return@forEach
+                        }
                         Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[rp.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(rp.signer, 4, 4))) + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                                 if (vm.isVerifiedPublisher(pkg, rp.signer)) Pill(stringResource(R.string.publisher_badge), RbColors.green)
                             }
                             Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                            if (wallet != null && rp.signer != wallet) Row {
+                                flagWeights[rp.signature]?.let { fw -> Pill(stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", fw)), RbColors.warning); Spacer(Modifier.width(6.dp)) }
+                                if (vm.myFlag(rp.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(rp.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.unflag), color = RbColors.warning, fontSize = 11.sp) }
+                                else TextButton(onClick = { flagTarget = rp.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flag), color = RbColors.warning, fontSize = 11.sp) }
+                            }
                         }
                     }
                     Spacer(Modifier.height(4.dp))
@@ -329,11 +359,13 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                         if (wallet != null) TextButton(onClick = { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontSize = 12.sp) }
                         if (e.signer != wallet) {
-                            if (wallet != null && !vm.myUpvote(e.signature)) TextButton(enabled = voteStage == null, onClick = {
-                                val s = sender ?: return@TextButton
-                                vm.publish(s, ReviewMemo.Upvote(e.signature), onStage = { st -> voteStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { voteStage = null }
-                            }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(voteStage ?: stringResource(R.string.helpful), color = RbColors.green, fontSize = 12.sp) }
-                            if (wallet != null) TextButton(onClick = { flagTarget = e.signature }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.flag), color = RbColors.warning, fontSize = 12.sp) }
+                            if (wallet != null) {
+                                val voted = vm.myUpvote(e.signature); val flagged = vm.myFlag(e.signature)
+                                TextButton(enabled = simpleStage == null, onClick = { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(simpleStage ?: stringResource(if (voted) R.string.unvote else R.string.helpful), color = RbColors.green, fontSize = 12.sp) }
+                                if (flagged) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(e.signature)) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.unflag), color = RbColors.warning, fontSize = 12.sp) }
+                                else TextButton(onClick = { flagTarget = e.signature }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.flag), color = RbColors.warning, fontSize = 12.sp) }
+                                if ((flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(e.signature)) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.clear), color = RbColors.info, fontSize = 12.sp) }
+                            }
                             TextButton(onClick = { vm.hide(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_hide), color = RbColors.textTertiary, fontSize = 12.sp) }
                             TextButton(onClick = { report(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_report), color = RbColors.textTertiary, fontSize = 12.sp) }
                         }
@@ -448,6 +480,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             title = { Text(stringResource(R.string.flag_title), color = RbColors.textPrimary) },
             text = { Column {
                 Text(stringResource(R.string.flag_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                if (wallet != null && vm.isVerifiedPublisher(pkg, wallet!!)) Text(stringResource(R.string.publisher_flags_ignored), color = RbColors.warning, fontSize = 12.sp)
                 Spacer(Modifier.height(8.dp))
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     listOf(ReviewMemo.FlagReason.SPAM to R.string.flag_spam, ReviewMemo.FlagReason.ABUSE to R.string.flag_abuse, ReviewMemo.FlagReason.OFF_TOPIC to R.string.flag_offtopic, ReviewMemo.FlagReason.MISLEADING to R.string.flag_misleading)
