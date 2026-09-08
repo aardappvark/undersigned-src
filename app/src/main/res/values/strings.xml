@@ -218,4 +218,6 @@
     <string name="settings_about">Undersigned v%1$s — not affiliated with Solana Mobile, Solana Foundation or any wallet.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned reads the public dApp Store catalogue and opens listings in the store. It never installs, updates or removes apps.</string>
+    <string name="review_also_store">Also post in the dApp Store</string>
+    <string name="review_also_store_hint">Copies your note and opens the listing in the store. The store has no way for another app to post for you, so the last taps are yours.</string>
 </resources>
