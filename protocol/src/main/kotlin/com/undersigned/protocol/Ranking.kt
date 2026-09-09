@@ -31,6 +31,16 @@ data class AppScore(
 )
 
 object Ranking {
+    /**
+     * A verified publisher reviewing their own app. Their flags on that app are already ignored; their
+     * reviews are excluded from the score for the same reason — a publisher cannot be a counted voice on
+     * their own listing. The review still appears, labelled, and their reply carries the publisher badge.
+     */
+    fun isSelfPublished(entry: LedgerEntry, verifiedPublishers: Map<String, Set<String>>): Boolean {
+        val pkg = (entry.memo as? ReviewMemo.Review)?.packageName ?: return false
+        return entry.signer in verifiedPublishers[pkg].orEmpty()
+    }
+
     /** ln-damped: 0 SKR → 1.0, 1k → ~1.69, 100k → ~5.6 but CAPPED at [MAX_WEIGHT]. Whales cannot buy a listing. */
     const val MAX_WEIGHT = 3.0
     /** Bayesian prior: every app starts as an average app with the strength of [PRIOR_WEIGHT] reviews. */
@@ -57,7 +67,7 @@ object Ranking {
     fun score(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (signer: String) -> SignerFacts): List<AppScore> {
         val revoked = revoked(entries)
         val hidden = Reputation.hiddenByConsensus(entries, verifiedPublishers, facts)
-        val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review }
+        val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
             .map { (_, v) -> v.maxBy { it.blockTime } }

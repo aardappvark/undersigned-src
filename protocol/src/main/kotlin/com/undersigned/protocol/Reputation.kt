@@ -110,7 +110,7 @@ object Reputation {
         val revoked = Ranking.revoked(entries)
         val hidden = hiddenByConsensus(entries, verifiedPublishers, facts)
         val flaggersNow = currentFlaggers(entries)
-        val live = entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && it.signature !in hidden }
+        val live = entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && it.signature !in hidden && !Ranking.isSelfPublished(it, verifiedPublishers) }
         val counted = live.filter { facts(it.signer).hasGenesisToken }
         val bySig = entries.associateBy { it.signature }
         val tagsByApp = counted.groupBy { (it.memo as ReviewMemo.Review).packageName }
@@ -166,9 +166,9 @@ object Reputation {
 
     /** Live counted reviews of one app grouped by the version they were written against, newest version first. */
     data class VersionScore(val versionCode: Long, val mean: Double, val count: Int)
-    fun byVersion(entries: List<LedgerEntry>, packageName: String, facts: (String) -> SignerFacts): List<VersionScore> {
+    fun byVersion(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): List<VersionScore> {
         val revoked = Ranking.revoked(entries)
-        return entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName == packageName && facts(it.signer).hasGenesisToken }
+        return entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName == packageName && !Ranking.isSelfPublished(it, verifiedPublishers) && facts(it.signer).hasGenesisToken }
             .groupBy { (it.memo as ReviewMemo.Review).versionCode }
             .map { (v, list) -> VersionScore(v, list.map { (it.memo as ReviewMemo.Review).rating }.average(), list.size) }
             .sortedByDescending { it.versionCode }

@@ -279,4 +279,5 @@
     <string name="flag_net">net %1\$s</string>
     <string name="publisher_flags_ignored">Flags from a verified publisher on reviews of their own app do not count; reply instead.</string>
     <string name="hidden_reply">Reply hidden by consensus</string>
+    <string name="review_self_published">Not counted — the publisher\'s own app</string>
 </resources>

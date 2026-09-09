@@ -142,6 +142,26 @@ class ProtocolTest {
         assertEquals(ReviewMemo.Clear(r), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Clear(r))))
     }
 
+    @Test fun `a verified publisher's review of their own app does not score`() {
+        val own = "1" + "A".repeat(86); val other = "2" + "A".repeat(86)
+        val entries = listOf(
+            LedgerEntry(own, "pub", 10, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS), 1, null)),
+            LedgerEntry(other, "user", 11, ReviewMemo.Review("com.x", 3, listOf(ReviewMemo.Tag.SLOW), 1, null)),
+        )
+        val facts = { _: String -> SignerFacts(true, 0.0) }
+        val vp = mapOf("com.x" to setOf("pub"))
+        val without = Ranking.score(entries, facts = facts).single()
+        assertEquals(2, without.countedReviews); assertEquals(4.0, without.weightedMean, 1e-9)
+        val with = Ranking.score(entries, vp, facts).single()
+        assertEquals(1, with.countedReviews, "the publisher's own review is excluded")
+        assertEquals(3.0, with.weightedMean, 1e-9)
+        assertEquals(0, Reputation.standing(entries, vp, facts)["pub"]!!.countedReviews)
+        assertEquals(1, Reputation.byVersion(entries, "com.x", vp, facts).single().count)
+        // a publisher reviewing a DIFFERENT app still counts
+        assertTrue(Ranking.isSelfPublished(entries[0], vp))
+        assertTrue(!Ranking.isSelfPublished(entries[0], mapOf("com.y" to setOf("pub"))))
+    }
+
     @Test fun `garbage and hostile input decode to null, never throw`() {
         listOf("", "SRL1", "SRL1|rev", "SRL1|rev|com.a|6|works|1|", "SRL1|rev|com.a|3|nonsense|1|",
                "SRL1|rev|com.a|3|works,works|1|", "SRL1|rev|../etc|3|works|1|", "SRL2|rev|com.a|3|works|1|",

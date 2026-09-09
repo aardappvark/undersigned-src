@@ -62,7 +62,7 @@
     <string name="row_signed_count">%1$d signed</string>
     <string name="row_no_reviews">No signed reviews yet</string>
     <string name="ledger_syncing">Reading the ledger…</string>
-    <string name="ledger_synced">Ledger: %1$d reviews from %2$d Seekers</string>
+    <string name="ledger_synced">Ledger · reviews %1\$d · signers %2\$d</string>
     <string name="ledger_error">Ledger read failed: %1$s</string>
     <string name="catalogue_count">%1$d apps in the store catalogue</string>
     <string name="empty_installed">No store apps installed on this device yet.</string>
@@ -277,4 +277,5 @@
     <string name="flag_net">net %1\$s</string>
     <string name="publisher_flags_ignored">Flags from a verified publisher on reviews of their own app do not count; reply instead.</string>
     <string name="hidden_reply">Reply hidden by consensus</string>
+    <string name="review_self_published">Not counted — the publisher\'s own app</string>
 </resources>

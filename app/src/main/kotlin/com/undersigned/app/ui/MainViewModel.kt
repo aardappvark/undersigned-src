@@ -164,7 +164,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
     fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
-    fun versionScores(pkg: String) = Reputation.byVersion(entries.value, pkg) { facts.value[it] ?: SignerFacts(false, 0.0) }
+    fun versionScores(pkg: String) = Reputation.byVersion(entries.value, pkg, verifiedPublishers.value) { facts.value[it] ?: SignerFacts(false, 0.0) }
+    fun isSelfPublished(e: LedgerEntry) = Ranking.isSelfPublished(e, verifiedPublishers.value)
     /** Signer facts for arbitrary wallets (store reviewers), cached; fills [facts]. */
     fun resolveFacts(wallets: Collection<String>) {
         val todo = wallets.distinct().filter { it !in facts.value }
