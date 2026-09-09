@@ -149,6 +149,22 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 }
             }
 
+            SectionTitle(stringResource(R.string.attest_title))
+            GlassCard {
+                Text(stringResource(R.string.attest_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                val attests by vm.attestations.collectAsState()
+                attests.forEach { a ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(a.label, color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+                        com.undersigned.app.ui.components.Pill(stringResource(if (a.source == com.undersigned.app.solana.Attestation.REMOTE) R.string.attest_remote else R.string.attest_bundled), if (a.source == com.undersigned.app.solana.Attestation.REMOTE) RbColors.info else RbColors.green)
+                    }
+                    Text(shortKey(a.mintAuthority, 6, 6), color = RbColors.textTertiary, fontSize = 11.sp)
+                }
+                Spacer(Modifier.height(6.dp))
+                Text(stringResource(if (vm.attestationsGoverned) R.string.attest_governed else R.string.attest_local), color = RbColors.textTertiary, fontSize = 11.sp)
+            }
+
             SectionTitle(stringResource(R.string.settings_ledger))
             GlassCard {
                 Text(stringResource(R.string.settings_ledger_body, shortKey(AppConfig.Ledger.REGISTRY, 6, 6)), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)

@@ -278,4 +278,10 @@
     <string name="publisher_flags_ignored">Flags from a verified publisher on reviews of their own app do not count; reply instead.</string>
     <string name="hidden_reply">Reply hidden by consensus</string>
     <string name="review_self_published">Not counted — the publisher\'s own app</string>
+    <string name="attest_title">What counts as a voice</string>
+    <string name="attest_body">A review is counted when the signing wallet holds one of these device credentials. The list ships with the app and, where its owner publishes updates, refreshes daily. Entries the app shipped with can never be removed by an update.</string>
+    <string name="attest_bundled">shipped with the app</string>
+    <string name="attest_remote">added by the list owner</string>
+    <string name="attest_governed">This list refreshes from its publisher.</string>
+    <string name="attest_local">This list is fixed in this build.</string>
 </resources>

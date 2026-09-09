@@ -52,6 +52,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val ledgerCache = LedgerCache(app)
     private val reader = LedgerReader(cache = ledgerCache)
     private val factsService = SignerFactsService(attestations = com.undersigned.app.solana.AttestationList.load(app))
+    val attestations = MutableStateFlow(com.undersigned.app.solana.AttestationList.load(app))
+    val attestationsGoverned = com.undersigned.app.solana.AttestationList.isGoverned(app)
     private val txService = ReviewTxService()
     val iconCache = DAppIconCache(app)
     private val store = StoreReviewsClient()
@@ -103,6 +105,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             rank()
             syncLedger()
             if (catalogueRepo.isStale()) catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
+        }
+        // The governed attestation list decides whose voice counts, so it refreshes on its own coroutine.
+        // Sequencing it after the catalogue crawl starved it: that crawl is hundreds of requests and the
+        // refresh never ran within a session (measured 9 Sep 2026).
+        viewModelScope.launch(Dispatchers.IO) {
+            if (com.undersigned.app.solana.AttestationList.refresh(app)) {
+                UserPreferences.clearFacts(); facts.value = emptyMap()
+                attestations.value = com.undersigned.app.solana.AttestationList.load(app)
+                rank()
+            }
         }
         viewModelScope.launch { UserPreferences.walletAddress.collect { w -> if (w == null) selfFacts.value = null else loadSelfFacts(w) } }
         // Near-real-time while the app is open: one cheap tail read a minute (until = newest known signature).
