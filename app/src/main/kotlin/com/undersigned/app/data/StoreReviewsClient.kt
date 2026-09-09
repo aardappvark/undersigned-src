@@ -10,6 +10,15 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Locale
 
+/**
+ * A JSON string field, or null. [JSONObject.optString] with a null fallback returns the LITERAL string
+ * "null" when the value is JSON null (it stringifies JSONObject.NULL), which is how a reviewer with no
+ * `.skr` domain rendered as "null" on the app page. [JSONObject.isNull] is true for both missing and
+ * JSON-null, so it is the only safe gate.
+ */
+private fun JSONObject.str(key: String): String? =
+    if (isNull(key)) null else optString(key).takeIf { it.isNotBlank() }
+
 /** One of the native dApp Store's own public reviews. Read-only; the store owns these. */
 data class StoreReview(val id: String, val createdAt: String, val rating: Int, val text: String?, val walletAddress: String?, val domain: String?, val publisherReply: String?)
 data class StoreRating(val average: Double, val byStar: List<Int>) { val total get() = byStar.sum() }
@@ -40,8 +49,8 @@ class StoreReviewsClient {
             val d = post("DAppByPackageSummary", Q_DETAILS, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
             val rel = d.optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return@runCatching null
             val ad = rel.optJSONObject("androidDetails"); val pd = rel.optJSONObject("publisherDetails")
-            StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.optString("certFingerprint", null)?.takeIf { it.isNotBlank() }?.lowercase()?.filter { c -> c in "0123456789abcdef" },
-                pd?.optString("name", null)?.takeIf { it.isNotBlank() }, pd?.optString("website", null)?.takeIf { it.isNotBlank() }, pd?.optString("supportEmail", null)?.takeIf { it.isNotBlank() })
+            StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.str("certFingerprint")?.lowercase()?.filter { c -> c in "0123456789abcdef" },
+                pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"))
         }.getOrElse { Log.w(TAG, "details failed: ${it.message?.take(80)}"); null }
     }
 
@@ -56,14 +65,13 @@ class StoreReviewsClient {
                 val edges = d.getJSONArray("edges")
                 for (i in 0 until edges.length()) {
                     val n = edges.getJSONObject(i).getJSONObject("node")
-                    val r = StoreReview(n.optString("id"), n.optString("createdAt"), n.optInt("rating"), n.optString("review", null).takeIf { !it.isNullOrBlank() },
-                        n.optString("walletAddress", null).takeIf { !it.isNullOrBlank() }, n.optString("domain", null).takeIf { !it.isNullOrBlank() },
-                        n.optJSONObject("reply")?.optString("reply", null).takeIf { !it.isNullOrBlank() })
+                    val r = StoreReview(n.optString("id"), n.optString("createdAt"), n.optInt("rating"), n.str("review"),
+                        n.str("walletAddress"), n.str("domain"), n.optJSONObject("reply")?.str("reply"))
                     out.add(r); if (stopWhen(r)) return@withContext out
                 }
                 val pi = d.getJSONObject("pageInfo")
                 if (!pi.optBoolean("hasNextPage", false)) return@withContext out
-                after = pi.optString("endCursor", null) ?: return@withContext out
+                after = pi.str("endCursor") ?: return@withContext out
             }
         } catch (e: Exception) { Log.w(TAG, "reviews failed: ${e.message?.take(80)}") }
         out

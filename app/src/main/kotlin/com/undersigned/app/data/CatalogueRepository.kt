@@ -69,7 +69,8 @@ class CatalogueRepository(private val context: Context) {
                     }
                     val pi = d.getJSONObject("pageInfo")
                     if (!pi.optBoolean("hasNextPage", false)) break
-                    after = pi.optString("endCursor", null) ?: break
+                    // optString(..., null) yields the literal "null" for a JSON null cursor; isNull is the safe gate.
+                    after = (if (pi.isNull("endCursor")) null else pi.optString("endCursor").takeIf { it.isNotBlank() }) ?: break
                 }
             }
             if (out.size < 100) throw IllegalStateException("catalogue crawl returned only ${out.size} apps")   // truncated storefront → keep the old data

@@ -19,7 +19,7 @@ object AttestationList {
         val list = runCatching {
             val o = JSONObject(context.assets.open("attestations.json").bufferedReader().use { it.readText() })
             val arr = o.getJSONArray("entries")
-            (0 until arr.length()).map { i -> val e = arr.getJSONObject(i); Attestation(e.getString("id"), e.getString("label"), e.getString("mintAuthority"), e.optString("metadata", null)) }
+            (0 until arr.length()).map { i -> val e = arr.getJSONObject(i); Attestation(e.getString("id"), e.getString("label"), e.getString("mintAuthority"), e.takeIf { !it.isNull("metadata") }?.optString("metadata")?.takeIf { m -> m.isNotBlank() }) }
         }.getOrElse { Log.w("AttestationList", "bundled list unreadable: ${it.message}"); emptyList() }
         cached = list; return list
     }

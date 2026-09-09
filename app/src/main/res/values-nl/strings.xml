@@ -237,7 +237,8 @@
     <string name="swipe_hint">Swipe a review right to reply.</string>
     <string name="profile_title">Profile</string>
     <string name="profile_credibility">Credibility</string>
-    <string name="profile_credibility_sub">50 base, +30 for tag agreement with other signers, +20 for flags upheld by consensus, −50 × share of records hidden by consensus. Published formula, nothing attached to it.</string>
+    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
+    <string name="profile_credibility_sub">40 base, +30 for tag agreement with other signers, +10 for helpful votes received, +20 for flags upheld by consensus, −50 × share of records hidden by consensus. Published formula, nothing attached to it.</string>
     <string name="profile_flags">%1\$d flags signed · %2\$d upheld · %3\$d received · %4\$d records hidden</string>
     <string name="profile_replied">Answers replies on their reviews %1\$s of the time</string>
     <string name="profile_publishes">Verified publisher of</string>
