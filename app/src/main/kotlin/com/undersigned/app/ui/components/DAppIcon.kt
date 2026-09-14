@@ -46,6 +46,8 @@ fun DAppIcon(packageName: String, displayName: String, iconUrl: String?, modifie
 @Composable
 fun LetterBadge(displayName: String, modifier: Modifier = Modifier.size(44.dp)) {
     Box(modifier.clip(RoundedCornerShape(11.dp)).background(RbColors.purple.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
-        Text(displayName.firstOrNull()?.uppercase() ?: "?", fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = RbColors.purpleLight)
+        // Two-letter monogram (design §4.4): the initials of the first two words, one letter for a one-word name.
+        val mono = displayName.split(' ', '-', '_').filter { it.isNotBlank() }.take(2).map { it.first().uppercaseChar() }.joinToString("").ifEmpty { "?" }
+        Text(mono, fontSize = if (mono.length > 1) 14.sp else 17.sp, fontWeight = FontWeight.ExtraBold, color = RbColors.purpleLight)
     }
 }

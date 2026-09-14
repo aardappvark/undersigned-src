@@ -42,7 +42,7 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit) {
+fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val wallet by vm.wallet.collectAsState()
@@ -51,6 +51,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val hidden by vm.hidden.collectAsState()
     val follows by vm.follows.collectAsState()
     val alerts by UserPreferences.alertsEnabled.collectAsState()
+    val dense by UserPreferences.dense.collectAsState()
+    val domainNames by vm.domainNames.collectAsState()
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
     val termsService = remember { TermsAcceptanceService(context) }
     val myStore by vm.myStoreReviews.collectAsState()
@@ -149,6 +151,16 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 }
             }
 
+            SectionTitle(stringResource(R.string.density_title))
+            GlassCard {
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    com.undersigned.app.ui.components.TagChip(stringResource(R.string.density_balanced), selected = !dense) { UserPreferences.setDense(false) }
+                    com.undersigned.app.ui.components.TagChip(stringResource(R.string.density_dense), selected = dense) { UserPreferences.setDense(true) }
+                }
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.density_body), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+            }
+
             SectionTitle(stringResource(R.string.attest_title))
             GlassCard {
                 Text(stringResource(R.string.attest_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
@@ -175,6 +187,19 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             SectionTitle(stringResource(R.string.settings_hidden))
             GlassCard {
                 Text(stringResource(R.string.settings_hidden_body, hidden.size), color = RbColors.textSecondary, fontSize = 12.sp)
+                Text(stringResource(R.string.settings_hidden_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                // Settings offered "Unhide all" and never showed what (design: Screens E). Each hidden record, with its own Unhide.
+                hidden.forEach { sig ->
+                    val e = vm.entryOf(sig)
+                    Spacer(Modifier.height(8.dp))
+                    Column(Modifier.fillMaxWidth().background(RbColors.surfaceVariant, androidx.compose.foundation.shape.RoundedCornerShape(10.dp)).padding(10.dp)) {
+                        val who = e?.let { domainNames[it.signer]?.takeIf { n -> n.isNotEmpty() } ?: shortKey(it.signer, 4, 4) } ?: shortKey(sig, 4, 4)
+                        val app = (e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.packageName?.let { p -> catalogue.firstOrNull { it.packageName == p }?.name ?: p }
+                        Text(listOfNotNull(who, app, e?.let { java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT).format(java.util.Date(it.blockTime * 1000)) }).joinToString(" · "), color = RbColors.textTertiary, fontSize = 11.sp)
+                        ((e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.text ?: (e?.memo as? com.undersigned.protocol.ReviewMemo.Reply)?.text)?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 2) }
+                        TextButton(onClick = { vm.unhide(sig) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.settings_unhide), color = RbColors.purpleLight, fontSize = 12.sp) }
+                    }
+                }
                 if (hidden.isNotEmpty()) { Spacer(Modifier.height(10.dp)); SecondaryButton(stringResource(R.string.settings_unhide_all), onClick = { UserPreferences.unhideAll() }) }
             }
 
@@ -205,6 +230,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             }
             Spacer(Modifier.height(12.dp))
             SecondaryButton(stringResource(R.string.intro_replay), onClick = { UserPreferences.setOnboardingSeen(false) })
+            Spacer(Modifier.height(8.dp))
+            SecondaryButton(stringResource(R.string.howto_open), onClick = onHowTo)
             Spacer(Modifier.height(20.dp))
             Text(stringResource(R.string.settings_about, BuildConfig.VERSION_NAME), color = RbColors.textDim, fontSize = 11.sp)
             Text(stringResource(R.string.settings_contact), color = RbColors.textDim, fontSize = 11.sp)

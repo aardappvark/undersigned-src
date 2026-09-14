@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
@@ -22,6 +23,8 @@ class MainActivity : ComponentActivity() {
     private var activityResultSender: ActivityResultSender? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Must precede super.onCreate: the splash theme hands over to Theme.Undersigned here, mark on black, no animation.
+        try { installSplashScreen() } catch (_: Exception) { }
         super.onCreate(savedInstanceState)
         try { activityResultSender = ActivityResultSender(this) } catch (e: Exception) { Log.e("MainActivity", "ActivityResultSender init failed: ${e.message}") }
         try { enableEdgeToEdge() } catch (_: Exception) { }

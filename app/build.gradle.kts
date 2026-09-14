@@ -62,6 +62,8 @@ android {
 dependencies {
     implementation(project(":protocol"))
     implementation("androidx.core:core-ktx:1.12.0")
+    // Android 12+ splash API: the mark on black for the cold-start frame, then the app theme (design §6).
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")

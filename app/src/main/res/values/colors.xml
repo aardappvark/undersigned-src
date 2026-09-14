@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Undersigned — RbColors as Android resources.
+  Mirrors app/src/main/kotlin/com/undersigned/app/ui/theme/Color.kt exactly; names kept.
+  Compose keeps using RbColors. This file is for XML that cannot reach it:
+  themes, notification accent, widgets.
+-->
+<resources>
+
+    <!-- Surfaces -->
+    <color name="background">#FF000000</color>
+    <color name="surface">#FF0E0B18</color>
+    <color name="surfaceVariant">#FF17122A</color>
+    <color name="card">#FF120E22</color>
+    <!-- ARGB: 20% alpha violet. A border, never a fill. -->
+    <color name="glassBorder">#339945FF</color>
+
+    <!-- Accent -->
+    <color name="purple">#FF9945FF</color>
+    <color name="purpleDim">#FF6B2FC7</color>
+    <color name="purpleLight">#FFB98CFF</color>
+    <color name="green">#FF14F195</color>
+
+    <!-- Text -->
+    <color name="textPrimary">#FFF2EEFF</color>
+    <color name="textSecondary">#FFB7AED1</color>
+    <color name="textTertiary">#FF7C7396</color>
+    <color name="textDim">#FF4E4766</color>
+
+    <!-- Semantic. One meaning each; never mixed with the accent.
+         green    attested · matches the certificate · verified publisher
+         warning  permanence consent · no attested device · flags and disputes
+         negative certificate mismatch · withdraw
+         info     Seeker wallet · Publisher replied · Looks genuine -->
+    <color name="negative">#FFFF6B6B</color>
+    <color name="warning">#FFFFC46B</color>
+    <color name="info">#FF6BB9FF</color>
+
+    <!-- Material outline, used by SecondaryButton at 1 dp -->
+    <color name="outline">#FF938F99</color>
+
+</resources>

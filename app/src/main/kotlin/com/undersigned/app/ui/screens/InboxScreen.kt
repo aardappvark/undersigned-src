@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.sp
 import com.undersigned.app.R
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
+import com.undersigned.app.ui.components.ChipRow
+import com.undersigned.app.ui.components.EmptyState
 import com.undersigned.app.ui.components.GlassCard
 import com.undersigned.app.ui.components.RatingStars
 import com.undersigned.app.ui.components.tagLabel
@@ -35,7 +37,16 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit)
     val catalogue by vm.catalogue.collectAsState()
     val domainNames by vm.domainNames.collectAsState()
     var tab by remember { mutableStateOf(0) }
-    val unanswered = remember(entries) { vm.unanswered() }
+    var sort by remember { mutableStateOf(0) }   // 0 oldest first · 1 dApp · 2 signer · 3 rating
+    val unanswered = remember(entries, sort, domainNames) {
+        val list = vm.unanswered()
+        when (sort) {
+            1 -> list.sortedBy { (it.memo as ReviewMemo.Review).packageName }
+            2 -> list.sortedBy { domainNames[it.signer]?.takeIf { n -> n.isNotEmpty() } ?: it.signer }
+            3 -> list.sortedBy { (it.memo as ReviewMemo.Review).rating }
+            else -> list.sortedBy { it.blockTime }
+        }
+    }
     val replies = remember(entries) { vm.repliesToMe().sortedByDescending { it.first.blockTime } }
     val starredEntries = remember(entries, starred) { entries.filter { it.signature in starred } }
     fun name(pkg: String) = catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg
@@ -55,9 +66,10 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit)
             0 -> {
                 Text(stringResource(R.string.inbox_unanswered_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp))
                 if (unanswered.isEmpty()) Empty(stringResource(R.string.inbox_unanswered_empty))
-                else LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) { items(unanswered, key = { it.signature }) { e -> ReviewRow(e, name((e.memo as ReviewMemo.Review).packageName), who(e.signer)) { onOpen((e.memo as ReviewMemo.Review).packageName) } } }
+                else { ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_oldest), 1 to stringResource(R.string.sort_dapp), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_rating)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp))
+                LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) { items(unanswered, key = { it.signature }) { e -> ReviewRow(e, name((e.memo as ReviewMemo.Review).packageName), who(e.signer)) { onOpen((e.memo as ReviewMemo.Review).packageName) } } } }
             }
-            1 -> if (replies.isEmpty()) Empty(stringResource(R.string.inbox_replies_empty))
+            1 -> if (replies.isEmpty()) EmptyState(R.drawable.photo_empty_replies, stringResource(R.string.inbox_replies_empty))
                  else LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
                      items(replies, key = { it.first.signature }) { (rp, mine) ->
                          val pkg = (mine.memo as? ReviewMemo.Review)?.packageName ?: vm.packageOf(mine.signature) ?: ""

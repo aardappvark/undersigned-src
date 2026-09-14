@@ -253,7 +253,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             .map { it to Ranking.weight(facts.value[it.signer] ?: SignerFacts(false, 0.0)) }
     }
     fun toggleStar(id: String) = UserPreferences.toggleStar(id)
-    fun myUpvote(id: String): Boolean = wallet.value?.let { w -> (helpfulWeights.value.isNotEmpty() || true) && Reputation.helpfulWeights(entries.value.filter { it.signer == w || it.signature == id }) { SignerFacts(true, 0.0) }.containsKey(id) } ?: false
+    /** Whether MY wallet's latest up/unvote on [id] is an upvote. Facts are forced to weight 1 so an unattested wallet still sees its own vote state. */
+    fun myUpvote(id: String): Boolean = wallet.value?.let { w -> Reputation.helpfulWeights(entries.value.filter { it.signer == w || it.signature == id }) { SignerFacts(true, 0.0) }.containsKey(id) } ?: false
     fun myFlag(id: String): Boolean = wallet.value?.let { w -> currentFlaggers.value[id]?.contains(w) == true } ?: false
     fun myClear(id: String): Boolean = wallet.value?.let { w -> currentClearers.value[id]?.contains(w) == true } ?: false
     fun draftLooksCopied(draft: String) = com.undersigned.protocol.Similarity.similarToExisting(draft, entries.value)
@@ -285,6 +286,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun hide(signature: String) = UserPreferences.hide(signature)
+    fun unhide(signature: String) = UserPreferences.unhide(signature)
+    fun entryOf(signature: String): LedgerEntry? = entries.value.firstOrNull { it.signature == signature }
     fun toggleFollow(pkg: String) { if (pkg in follows.value) UserPreferences.unfollow(pkg) else UserPreferences.follow(pkg) }
 
     /** Signed replies under one review, oldest first, hidden ones removed. */
@@ -310,6 +313,17 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 Log.i("MainViewModel", "published $sig")
             }
             onResult(r)
+        }
+    }
+
+    /** "Re-read the catalogue" from the empty search state: a forced store crawl, then the device snapshot follows it. */
+    val catalogueRefreshing = MutableStateFlow(false)
+    fun refreshCatalogue() {
+        if (catalogueRefreshing.value) return
+        viewModelScope.launch(Dispatchers.IO) {
+            catalogueRefreshing.value = true
+            catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
+            catalogueRefreshing.value = false
         }
     }
 

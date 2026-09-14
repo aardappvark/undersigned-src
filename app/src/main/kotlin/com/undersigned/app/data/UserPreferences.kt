@@ -25,6 +25,8 @@ object UserPreferences {
     private const val KEY_CLAIMS = "publisher_claims"
     private const val KEY_DIVERGENCE = "divergence_marks"
     private const val KEY_WAVES = "wave_marks"
+    private const val KEY_DENSE = "reading_dense"       // device-local reading density (design §6); never on-chain
+    private const val KEY_HOWTO_SEEN = "howto_seen"
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -41,6 +43,10 @@ object UserPreferences {
     val starred: StateFlow<Set<String>> = _starred
     private val _alertsEnabled = MutableStateFlow(false)
     val alertsEnabled: StateFlow<Boolean> = _alertsEnabled
+    private val _dense = MutableStateFlow(false)
+    val dense: StateFlow<Boolean> = _dense
+    private val _howToSeen = MutableStateFlow(false)
+    val howToSeen: StateFlow<Boolean> = _howToSeen
 
     fun init(context: Context) {
         val p = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -51,11 +57,15 @@ object UserPreferences {
         _follows.value = p.getStringSet(KEY_FOLLOWS, emptySet()) ?: emptySet()
         _starred.value = p.getStringSet(KEY_STARRED, emptySet()) ?: emptySet()
         _alertsEnabled.value = p.getBoolean(KEY_ALERTS, false)
+        _dense.value = p.getBoolean(KEY_DENSE, false)
+        _howToSeen.value = p.getBoolean(KEY_HOWTO_SEEN, false)
     }
 
     fun toggleStar(id: String) { val s = if (id in _starred.value) _starred.value - id else _starred.value + id; prefs?.edit()?.putStringSet(KEY_STARRED, s)?.apply(); _starred.value = s }
     fun follow(pkg: String) { val s = _follows.value + pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
     fun unfollow(pkg: String) { val s = _follows.value - pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
+    fun setDense(v: Boolean) { prefs?.edit()?.putBoolean(KEY_DENSE, v)?.apply(); _dense.value = v }
+    fun setHowToSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_HOWTO_SEEN, v)?.apply(); _howToSeen.value = v }
     fun setAlerts(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ALERTS, v)?.apply(); _alertsEnabled.value = v }
     var lastNotifiedSignature: String?
         get() = prefs?.getString(KEY_LAST_NOTIFIED, null)
@@ -65,6 +75,7 @@ object UserPreferences {
     fun setOnboardingSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ONBOARDING_SEEN, v)?.apply(); _onboardingSeen.value = v }
 
     fun hide(signature: String) { val s = _hidden.value + signature; prefs?.edit()?.putStringSet(KEY_HIDDEN, s)?.apply(); _hidden.value = s }
+    fun unhide(signature: String) { val s = _hidden.value - signature; prefs?.edit()?.putStringSet(KEY_HIDDEN, s)?.apply(); _hidden.value = s }
     fun unhideAll() { prefs?.edit()?.remove(KEY_HIDDEN)?.apply(); _hidden.value = emptySet() }
 
     /** Signer facts cache: {signer: {sgt, skr, at}} — immutable-ish data with a TTL. */
@@ -119,5 +130,5 @@ object UserPreferences {
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
 
-    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false }
+    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false; _dense.value = false; _howToSeen.value = false }
 }

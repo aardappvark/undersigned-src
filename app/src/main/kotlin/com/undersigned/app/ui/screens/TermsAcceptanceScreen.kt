@@ -25,6 +25,7 @@ import com.undersigned.app.R
 import com.undersigned.app.data.TermsAcceptanceService
 import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.ui.components.GlassCard
+import com.undersigned.app.ui.components.PhotoBackdrop
 import com.undersigned.app.ui.components.PrimaryButton
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.app.util.WalletScreening
@@ -62,12 +63,14 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
     }
     fun open(url: String) { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) { } }
 
-    Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding().verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(Modifier.height(28.dp))
-        Text(stringResource(R.string.terms_welcome), color = RbColors.textPrimary, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-        Spacer(Modifier.height(6.dp))
-        Text(stringResource(R.string.terms_intro), color = RbColors.textSecondary, fontSize = 14.sp, textAlign = TextAlign.Center)
-        Spacer(Modifier.height(20.dp))
+    // Full-page photograph (design: terms gate); the type starts where the scrim is already opaque.
+    PhotoBackdrop(R.drawable.photo_frame_2_nib, Modifier.fillMaxSize(), fadeFrom = 0.16f) {
+    Column(Modifier.fillMaxSize().systemBarsPadding().verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.Start) {
+        Spacer(Modifier.height(200.dp))
+        Text(stringResource(R.string.terms_welcome), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
+        Spacer(Modifier.height(8.dp))
+        Text(stringResource(R.string.terms_intro), color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 20.sp)
+        Spacer(Modifier.height(18.dp))
         GlassCard {
             Text(stringResource(R.string.terms_confirm_heading), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))
@@ -100,6 +103,7 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
             Text(stringResource(R.string.terms_preview_only_note), color = RbColors.textTertiary, fontSize = 11.sp, textAlign = TextAlign.Center)
         }
         Spacer(Modifier.height(24.dp))
+    }
     }
 }
 

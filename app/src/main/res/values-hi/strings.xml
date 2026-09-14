@@ -49,7 +49,9 @@
     <string name="row_signed_count">%1$d हस्ताक्षरित</string>
     <string name="row_no_reviews">अभी तक कोई हस्ताक्षरित समीक्षा नहीं</string>
     <string name="ledger_syncing">ledger पढ़ा जा रहा है…</string>
-    <string name="ledger_synced">Ledger: %1$d समीक्षाएं, %2$d Seekers से</string>
+    <string name="ledger_synced">Ledger: %1$s समीक्षाएं, %2$s Seekers से</string>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
     <string name="ledger_error">Ledger पढ़ने में विफल: %1$s</string>
     <string name="catalogue_count">स्टोर सूची में %1$d ऐप्स</string>
     <string name="empty_installed">इस डिवाइस पर अभी तक कोई स्टोर ऐप इंस्टॉल नहीं है।</string>
@@ -210,7 +212,7 @@
     <string name="intro_next">Next</string>
     <string name="intro_replay">Replay the intro</string>
     <string name="intro1_title">One Seeker, one voice</string>
-    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing to buy, stake or earn.</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing you can buy makes it count for more.</string>
     <string name="intro2_title">Signed, not typed</string>
     <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
     <string name="intro3_title">Beside the store, not instead of it</string>

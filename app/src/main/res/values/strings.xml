@@ -4,6 +4,7 @@
 
     <!-- Region gate -->
     <string name="blocked_title">Not available in your region</string>
+    <string name="blocked_region_line">Detected region: %1$s</string>
     <string name="blocked_body">Undersigned is not offered in %1$s because of sanctions and legal restrictions. This check runs on your device only.</string>
 
     <!-- Terms gate -->
@@ -42,8 +43,29 @@
     <string name="intro_skip">Skip</string>
     <string name="intro_next">Next</string>
     <string name="intro_replay">Replay the intro</string>
+    <string name="howto_step">Step %1$d</string>
+    <string name="howto1_title">Sign in</string>
+    <string name="howto1_sub">Connect the wallet you already use</string>
+    <string name="howto1_body">Tap \"Sign in with your wallet\" on the first screen and approve the message. That signature records your consent — it moves nothing. Undersigned never holds your keys or funds.</string>
+    <string name="howto1_note_title">No wallet?</string>
+    <string name="howto1_note">Choose \"Browse without a wallet\" to read the ledger and your device facts. Posting needs a Seeker wallet with a Genesis Token.</string>
+    <string name="howto2_title">Find a dApp</string>
+    <string name="howto2_sub">Three tabs, one search field</string>
+    <string name="howto2_body">Read both numbers before you install: the signed score, and the store\'s own rating beside it.\n\nInstalled — store dApps on this phone, the only ones with device facts.\nSigned — everything the ledger has an opinion on, best first.\nAll dApps — the whole store catalogue.</string>
+    <string name="howto2_note_title">Follow</string>
+    <string name="howto2_note">Tap the heart on a dApp page to follow it — new signed reviews, updates and replies then reach you locally.</string>
+    <string name="howto3_title">Sign a review</string>
+    <string name="howto3_sub">Stars, one to three tags, then sign</string>
+    <string name="howto3_body">01  Tap \"Write a signed review\" and set the stars.\n02  Pick one to three tags from the fixed list.\n03  A note is optional — 140 characters, your own words.\n04  \"Sign and publish\", then approve with the double-tap.</string>
+    <string name="howto3_note_title">Text is permanent</string>
+    <string name="howto3_note">A note goes to the blockchain and cannot be deleted by you, by us, or by anyone. You can withdraw a review from the ranking; the text stays. Stars and tags alone need no consent tick.</string>
+    <string name="howto4_title">Keep it honest</string>
+    <string name="howto4_sub">Every judgement is a signature too</string>
+    <string name="howto4_body">Helpful — orders reviews. One vote per wallet, weighted like a review.\nFlag — suspected spam, abuse, off topic or misleading. At consensus, readers hide the record.\nLooks genuine — offsets flags you think are wrong.\nDispute — if your own record is hidden, one signed reply raises the weight needed to keep it hidden.</string>
+    <string name="howto4_note_title">Nothing is paid for any of this</string>
+    <string name="howto4_note">Your standing is counts and a published formula — nothing you can buy moves it. Replay these steps any time from Settings.</string>
     <string name="intro1_title">One Seeker, one voice</string>
-    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing to buy, stake or earn.</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing you can buy makes it count for more.</string>
     <string name="intro2_title">Signed, not typed</string>
     <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
     <string name="intro3_title">Beside the store, not instead of it</string>
@@ -62,15 +84,41 @@
     <string name="row_signed_count">%1$d signed</string>
     <string name="row_no_reviews">No signed reviews yet</string>
     <string name="ledger_syncing">Reading the ledger…</string>
-    <string name="ledger_synced">Ledger · reviews %1\$d · signers %2\$d</string>
+    <string name="ledger_synced">Ledger: %1\$s from %2\$s</string>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d review</item><item quantity="other">%1$d reviews</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Ledger read failed: %1$s</string>
     <string name="catalogue_count">%1$d apps in the store catalogue</string>
     <string name="empty_installed">No store apps installed on this device yet.</string>
     <string name="empty_signed">No signed reviews yet. Be the first.</string>
     <string name="empty_search">Nothing matches.</string>
+    <string name="empty_search_title">No dApp by that name</string>
+    <string name="empty_search_body">Nothing in the store catalogue matches \"%1$s\".</string>
+    <string name="reread_catalogue">Re-read the catalogue</string>
+    <string name="ledger_retry">Try again</string>
+    <string name="sort">Sort</string>
+    <string name="show">Show</string>
+    <string name="sort_score">Signed score</string>
+    <string name="sort_new">New</string>
+    <string name="sort_category">Category</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_helpful">Most helpful</string>
+    <string name="sort_newest">Newest</string>
+    <string name="sort_signer">Signer</string>
+    <string name="sort_version">Version</string>
+    <string name="sort_oldest">Oldest first</string>
+    <string name="sort_dapp">dApp</string>
+    <string name="sort_rating">Rating</string>
+    <string name="show_everyone">Everyone</string>
+    <string name="show_mine">Mine</string>
+    <string name="show_answered">Answered by the publisher</string>
+    <string name="group_one">1 dApp</string>
+    <string name="group_many">%1$d dApps</string>
+    <string name="category_none">Uncategorised</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Open in dApp Store</string>
+    <string name="detail_open_app">Open the dApp</string>
     <string name="detail_write_review">Write a signed review</string>
     <string name="detail_update_review">Update my review</string>
     <string name="detail_revoke_review">Withdraw my review</string>
@@ -113,7 +161,7 @@
     <string name="standing_line">%1\$d counted · %2\$d withdrawn · %3\$d replies received · %4\$d given</string>
     <string name="standing_agreement">Tag agreement with other signers: %1\$s</string>
     <string name="standing_since">Signing since %1\$s</string>
-    <string name="standing_note2">Counts only. No score, no reward, nothing to buy.</string>
+    <string name="standing_note2">Counts only. No score, nothing to buy.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">also signed here</string>
@@ -155,6 +203,17 @@
     <string name="review_weight_unverified">not counted</string>
     <string name="review_hide">Hide</string>
     <string name="review_report">Report</string>
+    <string name="report_title">Report a record</string>
+    <string name="report_body">A report is not a flag. Flags are signed and public and hide a record by consensus; a report leaves the ledger and reaches a person, for content that breaks the law or the store\'s rules.</string>
+    <string name="report_why">Why</string>
+    <string name="report_illegal">Illegal content</string>
+    <string name="report_personal">Someone\'s personal data</string>
+    <string name="report_abuse">Abuse or harassment</string>
+    <string name="report_impersonation">Impersonates a publisher</string>
+    <string name="report_note_hint">Anything the reader should know (optional)</string>
+    <string name="report_footer">Nothing here can delete an on-chain record — not us, not the store, not a court. A report can lead to it being hidden in this app and passed to Solana Mobile. It opens your mail app; no report is sent from the app itself, and nothing about you is collected.</string>
+    <string name="report_write">Write the report</string>
+    <string name="report_hide_instead">Hide it on this device instead</string>
     <string name="review_hidden_note">%1$d hidden on this device</string>
     <string name="review_by_you">You</string>
 
@@ -207,6 +266,13 @@
     <string name="settings_hidden">Hidden reviews</string>
     <string name="settings_hidden_body">%1$d reviews hidden on this device.</string>
     <string name="settings_unhide_all">Unhide all</string>
+    <string name="settings_unhide">Unhide</string>
+    <string name="settings_hidden_sub">Hidden on this device only. Nothing was removed from the ledger and no one else is affected by what you hide.</string>
+    <string name="density_title">Reading density</string>
+    <string name="density_balanced">Balanced</string>
+    <string name="density_dense">Dense</string>
+    <string name="density_body">Balanced gives every row its tags and score room to breathe. Dense drops the row to a single line — score, stars and counts on one baseline — and fits roughly twice as many dApps per screen. Lists and cards only; photographs and consent text are unaffected. Stored on the device, not on-chain.</string>
+    <string name="howto_open">How to use Undersigned</string>
     <string name="settings_legal">Legal</string>
     <string name="settings_sanctions">Restricted jurisdictions</string>
     <string name="settings_licence">Licence</string>

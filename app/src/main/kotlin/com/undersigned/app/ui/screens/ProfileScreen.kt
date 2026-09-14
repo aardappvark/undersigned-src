@@ -40,16 +40,21 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
     fun appName(pkg: String) = catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg
     @Composable fun bucket(b: String) = when (b) { "hours" -> stringResource(R.string.bucket_hours); "days" -> stringResource(R.string.bucket_days); "weeks" -> stringResource(R.string.bucket_weeks); "months" -> stringResource(R.string.bucket_months); else -> b }
 
-    Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
-        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
-            Column { Text(name, color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold); Text(wallet, color = RbColors.textTertiary, fontSize = 10.sp, maxLines = 1) }
+    Column(Modifier.fillMaxSize().background(RbColors.background)) {
+        PhotoBackdrop(R.drawable.photo_frame_4_seal, Modifier.fillMaxWidth().height(200.dp), fadeFrom = 0.30f) {
+            Row(Modifier.align(Alignment.TopStart).systemBarsPadding().padding(horizontal = 8.dp, vertical = 4.dp)) {
+                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textPrimary) }
+            }
+            Column(Modifier.align(Alignment.BottomStart).padding(horizontal = 20.dp, vertical = 12.dp)) {
+                Text(name, color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
+                Text(wallet, color = RbColors.textTertiary, fontSize = 10.sp, maxLines = 1)
+            }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             SectionTitle(stringResource(R.string.profile_credibility))
             GlassCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text((st?.credibility ?: 50).toString(), color = RbColors.textPrimary, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold)
+                    Text((st?.credibility ?: 40).toString(), color = RbColors.textPrimary, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold)
                     Spacer(Modifier.width(12.dp))
                     Column {
                         st?.let { Text(stringResource(R.string.standing_line, it.countedReviews, it.withdrawn, it.repliesReceived, it.repliesGiven), color = RbColors.textSecondary, fontSize = 12.sp) }

@@ -19,6 +19,7 @@ object Routes {
     const val SETTINGS = "settings"
     const val INBOX = "inbox"
     const val PROFILE = "profile/{wallet}"
+    const val HOWTO = "howto"
     fun profile(w: String) = "profile/$w"
     fun detail(pkg: String) = "detail/$pkg"
     fun review(pkg: String) = "review/$pkg"
@@ -32,6 +33,8 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     if (!consentGiven) { TermsAcceptanceScreen(activityResultSender = activityResultSender, onAccepted = { consentGiven = true }); return }
     val onboardingSeen by UserPreferences.onboardingSeen.collectAsState()
     if (!onboardingSeen) { OnboardingScreen(onDone = { UserPreferences.setOnboardingSeen(true) }); return }
+    val howToSeen by UserPreferences.howToSeen.collectAsState()
+    if (!howToSeen) { HowToScreen(onDone = { UserPreferences.setHowToSeen(true) }); return }
 
     val nav = rememberNavController()
     val vm: MainViewModel = viewModel()
@@ -47,7 +50,8 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
         composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onProfile = { nav.navigate(Routes.profile(it)) }) }
         composable(Routes.REVIEW) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; ReviewScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onPublished = { nav.popBackStack() }) }
         composable(Routes.CHANGES) { ChangesScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }) }
-        composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }) }
+        composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onHowTo = { nav.navigate(Routes.HOWTO) }) }
+        composable(Routes.HOWTO) { HowToScreen(onDone = { nav.popBackStack() }) }
         composable(Routes.INBOX) { InboxScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.PROFILE) { b -> val w = b.arguments?.getString("wallet") ?: return@composable; ProfileScreen(vm, w, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
     }

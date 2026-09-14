@@ -135,7 +135,16 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
-    fun report(sig: String) { try { context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + context.getString(R.string.settings_contact) + "?subject=" + Uri.encode("Undersigned report: $sig") + "&body=" + Uri.encode("Package: $pkg\nReview signature: $sig\nReason: ")))) } catch (_: Exception) { } }
+    // The dApp launcher: the package manager's launch intent for an installed store app. Nothing is installed or changed.
+    val launchIntent = remember(pkg, isInstalled) { if (isInstalled) runCatching { context.packageManager.getLaunchIntentForPackage(pkg) }.getOrNull() else null }
+    fun openApp() { launchIntent?.let { try { context.startActivity(it) } catch (_: Exception) { } } }
+    // Report: off-ledger, to a human, by mail. The dialog collects a reason; nothing is sent from the app itself.
+    var reportTarget by remember { mutableStateOf<String?>(null) }
+    fun report(sig: String) { reportTarget = sig }
+    fun sendReport(sig: String, reason: String, note: String) {
+        val body = "Package: $pkg\nRecord: $sig\nReason: $reason" + (note.takeIf { it.isNotBlank() }?.let { "\nNote: $it" } ?: "")
+        try { context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + context.getString(R.string.settings_contact) + "?subject=" + Uri.encode("Undersigned report: $sig") + "&body=" + Uri.encode(body)))) } catch (_: Exception) { }
+    }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -152,9 +161,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             Spacer(Modifier.height(6.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                SecondaryButton(stringResource(R.string.detail_open_store), onClick = { openStore() }, modifier = Modifier.weight(1f))
-            }
+            // Stacked, not side by side: "Open in dApp Store" wrapped and clipped at half width on the Seeker (15 Sep 2026), and German runs longer.
+            SecondaryButton(stringResource(R.string.detail_open_store), onClick = { openStore() })
+            if (launchIntent != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_open_app), onClick = { openApp() }) }
             Spacer(Modifier.height(8.dp))
             PrimaryButton(if (mine != null) stringResource(R.string.detail_update_review) else stringResource(R.string.detail_write_review), onClick = onReview)
             if (mine != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_revoke_review), onClick = { revokeDialog = true }) }
@@ -297,7 +306,22 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             actionMessage?.let { (ok, msg) -> Text(msg, color = if (ok) RbColors.green else RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp) }
             if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
             else Text(stringResource(R.string.swipe_hint), color = RbColors.textTertiary, fontSize = 11.sp)
-            reviews.forEach { (e, w) ->
+            var show by remember { mutableStateOf(0) }   // 0 everyone · 1 mine · 2 answered by the publisher
+            var sortBy by remember { mutableStateOf(0) } // 0 most helpful (default order) · 1 newest · 2 signer · 3 version
+            if (reviews.size > 1) {
+                ChipRow(stringResource(R.string.show), listOf(0 to stringResource(R.string.show_everyone), 1 to stringResource(R.string.show_mine), 2 to stringResource(R.string.show_answered)), show, { show = it })
+                ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_helpful), 1 to stringResource(R.string.sort_newest), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_version)), sortBy, { sortBy = it })
+            }
+            val shown = remember(reviews, show, sortBy, entries, domainNames, verified) {
+                reviews.filter { (e, _) -> when (show) { 1 -> e.signer == wallet; 2 -> vm.repliesFor(e.signature).any { vm.isVerifiedPublisher(pkg, it.signer) }; else -> true } }
+                    .let { l -> when (sortBy) {
+                        1 -> l.sortedByDescending { it.first.blockTime }
+                        2 -> l.sortedBy { domainNames[it.first.signer]?.takeIf { n -> n.isNotEmpty() } ?: it.first.signer }
+                        3 -> l.sortedByDescending { (it.first.memo as ReviewMemo.Review).versionCode }
+                        else -> l
+                    } }
+            }
+            shown.forEach { (e, w) ->
                 val r = e.memo as ReviewMemo.Review
                 if (e.signature in consensusHidden && e.signature !in revealed) {
                     GlassCard(accent = RbColors.surfaceVariant) {
@@ -390,6 +414,31 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             if (hiddenCount > 0) Text(stringResource(R.string.review_hidden_note, hiddenCount), color = RbColors.textTertiary, fontSize = 11.sp)
             Spacer(Modifier.height(32.dp))
         }
+    }
+
+    reportTarget?.let { sig ->
+        var reason by remember { mutableStateOf(R.string.report_illegal) }
+        var note by remember { mutableStateOf("") }
+        val target = remember(sig) { vm.entryOf(sig) }
+        AlertDialog(onDismissRequest = { reportTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.report_title), color = RbColors.textPrimary) },
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.report_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                target?.let { t -> Spacer(Modifier.height(8.dp)); Text((domainNames[t.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(t.signer, 4, 4)) + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(t.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
+                    ((t.memo as? ReviewMemo.Review)?.text ?: (t.memo as? ReviewMemo.Reply)?.text)?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 3) } }
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.report_why), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    listOf(R.string.report_illegal, R.string.report_personal, R.string.report_abuse, R.string.report_impersonation).forEach { r -> TagChip(stringResource(r), selected = reason == r) { reason = r } }
+                }
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(value = note, onValueChange = { note = it.take(500) }, minLines = 2, maxLines = 4, placeholder = { Text(stringResource(R.string.report_note_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.report_footer), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+            } },
+            confirmButton = { TextButton(onClick = { sendReport(sig, context.getString(reason), note); reportTarget = null }) { Text(stringResource(R.string.report_write), color = RbColors.purpleLight) } },
+            dismissButton = { TextButton(onClick = { vm.hide(sig); reportTarget = null }) { Text(stringResource(R.string.report_hide_instead), color = RbColors.textSecondary) } })
     }
 
     standingFor?.let { w ->
