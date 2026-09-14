@@ -55,6 +55,29 @@ object Reputation {
      * Every step is reversible on-chain: withdraw a flag (unf), add a clear (clr), dispute (dsp).
      */
     const val HIDE_WEIGHT = 2.0
+    /**
+     * Weight alone is not consensus: one wallet at the 3x staking cap weighs 3.0, above [HIDE_WEIGHT], so it
+     * could hide any record by itself (found 15 Sep 2026 with a 108k-SKR wallet). Hiding also needs this many
+     * distinct attested flaggers, net of clears; [DISPUTED_MIN_FLAGGERS] once the author disputes.
+     */
+    const val MIN_FLAGGERS = 2
+    const val DISPUTED_MIN_FLAGGERS = 3
+
+    /** Distinct attested wallets currently flagging a record, net of distinct attested clearers (author and the app's verified publishers excluded). */
+    fun netFlaggers(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Map<String, Int> {
+        val bySig = entries.associateBy { it.signature }
+        val clears = currentClearers(entries)
+        val out = HashMap<String, Int>()
+        for ((target, flaggers) in currentFlaggers(entries)) {
+            val rec = bySig[target]; val author = rec?.signer
+            val pkg = (rec?.memo as? ReviewMemo.Review)?.packageName ?: ((rec?.memo as? ReviewMemo.Reply)?.let { (bySig[it.reviewSignature]?.memo as? ReviewMemo.Review)?.packageName })
+            val excluded = pkg?.let { verifiedPublishers[it] }.orEmpty()
+            val f = flaggers.count { it != author && it !in excluded && facts(it).hasGenesisToken }
+            val c = clears[target].orEmpty().count { it != author && facts(it).hasGenesisToken }
+            if (f - c > 0) out[target] = f - c
+        }
+        return out
+    }
 
     /** Per (record, wallet): the latest "on"/"off" state of a toggle pair, by block time. */
     private fun latestState(entries: List<LedgerEntry>, on: (ReviewMemo) -> String?, off: (ReviewMemo) -> String?): Map<String, Map<String, Boolean>> {
@@ -103,7 +126,12 @@ object Reputation {
     }
     fun hiddenByConsensus(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Set<String> {
         val disputed = disputes(entries).keys
-        return flagWeights(entries, verifiedPublishers, facts).filter { (id, w) -> w >= (if (id in disputed) 2 * HIDE_WEIGHT else HIDE_WEIGHT) }.keys
+        val people = netFlaggers(entries, verifiedPublishers, facts)
+        return flagWeights(entries, verifiedPublishers, facts).filter { (id, w) ->
+            val isDisputed = id in disputed
+            w >= (if (isDisputed) 2 * HIDE_WEIGHT else HIDE_WEIGHT) &&
+                (people[id] ?: 0) >= (if (isDisputed) DISPUTED_MIN_FLAGGERS else MIN_FLAGGERS)
+        }.keys
     }
 
     fun standing(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Map<String, SignerStanding> {

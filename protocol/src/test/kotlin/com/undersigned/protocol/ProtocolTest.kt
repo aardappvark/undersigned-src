@@ -162,6 +162,25 @@ class ProtocolTest {
         assertTrue(!Ranking.isSelfPublished(entries[0], mapOf("com.y" to setOf("pub"))))
     }
 
+    @Test fun `one maximum-stake wallet cannot hide a record alone`() {
+        val r = "1" + "A".repeat(86)
+        val review = LedgerEntry(r, "author", 10, ReviewMemo.Review("com.x", 2, listOf(ReviewMemo.Tag.CRASHES), 1, null))
+        val whaleFlag = LedgerEntry("2" + "A".repeat(86), "whale", 20, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        val facts = { w: String -> SignerFacts(true, if (w == "whale") 1_000_000.0 else 0.0) }
+        assertEquals(3.0, Reputation.flagWeights(listOf(review, whaleFlag), facts = facts)[r])   // weight is over the bar...
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag), facts = facts).isEmpty(), "...but one wallet is not consensus")
+        val second = LedgerEntry("3" + "A".repeat(86), "b", 21, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whaleFlag, second), facts = facts))
+        // after a dispute, two flaggers are not enough even at weight 4.0
+        val dispute = LedgerEntry("4" + "A".repeat(86), "author", 30, ReviewMemo.Dispute(r, "honest review"))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag, second, dispute), facts = facts).isEmpty())
+        val third = LedgerEntry("5" + "A".repeat(86), "c", 31, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whaleFlag, second, dispute, third), facts = facts))
+        // an unattested flagger adds no person
+        val unattested = { w: String -> SignerFacts(w != "b", 0.0) }
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag, second), facts = unattested).isEmpty())
+    }
+
     @Test fun `garbage and hostile input decode to null, never throw`() {
         listOf("", "SRL1", "SRL1|rev", "SRL1|rev|com.a|6|works|1|", "SRL1|rev|com.a|3|nonsense|1|",
                "SRL1|rev|com.a|3|works,works|1|", "SRL1|rev|../etc|3|works|1|", "SRL2|rev|com.a|3|works|1|",

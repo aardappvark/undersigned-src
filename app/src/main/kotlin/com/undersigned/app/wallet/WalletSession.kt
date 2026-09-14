@@ -37,8 +37,8 @@ object WalletSession {
                     Result.success(SignInOutcome(Base58.encode(p.publicKey), Base58.encode(p.signature), String(p.signedMessage, Charsets.UTF_8)))
                 }
                 is TransactionResult.NoWalletFound -> Result.failure(Exception("No Solana wallet found on this device"))
-                is TransactionResult.Failure -> Result.failure(Exception(r.e.message?.take(120) ?: "Sign-in failed"))
+                is TransactionResult.Failure -> Result.failure(Exception(WalletErrors.humanise(r.e, "Sign-in didn't complete. Try again.")))
             }
-        } catch (e: Exception) { Result.failure(Exception(e.message?.take(120) ?: "Sign-in failed")) }
+        } catch (e: Exception) { Result.failure(Exception(WalletErrors.humanise(e, "Sign-in didn't complete. Try again."))) }
     }
 }

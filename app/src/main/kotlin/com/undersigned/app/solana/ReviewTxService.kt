@@ -45,7 +45,7 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         val signature = when (result) {
             is TransactionResult.Success -> result.payload
             is TransactionResult.NoWalletFound -> return Result.failure(Exception("No Solana wallet found. Install a wallet that supports Mobile Wallet Adapter."))
-            is TransactionResult.Failure -> return Result.failure(Exception(result.e.message ?: "The wallet declined the request."))
+            is TransactionResult.Failure -> return Result.failure(Exception(com.undersigned.app.wallet.WalletErrors.humanise(result.e)))
         }
 
         onStage(Stage.Confirming)
@@ -90,7 +90,7 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         val sigs = when (result) {
             is TransactionResult.Success -> result.payload
             is TransactionResult.NoWalletFound -> return Result.failure(Exception("No Solana wallet found."))
-            is TransactionResult.Failure -> return Result.failure(Exception(result.e.message ?: "The wallet declined the request."))
+            is TransactionResult.Failure -> return Result.failure(Exception(com.undersigned.app.wallet.WalletErrors.humanise(result.e)))
         }
         onStage(Stage.Confirming)
         val deadline = System.currentTimeMillis() + AppConfig.Ledger.CONFIRM_TIMEOUT_MS
