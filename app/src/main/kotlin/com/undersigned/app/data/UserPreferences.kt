@@ -21,7 +21,7 @@ object UserPreferences {
     private const val KEY_STARRED = "starred_records"
     private const val KEY_ALERTS = "alerts_enabled"
     private const val KEY_LAST_NOTIFIED = "last_notified_signature"
-    private const val KEY_DOMAINS = "skr_domains"
+    private const val KEY_DOMAINS = "skr_domains_v2"   // v1 cached "no name" from the broken derivation
     private const val KEY_CLAIMS = "publisher_claims"
     private const val KEY_DIVERGENCE = "divergence_marks"
     private const val KEY_WAVES = "wave_marks"
