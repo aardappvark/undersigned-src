@@ -105,9 +105,19 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var voteStage by remember { mutableStateOf<String?>(null) }
     var pendingVote by remember { mutableStateOf<String?>(null) }
     var simpleStage by remember { mutableStateOf<String?>(null) }
+    // Quick actions (helpful, withdraw, looks genuine) used to discard their result, so a declined or
+    // timed-out wallet request did nothing visible (15 Sep 2026). The outcome is now always shown.
+    var actionMessage by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
     fun sign(memo: ReviewMemo) {
         val s = sender ?: return
-        vm.publish(s, memo, onStage = { st -> simpleStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { simpleStage = null }
+        actionMessage = null
+        vm.publish(s, memo, onStage = { st -> simpleStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
+            simpleStage = null
+            actionMessage = r.fold(
+                onSuccess = { sig -> true to context.getString(R.string.action_published, shortKey(sig, 6, 6)) },
+                onFailure = { e -> false to (e.message ?: context.getString(R.string.action_failed)) },
+            )
+        }
     }
     LaunchedEffect(pendingAction, entries) {
         pendingAction?.let { a -> if (vm.packageOf(a.target) == pkg) {
@@ -283,6 +293,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             }
 
             SectionTitle(stringResource(R.string.reviews_title))
+            simpleStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+            actionMessage?.let { (ok, msg) -> Text(msg, color = if (ok) RbColors.green else RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp) }
             if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
             else Text(stringResource(R.string.swipe_hint), color = RbColors.textTertiary, fontSize = 11.sp)
             reviews.forEach { (e, w) ->

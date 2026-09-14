@@ -286,4 +286,6 @@
     <string name="attest_remote">added by the list owner</string>
     <string name="attest_governed">This list refreshes from its publisher.</string>
     <string name="attest_local">This list is fixed in this build.</string>
+    <string name="action_published">Signed and published. Signature %1$s</string>
+    <string name="action_failed">The wallet couldn\'t complete the request. Try again.</string>
 </resources>
