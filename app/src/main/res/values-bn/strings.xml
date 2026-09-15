@@ -97,7 +97,7 @@
     <string name="standing_line">%1\$d গণনা করা হয়েছে · %2\$d প্রত্যাহার করা হয়েছে · %3\$d টি উত্তর পাওয়া গেছে · %4\$d টি দেওয়া হয়েছে</string>
     <string name="standing_agreement">অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতি: %1\$s</string>
     <string name="standing_since">%1\$s থেকে স্বাক্ষর করছেন</string>
-    <string name="standing_note2">শুধুমাত্র গণনা। কোনো স্কোর নেই, কোনো পুরস্কার নেই, কেনার মতো কিছু নেই।</string>
+    <string name="standing_note2">শুধুমাত্র গণনা। কোনো স্কোর নেই, কেনার মতো কিছু নেই।</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">এখানেও স্বাক্ষর করেছেন</string>

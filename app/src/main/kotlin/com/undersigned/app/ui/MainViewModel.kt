@@ -55,6 +55,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val attestations = MutableStateFlow(com.undersigned.app.solana.AttestationList.load(app))
     val attestationsGoverned = com.undersigned.app.solana.AttestationList.isGoverned(app)
     private val txService = ReviewTxService()
+    private val proService = com.undersigned.app.solana.ProPaymentService()
+    /** The wallet's Pro term, read from the ledger (a paid `pro` record); null when it never bought one. */
+    val pro = MutableStateFlow<com.undersigned.app.solana.ProStatus?>(null)
+    val isPro: Boolean get() = pro.value?.active == true
+    private fun recomputePro() { pro.value = com.undersigned.app.solana.ProLicence.of(entries.value, txMeta.value, wallet.value) }
     val iconCache = DAppIconCache(app)
     private val store = StoreReviewsClient()
     private val domains = DomainClient()
@@ -116,7 +121,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 rank()
             }
         }
-        viewModelScope.launch { UserPreferences.walletAddress.collect { w -> if (w == null) selfFacts.value = null else loadSelfFacts(w) } }
+        viewModelScope.launch { UserPreferences.walletAddress.collect { w -> recomputePro(); if (w == null) selfFacts.value = null else loadSelfFacts(w) } }
         // Near-real-time while the app is open: one cheap tail read a minute (until = newest known signature).
         viewModelScope.launch(Dispatchers.IO) { while (isActive) { delay(60_000); if (ledgerStatus.value !is LedgerStatus.Syncing) syncLedger() } }
     }
@@ -149,6 +154,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         helpfulWeights.value = Reputation.helpfulWeights(list, f)
         disputes.value = Reputation.disputes(list)
         similarity.value = com.undersigned.protocol.Similarity.findings(list)
+        recomputePro()
         verifyClaims(list)
     }
 
@@ -332,5 +338,65 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback
     fun deviceFacts(pkg: String) = installedApps.factsWithDelta(pkg)
-    fun clearLocalCaches() { ledgerCache.clear(); UserPreferences.clearFacts(); entries.value = emptyList(); scores.value = emptyMap(); facts.value = emptyMap() }
+    fun clearLocalCaches() { ledgerCache.clear(); UserPreferences.clearFacts(); entries.value = emptyList(); scores.value = emptyMap(); facts.value = emptyMap(); txMeta.value = emptyMap(); pro.value = null }
+
+    // ---- Pro ----------------------------------------------------------------------------------------------
+
+    /** The one payment. On confirmation the licence and what it paid are inserted locally so the term shows at once; the reader confirms it. */
+    fun payPro(sender: ActivityResultSender, rail: com.undersigned.app.solana.ProPaymentService.Rail, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.pro_needs_wallet))))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        viewModelScope.launch {
+            val r = proService.pay(getApplication(), adapter, sender, w, rail, onStage)
+            r.onSuccess { rc ->
+                entries.value = (listOf(LedgerEntry(rc.signature, w, System.currentTimeMillis() / 1000, ReviewMemo.Pro(com.undersigned.app.AppConfig.Payment.TERM_MONTHS))) + entries.value).distinctBy { it.signature }
+                txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, rc.paidLamports, rc.paidSkr))
+                ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
+                recomputePro()
+                if (UserPreferences.alertsEnabled.value) com.undersigned.app.notify.LedgerWatchWorker.schedule(getApplication(), runNow = false)
+                Log.i("MainViewModel", "pro licence ${rc.signature} (${rc.rail})")
+            }
+            onResult(r.map { it.signature })
+        }
+    }
+
+    /** My signed reviews with no store review by this wallet on the same dApp (as far as the mirror has looked). */
+    fun copyQueue(): List<LedgerEntry> = wallet.value?.let { w -> entriesBy(w).filter { (it.memo as ReviewMemo.Review).packageName !in myStoreReviews.value }.sortedByDescending { it.blockTime } } ?: emptyList()
+
+    data class DeskApp(val packageName: String, val score: AppScore?, val responsiveness: Responsiveness, val waiting: Int)
+    data class Desk(val apps: List<DeskApp>, val unanswered: Int, val medianReplyHours: Double?, val answeredPercent: Int?, val oldest: List<LedgerEntry>)
+
+    /** The publisher desk: every verified dApp, the unanswered queue oldest first, and the reply gap as readers see it. */
+    fun desk(): Desk {
+        val w = wallet.value ?: return Desk(emptyList(), 0, null, null, emptyList())
+        val mine = myVerifiedPackages().sorted()
+        val queue = unanswered()
+        val apps = mine.map { pkg -> DeskApp(pkg, scores.value[pkg], responsiveness(pkg), queue.count { (it.memo as ReviewMemo.Review).packageName == pkg }) }
+        val revoked = revokedSignatures()
+        val reviews = entries.value.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName in mine && it.signer != w }
+        val gaps = reviews.mapNotNull { r -> entries.value.filter { it.signer == w && (it.memo as? ReviewMemo.Reply)?.reviewSignature == r.signature }.minOfOrNull { it.blockTime }?.let { t -> (t - r.blockTime).coerceAtLeast(0L) } }.sorted()
+        val median = if (gaps.isEmpty()) null else (if (gaps.size % 2 == 1) gaps[gaps.size / 2].toDouble() else (gaps[gaps.size / 2 - 1] + gaps[gaps.size / 2]) / 2.0) / 3600.0
+        val pct = if (reviews.isEmpty()) null else (gaps.size * 100 / reviews.size)
+        return Desk(apps, queue.size, median, pct, queue.sortedBy { it.blockTime })
+    }
+
+    /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
+    fun exportLedger(json: Boolean): String {
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence" }
+        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; else -> "" }
+        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; else -> "" }
+        val rows = entries.value.sortedBy { it.blockTime }
+        val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
+        if (json) {
+            val arr = org.json.JSONArray()
+            rows.forEach { e -> val m = e.memo; arr.put(org.json.JSONObject().put("id", e.signature).put("signer", e.signer).put("time", iso.format(java.util.Date(e.blockTime * 1000))).put("kind", kind(m))
+                .put("package", (m as? ReviewMemo.Review)?.packageName ?: (m as? ReviewMemo.Claim)?.packageName ?: "").put("rating", (m as? ReviewMemo.Review)?.rating ?: org.json.JSONObject.NULL)
+                .put("tags", (m as? ReviewMemo.Review)?.tags?.joinToString(",") { it.wire } ?: "").put("version", (m as? ReviewMemo.Review)?.versionCode ?: org.json.JSONObject.NULL).put("target", target(m)).put("text", text(m))) }
+            return arr.toString(2)
+        }
+        fun q(v: Any?) = "\"" + v.toString().replace("\"", "\"\"") + "\""
+        val sb = StringBuilder("id,signer,time,kind,package,rating,tags,version,target,text\n")
+        rows.forEach { e -> val m = e.memo; sb.append(listOf(e.signature, e.signer, iso.format(java.util.Date(e.blockTime * 1000)), kind(m), (m as? ReviewMemo.Review)?.packageName ?: (m as? ReviewMemo.Claim)?.packageName ?: "", (m as? ReviewMemo.Review)?.rating ?: "", (m as? ReviewMemo.Review)?.tags?.joinToString(",") { it.wire } ?: "", (m as? ReviewMemo.Review)?.versionCode ?: "", target(m), text(m)).joinToString(",") { q(it) }).append('\n') }
+        return sb.toString()
+    }
 }

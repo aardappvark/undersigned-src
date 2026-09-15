@@ -92,7 +92,7 @@
     <string name="standing_line">นับแล้ว %1\$d · ถอนแล้ว %2\$d · ได้รับการตอบกลับ %3\$d · ให้ไป %4\$d</string>
     <string name="standing_agreement">ความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น: %1\$s</string>
     <string name="standing_since">ลงลายเซ็นมาตั้งแต่ %1\$s</string>
-    <string name="standing_note2">นับจำนวนเท่านั้น ไม่มีคะแนน ไม่มีรางวัล ไม่มีอะไรให้ซื้อ</string>
+    <string name="standing_note2">นับจำนวนเท่านั้น ไม่มีคะแนน ไม่มีอะไรให้ซื้อ</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">ลงลายเซ็นที่นี่ด้วย</string>

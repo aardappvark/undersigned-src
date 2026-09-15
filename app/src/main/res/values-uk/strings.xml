@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d зараховано · %2\$d вилучено · %3\$d відповідей отримано · %4\$d надано</string>
     <string name="standing_agreement">Збіг тегів з іншими підписантами: %1\$s</string>
     <string name="standing_since">Підписує з %1\$s</string>
-    <string name="standing_note2">Лише підрахунок. Без балів, без винагород, нічого купувати не потрібно.</string>
+    <string name="standing_note2">Лише підрахунок. Без балів, нічого купувати не потрібно.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">також підписав(ла) тут</string>

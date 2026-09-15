@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d được tính · %2\$d đã rút · %3\$d câu trả lời nhận được · %4\$d đã gửi</string>
     <string name="standing_agreement">Mức đồng thuận thẻ với những người ký khác: %1\$s</string>
     <string name="standing_since">Đã ký từ %1\$s</string>
-    <string name="standing_note2">Chỉ đếm số lượng. Không có điểm số, không phần thưởng, không có gì để mua.</string>
+    <string name="standing_note2">Chỉ đếm số lượng. Không có điểm số, không có gì để mua.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">cũng đã ký tại đây</string>

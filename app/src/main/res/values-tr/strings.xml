@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d sayıldı · %2\$d geri çekildi · %3\$d yanıt alındı · %4\$d verildi</string>
     <string name="standing_agreement">Diğer imzalayanlarla etiket uyumu: %1\$s</string>
     <string name="standing_since">%1\$s tarihinden beri imzalıyor</string>
-    <string name="standing_note2">Yalnızca sayım. Puan yok, ödül yok, satın alınacak bir şey yok.</string>
+    <string name="standing_note2">Yalnızca sayım. Puan yok, satın alınacak bir şey yok.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">burada da imzaladı</string>

@@ -134,7 +134,9 @@ object Reputation {
         }.keys
     }
 
-    fun standing(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Map<String, SignerStanding> {
+    fun standing(allEntries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): Map<String, SignerStanding> {
+        // A licence is not a judgement: a wallet whose only record is `pro` has no standing, and "signing since" never dates from a payment.
+        val entries = allEntries.filter { it.memo !is ReviewMemo.Pro }
         val revoked = Ranking.revoked(entries)
         val hidden = hiddenByConsensus(entries, verifiedPublishers, facts)
         val flaggersNow = currentFlaggers(entries)

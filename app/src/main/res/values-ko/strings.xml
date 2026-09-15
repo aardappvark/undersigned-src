@@ -97,7 +97,7 @@
     <string name="standing_line">%1\$d건 집계됨 · %2\$d건 철회됨 · %3\$d개 답글 받음 · %4\$d개 답글 남김</string>
     <string name="standing_agreement">다른 서명자와의 태그 일치도: %1\$s</string>
     <string name="standing_since">서명 시작일: %1\$s</string>
-    <string name="standing_note2">단순 집계일 뿐입니다. 점수도, 보상도, 구매할 것도 없습니다.</string>
+    <string name="standing_note2">단순 집계일 뿐입니다. 점수도, 구매할 것도 없습니다.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">여기서도 서명함</string>

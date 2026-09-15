@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d beszámítva · %2\$d visszavonva · %3\$d kapott válasz · %4\$d adott</string>
     <string name="standing_agreement">Egyezés a címkékben más aláírókkal: %1\$s</string>
     <string name="standing_since">Aláír %1\$s óta</string>
-    <string name="standing_note2">Csak számlálás. Nincs pontszám, nincs jutalom, nincs mit vásárolni.</string>
+    <string name="standing_note2">Csak számlálás. Nincs pontszám, nincs mit vásárolni.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">itt is aláírt</string>

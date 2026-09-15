@@ -92,7 +92,7 @@
     <string name="standing_line">%1\$d räknade · %2\$d tillbakadragna · %3\$d svar mottagna · %4\$d givna</string>
     <string name="standing_agreement">Taggöverensstämmelse med andra signerare: %1\$s</string>
     <string name="standing_since">Har signerat sedan %1\$s</string>
-    <string name="standing_note2">Endast räkning. Inget betyg, ingen belöning, inget att köpa.</string>
+    <string name="standing_note2">Endast räkning. Inget betyg, inget att köpa.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">signerade även här</string>

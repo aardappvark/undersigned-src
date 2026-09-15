@@ -97,7 +97,7 @@
     <string name="standing_line">%1\$d件カウント・%2\$d件取り下げ・%3\$d件の返信を受信・%4\$d件送信</string>
     <string name="standing_agreement">他の署名者とのタグの一致度：%1\$s</string>
     <string name="standing_since">署名開始日：%1\$s</string>
-    <string name="standing_note2">カウントのみです。スコアも報酬も購入対象も一切ありません。</string>
+    <string name="standing_note2">カウントのみです。スコアも購入対象も一切ありません。</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">こちらでも署名済み</string>

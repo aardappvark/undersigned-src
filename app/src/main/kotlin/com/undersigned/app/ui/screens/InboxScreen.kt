@@ -31,7 +31,7 @@ import java.util.Date
 
 /** The publisher's and reviewer's queues: unanswered reviews on my verified apps, replies to my records, starred records. */
 @Composable
-fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit) {
+fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit, onDesk: () -> Unit = {}) {
     val entries by vm.entries.collectAsState()
     val starred by vm.starred.collectAsState()
     val catalogue by vm.catalogue.collectAsState()
@@ -65,6 +65,7 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit)
         when (tab) {
             0 -> {
                 Text(stringResource(R.string.inbox_unanswered_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp))
+                Row(Modifier.padding(horizontal = 20.dp)) { TextButton(onClick = onDesk, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.desk_title) + " · " + stringResource(R.string.pro_badge), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold) } }
                 if (unanswered.isEmpty()) Empty(stringResource(R.string.inbox_unanswered_empty))
                 else { ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_oldest), 1 to stringResource(R.string.sort_dapp), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_rating)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp))
                 LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) { items(unanswered, key = { it.signature }) { e -> ReviewRow(e, name((e.memo as ReviewMemo.Review).packageName), who(e.signer)) { onOpen((e.memo as ReviewMemo.Review).packageName) } } } }

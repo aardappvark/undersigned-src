@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d contadas · %2\$d retiradas · %3\$d respostas recebidas · %4\$d enviadas</string>
     <string name="standing_agreement">Concordância de tags com outros signatários: %1\$s</string>
     <string name="standing_since">Assinando desde %1\$s</string>
-    <string name="standing_note2">Apenas contagens. Sem nota, sem recompensa, nada para comprar.</string>
+    <string name="standing_note2">Apenas contagens. Sem nota, nada para comprar.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">também assinou aqui</string>

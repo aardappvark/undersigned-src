@@ -92,7 +92,7 @@
     <string name="standing_line">учтено %1\$d · отозвано %2\$d · получено ответов %3\$d · дано %4\$d</string>
     <string name="standing_agreement">Совпадение тегов с другими подписантами: %1\$s</string>
     <string name="standing_since">Подписывает с %1\$s</string>
-    <string name="standing_note2">Только подсчёт. Никаких оценок, наград, нечего покупать.</string>
+    <string name="standing_note2">Только подсчёт. Никаких оценок, нечего покупать.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">также подписал(а) здесь</string>

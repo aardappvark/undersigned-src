@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d contabilizadas · %2\$d retiradas · %3\$d respuestas recibidas · %4\$d dadas</string>
     <string name="standing_agreement">Coincidencia de etiquetas con otros firmantes: %1\$s</string>
     <string name="standing_since">Firmando desde %1\$s</string>
-    <string name="standing_note2">Solo recuentos. Sin puntuación, sin recompensa, nada que comprar.</string>
+    <string name="standing_note2">Solo recuentos. Sin puntuación, nada que comprar.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">también firmó aquí</string>

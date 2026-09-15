@@ -27,6 +27,7 @@ object UserPreferences {
     private const val KEY_WAVES = "wave_marks"
     private const val KEY_DENSE = "reading_dense"       // device-local reading density (design §6); never on-chain
     private const val KEY_HOWTO_SEEN = "howto_seen"
+    private const val KEY_WATCH_HOURS = "watch_interval_hours"
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -64,6 +65,10 @@ object UserPreferences {
     fun toggleStar(id: String) { val s = if (id in _starred.value) _starred.value - id else _starred.value + id; prefs?.edit()?.putStringSet(KEY_STARRED, s)?.apply(); _starred.value = s }
     fun follow(pkg: String) { val s = _follows.value + pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
     fun unfollow(pkg: String) { val s = _follows.value - pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
+    /** The period the ledger watch was last scheduled with; a change means UPDATE rather than KEEP. */
+    var watchIntervalHours: Long
+        get() = prefs?.getLong(KEY_WATCH_HOURS, 0L) ?: 0L
+        set(v) { prefs?.edit()?.putLong(KEY_WATCH_HOURS, v)?.apply() }
     fun setDense(v: Boolean) { prefs?.edit()?.putBoolean(KEY_DENSE, v)?.apply(); _dense.value = v }
     fun setHowToSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_HOWTO_SEEN, v)?.apply(); _howToSeen.value = v }
     fun setAlerts(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ALERTS, v)?.apply(); _alertsEnabled.value = v }

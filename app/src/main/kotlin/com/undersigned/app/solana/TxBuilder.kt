@@ -48,6 +48,50 @@ object TxBuilder {
         return out
     }
 
+    // ---- Pro payment carriers (fleet shape: transfer with the reference on it, the app memo appended LAST) ----
+    val TREASURY: ByteArray = Base58.decode(AppConfig.Payment.TREASURY)
+    val TOKEN_PROGRAM_ID: ByteArray = Base58.decode(AppConfig.Payment.TOKEN_PROGRAM)
+    val ATA_PROGRAM_ID: ByteArray = Base58.decode(AppConfig.Payment.ATA_PROGRAM)
+    val SKR_MINT: ByteArray = Base58.decode(AppConfig.Payment.SKR_MINT)
+
+    /** ix[0] licence memo · ix[1] System transfer signer → treasury with the registry as reference · ix[2] fleet memo. */
+    fun proSolTransaction(signer: ByteArray, lamports: Long, licenceMemo: String, blockhash: ByteArray): ByteArray {
+        require(lamports > 0)
+        val ixs = listOf(memoInstruction(licenceMemo), systemTransfer(signer, TREASURY, lamports, REGISTRY), memoInstruction(AppConfig.Payment.PAYMENT_MEMO))
+        return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
+    }
+
+    /** SKR rail: licence memo · (CreateIdempotent treasury ATA) · TransferChecked signer ATA → treasury ATA with the registry as reference · fleet memo. */
+    fun proSkrTransaction(signer: ByteArray, amountRaw: Long, licenceMemo: String, blockhash: ByteArray, createTreasuryAta: Boolean): ByteArray {
+        require(amountRaw > 0)
+        val senderAta = associatedTokenAddress(signer, SKR_MINT)
+        val treasuryAta = associatedTokenAddress(TREASURY, SKR_MINT)
+        val ixs = ArrayList<Instruction>()
+        ixs.add(memoInstruction(licenceMemo))
+        if (createTreasuryAta) ixs.add(createAtaIdempotent(signer, treasuryAta, TREASURY, SKR_MINT))
+        ixs.add(transferChecked(senderAta, SKR_MINT, treasuryAta, signer, amountRaw, AppConfig.Payment.SKR_DECIMALS, REGISTRY))
+        ixs.add(memoInstruction(AppConfig.Payment.PAYMENT_MEMO))
+        return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
+    }
+
+    fun associatedTokenAddress(owner: ByteArray, mint: ByteArray): ByteArray = Pda.find(listOf(owner, TOKEN_PROGRAM_ID, mint), ATA_PROGRAM_ID)
+
+    /** ATA discriminator 1 = CreateIdempotent: a plain Create fails with IllegalOwner if the account already exists. */
+    fun createAtaIdempotent(payer: ByteArray, ata: ByteArray, owner: ByteArray, mint: ByteArray) = Instruction(
+        ATA_PROGRAM_ID,
+        listOf(AccountMeta(payer, true, true), AccountMeta(ata, false, true), AccountMeta(owner, false, false), AccountMeta(mint, false, false), AccountMeta(SYSTEM_PROGRAM_ID, false, false), AccountMeta(TOKEN_PROGRAM_ID, false, false)),
+        byteArrayOf(1),
+    )
+
+    /** SPL Token TransferChecked (12): [amount u64 LE][decimals u8]; the reference rides as an extra read-only account the program ignores. */
+    fun transferChecked(sourceAta: ByteArray, mint: ByteArray, destAta: ByteArray, authority: ByteArray, amount: Long, decimals: Int, reference: ByteArray?): Instruction {
+        val data = ByteBuffer.allocate(10).order(ByteOrder.LITTLE_ENDIAN)
+        data.put(12.toByte()); data.putLong(amount); data.put(decimals.toByte())
+        val accounts = arrayListOf(AccountMeta(sourceAta, false, true), AccountMeta(mint, false, false), AccountMeta(destAta, false, true), AccountMeta(authority, true, false))
+        if (reference != null) accounts.add(AccountMeta(reference, false, false))
+        return Instruction(TOKEN_PROGRAM_ID, accounts, data.array())
+    }
+
     fun systemTransfer(from: ByteArray, to: ByteArray, lamports: Long, reference: ByteArray?): Instruction {
         val data = ByteBuffer.allocate(12).order(ByteOrder.LITTLE_ENDIAN)
         data.putInt(2); data.putLong(lamports)

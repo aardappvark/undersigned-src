@@ -114,6 +114,8 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             }
         }
         UserPreferences.lastNotifiedSignature = after.firstOrNull()?.signature
+        // A term bought or run out since the last schedule changes the cadence; re-evaluate without a run-now.
+        if (UserPreferences.alertsEnabled.value) runCatching { schedule(ctx, runNow = false) }
         Log.i(TAG, "posted ${id - 1000} notifications")
         return Result.success()
     }
@@ -135,13 +137,24 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         private const val PERIODIC = "ledger-watch"
         private val running = java.util.concurrent.atomic.AtomicBoolean(false)
 
-        fun schedule(ctx: Context) {
+        /** Hours between runs: one on a wallet holding Pro (the hourly certificate watch), six otherwise. Read from the ledger cache, never from a flag. */
+        fun intervalHours(ctx: Context): Long {
+            val cache = com.undersigned.app.data.LedgerCache(ctx)
+            val pro = runCatching { com.undersigned.app.solana.ProLicence.of(cache.load(), cache.loadMeta(), UserPreferences.walletAddress.value) }.getOrNull()
+            return if (pro?.active == true) 1L else 6L
+        }
+
+        fun schedule(ctx: Context, runNow: Boolean = true) {
             val c = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+            val hours = intervalHours(ctx)
             // KEEP, not UPDATE: an existing schedule should survive the toggle rather than be replaced and
-            // re-fire immediately alongside the run-now request below.
-            WorkManager.getInstance(ctx).enqueueUniquePeriodicWork(PERIODIC, ExistingPeriodicWorkPolicy.KEEP,
-                PeriodicWorkRequestBuilder<LedgerWatchWorker>(6, TimeUnit.HOURS).setConstraints(c).build())
-            WorkManager.getInstance(ctx).enqueueUniqueWork("$PERIODIC-now", ExistingWorkPolicy.REPLACE, OneTimeWorkRequestBuilder<LedgerWatchWorker>().setConstraints(c).build())
+            // re-fire immediately alongside the run-now request below. UPDATE only when the interval changed
+            // (Pro bought or run out), which keeps the existing period's timing and swaps the request.
+            val policy = if (UserPreferences.watchIntervalHours != hours) ExistingPeriodicWorkPolicy.UPDATE else ExistingPeriodicWorkPolicy.KEEP
+            UserPreferences.watchIntervalHours = hours
+            WorkManager.getInstance(ctx).enqueueUniquePeriodicWork(PERIODIC, policy,
+                PeriodicWorkRequestBuilder<LedgerWatchWorker>(hours, TimeUnit.HOURS).setConstraints(c).build())
+            if (runNow) WorkManager.getInstance(ctx).enqueueUniqueWork("$PERIODIC-now", ExistingWorkPolicy.REPLACE, OneTimeWorkRequestBuilder<LedgerWatchWorker>().setConstraints(c).build())
         }
         fun cancel(ctx: Context) { WorkManager.getInstance(ctx).cancelUniqueWork(PERIODIC) }
     }

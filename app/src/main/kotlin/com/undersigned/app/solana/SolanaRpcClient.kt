@@ -61,7 +61,36 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
             if (pid == AppConfig.Solana.LIGHTHOUSE_PROGRAM) lighthouse = true
             if (pid == AppConfig.Solana.COMPUTE_BUDGET_PROGRAM) computeBudget = true
         }
-        LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget)
+        // What the transaction paid the treasury, from balances rather than from anything the memo claims.
+        var paidLamports = 0L; var paidSkr = 0L
+        if (meta != null) {
+            val keyList = (0 until keys.length()).map { i -> keys.optJSONObject(i)?.optString("pubkey") ?: keys.optString(i) }
+            val tIdx = keyList.indexOf(AppConfig.Payment.TREASURY)
+            if (tIdx >= 0) {
+                val pre = meta.optJSONArray("preBalances")?.optLong(tIdx, 0L) ?: 0L
+                val post = meta.optJSONArray("postBalances")?.optLong(tIdx, 0L) ?: 0L
+                paidLamports = (post - pre).coerceAtLeast(0L)
+            }
+            fun treasurySkr(arr: JSONArray?): Long {
+                var sum = 0L; arr ?: return 0L
+                for (i in 0 until arr.length()) {
+                    val o = arr.optJSONObject(i) ?: continue
+                    if (o.optString("owner") != AppConfig.Payment.TREASURY || o.optString("mint") != AppConfig.Payment.SKR_MINT) continue
+                    sum += o.optJSONObject("uiTokenAmount")?.optString("amount", "0")?.toLongOrNull() ?: 0L
+                }
+                return sum
+            }
+            paidSkr = (treasurySkr(meta.optJSONArray("postTokenBalances")) - treasurySkr(meta.optJSONArray("preTokenBalances"))).coerceAtLeast(0L)
+        }
+        LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget, paidLamports, paidSkr)
+    }
+
+    /** Raw token units [owner] holds of [mint] across its token accounts; -1 when it has no account for the mint at all. */
+    suspend fun getTokenBalanceRaw(owner: String, mint: String): Result<Long> = rpc {
+        val params = JSONArray().put(owner).put(JSONObject().put("mint", mint)).put(JSONObject().put("encoding", "jsonParsed").put("commitment", "confirmed"))
+        val arr = call("getTokenAccountsByOwner", params).getJSONObject("result").optJSONArray("value") ?: JSONArray()
+        if (arr.length() == 0) -1L
+        else (0 until arr.length()).sumOf { i -> arr.optJSONObject(i)?.optJSONObject("account")?.optJSONObject("data")?.optJSONObject("parsed")?.optJSONObject("info")?.optJSONObject("tokenAmount")?.optString("amount", "0")?.toLongOrNull() ?: 0L }
     }
 
     /** Token-2022 token accounts of [owner], raw base64 data (for the generic attestation check). */

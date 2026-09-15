@@ -27,8 +27,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Undersigned">
 
+        <!-- Portrait only: the owner approved the design handoff's §4.1 on 15 Sep 2026 ("do all"). The photo-led
+             screens crop badly in a landscape dock. This is the one app-level orientation declaration in the fleet. -->
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.Undersigned.Splash">

@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d dihitung · %2\$d ditarik · %3\$d balasan diterima · %4\$d diberikan</string>
     <string name="standing_agreement">Kesesuaian tag dengan penandatangan lain: %1\$s</string>
     <string name="standing_since">Menandatangani sejak %1\$s</string>
-    <string name="standing_note2">Hanya hitungan. Tidak ada skor, tidak ada hadiah, tidak ada yang perlu dibeli.</string>
+    <string name="standing_note2">Hanya hitungan. Tidak ada skor, tidak ada yang perlu dibeli.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">juga menandatangani di sini</string>

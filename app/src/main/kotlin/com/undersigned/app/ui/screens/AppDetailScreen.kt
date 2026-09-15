@@ -40,7 +40,7 @@ import java.util.Date
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}) {
+fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onPro: () -> Unit = {}) {
     val context = LocalContext.current
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
@@ -133,6 +133,16 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
         } }
     }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
+    val pro by vm.pro.collectAsState()
+    var copyMsg by remember { mutableStateOf<String?>(null) }
+    fun copyToStore(text: String?) {
+        try {
+            val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            if (!text.isNullOrBlank()) cm.setPrimaryClip(android.content.ClipData.newPlainText("review", text.trim()))
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg)))
+            copyMsg = context.getString(R.string.pro_copy_done)
+        } catch (_: Exception) { }
+    }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
     // The dApp launcher: the package manager's launch intent for an installed store app. Nothing is installed or changed.
@@ -362,6 +372,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Spacer(Modifier.height(6.dp))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
                     r.text?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
+                    // Locked in place (design: Screens D): the copy-to-store tool where the user meets it, on their own review.
+                    if (e.signer == wallet && myStore[pkg] == null) {
+                        Spacer(Modifier.height(8.dp))
+                        if (pro?.active == true) { SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) } }
+                        else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
+                    }
                     Spacer(Modifier.height(6.dp))
                     val replies = remember(entries, hidden) { vm.repliesFor(e.signature) }
                     replies.forEach { rp ->

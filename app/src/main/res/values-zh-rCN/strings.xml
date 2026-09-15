@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d 条计入 · %2\$d 条已撤回 · %3\$d 条收到的回复 · %4\$d 条发出的回复</string>
     <string name="standing_agreement">与其他签名者的标签一致度:%1\$s</string>
     <string name="standing_since">签名起始于 %1\$s</string>
-    <string name="standing_note2">仅为计数。没有评分,没有奖励,没有任何东西可购买。</string>
+    <string name="standing_note2">仅为计数。没有评分,没有任何东西可购买。</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">也在此处签名</string>

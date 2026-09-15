@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d numărate · %2\$d retrase · %3\$d răspunsuri primite · %4\$d oferite</string>
     <string name="standing_agreement">Concordanța etichetelor cu alți semnatari: %1\$s</string>
     <string name="standing_since">Semnează din %1\$s</string>
-    <string name="standing_note2">Doar numărători. Fără scor, fără recompensă, nimic de cumpărat.</string>
+    <string name="standing_note2">Doar numărători. Fără scor, nimic de cumpărat.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">a semnat și aici</string>

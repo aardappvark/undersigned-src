@@ -58,3 +58,7 @@ catalogue; publishes user-signed memos; on-device facts), permissions (QUERY_ALL
 POST_NOTIFICATIONS opt-in, INTERNET), privacy table (wallet address pseudonymous, chain permanence,
 no server), UGC terms (own your words, defamation, IP, immutability, revocation ≠ deletion),
 not-affiliated notice, sanctions page, 18+.
+
+## Pro (added 15 Sep 2026)
+
+Pro is a 12-month software licence sold the fleet way: a transfer to the shared treasury with the registry PDA as the payment reference and the memo `UNS` appended last, carrying the `SRL1|pro|12` licence record in the same transaction. It is consideration for software, not transmission (no value is accepted for anyone else), not a security (no expectation of profit, no token, no yield), and it changes nothing about counting, weighting or hiding — the gates above still pass. Consumer law: price in SOL and SKR shown before signing, no auto-renewal, term chains from the previous expiry, the withdrawal right is waived by express consent on the payment screen (digital content supplied immediately), conformity remedies and a proportionate refund of the current term are stated in terms.html §8A. Region and sanctions gates run before the wallet opens; the cluster simulation runs before the signature sheet; nothing is reported as paid until confirmed.

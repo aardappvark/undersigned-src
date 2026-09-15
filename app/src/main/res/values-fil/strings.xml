@@ -102,7 +102,7 @@
     <string name="standing_line">%1\$d binilang · %2\$d na-withdraw · %3\$d sagot na natanggap · %4\$d ibinigay</string>
     <string name="standing_agreement">Pagkakasundo ng tag sa ibang signer: %1\$s</string>
     <string name="standing_since">Nag-sisign mula noong %1\$s</string>
-    <string name="standing_note2">Bilang lang. Walang iskor, walang gantimpala, walang bibilhin.</string>
+    <string name="standing_note2">Bilang lang. Walang iskor, walang bibilhin.</string>
     <string name="store_reviewer_genesis">Attested device</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">nag-sign din dito</string>

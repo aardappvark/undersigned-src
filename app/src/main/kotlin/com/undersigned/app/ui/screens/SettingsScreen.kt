@@ -32,6 +32,7 @@ import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.GlassCard
+import com.undersigned.app.ui.components.Pill
 import com.undersigned.app.ui.components.SecondaryButton
 import com.undersigned.app.ui.components.SectionTitle
 import com.undersigned.app.ui.theme.RbColors
@@ -42,7 +43,7 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}) {
+fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val wallet by vm.wallet.collectAsState()
@@ -52,6 +53,20 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val follows by vm.follows.collectAsState()
     val alerts by UserPreferences.alertsEnabled.collectAsState()
     val dense by UserPreferences.dense.collectAsState()
+    val pro by vm.pro.collectAsState()
+    val entries by vm.entries.collectAsState()
+    var copyOpen by remember { mutableStateOf(false) }
+    var copyMsg by remember { mutableStateOf<String?>(null) }
+    val df = remember { java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT) }
+    fun share(text: String, mime: String, title: String) { try { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = mime; putExtra(Intent.EXTRA_SUBJECT, title); putExtra(Intent.EXTRA_TEXT, text) }, title)) } catch (_: Exception) { } }
+    fun copyToStore(pkg: String, text: String?) {
+        try {
+            val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            if (!text.isNullOrBlank()) cm.setPrimaryClip(android.content.ClipData.newPlainText("review", text.trim()))
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg)))
+            copyMsg = context.getString(R.string.pro_copy_done)
+        } catch (_: Exception) { }
+    }
     val domainNames by vm.domainNames.collectAsState()
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
     val termsService = remember { TermsAcceptanceService(context) }
@@ -91,6 +106,37 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 error?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.negative, fontSize = 12.sp) }
             }
 
+            // Pro, above Your standing (design: Screens D). Read from the ledger; nothing stored locally decides it.
+            SectionTitle(stringResource(R.string.pro_title), trailing = { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) })
+            GlassCard(accent = if (pro?.active == true) RbColors.green else RbColors.glassBorder) {
+                val p = pro
+                if (p != null) {
+                    Text(if (p.active) stringResource(R.string.pro_active, p.daysLeft()) else stringResource(R.string.pro_expired, df.format(java.util.Date(p.expiresAt * 1000))), color = if (p.active) RbColors.green else RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.pro_paid_line, df.format(java.util.Date(p.paidAt * 1000)), p.amountLabel, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textSecondary, fontSize = 12.sp)
+                    LinkRow(stringResource(R.string.pro_view_licence)) { open(AppConfig.Api.EXPLORER_TX + p.signature) }
+                    Text(stringResource(R.string.pro_tied, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    Spacer(Modifier.height(8.dp))
+                    SecondaryButton(if (p.active) stringResource(R.string.pro_renew) else stringResource(R.string.pro_get_short), onClick = onPro)
+                } else {
+                    Text(stringResource(R.string.pro_free_keeps), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    Spacer(Modifier.height(8.dp))
+                    SecondaryButton(stringResource(R.string.pro_get, AppConfig.Payment.solLabel(), AppConfig.Payment.skrLabel()), onClick = onPro)
+                }
+                if (p?.active == true) {
+                    Spacer(Modifier.height(10.dp))
+                    Text(stringResource(R.string.pro_tools), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    val queue = remember(entries, myStore) { vm.copyQueue() }
+                    LinkRow(stringResource(R.string.pro_copy_all) + " · " + stringResource(R.string.pro_copy_count, queue.size)) { copyOpen = true }
+                    LinkRow(stringResource(R.string.desk_title)) { onDesk() }
+                    Text(stringResource(R.string.pro_export_body), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        SecondaryButton(stringResource(R.string.pro_export_csv), modifier = Modifier.weight(1f), onClick = { share(vm.exportLedger(json = false), "text/csv", "undersigned-ledger.csv") })
+                        SecondaryButton(stringResource(R.string.pro_export_json), modifier = Modifier.weight(1f), onClick = { share(vm.exportLedger(json = true), "application/json", "undersigned-ledger.json") })
+                    }
+                    Text(stringResource(R.string.pro_tool_watch_title) + " · " + stringResource(if (alerts) R.string.pro_watch_on else R.string.pro_watch_off), color = RbColors.textTertiary, fontSize = 11.sp)
+                }
+            }
+
             if (wallet != null) {
                 SectionTitle(stringResource(R.string.settings_standing))
                 GlassCard {
@@ -103,7 +149,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         }
                     }
                     Spacer(Modifier.height(6.dp))
-                    Text(stringResource(R.string.standing_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    Text(stringResource(if (pro?.active == true) R.string.pro_standing_note else R.string.standing_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 }
             }
 
@@ -117,13 +163,25 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     if (scan == null && myStore.isNotEmpty()) {
                         Spacer(Modifier.height(8.dp))
                         Text(stringResource(R.string.import_found, myStore.size), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                        val isPro = pro?.active == true
+                        fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
+                            val s = sender ?: return
+                            vm.importStoreReviews(s, listOf(pkg to r), onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res -> importStage = null; importMsg = res.fold({ context.getString(R.string.import_done, it) }, { it.message }) }
+                        }
                         importable.forEach { (pkg, r) ->
-                            Row(Modifier.fillMaxWidth().clickable(enabled = importStage == null) { chosen = if (pkg in chosen) chosen - pkg else chosen + pkg }, verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = pkg in chosen, onCheckedChange = { chosen = if (it) chosen + pkg else chosen - pkg }, enabled = importStage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
-                                Column { Text(catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg, color = RbColors.textPrimary, fontSize = 13.sp); Text("${r.rating}★ · ${r.createdAt.take(10)}" + (r.text?.let { " · ${it.take(60)}" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2) }
+                            Row(Modifier.fillMaxWidth().clickable(enabled = importStage == null && isPro) { chosen = if (pkg in chosen) chosen - pkg else chosen + pkg }, verticalAlignment = Alignment.CenterVertically) {
+                                if (isPro) Checkbox(checked = pkg in chosen, onCheckedChange = { chosen = if (it) chosen + pkg else chosen - pkg }, enabled = importStage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
+                                Column(Modifier.weight(1f)) { Text(catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg, color = RbColors.textPrimary, fontSize = 13.sp); Text("${r.rating}★ · ${r.createdAt.take(10)}" + (r.text?.let { " · ${it.take(60)}" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2) }
+                                if (!isPro) TextButton(enabled = importStage == null && sender != null, onClick = { importOne(pkg, r) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.pro_import_one), color = RbColors.purpleLight, fontSize = 11.sp) }
                             }
                         }
-                        if (importable.isNotEmpty()) {
+                        if (importable.isNotEmpty() && !isPro) {
+                            Spacer(Modifier.height(6.dp))
+                            Text(importStage ?: stringResource(R.string.pro_import_locked), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                            Spacer(Modifier.height(6.dp))
+                            com.undersigned.app.ui.screens.ProLock(onPro = onPro)
+                        }
+                        if (importable.isNotEmpty() && isPro) {
                             Spacer(Modifier.height(6.dp))
                             SecondaryButton(importStage ?: stringResource(R.string.import_publish, chosen.size), enabled = chosen.isNotEmpty() && importStage == null && sender != null, onClick = {
                                 val s = sender ?: return@SecondaryButton
@@ -212,6 +270,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 LinkRow(stringResource(R.string.terms_link_disclaimer)) { open(AppConfig.Identity.URI + "disclaimer.html") }
                 LinkRow(stringResource(R.string.settings_sanctions)) { open(AppConfig.Identity.URI + "sanctions.html") }
                 LinkRow(stringResource(R.string.settings_licence)) { open(AppConfig.Identity.URI + "license.html") }
+                LinkRow(stringResource(R.string.pro_refunds)) { open(AppConfig.Identity.URI + "terms.html#pro") }
                 LinkRow(stringResource(R.string.settings_font_licence)) { licenceText = try { context.assets.open("licenses/OFL-1.1.txt").bufferedReader().use { it.readText() } } catch (_: Exception) { "OFL-1.1" } }
             }
 
@@ -237,6 +296,25 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             Text(stringResource(R.string.settings_contact), color = RbColors.textDim, fontSize = 11.sp)
             Spacer(Modifier.height(24.dp))
         }
+    }
+
+    if (copyOpen) {
+        val queue = remember(entries, myStore) { vm.copyQueue() }
+        AlertDialog(onDismissRequest = { copyOpen = false }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.pro_copy_all), color = RbColors.textPrimary) },
+            text = { Column(Modifier.heightIn(max = 400.dp).verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.pro_copy_review_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                if (queue.isEmpty()) Text(stringResource(R.string.pro_copy_none), color = RbColors.textTertiary, fontSize = 12.sp)
+                queue.forEach { e -> val r = e.memo as com.undersigned.protocol.ReviewMemo.Review
+                    Row(Modifier.fillMaxWidth().clickable { copyToStore(r.packageName, r.text) }.padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) { Text(catalogue.firstOrNull { it.packageName == r.packageName }?.name ?: r.packageName, color = RbColors.textPrimary, fontSize = 13.sp); Text("${r.rating}★" + (r.text?.let { " · ${it.take(50)}" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1) }
+                        Text(stringResource(R.string.pro_copy_review), color = RbColors.purpleLight, fontSize = 11.sp)
+                    }
+                }
+                copyMsg?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.green, fontSize = 12.sp) }
+            } },
+            confirmButton = { TextButton(onClick = { copyOpen = false }) { Text(stringResource(android.R.string.ok), color = RbColors.purpleLight) } })
     }
 
     licenceText?.let { text ->

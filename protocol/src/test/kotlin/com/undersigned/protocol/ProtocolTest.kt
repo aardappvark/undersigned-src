@@ -238,4 +238,24 @@ class ProtocolTest {
         val withRvk = entries + LedgerEntry("6" + "A".repeat(86), "walletB", 500, ReviewMemo.Revocation(s3))
         assertEquals(1, Ranking.score(withRvk, facts = facts).single().countedReviews)
     }
+
+    @Test fun `pro licence record round-trips and rejects bad terms`() {
+        val wire = ReviewMemo.encode(ReviewMemo.Pro(12))
+        assertEquals("SRL1|pro|12", wire)
+        assertEquals(ReviewMemo.Pro(12), ReviewMemo.decode(wire))
+        assertNull(ReviewMemo.decode("SRL1|pro|0"))
+        assertNull(ReviewMemo.decode("SRL1|pro|121"))
+        assertNull(ReviewMemo.decode("SRL1|pro|12|extra"))
+        assertNull(ReviewMemo.decode("SRL1|pro|twelve"))
+    }
+
+    @Test fun `a pro record moves no score and no standing`() {
+        val f = { _: String -> SignerFacts(true, 0.0) }
+        val review = LedgerEntry("sig1", "walletA", 1000L, ReviewMemo.Review("com.example.app", 5, listOf(ReviewMemo.Tag.WORKS), 1L, null))
+        val licence = LedgerEntry("sig2", "walletB", 1001L, ReviewMemo.Pro(12))
+        val with = Ranking.score(listOf(review, licence), facts = f).single()
+        val without = Ranking.score(listOf(review), facts = f).single()
+        assertEquals(without, with)
+        assertEquals(Reputation.standing(listOf(review), emptyMap(), f).keys, Reputation.standing(listOf(review, licence), emptyMap(), f).keys)
+    }
 }
