@@ -5,8 +5,11 @@ import com.undersigned.protocol.LedgerEntry
 import com.undersigned.protocol.ReviewMemo
 
 /** A wallet's Pro term as read from the ledger: no server, no receipt file, nothing stored about the buyer. */
-data class ProStatus(val active: Boolean, val expiresAt: Long, val paidAt: Long, val signature: String, val rail: String, val amountLabel: String) {
-    fun daysLeft(now: Long = System.currentTimeMillis() / 1000): Long = ((expiresAt - now) / 86400L).coerceAtLeast(0L)
+data class ProStatus(val active: Boolean, val expiresAt: Long, val paidAt: Long, val signature: String, val rail: String, val amountLabel: String, val sharedFrom: String? = null) {
+    /** Days until the term ends, rounded up: the day it was paid reads as the full term, not one short. */
+    fun daysLeft(now: Long = System.currentTimeMillis() / 1000): Long = ((expiresAt - now + 86399L) / 86400L).coerceAtLeast(0L)
+    /** Only a paid term can be shared or renewed from this wallet; a shared seat cannot be re-shared. */
+    val owned: Boolean get() = sharedFrom == null
 }
 
 /**
@@ -18,8 +21,22 @@ data class ProStatus(val active: Boolean, val expiresAt: Long, val paidAt: Long,
 object ProLicence {
     private const val DAY = 86_400L
 
-    fun of(entries: List<LedgerEntry>, meta: Map<String, TxMeta>, wallet: String?, now: Long = System.currentTimeMillis() / 1000): ProStatus? {
+    /**
+     * @param granters wallets this device was told may have shared Pro with [wallet]. A grant proves only that a
+     * wallet SAID it was sharing; the granter's own paid term is checked too, so nobody can mint Pro for anyone.
+     */
+    fun of(entries: List<LedgerEntry>, meta: Map<String, TxMeta>, wallet: String?, granters: Collection<String> = emptyList(), now: Long = System.currentTimeMillis() / 1000): ProStatus? {
         wallet ?: return null
+        paid(entries, meta, wallet, now)?.let { return it }
+        for (g in granters.filter { it != wallet }) {
+            val theirs = paid(entries, meta, g, now) ?: continue
+            if (!com.undersigned.protocol.ProSharing.holdsSeat(g, wallet, com.undersigned.protocol.ProSharing.recordsOf(entries, g))) continue
+            return theirs.copy(sharedFrom = g)
+        }
+        return null
+    }
+
+    private fun paid(entries: List<LedgerEntry>, meta: Map<String, TxMeta>, wallet: String, now: Long): ProStatus? {
         data class Paid(val e: LedgerEntry, val months: Int, val rail: String, val label: String)
         val paid = entries.filter { it.signer == wallet && it.memo is ReviewMemo.Pro }.mapNotNull { e ->
             val m = meta[e.signature.substringBefore(':')] ?: return@mapNotNull null

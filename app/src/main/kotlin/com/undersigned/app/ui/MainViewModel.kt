@@ -59,7 +59,19 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** The wallet's Pro term, read from the ledger (a paid `pro` record); null when it never bought one. */
     val pro = MutableStateFlow<com.undersigned.app.solana.ProStatus?>(null)
     val isPro: Boolean get() = pro.value?.active == true
-    private fun recomputePro() { pro.value = com.undersigned.app.solana.ProLicence.of(entries.value, txMeta.value, wallet.value) }
+    private fun recomputePro() { pro.value = com.undersigned.app.solana.ProLicence.of(entries.value, txMeta.value, wallet.value, UserPreferences.granters.value) }
+    val granters: StateFlow<Set<String>> = UserPreferences.granters
+    /** A typed wallet address or `.skr` name → the address, or null. */
+    suspend fun resolveWallet(input: String): String? {
+        val t = input.trim()
+        if (Regex("^[1-9A-HJ-NP-Za-km-z]{32,44}$").matches(t) && runCatching { com.undersigned.app.util.Base58.decode(t).size == 32 }.getOrDefault(false)) return t
+        return domains.walletOf(t)
+    }
+    fun addGranter(w: String) { UserPreferences.addGranter(w); recomputePro() }
+    fun removeGranter(w: String) { UserPreferences.removeGranter(w); recomputePro() }
+    /** The seats this wallet currently grants (tags), longest-seated first, with the local label of each. */
+    fun mySeats(): List<Pair<String, String?>> = wallet.value?.let { w -> val labels = UserPreferences.seatLabels(); com.undersigned.protocol.ProSharing.seatOrder(com.undersigned.protocol.ProSharing.recordsOf(entries.value, w)).map { it to labels[it] } } ?: emptyList()
+    fun wouldDisplace(): String? = wallet.value?.let { w -> com.undersigned.protocol.ProSharing.wouldDisplace(com.undersigned.protocol.ProSharing.recordsOf(entries.value, w)) }
     val iconCache = DAppIconCache(app)
     private val store = StoreReviewsClient()
     private val domains = DomainClient()
@@ -122,6 +134,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
         viewModelScope.launch { UserPreferences.walletAddress.collect { w -> recomputePro(); if (w == null) selfFacts.value = null else loadSelfFacts(w) } }
+        viewModelScope.launch { UserPreferences.granters.collect { recomputePro() } }
         // Near-real-time while the app is open: one cheap tail read a minute (until = newest known signature).
         viewModelScope.launch(Dispatchers.IO) { while (isActive) { delay(60_000); if (ledgerStatus.value !is LedgerStatus.Syncing) syncLedger() } }
     }
@@ -382,7 +395,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }

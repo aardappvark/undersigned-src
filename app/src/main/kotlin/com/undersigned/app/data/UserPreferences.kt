@@ -28,6 +28,8 @@ object UserPreferences {
     private const val KEY_DENSE = "reading_dense"       // device-local reading density (design §6); never on-chain
     private const val KEY_HOWTO_SEEN = "howto_seen"
     private const val KEY_WATCH_HOURS = "watch_interval_hours"
+    private const val KEY_GRANTERS = "pro_granters"          // wallets this device was told may share Pro with it
+    private const val KEY_SEAT_LABELS = "pro_seat_labels"    // tag → the wallet it was granted to, kept locally so the list is readable
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -48,6 +50,8 @@ object UserPreferences {
     val dense: StateFlow<Boolean> = _dense
     private val _howToSeen = MutableStateFlow(false)
     val howToSeen: StateFlow<Boolean> = _howToSeen
+    private val _granters = MutableStateFlow<Set<String>>(emptySet())
+    val granters: StateFlow<Set<String>> = _granters
 
     fun init(context: Context) {
         val p = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -60,6 +64,7 @@ object UserPreferences {
         _alertsEnabled.value = p.getBoolean(KEY_ALERTS, false)
         _dense.value = p.getBoolean(KEY_DENSE, false)
         _howToSeen.value = p.getBoolean(KEY_HOWTO_SEEN, false)
+        _granters.value = p.getStringSet(KEY_GRANTERS, emptySet()) ?: emptySet()
     }
 
     fun toggleStar(id: String) { val s = if (id in _starred.value) _starred.value - id else _starred.value + id; prefs?.edit()?.putStringSet(KEY_STARRED, s)?.apply(); _starred.value = s }
@@ -69,6 +74,10 @@ object UserPreferences {
     var watchIntervalHours: Long
         get() = prefs?.getLong(KEY_WATCH_HOURS, 0L) ?: 0L
         set(v) { prefs?.edit()?.putLong(KEY_WATCH_HOURS, v)?.apply() }
+    fun addGranter(w: String) { val s = _granters.value + w; prefs?.edit()?.putStringSet(KEY_GRANTERS, s)?.apply(); _granters.value = s }
+    fun removeGranter(w: String) { val s = _granters.value - w; prefs?.edit()?.putStringSet(KEY_GRANTERS, s)?.apply(); _granters.value = s }
+    fun seatLabels(): Map<String, String> = runCatching { JSONObject(prefs?.getString(KEY_SEAT_LABELS, "{}") ?: "{}").let { o -> o.keys().asSequence().associateWith { o.optString(it) } } }.getOrDefault(emptyMap())
+    fun labelSeat(tag: String, wallet: String) { val all = runCatching { JSONObject(prefs?.getString(KEY_SEAT_LABELS, "{}") ?: "{}") }.getOrDefault(JSONObject()); all.put(tag, wallet); prefs?.edit()?.putString(KEY_SEAT_LABELS, all.toString())?.apply() }
     fun setDense(v: Boolean) { prefs?.edit()?.putBoolean(KEY_DENSE, v)?.apply(); _dense.value = v }
     fun setHowToSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_HOWTO_SEEN, v)?.apply(); _howToSeen.value = v }
     fun setAlerts(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ALERTS, v)?.apply(); _alertsEnabled.value = v }
@@ -135,5 +144,5 @@ object UserPreferences {
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
 
-    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false; _dense.value = false; _howToSeen.value = false }
+    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false; _dense.value = false; _howToSeen.value = false; _granters.value = emptySet() }
 }

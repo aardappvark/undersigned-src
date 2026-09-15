@@ -21,6 +21,9 @@ import java.util.Base64
  *                                   transaction as the payment to the developer's treasury; a reader honours it
  *                                   only if that transaction actually paid the price (read from balances, never
  *                                   from the memo). Pro buys tools in the app and touches no score, weight or rank.
+ *   SRL1|shr|<tag>                — the paying wallet shares its Pro term with another wallet of its own; the pair is
+ *                                   named by hash (see ProSharing.tag), so the ledger never publishes the link
+ *   SRL1|shx|<tag>                — takes that grant back
  *
  * Three record types. A reply is a signed public comment under a review — anyone may post one
  * (the publisher answering, another owner disagreeing); replies never affect ranking. Anything else, any unknown tag, any oversize field
@@ -54,6 +57,9 @@ sealed class ReviewMemo {
     data class Dispute(val recordId: String, val text: String) : ReviewMemo()
     /** A licence term in months. Ignored by every ranking and reputation rule; the app reads it beside the payment it rode in on. */
     data class Pro(val months: Int) : ReviewMemo()
+    /** A shared seat on the signer's Pro term, named by the pair hash; only the paying wallet's signature makes it real. */
+    data class Share(val tag: String) : ReviewMemo()
+    data class Unshare(val tag: String) : ReviewMemo()
     enum class FlagReason(val wire: String) { SPAM("spam"), ABUSE("abuse"), OFF_TOPIC("offtopic"), MISLEADING("misleading");
         companion object { fun fromWire(s: String) = entries.firstOrNull { it.wire == s } } }
 
@@ -81,6 +87,7 @@ sealed class ReviewMemo {
         private val PACKAGE = Regex("^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$")
         /** A record id: the transaction signature, plus ":<n>" for the n-th memo of a batched (import) transaction. */
         private val SIGNATURE = Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}(:[1-9][0-9]?)?$")
+        private val TAG32 = Regex("^[0-9a-f]{32}$")
         fun recordId(txSignature: String, memoIndex: Int): String = if (memoIndex == 0) txSignature else "$txSignature:$memoIndex"
 
         fun encode(m: ReviewMemo): String = when (m) {
@@ -110,6 +117,8 @@ sealed class ReviewMemo {
             is Flag -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|flg|${m.recordId}|${m.reason.wire}" }
             is Claim -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|clm|${m.packageName}" }
             is Pro -> { require(m.months in 1..MAX_PRO_MONTHS) { "months" }; "${Registry.PROTOCOL}|pro|${m.months}" }
+            is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
+            is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
             is Reply -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
                 val text = m.text.trim()
@@ -151,6 +160,8 @@ sealed class ReviewMemo {
                 "flg" -> if (f.size == 4 && SIGNATURE.matches(f[2])) FlagReason.fromWire(f[3])?.let { Flag(f[2], it) } else null
                 "clm" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Claim(f[2]) else null
                 "pro" -> if (f.size == 3) f[2].toIntOrNull()?.takeIf { it in 1..MAX_PRO_MONTHS }?.let { Pro(it) } else null
+                "shr" -> if (f.size == 3 && TAG32.matches(f[2])) Share(f[2]) else null
+                "shx" -> if (f.size == 3 && TAG32.matches(f[2])) Unshare(f[2]) else null
                 "rep" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
                     val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }

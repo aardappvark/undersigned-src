@@ -258,4 +258,26 @@ class ProtocolTest {
         assertEquals(without, with)
         assertEquals(Reputation.standing(listOf(review), emptyMap(), f).keys, Reputation.standing(listOf(review, licence), emptyMap(), f).keys)
     }
+
+    @Test fun `share records round-trip and only well-formed tags decode`() {
+        val tag = ProSharing.tag("walletA", "walletB")
+        assertEquals(32, tag.length)
+        assertEquals(ReviewMemo.Share(tag), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Share(tag))))
+        assertEquals(ReviewMemo.Unshare(tag), ReviewMemo.decode(ReviewMemo.encode(ReviewMemo.Unshare(tag))))
+        assertNull(ReviewMemo.decode("SRL1|shr|nothex"))
+        assertNull(ReviewMemo.decode("SRL1|shr|" + "a".repeat(31)))
+        assertTrue(ProSharing.tag("walletA", "walletB") != ProSharing.tag("walletB", "walletA"))
+    }
+
+    @Test fun `seats replay in signing order, newest displaces oldest, revoke frees`() {
+        fun g(t: String, at: Long) = ProSharing.Record(t, at, false)
+        fun x(t: String, at: Long) = ProSharing.Record(t, at, true)
+        assertEquals(setOf("a", "b"), ProSharing.activeSeats(listOf(g("a", 1), g("b", 2))))
+        assertEquals("a", ProSharing.wouldDisplace(listOf(g("a", 1), g("b", 2))))
+        assertEquals(setOf("b", "c"), ProSharing.activeSeats(listOf(g("a", 1), g("b", 2), g("c", 3))))
+        assertEquals(setOf("a", "b"), ProSharing.activeSeats(listOf(g("a", 1), g("b", 2), g("a", 3))))   // already seated: nothing moves
+        assertEquals(setOf("b"), ProSharing.activeSeats(listOf(g("a", 1), g("b", 2), x("a", 3))))
+        assertEquals(setOf("c", "a"), ProSharing.activeSeats(listOf(g("a", 1), g("b", 2), g("c", 3), g("a", 4))))   // a displaced wallet re-claims, and the longest-seated (b) gives way
+        assertEquals(emptySet<String>(), ProSharing.activeSeats(listOf(g("a", 5), x("a", 5))))   // same instant: not held
+    }
 }

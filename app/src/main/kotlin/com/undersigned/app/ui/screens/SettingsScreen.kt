@@ -56,6 +56,16 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val pro by vm.pro.collectAsState()
     val entries by vm.entries.collectAsState()
     var copyOpen by remember { mutableStateOf(false) }
+    val granters by vm.granters.collectAsState()
+    var shareOpen by remember { mutableStateOf(false) }
+    var shareInput by remember { mutableStateOf("") }
+    var shareResolved by remember { mutableStateOf<String?>(null) }
+    var shareNote by remember { mutableStateOf<String?>(null) }
+    var shareStage by remember { mutableStateOf<String?>(null) }
+    var granterInput by remember { mutableStateOf("") }
+    var granterNote by remember { mutableStateOf<String?>(null) }
+    fun stageOf(st: com.undersigned.app.solana.ReviewTxService.Stage) = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
+    fun signShare(memo: com.undersigned.protocol.ReviewMemo, then: (Result<String>) -> Unit) { val s = sender ?: return; vm.publish(s, memo, onStage = { shareStage = stageOf(it) }) { r -> shareStage = null; then(r) } }
     var copyMsg by remember { mutableStateOf<String?>(null) }
     val df = remember { java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT) }
     fun share(text: String, mime: String, title: String) { try { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = mime; putExtra(Intent.EXTRA_SUBJECT, title); putExtra(Intent.EXTRA_TEXT, text) }, title)) } catch (_: Exception) { } }
@@ -110,17 +120,56 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             SectionTitle(stringResource(R.string.pro_title), trailing = { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) })
             GlassCard(accent = if (pro?.active == true) RbColors.green else RbColors.glassBorder) {
                 val p = pro
-                if (p != null) {
+                if (p != null && !p.owned) {
+                    Text(stringResource(R.string.pro_shared_active, domainNames[p.sharedFrom!!]?.takeIf { it.isNotEmpty() } ?: shortKey(p.sharedFrom, 4, 4), p.daysLeft()), color = RbColors.green, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.pro_paid_line, df.format(java.util.Date(p.paidAt * 1000)), p.amountLabel, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textSecondary, fontSize = 12.sp)
+                    LinkRow(stringResource(R.string.pro_view_licence)) { open(AppConfig.Api.EXPLORER_TX + p.signature) }
+                    TextButton(onClick = { vm.removeGranter(p.sharedFrom) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_shared_forget), color = RbColors.textTertiary, fontSize = 12.sp) }
+                } else if (p != null) {
                     Text(if (p.active) stringResource(R.string.pro_active, p.daysLeft()) else stringResource(R.string.pro_expired, df.format(java.util.Date(p.expiresAt * 1000))), color = if (p.active) RbColors.green else RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(R.string.pro_paid_line, df.format(java.util.Date(p.paidAt * 1000)), p.amountLabel, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textSecondary, fontSize = 12.sp)
                     LinkRow(stringResource(R.string.pro_view_licence)) { open(AppConfig.Api.EXPLORER_TX + p.signature) }
                     Text(stringResource(R.string.pro_tied, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                     Spacer(Modifier.height(8.dp))
                     SecondaryButton(if (p.active) stringResource(R.string.pro_renew) else stringResource(R.string.pro_get_short), onClick = onPro)
+                    if (p.active) {
+                        Spacer(Modifier.height(10.dp))
+                        Text(stringResource(R.string.pro_share_seated), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        val seats = remember(entries) { vm.mySeats() }
+                        if (seats.isEmpty()) Text(stringResource(R.string.pro_share_none), color = RbColors.textTertiary, fontSize = 11.sp)
+                        seats.forEach { (tag, label) ->
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(label?.let { l -> domainNames[l]?.takeIf { it.isNotEmpty() } ?: shortKey(l, 6, 6) } ?: shortKey(tag, 6, 6), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f))
+                                TextButton(enabled = shareStage == null && sender != null, onClick = { signShare(com.undersigned.protocol.ReviewMemo.Unshare(tag)) { r -> shareNote = r.fold({ null }, { it.message }) } }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_share_revoke), color = RbColors.warning, fontSize = 12.sp) }
+                            }
+                        }
+                        shareStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                        shareNote?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp) }
+                        Spacer(Modifier.height(6.dp))
+                        SecondaryButton(stringResource(R.string.pro_share_title), enabled = shareStage == null, onClick = { shareInput = ""; shareResolved = null; shareNote = null; shareOpen = true })
+                    }
                 } else {
                     Text(stringResource(R.string.pro_free_keeps), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                     Spacer(Modifier.height(8.dp))
                     SecondaryButton(stringResource(R.string.pro_get, AppConfig.Payment.solLabel(), AppConfig.Payment.skrLabel()), onClick = onPro)
+                    if (wallet != null) {
+                        Spacer(Modifier.height(12.dp))
+                        Text(stringResource(R.string.pro_shared_from_title), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.pro_shared_from_body), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                        granters.forEach { g ->
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(stringResource(R.string.pro_shared_none, domainNames[g]?.takeIf { it.isNotEmpty() } ?: shortKey(g, 6, 6)), color = RbColors.textSecondary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.weight(1f))
+                                TextButton(onClick = { vm.removeGranter(g) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_shared_forget), color = RbColors.textTertiary, fontSize = 11.sp) }
+                            }
+                        }
+                        OutlinedTextField(value = granterInput, onValueChange = { granterInput = it; granterNote = null }, singleLine = true, placeholder = { Text(stringResource(R.string.pro_shared_from_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                        granterNote?.let { Text(it, color = RbColors.warning, fontSize = 11.sp) }
+                        Spacer(Modifier.height(6.dp))
+                        SecondaryButton(stringResource(R.string.pro_shared_from_add), enabled = granterInput.isNotBlank(), onClick = {
+                            scope.launch { val w = vm.resolveWallet(granterInput); when { w == null -> granterNote = context.getString(R.string.pro_share_unresolved); w == wallet -> granterNote = context.getString(R.string.pro_share_self); else -> { vm.addGranter(w); vm.resolveDomains(listOf(w)); granterInput = "" } } }
+                        })
+                    }
                 }
                 if (p?.active == true) {
                     Spacer(Modifier.height(10.dp))
@@ -133,7 +182,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         SecondaryButton(stringResource(R.string.pro_export_csv), modifier = Modifier.weight(1f), onClick = { share(vm.exportLedger(json = false), "text/csv", "undersigned-ledger.csv") })
                         SecondaryButton(stringResource(R.string.pro_export_json), modifier = Modifier.weight(1f), onClick = { share(vm.exportLedger(json = true), "application/json", "undersigned-ledger.json") })
                     }
-                    Text(stringResource(R.string.pro_tool_watch_title) + " · " + stringResource(if (alerts) R.string.pro_watch_on else R.string.pro_watch_off), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Text(stringResource(R.string.pro_tool_watch_title) + " · " + stringResource(if (alerts) R.string.pro_watch_on else R.string.pro_watch_alerts_off), color = RbColors.textTertiary, fontSize = 11.sp)
                 }
             }
 
@@ -296,6 +345,31 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             Text(stringResource(R.string.settings_contact), color = RbColors.textDim, fontSize = 11.sp)
             Spacer(Modifier.height(24.dp))
         }
+    }
+
+    if (shareOpen) {
+        val displace = remember(entries) { vm.wouldDisplace() }
+        val tag = shareResolved?.let { com.undersigned.protocol.ProSharing.tag(wallet ?: "", it) }
+        AlertDialog(onDismissRequest = { if (shareStage == null) shareOpen = false }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.pro_share_title), color = RbColors.textPrimary) },
+            text = { Column {
+                Text(stringResource(R.string.pro_share_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(value = shareInput, onValueChange = { shareInput = it; shareResolved = null; shareNote = null }, singleLine = true, enabled = shareStage == null, placeholder = { Text(stringResource(R.string.pro_share_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                shareResolved?.let { Text(stringResource(R.string.pro_share_resolved, domainNames[it]?.takeIf { n -> n.isNotEmpty() } ?: shortKey(it, 6, 6)), color = RbColors.green, fontSize = 12.sp) }
+                if (shareResolved != null && displace != null && tag != null && tag !in vm.mySeats().map { it.first }) Text(stringResource(R.string.pro_share_displace, vm.mySeats().firstOrNull { it.first == displace }?.second?.let { shortKey(it, 6, 6) } ?: shortKey(displace, 6, 6)), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp)
+                shareStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                shareNote?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
+            } },
+            confirmButton = {
+                if (shareResolved == null) TextButton(enabled = shareInput.isNotBlank() && shareStage == null, onClick = { scope.launch { val w = vm.resolveWallet(shareInput); shareNote = null; when { w == null -> shareNote = context.getString(R.string.pro_share_unresolved); w == wallet -> shareNote = context.getString(R.string.pro_share_self); else -> { shareResolved = w; vm.resolveDomains(listOf(w)) } } } }) { Text(stringResource(R.string.pro_share_resolve), color = RbColors.purpleLight) }
+                else TextButton(enabled = shareStage == null && sender != null && tag != null, onClick = {
+                    val w = shareResolved ?: return@TextButton; val t = tag ?: return@TextButton
+                    signShare(com.undersigned.protocol.ReviewMemo.Share(t)) { r -> r.fold(onSuccess = { UserPreferences.labelSeat(t, w); shareNote = context.getString(R.string.pro_share_done); shareResolved = null; shareInput = "" }, onFailure = { shareNote = it.message }) }
+                }) { Text(stringResource(R.string.pro_share_sign), color = RbColors.purpleLight) }
+            },
+            dismissButton = { TextButton(enabled = shareStage == null, onClick = { shareOpen = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     if (copyOpen) {
