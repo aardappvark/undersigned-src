@@ -27,12 +27,14 @@ import kotlinx.coroutines.launch
 private data class Slide(@DrawableRes val photo: Int, val title: Int, val body: Int)
 
 /**
- * Five replayable intro slides, Direction A: one full-page photograph each, the title and body on
- * the faded lower zone, copy verbatim from strings.xml. Also reachable from Settings > Replay the intro.
+ * The one opening set. Five slides, Direction A: one full-page photograph each, the title and body on the
+ * faded lower zone, copy verbatim from strings.xml — and on a first run the sign-in gate is the sixth page
+ * of the same pager, so consent and the slides are one routine rather than three (owner, 17 Sep 2026).
+ * Replay from Settings shows the five slides alone.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen(onDone: () -> Unit) {
+fun OnboardingScreen(onDone: () -> Unit, gate: (@Composable () -> Unit)? = null) {
     val slides = listOf(
         Slide(R.drawable.photo_frame_1_fingertip, R.string.intro1_title, R.string.intro1_body),
         Slide(R.drawable.photo_frame_2_nib, R.string.intro2_title, R.string.intro2_body),
@@ -40,11 +42,14 @@ fun OnboardingScreen(onDone: () -> Unit) {
         Slide(R.drawable.photo_frame_4_seal, R.string.intro4_title, R.string.intro4_body),
         Slide(R.drawable.photo_frame_5_margin, R.string.intro5_title, R.string.intro5_body),
     )
-    val pager = rememberPagerState(pageCount = { slides.size })
+    val pages = slides.size + (if (gate != null) 1 else 0)
+    val pager = rememberPagerState(pageCount = { pages })
     val scope = rememberCoroutineScope()
-    val last = pager.currentPage == slides.lastIndex
+    val onGate = gate != null && pager.currentPage == slides.size
+    val last = pager.currentPage == pages - 1
     Box(Modifier.fillMaxSize().background(RbColors.background)) {
         HorizontalPager(state = pager, modifier = Modifier.fillMaxSize()) { i ->
+            if (i == slides.size) { gate?.invoke(); return@HorizontalPager }
             val s = slides[i]
             PhotoBackdrop(s.photo, Modifier.fillMaxSize(), fadeFrom = 0.38f) {
                 Column(Modifier.align(Alignment.BottomStart).fillMaxWidth().padding(start = 32.dp, end = 32.dp, bottom = 168.dp)) {
@@ -54,12 +59,13 @@ fun OnboardingScreen(onDone: () -> Unit) {
                 }
             }
         }
-        Row(Modifier.align(Alignment.TopEnd).systemBarsPadding().padding(horizontal = 12.dp, vertical = 4.dp)) {
-            if (!last) TextButton(onClick = onDone) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
+        // Skip: with a gate, jump to it (consent cannot be skipped); without one, finish.
+        if (!last && !onGate) Row(Modifier.align(Alignment.TopEnd).systemBarsPadding().padding(horizontal = 12.dp, vertical = 4.dp)) {
+            TextButton(onClick = { if (gate != null) scope.launch { pager.animateScrollToPage(slides.size) } else onDone() }) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
         }
-        Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()) {
+        if (!onGate) Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()) {
             Row(Modifier.fillMaxWidth().padding(bottom = 18.dp), horizontalArrangement = Arrangement.Center) {
-                slides.indices.forEach { i ->
+                (0 until pages).forEach { i ->
                     Box(Modifier.padding(4.dp).size(if (i == pager.currentPage) 10.dp else 7.dp).clip(CircleShape).background(if (i == pager.currentPage) RbColors.purpleLight else RbColors.textDim))
                 }
             }

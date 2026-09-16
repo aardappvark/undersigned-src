@@ -33,11 +33,14 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     val context = LocalContext.current
     val termsService = remember { TermsAcceptanceService(context) }
     var consentGiven by remember { mutableStateOf(termsService.hasValidConsent()) }
-    if (!consentGiven) { TermsAcceptanceScreen(activityResultSender = activityResultSender, onAccepted = { consentGiven = true }); return }
     val onboardingSeen by UserPreferences.onboardingSeen.collectAsState()
+    // One opening set on a first run: the five slides with the sign-in gate as the last page. Consent is the
+    // only thing that cannot be skipped. Replay (Settings) shows the slides alone; the how-to lives in Settings.
+    if (!consentGiven) {
+        OnboardingScreen(onDone = {}, gate = { TermsAcceptanceScreen(activityResultSender = activityResultSender, onAccepted = { UserPreferences.setOnboardingSeen(true); UserPreferences.setHowToSeen(true); consentGiven = true }) })
+        return
+    }
     if (!onboardingSeen) { OnboardingScreen(onDone = { UserPreferences.setOnboardingSeen(true) }); return }
-    val howToSeen by UserPreferences.howToSeen.collectAsState()
-    if (!howToSeen) { HowToScreen(onDone = { UserPreferences.setHowToSeen(true) }); return }
 
     val nav = rememberNavController()
     val vm: MainViewModel = viewModel()

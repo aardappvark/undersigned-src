@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -87,6 +88,9 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     }
 
     LaunchedEffect(apps) { vm.resolveIcons(apps.take(60).map { it.packageName }) }
+    val listState = rememberLazyListState()
+    val firstKey = rows.firstOrNull()?.let { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }
+    LaunchedEffect(firstKey, tab, sort) { if (!listState.isScrollInProgress) listState.scrollToItem(0) }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -135,7 +139,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             }
             rows.isEmpty() && tab == Tab.SIGNED -> EmptyState(R.drawable.photo_empty_signed, stringResource(R.string.empty_signed))
             rows.isEmpty() -> Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(R.string.empty_installed), color = RbColors.textSecondary, fontSize = 14.sp, textAlign = TextAlign.Center) }
-            else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
+            else -> LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(bottom = 24.dp)) {
                 // Signers whose name or address matches the query, above the dApps (design: Screens E "Search signers").
                 if (signerRows.isNotEmpty()) {
                     item(key = "signers-head") { CategoryHead(stringResource(R.string.signers_heading), signerRows.size) }
