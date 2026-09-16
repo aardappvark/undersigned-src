@@ -346,6 +346,36 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /** Ledger signers whose known name or address matches a typed query: instant, from what the device already knows. */
+    fun signerMatches(query: String): List<Pair<String, String>> {
+        val q = query.trim().lowercase().removeSuffix(".skr"); if (q.length < 2) return emptyList()
+        val names = domainNames.value
+        return ledgerSigners().filter { w -> (names[w]?.lowercase()?.contains(q) == true) || w.lowercase().startsWith(q) }
+            .map { w -> w to (names[w]?.takeIf { it.isNotEmpty() } ?: com.undersigned.app.solana.shortKey(w, 4, 4)) }.take(5)
+    }
+
+    data class Stats(val records: Int, val reviewsLive: Int, val reviewsCounted: Int, val signers: Int, val attestedSigners: Int, val seekerSigned: Int, val seekerTotal: Int,
+        val apps: Int, val appsScored: Int, val replies: Int, val publisherReplies: Int, val claims: Int, val claimsVerified: Int, val flags: Int, val clears: Int, val disputes: Int,
+        val hidden: Int, val withdrawn: Int, val licences: Int, val first: Long, val latest: Long)
+
+    /** The curator's numbers, recomputed from the registry on this device. */
+    fun stats(): Stats {
+        val all = entries.value; val revoked = revokedSignatures(); val f = facts.value; val vp = verifiedPublishers.value
+        val live = all.filter { it.memo is ReviewMemo.Review && it.signature !in revoked }
+        val counted = live.filter { (f[it.signer]?.hasGenesisToken == true) && !isSelfPublished(it) }
+        val signers = live.map { it.signer }.toSet()
+        val replies = all.filter { it.memo is ReviewMemo.Reply }
+        val byId = all.associateBy { it.signature }
+        val pubReplies = replies.count { r -> val pkg = (byId[(r.memo as ReviewMemo.Reply).reviewSignature]?.memo as? ReviewMemo.Review)?.packageName; pkg != null && vp[pkg]?.contains(r.signer) == true }
+        val meta = txMeta.value
+        val ordered = all.filter { it.memo !is ReviewMemo.Pro && it.memo !is ReviewMemo.Share && it.memo !is ReviewMemo.Unshare }
+        return Stats(all.size, live.size, counted.size, signers.size, signers.count { f[it]?.hasGenesisToken == true }, meta.values.count { it.seekerWallet }, meta.size,
+            live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size, scores.value.size, replies.size, pubReplies,
+            all.count { it.memo is ReviewMemo.Claim }, vp.values.sumOf { it.size }, all.count { it.memo is ReviewMemo.Flag }, all.count { it.memo is ReviewMemo.Clear }, all.count { it.memo is ReviewMemo.Dispute },
+            hiddenByConsensus.value.size, revoked.size, all.count { it.memo is ReviewMemo.Pro },
+            ordered.minOfOrNull { it.blockTime } ?: 0L, ordered.maxOfOrNull { it.blockTime } ?: 0L)
+    }
+
     /** Icons for the rows currently on screen; cached results are never refetched. */
     fun resolveIcons(packages: List<String>) { if (packages.isNotEmpty()) viewModelScope.launch(Dispatchers.IO) { runCatching { iconCache.resolve(packages) } } }
 

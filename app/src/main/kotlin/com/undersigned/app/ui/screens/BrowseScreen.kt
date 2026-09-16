@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import com.undersigned.app.R
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.data.UserPreferences
@@ -46,7 +47,7 @@ private enum class Sort { SCORE, NEW, CATEGORY, NAME }
 private sealed class Row { data class App(val app: CatalogueApp) : Row(); data class Head(val category: String, val count: Int) : Row() }
 
 @Composable
-fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit, onInbox: () -> Unit = {}) {
+fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit, onInbox: () -> Unit = {}, onProfile: (String) -> Unit = {}, onStats: () -> Unit = {}) {
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
@@ -59,6 +60,13 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     var tab by remember { mutableStateOf(Tab.INSTALLED) }
     var sort by remember { mutableStateOf(Sort.SCORE) }
     val uncategorised = stringResource(R.string.category_none)
+    val domainNames by vm.domainNames.collectAsState()
+    val entriesForSigners by vm.entries.collectAsState()
+    val signerRows = remember(query, domainNames, entriesForSigners) { vm.signerMatches(query) }
+    val scope = rememberCoroutineScope()
+    var signerNote by remember { mutableStateOf<String?>(null) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+    fun searchSigners() { scope.launch { val w = vm.resolveWallet(query); if (w != null) onProfile(w) else signerNote = context.getString(R.string.search_signers_none) } }
 
     val apps = remember(catalogue, installed, scores, query, tab, sort) {
         val q = query.trim().lowercase()
@@ -104,6 +112,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             )
             // The single point of failure in a serverless app gets its retry where the failure is read (design: Screens E).
             if (status is LedgerStatus.Error) TextButton(onClick = { vm.syncLedger() }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.ledger_retry), color = RbColors.purpleLight, fontSize = 12.sp) }
+            else TextButton(onClick = onStats, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.stats_open), color = RbColors.purpleLight, fontSize = 12.sp) }
         }
         OutlinedTextField(
             value = query, onValueChange = { query = it }, singleLine = true,
@@ -119,11 +128,27 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
         }
         ChipRow(stringResource(R.string.sort), listOf(Sort.SCORE to stringResource(R.string.sort_score), Sort.NEW to stringResource(R.string.sort_new), Sort.CATEGORY to stringResource(R.string.sort_category), Sort.NAME to stringResource(R.string.sort_name)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp, vertical = 2.dp))
         when {
-            rows.isEmpty() && query.isNotBlank() -> EmptyState(R.drawable.photo_empty_search, stringResource(R.string.empty_search_title), stringResource(R.string.empty_search_body, query.trim()),
-                action = if (refreshing) null else stringResource(R.string.reread_catalogue), onAction = { vm.refreshCatalogue() })
+            rows.isEmpty() && query.isNotBlank() && signerRows.isEmpty() -> Column(Modifier.fillMaxSize()) {
+                EmptyState(R.drawable.photo_empty_search, stringResource(R.string.empty_search_title), signerNote ?: stringResource(R.string.empty_search_body, query.trim()),
+                    action = stringResource(R.string.search_signers), onAction = { searchSigners() }, modifier = Modifier.weight(1f))
+                if (!refreshing) TextButton(onClick = { vm.refreshCatalogue() }, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text(stringResource(R.string.reread_catalogue), color = RbColors.purpleLight, fontSize = 13.sp) }
+            }
             rows.isEmpty() && tab == Tab.SIGNED -> EmptyState(R.drawable.photo_empty_signed, stringResource(R.string.empty_signed))
             rows.isEmpty() -> Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(R.string.empty_installed), color = RbColors.textSecondary, fontSize = 14.sp, textAlign = TextAlign.Center) }
             else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
+                // Signers whose name or address matches the query, above the dApps (design: Screens E "Search signers").
+                if (signerRows.isNotEmpty()) {
+                    item(key = "signers-head") { CategoryHead(stringResource(R.string.signers_heading), signerRows.size) }
+                    items(signerRows, key = { "signer:" + it.first }) { (w, name) ->
+                        val st = vm.standings.collectAsState().value[w]
+                        androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth().clickable { onProfile(w) }.heightIn(min = 48.dp).padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            com.undersigned.app.ui.components.LetterBadge(name, Modifier.size(36.dp))
+                            Spacer(Modifier.width(12.dp))
+                            Column(Modifier.weight(1f)) { Text(name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold); Text(stringResource(R.string.signer_row_sub, st?.countedReviews ?: 0), color = RbColors.textTertiary, fontSize = 11.sp) }
+                        }
+                        HorizontalDivider(color = RbColors.surfaceVariant, thickness = 1.dp)
+                    }
+                }
                 items(rows, key = { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }) { r ->
                     when (r) {
                         is Row.Head -> CategoryHead(r.category, r.count)

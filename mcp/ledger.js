@@ -42,6 +42,11 @@ export function decode(raw) {
     case "up": return f.length === 3 && SIG.test(f[2]) ? { t: "up", target: f[2] } : null;
     case "dsp": return f.length === 4 && SIG.test(f[2]) && f[3] ? { t: "dsp", target: f[2], text: b64u(f[3]) } : null;
     case "flg": return f.length === 4 && SIG.test(f[2]) && ["spam","abuse","offtopic","misleading"].includes(f[3]) ? { t: "flg", target: f[2], reason: f[3] } : null;
+    // Pro licence term (months) — rides in the same tx as the payment; this reader does NOT verify the payment, the phone does (balances).
+    case "pro": { const m = +f[2]; return f.length === 3 && Number.isInteger(m) && m >= 1 && m <= 120 ? { t: "pro", months: m } : null; }
+    // A shared Pro seat, named by the pair hash (SHA-256(granter:grantee)[:16]); shx takes it back.
+    case "shr": return f.length === 3 && /^[0-9a-f]{32}$/.test(f[2]) ? { t: "shr", tag: f[2] } : null;
+    case "shx": return f.length === 3 && /^[0-9a-f]{32}$/.test(f[2]) ? { t: "shx", tag: f[2] } : null;
     default: return null;
   }
 }
@@ -90,7 +95,10 @@ export function derive(entries) {
   const ups = {}; for (const e of entries.filter((e) => e.m.t === "up")) { const author = bySig[e.m.target]?.signer; if (author === e.signer) continue; (ups[e.m.target] = ups[e.m.target] || new Set()).add(e.signer); }
   const disputes = {}; for (const e of entries.filter((e) => e.m.t === "dsp")) if (bySig[e.m.target]?.signer === e.signer && !disputes[e.m.target]) disputes[e.m.target] = e.m.text;
   const live = entries.filter((e) => e.m.t === "rev" && !revoked.has(e.id));
-  return { bySig, revoked, replies, claims, flags, clears, ups, disputes, live };
+  // Licence records per wallet (unverified here: the memo says a term was bought; only balances prove it) and active share seats per granter.
+  const licences = {}; for (const e of entries.filter((e) => e.m.t === "pro")) (licences[e.signer] = licences[e.signer] || []).push({ id: e.id, months: e.m.months, at: e.t });
+  const shares = {}; for (const e of [...entries].sort((a, b) => a.t - b.t)) { if (e.m.t !== "shr" && e.m.t !== "shx") continue; const seats = (shares[e.signer] = shares[e.signer] || []); if (e.m.t === "shx") { const i = seats.indexOf(e.m.tag); if (i >= 0) seats.splice(i, 1); } else if (!seats.includes(e.m.tag)) { seats.push(e.m.tag); if (seats.length > 2) seats.shift(); } }
+  return { bySig, revoked, replies, claims, flags, clears, ups, disputes, live, licences, shares };
 }
 
 export function stars() { try { return new Set(JSON.parse(fs.readFileSync(STARS, "utf8"))); } catch { return new Set(); } }

@@ -97,8 +97,10 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         val lastSeen = UserPreferences.lastNotifiedSignature
         // First run: mark the current head as seen and notify nothing (avoids a flood on enable).
         if (lastSeen == null) { Log.i(TAG, "first run: marking the head, no per-record alerts"); UserPreferences.lastNotifiedSignature = after.firstOrNull()?.signature; return Result.success() }
-        val seen = before.map { it.signature }.toSet() + lastSeen
-        val fresh = after.filter { it.signature !in seen }
+        // Everything newer than the last record we notified about. The old rule skipped any record the foreground app had
+        // already pulled into the shared cache, so an open app silenced the alert for a reply it had just synced.
+        val idx = after.indexOfFirst { it.signature == lastSeen }
+        val fresh = if (idx < 0) after.filter { it.signature !in before.map { b -> b.signature }.toSet() } else after.take(idx)
         Log.i(TAG, "new records since last run: ${fresh.size}")
         if (fresh.isEmpty()) return Result.success()
 
