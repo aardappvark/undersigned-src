@@ -33,7 +33,11 @@ import com.undersigned.app.wallet.WalletSession
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
-/** First-launch legal gate: versioned consent, ideally backed by a Sign-In-With-Solana signature, with a read-only no-wallet path. */
+/**
+ * The sign-in slide: the last page of the one opening set. Slide five's photograph and title, then the versioned
+ * consent (ideally backed by a Sign-In-With-Solana signature) and the read-only no-wallet path. No separate
+ * "welcome" page: the owner asked for one set, and consent is part of it (17 Sep 2026).
+ */
 @Composable
 fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepted: () -> Unit) {
     val context = LocalContext.current
@@ -63,19 +67,21 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
     }
     fun open(url: String) { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) { } }
 
-    // Full-page photograph (design: terms gate); the type starts where the scrim is already opaque.
-    PhotoBackdrop(R.drawable.photo_frame_2_nib, Modifier.fillMaxSize(), fadeFrom = 0.16f) {
-    Column(Modifier.fillMaxSize().systemBarsPadding().verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.Start) {
-        Spacer(Modifier.height(200.dp))
-        Text(stringResource(R.string.terms_welcome), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
+    // Slide five's photograph; the type starts where the scrim is already opaque.
+    PhotoBackdrop(R.drawable.photo_frame_5_margin, Modifier.fillMaxSize(), fadeFrom = 0.14f) {
+    Column(Modifier.fillMaxSize().systemBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp, vertical = 16.dp), horizontalAlignment = Alignment.Start) {
+        Spacer(Modifier.height(150.dp))
+        Text(stringResource(R.string.intro5_title), color = RbColors.textPrimary, fontSize = 30.sp, lineHeight = 33.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
         Spacer(Modifier.height(8.dp))
-        Text(stringResource(R.string.terms_intro), color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 20.sp)
-        Spacer(Modifier.height(18.dp))
+        Text(stringResource(R.string.intro5_body), color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 20.sp)
+        Spacer(Modifier.height(8.dp))
+        Text(stringResource(R.string.terms_intro), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp)
+        Spacer(Modifier.height(14.dp))
         GlassCard {
             Text(stringResource(R.string.terms_confirm_heading), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(6.dp))
             listOf(stringResource(R.string.terms_point_age), stringResource(R.string.terms_point_region), stringResource(R.string.terms_point_docs, TermsAcceptanceService.CURRENT_EULA_VERSION), stringResource(R.string.terms_point_permanent), stringResource(R.string.terms_point_nofunds)).forEach {
-                Row(Modifier.padding(vertical = 2.dp)) { Text("•  ", color = RbColors.green, fontSize = 13.sp); Text(it, color = RbColors.textSecondary, fontSize = 13.sp) }
+                Row(Modifier.padding(vertical = 1.dp)) { Text("•  ", color = RbColors.green, fontSize = 12.sp); Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
             }
         }
         Spacer(Modifier.height(10.dp))
@@ -84,7 +90,7 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
             LinkText(stringResource(R.string.terms_link_privacy)) { open(AppConfig.Identity.URI + "privacy.html") }
             LinkText(stringResource(R.string.terms_link_disclaimer)) { open(AppConfig.Identity.URI + "disclaimer.html") }
         }
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(14.dp))
         Button(onClick = { signAndAccept() }, enabled = !isConnecting, modifier = Modifier.fillMaxWidth().height(52.dp), colors = ButtonDefaults.buttonColors(containerColor = RbColors.purple, contentColor = RbColors.textPrimary)) {
             if (isConnecting) { CircularProgressIndicator(Modifier.size(18.dp), color = RbColors.textPrimary, strokeWidth = 2.dp); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.terms_signing), fontWeight = FontWeight.Bold) }
             else { Icon(Icons.Default.Fingerprint, contentDescription = null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.terms_sign_accept), fontWeight = FontWeight.Bold) }

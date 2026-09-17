@@ -42,14 +42,14 @@ fun OnboardingScreen(onDone: () -> Unit, gate: (@Composable () -> Unit)? = null)
         Slide(R.drawable.photo_frame_4_seal, R.string.intro4_title, R.string.intro4_body),
         Slide(R.drawable.photo_frame_5_margin, R.string.intro5_title, R.string.intro5_body),
     )
-    val pages = slides.size + (if (gate != null) 1 else 0)
+    val pages = slides.size
     val pager = rememberPagerState(pageCount = { pages })
     val scope = rememberCoroutineScope()
-    val onGate = gate != null && pager.currentPage == slides.size
     val last = pager.currentPage == pages - 1
+    val onGate = gate != null && last
     Box(Modifier.fillMaxSize().background(RbColors.background)) {
         HorizontalPager(state = pager, modifier = Modifier.fillMaxSize()) { i ->
-            if (i == slides.size) { gate?.invoke(); return@HorizontalPager }
+            if (gate != null && i == slides.lastIndex) { gate(); return@HorizontalPager }
             val s = slides[i]
             PhotoBackdrop(s.photo, Modifier.fillMaxSize(), fadeFrom = 0.38f) {
                 Column(Modifier.align(Alignment.BottomStart).fillMaxWidth().padding(start = 32.dp, end = 32.dp, bottom = 168.dp)) {
@@ -61,18 +61,21 @@ fun OnboardingScreen(onDone: () -> Unit, gate: (@Composable () -> Unit)? = null)
         }
         // Skip: with a gate, jump to it (consent cannot be skipped); without one, finish.
         if (!last && !onGate) Row(Modifier.align(Alignment.TopEnd).systemBarsPadding().padding(horizontal = 12.dp, vertical = 4.dp)) {
-            TextButton(onClick = { if (gate != null) scope.launch { pager.animateScrollToPage(slides.size) } else onDone() }) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
+            TextButton(onClick = { if (gate != null) scope.launch { pager.animateScrollToPage(slides.lastIndex) } else onDone() }) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
         }
-        if (!onGate) Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()) {
-            Row(Modifier.fillMaxWidth().padding(bottom = 18.dp), horizontalArrangement = Arrangement.Center) {
-                (0 until pages).forEach { i ->
-                    Box(Modifier.padding(4.dp).size(if (i == pager.currentPage) 10.dp else 7.dp).clip(CircleShape).background(if (i == pager.currentPage) RbColors.purpleLight else RbColors.textDim))
+        // The dots ride above the sign-in slide too; only the Next button gives way to that slide's own buttons.
+        Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()) {
+            if (!onGate) {
+                Row(Modifier.fillMaxWidth().padding(bottom = 18.dp), horizontalArrangement = Arrangement.Center) {
+                    (0 until pages).forEach { i ->
+                        Box(Modifier.padding(4.dp).size(if (i == pager.currentPage) 10.dp else 7.dp).clip(CircleShape).background(if (i == pager.currentPage) RbColors.purpleLight else RbColors.textDim))
+                    }
                 }
+                Box(Modifier.padding(horizontal = 24.dp)) {
+                    PrimaryButton(if (last) stringResource(R.string.onboarding_cta) else stringResource(R.string.intro_next), onClick = { if (last) onDone() else scope.launch { pager.animateScrollToPage(pager.currentPage + 1) } })
+                }
+                Spacer(Modifier.height(22.dp))
             }
-            Box(Modifier.padding(horizontal = 24.dp)) {
-                PrimaryButton(if (last) stringResource(R.string.onboarding_cta) else stringResource(R.string.intro_next), onClick = { if (last) onDone() else scope.launch { pager.animateScrollToPage(pager.currentPage + 1) } })
-            }
-            Spacer(Modifier.height(22.dp))
         }
     }
 }
