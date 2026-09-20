@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "undersigned-viewer",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8777", "--directory", "/Users/heathbertram/Downloads/Dapp Dev/Undersigned/viewer"],
+      "port": 8777
+    }
+  ]
+}

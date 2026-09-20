@@ -10,17 +10,26 @@ main{max-width:860px;margin:0 auto;padding:24px 16px 48px}h1{font-size:26px;marg
 .pill.g{color:var(--g);background:#0f2a1f}.pill.i{color:#6bb9ff;background:#0e1e33}.tag{font-size:12px;color:var(--t2);background:#17122a;border-radius:99px;padding:3px 9px}
 .txt{margin:6px 0 0;color:var(--t)}.rev{border-top:1px solid #1e1830;padding:10px 0}.small{font-size:12px;color:var(--t3)}
 input{width:100%;box-sizing:border-box;background:#0e0b18;border:1px solid var(--line);border-radius:12px;color:var(--t);padding:10px 12px;font-size:15px;margin:8px 0 12px}
+button{background:var(--p);color:#fff;border:0;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer}button[disabled]{opacity:.5;cursor:default}
 a{color:var(--pl)}code{color:var(--t2);font-size:12px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 22px;margin:4px 0 0}.stat{min-width:92px}.stat b{display:block;font-size:19px;line-height:1.2}.stat span{font-size:11px;color:var(--t3)}
 </style></head><body><main>
 <h1>Undersigned</h1>
 <p class="sub">Signed dApp Store reviews from Seeker owners, read straight from Solana in your browser. No server. Not affiliated with Solana Mobile; reviews are the opinions of individual owners, not the store's ratings.</p>
 <div class="card small">Registry <code id="reg"></code> · records are memo transactions signed by the reviewer's wallet · <span id="status">reading the ledger…</span>
-<br>This page shows every record and the plain average per app. The Seeker app additionally weights by staked SKR and counts only Genesis-Token wallets; those lookups are too heavy for a browser page, so treat the averages here as unweighted.</div>
+<br>This page shows every record and the plain average per app. The Seeker app additionally weights by staked SKR and counts only Genesis-Token wallets; those lookups are too heavy for a browser page, so treat the averages here as unweighted.
+<br><br><b id="src">…</b> Every public Solana RPC now refuses a browser read of this address (measured 20 September 2026: mainnet-beta 403, PublicNode answers with an empty list, the others want a paid key), so this page ships a snapshot of the raw memos and decodes them here — every number below is still computed in your browser rather than handed to it. To check the snapshot against the chain, paste an RPC endpoint you trust:
+<div class="row" style="margin-top:8px"><input id="rpc" style="margin:0;flex:1 1 240px" placeholder="https://your-rpc-endpoint"><button id="go">Read live</button></div>
+<span id="rpcnote"></span></div>
+<div class="card"><div class="stats" id="stats"><span class="small">reading…</span></div>
+<p class="small" style="margin:12px 0 0">Every figure is recomputed in this browser from the registry address above; anyone can reproduce it. A Pro licence record is a software licence the wallet bought — it buys tools in the phone app and changes no score, no weight and no ranking here.</p></div>
 <input id="q" placeholder="Filter by app name or package">
 <div id="apps"></div>
 </main>
 <script>
-const RPC=["https://api.mainnet-beta.solana.com","https://solana-rpc.publicnode.com"];
+// No default endpoint: every public one refuses this read, and a silent empty answer (PublicNode returns
+// exactly that) would render an empty ledger as if the project had no reviews. The reader supplies one.
+let RPC=[];
 const REG="BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs", LIGHTHOUSE="L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95";
 document.getElementById('reg').textContent=REG;
 const TAGS={"works":"Works","crashes":"Crashes","wallet-ok":"Wallet ok","wallet-fails":"Wallet fails","fast":"Fast","slow":"Slow","battery":"Battery","ads":"Ads","paywall":"Paywall","fair-price":"Fair price","overpriced":"Overpriced","perms-ok":"Perms ok","perms-excess":"Perms excess","spam-reviews":"Unnatural reviews","misleading":"Misleading","suspected-scam":"Suspected scam","abandoned":"Abandoned","active-dev":"Active dev","onboarding-ok":"Onboarding ok","confusing":"Confusing","offline-ok":"Offline ok","needs-account":"Needs account","seeker-native":"Seeker native","webview":"Webview"};
@@ -36,20 +45,47 @@ function decode(raw){const f=raw.split('|');if(f[0]!=='SRL1')return null;
  if(f[1]==='unv'&&f.length===3)return{t:'unv',target:f[2]};
  if(f[1]==='unf'&&f.length===3)return{t:'unf',target:f[2]};
  if(f[1]==='clr'&&f.length===3)return{t:'clr',target:f[2]};
- if(f[1]==='dsp'&&f.length===4)return{t:'dsp',target:f[2],text:b64u(f[3])};return null}
+ if(f[1]==='dsp'&&f.length===4)return{t:'dsp',target:f[2],text:b64u(f[3])};
+ if(f[1]==='pro'&&f.length===3&&+f[2]>=1&&+f[2]<=120)return{t:'pro',months:+f[2]};
+ if((f[1]==='shr'||f[1]==='shx')&&f.length===3&&/^[0-9a-f]{32}$/.test(f[2]))return{t:f[1],tag:f[2]};return null}
 function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 let entries=[],names={};
+// One carrier transaction can hold several records (a batched import, or a licence riding with its payment),
+// so a record's id is the signature plus its memo position — the same id the phone app writes and reads.
+function expand(rows){const out=[];for(const r of rows){let i=0;for(const raw of r.memos){const m=decode(raw);if(m)out.push({id:i?`${r.sig}:${i}`:r.sig,signer:r.signer,t:r.t,seeker:r.seeker,fee:r.fee,m});i++}}return out}
+async function fromSnapshot(){
+ const d=await (await fetch('ledger.json',{cache:'no-store'})).json();
+ entries=expand(d.records);
+ document.getElementById('src').textContent=`Showing a snapshot taken ${new Date(d.generatedAt*1000).toISOString().slice(0,16).replace('T',' ')} UTC.`;}
+async function fromRpc(url){
+ RPC=[url];
+ const sigs=await rpc("getSignaturesForAddress",[REG,{limit:1000}]);
+ if(!Array.isArray(sigs))throw new Error("that endpoint did not answer with a signature list.");
+ // 200-with-nothing is not proof of an empty ledger; say so rather than rendering zeros.
+ if(!sigs.length)throw new Error("that endpoint returned no transactions for this address — some public RPCs answer empty instead of refusing. Still showing the snapshot.");
+ const rows=[];
+ for(const s of sigs.slice().reverse()){if(s.err||!s.memo||!s.memo.includes('SRL1|'))continue;
+  const tx=await rpc("getTransaction",[s.signature,{encoding:"jsonParsed",maxSupportedTransactionVersion:0}]);if(!tx||tx.meta.err)continue;
+  const keys=tx.transaction.message.accountKeys;const ixs=tx.transaction.message.instructions;
+  rows.push({sig:s.signature,signer:keys[0].pubkey||keys[0],t:tx.blockTime||s.blockTime,
+   seeker:ixs.some(i=>i.programId===LIGHTHOUSE)&&ixs.some(i=>i.programId==="ComputeBudget111111111111111111111111111111"),
+   fee:tx.meta.fee,memos:ixs.filter(i=>i.program==='spl-memo'&&typeof i.parsed==='string').map(i=>i.parsed)})}
+ entries=expand(rows);
+ document.getElementById('src').textContent=`Read live from ${new URL(url).host} · ${sigs.length} transactions on the registry.`;}
+async function readLive(url){
+ const note=document.getElementById('rpcnote'),btn=document.getElementById('go');
+ if(!/^https:\/\//.test(url)){note.textContent=' That is not an https endpoint.';return}
+ btn.disabled=true;note.textContent=' reading…';
+ try{await fromRpc(url);localStorage.setItem('undersigned.rpc',url);note.textContent='';render()}
+ catch(e){note.textContent=' '+e.message}
+ finally{btn.disabled=false}}
 async function load(){
  try{names=Object.fromEntries((await (await fetch('catalogue.json')).json()).map(a=>[a.p,a.n]))}catch{}
- const sigs=await rpc("getSignaturesForAddress",[REG,{limit:1000}]);
- const st=document.getElementById('status');st.textContent=`${sigs.length} transactions on the registry`;
- for(const s of sigs){if(s.err||!s.memo||!s.memo.includes('SRL1|'))continue;
-  const tx=await rpc("getTransaction",[s.signature,{encoding:"jsonParsed",maxSupportedTransactionVersion:0}]);if(!tx||tx.meta.err)continue;
-  const keys=tx.transaction.message.accountKeys;const signer=keys[0].pubkey||keys[0];
-  const ixs=tx.transaction.message.instructions;const seeker=ixs.some(i=>i.programId===LIGHTHOUSE)&&ixs.some(i=>i.programId==="ComputeBudget111111111111111111111111111111");
-  let i=0;for(const ix of ixs){if(ix.program==='spl-memo'&&typeof ix.parsed==='string'){const m=decode(ix.parsed);if(m)entries.push({id:i?`${s.signature}:${i}`:s.signature,signer,t:tx.blockTime||s.blockTime,seeker,fee:tx.meta.fee,m});i++}}}
- render()}
+ await fromSnapshot();
+ render();
+ const saved=new URLSearchParams(location.search).get('rpc')||localStorage.getItem('undersigned.rpc')||'';
+ if(saved){document.getElementById('rpc').value=saved;readLive(saved)}}
 function render(){
  const q=(document.getElementById('q').value||'').toLowerCase();
  const bySig=Object.fromEntries(entries.map(e=>[e.id,e]));
@@ -71,8 +107,26 @@ function render(){
   <div class="row">${Object.entries(tagCounts).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="tag">${TAGS[t]} · ${n}</span>`).join('')}</div>
   ${list.map(e=>`<div class="rev"><div class="row"><span class="stars">${stars(e.m.rating)}</span><span class="meta">${esc(e.signer.slice(0,4))}…${esc(e.signer.slice(-4))} · ${new Date(e.t*1000).toISOString().slice(0,10)} · v${esc(e.m.vc)}</span>${e.seeker?'<span class="pill i">Seeker wallet</span>':''}${ups[e.id]?`<span class="pill g">helpful · ${ups[e.id].size}</span>`:''}${flags[e.id]?`<span class="pill" style="color:var(--w)">flags · ${flags[e.id].size}</span>`:''}${disputes[e.id]?`<span class="pill" style="color:var(--w)">disputed</span>`:''}<a class="small" href="https://solscan.io/tx/${e.id.split(':')[0]}" target="_blank" rel="noopener">tx</a></div>
    <div class="row">${e.m.tags.map(t=>`<span class="tag">${TAGS[t]}</span>`).join('')}</div>${e.m.text?`<p class="txt">${esc(e.m.text)}</p>`:''}
-   ${(replies[e.id]||[]).map(r=>`<div class="small" style="margin:6px 0 0 12px">↳ ${esc(r.signer.slice(0,4))}…${esc(r.signer.slice(-4))}${(claims[pkg]||[]).includes(r.signer)?' <span class="pill g">publisher claim</span>':''}: ${esc(r.text||'')}</div>`).join('')}</div>`).join('')}</div>`)}
+   ${(replies[e.id]||[]).map(r=>`<div class="small" style="margin:6px 0 0 12px">↳ ${esc(r.signer.slice(0,4))}…${esc(r.signer.slice(-4))}${(claims[pkg]||[]).includes(r.signer)?' <span class="pill g">publisher claim</span>':''}: ${esc(r.m.text||'')}</div>`).join('')}</div>`).join('')}</div>`)}
+ const t=k=>entries.filter(e=>e.m.t===k).length, pct=(a,b)=>b?Math.round(100*a/b)+'%':'—';
+ const times=entries.filter(e=>e.m.t!=='pro'&&e.m.t!=='shr'&&e.m.t!=='shx').map(e=>e.t).filter(Boolean);
+ // Math.min() of an empty list is Infinity, and new Date(Infinity).toISOString() throws: an empty or
+ // unreadable ledger used to kill the whole page with "Invalid time value" instead of showing nothing yet.
+ const day=x=>Number.isFinite(x)&&x>0?new Date(x*1000).toISOString().slice(0,10):'—';
+ const first=times.length?Math.min(...times):null, latest=times.length?Math.max(...times):null;
+ const clears={};for(const e of entries.filter(e=>e.m.t==='clr')){(clears[e.m.target]=clears[e.m.target]||new Set()).add(e.signer)}
+ document.getElementById('stats').innerHTML=[
+   ['Records on the ledger',entries.length],['Signed reviews (live)',live.length],['Withdrawn by their author',revoked.size],
+   ['Wallets that signed one',new Set(live.map(e=>e.signer)).size],['dApps reviewed',Object.keys(byApp).length],
+   ['Replies',t('rep')],['Publisher claims',Object.keys(claims).length],
+   ['Flags · clears · disputes',`${t('flg')} · ${t('clr')} · ${t('dsp')}`],
+   ['Signed on a Seeker wallet',pct(entries.filter(e=>e.seeker).length,entries.length)],
+   ['Pro licences',t('pro')],['First record',day(first)],['Latest record',day(latest)],
+ ].map(([l,v])=>`<div class="stat"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
  document.getElementById('apps').innerHTML=out.join('')||'<p class="small">No signed reviews match.</p>';
  document.getElementById('status').textContent=`${live.length} live signed reviews from ${new Set(live.map(e=>e.signer)).size} wallets · ${revoked.size} withdrawn`}
-document.getElementById('q').addEventListener('input',render);load().catch(e=>{document.getElementById('status').textContent='Could not read the ledger: '+e.message});
+document.getElementById('q').addEventListener('input',render);
+document.getElementById('go').addEventListener('click',()=>readLive(document.getElementById('rpc').value.trim()));
+document.getElementById('rpc').addEventListener('keydown',e=>{if(e.key==='Enter')readLive(e.target.value.trim())});
+load().catch(e=>{document.getElementById('status').textContent='Could not read the ledger: '+e.message;document.getElementById('src').textContent='The snapshot could not be loaded.';});
 </script></body></html>

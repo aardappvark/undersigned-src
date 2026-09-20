@@ -84,6 +84,9 @@
     <string name="row_signed_count">%1$d signed</string>
     <string name="row_no_reviews">No signed reviews yet</string>
     <string name="ledger_syncing">Reading the ledger…</string>
+    <!-- Frame only. The two plurals below carry the number AND its noun, so this string must never name
+         "reviews" or "Seekers" itself: a translator who put the noun in both made it read "2 reviews reviews"
+         (caught in 13 locales, 20 Sep 2026). Localised frames are "<Ledger>: %1$s · %2$s". -->
     <string name="ledger_synced">Ledger: %1\$s from %2\$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d review</item><item quantity="other">%1$d reviews</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>

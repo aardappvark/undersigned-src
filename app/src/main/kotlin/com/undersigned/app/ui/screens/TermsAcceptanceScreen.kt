@@ -38,6 +38,7 @@ import kotlinx.coroutines.launch
  * consent (ideally backed by a Sign-In-With-Solana signature) and the read-only no-wallet path. No separate
  * "welcome" page: the owner asked for one set, and consent is part of it (17 Sep 2026).
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepted: () -> Unit) {
     val context = LocalContext.current
@@ -85,7 +86,9 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
             }
         }
         Spacer(Modifier.height(10.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+        // Wraps, because a fixed Row clipped the third link off the screen in German, where "Disclaimer" is
+        // "Haftungsausschluss" (measured on an emulator, 20 Sep 2026). Same for Greek, Hungarian and Vietnamese.
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             LinkText(stringResource(R.string.terms_link_terms)) { open(AppConfig.Identity.URI + "terms.html") }
             LinkText(stringResource(R.string.terms_link_privacy)) { open(AppConfig.Identity.URI + "privacy.html") }
             LinkText(stringResource(R.string.terms_link_disclaimer)) { open(AppConfig.Identity.URI + "disclaimer.html") }
