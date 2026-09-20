@@ -54,8 +54,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity" tools:node="remove" />
-        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity" tools:node="remove" />
-        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity" tools:node="remove" />
+        <!-- Stripped from the merged manifest; the classes are test-only and absent from a release build,
+             which is the point, so lint must not look for them. -->
+        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity" tools:node="remove" tools:ignore="MissingClass" />
+        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity" tools:node="remove" tools:ignore="MissingClass" />
+        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity" tools:node="remove" tools:ignore="MissingClass" />
     </application>
 </manifest>
