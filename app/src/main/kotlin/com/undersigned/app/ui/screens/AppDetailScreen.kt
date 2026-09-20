@@ -92,7 +92,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var fromLink by remember { mutableStateOf(false) }
     val pendingReply by com.undersigned.app.ui.NavIntents.pendingReply.collectAsState()
     LaunchedEffect(pendingReply, entries) {
-        pendingReply?.let { (target, txt) -> if (vm.packageOf(target) == pkg) { com.undersigned.app.ui.NavIntents.pendingReply.value = null; replyTo = target; replyText = txt; replyConsent = false; replyError = null; fromLink = true } }
+        pendingReply?.let { (target, txt) -> if (vm.packageOf(target) == pkg) { com.undersigned.app.ui.NavIntents.pendingReply.value = null; replyTo = target; replyText = txt; replyConsent = false; replyError = null; fromLink = txt.isNotEmpty() } }
     }
     val responsiveness = remember(entries, verified) { vm.responsiveness(pkg) }
     val pendingAction by com.undersigned.app.ui.NavIntents.pendingAction.collectAsState()

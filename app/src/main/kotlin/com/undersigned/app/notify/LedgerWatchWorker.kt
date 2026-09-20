@@ -63,7 +63,13 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         val after = LedgerReader(cache = cache).sync().getOrElse { Log.w(TAG, "ledger sync failed, will retry: ${it.message?.take(80)}"); return Result.retry() }
         Log.i(TAG, "run: ${before.size} cached -> ${after.size} records")
         val names = runCatching { CatalogueRepository(ctx).load().associate { it.packageName to it.name } }.getOrDefault(emptyMap())
-        var id = 1000
+        // Notification ids are derived from WHAT the alert is about, never from a per-run counter. The counter
+        // restarted at 1000 on every run, so the first alert of one run silently REPLACED the first alert of the
+        // previous run — measured on the owner's Seeker 20 Sep 2026: an update prompt posted on 18 Sep had taken
+        // the place of a reply alert posted on 17 Sep, both under id 1000. A stable id also makes re-posting the
+        // same record idempotent instead of stacking duplicates.
+        var posted = 0
+        fun post(key: String, title: String, body: String, pkg: String) { if (notify(ctx, key, title, body, pkg)) posted++ }
         val follows = UserPreferences.follows.value
         val me = UserPreferences.walletAddress.value
         Log.i(TAG, "following ${follows.size}, wallet ${if (me == null) "none" else "connected"}")
@@ -72,7 +78,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             val reviewedByMe = after.filter { it.signer == me && it.memo is ReviewMemo.Review }.map { (it.memo as ReviewMemo.Review).packageName }.toSet()
             val updated = InstalledApps(ctx).refreshSnapshot(names.keys).filter { it.versionChanged && (it.packageName in follows || it.packageName in reviewedByMe) }
             Log.i(TAG, "update prompts: ${updated.size}")
-            updated.forEach { c -> notify(ctx, id++, ctx.getString(R.string.notif_update_title, names[c.packageName] ?: c.packageName, c.versionCode), ctx.getString(R.string.notif_update_body), c.packageName) }
+            updated.forEach { c -> post("upd:${c.packageName}:${c.versionCode}", ctx.getString(R.string.notif_update_title, names[c.packageName] ?: c.packageName, c.versionCode), ctx.getString(R.string.notif_update_body), c.packageName) }
         }.onFailure { Log.w(TAG, "update-prompt pass failed: ${it.message?.take(80)}") }
         // (b) Signed vs store divergence and store review waves, for followed apps only (bounded RPC use).
         runCatching {
@@ -84,13 +90,13 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                 val sc = scores[pkg]; val sr = store.rating(pkg)
                 Log.i(TAG, "check $pkg: signed=${sc?.countedReviews ?: 0} store=${sr?.total ?: 0}")
                 if (sc != null && sr != null && sc.countedReviews >= 3 && sr.total >= 3 && kotlin.math.abs(sc.weightedMean - sr.average) >= 1.5 && UserPreferences.markDivergence(pkg, sc.weightedMean, sr.average))
-                    notify(ctx, id++, ctx.getString(R.string.notif_divergence_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_divergence_body, String.format(java.util.Locale.US, "%.1f", sc.weightedMean), sc.countedReviews, String.format(java.util.Locale.US, "%.1f", sr.average), sr.total), pkg)
+                    post("div:$pkg", ctx.getString(R.string.notif_divergence_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_divergence_body, String.format(java.util.Locale.US, "%.1f", sc.weightedMean), sc.countedReviews, String.format(java.util.Locale.US, "%.1f", sr.average), sr.total), pkg)
                 val recent = store.reviews(pkg, pageSize = 10, maxPages = 1).filter { r -> runCatching { Instant.parse(r.createdAt).toEpochMilli() }.getOrDefault(0L) > System.currentTimeMillis() - 24L * 3600L * 1000L }
                 Log.i(TAG, "  $pkg store reviews in 24h: ${recent.size}")
                 if (recent.size >= 5) {
                     val noGenesis = recent.count { r -> r.walletAddress?.let { w -> !(runCatching { factsSvc.facts(w) }.getOrNull()?.hasGenesisToken ?: true) } ?: false }
                     Log.i(TAG, "  $pkg of those, no attested device: $noGenesis")
-                    if (noGenesis >= 3 && UserPreferences.markWave(pkg, recent.first().id)) notify(ctx, id++, ctx.getString(R.string.notif_wave_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_wave_body, recent.size, noGenesis), pkg)
+                    if (noGenesis >= 3 && UserPreferences.markWave(pkg, recent.first().id)) post("wave:$pkg", ctx.getString(R.string.notif_wave_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_wave_body, recent.size, noGenesis), pkg)
                 }
             }
         }.onFailure { Log.w(TAG, "divergence/wave pass failed: ${it.message?.take(80)}") }
@@ -108,9 +114,9 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         for (e in fresh) {
             when (val m = e.memo) {
                 is ReviewMemo.Review -> if (m.packageName in follows && e.signer != me)
-                    notify(ctx, id++, ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { it.wire.replace('-', ' ').replaceFirstChar { c -> c.uppercase() } }), m.packageName)
+                    post("rev:${e.signature}", ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { it.wire.replace('-', ' ').replaceFirstChar { c -> c.uppercase() } }), m.packageName)
                 is ReviewMemo.Reply -> mineBySig[m.reviewSignature]?.let { mine ->
-                    if (e.signer != me) { val pkg = (mine.memo as ReviewMemo.Review).packageName; notify(ctx, id++, ctx.getString(R.string.notif_reply_title, names[pkg] ?: pkg), m.text, pkg) }
+                    if (e.signer != me) { val pkg = (mine.memo as ReviewMemo.Review).packageName; post("rep:${e.signature}", ctx.getString(R.string.notif_reply_title, names[pkg] ?: pkg), m.text, pkg) }
                 }
                 else -> {}
             }
@@ -118,22 +124,35 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         UserPreferences.lastNotifiedSignature = after.firstOrNull()?.signature
         // A term bought or run out since the last schedule changes the cadence; re-evaluate without a run-now.
         if (UserPreferences.alertsEnabled.value) runCatching { schedule(ctx, runNow = false) }
-        Log.i(TAG, "posted ${id - 1000} notifications")
+        Log.i(TAG, "posted $posted notifications")
         return Result.success()
     }
 
-    private fun notify(ctx: Context, id: Int, title: String, body: String, pkg: String) {
+    /**
+     * Posts one alert. [key] identifies the THING the alert is about ("rep:<signature>", "upd:<package>:<version>"),
+     * and the notification id is its hash, so alerts from different runs sit side by side and the same record
+     * never stacks a duplicate. Returns false when the system refused it (permission revoked while running).
+     */
+    private fun notify(ctx: Context, key: String, title: String, body: String, pkg: String): Boolean {
+        val id = alertId(key)
         val nm = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= 26) nm.createNotificationChannel(NotificationChannel(CHANNEL, ctx.getString(R.string.notif_channel), NotificationManager.IMPORTANCE_DEFAULT))
         val intent = Intent(ctx, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP; putExtra(EXTRA_PKG, pkg) }
         val pi = PendingIntent.getActivity(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val n = NotificationCompat.Builder(ctx, CHANNEL).setSmallIcon(R.drawable.ic_notif).setColor(ctx.getColor(R.color.purple)).setContentTitle(title).setContentText(body)
             .setStyle(NotificationCompat.BigTextStyle().bigText(body)).setContentIntent(pi).setAutoCancel(true).build()
-        try { nm.notify(id, n) } catch (_: SecurityException) { }
+        return try { nm.notify(id, n); Log.i(TAG, "alert $key"); true } catch (_: SecurityException) { false }
     }
 
     companion object {
         private const val TAG = "LedgerWatch"
+
+        /**
+         * The notification id for an alert key. Content-derived so alerts from different runs coexist and the
+         * same record never posts twice; see the note in [runOnce] for the regression this replaced.
+         */
+        fun alertId(key: String): Int = key.hashCode()
+
         const val CHANNEL = "ledger"
         const val EXTRA_PKG = "pkg"
         private const val PERIODIC = "ledger-watch"
