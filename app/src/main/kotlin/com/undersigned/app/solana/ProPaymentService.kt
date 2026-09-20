@@ -15,8 +15,8 @@ import kotlinx.coroutines.delay
 
 /**
  * Takes the one Pro payment, in SOL or SKR, the fleet way: region and sanctions gates, a funds precheck that
- * fails OPEN on RPC error, a mainnet simulation BEFORE the signature sheet opens, then inside transact{}:
- * authorize on mainnet, the same-account check, a fresh blockhash, sign and send. Nothing is reported as
+ * fails OPEN on RPC error, a mainnet simulation BEFORE the signature sheet opens, then inside transact{}
+ * (which authorizes on mainnet): the same-account check, a fresh blockhash, sign and send. Nothing is reported as
  * paid until the cluster confirms it; a timeout says so and tells the user not to pay twice.
  *
  * Every failure keeps the money question in the first line: whether anything left the wallet.
@@ -60,8 +60,9 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
 
         onStage(ReviewTxService.Stage.Signing)
         val result = try {
-            adapter.transact(sender) {
-                val auth = authorize(identityUri = Uri.parse(AppConfig.Identity.URI), iconUri = Uri.parse(AppConfig.Identity.ICON_PATH), identityName = AppConfig.Identity.NAME, chain = "solana:mainnet")
+            adapter.transact(sender) { auth ->
+                // transact has already authorized; the cluster is pinned by WalletSession's Solana.Mainnet. The
+                // same-account gate below is unchanged — it is what keeps a payment on the signed-in wallet.
                 val walletKey = auth.accounts.firstOrNull()?.publicKey ?: throw Exception("No account returned from wallet authorization")
                 if (!walletKey.contentEquals(signer)) throw WouldFail("WrongWallet")
                 val bh = rpc.getLatestBlockhash("confirmed").getOrThrow()
@@ -70,6 +71,7 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
                 Base58.encode(r.signatures.first())
             }
         } catch (e: Exception) { Log.e(TAG, "pro payment failed", e); TransactionResult.Failure<String>(e.message ?: "The wallet did not complete the request.", e) }
+        com.undersigned.app.wallet.WalletSession.rememberAuthToken()
         val signature = when (result) {
             is TransactionResult.Success -> result.payload
             is TransactionResult.NoWalletFound -> return Result.failure(Exception("Nothing was charged. No Solana wallet was found on this phone."))

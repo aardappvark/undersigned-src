@@ -22,8 +22,23 @@ object WalletSession {
                     iconUri = Uri.parse(AppConfig.Identity.ICON_PATH),
                     identityName = AppConfig.Identity.NAME,
                 ),
-            ).apply { blockchain = Solana.Mainnet }
+            ).apply {
+                blockchain = Solana.Mainnet
+                // Restore the saved token so the wallet reauthorizes silently instead of showing its "Connect"
+                // sheet before every single action. Without this the adapter starts with no token every launch.
+                authToken = com.undersigned.app.data.UserPreferences.authToken
+            }
         } catch (_: Exception) { null }
+    }
+
+    /**
+     * Persist whatever token the adapter is holding after a wallet round-trip. The adapter updates its own
+     * `authToken` on each authorize/reauthorize; unless it is written back, the next process start authorizes
+     * from scratch. Call this after every transact, successful or not — a reauthorize can rotate the token.
+     */
+    fun rememberAuthToken() {
+        val t = adapter?.authToken ?: return
+        if (t != com.undersigned.app.data.UserPreferences.authToken) com.undersigned.app.data.UserPreferences.authToken = t
     }
 
     /** Sign In With Solana: proves control of the wallet and signs the consent statement. Moves no funds. */
@@ -31,7 +46,9 @@ object WalletSession {
         val mwa = adapter ?: return Result.failure(Exception("Wallet adapter unavailable on this device"))
         return try {
             val payload = SignInWithSolana.Payload(AppConfig.Identity.HOST, statement)
-            when (val r = mwa.signIn(sender, payload)) {
+            val r = mwa.signIn(sender, payload)
+            rememberAuthToken()  // sign-in is the first authorize; keep its token or the next action re-Connects
+            when (r) {
                 is TransactionResult.Success -> {
                     val p = r.payload
                     Result.success(SignInOutcome(Base58.encode(p.publicKey), Base58.encode(p.signature), String(p.signedMessage, Charsets.UTF_8)))

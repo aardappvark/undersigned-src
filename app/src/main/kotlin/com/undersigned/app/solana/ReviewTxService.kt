@@ -11,9 +11,9 @@ import kotlinx.coroutines.delay
 
 /**
  * Publishes one SRL1 record. Order of operations is the fleet's money-code gate even though no money
- * moves: simulate first (sigVerify off, blockhash replaced), then inside transact{}: authorize on
- * mainnet, check the wallet returned the SAME account the app is signed in as, fetch a "confirmed"
- * blockhash AFTER authorize, rebuild, signAndSendTransactions. Then poll for confirmation.
+ * moves: simulate first (sigVerify off, blockhash replaced), then inside transact{} — which authorizes on
+ * mainnet for us — check the wallet returned the SAME account the app is signed in as, fetch a "confirmed"
+ * blockhash AFTER that, rebuild, signAndSendTransactions. Then poll for confirmation.
  */
 class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
 
@@ -28,8 +28,11 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
 
         onStage(Stage.Signing)
         val result = try {
-            adapter.transact(sender) {
-                val auth = authorize(identityUri = Uri.parse(AppConfig.Identity.URI), iconUri = Uri.parse(AppConfig.Identity.ICON_PATH), identityName = AppConfig.Identity.NAME, chain = "solana:mainnet")
+            adapter.transact(sender) { auth ->
+                // Use the authorization transact already performed. Calling authorize() again here forced a FULL
+                // authorize on every action, so the wallet showed its "Connect" sheet before every flag, vote and
+                // reply (measured on device, 21 Sep 2026). The adapter reauthorizes silently from its saved token.
+                // The cluster is pinned by WalletSession's `blockchain = Solana.Mainnet`, not by this call.
                 val walletKey = auth.accounts.firstOrNull()?.publicKey ?: throw Exception("No account returned from wallet authorization")
                 if (!walletKey.contentEquals(signer)) throw Exception("The wallet returned a different account (${shortKey(Base58.encode(walletKey))}) from the one signed in. Switch accounts in your wallet and try again.")
                 val bh = rpc.getLatestBlockhash("confirmed").getOrThrow()
@@ -42,6 +45,7 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
             Log.e(TAG, "publish failed", e)
             TransactionResult.Failure<String>(e.message ?: "The wallet did not complete the request.", e)
         }
+        com.undersigned.app.wallet.WalletSession.rememberAuthToken()
         val signature = when (result) {
             is TransactionResult.Success -> result.payload
             is TransactionResult.NoWalletFound -> return Result.failure(Exception("No Solana wallet found. Install a wallet that supports Mobile Wallet Adapter."))
@@ -76,8 +80,7 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         }
         onStage(Stage.Signing)
         val result = try {
-            adapter.transact(sender) {
-                val auth = authorize(identityUri = Uri.parse(AppConfig.Identity.URI), iconUri = Uri.parse(AppConfig.Identity.ICON_PATH), identityName = AppConfig.Identity.NAME, chain = "solana:mainnet")
+            adapter.transact(sender) { auth ->
                 val walletKey = auth.accounts.firstOrNull()?.publicKey ?: throw Exception("No account returned from wallet authorization")
                 if (!walletKey.contentEquals(signer)) throw Exception("The wallet returned a different account (${shortKey(Base58.encode(walletKey))}) from the one signed in.")
                 val bh = rpc.getLatestBlockhash("confirmed").getOrThrow()
@@ -87,6 +90,7 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
                 r.signatures.map { Base58.encode(it) }
             }
         } catch (e: Exception) { Log.e(TAG, "publishBatch failed", e); TransactionResult.Failure<List<String>>(e.message ?: "The wallet did not complete the request.", e) }
+        com.undersigned.app.wallet.WalletSession.rememberAuthToken()
         val sigs = when (result) {
             is TransactionResult.Success -> result.payload
             is TransactionResult.NoWalletFound -> return Result.failure(Exception("No Solana wallet found."))

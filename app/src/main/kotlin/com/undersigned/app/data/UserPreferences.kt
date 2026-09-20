@@ -11,6 +11,7 @@ import org.json.JSONObject
 object UserPreferences {
     private const val PREFS_NAME = "undersigned_prefs"
     private const val KEY_WALLET = "wallet_address"
+    private const val KEY_AUTH_TOKEN = "mwa_auth_token"  // MWA reauthorize token; not a key, and useless without the wallet
     private const val KEY_ONBOARDING_SEEN = "onboarding_seen"
     private const val KEY_HIDDEN = "hidden_signatures"
     private const val KEY_FACTS = "signer_facts"
@@ -85,7 +86,17 @@ object UserPreferences {
         get() = prefs?.getString(KEY_LAST_NOTIFIED, null)
         set(v) { prefs?.edit()?.putString(KEY_LAST_NOTIFIED, v)?.apply() }
 
-    fun setWallet(address: String?) { prefs?.edit()?.putString(KEY_WALLET, address)?.apply(); _walletAddress.value = address }
+    fun setWallet(address: String?) { prefs?.edit()?.putString(KEY_WALLET, address)?.apply(); _walletAddress.value = address; if (address == null) authToken = null }
+
+    /**
+     * The MWA authorization token. Without it the adapter runs a FULL authorize for every single action, so the
+     * wallet shows its "Connect" sheet before every flag, vote and reply — measured on device, 21 Sep 2026, where
+     * one flag needed Connect, then Approve, then the Seed Vault double-tap. With it the adapter reauthorizes
+     * silently and the wallet goes straight to the transaction. Cleared whenever the wallet is signed out.
+     */
+    var authToken: String?
+        get() = prefs?.getString(KEY_AUTH_TOKEN, null)
+        set(v) { prefs?.edit()?.putString(KEY_AUTH_TOKEN, v)?.apply() }
     fun setOnboardingSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ONBOARDING_SEEN, v)?.apply(); _onboardingSeen.value = v }
 
     fun hide(signature: String) { val s = _hidden.value + signature; prefs?.edit()?.putStringSet(KEY_HIDDEN, s)?.apply(); _hidden.value = s }
