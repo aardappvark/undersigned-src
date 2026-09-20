@@ -8,7 +8,6 @@ import com.undersigned.app.util.Base58
 import com.undersigned.app.util.GeoBlocker
 import com.undersigned.app.util.WalletScreening
 import com.undersigned.app.wallet.WalletErrors
-import com.undersigned.protocol.ReviewMemo
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import com.solana.mobilewalletadapter.clientlib.MobileWalletAdapter
 import com.solana.mobilewalletadapter.clientlib.TransactionResult
@@ -34,7 +33,6 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
         if (runCatching { GeoBlocker(context).isBlocked() }.getOrDefault(false)) return Result.failure(Exception("Nothing was charged. Payment is not available in this region because of sanctions and legal restrictions."))
         if (WalletScreening.isSanctioned(signerAddress)) return Result.failure(Exception("Nothing was charged. This wallet address appears on a sanctions list and cannot be used with this app."))
-        val licence = ReviewMemo.encode(ReviewMemo.Pro(AppConfig.Payment.TERM_MONTHS))
         val lamports = AppConfig.Payment.lamports(AppConfig.Payment.PRO_SOL)
         val skrRaw = AppConfig.Payment.skrRaw(AppConfig.Payment.PRO_SKR)
 
@@ -52,8 +50,8 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         // "absent" would only add an idempotent create (harmless), while the wrong "present" costs nothing either.
         val treasuryHasAta = if (rail == Rail.SKR) rpc.getTokenBalanceRaw(AppConfig.Payment.TREASURY, AppConfig.Payment.SKR_MINT).fold({ it >= 0L }, { true }) else true
         fun build(bh: ByteArray): ByteArray = when (rail) {
-            Rail.SOL -> TxBuilder.proSolTransaction(signer, lamports, licence, bh)
-            Rail.SKR -> TxBuilder.proSkrTransaction(signer, skrRaw, licence, bh, createTreasuryAta = !treasuryHasAta)
+            Rail.SOL -> TxBuilder.proSolTransaction(signer, lamports, bh)
+            Rail.SKR -> TxBuilder.proSkrTransaction(signer, skrRaw, bh, createTreasuryAta = !treasuryHasAta)
         }
         // Gate: never open the signature sheet on a payment the cluster would reject.
         val sim = rpc.simulateTransaction(build(TxBuilder.ZERO_BLOCKHASH), replaceBlockhash = true)

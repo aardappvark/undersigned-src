@@ -103,6 +103,13 @@ object AppConfig {
         /** Math.round, never toLong(): a truncated transfer would be one unit short of its own floor. */
         fun lamports(sol: Double): Long = Math.round(sol * 1_000_000_000.0)
         fun skrRaw(skr: Double): Long = Math.round(skr * 1_000_000.0)
+        /**
+         * Whether a transaction's treasury credit buys a term. This is the whole licence test: a payment at or
+         * above the floor on either rail, carrying this app's memo and reference. Nothing in a memo says it.
+         */
+        fun isPaidLicence(paidLamports: Long, paidSkr: Long): Boolean =
+            paidLamports >= floorLamports || paidSkr >= floorSkrRaw
+
         /** The lowest amount a reader accepts as a paid term: today's price or any legacy price, whichever is lower. Floors are never raised. */
         val floorLamports: Long get() = (LEGACY_PRO_SOL + PRO_SOL).minOf { lamports(it) }
         val floorSkrRaw: Long get() = (LEGACY_PRO_SKR + PRO_SKR).minOf { skrRaw(it) }

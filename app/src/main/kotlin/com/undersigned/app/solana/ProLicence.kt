@@ -44,7 +44,7 @@ object ProLicence {
             when {
                 m.paidLamports >= AppConfig.Payment.floorLamports -> Paid(e, months, "SOL", String.format(java.util.Locale.US, "%s SOL", trim(m.paidLamports / 1e9)))
                 m.paidSkr >= AppConfig.Payment.floorSkrRaw -> Paid(e, months, "SKR", String.format(java.util.Locale.US, "%,.0f SKR", m.paidSkr / 1e6))
-                else -> null
+                else -> null   // a `pro` record whose transaction paid nothing buys nothing
             }
         }.sortedBy { it.e.blockTime }
         if (paid.isEmpty()) return null

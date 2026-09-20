@@ -19,6 +19,10 @@ Run:  python3 viewer/refresh.py            (uses HELIUS_API_KEY_3 from ~/.gradle
 import json, os, re, sys, time, urllib.request, pathlib
 
 REG = "BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs"
+TREASURY = "DD4aPDhf396NhNDxa4PBVf1u3uzCUP2QYm2dFMmJWq2Q"
+SKR_MINT = "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3"
+PAYMENT_MEMO = "UNS"
+PRO_FLOOR_LAMPORTS, PRO_FLOOR_SKR = 60_700_000, 276_000_000
 LIGHTHOUSE = "L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95"
 COMPUTE = "ComputeBudget111111111111111111111111111111"
 
@@ -58,7 +62,7 @@ def main():
         before = page[-1]["signature"]
     # Oldest first, so the page's own ordering work is the same as the phone's.
     for s in reversed(sigs):
-        if s.get("err") or not s.get("memo") or "SRL1|" not in s["memo"]:
+        if s.get("err") or not s.get("memo") or not ("SRL1|" in s["memo"] or PAYMENT_MEMO in s["memo"]):
             continue
         tx = rpc("getTransaction", [s["signature"], {"encoding": "jsonParsed", "maxSupportedTransactionVersion": 0, "commitment": "confirmed"}])
         if not tx or (tx.get("meta") or {}).get("err"):
@@ -69,7 +73,17 @@ def main():
         memos = [ix["parsed"] for ix in ixs if ix.get("program") == "spl-memo" and isinstance(ix.get("parsed"), str)]
         if not memos:
             continue
+        # What this transaction credited the treasury, so the page can recognise a Pro payment (a licence is
+        # the payment; its only memo is the fleet code) without trusting anything precomputed about the term.
+        meta = tx.get("meta") or {}
+        ti = keys.index(TREASURY) if TREASURY in keys else -1
+        paid_sol = (meta["postBalances"][ti] - meta["preBalances"][ti]) if ti >= 0 else 0
+        def _skr(arr):
+            return sum(int(b["uiTokenAmount"]["amount"]) for b in (arr or [])
+                       if b.get("owner") == TREASURY and b.get("mint") == SKR_MINT)
+        paid_skr = _skr(meta.get("postTokenBalances")) - _skr(meta.get("preTokenBalances"))
         rows.append({
+            "paidSol": max(paid_sol, 0), "paidSkr": max(paid_skr, 0),
             "sig": s["signature"], "signer": keys[0], "t": tx.get("blockTime") or s.get("blockTime"),
             "seeker": any(i.get("programId") == LIGHTHOUSE for i in ixs) and any(i.get("programId") == COMPUTE for i in ixs),
             "fee": (tx.get("meta") or {}).get("fee", 0), "memos": memos,

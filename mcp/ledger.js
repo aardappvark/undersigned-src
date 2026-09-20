@@ -7,6 +7,10 @@ export const REGISTRY = "BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs";
 export const MEMO_PROGRAM = "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr";
 export const LIGHTHOUSE = "L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95";
 export const RPCS = (process.env.UNDERSIGNED_RPC ? [process.env.UNDERSIGNED_RPC] : []).concat(["https://api.mainnet-beta.solana.com", "https://solana-rpc.publicnode.com"]);
+export const TREASURY = "DD4aPDhf396NhNDxa4PBVf1u3uzCUP2QYm2dFMmJWq2Q";
+export const SKR_MINT = "SKRbvo6Gf7GondiT3BbTfuRDPqLWei4j2Qy2NPGZhW3";
+export const PAYMENT_MEMO = "UNS";          // this app's fleet code; a payment's only memo
+export const PRO_FLOOR_LAMPORTS = 60_700_000, PRO_FLOOR_SKR = 276_000_000, PRO_MONTHS = 12;
 export const HOME = path.join(os.homedir(), ".undersigned");
 fs.mkdirSync(HOME, { recursive: true });
 const CACHE = path.join(HOME, "ledger.json");
@@ -43,7 +47,8 @@ export function decode(raw) {
     case "dsp": return f.length === 4 && SIG.test(f[2]) && f[3] ? { t: "dsp", target: f[2], text: b64u(f[3]) } : null;
     case "flg": return f.length === 4 && SIG.test(f[2]) && ["spam","abuse","offtopic","misleading"].includes(f[3]) ? { t: "flg", target: f[2], reason: f[3] } : null;
     // Pro licence term (months) — rides in the same tx as the payment; this reader does NOT verify the payment, the phone does (balances).
-    case "pro": { const m = +f[2]; return f.length === 3 && Number.isInteger(m) && m >= 1 && m <= 120 ? { t: "pro", months: m } : null; }
+    // Legacy: read, never written. A licence is now the payment itself — see sync().
+    case "pro": { const m = +f[2]; return f.length === 3 && Number.isInteger(m) && m >= 1 && m <= 120 ? { t: "pro", months: m, legacy: true } : null; }
     // A shared Pro seat, named by the pair hash (SHA-256(granter:grantee)[:16]); shx takes it back.
     case "shr": return f.length === 3 && /^[0-9a-f]{32}$/.test(f[2]) ? { t: "shr", tag: f[2] } : null;
     case "shx": return f.length === 3 && /^[0-9a-f]{32}$/.test(f[2]) ? { t: "shx", tag: f[2] } : null;
@@ -69,13 +74,26 @@ export async function sync() {
     const cfg = { limit: 1000, commitment: "confirmed" }; if (before) cfg.before = before; if (newest) cfg.until = newest;
     const page = await rpc("getSignaturesForAddress", [REGISTRY, cfg]); if (!page.length) break;
     for (const s of page) {
-      if (s.err || known.has(s.signature) || !s.memo || !s.memo.includes("SRL1|")) continue;
+      // A Pro payment's only memo is the fleet code, so the protocol tag alone would skip it.
+      if (s.err || known.has(s.signature) || !s.memo || !(s.memo.includes("SRL1|") || s.memo.includes(PAYMENT_MEMO))) continue;
       const tx = await rpc("getTransaction", [s.signature, { encoding: "jsonParsed", maxSupportedTransactionVersion: 0 }]); if (!tx || tx.meta.err) continue;
       const keys = tx.transaction.message.accountKeys; const signer = keys[0].pubkey || keys[0];
       const ixs = tx.transaction.message.instructions;
       const seeker = ixs.some((i) => i.programId === LIGHTHOUSE) && ixs.some((i) => i.programId === "ComputeBudget111111111111111111111111111111");
-      let i = 0;
-      for (const ix of ixs) if (ix.program === "spl-memo" && typeof ix.parsed === "string") { const m = decode(ix.parsed); if (m) fresh.push({ id: i ? `${s.signature}:${i}` : s.signature, signer, t: tx.blockTime || s.blockTime, seeker, fee: tx.meta.fee, m }); i++; }
+      let i = 0, records = 0;
+      for (const ix of ixs) if (ix.program === "spl-memo" && typeof ix.parsed === "string") { const m = decode(ix.parsed); if (m) { fresh.push({ id: i ? `${s.signature}:${i}` : s.signature, signer, t: tx.blockTime || s.blockTime, seeker, fee: tx.meta.fee, m }); records++; } i++; }
+      // A licence IS its payment: treasury credit at or above the floor, carrying this app's memo and reference.
+      // The term comes from the amount, not from anything written in the memo. Pre-20 Sep 2026 licences carry a
+      // legacy `pro` record instead and are decoded above.
+      if (!records) {
+        const ti = keys.findIndex((k) => (k.pubkey || k) === TREASURY);
+        const sol = ti >= 0 ? tx.meta.postBalances[ti] - tx.meta.preBalances[ti] : 0;
+        const sum = (arr) => (arr || []).filter((b) => b.owner === TREASURY && b.mint === SKR_MINT)
+          .reduce((n, b) => n + Number(b.uiTokenAmount.amount || 0), 0);
+        const skr = sum(tx.meta.postTokenBalances) - sum(tx.meta.preTokenBalances);
+        if (sol >= PRO_FLOOR_LAMPORTS || skr >= PRO_FLOOR_SKR)
+          fresh.push({ id: s.signature, signer, t: tx.blockTime || s.blockTime, seeker, fee: tx.meta.fee, m: { t: "pro", months: PRO_MONTHS, paid: sol >= PRO_FLOOR_LAMPORTS ? `${sol / 1e9} SOL` : `${skr / 1e6} SKR` } });
+      }
     }
     if (page.length < 1000) break; before = page[page.length - 1].signature;
   }

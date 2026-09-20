@@ -53,7 +53,14 @@ function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','
 let entries=[],names={};
 // One carrier transaction can hold several records (a batched import, or a licence riding with its payment),
 // so a record's id is the signature plus its memo position — the same id the phone app writes and reads.
-function expand(rows){const out=[];for(const r of rows){let i=0;for(const raw of r.memos){const m=decode(raw);if(m)out.push({id:i?`${r.sig}:${i}`:r.sig,signer:r.signer,t:r.t,seeker:r.seeker,fee:r.fee,m});i++}}return out}
+const PRO_FLOOR_LAMPORTS=60700000,PRO_FLOOR_SKR=276000000,PRO_MONTHS=12;
+function expand(rows){const out=[];for(const r of rows){let i=0,n=0;
+ for(const raw of r.memos){const m=decode(raw);if(m){out.push({id:i?`${r.sig}:${i}`:r.sig,signer:r.signer,t:r.t,seeker:r.seeker,fee:r.fee,m});n++}i++}
+ // A licence is the payment: a treasury credit at or above the floor whose only memo is the app's fleet code.
+ // Licences bought before 20 Sep 2026 carry a legacy `pro` record and are decoded above.
+ if(!n&&((r.paidSol||0)>=PRO_FLOOR_LAMPORTS||(r.paidSkr||0)>=PRO_FLOOR_SKR))
+  out.push({id:r.sig,signer:r.signer,t:r.t,seeker:r.seeker,fee:r.fee,m:{t:'pro',months:PRO_MONTHS}});
+ }return out}
 async function fromSnapshot(){
  const d=await (await fetch('ledger.json',{cache:'no-store'})).json();
  entries=expand(d.records);

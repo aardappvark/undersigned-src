@@ -239,14 +239,17 @@ class ProtocolTest {
         assertEquals(1, Ranking.score(withRvk, facts = facts).single().countedReviews)
     }
 
-    @Test fun `pro licence record round-trips and rejects bad terms`() {
-        val wire = ReviewMemo.encode(ReviewMemo.Pro(12))
-        assertEquals("SRL1|pro|12", wire)
-        assertEquals(ReviewMemo.Pro(12), ReviewMemo.decode(wire))
+    @Test fun `a licence bought under the old shape is still read`() {
+        assertEquals(ReviewMemo.Pro(12), ReviewMemo.decode("SRL1|pro|12"))
         assertNull(ReviewMemo.decode("SRL1|pro|0"))
         assertNull(ReviewMemo.decode("SRL1|pro|121"))
         assertNull(ReviewMemo.decode("SRL1|pro|12|extra"))
         assertNull(ReviewMemo.decode("SRL1|pro|twelve"))
+    }
+
+    @Test fun `a licence can no longer be written as a memo record`() {
+        // A payment must carry the three-letter fleet code and nothing else; the term comes from the amount.
+        assertFailsWith<IllegalArgumentException> { ReviewMemo.encode(ReviewMemo.Pro(12)) }
     }
 
     @Test fun `a pro record moves no score and no standing`() {

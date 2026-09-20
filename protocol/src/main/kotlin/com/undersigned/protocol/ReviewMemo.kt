@@ -17,10 +17,15 @@ import java.util.Base64
  *   SRL1|dsp|<record id>|<b64 text> — the AUTHOR disputes consensus hiding of their own record; raises the bar to 2× and shows the text
  *   SRL1|clm|<package>            — "I publish this app"; readers verify it against the website the
  *                                   store lists for the package (/.well-known/undersigned.txt names the wallet)
- *   SRL1|pro|<months>             — a Pro software-licence term for the signing wallet. Carried in the SAME
- *                                   transaction as the payment to the developer's treasury; a reader honours it
- *                                   only if that transaction actually paid the price (read from balances, never
- *                                   from the memo). Pro buys tools in the app and touches no score, weight or rank.
+ *   SRL1|pro|<months>             — LEGACY, read but never written. A Pro licence used to ride in the payment
+ *                                   transaction as this record. That put a pipe-delimited payload where the fleet
+ *                                   convention wants a three-letter code, and since getSignaturesForAddress
+ *                                   summarises a transaction with only its FIRST memo, the treasury scan saw
+ *                                   "SRL1|pro|12" instead of "UNS" and could not attribute the payment.
+ *                                   A licence is now the payment itself — treasury credit >= the floor, with the
+ *                                   app's memo and reference — and the term comes from the amount, as the fleet
+ *                                   tells tiers apart everywhere else. Records written before 20 Sep 2026 are
+ *                                   still decoded here so the wallets that bought one keep it.
  *   SRL1|shr|<tag>                — the paying wallet shares its Pro term with another wallet of its own; the pair is
  *                                   named by hash (see ProSharing.tag), so the ledger never publishes the link
  *   SRL1|shx|<tag>                — takes that grant back
@@ -116,7 +121,9 @@ sealed class ReviewMemo {
             }
             is Flag -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|flg|${m.recordId}|${m.reason.wire}" }
             is Claim -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|clm|${m.packageName}" }
-            is Pro -> { require(m.months in 1..MAX_PRO_MONTHS) { "months" }; "${Registry.PROTOCOL}|pro|${m.months}" }
+            // Refused on purpose: a payment carries the three-letter fleet memo and nothing else, and a licence
+            // is read from the amount paid. Writing this again would re-hide the code from every treasury scan.
+            is Pro -> throw IllegalArgumentException("a Pro licence is the payment, not a memo record — see the note above")
             is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
             is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
             is Reply -> {

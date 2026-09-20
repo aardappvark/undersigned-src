@@ -26,7 +26,7 @@ account → `err: null`, 19,488 CU, memo logged, 301 bytes. 1 lamport behaves id
 | Revocation | `SRL1\|rvk\|<record id>` | Only honoured if the same wallet signed the review it names |
 | Reply | `SRL1\|rep\|<record id>\|<b64url text>` | Anyone may reply; never affects ranking; publisher badge if the signer holds a verified claim |
 | Claim | `SRL1\|clm\|<package>` | "I publish this app"; verified when the website the STORE lists for the package serves `/.well-known/undersigned.txt` containing the signer wallet (GitHub sites read raw from the default branch); cached 24 h |
-| Pro licence | `SRL1\|pro\|<months>` | Rides in the same transaction as a payment to the developer's treasury (fleet memo `UNS` appended last). A reader honours it only if the transaction's balances show the price was paid; it unlocks tools in the app and touches no score, weight or rank. |
+| Pro licence | *(no record — the payment IS the licence)* | A transfer to the developer's treasury of at least the floor price, carrying the registry as its reference account and the fleet memo `UNS` as the transaction's ONLY memo. The term comes from the amount, the way the fleet tells every tier apart. Licences bought before 20 Sep 2026 carry a legacy `SRL1\|pro\|<months>` record and are still honoured. Pro unlocks tools and touches no score, weight or rank. |
 
 **Reversibility.** `unf` withdraws my flag, `unv` my helpful vote (latest per wallet wins); `clr` is a "looks genuine" vote that offsets flags; `dsp` is the author's dispute (doubles the bar). Hiding is computed from NET weight = flags − clears, author excluded, and flags from a verified publisher of the reviewed app are ignored. Nothing is ever deleted; every state is recomputable from the chain.
 

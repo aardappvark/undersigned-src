@@ -54,20 +54,29 @@ object TxBuilder {
     val ATA_PROGRAM_ID: ByteArray = Base58.decode(AppConfig.Payment.ATA_PROGRAM)
     val SKR_MINT: ByteArray = Base58.decode(AppConfig.Payment.SKR_MINT)
 
-    /** ix[0] licence memo · ix[1] System transfer signer → treasury with the registry as reference · ix[2] fleet memo. */
-    fun proSolTransaction(signer: ByteArray, lamports: Long, licenceMemo: String, blockhash: ByteArray): ByteArray {
+    /**
+     * A payment carries EXACTLY ONE memo — the app's three-letter fleet code, appended last.
+     *
+     * It used to carry the licence record `SRL1|pro|12` first and the code second. Both were on-chain, but
+     * `getSignaturesForAddress` summarises a transaction with only its FIRST memo, so every fleet tool that
+     * scans the treasury saw `[11] SRL1|pro|12` where every other app shows `[3] RGS` — the code was invisible
+     * to the dashboard and to check_memos.py (owner, 20 Sep 2026). The term is now read the fleet way, from
+     * the AMOUNT paid, so nothing has to ride along in a memo.
+     *
+     * ix[0] System transfer signer → treasury, registry as the reference account · ix[1] memo UNS.
+     */
+    fun proSolTransaction(signer: ByteArray, lamports: Long, blockhash: ByteArray): ByteArray {
         require(lamports > 0)
-        val ixs = listOf(memoInstruction(licenceMemo), systemTransfer(signer, TREASURY, lamports, REGISTRY), memoInstruction(AppConfig.Payment.PAYMENT_MEMO))
+        val ixs = listOf(systemTransfer(signer, TREASURY, lamports, REGISTRY), memoInstruction(AppConfig.Payment.PAYMENT_MEMO))
         return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
     }
 
-    /** SKR rail: licence memo · (CreateIdempotent treasury ATA) · TransferChecked signer ATA → treasury ATA with the registry as reference · fleet memo. */
-    fun proSkrTransaction(signer: ByteArray, amountRaw: Long, licenceMemo: String, blockhash: ByteArray, createTreasuryAta: Boolean): ByteArray {
+    /** SKR rail, same rule: (CreateIdempotent treasury ATA) · TransferChecked with the registry as reference · memo UNS last. */
+    fun proSkrTransaction(signer: ByteArray, amountRaw: Long, blockhash: ByteArray, createTreasuryAta: Boolean): ByteArray {
         require(amountRaw > 0)
         val senderAta = associatedTokenAddress(signer, SKR_MINT)
         val treasuryAta = associatedTokenAddress(TREASURY, SKR_MINT)
         val ixs = ArrayList<Instruction>()
-        ixs.add(memoInstruction(licenceMemo))
         if (createTreasuryAta) ixs.add(createAtaIdempotent(signer, treasuryAta, TREASURY, SKR_MINT))
         ixs.add(transferChecked(senderAta, SKR_MINT, treasuryAta, signer, amountRaw, AppConfig.Payment.SKR_DECIMALS, REGISTRY))
         ixs.add(memoInstruction(AppConfig.Payment.PAYMENT_MEMO))

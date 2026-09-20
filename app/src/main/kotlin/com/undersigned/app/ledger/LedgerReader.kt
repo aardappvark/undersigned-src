@@ -27,15 +27,25 @@ class LedgerReader(private val rpc: SolanaRpcClient = SolanaRpcClient(), private
             while (true) {
                 val page = rpc.getSignaturesForAddress(AppConfig.Ledger.REGISTRY, before = before, until = newest).getOrThrow()
                 if (page.isEmpty()) break
-                val candidates = page.filter { !it.err && it.memo != null && it.memo.contains(AppConfig.Ledger.PROTOCOL + "|") }
+                // A Pro payment's only memo is the fleet code (see TxBuilder), so the protocol tag alone would
+                // skip it and the buyer would never see the licence they paid for.
+                val candidates = page.filter { !it.err && it.memo != null && (it.memo.contains(AppConfig.Ledger.PROTOCOL + "|") || it.memo.contains(AppConfig.Payment.PAYMENT_MEMO)) }
                 for ((i, row) in candidates.withIndex()) {
                     onProgress(Progress(fresh.size + i, fresh.size + candidates.size))
                     val tx = rpc.getLedgerTx(row.signature).getOrNull() ?: continue
                     meta[row.signature] = com.undersigned.app.solana.TxMeta(tx.fee, tx.seekerWallet, tx.paidLamports, tx.paidSkr)
+                    var records = 0
                     tx.memos.forEachIndexed { idx, raw ->
                         val memo = ReviewMemo.decode(raw) ?: return@forEachIndexed
                         fresh.add(LedgerEntry(ReviewMemo.recordId(row.signature, idx), tx.signer, if (tx.blockTime > 0) tx.blockTime else row.blockTime, memo))
+                        records++
                     }
+                    // A licence IS its payment: a transfer to the treasury of at least the floor, carrying this app's
+                    // memo and reference. The term comes from the amount, the fleet way, not from anything written
+                    // in the memo. Licences bought before 20 Sep 2026 carry a decoded `pro` record instead and are
+                    // honoured through that branch above.
+                    if (records == 0 && AppConfig.Payment.isPaidLicence(tx.paidLamports, tx.paidSkr))
+                        fresh.add(LedgerEntry(row.signature, tx.signer, if (tx.blockTime > 0) tx.blockTime else row.blockTime, ReviewMemo.Pro(AppConfig.Payment.TERM_MONTHS)))
                 }
                 if (page.size < AppConfig.Ledger.PAGE) break
                 before = page.last().signature
