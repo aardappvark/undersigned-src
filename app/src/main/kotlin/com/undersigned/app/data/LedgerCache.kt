@@ -1,6 +1,7 @@
 package com.undersigned.app.data
 
 import android.content.Context
+import android.util.Log
 import com.undersigned.app.solana.TxMeta
 import com.undersigned.protocol.LedgerEntry
 import com.undersigned.protocol.ReviewMemo
@@ -29,9 +30,17 @@ class LedgerCache(context: Context) {
         }
     }.getOrDefault(emptyList())
 
+    /**
+     * Encoding happens INSIDE the guard: a single record the codec cannot write must cost that record, not the
+     * process. It used to sit outside, so one entry threw on Dispatchers.IO and killed the app on launch.
+     */
     fun save(entries: List<LedgerEntry>) {
         val arr = JSONArray()
-        entries.forEach { arr.put(JSONObject().put("s", it.signature).put("w", it.signer).put("t", it.blockTime).put("m", ReviewMemo.encode(it.memo))) }
+        entries.forEach { e ->
+            runCatching { ReviewMemo.encode(e.memo) }
+                .onSuccess { wire -> arr.put(JSONObject().put("s", e.signature).put("w", e.signer).put("t", e.blockTime).put("m", wire)) }
+                .onFailure { Log.w("LedgerCache", "skipping a record the codec cannot write: ${it.message?.take(80)}") }
+        }
         runCatching { file.writeText(arr.toString()) }
     }
 

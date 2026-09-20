@@ -247,9 +247,18 @@ class ProtocolTest {
         assertNull(ReviewMemo.decode("SRL1|pro|twelve"))
     }
 
-    @Test fun `a licence can no longer be written as a memo record`() {
-        // A payment must carry the three-letter fleet code and nothing else; the term comes from the amount.
-        assertFailsWith<IllegalArgumentException> { ReviewMemo.encode(ReviewMemo.Pro(12)) }
+    @Test fun `every record kind survives the round trip the on-device cache makes`() {
+        // LedgerCache stores each entry as its wire text and reads it back. A kind the codec refuses to write
+        // is a kind the cache drops — and, before the guard moved, a crash on launch for anyone holding one.
+        val sig = "5XTu3S73JVaDV2JQRJUmRWaja3geEUKeegnN7eHHKvEZa1p6jG1LnBWnJ1Np47ZbCeBztMHb8W2GcbVDc3pcj38B"
+        val all = listOf(
+            ReviewMemo.Review("com.example.app", 4, listOf(ReviewMemo.Tag.WORKS), 7L, "note"),
+            ReviewMemo.Revocation(sig), ReviewMemo.Reply(sig, "answer"), ReviewMemo.Claim("com.example.app"),
+            ReviewMemo.Flag(sig, ReviewMemo.FlagReason.SPAM), ReviewMemo.Upvote(sig), ReviewMemo.Unvote(sig),
+            ReviewMemo.Unflag(sig), ReviewMemo.Clear(sig), ReviewMemo.Dispute(sig, "why"),
+            ReviewMemo.Pro(12), ReviewMemo.Share("a".repeat(32)), ReviewMemo.Unshare("b".repeat(32)),
+        )
+        all.forEach { assertEquals(it, ReviewMemo.decode(ReviewMemo.encode(it)), "round trip failed for $it") }
     }
 
     @Test fun `a pro record moves no score and no standing`() {

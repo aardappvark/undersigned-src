@@ -121,9 +121,12 @@ sealed class ReviewMemo {
             }
             is Flag -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|flg|${m.recordId}|${m.reason.wire}" }
             is Claim -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|clm|${m.packageName}" }
-            // Refused on purpose: a payment carries the three-letter fleet memo and nothing else, and a licence
-            // is read from the amount paid. Writing this again would re-hide the code from every treasury scan.
-            is Pro -> throw IllegalArgumentException("a Pro licence is the payment, not a memo record — see the note above")
+            // Legacy wire, and the form the on-device cache stores a licence in. It must NEVER reach a payment:
+            // that is enforced where it matters, in TxBuilder (which takes no memo record) and by the test that
+            // reads the built payment bytes back. Refusing to encode here instead looked safer and was not —
+            // LedgerCache serialises every entry through this codec, so it crashed the app on launch for the one
+            // wallet that owns a licence (20 Sep 2026).
+            is Pro -> { require(m.months in 1..MAX_PRO_MONTHS) { "months" }; "${Registry.PROTOCOL}|pro|${m.months}" }
             is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
             is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
             is Reply -> {
