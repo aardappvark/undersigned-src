@@ -117,6 +117,34 @@ class ProtocolTest {
         assertTrue(Ranking.score(entries, facts = facts).size == 2, "similarity never removes a review from ranking")
     }
 
+    // The case the other hiding tests cannot reach: they use 1.0-weight wallets, so weight and head-count move
+    // together. A wallet at the 3x staking cap clears HIDE_WEIGHT on its own; only MIN_FLAGGERS stops it. This is
+    // the shape exercised on mainnet 21 Sep 2026 (3uzMbkkk…: vitalik.skr, 3.0x, flagging the publisher's review),
+    // which on device showed a "3.0 flag weight" pill and left the review visible.
+    @Test fun `one max-weight wallet cannot hide a record alone, and a dispute needs three heads not just weight`() {
+        val r = "1" + "A".repeat(86)
+        val review = LedgerEntry(r, "author", 10, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS), 1, null))
+        val heavy = { _: String -> SignerFacts(true, 1_000_000.0) }
+        assertEquals(3.0, Ranking.weight(heavy("any")), 1e-9, "the fixture must actually sit at the cap")
+        val whale = LedgerEntry("2" + "A".repeat(86), "whale", 20, ReviewMemo.Flag(r, ReviewMemo.FlagReason.OFF_TOPIC))
+        assertEquals(3.0, Reputation.flagWeights(listOf(review, whale), facts = heavy)[r]!!, 1e-9)
+        assertTrue(Reputation.flagWeights(listOf(review, whale), facts = heavy)[r]!! >= Reputation.HIDE_WEIGHT, "weight alone would hide it")
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whale), facts = heavy).isEmpty(), "one wallet is not consensus")
+
+        val second = LedgerEntry("3" + "A".repeat(86), "second", 21, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whale, second), facts = heavy))
+
+        // Disputed: weight 6.0 clears the doubled bar (4.0), but two heads are below DISPUTED_MIN_FLAGGERS.
+        val dispute = LedgerEntry("4" + "A".repeat(86), "author", 30, ReviewMemo.Dispute(r, "Honest review."))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whale, second, dispute), facts = heavy).isEmpty(), "two heavy wallets cannot outvote a dispute")
+        val third = LedgerEntry("5" + "A".repeat(86), "third", 31, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whale, second, dispute, third), facts = heavy))
+
+        // A flagger who also marks it "looks genuine" cancels themselves out: net zero heads, net zero weight.
+        val selfClear = LedgerEntry("6" + "A".repeat(86), "whale", 40, ReviewMemo.Clear(r))
+        assertTrue(Reputation.flagWeights(listOf(review, whale, selfClear), facts = heavy)[r] == null)
+    }
+
     @Test fun `flags can be withdrawn, clears offset flags, publisher flags on their own app are ignored`() {
         val r = "1" + "A".repeat(86)
         val review = LedgerEntry(r, "u", 10, ReviewMemo.Review("com.x", 1, listOf(ReviewMemo.Tag.CRASHES), 1, null))
