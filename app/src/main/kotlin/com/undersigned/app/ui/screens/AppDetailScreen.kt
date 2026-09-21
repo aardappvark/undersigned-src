@@ -331,7 +331,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else -> l
                     } }
             }
-            shown.forEach { (e, w) ->
+            // key() by signature, not position. Without it every remember in this loop (the replies list, the
+            // swipe-to-reply state) stayed bound to a SLOT: the list is newest-first until helpful weights load and
+            // re-sort it, and the slot kept the old review's state. Measured 21 Sep 2026: a reply to 5XTu3S73 was
+            // drawn under the publisher's review, and a swipe there would have opened a reply to the wrong record.
+            shown.forEach { (e, w) -> key(e.signature) {
                 val r = e.memo as ReviewMemo.Review
                 if (e.signature in consensusHidden && e.signature !in revealed) {
                     GlassCard(accent = RbColors.surfaceVariant) {
@@ -381,7 +385,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
                     }
                     Spacer(Modifier.height(6.dp))
-                    val replies = remember(entries, hidden) { vm.repliesFor(e.signature) }
+                    val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }
                     replies.forEach { rp ->
                         Spacer(Modifier.height(6.dp))
                         if (rp.signature in consensusHidden && rp.signature !in revealed) {
@@ -433,7 +437,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
                 }
                 Spacer(Modifier.height(8.dp))
-            }
+            } }
             if (hiddenCount > 0) Text(stringResource(R.string.review_hidden_note, hiddenCount), color = RbColors.textTertiary, fontSize = 11.sp)
             Spacer(Modifier.height(32.dp))
         }
