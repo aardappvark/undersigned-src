@@ -12,7 +12,15 @@ import com.solana.mobilewalletadapter.common.signin.SignInWithSolana
 
 data class SignInOutcome(val address: String, val signature: String, val signedMessage: String)
 
-/** The single MobileWalletAdapter for the app. Pinned to mainnet at construction (the default is devnet). */
+/**
+ * The single MobileWalletAdapter for the app. Pinned to mainnet at construction (the default is devnet).
+ *
+ * Read out of the clientlib 2.0.3 bytecode (MobileWalletAdapter$transact$2), because both facts are load-bearing
+ * and neither is obvious from the API: transact() reads `blockchain` and `authToken`, then calls `authorize(...)`
+ * with that cluster when the token is null, or `reauthorize(...)` when it is set, and passes the resulting
+ * AuthorizationResult into the block. That is why the services take the block's parameter instead of calling
+ * authorize() themselves (which always ran the full Connect flow), and why they do not pass a chain argument.
+ */
 object WalletSession {
     val adapter: MobileWalletAdapter? by lazy {
         try {

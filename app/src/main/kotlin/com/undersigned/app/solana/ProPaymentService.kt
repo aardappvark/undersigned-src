@@ -1,7 +1,6 @@
 package com.undersigned.app.solana
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import com.undersigned.app.AppConfig
 import com.undersigned.app.util.Base58
