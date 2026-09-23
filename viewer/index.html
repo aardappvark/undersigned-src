@@ -102,8 +102,13 @@ function render(){
  const byApp={};for(const e of Object.values(newest)){(byApp[e.m.pkg]=byApp[e.m.pkg]||[]).push(e)}
  const replies={};for(const e of entries.filter(e=>e.m.t==='rep')){(replies[e.m.target]=replies[e.m.target]||[]).push(e)}
  const claims={};for(const e of entries.filter(e=>e.m.t==='clm')){(claims[e.m.pkg]=claims[e.m.pkg]||[]).push(e.signer)}
- const flags={};for(const e of entries.filter(e=>e.m.t==='flg')){if(bySig[e.m.target]&&bySig[e.m.target].signer===e.signer)continue;(flags[e.m.target]=flags[e.m.target]||new Set()).add(e.signer)}
- const ups={};for(const e of entries.filter(e=>e.m.t==='up')){if(bySig[e.m.target]&&bySig[e.m.target].signer===e.signer)continue;(ups[e.m.target]=ups[e.m.target]||new Set()).add(e.signer)}
+ // Latest state per (record, wallet) wins, exactly as mcp/ledger.js and the app do it. Counting every 'flg'
+ // and 'up' ever signed left a withdrawn flag or vote standing for good: the viewer decoded 'unf'/'unv' but
+ // never applied them, so a record stayed marked here after its flag was withdrawn on chain.
+ const latestState=(on,off)=>{const st={};for(const e of [...entries].sort((a,b)=>a.t-b.t)){const t=e.m.t===on?true:e.m.t===off?false:null;if(t===null)continue;(st[e.m.target]=st[e.m.target]||{})[e.signer]=t}
+  const out={};for(const [target,m] of Object.entries(st)){const author=bySig[target]&&bySig[target].signer;const s=new Set(Object.entries(m).filter(([w,v])=>v&&w!==author).map(([w])=>w));if(s.size)out[target]=s}return out};
+ const flags=latestState('flg','unf');
+ const ups=latestState('up','unv');
  const disputes={};for(const e of entries.filter(e=>e.m.t==='dsp')){if(bySig[e.m.target]&&bySig[e.m.target].signer===e.signer&&!disputes[e.m.target])disputes[e.m.target]=e.m.text}
  const out=[];for(const [pkg,list] of Object.entries(byApp).sort((a,b)=>b[1].length-a[1].length)){
   const name=names[pkg]||pkg;if(q&&!(name.toLowerCase().includes(q)||pkg.toLowerCase().includes(q)))continue;
