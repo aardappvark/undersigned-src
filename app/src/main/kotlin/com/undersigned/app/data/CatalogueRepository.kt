@@ -52,6 +52,7 @@ class CatalogueRepository(private val context: Context) {
             for (c in 0 until cats.length()) {
                 val node = cats.getJSONObject(c).getJSONObject("node")
                 val id = node.getString("id"); val name = node.getString("name")
+                val shelf = name in CURATED_SHELVES
                 var after: String? = null; var pages = 0
                 while (pages++ < 200) {
                     val vars = JSONObject().put("systemContext", sc).put("categoryId", id).put("first", AppConfig.Store.PAGE_SIZE)
@@ -65,7 +66,10 @@ class CatalogueRepository(private val context: Context) {
                         val rel = n.optJSONObject("lastRelease")
                         val existing = out[pkg]
                         out[pkg] = CatalogueApp(pkg, rel?.optString("displayName")?.takeIf { it.isNotEmpty() } ?: existing?.name ?: pkg,
-                            rel?.optString("updatedOn")?.take(10) ?: existing?.updated ?: "", existing?.category ?: name)
+                            rel?.optString("updatedOn")?.take(10) ?: existing?.updated ?: "",
+                            // First REAL category wins. A curated shelf ("Top Picks") is listed first by the store, so it
+                            // used to become the label of every app on it; a shelf only fills in if nothing better exists.
+                            existing?.category?.takeUnless { it in CURATED_SHELVES } ?: if (shelf) existing?.category ?: name else name)
                     }
                     val pi = d.getJSONObject("pageInfo")
                     if (!pi.optBoolean("hasNextPage", false)) break
@@ -97,6 +101,11 @@ class CatalogueRepository(private val context: Context) {
 
     companion object {
         private const val TAG = "Catalogue"
+        /**
+         * Store categories that are curated shelves, not categories. Since the store reshuffle (v1.59.0, 22 Sep 2026) its
+         * category list opens with "Top Picks", and first-seen-wins labelled every app on that shelf "Top Picks".
+         */
+        val CURATED_SHELVES = setOf("Top Picks")
         private val EXCLUDED = listOf("com.google.", "com.android.", "com.mediatek.", "com.samsung.", "com.qualcomm.", "com.sec.", "com.friendly.", "org.chromium.")
         private const val Q_CATEGORIES = "query TopCategories(\$systemContext: SystemContext!) { topCategories(systemContext: \$systemContext, first: 20) { edges { node { id name } } } }"
         private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } } } } pageInfo { hasNextPage endCursor } } } }"

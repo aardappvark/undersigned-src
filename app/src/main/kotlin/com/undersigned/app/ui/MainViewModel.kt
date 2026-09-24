@@ -125,6 +125,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             // Show what the cached ledger already says instead of the catalogue count, until the live read reports.
             if (entries.value.isNotEmpty() && ledgerStatus.value == LedgerStatus.Idle) ledgerStatus.value = syncedStatus(entries.value)
             syncLedger()
+        }
+        // The daily catalogue refresh runs on its own coroutine, like the attestation refresh below. At the end of the
+        // chain above it waited on the whole ledger sync, and a phone opened briefly never got to it: the airdropper
+        // was still on the bundled 8 Sep catalogue — old category names, the dApp Store labelled "Games" — days
+        // after install (24 Sep 2026).
+        viewModelScope.launch(Dispatchers.IO) {
             if (catalogueRepo.isStale()) catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
         }
         // The governed attestation list decides whose voice counts, so it refreshes on its own coroutine.
