@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 
 sealed class LedgerStatus {
@@ -119,7 +120,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             runCatching { installedApps.refreshSnapshot(cat.map { it.packageName }) }
             changes.value = installedApps.changeLog()
             entries.value = ledgerCache.load(); txMeta.value = ledgerCache.loadMeta()
+            verifiedPublishers.value = UserPreferences.loadVerifiedPublishers()
             rank()
+            // Show what the cached ledger already says instead of the catalogue count, until the live read reports.
+            if (entries.value.isNotEmpty() && ledgerStatus.value == LedgerStatus.Idle) ledgerStatus.value = syncedStatus(entries.value)
             syncLedger()
             if (catalogueRepo.isStale()) catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
         }
@@ -144,7 +148,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             ledgerStatus.value = LedgerStatus.Syncing(0, 0)
             reader.sync { p -> ledgerStatus.value = LedgerStatus.Syncing(p.fetched, p.total) }.fold(
-                onSuccess = { list -> entries.value = list; txMeta.value = ledgerCache.loadMeta(); rank(); val rv = Ranking.revoked(list); ledgerStatus.value = LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review && it.signature !in rv }, list.filter { it.memo is ReviewMemo.Review }.map { it.signer }.distinct().size) },
+                onSuccess = { list -> entries.value = list; txMeta.value = ledgerCache.loadMeta(); rank(); ledgerStatus.value = syncedStatus(list) },
                 onFailure = { ledgerStatus.value = LedgerStatus.Error(it.message?.take(80) ?: "unknown") },
             )
         }
@@ -155,7 +159,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val list = entries.value
         val map = HashMap(facts.value)
         for (s in list.map { it.signer }.distinct()) if (s !in map) map[s] = runCatching { factsService.facts(s) }.getOrElse { SignerFacts(false, 0.0) }
-        facts.value = map
+        facts.update { it + map }  // merge: store-reviewer lookups may have landed while this ran
         val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
         val vp = verifiedPublishers.value
         scores.value = Ranking.score(list, vp, f).associateBy { it.packageName }
@@ -191,17 +195,36 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
         val changed = verifiedPublishers.value != out
         verifiedPublishers.value = out
+        UserPreferences.saveVerifiedPublishers(out)
         if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, out, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, out, f); flagWeights.value = Reputation.flagWeights(list, out, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, out, f) }
+    }
+    private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
+        val rv = Ranking.revoked(list)
+        return LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review && it.signature !in rv }, list.filter { it.memo is ReviewMemo.Review }.map { it.signer }.distinct().size)
     }
     fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
     fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
     fun versionScores(pkg: String) = Reputation.byVersion(entries.value, pkg, verifiedPublishers.value) { facts.value[it] ?: SignerFacts(false, 0.0) }
     fun isSelfPublished(e: LedgerEntry) = Ranking.isSelfPublished(e, verifiedPublishers.value)
     /** Signer facts for arbitrary wallets (store reviewers), cached; fills [facts]. */
+    private val factsInFlight = java.util.Collections.synchronizedSet(HashSet<String>())
+    private val factsGate = kotlinx.coroutines.sync.Semaphore(3)
+    /**
+     * Genesis + stake lookups for store reviewers, three at a time. One at a time, the first "Attested device" pill on
+     * an app page appeared ~18 s after opening it (measured 24 Sep 2026), long after a reader had scrolled past. Three,
+     * not more: shared RPC keys fail on concurrency before they fail on volume. In-flight wallets are skipped, so a
+     * recomposition mid-lookup does not start the same lookups again.
+     */
     fun resolveFacts(wallets: Collection<String>) {
-        val todo = wallets.distinct().filter { it !in facts.value }
+        val todo = wallets.distinct().filter { it !in facts.value && factsInFlight.add(it) }
         if (todo.isEmpty()) return
-        viewModelScope.launch(Dispatchers.IO) { for (w in todo) { val f = runCatching { factsService.facts(w) }.getOrElse { SignerFacts(false, 0.0) }; facts.value = facts.value + (w to f) } }
+        for (w in todo) viewModelScope.launch(Dispatchers.IO) {
+            try {
+                factsGate.acquire()
+                val f = try { runCatching { factsService.facts(w) }.getOrElse { SignerFacts(false, 0.0) } } finally { factsGate.release() }
+                facts.update { it + (w to f) }
+            } finally { factsInFlight.remove(w) }
+        }
     }
     fun ledgerSigners(): Set<String> = entries.value.filter { it.memo is ReviewMemo.Review }.map { it.signer }.toSet()
 

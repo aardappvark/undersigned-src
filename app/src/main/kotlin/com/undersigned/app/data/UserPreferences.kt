@@ -15,6 +15,7 @@ object UserPreferences {
     private const val KEY_ONBOARDING_SEEN = "onboarding_seen"
     private const val KEY_HIDDEN = "hidden_signatures"
     private const val KEY_FACTS = "signer_facts"
+    private const val KEY_VERIFIED = "verified_publishers"   // package → wallets whose claim verified, last seen
     private const val KEY_CATALOGUE_REFRESH = "catalogue_refreshed_at"
     private const val KEY_DEVICE_SNAPSHOT = "device_snapshot"
     private const val KEY_CHANGES = "device_changes"
@@ -113,6 +114,20 @@ object UserPreferences {
         val all = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}") }.getOrDefault(JSONObject())
         all.put(signer, JSONObject().put("sgt", f.hasGenesisToken).put("skr", f.stakedSkr).put("att", f.attestation ?: "").put("at", System.currentTimeMillis()))
         prefs?.edit()?.putString(KEY_FACTS, all.toString())?.apply()
+    }
+    /**
+     * The last verified-publisher result, so the FIRST ranking after a launch already knows whose review of their own
+     * app not to count. Without it every cold start ranked with an empty map, then re-ranked once the websites had been
+     * checked: the Toolkit read "4.5 · 2 signed" and then "4.0 · 1 signed" seconds later (seen 24 Sep 2026). This is a
+     * starting point only — verifyClaims re-checks every claim against the live website and overwrites it.
+     */
+    fun loadVerifiedPublishers(): Map<String, Set<String>> = runCatching {
+        val o = JSONObject(prefs?.getString(KEY_VERIFIED, "{}") ?: "{}")
+        o.keys().asSequence().associateWith { k -> val a = o.getJSONArray(k); (0 until a.length()).map { a.getString(it) }.toSet() }
+    }.getOrDefault(emptyMap())
+    fun saveVerifiedPublishers(m: Map<String, Set<String>>) {
+        val o = JSONObject(); m.forEach { (k, ws) -> o.put(k, org.json.JSONArray(ws.toList())) }
+        prefs?.edit()?.putString(KEY_VERIFIED, o.toString())?.apply()
     }
     fun clearFacts() { prefs?.edit()?.remove(KEY_FACTS)?.apply() }
 
