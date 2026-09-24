@@ -237,6 +237,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     fun ledgerSigners(): Set<String> = entries.value.filter { it.memo is ReviewMemo.Review }.map { it.signer }.toSet()
 
+    private val detailsInFlight = java.util.Collections.synchronizedSet(HashSet<String>())
+    /** Store listing details only (version, certificate, publisher, release notes) — no ratings or reviews. */
+    fun loadStoreDetails(pkg: String) {
+        if (storeDetails.value.containsKey(pkg) || !detailsInFlight.add(pkg)) return
+        viewModelScope.launch(Dispatchers.IO) {
+            try { store.details(pkg)?.let { d -> storeDetails.update { it + (pkg to d) } } } finally { detailsInFlight.remove(pkg) }
+        }
+    }
     fun loadStoreMirror(pkg: String) {
         if (storeRatings.value.containsKey(pkg)) return
         viewModelScope.launch(Dispatchers.IO) {

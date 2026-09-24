@@ -361,7 +361,12 @@
     <string name="pro_copy_review_body">Carries your stars and note across and opens the listing ready to post. Pro copies every review you have signed in one pass; the store still takes the last taps itself.</string>
     <string name="pro_copy_all">Copy my reviews to the store</string>
     <string name="pro_copy_count">%1$d not copied</string>
-    <string name="pro_copy_done">Copied. The listing is open — paste the note and set the stars.</string>
+    <string name="flag_on">Flagged</string>
+    <string name="change_whats_new">What\'s new in this version, from the store listing</string>
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
+    <string name="store_publisher_reply">Publisher reply</string>
+    <string name="pro_copy_done">Copied. The listing is open: scroll to “Ratings &amp; Reviews”, tap “Review this dApp”, then paste the note and set the stars.</string>
     <string name="pro_copy_none">Every review you have signed is already in the store.</string>
     <string name="pro_import_locked">Importing them all with one signature is a Pro tool. Free imports one at a time: sign one below, or from each dApp page.</string>
     <string name="pro_import_one">Sign and import this one</string>
@@ -432,7 +437,7 @@
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned reads the public dApp Store catalogue and opens listings in the store. It never installs, updates or removes apps.</string>
     <string name="review_also_store">Also post in the dApp Store</string>
-    <string name="review_also_store_hint">Copies your note and opens the listing in the store. The store has no way for another app to post for you, so the last taps are yours.</string>
+    <string name="review_also_store_hint">Copies your note and opens the listing, where you post it under “Ratings &amp; Reviews” → “Review this dApp”. The store has no way for another app to post for you, so the last taps are yours.</string>
     <string name="flag">Flag</string>
     <string name="flag_title">Flag this record</string>
     <string name="flag_body">A flag is a signed opinion from your wallet. When flags from other Seekers reach consensus, readers hide the record; it stays on-chain. Flags you sign are counted in your standing.</string>

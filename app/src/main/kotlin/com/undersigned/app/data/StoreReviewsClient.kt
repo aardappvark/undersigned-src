@@ -23,7 +23,27 @@ private fun JSONObject.str(key: String): String? =
 data class StoreReview(val id: String, val createdAt: String, val rating: Int, val text: String?, val walletAddress: String?, val domain: String?, val publisherReply: String?)
 data class StoreRating(val average: Double, val byStar: List<Int>) { val total get() = byStar.sum() }
 /** The store's listed publisher and the certificate the store's release was signed with. */
-data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?)
+/** [newInVersion] is the publisher's "What's new" for [versionCode] ONLY — the store's latest release, not the installed one. */
+data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?, val newInVersion: String? = null)
+
+/**
+ * The store's "What's new" text is the publisher's own, unlocalised, and sometimes raw GitHub markdown (the dApp Store's
+ * own notes begin "## What's Changed\r\n* Automatic PR from…"). Shown as plain text: headings and bullet markers go,
+ * blank lines collapse, links keep their words. Null when nothing readable is left.
+ */
+fun cleanReleaseNotes(raw: String?): String? {
+    if (raw.isNullOrBlank()) return null
+    val lines = raw.replace("\r\n", "\n").replace('\r', '\n').lines().map { l ->
+        l.trim()
+            .replace(Regex("^#{1,6}\\s*"), "")               // ## Heading
+            .replace(Regex("^[*\\-+]\\s+"), "• ")           // * item, - item
+            .replace(Regex("\\[([^\\]]+)]\\([^)]*\\)"), "$1")  // [words](url) → words
+            .replace(Regex("[*`]{1,3}([^*`]+)[*`]{1,3}"), "$1") // **bold**, `code` — not _, which is common inside real words
+    }
+    val out = StringBuilder(); var blank = false
+    for (l in lines) { if (l.isBlank()) { blank = out.isNotEmpty() } else { if (out.isNotEmpty()) out.append(if (blank) "\n\n" else "\n"); out.append(l); blank = false } }
+    return out.toString().trim().takeIf { it.isNotEmpty() }
+}
 
 /**
  * READ-ONLY mirror of the store's public rating and reviews, through the same operations the store
@@ -50,7 +70,7 @@ class StoreReviewsClient {
             val rel = d.optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return@runCatching null
             val ad = rel.optJSONObject("androidDetails"); val pd = rel.optJSONObject("publisherDetails")
             StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.str("certFingerprint")?.lowercase()?.filter { c -> c in "0123456789abcdef" },
-                pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"))
+                pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"), cleanReleaseNotes(rel.str("newInVersion")))
         }.getOrElse { Log.w(TAG, "details failed: ${it.message?.take(80)}"); null }
     }
 
@@ -94,7 +114,7 @@ class StoreReviewsClient {
     companion object {
         private const val TAG = "StoreReviews"
         private const val Q_RATING = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { __typename androidPackage rating { rating reviewsByRating } } }"
-        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
+        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
         private const val Q_REVIEWS = "query DAppReviews(\$systemContext: SystemContext!, \$androidPackage: String!, \$first: Int!, \$after: String) { dAppReviews(systemContext: \$systemContext, androidPackage: \$androidPackage, first: \$first, after: \$after) { edges { node { __typename ...DAppReviewFragment } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } } }  fragment DAppReviewFragment on DAppReview { id createdAt rating review walletAddress domain isReviewerAccountDeleted reply { reply } }"
     }
 }

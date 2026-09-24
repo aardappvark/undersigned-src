@@ -284,6 +284,15 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             }
                         }
                         r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 4) }
+                        // The store now shows the publisher's reply prominently (v1.59.0); the mirror showed only a pill.
+                        r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->
+                            var open by remember(r.id) { mutableStateOf(false) }
+                            Column(Modifier.padding(top = 6.dp).fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(RbColors.card).padding(8.dp)) {
+                                Text(stringResource(R.string.store_publisher_reply), color = RbColors.info, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                Text(reply, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = if (open) Int.MAX_VALUE else 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                                if (reply.length > 160) Text(stringResource(if (open) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp).clickable { open = !open })
+                            }
+                        }
                     }
                 }
             }
@@ -411,7 +420,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             if (wallet != null && rp.signer != wallet) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp))  {
                                 flagWeights[rp.signature]?.let { fw -> Pill(stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", fw)), RbColors.warning) }
                                 val rpFlagged = vm.myFlag(rp.signature)
-                                CardAction(stringResource(R.string.flag) + if (rpFlagged) "\u00A0✓" else "", RbColors.warning, enabled = !rpFlagged || simpleStage == null,
+                                CardAction(if (rpFlagged) stringResource(R.string.flag_on) + "\u00A0✓" else stringResource(R.string.flag), RbColors.warning, enabled = !rpFlagged || simpleStage == null,
                                     a11y = stringResource(if (rpFlagged) R.string.unflag else R.string.flag)) { if (rpFlagged) sign(ReviewMemo.Unflag(rp.signature)) else flagTarget = rp.signature }
                             }
                         }
@@ -433,7 +442,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                 val voted = vm.myUpvote(e.signature); val flagged = vm.myFlag(e.signature)
                                 CardAction(simpleStage ?: (stringResource(R.string.helpful) + if (voted) tick else ""), RbColors.green, enabled = simpleStage == null,
                                     a11y = stringResource(if (voted) R.string.unvote else R.string.helpful)) { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }
-                                CardAction(stringResource(R.string.flag) + if (flagged) tick else "", RbColors.warning, enabled = !flagged || simpleStage == null,
+                                CardAction(if (flagged) stringResource(R.string.flag_on) + tick else stringResource(R.string.flag), RbColors.warning, enabled = !flagged || simpleStage == null,
                                     a11y = stringResource(if (flagged) R.string.unflag else R.string.flag)) { if (flagged) sign(ReviewMemo.Unflag(e.signature)) else flagTarget = e.signature }
                                 // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
                                 if (!flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
