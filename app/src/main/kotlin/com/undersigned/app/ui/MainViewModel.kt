@@ -276,7 +276,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun myUpvote(id: String): Boolean = wallet.value?.let { w -> Reputation.helpfulWeights(entries.value.filter { it.signer == w || it.signature == id }) { SignerFacts(true, 0.0) }.containsKey(id) } ?: false
     fun myFlag(id: String): Boolean = wallet.value?.let { w -> currentFlaggers.value[id]?.contains(w) == true } ?: false
     fun myClear(id: String): Boolean = wallet.value?.let { w -> currentClearers.value[id]?.contains(w) == true } ?: false
-    fun draftLooksCopied(draft: String) = com.undersigned.protocol.Similarity.similarToExisting(draft, entries.value)
+    fun draftLooksCopied(draft: String, pkg: String) = com.undersigned.protocol.Similarity.similarToExisting(draft, entries.value, author = wallet.value, packageName = pkg)
     fun packageOf(recordId: String): String? = (entries.value.firstOrNull { it.signature == recordId }?.memo as? ReviewMemo.Review)?.packageName
     fun myVerifiedPackages(): Set<String> = wallet.value?.let { w -> verifiedPublishers.value.filter { w in it.value }.keys } ?: emptySet()
     fun responsiveness(pkg: String): Responsiveness = Reputation.responsiveness(entries.value, pkg, verifiedPublishers.value[pkg].orEmpty())

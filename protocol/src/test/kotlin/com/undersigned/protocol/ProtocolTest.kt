@@ -145,6 +145,25 @@ class ProtocolTest {
         assertTrue(Reputation.flagWeights(listOf(review, whale, selfClear), facts = heavy)[r] == null)
     }
 
+    // Found on device 24 Sep 2026: "Update my review" pre-fills your own text, and both the compose-time nudge and the
+    // public label treated your earlier version of the SAME review as someone else's note.
+    @Test fun `revising your own review is not a copy, reusing it on another app still is`() {
+        val note = "Bulk uninstall and reinstall from one screen, great concept and I will test further"
+        val v1 = LedgerEntry("1" + "A".repeat(86), "alice", 10, ReviewMemo.Review("com.x", 4, listOf(ReviewMemo.Tag.WORKS), 1, note))
+        val v2 = LedgerEntry("2" + "A".repeat(86), "alice", 20, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS), 2, note + " now"))
+        assertTrue(Similarity.findings(listOf(v1, v2)).isEmpty(), "a revision must not be labelled similar to its own earlier version")
+        assertTrue(!Similarity.similarToExisting(note, listOf(v1), author = "alice", packageName = "com.x"), "no nudge when updating your own review")
+
+        // The same author pasting that note onto a DIFFERENT app is still a copy, labelled and nudged.
+        val other = LedgerEntry("3" + "A".repeat(86), "alice", 30, ReviewMemo.Review("com.y", 4, listOf(ReviewMemo.Tag.WORKS), 1, note))
+        assertTrue(Similarity.findings(listOf(v1, other))[other.signature]!!.copiedAcrossApps)
+        assertTrue(Similarity.similarToExisting(note, listOf(v1), author = "alice", packageName = "com.y"))
+        // And someone else writing it about the same app is still similar.
+        val bob = LedgerEntry("4" + "A".repeat(86), "bob", 40, ReviewMemo.Review("com.x", 4, listOf(ReviewMemo.Tag.WORKS), 1, note))
+        assertTrue(Similarity.findings(listOf(v1, bob)).containsKey(bob.signature))
+        assertTrue(Similarity.similarToExisting(note, listOf(v1), author = "bob", packageName = "com.x"))
+    }
+
     @Test fun `flags can be withdrawn, clears offset flags, publisher flags on their own app are ignored`() {
         val r = "1" + "A".repeat(86)
         val review = LedgerEntry(r, "u", 10, ReviewMemo.Review("com.x", 1, listOf(ReviewMemo.Tag.CRASHES), 1, null))

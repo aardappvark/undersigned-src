@@ -26,6 +26,10 @@ object Similarity {
             val sim = ArrayList<String>(); var copied = false
             for ((o, ow, osh) in notes) {
                 if (o.signature == e.signature) continue
+                // A revision of your own review of the same app is not a copy. Updating a review keeps most of its
+                // wording, so without this every edit was labelled "similar" — publicly — against its own earlier
+                // version (found 24 Sep 2026). Reusing your text on a DIFFERENT app is still caught below.
+                if (o.signer == e.signer && (o.memo as ReviewMemo.Review).packageName == (e.memo as ReviewMemo.Review).packageName) continue
                 if (jaccard(sh, osh) >= THRESHOLD) { sim.add(o.signature); if (o.signer == e.signer && (o.memo as ReviewMemo.Review).packageName != (e.memo as ReviewMemo.Review).packageName && w == ow) copied = true }
             }
             if (sim.isNotEmpty()) out[e.signature] = Finding(e.signature, sim, copied)
@@ -33,10 +37,17 @@ object Similarity {
         return out
     }
 
-    /** Compose-time nudge: is this draft near-identical to any existing note? */
-    fun similarToExisting(draft: String, entries: List<LedgerEntry>): Boolean {
+    /**
+     * Compose-time nudge: is this draft near-identical to any existing note? [author] and [packageName] exclude the
+     * author's own earlier review of the same app, so updating a review does not warn you about yourself.
+     */
+    fun similarToExisting(draft: String, entries: List<LedgerEntry>, author: String? = null, packageName: String? = null): Boolean {
         val w = normalise(draft); if (w.size < MIN_WORDS) return false
         val sh = shingles(w)
-        return entries.any { e -> (e.memo as? ReviewMemo.Review)?.text?.let { t -> val ow = normalise(t); ow.size >= MIN_WORDS && jaccard(sh, shingles(ow)) >= THRESHOLD } == true }
+        return entries.any { e ->
+            val r = e.memo as? ReviewMemo.Review ?: return@any false
+            if (author != null && e.signer == author && r.packageName == packageName) return@any false
+            r.text?.let { t -> val ow = normalise(t); ow.size >= MIN_WORDS && jaccard(sh, shingles(ow)) >= THRESHOLD } == true
+        }
     }
 }
