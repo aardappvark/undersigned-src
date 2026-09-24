@@ -224,7 +224,7 @@
     <string name="intro5_title">فالو کریں، اطلاع پائیں، جواب دیں</string>
     <string name="intro5_body">نئے دستخط شدہ جائزوں، اپ ڈیٹس اور جوابات کے بارے میں جاننے کے لیے ایپس کو فالو کریں۔ پبلشرز دستخط کر کے اپنی ایپ کا دعویٰ کرتے ہیں اور تصدیق شدہ بیج کے ساتھ جواب دیتے ہیں۔ آپ جو کچھ بھی شائع کرتے ہیں وہ مستقل اور عوامی ہے۔</string>
     <string name="review_also_store">dApp Store میں بھی پوسٹ کریں</string>
-    <string name="review_also_store_hint">آپ کا نوٹ کاپی کرتا ہے اور اسٹور میں فہرست کھولتا ہے۔ اسٹور کے پاس کسی دوسری ایپ کو آپ کی جانب سے پوسٹ کرنے کا کوئی طریقہ نہیں، اس لیے آخری ٹیپس آپ کے اپنے ہیں۔</string>
+    <string name="review_also_store_hint">آپ کا نوٹ کاپی کرتا ہے اور فہرست کھولتا ہے، جہاں آپ اسے “Ratings &amp; Reviews” → “Review this dApp” کے تحت پوسٹ کرتے ہیں۔ اسٹور کے پاس کسی دوسری ایپ کو آپ کی جانب سے پوسٹ کرنے کا کوئی طریقہ نہیں، اس لیے آخری ٹیپس آپ کے اپنے ہیں۔</string>
     <string name="flag">نشان زد کریں</string>
     <string name="flag_title">اس ریکارڈ کو نشان زد کریں</string>
     <string name="flag_body">نشان زدگی آپ کے والٹ کی جانب سے ایک دستخط شدہ رائے ہے۔ جب دیگر Seekers کی نشان زدگیاں اتفاق رائے تک پہنچتی ہیں تو قارئین ریکارڈ چھپا دیتے ہیں؛ یہ چین پر موجود رہتا ہے۔ آپ کی دستخط شدہ نشان زدگیاں آپ کی حیثیت میں شمار ہوتی ہیں۔</string>
@@ -432,7 +432,12 @@
     <string name="pro_copy_review_body">آپ کے اسٹارز اور نوٹ کو ساتھ لے جاتا ہے اور فہرست کو پوسٹ کرنے کے لیے تیار کھولتا ہے۔ Pro آپ کے دستخط شدہ ہر جائزے کو ایک ہی مرحلے میں کاپی کرتا ہے؛ آخری ٹیپس پھر بھی اسٹور خود لیتا ہے۔</string>
     <string name="pro_copy_all">میرے جائزے اسٹور میں کاپی کریں</string>
     <string name="pro_copy_count">%1$d کاپی نہیں ہوئے</string>
-    <string name="pro_copy_done">کاپی ہو گیا۔ فہرست کھلی ہے — نوٹ پیسٹ کریں اور اسٹارز مقرر کریں۔</string>
+    <string name="flag_on">نشان زدہ</string>
+    <string name="change_whats_new">اس ورژن میں نیا کیا ہے، اسٹور کی فہرست سے</string>
+    <string name="show_more">مزید دکھائیں</string>
+    <string name="show_less">کم دکھائیں</string>
+    <string name="store_publisher_reply">پبلشر کا جواب</string>
+    <string name="pro_copy_done">کاپی ہو گیا۔ فہرست کھلی ہے: “Ratings &amp; Reviews” تک سکرول کریں، “Review this dApp” پر ٹیپ کریں، پھر نوٹ پیسٹ کریں اور اسٹارز مقرر کریں۔</string>
     <string name="pro_copy_none">آپ کے دستخط شدہ تمام جائزے پہلے ہی اسٹور میں موجود ہیں۔</string>
     <string name="pro_import_locked">ایک ہی دستخط سے سب درآمد کرنا ایک Pro اوزار ہے۔ مفت ورژن ایک ایک کر کے درآمد کرتا ہے: نیچے ایک پر دستخط کریں، یا ہر dApp کے صفحے سے۔</string>
     <string name="pro_import_one">اس پر دستخط کر کے درآمد کریں</string>

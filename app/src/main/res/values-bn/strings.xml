@@ -216,7 +216,7 @@
     <string name="intro5_title">ফলো করুন, জানুন, উত্তর দিন</string>
     <string name="intro5_body">নতুন স্বাক্ষরিত পর্যালোচনা, আপডেট এবং উত্তর জানতে অ্যাপ ফলো করুন। প্রকাশকরা স্বাক্ষর করে তাদের অ্যাপের দাবি করেন এবং একটি যাচাইকৃত ব্যাজ সহ উত্তর দেন। আপনি যা প্রকাশ করেন তা স্থায়ী ও সর্বজনীন।</string>
     <string name="review_also_store">dApp Store-এও পোস্ট করুন</string>
-    <string name="review_also_store_hint">আপনার নোট কপি করে স্টোরে তালিকাটি খোলে। অন্য কোনো অ্যাপের পক্ষে স্টোরে পোস্ট করার উপায় নেই, তাই শেষ ট্যাপগুলো আপনার নিজের।</string>
+    <string name="review_also_store_hint">আপনার নোট কপি করে এবং তালিকাটি খোলে, যেখানে আপনি এটি “Ratings &amp; Reviews” → “Review this dApp”-এর অধীনে পোস্ট করেন। অন্য কোনো অ্যাপের পক্ষে স্টোরে আপনার হয়ে পোস্ট করার উপায় নেই, তাই শেষ ট্যাপগুলো আপনার নিজের।</string>
     <string name="flag">ফ্ল্যাগ</string>
     <string name="flag_title">এই রেকর্ড ফ্ল্যাগ করুন</string>
     <string name="flag_body">ফ্ল্যাগ হলো আপনার ওয়ালেট থেকে একটি স্বাক্ষরিত মতামত। অন্যান্য Seeker-দের ফ্ল্যাগ ঐকমত্যে পৌঁছালে পাঠকরা রেকর্ডটি লুকিয়ে ফেলে; এটি অন-চেইনে থেকে যায়। আপনার স্বাক্ষর করা ফ্ল্যাগ আপনার অবস্থানে গণনা করা হয়।</string>
@@ -424,7 +424,12 @@
     <string name="pro_copy_review_body">আপনার স্টার ও নোট নিয়ে যায় এবং পোস্ট করার জন্য প্রস্তুত তালিকাটি খোলে। Pro আপনার স্বাক্ষর করা প্রতিটি পর্যালোচনা একবারে কপি করে; শেষ ট্যাপগুলো তবুও স্টোরেই দিতে হয়।</string>
     <string name="pro_copy_all">আমার পর্যালোচনা স্টোরে কপি করুন</string>
     <string name="pro_copy_count">%1$d টি কপি করা হয়নি</string>
-    <string name="pro_copy_done">কপি হয়েছে। তালিকাটি খোলা আছে — নোটটি পেস্ট করুন এবং স্টার নির্ধারণ করুন।</string>
+    <string name="flag_on">ফ্ল্যাগড</string>
+    <string name="change_whats_new">এই সংস্করণে নতুন কী আছে, স্টোর তালিকা থেকে</string>
+    <string name="show_more">আরও দেখান</string>
+    <string name="show_less">কম দেখান</string>
+    <string name="store_publisher_reply">প্রকাশকের উত্তর</string>
+    <string name="pro_copy_done">কপি হয়েছে। তালিকাটি খোলা আছে: “Ratings &amp; Reviews”-এ স্ক্রল করুন, “Review this dApp”-এ ট্যাপ করুন, তারপর নোটটি পেস্ট করুন এবং স্টার নির্ধারণ করুন।</string>
     <string name="pro_copy_none">আপনার স্বাক্ষর করা প্রতিটি পর্যালোচনা ইতিমধ্যে স্টোরে আছে।</string>
     <string name="pro_import_locked">একটি স্বাক্ষরে সবগুলো আমদানি করা একটি Pro টুল। ফ্রি একবারে একটি আমদানি করে: নিচে একটি স্বাক্ষর করুন, বা প্রতিটি dApp পেজ থেকে।</string>
     <string name="pro_import_one">এটি স্বাক্ষর করে আমদানি করুন</string>

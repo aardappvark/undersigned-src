@@ -223,7 +223,7 @@
     <string name="intro5_title">关注、获知、回复</string>
     <string name="intro5_body">关注应用即可获知新的签名评价、更新和回复。发布者通过签名认领应用,并以认证徽章作答。您发布的一切都是永久且公开的。</string>
     <string name="review_also_store">同时发布到 dApp Store</string>
-    <string name="review_also_store_hint">复制您的说明并在商店中打开该应用页面。商店无法让其他应用代您发布,因此最后的操作需要您自己完成。</string>
+    <string name="review_also_store_hint">复制您的说明并打开应用页面,您需要在“评分和评价”→“评价此 dApp”下自行发布。商店无法让其他应用代您发布,因此最后的操作需要您自己完成。</string>
     <string name="flag">标记</string>
     <string name="flag_title">标记此记录</string>
     <string name="flag_body">标记是来自您钱包的一份签名意见。当其他 Seeker 的标记达成共识时,读者端会隐藏该记录;它仍留在链上。您签署的标记会计入您的信誉。</string>
@@ -431,7 +431,12 @@
     <string name="pro_copy_review_body">带上您的星级和说明,并打开已准备好发布的应用页面。Pro 会一次性复制您签署过的所有评价;最后的发布操作仍需您在商店中亲自完成。</string>
     <string name="pro_copy_all">将我的评价复制到商店</string>
     <string name="pro_copy_count">%1$d 条尚未复制</string>
-    <string name="pro_copy_done">已复制。应用页面已打开——请粘贴说明并设置星级。</string>
+    <string name="flag_on">已标记</string>
+    <string name="change_whats_new">此版本的更新内容(来自商店应用页面)</string>
+    <string name="show_more">展开</string>
+    <string name="show_less">收起</string>
+    <string name="store_publisher_reply">发布者回复</string>
+    <string name="pro_copy_done">已复制。应用页面已打开——滚动到“评分和评价”,点击“评价此 dApp”,然后粘贴说明并设置星级。</string>
     <string name="pro_copy_none">您签署过的所有评价均已在商店中。</string>
     <string name="pro_import_locked">一次签名导入全部评价是 Pro 工具。免费版每次只能导入一条:在下方签署一条,或从各个 dApp 页面导入。</string>
     <string name="pro_import_one">签名并导入这一条</string>

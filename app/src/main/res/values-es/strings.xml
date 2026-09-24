@@ -224,7 +224,7 @@
     <string name="intro5_title">Sigue, entérate, responde</string>
     <string name="intro5_body">Sigue apps para saber de nuevas reseñas firmadas, actualizaciones y respuestas. Los editores reclaman su app firmando y responden con una insignia verificada. Todo lo que publicas es permanente y público.</string>
     <string name="review_also_store">Publicar también en el dApp Store</string>
-    <string name="review_also_store_hint">Copia tu nota y abre la ficha en la tienda. La tienda no tiene forma de que otra app publique por ti, así que los últimos toques son tuyos.</string>
+    <string name="review_also_store_hint">Copia tu nota y abre la ficha, donde la publicas en «Calificaciones y Reseñas» → «Revisar esta dApp». La tienda no tiene forma de que otra app publique por ti, así que los últimos toques son tuyos.</string>
     <string name="flag">Marcar</string>
     <string name="flag_title">Marcar este registro</string>
     <string name="flag_body">Una marca es una opinión firmada por tu wallet. Cuando las marcas de otros Seekers alcanzan consenso, los lectores ocultan el registro; sigue on-chain. Las marcas que firmas cuentan en tu reputación.</string>
@@ -432,7 +432,12 @@
     <string name="pro_copy_review_body">Traslada tus estrellas y tu nota y abre la ficha lista para publicar. Pro copia cada reseña que has firmado en una sola pasada; la tienda sigue exigiendo los últimos toques.</string>
     <string name="pro_copy_all">Copiar mis reseñas a la tienda</string>
     <string name="pro_copy_count">%1$d sin copiar</string>
-    <string name="pro_copy_done">Copiada. La ficha está abierta — pega la nota y fija las estrellas.</string>
+    <string name="flag_on">Marcado</string>
+    <string name="change_whats_new">Novedades de esta versión, según la ficha de la tienda</string>
+    <string name="show_more">Ver más</string>
+    <string name="show_less">Ver menos</string>
+    <string name="store_publisher_reply">Respuesta del editor</string>
+    <string name="pro_copy_done">Copiada. La ficha está abierta: desplázate hasta «Calificaciones y Reseñas», toca «Revisar esta dApp», luego pega la nota y fija las estrellas.</string>
     <string name="pro_copy_none">Todas las reseñas que has firmado ya están en la tienda.</string>
     <string name="pro_import_locked">Importarlas todas con una sola firma es una herramienta Pro. Free las importa de una en una: firma una abajo, o desde cada página de dApp.</string>
     <string name="pro_import_one">Firmar e importar esta</string>

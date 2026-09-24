@@ -216,7 +216,7 @@
     <string name="intro5_title">Volgen, op de hoogte blijven, reageren</string>
     <string name="intro5_body">Volg apps om te horen over nieuwe ondertekende recensies, updates en reacties. Uitgevers claimen hun app door te ondertekenen en antwoorden met een geverifieerd label. Alles wat u publiceert is permanent en openbaar.</string>
     <string name="review_also_store">Ook plaatsen in de dApp Store</string>
-    <string name="review_also_store_hint">Kopieert uw opmerking en opent de vermelding in de store. De store heeft geen manier voor een andere app om voor u te plaatsen, dus de laatste tikken zijn aan u.</string>
+    <string name="review_also_store_hint">Kopieert uw opmerking en opent de vermelding, waar u deze plaatst onder „Beoordelingen &amp; Recensies” → „Beoordeel deze dApp”. De store heeft geen manier voor een andere app om voor u te plaatsen, dus de laatste tikken zijn aan u.</string>
     <string name="flag">Markeren</string>
     <string name="flag_title">Dit record markeren</string>
     <string name="flag_body">Een markering is een ondertekende mening vanuit uw wallet. Wanneer markeringen van andere Seekers consensus bereiken, verbergen lezers het record; het blijft on-chain. Markeringen die u ondertekent tellen mee in uw status.</string>
@@ -424,7 +424,12 @@
     <string name="pro_copy_review_body">Neemt uw sterren en opmerking mee en opent de vermelding klaar om te plaatsen. Pro kopieert elke recensie die u hebt ondertekend in één keer; de store vereist nog steeds de laatste tikken zelf.</string>
     <string name="pro_copy_all">Mijn recensies naar de store kopiëren</string>
     <string name="pro_copy_count">%1$d niet gekopieerd</string>
-    <string name="pro_copy_done">Gekopieerd. De vermelding is geopend — plak de opmerking en stel de sterren in.</string>
+    <string name="flag_on">Gemarkeerd</string>
+    <string name="change_whats_new">Wat is er nieuw in deze versie, van de vermelding in de store</string>
+    <string name="show_more">Meer weergeven</string>
+    <string name="show_less">Minder weergeven</string>
+    <string name="store_publisher_reply">Reactie van de uitgever</string>
+    <string name="pro_copy_done">Gekopieerd. De vermelding is geopend: scroll naar „Beoordelingen &amp; Recensies”, tik op „Beoordeel deze dApp”, plak vervolgens de opmerking en stel de sterren in.</string>
     <string name="pro_copy_none">Elke recensie die u hebt ondertekend staat al in de store.</string>
     <string name="pro_import_locked">Ze allemaal importeren met één handtekening is een Pro-hulpmiddel. Gratis importeert er één tegelijk: onderteken er hieronder één, of vanaf elke dApp-pagina.</string>
     <string name="pro_import_one">Deze ondertekenen en importeren</string>

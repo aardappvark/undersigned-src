@@ -213,7 +213,7 @@
     <string name="intro5_title">Sledujte, buďte informováni, odpovídejte</string>
     <string name="intro5_body">Sledujte aplikace, abyste se dozvěděli o nových podepsaných recenzích, aktualizacích a odpovědích. Vydavatelé si nárokují svou aplikaci podpisem a odpovídají s odznakem ověřeno. Vše, co zveřejníte, je trvalé a veřejné.</string>
     <string name="review_also_store">Zveřejnit i v dApp Store</string>
-    <string name="review_also_store_hint">Zkopíruje vaši poznámku a otevře záznam v obchodě. Obchod nemá způsob, jak by za vás mohla zveřejnit jiná aplikace, takže poslední klepnutí jsou na vás.</string>
+    <string name="review_also_store_hint">Zkopíruje vaši poznámku a otevře záznam, kde ji zveřejníte v části \"Ratings &amp; Reviews\" → \"Review this dApp\". Obchod nemá způsob, jak by za vás mohla zveřejnit jiná aplikace, takže poslední klepnutí jsou na vás.</string>
     <string name="flag">Označit</string>
     <string name="flag_title">Označit tento záznam</string>
     <string name="flag_body">Označení je podepsaný názor z vaší peněženky. Když označení od jiných Seekerů dosáhnou shody, čtenáři záznam skryjí; zůstává na blockchainu. Označení, která podepíšete, se počítají do vašeho postavení.</string>
@@ -423,7 +423,12 @@
     <string name="pro_copy_review_body">Přenese vaše hvězdičky a poznámku a otevře záznam připravený ke zveřejnění. Pro zkopíruje všechny recenze, které jste podepsali, najednou; poslední klepnutí v obchodě uděláte stále sami.</string>
     <string name="pro_copy_all">Zkopírovat mé recenze do obchodu</string>
     <string name="pro_copy_count">%1$d nezkopírováno</string>
-    <string name="pro_copy_done">Zkopírováno. Záznam je otevřený — vložte poznámku a nastavte hvězdičky.</string>
+    <string name="flag_on">Označeno</string>
+    <string name="change_whats_new">Co je nového v této verzi, podle záznamu v obchodě.</string>
+    <string name="show_more">Zobrazit více</string>
+    <string name="show_less">Zobrazit méně</string>
+    <string name="store_publisher_reply">Odpověď vydavatele</string>
+    <string name="pro_copy_done">Zkopírováno. Záznam je otevřený: přejděte na \"Ratings &amp; Reviews\", klepněte na \"Review this dApp\" a pak vložte poznámku a nastavte hvězdičky.</string>
     <string name="pro_copy_none">Všechny recenze, které jste podepsali, už jsou v obchodě.</string>
     <string name="pro_import_locked">Import všech jedním podpisem je nástroj Pro. Free importuje po jedné: podepište jednu níže nebo na stránce každé dApp.</string>
     <string name="pro_import_one">Podepsat a importovat tuto</string>

@@ -224,7 +224,7 @@
     <string name="intro5_title">Sundan, maalaman, sumagot</string>
     <string name="intro5_body">Sundan ang mga app para malaman ang mga bagong naka-sign na review, update at sagot. Kino-claim ng mga publisher ang kanilang app sa pamamagitan ng pag-sign at sumasagot gamit ang na-verify na badge. Permanente at pampubliko ang lahat ng ini-publish mo.</string>
     <string name="review_also_store">I-post din sa dApp Store</string>
-    <string name="review_also_store_hint">Kinokopya ang tala mo at binubuksan ang listing sa store. Walang paraan ang store para makapag-post ang ibang app para sa iyo, kaya sa iyo ang huling mga tap.</string>
+    <string name="review_also_store_hint">Kinokopya ang tala mo at binubuksan ang listing, kung saan mo ito ipo-post sa ilalim ng “Ratings &amp; Reviews” → “Review this dApp”. Walang paraan ang store para makapag-post ang ibang app para sa iyo, kaya sa iyo ang huling mga tap.</string>
     <string name="flag">I-flag</string>
     <string name="flag_title">I-flag ang record na ito</string>
     <string name="flag_body">Ang flag ay isang naka-sign na opinyon mula sa wallet mo. Kapag umabot sa consensus ang mga flag mula sa ibang Seeker, itinatago ito ng mga reader; nananatili ito sa chain. Binibilang sa katayuan mo ang mga flag na sine-sign mo.</string>
@@ -432,7 +432,12 @@
     <string name="pro_copy_review_body">Dinadala ang stars at tala mo at binubuksan ang listing na handa nang i-post. Kinokopya ng Pro ang bawat review na na-sign mo sa isang pagkilos; kailangan pa rin ng store ang huling mga tap mula sa iyo mismo.</string>
     <string name="pro_copy_all">Kopyahin ang mga review ko sa store</string>
     <string name="pro_copy_count">%1$d hindi pa nakopya</string>
-    <string name="pro_copy_done">Nakopya na. Bukas ang listing — i-paste ang tala at itakda ang stars.</string>
+    <string name="flag_on">Naka-flag</string>
+    <string name="change_whats_new">Ano\'ng bago sa bersyong ito, mula sa listing ng store</string>
+    <string name="show_more">Ipakita pa</string>
+    <string name="show_less">Paikliin</string>
+    <string name="store_publisher_reply">Sagot ng publisher</string>
+    <string name="pro_copy_done">Nakopya na. Bukas ang listing: mag-scroll sa “Ratings &amp; Reviews”, i-tap ang “Review this dApp”, pagkatapos i-paste ang tala at itakda ang stars.</string>
     <string name="pro_copy_none">Nasa store na ang bawat review na na-sign mo.</string>
     <string name="pro_import_locked">Isang tool ng Pro ang pag-import ng lahat gamit ang isang signature. Nag-i-import ang Free nang tig-isa: mag-sign ng isa sa ibaba, o mula sa bawat dApp page.</string>
     <string name="pro_import_one">I-sign at i-import ito</string>

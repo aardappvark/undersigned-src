@@ -215,7 +215,7 @@
     <string name="intro5_title">フォローして、知らせを受け取り、返信する</string>
     <string name="intro5_body">アプリをフォローすると、新しい署名付きレビュー、更新、返信を知ることができます。パブリッシャーは署名してアプリの権利を主張し、検証済みバッジを付けて返信します。公開した内容はすべて永久に残り、公開されます。</string>
     <string name="review_also_store">dApp Store にも投稿</string>
-    <string name="review_also_store_hint">メモをコピーし、ストアのリスティングを開きます。ストアには他のアプリが代わりに投稿する仕組みがないため、最後の操作はご自身で行っていただきます。</string>
+    <string name="review_also_store_hint">メモをコピーしてリスティングを開き、「評価 &amp;レビュー」→「このdAppをレビュー」の下でご自身が投稿します。ストアには他のアプリが代わりに投稿する仕組みがないため、最後の操作はご自身で行っていただきます。</string>
     <string name="flag">フラグ</string>
     <string name="flag_title">このレコードにフラグを立てる</string>
     <string name="flag_body">フラグは、あなたのウォレットからの署名付きの意見です。他の Seeker からのフラグが合意に達すると、読者にはそのレコードが非表示になります（オンチェーンには残ります）。署名したフラグはあなたの評価にカウントされます。</string>
@@ -423,7 +423,12 @@
     <string name="pro_copy_review_body">星の数とメモを引き継ぎ、投稿の準備が整った状態でリスティングを開きます。Pro は署名済みのすべてのレビューを一度にコピーしますが、最後の投稿操作はストア側で行います。</string>
     <string name="pro_copy_all">自分のレビューをストアにコピー</string>
     <string name="pro_copy_count">%1$d件未コピー</string>
-    <string name="pro_copy_done">コピーしました。リスティングが開いています — メモを貼り付け、星の数を設定してください。</string>
+    <string name="flag_on">フラグ済み</string>
+    <string name="change_whats_new">このバージョンの新機能（ストアのリスティングより）</string>
+    <string name="show_more">もっと見る</string>
+    <string name="show_less">折りたたむ</string>
+    <string name="store_publisher_reply">パブリッシャーの返信</string>
+    <string name="pro_copy_done">コピーしました。リスティングが開いています — 「評価 &amp;レビュー」までスクロールし、「このdAppをレビュー」をタップして、メモを貼り付け、星の数を設定してください。</string>
     <string name="pro_copy_none">署名済みのレビューはすべてストアに反映済みです。</string>
     <string name="pro_import_locked">1回の署名でまとめてインポートするのは Pro ツールです。無料版では1件ずつのインポートになります。下記から1件署名するか、各 dApp ページから行ってください。</string>
     <string name="pro_import_one">署名してこの1件をインポート</string>

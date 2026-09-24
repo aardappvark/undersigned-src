@@ -215,7 +215,7 @@
     <string name="intro5_title">팔로우하고, 알림 받고, 답글 달기</string>
     <string name="intro5_body">앱을 팔로우하면 새로운 서명된 리뷰, 업데이트, 답글 소식을 받을 수 있습니다. 퍼블리셔는 서명으로 자신의 앱을 주장하고 검증된 배지로 답글을 남깁니다. 게시하는 모든 내용은 영구적이며 공개됩니다.</string>
     <string name="review_also_store">dApp Store에도 게시</string>
-    <string name="review_also_store_hint">메모를 복사해 스토어의 리스팅을 엽니다. 스토어는 다른 앱이 대신 게시하도록 허용하지 않으므로, 마지막 탭은 사용자가 직접 해야 합니다.</string>
+    <string name="review_also_store_hint">메모를 복사해 리스팅을 열면 \"평가 &amp; 리뷰\" → \"이 dApp 리뷰하기\"에서 직접 게시합니다. 스토어는 다른 앱이 대신 게시하도록 허용하지 않으므로, 마지막 탭은 사용자가 직접 해야 합니다.</string>
     <string name="flag">플래그</string>
     <string name="flag_title">이 기록에 플래그 지정</string>
     <string name="flag_body">플래그는 지갑이 서명하는 의견입니다. 다른 Seeker들의 플래그가 합의에 도달하면 독자에게는 해당 기록이 숨겨지지만, 온체인에는 그대로 남습니다. 서명한 플래그는 평판에 집계됩니다.</string>
@@ -424,7 +424,12 @@
     <string name="pro_copy_review_body">별점과 메모를 그대로 가져와 게시 준비가 된 리스팅을 엽니다. Pro는 서명한 모든 리뷰를 한 번에 복사하지만, 마지막 탭은 스토어에서 직접 해야 합니다.</string>
     <string name="pro_copy_all">내 리뷰를 스토어로 복사</string>
     <string name="pro_copy_count">%1$d건 복사되지 않음</string>
-    <string name="pro_copy_done">복사되었습니다. 리스팅이 열려 있습니다 — 메모를 붙여넣고 별점을 설정하세요.</string>
+    <string name="flag_on">플래그됨</string>
+    <string name="change_whats_new">이 버전의 새로운 기능(스토어 리스팅 기준)</string>
+    <string name="show_more">더보기</string>
+    <string name="show_less">접기</string>
+    <string name="store_publisher_reply">퍼블리셔 답글</string>
+    <string name="pro_copy_done">복사되었습니다. 리스팅이 열려 있습니다 — \"평가 &amp; 리뷰\"까지 스크롤한 다음 \"이 dApp 리뷰하기\"를 탭하고, 메모를 붙여넣은 후 별점을 설정하세요.</string>
     <string name="pro_copy_none">서명한 리뷰가 이미 모두 스토어에 있습니다.</string>
     <string name="pro_import_locked">서명 한 번으로 전체를 가져오는 기능은 Pro 도구입니다. 무료에서는 한 번에 하나씩 가져옵니다: 아래에서 하나를 서명하거나 각 dApp 페이지에서 진행하세요.</string>
     <string name="pro_import_one">이 항목에 서명하고 가져오기</string>

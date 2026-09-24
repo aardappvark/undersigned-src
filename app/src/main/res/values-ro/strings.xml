@@ -221,7 +221,7 @@
     <string name="intro5_title">Urmărește, află, răspunde</string>
     <string name="intro5_body">Urmărește aplicații ca să afli despre recenzii noi semnate, actualizări și răspunsuri. Editorii își revendică aplicația prin semnare și răspund cu o insignă verificată. Tot ce publici este permanent și public.</string>
     <string name="review_also_store">Publică și în dApp Store</string>
-    <string name="review_also_store_hint">Copiază nota ta și deschide listarea în magazin. Magazinul nu are cum să permită altei aplicații să publice în locul tău, deci ultimele atingeri îți aparțin.</string>
+    <string name="review_also_store_hint">Copiază nota ta și deschide listarea, unde o publici la \"Ratings &amp; Reviews\" → \"Review this dApp\". Magazinul nu are cum să permită altei aplicații să publice în locul tău, deci ultimele atingeri îți aparțin.</string>
     <string name="flag">Semnalează</string>
     <string name="flag_title">Semnalează această înregistrare</string>
     <string name="flag_body">O semnalare este o opinie semnată din portofelul tău. Când semnalările de la alți Seekeri ajung la consens, cititorii ascund înregistrarea; ea rămâne pe blockchain. Semnalările pe care le semnezi contează în reputația ta.</string>
@@ -430,7 +430,12 @@
     <string name="pro_copy_review_body">Transferă stelele și nota ta și deschide listarea gata de publicare. Pro copiază toate recenziile semnate de tine într-o singură trecere; magazinul tot mai face singur ultimele atingeri.</string>
     <string name="pro_copy_all">Copiază-mi recenziile în magazin</string>
     <string name="pro_copy_count">%1$d necopiate</string>
-    <string name="pro_copy_done">Copiat. Listarea este deschisă — lipește nota și setează stelele.</string>
+    <string name="flag_on">Semnalat</string>
+    <string name="change_whats_new">Ce e nou în această versiune, din listarea din magazin.</string>
+    <string name="show_more">Arată mai mult</string>
+    <string name="show_less">Arată mai puțin</string>
+    <string name="store_publisher_reply">Răspunsul editorului</string>
+    <string name="pro_copy_done">Copiat. Listarea este deschisă: derulează până la \"Ratings &amp; Reviews\", atinge \"Review this dApp\", apoi lipește nota și setează stelele.</string>
     <string name="pro_copy_none">Fiecare recenzie semnată de tine este deja în magazin.</string>
     <string name="pro_import_locked">Importarea tuturor cu o singură semnătură este o unealtă Pro. Gratuit importă una câte una: semnează una mai jos, sau de pe fiecare pagină de dApp.</string>
     <string name="pro_import_one">Semnează și importă aceasta</string>

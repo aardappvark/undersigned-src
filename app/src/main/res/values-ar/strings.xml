@@ -220,7 +220,7 @@
     <string name="intro5_title">تابع، اعرف، رد</string>
     <string name="intro5_body">تابع التطبيقات لتعرف بالمراجعات الموقّعة الجديدة والتحديثات والردود. يطالب الناشرون بتطبيقاتهم بالتوقيع ويردّون بشارة موثّقة. كل ما تنشره عامّ ودائم.</string>
     <string name="review_also_store">النشر أيضًا في dApp Store</string>
-    <string name="review_also_store_hint">ينسخ ملاحظتك ويفتح القائمة في المتجر. لا توجد طريقة للمتجر ليقبل نشرًا من تطبيق آخر نيابة عنك، لذا فإن النقرات الأخيرة تبقى لك.</string>
+    <string name="review_also_store_hint">ينسخ ملاحظتك ويفتح القائمة، حيث تنشرها ضمن “التقييمات &amp; الآراء” → “راجع تطبيق dApp هذا”. لا توجد طريقة للمتجر ليقبل نشرًا من تطبيق آخر نيابة عنك، لذا فإن النقرات الأخيرة تبقى لك.</string>
     <string name="flag">إشارة</string>
     <string name="flag_title">الإشارة إلى هذا السجل</string>
     <string name="flag_body">الإشارة رأي موقَّع من محفظتك. عندما تصل الإشارات من أجهزة Seeker أخرى إلى إجماع، يخفي القرّاء السجل؛ يبقى على السلسلة. الإشارات التي توقّعها تُحتسب في مكانتك.</string>
@@ -428,7 +428,12 @@
     <string name="pro_copy_review_body">ينقل نجومك وملاحظتك ويفتح القائمة جاهزة للنشر. ينسخ Pro كل مراجعة وقّعتها في مرة واحدة؛ يبقى المتجر يأخذ النقرات الأخيرة بنفسه.</string>
     <string name="pro_copy_all">نسخ مراجعاتي إلى المتجر</string>
     <string name="pro_copy_count">%1$d غير منسوخة</string>
-    <string name="pro_copy_done">تم النسخ. القائمة مفتوحة — الصق الملاحظة وحدّد النجوم.</string>
+    <string name="flag_on">معلَّم</string>
+    <string name="change_whats_new">ما الجديد في هذا الإصدار، من قائمة المتجر</string>
+    <string name="show_more">عرض المزيد</string>
+    <string name="show_less">عرض أقل</string>
+    <string name="store_publisher_reply">رد الناشر</string>
+    <string name="pro_copy_done">تم النسخ. القائمة مفتوحة: مرّر إلى “التقييمات &amp; الآراء”، اضغط “راجع تطبيق dApp هذا”، ثم الصق الملاحظة وحدّد النجوم.</string>
     <string name="pro_copy_none">كل مراجعة وقّعتها موجودة بالفعل في المتجر.</string>
     <string name="pro_import_locked">استيراد جميعها بتوقيع واحد أداة من Pro. يستورد Free واحدة تلو الأخرى: وقّع واحدة أدناه، أو من صفحة كل تطبيق.</string>
     <string name="pro_import_one">توقيع واستيراد هذه</string>

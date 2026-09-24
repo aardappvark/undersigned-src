@@ -221,7 +221,7 @@
     <string name="intro5_title">Obserwuj, bądź informowany, odpowiadaj</string>
     <string name="intro5_body">Obserwuj aplikacje, aby dowiadywać się o nowych podpisanych recenzjach, aktualizacjach i odpowiedziach. Wydawcy zgłaszają swoją aplikację podpisem i odpowiadają z odznaką zweryfikowany. Wszystko, co publikujesz, jest trwałe i publiczne.</string>
     <string name="review_also_store">Opublikuj też w dApp Store</string>
-    <string name="review_also_store_hint">Kopiuje Twoją notatkę i otwiera ofertę w sklepie. Sklep nie ma sposobu, aby inna aplikacja opublikowała coś za Ciebie, więc ostatnie dotknięcia należą do Ciebie.</string>
+    <string name="review_also_store_hint">Kopiuje Twoją notatkę i otwiera ofertę, gdzie publikujesz ją w sekcji \"Oceny i Recenzje\" → \"Zrecenzuj tę dApp\". Sklep nie ma sposobu, aby inna aplikacja opublikowała coś za Ciebie, więc ostatnie dotknięcia należą do Ciebie.</string>
     <string name="flag">Oznacz</string>
     <string name="flag_title">Oznacz ten wpis</string>
     <string name="flag_body">Oznaczenie to podpisana opinia z Twojego portfela. Gdy oznaczenia od innych Seekerów osiągną konsensus, czytelnicy ukrywają wpis; pozostaje on na blockchainie. Oznaczenia, które podpisujesz, liczą się do Twojej pozycji.</string>
@@ -431,7 +431,12 @@
     <string name="pro_copy_review_body">Przenosi Twoje gwiazdki i notatkę oraz otwiera ofertę gotową do publikacji. Pro kopiuje wszystkie podpisane przez Ciebie recenzje za jednym razem; ostatnie dotknięcia w sklepie nadal wykonujesz sam.</string>
     <string name="pro_copy_all">Skopiuj moje recenzje do sklepu</string>
     <string name="pro_copy_count">%1$d nieskopiowanych</string>
-    <string name="pro_copy_done">Skopiowano. Oferta jest otwarta — wklej notatkę i ustaw gwiazdki.</string>
+    <string name="flag_on">Oznaczone</string>
+    <string name="change_whats_new">Co nowego w tej wersji, z oferty w sklepie.</string>
+    <string name="show_more">Pokaż więcej</string>
+    <string name="show_less">Pokaż mniej</string>
+    <string name="store_publisher_reply">Odpowiedź wydawcy</string>
+    <string name="pro_copy_done">Skopiowano. Oferta jest otwarta: przewiń do \"Oceny i Recenzje\", dotknij \"Zrecenzuj tę dApp\", a potem wklej notatkę i ustaw gwiazdki.</string>
     <string name="pro_copy_none">Wszystkie podpisane przez Ciebie recenzje są już w sklepie.</string>
     <string name="pro_import_locked">Import wszystkich jednym podpisem to narzędzie Pro. Free importuje pojedynczo: podpisz jedną poniżej lub na stronie każdej dApp.</string>
     <string name="pro_import_one">Podpisz i zaimportuj tę</string>

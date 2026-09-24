@@ -224,7 +224,7 @@
     <string name="intro5_title">Segui, vieni informato, rispondi</string>
     <string name="intro5_body">Segui le app per sapere di nuove recensioni firmate, aggiornamenti e risposte. Gli editori rivendicano la loro app firmando e rispondono con un badge verificato. Tutto ciò che pubblichi è permanente e pubblico.</string>
     <string name="review_also_store">Pubblica anche nel dApp Store</string>
-    <string name="review_also_store_hint">Copia la tua nota e apre la scheda nello store. Lo store non ha modo di far pubblicare un\'altra app al posto tuo, quindi gli ultimi tocchi sono tuoi.</string>
+    <string name="review_also_store_hint">Copia la tua nota e apre la scheda, dove la pubblichi in «Valutazioni &amp; recensioni» → «Recensisci questa dApp». Lo store non ha modo di far pubblicare un\'altra app al posto tuo, quindi gli ultimi tocchi sono tuoi.</string>
     <string name="flag">Flag</string>
     <string name="flag_title">Aggiungi un flag a questo record</string>
     <string name="flag_body">Un flag è un\'opinione firmata dal tuo portafoglio. Quando i flag di altri Seeker raggiungono il consenso, i lettori nascondono il record; resta on-chain. I flag che firmi contano nella tua reputazione.</string>
@@ -432,7 +432,12 @@
     <string name="pro_copy_review_body">Trasferisce le tue stelle e la tua nota e apre la scheda pronta per pubblicare. Pro copia ogni recensione che hai firmato in un unico passaggio; lo store richiede comunque gli ultimi tocchi.</string>
     <string name="pro_copy_all">Copia le mie recensioni sullo store</string>
     <string name="pro_copy_count">%1$d non copiate</string>
-    <string name="pro_copy_done">Copiata. La scheda è aperta — incolla la nota e imposta le stelle.</string>
+    <string name="flag_on">Flaggato</string>
+    <string name="change_whats_new">Novità di questa versione, dalla scheda dello store</string>
+    <string name="show_more">Mostra altro</string>
+    <string name="show_less">Mostra meno</string>
+    <string name="store_publisher_reply">Risposta dell\'editore</string>
+    <string name="pro_copy_done">Copiata. La scheda è aperta: scorri fino a «Valutazioni &amp; recensioni», tocca «Recensisci questa dApp», poi incolla la nota e imposta le stelle.</string>
     <string name="pro_copy_none">Tutte le recensioni che hai firmato sono già nello store.</string>
     <string name="pro_import_locked">Importarle tutte con un\'unica firma è uno strumento Pro. Free le importa una alla volta: firmane una qui sotto, o da ogni pagina di dApp.</string>
     <string name="pro_import_one">Firma e importa questa</string>

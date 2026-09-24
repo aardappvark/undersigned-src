@@ -221,7 +221,7 @@
     <string name="intro5_title">Kövesd, értesülj, válaszolj</string>
     <string name="intro5_body">Kövess alkalmazásokat, hogy értesülj az új aláírt értékelésekről, frissítésekről és válaszokról. A kiadók aláírással igénylik az alkalmazásukat, és ellenőrzött jelvénnyel válaszolnak. Amit közzéteszel, az végleges és nyilvános.</string>
     <string name="review_also_store">Közzététel a dApp Store-ban is</string>
-    <string name="review_also_store_hint">Átmásolja a megjegyzésedet, és megnyitja a listázást az áruházban. Az áruháznak nincs módja arra, hogy egy másik alkalmazás közzétegyen helyetted, így az utolsó koppintások a tieid.</string>
+    <string name="review_also_store_hint">Átmásolja a megjegyzésedet, és megnyitja a listázást, ahol a \"Ratings &amp; Reviews\" → \"Review this dApp\" alatt teszed közzé. Az áruháznak nincs módja arra, hogy egy másik alkalmazás közzétegyen helyetted, így az utolsó koppintások a tieid.</string>
     <string name="flag">Jelölés</string>
     <string name="flag_title">Bejegyzés megjelölése</string>
     <string name="flag_body">A jelölés a tárcád által aláírt vélemény. Amikor más Seekerek jelölései közmegegyezésre jutnak, az olvasók elrejtik a bejegyzést; az on-chain marad. Az általad aláírt jelölések beleszámítanak a státuszodba.</string>
@@ -430,7 +430,12 @@
     <string name="pro_copy_review_body">Átviszi a csillagaidat és a megjegyzésedet, és megnyitja a listázást közzétételre készen. A Pro egy menetben másolja át az összes általad aláírt értékelést; az utolsó koppintásokat továbbra is az áruház végzi.</string>
     <string name="pro_copy_all">Értékeléseim átmásolása az áruházba</string>
     <string name="pro_copy_count">%1$d nincs átmásolva</string>
-    <string name="pro_copy_done">Átmásolva. A listázás nyitva van — illeszd be a megjegyzést, és állítsd be a csillagokat.</string>
+    <string name="flag_on">Jelölve</string>
+    <string name="change_whats_new">Újdonságok ebben a verzióban, az áruházi listázás alapján.</string>
+    <string name="show_more">Több mutatása</string>
+    <string name="show_less">Kevesebb mutatása</string>
+    <string name="store_publisher_reply">Kiadói válasz</string>
+    <string name="pro_copy_done">Átmásolva. A listázás nyitva van: görgess a \"Ratings &amp; Reviews\" részhez, koppints a \"Review this dApp\" gombra, majd illeszd be a megjegyzést, és állítsd be a csillagokat.</string>
     <string name="pro_copy_none">Minden általad aláírt értékelés már az áruházban van.</string>
     <string name="pro_import_locked">Az összes egyszerre, egy aláírással történő importálása egy Pro eszköz. Az Ingyenes egyenként importál: írj alá egyet lent, vagy minden egyes dApp oldaláról.</string>
     <string name="pro_import_one">Ennek aláírása és importálása</string>

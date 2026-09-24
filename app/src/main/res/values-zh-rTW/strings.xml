@@ -223,7 +223,7 @@
     <string name="intro5_title">追蹤、獲知、回覆</string>
     <string name="intro5_body">追蹤應用程式即可獲知新的簽署評價、更新與回覆。發行者透過簽署認領應用程式,並以已驗證徽章回覆。您發布的一切都是永久且公開的。</string>
     <string name="review_also_store">同時發布到 dApp Store</string>
-    <string name="review_also_store_hint">複製您的說明文字,並在商店中開啟該頁面。商店沒有辦法讓其他應用程式代您發布,因此最後的操作仍需您親自完成。</string>
+    <string name="review_also_store_hint">複製您的說明文字,並開啟應用程式頁面,您需要在 \"評分與評論\" → \"評論這個 dApp\" 下自行發布。商店沒有辦法讓其他應用程式代您發布,因此最後的操作仍需您親自完成。</string>
     <string name="flag">標記</string>
     <string name="flag_title">標記此記錄</string>
     <string name="flag_body">標記是來自您錢包的簽署意見。當其他 Seeker 的標記達成共識時,讀者端會隱藏該記錄;記錄仍留在鏈上。您簽署的標記會計入您的信譽。</string>
@@ -431,7 +431,12 @@
     <string name="pro_copy_review_body">帶著您的星等與說明,並開啟已就緒可發布的頁面。Pro 會一次複製您簽署過的每一則評價;最後的發布動作仍需在商店中自行完成。</string>
     <string name="pro_copy_all">將我的評價複製到商店</string>
     <string name="pro_copy_count">%1$d 則尚未複製</string>
-    <string name="pro_copy_done">已複製。頁面已開啟——貼上說明並設定星等。</string>
+    <string name="flag_on">已標記</string>
+    <string name="change_whats_new">此版本的更新內容(來自商店應用程式頁面)</string>
+    <string name="show_more">展開</string>
+    <string name="show_less">收合</string>
+    <string name="store_publisher_reply">發行者回覆</string>
+    <string name="pro_copy_done">已複製。應用程式頁面已開啟——捲動到 \"評分與評論\",點選 \"評論這個 dApp\",然後貼上說明並設定星等。</string>
     <string name="pro_copy_none">您簽署過的每一則評價都已在商店中。</string>
     <string name="pro_import_locked">一次簽署即可全部匯入,是 Pro 工具。免費版一次只能匯入一則:在下方簽署一則,或從各個 dApp 頁面匯入。</string>
     <string name="pro_import_one">簽署並匯入這一則</string>

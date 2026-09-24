@@ -224,7 +224,7 @@
     <string name="intro5_title">Folgen, benachrichtigt werden, antworten</string>
     <string name="intro5_body">Folgen Sie Apps, um von neuen signierten Bewertungen, Updates und Antworten zu erfahren. Herausgeber beanspruchen ihre App durch Signieren und antworten mit einem verifizierten Abzeichen. Alles, was Sie veröffentlichen, ist dauerhaft und öffentlich.</string>
     <string name="review_also_store">Auch im dApp Store posten</string>
-    <string name="review_also_store_hint">Kopiert Ihre Notiz und öffnet den Eintrag im Store. Der Store bietet keine Möglichkeit für eine andere App, für Sie zu posten, daher bleiben die letzten Schritte bei Ihnen.</string>
+    <string name="review_also_store_hint">Kopiert Ihre Notiz und öffnet den Eintrag, wo Sie sie unter „Bewertungen &amp; Rezensionen“ → „Eine Rezension für diese dApp hinterlassen“ posten. Der Store bietet keine Möglichkeit für eine andere App, für Sie zu posten, daher bleiben die letzten Schritte bei Ihnen.</string>
     <string name="flag">Markieren</string>
     <string name="flag_title">Diesen Eintrag markieren</string>
     <string name="flag_body">Eine Markierung ist eine signierte Meinung Ihrer Wallet. Erreichen Markierungen anderer Seeker einen Konsens, blenden Leser den Eintrag aus; er bleibt on-chain. Von Ihnen signierte Markierungen zählen zu Ihrem Ansehen.</string>
@@ -433,7 +433,12 @@
     <string name="pro_copy_review_body">Überträgt Ihre Sterne und Notiz und öffnet den Eintrag postbereit. Pro kopiert jede von Ihnen signierte Bewertung in einem Durchgang; der Store verlangt weiterhin die letzten Schritte selbst.</string>
     <string name="pro_copy_all">Meine Bewertungen in den Store kopieren</string>
     <string name="pro_copy_count">%1$d nicht kopiert</string>
-    <string name="pro_copy_done">Kopiert. Der Eintrag ist geöffnet — fügen Sie die Notiz ein und setzen Sie die Sterne.</string>
+    <string name="flag_on">Markiert</string>
+    <string name="change_whats_new">Was ist neu in dieser Version, aus dem Eintrag im Store</string>
+    <string name="show_more">Mehr anzeigen</string>
+    <string name="show_less">Weniger anzeigen</string>
+    <string name="store_publisher_reply">Antwort des Herausgebers</string>
+    <string name="pro_copy_done">Kopiert. Der Eintrag ist geöffnet: scrollen Sie zu „Bewertungen &amp; Rezensionen“, tippen Sie auf „Eine Rezension für diese dApp hinterlassen“, fügen Sie dann die Notiz ein und setzen Sie die Sterne.</string>
     <string name="pro_copy_none">Jede von Ihnen signierte Bewertung ist bereits im Store.</string>
     <string name="pro_import_locked">Alle mit einer Signatur zu importieren ist ein Pro-Werkzeug. Free importiert einzeln: signieren Sie unten eine, oder von jeder dApp-Seite aus.</string>
     <string name="pro_import_one">Diese signieren und importieren</string>

@@ -208,7 +208,7 @@
     <string name="intro5_title">Följ, bli informerad, svara</string>
     <string name="intro5_body">Följ appar för att höra om nya signerade recensioner, uppdateringar och svar. Utgivare gör anspråk på sin app genom att signera och svarar med en verifierad märkning. Allt du publicerar är permanent och offentligt.</string>
     <string name="review_also_store">Publicera även i dApp Store</string>
-    <string name="review_also_store_hint">Kopierar din anteckning och öppnar listningen i butiken. Butiken har inget sätt för en annan app att publicera åt dig, så de sista tryckningarna är dina.</string>
+    <string name="review_also_store_hint">Kopierar din anteckning och öppnar listningen, där du publicerar den under ”Ratings &amp; Reviews” → ”Review this dApp”. Butiken har inget sätt för en annan app att publicera åt dig, så de sista tryckningarna är dina.</string>
     <string name="flag">Flagga</string>
     <string name="flag_title">Flagga den här posten</string>
     <string name="flag_body">En flagga är en signerad åsikt från din plånbok. När flaggor från andra Seekers når konsensus döljer läsare posten; den stannar on-chain. Flaggor du signerar räknas in i din status.</string>
@@ -416,7 +416,12 @@
     <string name="pro_copy_review_body">För med dina stjärnor och din anteckning och öppnar listningen redo att publicera. Pro kopierar varje recension du har signerat i en omgång; butiken kräver ändå de sista tryckningarna själv.</string>
     <string name="pro_copy_all">Kopiera mina recensioner till butiken</string>
     <string name="pro_copy_count">%1$d inte kopierade</string>
-    <string name="pro_copy_done">Kopierat. Listningen är öppen — klistra in anteckningen och sätt stjärnorna.</string>
+    <string name="flag_on">Flaggad</string>
+    <string name="change_whats_new">Nyheter i den här versionen, från listningen i butiken</string>
+    <string name="show_more">Visa mer</string>
+    <string name="show_less">Visa mindre</string>
+    <string name="store_publisher_reply">Utgivarens svar</string>
+    <string name="pro_copy_done">Kopierat. Listningen är öppen: bläddra till ”Ratings &amp; Reviews”, tryck på ”Review this dApp”, klistra sedan in anteckningen och sätt stjärnorna.</string>
     <string name="pro_copy_none">Varje recension du har signerat finns redan i butiken.</string>
     <string name="pro_import_locked">Att importera alla med en signatur är ett Pro-verktyg. Gratis importerar en i taget: signera en nedan, eller från varje dApp-sida.</string>
     <string name="pro_import_one">Signera och importera den här</string>

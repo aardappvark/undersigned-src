@@ -223,7 +223,7 @@
     <string name="intro5_title">Theo dõi, được báo, trả lời</string>
     <string name="intro5_body">Theo dõi ứng dụng để biết về các đánh giá đã ký mới, cập nhật và trả lời. Nhà phát hành xác nhận quyền sở hữu ứng dụng của họ bằng cách ký và trả lời bằng huy hiệu đã xác minh. Mọi thứ bạn đăng đều là vĩnh viễn và công khai.</string>
     <string name="review_also_store">Cũng đăng trong dApp Store</string>
-    <string name="review_also_store_hint">Sao chép ghi chú của bạn và mở trang niêm yết trong cửa hàng. Cửa hàng không có cách nào để ứng dụng khác đăng thay bạn, nên các thao tác chạm cuối cùng là của bạn.</string>
+    <string name="review_also_store_hint">Sao chép ghi chú của bạn và mở trang niêm yết, nơi bạn đăng nó dưới mục “Ratings &amp; Reviews” → “Review this dApp”. Cửa hàng không có cách nào để ứng dụng khác đăng thay bạn, nên các thao tác chạm cuối cùng là của bạn.</string>
     <string name="flag">Gắn cờ</string>
     <string name="flag_title">Gắn cờ bản ghi này</string>
     <string name="flag_body">Cờ là ý kiến đã ký từ ví của bạn. Khi cờ từ các Seeker khác đạt đồng thuận, người đọc sẽ ẩn bản ghi; nó vẫn ở trên chuỗi. Cờ bạn ký được tính vào uy tín của bạn.</string>
@@ -431,7 +431,12 @@
     <string name="pro_copy_review_body">Mang theo sao và ghi chú của bạn rồi mở trang niêm yết sẵn sàng để đăng. Pro sao chép mọi đánh giá bạn đã ký trong một lần; cửa hàng vẫn cần các thao tác chạm cuối cùng của chính bạn.</string>
     <string name="pro_copy_all">Sao chép đánh giá của tôi sang cửa hàng</string>
     <string name="pro_copy_count">%1$d chưa sao chép</string>
-    <string name="pro_copy_done">Đã sao chép. Trang niêm yết đang mở — dán ghi chú và đặt số sao.</string>
+    <string name="flag_on">Đã gắn cờ</string>
+    <string name="change_whats_new">Có gì mới trong phiên bản này, từ trang niêm yết trên cửa hàng</string>
+    <string name="show_more">Xem thêm</string>
+    <string name="show_less">Thu gọn</string>
+    <string name="store_publisher_reply">Phản hồi của nhà phát hành</string>
+    <string name="pro_copy_done">Đã sao chép. Trang niêm yết đang mở: cuộn đến “Ratings &amp; Reviews”, chạm “Review this dApp”, sau đó dán ghi chú và đặt số sao.</string>
     <string name="pro_copy_none">Mọi đánh giá bạn đã ký đều đã có trong cửa hàng.</string>
     <string name="pro_import_locked">Nhập tất cả bằng một chữ ký là công cụ của Pro. Bản Miễn phí nhập từng cái một: ký một cái bên dưới, hoặc từ mỗi trang dApp.</string>
     <string name="pro_import_one">Ký và nhập cái này</string>

@@ -221,7 +221,7 @@
     <string name="intro5_title">Takip edin, haberdar olun, yanıtlayın</string>
     <string name="intro5_body">Yeni imzalı incelemeler, güncellemeler ve yanıtlardan haberdar olmak için uygulamaları takip edin. Yayıncılar uygulamalarını imzalayarak talep eder ve doğrulanmış rozetle yanıt verir. Yayınladığınız her şey kalıcı ve herkese açıktır.</string>
     <string name="review_also_store">dApp Store\'da da paylaş</string>
-    <string name="review_also_store_hint">Notunuzu kopyalar ve listelemeyi mağazada açar. Mağazanın başka bir uygulamanın sizin adınıza paylaşım yapmasına izin verecek bir yolu yoktur, bu yüzden son dokunuşlar size aittir.</string>
+    <string name="review_also_store_hint">Notunuzu kopyalar ve listelemeyi açar; burada \"Ratings &amp; Reviews\" → \"Review this dApp\" altında paylaşırsınız. Mağazanın başka bir uygulamanın sizin adınıza paylaşım yapmasına izin verecek bir yolu yoktur, bu yüzden son dokunuşlar size aittir.</string>
     <string name="flag">İşaretle</string>
     <string name="flag_title">Bu kaydı işaretle</string>
     <string name="flag_body">İşaretleme, cüzdanınızdan imzalanmış bir görüştür. Diğer Seeker\'lardan gelen işaretlemeler uzlaşıya ulaştığında okuyucular kaydı gizler; kayıt zincirde kalır. İmzaladığınız işaretlemeler durumunuza sayılır.</string>
@@ -430,7 +430,12 @@
     <string name="pro_copy_review_body">Yıldızlarınızı ve notunuzu taşır ve listelemeyi paylaşıma hazır şekilde açar. Pro, imzaladığınız her incelemeyi tek seferde kopyalar; son dokunuşları yine de mağaza kendisi yapar.</string>
     <string name="pro_copy_all">İncelemelerimi mağazaya kopyala</string>
     <string name="pro_copy_count">%1$d kopyalanmadı</string>
-    <string name="pro_copy_done">Kopyalandı. Listeleme açık — notu yapıştırın ve yıldızları ayarlayın.</string>
+    <string name="flag_on">İşaretlendi</string>
+    <string name="change_whats_new">Bu sürümde yeni olanlar, mağaza listelemesinden.</string>
+    <string name="show_more">Daha fazla göster</string>
+    <string name="show_less">Daha az göster</string>
+    <string name="store_publisher_reply">Yayıncı yanıtı</string>
+    <string name="pro_copy_done">Kopyalandı. Listeleme açık: \"Ratings &amp; Reviews\" bölümüne kaydırın, \"Review this dApp\" seçeneğine dokunun, ardından notu yapıştırın ve yıldızları ayarlayın.</string>
     <string name="pro_copy_none">İmzaladığınız her inceleme zaten mağazada.</string>
     <string name="pro_import_locked">Hepsini tek imzayla içe aktarmak bir Pro aracıdır. Ücretsiz, birer birer içe aktarır: aşağıdan birini imzalayın veya her dApp sayfasından.</string>
     <string name="pro_import_one">Bunu imzala ve içe aktar</string>

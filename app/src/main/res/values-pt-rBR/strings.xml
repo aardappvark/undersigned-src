@@ -224,7 +224,7 @@
     <string name="intro5_title">Siga, seja avisado, responda</string>
     <string name="intro5_body">Siga apps para saber de novas avaliações assinadas, atualizações e respostas. Publicadores reivindicam seu app assinando e respondem com um selo verificado. Tudo o que você publica é permanente e público.</string>
     <string name="review_also_store">Publicar também na dApp Store</string>
-    <string name="review_also_store_hint">Copia sua nota e abre a página na loja. A loja não tem como deixar outro app publicar por você, então os últimos toques são seus.</string>
+    <string name="review_also_store_hint">Copia sua nota e abre a página, onde você a publica em “Classificações &amp; Críticas” → “Avaliar esta dApp”. A loja não tem como deixar outro app publicar por você, então os últimos toques são seus.</string>
     <string name="flag">Sinalizar</string>
     <string name="flag_title">Sinalizar este registro</string>
     <string name="flag_body">Uma sinalização é uma opinião assinada pela sua carteira. Quando sinalizações de outros Seekers atingem consenso, os leitores ocultam o registro; ele permanece na cadeia. Sinalizações que você assina contam na sua reputação.</string>
@@ -432,7 +432,12 @@
     <string name="pro_copy_review_body">Leva suas estrelas e nota e abre a página pronta para publicar. O Pro copia cada avaliação que você assinou de uma vez; a loja ainda exige os últimos toques.</string>
     <string name="pro_copy_all">Copiar minhas avaliações para a loja</string>
     <string name="pro_copy_count">%1$d não copiadas</string>
-    <string name="pro_copy_done">Copiada. A página está aberta — cole a nota e defina as estrelas.</string>
+    <string name="flag_on">Sinalizado</string>
+    <string name="change_whats_new">Novidades desta versão, a partir da página da loja</string>
+    <string name="show_more">Ver mais</string>
+    <string name="show_less">Ver menos</string>
+    <string name="store_publisher_reply">Resposta do publicador</string>
+    <string name="pro_copy_done">Copiada. A página está aberta: role até “Classificações &amp; Críticas”, toque em “Avaliar esta dApp”, depois cole a nota e defina as estrelas.</string>
     <string name="pro_copy_none">Todas as avaliações que você assinou já estão na loja.</string>
     <string name="pro_import_locked">Importar todas com uma única assinatura é uma ferramenta Pro. O Free importa uma de cada vez: assine uma abaixo, ou em cada página de dApp.</string>
     <string name="pro_import_one">Assinar e importar esta</string>
