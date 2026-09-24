@@ -73,11 +73,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s-এর প্রতি আপনার পর্যালোচনার উত্তর</string>
     <string name="alerts_title">সতর্কতা</string>
-    <string name="alerts_body">প্রতি ৬ ঘণ্টায় এই ডিভাইস লেজার পুনরায় পড়ে এবং আপনার ফলো করা অ্যাপে নতুন স্বাক্ষরিত পর্যালোচনা এবং আপনার নিজের পর্যালোচনার উত্তর সম্পর্কে স্থানীয়ভাবে আপনাকে জানায়। কিছুই ডিভাইস ছেড়ে যায় না।</string>
-    <string name="alerts_follows">%1$d টি অ্যাপ ফলো করা হচ্ছে</string>
+    <string name="alerts_body">ব্যাকগ্রাউন্ডে এই ডিভাইস লেজার পুনরায় পড়ে এবং আপনার ফলো করা অ্যাপে নতুন স্বাক্ষরিত পর্যালোচনা এবং আপনার নিজের পর্যালোচনার উত্তর সম্পর্কে স্থানীয়ভাবে আপনাকে জানায়। কিছুই ডিভাইস ছেড়ে যায় না।</string>
+    <plurals name="alerts_following">
+        <item quantity="one">%1$d টি অ্যাপ ফলো করা হচ্ছে</item>
+        <item quantity="other">%1$d টি অ্যাপ ফলো করা হচ্ছে</item>
+    </plurals>
     <string name="seeker_signed">Seeker ওয়ালেট</string>
     <string name="seeker_signed_hint">এই লেনদেনে সেই গার্ড নির্দেশাবলী রয়েছে যা Seeker ওয়ালেট এটি স্বাক্ষরিত সবকিছুতে যোগ করে, তাই এটি ডাবল-ট্যাপ সহ একটি Seeker-এ অনুমোদিত হয়েছিল। একটি ফিঙ্গারপ্রিন্ট, চেইন থেকে পড়া।</string>
-    <string name="fact_store_cert_match">ইনস্টল করা বিল্ড স্টোরের তালিকাভুক্ত সার্টিফিকেটের সাথে মেলে ✓</string>
+    <string name="fact_store_cert_match">ইনস্টল করা বিল্ড স্টোরের তালিকাভুক্ত সার্টিফিকেটের সাথে মেলে ✓</string>
     <string name="fact_store_cert_mismatch">ইনস্টল করা বিল্ড স্টোরের তালিকাভুক্ত সার্টিফিকেটের সাথে মেলে না</string>
     <string name="fact_store_version">স্টোর সংস্করণ কোড</string>
     <string name="publisher_title">প্রকাশক</string>
@@ -89,7 +92,7 @@
     <string name="publisher_claim_body">পাঠকরা এই অ্যাপের জন্য স্টোরের তালিকাভুক্ত ওয়েবসাইটের (%1$s) বিপরীতে একটি দাবি যাচাই করে। আপনার ওয়ালেট ঠিকানা (এক লাইনে) সম্বলিত একটি ফাইল %2$s-এ রাখুন:\n\n%3$s\n\nএরপর দাবিটি স্বাক্ষর করুন। যাচাইকরণ স্বয়ংক্রিয় এবং প্রতি ২৪ ঘণ্টায় পুনরাবৃত্তি হয়। যদি ফাইলটি অনুপস্থিত থাকে তবে দাবিটি কেবল অযাচাইকৃত থেকে যায়; আর কিছু ঘটে না।</string>
     <string name="publisher_claim_sign">দাবি স্বাক্ষর করুন</string>
     <string name="publisher_claimed_pending">আপনার দাবি চেইনে আছে কিন্তু এখনও যাচাই করা হয়নি (তালিকাভুক্ত ওয়েবসাইটে ফাইলটি পাওয়া যায়নি)।</string>
-    <string name="publisher_badge">প্রকাশক ✓</string>
+    <string name="publisher_badge">প্রকাশক ✓</string>
     <string name="versions_title">সংস্করণ অনুযায়ী</string>
     <string name="versions_row">v%1$d · %2$s · %3$d স্বাক্ষরিত</string>
     <string name="versions_installed">ইনস্টল করা</string>
@@ -135,7 +138,7 @@
     <string name="fact_perms_removed">সরানো অনুমতি: %1$s</string>
     <string name="fact_not_installed">এই ডিভাইসে ইনস্টল করা নেই। ডিভাইসের তথ্য দেখতে dApp Store থেকে এটি ইনস্টল করুন।</string>
     <string name="reviews_title">স্বাক্ষরিত পর্যালোচনা</string>
-    <string name="review_weight_verified">প্রত্যয়িত ✓</string>
+    <string name="review_weight_verified">প্রত্যয়িত ✓</string>
     <string name="review_weight_unverified">গণনা করা হয়নি</string>
     <string name="review_hide">লুকান</string>
     <string name="review_report">রিপোর্ট করুন</string>
@@ -199,7 +202,6 @@
     <string name="settings_about">Undersigned v%1$s — Solana Mobile, Solana Foundation বা কোনো ওয়ালেটের সাথে সংযুক্ত নয়।</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned dApp Store-এর সর্বজনীন ক্যাটালগ পড়ে এবং স্টোরে তালিকা খোলে। এটি কখনও অ্যাপ ইনস্টল, আপডেট বা সরায় না।</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">এড়িয়ে যান</string>
     <string name="intro_next">পরবর্তী</string>
     <string name="intro_replay">পরিচিতি আবার দেখুন</string>
@@ -239,8 +241,7 @@
     <string name="swipe_hint">উত্তর দিতে একটি পর্যালোচনা ডানদিকে সোয়াইপ করুন।</string>
     <string name="profile_title">প্রোফাইল</string>
     <string name="profile_credibility">বিশ্বাসযোগ্যতা</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
-    <string name="profile_credibility_sub">৪০ ভিত্তি, অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতির জন্য +৩০, প্রাপ্ত সহায়ক ভোটের জন্য +১০, ঐকমত্যে বহাল থাকা ফ্ল্যাগের জন্য +২০, ঐকমত্যে লুকানো রেকর্ডের অংশ × −৫০। প্রকাশিত সূত্র, এর সাথে কিছুই জড়িত নয়।</string>
+    <string name="profile_credibility_sub">৪০ ভিত্তি, অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতির জন্য +৩০, প্রাপ্ত সহায়ক ভোটের জন্য +১০, ঐকমত্যে বহাল থাকা ফ্ল্যাগের জন্য +২০, ঐকমত্যে লুকানো রেকর্ডের অংশের জন্য −৫০ ×। প্রকাশিত সূত্র, এর সাথে কিছুই জড়িত নয়।</string>
     <string name="profile_flags">%1$d টি ফ্ল্যাগ স্বাক্ষরিত · %2$d টি বহাল · %3$d টি প্রাপ্ত · %4$d টি রেকর্ড লুকানো</string>
     <string name="profile_replied">তাদের পর্যালোচনায় %1$s সময় উত্তর দেন</string>
     <string name="profile_publishes">যাচাইকৃত প্রকাশক</string>
@@ -319,7 +320,7 @@
     <string name="stats_reviews_counted">স্কোরে গণনাকৃত</string>
     <string name="stats_signers">স্বতন্ত্র স্বাক্ষরকারী</string>
     <string name="stats_attested">প্রত্যয়িত ডিভাইসসহ স্বাক্ষরকারী</string>
-    <string name="stats_seeker_share">Seeker ওয়ালেটে স্বাক্ষরিত রেকর্ড</string>
+    <string name="stats_seeker_share">Seeker ওয়ালেটে স্বাক্ষরিত লেনদেন</string>
     <string name="stats_apps">স্বাক্ষরিত পর্যালোচনাসহ dApp</string>
     <string name="stats_apps_scored">স্কোরসহ dApp</string>
     <string name="stats_replies">উত্তর</string>

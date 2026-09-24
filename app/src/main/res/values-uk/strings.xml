@@ -78,11 +78,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Відповідь на ваш відгук про %1$s</string>
     <string name="alerts_title">Сповіщення</string>
-    <string name="alerts_body">Кожні 6 годин цей пристрій повторно читає реєстр і локально сповіщає вас про нові підписані відгуки на додатки, за якими ви стежите, та про відповіді на ваші власні відгуки. Нічого не залишає пристрій.</string>
-    <string name="alerts_follows">Стежите за %1$d додатками</string>
+    <string name="alerts_body">У фоновому режимі цей пристрій повторно читає реєстр і локально сповіщає вас про нові підписані відгуки на додатки, за якими ви стежите, та про відповіді на ваші власні відгуки. Нічого не залишає пристрій.</string>
+    <plurals name="alerts_following"><item quantity="one">Стежите за %1$d додатком</item><item quantity="few">Стежите за %1$d додатками</item><item quantity="many">Стежите за %1$d додатками</item><item quantity="other">Стежите за %1$d додатками</item></plurals>
     <string name="seeker_signed">Гаманець Seeker</string>
     <string name="seeker_signed_hint">Ця транзакція містить захисні інструкції, які гаманець Seeker додає до всього, що підписує, тобто вона була схвалена на Seeker подвійним дотиком. Відбиток, зчитаний із блокчейну.</string>
-    <string name="fact_store_cert_match">Встановлена збірка відповідає сертифікату, вказаному магазином ✓</string>
+    <string name="fact_store_cert_match">Встановлена збірка відповідає сертифікату, вказаному магазином ✓</string>
     <string name="fact_store_cert_mismatch">Встановлена збірка НЕ відповідає сертифікату, вказаному магазином</string>
     <string name="fact_store_version">Код версії в магазині</string>
     <string name="publisher_title">Видавець</string>
@@ -94,7 +94,7 @@
     <string name="publisher_claim_body">Читачі перевіряють заявку за вебсайтом, який магазин вказує для цього додатка (%1$s). Розмістіть за адресою %2$s файл із адресою вашого гаманця (один рядок):\n\n%3$s\n\nПотім підпишіть заявку. Перевірка виконується автоматично й повторюється кожні 24 години. Якщо файл відсутній, заявка просто залишається непідтвердженою; більше нічого не відбувається.</string>
     <string name="publisher_claim_sign">Підписати заявку</string>
     <string name="publisher_claimed_pending">Ваша заявка в блокчейні, але ще не підтверджена (файл не знайдено на вказаному вебсайті).</string>
-    <string name="publisher_badge">Видавець ✓</string>
+    <string name="publisher_badge">Видавець ✓</string>
     <string name="versions_title">За версіями</string>
     <string name="versions_row">v%1$d · %2$s · %3$d підписано</string>
     <string name="versions_installed">встановлено</string>
@@ -140,7 +140,7 @@
     <string name="fact_perms_removed">Видалені дозволи: %1$s</string>
     <string name="fact_not_installed">Не встановлено на цьому пристрої. Встановіть його з dApp Store, щоб побачити факти про пристрій.</string>
     <string name="reviews_title">Підписані відгуки</string>
-    <string name="review_weight_verified">Підтверджено ✓</string>
+    <string name="review_weight_verified">Підтверджено ✓</string>
     <string name="review_weight_unverified">не враховується</string>
     <string name="review_hide">Приховати</string>
     <string name="review_report">Поскаржитися</string>
@@ -207,7 +207,6 @@
     <string name="settings_about">Undersigned v%1$s — не афілійований з Solana Mobile, Solana Foundation чи будь-яким гаманцем.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned читає публічний каталог dApp Store й відкриває сторінки в магазині. Він ніколи не встановлює, не оновлює й не видаляє додатки.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Пропустити</string>
     <string name="intro_next">Далі</string>
     <string name="intro_replay">Повторити вступ</string>
@@ -247,7 +246,6 @@
     <string name="swipe_hint">Проведіть по відгуку вправо, щоб відповісти.</string>
     <string name="profile_title">Профіль</string>
     <string name="profile_credibility">Достовірність</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 базових, +30 за збіг тегів з іншими підписантами, +10 за отримані голоси Корисно, +20 за позначки, підтверджені консенсусом, −50 × частка записів, прихованих консенсусом. Опублікована формула, нічого до неї не прив\'язано.</string>
     <string name="profile_flags">%1$d підписаних позначок · %2$d підтверджено · %3$d отримано · %4$d записів приховано</string>
     <string name="profile_replied">Відповідає на відповіді до своїх відгуків у %1$s випадків</string>
@@ -329,7 +327,7 @@
     <string name="stats_reviews_counted">Враховано в рейтингу</string>
     <string name="stats_signers">Унікальні підписанти</string>
     <string name="stats_attested">Підписанти з підтвердженим пристроєм</string>
-    <string name="stats_seeker_share">Записи, підписані гаманцем Seeker</string>
+    <string name="stats_seeker_share">Транзакції, підписані гаманцем Seeker</string>
     <string name="stats_apps">dApps із підписаним відгуком</string>
     <string name="stats_apps_scored">dApps із рейтингом</string>
     <string name="stats_replies">Відповіді</string>

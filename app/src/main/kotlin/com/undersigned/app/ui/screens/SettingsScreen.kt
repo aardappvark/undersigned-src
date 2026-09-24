@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -248,7 +249,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(stringResource(R.string.alerts_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
-                        Text(stringResource(R.string.alerts_follows, follows.size), color = RbColors.textTertiary, fontSize = 11.sp)
+                        Text(pluralStringResource(R.plurals.alerts_following, follows.size, follows.size), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
                     Switch(checked = alerts, onCheckedChange = { on ->
                         if (!on) { UserPreferences.setAlerts(false); LedgerWatchWorker.cancel(context) }

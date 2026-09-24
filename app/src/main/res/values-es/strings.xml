@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Aún sin reseñas firmadas</string>
     <string name="ledger_syncing">Leyendo el ledger…</string>
     <string name="ledger_synced">Ledger: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d reseña</item><item quantity="other">%1$d reseñas</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Error al leer el ledger: %1$s</string>
     <string name="catalogue_count">%1$d apps en el catálogo de la tienda</string>
     <string name="empty_installed">Aún no hay apps de la tienda instaladas en este dispositivo.</string>
@@ -78,11 +78,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Respuesta a tu reseña de %1$s</string>
     <string name="alerts_title">Alertas</string>
-    <string name="alerts_body">Cada 6 horas este dispositivo vuelve a leer el ledger y te notifica localmente sobre nuevas reseñas firmadas en las apps que sigues y sobre respuestas a tus propias reseñas. Nada sale del dispositivo.</string>
-    <string name="alerts_follows">Siguiendo %1$d apps</string>
+    <string name="alerts_body">En segundo plano, este dispositivo vuelve a leer el ledger y te notifica localmente sobre nuevas reseñas firmadas en las apps que sigues y sobre respuestas a tus propias reseñas. Nada sale del dispositivo.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">Siguiendo %1$d app</item>
+        <item quantity="other">Siguiendo %1$d apps</item>
+    </plurals>
     <string name="seeker_signed">Wallet Seeker</string>
     <string name="seeker_signed_hint">Esta transacción incluye las instrucciones de protección que la wallet Seeker añade a todo lo que firma, por lo que se aprobó en un Seeker con la doble pulsación. Una huella, leída de la cadena.</string>
-    <string name="fact_store_cert_match">La versión instalada coincide con el certificado que indica la tienda ✓</string>
+    <string name="fact_store_cert_match">La versión instalada coincide con el certificado que indica la tienda ✓</string>
     <string name="fact_store_cert_mismatch">La versión instalada NO coincide con el certificado que indica la tienda</string>
     <string name="fact_store_version">Código de versión de la tienda</string>
     <string name="publisher_title">Editor</string>
@@ -94,7 +97,7 @@
     <string name="publisher_claim_body">Los lectores verifican una reclamación frente al sitio web que la tienda indica para esta app (%1$s). Coloca un archivo en %2$s que contenga tu dirección de wallet (una línea):\n\n%3$s\n\nLuego firma la reclamación. La verificación es automática y se repite cada 24 horas. Si falta el archivo, la reclamación simplemente queda sin verificar; no ocurre nada más.</string>
     <string name="publisher_claim_sign">Firmar la reclamación</string>
     <string name="publisher_claimed_pending">Tu reclamación está on-chain pero aún no verificada (no se encontró el archivo en el sitio web indicado).</string>
-    <string name="publisher_badge">Editor ✓</string>
+    <string name="publisher_badge">Editor ✓</string>
     <string name="versions_title">Por versión</string>
     <string name="versions_row">v%1$d · %2$s · %3$d firmadas</string>
     <string name="versions_installed">instalada</string>
@@ -140,7 +143,7 @@
     <string name="fact_perms_removed">Permisos eliminados: %1$s</string>
     <string name="fact_not_installed">No está instalada en este dispositivo. Instálala desde el dApp Store para ver los datos del dispositivo.</string>
     <string name="reviews_title">Reseñas firmadas</string>
-    <string name="review_weight_verified">Atestiguado ✓</string>
+    <string name="review_weight_verified">Atestiguado ✓</string>
     <string name="review_weight_unverified">no contabilizada</string>
     <string name="review_hide">Ocultar</string>
     <string name="review_report">Denunciar</string>
@@ -207,7 +210,6 @@
     <string name="settings_about">Undersigned v%1$s — no afiliado a Solana Mobile, la Solana Foundation ni ninguna wallet.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned lee el catálogo público del dApp Store y abre las fichas en la tienda. Nunca instala, actualiza ni elimina apps.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Omitir</string>
     <string name="intro_next">Siguiente</string>
     <string name="intro_replay">Repetir la introducción</string>
@@ -247,7 +249,6 @@
     <string name="swipe_hint">Desliza una reseña a la derecha para responder.</string>
     <string name="profile_title">Perfil</string>
     <string name="profile_credibility">Credibilidad</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 de base, +30 por coincidencia de etiquetas con otros firmantes, +10 por votos útiles recibidos, +20 por marcas confirmadas por consenso, −50 × proporción de registros ocultos por consenso. Fórmula publicada, sin nada más asociado.</string>
     <string name="profile_flags">%1$d marcas firmadas · %2$d confirmadas · %3$d recibidas · %4$d registros ocultos</string>
     <string name="profile_replied">Responde a las respuestas de sus reseñas el %1$s de las veces</string>
@@ -327,7 +328,7 @@
     <string name="stats_reviews_counted">Contabilizadas en una puntuación</string>
     <string name="stats_signers">Firmantes distintos</string>
     <string name="stats_attested">Firmantes con dispositivo atestiguado</string>
-    <string name="stats_seeker_share">Registros firmados con una wallet Seeker</string>
+    <string name="stats_seeker_share">Transacciones firmadas con una wallet Seeker</string>
     <string name="stats_apps">dApps con una reseña firmada</string>
     <string name="stats_apps_scored">dApps con puntuación</string>
     <string name="stats_replies">Respuestas</string>

@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Wala pang naka-sign na review</string>
     <string name="ledger_syncing">Binabasa ang ledger…</string>
     <string name="ledger_synced">Ang Ledger: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d review</item><item quantity="other">%1$d review</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Nabigo ang pagbasa ng ledger: %1$s</string>
     <string name="catalogue_count">%1$d app sa katalogo ng store</string>
     <string name="empty_installed">Wala pang naka-install na store app sa device na ito.</string>
@@ -78,11 +78,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Sagot sa iyong review ng %1$s</string>
     <string name="alerts_title">Mga alerto</string>
-    <string name="alerts_body">Tuwing 6 na oras, binabasang muli ng device na ito ang ledger at ipinapaalam sa iyo nang lokal ang mga bagong naka-sign na review sa mga app na sinusundan mo at mga sagot sa sarili mong review. Walang umaalis sa device.</string>
-    <string name="alerts_follows">Sinusundan ang %1$d app</string>
+    <string name="alerts_body">Sa background, binabasang muli ng device na ito ang ledger at ipinapaalam sa iyo nang lokal ang mga bagong naka-sign na review sa mga app na sinusundan mo at mga sagot sa sarili mong review. Walang umaalis sa device.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">Sinusundan ang %1$d app</item>
+        <item quantity="other">Sinusundan ang %1$d app</item>
+    </plurals>
     <string name="seeker_signed">Wallet na Seeker</string>
     <string name="seeker_signed_hint">Dala ng transaction na ito ang mga guard instruction na idinaragdag ng Seeker wallet sa lahat ng sine-sign nito, kaya na-approve ito sa isang Seeker gamit ang double-tap. Isang fingerprint, binasa mula sa chain.</string>
-    <string name="fact_store_cert_match">Ang naka-install na build ay tumutugma sa certificate na nakalista sa store ✓</string>
+    <string name="fact_store_cert_match">Ang naka-install na build ay tumutugma sa certificate na nakalista sa store ✓</string>
     <string name="fact_store_cert_mismatch">Ang naka-install na build ay HINDI tumutugma sa certificate na nakalista sa store</string>
     <string name="fact_store_version">Version code sa store</string>
     <string name="publisher_title">Tagapaglathala</string>
@@ -94,7 +97,7 @@
     <string name="publisher_claim_body">Sinusuri ng mga reader ang isang claim laban sa website na nakalista ng store para sa app na ito (%1$s). Maglagay ng file sa %2$s na naglalaman ng iyong wallet address (isang linya):\n\n%3$s\n\nPagkatapos, i-sign ang claim. Awtomatiko ang pag-verify at umuulit ito tuwing 24 na oras. Kung nawawala ang file, mananatili lang na unverified ang claim; wala nang ibang mangyayari.</string>
     <string name="publisher_claim_sign">I-sign ang claim</string>
     <string name="publisher_claimed_pending">Nasa chain na ang iyong claim pero hindi pa na-verify (hindi nahanap ang file sa nakalistang website).</string>
-    <string name="publisher_badge">Tagapaglathala ✓</string>
+    <string name="publisher_badge">Tagapaglathala ✓</string>
     <string name="versions_title">Ayon sa bersyon</string>
     <string name="versions_row">v%1$d · %2$s · %3$d naka-sign</string>
     <string name="versions_installed">naka-install</string>
@@ -140,7 +143,7 @@
     <string name="fact_perms_removed">Mga permission na inalis: %1$s</string>
     <string name="fact_not_installed">Hindi naka-install sa device na ito. I-install ito mula sa dApp Store para makita ang mga facts ng device.</string>
     <string name="reviews_title">Mga naka-sign na review</string>
-    <string name="review_weight_verified">Na-verify ✓</string>
+    <string name="review_weight_verified">Na-verify ✓</string>
     <string name="review_weight_unverified">hindi binilang</string>
     <string name="review_hide">Itago</string>
     <string name="review_report">I-report</string>
@@ -207,7 +210,6 @@
     <string name="settings_about">Undersigned v%1$s — hindi kaakibat ng Solana Mobile, Solana Foundation, o anumang wallet.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Binabasa ng Undersigned ang pampublikong katalogo ng dApp Store at binubuksan ang mga listing sa store. Hindi ito nag-i-install, nag-a-update, o nag-aalis ng mga app.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Laktawan</string>
     <string name="intro_next">Susunod</string>
     <string name="intro_replay">I-replay ang intro</string>
@@ -247,7 +249,6 @@
     <string name="swipe_hint">I-swipe ang review pakanan para sumagot.</string>
     <string name="profile_title">Ang Profile</string>
     <string name="profile_credibility">Kredibilidad</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 base, +30 para sa pagkakasundo ng tag sa ibang signer, +10 para sa mga natanggap na helpful vote, +20 para sa mga flag na pinagtibay ng consensus, −50 × bahagi ng mga record na nakatago ng consensus. Pampublikong formula, walang nakakabit dito.</string>
     <string name="profile_flags">%1$d flag na naka-sign · %2$d pinagtibay · %3$d natanggap · %4$d record na nakatago</string>
     <string name="profile_replied">Sumasagot sa mga sagot sa kanilang review %1$s ng oras</string>
@@ -327,7 +328,7 @@
     <string name="stats_reviews_counted">Binilang sa isang iskor</string>
     <string name="stats_signers">Natatanging signer</string>
     <string name="stats_attested">Mga signer na may attested device</string>
-    <string name="stats_seeker_share">Mga record na naka-sign sa isang Seeker wallet</string>
+    <string name="stats_seeker_share">Mga transaction na naka-sign sa isang Seeker wallet</string>
     <string name="stats_apps">Mga dApp na may naka-sign na review</string>
     <string name="stats_apps_scored">Mga dApp na may iskor</string>
     <string name="stats_replies">Mga sagot</string>

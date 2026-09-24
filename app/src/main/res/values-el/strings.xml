@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Καμία υπογεγραμμένη κριτική ακόμα</string>
     <string name="ledger_syncing">Ανάγνωση του ledger…</string>
     <string name="ledger_synced">Ledger: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d κριτική</item><item quantity="other">%1$d κριτικές</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Η ανάγνωση του ledger απέτυχε: %1$s</string>
     <string name="catalogue_count">%1$d εφαρμογές στον κατάλογο του καταστήματος</string>
     <string name="empty_installed">Δεν έχουν εγκατασταθεί ακόμα εφαρμογές του καταστήματος σε αυτή τη συσκευή.</string>
@@ -78,11 +78,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Απάντηση στην κριτική σας για %1$s</string>
     <string name="alerts_title">Ειδοποιήσεις</string>
-    <string name="alerts_body">Κάθε 6 ώρες αυτή η συσκευή διαβάζει ξανά το ledger και σας ειδοποιεί τοπικά για νέες υπογεγραμμένες κριτικές σε εφαρμογές που ακολουθείτε και για απαντήσεις στις δικές σας κριτικές. Τίποτα δεν φεύγει από τη συσκευή.</string>
-    <string name="alerts_follows">Ακολουθείτε %1$d εφαρμογές</string>
+    <string name="alerts_body">Στο παρασκήνιο, αυτή η συσκευή διαβάζει ξανά το ledger και σας ειδοποιεί τοπικά για νέες υπογεγραμμένες κριτικές σε εφαρμογές που ακολουθείτε και για απαντήσεις στις δικές σας κριτικές. Τίποτα δεν φεύγει από τη συσκευή.</string>
+    <plurals name="alerts_following"><item quantity="one">Ακολουθείτε %1$d εφαρμογή</item><item quantity="other">Ακολουθείτε %1$d εφαρμογές</item></plurals>
     <string name="seeker_signed">Πορτοφόλι Seeker</string>
     <string name="seeker_signed_hint">Αυτή η συναλλαγή περιέχει τις εντολές προστασίας που προσθέτει το πορτοφόλι Seeker σε καθετί που υπογράφει, άρα εγκρίθηκε σε Seeker με το διπλό πάτημα. Ένα αποτύπωμα, διαβασμένο από την αλυσίδα.</string>
-    <string name="fact_store_cert_match">Το εγκατεστημένο build ταιριάζει με το πιστοποιητικό που αναφέρει το κατάστημα ✓</string>
+    <string name="fact_store_cert_match">Το εγκατεστημένο build ταιριάζει με το πιστοποιητικό που αναφέρει το κατάστημα ✓</string>
     <string name="fact_store_cert_mismatch">Το εγκατεστημένο build ΔΕΝ ταιριάζει με το πιστοποιητικό που αναφέρει το κατάστημα</string>
     <string name="fact_store_version">Κωδικός έκδοσης καταστήματος</string>
     <string name="publisher_title">Εκδότης</string>
@@ -94,7 +94,7 @@
     <string name="publisher_claim_body">Οι αναγνώστες επαληθεύουν μια διεκδίκηση έναντι του ιστότοπου που αναφέρει το κατάστημα για αυτή την εφαρμογή (%1$s). Τοποθετήστε ένα αρχείο στο %2$s που να περιέχει τη διεύθυνση του πορτοφολιού σας (μία γραμμή):\n\n%3$s\n\nΈπειτα υπογράψτε τη διεκδίκηση. Η επαλήθευση είναι αυτόματη και επαναλαμβάνεται κάθε 24 ώρες. Αν το αρχείο λείπει, η διεκδίκηση απλώς παραμένει μη επαληθευμένη· τίποτα άλλο δεν συμβαίνει.</string>
     <string name="publisher_claim_sign">Υπογραφή της διεκδίκησης</string>
     <string name="publisher_claimed_pending">Η διεκδίκησή σας είναι on-chain αλλά δεν έχει επαληθευτεί ακόμα (το αρχείο δεν βρέθηκε στον αναφερόμενο ιστότοπο).</string>
-    <string name="publisher_badge">Εκδότης ✓</string>
+    <string name="publisher_badge">Εκδότης ✓</string>
     <string name="versions_title">Ανά έκδοση</string>
     <string name="versions_row">v%1$d · %2$s · %3$d υπογεγραμμένες</string>
     <string name="versions_installed">εγκατεστημένη</string>
@@ -140,7 +140,7 @@
     <string name="fact_perms_removed">Δικαιώματα που αφαιρέθηκαν: %1$s</string>
     <string name="fact_not_installed">Δεν είναι εγκατεστημένη σε αυτή τη συσκευή. Εγκαταστήστε την από το dApp Store για να δείτε τα στοιχεία της συσκευής.</string>
     <string name="reviews_title">Υπογεγραμμένες κριτικές</string>
-    <string name="review_weight_verified">Πιστοποιημένο ✓</string>
+    <string name="review_weight_verified">Πιστοποιημένο ✓</string>
     <string name="review_weight_unverified">δεν μετράει</string>
     <string name="review_hide">Απόκρυψη</string>
     <string name="review_report">Αναφορά</string>
@@ -207,7 +207,6 @@
     <string name="settings_about">Undersigned v%1$s — δεν σχετίζεται με τη Solana Mobile, το Solana Foundation ή οποιοδήποτε πορτοφόλι.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Το Undersigned διαβάζει τον δημόσιο κατάλογο του dApp Store και ανοίγει καταχωρίσεις στο κατάστημα. Δεν εγκαθιστά, ενημερώνει ή αφαιρεί ποτέ εφαρμογές.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Παράλειψη</string>
     <string name="intro_next">Επόμενο</string>
     <string name="intro_replay">Επανάληψη εισαγωγής</string>
@@ -247,7 +246,6 @@
     <string name="swipe_hint">Σύρετε μια κριτική προς τα δεξιά για να απαντήσετε.</string>
     <string name="profile_title">Προφίλ</string>
     <string name="profile_credibility">Αξιοπιστία</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 βάση, +30 για συμφωνία ετικετών με άλλους υπογράφοντες, +10 για χρήσιμες ψήφους που λάβατε, +20 για επισημάνσεις που επικυρώθηκαν με συναίνεση, −50 × μερίδιο εγγραφών κρυμμένων με συναίνεση. Δημοσιευμένος τύπος, τίποτα προσαρτημένο σε αυτόν.</string>
     <string name="profile_flags">%1$d επισημάνσεις υπογεγραμμένες · %2$d επικυρωμένες · %3$d ληφθείσες · %4$d εγγραφές κρυμμένες</string>
     <string name="profile_replied">Απαντά στις κριτικές του %1$s του χρόνου</string>
@@ -328,7 +326,7 @@
     <string name="stats_reviews_counted">Μετρήθηκαν σε βαθμολογία</string>
     <string name="stats_signers">Διακριτοί υπογράφοντες</string>
     <string name="stats_attested">Υπογράφοντες με πιστοποιημένη συσκευή</string>
-    <string name="stats_seeker_share">Εγγραφές υπογεγραμμένες με πορτοφόλι Seeker</string>
+    <string name="stats_seeker_share">Συναλλαγές υπογεγραμμένες με πορτοφόλι Seeker</string>
     <string name="stats_apps">dApps με υπογεγραμμένη κριτική</string>
     <string name="stats_apps_scored">dApps με βαθμολογία</string>
     <string name="stats_replies">Απαντήσεις</string>

@@ -68,11 +68,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Ответ на ваш отзыв о %1$s</string>
     <string name="alerts_title">Уведомления</string>
-    <string name="alerts_body">Каждые 6 часов это устройство заново считывает реестр и локально уведомляет вас о новых подписанных отзывах на приложения, на которые вы подписаны, и об ответах на ваши собственные отзывы. Ничего не покидает устройство.</string>
-    <string name="alerts_follows">Подписка на %1$d приложений</string>
+    <string name="alerts_body">В фоновом режиме это устройство заново считывает реестр и локально уведомляет вас о новых подписанных отзывах на приложения, на которые вы подписаны, и об ответах на ваши собственные отзывы. Ничего не покидает устройство.</string>
+    <plurals name="alerts_following"><item quantity="one">Вы подписаны на %1$d приложение</item><item quantity="few">Вы подписаны на %1$d приложения</item><item quantity="many">Вы подписаны на %1$d приложений</item><item quantity="other">Вы подписаны на %1$d приложения</item></plurals>
     <string name="seeker_signed">Кошелёк Seeker</string>
     <string name="seeker_signed_hint">Эта транзакция несёт защитные инструкции, которые кошелёк Seeker добавляет ко всему, что подписывает, поэтому она была подтверждена на Seeker двойным касанием. Отпечаток, считанный из блокчейна.</string>
-    <string name="fact_store_cert_match">Установленная сборка соответствует сертификату, указанному в магазине ✓</string>
+    <string name="fact_store_cert_match">Установленная сборка соответствует сертификату, указанному в магазине ✓</string>
     <string name="fact_store_cert_mismatch">Установленная сборка НЕ соответствует сертификату, указанному в магазине</string>
     <string name="fact_store_version">Код версии в магазине</string>
     <string name="publisher_title">Издатель</string>
@@ -84,7 +84,7 @@
     <string name="publisher_claim_body">Читатели проверяют заявку по сайту, который магазин указывает для этого приложения (%1$s). Разместите по адресу %2$s файл с адресом вашего кошелька (одна строка):\n\n%3$s\n\nЗатем подпишите заявку. Проверка выполняется автоматически и повторяется каждые 24 часа. Если файл отсутствует, заявка просто остаётся непроверенной; больше ничего не происходит.</string>
     <string name="publisher_claim_sign">Подписать заявку</string>
     <string name="publisher_claimed_pending">Ваша заявка находится в блокчейне, но ещё не проверена (файл не найден на указанном сайте).</string>
-    <string name="publisher_badge">Издатель ✓</string>
+    <string name="publisher_badge">Издатель ✓</string>
     <string name="versions_title">По версиям</string>
     <string name="versions_row">v%1$d · %2$s · подписано %3$d</string>
     <string name="versions_installed">установлено</string>
@@ -130,7 +130,7 @@
     <string name="fact_perms_removed">Удалены разрешения: %1$s</string>
     <string name="fact_not_installed">Не установлено на этом устройстве. Установите его из dApp Store, чтобы увидеть факты об устройстве.</string>
     <string name="reviews_title">Подписанные отзывы</string>
-    <string name="review_weight_verified">Подтверждено ✓</string>
+    <string name="review_weight_verified">Подтверждено ✓</string>
     <string name="review_weight_unverified">не учитывается</string>
     <string name="review_hide">Скрыть</string>
     <string name="review_report">Пожаловаться</string>
@@ -191,7 +191,6 @@
     <string name="settings_about">Undersigned v%1$s — не связано с Solana Mobile, Solana Foundation или каким-либо кошельком.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned читает публичный каталог dApp Store и открывает листинги в магазине. Он никогда не устанавливает, не обновляет и не удаляет приложения.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Пропустить</string>
     <string name="intro_next">Далее</string>
     <string name="intro_replay">Повторить вступление</string>
@@ -231,7 +230,6 @@
     <string name="swipe_hint">Смахните отзыв вправо, чтобы ответить.</string>
     <string name="profile_title">Профиль</string>
     <string name="profile_credibility">Достоверность</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 базовых, +30 за совпадение тегов с другими подписантами, +10 за полученные голоса Полезно, +20 за отметки, подтверждённые консенсусом, −50 × доля записей, скрытых консенсусом. Опубликованная формула, ничего к ней не привязано.</string>
     <string name="profile_flags">%1$d подписанных отметок · %2$d подтверждено · %3$d получено · %4$d записей скрыто</string>
     <string name="profile_replied">Отвечает на ответы к своим отзывам в %1$s случаев</string>
@@ -313,7 +311,7 @@
     <string name="stats_reviews_counted">Учтено в оценке</string>
     <string name="stats_signers">Уникальные подписанты</string>
     <string name="stats_attested">Подписанты с подтверждённым устройством</string>
-    <string name="stats_seeker_share">Записи, подписанные кошельком Seeker</string>
+    <string name="stats_seeker_share">Транзакции, подписанные кошельком Seeker</string>
     <string name="stats_apps">dApps с подписанным отзывом</string>
     <string name="stats_apps_scored">dApps с оценкой</string>
     <string name="stats_replies">Ответы</string>

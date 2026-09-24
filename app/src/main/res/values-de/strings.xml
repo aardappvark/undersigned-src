@@ -78,11 +78,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Antwort auf Ihre Bewertung von %1$s</string>
     <string name="alerts_title">Benachrichtigungen</string>
-    <string name="alerts_body">Alle 6 Stunden liest dieses Gerät das Ledger erneut und benachrichtigt Sie lokal über neue signierte Bewertungen für Apps, denen Sie folgen, sowie über Antworten auf Ihre eigenen Bewertungen. Nichts verlässt das Gerät.</string>
-    <string name="alerts_follows">Folgt %1$d Apps</string>
+    <string name="alerts_body">Im Hintergrund liest dieses Gerät das Ledger erneut und benachrichtigt Sie lokal über neue signierte Bewertungen für Apps, denen Sie folgen, sowie über Antworten auf Ihre eigenen Bewertungen. Nichts verlässt das Gerät.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">%1$d gefolgte App</item>
+        <item quantity="other">%1$d gefolgte Apps</item>
+    </plurals>
     <string name="seeker_signed">Seeker-Wallet</string>
     <string name="seeker_signed_hint">Diese Transaktion enthält die Schutzanweisungen, die die Seeker-Wallet allem hinzufügt, was sie signiert; sie wurde daher auf einem Seeker mit dem doppelten Tippen genehmigt. Ein Fingerabdruck, aus der Chain gelesen.</string>
-    <string name="fact_store_cert_match">Installierter Build stimmt mit dem vom Store gelisteten Zertifikat überein ✓</string>
+    <string name="fact_store_cert_match">Installierter Build stimmt mit dem vom Store gelisteten Zertifikat überein ✓</string>
     <string name="fact_store_cert_mismatch">Installierter Build stimmt NICHT mit dem vom Store gelisteten Zertifikat überein</string>
     <string name="fact_store_version">Store-Versionscode</string>
     <string name="publisher_title">Herausgeber</string>
@@ -94,7 +97,7 @@
     <string name="publisher_claim_body">Leser verifizieren einen Anspruch anhand der Website, die der Store für diese App listet (%1$s). Legen Sie eine Datei unter %2$s ab, die Ihre Wallet-Adresse enthält (eine Zeile):\n\n%3$s\n\nSignieren Sie dann den Anspruch. Die Verifizierung erfolgt automatisch und wiederholt sich alle 24 Stunden. Fehlt die Datei, bleibt der Anspruch einfach unverifiziert; sonst passiert nichts.</string>
     <string name="publisher_claim_sign">Anspruch signieren</string>
     <string name="publisher_claimed_pending">Ihr Anspruch ist on-chain, aber noch nicht verifiziert (Datei auf der gelisteten Website nicht gefunden).</string>
-    <string name="publisher_badge">Herausgeber ✓</string>
+    <string name="publisher_badge">Herausgeber ✓</string>
     <string name="versions_title">Nach Version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signiert</string>
     <string name="versions_installed">installiert</string>
@@ -140,7 +143,7 @@
     <string name="fact_perms_removed">Berechtigungen entfernt: %1$s</string>
     <string name="fact_not_installed">Auf diesem Gerät nicht installiert. Installieren Sie die App über den dApp Store, um Gerätefakten zu sehen.</string>
     <string name="reviews_title">Signierte Bewertungen</string>
-    <string name="review_weight_verified">Attestiert ✓</string>
+    <string name="review_weight_verified">Attestiert ✓</string>
     <string name="review_weight_unverified">nicht gezählt</string>
     <string name="review_hide">Ausblenden</string>
     <string name="review_report">Melden</string>
@@ -207,7 +210,6 @@
     <string name="settings_about">Undersigned v%1$s — nicht verbunden mit Solana Mobile, der Solana Foundation oder einer Wallet.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned liest den öffentlichen Katalog des dApp Store und öffnet Einträge im Store. Es installiert, aktualisiert oder entfernt niemals Apps.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Überspringen</string>
     <string name="intro_next">Weiter</string>
     <string name="intro_replay">Einführung wiederholen</string>
@@ -247,7 +249,6 @@
     <string name="swipe_hint">Wischen Sie eine Bewertung nach rechts, um zu antworten.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Glaubwürdigkeit</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 Basis, +30 für Tag-Übereinstimmung mit anderen Signierenden, +10 für erhaltene hilfreiche Stimmen, +20 für per Konsens bestätigte Markierungen, −50 × Anteil der per Konsens ausgeblendeten Einträge. Veröffentlichte Formel, nichts daran geknüpft.</string>
     <string name="profile_flags">%1$d Markierungen signiert · %2$d bestätigt · %3$d erhalten · %4$d Einträge ausgeblendet</string>
     <string name="profile_replied">Beantwortet %1$s der Antworten auf die eigenen Bewertungen</string>
@@ -367,7 +368,7 @@
     <string name="stats_reviews_counted">In eine Bewertung eingerechnet</string>
     <string name="stats_signers">Eindeutige Signierende</string>
     <string name="stats_attested">Signierende mit attestiertem Gerät</string>
-    <string name="stats_seeker_share">Einträge, signiert auf einer Seeker-Wallet</string>
+    <string name="stats_seeker_share">Transaktionen, signiert auf einer Seeker-Wallet</string>
     <string name="stats_apps">dApps mit einer signierten Bewertung</string>
     <string name="stats_apps_scored">dApps mit einer Bewertung</string>
     <string name="stats_replies">Antworten</string>

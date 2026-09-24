@@ -73,11 +73,13 @@
     <string name="notif_new_review_body">%1$d★・%2$s</string>
     <string name="notif_reply_title">%1$sのレビューへの返信</string>
     <string name="alerts_title">アラート</string>
-    <string name="alerts_body">この端末は6時間ごとに台帳を再読み込みし、フォロー中のアプリの新しい署名付きレビューと、自分のレビューへの返信をローカルで通知します。データは端末の外に出ません。</string>
-    <string name="alerts_follows">%1$d件のアプリをフォロー中</string>
+    <string name="alerts_body">この端末はバックグラウンドで台帳を再読み込みし、フォロー中のアプリの新しい署名付きレビューと、自分のレビューへの返信をローカルで通知します。データは端末の外に出ません。</string>
+    <plurals name="alerts_following">
+        <item quantity="other">%1$d個のアプリをフォロー中</item>
+    </plurals>
     <string name="seeker_signed">Seeker ウォレット</string>
     <string name="seeker_signed_hint">このトランザクションには、Seeker ウォレットが署名するすべてのトランザクションに付与するガード命令が含まれているため、ダブルタップで承認された Seeker 上で署名されたことが分かります。チェーンから読み取られる指紋です。</string>
-    <string name="fact_store_cert_match">インストール済みビルドはストア記載の証明書と一致しています ✓</string>
+    <string name="fact_store_cert_match">インストール済みビルドはストア記載の証明書と一致しています ✓</string>
     <string name="fact_store_cert_mismatch">インストール済みビルドはストア記載の証明書と一致していません</string>
     <string name="fact_store_version">ストアのバージョンコード</string>
     <string name="publisher_title">パブリッシャー</string>
@@ -89,7 +91,7 @@
     <string name="publisher_claim_body">読者は、このアプリについてストアに記載されているウェブサイト（%1$s）に対して主張を検証します。%2$s にウォレットアドレスを1行だけ記載したファイルを置いてください：\n\n%3$s\n\nその後、主張に署名してください。検証は自動で行われ、24時間ごとに繰り返されます。ファイルが見つからない場合、主張は単に未検証のままとなり、それ以外は何も起こりません。</string>
     <string name="publisher_claim_sign">主張に署名</string>
     <string name="publisher_claimed_pending">あなたの主張はオンチェーンに記録されていますが、まだ検証されていません（記載のウェブサイトでファイルが見つかりません）。</string>
-    <string name="publisher_badge">パブリッシャー ✓</string>
+    <string name="publisher_badge">パブリッシャー ✓</string>
     <string name="versions_title">バージョン別</string>
     <string name="versions_row">v%1$d・%2$s・%3$d件の署名</string>
     <string name="versions_installed">インストール済み</string>
@@ -135,7 +137,7 @@
     <string name="fact_perms_removed">削除された権限：%1$s</string>
     <string name="fact_not_installed">この端末にはインストールされていません。端末の情報を確認するには dApp Store からインストールしてください。</string>
     <string name="reviews_title">署名付きレビュー</string>
-    <string name="review_weight_verified">証明済み ✓</string>
+    <string name="review_weight_verified">証明済み ✓</string>
     <string name="review_weight_unverified">カウント対象外</string>
     <string name="review_hide">非表示</string>
     <string name="review_report">報告</string>
@@ -317,7 +319,7 @@
     <string name="stats_reviews_counted">スコアにカウント済み</string>
     <string name="stats_signers">署名者数（重複なし）</string>
     <string name="stats_attested">証明済み端末を持つ署名者</string>
-    <string name="stats_seeker_share">Seeker ウォレットで署名されたレコード</string>
+    <string name="stats_seeker_share">Seeker ウォレットで署名されたトランザクション</string>
     <string name="stats_apps">署名付きレビューのある dApp</string>
     <string name="stats_apps_scored">スコアのある dApp</string>
     <string name="stats_replies">返信</string>

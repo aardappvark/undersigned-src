@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Chưa có đánh giá đã ký nào</string>
     <string name="ledger_syncing">Đang đọc sổ cái…</string>
     <string name="ledger_synced">Sổ cái: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d đánh giá</item><item quantity="other">%1$d đánh giá</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Đọc sổ cái thất bại: %1$s</string>
     <string name="catalogue_count">%1$d ứng dụng trong danh mục cửa hàng</string>
     <string name="empty_installed">Chưa có ứng dụng nào từ cửa hàng được cài đặt trên thiết bị này.</string>
@@ -78,11 +78,13 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Trả lời cho đánh giá của bạn về %1$s</string>
     <string name="alerts_title">Cảnh báo</string>
-    <string name="alerts_body">Mỗi 6 giờ, thiết bị này đọc lại sổ cái và thông báo cục bộ cho bạn về các đánh giá đã ký mới trên những ứng dụng bạn theo dõi và các câu trả lời cho đánh giá của chính bạn. Không có gì rời khỏi thiết bị.</string>
-    <string name="alerts_follows">Đang theo dõi %1$d ứng dụng</string>
+    <string name="alerts_body">Ở chế độ nền, thiết bị này đọc lại sổ cái và thông báo cục bộ cho bạn về các đánh giá đã ký mới trên những ứng dụng bạn theo dõi và các câu trả lời cho đánh giá của chính bạn. Không có gì rời khỏi thiết bị.</string>
+    <plurals name="alerts_following">
+        <item quantity="other">Đang theo dõi %1$d ứng dụng</item>
+    </plurals>
     <string name="seeker_signed">Ví Seeker</string>
     <string name="seeker_signed_hint">Giao dịch này mang theo các lệnh bảo vệ mà ví Seeker thêm vào mọi thứ nó ký, vì vậy nó đã được phê duyệt trên một Seeker bằng thao tác chạm đúp. Một dấu vân tay, đọc được từ chuỗi.</string>
-    <string name="fact_store_cert_match">Bản cài đặt khớp với chứng chỉ mà cửa hàng liệt kê ✓</string>
+    <string name="fact_store_cert_match">Bản cài đặt khớp với chứng chỉ mà cửa hàng liệt kê ✓</string>
     <string name="fact_store_cert_mismatch">Bản cài đặt KHÔNG khớp với chứng chỉ mà cửa hàng liệt kê</string>
     <string name="fact_store_version">Mã phiên bản của cửa hàng</string>
     <string name="publisher_title">Nhà phát hành</string>
@@ -94,7 +96,7 @@
     <string name="publisher_claim_body">Người đọc xác minh yêu cầu bằng cách đối chiếu với trang web mà cửa hàng liệt kê cho ứng dụng này (%1$s). Đặt một tệp tại %2$s chứa địa chỉ ví của bạn (một dòng):\n\n%3$s\n\nSau đó ký yêu cầu. Việc xác minh diễn ra tự động và lặp lại mỗi 24 giờ. Nếu tệp bị thiếu, yêu cầu chỉ đơn giản là vẫn chưa được xác minh; không có gì khác xảy ra.</string>
     <string name="publisher_claim_sign">Ký yêu cầu</string>
     <string name="publisher_claimed_pending">Yêu cầu của bạn đã ở trên chuỗi nhưng chưa được xác minh (không tìm thấy tệp trên trang web đã liệt kê).</string>
-    <string name="publisher_badge">Nhà phát hành ✓</string>
+    <string name="publisher_badge">Nhà phát hành ✓</string>
     <string name="versions_title">Theo phiên bản</string>
     <string name="versions_row">v%1$d · %2$s · %3$d đã ký</string>
     <string name="versions_installed">đã cài đặt</string>
@@ -140,7 +142,7 @@
     <string name="fact_perms_removed">Quyền đã xóa: %1$s</string>
     <string name="fact_not_installed">Chưa được cài đặt trên thiết bị này. Hãy cài đặt từ dApp Store để xem thông tin thiết bị.</string>
     <string name="reviews_title">Đánh giá đã ký</string>
-    <string name="review_weight_verified">Đã xác nhận ✓</string>
+    <string name="review_weight_verified">Đã xác nhận ✓</string>
     <string name="review_weight_unverified">không được tính</string>
     <string name="review_hide">Ẩn</string>
     <string name="review_report">Báo cáo</string>
@@ -207,7 +209,6 @@
     <string name="settings_about">Undersigned v%1$s — không liên kết với Solana Mobile, Solana Foundation hoặc bất kỳ ví nào.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned đọc danh mục công khai của dApp Store và mở các trang niêm yết trong cửa hàng. Nó không bao giờ cài đặt, cập nhật hoặc gỡ bỏ ứng dụng.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Bỏ qua</string>
     <string name="intro_next">Tiếp theo</string>
     <string name="intro_replay">Xem lại phần giới thiệu</string>
@@ -247,7 +248,6 @@
     <string name="swipe_hint">Vuốt một đánh giá sang phải để trả lời.</string>
     <string name="profile_title">Hồ sơ</string>
     <string name="profile_credibility">Uy tín</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">Nền 40, +30 cho sự đồng thuận thẻ với người ký khác, +10 cho phiếu hữu ích nhận được, +20 cho cờ được giữ vững theo đồng thuận, −50 × tỷ lệ bản ghi bị ẩn theo đồng thuận. Công thức được công bố, không có gì gắn kèm.</string>
     <string name="profile_flags">%1$d cờ đã ký · %2$d được giữ vững · %3$d nhận được · %4$d bản ghi bị ẩn</string>
     <string name="profile_replied">Trả lời phản hồi trên đánh giá của họ %1$s thời gian</string>
@@ -327,7 +327,7 @@
     <string name="stats_reviews_counted">Được tính vào điểm</string>
     <string name="stats_signers">Người ký riêng biệt</string>
     <string name="stats_attested">Người ký có thiết bị được xác nhận</string>
-    <string name="stats_seeker_share">Bản ghi ký trên ví Seeker</string>
+    <string name="stats_seeker_share">Giao dịch ký trên ví Seeker</string>
     <string name="stats_apps">dApp có đánh giá đã ký</string>
     <string name="stats_apps_scored">dApp có điểm</string>
     <string name="stats_replies">Trả lời</string>

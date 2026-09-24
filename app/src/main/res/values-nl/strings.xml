@@ -46,8 +46,8 @@
     <string name="row_no_reviews">Nog geen ondertekende recensies</string>
     <string name="ledger_syncing">Grootboek wordt gelezen…</string>
     <string name="ledger_synced">Grootboek: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d recensie</item><item quantity="other">%1$d recensies</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Lezen van grootboek mislukt: %1$s</string>
     <string name="catalogue_count">%1$d apps in de storecatalogus</string>
     <string name="empty_installed">Nog geen store-apps geïnstalleerd op dit apparaat.</string>
@@ -73,11 +73,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Reactie op uw recensie van %1$s</string>
     <string name="alerts_title">Meldingen</string>
-    <string name="alerts_body">Elke 6 uur leest dit apparaat het grootboek opnieuw en meldt lokaal nieuwe ondertekende recensies voor apps die u volgt en reacties op uw eigen recensies. Er verlaat niets het apparaat.</string>
-    <string name="alerts_follows">%1$d apps gevolgd</string>
+    <string name="alerts_body">Op de achtergrond leest dit apparaat het grootboek opnieuw en meldt lokaal nieuwe ondertekende recensies voor apps die u volgt en reacties op uw eigen recensies. Er verlaat niets het apparaat.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">Volgt %1$d app</item>
+        <item quantity="other">Volgt %1$d apps</item>
+    </plurals>
     <string name="seeker_signed">Seeker-wallet</string>
     <string name="seeker_signed_hint">Deze transactie bevat de guard-instructies die de Seeker-wallet toevoegt aan alles wat hij ondertekent, dus deze is goedgekeurd op een Seeker met de dubbele tik. Een vingerafdruk, gelezen van de chain.</string>
-    <string name="fact_store_cert_match">Geïnstalleerde build komt overeen met het certificaat van de store ✓</string>
+    <string name="fact_store_cert_match">Geïnstalleerde build komt overeen met het certificaat van de store ✓</string>
     <string name="fact_store_cert_mismatch">Geïnstalleerde build komt NIET overeen met het certificaat van de store</string>
     <string name="fact_store_version">Versiecode in de store</string>
     <string name="publisher_title">Uitgever</string>
@@ -89,7 +92,7 @@
     <string name="publisher_claim_body">Lezers verifiëren een claim aan de hand van de website die de store voor deze app vermeldt (%1$s). Plaats een bestand op %2$s met uw walletadres (één regel):\n\n%3$s\n\nOnderteken vervolgens de claim. Verificatie gebeurt automatisch en herhaalt elke 24 uur. Als het bestand ontbreekt, blijft de claim gewoon ongeverifieerd; er gebeurt verder niets.</string>
     <string name="publisher_claim_sign">De claim ondertekenen</string>
     <string name="publisher_claimed_pending">Uw claim staat on-chain maar is nog niet geverifieerd (bestand niet gevonden op de vermelde website).</string>
-    <string name="publisher_badge">Uitgever ✓</string>
+    <string name="publisher_badge">Uitgever ✓</string>
     <string name="versions_title">Per versie</string>
     <string name="versions_row">v%1$d · %2$s · %3$d ondertekend</string>
     <string name="versions_installed">geïnstalleerd</string>
@@ -135,7 +138,7 @@
     <string name="fact_perms_removed">Machtigingen verwijderd: %1$s</string>
     <string name="fact_not_installed">Niet geïnstalleerd op dit apparaat. Installeer de app vanuit de dApp Store om apparaatgegevens te zien.</string>
     <string name="reviews_title">Ondertekende recensies</string>
-    <string name="review_weight_verified">Geattesteerd ✓</string>
+    <string name="review_weight_verified">Geattesteerd ✓</string>
     <string name="review_weight_unverified">niet meegeteld</string>
     <string name="review_hide">Verbergen</string>
     <string name="review_report">Rapporteren</string>
@@ -199,7 +202,6 @@
     <string name="settings_about">Undersigned v%1$s — niet gelieerd aan Solana Mobile, Solana Foundation of enige wallet.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned leest de openbare catalogus van de dApp Store en opent vermeldingen in de store. Het installeert, update of verwijdert nooit apps.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Overslaan</string>
     <string name="intro_next">Volgende</string>
     <string name="intro_replay">Introductie herhalen</string>
@@ -239,7 +241,6 @@
     <string name="swipe_hint">Veeg een recensie naar rechts om te reageren.</string>
     <string name="profile_title">Profiel</string>
     <string name="profile_credibility">Geloofwaardigheid</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 basis, +30 voor tagovereenstemming met andere ondertekenaars, +10 voor ontvangen nuttige stemmen, +20 voor door consensus bevestigde markeringen, −50 × aandeel records verborgen door consensus. Gepubliceerde formule, er is niets aan verbonden.</string>
     <string name="profile_flags">%1$d markeringen ondertekend · %2$d bevestigd · %3$d ontvangen · %4$d records verborgen</string>
     <string name="profile_replied">Beantwoordt %1$s van de reacties op hun eigen recensies</string>
@@ -319,7 +320,7 @@
     <string name="stats_reviews_counted">Meegeteld in een score</string>
     <string name="stats_signers">Unieke ondertekenaars</string>
     <string name="stats_attested">Ondertekenaars met een geattesteerd apparaat</string>
-    <string name="stats_seeker_share">Records ondertekend op een Seeker-wallet</string>
+    <string name="stats_seeker_share">Transacties ondertekend op een Seeker-wallet</string>
     <string name="stats_apps">dApps met een ondertekende recensie</string>
     <string name="stats_apps_scored">dApps met een score</string>
     <string name="stats_replies">Reacties</string>

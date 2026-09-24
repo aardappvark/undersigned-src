@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Ancora nessuna recensione firmata</string>
     <string name="ledger_syncing">Lettura del registro…</string>
     <string name="ledger_synced">Registro: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d recensione</item><item quantity="other">%1$d recensioni</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Lettura del registro non riuscita: %1$s</string>
     <string name="catalogue_count">%1$d app nel catalogo dello store</string>
     <string name="empty_installed">Nessuna app dello store ancora installata su questo dispositivo.</string>
@@ -78,11 +78,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Risposta alla tua recensione di %1$s</string>
     <string name="alerts_title">Avvisi</string>
-    <string name="alerts_body">Ogni 6 ore questo dispositivo rilegge il registro e ti avvisa localmente su nuove recensioni firmate per le app che segui e sulle risposte alle tue recensioni. Nulla lascia il dispositivo.</string>
-    <string name="alerts_follows">%1$d app seguite</string>
+    <string name="alerts_body">In background, questo dispositivo rilegge il registro e ti avvisa localmente su nuove recensioni firmate per le app che segui e sulle risposte alle tue recensioni. Nulla lascia il dispositivo.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">%1$d app seguita</item>
+        <item quantity="other">%1$d app seguite</item>
+    </plurals>
     <string name="seeker_signed">Portafoglio Seeker</string>
     <string name="seeker_signed_hint">Questa transazione contiene le istruzioni di protezione che il portafoglio Seeker aggiunge a tutto ciò che firma, quindi è stata approvata su un Seeker con il doppio tocco. Un\'impronta, letta dalla chain.</string>
-    <string name="fact_store_cert_match">La build installata corrisponde al certificato indicato dallo store ✓</string>
+    <string name="fact_store_cert_match">La build installata corrisponde al certificato indicato dallo store ✓</string>
     <string name="fact_store_cert_mismatch">La build installata NON corrisponde al certificato indicato dallo store</string>
     <string name="fact_store_version">Codice versione dello store</string>
     <string name="publisher_title">Editore</string>
@@ -94,7 +97,7 @@
     <string name="publisher_claim_body">I lettori verificano una rivendicazione confrontandola con il sito web indicato dallo store per questa app (%1$s). Inserisci un file in %2$s contenente il tuo indirizzo del portafoglio (una riga):\n\n%3$s\n\nPoi firma la rivendicazione. La verifica è automatica e si ripete ogni 24 ore. Se il file manca, la rivendicazione resta semplicemente non verificata; non succede nient\'altro.</string>
     <string name="publisher_claim_sign">Firma la rivendicazione</string>
     <string name="publisher_claimed_pending">La tua rivendicazione è on-chain ma non ancora verificata (file non trovato sul sito web indicato).</string>
-    <string name="publisher_badge">Editore ✓</string>
+    <string name="publisher_badge">Editore ✓</string>
     <string name="versions_title">Per versione</string>
     <string name="versions_row">v%1$d · %2$s · %3$d firmate</string>
     <string name="versions_installed">installata</string>
@@ -140,7 +143,7 @@
     <string name="fact_perms_removed">Permessi rimossi: %1$s</string>
     <string name="fact_not_installed">Non installata su questo dispositivo. Installala dal dApp Store per vedere i dati del dispositivo.</string>
     <string name="reviews_title">Recensioni firmate</string>
-    <string name="review_weight_verified">Attestato ✓</string>
+    <string name="review_weight_verified">Attestato ✓</string>
     <string name="review_weight_unverified">non conteggiata</string>
     <string name="review_hide">Nascondi</string>
     <string name="review_report">Segnala</string>
@@ -207,7 +210,6 @@
     <string name="settings_about">Undersigned v%1$s — non affiliato a Solana Mobile, Solana Foundation o ad alcun portafoglio.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned legge il catalogo pubblico del dApp Store e apre le schede nello store. Non installa, aggiorna o rimuove mai le app.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Salta</string>
     <string name="intro_next">Avanti</string>
     <string name="intro_replay">Rivedi l\'introduzione</string>
@@ -247,7 +249,6 @@
     <string name="swipe_hint">Scorri una recensione verso destra per rispondere.</string>
     <string name="profile_title">Profilo</string>
     <string name="profile_credibility">Credibilità</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 di base, +30 per la concordanza dei tag con altri firmatari, +10 per i voti utili ricevuti, +20 per i flag confermati per consenso, −50 × quota di record nascosti per consenso. Formula pubblicata, nient\'altro collegato.</string>
     <string name="profile_flags">%1$d flag firmati · %2$d confermati · %3$d ricevuti · %4$d record nascosti</string>
     <string name="profile_replied">Risponde alle risposte sulle sue recensioni il %1$s delle volte</string>
@@ -327,7 +328,7 @@
     <string name="stats_reviews_counted">Conteggiate in un punteggio</string>
     <string name="stats_signers">Firmatari distinti</string>
     <string name="stats_attested">Firmatari con dispositivo attestato</string>
-    <string name="stats_seeker_share">Record firmati con un portafoglio Seeker</string>
+    <string name="stats_seeker_share">Transazioni firmate con un portafoglio Seeker</string>
     <string name="stats_apps">dApp con una recensione firmata</string>
     <string name="stats_apps_scored">dApp con un punteggio</string>
     <string name="stats_replies">Risposte</string>

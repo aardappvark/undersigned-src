@@ -42,8 +42,8 @@
     <string name="row_no_reviews">Inga signerade recensioner än</string>
     <string name="ledger_syncing">Läser liggaren…</string>
     <string name="ledger_synced">Liggare: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d recension</item><item quantity="other">%1$d recensioner</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Det gick inte att läsa liggaren: %1$s</string>
     <string name="catalogue_count">%1$d appar i butikskatalogen</string>
     <string name="empty_installed">Inga butiksappar installerade på den här enheten än.</string>
@@ -68,11 +68,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Svar på din recension av %1$s</string>
     <string name="alerts_title">Varningar</string>
-    <string name="alerts_body">Var 6:e timme läser den här enheten om liggaren och meddelar dig lokalt om nya signerade recensioner på appar du följer och svar på dina egna recensioner. Inget lämnar enheten.</string>
-    <string name="alerts_follows">Följer %1$d appar</string>
+    <string name="alerts_body">I bakgrunden läser den här enheten om liggaren och meddelar dig lokalt om nya signerade recensioner på appar du följer och svar på dina egna recensioner. Inget lämnar enheten.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">Följer %1$d app</item>
+        <item quantity="other">Följer %1$d appar</item>
+    </plurals>
     <string name="seeker_signed">Seeker-plånbok</string>
     <string name="seeker_signed_hint">Den här transaktionen bär de skyddsinstruktioner som Seeker-plånboken lägger till i allt den signerar, så den godkändes på en Seeker med dubbeltryckningen. Ett fingeravtryck, läst från kedjan.</string>
-    <string name="fact_store_cert_match">Installerad build matchar certifikatet butiken listar ✓</string>
+    <string name="fact_store_cert_match">Installerad build matchar certifikatet butiken listar ✓</string>
     <string name="fact_store_cert_mismatch">Installerad build matchar INTE certifikatet butiken listar</string>
     <string name="fact_store_version">Butikens versionskod</string>
     <string name="publisher_title">Utgivare</string>
@@ -84,7 +87,7 @@
     <string name="publisher_claim_body">Läsare verifierar ett anspråk mot webbplatsen butiken listar för den här appen (%1$s). Lägg en fil på %2$s som innehåller din plånboksadress (en rad):\n\n%3$s\n\nSignera sedan anspråket. Verifiering är automatisk och upprepas var 24:e timme. Om filen saknas förblir anspråket bara overifierat; inget annat händer.</string>
     <string name="publisher_claim_sign">Signera anspråket</string>
     <string name="publisher_claimed_pending">Ditt anspråk är on-chain men inte verifierat än (filen hittades inte på den listade webbplatsen).</string>
-    <string name="publisher_badge">Utgivare ✓</string>
+    <string name="publisher_badge">Utgivare ✓</string>
     <string name="versions_title">Efter version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signerade</string>
     <string name="versions_installed">installerad</string>
@@ -130,7 +133,7 @@
     <string name="fact_perms_removed">Behörigheter borttagna: %1$s</string>
     <string name="fact_not_installed">Inte installerad på den här enheten. Installera den från dApp Store för att se enhetsfakta.</string>
     <string name="reviews_title">Signerade recensioner</string>
-    <string name="review_weight_verified">Attesterad ✓</string>
+    <string name="review_weight_verified">Attesterad ✓</string>
     <string name="review_weight_unverified">räknas inte</string>
     <string name="review_hide">Dölj</string>
     <string name="review_report">Rapportera</string>
@@ -191,7 +194,6 @@
     <string name="settings_about">Undersigned v%1$s — inte anknutet till Solana Mobile, Solana Foundation eller någon plånbok.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned läser den offentliga dApp Store-katalogen och öppnar listningar i butiken. Den installerar, uppdaterar eller tar aldrig bort appar.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Hoppa över</string>
     <string name="intro_next">Nästa</string>
     <string name="intro_replay">Spela upp introduktionen igen</string>
@@ -231,7 +233,6 @@
     <string name="swipe_hint">Svep en recension åt höger för att svara.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Trovärdighet</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 grund, +30 för taggöverensstämmelse med andra signerare, +10 för mottagna hjälpsamma röster, +20 för flaggor som fastställts genom konsensus, −50 × andel poster dolda genom konsensus. Publicerad formel, inget är knutet till den.</string>
     <string name="profile_flags">%1$d flaggor signerade · %2$d fastställda · %3$d mottagna · %4$d poster dolda</string>
     <string name="profile_replied">Besvarar %1$s av svaren på sina egna recensioner</string>
@@ -311,7 +312,7 @@
     <string name="stats_reviews_counted">Räknas i ett betyg</string>
     <string name="stats_signers">Unika signerare</string>
     <string name="stats_attested">Signerare med en attesterad enhet</string>
-    <string name="stats_seeker_share">Poster signerade på en Seeker-plånbok</string>
+    <string name="stats_seeker_share">Transaktioner signerade på en Seeker-plånbok</string>
     <string name="stats_apps">dApps med en signerad recension</string>
     <string name="stats_apps_scored">dApps med ett betyg</string>
     <string name="stats_replies">Svar</string>

@@ -78,11 +78,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Odpowiedź na Twoją recenzję %1$s</string>
     <string name="alerts_title">Powiadomienia</string>
-    <string name="alerts_body">Co 6 godzin to urządzenie ponownie odczytuje rejestr i lokalnie powiadamia Cię o nowych podpisanych recenzjach obserwowanych aplikacji oraz odpowiedziach na Twoje recenzje. Nic nie opuszcza urządzenia.</string>
-    <string name="alerts_follows">Obserwujesz %1$d aplikacji</string>
+    <string name="alerts_body">W tle to urządzenie ponownie odczytuje rejestr i lokalnie powiadamia Cię o nowych podpisanych recenzjach obserwowanych aplikacji oraz odpowiedziach na Twoje recenzje. Nic nie opuszcza urządzenia.</string>
+    <plurals name="alerts_following"><item quantity="one">Obserwujesz %1$d aplikację</item><item quantity="few">Obserwujesz %1$d aplikacje</item><item quantity="many">Obserwujesz %1$d aplikacji</item><item quantity="other">Obserwujesz %1$d aplikacji</item></plurals>
     <string name="seeker_signed">Portfel Seeker</string>
     <string name="seeker_signed_hint">Ta transakcja zawiera instrukcje zabezpieczające, które portfel Seeker dodaje do wszystkiego, co podpisuje, więc została zatwierdzona na Seekerze podwójnym dotknięciem. Odcisk palca odczytany z łańcucha.</string>
-    <string name="fact_store_cert_match">Zainstalowana wersja pasuje do certyfikatu podanego przez sklep ✓</string>
+    <string name="fact_store_cert_match">Zainstalowana wersja pasuje do certyfikatu podanego przez sklep ✓</string>
     <string name="fact_store_cert_mismatch">Zainstalowana wersja NIE pasuje do certyfikatu podanego przez sklep</string>
     <string name="fact_store_version">Kod wersji w sklepie</string>
     <string name="publisher_title">Wydawca</string>
@@ -94,7 +94,7 @@
     <string name="publisher_claim_body">Czytelnicy weryfikują zgłoszenie względem strony internetowej podanej przez sklep dla tej aplikacji (%1$s). Umieść plik pod adresem %2$s zawierający adres Twojego portfela (jedna linia):\n\n%3$s\n\nNastępnie podpisz zgłoszenie. Weryfikacja jest automatyczna i powtarza się co 24 godziny. Jeśli plik nie zostanie znaleziony, zgłoszenie po prostu pozostaje niezweryfikowane; nic więcej się nie dzieje.</string>
     <string name="publisher_claim_sign">Podpisz zgłoszenie</string>
     <string name="publisher_claimed_pending">Twoje zgłoszenie znajduje się na blockchainie, ale nie zostało jeszcze zweryfikowane (nie znaleziono pliku na podanej stronie).</string>
-    <string name="publisher_badge">Wydawca ✓</string>
+    <string name="publisher_badge">Wydawca ✓</string>
     <string name="versions_title">Według wersji</string>
     <string name="versions_row">v%1$d · %2$s · %3$d podpisanych</string>
     <string name="versions_installed">zainstalowana</string>
@@ -140,7 +140,7 @@
     <string name="fact_perms_removed">Usunięte uprawnienia: %1$s</string>
     <string name="fact_not_installed">Nie zainstalowano na tym urządzeniu. Zainstaluj z dApp Store, aby zobaczyć fakty o urządzeniu.</string>
     <string name="reviews_title">Podpisane recenzje</string>
-    <string name="review_weight_verified">Potwierdzone ✓</string>
+    <string name="review_weight_verified">Potwierdzone ✓</string>
     <string name="review_weight_unverified">nie liczy się</string>
     <string name="review_hide">Ukryj</string>
     <string name="review_report">Zgłoś</string>
@@ -207,7 +207,6 @@
     <string name="settings_about">Undersigned v%1$s — brak powiązania z Solana Mobile, Solana Foundation ani żadnym portfelem.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned odczytuje publiczny katalog dApp Store i otwiera oferty w sklepie. Nigdy nie instaluje, nie aktualizuje ani nie usuwa aplikacji.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Pomiń</string>
     <string name="intro_next">Dalej</string>
     <string name="intro_replay">Odtwórz wprowadzenie ponownie</string>
@@ -247,7 +246,6 @@
     <string name="swipe_hint">Przesuń recenzję w prawo, aby odpowiedzieć.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Wiarygodność</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 bazy, +30 za zgodność tagów z innymi sygnatariuszami, +10 za otrzymane głosy Pomocne, +20 za oznaczenia potwierdzone konsensusem, −50 × udział wpisów ukrytych przez konsensus. Opublikowany wzór, nic z tym nie jest powiązane.</string>
     <string name="profile_flags">%1$d podpisanych oznaczeń · %2$d potwierdzonych · %3$d otrzymanych · %4$d wpisów ukrytych</string>
     <string name="profile_replied">Odpowiada na odpowiedzi do swoich recenzji w %1$s przypadków</string>
@@ -329,7 +327,7 @@
     <string name="stats_reviews_counted">Uwzględnione w wyniku</string>
     <string name="stats_signers">Unikalni sygnatariusze</string>
     <string name="stats_attested">Sygnatariusze z potwierdzonym urządzeniem</string>
-    <string name="stats_seeker_share">Wpisy podpisane portfelem Seeker</string>
+    <string name="stats_seeker_share">Transakcje podpisane portfelem Seeker</string>
     <string name="stats_apps">dApps z podpisaną recenzją</string>
     <string name="stats_apps_scored">dApps z wynikiem</string>
     <string name="stats_replies">Odpowiedzi</string>

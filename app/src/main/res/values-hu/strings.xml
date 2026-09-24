@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Még nincs aláírt értékelés</string>
     <string name="ledger_syncing">Nyilvántartás olvasása…</string>
     <string name="ledger_synced">Nyilvántartás: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d értékelés</item><item quantity="other">%1$d értékelés</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">A nyilvántartás olvasása sikertelen: %1$s</string>
     <string name="catalogue_count">%1$d alkalmazás az áruház katalógusában</string>
     <string name="empty_installed">Ezen az eszközön még nincs telepített áruházi alkalmazás.</string>
@@ -78,11 +78,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Válasz az értékelésedre: %1$s</string>
     <string name="alerts_title">Értesítések</string>
-    <string name="alerts_body">Ez az eszköz 6 óránként újraolvassa a nyilvántartást, és helyben értesít az általad követett alkalmazások új aláírt értékeléseiről, valamint a saját értékeléseidre érkezett válaszokról. Semmi sem hagyja el az eszközt.</string>
-    <string name="alerts_follows">%1$d alkalmazás követve</string>
+    <string name="alerts_body">Ez az eszköz a háttérben újraolvassa a nyilvántartást, és helyben értesít az általad követett alkalmazások új aláírt értékeléseiről, valamint a saját értékeléseidre érkezett válaszokról. Semmi sem hagyja el az eszközt.</string>
+    <plurals name="alerts_following"><item quantity="one">Követsz %1$d alkalmazást</item><item quantity="other">Követsz %1$d alkalmazást</item></plurals>
     <string name="seeker_signed">Seeker tárca</string>
     <string name="seeker_signed_hint">Ez a tranzakció tartalmazza azokat a védelmi utasításokat, amelyeket a Seeker tárca minden aláírt tranzakcióhoz hozzáad, tehát dupla koppintással, egy Seekeren hagyták jóvá. Ujjlenyomat, a láncról olvasva.</string>
-    <string name="fact_store_cert_match">A telepített build megegyezik az áruház által feltüntetett tanúsítvánnyal ✓</string>
+    <string name="fact_store_cert_match">A telepített build megegyezik az áruház által feltüntetett tanúsítvánnyal ✓</string>
     <string name="fact_store_cert_mismatch">A telepített build NEM egyezik meg az áruház által feltüntetett tanúsítvánnyal</string>
     <string name="fact_store_version">Áruházi verziókód</string>
     <string name="publisher_title">Kiadó</string>
@@ -94,7 +94,7 @@
     <string name="publisher_claim_body">Az olvasók az igénylést az áruház által ennél az alkalmazásnál feltüntetett weboldallal (%1$s) ellenőrzik. Helyezz el egy fájlt itt: %2$s, amely a tárcacímedet tartalmazza (egy sorban):\n\n%3$s\n\nEzután írd alá az igénylést. Az ellenőrzés automatikus, és 24 óránként megismétlődik. Ha a fájl hiányzik, az igénylés egyszerűen ellenőrizetlen marad; más nem történik.</string>
     <string name="publisher_claim_sign">Igénylés aláírása</string>
     <string name="publisher_claimed_pending">Az igénylésed a láncon van, de még nincs ellenőrizve (a fájl nem található a megadott weboldalon).</string>
-    <string name="publisher_badge">Kiadó ✓</string>
+    <string name="publisher_badge">Kiadó ✓</string>
     <string name="versions_title">Verziók szerint</string>
     <string name="versions_row">v%1$d · %2$s · %3$d aláírva</string>
     <string name="versions_installed">telepítve</string>
@@ -140,7 +140,7 @@
     <string name="fact_perms_removed">Eltávolított jogosultságok: %1$s</string>
     <string name="fact_not_installed">Nincs telepítve ezen az eszközön. Telepítsd a dApp Store-ból az eszközadatok megtekintéséhez.</string>
     <string name="reviews_title">Aláírt értékelések</string>
-    <string name="review_weight_verified">Hitelesítve ✓</string>
+    <string name="review_weight_verified">Hitelesítve ✓</string>
     <string name="review_weight_unverified">nem számít bele</string>
     <string name="review_hide">Elrejtés</string>
     <string name="review_report">Jelentés</string>
@@ -207,7 +207,6 @@
     <string name="settings_about">Undersigned v%1$s — nem áll kapcsolatban a Solana Mobile-lal, a Solana Foundationnel vagy semmilyen tárcával.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Az Undersigned a nyilvános dApp Store katalógust olvassa, és az áruházban nyitja meg a listázásokat. Sohasem telepít, frissít vagy távolít el alkalmazásokat.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Kihagyás</string>
     <string name="intro_next">Következő</string>
     <string name="intro_replay">Bevezető újranézése</string>
@@ -247,7 +246,6 @@
     <string name="swipe_hint">Húzd jobbra az értékelést a válaszhoz.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Hitelesség</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 alap, +30 a más aláírókkal való címke-egyezésért, +10 a kapott hasznos szavazatokért, +20 a közmegegyezéssel helybenhagyott jelölésekért, −50 × a közmegegyezéssel elrejtett bejegyzések aránya. Nyilvános képlet, semmi nincs hozzákötve.</string>
     <string name="profile_flags">%1$d jelölés aláírva · %2$d helybenhagyva · %3$d kapott · %4$d bejegyzés elrejtve</string>
     <string name="profile_replied">Az esetek %1$s részében válaszol az értékeléseire</string>
@@ -328,7 +326,7 @@
     <string name="stats_reviews_counted">Beleszámítva egy pontszámba</string>
     <string name="stats_signers">Egyedi aláírók</string>
     <string name="stats_attested">Aláírók hitelesített eszközzel</string>
-    <string name="stats_seeker_share">Seeker tárcával aláírt bejegyzések</string>
+    <string name="stats_seeker_share">Seeker tárcával aláírt tranzakciók</string>
     <string name="stats_apps">dAppok aláírt értékeléssel</string>
     <string name="stats_apps_scored">dAppok pontszámmal</string>
     <string name="stats_replies">Válaszok</string>

@@ -78,11 +78,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s की आपकी समीक्षा का जवाब</string>
     <string name="alerts_title">अलर्ट</string>
-    <string name="alerts_body">हर 6 घंटे में यह डिवाइस ledger को फिर से पढ़ता है और आपके द्वारा फ़ॉलो किए गए ऐप्स पर नई हस्ताक्षरित समीक्षाओं और आपकी अपनी समीक्षाओं के जवाबों के बारे में आपको स्थानीय रूप से सूचित करता है। कुछ भी डिवाइस से बाहर नहीं जाता।</string>
-    <string name="alerts_follows">%1$d ऐप्स फ़ॉलो किए जा रहे हैं</string>
+    <string name="alerts_body">बैकग्राउंड में यह डिवाइस ledger को फिर से पढ़ता है और आपके द्वारा फ़ॉलो किए गए ऐप्स पर नई हस्ताक्षरित समीक्षाओं और आपकी अपनी समीक्षाओं के जवाबों के बारे में आपको स्थानीय रूप से सूचित करता है। कुछ भी डिवाइस से बाहर नहीं जाता।</string>
+    <plurals name="alerts_following">
+        <item quantity="one">%1$d ऐप फ़ॉलो किया जा रहा है</item>
+        <item quantity="other">%1$d ऐप्स फ़ॉलो किए जा रहे हैं</item>
+    </plurals>
     <string name="seeker_signed">Seeker वॉलेट</string>
     <string name="seeker_signed_hint">यह लेनदेन वे गार्ड निर्देश ले जाता है जो Seeker wallet अपने द्वारा साइन की गई हर चीज़ में जोड़ता है, इसलिए इसे double-tap के साथ एक Seeker पर स्वीकृत किया गया था। एक फ़िंगरप्रिंट, chain से पढ़ा गया।</string>
-    <string name="fact_store_cert_match">इंस्टॉल किया गया बिल्ड स्टोर द्वारा सूचीबद्ध certificate से मेल खाता है ✓</string>
+    <string name="fact_store_cert_match">इंस्टॉल किया गया बिल्ड स्टोर द्वारा सूचीबद्ध certificate से मेल खाता है ✓</string>
     <string name="fact_store_cert_mismatch">इंस्टॉल किया गया बिल्ड स्टोर द्वारा सूचीबद्ध certificate से मेल नहीं खाता</string>
     <string name="fact_store_version">स्टोर वर्ज़न कोड</string>
     <string name="publisher_title">प्रकाशक</string>
@@ -94,7 +97,7 @@
     <string name="publisher_claim_body">पाठक इस ऐप के लिए स्टोर द्वारा सूचीबद्ध वेबसाइट (%1$s) के विरुद्ध दावे को सत्यापित करते हैं। %2$s पर अपना wallet पता (एक पंक्ति में) रखते हुए एक फ़ाइल रखें:\n\n%3$s\n\nफिर दावे को साइन करें। सत्यापन स्वचालित है और हर 24 घंटे में दोहराया जाता है। यदि फ़ाइल गायब है, तो दावा केवल असत्यापित रहता है; कुछ और नहीं होता।</string>
     <string name="publisher_claim_sign">दावा साइन करें</string>
     <string name="publisher_claimed_pending">आपका दावा chain पर है लेकिन अभी तक सत्यापित नहीं हुआ (सूचीबद्ध वेबसाइट पर फ़ाइल नहीं मिली)।</string>
-    <string name="publisher_badge">प्रकाशक ✓</string>
+    <string name="publisher_badge">प्रकाशक ✓</string>
     <string name="versions_title">वर्ज़न के अनुसार</string>
     <string name="versions_row">v%1$d · %2$s · %3$d हस्ताक्षरित</string>
     <string name="versions_installed">इंस्टॉल किया गया</string>
@@ -140,7 +143,7 @@
     <string name="fact_perms_removed">हटाई गई अनुमतियां: %1$s</string>
     <string name="fact_not_installed">इस डिवाइस पर इंस्टॉल नहीं है। डिवाइस की जानकारी देखने के लिए इसे dApp Store से इंस्टॉल करें।</string>
     <string name="reviews_title">हस्ताक्षरित समीक्षाएं</string>
-    <string name="review_weight_verified">प्रमाणित ✓</string>
+    <string name="review_weight_verified">प्रमाणित ✓</string>
     <string name="review_weight_unverified">गिनी नहीं गई</string>
     <string name="review_hide">छिपाएं</string>
     <string name="review_report">रिपोर्ट करें</string>
@@ -207,7 +210,6 @@
     <string name="settings_about">Undersigned v%1$s — Solana Mobile, Solana Foundation या किसी भी wallet से संबद्ध नहीं।</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned dApp Store की सार्वजनिक सूची पढ़ता है और स्टोर में लिस्टिंग खोलता है। यह कभी भी ऐप्स इंस्टॉल, अपडेट या हटाता नहीं है।</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">छोड़ें</string>
     <string name="intro_next">अगला</string>
     <string name="intro_replay">परिचय फिर से चलाएं</string>
@@ -247,7 +249,6 @@
     <string name="swipe_hint">जवाब देने के लिए किसी समीक्षा को दाईं ओर स्वाइप करें।</string>
     <string name="profile_title">प्रोफ़ाइल</string>
     <string name="profile_credibility">विश्वसनीयता</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 आधार, अन्य साइनर्स के साथ टैग सहमति के लिए +30, प्राप्त उपयोगी वोटों के लिए +10, सर्वसम्मति से बरकरार रखे गए फ़्लैग के लिए +20, सर्वसम्मति से छिपाए गए रिकॉर्ड्स के हिस्से के लिए −50 ×। प्रकाशित सूत्र, इससे कुछ भी जुड़ा नहीं।</string>
     <string name="profile_flags">%1$d फ़्लैग साइन किए · %2$d बरकरार रहे · %3$d प्राप्त हुए · %4$d रिकॉर्ड छिपाए गए</string>
     <string name="profile_replied">अपनी समीक्षाओं पर %1$s बार जवाब देते हैं</string>
@@ -327,7 +328,7 @@
     <string name="stats_reviews_counted">स्कोर में गिनी गईं</string>
     <string name="stats_signers">अलग-अलग साइनर्स</string>
     <string name="stats_attested">प्रमाणित डिवाइस वाले साइनर्स</string>
-    <string name="stats_seeker_share">Seeker wallet पर हस्ताक्षरित रिकॉर्ड्स</string>
+    <string name="stats_seeker_share">Seeker wallet पर हस्ताक्षरित लेनदेन</string>
     <string name="stats_apps">हस्ताक्षरित समीक्षा वाले dApps</string>
     <string name="stats_apps_scored">स्कोर वाले dApps</string>
     <string name="stats_replies">जवाब</string>

@@ -109,7 +109,7 @@
     <string name="stats_reviews_counted">Counted in a score</string>
     <string name="stats_signers">Distinct signers</string>
     <string name="stats_attested">Signers with an attested device</string>
-    <string name="stats_seeker_share">Records signed on a Seeker wallet</string>
+    <string name="stats_seeker_share">Transactions signed on a Seeker wallet</string>
     <string name="stats_apps">dApps with a signed review</string>
     <string name="stats_apps_scored">dApps with a score</string>
     <string name="stats_replies">Replies</string>
@@ -165,11 +165,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Reply to your review of %1$s</string>
     <string name="alerts_title">Alerts</string>
-    <string name="alerts_body">Every 6 hours this device re-reads the ledger and notifies you locally about new signed reviews on apps you follow and replies to your own reviews. Nothing leaves the device.</string>
-    <string name="alerts_follows">Following %1$d apps</string>
+    <string name="alerts_body">In the background this device re-reads the ledger and notifies you locally about new signed reviews on apps you follow and replies to your own reviews. Nothing leaves the device.</string>
+    <plurals name="alerts_following">
+        <item quantity="one">Following %1$d app</item>
+        <item quantity="other">Following %1$d apps</item>
+    </plurals>
     <string name="seeker_signed">Seeker wallet</string>
     <string name="seeker_signed_hint">This transaction carries the guard instructions the Seeker wallet adds to everything it signs, so it was approved on a Seeker with the double-tap. A fingerprint, read from the chain.</string>
-    <string name="fact_store_cert_match">Installed build matches the certificate the store lists ✓</string>
+    <string name="fact_store_cert_match">Installed build matches the certificate the store lists ✓</string>
     <string name="fact_store_cert_mismatch">Installed build does NOT match the certificate the store lists</string>
     <string name="fact_store_version">Store version code</string>
     <string name="publisher_title">Publisher</string>
@@ -181,7 +184,7 @@
     <string name="publisher_claim_body">Readers verify a claim against the website the store lists for this app (%1$s). Put a file at %2$s containing your wallet address (one line):\n\n%3$s\n\nThen sign the claim. Verification is automatic and repeats every 24 hours. If the file is missing the claim simply stays unverified; nothing else happens.</string>
     <string name="publisher_claim_sign">Sign the claim</string>
     <string name="publisher_claimed_pending">Your claim is on-chain but not verified yet (file not found on the listed website).</string>
-    <string name="publisher_badge">Publisher ✓</string>
+    <string name="publisher_badge">Publisher ✓</string>
     <string name="versions_title">By version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signed</string>
     <string name="versions_installed">installed</string>
@@ -227,7 +230,7 @@
     <string name="fact_perms_removed">Permissions removed: %1$s</string>
     <string name="fact_not_installed">Not installed on this device. Install it from the dApp Store to see device facts.</string>
     <string name="reviews_title">Signed reviews</string>
-    <string name="review_weight_verified">Attested ✓</string>
+    <string name="review_weight_verified">Attested ✓</string>
     <string name="review_weight_unverified">not counted</string>
     <string name="review_hide">Hide</string>
     <string name="review_report">Report</string>

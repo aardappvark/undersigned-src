@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Încă nicio recenzie semnată</string>
     <string name="ledger_syncing">Se citește registrul…</string>
     <string name="ledger_synced">Registru: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="few">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="few">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d recenzie</item><item quantity="few">%1$d recenzii</item><item quantity="other">%1$d de recenzii</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="few">%1$d Seeker</item><item quantity="other">%1$d de Seeker</item></plurals>
     <string name="ledger_error">Citirea registrului a eșuat: %1$s</string>
     <string name="catalogue_count">%1$d aplicații în catalogul magazinului</string>
     <string name="empty_installed">Niciun app din magazin instalat încă pe acest dispozitiv.</string>
@@ -78,11 +78,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Răspuns la recenzia ta despre %1$s</string>
     <string name="alerts_title">Alerte</string>
-    <string name="alerts_body">La fiecare 6 ore, acest dispozitiv recitește registrul și te notifică local despre recenzii noi semnate la aplicațiile pe care le urmărești și despre răspunsuri la propriile tale recenzii. Nimic nu părăsește dispozitivul.</string>
-    <string name="alerts_follows">Urmărești %1$d aplicații</string>
+    <string name="alerts_body">În fundal, acest dispozitiv recitește registrul și te notifică local despre recenzii noi semnate la aplicațiile pe care le urmărești și despre răspunsuri la propriile tale recenzii. Nimic nu părăsește dispozitivul.</string>
+    <plurals name="alerts_following"><item quantity="one">Urmărești %1$d aplicație</item><item quantity="few">Urmărești %1$d aplicații</item><item quantity="other">Urmărești %1$d de aplicații</item></plurals>
     <string name="seeker_signed">Portofel Seeker</string>
     <string name="seeker_signed_hint">Această tranzacție conține instrucțiunile de protecție pe care portofelul Seeker le adaugă la tot ce semnează, deci a fost aprobată pe un Seeker prin dubla atingere. O amprentă, citită din blockchain.</string>
-    <string name="fact_store_cert_match">Versiunea instalată corespunde certificatului listat de magazin ✓</string>
+    <string name="fact_store_cert_match">Versiunea instalată corespunde certificatului listat de magazin ✓</string>
     <string name="fact_store_cert_mismatch">Versiunea instalată NU corespunde certificatului listat de magazin</string>
     <string name="fact_store_version">Codul versiunii din magazin</string>
     <string name="publisher_title">Editor</string>
@@ -94,7 +94,7 @@
     <string name="publisher_claim_body">Cititorii verifică o revendicare comparând-o cu site-ul pe care magazinul îl listează pentru această aplicație (%1$s). Pune un fișier la %2$s care conține adresa portofelului tău (o singură linie):\n\n%3$s\n\nApoi semnează revendicarea. Verificarea este automată și se repetă la fiecare 24 de ore. Dacă fișierul lipsește, revendicarea rămâne pur și simplu neverificată; nu se mai întâmplă nimic altceva.</string>
     <string name="publisher_claim_sign">Semnează revendicarea</string>
     <string name="publisher_claimed_pending">Revendicarea ta este pe blockchain, dar încă neverificată (fișierul nu a fost găsit pe site-ul listat).</string>
-    <string name="publisher_badge">Editor ✓</string>
+    <string name="publisher_badge">Editor ✓</string>
     <string name="versions_title">După versiune</string>
     <string name="versions_row">v%1$d · %2$s · %3$d semnate</string>
     <string name="versions_installed">instalată</string>
@@ -140,7 +140,7 @@
     <string name="fact_perms_removed">Permisiuni eliminate: %1$s</string>
     <string name="fact_not_installed">Neinstalată pe acest dispozitiv. Instaleaz-o din dApp Store pentru a vedea faptele despre dispozitiv.</string>
     <string name="reviews_title">Recenzii semnate</string>
-    <string name="review_weight_verified">Atestat ✓</string>
+    <string name="review_weight_verified">Atestat ✓</string>
     <string name="review_weight_unverified">nu este numărată</string>
     <string name="review_hide">Ascunde</string>
     <string name="review_report">Raportează</string>
@@ -207,7 +207,6 @@
     <string name="settings_about">Undersigned v%1$s — fără afiliere cu Solana Mobile, Solana Foundation sau vreun portofel.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned citește catalogul public al dApp Store și deschide listările în magazin. Nu instalează, actualizează sau elimină niciodată aplicații.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Omite</string>
     <string name="intro_next">Următorul</string>
     <string name="intro_replay">Rulează din nou introducerea</string>
@@ -247,7 +246,6 @@
     <string name="swipe_hint">Glisează o recenzie spre dreapta pentru a răspunde.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Credibilitate</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 bază, +30 pentru concordanța etichetelor cu alți semnatari, +10 pentru voturile utile primite, +20 pentru semnalările confirmate prin consens, −50 × ponderea înregistrărilor ascunse prin consens. Formulă publicată, nimic atașat de ea.</string>
     <string name="profile_flags">%1$d semnalări semnate · %2$d confirmate · %3$d primite · %4$d înregistrări ascunse</string>
     <string name="profile_replied">Răspunde la recenziile sale în %1$s din timp</string>
@@ -328,7 +326,7 @@
     <string name="stats_reviews_counted">Numărate într-un scor</string>
     <string name="stats_signers">Semnatari distincți</string>
     <string name="stats_attested">Semnatari cu dispozitiv atestat</string>
-    <string name="stats_seeker_share">Înregistrări semnate cu un portofel Seeker</string>
+    <string name="stats_seeker_share">Tranzacții semnate cu un portofel Seeker</string>
     <string name="stats_apps">dApp-uri cu recenzie semnată</string>
     <string name="stats_apps_scored">dApp-uri cu scor</string>
     <string name="stats_replies">Răspunsuri</string>

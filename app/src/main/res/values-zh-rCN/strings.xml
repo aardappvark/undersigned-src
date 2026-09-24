@@ -78,11 +78,13 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">对您关于 %1$s 的评价的回复</string>
     <string name="alerts_title">提醒</string>
-    <string name="alerts_body">此设备每 6 小时重新读取一次账本,并在本地通知您所关注应用的新签名评价,以及对您自己评价的回复。任何内容都不会离开设备。</string>
-    <string name="alerts_follows">正在关注 %1$d 个应用</string>
+    <string name="alerts_body">此设备在后台重新读取账本,并在本地通知您所关注应用的新签名评价,以及对您自己评价的回复。任何内容都不会离开设备。</string>
+    <plurals name="alerts_following">
+        <item quantity="other">已关注 %1$d 个应用</item>
+    </plurals>
     <string name="seeker_signed">Seeker 钱包</string>
     <string name="seeker_signed_hint">此交易带有 Seeker 钱包为其签名的每笔交易所添加的保护指令,因此它是在 Seeker 上通过双击确认批准的。这是从链上读取的一枚指纹。</string>
-    <string name="fact_store_cert_match">已安装版本与商店列出的证书一致 ✓</string>
+    <string name="fact_store_cert_match">已安装版本与商店列出的证书一致 ✓</string>
     <string name="fact_store_cert_mismatch">已安装版本与商店列出的证书不一致</string>
     <string name="fact_store_version">商店版本号</string>
     <string name="publisher_title">发布者</string>
@@ -94,7 +96,7 @@
     <string name="publisher_claim_body">读者会将认领信息与商店为此应用列出的网站(%1$s)进行核对。请在 %2$s 处放置一个文件,内容为您的钱包地址(一行):\n\n%3$s\n\n然后签名提交认领。验证是自动进行的,每 24 小时重复一次。如果文件缺失,认领只会保持未验证状态;不会发生其他任何事。</string>
     <string name="publisher_claim_sign">签名提交认领</string>
     <string name="publisher_claimed_pending">您的认领已上链,但尚未验证(在列出的网站上未找到该文件)。</string>
-    <string name="publisher_badge">发布者 ✓</string>
+    <string name="publisher_badge">发布者 ✓</string>
     <string name="versions_title">按版本</string>
     <string name="versions_row">v%1$d · %2$s · %3$d 条签名</string>
     <string name="versions_installed">已安装</string>
@@ -140,7 +142,7 @@
     <string name="fact_perms_removed">移除权限:%1$s</string>
     <string name="fact_not_installed">此设备上未安装。请从 dApp Store 安装以查看设备信息。</string>
     <string name="reviews_title">签名评价</string>
-    <string name="review_weight_verified">已认证 ✓</string>
+    <string name="review_weight_verified">已认证 ✓</string>
     <string name="review_weight_unverified">未计入</string>
     <string name="review_hide">隐藏</string>
     <string name="review_report">举报</string>
@@ -207,7 +209,6 @@
     <string name="settings_about">Undersigned v%1$s——与 Solana Mobile、Solana Foundation 或任何钱包均无关联。</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned 读取公开的 dApp Store 目录,并在商店中打开应用页面。它绝不会安装、更新或移除任何应用。</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">跳过</string>
     <string name="intro_next">下一步</string>
     <string name="intro_replay">重新播放介绍</string>
@@ -247,7 +248,6 @@
     <string name="swipe_hint">向右滑动评价即可回复。</string>
     <string name="profile_title">个人主页</string>
     <string name="profile_credibility">信誉度</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">基础分 40,与其他签名者标签一致 +30,收到有用投票 +10,标记被共识采纳 +20,记录被共识隐藏的比例 ×(−50)。公开的计算公式,不附带任何东西。</string>
     <string name="profile_flags">已签署 %1$d 条标记 · %2$d 条被采纳 · %3$d 条收到 · %4$d 条记录被隐藏</string>
     <string name="profile_replied">对自己评价的回复率为 %1$s</string>
@@ -327,7 +327,7 @@
     <string name="stats_reviews_counted">计入评分的数量</string>
     <string name="stats_signers">不同签名者数</string>
     <string name="stats_attested">拥有已认证设备的签名者</string>
-    <string name="stats_seeker_share">在 Seeker 钱包上签名的记录</string>
+    <string name="stats_seeker_share">在 Seeker 钱包上签名的交易</string>
     <string name="stats_apps">拥有签名评价的 dApp</string>
     <string name="stats_apps_scored">拥有评分的 dApp</string>
     <string name="stats_replies">回复数</string>

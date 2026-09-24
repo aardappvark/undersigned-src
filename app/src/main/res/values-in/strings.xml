@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Belum ada ulasan yang ditandatangani</string>
     <string name="ledger_syncing">Membaca buku besar…</string>
     <string name="ledger_synced">Buku besar: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d ulasan</item><item quantity="other">%1$d ulasan</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Gagal membaca buku besar: %1$s</string>
     <string name="catalogue_count">%1$d aplikasi dalam katalog toko</string>
     <string name="empty_installed">Belum ada aplikasi toko yang terpasang di perangkat ini.</string>
@@ -78,11 +78,13 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Balasan untuk ulasan Anda tentang %1$s</string>
     <string name="alerts_title">Peringatan</string>
-    <string name="alerts_body">Setiap 6 jam perangkat ini membaca ulang buku besar dan memberi tahu Anda secara lokal tentang ulasan baru yang ditandatangani pada aplikasi yang Anda ikuti serta balasan untuk ulasan Anda sendiri. Tidak ada yang meninggalkan perangkat.</string>
-    <string name="alerts_follows">Mengikuti %1$d aplikasi</string>
+    <string name="alerts_body">Di latar belakang, perangkat ini membaca ulang buku besar dan memberi tahu Anda secara lokal tentang ulasan baru yang ditandatangani pada aplikasi yang Anda ikuti serta balasan untuk ulasan Anda sendiri. Tidak ada yang meninggalkan perangkat.</string>
+    <plurals name="alerts_following">
+        <item quantity="other">Mengikuti %1$d aplikasi</item>
+    </plurals>
     <string name="seeker_signed">Dompet Seeker</string>
     <string name="seeker_signed_hint">Transaksi ini membawa instruksi pengaman yang ditambahkan dompet Seeker ke semua yang ditandatanganinya, sehingga transaksi ini disetujui di Seeker dengan double-tap. Sidik jari, dibaca dari chain.</string>
-    <string name="fact_store_cert_match">Build yang terpasang cocok dengan sertifikat yang dicantumkan toko ✓</string>
+    <string name="fact_store_cert_match">Build yang terpasang cocok dengan sertifikat yang dicantumkan toko ✓</string>
     <string name="fact_store_cert_mismatch">Build yang terpasang TIDAK cocok dengan sertifikat yang dicantumkan toko</string>
     <string name="fact_store_version">Kode versi toko</string>
     <string name="publisher_title">Penerbit</string>
@@ -94,7 +96,7 @@
     <string name="publisher_claim_body">Pembaca memverifikasi klaim terhadap situs web yang dicantumkan toko untuk aplikasi ini (%1$s). Letakkan file di %2$s yang berisi alamat dompet Anda (satu baris):\n\n%3$s\n\nKemudian tandatangani klaim tersebut. Verifikasi bersifat otomatis dan berulang setiap 24 jam. Jika file tidak ditemukan, klaim hanya tetap belum terverifikasi; tidak ada hal lain yang terjadi.</string>
     <string name="publisher_claim_sign">Tandatangani klaim</string>
     <string name="publisher_claimed_pending">Klaim Anda sudah on-chain tetapi belum diverifikasi (file tidak ditemukan di situs web yang tercantum).</string>
-    <string name="publisher_badge">Penerbit ✓</string>
+    <string name="publisher_badge">Penerbit ✓</string>
     <string name="versions_title">Berdasarkan versi</string>
     <string name="versions_row">v%1$d · %2$s · %3$d ditandatangani</string>
     <string name="versions_installed">terpasang</string>
@@ -140,7 +142,7 @@
     <string name="fact_perms_removed">Izin dihapus: %1$s</string>
     <string name="fact_not_installed">Tidak terpasang di perangkat ini. Instal dari dApp Store untuk melihat fakta perangkat.</string>
     <string name="reviews_title">Ulasan yang ditandatangani</string>
-    <string name="review_weight_verified">Terverifikasi ✓</string>
+    <string name="review_weight_verified">Terverifikasi ✓</string>
     <string name="review_weight_unverified">tidak dihitung</string>
     <string name="review_hide">Sembunyikan</string>
     <string name="review_report">Laporkan</string>
@@ -207,7 +209,6 @@
     <string name="settings_about">Undersigned v%1$s — tidak berafiliasi dengan Solana Mobile, Solana Foundation, atau dompet mana pun.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned membaca katalog publik dApp Store dan membuka listingan di toko. Aplikasi ini tidak pernah menginstal, memperbarui, atau menghapus aplikasi.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Lewati</string>
     <string name="intro_next">Berikutnya</string>
     <string name="intro_replay">Putar ulang perkenalan</string>
@@ -247,7 +248,6 @@
     <string name="swipe_hint">Geser ulasan ke kanan untuk membalas.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Kredibilitas</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">Dasar 40, +30 untuk kesesuaian tag dengan penandatangan lain, +10 untuk suara bermanfaat yang diterima, +20 untuk tanda yang ditegakkan oleh konsensus, −50 × bagian catatan yang disembunyikan oleh konsensus. Rumus yang dipublikasikan, tidak ada yang melekat padanya.</string>
     <string name="profile_flags">%1$d tanda ditandatangani · %2$d ditegakkan · %3$d diterima · %4$d catatan disembunyikan</string>
     <string name="profile_replied">Menjawab balasan pada ulasan mereka %1$s dari waktu</string>
@@ -327,7 +327,7 @@
     <string name="stats_reviews_counted">Dihitung dalam skor</string>
     <string name="stats_signers">Penandatangan unik</string>
     <string name="stats_attested">Penandatangan dengan perangkat terverifikasi</string>
-    <string name="stats_seeker_share">Catatan yang ditandatangani di dompet Seeker</string>
+    <string name="stats_seeker_share">Transaksi yang ditandatangani di dompet Seeker</string>
     <string name="stats_apps">dApp dengan ulasan yang ditandatangani</string>
     <string name="stats_apps_scored">dApp dengan skor</string>
     <string name="stats_replies">Balasan</string>

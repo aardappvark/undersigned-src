@@ -73,11 +73,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Odpověď na vaši recenzi aplikace %1$s</string>
     <string name="alerts_title">Upozornění</string>
-    <string name="alerts_body">Každých 6 hodin toto zařízení znovu přečte evidenci a lokálně vás upozorní na nové podepsané recenze aplikací, které sledujete, a na odpovědi na vaše vlastní recenze. Nic neopouští zařízení.</string>
-    <string name="alerts_follows">Sledováno aplikací: %1$d</string>
+    <string name="alerts_body">Na pozadí toto zařízení znovu přečte evidenci a lokálně vás upozorní na nové podepsané recenze aplikací, které sledujete, a na odpovědi na vaše vlastní recenze. Nic neopouští zařízení.</string>
+    <plurals name="alerts_following"><item quantity="one">Sledujete %1$d aplikaci</item><item quantity="few">Sledujete %1$d aplikace</item><item quantity="many">Sledujete %1$d aplikace</item><item quantity="other">Sledujete %1$d aplikací</item></plurals>
     <string name="seeker_signed">Peněženka Seeker</string>
     <string name="seeker_signed_hint">Tato transakce nese ochranné instrukce, které peněženka Seeker přidává ke všemu, co podepíše, takže byla schválena na zařízení Seeker dvojitým klepnutím. Otisk, přečtený z blockchainu.</string>
-    <string name="fact_store_cert_match">Nainstalovaná verze odpovídá certifikátu uvedenému obchodem ✓</string>
+    <string name="fact_store_cert_match">Nainstalovaná verze odpovídá certifikátu uvedenému obchodem ✓</string>
     <string name="fact_store_cert_mismatch">Nainstalovaná verze NEODPOVÍDÁ certifikátu uvedenému obchodem</string>
     <string name="fact_store_version">Kód verze v obchodě</string>
     <string name="publisher_title">Vydavatel</string>
@@ -89,7 +89,7 @@
     <string name="publisher_claim_body">Čtenáři ověřují nárok proti webu, který obchod pro tuto aplikaci uvádí (%1$s). Umístěte na %2$s soubor obsahující adresu vaší peněženky (jeden řádek):\n\n%3$s\n\nPoté nárok podepište. Ověření je automatické a opakuje se každých 24 hodin. Pokud soubor chybí, nárok jednoduše zůstane neověřený; nic jiného se nestane.</string>
     <string name="publisher_claim_sign">Podepsat nárok</string>
     <string name="publisher_claimed_pending">Váš nárok je na blockchainu, ale zatím není ověřený (soubor nebyl na uvedeném webu nalezen).</string>
-    <string name="publisher_badge">Vydavatel ✓</string>
+    <string name="publisher_badge">Vydavatel ✓</string>
     <string name="versions_title">Podle verze</string>
     <string name="versions_row">v%1$d · %2$s · %3$d podepsáno</string>
     <string name="versions_installed">nainstalováno</string>
@@ -135,7 +135,7 @@
     <string name="fact_perms_removed">Odebraná oprávnění: %1$s</string>
     <string name="fact_not_installed">Na tomto zařízení není nainstalováno. Nainstalujte ji z dApp Store, abyste viděli údaje o zařízení.</string>
     <string name="reviews_title">Podepsané recenze</string>
-    <string name="review_weight_verified">Ověřeno ✓</string>
+    <string name="review_weight_verified">Ověřeno ✓</string>
     <string name="review_weight_unverified">nezapočítáno</string>
     <string name="review_hide">Skrýt</string>
     <string name="review_report">Nahlásit</string>
@@ -199,7 +199,6 @@
     <string name="settings_about">Undersigned v%1$s — není spojeno se Solana Mobile, Solana Foundation ani žádnou peněženkou.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned čte veřejný katalog dApp Store a otevírá záznamy v obchodě. Nikdy neinstaluje, neaktualizuje ani neodstraňuje aplikace.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Přeskočit</string>
     <string name="intro_next">Další</string>
     <string name="intro_replay">Přehrát úvod znovu</string>
@@ -239,7 +238,6 @@
     <string name="swipe_hint">Přejetím recenze doprava odpovíte.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Důvěryhodnost</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 základ, +30 za shodu štítků s ostatními signatáři, +10 za obdržené hlasy Užitečné, +20 za označení potvrzená konsensem, −50 × podíl záznamů skrytých konsensem. Zveřejněný vzorec, nic k tomu není připojeno.</string>
     <string name="profile_flags">%1$d podepsaných označení · %2$d potvrzeno · %3$d obdrženo · %4$d záznamů skryto</string>
     <string name="profile_replied">Odpovídá na odpovědi ke svým recenzím v %1$s případů</string>
@@ -321,7 +319,7 @@
     <string name="stats_reviews_counted">Započítáno do skóre</string>
     <string name="stats_signers">Jedineční signatáři</string>
     <string name="stats_attested">Signatáři s ověřeným zařízením</string>
-    <string name="stats_seeker_share">Záznamy podepsané peněženkou Seeker</string>
+    <string name="stats_seeker_share">Transakce podepsané peněženkou Seeker</string>
     <string name="stats_apps">dApps s podepsanou recenzí</string>
     <string name="stats_apps_scored">dApps se skóre</string>
     <string name="stats_replies">Odpovědi</string>

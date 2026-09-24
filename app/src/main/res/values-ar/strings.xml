@@ -73,11 +73,18 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">رد على مراجعتك لـ %1$s</string>
     <string name="alerts_title">التنبيهات</string>
-    <string name="alerts_body">كل 6 ساعات يعيد هذا الجهاز قراءة السجل ويُشعرك محليًا بالمراجعات الموقّعة الجديدة على التطبيقات التي تتابعها وبالردود على مراجعاتك. لا شيء يغادر الجهاز.</string>
-    <string name="alerts_follows">متابعة %1$d تطبيقًا</string>
+    <string name="alerts_body">في الخلفية، يعيد هذا الجهاز قراءة السجل ويُشعرك محليًا بالمراجعات الموقّعة الجديدة على التطبيقات التي تتابعها وبالردود على مراجعاتك. لا شيء يغادر الجهاز.</string>
+    <plurals name="alerts_following">
+        <item quantity="zero">متابعة %1$d تطبيق</item>
+        <item quantity="one">متابعة %1$d تطبيق</item>
+        <item quantity="two">متابعة %1$d تطبيقين</item>
+        <item quantity="few">متابعة %1$d تطبيقات</item>
+        <item quantity="many">متابعة %1$d تطبيقًا</item>
+        <item quantity="other">متابعة %1$d تطبيقًا</item>
+    </plurals>
     <string name="seeker_signed">محفظة Seeker</string>
     <string name="seeker_signed_hint">تحمل هذه المعاملة تعليمات الحماية التي تضيفها محفظة Seeker إلى كل ما توقّعه، لذا فقد تمت الموافقة عليها على جهاز Seeker بالنقر المزدوج. بصمة، مقروءة من السلسلة.</string>
-    <string name="fact_store_cert_match">البنية المثبتة تطابق الشهادة التي يدرجها المتجر ✓</string>
+    <string name="fact_store_cert_match">البنية المثبتة تطابق الشهادة التي يدرجها المتجر ✓</string>
     <string name="fact_store_cert_mismatch">البنية المثبتة لا تطابق الشهادة التي يدرجها المتجر</string>
     <string name="fact_store_version">رمز إصدار المتجر</string>
     <string name="publisher_title">الناشر</string>
@@ -89,7 +96,7 @@
     <string name="publisher_claim_body">يتحقق القراء من المطالبة مقابل الموقع الذي يدرجه المتجر لهذا التطبيق (%1$s). ضع ملفًا في %2$s يحتوي على عنوان محفظتك (سطر واحد):\n\n%3$s\n\nثم وقّع المطالبة. التحقق تلقائي ويتكرر كل 24 ساعة. إذا كان الملف مفقودًا فستبقى المطالبة غير موثّقة فحسب؛ لن يحدث شيء آخر.</string>
     <string name="publisher_claim_sign">توقيع المطالبة</string>
     <string name="publisher_claimed_pending">مطالبتك موجودة على السلسلة لكنها غير موثّقة بعد (لم يُعثر على الملف في الموقع المدرج).</string>
-    <string name="publisher_badge">ناشر ✓</string>
+    <string name="publisher_badge">ناشر ✓</string>
     <string name="versions_title">حسب الإصدار</string>
     <string name="versions_row">الإصدار %1$d · %2$s · %3$d موقّعة</string>
     <string name="versions_installed">مثبَّت</string>
@@ -135,7 +142,7 @@
     <string name="fact_perms_removed">أذونات مُزالة: %1$s</string>
     <string name="fact_not_installed">غير مثبَّت على هذا الجهاز. ثبّته من dApp Store لرؤية حقائق الجهاز.</string>
     <string name="reviews_title">المراجعات الموقّعة</string>
-    <string name="review_weight_verified">مصادق ✓</string>
+    <string name="review_weight_verified">مصادق ✓</string>
     <string name="review_weight_unverified">غير محتسبة</string>
     <string name="review_hide">إخفاء</string>
     <string name="review_report">إبلاغ</string>
@@ -199,7 +206,6 @@
     <string name="settings_about">Undersigned الإصدار %1$s — غير تابع لـ Solana Mobile أو Solana Foundation أو أي محفظة.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">يقرأ Undersigned كتالوج dApp Store العام ويفتح القوائم في المتجر. لا يقوم أبدًا بالتثبيت أو التحديث أو إزالة التطبيقات.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">تخطي</string>
     <string name="intro_next">التالي</string>
     <string name="intro_replay">إعادة عرض المقدمة</string>
@@ -239,7 +245,6 @@
     <string name="swipe_hint">اسحب المراجعة يمينًا للرد.</string>
     <string name="profile_title">الملف الشخصي</string>
     <string name="profile_credibility">المصداقية</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 أساس، +30 لاتفاق الوسم مع الموقّعين الآخرين، +10 لأصوات الإفادة المستلَمة، +20 للإشارات التي أيّدها الإجماع، −50 × نسبة السجلات المخفية بالإجماع. صيغة منشورة، لا شيء مرتبط بها.</string>
     <string name="profile_flags">%1$d إشارة موقَّعة · %2$d أُيِّدت · %3$d مستلَمة · %4$d سجل مخفي</string>
     <string name="profile_replied">يجيب عن الردود على مراجعاته %1$s من الوقت</string>
@@ -319,7 +324,7 @@
     <string name="stats_reviews_counted">محتسبة في تقييم</string>
     <string name="stats_signers">موقّعون فريدون</string>
     <string name="stats_attested">موقّعون بجهاز مصادق</string>
-    <string name="stats_seeker_share">سجلات موقَّعة بمحفظة Seeker</string>
+    <string name="stats_seeker_share">معاملات موقَّعة بمحفظة Seeker</string>
     <string name="stats_apps">تطبيقات بمراجعة موقّعة</string>
     <string name="stats_apps_scored">تطبيقات بتقييم</string>
     <string name="stats_replies">الردود</string>

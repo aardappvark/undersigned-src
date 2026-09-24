@@ -78,11 +78,14 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s پر آپ کے جائزے کا جواب</string>
     <string name="alerts_title">الرٹس</string>
-    <string name="alerts_body">یہ آلہ ہر 6 گھنٹے بعد لیجر دوبارہ پڑھتا ہے اور آپ کو مقامی طور پر ان ایپس پر نئے دستخط شدہ جائزوں اور آپ کے اپنے جائزوں کے جوابات کے بارے میں مطلع کرتا ہے جنہیں آپ فالو کرتے ہیں۔ کچھ بھی آلے سے باہر نہیں جاتا۔</string>
-    <string name="alerts_follows">%1$d ایپس فالو کی جا رہی ہیں</string>
+    <string name="alerts_body">یہ آلہ بیک گراؤنڈ میں لیجر دوبارہ پڑھتا ہے اور آپ کو مقامی طور پر ان ایپس پر نئے دستخط شدہ جائزوں اور آپ کے اپنے جائزوں کے جوابات کے بارے میں مطلع کرتا ہے جنہیں آپ فالو کرتے ہیں۔ کچھ بھی آلے سے باہر نہیں جاتا۔</string>
+    <plurals name="alerts_following">
+        <item quantity="one">%1$d ایپ فالو کی جا رہی ہے</item>
+        <item quantity="other">%1$d ایپس فالو کی جا رہی ہیں</item>
+    </plurals>
     <string name="seeker_signed">Seeker والٹ</string>
     <string name="seeker_signed_hint">اس ٹرانزیکشن میں وہ گارڈ ہدایات شامل ہیں جو Seeker والٹ ہر اس چیز میں شامل کرتا ہے جسے وہ سائن کرتا ہے، اس لیے اسے ڈبل ٹیپ کے ساتھ Seeker پر منظور کیا گیا تھا۔ چین سے پڑھا گیا ایک فنگر پرنٹ۔</string>
-    <string name="fact_store_cert_match">نصب شدہ بلڈ اسٹور کے درج کردہ سرٹیفکیٹ سے مماثل ہے ✓</string>
+    <string name="fact_store_cert_match">نصب شدہ بلڈ اسٹور کے درج کردہ سرٹیفکیٹ سے مماثل ہے ✓</string>
     <string name="fact_store_cert_mismatch">نصب شدہ بلڈ اسٹور کے درج کردہ سرٹیفکیٹ سے مماثل نہیں ہے</string>
     <string name="fact_store_version">اسٹور ورژن کوڈ</string>
     <string name="publisher_title">پبلشر</string>
@@ -94,7 +97,7 @@
     <string name="publisher_claim_body">قارئین دعوے کی تصدیق اس ویب سائٹ کے خلاف کرتے ہیں جو اسٹور اس ایپ کے لیے درج کرتا ہے (%1$s)۔ %2$s پر اپنے والٹ ایڈریس پر مشتمل ایک فائل رکھیں (ایک سطر):\n\n%3$s\n\nپھر دعوے پر دستخط کریں۔ تصدیق خودکار ہے اور ہر 24 گھنٹے بعد دہرائی جاتی ہے۔ اگر فائل موجود نہیں تو دعویٰ محض غیر تصدیق شدہ رہتا ہے؛ اور کچھ نہیں ہوتا۔</string>
     <string name="publisher_claim_sign">دعوے پر دستخط کریں</string>
     <string name="publisher_claimed_pending">آپ کا دعویٰ چین پر موجود ہے لیکن ابھی تک تصدیق شدہ نہیں (فائل درج شدہ ویب سائٹ پر نہیں ملی)۔</string>
-    <string name="publisher_badge">پبلشر ✓</string>
+    <string name="publisher_badge">پبلشر ✓</string>
     <string name="versions_title">ورژن کے حساب سے</string>
     <string name="versions_row">v%1$d · %2$s · %3$d دستخط شدہ</string>
     <string name="versions_installed">نصب شدہ</string>
@@ -140,7 +143,7 @@
     <string name="fact_perms_removed">ہٹائی گئی اجازتیں: %1$s</string>
     <string name="fact_not_installed">اس آلے پر نصب نہیں۔ آلے کے حقائق دیکھنے کے لیے اسے dApp Store سے نصب کریں۔</string>
     <string name="reviews_title">دستخط شدہ جائزے</string>
-    <string name="review_weight_verified">تصدیق شدہ ✓</string>
+    <string name="review_weight_verified">تصدیق شدہ ✓</string>
     <string name="review_weight_unverified">شمار نہیں</string>
     <string name="review_hide">چھپائیں</string>
     <string name="review_report">رپورٹ کریں</string>
@@ -207,7 +210,6 @@
     <string name="settings_about">Undersigned v%1$s — Solana Mobile، Solana Foundation یا کسی بھی والٹ سے وابستہ نہیں۔</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned عوامی dApp Store کیٹلاگ پڑھتا ہے اور فہرستیں اسٹور میں کھولتا ہے۔ یہ کبھی ایپس نصب، اپ ڈیٹ یا حذف نہیں کرتا۔</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">چھوڑیں</string>
     <string name="intro_next">اگلا</string>
     <string name="intro_replay">تعارف دوبارہ دیکھیں</string>
@@ -247,7 +249,6 @@
     <string name="swipe_hint">جواب دینے کے لیے جائزے کو دائیں طرف سوائپ کریں۔</string>
     <string name="profile_title">پروفائل</string>
     <string name="profile_credibility">ساکھ</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">بنیادی 40، دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت پر +30، موصولہ مددگار ووٹوں پر +10، اتفاق رائے سے برقرار رکھی گئی نشان زدگیوں پر +20، اتفاق رائے سے چھپائے گئے ریکارڈز کے تناسب پر −50×۔ شائع شدہ فارمولا، اس کے ساتھ کچھ منسلک نہیں۔</string>
     <string name="profile_flags">%1$d نشان زدگیاں دستخط شدہ · %2$d برقرار · %3$d موصولہ · %4$d ریکارڈز چھپائے گئے</string>
     <string name="profile_replied">اپنے جائزوں کے جوابات %1$s وقت میں دیتے ہیں</string>
@@ -327,7 +328,7 @@
     <string name="stats_reviews_counted">اسکور میں شمار</string>
     <string name="stats_signers">منفرد دستخط کنندگان</string>
     <string name="stats_attested">تصدیق شدہ آلے کے حامل دستخط کنندگان</string>
-    <string name="stats_seeker_share">Seeker والٹ پر دستخط شدہ ریکارڈز</string>
+    <string name="stats_seeker_share">Seeker والٹ پر دستخط شدہ ٹرانزیکشنز</string>
     <string name="stats_apps">دستخط شدہ جائزے کے حامل dApps</string>
     <string name="stats_apps_scored">اسکور کے حامل dApps</string>
     <string name="stats_replies">جوابات</string>

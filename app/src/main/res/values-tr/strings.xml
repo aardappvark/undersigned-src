@@ -50,8 +50,8 @@
     <string name="row_no_reviews">Henüz imzalı inceleme yok</string>
     <string name="ledger_syncing">Defter okunuyor…</string>
     <string name="ledger_synced">Defter: %1$s · %2$s</string>
-    <plurals name="ledger_reviews"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
-    <plurals name="ledger_seekers"><item quantity="one">%1$d</item><item quantity="other">%1$d</item></plurals>
+    <plurals name="ledger_reviews"><item quantity="one">%1$d inceleme</item><item quantity="other">%1$d inceleme</item></plurals>
+    <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Defter okunamadı: %1$s</string>
     <string name="catalogue_count">Mağaza kataloğunda %1$d uygulama</string>
     <string name="empty_installed">Bu cihazda henüz yüklü mağaza uygulaması yok.</string>
@@ -78,11 +78,11 @@
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s incelemenize yanıt</string>
     <string name="alerts_title">Uyarılar</string>
-    <string name="alerts_body">Bu cihaz her 6 saatte bir defteri yeniden okur ve takip ettiğiniz uygulamalardaki yeni imzalı incelemeler ile kendi incelemelerinize gelen yanıtlar hakkında sizi yerel olarak bilgilendirir. Hiçbir şey cihazdan çıkmaz.</string>
-    <string name="alerts_follows">%1$d uygulama takip ediliyor</string>
+    <string name="alerts_body">Bu cihaz arka planda defteri yeniden okur ve takip ettiğiniz uygulamalardaki yeni imzalı incelemeler ile kendi incelemelerinize gelen yanıtlar hakkında sizi yerel olarak bilgilendirir. Hiçbir şey cihazdan çıkmaz.</string>
+    <plurals name="alerts_following"><item quantity="one">%1$d uygulamayı takip ediyorsunuz</item><item quantity="other">%1$d uygulamayı takip ediyorsunuz</item></plurals>
     <string name="seeker_signed">Seeker cüzdanı</string>
     <string name="seeker_signed_hint">Bu işlem, Seeker cüzdanının imzaladığı her şeye eklediği koruma talimatlarını taşır, yani çift dokunuşla bir Seeker üzerinde onaylanmıştır. Zincirden okunan bir parmak izi.</string>
-    <string name="fact_store_cert_match">Yüklü sürüm, mağazanın listelediği sertifikayla eşleşiyor ✓</string>
+    <string name="fact_store_cert_match">Yüklü sürüm, mağazanın listelediği sertifikayla eşleşiyor ✓</string>
     <string name="fact_store_cert_mismatch">Yüklü sürüm, mağazanın listelediği sertifikayla EŞLEŞMİYOR</string>
     <string name="fact_store_version">Mağaza sürüm kodu</string>
     <string name="publisher_title">Yayıncı</string>
@@ -94,7 +94,7 @@
     <string name="publisher_claim_body">Okuyucular, bir talebi mağazanın bu uygulama için listelediği web sitesine (%1$s) göre doğrular. %2$s adresine cüzdan adresinizi içeren bir dosya koyun (tek satır):\n\n%3$s\n\nArdından talebi imzalayın. Doğrulama otomatiktir ve her 24 saatte bir tekrarlanır. Dosya bulunamazsa talep yalnızca doğrulanmamış kalır; başka bir şey olmaz.</string>
     <string name="publisher_claim_sign">Talebi imzala</string>
     <string name="publisher_claimed_pending">Talebiniz zincirde ama henüz doğrulanmadı (dosya listelenen web sitesinde bulunamadı).</string>
-    <string name="publisher_badge">Yayıncı ✓</string>
+    <string name="publisher_badge">Yayıncı ✓</string>
     <string name="versions_title">Sürüme göre</string>
     <string name="versions_row">v%1$d · %2$s · %3$d imzalı</string>
     <string name="versions_installed">yüklü</string>
@@ -140,7 +140,7 @@
     <string name="fact_perms_removed">Kaldırılan izinler: %1$s</string>
     <string name="fact_not_installed">Bu cihazda yüklü değil. Cihaz gerçeklerini görmek için dApp Store\'dan yükleyin.</string>
     <string name="reviews_title">İmzalı incelemeler</string>
-    <string name="review_weight_verified">Kanıtlı ✓</string>
+    <string name="review_weight_verified">Kanıtlı ✓</string>
     <string name="review_weight_unverified">sayılmıyor</string>
     <string name="review_hide">Gizle</string>
     <string name="review_report">Bildir</string>
@@ -207,7 +207,6 @@
     <string name="settings_about">Undersigned v%1$s — Solana Mobile, Solana Foundation veya herhangi bir cüzdanla bağlantılı değildir.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned, herkese açık dApp Store kataloğunu okur ve listelemeleri mağazada açar. Hiçbir zaman uygulama yüklemez, güncellemez veya kaldırmaz.</string>
-    <!-- TODO translate: intro slides (English fallback) -->
     <string name="intro_skip">Atla</string>
     <string name="intro_next">İleri</string>
     <string name="intro_replay">Tanıtımı tekrar oynat</string>
@@ -247,7 +246,6 @@
     <string name="swipe_hint">Yanıtlamak için bir incelemeyi sağa kaydırın.</string>
     <string name="profile_title">Profil</string>
     <string name="profile_credibility">Güvenilirlik</string>
-    <!-- TODO retranslate: formula corrected 9 Sep (base 40, helpful term added) -->
     <string name="profile_credibility_sub">40 taban, diğer imzalayanlarla etiket uyumu için +30, alınan yararlı oylar için +10, uzlaşıyla onaylanan işaretlemeler için +20, uzlaşıyla gizlenen kayıtların payı × −50. Yayınlanmış formül, buna bağlı hiçbir şey yok.</string>
     <string name="profile_flags">%1$d işaretleme imzalandı · %2$d onaylandı · %3$d alındı · %4$d kayıt gizlendi</string>
     <string name="profile_replied">İncelemelerine zamanın %1$s kadarında yanıt veriyor</string>
@@ -328,7 +326,7 @@
     <string name="stats_reviews_counted">Bir puana sayıldı</string>
     <string name="stats_signers">Benzersiz imzalayanlar</string>
     <string name="stats_attested">Kanıtlı cihazı olan imzalayanlar</string>
-    <string name="stats_seeker_share">Seeker cüzdanıyla imzalanan kayıtlar</string>
+    <string name="stats_seeker_share">Seeker cüzdanıyla imzalanan işlemler</string>
     <string name="stats_apps">İmzalı incelemesi olan dApp\'ler</string>
     <string name="stats_apps_scored">Puanı olan dApp\'ler</string>
     <string name="stats_replies">Yanıtlar</string>
