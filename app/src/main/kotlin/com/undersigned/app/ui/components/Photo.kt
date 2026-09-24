@@ -50,11 +50,18 @@ fun EmptyState(@DrawableRes photo: Int, title: String, body: String? = null, act
     }
 }
 
-/** A labelled row of single-choice chips ("SORT  Signed score · New · …"), scrolling sideways when a locale runs long. */
+/**
+ * A labelled row of single-choice chips ("SORT  Signed score · New · …"). It WRAPS when a locale runs long. It used to
+ * scroll sideways, but the only cue was a chip sliced at the screen edge ("Answered by the publisher" on the app page,
+ * seen 24 Sep 2026), which reads as a clipping bug rather than as "scroll me".
+ */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun <K> ChipRow(label: String, options: List<Pair<K, String>>, selected: K, onSelect: (K) -> Unit, modifier: Modifier = Modifier) {
-    Row(modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(label.uppercase(), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(end = 10.dp))
-        options.forEach { (k, text) -> TagChip(text, selected = k == selected) { onSelect(k) }; Spacer(Modifier.width(6.dp)) }
+    FlowRow(modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Box(Modifier.heightIn(min = 26.dp).padding(end = 4.dp), contentAlignment = Alignment.CenterStart) {
+            Text(label.uppercase(), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+        }
+        options.forEach { (k, text) -> TagChip(text, selected = k == selected) { onSelect(k) } }
     }
 }

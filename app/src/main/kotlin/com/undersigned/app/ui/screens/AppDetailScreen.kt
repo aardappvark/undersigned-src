@@ -19,6 +19,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -368,7 +370,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     FlowRow(Modifier.padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         if (txMeta[e.signature.substringBefore(':')]?.seekerWallet == true) Pill(stringResource(R.string.seeker_signed), RbColors.info)
                         if (vm.isVerifiedPublisher(pkg, e.signer)) Pill(stringResource(R.string.publisher_badge), RbColors.green)
-                        standings[e.signer]?.let { st -> TextButton(onClick = { onProfile(e.signer) }, contentPadding = PaddingValues(0.dp)) { Text("${st.countedReviews} signed · ${st.credibility}", color = RbColors.textTertiary, fontSize = 11.sp) } }
+                        standings[e.signer]?.let { st -> Text("${st.countedReviews} signed · ${st.credibility}", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.clip(RoundedCornerShape(50)).clickable { onProfile(e.signer) }.padding(horizontal = 4.dp, vertical = 4.dp)) }
                         flagWeights[e.signature]?.let { fw -> Pill(stringResource(R.string.flagged_count, String.format(java.util.Locale.US, "%.1f", fw)), RbColors.warning) }
                         helpful[e.signature]?.let { hw -> Pill(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), RbColors.green) }
                         similar[e.signature]?.let { sf -> Pill(stringResource(if (sf.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge), RbColors.warning) }
@@ -408,30 +410,37 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
                             if (wallet != null && rp.signer != wallet) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp))  {
                                 flagWeights[rp.signature]?.let { fw -> Pill(stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", fw)), RbColors.warning) }
-                                if (vm.myFlag(rp.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(rp.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.unflag), color = RbColors.warning, fontSize = 11.sp) }
-                                else TextButton(onClick = { flagTarget = rp.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flag), color = RbColors.warning, fontSize = 11.sp) }
+                                val rpFlagged = vm.myFlag(rp.signature)
+                                CardAction(stringResource(R.string.flag) + if (rpFlagged) "\u00A0✓" else "", RbColors.warning, enabled = !rpFlagged || simpleStage == null,
+                                    a11y = stringResource(if (rpFlagged) R.string.unflag else R.string.flag)) { if (rpFlagged) sign(ReviewMemo.Unflag(rp.signature)) else flagTarget = rp.signature }
                             }
                         }
                     }
                     Spacer(Modifier.height(4.dp))
-                    // The date gets its own line and the actions flow: on someone else's review the row carries
-                    // reply + helpful + flag + clear + hide + report, which overflowed a single Row. The overflow
-                    // was not merely cosmetic — the last button was measured at ~zero width and wrapped one
-                    // character per line, inflating the row to ~920 px and burying Report off-screen entirely
-                    // (measured on device, 20 Sep). Keep this a FlowRow when adding any further action.
-                    Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp)
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(2.dp))  {
-                        if (wallet != null) TextButton(onClick = { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontSize = 12.sp) }
+                    // One compact line, as designed (handoff/screens/dapp-page-reviews.png): date, then the actions.
+                    // Toggles keep a SHORT visible label ("Helpful ✓", "Flag ✓"): "Withdraw my helpful vote" was five
+                    // times the width of "Helpful" and pushed this bar onto three lines (measured on device, 24 Sep
+                    // 2026). The full wording stays as the screen-reader label. It stays a FlowRow, never a Row: a Row
+                    // that overflows squeezes its last child to zero width and inflates its own height (20 Sep).
+                    val tick = "\u00A0✓"
+                    FlowRow {
+                        Box(Modifier.heightIn(min = 48.dp).padding(end = 4.dp), contentAlignment = Alignment.CenterStart) {
+                            Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp)
+                        }
+                        if (wallet != null) CardAction(stringResource(R.string.reply), RbColors.purpleLight) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }
                         if (e.signer != wallet) {
                             if (wallet != null) {
                                 val voted = vm.myUpvote(e.signature); val flagged = vm.myFlag(e.signature)
-                                TextButton(enabled = simpleStage == null, onClick = { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(simpleStage ?: stringResource(if (voted) R.string.unvote else R.string.helpful), color = RbColors.green, fontSize = 12.sp) }
-                                if (flagged) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(e.signature)) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.unflag), color = RbColors.warning, fontSize = 12.sp) }
-                                else TextButton(onClick = { flagTarget = e.signature }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.flag), color = RbColors.warning, fontSize = 12.sp) }
-                                if ((flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(e.signature)) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.clear), color = RbColors.info, fontSize = 12.sp) }
+                                CardAction(simpleStage ?: (stringResource(R.string.helpful) + if (voted) tick else ""), RbColors.green, enabled = simpleStage == null,
+                                    a11y = stringResource(if (voted) R.string.unvote else R.string.helpful)) { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }
+                                CardAction(stringResource(R.string.flag) + if (flagged) tick else "", RbColors.warning, enabled = !flagged || simpleStage == null,
+                                    a11y = stringResource(if (flagged) R.string.unflag else R.string.flag)) { if (flagged) sign(ReviewMemo.Unflag(e.signature)) else flagTarget = e.signature }
+                                // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
+                                if (!flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
+                                    CardAction(stringResource(R.string.clear), RbColors.info, enabled = simpleStage == null) { sign(ReviewMemo.Clear(e.signature)) }
                             }
-                            TextButton(onClick = { vm.hide(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_hide), color = RbColors.textTertiary, fontSize = 12.sp) }
-                            TextButton(onClick = { report(e.signature) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.review_report), color = RbColors.textTertiary, fontSize = 12.sp) }
+                            CardAction(stringResource(R.string.review_hide), RbColors.textTertiary) { vm.hide(e.signature) }
+                            CardAction(stringResource(R.string.review_report), RbColors.textTertiary) { report(e.signature) }
                         }
                     }
                 }
@@ -599,5 +608,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             },
             dismissButton = { TextButton(enabled = revokeStage == null, onClick = { revokeDialog = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
         )
+    }
+}
+
+/** A review-card action: compact text, full 48 dp touch target, optional screen-reader label for short toggles. */
+@Composable
+private fun CardAction(label: String, color: androidx.compose.ui.graphics.Color, enabled: Boolean = true, a11y: String? = null, onClick: () -> Unit) {
+    TextButton(onClick = onClick, enabled = enabled, contentPadding = PaddingValues(horizontal = 4.dp),
+        modifier = if (a11y != null) Modifier.semantics { contentDescription = a11y } else Modifier) {
+        Text(label, color = color, fontSize = 12.sp)
     }
 }
