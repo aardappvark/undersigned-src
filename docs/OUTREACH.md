@@ -1,5 +1,10 @@
 # Outreach copy
 
+> **Gate before sending anything below (checked 24 Sep 2026):** `github.com/aardappvark/Undersigned` is
+> **PRIVATE**, and item 5 and the email both promise "APK + source" there. Make the repo public (or drop the
+> source claim) before any of this goes out, or every reader gets a 404. The viewer link is also unpublished.
+
+
 ## X thread (post 1 of 5)
 1. 279 reviews on one dApp Store listing. How many came from a real Seeker? The store can't say. Now something can. Undersigned: one Seeker, one voice, written to Solana. 🧵
 2. Every review is a memo transaction the owner signs on the device. Counted only if the wallet holds a Genesis Token (soulbound to a Seed Vault key), weighted by staked SKR, capped at 3×. Nothing to buy, stake or earn.

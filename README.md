@@ -72,14 +72,18 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 - **Legal site** `undersigned-legal` not created (legal last); it is also the MWA identity URI, so it must be
   pushed before the first real sign-in on a device.
 - English only (fleet apps ship 28 locales); store assets, demo video, pitch deck.
-- `FLEET_PACKAGES` lock-step on publish; memo code for a future Pro tier not reserved (none needed now).
+- `FLEET_PACKAGES` lock-step on publish; Pro payment memo `UNS` reserved in the fleet registry (one 3-letter memo, nothing else).
 
 ## Owner decisions still open
 
 1. **Name** — DONE 8 Sep: Undersigned (web-screened clean; store/Play/IP Australia screen still owed).
 2. **Registry PDA** — DONE 8 Sep: `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs` (seeds `review-ledger`,`v1`, bump 255); app re-derives at startup.
-3. **Free or Pro** — the hackathon build is free. If a Pro tier is added later it is the fleet payment
-   cluster, ported by diff, behind the payment-cluster gate; it changes none of the legal analysis
-   (a software licence fee, as in every other fleet app).
+3. **Free or Pro** — DONE 15 Sep: **reading, reviewing, replying, voting and flagging are free**, and so is the
+   ranking every reader sees. Pro is an optional 12-month licence (0.0607 SOL or 276 SKR, fleet payment cluster,
+   memo `UNS`, treasury-credit ≥ floor = the licence) for the work *around* signing: copy reviews to the store,
+   import all store reviews in one approval, the publisher desk, CSV/JSON export, and an hourly instead of six-hourly
+   certificate watch. It is shareable with two other wallets. **Pro never weights an opinion, lifts a listing or marks
+   anyone trusted** — weight comes only from the attested device and staked SKR. It changes none of the legal
+   analysis (a software licence fee, as in every other fleet app). First licence paid on mainnet 15 Sep (276 SKR).
 4. **Package visibility** — `QUERY_ALL_PACKAGES` with a disclosure (the Toolkit precedent) or a generated
    `<queries>` list from the catalogue. The former is simpler and already store-approved in the fleet.
