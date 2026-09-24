@@ -205,8 +205,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, out, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, out, f); flagWeights.value = Reputation.flagWeights(list, out, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, out, f) }
     }
     private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
+        // Both counts over the SAME set: live (non-withdrawn) reviews. Counting signers over every review ever written
+        // read "1 review from 2 Seekers" once the publisher withdrew theirs (24 Sep 2026).
         val rv = Ranking.revoked(list)
-        return LedgerStatus.Synced(list.count { it.memo is ReviewMemo.Review && it.signature !in rv }, list.filter { it.memo is ReviewMemo.Review }.map { it.signer }.distinct().size)
+        val live = list.filter { it.memo is ReviewMemo.Review && it.signature !in rv }
+        return LedgerStatus.Synced(live.size, live.map { it.signer }.distinct().size)
     }
     fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
     fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
