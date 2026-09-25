@@ -120,6 +120,7 @@
     <string name="import_scan">Vyhledat mé recenze z obchodu</string>
     <string name="import_scanning">Prohledává se %1$s</string>
     <string name="import_found">Nalezeno %1$d vašich recenzí z obchodu</string>
+    <string name="import_incomplete">Obchod se nepodařilo načíst pro %1$d z %2$d aplikací, takže tento seznam může být neúplný. Zkuste prohledávání zopakovat později.</string>
     <string name="import_none">Mezi vašimi nainstalovanými nebo sledovanými aplikacemi nejsou žádné recenze z obchodu od této peněženky.</string>
     <string name="import_publish">Podepsat a importovat %1$d</string>
     <string name="import_done">Importováno %1$d recenzí.</string>
@@ -428,6 +429,7 @@
     <string name="show_more">Zobrazit více</string>
     <string name="show_less">Zobrazit méně</string>
     <string name="store_publisher_reply">Odpověď vydavatele</string>
+    <string name="pro_copy_toast">Vložte pod \"Ratings &amp; Reviews\" → \"Review this dApp\".</string>
     <string name="pro_copy_done">Zkopírováno. Záznam je otevřený: přejděte na \"Ratings &amp; Reviews\", klepněte na \"Review this dApp\" a pak vložte poznámku a nastavte hvězdičky.</string>
     <string name="pro_copy_none">Všechny recenze, které jste podepsali, už jsou v obchodě.</string>
     <string name="pro_import_locked">Import všech jedním podpisem je nástroj Pro. Free importuje po jedné: podepište jednu níže nebo na stránce každé dApp.</string>

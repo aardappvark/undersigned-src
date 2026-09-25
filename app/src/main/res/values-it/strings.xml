@@ -128,6 +128,7 @@
     <string name="import_scan">Cerca le mie recensioni dello store</string>
     <string name="import_scanning">Analisi di %1$s in corso</string>
     <string name="import_found">%1$d tue recensioni dello store trovate</string>
+    <string name="import_incomplete">Non è stato possibile leggere lo store per %1$d app su %2$d, quindi questo elenco potrebbe essere incompleto. Riprova l\'analisi più tardi.</string>
     <string name="import_none">Nessuna recensione dello store di questo portafoglio tra le app installate o seguite.</string>
     <string name="import_publish">Firma e importa %1$d</string>
     <string name="import_done">%1$d recensioni importate.</string>
@@ -437,6 +438,7 @@
     <string name="show_more">Mostra altro</string>
     <string name="show_less">Mostra meno</string>
     <string name="store_publisher_reply">Risposta dell\'editore</string>
+    <string name="pro_copy_toast">Incollalo sotto «Valutazioni &amp; recensioni» → «Recensisci questa dApp».</string>
     <string name="pro_copy_done">Copiata. La scheda è aperta: scorri fino a «Valutazioni &amp; recensioni», tocca «Recensisci questa dApp», poi incolla la nota e imposta le stelle.</string>
     <string name="pro_copy_none">Tutte le recensioni che hai firmato sono già nello store.</string>
     <string name="pro_import_locked">Importarle tutte con un\'unica firma è uno strumento Pro. Free le importa una alla volta: firmane una qui sotto, o da ogni pagina di dApp.</string>

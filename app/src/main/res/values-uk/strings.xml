@@ -125,6 +125,7 @@
     <string name="import_scan">Сканувати мої відгуки в магазині</string>
     <string name="import_scanning">Сканування %1$s</string>
     <string name="import_found">Знайдено %1$d ваших відгуків у магазині</string>
+    <string name="import_incomplete">Не вдалося прочитати магазин для %1$d із %2$d додатків, тому цей список може бути неповним. Спробуйте сканування ще раз пізніше.</string>
     <string name="import_none">Серед встановлених або відстежуваних вами додатків немає відгуків цього гаманця в магазині.</string>
     <string name="import_publish">Підписати й імпортувати %1$d</string>
     <string name="import_done">Імпортовано %1$d відгуків.</string>
@@ -436,6 +437,7 @@
     <string name="show_more">Показати більше</string>
     <string name="show_less">Показати менше</string>
     <string name="store_publisher_reply">Відповідь видавця</string>
+    <string name="pro_copy_toast">Вставте під \"Оцінки та відгуки\" → \"Залиште відгук цьому децентралізованому застосунку\".</string>
     <string name="pro_copy_done">Скопійовано. Сторінку відкрито: прогорніть до \"Оцінки та відгуки\", торкніться \"Залиште відгук цьому децентралізованому застосунку\", потім вставте примітку й встановіть зірки.</string>
     <string name="pro_copy_none">Усі підписані вами відгуки вже є в магазині.</string>
     <string name="pro_import_locked">Імпорт усіх одним підписом — інструмент Pro. Free імпортує по одному: підпишіть один нижче або на сторінці кожної dApp.</string>

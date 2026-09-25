@@ -125,6 +125,7 @@
     <string name="import_scan">Mağaza incelemelerimi tara</string>
     <string name="import_scanning">%1$s taranıyor</string>
     <string name="import_found">%1$d mağaza incelemeniz bulundu</string>
+    <string name="import_incomplete">%2$d uygulamadan %1$d tanesi için mağaza okunamadı, bu nedenle bu liste eksik olabilir. Taramayı daha sonra tekrar deneyin.</string>
     <string name="import_none">Yüklü veya takip edilen uygulamalarınız arasında bu cüzdana ait mağaza incelemesi yok.</string>
     <string name="import_publish">%1$d tanesini imzala ve içe aktar</string>
     <string name="import_done">%1$d inceleme içe aktarıldı.</string>
@@ -435,6 +436,7 @@
     <string name="show_more">Daha fazla göster</string>
     <string name="show_less">Daha az göster</string>
     <string name="store_publisher_reply">Yayıncı yanıtı</string>
+    <string name="pro_copy_toast">\"Ratings &amp; Reviews\" altına yapıştırın → \"Review this dApp\".</string>
     <string name="pro_copy_done">Kopyalandı. Listeleme açık: \"Ratings &amp; Reviews\" bölümüne kaydırın, \"Review this dApp\" seçeneğine dokunun, ardından notu yapıştırın ve yıldızları ayarlayın.</string>
     <string name="pro_copy_none">İmzaladığınız her inceleme zaten mağazada.</string>
     <string name="pro_import_locked">Hepsini tek imzayla içe aktarmak bir Pro aracıdır. Ücretsiz, birer birer içe aktarır: aşağıdan birini imzalayın veya her dApp sayfasından.</string>

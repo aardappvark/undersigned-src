@@ -128,6 +128,7 @@
     <string name="import_scan">Nach meinen Store-Bewertungen suchen</string>
     <string name="import_scanning">%1$s wird gescannt</string>
     <string name="import_found">%1$d Ihrer Store-Bewertungen gefunden</string>
+    <string name="import_incomplete">Der Store konnte für %1$d von %2$d Apps nicht gelesen werden. Diese Liste ist daher möglicherweise unvollständig. Versuchen Sie den Scan später erneut.</string>
     <string name="import_none">Keine Store-Bewertungen dieser Wallet unter Ihren installierten oder verfolgten Apps.</string>
     <string name="import_publish">%1$d signieren und importieren</string>
     <string name="import_done">%1$d Bewertungen importiert.</string>
@@ -438,6 +439,7 @@
     <string name="show_more">Mehr anzeigen</string>
     <string name="show_less">Weniger anzeigen</string>
     <string name="store_publisher_reply">Antwort des Herausgebers</string>
+    <string name="pro_copy_toast">Einfügen unter „Bewertungen &amp; Rezensionen“ → „Eine Rezension für diese dApp hinterlassen“.</string>
     <string name="pro_copy_done">Kopiert. Der Eintrag ist geöffnet: scrollen Sie zu „Bewertungen &amp; Rezensionen“, tippen Sie auf „Eine Rezension für diese dApp hinterlassen“, fügen Sie dann die Notiz ein und setzen Sie die Sterne.</string>
     <string name="pro_copy_none">Jede von Ihnen signierte Bewertung ist bereits im Store.</string>
     <string name="pro_import_locked">Alle mit einer Signatur zu importieren ist ein Pro-Werkzeug. Free importiert einzeln: signieren Sie unten eine, oder von jeder dApp-Seite aus.</string>

@@ -128,6 +128,7 @@
     <string name="import_scan">Rechercher mes avis du store</string>
     <string name="import_scanning">Analyse de %1$s</string>
     <string name="import_found">%1$d de vos avis du store trouvés</string>
+    <string name="import_incomplete">Le store n\'a pas pu être lu pour %1$d sur %2$d applications, cette liste est donc peut-être incomplète. Réessayez l\'analyse plus tard.</string>
     <string name="import_none">Aucun avis du store de ce wallet parmi vos applications installées ou suivies.</string>
     <string name="import_publish">Signer et importer %1$d</string>
     <string name="import_done">%1$d avis importés.</string>
@@ -437,6 +438,7 @@
     <string name="show_more">Voir plus</string>
     <string name="show_less">Voir moins</string>
     <string name="store_publisher_reply">Réponse de l\'éditeur</string>
+    <string name="pro_copy_toast">Collez-le sous «Notes &amp; Commentaires» → «Donnez votre avis sur cette dApp».</string>
     <string name="pro_copy_done">Copié. La fiche est ouverte : faites défiler jusqu\'à «Notes &amp; Commentaires», appuyez sur «Donnez votre avis sur cette dApp», puis collez la note et fixez les étoiles.</string>
     <string name="pro_copy_none">Tous les avis que vous avez signés sont déjà dans le store.</string>
     <string name="pro_import_locked">Les importer tous en une seule signature est un outil Pro. Free les importe un par un : signez-en un ci-dessous, ou depuis chaque page de dApp.</string>

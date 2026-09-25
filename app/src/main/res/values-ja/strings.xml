@@ -122,6 +122,7 @@
     <string name="import_scan">自分のストアレビューをスキャン</string>
     <string name="import_scanning">%1$s をスキャン中</string>
     <string name="import_found">あなたのストアレビューが%1$d件見つかりました</string>
+    <string name="import_incomplete">%2$d件中%1$d件のアプリでストアを読み込めなかったため、このリストは不完全な可能性があります。後でもう一度スキャンしてください。</string>
     <string name="import_none">インストール済みまたはフォロー中のアプリの中に、このウォレットによるストアレビューはありません。</string>
     <string name="import_publish">署名して%1$d件をインポート</string>
     <string name="import_done">%1$d件のレビューをインポートしました。</string>
@@ -428,6 +429,7 @@
     <string name="show_more">もっと見る</string>
     <string name="show_less">折りたたむ</string>
     <string name="store_publisher_reply">パブリッシャーの返信</string>
+    <string name="pro_copy_toast">「評価 &amp;レビュー」の下に貼り付け → 「このdAppをレビュー」。</string>
     <string name="pro_copy_done">コピーしました。リスティングが開いています — 「評価 &amp;レビュー」までスクロールし、「このdAppをレビュー」をタップして、メモを貼り付け、星の数を設定してください。</string>
     <string name="pro_copy_none">署名済みのレビューはすべてストアに反映済みです。</string>
     <string name="pro_import_locked">1回の署名でまとめてインポートするのは Pro ツールです。無料版では1件ずつのインポートになります。下記から1件署名するか、各 dApp ページから行ってください。</string>

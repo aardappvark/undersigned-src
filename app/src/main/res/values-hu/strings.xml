@@ -125,6 +125,7 @@
     <string name="import_scan">Áruházi értékeléseim keresése</string>
     <string name="import_scanning">%1$s átvizsgálása</string>
     <string name="import_found">%1$d áruházi értékelésed megtalálva</string>
+    <string name="import_incomplete">%2$d alkalmazásból %1$d esetében nem sikerült beolvasni az áruházat, így ez a lista hiányos lehet. Próbáld újra az átvizsgálást később.</string>
     <string name="import_none">Ehhez a tárcához nem található áruházi értékelés a telepített vagy követett alkalmazásaid között.</string>
     <string name="import_publish">%1$d aláírása és importálása</string>
     <string name="import_done">%1$d értékelés importálva.</string>
@@ -435,6 +436,7 @@
     <string name="show_more">Több mutatása</string>
     <string name="show_less">Kevesebb mutatása</string>
     <string name="store_publisher_reply">Kiadói válasz</string>
+    <string name="pro_copy_toast">Illessze be a \"Ratings &amp; Reviews\" alá → \"Review this dApp\".</string>
     <string name="pro_copy_done">Átmásolva. A listázás nyitva van: görgess a \"Ratings &amp; Reviews\" részhez, koppints a \"Review this dApp\" gombra, majd illeszd be a megjegyzést, és állítsd be a csillagokat.</string>
     <string name="pro_copy_none">Minden általad aláírt értékelés már az áruházban van.</string>
     <string name="pro_import_locked">Az összes egyszerre, egy aláírással történő importálása egy Pro eszköz. Az Ingyenes egyenként importál: írj alá egyet lent, vagy minden egyes dApp oldaláról.</string>

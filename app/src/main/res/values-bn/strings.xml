@@ -123,6 +123,7 @@
     <string name="import_scan">আমার স্টোর পর্যালোচনার জন্য স্ক্যান করুন</string>
     <string name="import_scanning">%1$s স্ক্যান করা হচ্ছে</string>
     <string name="import_found">আপনার %1$d টি স্টোর পর্যালোচনা পাওয়া গেছে</string>
+    <string name="import_incomplete">%2$d টি অ্যাপের মধ্যে %1$d টির জন্য স্টোর পড়া যায়নি, তাই এই তালিকাটি অসম্পূর্ণ হতে পারে। পরে আবার স্ক্যান করার চেষ্টা করুন।</string>
     <string name="import_none">আপনার ইনস্টল করা বা ফলো করা অ্যাপগুলির মধ্যে এই ওয়ালেট দ্বারা কোনো স্টোর পর্যালোচনা নেই।</string>
     <string name="import_publish">%1$d টি স্বাক্ষর করে আমদানি করুন</string>
     <string name="import_done">%1$d টি পর্যালোচনা আমদানি করা হয়েছে।</string>
@@ -429,6 +430,7 @@
     <string name="show_more">আরও দেখান</string>
     <string name="show_less">কম দেখান</string>
     <string name="store_publisher_reply">প্রকাশকের উত্তর</string>
+    <string name="pro_copy_toast">“Ratings &amp; Reviews”-এর নিচে পেস্ট করুন → “Review this dApp”।</string>
     <string name="pro_copy_done">কপি হয়েছে। তালিকাটি খোলা আছে: “Ratings &amp; Reviews”-এ স্ক্রল করুন, “Review this dApp”-এ ট্যাপ করুন, তারপর নোটটি পেস্ট করুন এবং স্টার নির্ধারণ করুন।</string>
     <string name="pro_copy_none">আপনার স্বাক্ষর করা প্রতিটি পর্যালোচনা ইতিমধ্যে স্টোরে আছে।</string>
     <string name="pro_import_locked">একটি স্বাক্ষরে সবগুলো আমদানি করা একটি Pro টুল। ফ্রি একবারে একটি আমদানি করে: নিচে একটি স্বাক্ষর করুন, বা প্রতিটি dApp পেজ থেকে।</string>

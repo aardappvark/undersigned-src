@@ -117,6 +117,7 @@
     <string name="import_scan">สแกนหารีวิวในสโตร์ของฉัน</string>
     <string name="import_scanning">กำลังสแกน %1$s</string>
     <string name="import_found">พบรีวิวในสโตร์ของคุณ %1$d รายการ</string>
+    <string name="import_incomplete">ไม่สามารถอ่านสโตร์สำหรับ %1$d จาก %2$d แอป ดังนั้นรายการนี้อาจไม่สมบูรณ์ ลองสแกนอีกครั้งในภายหลัง</string>
     <string name="import_none">ไม่พบรีวิวในสโตร์ของกระเป๋าเงินนี้ในแอปที่คุณติดตั้งไว้หรือติดตามอยู่</string>
     <string name="import_publish">ลงลายเซ็นและนำเข้า %1$d รายการ</string>
     <string name="import_done">นำเข้ารีวิวแล้ว %1$d รายการ</string>
@@ -420,6 +421,7 @@
     <string name="show_more">แสดงเพิ่มเติม</string>
     <string name="show_less">แสดงน้อยลง</string>
     <string name="store_publisher_reply">คำตอบจากผู้เผยแพร่</string>
+    <string name="pro_copy_toast">วางไว้ใต้ “การให้คะแนนและรีวิว” → “รีวิวแอปนี้”</string>
     <string name="pro_copy_done">คัดลอกแล้ว หน้ารายการเปิดอยู่: เลื่อนไปที่ “การให้คะแนนและรีวิว” แตะ “รีวิวแอปนี้” จากนั้นวางบันทึกและตั้งจำนวนดาว</string>
     <string name="pro_copy_none">ทุกรีวิวที่คุณลงลายเซ็นไว้อยู่ในสโตร์แล้ว</string>
     <string name="pro_import_locked">การนำเข้าทั้งหมดด้วยลายเซ็นครั้งเดียวเป็นเครื่องมือของ Pro แบบฟรีนำเข้าได้ทีละรายการ: ลงลายเซ็นรายการด้านล่าง หรือจากแต่ละหน้า dApp</string>

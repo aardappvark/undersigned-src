@@ -127,6 +127,7 @@
     <string name="import_scan">Pindai ulasan toko saya</string>
     <string name="import_scanning">Memindai %1$s</string>
     <string name="import_found">%1$d ulasan toko Anda ditemukan</string>
+    <string name="import_incomplete">Toko tidak dapat dibaca untuk %1$d dari %2$d aplikasi, sehingga daftar ini mungkin tidak lengkap. Coba pindai lagi nanti.</string>
     <string name="import_none">Tidak ada ulasan toko oleh dompet ini di antara aplikasi yang Anda instal atau ikuti.</string>
     <string name="import_publish">Tandatangani dan impor %1$d</string>
     <string name="import_done">%1$d ulasan diimpor.</string>
@@ -436,6 +437,7 @@
     <string name="show_more">Tampilkan lebih banyak</string>
     <string name="show_less">Tampilkan lebih sedikit</string>
     <string name="store_publisher_reply">Balasan penerbit</string>
+    <string name="pro_copy_toast">Tempel di bawah “Ratings &amp; Reviews” → “Review this dApp”.</string>
     <string name="pro_copy_done">Disalin. Listingan sudah terbuka: gulir ke “Ratings &amp; Reviews”, ketuk “Review this dApp”, lalu tempel catatan dan atur bintang.</string>
     <string name="pro_copy_none">Setiap ulasan yang telah Anda tandatangani sudah ada di toko.</string>
     <string name="pro_import_locked">Mengimpor semuanya dengan satu tanda tangan adalah alat Pro. Gratis mengimpor satu per satu: tandatangani satu di bawah, atau dari setiap halaman dApp.</string>

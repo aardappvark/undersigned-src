@@ -125,6 +125,7 @@
     <string name="import_scan">Scanează recenziile mele din magazin</string>
     <string name="import_scanning">Se scanează %1$s</string>
     <string name="import_found">%1$d dintre recenziile tale din magazin găsite</string>
+    <string name="import_incomplete">Magazinul nu a putut fi citit pentru %1$d din %2$d aplicații, așa că această listă poate fi incompletă. Încearcă din nou scanarea mai târziu.</string>
     <string name="import_none">Nicio recenzie a acestui portofel printre aplicațiile instalate sau urmărite.</string>
     <string name="import_publish">Semnează și importă %1$d</string>
     <string name="import_done">%1$d recenzii importate.</string>
@@ -435,6 +436,7 @@
     <string name="show_more">Arată mai mult</string>
     <string name="show_less">Arată mai puțin</string>
     <string name="store_publisher_reply">Răspunsul editorului</string>
+    <string name="pro_copy_toast">Lipește sub \"Ratings &amp; Reviews\" → \"Review this dApp\".</string>
     <string name="pro_copy_done">Copiat. Listarea este deschisă: derulează până la \"Ratings &amp; Reviews\", atinge \"Review this dApp\", apoi lipește nota și setează stelele.</string>
     <string name="pro_copy_none">Fiecare recenzie semnată de tine este deja în magazin.</string>
     <string name="pro_import_locked">Importarea tuturor cu o singură semnătură este o unealtă Pro. Gratuit importă una câte una: semnează una mai jos, sau de pe fiecare pagină de dApp.</string>

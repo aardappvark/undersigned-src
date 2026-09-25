@@ -128,6 +128,7 @@
     <string name="import_scan">मेरी स्टोर समीक्षाओं के लिए स्कैन करें</string>
     <string name="import_scanning">%1$s स्कैन किया जा रहा है</string>
     <string name="import_found">आपकी %1$d स्टोर समीक्षाएं मिलीं</string>
+    <string name="import_incomplete">%2$d में से %1$d ऐप्स के लिए स्टोर नहीं पढ़ा जा सका, इसलिए यह सूची अधूरी हो सकती है। बाद में फिर से स्कैन करने का प्रयास करें।</string>
     <string name="import_none">आपके इंस्टॉल किए गए या फ़ॉलो किए गए ऐप्स में इस wallet की कोई स्टोर समीक्षा नहीं है।</string>
     <string name="import_publish">%1$d साइन करें और आयात करें</string>
     <string name="import_done">%1$d समीक्षाएं आयात की गईं।</string>
@@ -437,6 +438,7 @@
     <string name="show_more">और दिखाएं</string>
     <string name="show_less">कम दिखाएं</string>
     <string name="store_publisher_reply">प्रकाशक का जवाब</string>
+    <string name="pro_copy_toast">“रेटिंग &amp; रिव्यु” के नीचे पेस्ट करें → “dApp का रिव्यू दें”।</string>
     <string name="pro_copy_done">कॉपी हो गया। लिस्टिंग खुली है: “रेटिंग &amp; रिव्यु” तक स्क्रॉल करें, “dApp का रिव्यू दें” पर टैप करें, फिर नोट पेस्ट करें और स्टार सेट करें।</string>
     <string name="pro_copy_none">आपने जितनी भी समीक्षाएं साइन की हैं, वे सभी पहले से स्टोर में हैं।</string>
     <string name="pro_import_locked">एक ही हस्ताक्षर से सबको आयात करना एक Pro टूल है। Free में एक-एक करके आयात होता है: नीचे एक साइन करें, या हर dApp पेज से।</string>

@@ -128,6 +128,7 @@
     <string name="import_scan">Buscar minhas avaliações na loja</string>
     <string name="import_scanning">Buscando %1$s</string>
     <string name="import_found">%1$d das suas avaliações na loja encontradas</string>
+    <string name="import_incomplete">Não foi possível ler a loja para %1$d de %2$d apps, então esta lista pode estar incompleta. Tente buscar novamente mais tarde.</string>
     <string name="import_none">Nenhuma avaliação desta carteira entre os apps instalados ou seguidos.</string>
     <string name="import_publish">Assinar e importar %1$d</string>
     <string name="import_done">%1$d avaliações importadas.</string>
@@ -437,6 +438,7 @@
     <string name="show_more">Ver mais</string>
     <string name="show_less">Ver menos</string>
     <string name="store_publisher_reply">Resposta do publicador</string>
+    <string name="pro_copy_toast">Cole em “Classificações &amp; Críticas” → “Avaliar esta dApp”.</string>
     <string name="pro_copy_done">Copiada. A página está aberta: role até “Classificações &amp; Críticas”, toque em “Avaliar esta dApp”, depois cole a nota e defina as estrelas.</string>
     <string name="pro_copy_none">Todas as avaliações que você assinou já estão na loja.</string>
     <string name="pro_import_locked">Importar todas com uma única assinatura é uma ferramenta Pro. O Free importa uma de cada vez: assine uma abaixo, ou em cada página de dApp.</string>

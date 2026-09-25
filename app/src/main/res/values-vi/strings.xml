@@ -127,6 +127,7 @@
     <string name="import_scan">Quét tìm đánh giá cửa hàng của tôi</string>
     <string name="import_scanning">Đang quét %1$s</string>
     <string name="import_found">Tìm thấy %1$d đánh giá cửa hàng của bạn</string>
+    <string name="import_incomplete">Không thể đọc cửa hàng cho %1$d trong số %2$d ứng dụng, vì vậy danh sách này có thể chưa đầy đủ. Hãy thử quét lại sau.</string>
     <string name="import_none">Không có đánh giá cửa hàng nào của ví này trong số các ứng dụng bạn đã cài đặt hoặc theo dõi.</string>
     <string name="import_publish">Ký và nhập %1$d</string>
     <string name="import_done">Đã nhập %1$d đánh giá.</string>
@@ -436,6 +437,7 @@
     <string name="show_more">Xem thêm</string>
     <string name="show_less">Thu gọn</string>
     <string name="store_publisher_reply">Phản hồi của nhà phát hành</string>
+    <string name="pro_copy_toast">Dán nó bên dưới “Ratings &amp; Reviews” → “Review this dApp”.</string>
     <string name="pro_copy_done">Đã sao chép. Trang niêm yết đang mở: cuộn đến “Ratings &amp; Reviews”, chạm “Review this dApp”, sau đó dán ghi chú và đặt số sao.</string>
     <string name="pro_copy_none">Mọi đánh giá bạn đã ký đều đã có trong cửa hàng.</string>
     <string name="pro_import_locked">Nhập tất cả bằng một chữ ký là công cụ của Pro. Bản Miễn phí nhập từng cái một: ký một cái bên dưới, hoặc từ mỗi trang dApp.</string>

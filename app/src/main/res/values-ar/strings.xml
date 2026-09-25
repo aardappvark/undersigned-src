@@ -127,6 +127,7 @@
     <string name="import_scan">البحث عن مراجعاتي في المتجر</string>
     <string name="import_scanning">جارٍ فحص %1$s</string>
     <string name="import_found">تم العثور على %1$d من مراجعاتك في المتجر</string>
+    <string name="import_incomplete">تعذّرت قراءة المتجر لـ %1$d من أصل %2$d تطبيقًا، لذا قد تكون هذه القائمة غير مكتملة. حاول الفحص مرة أخرى لاحقًا.</string>
     <string name="import_none">لا توجد مراجعات في المتجر بهذه المحفظة بين التطبيقات المثبتة لديك أو المتابَعة.</string>
     <string name="import_publish">توقيع واستيراد %1$d</string>
     <string name="import_done">تم استيراد %1$d مراجعة.</string>
@@ -433,6 +434,7 @@
     <string name="show_more">عرض المزيد</string>
     <string name="show_less">عرض أقل</string>
     <string name="store_publisher_reply">رد الناشر</string>
+    <string name="pro_copy_toast">الصقها ضمن “التقييمات &amp; الآراء” → “راجع تطبيق dApp هذا”.</string>
     <string name="pro_copy_done">تم النسخ. القائمة مفتوحة: مرّر إلى “التقييمات &amp; الآراء”، اضغط “راجع تطبيق dApp هذا”، ثم الصق الملاحظة وحدّد النجوم.</string>
     <string name="pro_copy_none">كل مراجعة وقّعتها موجودة بالفعل في المتجر.</string>
     <string name="pro_import_locked">استيراد جميعها بتوقيع واحد أداة من Pro. يستورد Free واحدة تلو الأخرى: وقّع واحدة أدناه، أو من صفحة كل تطبيق.</string>

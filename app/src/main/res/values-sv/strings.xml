@@ -118,6 +118,7 @@
     <string name="import_scan">Sök efter mina butiksrecensioner</string>
     <string name="import_scanning">Söker %1$s</string>
     <string name="import_found">%1$d av dina butiksrecensioner hittades</string>
+    <string name="import_incomplete">Butiken kunde inte läsas för %1$d av %2$d appar, så listan kan vara ofullständig. Försök söka igen senare.</string>
     <string name="import_none">Inga butiksrecensioner av den här plånboken bland dina installerade eller följda appar.</string>
     <string name="import_publish">Signera och importera %1$d</string>
     <string name="import_done">%1$d recensioner importerade.</string>
@@ -421,6 +422,7 @@
     <string name="show_more">Visa mer</string>
     <string name="show_less">Visa mindre</string>
     <string name="store_publisher_reply">Utgivarens svar</string>
+    <string name="pro_copy_toast">Klistra in det under ”Ratings &amp; Reviews” → ”Review this dApp”.</string>
     <string name="pro_copy_done">Kopierat. Listningen är öppen: bläddra till ”Ratings &amp; Reviews”, tryck på ”Review this dApp”, klistra sedan in anteckningen och sätt stjärnorna.</string>
     <string name="pro_copy_none">Varje recension du har signerat finns redan i butiken.</string>
     <string name="pro_import_locked">Att importera alla med en signatur är ett Pro-verktyg. Gratis importerar en i taget: signera en nedan, eller från varje dApp-sida.</string>

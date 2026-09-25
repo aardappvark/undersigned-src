@@ -125,6 +125,7 @@
     <string name="import_scan">Skanuj moje recenzje w sklepie</string>
     <string name="import_scanning">Skanowanie %1$s</string>
     <string name="import_found">Znaleziono %1$d Twoich recenzji w sklepie</string>
+    <string name="import_incomplete">Nie udało się odczytać sklepu dla %1$d z %2$d aplikacji, więc ta lista może być niekompletna. Spróbuj ponownie skanować później.</string>
     <string name="import_none">Brak recenzji tego portfela wśród zainstalowanych lub obserwowanych aplikacji.</string>
     <string name="import_publish">Podpisz i importuj %1$d</string>
     <string name="import_done">Zaimportowano %1$d recenzji.</string>
@@ -436,6 +437,7 @@
     <string name="show_more">Pokaż więcej</string>
     <string name="show_less">Pokaż mniej</string>
     <string name="store_publisher_reply">Odpowiedź wydawcy</string>
+    <string name="pro_copy_toast">Wklej pod \"Oceny i Recenzje\" → \"Zrecenzuj tę dApp\".</string>
     <string name="pro_copy_done">Skopiowano. Oferta jest otwarta: przewiń do \"Oceny i Recenzje\", dotknij \"Zrecenzuj tę dApp\", a potem wklej notatkę i ustaw gwiazdki.</string>
     <string name="pro_copy_none">Wszystkie podpisane przez Ciebie recenzje są już w sklepie.</string>
     <string name="pro_import_locked">Import wszystkich jednym podpisem to narzędzie Pro. Free importuje pojedynczo: podpisz jedną poniżej lub na stronie każdej dApp.</string>

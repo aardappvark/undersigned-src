@@ -128,6 +128,7 @@
     <string name="import_scan">میرے اسٹور جائزے اسکین کریں</string>
     <string name="import_scanning">%1$s اسکین کیا جا رہا ہے</string>
     <string name="import_found">آپ کے %1$d اسٹور جائزے ملے</string>
+    <string name="import_incomplete">%2$d میں سے %1$d ایپس کے لیے اسٹور نہیں پڑھا جا سکا، اس لیے یہ فہرست نامکمل ہو سکتی ہے۔ بعد میں دوبارہ اسکین کرنے کی کوشش کریں۔</string>
     <string name="import_none">آپ کی نصب شدہ یا فالو کی گئی ایپس میں اس والٹ کا کوئی اسٹور جائزہ نہیں۔</string>
     <string name="import_publish">%1$d دستخط کریں اور درآمد کریں</string>
     <string name="import_done">%1$d جائزے درآمد کیے گئے۔</string>
@@ -437,6 +438,7 @@
     <string name="show_more">مزید دکھائیں</string>
     <string name="show_less">کم دکھائیں</string>
     <string name="store_publisher_reply">پبلشر کا جواب</string>
+    <string name="pro_copy_toast">“Ratings &amp; Reviews” کے نیچے پیسٹ کریں → “Review this dApp”۔</string>
     <string name="pro_copy_done">کاپی ہو گیا۔ فہرست کھلی ہے: “Ratings &amp; Reviews” تک سکرول کریں، “Review this dApp” پر ٹیپ کریں، پھر نوٹ پیسٹ کریں اور اسٹارز مقرر کریں۔</string>
     <string name="pro_copy_none">آپ کے دستخط شدہ تمام جائزے پہلے ہی اسٹور میں موجود ہیں۔</string>
     <string name="pro_import_locked">ایک ہی دستخط سے سب درآمد کرنا ایک Pro اوزار ہے۔ مفت ورژن ایک ایک کر کے درآمد کرتا ہے: نیچے ایک پر دستخط کریں، یا ہر dApp کے صفحے سے۔</string>

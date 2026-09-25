@@ -128,6 +128,7 @@
     <string name="import_scan">Buscar mis reseñas de la tienda</string>
     <string name="import_scanning">Escaneando %1$s</string>
     <string name="import_found">Se encontraron %1$d reseñas tuyas de la tienda</string>
+    <string name="import_incomplete">No se pudo leer la tienda para %1$d de %2$d apps, por lo que esta lista podría estar incompleta. Vuelve a intentar el escaneo más tarde.</string>
     <string name="import_none">No hay reseñas de la tienda de esta wallet entre tus apps instaladas o seguidas.</string>
     <string name="import_publish">Firmar e importar %1$d</string>
     <string name="import_done">Se importaron %1$d reseñas.</string>
@@ -437,6 +438,7 @@
     <string name="show_more">Ver más</string>
     <string name="show_less">Ver menos</string>
     <string name="store_publisher_reply">Respuesta del editor</string>
+    <string name="pro_copy_toast">Pégalo debajo de «Calificaciones y Reseñas» → «Revisar esta dApp».</string>
     <string name="pro_copy_done">Copiada. La ficha está abierta: desplázate hasta «Calificaciones y Reseñas», toca «Revisar esta dApp», luego pega la nota y fija las estrellas.</string>
     <string name="pro_copy_none">Todas las reseñas que has firmado ya están en la tienda.</string>
     <string name="pro_import_locked">Importarlas todas con una sola firma es una herramienta Pro. Free las importa de una en una: firma una abajo, o desde cada página de dApp.</string>

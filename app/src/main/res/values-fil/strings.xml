@@ -128,6 +128,7 @@
     <string name="import_scan">Maghanap ng aking mga review sa store</string>
     <string name="import_scanning">Sinusuri ang %1$s</string>
     <string name="import_found">%1$d sa iyong mga review sa store ang nahanap</string>
+    <string name="import_incomplete">Hindi nabasa ang store para sa %1$d sa %2$d na app, kaya maaaring hindi kumpleto ang listahang ito. Subukan ulit ang pag-scan mamaya.</string>
     <string name="import_none">Walang review sa store ng wallet na ito sa mga app mong naka-install o sinusundan.</string>
     <string name="import_publish">I-sign at i-import ang %1$d</string>
     <string name="import_done">Na-import ang %1$d review.</string>
@@ -437,6 +438,7 @@
     <string name="show_more">Ipakita pa</string>
     <string name="show_less">Paikliin</string>
     <string name="store_publisher_reply">Sagot ng publisher</string>
+    <string name="pro_copy_toast">I-paste ito sa ilalim ng “Ratings &amp; Reviews” → “Review this dApp”.</string>
     <string name="pro_copy_done">Nakopya na. Bukas ang listing: mag-scroll sa “Ratings &amp; Reviews”, i-tap ang “Review this dApp”, pagkatapos i-paste ang tala at itakda ang stars.</string>
     <string name="pro_copy_none">Nasa store na ang bawat review na na-sign mo.</string>
     <string name="pro_import_locked">Isang tool ng Pro ang pag-import ng lahat gamit ang isang signature. Nag-i-import ang Free nang tig-isa: mag-sign ng isa sa ibaba, o mula sa bawat dApp page.</string>
