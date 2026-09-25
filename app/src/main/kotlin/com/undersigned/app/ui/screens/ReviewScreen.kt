@@ -113,15 +113,9 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 Spacer(Modifier.height(8.dp))
                 val pro by vm.pro.collectAsState()
                 if (pro?.active != true) ProLock(hint = stringResource(R.string.review_also_store), onPro = onPro)
-                else SecondaryButton(stringResource(R.string.review_also_store), onClick = {
-                    try {
-                        val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-                        if (text.isNotBlank()) cm.setPrimaryClip(android.content.ClipData.newPlainText("review", text.trim()))
-                        context.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(com.undersigned.app.AppConfig.Store.DEEP_LINK + pkg)))
-                    } catch (_: Exception) { }
-                })
+                else SecondaryButton(stringResource(R.string.review_also_store), onClick = { com.undersigned.app.util.StoreHandoff.copyAndOpen(context, pkg, text) })
                 if (pro?.active == true) Text(stringResource(R.string.review_also_store_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
-                Spacer(Modifier.height(8.dp)); SecondaryButton("OK", onClick = onPublished)
+                Spacer(Modifier.height(8.dp)); SecondaryButton(stringResource(android.R.string.ok), onClick = onPublished)
             }
             Spacer(Modifier.height(32.dp))
         }

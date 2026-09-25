@@ -85,6 +85,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** My own historical store reviews found by wallet: package → review. */
     val myStoreReviews = MutableStateFlow<Map<String, StoreReview>>(emptyMap())
     val importScan = MutableStateFlow<String?>(null)   // progress text while scanning
+    /** Null until a scan has run; then (apps the store could not be read for, apps scanned). */
+    val importScanResult = MutableStateFlow<Pair<Int, Int>?>(null)
     val storeDetails = MutableStateFlow<Map<String, StoreDetails>>(emptyMap())
     /** package → wallets whose publisher claim verified against the store-listed website. */
     val verifiedPublishers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
@@ -269,13 +271,18 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (importScan.value != null) return
         viewModelScope.launch(Dispatchers.IO) {
             val targets = (installed.value + follows.value).filter { p -> catalogue.value.any { it.packageName == p } }.distinct()
-            val found = HashMap(myStoreReviews.value)
+            val found = HashMap(myStoreReviews.value); var failed = 0
             targets.forEachIndexed { i, pkg ->
                 importScan.value = "${i + 1}/${targets.size} · $pkg"
-                val hit = store.reviews(pkg, pageSize = 20, maxPages = 25) { it.walletAddress == w }.firstOrNull { it.walletAddress == w }
-                if (hit != null) found[pkg] = hit
+                // The store's CDN blocks a whole network for ~8 min after a few hundred quick requests (hit from the Mac on
+                // 26 Sep 2026). At the 10-per-page limit, the old 500-review depth meant up to 650 requests per scan, so:
+                // the newest 300 reviews per app (covers the Toolkit's 279), paced. A wallet's own review is rarely deeper.
+                val (list, ok) = store.reviewsChecked(pkg, pageSize = 10, maxPages = 30, pauseMs = 350) { it.walletAddress == w }
+                if (!ok) failed++
+                list.firstOrNull { it.walletAddress == w }?.let { found[pkg] = it }
             }
             myStoreReviews.value = found
+            importScanResult.value = failed to targets.size
             importScan.value = null
         }
     }

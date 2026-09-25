@@ -71,18 +71,14 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val df = remember { java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT) }
     fun share(text: String, mime: String, title: String) { try { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = mime; putExtra(Intent.EXTRA_SUBJECT, title); putExtra(Intent.EXTRA_TEXT, text) }, title)) } catch (_: Exception) { } }
     fun copyToStore(pkg: String, text: String?) {
-        try {
-            val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            if (!text.isNullOrBlank()) cm.setPrimaryClip(android.content.ClipData.newPlainText("review", text.trim()))
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg)))
-            copyMsg = context.getString(R.string.pro_copy_done)
-        } catch (_: Exception) { }
+        if (com.undersigned.app.util.StoreHandoff.copyAndOpen(context, pkg, text)) copyMsg = context.getString(R.string.pro_copy_done)
     }
     val domainNames by vm.domainNames.collectAsState()
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
     val termsService = remember { TermsAcceptanceService(context) }
     val myStore by vm.myStoreReviews.collectAsState()
     val scan by vm.importScan.collectAsState()
+    val scanResult by vm.importScanResult.collectAsState()
     var chosen by remember { mutableStateOf<Set<String>>(emptySet()) }
     var importStage by remember { mutableStateOf<String?>(null) }
     var importMsg by remember { mutableStateOf<String?>(null) }
@@ -239,7 +235,10 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             })
                             Text(stringResource(R.string.import_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                         }
-                    } else if (scan == null && importMsg == null) Text(stringResource(R.string.import_none), color = RbColors.textTertiary, fontSize = 11.sp)
+                    } else if (scan == null && importMsg == null) scanResult?.let { (failed, total) ->
+                        if (failed > 0) Text(stringResource(R.string.import_incomplete, failed, total), color = RbColors.warning, fontSize = 11.sp)
+                        else Text(stringResource(R.string.import_none), color = RbColors.textTertiary, fontSize = 11.sp)
+                    }
                     importMsg?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.green, fontSize = 12.sp) }
                 }
             }

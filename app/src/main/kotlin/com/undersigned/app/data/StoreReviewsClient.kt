@@ -74,27 +74,37 @@ class StoreReviewsClient {
         }.getOrElse { Log.w(TAG, "details failed: ${it.message?.take(80)}"); null }
     }
 
-    /** Newest first. Stops after [maxPages]; [stopWhen] lets a wallet scan end early. */
-    suspend fun reviews(pkg: String, pageSize: Int = 20, maxPages: Int = 3, stopWhen: (StoreReview) -> Boolean = { false }): List<StoreReview> = withContext(Dispatchers.IO) {
+    /** Newest first. Stops after [maxPages]; [stopWhen] lets a wallet scan end early. Partial on failure — see [reviewsChecked]. */
+    suspend fun reviews(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, stopWhen: (StoreReview) -> Boolean = { false }): List<StoreReview> =
+        reviewsChecked(pkg, pageSize, maxPages, stopWhen = stopWhen).first
+
+    /**
+     * As [reviews], plus whether the read COMPLETED. A scan must not report "you have no store reviews" when the store
+     * simply refused it: after store v1.59.0 a page of more than 10 reviews returns a bare {"message":"error"}, every
+     * import-scan request asked for 20, and the scan said "No store reviews by this wallet" for every wallet (found
+     * 26 Sep 2026). The page size is clamped to [MAX_REVIEW_PAGE]; callers asking for more get more pages instead.
+     */
+    suspend fun reviewsChecked(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, pauseMs: Long = 0, stopWhen: (StoreReview) -> Boolean = { false }): Pair<List<StoreReview>, Boolean> = withContext(Dispatchers.IO) {
         val out = ArrayList<StoreReview>(); var after: String? = null
+        val first = pageSize.coerceIn(1, MAX_REVIEW_PAGE)
         try {
             repeat(maxPages) {
-                val vars = JSONObject().put("systemContext", sc).put("androidPackage", pkg).put("first", pageSize)
-                if (after != null) vars.put("after", after)
+                val vars = JSONObject().put("systemContext", sc).put("androidPackage", pkg).put("first", first)
+                if (after != null) { vars.put("after", after); if (pauseMs > 0) kotlinx.coroutines.delay(pauseMs) }
                 val d = post("DAppReviews", Q_REVIEWS, vars).getJSONObject("dAppReviews")
                 val edges = d.getJSONArray("edges")
                 for (i in 0 until edges.length()) {
                     val n = edges.getJSONObject(i).getJSONObject("node")
                     val r = StoreReview(n.optString("id"), n.optString("createdAt"), n.optInt("rating"), n.str("review"),
                         n.str("walletAddress"), n.str("domain"), n.optJSONObject("reply")?.str("reply"))
-                    out.add(r); if (stopWhen(r)) return@withContext out
+                    out.add(r); if (stopWhen(r)) return@withContext out to true
                 }
                 val pi = d.getJSONObject("pageInfo")
-                if (!pi.optBoolean("hasNextPage", false)) return@withContext out
-                after = pi.str("endCursor") ?: return@withContext out
+                if (!pi.optBoolean("hasNextPage", false)) return@withContext out to true
+                after = pi.str("endCursor") ?: return@withContext out to true
             }
-        } catch (e: Exception) { Log.w(TAG, "reviews failed: ${e.message?.take(80)}") }
-        out
+            out to true   // stopped at maxPages: a deliberate depth limit, not a failure
+        } catch (e: Exception) { Log.w(TAG, "reviews failed: ${e.message?.take(80)}"); out to false }
     }
 
     private fun post(op: String, query: String, variables: JSONObject): JSONObject {
@@ -115,6 +125,8 @@ class StoreReviewsClient {
         private const val TAG = "StoreReviews"
         private const val Q_RATING = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { __typename androidPackage rating { rating reviewsByRating } } }"
         private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
+        /** The store's largest accepted page of reviews (v1.59.0: 11+ returns a bare error; measured 26 Sep 2026). */
+        const val MAX_REVIEW_PAGE = 10
         private const val Q_REVIEWS = "query DAppReviews(\$systemContext: SystemContext!, \$androidPackage: String!, \$first: Int!, \$after: String) { dAppReviews(systemContext: \$systemContext, androidPackage: \$androidPackage, first: \$first, after: \$after) { edges { node { __typename ...DAppReviewFragment } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } } }  fragment DAppReviewFragment on DAppReview { id createdAt rating review walletAddress domain isReviewerAccountDeleted reply { reply } }"
     }
 }

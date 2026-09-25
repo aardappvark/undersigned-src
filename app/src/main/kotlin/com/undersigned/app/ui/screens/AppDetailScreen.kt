@@ -138,12 +138,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val pro by vm.pro.collectAsState()
     var copyMsg by remember { mutableStateOf<String?>(null) }
     fun copyToStore(text: String?) {
-        try {
-            val cm = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            if (!text.isNullOrBlank()) cm.setPrimaryClip(android.content.ClipData.newPlainText("review", text.trim()))
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg)))
-            copyMsg = context.getString(R.string.pro_copy_done)
-        } catch (_: Exception) { }
+        if (com.undersigned.app.util.StoreHandoff.copyAndOpen(context, pkg, text)) copyMsg = context.getString(R.string.pro_copy_done)
     }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
