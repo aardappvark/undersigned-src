@@ -436,7 +436,6 @@
     <string name="show_more">Εμφάνιση περισσότερων</string>
     <string name="show_less">Εμφάνιση λιγότερων</string>
     <string name="store_publisher_reply">Απάντηση εκδότη</string>
-    <string name="pro_copy_toast">Επικολλήστε το κάτω από \"Ratings &amp; Reviews\" → \"Review this dApp\".</string>
     <string name="pro_copy_done">Αντιγράφηκε. Η καταχώριση είναι ανοιχτή: μεταβείτε στο \"Ratings &amp; Reviews\", πατήστε \"Review this dApp\", έπειτα επικολλήστε τη σημείωση και ορίστε τα αστέρια.</string>
     <string name="pro_copy_none">Κάθε κριτική που έχετε υπογράψει βρίσκεται ήδη στο κατάστημα.</string>
     <string name="pro_import_locked">Η εισαγωγή όλων με μία υπογραφή είναι εργαλείο Pro. Το Δωρεάν εισάγει μία τη φορά: υπογράψτε μία παρακάτω, ή από κάθε σελίδα dApp.</string>

@@ -436,7 +436,6 @@
     <string name="show_more">Daha fazla göster</string>
     <string name="show_less">Daha az göster</string>
     <string name="store_publisher_reply">Yayıncı yanıtı</string>
-    <string name="pro_copy_toast">\"Ratings &amp; Reviews\" altına yapıştırın → \"Review this dApp\".</string>
     <string name="pro_copy_done">Kopyalandı. Listeleme açık: \"Ratings &amp; Reviews\" bölümüne kaydırın, \"Review this dApp\" seçeneğine dokunun, ardından notu yapıştırın ve yıldızları ayarlayın.</string>
     <string name="pro_copy_none">İmzaladığınız her inceleme zaten mağazada.</string>
     <string name="pro_import_locked">Hepsini tek imzayla içe aktarmak bir Pro aracıdır. Ücretsiz, birer birer içe aktarır: aşağıdan birini imzalayın veya her dApp sayfasından.</string>

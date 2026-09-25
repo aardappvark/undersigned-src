@@ -379,6 +379,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             title = { Text(stringResource(R.string.pro_copy_all), color = RbColors.textPrimary) },
             text = { Column(Modifier.heightIn(max = 400.dp).verticalScroll(rememberScrollState())) {
                 Text(stringResource(R.string.pro_copy_review_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(6.dp))
+                Text(stringResource(R.string.review_also_store_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 Spacer(Modifier.height(8.dp))
                 if (queue.isEmpty()) Text(stringResource(R.string.pro_copy_none), color = RbColors.textTertiary, fontSize = 12.sp)
                 queue.forEach { e -> val r = e.memo as com.undersigned.protocol.ReviewMemo.Review

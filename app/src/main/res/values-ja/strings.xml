@@ -429,7 +429,6 @@
     <string name="show_more">もっと見る</string>
     <string name="show_less">折りたたむ</string>
     <string name="store_publisher_reply">パブリッシャーの返信</string>
-    <string name="pro_copy_toast">「評価 &amp;レビュー」の下に貼り付け → 「このdAppをレビュー」。</string>
     <string name="pro_copy_done">コピーしました。リスティングが開いています — 「評価 &amp;レビュー」までスクロールし、「このdAppをレビュー」をタップして、メモを貼り付け、星の数を設定してください。</string>
     <string name="pro_copy_none">署名済みのレビューはすべてストアに反映済みです。</string>
     <string name="pro_import_locked">1回の署名でまとめてインポートするのは Pro ツールです。無料版では1件ずつのインポートになります。下記から1件署名するか、各 dApp ページから行ってください。</string>

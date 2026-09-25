@@ -421,7 +421,6 @@
     <string name="show_more">Показать больше</string>
     <string name="show_less">Показать меньше</string>
     <string name="store_publisher_reply">Ответ издателя</string>
-    <string name="pro_copy_toast">Вставьте под \"Оценки и Отзывы\" → \"Оценить это децентрализованное приложение\".</string>
     <string name="pro_copy_done">Скопировано. Листинг открыт: прокрутите до \"Оценки и Отзывы\", нажмите \"Оценить это децентрализованное приложение\", затем вставьте заметку и выставьте звёзды.</string>
     <string name="pro_copy_none">Все подписанные вами отзывы уже есть в магазине.</string>
     <string name="pro_import_locked">Импорт всех одной подписью — инструмент Pro. Free импортирует по одному: подпишите один ниже или на странице каждой dApp.</string>

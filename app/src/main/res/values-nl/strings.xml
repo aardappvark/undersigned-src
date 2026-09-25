@@ -430,7 +430,6 @@
     <string name="show_more">Meer weergeven</string>
     <string name="show_less">Minder weergeven</string>
     <string name="store_publisher_reply">Reactie van de uitgever</string>
-    <string name="pro_copy_toast">Plak het onder „Beoordelingen &amp; Recensies” → „Beoordeel deze dApp”.</string>
     <string name="pro_copy_done">Gekopieerd. De vermelding is geopend: scroll naar „Beoordelingen &amp; Recensies”, tik op „Beoordeel deze dApp”, plak vervolgens de opmerking en stel de sterren in.</string>
     <string name="pro_copy_none">Elke recensie die u hebt ondertekend staat al in de store.</string>
     <string name="pro_import_locked">Ze allemaal importeren met één handtekening is een Pro-hulpmiddel. Gratis importeert er één tegelijk: onderteken er hieronder één, of vanaf elke dApp-pagina.</string>

@@ -439,7 +439,6 @@
     <string name="show_more">Mehr anzeigen</string>
     <string name="show_less">Weniger anzeigen</string>
     <string name="store_publisher_reply">Antwort des Herausgebers</string>
-    <string name="pro_copy_toast">Einfügen unter „Bewertungen &amp; Rezensionen“ → „Eine Rezension für diese dApp hinterlassen“.</string>
     <string name="pro_copy_done">Kopiert. Der Eintrag ist geöffnet: scrollen Sie zu „Bewertungen &amp; Rezensionen“, tippen Sie auf „Eine Rezension für diese dApp hinterlassen“, fügen Sie dann die Notiz ein und setzen Sie die Sterne.</string>
     <string name="pro_copy_none">Jede von Ihnen signierte Bewertung ist bereits im Store.</string>
     <string name="pro_import_locked">Alle mit einer Signatur zu importieren ist ein Pro-Werkzeug. Free importiert einzeln: signieren Sie unten eine, oder von jeder dApp-Seite aus.</string>

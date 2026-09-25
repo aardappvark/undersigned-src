@@ -438,7 +438,6 @@
     <string name="show_more">Ver más</string>
     <string name="show_less">Ver menos</string>
     <string name="store_publisher_reply">Respuesta del editor</string>
-    <string name="pro_copy_toast">Pégalo debajo de «Calificaciones y Reseñas» → «Revisar esta dApp».</string>
     <string name="pro_copy_done">Copiada. La ficha está abierta: desplázate hasta «Calificaciones y Reseñas», toca «Revisar esta dApp», luego pega la nota y fija las estrellas.</string>
     <string name="pro_copy_none">Todas las reseñas que has firmado ya están en la tienda.</string>
     <string name="pro_import_locked">Importarlas todas con una sola firma es una herramienta Pro. Free las importa de una en una: firma una abajo, o desde cada página de dApp.</string>

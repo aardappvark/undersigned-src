@@ -137,9 +137,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
     val pro by vm.pro.collectAsState()
     var copyMsg by remember { mutableStateOf<String?>(null) }
-    fun copyToStore(text: String?) {
-        if (com.undersigned.app.util.StoreHandoff.copyAndOpen(context, pkg, text)) copyMsg = context.getString(R.string.pro_copy_done)
-    }
+    var handoffText by remember { mutableStateOf<String?>(null) }
+    var handoffOpen by remember { mutableStateOf(false) }
+    fun copyToStore(text: String?) { handoffText = text; handoffOpen = true }
 
     fun openStore() { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg))) } catch (_: Exception) { } }
     // The dApp launcher: the package manager's launch intent for an installed store app. Nothing is installed or changed.
@@ -613,6 +613,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             dismissButton = { TextButton(enabled = revokeStage == null, onClick = { revokeDialog = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
         )
     }
+    if (handoffOpen) StoreHandoffDialog(pkg, handoffText, onOpened = { copyMsg = context.getString(R.string.pro_copy_done) }) { handoffOpen = false }
 }
 
 /** A review-card action: compact text, full 48 dp touch target, optional screen-reader label for short toggles. */

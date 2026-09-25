@@ -367,7 +367,6 @@
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
     <string name="store_publisher_reply">Publisher reply</string>
-    <string name="pro_copy_toast">Paste it under “Ratings &amp; Reviews” → “Review this dApp”.</string>
     <string name="pro_copy_done">Copied. The listing is open: scroll to “Ratings &amp; Reviews”, tap “Review this dApp”, then paste the note and set the stars.</string>
     <string name="pro_copy_none">Every review you have signed is already in the store.</string>
     <string name="pro_import_locked">Importing them all with one signature is a Pro tool. Free imports one at a time: sign one below, or from each dApp page.</string>

@@ -437,7 +437,6 @@
     <string name="show_more">展开</string>
     <string name="show_less">收起</string>
     <string name="store_publisher_reply">发布者回复</string>
-    <string name="pro_copy_toast">粘贴到“评分和评价”下方 → “评价此 dApp”。</string>
     <string name="pro_copy_done">已复制。应用页面已打开——滚动到“评分和评价”,点击“评价此 dApp”,然后粘贴说明并设置星级。</string>
     <string name="pro_copy_none">您签署过的所有评价均已在商店中。</string>
     <string name="pro_import_locked">一次签名导入全部评价是 Pro 工具。免费版每次只能导入一条:在下方签署一条,或从各个 dApp 页面导入。</string>

@@ -438,7 +438,6 @@
     <string name="show_more">Voir plus</string>
     <string name="show_less">Voir moins</string>
     <string name="store_publisher_reply">Réponse de l\'éditeur</string>
-    <string name="pro_copy_toast">Collez-le sous «Notes &amp; Commentaires» → «Donnez votre avis sur cette dApp».</string>
     <string name="pro_copy_done">Copié. La fiche est ouverte : faites défiler jusqu\'à «Notes &amp; Commentaires», appuyez sur «Donnez votre avis sur cette dApp», puis collez la note et fixez les étoiles.</string>
     <string name="pro_copy_none">Tous les avis que vous avez signés sont déjà dans le store.</string>
     <string name="pro_import_locked">Les importer tous en une seule signature est un outil Pro. Free les importe un par un : signez-en un ci-dessous, ou depuis chaque page de dApp.</string>

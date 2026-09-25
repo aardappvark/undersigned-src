@@ -422,7 +422,6 @@
     <string name="show_more">Visa mer</string>
     <string name="show_less">Visa mindre</string>
     <string name="store_publisher_reply">Utgivarens svar</string>
-    <string name="pro_copy_toast">Klistra in det under ”Ratings &amp; Reviews” → ”Review this dApp”.</string>
     <string name="pro_copy_done">Kopierat. Listningen är öppen: bläddra till ”Ratings &amp; Reviews”, tryck på ”Review this dApp”, klistra sedan in anteckningen och sätt stjärnorna.</string>
     <string name="pro_copy_none">Varje recension du har signerat finns redan i butiken.</string>
     <string name="pro_import_locked">Att importera alla med en signatur är ett Pro-verktyg. Gratis importerar en i taget: signera en nedan, eller från varje dApp-sida.</string>

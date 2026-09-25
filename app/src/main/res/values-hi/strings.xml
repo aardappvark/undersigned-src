@@ -438,7 +438,6 @@
     <string name="show_more">और दिखाएं</string>
     <string name="show_less">कम दिखाएं</string>
     <string name="store_publisher_reply">प्रकाशक का जवाब</string>
-    <string name="pro_copy_toast">“रेटिंग &amp; रिव्यु” के नीचे पेस्ट करें → “dApp का रिव्यू दें”।</string>
     <string name="pro_copy_done">कॉपी हो गया। लिस्टिंग खुली है: “रेटिंग &amp; रिव्यु” तक स्क्रॉल करें, “dApp का रिव्यू दें” पर टैप करें, फिर नोट पेस्ट करें और स्टार सेट करें।</string>
     <string name="pro_copy_none">आपने जितनी भी समीक्षाएं साइन की हैं, वे सभी पहले से स्टोर में हैं।</string>
     <string name="pro_import_locked">एक ही हस्ताक्षर से सबको आयात करना एक Pro टूल है। Free में एक-एक करके आयात होता है: नीचे एक साइन करें, या हर dApp पेज से।</string>

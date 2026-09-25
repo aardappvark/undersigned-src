@@ -438,7 +438,6 @@
     <string name="show_more">Mostra altro</string>
     <string name="show_less">Mostra meno</string>
     <string name="store_publisher_reply">Risposta dell\'editore</string>
-    <string name="pro_copy_toast">Incollalo sotto «Valutazioni &amp; recensioni» → «Recensisci questa dApp».</string>
     <string name="pro_copy_done">Copiata. La scheda è aperta: scorri fino a «Valutazioni &amp; recensioni», tocca «Recensisci questa dApp», poi incolla la nota e imposta le stelle.</string>
     <string name="pro_copy_none">Tutte le recensioni che hai firmato sono già nello store.</string>
     <string name="pro_import_locked">Importarle tutte con un\'unica firma è uno strumento Pro. Free le importa una alla volta: firmane una qui sotto, o da ogni pagina di dApp.</string>

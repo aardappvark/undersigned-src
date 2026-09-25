@@ -434,7 +434,6 @@
     <string name="show_more">عرض المزيد</string>
     <string name="show_less">عرض أقل</string>
     <string name="store_publisher_reply">رد الناشر</string>
-    <string name="pro_copy_toast">الصقها ضمن “التقييمات &amp; الآراء” → “راجع تطبيق dApp هذا”.</string>
     <string name="pro_copy_done">تم النسخ. القائمة مفتوحة: مرّر إلى “التقييمات &amp; الآراء”، اضغط “راجع تطبيق dApp هذا”، ثم الصق الملاحظة وحدّد النجوم.</string>
     <string name="pro_copy_none">كل مراجعة وقّعتها موجودة بالفعل في المتجر.</string>
     <string name="pro_import_locked">استيراد جميعها بتوقيع واحد أداة من Pro. يستورد Free واحدة تلو الأخرى: وقّع واحدة أدناه، أو من صفحة كل تطبيق.</string>

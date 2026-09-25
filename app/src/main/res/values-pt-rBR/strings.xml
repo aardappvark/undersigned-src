@@ -438,7 +438,6 @@
     <string name="show_more">Ver mais</string>
     <string name="show_less">Ver menos</string>
     <string name="store_publisher_reply">Resposta do publicador</string>
-    <string name="pro_copy_toast">Cole em “Classificações &amp; Críticas” → “Avaliar esta dApp”.</string>
     <string name="pro_copy_done">Copiada. A página está aberta: role até “Classificações &amp; Críticas”, toque em “Avaliar esta dApp”, depois cole a nota e defina as estrelas.</string>
     <string name="pro_copy_none">Todas as avaliações que você assinou já estão na loja.</string>
     <string name="pro_import_locked">Importar todas com uma única assinatura é uma ferramenta Pro. O Free importa uma de cada vez: assine uma abaixo, ou em cada página de dApp.</string>

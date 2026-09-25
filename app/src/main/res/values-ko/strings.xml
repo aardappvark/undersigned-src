@@ -430,7 +430,6 @@
     <string name="show_more">더보기</string>
     <string name="show_less">접기</string>
     <string name="store_publisher_reply">퍼블리셔 답글</string>
-    <string name="pro_copy_toast">\"평가 &amp; 리뷰\" 아래에 붙여넣기 → \"이 dApp 리뷰하기\".</string>
     <string name="pro_copy_done">복사되었습니다. 리스팅이 열려 있습니다 — \"평가 &amp; 리뷰\"까지 스크롤한 다음 \"이 dApp 리뷰하기\"를 탭하고, 메모를 붙여넣은 후 별점을 설정하세요.</string>
     <string name="pro_copy_none">서명한 리뷰가 이미 모두 스토어에 있습니다.</string>
     <string name="pro_import_locked">서명 한 번으로 전체를 가져오는 기능은 Pro 도구입니다. 무료에서는 한 번에 하나씩 가져옵니다: 아래에서 하나를 서명하거나 각 dApp 페이지에서 진행하세요.</string>

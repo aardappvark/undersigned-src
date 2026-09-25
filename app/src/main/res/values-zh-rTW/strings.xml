@@ -437,7 +437,6 @@
     <string name="show_more">展開</string>
     <string name="show_less">收合</string>
     <string name="store_publisher_reply">發行者回覆</string>
-    <string name="pro_copy_toast">貼上到 \"評分與評論\" 下方 → \"評論這個 dApp\"。</string>
     <string name="pro_copy_done">已複製。應用程式頁面已開啟——捲動到 \"評分與評論\",點選 \"評論這個 dApp\",然後貼上說明並設定星等。</string>
     <string name="pro_copy_none">您簽署過的每一則評價都已在商店中。</string>
     <string name="pro_import_locked">一次簽署即可全部匯入,是 Pro 工具。免費版一次只能匯入一則:在下方簽署一則,或從各個 dApp 頁面匯入。</string>

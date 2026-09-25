@@ -430,7 +430,6 @@
     <string name="show_more">আরও দেখান</string>
     <string name="show_less">কম দেখান</string>
     <string name="store_publisher_reply">প্রকাশকের উত্তর</string>
-    <string name="pro_copy_toast">“Ratings &amp; Reviews”-এর নিচে পেস্ট করুন → “Review this dApp”।</string>
     <string name="pro_copy_done">কপি হয়েছে। তালিকাটি খোলা আছে: “Ratings &amp; Reviews”-এ স্ক্রল করুন, “Review this dApp”-এ ট্যাপ করুন, তারপর নোটটি পেস্ট করুন এবং স্টার নির্ধারণ করুন।</string>
     <string name="pro_copy_none">আপনার স্বাক্ষর করা প্রতিটি পর্যালোচনা ইতিমধ্যে স্টোরে আছে।</string>
     <string name="pro_import_locked">একটি স্বাক্ষরে সবগুলো আমদানি করা একটি Pro টুল। ফ্রি একবারে একটি আমদানি করে: নিচে একটি স্বাক্ষর করুন, বা প্রতিটি dApp পেজ থেকে।</string>

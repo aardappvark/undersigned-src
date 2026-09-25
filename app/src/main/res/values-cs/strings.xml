@@ -429,7 +429,6 @@
     <string name="show_more">Zobrazit více</string>
     <string name="show_less">Zobrazit méně</string>
     <string name="store_publisher_reply">Odpověď vydavatele</string>
-    <string name="pro_copy_toast">Vložte pod \"Ratings &amp; Reviews\" → \"Review this dApp\".</string>
     <string name="pro_copy_done">Zkopírováno. Záznam je otevřený: přejděte na \"Ratings &amp; Reviews\", klepněte na \"Review this dApp\" a pak vložte poznámku a nastavte hvězdičky.</string>
     <string name="pro_copy_none">Všechny recenze, které jste podepsali, už jsou v obchodě.</string>
     <string name="pro_import_locked">Import všech jedním podpisem je nástroj Pro. Free importuje po jedné: podepište jednu níže nebo na stránce každé dApp.</string>

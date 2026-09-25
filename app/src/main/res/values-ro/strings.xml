@@ -436,7 +436,6 @@
     <string name="show_more">Arată mai mult</string>
     <string name="show_less">Arată mai puțin</string>
     <string name="store_publisher_reply">Răspunsul editorului</string>
-    <string name="pro_copy_toast">Lipește sub \"Ratings &amp; Reviews\" → \"Review this dApp\".</string>
     <string name="pro_copy_done">Copiat. Listarea este deschisă: derulează până la \"Ratings &amp; Reviews\", atinge \"Review this dApp\", apoi lipește nota și setează stelele.</string>
     <string name="pro_copy_none">Fiecare recenzie semnată de tine este deja în magazin.</string>
     <string name="pro_import_locked">Importarea tuturor cu o singură semnătură este o unealtă Pro. Gratuit importă una câte una: semnează una mai jos, sau de pe fiecare pagină de dApp.</string>
