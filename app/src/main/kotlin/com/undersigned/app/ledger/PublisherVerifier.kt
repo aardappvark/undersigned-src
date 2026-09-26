@@ -27,6 +27,25 @@ object PublisherVerifier {
         return "https://${u.host}/.well-known/undersigned.txt"
     }
 
+    /** The proof a website stands for: two websites with the same key are proven by the same file. Case-insensitive. */
+    fun proofKey(website: String?): String? = website?.let { wellKnownUrl(it) }?.lowercase()
+
+    /**
+     * A wallet verified for one app is verified for every app whose store-listed website resolves to the SAME proof
+     * file — it has already proven control of exactly that site. Without this, self-review detection was per claimed
+     * app only: the airdropper, verified for the Toolkit, could post a COUNTED 5★ of DivineQuotes, which the store lists
+     * under the same publisher and the same website, because nobody had claimed DivineQuotes (found 26 Sep 2026).
+     * Keyed on the proof file, never the publisher NAME: a name proves nothing; a website does.
+     */
+    fun expandToSameProof(verified: Map<String, Set<String>>, packages: Collection<String>, websiteOf: (String) -> String?): Map<String, Set<String>> {
+        val byKey = HashMap<String, MutableSet<String>>()
+        for ((pkg, wallets) in verified) proofKey(websiteOf(pkg))?.let { k -> byKey.getOrPut(k) { HashSet() }.addAll(wallets) }
+        val out = HashMap<String, MutableSet<String>>()
+        verified.forEach { (k, v) -> out.getOrPut(k) { HashSet() }.addAll(v) }
+        for (pkg in packages) proofKey(websiteOf(pkg))?.let { k -> byKey[k]?.let { w -> out.getOrPut(pkg) { HashSet() }.addAll(w) } }
+        return out.filterValues { it.isNotEmpty() }
+    }
+
     suspend fun verify(pkg: String, wallet: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
         UserPreferences.cachedClaim(pkg, wallet, TTL)?.let { return@withContext it }
         val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, wallet, false) }

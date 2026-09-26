@@ -201,10 +201,17 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val d = storeDetails.value[pkg] ?: store.details(pkg)?.also { storeDetails.value = storeDetails.value + (pkg to it) }
             if (PublisherVerifier.verify(pkg, c.signer, d)) out.getOrPut(pkg) { HashSet() }.add(c.signer)
         }
-        val changed = verifiedPublishers.value != out
-        verifiedPublishers.value = out
-        UserPreferences.saveVerifiedPublishers(out)
-        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, out, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, out, f); flagWeights.value = Reputation.flagWeights(list, out, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, out, f) }
+        // Extend each verification to every reviewed app that lists the same website, so a publisher's review of their
+        // own OTHER app is not counted as independent. Store details for those apps are fetched once, paced.
+        val reviewed = list.mapNotNull { (it.memo as? ReviewMemo.Review)?.packageName }.distinct()
+        if (out.isNotEmpty()) for (pkg in reviewed) if (!storeDetails.value.containsKey(pkg)) {
+            store.details(pkg)?.let { d -> storeDetails.update { it + (pkg to d) } }; kotlinx.coroutines.delay(250)
+        }
+        val expanded = PublisherVerifier.expandToSameProof(out, reviewed) { storeDetails.value[it]?.website }
+        val changed = verifiedPublishers.value != expanded
+        verifiedPublishers.value = expanded
+        UserPreferences.saveVerifiedPublishers(expanded)
+        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f) }
     }
     private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
         // Both counts over the SAME set: live (non-withdrawn) reviews. Counting signers over every review ever written
