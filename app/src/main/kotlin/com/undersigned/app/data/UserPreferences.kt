@@ -15,6 +15,7 @@ object UserPreferences {
     private const val KEY_ONBOARDING_SEEN = "onboarding_seen"
     private const val KEY_HIDDEN = "hidden_signatures"
     private const val KEY_FACTS = "signer_facts"
+    private const val KEY_MY_STORE = "my_store_reviews"   // {wallet, at, reviews:{pkg:{…}}} — the wallet's own store reviews, last scan
     private const val KEY_VERIFIED = "verified_publishers"   // package → wallets whose claim verified, last seen
     private const val KEY_CATALOGUE_REFRESH = "catalogue_refreshed_at"
     private const val KEY_DEVICE_SNAPSHOT = "device_snapshot"
@@ -128,6 +129,24 @@ object UserPreferences {
     fun saveVerifiedPublishers(m: Map<String, Set<String>>) {
         val o = JSONObject(); m.forEach { (k, ws) -> o.put(k, org.json.JSONArray(ws.toList())) }
         prefs?.edit()?.putString(KEY_VERIFIED, o.toString())?.apply()
+    }
+    /**
+     * The signed-in wallet's own dApp Store reviews from its last scan. A scan reads every installed/followed app's
+     * reviews and takes minutes, so without this "My reviews" was empty until the user scanned again. Kept for ONE
+     * wallet only; a different wallet reads back nothing.
+     */
+    fun loadMyStoreReviews(wallet: String): Pair<Map<String, com.undersigned.app.data.StoreReview>, Long>? = runCatching {
+        val o = JSONObject(prefs?.getString(KEY_MY_STORE, null) ?: return null)
+        if (o.optString("wallet") != wallet) return null
+        val r = o.getJSONObject("reviews")
+        r.keys().asSequence().associateWith { k -> val j = r.getJSONObject(k)
+            com.undersigned.app.data.StoreReview(j.optString("id"), j.optString("createdAt"), j.optInt("rating"), j.optString("text").takeIf { j.has("text") },
+                wallet, j.optString("domain").takeIf { j.has("domain") }, j.optString("reply").takeIf { j.has("reply") }) } to o.optLong("at")
+    }.getOrNull()
+    fun saveMyStoreReviews(wallet: String, reviews: Map<String, com.undersigned.app.data.StoreReview>) {
+        val r = JSONObject(); reviews.forEach { (pkg, x) -> r.put(pkg, JSONObject().put("id", x.id).put("createdAt", x.createdAt).put("rating", x.rating)
+            .apply { x.text?.let { put("text", it) }; x.domain?.let { put("domain", it) }; x.publisherReply?.let { put("reply", it) } }) }
+        prefs?.edit()?.putString(KEY_MY_STORE, JSONObject().put("wallet", wallet).put("at", System.currentTimeMillis()).put("reviews", r).toString())?.apply()
     }
     fun clearFacts() { prefs?.edit()?.remove(KEY_FACTS)?.apply() }
 

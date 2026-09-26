@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Inbox
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.RateReview
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -48,7 +49,7 @@ private enum class Sort { SCORE, NEW, CATEGORY, NAME }
 private sealed class Row { data class App(val app: CatalogueApp) : Row(); data class Head(val category: String, val count: Int) : Row() }
 
 @Composable
-fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit, onInbox: () -> Unit = {}, onProfile: (String) -> Unit = {}, onStats: () -> Unit = {}) {
+fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit, onInbox: () -> Unit = {}, onProfile: (String) -> Unit = {}, onStats: () -> Unit = {}, onMyReviews: () -> Unit = {}) {
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
@@ -97,6 +98,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp, modifier = Modifier.weight(1f))
             val entriesAll by vm.entries.collectAsState()
             val inboxCount = remember(entriesAll) { vm.unanswered().size + vm.repliesToMe().size }
+            IconButton(onClick = onMyReviews) { Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.my_reviews_title), tint = RbColors.textSecondary) }
             IconButton(onClick = onInbox) {
                 BadgedBox(badge = { if (inboxCount > 0) Badge(containerColor = RbColors.purple) { Text("$inboxCount") } }) { Icon(Icons.Default.Inbox, contentDescription = stringResource(R.string.inbox), tint = RbColors.textSecondary) }
             }

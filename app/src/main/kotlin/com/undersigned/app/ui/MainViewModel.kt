@@ -84,6 +84,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val domainNames = MutableStateFlow<Map<String, String>>(emptyMap())
     /** My own historical store reviews found by wallet: package → review. */
     val myStoreReviews = MutableStateFlow<Map<String, StoreReview>>(emptyMap())
+    /** When this wallet's store reviews were last scanned (ms), or null if never. */
+    val myStoreScannedAt = MutableStateFlow<Long?>(null)
     val importScan = MutableStateFlow<String?>(null)   // progress text while scanning
     /** Null until a scan has run; then (apps the store could not be read for, apps scanned). */
     val importScanResult = MutableStateFlow<Pair<Int, Int>?>(null)
@@ -146,7 +148,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 rank()
             }
         }
-        viewModelScope.launch { UserPreferences.walletAddress.collect { w -> recomputePro(); if (w == null) selfFacts.value = null else loadSelfFacts(w) } }
+        viewModelScope.launch { UserPreferences.walletAddress.collect { w -> recomputePro(); if (w == null) selfFacts.value = null else loadSelfFacts(w)
+            // Store reviews belong to ONE wallet: restore that wallet's last scan, or start empty.
+            val cached = w?.let { UserPreferences.loadMyStoreReviews(it) }
+            myStoreReviews.value = cached?.first ?: emptyMap(); myStoreScannedAt.value = cached?.second } }
         viewModelScope.launch { UserPreferences.granters.collect { recomputePro() } }
         // Near-real-time while the app is open: one cheap tail read a minute (until = newest known signature).
         viewModelScope.launch(Dispatchers.IO) { while (isActive) { delay(60_000); if (ledgerStatus.value !is LedgerStatus.Syncing) syncLedger() } }
@@ -278,7 +283,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val w = wallet.value ?: return
         if (importScan.value != null) return
         viewModelScope.launch(Dispatchers.IO) {
-            val targets = (installed.value + follows.value).filter { p -> catalogue.value.any { it.packageName == p } }.distinct()
+            // Also every app this wallet signed a review for, so "My reviews" can truthfully say "Not in the dApp Store"
+            // for those, even after the app was uninstalled.
+            val mine = entriesBy(w).map { (it.memo as ReviewMemo.Review).packageName }
+            val targets = (installed.value + follows.value + mine).filter { p -> catalogue.value.any { it.packageName == p } }.distinct()
             val found = HashMap(myStoreReviews.value); var failed = 0
             targets.forEachIndexed { i, pkg ->
                 // Count only on the button; the app NAME goes on its own line. The raw package id in a 48 dp button
@@ -287,12 +295,17 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 importScanApp.value = catalogue.value.firstOrNull { it.packageName == pkg }?.name ?: pkg
                 // The store's CDN blocks a whole network for ~8 min after a few hundred quick requests (hit from the Mac on
                 // 26 Sep 2026). At the 10-per-page limit, the old 500-review depth meant up to 650 requests per scan, so:
-                // the newest 300 reviews per app (covers the Toolkit's 279), paced. A wallet's own review is rarely deeper.
-                val (list, ok) = store.reviewsChecked(pkg, pageSize = 10, maxPages = 30, pauseMs = 350) { it.walletAddress == w }
-                if (!ok) failed++
-                list.firstOrNull { it.walletAddress == w }?.let { found[pkg] = it }
+                // the newest 300 reviews per app (covers the Toolkit's 279), ~1 page a second: the Mac was blocked at ~2 a second. A wallet's own review is rarely deeper.
+                val read = store.reviewsChecked(pkg, pageSize = 10, maxPages = 30, pauseMs = 700) { it.walletAddress == w }
+                val list = read.items
+                if (!read.complete) failed++
+                // Only a read that reached the LAST review may say "none": then a cached one was deleted in the store.
+                // Stopping at the depth limit proves nothing about older reviews, so a cached one is kept.
+                val hit = list.firstOrNull { it.walletAddress == w }
+                if (hit != null) found[pkg] = hit else if (read.exhausted) found.remove(pkg)
             }
             myStoreReviews.value = found
+            if (failed == 0) { UserPreferences.saveMyStoreReviews(w, found); myStoreScannedAt.value = System.currentTimeMillis() }
             importScanResult.value = failed to targets.size
             importScan.value = null; importScanApp.value = null
         }
@@ -356,6 +369,20 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             .map { it to mine[(it.memo as ReviewMemo.Reply).reviewSignature]!! }
     }
 
+    /** One row per dApp the signed-in wallet has reviewed anywhere: its newest live signed review and its store review. */
+    data class MyDapp(val pkg: String, val name: String, val signed: LedgerEntry?, val store: StoreReview?) {
+        val lastAt: Long get() = maxOf(signed?.blockTime ?: 0L, store?.createdAt?.let { runCatching { java.time.Instant.parse(it).epochSecond }.getOrNull() } ?: 0L)
+        /** Stars or text differ between the two, e.g. a typo fixed on one side only. */
+        val differs: Boolean get() { val r = signed?.memo as? ReviewMemo.Review ?: return false; val s = store ?: return false
+            return r.rating != s.rating || (r.text ?: "").trim() != (s.text ?: "").trim() }
+    }
+    fun myDapps(): List<MyDapp> {
+        val w = wallet.value ?: return emptyList()
+        val signed = entriesBy(w).groupBy { (it.memo as ReviewMemo.Review).packageName }.mapValues { (_, l) -> l.maxBy { it.blockTime } }
+        val store = myStoreReviews.value
+        return (signed.keys + store.keys).map { pkg -> MyDapp(pkg, catalogue.value.firstOrNull { it.packageName == pkg }?.name ?: labelFor(pkg, pkg), signed[pkg], store[pkg]) }
+            .sortedByDescending { it.lastAt }
+    }
     fun myReview(pkg: String): LedgerEntry? {
         val w = wallet.value ?: return null
         val revoked = revokedSignatures()

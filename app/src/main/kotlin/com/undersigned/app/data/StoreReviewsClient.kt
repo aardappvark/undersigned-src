@@ -23,6 +23,9 @@ private fun JSONObject.str(key: String): String? =
 data class StoreReview(val id: String, val createdAt: String, val rating: Int, val text: String?, val walletAddress: String?, val domain: String?, val publisherReply: String?)
 data class StoreRating(val average: Double, val byStar: List<Int>) { val total get() = byStar.sum() }
 /** The store's listed publisher and the certificate the store's release was signed with. */
+/** [complete]: no request failed. [exhausted]: read to the last review, so "not found" really means none. */
+data class ReviewsRead(val items: List<StoreReview>, val complete: Boolean, val exhausted: Boolean)
+
 /** [newInVersion] is the publisher's "What's new" for [versionCode] ONLY — the store's latest release, not the installed one. */
 data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?, val newInVersion: String? = null)
 
@@ -76,7 +79,7 @@ class StoreReviewsClient {
 
     /** Newest first. Stops after [maxPages]; [stopWhen] lets a wallet scan end early. Partial on failure — see [reviewsChecked]. */
     suspend fun reviews(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, stopWhen: (StoreReview) -> Boolean = { false }): List<StoreReview> =
-        reviewsChecked(pkg, pageSize, maxPages, stopWhen = stopWhen).first
+        reviewsChecked(pkg, pageSize, maxPages, stopWhen = stopWhen).items
 
     /**
      * As [reviews], plus whether the read COMPLETED. A scan must not report "you have no store reviews" when the store
@@ -84,7 +87,7 @@ class StoreReviewsClient {
      * import-scan request asked for 20, and the scan said "No store reviews by this wallet" for every wallet (found
      * 26 Sep 2026). The page size is clamped to [MAX_REVIEW_PAGE]; callers asking for more get more pages instead.
      */
-    suspend fun reviewsChecked(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, pauseMs: Long = 0, stopWhen: (StoreReview) -> Boolean = { false }): Pair<List<StoreReview>, Boolean> = withContext(Dispatchers.IO) {
+    suspend fun reviewsChecked(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, pauseMs: Long = 0, stopWhen: (StoreReview) -> Boolean = { false }): ReviewsRead = withContext(Dispatchers.IO) {
         val out = ArrayList<StoreReview>(); var after: String? = null
         val first = pageSize.coerceIn(1, MAX_REVIEW_PAGE)
         try {
@@ -97,14 +100,14 @@ class StoreReviewsClient {
                     val n = edges.getJSONObject(i).getJSONObject("node")
                     val r = StoreReview(n.optString("id"), n.optString("createdAt"), n.optInt("rating"), n.str("review"),
                         n.str("walletAddress"), n.str("domain"), n.optJSONObject("reply")?.str("reply"))
-                    out.add(r); if (stopWhen(r)) return@withContext out to true
+                    out.add(r); if (stopWhen(r)) return@withContext ReviewsRead(out, complete = true, exhausted = false)
                 }
                 val pi = d.getJSONObject("pageInfo")
-                if (!pi.optBoolean("hasNextPage", false)) return@withContext out to true
-                after = pi.str("endCursor") ?: return@withContext out to true
+                if (!pi.optBoolean("hasNextPage", false)) return@withContext ReviewsRead(out, complete = true, exhausted = true)
+                after = pi.str("endCursor") ?: return@withContext ReviewsRead(out, complete = true, exhausted = true)
             }
-            out to true   // stopped at maxPages: a deliberate depth limit, not a failure
-        } catch (e: Exception) { Log.w(TAG, "reviews failed: ${e.message?.take(80)}"); out to false }
+            ReviewsRead(out, complete = true, exhausted = false)   // stopped at maxPages: a depth limit, not a failure — and NOT the end
+        } catch (e: Exception) { Log.w(TAG, "reviews failed: ${e.message?.take(80)}"); ReviewsRead(out, complete = false, exhausted = false) }
     }
 
     private fun post(op: String, query: String, variables: JSONObject): JSONObject {
