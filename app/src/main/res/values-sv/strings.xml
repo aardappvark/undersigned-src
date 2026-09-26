@@ -3,7 +3,6 @@
     <string name="app_name">Undersigned</string>
     <string name="blocked_title">Inte tillgängligt i din region</string>
     <string name="blocked_body">Undersigned erbjuds inte i %1$s på grund av sanktioner och juridiska begränsningar. Denna kontroll körs endast på din enhet.</string>
-    <string name="terms_welcome">Välkommen till Undersigned</string>
     <string name="terms_intro">Signerade apprecensioner från Seeker-ägare, skrivna till Solana. Inte anknutet till Solana Mobile. Recensioner är enskilda ägares åsikter, inte butikens betyg.</string>
     <string name="terms_confirm_heading">Genom att logga in bekräftar du att du:</string>
     <string name="terms_point_age">är minst 18 år gammal;</string>
@@ -22,16 +21,6 @@
     <string name="terms_accept_continue">Godkänn och fortsätt</string>
     <string name="terms_preview_only_note">Utan plånbok kan du läsa liggaren och dina enhetsfakta. Att publicera en recension kräver en Seeker-plånbok med en Genesis Token.</string>
     <string name="wallet_sanctioned">Den här plånboksadressen finns på en sanktionslista och kan inte användas med den här appen.</string>
-    <string name="onboarding_title">En Seeker, en röst</string>
-    <string name="onboarding_subtitle">Ett förtroendelager för dApp Store som ingen äger.</string>
-    <string name="onboarding_step1_title">Recensioner signeras, skrivs inte</string>
-    <string name="onboarding_step1_body">Varje recension är en memotransaktion som din plånbok signerar. Endast plånböcker som innehar en Seeker Genesis Token räknas, så en enhet är en röst.</string>
-    <string name="onboarding_step2_title">Ingen kan redigera liggaren</string>
-    <string name="onboarding_step2_body">Recensioner lever på Solana på en fast adress som ingen kontrollerar. Vem som helst kan läsa dem. Du kan dra tillbaka din recension från rankningen, men texten stannar on-chain för alltid.</string>
-    <string name="onboarding_step3_title">Din telefon lägger till fakta</string>
-    <string name="onboarding_step3_body">För appar du har installerat visar Undersigned vad enheten kan verifiera: signeringscertifikatet och behörighetsändringar mellan versioner. Fakta, aldrig domar.</string>
-    <string name="onboarding_step4_title">Inte dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned läser butikens offentliga katalog och öppnar listningar i butiken. Den installerar aldrig något och är inte anknuten till Solana Mobile.</string>
     <string name="onboarding_cta">Börja bläddra</string>
     <string name="browse_title">Undersigned</string>
     <string name="browse_search_hint">Sök appar</string>
@@ -48,7 +37,6 @@
     <string name="catalogue_count">%1$d appar i butikskatalogen</string>
     <string name="empty_installed">Inga butiksappar installerade på den här enheten än.</string>
     <string name="empty_signed">Inga signerade recensioner än. Var den första.</string>
-    <string name="empty_search">Inget matchar.</string>
     <string name="detail_open_store">Öppna i dApp Store</string>
     <string name="detail_write_review">Skriv en signerad recension</string>
     <string name="detail_update_review">Uppdatera min recension</string>
@@ -62,7 +50,6 @@
     <string name="reply_title">Signera ett svar</string>
     <string name="reply_hint">Ditt svar, med dina egna ord (permanent).</string>
     <string name="reply_publish">Signera och publicera svar</string>
-    <string name="replies_count">%1$d svar</string>
     <string name="notif_channel">Liggarvarningar</string>
     <string name="notif_new_review_title">Ny signerad recension: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -92,7 +79,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d signerade</string>
     <string name="versions_installed">installerad</string>
     <string name="standing_title">Signerarens status</string>
-    <string name="standing_line">%1$d räknade · %2$d tillbakadragna · %3$d svar mottagna · %4$d givna</string>
+    <string name="standing_line">Räknade: %1$d · Tillbakadragna: %2$d · Svar mottagna: %3$d · Svar givna: %4$d</string>
     <string name="standing_agreement">Taggöverensstämmelse med andra signerare: %1$s</string>
     <string name="standing_since">Har signerat sedan %1$s</string>
     <string name="standing_note2">Endast räkning. Inget betyg, inget att köpa.</string>
@@ -100,7 +87,7 @@
     <string name="store_reviewer_nogenesis">ingen attesterad enhet hittad</string>
     <string name="store_reviewer_signed_here">signerade även här</string>
     <string name="notif_divergence_title">%1$s: signerade och butikens betyg är oense</string>
-    <string name="notif_divergence_body">Signerat %1$s från %2$d Seekers mot butikens %3$s från %4$d recensioner.</string>
+    <string name="notif_divergence_body">Signerat: %1$s (Seekers: %2$d) · Butik: %3$s (recensioner: %4$d).</string>
     <string name="notif_update_title">%1$s uppdaterades till v%2$d</string>
     <string name="notif_update_body">Fungerar det fortfarande? Signera en recension för den här versionen.</string>
     <string name="notif_wave_title">%1$s: ovanlig recensionsaktivitet i butiken</string>
@@ -130,6 +117,8 @@
     <string name="my_reviews_empty">Inga recensioner än. Recensioner du signerar visas här, liksom dina dApp Store-recensioner när du har sökt efter dem.</string>
     <string name="my_reviews_no_match">Inga recensioner matchar.</string>
     <string name="my_reviews_sign_in">Logga in med din plånbok för att se dina recensioner.</string>
+    <string name="scan_done_title">dApp Store-sökning klar</string>
+    <plurals name="scan_done_body"><item quantity="one">%1$d dApp Store-recension om dig hittades. Tryck för att se den i Mina recensioner.</item><item quantity="other">%1$d dApp Store-recensioner om dig hittades. Tryck för att se dem i Mina recensioner.</item></plurals>
     <string name="import_scan">Sök efter mina butiksrecensioner</string>
     <string name="import_scanning">Söker %1$s</string>
     <string name="import_found">%1$d av dina butiksrecensioner hittades</string>
@@ -185,7 +174,6 @@
     <string name="changes_sub">Installerade butiksappar vars signeringscertifikat, behörigheter eller version ändrats sedan enheten senast kontrollerade.</string>
     <string name="changes_empty">Inget har ändrats sedan senaste kontrollen.</string>
     <string name="change_new_version">Uppdaterad till versionskod %1$d</string>
-    <string name="change_first_seen">Först sedd på den här enheten</string>
     <string name="settings">Inställningar</string>
     <string name="settings_wallet">Plånbok</string>
     <string name="settings_no_wallet">Ingen plånbok ansluten</string>
@@ -253,10 +241,9 @@
     <string name="inbox_replies_empty">Inga svar på dina poster ännu.</string>
     <string name="inbox_starred_empty">Stjärnmärk en recension för att spara den här.</string>
     <string name="swipe_hint">Svep en recension åt höger för att svara.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Trovärdighet</string>
     <string name="profile_credibility_sub">40 grund, +30 för taggöverensstämmelse med andra signerare, +10 för mottagna hjälpsamma röster, +20 för flaggor som fastställts genom konsensus, −50 × andel poster dolda genom konsensus. Publicerad formel, inget är knutet till den.</string>
-    <string name="profile_flags">%1$d flaggor signerade · %2$d fastställda · %3$d mottagna · %4$d poster dolda</string>
+    <string name="profile_flags">Flaggor signerade: %1$d · Fastställda: %2$d · Mottagna: %3$d · Poster dolda: %4$d</string>
     <string name="profile_replied">Besvarar %1$s av svaren på sina egna recensioner</string>
     <string name="profile_publishes">Verifierad utgivare av</string>
     <string name="profile_reviews">Signerade recensioner</string>
@@ -299,7 +286,6 @@
     <string name="action_failed">Plånboken kunde inte slutföra begäran. Försök igen.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Identifierad region: %1$s</string>
-    <string name="howto_step">Steg %1$d</string>
     <string name="howto1_title">Logga in</string>
     <string name="howto1_sub">Anslut plånboken du redan använder</string>
     <string name="howto1_body">Tryck på \"Logga in med din plånbok\" på den första skärmen och godkänn meddelandet. Den signaturen registrerar ditt samtycke — den flyttar ingenting. Undersigned innehar aldrig dina nycklar eller medel.</string>
@@ -406,7 +392,6 @@
     <string name="pro_not_body">Det viktar inte din åsikt, flyttar dig inte upp i en lista eller markerar dig som betrodd. Vikt kommer från den attesterade enheten och insatt SKR läst on-chain, och från inget annat. Det finns ingen token, inget att samla och inget att inneha.</string>
     <string name="pro_free_keeps">Att läsa liggaren, signera recensioner, flaggor, bestridanden och enhetsfakta förblir gratis, alltid. Pro lägger till verktyg; det ändrar ingenting i hur en recension räknas.</string>
     <string name="pro_price_line">12 månader på den här plånboken · betala i endera, löptiden är densamma · nätverksavgift ovanpå, satt av din plånbok</string>
-    <string name="pro_or">eller</string>
     <string name="pro_pay_in">Betala i</string>
     <string name="pro_rail_skr_note">läst on-chain, inte innehavd</string>
     <string name="pro_rail_sol_note">samma tolv månader</string>
@@ -454,7 +439,6 @@
     <string name="pro_export_csv">Exportera CSV</string>
     <string name="pro_export_json">Exportera JSON</string>
     <string name="pro_watch_on">Kontrollerar varje timme</string>
-    <string name="pro_watch_off">Kontrollerar var 6:e timme</string>
     <string name="pro_watch_alerts_off">Varningar är avstängda — slå på dem nedan så körs bevakningen varje timme.</string>
     <string name="pro_share_title">Dela Pro med en plånbok</string>
     <string name="pro_share_body">Betalaren plus två andra plånböcker som är dina. En beviljning är en signerad post i liggaren som namnger paret via hash — den flyttar ingenting, och den andra plånboken hittar den så snart den får veta vilken plånbok som betalade.</string>

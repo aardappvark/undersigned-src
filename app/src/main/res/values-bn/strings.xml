@@ -5,7 +5,6 @@
     <string name="blocked_title">আপনার অঞ্চলে উপলভ্য নয়</string>
     <string name="blocked_body">নিষেধাজ্ঞা এবং আইনি বিধিনিষেধের কারণে %1$s-এ Undersigned প্রদান করা হয় না। এই যাচাই শুধুমাত্র আপনার ডিভাইসে সম্পন্ন হয়।</string>
 
-    <string name="terms_welcome">Undersigned-এ স্বাগতম</string>
     <string name="terms_intro">Seeker মালিকদের স্বাক্ষরিত অ্যাপ পর্যালোচনা, Solana-তে লেখা। Solana Mobile-এর সাথে সংযুক্ত নয়। পর্যালোচনাগুলি ব্যক্তিগত মালিকদের মতামত, স্টোরের রেটিং নয়।</string>
     <string name="terms_confirm_heading">সাইন ইন করার মাধ্যমে আপনি নিশ্চিত করছেন যে আপনি:</string>
     <string name="terms_point_age">কমপক্ষে ১৮ বছর বয়সী;</string>
@@ -25,16 +24,6 @@
     <string name="terms_preview_only_note">ওয়ালেট ছাড়া আপনি লেজার এবং আপনার ডিভাইসের তথ্য পড়তে পারেন। পর্যালোচনা প্রকাশ করতে Genesis Token সহ একটি Seeker ওয়ালেট প্রয়োজন।</string>
     <string name="wallet_sanctioned">এই ওয়ালেট ঠিকানাটি একটি নিষেধাজ্ঞা তালিকায় রয়েছে এবং এই অ্যাপের সাথে ব্যবহার করা যাবে না।</string>
 
-    <string name="onboarding_title">একটি Seeker, একটি কণ্ঠস্বর</string>
-    <string name="onboarding_subtitle">dApp Store-এর জন্য একটি বিশ্বাস স্তর যা কারও মালিকানাধীন নয়।</string>
-    <string name="onboarding_step1_title">পর্যালোচনা স্বাক্ষরিত, টাইপ করা নয়</string>
-    <string name="onboarding_step1_body">প্রতিটি পর্যালোচনা একটি মেমো লেনদেন যা আপনার ওয়ালেট স্বাক্ষর করে। শুধুমাত্র Seeker Genesis Token ধারণকারী ওয়ালেটগুলি গণনা করা হয়, তাই একটি ডিভাইস মানে একটি কণ্ঠস্বর।</string>
-    <string name="onboarding_step2_title">কেউ লেজার সম্পাদনা করতে পারে না</string>
-    <string name="onboarding_step2_body">পর্যালোচনাগুলি Solana-তে একটি স্থির ঠিকানায় থাকে যা কেউ নিয়ন্ত্রণ করে না। যে কেউ এগুলি পড়তে পারে। আপনি র‍্যাঙ্কিং থেকে আপনার পর্যালোচনা প্রত্যাহার করতে পারেন, তবে টেক্সটটি চিরকালের জন্য চেইনে থেকে যায়।</string>
-    <string name="onboarding_step3_title">আপনার ফোন তথ্য যোগ করে</string>
-    <string name="onboarding_step3_body">আপনার ইনস্টল করা অ্যাপগুলির জন্য, Undersigned দেখায় যে ডিভাইস কী যাচাই করতে পারে: স্বাক্ষর সার্টিফিকেট এবং সংস্করণগুলির মধ্যে অনুমতির পরিবর্তন। তথ্য, কখনও রায় নয়।</string>
-    <string name="onboarding_step4_title">dApp Store নয়</string>
-    <string name="onboarding_step4_body">Undersigned স্টোরের সর্বজনীন ক্যাটালগ পড়ে এবং স্টোরে তালিকা খোলে। এটি কখনও কিছু ইনস্টল করে না এবং Solana Mobile-এর সাথে সংযুক্ত নয়।</string>
     <string name="onboarding_cta">ব্রাউজ করা শুরু করুন</string>
 
     <string name="browse_title">Undersigned</string>
@@ -52,7 +41,6 @@
     <string name="catalogue_count">স্টোর ক্যাটালগে %1$d অ্যাপ</string>
     <string name="empty_installed">এই ডিভাইসে এখনও কোনো স্টোর অ্যাপ ইনস্টল করা নেই।</string>
     <string name="empty_signed">এখনও কোনো স্বাক্ষরিত পর্যালোচনা নেই। প্রথম হোন।</string>
-    <string name="empty_search">কিছুই মেলেনি।</string>
 
     <string name="detail_open_store">dApp Store-এ খুলুন</string>
     <string name="detail_write_review">একটি স্বাক্ষরিত পর্যালোচনা লিখুন</string>
@@ -67,7 +55,6 @@
     <string name="reply_title">একটি উত্তর স্বাক্ষর করুন</string>
     <string name="reply_hint">আপনার উত্তর, আপনার নিজের ভাষায় (স্থায়ী)।</string>
     <string name="reply_publish">উত্তর স্বাক্ষর করে প্রকাশ করুন</string>
-    <string name="replies_count">%1$d টি উত্তর</string>
     <string name="notif_channel">লেজার সতর্কতা</string>
     <string name="notif_new_review_title">নতুন স্বাক্ষরিত পর্যালোচনা: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -97,7 +84,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d স্বাক্ষরিত</string>
     <string name="versions_installed">ইনস্টল করা</string>
     <string name="standing_title">স্বাক্ষরকারীর অবস্থান</string>
-    <string name="standing_line">%1$d গণনা করা হয়েছে · %2$d প্রত্যাহার করা হয়েছে · %3$d টি উত্তর পাওয়া গেছে · %4$d টি দেওয়া হয়েছে</string>
+    <string name="standing_line">গণনা করা হয়েছে: %1$d · প্রত্যাহার করা হয়েছে: %2$d · প্রাপ্ত উত্তর: %3$d · প্রদত্ত উত্তর: %4$d</string>
     <string name="standing_agreement">অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতি: %1$s</string>
     <string name="standing_since">%1$s থেকে স্বাক্ষর করছেন</string>
     <string name="standing_note2">শুধুমাত্র গণনা। কোনো স্কোর নেই, কেনার মতো কিছু নেই।</string>
@@ -105,7 +92,7 @@
     <string name="store_reviewer_nogenesis">কোনো প্রত্যয়িত ডিভাইস পাওয়া যায়নি</string>
     <string name="store_reviewer_signed_here">এখানেও স্বাক্ষর করেছেন</string>
     <string name="notif_divergence_title">%1$s: স্বাক্ষরিত এবং স্টোর স্কোর ভিন্ন</string>
-    <string name="notif_divergence_body">%2$d Seeker থেকে স্বাক্ষরিত %1$s বনাম %4$d পর্যালোচনা থেকে স্টোর %3$s।</string>
+    <string name="notif_divergence_body">স্বাক্ষরিত: %1$s (Seeker: %2$d) · স্টোর: %3$s (পর্যালোচনা: %4$d)।</string>
     <string name="notif_update_title">%1$s আপডেট হয়ে v%2$d হয়েছে</string>
     <string name="notif_update_body">এখনও কাজ করছে? এই সংস্করণের জন্য একটি পর্যালোচনা স্বাক্ষর করুন।</string>
     <string name="notif_wave_title">%1$s: স্টোরে অস্বাভাবিক পর্যালোচনা কার্যকলাপ</string>
@@ -135,6 +122,11 @@
     <string name="my_reviews_empty">এখনো কোনো পর্যালোচনা নেই। আপনার স্বাক্ষরিত পর্যালোচনা এখানে দেখা যায়, এবং স্ক্যান করার পর আপনার dApp Store পর্যালোচনাও।</string>
     <string name="my_reviews_no_match">কোনো পর্যালোচনা মেলেনি।</string>
     <string name="my_reviews_sign_in">আপনার পর্যালোচনা দেখতে আপনার ওয়ালেট দিয়ে সাইন ইন করুন।</string>
+    <string name="scan_done_title">dApp Store স্ক্যান সম্পন্ন</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">আপনার dApp Store-এ %1$d টি পর্যালোচনা পাওয়া গেছে। এটি আমার পর্যালোচনা-এ দেখতে ট্যাপ করুন।</item>
+        <item quantity="other">আপনার dApp Store-এ %1$d টি পর্যালোচনা পাওয়া গেছে। সেগুলো আমার পর্যালোচনা-এ দেখতে ট্যাপ করুন।</item>
+    </plurals>
     <string name="import_scan">আমার স্টোর পর্যালোচনার জন্য স্ক্যান করুন</string>
     <string name="import_scanning">%1$s স্ক্যান করা হচ্ছে</string>
     <string name="import_found">আপনার %1$d টি স্টোর পর্যালোচনা পাওয়া গেছে</string>
@@ -192,7 +184,6 @@
     <string name="changes_sub">ইনস্টল করা স্টোর অ্যাপ যাদের স্বাক্ষর সার্টিফিকেট, অনুমতি বা সংস্করণ এই ডিভাইস শেষবার দেখার পর থেকে পরিবর্তিত হয়েছে।</string>
     <string name="changes_empty">শেষ পরীক্ষার পর থেকে কিছুই পরিবর্তিত হয়নি।</string>
     <string name="change_new_version">সংস্করণ কোড %1$d-এ আপডেট করা হয়েছে</string>
-    <string name="change_first_seen">এই ডিভাইসে প্রথম দেখা গেছে</string>
 
     <string name="settings">সেটিংস</string>
     <string name="settings_wallet">ওয়ালেট</string>
@@ -261,10 +252,9 @@
     <string name="inbox_replies_empty">আপনার রেকর্ডে এখনও কোনো উত্তর নেই।</string>
     <string name="inbox_starred_empty">এখানে রাখতে একটি পর্যালোচনা স্টার করুন।</string>
     <string name="swipe_hint">উত্তর দিতে একটি পর্যালোচনা ডানদিকে সোয়াইপ করুন।</string>
-    <string name="profile_title">প্রোফাইল</string>
     <string name="profile_credibility">বিশ্বাসযোগ্যতা</string>
     <string name="profile_credibility_sub">৪০ ভিত্তি, অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতির জন্য +৩০, প্রাপ্ত সহায়ক ভোটের জন্য +১০, ঐকমত্যে বহাল থাকা ফ্ল্যাগের জন্য +২০, ঐকমত্যে লুকানো রেকর্ডের অংশের জন্য −৫০ ×। প্রকাশিত সূত্র, এর সাথে কিছুই জড়িত নয়।</string>
-    <string name="profile_flags">%1$d টি ফ্ল্যাগ স্বাক্ষরিত · %2$d টি বহাল · %3$d টি প্রাপ্ত · %4$d টি রেকর্ড লুকানো</string>
+    <string name="profile_flags">স্বাক্ষরিত ফ্ল্যাগ: %1$d · বহাল: %2$d · প্রাপ্ত: %3$d · লুকানো রেকর্ড: %4$d</string>
     <string name="profile_replied">তাদের পর্যালোচনায় %1$s সময় উত্তর দেন</string>
     <string name="profile_publishes">যাচাইকৃত প্রকাশক</string>
     <string name="profile_reviews">স্বাক্ষরিত পর্যালোচনা</string>
@@ -307,7 +297,6 @@
     <string name="action_failed">ওয়ালেট অনুরোধটি সম্পন্ন করতে পারেনি। আবার চেষ্টা করুন।</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">সনাক্তকৃত অঞ্চল: %1$s</string>
-    <string name="howto_step">ধাপ %1$d</string>
     <string name="howto1_title">সাইন ইন করুন</string>
     <string name="howto1_sub">আপনার ব্যবহৃত ওয়ালেট সংযুক্ত করুন</string>
     <string name="howto1_body">প্রথম স্ক্রিনে \"আপনার ওয়ালেট দিয়ে সাইন ইন করুন\" ট্যাপ করুন এবং বার্তাটি অনুমোদন করুন। এই স্বাক্ষর আপনার সম্মতি রেকর্ড করে — এটি কিছুই সরায় না। Undersigned কখনও আপনার কী বা তহবিল ধরে রাখে না।</string>
@@ -414,7 +403,6 @@
     <string name="pro_not_body">এটি আপনার মতামতকে ওজন দেয় না, আপনাকে তালিকায় ওপরে তোলে না, বা আপনাকে বিশ্বস্ত হিসেবে চিহ্নিত করে না। ওজন আসে প্রত্যয়িত ডিভাইস এবং অন-চেইনে পঠিত স্টেক করা SKR থেকে, আর কিছু থেকে নয়। কোনো টোকেন নেই, সংগ্রহ করার বা ধরে রাখার কিছুই নেই।</string>
     <string name="pro_free_keeps">লেজার পড়া, পর্যালোচনা, ফ্ল্যাগ, আপত্তি স্বাক্ষর করা এবং ডিভাইসের তথ্য বিনামূল্যে থাকে এবং সবসময় থাকবে। Pro টুল যোগ করে; কোনো পর্যালোচনা কীভাবে গণনা হয় তাতে এটি কিছুই বদলায় না।</string>
     <string name="pro_price_line">এই ওয়ালেটে ১২ মাস · যেকোনোটিতে পরিশোধ করুন, মেয়াদ একই · এর ওপর নেটওয়ার্ক ফি, আপনার ওয়ালেট নির্ধারণ করে</string>
-    <string name="pro_or">অথবা</string>
     <string name="pro_pay_in">পরিশোধ করুন</string>
     <string name="pro_rail_skr_note">অন-চেইনে পঠিত, ধরে রাখা হয় না</string>
     <string name="pro_rail_sol_note">একই বারো মাস</string>
@@ -462,7 +450,6 @@
     <string name="pro_export_csv">CSV রপ্তানি করুন</string>
     <string name="pro_export_json">JSON রপ্তানি করুন</string>
     <string name="pro_watch_on">প্রতি ঘণ্টায় পরীক্ষা করা হচ্ছে</string>
-    <string name="pro_watch_off">প্রতি ৬ ঘণ্টায় পরীক্ষা করা হচ্ছে</string>
     <string name="pro_watch_alerts_off">সতর্কতা বন্ধ আছে — নিচে চালু করুন, তাহলে নজরদারি প্রতি ঘণ্টায় চলবে।</string>
     <string name="pro_share_title">একটি ওয়ালেটের সাথে Pro শেয়ার করুন</string>
     <string name="pro_share_body">পরিশোধকারী এবং আপনার আরও দুটি ওয়ালেট। একটি অনুমোদন হলো লেজারে একটি স্বাক্ষরিত রেকর্ড যা হ্যাশ দিয়ে জোড়াটির নাম দেয় — এটি কিছুই সরায় না, এবং কোন ওয়ালেট পরিশোধ করেছে তা জানানো হলে অন্য ওয়ালেটটি এটি খুঁজে পায়।</string>

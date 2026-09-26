@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned ist in %1$s aufgrund von Sanktionen und rechtlichen Beschränkungen nicht verfügbar. Diese Prüfung erfolgt ausschließlich auf Ihrem Gerät.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Willkommen bei Undersigned</string>
     <string name="terms_intro">Signierte App-Bewertungen von Seeker-Besitzern, geschrieben auf Solana. Nicht verbunden mit Solana Mobile. Bewertungen sind die Meinungen einzelner Besitzer, nicht die Bewertungen des Stores.</string>
     <string name="terms_confirm_heading">Mit der Anmeldung bestätigen Sie, dass Sie:</string>
     <string name="terms_point_age">mindestens 18 Jahre alt sind;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Diese Wallet-Adresse steht auf einer Sanktionsliste und kann mit dieser App nicht verwendet werden.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Ein Seeker, eine Stimme</string>
-    <string name="onboarding_subtitle">Eine Vertrauensebene für den dApp Store, die niemandem gehört.</string>
-    <string name="onboarding_step1_title">Bewertungen werden signiert, nicht getippt</string>
-    <string name="onboarding_step1_body">Jede Bewertung ist eine Memo-Transaktion, die Ihre Wallet signiert. Nur Wallets mit einem Seeker Genesis Token werden gezählt, sodass ein Gerät eine Stimme ist.</string>
-    <string name="onboarding_step2_title">Niemand kann das Ledger bearbeiten</string>
-    <string name="onboarding_step2_body">Bewertungen liegen auf Solana an einer festen Adresse, die niemand kontrolliert. Jeder kann sie lesen. Sie können Ihre Bewertung aus der Rangliste zurückziehen, aber der Text bleibt für immer on-chain.</string>
-    <string name="onboarding_step3_title">Ihr Telefon fügt die Fakten hinzu</string>
-    <string name="onboarding_step3_body">Für installierte Apps zeigt Undersigned, was das Gerät verifizieren kann: das Signaturzertifikat und Berechtigungsänderungen zwischen Versionen. Fakten, niemals Urteile.</string>
-    <string name="onboarding_step4_title">Nicht der dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned liest den öffentlichen Katalog des Stores und öffnet Einträge im Store. Es installiert nie etwas und ist nicht mit Solana Mobile verbunden.</string>
     <string name="onboarding_cta">Mit dem Browsen beginnen</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d Apps im Store-Katalog</string>
     <string name="empty_installed">Auf diesem Gerät sind noch keine Store-Apps installiert.</string>
     <string name="empty_signed">Noch keine signierten Bewertungen. Seien Sie der Erste.</string>
-    <string name="empty_search">Keine Treffer.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Im dApp Store öffnen</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Eine Antwort signieren</string>
     <string name="reply_hint">Ihre Antwort, in Ihren eigenen Worten (dauerhaft).</string>
     <string name="reply_publish">Antwort signieren und veröffentlichen</string>
-    <string name="replies_count">%1$d Antworten</string>
     <string name="notif_channel">Ledger-Benachrichtigungen</string>
     <string name="notif_new_review_title">Neue signierte Bewertung: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -102,7 +89,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d signiert</string>
     <string name="versions_installed">installiert</string>
     <string name="standing_title">Ansehen des Signierenden</string>
-    <string name="standing_line">%1$d gezählt · %2$d zurückgezogen · %3$d Antworten erhalten · %4$d gegeben</string>
+    <string name="standing_line">Gezählt: %1$d · Zurückgezogen: %2$d · Antworten erhalten: %3$d · Antworten gegeben: %4$d</string>
     <string name="standing_agreement">Übereinstimmung der Tags mit anderen Signierenden: %1$s</string>
     <string name="standing_since">Signiert seit %1$s</string>
     <string name="standing_note2">Nur Zählungen. Keine Bewertung, nichts zu kaufen.</string>
@@ -110,7 +97,7 @@
     <string name="store_reviewer_nogenesis">kein attestiertes Gerät gefunden</string>
     <string name="store_reviewer_signed_here">hat auch hier signiert</string>
     <string name="notif_divergence_title">%1$s: Signierte und Store-Bewertungen weichen ab</string>
-    <string name="notif_divergence_body">Signiert %1$s von %2$d Seekers gegenüber Store %3$s von %4$d Bewertungen.</string>
+    <string name="notif_divergence_body">Signiert: %1$s (Seekers: %2$d) · Store: %3$s (Bewertungen: %4$d).</string>
     <string name="notif_update_title">%1$s aktualisiert auf v%2$d</string>
     <string name="notif_update_body">Funktioniert es noch? Signieren Sie eine Bewertung für diese Version.</string>
     <string name="notif_wave_title">%1$s: ungewöhnliche Bewertungsaktivität im Store</string>
@@ -140,6 +127,8 @@
     <string name="my_reviews_empty">Noch keine Bewertungen. Bewertungen, die Sie signieren, erscheinen hier, ebenso Ihre dApp Store-Bewertungen, sobald sie gesucht wurden.</string>
     <string name="my_reviews_no_match">Keine Bewertungen gefunden.</string>
     <string name="my_reviews_sign_in">Melden Sie sich mit Ihrer Wallet an, um Ihre Bewertungen zu sehen.</string>
+    <string name="scan_done_title">dApp Store-Scan abgeschlossen</string>
+    <plurals name="scan_done_body"><item quantity="one">%1$d dApp Store-Bewertung von Ihnen gefunden. Tippen Sie, um sie in Meine Bewertungen zu sehen.</item><item quantity="other">%1$d dApp Store-Bewertungen von Ihnen gefunden. Tippen Sie, um sie in Meine Bewertungen zu sehen.</item></plurals>
     <string name="import_scan">Nach meinen Store-Bewertungen suchen</string>
     <string name="import_scanning">%1$s wird gescannt</string>
     <string name="import_found">%1$d Ihrer Store-Bewertungen gefunden</string>
@@ -199,7 +188,6 @@
     <string name="changes_sub">Installierte Store-Apps, deren Signaturzertifikat, Berechtigungen oder Version sich geändert haben, seit dieses Gerät zuletzt nachgesehen hat.</string>
     <string name="changes_empty">Seit der letzten Prüfung hat sich nichts geändert.</string>
     <string name="change_new_version">Auf Versionscode %1$d aktualisiert</string>
-    <string name="change_first_seen">Erstmals auf diesem Gerät gesehen</string>
 
     <!-- Settings -->
     <string name="settings">Einstellungen</string>
@@ -269,10 +257,9 @@
     <string name="inbox_replies_empty">Noch keine Antworten auf Ihre Einträge.</string>
     <string name="inbox_starred_empty">Favorisieren Sie eine Bewertung, um sie hier zu behalten.</string>
     <string name="swipe_hint">Wischen Sie eine Bewertung nach rechts, um zu antworten.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Glaubwürdigkeit</string>
     <string name="profile_credibility_sub">40 Basis, +30 für Tag-Übereinstimmung mit anderen Signierenden, +10 für erhaltene hilfreiche Stimmen, +20 für per Konsens bestätigte Markierungen, −50 × Anteil der per Konsens ausgeblendeten Einträge. Veröffentlichte Formel, nichts daran geknüpft.</string>
-    <string name="profile_flags">%1$d Markierungen signiert · %2$d bestätigt · %3$d erhalten · %4$d Einträge ausgeblendet</string>
+    <string name="profile_flags">Markierungen signiert: %1$d · Bestätigt: %2$d · Erhalten: %3$d · Einträge ausgeblendet: %4$d</string>
     <string name="profile_replied">Beantwortet %1$s der Antworten auf die eigenen Bewertungen</string>
     <string name="profile_publishes">Verifizierter Herausgeber von</string>
     <string name="profile_reviews">Signierte Bewertungen</string>
@@ -315,7 +302,6 @@
     <string name="action_failed">Die Wallet konnte die Anfrage nicht abschließen. Versuchen Sie es erneut.</string>
     <!-- Added 15 Sep 2026: design handoff §4.3 -->
     <string name="blocked_region_line">Erkannte Region: %1$s</string>
-    <string name="howto_step">Schritt %1$d</string>
     <string name="howto1_title">Anmelden</string>
     <string name="howto1_sub">Verbinden Sie die Wallet, die Sie bereits nutzen</string>
     <string name="howto1_body">Tippen Sie auf dem ersten Bildschirm auf \"Mit Wallet anmelden\" und bestätigen Sie die Nachricht. Diese Signatur hält Ihre Zustimmung fest — sie bewegt nichts. Undersigned verwahrt niemals Ihre Schlüssel oder Gelder.</string>
@@ -423,7 +409,6 @@
     <string name="pro_not_body">Es gewichtet Ihre Meinung nicht stärker, verschiebt Sie nicht nach oben in einer Liste und markiert Sie nicht als vertrauenswürdig. Gewichtung stammt allein vom attestierten Gerät und dem on-chain gelesenen gestakten SKR, von nichts anderem. Es gibt keinen Token, nichts zu sammeln und nichts zu halten.</string>
     <string name="pro_free_keeps">Das Ledger lesen, Bewertungen, Markierungen, Einsprüche und Gerätefakten signieren bleiben kostenlos, für immer. Pro fügt Werkzeuge hinzu; es ändert nichts daran, wie eine Bewertung gezählt wird.</string>
     <string name="pro_price_line">12 Monate auf dieser Wallet · Zahlung in beidem möglich, die Laufzeit ist gleich · Netzwerkgebühr obendrauf, von Ihrer Wallet festgelegt</string>
-    <string name="pro_or">oder</string>
     <string name="pro_pay_in">Zahlen in</string>
     <string name="pro_rail_skr_note">on-chain gelesen, nicht verwahrt</string>
     <string name="pro_rail_sol_note">dieselben zwölf Monate</string>
@@ -471,7 +456,6 @@
     <string name="pro_export_csv">CSV exportieren</string>
     <string name="pro_export_json">JSON exportieren</string>
     <string name="pro_watch_on">Prüft stündlich</string>
-    <string name="pro_watch_off">Prüft alle 6 Stunden</string>
     <string name="pro_watch_alerts_off">Benachrichtigungen sind aus — schalten Sie sie unten ein, dann läuft die Überwachung stündlich.</string>
     <string name="pro_share_title">Pro mit einer Wallet teilen</string>
     <string name="pro_share_body">Der Zahler plus zwei weitere Ihrer Wallets. Eine Gewährung ist ein signierter Eintrag auf dem Ledger, der das Paar per Hash benennt — sie bewegt nichts, und die andere Wallet findet ihn, sobald ihr mitgeteilt wird, welche Wallet bezahlt hat.</string>

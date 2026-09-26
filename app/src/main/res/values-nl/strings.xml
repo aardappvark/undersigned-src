@@ -5,7 +5,6 @@
     <string name="blocked_title">Niet beschikbaar in uw regio</string>
     <string name="blocked_body">Undersigned wordt niet aangeboden in %1$s vanwege sancties en wettelijke beperkingen. Deze controle wordt alleen op uw apparaat uitgevoerd.</string>
 
-    <string name="terms_welcome">Welkom bij Undersigned</string>
     <string name="terms_intro">Ondertekende app-recensies van Seeker-eigenaren, vastgelegd op Solana. Niet gelieerd aan Solana Mobile. Recensies zijn de meningen van individuele eigenaren, niet de beoordelingen van de store.</string>
     <string name="terms_confirm_heading">Door in te loggen bevestigt u dat u:</string>
     <string name="terms_point_age">ten minste 18 jaar oud bent;</string>
@@ -25,16 +24,6 @@
     <string name="terms_preview_only_note">Zonder wallet kunt u het grootboek en de gegevens van uw apparaat bekijken. Om een recensie te plaatsen is een Seeker-wallet met een Genesis Token nodig.</string>
     <string name="wallet_sanctioned">Dit walletadres staat op een sanctielijst en kan niet worden gebruikt met deze app.</string>
 
-    <string name="onboarding_title">Eén Seeker, één stem</string>
-    <string name="onboarding_subtitle">Een vertrouwenslaag voor de dApp Store die niemand bezit.</string>
-    <string name="onboarding_step1_title">Recensies worden ondertekend, niet getypt</string>
-    <string name="onboarding_step1_body">Elke recensie is een memo-transactie die uw wallet ondertekent. Alleen wallets met een Seeker Genesis Token worden meegeteld, zodat één apparaat één stem is.</string>
-    <string name="onboarding_step2_title">Niemand kan het grootboek bewerken</string>
-    <string name="onboarding_step2_body">Recensies staan op Solana op een vast adres dat niemand beheert. Iedereen kan ze lezen. U kunt uw recensie uit de ranglijst terugtrekken, maar de tekst blijft voor altijd on-chain staan.</string>
-    <string name="onboarding_step3_title">Uw telefoon voegt de feiten toe</string>
-    <string name="onboarding_step3_body">Voor apps die u hebt geïnstalleerd, toont Undersigned wat het apparaat kan verifiëren: het ondertekeningscertificaat en machtigingswijzigingen tussen versies. Feiten, nooit oordelen.</string>
-    <string name="onboarding_step4_title">Niet de dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned leest de openbare catalogus van de store en opent vermeldingen in de store. Het installeert nooit iets en is niet gelieerd aan Solana Mobile.</string>
     <string name="onboarding_cta">Beginnen met bladeren</string>
 
     <string name="browse_title">Undersigned</string>
@@ -52,7 +41,6 @@
     <string name="catalogue_count">%1$d apps in de storecatalogus</string>
     <string name="empty_installed">Nog geen store-apps geïnstalleerd op dit apparaat.</string>
     <string name="empty_signed">Nog geen ondertekende recensies. Wees de eerste.</string>
-    <string name="empty_search">Niets gevonden.</string>
 
     <string name="detail_open_store">Openen in dApp Store</string>
     <string name="detail_write_review">Ondertekende recensie schrijven</string>
@@ -67,7 +55,6 @@
     <string name="reply_title">Antwoord ondertekenen</string>
     <string name="reply_hint">Uw antwoord, in uw eigen woorden (permanent).</string>
     <string name="reply_publish">Ondertekenen en antwoord publiceren</string>
-    <string name="replies_count">%1$d reacties</string>
     <string name="notif_channel">Grootboekmeldingen</string>
     <string name="notif_new_review_title">Nieuwe ondertekende recensie: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -97,7 +84,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d ondertekend</string>
     <string name="versions_installed">geïnstalleerd</string>
     <string name="standing_title">Status als ondertekenaar</string>
-    <string name="standing_line">%1$d meegeteld · %2$d teruggetrokken · %3$d reacties ontvangen · %4$d gegeven</string>
+    <string name="standing_line">Meegeteld: %1$d · Teruggetrokken: %2$d · Reacties ontvangen: %3$d · Reacties gegeven: %4$d</string>
     <string name="standing_agreement">Overeenstemming in tags met andere ondertekenaars: %1$s</string>
     <string name="standing_since">Ondertekent sinds %1$s</string>
     <string name="standing_note2">Alleen tellingen. Geen score, niets om te kopen.</string>
@@ -105,7 +92,7 @@
     <string name="store_reviewer_nogenesis">geen geattesteerd apparaat gevonden</string>
     <string name="store_reviewer_signed_here">hier ook ondertekend</string>
     <string name="notif_divergence_title">%1$s: ondertekende score en storescore lopen uiteen</string>
-    <string name="notif_divergence_body">Ondertekend %1$s van %2$d Seekers versus store %3$s van %4$d recensies.</string>
+    <string name="notif_divergence_body">Ondertekend: %1$s (Seekers: %2$d) · Store: %3$s (recensies: %4$d).</string>
     <string name="notif_update_title">%1$s bijgewerkt naar v%2$d</string>
     <string name="notif_update_body">Werkt het nog? Onderteken een recensie voor deze versie.</string>
     <string name="notif_wave_title">%1$s: ongewone recensieactiviteit in de store</string>
@@ -135,6 +122,8 @@
     <string name="my_reviews_empty">Nog geen recensies. Recensies die u ondertekent, verschijnen hier, net als uw dApp Store-recensies zodra u ernaar hebt gescand.</string>
     <string name="my_reviews_no_match">Geen recensies gevonden.</string>
     <string name="my_reviews_sign_in">Log in met uw wallet om uw recensies te zien.</string>
+    <string name="scan_done_title">dApp Store-scan voltooid</string>
+    <plurals name="scan_done_body"><item quantity="one">%1$d dApp Store-recensie van u gevonden. Tik om deze te bekijken in Mijn recensies.</item><item quantity="other">%1$d dApp Store-recensies van u gevonden. Tik om deze te bekijken in Mijn recensies.</item></plurals>
     <string name="import_scan">Scannen naar mijn storerecensies</string>
     <string name="import_scanning">%1$s wordt gescand</string>
     <string name="import_found">%1$d van uw storerecensies gevonden</string>
@@ -192,7 +181,6 @@
     <string name="changes_sub">Geïnstalleerde store-apps waarvan het ondertekeningscertificaat, de machtigingen of de versie zijn veranderd sinds dit apparaat het laatst controleerde.</string>
     <string name="changes_empty">Er is niets veranderd sinds de laatste controle.</string>
     <string name="change_new_version">Bijgewerkt naar versiecode %1$d</string>
-    <string name="change_first_seen">Voor het eerst gezien op dit apparaat</string>
 
     <string name="settings">Instellingen</string>
     <string name="settings_wallet">Wallet</string>
@@ -261,10 +249,9 @@
     <string name="inbox_replies_empty">Nog geen reacties op uw records.</string>
     <string name="inbox_starred_empty">Geef een recensie een ster om deze hier te bewaren.</string>
     <string name="swipe_hint">Veeg een recensie naar rechts om te reageren.</string>
-    <string name="profile_title">Profiel</string>
     <string name="profile_credibility">Geloofwaardigheid</string>
     <string name="profile_credibility_sub">40 basis, +30 voor tagovereenstemming met andere ondertekenaars, +10 voor ontvangen nuttige stemmen, +20 voor door consensus bevestigde markeringen, −50 × aandeel records verborgen door consensus. Gepubliceerde formule, er is niets aan verbonden.</string>
-    <string name="profile_flags">%1$d markeringen ondertekend · %2$d bevestigd · %3$d ontvangen · %4$d records verborgen</string>
+    <string name="profile_flags">Markeringen ondertekend: %1$d · Bevestigd: %2$d · Ontvangen: %3$d · Records verborgen: %4$d</string>
     <string name="profile_replied">Beantwoordt %1$s van de reacties op hun eigen recensies</string>
     <string name="profile_publishes">Geverifieerde uitgever van</string>
     <string name="profile_reviews">Ondertekende recensies</string>
@@ -307,7 +294,6 @@
     <string name="action_failed">De wallet kon het verzoek niet voltooien. Probeer het opnieuw.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Gedetecteerde regio: %1$s</string>
-    <string name="howto_step">Stap %1$d</string>
     <string name="howto1_title">Inloggen</string>
     <string name="howto1_sub">Verbind de wallet die u al gebruikt</string>
     <string name="howto1_body">Tik op \"Inloggen met uw wallet\" op het eerste scherm en keur het bericht goed. Die handtekening legt uw toestemming vast — er wordt niets verplaatst. Undersigned bewaart nooit uw sleutels of tegoeden.</string>
@@ -414,7 +400,6 @@
     <string name="pro_not_body">Het weegt uw mening niet zwaarder, verplaatst u niet hoger op een lijst en markeert u niet als vertrouwd. Gewicht komt van het geattesteerde apparaat en de on-chain gelezen gestakete SKR, en nergens anders vandaan. Er is geen token, niets te verzamelen en niets om te bezitten.</string>
     <string name="pro_free_keeps">Het grootboek lezen, recensies ondertekenen, markeringen, bezwaren en apparaatgegevens blijven gratis, altijd. Pro voegt hulpmiddelen toe; het verandert niets aan hoe een recensie wordt geteld.</string>
     <string name="pro_price_line">12 maanden op deze wallet · betaal in beide, de termijn is gelijk · netwerkkosten bovenop, bepaald door uw wallet</string>
-    <string name="pro_or">of</string>
     <string name="pro_pay_in">Betalen in</string>
     <string name="pro_rail_skr_note">on-chain gelezen, niet aangehouden</string>
     <string name="pro_rail_sol_note">dezelfde twaalf maanden</string>
@@ -462,7 +447,6 @@
     <string name="pro_export_csv">CSV exporteren</string>
     <string name="pro_export_json">JSON exporteren</string>
     <string name="pro_watch_on">Controleert elk uur</string>
-    <string name="pro_watch_off">Controleert elke 6 uur</string>
     <string name="pro_watch_alerts_off">Meldingen staan uit — zet ze hieronder aan en de bewaking draait elk uur.</string>
     <string name="pro_share_title">Pro delen met een wallet</string>
     <string name="pro_share_body">De betaler plus twee andere wallets van u. Een toekenning is een ondertekend record op het grootboek dat het paar bij hash noemt — het verplaatst niets, en de andere wallet vindt het zodra bekend is welke wallet heeft betaald.</string>

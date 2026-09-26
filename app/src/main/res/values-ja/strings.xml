@@ -5,7 +5,6 @@
     <string name="blocked_title">お住まいの地域では利用できません</string>
     <string name="blocked_body">Undersigned は制裁および法的制限のため%1$sでは提供されていません。この確認はお使いの端末上でのみ行われます。</string>
 
-    <string name="terms_welcome">Undersigned へようこそ</string>
     <string name="terms_intro">Seeker 所有者による署名付きアプリレビューを Solana に記録します。Solana Mobile とは提携していません。レビューは個々の所有者の意見であり、ストアの評価ではありません。</string>
     <string name="terms_confirm_heading">サインインすることで、以下を確認したものとみなされます。</string>
     <string name="terms_point_age">18歳以上であること。</string>
@@ -25,16 +24,6 @@
     <string name="terms_preview_only_note">ウォレットがなくても台帳と端末の情報は閲覧できます。レビューを投稿するには Genesis Token を持つ Seeker ウォレットが必要です。</string>
     <string name="wallet_sanctioned">このウォレットアドレスは制裁リストに掲載されており、このアプリでは使用できません。</string>
 
-    <string name="onboarding_title">1台の Seeker、1つの声</string>
-    <string name="onboarding_subtitle">誰にも所有されない dApp Store の信頼レイヤー。</string>
-    <string name="onboarding_step1_title">レビューは署名されるもの、入力されるものではない</string>
-    <string name="onboarding_step1_body">各レビューはウォレットが署名するメモトランザクションです。Seeker Genesis Token を保有するウォレットのみがカウントされるため、1台の端末は1つの声になります。</string>
-    <string name="onboarding_step2_title">台帳は誰にも編集できない</string>
-    <string name="onboarding_step2_body">レビューは誰にも制御されない固定アドレスの Solana 上に存在します。誰でも閲覧できます。ランキングからレビューを取り下げることはできますが、テキストは永久にオンチェーンに残ります。</string>
-    <string name="onboarding_step3_title">あなたのスマートフォンが事実を追加する</string>
-    <string name="onboarding_step3_body">インストール済みのアプリについて、Undersigned は端末が検証できる情報、つまり署名証明書やバージョン間の権限の変化を表示します。事実のみで、判定は行いません。</string>
-    <string name="onboarding_step4_title">dApp Store ではありません</string>
-    <string name="onboarding_step4_body">Undersigned はストアの公開カタログを読み取り、ストア内でリスティングを開きます。何もインストールせず、Solana Mobile とは提携していません。</string>
     <string name="onboarding_cta">閲覧を開始</string>
 
     <string name="browse_title">Undersigned</string>
@@ -52,7 +41,6 @@
     <string name="catalogue_count">ストアカタログに%1$d件のアプリ</string>
     <string name="empty_installed">この端末にはまだストアのアプリがインストールされていません。</string>
     <string name="empty_signed">まだ署名付きレビューがありません。最初の1件を投稿しましょう。</string>
-    <string name="empty_search">該当するものがありません。</string>
 
     <string name="detail_open_store">dApp Store で開く</string>
     <string name="detail_write_review">署名付きレビューを書く</string>
@@ -67,7 +55,6 @@
     <string name="reply_title">返信に署名</string>
     <string name="reply_hint">あなた自身の言葉での回答（永久に残ります）。</string>
     <string name="reply_publish">署名して返信を公開</string>
-    <string name="replies_count">%1$d件の返信</string>
     <string name="notif_channel">台帳アラート</string>
     <string name="notif_new_review_title">新しい署名付きレビュー：%1$s</string>
     <string name="notif_new_review_body">%1$d★・%2$s</string>
@@ -96,7 +83,7 @@
     <string name="versions_row">v%1$d・%2$s・%3$d件の署名</string>
     <string name="versions_installed">インストール済み</string>
     <string name="standing_title">署名者の評価</string>
-    <string name="standing_line">%1$d件カウント・%2$d件取り下げ・%3$d件の返信を受信・%4$d件送信</string>
+    <string name="standing_line">カウント:%1$d件・取り下げ:%2$d件・受信した返信:%3$d件・送信した返信:%4$d件</string>
     <string name="standing_agreement">他の署名者とのタグの一致度：%1$s</string>
     <string name="standing_since">署名開始日：%1$s</string>
     <string name="standing_note2">カウントのみです。スコアも購入対象も一切ありません。</string>
@@ -104,7 +91,7 @@
     <string name="store_reviewer_nogenesis">証明済み端末が見つかりません</string>
     <string name="store_reviewer_signed_here">こちらでも署名済み</string>
     <string name="notif_divergence_title">%1$s：署名済みスコアとストアのスコアに差異</string>
-    <string name="notif_divergence_body">署名済み %1$s（%2$d人の Seeker）に対し、ストア %3$s（%4$d件のレビュー）。</string>
+    <string name="notif_divergence_body">署名:%1$s(Seeker:%2$d人)・ストア:%3$s(レビュー:%4$d件)。</string>
     <string name="notif_update_title">%1$s が v%2$d に更新されました</string>
     <string name="notif_update_body">まだ使えていますか？このバージョンのレビューに署名しましょう。</string>
     <string name="notif_wave_title">%1$s：ストアで通常と異なるレビュー活動があります</string>
@@ -133,6 +120,10 @@
     <string name="my_reviews_empty">まだレビューがありません。署名したレビューがここに表示され、スキャンすると dApp Store のレビューもここに表示されます。</string>
     <string name="my_reviews_no_match">一致するレビューがありません。</string>
     <string name="my_reviews_sign_in">レビューを表示するには、ウォレットでサインインしてください。</string>
+    <string name="scan_done_title">dApp Store スキャン完了</string>
+    <plurals name="scan_done_body">
+        <item quantity="other">あなたの dApp Store レビューが%1$d件見つかりました。タップして自分のレビューで確認してください。</item>
+    </plurals>
     <string name="import_scan">自分のストアレビューをスキャン</string>
     <string name="import_scanning">%1$s をスキャン中</string>
     <string name="import_found">あなたのストアレビューが%1$d件見つかりました</string>
@@ -189,7 +180,6 @@
     <string name="changes_sub">署名証明書、権限、またはバージョンがこの端末の前回確認以降に変更された、インストール済みのストアアプリ。</string>
     <string name="changes_empty">前回の確認以降、変更はありません。</string>
     <string name="change_new_version">バージョンコード%1$dに更新されました</string>
-    <string name="change_first_seen">この端末で最初に確認</string>
 
     <string name="settings">設定</string>
     <string name="settings_wallet">ウォレット</string>
@@ -257,10 +247,9 @@
     <string name="inbox_replies_empty">あなたのレコードへの返信はまだありません。</string>
     <string name="inbox_starred_empty">レビューにスターを付けると、ここに保存されます。</string>
     <string name="swipe_hint">レビューを右にスワイプすると返信できます。</string>
-    <string name="profile_title">プロフィール</string>
     <string name="profile_credibility">信頼度</string>
     <string name="profile_credibility_sub">基本40点、他の署名者とのタグの一致で+30点、受け取った「参考になった」票で+10点、合意で支持されたフラグで+20点、合意で非表示になったレコードの割合×−50点。公開された計算式であり、それ以上の意味はありません。</string>
-    <string name="profile_flags">署名したフラグ%1$d件 · 支持%2$d件 · 受信%3$d件 · 非表示%4$d件</string>
+    <string name="profile_flags">署名したフラグ:%1$d件 · 支持:%2$d件 · 受信:%3$d件 · 非表示:%4$d件</string>
     <string name="profile_replied">レビューへの返信に%1$sの割合で応答</string>
     <string name="profile_publishes">検証済みパブリッシャー：</string>
     <string name="profile_reviews">署名付きレビュー</string>
@@ -303,7 +292,6 @@
     <string name="action_failed">ウォレットがリクエストを完了できませんでした。もう一度お試しください。</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">検出された地域：%1$s</string>
-    <string name="howto_step">ステップ %1$d</string>
     <string name="howto1_title">サインイン</string>
     <string name="howto1_sub">すでに使っているウォレットを接続</string>
     <string name="howto1_body">最初の画面で「ウォレットでサインイン」をタップし、メッセージを承認します。この署名は同意を記録するだけで、何も動かしません。Undersigned が鍵や資金を保管することはありません。</string>
@@ -410,7 +398,6 @@
     <string name="pro_not_body">Pro はあなたの意見に重みを加えたり、リストの順位を上げたり、信頼済みと表示したりすることはありません。重みは証明済み端末とオンチェーンで読み取られるステーク SKR のみから決まります。トークンは存在せず、集めるものも保有するものもありません。</string>
     <string name="pro_free_keeps">台帳を読むこと、レビュー・フラグ・異議に署名すること、端末の情報を確認することは、これからもずっと無料です。Pro はツールを追加するだけで、レビューのカウント方法は一切変わりません。</string>
     <string name="pro_price_line">このウォレットで12か月 · どちらで支払っても期間は同じ · 別途、ウォレットが設定するネットワーク手数料</string>
-    <string name="pro_or">または</string>
     <string name="pro_pay_in">支払い方法</string>
     <string name="pro_rail_skr_note">オンチェーンで読み取るのみで、保有はしません</string>
     <string name="pro_rail_sol_note">同じ12か月</string>
@@ -457,7 +444,6 @@
     <string name="pro_export_csv">CSV をエクスポート</string>
     <string name="pro_export_json">JSON をエクスポート</string>
     <string name="pro_watch_on">1時間ごとに確認</string>
-    <string name="pro_watch_off">6時間ごとに確認</string>
     <string name="pro_watch_alerts_off">アラートはオフです — 下でオンにすると、ウォッチは1時間ごとに実行されます。</string>
     <string name="pro_share_title">Pro をウォレットと共有</string>
     <string name="pro_share_body">支払ったウォレットに加え、あなたの他の2つのウォレットまで共有できます。共有の許可は、ハッシュでペアを示す署名付きレコードとして台帳に記録されます — 何も移動せず、支払ったウォレットを伝えられれば、もう一方のウォレットがそれを見つけられます。</string>

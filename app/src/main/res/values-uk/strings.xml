@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned не пропонується в %1$s через санкції та юридичні обмеження. Ця перевірка виконується лише на вашому пристрої.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Ласкаво просимо до Undersigned</string>
     <string name="terms_intro">Підписані відгуки про додатки від власників Seeker, записані в Solana. Не афілійовано з Solana Mobile. Відгуки — це думки окремих власників, а не рейтинги магазину.</string>
     <string name="terms_confirm_heading">Входячи в систему, ви підтверджуєте, що:</string>
     <string name="terms_point_age">вам виповнилося щонайменше 18 років;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Ця адреса гаманця значиться в санкційному списку і не може використовуватися з цим додатком.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Один Seeker, один голос</string>
-    <string name="onboarding_subtitle">Рівень довіри для dApp Store, яким ніхто не володіє.</string>
-    <string name="onboarding_step1_title">Відгуки підписуються, а не друкуються</string>
-    <string name="onboarding_step1_body">Кожен відгук — це транзакція-нотатка, яку підписує ваш гаманець. Враховуються лише гаманці, що мають Seeker Genesis Token, тож один пристрій — один голос.</string>
-    <string name="onboarding_step2_title">Ніхто не може редагувати реєстр</string>
-    <string name="onboarding_step2_body">Відгуки зберігаються в Solana за фіксованою адресою, яку ніхто не контролює. Будь-хто може їх прочитати. Ви можете вилучити свій відгук з рейтингу, але текст залишається в блокчейні назавжди.</string>
-    <string name="onboarding_step3_title">Ваш телефон додає факти</string>
-    <string name="onboarding_step3_body">Для встановлених вами додатків Undersigned показує те, що може перевірити пристрій: сертифікат підпису та зміни дозволів між версіями. Факти, ніколи не вердикти.</string>
-    <string name="onboarding_step4_title">Це не dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned читає публічний каталог магазину й відкриває сторінки в магазині. Він нічого не встановлює і не афілійований з Solana Mobile.</string>
     <string name="onboarding_cta">Почати перегляд</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d додатків у каталозі магазину</string>
     <string name="empty_installed">На цьому пристрої ще немає встановлених додатків із магазину.</string>
     <string name="empty_signed">Ще немає підписаних відгуків. Будьте першим.</string>
-    <string name="empty_search">Нічого не знайдено.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Відкрити в dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Підписати відповідь</string>
     <string name="reply_hint">Ваша відповідь власними словами (постійна).</string>
     <string name="reply_publish">Підписати й опублікувати відповідь</string>
-    <string name="replies_count">%1$d відповідей</string>
     <string name="notif_channel">Сповіщення реєстру</string>
     <string name="notif_new_review_title">Новий підписаний відгук: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -99,7 +86,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d підписано</string>
     <string name="versions_installed">встановлено</string>
     <string name="standing_title">Статус підписанта</string>
-    <string name="standing_line">%1$d зараховано · %2$d вилучено · %3$d відповідей отримано · %4$d надано</string>
+    <string name="standing_line">Зараховано: %1$d · Вилучено: %2$d · Отримано відповідей: %3$d · Надано відповідей: %4$d</string>
     <string name="standing_agreement">Збіг тегів з іншими підписантами: %1$s</string>
     <string name="standing_since">Підписує з %1$s</string>
     <string name="standing_note2">Лише підрахунок. Без балів, нічого купувати не потрібно.</string>
@@ -107,7 +94,7 @@
     <string name="store_reviewer_nogenesis">підтвердженого пристрою не знайдено</string>
     <string name="store_reviewer_signed_here">також підписав(ла) тут</string>
     <string name="notif_divergence_title">%1$s: підписаний і магазинний рейтинги розходяться</string>
-    <string name="notif_divergence_body">Підписаний %1$s від %2$d Seeker\'ів проти магазинного %3$s від %4$d відгуків.</string>
+    <string name="notif_divergence_body">Підписано: %1$s (Seeker\'ів: %2$d) · Магазин: %3$s (відгуків: %4$d).</string>
     <string name="notif_update_title">%1$s оновлено до v%2$d</string>
     <string name="notif_update_body">Усе ще працює? Підпишіть відгук для цієї версії.</string>
     <string name="notif_wave_title">%1$s: незвичайна активність відгуків у магазині</string>
@@ -139,6 +126,13 @@
     <string name="my_reviews_empty">Поки немає відгуків. Відгуки, які ви підпишете, з\'являться тут, а ваші відгуки з dApp Store — після сканування.</string>
     <string name="my_reviews_no_match">Жодні відгуки не відповідають.</string>
     <string name="my_reviews_sign_in">Увійдіть за допомогою гаманця, щоб побачити свої відгуки.</string>
+    <string name="scan_done_title">Сканування dApp Store завершено</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">Знайдено %1$d ваш відгук із dApp Store. Торкніться, щоб переглянути його: Мої відгуки.</item>
+        <item quantity="few">Знайдено %1$d ваші відгуки з dApp Store. Торкніться, щоб переглянути їх: Мої відгуки.</item>
+        <item quantity="many">Знайдено %1$d ваших відгуків із dApp Store. Торкніться, щоб переглянути їх: Мої відгуки.</item>
+        <item quantity="other">Знайдено %1$d вашого відгуку з dApp Store. Торкніться, щоб переглянути їх: Мої відгуки.</item>
+    </plurals>
     <string name="import_scan">Сканувати мої відгуки в магазині</string>
     <string name="import_scanning">Сканування %1$s</string>
     <string name="import_found">Знайдено %1$d ваших відгуків у магазині</string>
@@ -200,7 +194,6 @@
     <string name="changes_sub">Встановлені додатки з магазину, у яких сертифікат підпису, дозволи чи версія змінилися з часу останньої перевірки цим пристроєм.</string>
     <string name="changes_empty">З часу останньої перевірки нічого не змінилося.</string>
     <string name="change_new_version">Оновлено до коду версії %1$d</string>
-    <string name="change_first_seen">Вперше побачено на цьому пристрої</string>
 
     <!-- Settings -->
     <string name="settings">Налаштування</string>
@@ -272,10 +265,9 @@
     <string name="inbox_replies_empty">Поки немає відповідей на ваші записи.</string>
     <string name="inbox_starred_empty">Додайте відгук до обраного, щоб він залишився тут.</string>
     <string name="swipe_hint">Проведіть по відгуку вправо, щоб відповісти.</string>
-    <string name="profile_title">Профіль</string>
     <string name="profile_credibility">Достовірність</string>
     <string name="profile_credibility_sub">40 базових, +30 за збіг тегів з іншими підписантами, +10 за отримані голоси Корисно, +20 за позначки, підтверджені консенсусом, −50 × частка записів, прихованих консенсусом. Опублікована формула, нічого до неї не прив\'язано.</string>
-    <string name="profile_flags">%1$d підписаних позначок · %2$d підтверджено · %3$d отримано · %4$d записів приховано</string>
+    <string name="profile_flags">Підписані позначки: %1$d · Підтверджено: %2$d · Отримано: %3$d · Приховані записи: %4$d</string>
     <string name="profile_replied">Відповідає на відповіді до своїх відгуків у %1$s випадків</string>
     <string name="profile_publishes">Підтверджений видавець</string>
     <string name="profile_reviews">Підписані відгуки</string>
@@ -320,7 +312,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Визначено регіон: %1$s</string>
-    <string name="howto_step">Крок %1$d</string>
     <string name="howto1_title">Увійдіть</string>
     <string name="howto1_sub">Підключіть гаманець, яким уже користуєтеся</string>
     <string name="howto1_body">На першому екрані торкніться \"Увійти за допомогою гаманця\" і підтвердіть повідомлення. Цей підпис фіксує вашу згоду — він нічого не переміщує. Undersigned ніколи не зберігає ваші ключі чи кошти.</string>
@@ -427,7 +418,6 @@
     <string name="pro_not_body">Він не збільшує вагу вашої думки, не піднімає вас у списку і не позначає вас як довіреного. Вага походить від підтвердженого пристрою та застейканого SKR, зчитаного з блокчейну, і більше нічого. Токена немає, нема чого збирати й нема чого тримати.</string>
     <string name="pro_free_keeps">Читання реєстру, підписання відгуків, позначок, оскаржень і фактів про пристрій залишаються безплатними і завжди будуть такими. Pro додає інструменти; це ніяк не змінює те, як враховується будь-який відгук.</string>
     <string name="pro_price_line">12 місяців на цьому гаманці · платіть будь-якою з них, термін однаковий · додатково комісія мережі, встановлена вашим гаманцем</string>
-    <string name="pro_or">або</string>
     <string name="pro_pay_in">Платити в</string>
     <string name="pro_rail_skr_note">зчитується з блокчейну, не зберігається</string>
     <string name="pro_rail_sol_note">ті самі дванадцять місяців</string>
@@ -477,7 +467,6 @@
     <string name="pro_export_csv">Експортувати CSV</string>
     <string name="pro_export_json">Експортувати JSON</string>
     <string name="pro_watch_on">Перевірка щогодини</string>
-    <string name="pro_watch_off">Перевірка кожні 6 годин</string>
     <string name="pro_watch_alerts_off">Сповіщення вимкнено — увімкніть їх нижче, і спостереження працюватиме щогодини.</string>
     <string name="pro_share_title">Поділитися Pro з гаманцем</string>
     <string name="pro_share_body">Платник плюс два інших ваших гаманці. Надання — це підписаний запис у реєстрі, що називає пару за хешем — він нічого не переміщує, і інший гаманець знайде його, щойно дізнається, який гаманець заплатив.</string>

@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned n\'est pas proposé dans %1$s en raison de sanctions et de restrictions légales. Cette vérification s\'effectue uniquement sur votre appareil.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Bienvenue sur Undersigned</string>
     <string name="terms_intro">Avis d\'applications signés par des propriétaires de Seeker, écrits sur Solana. Non affilié à Solana Mobile. Les avis reflètent l\'opinion de propriétaires individuels, pas la note du store.</string>
     <string name="terms_confirm_heading">En vous connectant, vous confirmez que vous :</string>
     <string name="terms_point_age">avez au moins 18 ans ;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Cette adresse de wallet figure sur une liste de sanctions et ne peut pas être utilisée avec cette application.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Un Seeker, une voix</string>
-    <string name="onboarding_subtitle">Une couche de confiance pour le dApp Store qui n\'appartient à personne.</string>
-    <string name="onboarding_step1_title">Les avis sont signés, pas seulement saisis</string>
-    <string name="onboarding_step1_body">Chaque avis est une transaction mémo que votre wallet signe. Seuls les wallets détenant un Seeker Genesis Token sont comptabilisés, donc un appareil équivaut à une voix.</string>
-    <string name="onboarding_step2_title">Personne ne peut modifier le registre</string>
-    <string name="onboarding_step2_body">Les avis résident sur Solana à une adresse fixe que personne ne contrôle. Tout le monde peut les lire. Vous pouvez retirer votre avis du classement, mais le texte reste on-chain pour toujours.</string>
-    <string name="onboarding_step3_title">Votre téléphone ajoute les faits</string>
-    <string name="onboarding_step3_body">Pour les applications que vous avez installées, Undersigned affiche ce que l\'appareil peut vérifier : le certificat de signature et les changements de permissions entre les versions. Des faits, jamais des verdicts.</string>
-    <string name="onboarding_step4_title">Ce n\'est pas le dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned lit le catalogue public du store et ouvre les fiches dans le store. Il n\'installe jamais rien et n\'est pas affilié à Solana Mobile.</string>
     <string name="onboarding_cta">Commencer à parcourir</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d applications dans le catalogue du store</string>
     <string name="empty_installed">Aucune application du store installée sur cet appareil pour l\'instant.</string>
     <string name="empty_signed">Aucun avis signé pour l\'instant. Soyez le premier.</string>
-    <string name="empty_search">Aucun résultat.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Ouvrir dans le dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Signer une réponse</string>
     <string name="reply_hint">Votre réponse, dans vos propres mots (permanente).</string>
     <string name="reply_publish">Signer et publier la réponse</string>
-    <string name="replies_count">%1$d réponses</string>
     <string name="notif_channel">Alertes du registre</string>
     <string name="notif_new_review_title">Nouvel avis signé : %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -102,7 +89,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d signés</string>
     <string name="versions_installed">installée</string>
     <string name="standing_title">Statut du signataire</string>
-    <string name="standing_line">%1$d comptabilisés · %2$d retirés · %3$d réponses reçues · %4$d données</string>
+    <string name="standing_line">Comptabilisés : %1$d · Retirés : %2$d · Réponses reçues : %3$d · Réponses données : %4$d</string>
     <string name="standing_agreement">Accord des tags avec les autres signataires : %1$s</string>
     <string name="standing_since">Signe depuis le %1$s</string>
     <string name="standing_note2">Uniquement des chiffres. Pas de score, rien à acheter.</string>
@@ -110,7 +97,7 @@
     <string name="store_reviewer_nogenesis">aucun appareil attesté trouvé</string>
     <string name="store_reviewer_signed_here">a aussi signé ici</string>
     <string name="notif_divergence_title">%1$s : les scores signé et du store divergent</string>
-    <string name="notif_divergence_body">Signé %1$s à partir de %2$d Seekers contre store %3$s à partir de %4$d avis.</string>
+    <string name="notif_divergence_body">Signé : %1$s (Seekers : %2$d) · Store : %3$s (avis : %4$d).</string>
     <string name="notif_update_title">%1$s mis à jour vers v%2$d</string>
     <string name="notif_update_body">Toujours fonctionnel ? Signez un avis pour cette version.</string>
     <string name="notif_wave_title">%1$s : activité d\'avis inhabituelle dans le store</string>
@@ -141,6 +128,8 @@
     <string name="my_reviews_empty">Aucun avis pour l\'instant. Les avis que vous signez apparaissent ici, ainsi que vos avis du dApp Store une fois recherchés.</string>
     <string name="my_reviews_no_match">Aucun avis ne correspond.</string>
     <string name="my_reviews_sign_in">Connectez-vous avec votre wallet pour voir vos avis.</string>
+    <string name="scan_done_title">Analyse du dApp Store terminée</string>
+    <plurals name="scan_done_body"><item quantity="one">%1$d avis du dApp Store vous concernant trouvé. Appuyez pour le voir dans Mes avis.</item><item quantity="many">%1$d avis du dApp Store vous concernant trouvés. Appuyez pour les voir dans Mes avis.</item><item quantity="other">%1$d avis du dApp Store vous concernant trouvés. Appuyez pour les voir dans Mes avis.</item></plurals>
     <string name="import_scan">Rechercher mes avis du store</string>
     <string name="import_scanning">Analyse de %1$s</string>
     <string name="import_found">%1$d de vos avis du store trouvés</string>
@@ -201,7 +190,6 @@
     <string name="changes_sub">Applications du store installées dont le certificat de signature, les permissions ou la version ont changé depuis la dernière vérification de cet appareil.</string>
     <string name="changes_empty">Rien n\'a changé depuis la dernière vérification.</string>
     <string name="change_new_version">Mis à jour vers la version %1$d</string>
-    <string name="change_first_seen">Vu pour la première fois sur cet appareil</string>
 
     <!-- Settings -->
     <string name="settings">Paramètres</string>
@@ -272,10 +260,9 @@
     <string name="inbox_replies_empty">Aucune réponse à vos enregistrements pour l\'instant.</string>
     <string name="inbox_starred_empty">Mettez un avis en avant pour le conserver ici.</string>
     <string name="swipe_hint">Balayez un avis vers la droite pour répondre.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Crédibilité</string>
     <string name="profile_credibility_sub">40 de base, +30 pour l\'accord des tags avec d\'autres signataires, +10 pour les votes utiles reçus, +20 pour les flags confirmés par consensus, −50 × part des enregistrements masqués par consensus. Formule publiée, rien d\'autre n\'y est associé.</string>
-    <string name="profile_flags">%1$d flags signés · %2$d confirmés · %3$d reçus · %4$d enregistrements masqués</string>
+    <string name="profile_flags">Flags signés : %1$d · Confirmés : %2$d · Reçus : %3$d · Enregistrements masqués : %4$d</string>
     <string name="profile_replied">Répond aux réponses sur ses avis %1$s du temps</string>
     <string name="profile_publishes">Éditeur vérifié de</string>
     <string name="profile_reviews">Avis signés</string>
@@ -318,7 +305,6 @@
     <string name="action_failed">Le wallet n\'a pas pu terminer la demande. Réessayez.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Région détectée : %1$s</string>
-    <string name="howto_step">Étape %1$d</string>
     <string name="howto1_title">Connectez-vous</string>
     <string name="howto1_sub">Connectez le wallet que vous utilisez déjà</string>
     <string name="howto1_body">Appuyez sur \"Se connecter avec votre wallet\" sur le premier écran et approuvez le message. Cette signature enregistre votre consentement — elle ne déplace rien. Undersigned ne détient jamais vos clés ni vos fonds.</string>
@@ -425,7 +411,6 @@
     <string name="pro_not_body">Cela ne pondère pas votre avis, ne vous fait pas remonter dans une liste, et ne vous marque pas comme fiable. Le poids vient de l\'appareil attesté et du SKR staké lu on-chain, et de rien d\'autre. Il n\'y a pas de token, rien à collectionner et rien à détenir.</string>
     <string name="pro_free_keeps">Lire le registre, signer des avis, des signalements, des contestations et les informations d\'appareil restent gratuits et le resteront toujours. Pro ajoute des outils ; cela ne change rien à la façon dont un avis est comptabilisé.</string>
     <string name="pro_price_line">12 mois sur ce wallet · payez dans l\'un ou l\'autre, la durée est la même · frais de réseau en plus, fixés par votre wallet</string>
-    <string name="pro_or">ou</string>
     <string name="pro_pay_in">Payer en</string>
     <string name="pro_rail_skr_note">lu on-chain, non détenu</string>
     <string name="pro_rail_sol_note">les mêmes douze mois</string>
@@ -474,7 +459,6 @@
     <string name="pro_export_csv">Exporter en CSV</string>
     <string name="pro_export_json">Exporter en JSON</string>
     <string name="pro_watch_on">Vérification toutes les heures</string>
-    <string name="pro_watch_off">Vérification toutes les 6 heures</string>
     <string name="pro_watch_alerts_off">Les alertes sont désactivées — activez-les ci-dessous et la surveillance passera à toutes les heures.</string>
     <string name="pro_share_title">Partager Pro avec un wallet</string>
     <string name="pro_share_body">Le payeur plus deux autres de vos wallets. Un octroi est un enregistrement signé sur le registre nommant la paire par hash — cela ne déplace rien, et l\'autre wallet le découvre une fois informé du wallet payeur.</string>

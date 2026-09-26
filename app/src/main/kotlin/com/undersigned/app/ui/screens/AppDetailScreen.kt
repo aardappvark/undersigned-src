@@ -255,7 +255,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 Text(stringResource(R.string.store_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 myStore[pkg]?.let { mine ->
                     Spacer(Modifier.height(8.dp))
-                    Text(stringResource(R.string.store_mine_found, mine.rating, mine.createdAt.take(10)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.store_mine_found, mine.rating, storeDate(mine.createdAt)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                     if (vm.myReview(pkg) == null) {
                         Spacer(Modifier.height(6.dp))
                         SecondaryButton(importStage ?: stringResource(R.string.store_import_one), enabled = importStage == null && sender != null, onClick = {
@@ -270,7 +270,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp))
-                            Text((r.domain ?: r.walletAddress?.let { shortKey(it, 4, 4) } ?: "anonymous") + " · " + r.createdAt.take(10), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
+                            Text((r.domain ?: r.walletAddress?.let { shortKey(it, 4, 4) } ?: "anonymous") + " · " + storeDate(r.createdAt), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                             if (r.publisherReply != null) Pill(stringResource(R.string.store_publisher_replied), RbColors.info)
                         }
                         r.walletAddress?.let { wa ->
@@ -366,7 +366,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         RatingStars(r.rating.toDouble())
                         Spacer(Modifier.width(8.dp))
                         Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f).clickable { onProfile(e.signer) })
-                        IconButton(onClick = { vm.toggleStar(e.signature) }, modifier = Modifier.size(28.dp)) { Icon(if (e.signature in starred) Icons.Default.Star else Icons.Default.StarBorder, contentDescription = stringResource(R.string.star), tint = if (e.signature in starred) RbColors.warning else RbColors.textTertiary, modifier = Modifier.size(18.dp)) }
+                        IconButton(onClick = { vm.toggleStar(e.signature) }, modifier = Modifier.size(28.dp)) { Icon(if (e.signature in starred) Icons.Default.Star else Icons.Default.StarBorder, contentDescription = stringResource(if (e.signature in starred) R.string.unstar else R.string.star), tint = if (e.signature in starred) RbColors.warning else RbColors.textTertiary, modifier = Modifier.size(18.dp)) }
                         if (w > 0) Pill(stringResource(R.string.review_weight_verified) + if (w > 1.0) String.format(java.util.Locale.US, " %.1f×", w) else "", RbColors.green) else Pill(stringResource(R.string.review_weight_unverified), RbColors.textTertiary)
                     }
                     // FlowRow, not Row: with a Seeker pill, a publisher pill, a standing, a flag weight and a

@@ -47,6 +47,8 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     val vm: MainViewModel = viewModel()
     val pending by NavIntents.pendingPackage.collectAsState()
     LaunchedEffect(pending) { pending?.let { NavIntents.pendingPackage.value = null; nav.navigate(Routes.detail(it)) } }
+    val pendingScreen by NavIntents.pendingScreen.collectAsState()
+    LaunchedEffect(pendingScreen) { if (pendingScreen == Routes.MY_REVIEWS) { NavIntents.pendingScreen.value = null; nav.navigate(Routes.MY_REVIEWS) } }
     val pendingReply by NavIntents.pendingReply.collectAsState()
     val entries by vm.entries.collectAsState()
     LaunchedEffect(pendingReply, entries) { pendingReply?.let { (target, _) -> vm.packageOf(target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) } } }

@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned không được cung cấp tại %1$s do các lệnh trừng phạt và hạn chế pháp lý. Việc kiểm tra này chỉ chạy trên thiết bị của bạn.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Chào mừng đến với Undersigned</string>
     <string name="terms_intro">Đánh giá ứng dụng đã ký từ chủ sở hữu Seeker, được ghi lên Solana. Không liên kết với Solana Mobile. Đánh giá là ý kiến cá nhân của từng chủ sở hữu, không phải xếp hạng của cửa hàng.</string>
     <string name="terms_confirm_heading">Khi đăng nhập, bạn xác nhận rằng bạn:</string>
     <string name="terms_point_age">từ 18 tuổi trở lên;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Địa chỉ ví này xuất hiện trong danh sách trừng phạt và không thể sử dụng với ứng dụng này.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Một Seeker, một tiếng nói</string>
-    <string name="onboarding_subtitle">Một lớp tin cậy cho dApp Store mà không ai sở hữu.</string>
-    <string name="onboarding_step1_title">Đánh giá được ký, không chỉ gõ chữ</string>
-    <string name="onboarding_step1_body">Mỗi đánh giá là một giao dịch ghi chú mà ví của bạn ký. Chỉ những ví có Seeker Genesis Token mới được tính, vì vậy một thiết bị là một tiếng nói.</string>
-    <string name="onboarding_step2_title">Không ai có thể chỉnh sửa sổ cái</string>
-    <string name="onboarding_step2_body">Đánh giá tồn tại trên Solana tại một địa chỉ cố định mà không ai kiểm soát. Bất kỳ ai cũng có thể đọc chúng. Bạn có thể rút đánh giá khỏi bảng xếp hạng, nhưng văn bản vẫn ở trên chuỗi mãi mãi.</string>
-    <string name="onboarding_step3_title">Điện thoại của bạn bổ sung các thông tin thực tế</string>
-    <string name="onboarding_step3_body">Đối với các ứng dụng bạn đã cài đặt, Undersigned hiển thị những gì thiết bị có thể xác minh: chứng chỉ ký và các thay đổi quyền giữa các phiên bản. Chỉ là thông tin thực tế, không bao giờ là phán quyết.</string>
-    <string name="onboarding_step4_title">Không phải là dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned đọc danh mục công khai của dApp Store và mở các trang niêm yết trong cửa hàng. Nó không bao giờ cài đặt bất cứ thứ gì và không liên kết với Solana Mobile.</string>
     <string name="onboarding_cta">Bắt đầu duyệt xem</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d ứng dụng trong danh mục cửa hàng</string>
     <string name="empty_installed">Chưa có ứng dụng nào từ cửa hàng được cài đặt trên thiết bị này.</string>
     <string name="empty_signed">Chưa có đánh giá đã ký nào. Hãy là người đầu tiên.</string>
-    <string name="empty_search">Không có kết quả phù hợp.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Mở trong dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Ký một câu trả lời</string>
     <string name="reply_hint">Câu trả lời của bạn, bằng lời của chính bạn (vĩnh viễn).</string>
     <string name="reply_publish">Ký và đăng câu trả lời</string>
-    <string name="replies_count">%1$d câu trả lời</string>
     <string name="notif_channel">Cảnh báo sổ cái</string>
     <string name="notif_new_review_title">Đánh giá đã ký mới: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -101,7 +88,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d đã ký</string>
     <string name="versions_installed">đã cài đặt</string>
     <string name="standing_title">Uy tín người ký</string>
-    <string name="standing_line">%1$d được tính · %2$d đã rút · %3$d câu trả lời nhận được · %4$d đã gửi</string>
+    <string name="standing_line">Đã tính: %1$d · Đã rút: %2$d · Câu trả lời nhận được: %3$d · Câu trả lời đã gửi: %4$d</string>
     <string name="standing_agreement">Mức đồng thuận thẻ với những người ký khác: %1$s</string>
     <string name="standing_since">Đã ký từ %1$s</string>
     <string name="standing_note2">Chỉ đếm số lượng. Không có điểm số, không có gì để mua.</string>
@@ -109,7 +96,7 @@
     <string name="store_reviewer_nogenesis">không tìm thấy thiết bị được xác nhận</string>
     <string name="store_reviewer_signed_here">cũng đã ký tại đây</string>
     <string name="notif_divergence_title">%1$s: điểm đã ký và điểm cửa hàng không khớp</string>
-    <string name="notif_divergence_body">Đã ký %1$s từ %2$d Seeker so với cửa hàng %3$s từ %4$d đánh giá.</string>
+    <string name="notif_divergence_body">Đã ký: %1$s (Seeker: %2$d) · Cửa hàng: %3$s (đánh giá: %4$d).</string>
     <string name="notif_update_title">%1$s đã cập nhật lên v%2$d</string>
     <string name="notif_update_body">Vẫn hoạt động tốt? Hãy ký một đánh giá cho phiên bản này.</string>
     <string name="notif_wave_title">%1$s: hoạt động đánh giá bất thường trong cửa hàng</string>
@@ -138,6 +125,10 @@
     <string name="my_reviews_empty">Chưa có đánh giá nào. Đánh giá bạn ký sẽ xuất hiện ở đây, và đánh giá dApp Store của bạn cũng vậy sau khi quét.</string>
     <string name="my_reviews_no_match">Không có đánh giá nào khớp.</string>
     <string name="my_reviews_sign_in">Đăng nhập bằng ví của bạn để xem đánh giá của bạn.</string>
+    <string name="scan_done_title">Đã quét xong dApp Store</string>
+    <plurals name="scan_done_body">
+        <item quantity="other">Đã tìm thấy %1$d đánh giá dApp Store của bạn. Nhấn để xem trong Đánh giá của tôi.</item>
+    </plurals>
     <string name="import_scan">Quét tìm đánh giá cửa hàng của tôi</string>
     <string name="import_scanning">Đang quét %1$s</string>
     <string name="import_found">Tìm thấy %1$d đánh giá cửa hàng của bạn</string>
@@ -196,7 +187,6 @@
     <string name="changes_sub">Các ứng dụng cửa hàng đã cài đặt có chứng chỉ ký, quyền hoặc phiên bản thay đổi kể từ lần kiểm tra gần nhất của thiết bị này.</string>
     <string name="changes_empty">Không có gì thay đổi kể từ lần kiểm tra gần nhất.</string>
     <string name="change_new_version">Đã cập nhật lên mã phiên bản %1$d</string>
-    <string name="change_first_seen">Lần đầu thấy trên thiết bị này</string>
 
     <!-- Settings -->
     <string name="settings">Cài đặt</string>
@@ -265,10 +255,9 @@
     <string name="inbox_replies_empty">Chưa có trả lời nào cho bản ghi của bạn.</string>
     <string name="inbox_starred_empty">Đánh dấu sao một đánh giá để giữ nó ở đây.</string>
     <string name="swipe_hint">Vuốt một đánh giá sang phải để trả lời.</string>
-    <string name="profile_title">Hồ sơ</string>
     <string name="profile_credibility">Uy tín</string>
     <string name="profile_credibility_sub">Nền 40, +30 cho sự đồng thuận thẻ với người ký khác, +10 cho phiếu hữu ích nhận được, +20 cho cờ được giữ vững theo đồng thuận, −50 × tỷ lệ bản ghi bị ẩn theo đồng thuận. Công thức được công bố, không có gì gắn kèm.</string>
-    <string name="profile_flags">%1$d cờ đã ký · %2$d được giữ vững · %3$d nhận được · %4$d bản ghi bị ẩn</string>
+    <string name="profile_flags">Cờ đã ký: %1$d · Được giữ vững: %2$d · Nhận được: %3$d · Bản ghi bị ẩn: %4$d</string>
     <string name="profile_replied">Trả lời phản hồi trên đánh giá của họ %1$s thời gian</string>
     <string name="profile_publishes">Nhà phát hành đã xác minh của</string>
     <string name="profile_reviews">Đánh giá đã ký</string>
@@ -311,7 +300,6 @@
     <string name="action_failed">Ví không thể hoàn tất yêu cầu. Hãy thử lại.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Khu vực phát hiện: %1$s</string>
-    <string name="howto_step">Bước %1$d</string>
     <string name="howto1_title">Đăng nhập</string>
     <string name="howto1_sub">Kết nối ví bạn đang dùng</string>
     <string name="howto1_body">Chạm \"Đăng nhập bằng ví của bạn\" ở màn hình đầu tiên và phê duyệt tin nhắn. Chữ ký đó ghi lại sự đồng ý của bạn — không có gì được chuyển đi. Undersigned không bao giờ giữ khóa hoặc tiền của bạn.</string>
@@ -418,7 +406,6 @@
     <string name="pro_not_body">Nó không tăng trọng số cho ý kiến của bạn, không đẩy bạn lên trong danh sách, cũng không đánh dấu bạn là đáng tin cậy. Trọng số đến từ thiết bị được xác nhận và SKR đã stake đọc được on-chain, và không gì khác. Không có token, không có gì để sưu tầm và không có gì để giữ.</string>
     <string name="pro_free_keeps">Đọc sổ cái, ký đánh giá, gắn cờ, phản đối và thông tin thiết bị luôn miễn phí và sẽ luôn như vậy. Pro chỉ thêm công cụ; không thay đổi gì về cách bất kỳ đánh giá nào được tính.</string>
     <string name="pro_price_line">12 tháng trên ví này · trả bằng loại nào cũng được, thời hạn như nhau · cộng phí mạng, do ví của bạn đặt ra</string>
-    <string name="pro_or">hoặc</string>
     <string name="pro_pay_in">Trả bằng</string>
     <string name="pro_rail_skr_note">đọc on-chain, không bị giữ</string>
     <string name="pro_rail_sol_note">cùng mười hai tháng</string>
@@ -465,7 +452,6 @@
     <string name="pro_export_csv">Xuất CSV</string>
     <string name="pro_export_json">Xuất JSON</string>
     <string name="pro_watch_on">Kiểm tra mỗi giờ</string>
-    <string name="pro_watch_off">Kiểm tra mỗi 6 giờ</string>
     <string name="pro_watch_alerts_off">Cảnh báo đang tắt — bật bên dưới để việc theo dõi chạy mỗi giờ.</string>
     <string name="pro_share_title">Chia sẻ Pro với một ví</string>
     <string name="pro_share_body">Người trả tiền cộng thêm hai ví khác của bạn. Một quyền cấp là bản ghi đã ký trên sổ cái đặt tên cặp ví bằng hash — không có gì được chuyển đi, và ví kia sẽ thấy nó khi được cho biết ví nào đã trả tiền.</string>

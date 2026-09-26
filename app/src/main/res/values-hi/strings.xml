@@ -7,7 +7,6 @@
     <string name="blocked_body">प्रतिबंधों और कानूनी सीमाओं के कारण Undersigned %1$s में उपलब्ध नहीं है। यह जांच केवल आपके डिवाइस पर होती है।</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Undersigned में आपका स्वागत है</string>
     <string name="terms_intro">Seeker मालिकों द्वारा हस्ताक्षरित ऐप समीक्षाएं, Solana पर लिखी गईं। Solana Mobile से संबद्ध नहीं। समीक्षाएं व्यक्तिगत मालिकों की राय हैं, स्टोर की रेटिंग नहीं।</string>
     <string name="terms_confirm_heading">साइन इन करके आप पुष्टि करते हैं कि आप:</string>
     <string name="terms_point_age">कम से कम 18 वर्ष के हैं;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">यह wallet पता एक प्रतिबंध सूची में दिखाई देता है और इस ऐप के साथ उपयोग नहीं किया जा सकता।</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">एक Seeker, एक आवाज़</string>
-    <string name="onboarding_subtitle">dApp Store के लिए एक भरोसे की परत जिसका कोई मालिक नहीं है।</string>
-    <string name="onboarding_step1_title">समीक्षाएं हस्ताक्षरित हैं, केवल टाइप नहीं की गईं</string>
-    <string name="onboarding_step1_body">हर समीक्षा एक मेमो लेनदेन है जिसे आपका wallet साइन करता है। केवल Seeker Genesis Token रखने वाले wallets गिने जाते हैं, इसलिए एक डिवाइस एक आवाज़ है।</string>
-    <string name="onboarding_step2_title">कोई भी ledger को संपादित नहीं कर सकता</string>
-    <string name="onboarding_step2_body">समीक्षाएं Solana पर एक स्थिर पते पर रहती हैं जिसे कोई नियंत्रित नहीं करता। कोई भी इन्हें पढ़ सकता है। आप रैंकिंग से अपनी समीक्षा वापस ले सकते हैं, लेकिन टेक्स्ट हमेशा के लिए chain पर बना रहता है।</string>
-    <string name="onboarding_step3_title">आपका फ़ोन तथ्य जोड़ता है</string>
-    <string name="onboarding_step3_body">आपके इंस्टॉल किए गए ऐप्स के लिए, Undersigned वह दिखाता है जो डिवाइस सत्यापित कर सकता है: signing certificate और वर्ज़नों के बीच अनुमति में बदलाव। तथ्य, कभी फैसले नहीं।</string>
-    <string name="onboarding_step4_title">यह dApp Store नहीं है</string>
-    <string name="onboarding_step4_body">Undersigned स्टोर की सार्वजनिक सूची पढ़ता है और स्टोर में लिस्टिंग खोलता है। यह कभी कुछ भी इंस्टॉल नहीं करता और Solana Mobile से संबद्ध नहीं है।</string>
     <string name="onboarding_cta">ब्राउज़ करना शुरू करें</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">स्टोर सूची में %1$d ऐप्स</string>
     <string name="empty_installed">इस डिवाइस पर अभी तक कोई स्टोर ऐप इंस्टॉल नहीं है।</string>
     <string name="empty_signed">अभी तक कोई हस्ताक्षरित समीक्षा नहीं। सबसे पहले आप बनें।</string>
-    <string name="empty_search">कुछ भी मेल नहीं खाता।</string>
 
     <!-- App detail -->
     <string name="detail_open_store">dApp Store में खोलें</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">एक जवाब साइन करें</string>
     <string name="reply_hint">आपका जवाब, आपके अपने शब्दों में (स्थायी)।</string>
     <string name="reply_publish">जवाब साइन करें और प्रकाशित करें</string>
-    <string name="replies_count">%1$d जवाब</string>
     <string name="notif_channel">Ledger अलर्ट</string>
     <string name="notif_new_review_title">नई हस्ताक्षरित समीक्षा: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -102,7 +89,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d हस्ताक्षरित</string>
     <string name="versions_installed">इंस्टॉल किया गया</string>
     <string name="standing_title">साइनर की स्थिति</string>
-    <string name="standing_line">%1$d गिनी गईं · %2$d वापस ली गईं · %3$d जवाब प्राप्त हुए · %4$d दिए गए</string>
+    <string name="standing_line">गिनती: %1$d · वापस ली गईं: %2$d · प्राप्त जवाब: %3$d · दिए गए जवाब: %4$d</string>
     <string name="standing_agreement">अन्य साइनर्स के साथ टैग सहमति: %1$s</string>
     <string name="standing_since">%1$s से साइन कर रहे हैं</string>
     <string name="standing_note2">केवल गिनती। कोई स्कोर नहीं, खरीदने के लिए कुछ भी नहीं।</string>
@@ -110,7 +97,7 @@
     <string name="store_reviewer_nogenesis">कोई प्रमाणित डिवाइस नहीं मिला</string>
     <string name="store_reviewer_signed_here">यहां भी साइन किया</string>
     <string name="notif_divergence_title">%1$s: हस्ताक्षरित और स्टोर स्कोर असहमत हैं</string>
-    <string name="notif_divergence_body">%2$d Seekers से हस्ताक्षरित %1$s बनाम %4$d समीक्षाओं से स्टोर %3$s।</string>
+    <string name="notif_divergence_body">हस्ताक्षरित: %1$s (Seekers: %2$d) · स्टोर: %3$s (समीक्षाएं: %4$d)।</string>
     <string name="notif_update_title">%1$s को v%2$d पर अपडेट किया गया</string>
     <string name="notif_update_body">अभी भी काम कर रहा है? इस वर्ज़न के लिए एक समीक्षा साइन करें।</string>
     <string name="notif_wave_title">%1$s: स्टोर में असामान्य समीक्षा गतिविधि</string>
@@ -140,6 +127,11 @@
     <string name="my_reviews_empty">अभी तक कोई समीक्षा नहीं। आपकी हस्ताक्षरित समीक्षाएं यहां दिखती हैं, और स्कैन करने के बाद आपकी dApp Store समीक्षाएं भी।</string>
     <string name="my_reviews_no_match">कोई समीक्षा मेल नहीं खाती।</string>
     <string name="my_reviews_sign_in">अपनी समीक्षाएं देखने के लिए अपने wallet से साइन इन करें।</string>
+    <string name="scan_done_title">dApp Store स्कैन पूर्ण</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">आपकी %1$d dApp Store समीक्षा मिली। इसे मेरी समीक्षाएं में देखने के लिए टैप करें।</item>
+        <item quantity="other">आपकी %1$d dApp Store समीक्षाएं मिलीं। उन्हें मेरी समीक्षाएं में देखने के लिए टैप करें।</item>
+    </plurals>
     <string name="import_scan">मेरी स्टोर समीक्षाओं के लिए स्कैन करें</string>
     <string name="import_scanning">%1$s स्कैन किया जा रहा है</string>
     <string name="import_found">आपकी %1$d स्टोर समीक्षाएं मिलीं</string>
@@ -199,7 +191,6 @@
     <string name="changes_sub">इंस्टॉल किए गए स्टोर ऐप्स जिनका signing certificate, अनुमतियां, या वर्ज़न इस डिवाइस के आखिरी बार देखने के बाद से बदल गया है।</string>
     <string name="changes_empty">आखिरी जांच के बाद से कुछ भी नहीं बदला है।</string>
     <string name="change_new_version">वर्ज़न कोड %1$d में अपडेट किया गया</string>
-    <string name="change_first_seen">इस डिवाइस पर पहली बार देखा गया</string>
 
     <!-- Settings -->
     <string name="settings">सेटिंग्स</string>
@@ -269,10 +260,9 @@
     <string name="inbox_replies_empty">आपके रिकॉर्ड्स पर अभी तक कोई जवाब नहीं।</string>
     <string name="inbox_starred_empty">किसी समीक्षा को यहां रखने के लिए उसे स्टार करें।</string>
     <string name="swipe_hint">जवाब देने के लिए किसी समीक्षा को दाईं ओर स्वाइप करें।</string>
-    <string name="profile_title">प्रोफ़ाइल</string>
     <string name="profile_credibility">विश्वसनीयता</string>
     <string name="profile_credibility_sub">40 आधार, अन्य साइनर्स के साथ टैग सहमति के लिए +30, प्राप्त उपयोगी वोटों के लिए +10, सर्वसम्मति से बरकरार रखे गए फ़्लैग के लिए +20, सर्वसम्मति से छिपाए गए रिकॉर्ड्स के हिस्से के लिए −50 ×। प्रकाशित सूत्र, इससे कुछ भी जुड़ा नहीं।</string>
-    <string name="profile_flags">%1$d फ़्लैग साइन किए · %2$d बरकरार रहे · %3$d प्राप्त हुए · %4$d रिकॉर्ड छिपाए गए</string>
+    <string name="profile_flags">साइन किए गए फ़्लैग: %1$d · बरकरार: %2$d · प्राप्त: %3$d · छिपाए गए रिकॉर्ड: %4$d</string>
     <string name="profile_replied">अपनी समीक्षाओं पर %1$s बार जवाब देते हैं</string>
     <string name="profile_publishes">सत्यापित प्रकाशक</string>
     <string name="profile_reviews">हस्ताक्षरित समीक्षाएं</string>
@@ -315,7 +305,6 @@
     <string name="action_failed">wallet अनुरोध पूरा नहीं कर सका। फिर से कोशिश करें।</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">पता लगाया गया क्षेत्र: %1$s</string>
-    <string name="howto_step">चरण %1$d</string>
     <string name="howto1_title">साइन इन करें</string>
     <string name="howto1_sub">वह wallet कनेक्ट करें जो आप पहले से उपयोग करते हैं</string>
     <string name="howto1_body">पहली स्क्रीन पर \"अपने wallet से साइन इन करें\" पर टैप करें और मैसेज स्वीकृत करें। वह हस्ताक्षर आपकी सहमति दर्ज करता है — यह कुछ भी स्थानांतरित नहीं करता। Undersigned कभी भी आपकी keys या धन नहीं रखता।</string>
@@ -422,7 +411,6 @@
     <string name="pro_not_body">यह आपकी राय को भार नहीं देता, आपको किसी सूची में ऊपर नहीं ले जाता, या आपको भरोसेमंद के रूप में चिह्नित नहीं करता। भार केवल प्रमाणित डिवाइस और on-chain पढ़े गए staked SKR से आता है, और कुछ भी नहीं से। कोई टोकन नहीं है, इकट्ठा करने या रखने के लिए कुछ भी नहीं।</string>
     <string name="pro_free_keeps">Ledger पढ़ना, समीक्षाएं, फ़्लैग, विवाद और डिवाइस तथ्य साइन करना मुफ़्त हैं और हमेशा रहेंगे। Pro टूल जोड़ता है; यह किसी भी समीक्षा के गिने जाने के तरीके में कुछ नहीं बदलता।</string>
     <string name="pro_price_line">इस wallet पर 12 महीने · किसी में भी भुगतान करें, अवधि वही रहती है · ऊपर से नेटवर्क फीस, आपके wallet द्वारा तय</string>
-    <string name="pro_or">या</string>
     <string name="pro_pay_in">भुगतान करें</string>
     <string name="pro_rail_skr_note">on-chain पढ़ा गया, रखा नहीं गया</string>
     <string name="pro_rail_sol_note">वही बारह महीने</string>
@@ -470,7 +458,6 @@
     <string name="pro_export_csv">CSV एक्सपोर्ट करें</string>
     <string name="pro_export_json">JSON एक्सपोर्ट करें</string>
     <string name="pro_watch_on">हर घंटे जांच हो रही है</string>
-    <string name="pro_watch_off">हर 6 घंटे जांच हो रही है</string>
     <string name="pro_watch_alerts_off">अलर्ट बंद हैं — उन्हें नीचे चालू करें और जांच हर घंटे चलेगी।</string>
     <string name="pro_share_title">Pro किसी wallet के साथ शेयर करें</string>
     <string name="pro_share_body">भुगतान करने वाला wallet और आपके दो अन्य wallets। ग्रांट Ledger पर एक हस्ताक्षरित रिकॉर्ड है जो hash द्वारा जोड़ी का नाम रखता है — यह कुछ भी स्थानांतरित नहीं करता, और दूसरे wallet को यह तभी मिलता है जब उसे बताया जाए कि किस wallet ने भुगतान किया।</string>

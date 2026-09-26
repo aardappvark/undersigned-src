@@ -34,6 +34,7 @@ import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.GlassCard
 import com.undersigned.app.ui.components.Pill
+import com.undersigned.app.ui.components.storeDate
 import com.undersigned.app.ui.components.SecondaryButton
 import com.undersigned.app.ui.components.SectionTitle
 import com.undersigned.app.ui.theme.RbColors
@@ -219,7 +220,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         importable.forEach { (pkg, r) ->
                             Row(Modifier.fillMaxWidth().clickable(enabled = importStage == null && isPro) { chosen = if (pkg in chosen) chosen - pkg else chosen + pkg }, verticalAlignment = Alignment.CenterVertically) {
                                 if (isPro) Checkbox(checked = pkg in chosen, onCheckedChange = { chosen = if (it) chosen + pkg else chosen - pkg }, enabled = importStage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
-                                Column(Modifier.weight(1f)) { Text(catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg, color = RbColors.textPrimary, fontSize = 13.sp); Text("${r.rating}★ · ${r.createdAt.take(10)}" + (r.text?.let { " · ${it.take(60)}" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2) }
+                                Column(Modifier.weight(1f)) { Text(catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg, color = RbColors.textPrimary, fontSize = 13.sp); Text("${r.rating}★ · ${storeDate(r.createdAt)}" + (r.text?.let { " · ${it.take(60)}" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2) }
                                 if (!isPro) TextButton(enabled = importStage == null && sender != null, onClick = { importOne(pkg, r) }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.pro_import_one), color = RbColors.purpleLight, fontSize = 11.sp) }
                             }
                         }

@@ -133,16 +133,6 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
      * and the notification id is its hash, so alerts from different runs sit side by side and the same record
      * never stacks a duplicate. Returns false when the system refused it (permission revoked while running).
      */
-    private fun notify(ctx: Context, key: String, title: String, body: String, pkg: String): Boolean {
-        val id = alertId(key)
-        val nm = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= 26) nm.createNotificationChannel(NotificationChannel(CHANNEL, ctx.getString(R.string.notif_channel), NotificationManager.IMPORTANCE_DEFAULT))
-        val intent = Intent(ctx, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP; putExtra(EXTRA_PKG, pkg) }
-        val pi = PendingIntent.getActivity(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        val n = NotificationCompat.Builder(ctx, CHANNEL).setSmallIcon(R.drawable.ic_notif).setColor(ctx.getColor(R.color.purple)).setContentTitle(title).setContentText(body)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(body)).setContentIntent(pi).setAutoCancel(true).build()
-        return try { nm.notify(id, n); Log.i(TAG, "alert $key"); true } catch (_: SecurityException) { false }
-    }
 
     companion object {
         private const val TAG = "LedgerWatch"
@@ -152,6 +142,18 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
          * same record never posts twice; see the note in [runOnce] for the regression this replaced.
          */
         fun alertId(key: String): Int = key.hashCode()
+
+        /** Posts one alert. [extraKey]/[extraValue] say where a tap lands: "pkg" → an app page, "screen" → a screen. */
+        fun notify(ctx: Context, key: String, title: String, body: String, extraValue: String, extraKey: String = EXTRA_PKG): Boolean {
+            val id = alertId(key)
+            val nm = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (Build.VERSION.SDK_INT >= 26) nm.createNotificationChannel(NotificationChannel(CHANNEL, ctx.getString(R.string.notif_channel), NotificationManager.IMPORTANCE_DEFAULT))
+            val intent = Intent(ctx, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP; putExtra(extraKey, extraValue) }
+            val pi = PendingIntent.getActivity(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            val n = NotificationCompat.Builder(ctx, CHANNEL).setSmallIcon(R.drawable.ic_notif).setColor(ctx.getColor(R.color.purple)).setContentTitle(title).setContentText(body)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body)).setContentIntent(pi).setAutoCancel(true).build()
+            return try { nm.notify(id, n); Log.i(TAG, "alert $key"); true } catch (_: SecurityException) { false }
+        }
 
         const val CHANNEL = "ledger"
         const val EXTRA_PKG = "pkg"

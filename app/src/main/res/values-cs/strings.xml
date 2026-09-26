@@ -5,7 +5,6 @@
     <string name="blocked_title">Nedostupné ve vaší oblasti</string>
     <string name="blocked_body">Undersigned není v %1$s nabízen kvůli sankcím a právním omezením. Tato kontrola probíhá pouze na vašem zařízení.</string>
 
-    <string name="terms_welcome">Vítejte v Undersigned</string>
     <string name="terms_intro">Podepsané recenze aplikací od vlastníků Seeker, zapsané do Solany. Není spojeno se Solana Mobile. Recenze jsou názory jednotlivých vlastníků, nikoli hodnocení obchodu.</string>
     <string name="terms_confirm_heading">Přihlášením potvrzujete, že:</string>
     <string name="terms_point_age">je vám alespoň 18 let;</string>
@@ -25,16 +24,6 @@
     <string name="terms_preview_only_note">Bez peněženky si můžete přečíst evidenci a údaje o svém zařízení. Zveřejnění recenze vyžaduje peněženku Seeker s Genesis Token.</string>
     <string name="wallet_sanctioned">Tato adresa peněženky je na sankčním seznamu a nelze ji s touto aplikací použít.</string>
 
-    <string name="onboarding_title">Jeden Seeker, jeden hlas</string>
-    <string name="onboarding_subtitle">Vrstva důvěry pro dApp Store, kterou nikdo nevlastní.</string>
-    <string name="onboarding_step1_title">Recenze jsou podepsané, ne napsané</string>
-    <string name="onboarding_step1_body">Každá recenze je memo transakce, kterou podepíše vaše peněženka. Počítají se pouze peněženky vlastnící Seeker Genesis Token, takže jedno zařízení znamená jeden hlas.</string>
-    <string name="onboarding_step2_title">Evidenci nemůže nikdo upravit</string>
-    <string name="onboarding_step2_body">Recenze žijí na Solaně na pevné adrese, kterou nikdo neovládá. Kdokoli si je může přečíst. Svou recenzi můžete z žebříčku stáhnout, ale text zůstává na blockchainu navždy.</string>
-    <string name="onboarding_step3_title">Váš telefon přidává fakta</string>
-    <string name="onboarding_step3_body">U nainstalovaných aplikací Undersigned zobrazuje to, co dokáže zařízení ověřit: podpisový certifikát a změny oprávnění mezi verzemi. Fakta, nikdy verdikty.</string>
-    <string name="onboarding_step4_title">Není to dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned čte veřejný katalog obchodu a otevírá záznamy v obchodě. Nikdy nic neinstaluje a není spojeno se Solana Mobile.</string>
     <string name="onboarding_cta">Začít procházet</string>
 
     <string name="browse_title">Undersigned</string>
@@ -52,7 +41,6 @@
     <string name="catalogue_count">%1$d aplikací v katalogu obchodu</string>
     <string name="empty_installed">Na tomto zařízení zatím nejsou nainstalované žádné aplikace z obchodu.</string>
     <string name="empty_signed">Zatím žádné podepsané recenze. Buďte první.</string>
-    <string name="empty_search">Nic neodpovídá.</string>
 
     <string name="detail_open_store">Otevřít v dApp Store</string>
     <string name="detail_write_review">Napsat podepsanou recenzi</string>
@@ -67,7 +55,6 @@
     <string name="reply_title">Podepsat odpověď</string>
     <string name="reply_hint">Vaše odpověď, vlastními slovy (trvalá).</string>
     <string name="reply_publish">Podepsat a zveřejnit odpověď</string>
-    <string name="replies_count">%1$d odpovědí</string>
     <string name="notif_channel">Upozornění z evidence</string>
     <string name="notif_new_review_title">Nová podepsaná recenze: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -94,7 +81,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d podepsáno</string>
     <string name="versions_installed">nainstalováno</string>
     <string name="standing_title">Postavení signatáře</string>
-    <string name="standing_line">%1$d započítáno · %2$d staženo · %3$d odpovědí přijato · %4$d odesláno</string>
+    <string name="standing_line">Započítáno: %1$d · Staženo: %2$d · Přijaté odpovědi: %3$d · Odeslané odpovědi: %4$d</string>
     <string name="standing_agreement">Shoda štítků s ostatními signatáři: %1$s</string>
     <string name="standing_since">Podepisuje od %1$s</string>
     <string name="standing_note2">Pouze počty. Žádné skóre, nic ke koupi.</string>
@@ -102,7 +89,7 @@
     <string name="store_reviewer_nogenesis">nenalezeno žádné ověřené zařízení</string>
     <string name="store_reviewer_signed_here">podepsal(a) i zde</string>
     <string name="notif_divergence_title">%1$s: podepsané a obchodní skóre se liší</string>
-    <string name="notif_divergence_body">Podepsané %1$s od %2$d zařízení Seeker vs. obchod %3$s z %4$d recenzí.</string>
+    <string name="notif_divergence_body">Podepsáno: %1$s (Seekerů: %2$d) · Obchod: %3$s (recenzí: %4$d).</string>
     <string name="notif_update_title">%1$s aktualizováno na v%2$d</string>
     <string name="notif_update_body">Stále funguje? Podepište recenzi pro tuto verzi.</string>
     <string name="notif_wave_title">%1$s: neobvyklá aktivita recenzí v obchodě</string>
@@ -134,6 +121,13 @@
     <string name="my_reviews_empty">Zatím žádné recenze. Recenze, které podepíšete, se objeví zde – a po vyhledání i vaše recenze z dApp Store.</string>
     <string name="my_reviews_no_match">Žádné recenze neodpovídají.</string>
     <string name="my_reviews_sign_in">Přihlaste se peněženkou, abyste viděli své recenze.</string>
+    <string name="scan_done_title">Prohledávání dApp Store dokončeno</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">Nalezena %1$d vaše recenze z dApp Store. Klepnutím ji zobrazíte: Moje recenze.</item>
+        <item quantity="few">Nalezeny %1$d vaše recenze z dApp Store. Klepnutím je zobrazíte: Moje recenze.</item>
+        <item quantity="many">Nalezeny %1$d vaše recenze z dApp Store. Klepnutím je zobrazíte: Moje recenze.</item>
+        <item quantity="other">Nalezeno %1$d vašich recenzí z dApp Store. Klepnutím je zobrazíte: Moje recenze.</item>
+    </plurals>
     <string name="import_scan">Vyhledat mé recenze z obchodu</string>
     <string name="import_scanning">Prohledává se %1$s</string>
     <string name="import_found">Nalezeno %1$d vašich recenzí z obchodu</string>
@@ -193,7 +187,6 @@
     <string name="changes_sub">Nainstalované aplikace z obchodu, jejichž podpisový certifikát, oprávnění nebo verze se změnily od posledního zjištění tohoto zařízení.</string>
     <string name="changes_empty">Od posledního zjištění se nic nezměnilo.</string>
     <string name="change_new_version">Aktualizováno na kód verze %1$d</string>
-    <string name="change_first_seen">Poprvé zaznamenáno na tomto zařízení</string>
 
     <string name="settings">Nastavení</string>
     <string name="settings_wallet">Peněženka</string>
@@ -264,10 +257,9 @@
     <string name="inbox_replies_empty">Zatím žádné odpovědi na vaše záznamy.</string>
     <string name="inbox_starred_empty">Přidejte recenzi do oblíbených, aby zůstala zde.</string>
     <string name="swipe_hint">Přejetím recenze doprava odpovíte.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Důvěryhodnost</string>
     <string name="profile_credibility_sub">40 základ, +30 za shodu štítků s ostatními signatáři, +10 za obdržené hlasy Užitečné, +20 za označení potvrzená konsensem, −50 × podíl záznamů skrytých konsensem. Zveřejněný vzorec, nic k tomu není připojeno.</string>
-    <string name="profile_flags">%1$d podepsaných označení · %2$d potvrzeno · %3$d obdrženo · %4$d záznamů skryto</string>
+    <string name="profile_flags">Podepsaná označení: %1$d · Potvrzeno: %2$d · Obdrženo: %3$d · Skryté záznamy: %4$d</string>
     <string name="profile_replied">Odpovídá na odpovědi ke svým recenzím v %1$s případů</string>
     <string name="profile_publishes">Ověřený vydavatel aplikace</string>
     <string name="profile_reviews">Podepsané recenze</string>
@@ -312,7 +304,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Zjištěná oblast: %1$s</string>
-    <string name="howto_step">Krok %1$d</string>
     <string name="howto1_title">Přihlaste se</string>
     <string name="howto1_sub">Připojte peněženku, kterou už používáte</string>
     <string name="howto1_body">Na první obrazovce klepněte na \"Přihlásit se peněženkou\" a schvalte zprávu. Tento podpis zaznamená váš souhlas — nic nepřevádí. Undersigned nikdy nedrží vaše klíče ani prostředky.</string>
@@ -419,7 +410,6 @@
     <string name="pro_not_body">Nezvyšuje váhu vašeho názoru, neposune vás výš v seznamu ani vás neoznačí jako důvěryhodné. Váha pochází z ověřeného zařízení a zastakovaného SKR čteného z blockchainu, a z ničeho jiného. Neexistuje žádný token, nic ke sbírání a nic k držení.</string>
     <string name="pro_free_keeps">Čtení evidence, podepisování recenzí, označení, rozporů a faktů o zařízení zůstává zdarma a vždy zůstane. Pro přidává nástroje; nic nemění na tom, jak se recenze počítá.</string>
     <string name="pro_price_line">12 měsíců na této peněžence · plaťte v kterékoli, doba je stejná · navíc síťový poplatek nastavený vaší peněženkou</string>
-    <string name="pro_or">nebo</string>
     <string name="pro_pay_in">Platit v</string>
     <string name="pro_rail_skr_note">čteno z blockchainu, nedrženo</string>
     <string name="pro_rail_sol_note">stejných dvanáct měsíců</string>
@@ -469,7 +459,6 @@
     <string name="pro_export_csv">Exportovat CSV</string>
     <string name="pro_export_json">Exportovat JSON</string>
     <string name="pro_watch_on">Kontrola každou hodinu</string>
-    <string name="pro_watch_off">Kontrola každých 6 hodin</string>
     <string name="pro_watch_alerts_off">Upozornění jsou vypnutá — zapněte je níže a sledování poběží každou hodinu.</string>
     <string name="pro_share_title">Sdílet Pro s peněženkou</string>
     <string name="pro_share_body">Plátce plus dvě další vaše peněženky. Udělení je podepsaný záznam v evidenci, který jmenuje dvojici hashem — nic nepřevádí, a druhá peněženka ho najde, jakmile se dozví, která peněženka platila.</string>

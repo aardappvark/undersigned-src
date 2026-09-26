@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned tidak tersedia di %1$s karena sanksi dan pembatasan hukum. Pemeriksaan ini hanya berjalan di perangkat Anda.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Selamat datang di Undersigned</string>
     <string name="terms_intro">Ulasan aplikasi yang ditandatangani dari pemilik Seeker, ditulis ke Solana. Tidak berafiliasi dengan Solana Mobile. Ulasan adalah opini masing-masing pemilik, bukan peringkat toko.</string>
     <string name="terms_confirm_heading">Dengan masuk, Anda mengonfirmasi bahwa Anda:</string>
     <string name="terms_point_age">berusia minimal 18 tahun;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Alamat dompet ini muncul dalam daftar sanksi dan tidak dapat digunakan dengan aplikasi ini.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Satu Seeker, satu suara</string>
-    <string name="onboarding_subtitle">Lapisan kepercayaan untuk dApp Store yang tidak dimiliki siapa pun.</string>
-    <string name="onboarding_step1_title">Ulasan ditandatangani, bukan diketik</string>
-    <string name="onboarding_step1_body">Setiap ulasan adalah transaksi memo yang ditandatangani oleh dompet Anda. Hanya dompet yang memiliki Seeker Genesis Token yang dihitung, sehingga satu perangkat sama dengan satu suara.</string>
-    <string name="onboarding_step2_title">Tidak seorang pun dapat mengedit buku besar</string>
-    <string name="onboarding_step2_body">Ulasan berada di Solana pada alamat tetap yang tidak dikendalikan siapa pun. Siapa pun dapat membacanya. Anda dapat menarik ulasan Anda dari peringkat, tetapi teksnya tetap berada di on-chain selamanya.</string>
-    <string name="onboarding_step3_title">Ponsel Anda menambahkan fakta</string>
-    <string name="onboarding_step3_body">Untuk aplikasi yang telah Anda instal, Undersigned menunjukkan apa yang dapat diverifikasi oleh perangkat: sertifikat penandatanganan dan perubahan izin antar versi. Fakta, bukan vonis.</string>
-    <string name="onboarding_step4_title">Bukan dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned membaca katalog publik toko dan membuka listingan di toko. Aplikasi ini tidak pernah menginstal apa pun dan tidak berafiliasi dengan Solana Mobile.</string>
     <string name="onboarding_cta">Mulai menjelajah</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d aplikasi dalam katalog toko</string>
     <string name="empty_installed">Belum ada aplikasi toko yang terpasang di perangkat ini.</string>
     <string name="empty_signed">Belum ada ulasan yang ditandatangani. Jadilah yang pertama.</string>
-    <string name="empty_search">Tidak ada yang cocok.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Buka di dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Tandatangani balasan</string>
     <string name="reply_hint">Jawaban Anda, dengan kata-kata Anda sendiri (permanen).</string>
     <string name="reply_publish">Tandatangani dan terbitkan balasan</string>
-    <string name="replies_count">%1$d balasan</string>
     <string name="notif_channel">Peringatan buku besar</string>
     <string name="notif_new_review_title">Ulasan baru yang ditandatangani: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -101,7 +88,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d ditandatangani</string>
     <string name="versions_installed">terpasang</string>
     <string name="standing_title">Status penandatangan</string>
-    <string name="standing_line">%1$d dihitung · %2$d ditarik · %3$d balasan diterima · %4$d diberikan</string>
+    <string name="standing_line">Dihitung: %1$d · Ditarik: %2$d · Balasan diterima: %3$d · Balasan diberikan: %4$d</string>
     <string name="standing_agreement">Kesesuaian tag dengan penandatangan lain: %1$s</string>
     <string name="standing_since">Menandatangani sejak %1$s</string>
     <string name="standing_note2">Hanya hitungan. Tidak ada skor, tidak ada yang perlu dibeli.</string>
@@ -109,7 +96,7 @@
     <string name="store_reviewer_nogenesis">tidak ditemukan perangkat terverifikasi</string>
     <string name="store_reviewer_signed_here">juga menandatangani di sini</string>
     <string name="notif_divergence_title">%1$s: skor yang ditandatangani dan skor toko berbeda</string>
-    <string name="notif_divergence_body">Skor tertandatangani %1$s dari %2$d Seeker vs toko %3$s dari %4$d ulasan.</string>
+    <string name="notif_divergence_body">Tertandatangani: %1$s (Seeker: %2$d) · Toko: %3$s (ulasan: %4$d).</string>
     <string name="notif_update_title">%1$s diperbarui ke v%2$d</string>
     <string name="notif_update_body">Masih berfungsi? Tandatangani ulasan untuk versi ini.</string>
     <string name="notif_wave_title">%1$s: aktivitas ulasan yang tidak biasa di toko</string>
@@ -138,6 +125,10 @@
     <string name="my_reviews_empty">Belum ada ulasan. Ulasan yang Anda tandatangani muncul di sini, begitu juga ulasan dApp Store Anda setelah dipindai.</string>
     <string name="my_reviews_no_match">Tidak ada ulasan yang cocok.</string>
     <string name="my_reviews_sign_in">Masuk dengan dompet Anda untuk melihat ulasan Anda.</string>
+    <string name="scan_done_title">Pemindaian dApp Store selesai</string>
+    <plurals name="scan_done_body">
+        <item quantity="other">Ditemukan %1$d ulasan dApp Store Anda. Ketuk untuk melihatnya di Ulasan saya.</item>
+    </plurals>
     <string name="import_scan">Pindai ulasan toko saya</string>
     <string name="import_scanning">Memindai %1$s</string>
     <string name="import_found">%1$d ulasan toko Anda ditemukan</string>
@@ -196,7 +187,6 @@
     <string name="changes_sub">Aplikasi toko yang terpasang, yang sertifikat penandatanganan, izin, atau versinya berubah sejak terakhir kali perangkat ini memeriksa.</string>
     <string name="changes_empty">Tidak ada yang berubah sejak pemeriksaan terakhir.</string>
     <string name="change_new_version">Diperbarui ke kode versi %1$d</string>
-    <string name="change_first_seen">Pertama kali terlihat di perangkat ini</string>
 
     <!-- Settings -->
     <string name="settings">Pengaturan</string>
@@ -265,10 +255,9 @@
     <string name="inbox_replies_empty">Belum ada balasan untuk catatan Anda.</string>
     <string name="inbox_starred_empty">Bintangi ulasan untuk menyimpannya di sini.</string>
     <string name="swipe_hint">Geser ulasan ke kanan untuk membalas.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Kredibilitas</string>
     <string name="profile_credibility_sub">Dasar 40, +30 untuk kesesuaian tag dengan penandatangan lain, +10 untuk suara bermanfaat yang diterima, +20 untuk tanda yang ditegakkan oleh konsensus, −50 × bagian catatan yang disembunyikan oleh konsensus. Rumus yang dipublikasikan, tidak ada yang melekat padanya.</string>
-    <string name="profile_flags">%1$d tanda ditandatangani · %2$d ditegakkan · %3$d diterima · %4$d catatan disembunyikan</string>
+    <string name="profile_flags">Tanda ditandatangani: %1$d · Ditegakkan: %2$d · Diterima: %3$d · Catatan disembunyikan: %4$d</string>
     <string name="profile_replied">Menjawab balasan pada ulasan mereka %1$s dari waktu</string>
     <string name="profile_publishes">Penerbit terverifikasi dari</string>
     <string name="profile_reviews">Ulasan yang ditandatangani</string>
@@ -311,7 +300,6 @@
     <string name="action_failed">Dompet tidak dapat menyelesaikan permintaan. Coba lagi.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Wilayah yang terdeteksi: %1$s</string>
-    <string name="howto_step">Langkah %1$d</string>
     <string name="howto1_title">Masuk</string>
     <string name="howto1_sub">Hubungkan dompet yang sudah Anda gunakan</string>
     <string name="howto1_body">Ketuk \"Masuk dengan dompet Anda\" pada layar pertama dan setujui pesannya. Tanda tangan itu mencatat persetujuan Anda — tidak ada yang dipindahkan. Undersigned tidak pernah menyimpan kunci atau dana Anda.</string>
@@ -418,7 +406,6 @@
     <string name="pro_not_body">Pro tidak memberi bobot pada opini Anda, tidak menaikkan Anda dalam daftar, atau menandai Anda sebagai tepercaya. Bobot berasal dari perangkat terverifikasi dan SKR yang di-stake, dibaca on-chain, dan tidak ada yang lain. Tidak ada token, tidak ada yang dikumpulkan, dan tidak ada yang perlu disimpan.</string>
     <string name="pro_free_keeps">Membaca buku besar, menandatangani ulasan, tanda, sanggahan dan fakta perangkat tetap gratis dan akan selalu begitu. Pro menambahkan alat; tidak mengubah apa pun tentang cara ulasan dihitung.</string>
     <string name="pro_price_line">12 bulan pada dompet ini · bayar dengan salah satu, jangka waktunya sama · ditambah biaya jaringan, ditetapkan oleh dompet Anda</string>
-    <string name="pro_or">atau</string>
     <string name="pro_pay_in">Bayar dengan</string>
     <string name="pro_rail_skr_note">dibaca on-chain, tidak disimpan</string>
     <string name="pro_rail_sol_note">dua belas bulan yang sama</string>
@@ -465,7 +452,6 @@
     <string name="pro_export_csv">Ekspor CSV</string>
     <string name="pro_export_json">Ekspor JSON</string>
     <string name="pro_watch_on">Memeriksa setiap jam</string>
-    <string name="pro_watch_off">Memeriksa setiap 6 jam</string>
     <string name="pro_watch_alerts_off">Peringatan nonaktif — aktifkan di bawah dan pengawasan berjalan setiap jam.</string>
     <string name="pro_share_title">Bagikan Pro dengan dompet lain</string>
     <string name="pro_share_body">Pembayar ditambah dua dompet lain milik Anda. Hibah adalah catatan yang ditandatangani di buku besar yang menamai pasangan itu dengan hash — tidak ada yang dipindahkan, dan dompet lain menemukannya setelah diberi tahu dompet mana yang membayar.</string>

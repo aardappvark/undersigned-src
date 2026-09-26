@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned no está disponible en %1$s debido a sanciones y restricciones legales. Esta comprobación se realiza únicamente en tu dispositivo.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Bienvenido a Undersigned</string>
     <string name="terms_intro">Reseñas de apps firmadas por propietarios de Seeker, escritas en Solana. No afiliado a Solana Mobile. Las reseñas son opiniones de propietarios individuales, no las valoraciones de la tienda.</string>
     <string name="terms_confirm_heading">Al iniciar sesión confirmas que:</string>
     <string name="terms_point_age">tienes al menos 18 años;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Esta dirección de wallet figura en una lista de sanciones y no se puede usar con esta app.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Un Seeker, una voz</string>
-    <string name="onboarding_subtitle">Una capa de confianza para el dApp Store que no pertenece a nadie.</string>
-    <string name="onboarding_step1_title">Las reseñas se firman, no se escriben</string>
-    <string name="onboarding_step1_body">Cada reseña es una transacción memo que firma tu wallet. Solo cuentan las wallets que poseen un Seeker Genesis Token, así que un dispositivo equivale a una voz.</string>
-    <string name="onboarding_step2_title">Nadie puede editar el ledger</string>
-    <string name="onboarding_step2_body">Las reseñas residen en Solana en una dirección fija que nadie controla. Cualquiera puede leerlas. Puedes retirar tu reseña de la clasificación, pero el texto permanece on-chain para siempre.</string>
-    <string name="onboarding_step3_title">Tu teléfono añade los datos</string>
-    <string name="onboarding_step3_body">Para las apps que tienes instaladas, Undersigned muestra lo que el dispositivo puede verificar: el certificado de firma y los cambios de permisos entre versiones. Datos, nunca veredictos.</string>
-    <string name="onboarding_step4_title">No es el dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned lee el catálogo público de la tienda y abre las fichas en la tienda. Nunca instala nada y no está afiliado a Solana Mobile.</string>
     <string name="onboarding_cta">Empezar a explorar</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d apps en el catálogo de la tienda</string>
     <string name="empty_installed">Aún no hay apps de la tienda instaladas en este dispositivo.</string>
     <string name="empty_signed">Aún no hay reseñas firmadas. Sé el primero.</string>
-    <string name="empty_search">No hay coincidencias.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Abrir en dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Firmar una respuesta</string>
     <string name="reply_hint">Tu respuesta, con tus propias palabras (permanente).</string>
     <string name="reply_publish">Firmar y publicar respuesta</string>
-    <string name="replies_count">%1$d respuestas</string>
     <string name="notif_channel">Alertas del ledger</string>
     <string name="notif_new_review_title">Nueva reseña firmada: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -102,7 +89,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d firmadas</string>
     <string name="versions_installed">instalada</string>
     <string name="standing_title">Reputación del firmante</string>
-    <string name="standing_line">%1$d contabilizadas · %2$d retiradas · %3$d respuestas recibidas · %4$d dadas</string>
+    <string name="standing_line">Contabilizadas: %1$d · Retiradas: %2$d · Respuestas recibidas: %3$d · Respuestas dadas: %4$d</string>
     <string name="standing_agreement">Coincidencia de etiquetas con otros firmantes: %1$s</string>
     <string name="standing_since">Firmando desde %1$s</string>
     <string name="standing_note2">Solo recuentos. Sin puntuación, nada que comprar.</string>
@@ -110,7 +97,7 @@
     <string name="store_reviewer_nogenesis">sin dispositivo atestiguado</string>
     <string name="store_reviewer_signed_here">también firmó aquí</string>
     <string name="notif_divergence_title">%1$s: las puntuaciones firmadas y de la tienda no coinciden</string>
-    <string name="notif_divergence_body">Firmada %1$s de %2$d Seekers frente a tienda %3$s de %4$d reseñas.</string>
+    <string name="notif_divergence_body">Firmada: %1$s (Seekers: %2$d) · Tienda: %3$s (reseñas: %4$d).</string>
     <string name="notif_update_title">%1$s se actualizó a la v%2$d</string>
     <string name="notif_update_body">¿Sigue funcionando? Firma una reseña para esta versión.</string>
     <string name="notif_wave_title">%1$s: actividad de reseñas inusual en la tienda</string>
@@ -141,6 +128,8 @@
     <string name="my_reviews_empty">Aún no hay reseñas. Las reseñas que firmas aparecen aquí, y también tus reseñas de la dApp Store en cuanto las escaneas.</string>
     <string name="my_reviews_no_match">Ninguna reseña coincide.</string>
     <string name="my_reviews_sign_in">Inicia sesión con tu wallet para ver tus reseñas.</string>
+    <string name="scan_done_title">Escaneo del dApp Store terminado</string>
+    <plurals name="scan_done_body"><item quantity="one">Se encontró %1$d reseña tuya en dApp Store. Toca para verla en Mis reseñas.</item><item quantity="many">Se encontraron %1$d reseñas tuyas en dApp Store. Toca para verlas en Mis reseñas.</item><item quantity="other">Se encontraron %1$d reseñas tuyas en dApp Store. Toca para verlas en Mis reseñas.</item></plurals>
     <string name="import_scan">Buscar mis reseñas de la tienda</string>
     <string name="import_scanning">Escaneando %1$s</string>
     <string name="import_found">Se encontraron %1$d reseñas tuyas de la tienda</string>
@@ -201,7 +190,6 @@
     <string name="changes_sub">Apps de la tienda instaladas cuyo certificado de firma, permisos o versión han cambiado desde la última vez que este dispositivo lo comprobó.</string>
     <string name="changes_empty">Nada ha cambiado desde la última comprobación.</string>
     <string name="change_new_version">Actualizada al código de versión %1$d</string>
-    <string name="change_first_seen">Vista por primera vez en este dispositivo</string>
 
     <!-- Settings -->
     <string name="settings">Ajustes</string>
@@ -272,10 +260,9 @@
     <string name="inbox_replies_empty">Aún no hay respuestas a tus registros.</string>
     <string name="inbox_starred_empty">Destaca una reseña para guardarla aquí.</string>
     <string name="swipe_hint">Desliza una reseña a la derecha para responder.</string>
-    <string name="profile_title">Perfil</string>
     <string name="profile_credibility">Credibilidad</string>
     <string name="profile_credibility_sub">40 de base, +30 por coincidencia de etiquetas con otros firmantes, +10 por votos útiles recibidos, +20 por marcas confirmadas por consenso, −50 × proporción de registros ocultos por consenso. Fórmula publicada, sin nada más asociado.</string>
-    <string name="profile_flags">%1$d marcas firmadas · %2$d confirmadas · %3$d recibidas · %4$d registros ocultos</string>
+    <string name="profile_flags">Marcas firmadas: %1$d · Confirmadas: %2$d · Recibidas: %3$d · Registros ocultos: %4$d</string>
     <string name="profile_replied">Responde a las respuestas de sus reseñas el %1$s de las veces</string>
     <string name="profile_publishes">Editor verificado de</string>
     <string name="profile_reviews">Reseñas firmadas</string>
@@ -318,7 +305,6 @@
     <string name="action_failed">La wallet no pudo completar la solicitud. Inténtalo de nuevo.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Región detectada: %1$s</string>
-    <string name="howto_step">Paso %1$d</string>
     <string name="howto1_title">Inicia sesión</string>
     <string name="howto1_sub">Conecta la wallet que ya usas</string>
     <string name="howto1_body">Toca \"Iniciar sesión con tu wallet\" en la primera pantalla y aprueba el mensaje. Esa firma registra tu consentimiento — no mueve nada. Undersigned nunca custodia tus claves ni tus fondos.</string>
@@ -425,7 +411,6 @@
     <string name="pro_not_body">No pondera tu opinión, no te sube en una lista ni te marca como de confianza. El peso viene del dispositivo atestiguado y del SKR en staking leído on-chain, y de nada más. No hay token, nada que coleccionar y nada que poseer.</string>
     <string name="pro_free_keeps">Leer el ledger, firmar reseñas, marcas, impugnaciones y datos del dispositivo siguen siendo gratis y siempre lo serán. Pro añade herramientas; no cambia nada sobre cómo se contabiliza una reseña.</string>
     <string name="pro_price_line">12 meses en esta wallet · paga con cualquiera de las dos, el periodo es el mismo · comisión de red aparte, la fija tu wallet</string>
-    <string name="pro_or">o</string>
     <string name="pro_pay_in">Pagar con</string>
     <string name="pro_rail_skr_note">se lee on-chain, no se custodia</string>
     <string name="pro_rail_sol_note">los mismos doce meses</string>
@@ -474,7 +459,6 @@
     <string name="pro_export_csv">Exportar CSV</string>
     <string name="pro_export_json">Exportar JSON</string>
     <string name="pro_watch_on">Comprobando cada hora</string>
-    <string name="pro_watch_off">Comprobando cada 6 horas</string>
     <string name="pro_watch_alerts_off">Las alertas están desactivadas — actívalas abajo y la vigilancia pasará a cada hora.</string>
     <string name="pro_share_title">Compartir Pro con una wallet</string>
     <string name="pro_share_body">Quien paga más otras dos wallets tuyas. Una cesión es un registro firmado en el ledger que nombra el par por hash — no mueve nada, y la otra wallet lo encuentra en cuanto sabe qué wallet pagó.</string>

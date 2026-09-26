@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned nie jest oferowany w %1$s ze względu na sankcje i ograniczenia prawne. Ta kontrola odbywa się wyłącznie na Twoim urządzeniu.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Witamy w Undersigned</string>
     <string name="terms_intro">Podpisane recenzje aplikacji od właścicieli Seeker, zapisywane w Solana. Brak powiązania z Solana Mobile. Recenzje są opiniami poszczególnych właścicieli, a nie ocenami sklepu.</string>
     <string name="terms_confirm_heading">Logując się, potwierdzasz, że:</string>
     <string name="terms_point_age">masz co najmniej 18 lat;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Ten adres portfela znajduje się na liście sankcyjnej i nie może być używany w tej aplikacji.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Jeden Seeker, jeden głos</string>
-    <string name="onboarding_subtitle">Warstwa zaufania dla dApp Store, której nikt nie jest właścicielem.</string>
-    <string name="onboarding_step1_title">Recenzje są podpisywane, nie wpisywane</string>
-    <string name="onboarding_step1_body">Każda recenzja to transakcja typu memo podpisywana przez Twój portfel. Liczone są tylko portfele posiadające Seeker Genesis Token, więc jedno urządzenie to jeden głos.</string>
-    <string name="onboarding_step2_title">Nikt nie może edytować rejestru</string>
-    <string name="onboarding_step2_body">Recenzje znajdują się na Solana pod stałym adresem, którego nikt nie kontroluje. Każdy może je odczytać. Możesz wycofać swoją recenzję z rankingu, ale tekst pozostaje na blockchainie na zawsze.</string>
-    <string name="onboarding_step3_title">Twój telefon dodaje fakty</string>
-    <string name="onboarding_step3_body">Dla zainstalowanych aplikacji Undersigned pokazuje to, co urządzenie może zweryfikować: certyfikat podpisujący i zmiany uprawnień między wersjami. Fakty, nigdy wyroki.</string>
-    <string name="onboarding_step4_title">To nie jest dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned odczytuje publiczny katalog sklepu i otwiera oferty w sklepie. Nigdy niczego nie instaluje i nie jest powiązany z Solana Mobile.</string>
     <string name="onboarding_cta">Zacznij przeglądać</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d aplikacji w katalogu sklepu</string>
     <string name="empty_installed">Na tym urządzeniu nie zainstalowano jeszcze żadnych aplikacji ze sklepu.</string>
     <string name="empty_signed">Brak podpisanych recenzji. Bądź pierwszy.</string>
-    <string name="empty_search">Brak wyników.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Otwórz w dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Podpisz odpowiedź</string>
     <string name="reply_hint">Twoja odpowiedź, własnymi słowami (trwała).</string>
     <string name="reply_publish">Podpisz i opublikuj odpowiedź</string>
-    <string name="replies_count">%1$d odpowiedzi</string>
     <string name="notif_channel">Powiadomienia rejestru</string>
     <string name="notif_new_review_title">Nowa podpisana recenzja: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -99,7 +86,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d podpisanych</string>
     <string name="versions_installed">zainstalowana</string>
     <string name="standing_title">Pozycja sygnatariusza</string>
-    <string name="standing_line">%1$d policzonych · %2$d wycofanych · %3$d otrzymanych odpowiedzi · %4$d wysłanych</string>
+    <string name="standing_line">Policzone: %1$d · Wycofane: %2$d · Otrzymane odpowiedzi: %3$d · Wysłane odpowiedzi: %4$d</string>
     <string name="standing_agreement">Zgodność tagów z innymi sygnatariuszami: %1$s</string>
     <string name="standing_since">Podpisuje od %1$s</string>
     <string name="standing_note2">Tylko liczby. Brak wyniku, nic do kupienia.</string>
@@ -107,7 +94,7 @@
     <string name="store_reviewer_nogenesis">nie znaleziono potwierdzonego urządzenia</string>
     <string name="store_reviewer_signed_here">podpisano też tutaj</string>
     <string name="notif_divergence_title">%1$s: podpisane i sklepowe oceny się różnią</string>
-    <string name="notif_divergence_body">Podpisana %1$s od %2$d Seekerów wobec sklepowej %3$s z %4$d recenzji.</string>
+    <string name="notif_divergence_body">Podpisana: %1$s (Seekerów: %2$d) · Sklep: %3$s (recenzji: %4$d).</string>
     <string name="notif_update_title">%1$s zaktualizowano do v%2$d</string>
     <string name="notif_update_body">Nadal działa? Podpisz recenzję dla tej wersji.</string>
     <string name="notif_wave_title">%1$s: nietypowa aktywność recenzji w sklepie</string>
@@ -139,6 +126,13 @@
     <string name="my_reviews_empty">Jeszcze brak recenzji. Recenzje, które podpiszesz, pojawią się tutaj, a Twoje recenzje z dApp Store także po zeskanowaniu.</string>
     <string name="my_reviews_no_match">Żadna recenzja nie pasuje.</string>
     <string name="my_reviews_sign_in">Zaloguj się portfelem, aby zobaczyć swoje recenzje.</string>
+    <string name="scan_done_title">Skanowanie dApp Store zakończone</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">Znaleziono %1$d Twoją recenzję z dApp Store. Dotknij, aby ją zobaczyć: Moje recenzje.</item>
+        <item quantity="few">Znaleziono %1$d Twoje recenzje z dApp Store. Dotknij, aby je zobaczyć: Moje recenzje.</item>
+        <item quantity="many">Znaleziono %1$d Twoich recenzji z dApp Store. Dotknij, aby je zobaczyć: Moje recenzje.</item>
+        <item quantity="other">Znaleziono %1$d Twoich recenzji z dApp Store. Dotknij, aby je zobaczyć: Moje recenzje.</item>
+    </plurals>
     <string name="import_scan">Skanuj moje recenzje w sklepie</string>
     <string name="import_scanning">Skanowanie %1$s</string>
     <string name="import_found">Znaleziono %1$d Twoich recenzji w sklepie</string>
@@ -200,7 +194,6 @@
     <string name="changes_sub">Zainstalowane aplikacje ze sklepu, których certyfikat podpisujący, uprawnienia lub wersja zmieniły się od ostatniego sprawdzenia na tym urządzeniu.</string>
     <string name="changes_empty">Nic się nie zmieniło od ostatniego sprawdzenia.</string>
     <string name="change_new_version">Zaktualizowano do kodu wersji %1$d</string>
-    <string name="change_first_seen">Po raz pierwszy widziane na tym urządzeniu</string>
 
     <!-- Settings -->
     <string name="settings">Ustawienia</string>
@@ -272,10 +265,9 @@
     <string name="inbox_replies_empty">Jeszcze brak odpowiedzi na Twoje wpisy.</string>
     <string name="inbox_starred_empty">Dodaj recenzję do ulubionych, aby została tutaj.</string>
     <string name="swipe_hint">Przesuń recenzję w prawo, aby odpowiedzieć.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Wiarygodność</string>
     <string name="profile_credibility_sub">40 bazy, +30 za zgodność tagów z innymi sygnatariuszami, +10 za otrzymane głosy Pomocne, +20 za oznaczenia potwierdzone konsensusem, −50 × udział wpisów ukrytych przez konsensus. Opublikowany wzór, nic z tym nie jest powiązane.</string>
-    <string name="profile_flags">%1$d podpisanych oznaczeń · %2$d potwierdzonych · %3$d otrzymanych · %4$d wpisów ukrytych</string>
+    <string name="profile_flags">Podpisane oznaczenia: %1$d · Potwierdzone: %2$d · Otrzymane: %3$d · Ukryte wpisy: %4$d</string>
     <string name="profile_replied">Odpowiada na odpowiedzi do swoich recenzji w %1$s przypadków</string>
     <string name="profile_publishes">Zweryfikowany wydawca aplikacji</string>
     <string name="profile_reviews">Podpisane recenzje</string>
@@ -320,7 +312,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Wykryty region: %1$s</string>
-    <string name="howto_step">Krok %1$d</string>
     <string name="howto1_title">Zaloguj się</string>
     <string name="howto1_sub">Połącz portfel, którego już używasz</string>
     <string name="howto1_body">Na pierwszym ekranie dotknij \"Zaloguj się przy użyciu portfela\" i zatwierdź wiadomość. Ten podpis zapisuje Twoją zgodę — niczego nie przenosi. Undersigned nigdy nie przechowuje Twoich kluczy ani środków.</string>
@@ -427,7 +418,6 @@
     <string name="pro_not_body">Nie zwiększa wagi Twojej opinii, nie przesuwa Cię wyżej na liście ani nie oznacza Cię jako zaufanego. Waga pochodzi z potwierdzonego urządzenia i zastawionego SKR odczytanego z blockchainu, i z niczego innego. Nie ma tokenu, nic do zbierania i nic do trzymania.</string>
     <string name="pro_free_keeps">Czytanie rejestru, podpisywanie recenzji, oznaczeń, zakwestionowań i faktów o urządzeniu pozostaje darmowe i zawsze takie będzie. Pro dodaje narzędzia; niczego nie zmienia w sposobie liczenia recenzji.</string>
     <string name="pro_price_line">12 miesięcy na tym portfelu · płać w dowolnej, okres jest taki sam · dodatkowo opłata sieciowa ustalona przez Twój portfel</string>
-    <string name="pro_or">lub</string>
     <string name="pro_pay_in">Płać w</string>
     <string name="pro_rail_skr_note">odczytywane z blockchainu, nie przechowywane</string>
     <string name="pro_rail_sol_note">te same dwanaście miesięcy</string>
@@ -477,7 +467,6 @@
     <string name="pro_export_csv">Eksportuj CSV</string>
     <string name="pro_export_json">Eksportuj JSON</string>
     <string name="pro_watch_on">Sprawdzanie co godzinę</string>
-    <string name="pro_watch_off">Sprawdzanie co 6 godzin</string>
     <string name="pro_watch_alerts_off">Powiadomienia są wyłączone — włącz je poniżej, a monitorowanie będzie działać co godzinę.</string>
     <string name="pro_share_title">Udostępnij Pro portfelowi</string>
     <string name="pro_share_body">Płatnik plus dwa inne Twoje portfele. Udostępnienie to podpisany wpis w rejestrze, który nazywa parę hashem — niczego nie przenosi, a drugi portfel znajdzie go, gdy dowie się, który portfel zapłacił.</string>

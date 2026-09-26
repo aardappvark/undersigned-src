@@ -3,7 +3,6 @@
     <string name="app_name">Undersigned</string>
     <string name="blocked_title">ไม่พร้อมให้บริการในภูมิภาคของคุณ</string>
     <string name="blocked_body">Undersigned ไม่ได้ให้บริการใน %1$s เนื่องจากการคว่ำบาตรและข้อจำกัดทางกฎหมาย การตรวจสอบนี้ทำงานบนอุปกรณ์ของคุณเท่านั้น</string>
-    <string name="terms_welcome">ยินดีต้อนรับสู่ Undersigned</string>
     <string name="terms_intro">รีวิวแอปที่ลงลายเซ็นจากเจ้าของ Seeker เขียนลงบน Solana ไม่มีส่วนเกี่ยวข้องกับ Solana Mobile รีวิวเป็นความเห็นของเจ้าของแต่ละราย ไม่ใช่คะแนนของสโตร์</string>
     <string name="terms_confirm_heading">การลงชื่อเข้าใช้ถือว่าคุณยืนยันว่าคุณ:</string>
     <string name="terms_point_age">มีอายุอย่างน้อย 18 ปี;</string>
@@ -22,16 +21,6 @@
     <string name="terms_accept_continue">ยอมรับและดำเนินการต่อ</string>
     <string name="terms_preview_only_note">หากไม่มีกระเป๋าเงิน คุณสามารถอ่านบัญชีบันทึกและข้อมูลอุปกรณ์ของคุณได้ การโพสต์รีวิวต้องใช้กระเป๋าเงิน Seeker ที่มี Genesis Token</string>
     <string name="wallet_sanctioned">ที่อยู่กระเป๋าเงินนี้ปรากฏอยู่ในรายชื่อคว่ำบาตรและไม่สามารถใช้กับแอปนี้ได้</string>
-    <string name="onboarding_title">หนึ่ง Seeker หนึ่งเสียง</string>
-    <string name="onboarding_subtitle">ชั้นความน่าเชื่อถือสำหรับ dApp Store ที่ไม่มีใครเป็นเจ้าของ</string>
-    <string name="onboarding_step1_title">รีวิวถูกลงลายเซ็น ไม่ใช่พิมพ์</string>
-    <string name="onboarding_step1_body">รีวิวแต่ละรายการคือธุรกรรม memo ที่กระเป๋าเงินของคุณลงลายเซ็น นับเฉพาะกระเป๋าเงินที่ถือ Seeker Genesis Token เท่านั้น ดังนั้นหนึ่งอุปกรณ์คือหนึ่งเสียง</string>
-    <string name="onboarding_step2_title">ไม่มีใครแก้ไขบัญชีบันทึกได้</string>
-    <string name="onboarding_step2_body">รีวิวอยู่บน Solana ที่ที่อยู่คงที่ซึ่งไม่มีใครควบคุม ใครก็อ่านได้ คุณสามารถถอนรีวิวของคุณออกจากอันดับได้ แต่ข้อความจะคงอยู่บนเชนตลอดไป</string>
-    <string name="onboarding_step3_title">โทรศัพท์ของคุณเพิ่มข้อเท็จจริง</string>
-    <string name="onboarding_step3_body">สำหรับแอปที่คุณติดตั้งไว้ Undersigned จะแสดงสิ่งที่อุปกรณ์ตรวจสอบได้ ได้แก่ ใบรับรองการลงลายเซ็นและการเปลี่ยนแปลงสิทธิ์ระหว่างเวอร์ชัน เป็นข้อเท็จจริง ไม่ใช่คำตัดสิน</string>
-    <string name="onboarding_step4_title">ไม่ใช่ dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned อ่านแคตตาล็อกสาธารณะของสโตร์และเปิดหน้ารายการในสโตร์ แอปนี้ไม่เคยติดตั้งสิ่งใดและไม่มีส่วนเกี่ยวข้องกับ Solana Mobile</string>
     <string name="onboarding_cta">เริ่มเรียกดู</string>
     <string name="browse_title">Undersigned</string>
     <string name="browse_search_hint">ค้นหาแอป</string>
@@ -48,7 +37,6 @@
     <string name="catalogue_count">แอป %1$d รายการในแคตตาล็อกของสโตร์</string>
     <string name="empty_installed">ยังไม่มีแอปจากสโตร์ที่ติดตั้งบนอุปกรณ์นี้</string>
     <string name="empty_signed">ยังไม่มีรีวิวที่ลงลายเซ็น เป็นคนแรกเลยสิ</string>
-    <string name="empty_search">ไม่พบรายการที่ตรงกัน</string>
     <string name="detail_open_store">เปิดใน dApp Store</string>
     <string name="detail_write_review">เขียนรีวิวที่ลงลายเซ็น</string>
     <string name="detail_update_review">อัปเดตรีวิวของฉัน</string>
@@ -62,7 +50,6 @@
     <string name="reply_title">ลงลายเซ็นการตอบกลับ</string>
     <string name="reply_hint">คำตอบของคุณ ด้วยคำพูดของคุณเอง (ถาวร)</string>
     <string name="reply_publish">ลงลายเซ็นและเผยแพร่การตอบกลับ</string>
-    <string name="replies_count">%1$d การตอบกลับ</string>
     <string name="notif_channel">การแจ้งเตือนบัญชีบันทึก</string>
     <string name="notif_new_review_title">รีวิวที่ลงลายเซ็นใหม่: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -91,7 +78,7 @@
     <string name="versions_row">v%1$d · %2$s · ลงลายเซ็นแล้ว %3$d รายการ</string>
     <string name="versions_installed">ติดตั้งแล้ว</string>
     <string name="standing_title">สถานะผู้ลงลายเซ็น</string>
-    <string name="standing_line">นับแล้ว %1$d · ถอนแล้ว %2$d · ได้รับการตอบกลับ %3$d · ให้ไป %4$d</string>
+    <string name="standing_line">นับแล้ว: %1$d · ถอนแล้ว: %2$d · ได้รับการตอบกลับ: %3$d · ให้ไปแล้ว: %4$d</string>
     <string name="standing_agreement">ความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น: %1$s</string>
     <string name="standing_since">ลงลายเซ็นมาตั้งแต่ %1$s</string>
     <string name="standing_note2">นับจำนวนเท่านั้น ไม่มีคะแนน ไม่มีอะไรให้ซื้อ</string>
@@ -99,7 +86,7 @@
     <string name="store_reviewer_nogenesis">ไม่พบอุปกรณ์ที่ได้รับการรับรอง</string>
     <string name="store_reviewer_signed_here">ลงลายเซ็นที่นี่ด้วย</string>
     <string name="notif_divergence_title">%1$s: คะแนนที่ลงลายเซ็นและคะแนนของสโตร์ไม่ตรงกัน</string>
-    <string name="notif_divergence_body">ลงลายเซ็นแล้ว %1$s จาก Seeker %2$d ราย เทียบกับสโตร์ %3$s จากรีวิว %4$d รายการ</string>
+    <string name="notif_divergence_body">ลงลายเซ็น: %1$s (Seeker: %2$d ราย) · สโตร์: %3$s (รีวิว: %4$d รายการ)</string>
     <string name="notif_update_title">%1$s อัปเดตเป็น v%2$d แล้ว</string>
     <string name="notif_update_body">ยังใช้งานได้อยู่ไหม? ลงลายเซ็นรีวิวสำหรับเวอร์ชันนี้</string>
     <string name="notif_wave_title">%1$s: กิจกรรมรีวิวที่ผิดปกติในสโตร์</string>
@@ -128,6 +115,10 @@
     <string name="my_reviews_empty">ยังไม่มีรีวิว รีวิวที่คุณลงลายเซ็นจะปรากฏที่นี่ และรีวิว dApp Store ของคุณก็เช่นกันเมื่อสแกนแล้ว</string>
     <string name="my_reviews_no_match">ไม่มีรีวิวที่ตรงกัน</string>
     <string name="my_reviews_sign_in">ลงชื่อเข้าใช้ด้วยกระเป๋าเงินของคุณเพื่อดูรีวิวของคุณ</string>
+    <string name="scan_done_title">สแกน dApp Store เสร็จสิ้น</string>
+    <plurals name="scan_done_body">
+        <item quantity="other">พบรีวิว dApp Store ของคุณ %1$d รายการ แตะเพื่อดูใน รีวิวของฉัน</item>
+    </plurals>
     <string name="import_scan">สแกนหารีวิวในสโตร์ของฉัน</string>
     <string name="import_scanning">กำลังสแกน %1$s</string>
     <string name="import_found">พบรีวิวในสโตร์ของคุณ %1$d รายการ</string>
@@ -182,7 +173,6 @@
     <string name="changes_sub">แอปจากสโตร์ที่ติดตั้งไว้ซึ่งใบรับรองการลงลายเซ็น สิทธิ์ หรือเวอร์ชันเปลี่ยนแปลงไปนับตั้งแต่อุปกรณ์นี้ตรวจสอบครั้งล่าสุด</string>
     <string name="changes_empty">ไม่มีอะไรเปลี่ยนแปลงตั้งแต่การตรวจสอบครั้งล่าสุด</string>
     <string name="change_new_version">อัปเดตเป็นรหัสเวอร์ชัน %1$d</string>
-    <string name="change_first_seen">พบครั้งแรกบนอุปกรณ์นี้</string>
     <string name="settings">การตั้งค่า</string>
     <string name="settings_wallet">กระเป๋าเงิน</string>
     <string name="settings_no_wallet">ไม่มีกระเป๋าเงินที่เชื่อมต่อ</string>
@@ -249,10 +239,9 @@
     <string name="inbox_replies_empty">ยังไม่มีการตอบกลับบันทึกของคุณ</string>
     <string name="inbox_starred_empty">ติดดาวรีวิวเพื่อเก็บไว้ที่นี่</string>
     <string name="swipe_hint">ปัดรีวิวไปทางขวาเพื่อตอบกลับ</string>
-    <string name="profile_title">โปรไฟล์</string>
     <string name="profile_credibility">ความน่าเชื่อถือ</string>
     <string name="profile_credibility_sub">ฐาน 40, +30 สำหรับความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น, +10 สำหรับเสียงโหวตว่ามีประโยชน์ที่ได้รับ, +20 สำหรับการปักธงที่ยืนยันโดยฉันทามติ, −50 × สัดส่วนของบันทึกที่ถูกซ่อนโดยฉันทามติ สูตรที่เผยแพร่ไว้ ไม่มีสิ่งใดผูกติดกับมัน</string>
-    <string name="profile_flags">ปักธงแล้ว %1$d · ยืนยันแล้ว %2$d · ได้รับ %3$d · บันทึกถูกซ่อน %4$d</string>
+    <string name="profile_flags">ปักธงแล้ว: %1$d · ยืนยันแล้ว: %2$d · ได้รับ: %3$d · บันทึกถูกซ่อน: %4$d</string>
     <string name="profile_replied">ตอบกลับรีวิวของตน %1$s ของเวลาทั้งหมด</string>
     <string name="profile_publishes">ผู้เผยแพร่ที่ตรวจสอบแล้วของ</string>
     <string name="profile_reviews">รีวิวที่ลงลายเซ็น</string>
@@ -295,7 +284,6 @@
     <string name="action_failed">กระเป๋าเงินไม่สามารถทำตามคำขอให้เสร็จสมบูรณ์ได้ ลองอีกครั้ง</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">ภูมิภาคที่ตรวจพบ: %1$s</string>
-    <string name="howto_step">ขั้นตอนที่ %1$d</string>
     <string name="howto1_title">ลงชื่อเข้าใช้</string>
     <string name="howto1_sub">เชื่อมต่อกระเป๋าเงินที่คุณใช้อยู่แล้ว</string>
     <string name="howto1_body">แตะ \"ลงชื่อเข้าใช้ด้วยกระเป๋าเงินของคุณ\" บนหน้าจอแรกแล้วอนุมัติข้อความ ลายเซ็นนั้นบันทึกความยินยอมของคุณ — ไม่มีการย้ายสิ่งใด Undersigned ไม่เคยถือกุญแจหรือเงินทุนของคุณ</string>
@@ -402,7 +390,6 @@
     <string name="pro_not_body">มันไม่ได้เพิ่มน้ำหนักให้ความเห็นของคุณ ไม่ได้เลื่อนคุณขึ้นในรายการ หรือทำเครื่องหมายว่าคุณน่าเชื่อถือ น้ำหนักมาจากอุปกรณ์ที่ได้รับการรับรองและ SKR ที่สเตกซึ่งอ่านได้บนเชนเท่านั้น ไม่มีโทเคน ไม่มีสิ่งใดให้สะสม และไม่มีสิ่งใดให้ถือครอง</string>
     <string name="pro_free_keeps">การอ่านบัญชีบันทึก การลงลายเซ็นรีวิว การปักธง การโต้แย้ง และข้อมูลอุปกรณ์ยังคงฟรีและจะเป็นเช่นนั้นเสมอ Pro เพิ่มเครื่องมือเท่านั้น ไม่เปลี่ยนแปลงวิธีการนับรีวิวใด ๆ</string>
     <string name="pro_price_line">12 เดือนบนกระเป๋าเงินนี้ · จ่ายด้วยสกุลใดก็ได้ ระยะเวลาเท่ากัน · บวกค่าธรรมเนียมเครือข่ายที่กำหนดโดยกระเป๋าเงินของคุณ</string>
-    <string name="pro_or">หรือ</string>
     <string name="pro_pay_in">จ่ายด้วย</string>
     <string name="pro_rail_skr_note">อ่านบนเชน ไม่ได้ถือครอง</string>
     <string name="pro_rail_sol_note">สิบสองเดือนเท่ากัน</string>
@@ -449,7 +436,6 @@
     <string name="pro_export_csv">ส่งออก CSV</string>
     <string name="pro_export_json">ส่งออก JSON</string>
     <string name="pro_watch_on">ตรวจสอบทุกชั่วโมง</string>
-    <string name="pro_watch_off">ตรวจสอบทุก 6 ชั่วโมง</string>
     <string name="pro_watch_alerts_off">การแจ้งเตือนปิดอยู่ — เปิดด้านล่างเพื่อให้การเฝ้าดูทำงานทุกชั่วโมง</string>
     <string name="pro_share_title">แชร์ Pro กับกระเป๋าเงินอื่น</string>
     <string name="pro_share_body">ผู้จ่ายเงินบวกกระเป๋าเงินอื่นของคุณอีกสองใบ การให้สิทธิ์คือบันทึกที่ลงลายเซ็นบนบัญชีบันทึกซึ่งระบุคู่กระเป๋าเงินด้วยแฮช — ไม่มีการย้ายสิ่งใด และกระเป๋าเงินอีกใบจะพบสิทธิ์นี้เมื่อได้รับแจ้งว่ากระเป๋าเงินใดเป็นผู้จ่าย</string>

@@ -7,7 +7,6 @@
     <string name="blocked_body">Undersigned, yaptırımlar ve yasal kısıtlamalar nedeniyle %1$s bölgesinde sunulmamaktadır. Bu kontrol yalnızca cihazınızda çalışır.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Undersigned\'a hoş geldiniz</string>
     <string name="terms_intro">Seeker sahiplerinden imzalı uygulama incelemeleri, Solana\'ya yazılır. Solana Mobile ile bağlantılı değildir. İncelemeler bireysel sahiplerin görüşleridir, mağazanın puanları değildir.</string>
     <string name="terms_confirm_heading">Giriş yaparak şunları onaylarsınız:</string>
     <string name="terms_point_age">en az 18 yaşında olduğunuzu;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Bu cüzdan adresi bir yaptırım listesinde görünüyor ve bu uygulamayla kullanılamaz.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Bir Seeker, bir ses</string>
-    <string name="onboarding_subtitle">Kimsenin sahip olmadığı dApp Store için bir güven katmanı.</string>
-    <string name="onboarding_step1_title">İncelemeler imzalanır, yazılmaz</string>
-    <string name="onboarding_step1_body">Her inceleme, cüzdanınızın imzaladığı bir not işlemidir. Yalnızca Seeker Genesis Token\'a sahip cüzdanlar sayılır, böylece bir cihaz bir ses eder.</string>
-    <string name="onboarding_step2_title">Kimse defteri düzenleyemez</string>
-    <string name="onboarding_step2_body">İncelemeler, kimsenin kontrol etmediği sabit bir adreste Solana üzerinde bulunur. Herkes bunları okuyabilir. İncelemenizi sıralamadan geri çekebilirsiniz, ancak metin sonsuza dek zincir üzerinde kalır.</string>
-    <string name="onboarding_step3_title">Telefonunuz gerçekleri ekler</string>
-    <string name="onboarding_step3_body">Yüklü uygulamalarınız için Undersigned, cihazın doğrulayabildiklerini gösterir: imzalama sertifikası ve sürümler arasındaki izin değişiklikleri. Gerçekler, asla hüküm değil.</string>
-    <string name="onboarding_step4_title">dApp Store değildir</string>
-    <string name="onboarding_step4_body">Undersigned, mağazanın herkese açık kataloğunu okur ve listelemeleri mağazada açar. Hiçbir şey yüklemez ve Solana Mobile ile bağlantılı değildir.</string>
     <string name="onboarding_cta">Göz atmaya başla</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">Mağaza kataloğunda %1$d uygulama</string>
     <string name="empty_installed">Bu cihazda henüz yüklü mağaza uygulaması yok.</string>
     <string name="empty_signed">Henüz imzalı inceleme yok. İlk siz olun.</string>
-    <string name="empty_search">Hiçbir şey eşleşmiyor.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">dApp Store\'da aç</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Bir yanıt imzala</string>
     <string name="reply_hint">Kendi kelimelerinizle cevabınız (kalıcı).</string>
     <string name="reply_publish">İmzala ve yanıtı yayınla</string>
-    <string name="replies_count">%1$d yanıt</string>
     <string name="notif_channel">Defter uyarıları</string>
     <string name="notif_new_review_title">Yeni imzalı inceleme: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -99,7 +86,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d imzalı</string>
     <string name="versions_installed">yüklü</string>
     <string name="standing_title">İmzalayan durumu</string>
-    <string name="standing_line">%1$d sayıldı · %2$d geri çekildi · %3$d yanıt alındı · %4$d verildi</string>
+    <string name="standing_line">Sayılan: %1$d · Geri çekilen: %2$d · Alınan yanıt: %3$d · Verilen yanıt: %4$d</string>
     <string name="standing_agreement">Diğer imzalayanlarla etiket uyumu: %1$s</string>
     <string name="standing_since">%1$s tarihinden beri imzalıyor</string>
     <string name="standing_note2">Yalnızca sayım. Puan yok, satın alınacak bir şey yok.</string>
@@ -107,7 +94,7 @@
     <string name="store_reviewer_nogenesis">kanıtlı cihaz bulunamadı</string>
     <string name="store_reviewer_signed_here">burada da imzaladı</string>
     <string name="notif_divergence_title">%1$s: imzalı ve mağaza puanları uyuşmuyor</string>
-    <string name="notif_divergence_body">İmzalı: %2$d Seeker\'dan %1$s; mağaza: %4$d incelemeden %3$s.</string>
+    <string name="notif_divergence_body">İmzalı: %1$s (Seeker: %2$d) · Mağaza: %3$s (inceleme: %4$d).</string>
     <string name="notif_update_title">%1$s v%2$d sürümüne güncellendi</string>
     <string name="notif_update_body">Hâlâ çalışıyor mu? Bu sürüm için bir inceleme imzalayın.</string>
     <string name="notif_wave_title">%1$s: mağazada olağandışı inceleme etkinliği</string>
@@ -137,6 +124,11 @@
     <string name="my_reviews_empty">Henüz inceleme yok. İmzaladığınız incelemeler burada görünür, taradığınızda dApp Store incelemeleriniz de burada görünür.</string>
     <string name="my_reviews_no_match">Eşleşen inceleme yok.</string>
     <string name="my_reviews_sign_in">İncelemelerinizi görmek için cüzdanınızla giriş yapın.</string>
+    <string name="scan_done_title">dApp Store taraması tamamlandı</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">dApp Store\'da %1$d incelemeniz bulundu. Görmek için dokunun: İncelemelerim.</item>
+        <item quantity="other">dApp Store\'da %1$d incelemeniz bulundu. Görmek için dokunun: İncelemelerim.</item>
+    </plurals>
     <string name="import_scan">Mağaza incelemelerimi tara</string>
     <string name="import_scanning">%1$s taranıyor</string>
     <string name="import_found">%1$d mağaza incelemeniz bulundu</string>
@@ -196,7 +188,6 @@
     <string name="changes_sub">Bu cihazın son bakışından bu yana imzalama sertifikası, izinleri veya sürümü değişen yüklü mağaza uygulamaları.</string>
     <string name="changes_empty">Son kontrolden bu yana hiçbir şey değişmedi.</string>
     <string name="change_new_version">%1$d sürüm koduna güncellendi</string>
-    <string name="change_first_seen">Bu cihazda ilk kez görüldü</string>
 
     <!-- Settings -->
     <string name="settings">Ayarlar</string>
@@ -266,10 +257,9 @@
     <string name="inbox_replies_empty">Kayıtlarınıza henüz yanıt yok.</string>
     <string name="inbox_starred_empty">Burada tutmak için bir incelemeyi yıldızlayın.</string>
     <string name="swipe_hint">Yanıtlamak için bir incelemeyi sağa kaydırın.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Güvenilirlik</string>
     <string name="profile_credibility_sub">40 taban, diğer imzalayanlarla etiket uyumu için +30, alınan yararlı oylar için +10, uzlaşıyla onaylanan işaretlemeler için +20, uzlaşıyla gizlenen kayıtların payı × −50. Yayınlanmış formül, buna bağlı hiçbir şey yok.</string>
-    <string name="profile_flags">%1$d işaretleme imzalandı · %2$d onaylandı · %3$d alındı · %4$d kayıt gizlendi</string>
+    <string name="profile_flags">İmzalanan işaretleme: %1$d · Onaylanan: %2$d · Alınan: %3$d · Gizlenen kayıt: %4$d</string>
     <string name="profile_replied">İncelemelerine zamanın %1$s kadarında yanıt veriyor</string>
     <string name="profile_publishes">Doğrulanmış yayıncısı</string>
     <string name="profile_reviews">İmzalı incelemeler</string>
@@ -313,7 +303,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Algılanan bölge: %1$s</string>
-    <string name="howto_step">Adım %1$d</string>
     <string name="howto1_title">Giriş yapın</string>
     <string name="howto1_sub">Zaten kullandığınız cüzdanı bağlayın</string>
     <string name="howto1_body">İlk ekranda \"Cüzdanınızla giriş yapın\"a dokunun ve mesajı onaylayın. Bu imza yalnızca onayınızı kaydeder — hiçbir şey hareket ettirmez. Undersigned anahtarlarınızı veya fonlarınızı asla tutmaz.</string>
@@ -420,7 +409,6 @@
     <string name="pro_not_body">Görüşünüzü ağırlıklandırmaz, sizi bir listede yukarı taşımaz veya güvenilir olarak işaretlemez. Ağırlık yalnızca kanıtlı cihazdan ve zincirde okunan stake edilmiş SKR\'den gelir, başka hiçbir şeyden gelmez. Token yoktur, toplanacak veya elde tutulacak hiçbir şey yoktur.</string>
     <string name="pro_free_keeps">Defteri okumak, incelemeleri, işaretlemeleri, itirazları ve cihaz bilgilerini imzalamak ücretsiz kalır ve her zaman öyle kalacaktır. Pro araçlar ekler; bir incelemenin nasıl sayıldığı konusunda hiçbir şeyi değiştirmez.</string>
     <string name="pro_price_line">Bu cüzdanda 12 ay · ikisinden biriyle ödeyin, süre aynı · üzerine ağ ücreti, cüzdanınız tarafından belirlenir</string>
-    <string name="pro_or">veya</string>
     <string name="pro_pay_in">Ödeme birimi</string>
     <string name="pro_rail_skr_note">zincirden okunur, tutulmaz</string>
     <string name="pro_rail_sol_note">aynı on iki ay</string>
@@ -468,7 +456,6 @@
     <string name="pro_export_csv">CSV dışa aktar</string>
     <string name="pro_export_json">JSON dışa aktar</string>
     <string name="pro_watch_on">Her saat kontrol ediliyor</string>
-    <string name="pro_watch_off">Her 6 saatte bir kontrol ediliyor</string>
     <string name="pro_watch_alerts_off">Uyarılar kapalı — aşağıdan açın, izleme her saat çalışsın.</string>
     <string name="pro_share_title">Pro\'yu bir cüzdanla paylaş</string>
     <string name="pro_share_body">Ödeyen artı sizin başka iki cüzdanınız. Bir hibe, çifti hash ile adlandıran deftere imzalanmış bir kayıttır — hiçbir şey hareket ettirmez ve hangi cüzdanın ödediği öğrenildiğinde diğer cüzdan onu bulur.</string>

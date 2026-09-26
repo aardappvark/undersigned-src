@@ -7,7 +7,6 @@
     <string name="blocked_body">Το Undersigned δεν διατίθεται στο %1$s λόγω κυρώσεων και νομικών περιορισμών. Αυτός ο έλεγχος εκτελείται μόνο στη συσκευή σας.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Καλώς ήρθατε στο Undersigned</string>
     <string name="terms_intro">Υπογεγραμμένες κριτικές εφαρμογών από κατόχους Seeker, γραμμένες στο Solana. Δεν σχετίζεται με τη Solana Mobile. Οι κριτικές είναι οι απόψεις μεμονωμένων κατόχων, όχι οι βαθμολογίες του καταστήματος.</string>
     <string name="terms_confirm_heading">Με τη σύνδεσή σας επιβεβαιώνετε ότι:</string>
     <string name="terms_point_age">είστε τουλάχιστον 18 ετών·</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Αυτή η διεύθυνση πορτοφολιού εμφανίζεται σε λίστα κυρώσεων και δεν μπορεί να χρησιμοποιηθεί με αυτή την εφαρμογή.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Ένας Seeker, μία φωνή</string>
-    <string name="onboarding_subtitle">Ένα επίπεδο εμπιστοσύνης για το dApp Store που δεν ανήκει σε κανέναν.</string>
-    <string name="onboarding_step1_title">Οι κριτικές υπογράφονται, δεν πληκτρολογούνται</string>
-    <string name="onboarding_step1_body">Κάθε κριτική είναι μια συναλλαγή memo που υπογράφει το πορτοφόλι σας. Μετράνε μόνο τα πορτοφόλια που κατέχουν Seeker Genesis Token, έτσι μία συσκευή ισοδυναμεί με μία φωνή.</string>
-    <string name="onboarding_step2_title">Κανείς δεν μπορεί να επεξεργαστεί το ledger</string>
-    <string name="onboarding_step2_body">Οι κριτικές βρίσκονται στο Solana σε μια σταθερή διεύθυνση που δεν ελέγχει κανείς. Οποιοσδήποτε μπορεί να τις διαβάσει. Μπορείτε να αποσύρετε την κριτική σας από την κατάταξη, αλλά το κείμενο παραμένει on-chain για πάντα.</string>
-    <string name="onboarding_step3_title">Το τηλέφωνό σας προσθέτει τα στοιχεία</string>
-    <string name="onboarding_step3_body">Για τις εφαρμογές που έχετε εγκαταστήσει, το Undersigned δείχνει ό,τι μπορεί να επαληθεύσει η συσκευή: το πιστοποιητικό υπογραφής και τις αλλαγές δικαιωμάτων μεταξύ εκδόσεων. Στοιχεία, ποτέ κρίσεις.</string>
-    <string name="onboarding_step4_title">Όχι το dApp Store</string>
-    <string name="onboarding_step4_body">Το Undersigned διαβάζει τον δημόσιο κατάλογο του καταστήματος και ανοίγει καταχωρίσεις στο κατάστημα. Δεν εγκαθιστά τίποτα ποτέ και δεν σχετίζεται με τη Solana Mobile.</string>
     <string name="onboarding_cta">Έναρξη περιήγησης</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d εφαρμογές στον κατάλογο του καταστήματος</string>
     <string name="empty_installed">Δεν έχουν εγκατασταθεί ακόμα εφαρμογές του καταστήματος σε αυτή τη συσκευή.</string>
     <string name="empty_signed">Καμία υπογεγραμμένη κριτική ακόμα. Γίνετε ο πρώτος.</string>
-    <string name="empty_search">Δεν βρέθηκαν αποτελέσματα.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Άνοιγμα στο dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Υπογραφή απάντησης</string>
     <string name="reply_hint">Η απάντησή σας, με δικά σας λόγια (μόνιμη).</string>
     <string name="reply_publish">Υπογραφή και δημοσίευση απάντησης</string>
-    <string name="replies_count">%1$d απαντήσεις</string>
     <string name="notif_channel">Ειδοποιήσεις ledger</string>
     <string name="notif_new_review_title">Νέα υπογεγραμμένη κριτική: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -99,7 +86,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d υπογεγραμμένες</string>
     <string name="versions_installed">εγκατεστημένη</string>
     <string name="standing_title">Θέση υπογράφοντος</string>
-    <string name="standing_line">%1$d μετρήθηκαν · %2$d αποσύρθηκαν · %3$d απαντήσεις ελήφθησαν · %4$d δόθηκαν</string>
+    <string name="standing_line">Μετρήθηκαν: %1$d · Αποσύρθηκαν: %2$d · Απαντήσεις που ελήφθησαν: %3$d · Απαντήσεις που δόθηκαν: %4$d</string>
     <string name="standing_agreement">Συμφωνία ετικετών με άλλους υπογράφοντες: %1$s</string>
     <string name="standing_since">Υπογράφει από %1$s</string>
     <string name="standing_note2">Μόνο μετρήσεις. Καμία βαθμολογία, τίποτα προς αγορά.</string>
@@ -107,7 +94,7 @@
     <string name="store_reviewer_nogenesis">δεν βρέθηκε πιστοποιημένη συσκευή</string>
     <string name="store_reviewer_signed_here">υπέγραψε επίσης εδώ</string>
     <string name="notif_divergence_title">%1$s: οι υπογεγραμμένες και οι βαθμολογίες του καταστήματος διαφωνούν</string>
-    <string name="notif_divergence_body">Υπογεγραμμένη %1$s από %2$d Seekers έναντι καταστήματος %3$s από %4$d κριτικές.</string>
+    <string name="notif_divergence_body">Υπογεγραμμένη: %1$s (Seekers: %2$d) · Κατάστημα: %3$s (κριτικές: %4$d).</string>
     <string name="notif_update_title">Το %1$s ενημερώθηκε στην v%2$d</string>
     <string name="notif_update_body">Λειτουργεί ακόμα; Υπογράψτε μια κριτική για αυτή την έκδοση.</string>
     <string name="notif_wave_title">%1$s: ασυνήθιστη δραστηριότητα κριτικών στο κατάστημα</string>
@@ -137,6 +124,11 @@
     <string name="my_reviews_empty">Καμία κριτική ακόμα. Οι κριτικές που υπογράφετε εμφανίζονται εδώ, όπως και οι κριτικές σας από το dApp Store μόλις τις σαρώσετε.</string>
     <string name="my_reviews_no_match">Καμία κριτική δεν ταιριάζει.</string>
     <string name="my_reviews_sign_in">Συνδεθείτε με το πορτοφόλι σας για να δείτε τις κριτικές σας.</string>
+    <string name="scan_done_title">Η σάρωση του dApp Store ολοκληρώθηκε</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">Βρέθηκε %1$d κριτική σας από το dApp Store. Πατήστε για να τη δείτε: Οι κριτικές μου.</item>
+        <item quantity="other">Βρέθηκαν %1$d κριτικές σας από το dApp Store. Πατήστε για να τις δείτε: Οι κριτικές μου.</item>
+    </plurals>
     <string name="import_scan">Σάρωση για τις κριτικές μου στο κατάστημα</string>
     <string name="import_scanning">Σάρωση %1$s</string>
     <string name="import_found">Βρέθηκαν %1$d κριτικές σας στο κατάστημα</string>
@@ -196,7 +188,6 @@
     <string name="changes_sub">Εγκατεστημένες εφαρμογές καταστήματος των οποίων το πιστοποιητικό υπογραφής, τα δικαιώματα ή η έκδοση άλλαξαν από την τελευταία φορά που έλεγξε αυτή η συσκευή.</string>
     <string name="changes_empty">Τίποτα δεν έχει αλλάξει από τον τελευταίο έλεγχο.</string>
     <string name="change_new_version">Ενημερώθηκε στον κωδικό έκδοσης %1$d</string>
-    <string name="change_first_seen">Εντοπίστηκε για πρώτη φορά σε αυτή τη συσκευή</string>
 
     <!-- Settings -->
     <string name="settings">Ρυθμίσεις</string>
@@ -266,10 +257,9 @@
     <string name="inbox_replies_empty">Καμία απάντηση στις εγγραφές σας ακόμα.</string>
     <string name="inbox_starred_empty">Βάλτε αστέρι σε μια κριτική για να τη διατηρήσετε εδώ.</string>
     <string name="swipe_hint">Σύρετε μια κριτική προς τα δεξιά για να απαντήσετε.</string>
-    <string name="profile_title">Προφίλ</string>
     <string name="profile_credibility">Αξιοπιστία</string>
     <string name="profile_credibility_sub">40 βάση, +30 για συμφωνία ετικετών με άλλους υπογράφοντες, +10 για χρήσιμες ψήφους που λάβατε, +20 για επισημάνσεις που επικυρώθηκαν με συναίνεση, −50 × μερίδιο εγγραφών κρυμμένων με συναίνεση. Δημοσιευμένος τύπος, τίποτα προσαρτημένο σε αυτόν.</string>
-    <string name="profile_flags">%1$d επισημάνσεις υπογεγραμμένες · %2$d επικυρωμένες · %3$d ληφθείσες · %4$d εγγραφές κρυμμένες</string>
+    <string name="profile_flags">Υπογεγραμμένες επισημάνσεις: %1$d · Επικυρωμένες: %2$d · Ληφθείσες: %3$d · Κρυμμένες εγγραφές: %4$d</string>
     <string name="profile_replied">Απαντά στις κριτικές του %1$s του χρόνου</string>
     <string name="profile_publishes">Επαληθευμένος εκδότης του</string>
     <string name="profile_reviews">Υπογεγραμμένες κριτικές</string>
@@ -313,7 +303,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Εντοπισμένη περιοχή: %1$s</string>
-    <string name="howto_step">Βήμα %1$d</string>
     <string name="howto1_title">Σύνδεση</string>
     <string name="howto1_sub">Συνδέστε το πορτοφόλι που ήδη χρησιμοποιείτε</string>
     <string name="howto1_body">Πατήστε \"Σύνδεση με το πορτοφόλι σας\" στην πρώτη οθόνη και εγκρίνετε το μήνυμα. Αυτή η υπογραφή καταγράφει τη συναίνεσή σας — δεν μετακινεί τίποτα. Το Undersigned δεν κατέχει ποτέ τα κλειδιά ή τα κεφάλαιά σας.</string>
@@ -420,7 +409,6 @@
     <string name="pro_not_body">Δεν σταθμίζει τη γνώμη σας, δεν σας ανεβάζει σε μια λίστα και δεν σας σημαδεύει ως αξιόπιστο. Το βάρος προέρχεται από την πιστοποιημένη συσκευή και το staked SKR που διαβάζεται on-chain, και από τίποτα άλλο. Δεν υπάρχει token, τίποτα να συλλέξετε και τίποτα να κρατήσετε.</string>
     <string name="pro_free_keeps">Η ανάγνωση του ledger, η υπογραφή κριτικών, επισημάνσεων, ενστάσεων και στοιχείων συσκευής παραμένουν δωρεάν και θα παραμείνουν πάντα. Το Pro προσθέτει εργαλεία· δεν αλλάζει τίποτα στο πώς μετράει κάθε κριτική.</string>
     <string name="pro_price_line">12 μήνες σε αυτό το πορτοφόλι · πληρώστε σε όποιο από τα δύο, η διάρκεια είναι ίδια · τέλος δικτύου επιπλέον, ορίζεται από το πορτοφόλι σας</string>
-    <string name="pro_or">ή</string>
     <string name="pro_pay_in">Πληρωμή σε</string>
     <string name="pro_rail_skr_note">διαβάζεται on-chain, δεν κρατείται</string>
     <string name="pro_rail_sol_note">ίδιοι δώδεκα μήνες</string>
@@ -468,7 +456,6 @@
     <string name="pro_export_csv">Εξαγωγή CSV</string>
     <string name="pro_export_json">Εξαγωγή JSON</string>
     <string name="pro_watch_on">Έλεγχος κάθε ώρα</string>
-    <string name="pro_watch_off">Έλεγχος κάθε 6 ώρες</string>
     <string name="pro_watch_alerts_off">Οι ειδοποιήσεις είναι απενεργοποιημένες — ενεργοποιήστε τις παρακάτω και η παρακολούθηση θα τρέχει κάθε ώρα.</string>
     <string name="pro_share_title">Κοινή χρήση του Pro με πορτοφόλι</string>
     <string name="pro_share_body">Ο πληρωτής συν δύο ακόμα δικά σας πορτοφόλια. Μια παραχώρηση είναι μια υπογεγραμμένη εγγραφή στο ledger που ονομάζει το ζεύγος με hash — δεν μετακινεί τίποτα, και το άλλο πορτοφόλι το βρίσκει μόλις μάθει ποιο πορτοφόλι πλήρωσε.</string>

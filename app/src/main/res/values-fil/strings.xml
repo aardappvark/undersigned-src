@@ -7,7 +7,6 @@
     <string name="blocked_body">Hindi inaalok ang Undersigned sa %1$s dahil sa mga sanction at legal na paghihigpit. Ang pagsusuring ito ay tumatakbo lang sa iyong device.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Maligayang pagdating sa Undersigned</string>
     <string name="terms_intro">Mga naka-sign na review ng app mula sa mga may-ari ng Seeker, isinulat sa Solana. Hindi kaakibat ng Solana Mobile. Ang mga review ay opinyon ng bawat may-ari, hindi ang rating ng store.</string>
     <string name="terms_confirm_heading">Sa pag-sign in, kinukumpirma mong ikaw ay:</string>
     <string name="terms_point_age">may edad na 18 pataas;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Ang wallet address na ito ay nasa isang listahan ng sanctions at hindi maaaring gamitin sa app na ito.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Isang Seeker, isang boses</string>
-    <string name="onboarding_subtitle">Isang trust layer para sa dApp Store na walang nagmamay-ari.</string>
-    <string name="onboarding_step1_title">Ang mga review ay naka-sign, hindi lang naka-type</string>
-    <string name="onboarding_step1_body">Ang bawat review ay isang memo transaction na sine-sign ng iyong wallet. Mga wallet lang na may hawak na Seeker Genesis Token ang binibilang, kaya isang device ay isang boses.</string>
-    <string name="onboarding_step2_title">Walang makakapag-edit ng ledger</string>
-    <string name="onboarding_step2_body">Ang mga review ay nabubuhay sa Solana sa isang nakapirming address na walang kumokontrol. Kahit sino ay maaaring bumasa nito. Maaari mong i-withdraw ang iyong review mula sa ranking, pero ang teksto ay mananatili sa chain magpakailanman.</string>
-    <string name="onboarding_step3_title">Ang telepono mo ang nagdadagdag ng facts</string>
-    <string name="onboarding_step3_body">Para sa mga app na naka-install sa iyo, ipinapakita ng Undersigned kung ano ang mape-verify ng device: ang signing certificate at mga pagbabago sa permission sa pagitan ng mga bersyon. Facts lang, hindi kailanman verdict.</string>
-    <string name="onboarding_step4_title">Hindi ang dApp Store</string>
-    <string name="onboarding_step4_body">Binabasa ng Undersigned ang pampublikong katalogo ng store at binubuksan ang mga listing sa store. Hindi ito nag-i-install ng kahit ano at hindi kaakibat ng Solana Mobile.</string>
     <string name="onboarding_cta">Simulang mag-browse</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d app sa katalogo ng store</string>
     <string name="empty_installed">Wala pang naka-install na store app sa device na ito.</string>
     <string name="empty_signed">Wala pang naka-sign na review. Ikaw ang maging una.</string>
-    <string name="empty_search">Walang tumugma.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Buksan sa dApp Store</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Mag-sign ng sagot</string>
     <string name="reply_hint">Ang sagot mo, sa sarili mong salita (permanente).</string>
     <string name="reply_publish">I-sign at i-publish ang sagot</string>
-    <string name="replies_count">%1$d na sagot</string>
     <string name="notif_channel">Alerto ng ledger</string>
     <string name="notif_new_review_title">Bagong naka-sign na review: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -102,7 +89,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d naka-sign</string>
     <string name="versions_installed">naka-install</string>
     <string name="standing_title">Katayuan ng signer</string>
-    <string name="standing_line">%1$d binilang · %2$d na-withdraw · %3$d sagot na natanggap · %4$d ibinigay</string>
+    <string name="standing_line">Binilang: %1$d · Na-withdraw: %2$d · Sagot na natanggap: %3$d · Ibinigay: %4$d</string>
     <string name="standing_agreement">Pagkakasundo ng tag sa ibang signer: %1$s</string>
     <string name="standing_since">Nag-sisign mula noong %1$s</string>
     <string name="standing_note2">Bilang lang. Walang iskor, walang bibilhin.</string>
@@ -110,7 +97,7 @@
     <string name="store_reviewer_nogenesis">walang nahanap na na-verify na device</string>
     <string name="store_reviewer_signed_here">nag-sign din dito</string>
     <string name="notif_divergence_title">%1$s: hindi magkatugma ang naka-sign at store na iskor</string>
-    <string name="notif_divergence_body">Naka-sign %1$s mula sa %2$d Seeker kumpara sa store %3$s mula sa %4$d review.</string>
+    <string name="notif_divergence_body">Naka-sign: %1$s (Seeker: %2$d) · Store: %3$s (review: %4$d).</string>
     <string name="notif_update_title">Na-update ang %1$s sa v%2$d</string>
     <string name="notif_update_body">Gumagana pa rin? Mag-sign ng review para sa bersyong ito.</string>
     <string name="notif_wave_title">%1$s: hindi pangkaraniwang aktibidad ng review sa store</string>
@@ -140,6 +127,11 @@
     <string name="my_reviews_empty">Wala pang review. Lumalabas dito ang mga review na naka-sign mo, at ang mga review mo sa dApp Store din kapag nahanap na.</string>
     <string name="my_reviews_no_match">Walang review na tumutugma.</string>
     <string name="my_reviews_sign_in">Mag-sign in gamit ang iyong wallet para makita ang mga review mo.</string>
+    <string name="scan_done_title">Tapos na ang pag-scan sa dApp Store</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">May nahanap na %1$d review mo sa dApp Store. I-tap para makita ito sa Mga review ko.</item>
+        <item quantity="other">May nahanap na %1$d na review mo sa dApp Store. I-tap para makita ang mga ito sa Mga review ko.</item>
+    </plurals>
     <string name="import_scan">Maghanap ng aking mga review sa store</string>
     <string name="import_scanning">Sinusuri ang %1$s</string>
     <string name="import_found">%1$d sa iyong mga review sa store ang nahanap</string>
@@ -199,7 +191,6 @@
     <string name="changes_sub">Mga naka-install na store app na nagbago ang signing certificate, permission, o bersyon mula noong huling tumingin ang device na ito.</string>
     <string name="changes_empty">Walang nagbago mula sa huling pagsuri.</string>
     <string name="change_new_version">Na-update sa version code %1$d</string>
-    <string name="change_first_seen">Unang nakita sa device na ito</string>
 
     <!-- Settings -->
     <string name="settings">Mga Setting</string>
@@ -269,10 +260,9 @@
     <string name="inbox_replies_empty">Wala pang sagot sa mga record mo.</string>
     <string name="inbox_starred_empty">Mag-star ng review para itago ito dito.</string>
     <string name="swipe_hint">I-swipe ang review pakanan para sumagot.</string>
-    <string name="profile_title">Ang Profile</string>
     <string name="profile_credibility">Kredibilidad</string>
     <string name="profile_credibility_sub">40 base, +30 para sa pagkakasundo ng tag sa ibang signer, +10 para sa mga natanggap na helpful vote, +20 para sa mga flag na pinagtibay ng consensus, −50 × bahagi ng mga record na nakatago ng consensus. Pampublikong formula, walang nakakabit dito.</string>
-    <string name="profile_flags">%1$d flag na naka-sign · %2$d pinagtibay · %3$d natanggap · %4$d record na nakatago</string>
+    <string name="profile_flags">Naka-sign na flag: %1$d · Pinagtibay: %2$d · Natanggap: %3$d · Nakatagong record: %4$d</string>
     <string name="profile_replied">Sumasagot sa mga sagot sa kanilang review %1$s ng oras</string>
     <string name="profile_publishes">Na-verify na tagapaglathala ng</string>
     <string name="profile_reviews">Mga naka-sign na review</string>
@@ -315,7 +305,6 @@
     <string name="action_failed">Hindi natapos ng wallet ang request. Subukan ulit.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Na-detect na rehiyon: %1$s</string>
-    <string name="howto_step">Hakbang %1$d</string>
     <string name="howto1_title">Mag-sign in</string>
     <string name="howto1_sub">Ikonekta ang wallet na ginagamit mo na</string>
     <string name="howto1_body">I-tap ang \"Mag-sign in gamit ang iyong wallet\" sa unang screen at aprubahan ang mensahe. Itinatala ng signature na iyon ang pahintulot mo — walang inililipat. Hindi kailanman hawak ng Undersigned ang iyong mga key o pondo.</string>
@@ -422,7 +411,6 @@
     <string name="pro_not_body">Hindi nito binibigyang-timbang ang opinyon mo, itinataas ka sa listahan, o minamarkahan kang mapagkakatiwalaan. Ang timbang ay mula sa attested device at naka-stake na SKR na binasa on-chain, at wala nang iba. Walang token, walang kokolektahin at walang hahawakan.</string>
     <string name="pro_free_keeps">Ang pagbasa ng ledger, pag-sign ng review, flag, dispute at facts ng device ay mananatiling libre at palagi. Nagdaragdag lang ng tools ang Pro; walang binabago sa kung paano binibilang ang anumang review.</string>
     <string name="pro_price_line">12 buwan sa wallet na ito · magbayad sa alinman, magkapareho ang termino · dagdag ang network fee sa taas, itinatakda ng wallet mo</string>
-    <string name="pro_or">o</string>
     <string name="pro_pay_in">Magbayad gamit ang</string>
     <string name="pro_rail_skr_note">binasa on-chain, hindi hawak</string>
     <string name="pro_rail_sol_note">parehong labindalawang buwan</string>
@@ -470,7 +458,6 @@
     <string name="pro_export_csv">I-export ang CSV</string>
     <string name="pro_export_json">I-export ang JSON</string>
     <string name="pro_watch_on">Chine-check bawat oras</string>
-    <string name="pro_watch_off">Chine-check bawat 6 na oras</string>
     <string name="pro_watch_alerts_off">Naka-off ang mga alerto — buksan sa ibaba para tumakbo ang pagbantay bawat oras.</string>
     <string name="pro_share_title">I-share ang Pro sa isang wallet</string>
     <string name="pro_share_body">Ang nagbayad kasama ang dalawa pang wallet mo. Ang grant ay isang naka-sign na record sa ledger na pinapangalanan ang pares gamit ang hash — walang inililipat, at makikita ito ng kabilang wallet kapag nasabihan kung aling wallet ang nagbayad.</string>

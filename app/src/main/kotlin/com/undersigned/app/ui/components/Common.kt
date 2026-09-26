@@ -113,3 +113,12 @@ fun tagLabel(wire: String): String = when (wire) {
     "spam-reviews" -> "Unnatural reviews"
     else -> wire.replace('-', ' ').replaceFirstChar { it.uppercase() }
 }
+
+/**
+ * A dApp Store timestamp ("2026-02-13T09:41:00.000Z") as the phone's own medium date ("13 Feb 2026" / "Feb 13, 2026").
+ * Store dates were shown raw ("2026-02-13") right beside ledger dates in the phone's format (seen 26 Sep 2026).
+ * Falls back to the raw day if the store ever sends something unparseable.
+ */
+fun storeDate(iso: String): String = runCatching {
+    java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(java.time.Instant.parse(iso).toEpochMilli()))
+}.getOrElse { iso.take(10) }

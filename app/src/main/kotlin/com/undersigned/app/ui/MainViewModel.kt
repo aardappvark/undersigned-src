@@ -148,6 +148,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 rank()
             }
         }
+        watchStoreScan()
         viewModelScope.launch { UserPreferences.walletAddress.collect { w -> recomputePro(); if (w == null) selfFacts.value = null else loadSelfFacts(w)
             // Store reviews belong to ONE wallet: restore that wallet's last scan, or start empty.
             val cached = w?.let { UserPreferences.loadMyStoreReviews(it) }
@@ -279,35 +280,36 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun displayName(wallet: String): String = domainNames.value[wallet]?.takeIf { it.isNotEmpty() } ?: com.undersigned.app.solana.shortKey(wallet, 4, 4)
 
     /** Scan installed + followed apps' public store reviews for ones signed by MY wallet (paged, stops on hit). */
+    /**
+     * Starts the background store scan (StoreScanWorker). Progress, the result and the saved reviews come back through
+     * [watchStoreScan], so the scan survives leaving the app and the screen just follows it.
+     */
     fun scanMyStoreReviews() {
-        val w = wallet.value ?: return
-        if (importScan.value != null) return
-        viewModelScope.launch(Dispatchers.IO) {
-            // Also every app this wallet signed a review for, so "My reviews" can truthfully say "Not in the dApp Store"
-            // for those, even after the app was uninstalled.
-            val mine = entriesBy(w).map { (it.memo as ReviewMemo.Review).packageName }
-            val targets = (installed.value + follows.value + mine).filter { p -> catalogue.value.any { it.packageName == p } }.distinct()
-            val found = HashMap(myStoreReviews.value); var failed = 0
-            targets.forEachIndexed { i, pkg ->
-                // Count only on the button; the app NAME goes on its own line. The raw package id in a 48 dp button
-                // wrapped to two lines and was clipped unreadable (owner, 26 Sep 2026).
-                importScan.value = "${i + 1}/${targets.size}"
-                importScanApp.value = catalogue.value.firstOrNull { it.packageName == pkg }?.name ?: pkg
-                // The store's CDN blocks a whole network for ~8 min after a few hundred quick requests (hit from the Mac on
-                // 26 Sep 2026). At the 10-per-page limit, the old 500-review depth meant up to 650 requests per scan, so:
-                // the newest 300 reviews per app (covers the Toolkit's 279), ~1 page a second: the Mac was blocked at ~2 a second. A wallet's own review is rarely deeper.
-                val read = store.reviewsChecked(pkg, pageSize = 10, maxPages = 30, pauseMs = 700) { it.walletAddress == w }
-                val list = read.items
-                if (!read.complete) failed++
-                // Only a read that reached the LAST review may say "none": then a cached one was deleted in the store.
-                // Stopping at the depth limit proves nothing about older reviews, so a cached one is kept.
-                val hit = list.firstOrNull { it.walletAddress == w }
-                if (hit != null) found[pkg] = hit else if (read.exhausted) found.remove(pkg)
+        if (wallet.value == null || importScan.value != null) return
+        importScan.value = "…"
+        val req = androidx.work.OneTimeWorkRequestBuilder<com.undersigned.app.notify.StoreScanWorker>()
+            .setConstraints(androidx.work.Constraints.Builder().setRequiredNetworkType(androidx.work.NetworkType.CONNECTED).build()).build()
+        androidx.work.WorkManager.getInstance(getApplication()).enqueueUniqueWork(com.undersigned.app.notify.StoreScanWorker.UNIQUE, androidx.work.ExistingWorkPolicy.KEEP, req)
+    }
+    private fun watchStoreScan() = viewModelScope.launch {
+        val W = com.undersigned.app.notify.StoreScanWorker
+        androidx.work.WorkManager.getInstance(getApplication()).getWorkInfosForUniqueWorkFlow(W.UNIQUE).collect { infos ->
+            val info = infos.lastOrNull() ?: return@collect
+            when (info.state) {
+                androidx.work.WorkInfo.State.ENQUEUED, androidx.work.WorkInfo.State.BLOCKED -> importScan.value = "…"
+                androidx.work.WorkInfo.State.RUNNING -> {
+                    val p = info.progress; val total = p.getInt(W.P_TOTAL, 0)
+                    importScan.value = if (total > 0) "${p.getInt(W.P_DONE, 0)}/$total" else "…"
+                    importScanApp.value = p.getString(W.P_APP)
+                }
+                androidx.work.WorkInfo.State.SUCCEEDED -> {
+                    wallet.value?.let { w -> UserPreferences.loadMyStoreReviews(w)?.let { (m, at) -> myStoreReviews.value = m; myStoreScannedAt.value = at } }
+                    val out = info.outputData
+                    if (out.keyValueMap.isNotEmpty()) importScanResult.value = out.getInt(W.OUT_FAILED, 0) to out.getInt(W.OUT_TOTAL, 0)
+                    importScan.value = null; importScanApp.value = null
+                }
+                else -> { importScan.value = null; importScanApp.value = null }
             }
-            myStoreReviews.value = found
-            if (failed == 0) { UserPreferences.saveMyStoreReviews(w, found); myStoreScannedAt.value = System.currentTimeMillis() }
-            importScanResult.value = failed to targets.size
-            importScan.value = null; importScanApp.value = null
         }
     }
 

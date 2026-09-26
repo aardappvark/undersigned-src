@@ -7,7 +7,6 @@
     <string name="blocked_body">پابندیوں اور قانونی حدود کی وجہ سے Undersigned %1$s میں پیش نہیں کیا جاتا۔ یہ جانچ صرف آپ کے آلے پر چلتی ہے۔</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Undersigned میں خوش آمدید</string>
     <string name="terms_intro">Seeker مالکان کی جانب سے دستخط شدہ ایپ جائزے، Solana پر لکھے گئے۔ Solana Mobile سے وابستہ نہیں۔ جائزے انفرادی مالکان کی رائے ہیں، اسٹور کی درجہ بندی نہیں۔</string>
     <string name="terms_confirm_heading">سائن ان کر کے آپ تصدیق کرتے ہیں کہ آپ:</string>
     <string name="terms_point_age">کم از کم 18 سال کے ہیں؛</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">یہ والٹ ایڈریس پابندی کی فہرست میں شامل ہے اور اس ایپ کے ساتھ استعمال نہیں کیا جا سکتا۔</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">ایک Seeker، ایک آواز</string>
-    <string name="onboarding_subtitle">dApp Store کے لیے ایک اعتماد کی تہہ جس کا کوئی مالک نہیں۔</string>
-    <string name="onboarding_step1_title">جائزے دستخط شدہ ہوتے ہیں، ٹائپ شدہ نہیں</string>
-    <string name="onboarding_step1_body">ہر جائزہ ایک میمو ٹرانزیکشن ہے جسے آپ کا والٹ سائن کرتا ہے۔ صرف وہ والٹس شمار ہوتے ہیں جن کے پاس Seeker Genesis Token ہو، اس لیے ایک آلہ ایک آواز ہے۔</string>
-    <string name="onboarding_step2_title">کوئی بھی لیجر میں ترمیم نہیں کر سکتا</string>
-    <string name="onboarding_step2_body">جائزے Solana پر ایک مقررہ پتے پر رہتے ہیں جسے کوئی کنٹرول نہیں کرتا۔ کوئی بھی انہیں پڑھ سکتا ہے۔ آپ اپنا جائزہ درجہ بندی سے واپس لے سکتے ہیں، لیکن متن ہمیشہ کے لیے چین پر رہتا ہے۔</string>
-    <string name="onboarding_step3_title">آپ کا فون حقائق شامل کرتا ہے</string>
-    <string name="onboarding_step3_body">آپ کی نصب شدہ ایپس کے لیے، Undersigned وہ دکھاتا ہے جو آلہ تصدیق کر سکتا ہے: سائننگ سرٹیفکیٹ اور ورژنز کے درمیان اجازتوں کی تبدیلیاں۔ حقائق، کبھی فیصلے نہیں۔</string>
-    <string name="onboarding_step4_title">یہ dApp Store نہیں ہے</string>
-    <string name="onboarding_step4_body">Undersigned اسٹور کا عوامی کیٹلاگ پڑھتا ہے اور فہرستیں اسٹور میں کھولتا ہے۔ یہ کبھی کچھ نصب نہیں کرتا اور Solana Mobile سے وابستہ نہیں ہے۔</string>
     <string name="onboarding_cta">براؤز کرنا شروع کریں</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">اسٹور کیٹلاگ میں %1$d ایپس</string>
     <string name="empty_installed">اس آلے پر ابھی تک کوئی اسٹور ایپ نصب نہیں۔</string>
     <string name="empty_signed">ابھی تک کوئی دستخط شدہ جائزہ نہیں۔ پہلے آپ بنیں۔</string>
-    <string name="empty_search">کچھ بھی مماثل نہیں۔</string>
 
     <!-- App detail -->
     <string name="detail_open_store">dApp Store میں کھولیں</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">جواب پر دستخط کریں</string>
     <string name="reply_hint">اپنے الفاظ میں آپ کا جواب (مستقل)۔</string>
     <string name="reply_publish">دستخط کریں اور جواب شائع کریں</string>
-    <string name="replies_count">%1$d جوابات</string>
     <string name="notif_channel">لیجر الرٹس</string>
     <string name="notif_new_review_title">نیا دستخط شدہ جائزہ: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -102,7 +89,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d دستخط شدہ</string>
     <string name="versions_installed">نصب شدہ</string>
     <string name="standing_title">دستخط کنندہ کی حیثیت</string>
-    <string name="standing_line">%1$d شمار · %2$d واپس لیے گئے · %3$d موصولہ جوابات · %4$d دیے گئے</string>
+    <string name="standing_line">شمار شدہ: %1$d · واپس لیے گئے: %2$d · موصولہ جوابات: %3$d · دیے گئے جوابات: %4$d</string>
     <string name="standing_agreement">دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت: %1$s</string>
     <string name="standing_since">%1$s سے دستخط کر رہے ہیں</string>
     <string name="standing_note2">صرف شمار۔ کوئی اسکور نہیں، خریدنے کے لیے کچھ نہیں۔</string>
@@ -110,7 +97,7 @@
     <string name="store_reviewer_nogenesis">کوئی تصدیق شدہ آلہ نہیں ملا</string>
     <string name="store_reviewer_signed_here">یہاں بھی دستخط کیے</string>
     <string name="notif_divergence_title">%1$s: دستخط شدہ اور اسٹور کے اسکور مختلف ہیں</string>
-    <string name="notif_divergence_body">%2$d Seekers کی جانب سے دستخط شدہ %1$s بمقابلہ اسٹور کے %4$d جائزوں سے %3$s۔</string>
+    <string name="notif_divergence_body">دستخط شدہ: %1$s (Seekers: %2$d) · اسٹور: %3$s (جائزے: %4$d)۔</string>
     <string name="notif_update_title">%1$s کو v%2$d میں اپ ڈیٹ کیا گیا</string>
     <string name="notif_update_body">اب بھی کام کر رہا ہے؟ اس ورژن کے لیے جائزہ دستخط کریں۔</string>
     <string name="notif_wave_title">%1$s: اسٹور میں غیرمعمولی جائزہ سرگرمی</string>
@@ -140,6 +127,11 @@
     <string name="my_reviews_empty">ابھی تک کوئی جائزہ نہیں۔ آپ کے دستخط شدہ جائزے یہاں ظاہر ہوتے ہیں، اور اسکین کرنے کے بعد آپ کے dApp Store جائزے بھی۔</string>
     <string name="my_reviews_no_match">کوئی جائزہ مماثل نہیں۔</string>
     <string name="my_reviews_sign_in">اپنے جائزے دیکھنے کے لیے اپنے والٹ سے سائن ان کریں۔</string>
+    <string name="scan_done_title">dApp Store اسکین مکمل</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">آپ کا %1$d dApp Store جائزہ ملا۔ اسے میرے جائزے میں دیکھنے کے لیے تھپتھپائیں۔</item>
+        <item quantity="other">آپ کے %1$d dApp Store جائزے ملے۔ انہیں میرے جائزے میں دیکھنے کے لیے تھپتھپائیں۔</item>
+    </plurals>
     <string name="import_scan">میرے اسٹور جائزے اسکین کریں</string>
     <string name="import_scanning">%1$s اسکین کیا جا رہا ہے</string>
     <string name="import_found">آپ کے %1$d اسٹور جائزے ملے</string>
@@ -199,7 +191,6 @@
     <string name="changes_sub">نصب شدہ اسٹور ایپس جن کا سائننگ سرٹیفکیٹ، اجازتیں یا ورژن اس آلے کی آخری جانچ کے بعد سے تبدیل ہوا۔</string>
     <string name="changes_empty">آخری جانچ کے بعد سے کچھ نہیں بدلا۔</string>
     <string name="change_new_version">ورژن کوڈ %1$d میں اپ ڈیٹ کیا گیا</string>
-    <string name="change_first_seen">اس آلے پر پہلی بار دیکھا گیا</string>
 
     <!-- Settings -->
     <string name="settings">ترتیبات</string>
@@ -269,10 +260,9 @@
     <string name="inbox_replies_empty">ابھی تک آپ کے ریکارڈز پر کوئی جواب نہیں۔</string>
     <string name="inbox_starred_empty">کسی جائزے کو یہاں رکھنے کے لیے اسٹار لگائیں۔</string>
     <string name="swipe_hint">جواب دینے کے لیے جائزے کو دائیں طرف سوائپ کریں۔</string>
-    <string name="profile_title">پروفائل</string>
     <string name="profile_credibility">ساکھ</string>
     <string name="profile_credibility_sub">بنیادی 40، دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت پر +30، موصولہ مددگار ووٹوں پر +10، اتفاق رائے سے برقرار رکھی گئی نشان زدگیوں پر +20، اتفاق رائے سے چھپائے گئے ریکارڈز کے تناسب پر −50×۔ شائع شدہ فارمولا، اس کے ساتھ کچھ منسلک نہیں۔</string>
-    <string name="profile_flags">%1$d نشان زدگیاں دستخط شدہ · %2$d برقرار · %3$d موصولہ · %4$d ریکارڈز چھپائے گئے</string>
+    <string name="profile_flags">دستخط شدہ نشانات: %1$d · برقرار: %2$d · موصولہ: %3$d · چھپائے گئے ریکارڈز: %4$d</string>
     <string name="profile_replied">اپنے جائزوں کے جوابات %1$s وقت میں دیتے ہیں</string>
     <string name="profile_publishes">تصدیق شدہ پبلشر برائے</string>
     <string name="profile_reviews">دستخط شدہ جائزے</string>
@@ -315,7 +305,6 @@
     <string name="action_failed">والٹ درخواست مکمل نہ کر سکا۔ دوبارہ کوشش کریں۔</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">شناخت شدہ خطہ: %1$s</string>
-    <string name="howto_step">مرحلہ %1$d</string>
     <string name="howto1_title">سائن ان کریں</string>
     <string name="howto1_sub">وہ والٹ منسلک کریں جو آپ پہلے سے استعمال کرتے ہیں</string>
     <string name="howto1_body">پہلی اسکرین پر \"اپنے والٹ سے سائن ان کریں\" پر ٹیپ کریں اور پیغام کو منظور کریں۔ یہ دستخط آپ کی رضامندی ریکارڈ کرتا ہے — یہ کچھ منتقل نہیں کرتا۔ Undersigned کبھی آپ کی چابیاں یا فنڈز نہیں رکھتا۔</string>
@@ -422,7 +411,6 @@
     <string name="pro_not_body">یہ آپ کی رائے کو وزن نہیں دیتا، آپ کو فہرست میں اوپر نہیں لے جاتا، اور نہ ہی آپ کو قابلِ اعتماد نشان زد کرتا ہے۔ وزن صرف تصدیق شدہ آلے اور چین پر پڑھے گئے اسٹیک شدہ SKR سے آتا ہے، اور کسی اور چیز سے نہیں۔ کوئی ٹوکن نہیں، اکٹھا کرنے کو کچھ نہیں اور رکھنے کو کچھ نہیں۔</string>
     <string name="pro_free_keeps">لیجر پڑھنا، جائزوں، نشان زدگیوں، اعتراضات اور آلہ حقائق پر دستخط کرنا مفت ہے اور ہمیشہ رہے گا۔ Pro اوزار شامل کرتا ہے؛ یہ اس بات میں کچھ نہیں بدلتا کہ کوئی جائزہ کیسے شمار ہوتا ہے۔</string>
     <string name="pro_price_line">اس والٹ پر 12 ماہ · دونوں میں سے کسی میں ادائیگی کریں، میعاد یکساں ہے · اوپر سے نیٹ ورک فیس، آپ کے والٹ کی جانب سے مقرر</string>
-    <string name="pro_or">یا</string>
     <string name="pro_pay_in">ادائیگی بذریعہ</string>
     <string name="pro_rail_skr_note">چین پر پڑھا گیا، رکھا نہیں گیا</string>
     <string name="pro_rail_sol_note">وہی بارہ ماہ</string>
@@ -470,7 +458,6 @@
     <string name="pro_export_csv">CSV برآمد کریں</string>
     <string name="pro_export_json">JSON برآمد کریں</string>
     <string name="pro_watch_on">ہر گھنٹے جانچ</string>
-    <string name="pro_watch_off">ہر 6 گھنٹے جانچ</string>
     <string name="pro_watch_alerts_off">الرٹس بند ہیں — انہیں نیچے آن کریں اور نگرانی ہر گھنٹے چلے گی۔</string>
     <string name="pro_share_title">Pro کسی والٹ کے ساتھ اشتراک کریں</string>
     <string name="pro_share_body">ادائیگی کرنے والا اور آپ کے دو دیگر والٹس۔ اجازت لیجر پر ایک دستخط شدہ ریکارڈ ہے جو جوڑے کو ہیش کے ذریعے نام دیتا ہے — یہ کچھ منتقل نہیں کرتا، اور دوسرا والٹ اسے تب پاتا ہے جب اسے بتایا جائے کہ کس والٹ نے ادائیگی کی۔</string>

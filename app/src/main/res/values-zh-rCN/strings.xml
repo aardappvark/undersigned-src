@@ -7,7 +7,6 @@
     <string name="blocked_body">由于制裁和法律限制,Undersigned 未在 %1$s 提供服务。此项检查仅在您的设备上运行。</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">欢迎使用 Undersigned</string>
     <string name="terms_intro">来自 Seeker 用户的签名应用评价,写入 Solana。与 Solana Mobile 无关联。评价是各个用户的个人意见,并非商店评分。</string>
     <string name="terms_confirm_heading">登录即表示您确认:</string>
     <string name="terms_point_age">年满 18 周岁;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">此钱包地址出现在制裁名单上,无法在此应用中使用。</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">一台 Seeker,一个声音</string>
-    <string name="onboarding_subtitle">一个无人拥有的 dApp Store 信任层。</string>
-    <string name="onboarding_step1_title">评价靠签名,不靠打字</string>
-    <string name="onboarding_step1_body">每条评价都是一笔由您钱包签名的备注交易。只有持有 Seeker Genesis Token 的钱包才会被计入,因此一台设备对应一个声音。</string>
-    <string name="onboarding_step2_title">没有人能编辑账本</string>
-    <string name="onboarding_step2_body">评价存在于 Solana 上一个没有人控制的固定地址。任何人都可以读取它们。您可以从排名中撤回您的评价,但文本会永久留在链上。</string>
-    <string name="onboarding_step3_title">您的手机补充事实信息</string>
-    <string name="onboarding_step3_body">对于您已安装的应用,Undersigned 会显示设备可以验证的内容:签名证书以及各版本之间的权限变化。只有事实,绝无定论。</string>
-    <string name="onboarding_step4_title">并非 dApp Store</string>
-    <string name="onboarding_step4_body">Undersigned 读取商店的公开目录,并在商店中打开应用页面。它绝不会安装任何东西,也与 Solana Mobile 无关联。</string>
     <string name="onboarding_cta">开始浏览</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">商店目录中共有 %1$d 个应用</string>
     <string name="empty_installed">此设备上尚未安装任何商店应用。</string>
     <string name="empty_signed">暂无签名评价。做第一个吧。</string>
-    <string name="empty_search">没有匹配结果。</string>
 
     <!-- App detail -->
     <string name="detail_open_store">在 dApp Store 中打开</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">签名回复</string>
     <string name="reply_hint">用您自己的话作答(永久保存)。</string>
     <string name="reply_publish">签名并发布回复</string>
-    <string name="replies_count">%1$d 条回复</string>
     <string name="notif_channel">账本提醒</string>
     <string name="notif_new_review_title">新的签名评价:%1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -101,7 +88,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d 条签名</string>
     <string name="versions_installed">已安装</string>
     <string name="standing_title">签名者信誉</string>
-    <string name="standing_line">%1$d 条计入 · %2$d 条已撤回 · %3$d 条收到的回复 · %4$d 条发出的回复</string>
+    <string name="standing_line">计入:%1$d · 已撤回:%2$d · 收到的回复:%3$d · 发出的回复:%4$d</string>
     <string name="standing_agreement">与其他签名者的标签一致度:%1$s</string>
     <string name="standing_since">签名起始于 %1$s</string>
     <string name="standing_note2">仅为计数。没有评分,没有任何东西可购买。</string>
@@ -109,7 +96,7 @@
     <string name="store_reviewer_nogenesis">未找到已认证设备</string>
     <string name="store_reviewer_signed_here">也在此处签名</string>
     <string name="notif_divergence_title">%1$s:签名评分与商店评分不一致</string>
-    <string name="notif_divergence_body">签名评分为 %1$s(来自 %2$d 台 Seeker),商店评分为 %3$s(来自 %4$d 条评价)。</string>
+    <string name="notif_divergence_body">签名:%1$s(Seeker:%2$d 台)· 商店:%3$s(评价:%4$d 条)。</string>
     <string name="notif_update_title">%1$s 已更新至 v%2$d</string>
     <string name="notif_update_body">还能正常使用吗?为这个版本签名一条评价吧。</string>
     <string name="notif_wave_title">%1$s:商店中出现异常评价活动</string>
@@ -138,6 +125,10 @@
     <string name="my_reviews_empty">暂无评价。您签名的评价会显示在这里,扫描后您的 dApp Store 评价也会显示在这里。</string>
     <string name="my_reviews_no_match">没有匹配的评价。</string>
     <string name="my_reviews_sign_in">使用钱包登录后即可查看您的评价。</string>
+    <string name="scan_done_title">dApp Store 扫描完成</string>
+    <plurals name="scan_done_body">
+        <item quantity="other">发现 %1$d 条你的 dApp Store 评价。点按可在我的评价中查看。</item>
+    </plurals>
     <string name="import_scan">扫描我的商店评价</string>
     <string name="import_scanning">正在扫描 %1$s</string>
     <string name="import_found">找到 %1$d 条您的商店评价</string>
@@ -196,7 +187,6 @@
     <string name="changes_sub">自此设备上次检查以来,签名证书、权限或版本发生变化的已安装商店应用。</string>
     <string name="changes_empty">自上次检查以来没有任何变化。</string>
     <string name="change_new_version">已更新至版本号 %1$d</string>
-    <string name="change_first_seen">在此设备上首次发现</string>
 
     <!-- Settings -->
     <string name="settings">设置</string>
@@ -265,10 +255,9 @@
     <string name="inbox_replies_empty">您的记录尚未收到任何回复。</string>
     <string name="inbox_starred_empty">收藏一条评价即可保存在这里。</string>
     <string name="swipe_hint">向右滑动评价即可回复。</string>
-    <string name="profile_title">个人主页</string>
     <string name="profile_credibility">信誉度</string>
     <string name="profile_credibility_sub">基础分 40,与其他签名者标签一致 +30,收到有用投票 +10,标记被共识采纳 +20,记录被共识隐藏的比例 ×(−50)。公开的计算公式,不附带任何东西。</string>
-    <string name="profile_flags">已签署 %1$d 条标记 · %2$d 条被采纳 · %3$d 条收到 · %4$d 条记录被隐藏</string>
+    <string name="profile_flags">已签署标记:%1$d · 已采纳:%2$d · 已收到:%3$d · 记录已隐藏:%4$d</string>
     <string name="profile_replied">对自己评价的回复率为 %1$s</string>
     <string name="profile_publishes">已验证发布者身份:</string>
     <string name="profile_reviews">签名评价</string>
@@ -311,7 +300,6 @@
     <string name="action_failed">钱包未能完成此请求。请重试。</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">检测到的地区:%1$s</string>
-    <string name="howto_step">步骤 %1$d</string>
     <string name="howto1_title">登录</string>
     <string name="howto1_sub">连接您已有的钱包</string>
     <string name="howto1_body">在首屏点击“使用钱包登录”并批准该消息。这次签名记录您的同意——不会转移任何资产。Undersigned 绝不持有您的密钥或资金。</string>
@@ -418,7 +406,6 @@
     <string name="pro_not_body">它不会增加您意见的权重,不会让您在列表中排名靠前,也不会为您标注可信标签。权重只来自已认证设备和链上读取的质押 SKR,别无其他。没有代币,没有可收集的东西,也没有需要持有的东西。</string>
     <string name="pro_free_keeps">阅读账本、签名评价、标记、申诉以及查看设备信息将始终免费。Pro 只是新增工具;它不会改变任何评价的计入方式。</string>
     <string name="pro_price_line">此钱包 12 个月 · 两种方式付款期限相同 · 另需网络费用,由您的钱包设定</string>
-    <string name="pro_or">或</string>
     <string name="pro_pay_in">付款方式</string>
     <string name="pro_rail_skr_note">链上读取,非持有</string>
     <string name="pro_rail_sol_note">同样为十二个月</string>
@@ -465,7 +452,6 @@
     <string name="pro_export_csv">导出 CSV</string>
     <string name="pro_export_json">导出 JSON</string>
     <string name="pro_watch_on">每小时检查一次</string>
-    <string name="pro_watch_off">每 6 小时检查一次</string>
     <string name="pro_watch_alerts_off">提醒功能已关闭——在下方开启后,监测将每小时运行一次。</string>
     <string name="pro_share_title">与其他钱包共享 Pro</string>
     <string name="pro_share_body">付款钱包加上您另外两个钱包。授权是账本上的一条签名记录,以哈希值标明这对钱包——不涉及任何资产转移,只要另一钱包获知是哪个钱包付款,就能找到该授权。</string>

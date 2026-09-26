@@ -137,7 +137,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
                     val s = d.store
                     if (s != null || scannedAt != null || scan != null) Side(stringResource(R.string.my_reviews_store))
                     if (s != null) {
-                        Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(s.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(s.createdAt.take(10), color = RbColors.textTertiary, fontSize = 11.sp) }
+                        Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(s.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(storeDate(s.createdAt), color = RbColors.textTertiary, fontSize = 11.sp) }
                         s.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = 3, overflow = TextOverflow.Ellipsis) }
                         TextButton(onClick = { StoreHandoff.copyAndOpen(context, d.pkg, null) }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.detail_open_store), color = RbColors.purpleLight, fontSize = 12.sp) }
                     } else if (scannedAt != null || scan != null) {

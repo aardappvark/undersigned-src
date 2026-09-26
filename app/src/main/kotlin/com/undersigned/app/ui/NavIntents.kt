@@ -7,6 +7,8 @@ import java.util.Base64
 /** Cross-screen intents: a package a notification asked us to open, or a reply prepared elsewhere (desktop MCP hand-off). */
 object NavIntents {
     val pendingPackage = MutableStateFlow<String?>(null)
+    /** A screen to open from a notification that is not about one app (e.g. "my-reviews" after a store scan). */
+    val pendingScreen = MutableStateFlow<String?>(null)
     /** (record id, prefilled text) */
     val pendingReply = MutableStateFlow<Pair<String, String>?>(null)
     /** kind ∈ vote|flag|dispute, record id, reason (flag) or text (dispute) */
@@ -15,7 +17,8 @@ object NavIntents {
 
     fun consume(intent: Intent?) {
         intent ?: return
-        intent.getStringExtra("pkg")?.let { pendingPackage.value = it }
+        intent.getStringExtra("pkg")?.takeIf { it.isNotBlank() }?.let { pendingPackage.value = it }
+        intent.getStringExtra("screen")?.takeIf { it.isNotBlank() }?.let { pendingScreen.value = it }
         val u = intent.data ?: return
         if (u.scheme != "undersigned") return
         val target = u.getQueryParameter("target") ?: return

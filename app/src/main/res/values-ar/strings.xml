@@ -5,7 +5,6 @@
     <string name="blocked_title">غير متاح في منطقتك</string>
     <string name="blocked_body">لا يتوفر Undersigned في %1$s بسبب العقوبات والقيود القانونية. يتم إجراء هذا التحقق على جهازك فقط.</string>
 
-    <string name="terms_welcome">مرحبًا بك في Undersigned</string>
     <string name="terms_intro">مراجعات تطبيقات موقّعة من مالكي Seeker، مكتوبة على Solana. غير تابع لـ Solana Mobile. المراجعات هي آراء المالكين الأفراد، وليست تقييمات المتجر.</string>
     <string name="terms_confirm_heading">بتسجيل الدخول فإنك تؤكد أنك:</string>
     <string name="terms_point_age">بعمر 18 عامًا على الأقل؛</string>
@@ -25,16 +24,6 @@
     <string name="terms_preview_only_note">بدون محفظة يمكنك قراءة السجل وحقائق جهازك. نشر مراجعة يتطلب محفظة Seeker تحتوي على Genesis Token.</string>
     <string name="wallet_sanctioned">يظهر عنوان هذه المحفظة في قائمة عقوبات ولا يمكن استخدامه مع هذا التطبيق.</string>
 
-    <string name="onboarding_title">جهاز Seeker واحد، صوت واحد</string>
-    <string name="onboarding_subtitle">طبقة ثقة لـ dApp Store لا يملكها أحد.</string>
-    <string name="onboarding_step1_title">المراجعات موقّعة، لا مكتوبة فقط</string>
-    <string name="onboarding_step1_body">كل مراجعة هي معاملة مذكرة توقّعها محفظتك. تُحتسب فقط المحافظ التي تحمل Seeker Genesis Token، لذا فإن كل جهاز يمثّل صوتًا واحدًا.</string>
-    <string name="onboarding_step2_title">لا أحد يستطيع تعديل السجل</string>
-    <string name="onboarding_step2_body">تعيش المراجعات على Solana في عنوان ثابت لا يتحكم فيه أحد. يمكن لأي شخص قراءتها. يمكنك سحب مراجعتك من الترتيب، لكن النص يبقى على السلسلة إلى الأبد.</string>
-    <string name="onboarding_step3_title">هاتفك يضيف الحقائق</string>
-    <string name="onboarding_step3_body">بالنسبة للتطبيقات المثبتة لديك، يعرض Undersigned ما يمكن للجهاز التحقق منه: شهادة التوقيع والتغييرات في الأذونات بين الإصدارات. حقائق، لا أحكام أبدًا.</string>
-    <string name="onboarding_step4_title">ليس متجر dApp Store</string>
-    <string name="onboarding_step4_body">يقرأ Undersigned الكتالوج العام للمتجر ويفتح القوائم في المتجر. لا يقوم أبدًا بتثبيت أي شيء وغير تابع لـ Solana Mobile.</string>
     <string name="onboarding_cta">ابدأ التصفح</string>
 
     <string name="browse_title">Undersigned</string>
@@ -52,7 +41,6 @@
     <string name="catalogue_count">%1$d تطبيقًا في كتالوج المتجر</string>
     <string name="empty_installed">لا توجد تطبيقات من المتجر مثبتة على هذا الجهاز بعد.</string>
     <string name="empty_signed">لا توجد مراجعات موقّعة بعد. كن الأول.</string>
-    <string name="empty_search">لا توجد نتائج مطابقة.</string>
 
     <string name="detail_open_store">فتح في dApp Store</string>
     <string name="detail_write_review">كتابة مراجعة موقّعة</string>
@@ -67,7 +55,6 @@
     <string name="reply_title">توقيع رد</string>
     <string name="reply_hint">إجابتك، بكلماتك الخاصة (دائمة).</string>
     <string name="reply_publish">توقيع ونشر الرد</string>
-    <string name="replies_count">%1$d ردًا</string>
     <string name="notif_channel">تنبيهات السجل</string>
     <string name="notif_new_review_title">مراجعة موقّعة جديدة: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -101,7 +88,7 @@
     <string name="versions_row">الإصدار %1$d · %2$s · %3$d موقّعة</string>
     <string name="versions_installed">مثبَّت</string>
     <string name="standing_title">مكانة الموقِّع</string>
-    <string name="standing_line">%1$d محتسبة · %2$d مسحوبة · %3$d ردًا مستلمًا · %4$d ردًا مُقدَّمًا</string>
+    <string name="standing_line">محتسبة: %1$d · مسحوبة: %2$d · الردود المستلمة: %3$d · الردود المُقدَّمة: %4$d</string>
     <string name="standing_agreement">اتفاق الوسم مع الموقّعين الآخرين: %1$s</string>
     <string name="standing_since">يوقّع منذ %1$s</string>
     <string name="standing_note2">عدّ فقط. لا تقييم، لا شيء لشرائه.</string>
@@ -109,7 +96,7 @@
     <string name="store_reviewer_nogenesis">لم يُعثر على جهاز مصادق</string>
     <string name="store_reviewer_signed_here">وقّع هنا أيضًا</string>
     <string name="notif_divergence_title">%1$s: تقييمات الموقّع والمتجر مختلفة</string>
-    <string name="notif_divergence_body">الموقّع %1$s من %2$d جهاز Seeker مقابل المتجر %3$s من %4$d مراجعة.</string>
+    <string name="notif_divergence_body">الموقّع: %1$s (أجهزة Seeker: %2$d) · المتجر: %3$s (المراجعات: %4$d).</string>
     <string name="notif_update_title">%1$s تم تحديثه إلى الإصدار %2$d</string>
     <string name="notif_update_body">ما زال يعمل؟ وقّع مراجعة لهذا الإصدار.</string>
     <string name="notif_wave_title">%1$s: نشاط مراجعات غير معتاد في المتجر</string>
@@ -143,6 +130,15 @@
     <string name="my_reviews_empty">لا توجد مراجعات بعد. تظهر هنا المراجعات التي توقّعها، ومراجعاتك في dApp Store أيضًا بمجرد البحث عنها.</string>
     <string name="my_reviews_no_match">لا توجد مراجعات مطابقة.</string>
     <string name="my_reviews_sign_in">سجّل الدخول بمحفظتك لرؤية مراجعاتك.</string>
+    <string name="scan_done_title">اكتمل فحص dApp Store</string>
+    <plurals name="scan_done_body">
+        <item quantity="zero">تم العثور على %1$d مراجعة لك في dApp Store. اضغط لرؤيتها في مراجعاتي.</item>
+        <item quantity="one">تم العثور على %1$d مراجعة لك في dApp Store. اضغط لرؤيتها في مراجعاتي.</item>
+        <item quantity="two">تم العثور على %1$d مراجعتين لك في dApp Store. اضغط لرؤيتهما في مراجعاتي.</item>
+        <item quantity="few">تم العثور على %1$d مراجعات لك في dApp Store. اضغط لرؤيتها في مراجعاتي.</item>
+        <item quantity="many">تم العثور على %1$d مراجعة لك في dApp Store. اضغط لرؤيتها في مراجعاتي.</item>
+        <item quantity="other">تم العثور على %1$d مراجعة لك في dApp Store. اضغط لرؤيتها في مراجعاتي.</item>
+    </plurals>
     <string name="import_scan">البحث عن مراجعاتي في المتجر</string>
     <string name="import_scanning">جارٍ فحص %1$s</string>
     <string name="import_found">تم العثور على %1$d من مراجعاتك في المتجر</string>
@@ -204,7 +200,6 @@
     <string name="changes_sub">التطبيقات المثبتة من المتجر التي تغيّرت شهادة توقيعها أو أذوناتها أو إصدارها منذ آخر مرة تحقق فيها هذا الجهاز.</string>
     <string name="changes_empty">لم يتغيّر شيء منذ آخر تحقق.</string>
     <string name="change_new_version">تم التحديث إلى رمز الإصدار %1$d</string>
-    <string name="change_first_seen">شوهد لأول مرة على هذا الجهاز</string>
 
     <string name="settings">الإعدادات</string>
     <string name="settings_wallet">المحفظة</string>
@@ -277,10 +272,9 @@
     <string name="inbox_replies_empty">لا ردود على سجلاتك بعد.</string>
     <string name="inbox_starred_empty">ميّز مراجعة بنجمة لحفظها هنا.</string>
     <string name="swipe_hint">اسحب المراجعة يمينًا للرد.</string>
-    <string name="profile_title">الملف الشخصي</string>
     <string name="profile_credibility">المصداقية</string>
     <string name="profile_credibility_sub">40 أساس، +30 لاتفاق الوسم مع الموقّعين الآخرين، +10 لأصوات الإفادة المستلَمة، +20 للإشارات التي أيّدها الإجماع، −50 × نسبة السجلات المخفية بالإجماع. صيغة منشورة، لا شيء مرتبط بها.</string>
-    <string name="profile_flags">%1$d إشارة موقَّعة · %2$d أُيِّدت · %3$d مستلَمة · %4$d سجل مخفي</string>
+    <string name="profile_flags">الإشارات الموقَّعة: %1$d · المؤيَّدة: %2$d · المستلَمة: %3$d · السجلات المخفية: %4$d</string>
     <string name="profile_replied">يجيب عن الردود على مراجعاته %1$s من الوقت</string>
     <string name="profile_publishes">ناشر موثّق لـ</string>
     <string name="profile_reviews">المراجعات الموقّعة</string>
@@ -323,7 +317,6 @@
     <string name="action_failed">تعذّر على المحفظة إتمام الطلب. حاول مرة أخرى.</string>
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">المنطقة المكتشفة: %1$s</string>
-    <string name="howto_step">الخطوة %1$d</string>
     <string name="howto1_title">تسجيل الدخول</string>
     <string name="howto1_sub">اتصل بالمحفظة التي تستخدمها بالفعل</string>
     <string name="howto1_body">اضغط \"سجّل الدخول بمحفظتك\" في الشاشة الأولى ووافق على الرسالة. هذا التوقيع يسجّل موافقتك — لا يحرّك شيئًا. Undersigned لا يحتفظ أبدًا بمفاتيحك أو أموالك.</string>
@@ -430,7 +423,6 @@
     <string name="pro_not_body">لا يرجّح رأيك، ولا يرفعك في أي قائمة، ولا يمنحك علامة ثقة. الوزن يأتي من الجهاز المصادق وحصة SKR المرهونة المقروءة على السلسلة، ولا شيء غير ذلك. لا يوجد رمز، ولا شيء يُجمع ولا شيء يُحتفظ به.</string>
     <string name="pro_free_keeps">قراءة السجل، وتوقيع المراجعات والإشارات والاعتراضات وحقائق الجهاز تبقى مجانية دائمًا. Pro يضيف أدوات؛ لا يغيّر شيئًا في كيفية احتساب أي مراجعة.</string>
     <string name="pro_price_line">12 شهرًا على هذه المحفظة · ادفع بأي منهما، المدة واحدة · رسوم الشبكة إضافية، تحددها محفظتك</string>
-    <string name="pro_or">أو</string>
     <string name="pro_pay_in">الدفع بـ</string>
     <string name="pro_rail_skr_note">تُقرأ على السلسلة، لا تُحتجز</string>
     <string name="pro_rail_sol_note">نفس الاثني عشر شهرًا</string>
@@ -482,7 +474,6 @@
     <string name="pro_export_csv">تصدير CSV</string>
     <string name="pro_export_json">تصدير JSON</string>
     <string name="pro_watch_on">الفحص كل ساعة</string>
-    <string name="pro_watch_off">الفحص كل 6 ساعات</string>
     <string name="pro_watch_alerts_off">التنبيهات متوقفة — فعّلها أدناه لتعمل المراقبة كل ساعة.</string>
     <string name="pro_share_title">مشاركة Pro مع محفظة</string>
     <string name="pro_share_body">الدافع بالإضافة إلى محفظتين أخريين لك. المنح سجل موقَّع على السجل يسمّي الزوج بالتجزئة — لا يحرّك شيئًا، وتجده المحفظة الأخرى بمجرد إخبارها بالمحفظة التي دفعت.</string>

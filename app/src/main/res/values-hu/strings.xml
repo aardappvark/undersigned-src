@@ -7,7 +7,6 @@
     <string name="blocked_body">Az Undersigned nem érhető el itt: %1$s, szankciók és jogi korlátozások miatt. Ez az ellenőrzés kizárólag az Ön eszközén fut.</string>
 
     <!-- Terms gate -->
-    <string name="terms_welcome">Üdvözlünk az Undersigned alkalmazásban</string>
     <string name="terms_intro">Aláírt alkalmazás-értékelések Seeker-tulajdonosoktól, a Solanára írva. Nem áll kapcsolatban a Solana Mobile-lal. Az értékelések az egyes tulajdonosok véleményét tükrözik, nem az áruház értékeléseit.</string>
     <string name="terms_confirm_heading">A bejelentkezéssel megerősíted, hogy:</string>
     <string name="terms_point_age">legalább 18 éves vagy;</string>
@@ -28,16 +27,6 @@
     <string name="wallet_sanctioned">Ez a tárcacím szerepel egy szankciós listán, és nem használható ezzel az alkalmazással.</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Egy Seeker, egy hang</string>
-    <string name="onboarding_subtitle">Bizalmi réteg a dApp Store számára, amelyet senki sem birtokol.</string>
-    <string name="onboarding_step1_title">Az értékelések aláírtak, nem begépeltek</string>
-    <string name="onboarding_step1_body">Minden értékelés egy memo tranzakció, amelyet a tárcád ír alá. Csak azok a tárcák számítanak, amelyek Seeker Genesis Tokent tartanak, így egy eszköz egy hangot ér.</string>
-    <string name="onboarding_step2_title">Senki sem szerkesztheti a nyilvántartást</string>
-    <string name="onboarding_step2_body">Az értékelések a Solanán léteznek, egy fix címen, amelyet senki sem irányít. Bárki elolvashatja őket. Az értékelésedet visszavonhatod a rangsorból, de a szöveg örökre a láncon marad.</string>
-    <string name="onboarding_step3_title">A telefonod adja hozzá a tényeket</string>
-    <string name="onboarding_step3_body">A telepített alkalmazásoknál az Undersigned megmutatja, mit tud ellenőrizni az eszköz: az aláíró tanúsítványt és a verziók közötti jogosultságváltozásokat. Tények, sohasem ítéletek.</string>
-    <string name="onboarding_step4_title">Nem a dApp Store</string>
-    <string name="onboarding_step4_body">Az Undersigned az áruház nyilvános katalógusát olvassa, és az áruházban nyitja meg a listázásokat. Sohasem telepít semmit, és nem áll kapcsolatban a Solana Mobile-lal.</string>
     <string name="onboarding_cta">Böngészés indítása</string>
 
     <!-- Browse -->
@@ -56,7 +45,6 @@
     <string name="catalogue_count">%1$d alkalmazás az áruház katalógusában</string>
     <string name="empty_installed">Ezen az eszközön még nincs telepített áruházi alkalmazás.</string>
     <string name="empty_signed">Még nincs aláírt értékelés. Legyél te az első.</string>
-    <string name="empty_search">Nincs találat.</string>
 
     <!-- App detail -->
     <string name="detail_open_store">Megnyitás a dApp Store-ban</string>
@@ -72,7 +60,6 @@
     <string name="reply_title">Válasz aláírása</string>
     <string name="reply_hint">A válaszod, saját szavaiddal (végleges).</string>
     <string name="reply_publish">Válasz aláírása és közzététele</string>
-    <string name="replies_count">%1$d válasz</string>
     <string name="notif_channel">Nyilvántartási értesítések</string>
     <string name="notif_new_review_title">Új aláírt értékelés: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -99,7 +86,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d aláírva</string>
     <string name="versions_installed">telepítve</string>
     <string name="standing_title">Aláíró státusza</string>
-    <string name="standing_line">%1$d beszámítva · %2$d visszavonva · %3$d kapott válasz · %4$d adott</string>
+    <string name="standing_line">Beszámítva: %1$d · Visszavonva: %2$d · Kapott válaszok: %3$d · Adott válaszok: %4$d</string>
     <string name="standing_agreement">Egyezés a címkékben más aláírókkal: %1$s</string>
     <string name="standing_since">Aláír %1$s óta</string>
     <string name="standing_note2">Csak számlálás. Nincs pontszám, nincs mit vásárolni.</string>
@@ -107,7 +94,7 @@
     <string name="store_reviewer_nogenesis">nincs hitelesített eszköz</string>
     <string name="store_reviewer_signed_here">itt is aláírt</string>
     <string name="notif_divergence_title">%1$s: az aláírt és az áruházi pontszám eltér</string>
-    <string name="notif_divergence_body">Aláírt %1$s %2$d Seekertől, szemben az áruházi %3$s értékkel %4$d értékelésből.</string>
+    <string name="notif_divergence_body">Aláírva: %1$s (Seekerek: %2$d) · Áruház: %3$s (értékelések: %4$d).</string>
     <string name="notif_update_title">%1$s frissítve erre: v%2$d</string>
     <string name="notif_update_body">Még mindig működik? Írj alá egy értékelést ehhez a verzióhoz.</string>
     <string name="notif_wave_title">%1$s: szokatlan értékelési aktivitás az áruházban</string>
@@ -137,6 +124,11 @@
     <string name="my_reviews_empty">Még nincs értékelés. Az általad aláírt értékelések itt jelennek meg, a dApp Store-értékeléseid pedig az átvizsgálás után.</string>
     <string name="my_reviews_no_match">Nincs egyező értékelés.</string>
     <string name="my_reviews_sign_in">Az értékeléseid megtekintéséhez jelentkezz be a tárcáddal.</string>
+    <string name="scan_done_title">A dApp Store átvizsgálása befejeződött</string>
+    <plurals name="scan_done_body">
+        <item quantity="one">Megtaláltuk a dApp Store-ban közzétett %1$d értékelésedet. Koppints a megtekintéshez: Értékeléseim.</item>
+        <item quantity="other">Megtaláltuk a dApp Store-ban közzétett %1$d értékelésedet. Koppints a megtekintéshez: Értékeléseim.</item>
+    </plurals>
     <string name="import_scan">Áruházi értékeléseim keresése</string>
     <string name="import_scanning">%1$s átvizsgálása</string>
     <string name="import_found">%1$d áruházi értékelésed megtalálva</string>
@@ -196,7 +188,6 @@
     <string name="changes_sub">Telepített áruházi alkalmazások, amelyeknek az aláíró tanúsítványa, jogosultságai vagy verziója megváltozott, mióta ez az eszköz utoljára ellenőrizte.</string>
     <string name="changes_empty">Semmi sem változott az utolsó ellenőrzés óta.</string>
     <string name="change_new_version">Frissítve erre a verziókódra: %1$d</string>
-    <string name="change_first_seen">Először látva ezen az eszközön</string>
 
     <!-- Settings -->
     <string name="settings">Beállítások</string>
@@ -266,10 +257,9 @@
     <string name="inbox_replies_empty">Még nincs válasz a bejegyzéseidre.</string>
     <string name="inbox_starred_empty">Csillagozz meg egy értékelést, hogy itt tartsd.</string>
     <string name="swipe_hint">Húzd jobbra az értékelést a válaszhoz.</string>
-    <string name="profile_title">Profil</string>
     <string name="profile_credibility">Hitelesség</string>
     <string name="profile_credibility_sub">40 alap, +30 a más aláírókkal való címke-egyezésért, +10 a kapott hasznos szavazatokért, +20 a közmegegyezéssel helybenhagyott jelölésekért, −50 × a közmegegyezéssel elrejtett bejegyzések aránya. Nyilvános képlet, semmi nincs hozzákötve.</string>
-    <string name="profile_flags">%1$d jelölés aláírva · %2$d helybenhagyva · %3$d kapott · %4$d bejegyzés elrejtve</string>
+    <string name="profile_flags">Aláírt jelölések: %1$d · Helybenhagyva: %2$d · Kapott: %3$d · Elrejtett bejegyzések: %4$d</string>
     <string name="profile_replied">Az esetek %1$s részében válaszol az értékeléseire</string>
     <string name="profile_publishes">Ellenőrzött kiadója</string>
     <string name="profile_reviews">Aláírt értékelések</string>
@@ -313,7 +303,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">Észlelt régió: %1$s</string>
-    <string name="howto_step">%1$d. lépés</string>
     <string name="howto1_title">Jelentkezz be</string>
     <string name="howto1_sub">Csatlakoztasd a már használt tárcádat</string>
     <string name="howto1_body">Koppints az első képernyőn a \"Jelentkezz be a tárcáddal\" gombra, és hagyd jóvá az üzenetet. Ez az aláírás rögzíti a hozzájárulásodat — semmit sem mozgat. Az Undersigned sohasem tárolja a kulcsaidat vagy pénzeszközeidet.</string>
@@ -420,7 +409,6 @@
     <string name="pro_not_body">Nem súlyozza a véleményedet, nem visz feljebb egy listán, és nem jelöl megbízhatónak. A súly a hitelesített eszközből és a láncról olvasott staked SKR-ből származik, és semmi másból. Nincs token, nincs mit gyűjteni és nincs mit tartani.</string>
     <string name="pro_free_keeps">A nyilvántartás olvasása, valamint az értékelések, jelölések, vitatások és eszközadatok aláírása ingyenes marad, és mindig az is lesz. A Pro eszközöket ad hozzá; semmit sem változtat azon, hogyan számít egy értékelés.</string>
     <string name="pro_price_line">12 hónap ezen a tárcán · bármelyikkel fizetsz, a futamidő ugyanaz · hálózati díj hozzáadva, a tárcád állapítja meg</string>
-    <string name="pro_or">vagy</string>
     <string name="pro_pay_in">Fizetés ezzel</string>
     <string name="pro_rail_skr_note">a láncról olvasva, nem tárolva</string>
     <string name="pro_rail_sol_note">ugyanaz a tizenkét hónap</string>
@@ -468,7 +456,6 @@
     <string name="pro_export_csv">CSV exportálása</string>
     <string name="pro_export_json">JSON exportálása</string>
     <string name="pro_watch_on">Óránkénti ellenőrzés</string>
-    <string name="pro_watch_off">6 óránkénti ellenőrzés</string>
     <string name="pro_watch_alerts_off">Az értesítések ki vannak kapcsolva — kapcsold be lent, és a figyelés óránként fog futni.</string>
     <string name="pro_share_title">Pro megosztása egy tárcával</string>
     <string name="pro_share_body">A fizető, plusz két másik saját tárcád. Az engedmény egy aláírt bejegyzés a nyilvántartásban, amely a párost hash alapján nevezi meg — semmit sem mozgat, és a másik tárca megtalálja, amint megtudja, melyik tárca fizetett.</string>

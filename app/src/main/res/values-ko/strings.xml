@@ -5,7 +5,6 @@
     <string name="blocked_title">사용자의 지역에서는 이용할 수 없습니다</string>
     <string name="blocked_body">제재 및 법적 제한으로 인해 Undersigned는 %1$s에서 제공되지 않습니다. 이 확인은 사용자의 기기에서만 실행됩니다.</string>
 
-    <string name="terms_welcome">Undersigned에 오신 것을 환영합니다</string>
     <string name="terms_intro">Seeker 소유자가 서명한 앱 리뷰를 Solana에 기록합니다. Solana Mobile과 제휴하지 않았습니다. 리뷰는 개별 소유자의 의견이며 스토어의 평점이 아닙니다.</string>
     <string name="terms_confirm_heading">로그인하면 다음 사항에 동의하는 것으로 간주됩니다.</string>
     <string name="terms_point_age">만 18세 이상입니다.</string>
@@ -25,16 +24,6 @@
     <string name="terms_preview_only_note">지갑이 없어도 원장과 기기 정보는 확인할 수 있습니다. 리뷰를 게시하려면 Genesis Token을 보유한 Seeker 지갑이 필요합니다.</string>
     <string name="wallet_sanctioned">이 지갑 주소는 제재 목록에 등재되어 있어 이 앱에서 사용할 수 없습니다.</string>
 
-    <string name="onboarding_title">한 대의 Seeker, 하나의 목소리</string>
-    <string name="onboarding_subtitle">누구의 소유도 아닌 dApp Store를 위한 신뢰 계층입니다.</string>
-    <string name="onboarding_step1_title">리뷰는 서명되는 것이지, 입력되는 것이 아닙니다</string>
-    <string name="onboarding_step1_body">각 리뷰는 지갑이 서명하는 메모 트랜잭션입니다. Seeker Genesis Token을 보유한 지갑만 집계되므로, 한 기기는 하나의 목소리가 됩니다.</string>
-    <string name="onboarding_step2_title">누구도 원장을 수정할 수 없습니다</string>
-    <string name="onboarding_step2_body">리뷰는 누구도 통제하지 않는 고정된 주소의 Solana에 존재합니다. 누구나 읽을 수 있습니다. 순위에서 리뷰를 철회할 수는 있지만, 텍스트 자체는 영구히 온체인에 남습니다.</string>
-    <string name="onboarding_step3_title">사용자의 휴대폰이 사실을 더합니다</string>
-    <string name="onboarding_step3_body">설치된 앱에 대해 Undersigned는 기기가 확인할 수 있는 정보, 즉 서명 인증서와 버전 간 권한 변경 사항을 보여줍니다. 사실일 뿐, 판정이 아닙니다.</string>
-    <string name="onboarding_step4_title">dApp Store가 아닙니다</string>
-    <string name="onboarding_step4_body">Undersigned는 스토어의 공개 카탈로그를 읽고 스토어에서 목록을 엽니다. 아무것도 설치하지 않으며 Solana Mobile과 제휴하지 않았습니다.</string>
     <string name="onboarding_cta">둘러보기 시작</string>
 
     <string name="browse_title">Undersigned</string>
@@ -52,7 +41,6 @@
     <string name="catalogue_count">스토어 카탈로그에 앱 %1$d개</string>
     <string name="empty_installed">이 기기에 설치된 스토어 앱이 아직 없습니다.</string>
     <string name="empty_signed">아직 서명된 리뷰가 없습니다. 첫 번째가 되어 보세요.</string>
-    <string name="empty_search">일치하는 항목이 없습니다.</string>
 
     <string name="detail_open_store">dApp Store에서 열기</string>
     <string name="detail_write_review">서명된 리뷰 작성</string>
@@ -67,7 +55,6 @@
     <string name="reply_title">답글에 서명</string>
     <string name="reply_hint">자신의 표현으로 작성하는 답변입니다(영구 보존).</string>
     <string name="reply_publish">서명하고 답글 게시</string>
-    <string name="replies_count">답글 %1$d개</string>
     <string name="notif_channel">원장 알림</string>
     <string name="notif_new_review_title">새로운 서명된 리뷰: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
@@ -96,7 +83,7 @@
     <string name="versions_row">v%1$d · %2$s · %3$d건 서명됨</string>
     <string name="versions_installed">설치됨</string>
     <string name="standing_title">서명자 평판</string>
-    <string name="standing_line">%1$d건 집계됨 · %2$d건 철회됨 · %3$d개 답글 받음 · %4$d개 답글 남김</string>
+    <string name="standing_line">집계됨: %1$d건 · 철회됨: %2$d건 · 받은 답글: %3$d건 · 남긴 답글: %4$d건</string>
     <string name="standing_agreement">다른 서명자와의 태그 일치도: %1$s</string>
     <string name="standing_since">서명 시작일: %1$s</string>
     <string name="standing_note2">단순 집계일 뿐입니다. 점수도, 구매할 것도 없습니다.</string>
@@ -104,7 +91,7 @@
     <string name="store_reviewer_nogenesis">인증된 기기를 찾을 수 없음</string>
     <string name="store_reviewer_signed_here">여기서도 서명함</string>
     <string name="notif_divergence_title">%1$s: 서명 점수와 스토어 점수가 다릅니다</string>
-    <string name="notif_divergence_body">서명 점수 %1$s(Seeker %2$d명) vs 스토어 %3$s(리뷰 %4$d건).</string>
+    <string name="notif_divergence_body">서명: %1$s(Seeker: %2$d명) · 스토어: %3$s(리뷰: %4$d건).</string>
     <string name="notif_update_title">%1$s이(가) v%2$d(으)로 업데이트되었습니다</string>
     <string name="notif_update_body">여전히 잘 작동하나요? 이 버전에 대한 리뷰에 서명해 보세요.</string>
     <string name="notif_wave_title">%1$s: 스토어에서 비정상적인 리뷰 활동</string>
@@ -133,6 +120,10 @@
     <string name="my_reviews_empty">아직 리뷰가 없습니다. 서명한 리뷰가 여기에 표시되고, 스캔하면 dApp Store 리뷰도 여기에 표시됩니다.</string>
     <string name="my_reviews_no_match">일치하는 리뷰가 없습니다.</string>
     <string name="my_reviews_sign_in">리뷰를 보려면 지갑으로 로그인하세요.</string>
+    <string name="scan_done_title">dApp Store 스캔 완료</string>
+    <plurals name="scan_done_body">
+        <item quantity="other">회원님의 dApp Store 리뷰 %1$d건을 찾았습니다. 탭하여 내 리뷰에서 확인하세요.</item>
+    </plurals>
     <string name="import_scan">내 스토어 리뷰 스캔</string>
     <string name="import_scanning">%1$s 스캔 중</string>
     <string name="import_found">내 스토어 리뷰 %1$d건 발견</string>
@@ -189,7 +180,6 @@
     <string name="changes_sub">이 기기가 마지막으로 확인한 이후 서명 인증서, 권한 또는 버전이 변경된 설치된 스토어 앱입니다.</string>
     <string name="changes_empty">마지막 확인 이후 변경된 사항이 없습니다.</string>
     <string name="change_new_version">버전 코드 %1$d(으)로 업데이트됨</string>
-    <string name="change_first_seen">이 기기에서 처음 확인됨</string>
 
     <string name="settings">설정</string>
     <string name="settings_wallet">지갑</string>
@@ -257,10 +247,9 @@
     <string name="inbox_replies_empty">아직 내 기록에 달린 답글이 없습니다.</string>
     <string name="inbox_starred_empty">리뷰에 별표를 표시하면 여기에 보관됩니다.</string>
     <string name="swipe_hint">리뷰를 오른쪽으로 스와이프하면 답글을 달 수 있습니다.</string>
-    <string name="profile_title">프로필</string>
     <string name="profile_credibility">신뢰도</string>
     <string name="profile_credibility_sub">기본 40점, 다른 서명자와의 태그 일치 +30점, 받은 유용해요 투표 +10점, 합의로 인정된 플래그 +20점, 합의로 숨겨진 기록 비율 × −50점. 공개된 계산식이며, 그 외에 딸린 것은 없습니다.</string>
-    <string name="profile_flags">서명한 플래그 %1$d건 · 인정됨 %2$d건 · 받은 플래그 %3$d건 · 숨겨진 기록 %4$d건</string>
+    <string name="profile_flags">서명한 플래그: %1$d건 · 인정됨: %2$d건 · 받은 플래그: %3$d건 · 숨겨진 기록: %4$d건</string>
     <string name="profile_replied">리뷰에 답글을 남기는 비율: %1$s</string>
     <string name="profile_publishes">검증된 퍼블리셔:</string>
     <string name="profile_reviews">서명된 리뷰</string>
@@ -304,7 +293,6 @@
 
     <!-- Added 20 Sep 2026: Pro, ledger stats, sorting, report, density, how-to -->
     <string name="blocked_region_line">감지된 지역: %1$s</string>
-    <string name="howto_step">%1$d단계</string>
     <string name="howto1_title">로그인</string>
     <string name="howto1_sub">이미 사용 중인 지갑 연결하기</string>
     <string name="howto1_body">첫 화면에서 \"지갑으로 로그인\"을 탭하고 메시지를 승인하세요. 이 서명은 동의를 기록할 뿐, 아무것도 이동시키지 않습니다. Undersigned는 사용자의 키나 자금을 보관하지 않습니다.</string>
@@ -411,7 +399,6 @@
     <string name="pro_not_body">Pro는 의견의 가중치를 높이거나 목록에서 순위를 올리거나 신뢰할 수 있다고 표시하지 않습니다. 가중치는 오직 인증된 기기와 온체인에서 읽은 스테이킹 SKR에서만 나옵니다. 토큰도 없고, 모을 것도, 보유할 것도 없습니다.</string>
     <string name="pro_free_keeps">원장 읽기, 리뷰·플래그·이의 제기 서명, 기기 정보 확인은 항상 무료로 유지됩니다. Pro는 도구를 추가할 뿐, 리뷰 집계 방식은 전혀 바꾸지 않습니다.</string>
     <string name="pro_price_line">이 지갑에서 12개월 · 둘 중 어느 쪽으로 결제해도 기간은 동일 · 지갑이 설정하는 네트워크 수수료 별도</string>
-    <string name="pro_or">또는</string>
     <string name="pro_pay_in">결제 수단</string>
     <string name="pro_rail_skr_note">온체인에서 읽을 뿐 보유하지 않음</string>
     <string name="pro_rail_sol_note">동일하게 12개월</string>
@@ -458,7 +445,6 @@
     <string name="pro_export_csv">CSV 내보내기</string>
     <string name="pro_export_json">JSON 내보내기</string>
     <string name="pro_watch_on">1시간마다 확인 중</string>
-    <string name="pro_watch_off">6시간마다 확인 중</string>
     <string name="pro_watch_alerts_off">알림이 꺼져 있습니다 — 아래에서 켜면 감시가 1시간마다 실행됩니다.</string>
     <string name="pro_share_title">지갑과 Pro 공유</string>
     <string name="pro_share_body">결제한 지갑 외에 본인 소유의 지갑 2개까지 공유할 수 있습니다. 공유는 두 지갑을 해시로 지정해 원장에 서명으로 기록하는 것으로, 아무것도 이동하지 않으며 어느 지갑이 결제했는지 알려주면 상대 지갑에서 확인할 수 있습니다.</string>
