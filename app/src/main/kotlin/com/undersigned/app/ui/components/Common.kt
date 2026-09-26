@@ -45,7 +45,8 @@ fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifi
             CircularProgressIndicator(modifier = Modifier.size(18.dp), color = RbColors.textPrimary, strokeWidth = 2.dp)
             Spacer(Modifier.width(10.dp))
         }
-        Text(text, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+        // One line, always: these buttons have a fixed height, so a second line is clipped, never shown.
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 15.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
     }
 }
 
@@ -56,7 +57,7 @@ fun SecondaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modi
         modifier = modifier.fillMaxWidth().height(48.dp),
         shape = RoundedCornerShape(14.dp),
         colors = ButtonDefaults.outlinedButtonColors(contentColor = RbColors.purpleLight, disabledContentColor = RbColors.textTertiary),
-    ) { Text(text, fontWeight = FontWeight.SemiBold) }
+    ) { Text(text, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) }
 }
 
 @Composable

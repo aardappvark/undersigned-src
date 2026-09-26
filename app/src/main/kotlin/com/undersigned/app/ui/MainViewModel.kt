@@ -87,6 +87,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val importScan = MutableStateFlow<String?>(null)   // progress text while scanning
     /** Null until a scan has run; then (apps the store could not be read for, apps scanned). */
     val importScanResult = MutableStateFlow<Pair<Int, Int>?>(null)
+    val importScanApp = MutableStateFlow<String?>(null)   // display name of the app being scanned
     val storeDetails = MutableStateFlow<Map<String, StoreDetails>>(emptyMap())
     /** package → wallets whose publisher claim verified against the store-listed website. */
     val verifiedPublishers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
@@ -280,7 +281,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val targets = (installed.value + follows.value).filter { p -> catalogue.value.any { it.packageName == p } }.distinct()
             val found = HashMap(myStoreReviews.value); var failed = 0
             targets.forEachIndexed { i, pkg ->
-                importScan.value = "${i + 1}/${targets.size} · $pkg"
+                // Count only on the button; the app NAME goes on its own line. The raw package id in a 48 dp button
+                // wrapped to two lines and was clipped unreadable (owner, 26 Sep 2026).
+                importScan.value = "${i + 1}/${targets.size}"
+                importScanApp.value = catalogue.value.firstOrNull { it.packageName == pkg }?.name ?: pkg
                 // The store's CDN blocks a whole network for ~8 min after a few hundred quick requests (hit from the Mac on
                 // 26 Sep 2026). At the 10-per-page limit, the old 500-review depth meant up to 650 requests per scan, so:
                 // the newest 300 reviews per app (covers the Toolkit's 279), paced. A wallet's own review is rarely deeper.
@@ -290,7 +294,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             }
             myStoreReviews.value = found
             importScanResult.value = failed to targets.size
-            importScan.value = null
+            importScan.value = null; importScanApp.value = null
         }
     }
 

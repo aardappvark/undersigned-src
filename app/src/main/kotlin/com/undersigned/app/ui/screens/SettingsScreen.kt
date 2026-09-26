@@ -79,6 +79,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val myStore by vm.myStoreReviews.collectAsState()
     val scan by vm.importScan.collectAsState()
     val scanResult by vm.importScanResult.collectAsState()
+    val scanApp by vm.importScanApp.collectAsState()
     var chosen by remember { mutableStateOf<Set<String>>(emptySet()) }
     var importStage by remember { mutableStateOf<String?>(null) }
     var importMsg by remember { mutableStateOf<String?>(null) }
@@ -205,6 +206,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     Text(stringResource(R.string.import_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                     Spacer(Modifier.height(10.dp))
                     SecondaryButton(scan?.let { stringResource(R.string.import_scanning, it) } ?: stringResource(R.string.import_scan), enabled = scan == null && importStage == null, onClick = { vm.scanMyStoreReviews() })
+                    scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp)) }
                     val importable = myStore.filter { (pkg, _) -> vm.myReview(pkg) == null }
                     if (scan == null && myStore.isNotEmpty()) {
                         Spacer(Modifier.height(8.dp))
