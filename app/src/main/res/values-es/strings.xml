@@ -118,7 +118,11 @@
     <string name="change_rate_version">Valorar esta versión</string>
     <string name="store_title">Valoración en dApp Store</string>
     <string name="store_sub">La propia valoración y reseñas públicas de la tienda, de solo lectura, mostradas como contexto. Son propiedad de Solana Mobile.</string>
-    <string name="store_total">%1$d reseñas de la tienda</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d reseña de la tienda</item>
+        <item quantity="other">%1$d reseñas de la tienda</item>
+        <item quantity="many">%1$d reseñas de la tienda</item>
+    </plurals>
     <string name="store_none">La tienda aún no tiene reseñas públicas para esta app.</string>
     <string name="store_publisher_replied">El editor respondió</string>
     <string name="store_mine_found">Valoraste esto con %1$d★ en el dApp Store el %2$s.</string>
@@ -131,7 +135,11 @@
     <string name="import_incomplete">No se pudo leer la tienda para %1$d de %2$d apps, por lo que esta lista podría estar incompleta. Vuelve a intentar el escaneo más tarde.</string>
     <string name="import_none">No hay reseñas de la tienda de esta wallet entre tus apps instaladas o seguidas.</string>
     <string name="import_publish">Firmar e importar %1$d</string>
-    <string name="import_done">Se importaron %1$d reseñas.</string>
+    <plurals name="import_done">
+        <item quantity="one">Se importó %1$d reseña.</item>
+        <item quantity="other">Se importaron %1$d reseñas.</item>
+        <item quantity="many">Se importaron %1$d reseñas.</item>
+    </plurals>
     <string name="import_note">Las reseñas importadas llevan la etiqueta \"works\" (4–5★) o \"confusing\" (1–3★); edítalas cuando quieras con una nueva reseña. El texto de más de 140 caracteres se recorta.</string>
     <string name="detail_tags_title">Lo que etiquetaron los propietarios</string>
     <string name="detail_facts_title">Lo que tu dispositivo puede verificar</string>
@@ -198,7 +206,11 @@
     <string name="settings_ledger_body">Dirección del registro %1$s. Cualquiera puede descubrir cada reseña a través de esta dirección. Undersigned no ejecuta ningún servidor.</string>
     <string name="settings_refresh_ledger">Volver a leer el ledger</string>
     <string name="settings_hidden">Reseñas ocultas</string>
-    <string name="settings_hidden_body">%1$d reseñas ocultas en este dispositivo.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d reseña oculta en este dispositivo.</item>
+        <item quantity="other">%1$d reseñas ocultas en este dispositivo.</item>
+        <item quantity="many">%1$d reseñas ocultas en este dispositivo.</item>
+    </plurals>
     <string name="settings_unhide_all">Mostrar todas</string>
     <string name="settings_legal">Legal</string>
     <string name="settings_sanctions">Jurisdicciones restringidas</string>
@@ -419,7 +431,11 @@
     <string name="pro_get">Obtener Pro · %1$s o %2$s</string>
     <string name="pro_get_short">Obtener Pro</string>
     <string name="pro_stay_free">Seguir con Free</string>
-    <string name="pro_active">Activo · quedan %1$d días</string>
+    <plurals name="pro_active">
+        <item quantity="one">Activo · queda %1$d día</item>
+        <item quantity="other">Activo · quedan %1$d días</item>
+        <item quantity="many">Activo · quedan %1$d días</item>
+    </plurals>
     <string name="pro_paid_line">Pagado %1$s · %2$s · vence el %3$s</string>
     <string name="pro_view_licence">Ver la licencia on-chain</string>
     <string name="pro_renew">Renovar por 12 meses</string>
@@ -465,7 +481,11 @@
     <string name="pro_shared_from_body">Si otra wallet tuya compró Pro y lo compartió con esta, introduce esa wallet; la cesión se lee del ledger y se respeta mientras dure el periodo de esa wallet.</string>
     <string name="pro_shared_from_hint">La wallet que pagó — dirección o nombre .skr</string>
     <string name="pro_shared_from_add">Leer la cesión</string>
-    <string name="pro_shared_active">Activo · compartido por %1$s · quedan %2$d días</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Activo · compartido por %1$s · queda %2$d día</item>
+        <item quantity="other">Activo · compartido por %1$s · quedan %2$d días</item>
+        <item quantity="many">Activo · compartido por %1$s · quedan %2$d días</item>
+    </plurals>
     <string name="pro_shared_none">Ninguna cesión de %1$s nombra aún esta wallet. Queda guardada aquí y se vuelve a leer con el ledger.</string>
     <string name="pro_shared_forget">Olvidar</string>
     <string name="pro_standing_note">Pro no forma parte de esto. El peso viene solo del dispositivo y del SKR en staking.</string>
@@ -488,7 +508,11 @@
     <string name="fp_weight">Cuánto cuenta tu opinión</string>
     <string name="fp_weight_both">lo mismo — solo dispositivo y SKR en staking</string>
     <string name="desk_title">Panel del editor</string>
-    <string name="desk_across">En tus %1$d dApps verificadas</string>
+    <plurals name="desk_across">
+        <item quantity="one">En tu %1$d dApp verificada</item>
+        <item quantity="other">En tus %1$d dApps verificadas</item>
+        <item quantity="many">En tus %1$d dApps verificadas</item>
+    </plurals>
     <string name="desk_unanswered">sin responder</string>
     <string name="desk_median">respuesta mediana</string>
     <string name="desk_answered">respondidas</string>
@@ -496,7 +520,11 @@
     <string name="desk_waiting">%1$d en espera</string>
     <string name="desk_clear">al día</string>
     <string name="desk_oldest">Más antigua en espera</string>
-    <string name="desk_days">%1$d días</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d día</item>
+        <item quantity="other">%1$d días</item>
+        <item quantity="many">%1$d días</item>
+    </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">La capacidad de respuesta se lee del ledger como todo lo demás: el tiempo entre una reseña firmada y tu respuesta firmada. Se muestra a los lectores en tu página de dApp, así que la cola es el producto.</string>
     <string name="desk_none">Aún no hay dApps verificadas. Reclama una app desde su página y demuestra el sitio web; el panel se llena a partir de ahí.</string>

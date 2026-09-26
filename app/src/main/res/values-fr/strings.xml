@@ -118,7 +118,11 @@
     <string name="change_rate_version">Noter cette version</string>
     <string name="store_title">Note du dApp Store</string>
     <string name="store_sub">La note et les avis publics propres au store, en lecture seule, affichés pour contexte. Solana Mobile en est propriétaire.</string>
-    <string name="store_total">%1$d avis du store</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d avis du store</item>
+        <item quantity="other">%1$d avis du store</item>
+        <item quantity="many">%1$d avis du store</item>
+    </plurals>
     <string name="store_none">Le store n\'a pas encore d\'avis publics pour cette application.</string>
     <string name="store_publisher_replied">L\'éditeur a répondu</string>
     <string name="store_mine_found">Vous avez noté ceci %1$d★ dans le dApp Store le %2$s.</string>
@@ -131,7 +135,11 @@
     <string name="import_incomplete">Le store n\'a pas pu être lu pour %1$d sur %2$d applications, cette liste est donc peut-être incomplète. Réessayez l\'analyse plus tard.</string>
     <string name="import_none">Aucun avis du store de ce wallet parmi vos applications installées ou suivies.</string>
     <string name="import_publish">Signer et importer %1$d</string>
-    <string name="import_done">%1$d avis importés.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d avis importé.</item>
+        <item quantity="other">%1$d avis importés.</item>
+        <item quantity="many">%1$d avis importés.</item>
+    </plurals>
     <string name="import_note">Les avis importés portent le tag \"works\" (4–5★) ou \"confusing\" (1–3★) ; modifiez-les à tout moment avec un nouvel avis. Le texte de plus de 140 caractères est coupé.</string>
     <string name="detail_tags_title">Ce que les propriétaires ont tagué</string>
     <string name="detail_facts_title">Ce que votre appareil peut vérifier</string>
@@ -198,7 +206,11 @@
     <string name="settings_ledger_body">Adresse du registre %1$s. Chaque avis est repérable par n\'importe qui via cette adresse. Undersigned ne fait tourner aucun serveur.</string>
     <string name="settings_refresh_ledger">Relire le registre</string>
     <string name="settings_hidden">Avis masqués</string>
-    <string name="settings_hidden_body">%1$d avis masqués sur cet appareil.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d avis masqué sur cet appareil.</item>
+        <item quantity="other">%1$d avis masqués sur cet appareil.</item>
+        <item quantity="many">%1$d avis masqués sur cet appareil.</item>
+    </plurals>
     <string name="settings_unhide_all">Tout réafficher</string>
     <string name="settings_legal">Mentions légales</string>
     <string name="settings_sanctions">Juridictions restreintes</string>
@@ -419,7 +431,11 @@
     <string name="pro_get">Obtenir Pro · %1$s ou %2$s</string>
     <string name="pro_get_short">Obtenir Pro</string>
     <string name="pro_stay_free">Rester en Free</string>
-    <string name="pro_active">Actif · %1$d jours restants</string>
+    <plurals name="pro_active">
+        <item quantity="one">Actif · %1$d jour restant</item>
+        <item quantity="other">Actif · %1$d jours restants</item>
+        <item quantity="many">Actif · %1$d jours restants</item>
+    </plurals>
     <string name="pro_paid_line">Payé %1$s · %2$s · valable jusqu\'au %3$s</string>
     <string name="pro_view_licence">Voir la licence on-chain</string>
     <string name="pro_renew">Renouveler pour 12 mois</string>
@@ -465,7 +481,11 @@
     <string name="pro_shared_from_body">Si un autre de vos wallets a acheté Pro et l\'a partagé avec celui-ci, saisissez ce wallet ; l\'octroi est lu depuis le registre et honoré tant que la durée de ce wallet court.</string>
     <string name="pro_shared_from_hint">Le wallet qui a payé — adresse ou nom .skr</string>
     <string name="pro_shared_from_add">Lire l\'octroi</string>
-    <string name="pro_shared_active">Actif · partagé par %1$s · %2$d jours restants</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Actif · partagé par %1$s · %2$d jour restant</item>
+        <item quantity="other">Actif · partagé par %1$s · %2$d jours restants</item>
+        <item quantity="many">Actif · partagé par %1$s · %2$d jours restants</item>
+    </plurals>
     <string name="pro_shared_none">Aucun octroi de %1$s ne nomme encore ce wallet. Il reste enregistré ici et relu avec le registre.</string>
     <string name="pro_shared_forget">Oublier</string>
     <string name="pro_standing_note">Pro n\'entre pas en compte ici. Le poids vient uniquement de l\'appareil et du SKR staké.</string>
@@ -488,7 +508,11 @@
     <string name="fp_weight">Combien votre avis compte</string>
     <string name="fp_weight_both">le même — appareil et SKR staké uniquement</string>
     <string name="desk_title">Bureau de l\'éditeur</string>
-    <string name="desk_across">Sur vos %1$d dApps vérifiées</string>
+    <plurals name="desk_across">
+        <item quantity="one">Sur vos %1$d dApp vérifiée</item>
+        <item quantity="other">Sur vos %1$d dApps vérifiées</item>
+        <item quantity="many">Sur vos %1$d dApps vérifiées</item>
+    </plurals>
     <string name="desk_unanswered">sans réponse</string>
     <string name="desk_median">réponse médiane</string>
     <string name="desk_answered">répondus</string>
@@ -496,7 +520,11 @@
     <string name="desk_waiting">%1$d en attente</string>
     <string name="desk_clear">à jour</string>
     <string name="desk_oldest">Plus ancien en attente</string>
-    <string name="desk_days">%1$d jours</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="other">%1$d jours</item>
+        <item quantity="many">%1$d jours</item>
+    </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">La réactivité est lue depuis le registre comme tout le reste : l\'écart entre un avis signé et votre réponse signée. Elle est montrée aux lecteurs sur votre page de dApp, donc la file d\'attente est le produit.</string>
     <string name="desk_none">Aucun dApp vérifié pour l\'instant. Revendiquez une application depuis sa page et prouvez le site web ; le bureau se remplit à partir de là.</string>

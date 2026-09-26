@@ -118,7 +118,11 @@
     <string name="change_rate_version">Valuta questa versione</string>
     <string name="store_title">Valutazione dApp Store</string>
     <string name="store_sub">La valutazione e le recensioni pubbliche dello store stesso, di sola lettura, mostrate come contesto. Appartengono a Solana Mobile.</string>
-    <string name="store_total">%1$d recensioni dello store</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d recensione dello store</item>
+        <item quantity="other">%1$d recensioni dello store</item>
+        <item quantity="many">%1$d recensioni dello store</item>
+    </plurals>
     <string name="store_none">Lo store non ha ancora recensioni pubbliche per questa app.</string>
     <string name="store_publisher_replied">L\'editore ha risposto</string>
     <string name="store_mine_found">Hai valutato questa app %1$d★ nel dApp Store il %2$s.</string>
@@ -131,7 +135,11 @@
     <string name="import_incomplete">Non è stato possibile leggere lo store per %1$d app su %2$d, quindi questo elenco potrebbe essere incompleto. Riprova l\'analisi più tardi.</string>
     <string name="import_none">Nessuna recensione dello store di questo portafoglio tra le app installate o seguite.</string>
     <string name="import_publish">Firma e importa %1$d</string>
-    <string name="import_done">%1$d recensioni importate.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d recensione importata.</item>
+        <item quantity="other">%1$d recensioni importate.</item>
+        <item quantity="many">%1$d recensioni importate.</item>
+    </plurals>
     <string name="import_note">Le recensioni importate portano il tag \"works\" (4–5★) o \"confusing\" (1–3★); puoi modificarle in qualsiasi momento con una nuova recensione. Il testo più lungo di 140 caratteri viene tagliato.</string>
     <string name="detail_tags_title">Cosa hanno taggato i proprietari</string>
     <string name="detail_facts_title">Cosa può verificare il tuo dispositivo</string>
@@ -198,7 +206,11 @@
     <string name="settings_ledger_body">Indirizzo del registro %1$s. Ogni recensione è reperibile da chiunque tramite questo indirizzo. Undersigned non gestisce alcun server.</string>
     <string name="settings_refresh_ledger">Rileggi il registro</string>
     <string name="settings_hidden">Recensioni nascoste</string>
-    <string name="settings_hidden_body">%1$d recensioni nascoste su questo dispositivo.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d recensione nascosta su questo dispositivo.</item>
+        <item quantity="other">%1$d recensioni nascoste su questo dispositivo.</item>
+        <item quantity="many">%1$d recensioni nascoste su questo dispositivo.</item>
+    </plurals>
     <string name="settings_unhide_all">Mostra tutte</string>
     <string name="settings_legal">Informazioni legali</string>
     <string name="settings_sanctions">Giurisdizioni soggette a restrizioni</string>
@@ -419,7 +431,11 @@
     <string name="pro_get">Ottieni Pro · %1$s o %2$s</string>
     <string name="pro_get_short">Ottieni Pro</string>
     <string name="pro_stay_free">Resta su Free</string>
-    <string name="pro_active">Attivo · %1$d giorni rimanenti</string>
+    <plurals name="pro_active">
+        <item quantity="one">Attivo · %1$d giorno rimanente</item>
+        <item quantity="other">Attivo · %1$d giorni rimanenti</item>
+        <item quantity="many">Attivo · %1$d giorni rimanenti</item>
+    </plurals>
     <string name="pro_paid_line">Pagato %1$s · %2$s · valido fino al %3$s</string>
     <string name="pro_view_licence">Vedi la licenza on-chain</string>
     <string name="pro_renew">Rinnova per 12 mesi</string>
@@ -465,7 +481,11 @@
     <string name="pro_shared_from_body">Se un altro tuo portafoglio ha comprato Pro e lo ha condiviso con questo, inserisci quel portafoglio; la concessione viene letta dal registro e rispettata finché dura il periodo di quel portafoglio.</string>
     <string name="pro_shared_from_hint">Il portafoglio che ha pagato — indirizzo o nome .skr</string>
     <string name="pro_shared_from_add">Leggi la concessione</string>
-    <string name="pro_shared_active">Attivo · condiviso da %1$s · %2$d giorni rimanenti</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Attivo · condiviso da %1$s · %2$d giorno rimanente</item>
+        <item quantity="other">Attivo · condiviso da %1$s · %2$d giorni rimanenti</item>
+        <item quantity="many">Attivo · condiviso da %1$s · %2$d giorni rimanenti</item>
+    </plurals>
     <string name="pro_shared_none">Nessuna concessione da %1$s nomina ancora questo portafoglio. Resta salvata qui e viene riletta con il registro.</string>
     <string name="pro_shared_forget">Dimentica</string>
     <string name="pro_standing_note">Pro non c\'entra con questo. Il peso viene solo dal dispositivo e dallo SKR in staking.</string>
@@ -488,7 +508,11 @@
     <string name="fp_weight">Quanto conta la tua opinione</string>
     <string name="fp_weight_both">lo stesso — solo dispositivo e SKR in staking</string>
     <string name="desk_title">Pannello editore</string>
-    <string name="desk_across">Sulle tue %1$d dApp verificate</string>
+    <plurals name="desk_across">
+        <item quantity="one">Sulla tua %1$d dApp verificata</item>
+        <item quantity="other">Sulle tue %1$d dApp verificate</item>
+        <item quantity="many">Sulle tue %1$d dApp verificate</item>
+    </plurals>
     <string name="desk_unanswered">senza risposta</string>
     <string name="desk_median">risposta mediana</string>
     <string name="desk_answered">risposte</string>
@@ -496,7 +520,11 @@
     <string name="desk_waiting">%1$d in attesa</string>
     <string name="desk_clear">in pari</string>
     <string name="desk_oldest">Più vecchia in attesa</string>
-    <string name="desk_days">%1$d giorni</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d giorno</item>
+        <item quantity="other">%1$d giorni</item>
+        <item quantity="many">%1$d giorni</item>
+    </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">La reattività viene letta dal registro come tutto il resto: il divario tra una recensione firmata e la tua risposta firmata. Viene mostrata ai lettori sulla tua pagina dApp, quindi la coda è il prodotto.</string>
     <string name="desk_none">Ancora nessuna dApp verificata. Rivendica un\'app dalla sua pagina e dimostra il sito web; il pannello si riempie da lì.</string>

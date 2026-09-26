@@ -118,7 +118,10 @@
     <string name="change_rate_version">Diese Version bewerten</string>
     <string name="store_title">dApp-Store-Bewertung</string>
     <string name="store_sub">Die eigene öffentliche Bewertung und die Bewertungen des Stores, schreibgeschützt, zur Einordnung angezeigt. Solana Mobile besitzt diese.</string>
-    <string name="store_total">%1$d Store-Bewertungen</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d Store-Bewertung</item>
+        <item quantity="other">%1$d Store-Bewertungen</item>
+    </plurals>
     <string name="store_none">Der Store hat noch keine öffentlichen Bewertungen für diese App.</string>
     <string name="store_publisher_replied">Herausgeber hat geantwortet</string>
     <string name="store_mine_found">Sie haben dies am %2$s im dApp Store mit %1$d★ bewertet.</string>
@@ -131,7 +134,10 @@
     <string name="import_incomplete">Der Store konnte für %1$d von %2$d Apps nicht gelesen werden. Diese Liste ist daher möglicherweise unvollständig. Versuchen Sie den Scan später erneut.</string>
     <string name="import_none">Keine Store-Bewertungen dieser Wallet unter Ihren installierten oder verfolgten Apps.</string>
     <string name="import_publish">%1$d signieren und importieren</string>
-    <string name="import_done">%1$d Bewertungen importiert.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d Bewertung importiert.</item>
+        <item quantity="other">%1$d Bewertungen importiert.</item>
+    </plurals>
     <string name="import_note">Importierte Bewertungen tragen das Tag \"works\" (4–5★) oder \"confusing\" (1–3★); bearbeiten Sie sie jederzeit mit einer neuen Bewertung. Text über 140 Zeichen wird gekürzt.</string>
     <string name="detail_tags_title">Was Besitzer getaggt haben</string>
     <string name="detail_facts_title">Was Ihr Gerät verifizieren kann</string>
@@ -198,7 +204,10 @@
     <string name="settings_ledger_body">Registrierungsadresse %1$s. Jede Bewertung ist über diese Adresse für jeden auffindbar. Undersigned betreibt keinen Server.</string>
     <string name="settings_refresh_ledger">Ledger erneut lesen</string>
     <string name="settings_hidden">Ausgeblendete Bewertungen</string>
-    <string name="settings_hidden_body">%1$d Bewertungen auf diesem Gerät ausgeblendet.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d Bewertung auf diesem Gerät ausgeblendet.</item>
+        <item quantity="other">%1$d Bewertungen auf diesem Gerät ausgeblendet.</item>
+    </plurals>
     <string name="settings_unhide_all">Alle wieder einblenden</string>
     <string name="settings_legal">Rechtliches</string>
     <string name="settings_sanctions">Eingeschränkte Jurisdiktionen</string>
@@ -420,7 +429,10 @@
     <string name="pro_get">Pro holen · %1$s oder %2$s</string>
     <string name="pro_get_short">Pro holen</string>
     <string name="pro_stay_free">Bei Free bleiben</string>
-    <string name="pro_active">Aktiv · noch %1$d Tage</string>
+    <plurals name="pro_active">
+        <item quantity="one">Aktiv · noch %1$d Tag</item>
+        <item quantity="other">Aktiv · noch %1$d Tage</item>
+    </plurals>
     <string name="pro_paid_line">Bezahlt %1$s · %2$s · läuft bis %3$s</string>
     <string name="pro_view_licence">Lizenz on-chain ansehen</string>
     <string name="pro_renew">Für 12 Monate verlängern</string>
@@ -466,7 +478,10 @@
     <string name="pro_shared_from_body">Wenn eine andere Ihrer Wallets Pro gekauft und mit dieser geteilt hat, geben Sie diese Wallet ein; die Gewährung wird vom Ledger gelesen und anerkannt, solange die Laufzeit jener Wallet läuft.</string>
     <string name="pro_shared_from_hint">Die Wallet, die bezahlt hat — Adresse oder .skr-Name</string>
     <string name="pro_shared_from_add">Die Gewährung lesen</string>
-    <string name="pro_shared_active">Aktiv · geteilt von %1$s · noch %2$d Tage</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Aktiv · geteilt von %1$s · noch %2$d Tag</item>
+        <item quantity="other">Aktiv · geteilt von %1$s · noch %2$d Tage</item>
+    </plurals>
     <string name="pro_shared_none">Noch keine Gewährung von %1$s nennt diese Wallet. Sie wird hier gespeichert und mit dem Ledger erneut gelesen.</string>
     <string name="pro_shared_forget">Vergessen</string>
     <string name="pro_standing_note">Pro ist hierbei nicht beteiligt. Gewichtung stammt ausschließlich vom Gerät und gestaktem SKR.</string>
@@ -489,7 +504,10 @@
     <string name="fp_weight">Wie stark Ihre Meinung zählt</string>
     <string name="fp_weight_both">gleich — nur Gerät und gestaktes SKR</string>
     <string name="desk_title">Herausgeber-Schreibtisch</string>
-    <string name="desk_across">Über Ihre %1$d verifizierten dApps</string>
+    <plurals name="desk_across">
+        <item quantity="one">Über Ihre %1$d verifizierte dApp</item>
+        <item quantity="other">Über Ihre %1$d verifizierten dApps</item>
+    </plurals>
     <string name="desk_unanswered">unbeantwortet</string>
     <string name="desk_median">mittlere Antwortzeit</string>
     <string name="desk_answered">beantwortet</string>
@@ -497,7 +515,10 @@
     <string name="desk_waiting">%1$d wartend</string>
     <string name="desk_clear">erledigt</string>
     <string name="desk_oldest">Am längsten wartend</string>
-    <string name="desk_days">%1$d Tage</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
+    </plurals>
     <string name="desk_hours">%1$d Std.</string>
     <string name="desk_note">Reaktionsfähigkeit wird wie alles andere vom Ledger gelesen: der Abstand zwischen einer signierten Bewertung und Ihrer signierten Antwort. Sie wird Lesern auf Ihrer dApp-Seite angezeigt, die Warteschlange ist also das Produkt.</string>
     <string name="desk_none">Noch keine verifizierten dApps. Beanspruchen Sie eine App von ihrer Seite aus und weisen Sie die Website nach; der Schreibtisch füllt sich von dort.</string>

@@ -117,7 +117,9 @@
     <string name="change_rate_version">为此版本评分</string>
     <string name="store_title">dApp Store 评分</string>
     <string name="store_sub">商店自身的公开评分与评价,仅供查看,用于提供背景信息。这些数据归 Solana Mobile 所有。</string>
-    <string name="store_total">%1$d 条商店评价</string>
+    <plurals name="store_total">
+        <item quantity="other">%1$d 条商店评价</item>
+    </plurals>
     <string name="store_none">商店尚无此应用的公开评价。</string>
     <string name="store_publisher_replied">发布者已回复</string>
     <string name="store_mine_found">您已于 %2$s 在 dApp Store 中为其打分 %1$d★。</string>
@@ -130,7 +132,9 @@
     <string name="import_incomplete">%2$d 个应用中有 %1$d 个未能读取商店,因此此列表可能不完整。请稍后重新扫描。</string>
     <string name="import_none">在您已安装或关注的应用中,没有此钱包发布的商店评价。</string>
     <string name="import_publish">签名并导入 %1$d 条</string>
-    <string name="import_done">已导入 %1$d 条评价。</string>
+    <plurals name="import_done">
+        <item quantity="other">已导入 %1$d 条评价。</item>
+    </plurals>
     <string name="import_note">导入的评价会带有标签 \"works\"(4–5★)或 \"confusing\"(1–3★);您可以随时用新评价编辑它们。超过 140 个字符的文本将被截断。</string>
     <string name="detail_tags_title">用户标记的内容</string>
     <string name="detail_facts_title">您设备可以验证的内容</string>
@@ -197,7 +201,9 @@
     <string name="settings_ledger_body">注册表地址 %1$s。任何人都可以通过此地址查找到每一条评价。Undersigned 不运行任何服务器。</string>
     <string name="settings_refresh_ledger">重新读取账本</string>
     <string name="settings_hidden">已隐藏的评价</string>
-    <string name="settings_hidden_body">此设备上已隐藏 %1$d 条评价。</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="other">此设备上已隐藏 %1$d 条评价。</item>
+    </plurals>
     <string name="settings_unhide_all">取消隐藏全部</string>
     <string name="settings_legal">法律</string>
     <string name="settings_sanctions">受限司法管辖区</string>
@@ -418,7 +424,9 @@
     <string name="pro_get">获取 Pro · %1$s 或 %2$s</string>
     <string name="pro_get_short">获取 Pro</string>
     <string name="pro_stay_free">继续使用免费版</string>
-    <string name="pro_active">生效中 · 剩余 %1$d 天</string>
+    <plurals name="pro_active">
+        <item quantity="other">生效中 · 剩余 %1$d 天</item>
+    </plurals>
     <string name="pro_paid_line">已支付 %1$s · %2$s · 有效期至 %3$s</string>
     <string name="pro_view_licence">在链上查看许可记录</string>
     <string name="pro_renew">续期 12 个月</string>
@@ -464,7 +472,9 @@
     <string name="pro_shared_from_body">如果您的另一个钱包购买了 Pro 并与此钱包共享,请输入该钱包;授权信息会从账本读取,并在该钱包的期限内生效。</string>
     <string name="pro_shared_from_hint">付款的钱包——地址或 .skr 名称</string>
     <string name="pro_shared_from_add">读取授权</string>
-    <string name="pro_shared_active">生效中 · 由 %1$s 共享 · 剩余 %2$d 天</string>
+    <plurals name="pro_shared_active">
+        <item quantity="other">生效中 · 由 %1$s 共享 · 剩余 %2$d 天</item>
+    </plurals>
     <string name="pro_shared_none">%1$s 尚未授权此钱包。此设置会保留在此处,并随账本一同重新读取。</string>
     <string name="pro_shared_forget">移除</string>
     <string name="pro_standing_note">Pro 与此无关。权重仅来自设备认证和质押 SKR。</string>
@@ -487,7 +497,9 @@
     <string name="fp_weight">您的意见有多重要</string>
     <string name="fp_weight_both">相同——仅取决于设备认证和质押 SKR</string>
     <string name="desk_title">发布者工作台</string>
-    <string name="desk_across">跨您已验证的 %1$d 个 dApp</string>
+    <plurals name="desk_across">
+        <item quantity="other">跨您已验证的 %1$d 个 dApp</item>
+    </plurals>
     <string name="desk_unanswered">未回复</string>
     <string name="desk_median">回复中位数</string>
     <string name="desk_answered">已回复</string>
@@ -495,7 +507,9 @@
     <string name="desk_waiting">%1$d 条待处理</string>
     <string name="desk_clear">已清空</string>
     <string name="desk_oldest">等待最久</string>
-    <string name="desk_days">%1$d 天</string>
+    <plurals name="desk_days">
+        <item quantity="other">%1$d 天</item>
+    </plurals>
     <string name="desk_hours">%1$d 小时</string>
     <string name="desk_note">回复速度像其他一切一样从账本中读取:即签名评价与您签名回复之间的时间差。它会显示给读者查看您的 dApp 页面,因此这个队列本身就是评判标准。</string>
     <string name="desk_none">尚无已验证的 dApp。请从应用页面认领并证明网站归属,工作台随后会自动填充。</string>

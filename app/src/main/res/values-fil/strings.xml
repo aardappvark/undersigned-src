@@ -118,7 +118,10 @@
     <string name="change_rate_version">I-rate ang bersyong ito</string>
     <string name="store_title">Rating sa dApp Store</string>
     <string name="store_sub">Ang sariling pampublikong rating at review ng store, read-only, ipinapakita para sa konteksto. Pag-aari ito ng Solana Mobile.</string>
-    <string name="store_total">%1$d review sa store</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d review sa store</item>
+        <item quantity="other">%1$d review sa store</item>
+    </plurals>
     <string name="store_none">Wala pang pampublikong review ang store para sa app na ito.</string>
     <string name="store_publisher_replied">Sumagot ang publisher</string>
     <string name="store_mine_found">Binigyan mo ito ng %1$d★ sa dApp Store noong %2$s.</string>
@@ -131,7 +134,10 @@
     <string name="import_incomplete">Hindi nabasa ang store para sa %1$d sa %2$d na app, kaya maaaring hindi kumpleto ang listahang ito. Subukan ulit ang pag-scan mamaya.</string>
     <string name="import_none">Walang review sa store ng wallet na ito sa mga app mong naka-install o sinusundan.</string>
     <string name="import_publish">I-sign at i-import ang %1$d</string>
-    <string name="import_done">Na-import ang %1$d review.</string>
+    <plurals name="import_done">
+        <item quantity="one">Na-import ang %1$d review.</item>
+        <item quantity="other">Na-import ang %1$d review.</item>
+    </plurals>
     <string name="import_note">Ang mga na-import na review ay may tag na \"works\" (4–5★) o \"confusing\" (1–3★); i-edit ang mga ito anumang oras gamit ang bagong review. Ang tekstong mahigit 140 na character ay pinuputol.</string>
     <string name="detail_tags_title">Ano ang tinag ng mga may-ari</string>
     <string name="detail_facts_title">Ano ang mave-verify ng iyong device</string>
@@ -198,7 +204,10 @@
     <string name="settings_ledger_body">Registry address %1$s. Matutuklasan ng kahit sino ang bawat review sa pamamagitan ng address na ito. Walang pinapatakbong server ang Undersigned.</string>
     <string name="settings_refresh_ledger">Basahing muli ang ledger</string>
     <string name="settings_hidden">Mga nakatagong review</string>
-    <string name="settings_hidden_body">%1$d review ang nakatago sa device na ito.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d review ang nakatago sa device na ito.</item>
+        <item quantity="other">%1$d review ang nakatago sa device na ito.</item>
+    </plurals>
     <string name="settings_unhide_all">Ipakita ulit lahat</string>
     <string name="settings_legal">Ligal</string>
     <string name="settings_sanctions">Mga pinaghihigpitang hurisdiksyon</string>
@@ -419,7 +428,10 @@
     <string name="pro_get">Kumuha ng Pro · %1$s o %2$s</string>
     <string name="pro_get_short">Kumuha ng Pro</string>
     <string name="pro_stay_free">Manatili sa Free</string>
-    <string name="pro_active">Aktibo · %1$d araw na natitira</string>
+    <plurals name="pro_active">
+        <item quantity="one">Aktibo · %1$d araw na natitira</item>
+        <item quantity="other">Aktibo · %1$d araw na natitira</item>
+    </plurals>
     <string name="pro_paid_line">Binayaran %1$s · %2$s · tatakbo hanggang %3$s</string>
     <string name="pro_view_licence">Tingnan ang lisensya on-chain</string>
     <string name="pro_renew">I-renew nang 12 buwan</string>
@@ -465,7 +477,10 @@
     <string name="pro_shared_from_body">Kung bumili ng Pro ang ibang wallet mo at na-share ito sa isang ito, ilagay ang wallet na iyon; babasahin ang grant mula sa ledger at igagalang habang tumatakbo ang termino ng wallet na iyon.</string>
     <string name="pro_shared_from_hint">Ang wallet na nagbayad — address o pangalang .skr</string>
     <string name="pro_shared_from_add">Basahin ang grant</string>
-    <string name="pro_shared_active">Aktibo · ibinahagi ni %1$s · %2$d araw na natitira</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Aktibo · ibinahagi ni %1$s · %2$d araw na natitira</item>
+        <item quantity="other">Aktibo · ibinahagi ni %1$s · %2$d araw na natitira</item>
+    </plurals>
     <string name="pro_shared_none">Wala pang grant mula kay %1$s na nagpapangalan sa wallet na ito. Itinatago ito dito at babasahin muli kasama ng ledger.</string>
     <string name="pro_shared_forget">Kalimutan</string>
     <string name="pro_standing_note">Wala dito ang Pro. Ang timbang ay mula sa device at naka-stake na SKR lang.</string>
@@ -488,7 +503,10 @@
     <string name="fp_weight">Gaano kabigat ang opinyon mo</string>
     <string name="fp_weight_both">pareho — mula sa device at naka-stake na SKR lang</string>
     <string name="desk_title">Desk ng publisher</string>
-    <string name="desk_across">Sa lahat ng %1$d na na-verify mong dApp</string>
+    <plurals name="desk_across">
+        <item quantity="one">Sa lahat ng %1$d na na-verify mong dApp</item>
+        <item quantity="other">Sa lahat ng %1$d na na-verify mong dApp</item>
+    </plurals>
     <string name="desk_unanswered">hindi pa sinasagot</string>
     <string name="desk_median">median na oras ng pagsagot</string>
     <string name="desk_answered">sinagot</string>
@@ -496,7 +514,10 @@
     <string name="desk_waiting">%1$d naghihintay</string>
     <string name="desk_clear">malinis</string>
     <string name="desk_oldest">Pinakamatagal na naghihintay</string>
-    <string name="desk_days">%1$d araw</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d araw</item>
+        <item quantity="other">%1$d araw</item>
+    </plurals>
     <string name="desk_hours">%1$d oras</string>
     <string name="desk_note">Binabasa ang responsiveness mula sa ledger tulad ng lahat ng iba pa: ang agwat sa pagitan ng naka-sign na review at ng naka-sign mong sagot. Ipinapakita ito sa mga reader sa dApp page mo, kaya ang queue mismo ang sukatan.</string>
     <string name="desk_none">Wala pang na-verify na dApp. Mag-claim ng app mula sa page nito at patunayan ang website; magsisimulang mapuno ang desk mula doon.</string>

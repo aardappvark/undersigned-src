@@ -113,7 +113,10 @@
     <string name="change_rate_version">Deze versie beoordelen</string>
     <string name="store_title">dApp Store-beoordeling</string>
     <string name="store_sub">De eigen openbare beoordeling en recensies van de store, alleen-lezen en getoond ter context. Solana Mobile is eigenaar hiervan.</string>
-    <string name="store_total">%1$d storerecensies</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d storerecensie</item>
+        <item quantity="other">%1$d storerecensies</item>
+    </plurals>
     <string name="store_none">De store heeft nog geen openbare recensies voor deze app.</string>
     <string name="store_publisher_replied">Uitgever heeft gereageerd</string>
     <string name="store_mine_found">U heeft dit op %2$s beoordeeld met %1$d★ in de dApp Store.</string>
@@ -126,7 +129,10 @@
     <string name="import_incomplete">De store kon niet worden gelezen voor %1$d van de %2$d apps, dus deze lijst is mogelijk onvolledig. Probeer het scannen later opnieuw.</string>
     <string name="import_none">Geen storerecensies van deze wallet onder uw geïnstalleerde of gevolgde apps.</string>
     <string name="import_publish">Ondertekenen en %1$d importeren</string>
-    <string name="import_done">%1$d recensies geïmporteerd.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d recensie geïmporteerd.</item>
+        <item quantity="other">%1$d recensies geïmporteerd.</item>
+    </plurals>
     <string name="import_note">Geïmporteerde recensies krijgen de tag \"works\" (4–5★) of \"confusing\" (1–3★); u kunt ze op elk moment bewerken met een nieuwe recensie. Tekst langer dan 140 tekens wordt afgekapt.</string>
     <string name="detail_tags_title">Wat eigenaren hebben getagd</string>
     <string name="detail_facts_title">Wat uw apparaat kan verifiëren</string>
@@ -190,7 +196,10 @@
     <string name="settings_ledger_body">Registeradres %1$s. Elke recensie is voor iedereen vindbaar via dit adres. Undersigned draait geen server.</string>
     <string name="settings_refresh_ledger">Grootboek opnieuw lezen</string>
     <string name="settings_hidden">Verborgen recensies</string>
-    <string name="settings_hidden_body">%1$d recensies verborgen op dit apparaat.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d recensie verborgen op dit apparaat.</item>
+        <item quantity="other">%1$d recensies verborgen op dit apparaat.</item>
+    </plurals>
     <string name="settings_unhide_all">Alles zichtbaar maken</string>
     <string name="settings_legal">Juridisch</string>
     <string name="settings_sanctions">Beperkte rechtsgebieden</string>
@@ -411,7 +420,10 @@
     <string name="pro_get">Pro aanschaffen · %1$s of %2$s</string>
     <string name="pro_get_short">Pro aanschaffen</string>
     <string name="pro_stay_free">Bij Gratis blijven</string>
-    <string name="pro_active">Actief · nog %1$d dagen</string>
+    <plurals name="pro_active">
+        <item quantity="one">Actief · nog %1$d dag</item>
+        <item quantity="other">Actief · nog %1$d dagen</item>
+    </plurals>
     <string name="pro_paid_line">Betaald %1$s · %2$s · loopt tot %3$s</string>
     <string name="pro_view_licence">Licentie on-chain bekijken</string>
     <string name="pro_renew">Verlengen voor 12 maanden</string>
@@ -457,7 +469,10 @@
     <string name="pro_shared_from_body">Als een andere wallet van u Pro heeft gekocht en dit heeft gedeeld met deze, voer die wallet in; de toekenning wordt van het grootboek gelezen en gehonoreerd zolang de termijn van die wallet loopt.</string>
     <string name="pro_shared_from_hint">De wallet die heeft betaald — adres of .skr-naam</string>
     <string name="pro_shared_from_add">De toekenning lezen</string>
-    <string name="pro_shared_active">Actief · gedeeld door %1$s · nog %2$d dagen</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Actief · gedeeld door %1$s · nog %2$d dag</item>
+        <item quantity="other">Actief · gedeeld door %1$s · nog %2$d dagen</item>
+    </plurals>
     <string name="pro_shared_none">Nog geen toekenning van %1$s noemt deze wallet. Dit wordt hier bewaard en opnieuw gelezen met het grootboek.</string>
     <string name="pro_shared_forget">Vergeten</string>
     <string name="pro_standing_note">Pro maakt hier geen deel van uit. Gewicht komt alleen van het apparaat en de gestakete SKR.</string>
@@ -480,7 +495,10 @@
     <string name="fp_weight">Hoeveel uw mening meetelt</string>
     <string name="fp_weight_both">hetzelfde — alleen apparaat en gestakete SKR</string>
     <string name="desk_title">Uitgeversdesk</string>
-    <string name="desk_across">Voor al uw %1$d geverifieerde dApps</string>
+    <plurals name="desk_across">
+        <item quantity="one">Voor al uw %1$d geverifieerde dApp</item>
+        <item quantity="other">Voor al uw %1$d geverifieerde dApps</item>
+    </plurals>
     <string name="desk_unanswered">onbeantwoord</string>
     <string name="desk_median">mediane reactietijd</string>
     <string name="desk_answered">beantwoord</string>
@@ -488,7 +506,10 @@
     <string name="desk_waiting">%1$d wachtend</string>
     <string name="desk_clear">vrij</string>
     <string name="desk_oldest">Langst wachtend</string>
-    <string name="desk_days">%1$d dagen</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
     <string name="desk_hours">%1$d u</string>
     <string name="desk_note">Reactiesnelheid wordt, net als al het andere, van het grootboek gelezen: het verschil tussen een ondertekende recensie en uw ondertekende reactie. Dit wordt aan lezers getoond op uw dApp-pagina, dus de wachtrij is het product.</string>
     <string name="desk_none">Nog geen geverifieerde dApps. Claim een app vanaf de pagina en bewijs de website; de desk vult zich van daaruit.</string>

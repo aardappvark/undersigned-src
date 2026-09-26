@@ -117,7 +117,14 @@
     <string name="change_rate_version">قيّم هذا الإصدار</string>
     <string name="store_title">تقييم dApp Store</string>
     <string name="store_sub">التقييم والمراجعات العامة الخاصة بالمتجر نفسه، للقراءة فقط، معروضة للسياق. تملك Solana Mobile هذه البيانات.</string>
-    <string name="store_total">%1$d مراجعة في المتجر</string>
+    <plurals name="store_total">
+        <item quantity="zero">%1$d مراجعات في المتجر</item>
+        <item quantity="one">%1$d مراجعة في المتجر</item>
+        <item quantity="two">%1$d مراجعتان في المتجر</item>
+        <item quantity="few">%1$d مراجعات في المتجر</item>
+        <item quantity="many">%1$d مراجعة في المتجر</item>
+        <item quantity="other">%1$d مراجعة في المتجر</item>
+    </plurals>
     <string name="store_none">لا توجد مراجعات عامة لهذا التطبيق في المتجر بعد.</string>
     <string name="store_publisher_replied">ردّ الناشر</string>
     <string name="store_mine_found">قيّمت هذا بـ %1$d★ في dApp Store بتاريخ %2$s.</string>
@@ -130,7 +137,14 @@
     <string name="import_incomplete">تعذّرت قراءة المتجر لـ %1$d من أصل %2$d تطبيقًا، لذا قد تكون هذه القائمة غير مكتملة. حاول الفحص مرة أخرى لاحقًا.</string>
     <string name="import_none">لا توجد مراجعات في المتجر بهذه المحفظة بين التطبيقات المثبتة لديك أو المتابَعة.</string>
     <string name="import_publish">توقيع واستيراد %1$d</string>
-    <string name="import_done">تم استيراد %1$d مراجعة.</string>
+    <plurals name="import_done">
+        <item quantity="zero">تم استيراد %1$d مراجعات.</item>
+        <item quantity="one">تم استيراد %1$d مراجعة.</item>
+        <item quantity="two">تم استيراد %1$d مراجعتان.</item>
+        <item quantity="few">تم استيراد %1$d مراجعات.</item>
+        <item quantity="many">تم استيراد %1$d مراجعة.</item>
+        <item quantity="other">تم استيراد %1$d مراجعة.</item>
+    </plurals>
     <string name="import_note">تحمل المراجعات المستوردة الوسم \"works\" (4–5★) أو \"confusing\" (1–3★)؛ عدّلها في أي وقت بمراجعة جديدة. يُقتطع النص الأطول من 140 حرفًا.</string>
     <string name="detail_tags_title">ما وسمه المالكون</string>
     <string name="detail_facts_title">ما يمكن لجهازك التحقق منه</string>
@@ -194,7 +208,14 @@
     <string name="settings_ledger_body">عنوان السجل %1$s. يمكن لأي شخص اكتشاف كل مراجعة من خلال هذا العنوان. Undersigned لا يشغّل أي خادم.</string>
     <string name="settings_refresh_ledger">إعادة قراءة السجل</string>
     <string name="settings_hidden">المراجعات المخفية</string>
-    <string name="settings_hidden_body">%1$d مراجعة مخفية على هذا الجهاز.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="zero">%1$d مراجعات مخفية على هذا الجهاز.</item>
+        <item quantity="one">%1$d مراجعة مخفية على هذا الجهاز.</item>
+        <item quantity="two">%1$d مراجعتان مخفيتان على هذا الجهاز.</item>
+        <item quantity="few">%1$d مراجعات مخفية على هذا الجهاز.</item>
+        <item quantity="many">%1$d مراجعة مخفية على هذا الجهاز.</item>
+        <item quantity="other">%1$d مراجعة مخفية على هذا الجهاز.</item>
+    </plurals>
     <string name="settings_unhide_all">إظهار الكل</string>
     <string name="settings_legal">القانونية</string>
     <string name="settings_sanctions">النطاقات القضائية المقيَّدة</string>
@@ -415,7 +436,14 @@
     <string name="pro_get">احصل على Pro · %1$s أو %2$s</string>
     <string name="pro_get_short">احصل على Pro</string>
     <string name="pro_stay_free">البقاء على Free</string>
-    <string name="pro_active">نشط · %1$d يومًا متبقيًا</string>
+    <plurals name="pro_active">
+        <item quantity="zero">نشط · %1$d أيام متبقية</item>
+        <item quantity="one">نشط · %1$d يوم متبقٍ</item>
+        <item quantity="two">نشط · %1$d يومان متبقيان</item>
+        <item quantity="few">نشط · %1$d أيام متبقية</item>
+        <item quantity="many">نشط · %1$d يومًا متبقيًا</item>
+        <item quantity="other">نشط · %1$d يومًا متبقيًا</item>
+    </plurals>
     <string name="pro_paid_line">دُفع %1$s · %2$s · يسري حتى %3$s</string>
     <string name="pro_view_licence">عرض الترخيص على السلسلة</string>
     <string name="pro_renew">تجديد لمدة 12 شهرًا</string>
@@ -461,7 +489,14 @@
     <string name="pro_shared_from_body">إذا اشترت محفظة أخرى لك Pro وشاركته مع هذه، أدخل تلك المحفظة؛ يُقرأ المنح من السجل ويُعتمد طوال مدة تلك المحفظة.</string>
     <string name="pro_shared_from_hint">المحفظة التي دفعت — العنوان أو اسم .skr</string>
     <string name="pro_shared_from_add">قراءة المنح</string>
-    <string name="pro_shared_active">نشط · شاركته %1$s · %2$d يومًا متبقيًا</string>
+    <plurals name="pro_shared_active">
+        <item quantity="zero">نشط · شاركته %1$s · %2$d أيام متبقية</item>
+        <item quantity="one">نشط · شاركته %1$s · %2$d يوم متبقٍ</item>
+        <item quantity="two">نشط · شاركته %1$s · %2$d يومان متبقيان</item>
+        <item quantity="few">نشط · شاركته %1$s · %2$d أيام متبقية</item>
+        <item quantity="many">نشط · شاركته %1$s · %2$d يومًا متبقيًا</item>
+        <item quantity="other">نشط · شاركته %1$s · %2$d يومًا متبقيًا</item>
+    </plurals>
     <string name="pro_shared_none">لا يوجد منح من %1$s يسمّي هذه المحفظة بعد. يُحفظ هنا ويُعاد قراءته مع السجل.</string>
     <string name="pro_shared_forget">نسيان</string>
     <string name="pro_standing_note">Pro ليس جزءًا من هذا. الوزن يأتي من الجهاز وحصة SKR المرهونة فقط.</string>
@@ -484,7 +519,14 @@
     <string name="fp_weight">مقدار احتساب رأيك</string>
     <string name="fp_weight_both">نفسه — الجهاز وحصة SKR المرهونة فقط</string>
     <string name="desk_title">مكتب الناشر</string>
-    <string name="desk_across">عبر %1$d من تطبيقاتك الموثّقة</string>
+    <plurals name="desk_across">
+        <item quantity="zero">عبر %1$d من تطبيقاتك الموثّقة</item>
+        <item quantity="one">عبر %1$d من تطبيقاتك الموثّقة</item>
+        <item quantity="two">عبر %1$d من تطبيقاتك الموثّقة</item>
+        <item quantity="few">عبر %1$d من تطبيقاتك الموثّقة</item>
+        <item quantity="many">عبر %1$d من تطبيقاتك الموثّقة</item>
+        <item quantity="other">عبر %1$d من تطبيقاتك الموثّقة</item>
+    </plurals>
     <string name="desk_unanswered">بلا رد</string>
     <string name="desk_median">متوسط الرد</string>
     <string name="desk_answered">أُجيب عنها</string>
@@ -492,7 +534,14 @@
     <string name="desk_waiting">%1$d بالانتظار</string>
     <string name="desk_clear">خالٍ</string>
     <string name="desk_oldest">الأقدم انتظارًا</string>
-    <string name="desk_days">%1$d يومًا</string>
+    <plurals name="desk_days">
+        <item quantity="zero">%1$d أيام</item>
+        <item quantity="one">%1$d يوم</item>
+        <item quantity="two">%1$d يومان</item>
+        <item quantity="few">%1$d أيام</item>
+        <item quantity="many">%1$d يومًا</item>
+        <item quantity="other">%1$d يومًا</item>
+    </plurals>
     <string name="desk_hours">%1$d س</string>
     <string name="desk_note">تُقرأ الاستجابة من السجل مثل كل شيء آخر: الفجوة بين مراجعة موقّعة وردك الموقَّع. تُعرض للقرّاء في صفحة تطبيقك، فقائمة الانتظار هي المنتج.</string>
     <string name="desk_none">لا تطبيقات موثّقة بعد. طالب بتطبيق من صفحته وأثبت ملكية الموقع؛ يمتلئ المكتب من هناك.</string>

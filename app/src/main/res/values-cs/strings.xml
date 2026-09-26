@@ -110,7 +110,12 @@
     <string name="change_rate_version">Ohodnotit tuto verzi</string>
     <string name="store_title">Hodnocení dApp Store</string>
     <string name="store_sub">Vlastní veřejné hodnocení a recenze obchodu, pouze pro čtení, zobrazené pro kontext. Tyto údaje vlastní Solana Mobile.</string>
-    <string name="store_total">%1$d recenzí v obchodě</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d recenze v obchodě</item>
+        <item quantity="few">%1$d recenze v obchodě</item>
+        <item quantity="many">%1$d recenze v obchodě</item>
+        <item quantity="other">%1$d recenzí v obchodě</item>
+    </plurals>
     <string name="store_none">Obchod pro tuto aplikaci zatím nemá žádné veřejné recenze.</string>
     <string name="store_publisher_replied">Vydavatel odpověděl</string>
     <string name="store_mine_found">Ohodnotili jste toto %1$d★ v dApp Store dne %2$s.</string>
@@ -123,7 +128,12 @@
     <string name="import_incomplete">Obchod se nepodařilo načíst pro %1$d z %2$d aplikací, takže tento seznam může být neúplný. Zkuste prohledávání zopakovat později.</string>
     <string name="import_none">Mezi vašimi nainstalovanými nebo sledovanými aplikacemi nejsou žádné recenze z obchodu od této peněženky.</string>
     <string name="import_publish">Podepsat a importovat %1$d</string>
-    <string name="import_done">Importováno %1$d recenzí.</string>
+    <plurals name="import_done">
+        <item quantity="one">Importováno %1$d recenze.</item>
+        <item quantity="few">Importováno %1$d recenze.</item>
+        <item quantity="many">Importováno %1$d recenze.</item>
+        <item quantity="other">Importováno %1$d recenzí.</item>
+    </plurals>
     <string name="import_note">Importované recenze nesou štítek \"works\" (4–5★) nebo \"confusing\" (1–3★); kdykoli je upravte novou recenzí. Text delší než 140 znaků je zkrácen.</string>
     <string name="detail_tags_title">Co vlastníci označili</string>
     <string name="detail_facts_title">Co dokáže vaše zařízení ověřit</string>
@@ -187,7 +197,12 @@
     <string name="settings_ledger_body">Adresa registru %1$s. Každou recenzi může kdokoli najít prostřednictvím této adresy. Undersigned neprovozuje žádný server.</string>
     <string name="settings_refresh_ledger">Znovu načíst evidenci</string>
     <string name="settings_hidden">Skryté recenze</string>
-    <string name="settings_hidden_body">%1$d recenzí skrytých na tomto zařízení.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d recenze skrytá na tomto zařízení.</item>
+        <item quantity="few">%1$d recenze skryté na tomto zařízení.</item>
+        <item quantity="many">%1$d recenze skryté na tomto zařízení.</item>
+        <item quantity="other">%1$d recenzí skrytých na tomto zařízení.</item>
+    </plurals>
     <string name="settings_unhide_all">Odkrýt vše</string>
     <string name="settings_legal">Právní informace</string>
     <string name="settings_sanctions">Omezené jurisdikce</string>
@@ -410,7 +425,12 @@
     <string name="pro_get">Získat Pro · %1$s nebo %2$s</string>
     <string name="pro_get_short">Získat Pro</string>
     <string name="pro_stay_free">Zůstat u Free</string>
-    <string name="pro_active">Aktivní · zbývá %1$d dní</string>
+    <plurals name="pro_active">
+        <item quantity="one">Aktivní · zbývá %1$d den</item>
+        <item quantity="few">Aktivní · zbývá %1$d dny</item>
+        <item quantity="many">Aktivní · zbývá %1$d dne</item>
+        <item quantity="other">Aktivní · zbývá %1$d dní</item>
+    </plurals>
     <string name="pro_paid_line">Zaplaceno %1$s · %2$s · platí do %3$s</string>
     <string name="pro_view_licence">Zobrazit licenci na blockchainu</string>
     <string name="pro_renew">Obnovit na 12 měsíců</string>
@@ -456,7 +476,12 @@
     <string name="pro_shared_from_body">Pokud jiná vaše peněženka koupila Pro a sdílela ho s touto, zadejte tuto peněženku; udělení se čte z evidence a platí, dokud běží doba platnosti té peněženky.</string>
     <string name="pro_shared_from_hint">Peněženka, která platila — adresa nebo název .skr</string>
     <string name="pro_shared_from_add">Načíst udělení</string>
-    <string name="pro_shared_active">Aktivní · sdílí %1$s · zbývá %2$d dní</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Aktivní · sdílí %1$s · zbývá %2$d den</item>
+        <item quantity="few">Aktivní · sdílí %1$s · zbývá %2$d dny</item>
+        <item quantity="many">Aktivní · sdílí %1$s · zbývá %2$d dne</item>
+        <item quantity="other">Aktivní · sdílí %1$s · zbývá %2$d dní</item>
+    </plurals>
     <string name="pro_shared_none">Žádné udělení od %1$s zatím nejmenuje tuto peněženku. Zůstává zde uloženo a znovu se přečte s evidencí.</string>
     <string name="pro_shared_forget">Zapomenout</string>
     <string name="pro_standing_note">Pro do toho nezasahuje. Váha pochází pouze ze zařízení a zastakovaného SKR.</string>
@@ -479,7 +504,12 @@
     <string name="fp_weight">Kolik váží váš názor</string>
     <string name="fp_weight_both">stejně — pouze zařízení a zastakovaný SKR</string>
     <string name="desk_title">Pult vydavatele</string>
-    <string name="desk_across">Napříč vašimi %1$d ověřenými dApps</string>
+    <plurals name="desk_across">
+        <item quantity="one">Napříč vašimi %1$d ověřenými dApps</item>
+        <item quantity="few">Napříč vašimi %1$d ověřenými dApps</item>
+        <item quantity="many">Napříč vašimi %1$d ověřenými dApps</item>
+        <item quantity="other">Napříč vašimi %1$d ověřenými dApps</item>
+    </plurals>
     <string name="desk_unanswered">nezodpovězeno</string>
     <string name="desk_median">medián odpovědi</string>
     <string name="desk_answered">zodpovězeno</string>
@@ -487,7 +517,12 @@
     <string name="desk_waiting">%1$d čeká</string>
     <string name="desk_clear">prázdno</string>
     <string name="desk_oldest">Nejdéle čekající</string>
-    <string name="desk_days">%1$d dní</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d den</item>
+        <item quantity="few">%1$d dny</item>
+        <item quantity="many">%1$d dne</item>
+        <item quantity="other">%1$d dní</item>
+    </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Odezva se čte z evidence jako vše ostatní: rozdíl mezi podepsanou recenzí a vaší podepsanou odpovědí. Čtenářům se zobrazuje na stránce vaší dApp, takže fronta je produktem.</string>
     <string name="desk_none">Zatím žádné ověřené dApps. Nárokujte aplikaci z její stránky a prokažte web; pult se odtud naplní.</string>

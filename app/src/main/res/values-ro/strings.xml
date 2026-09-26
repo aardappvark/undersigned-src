@@ -115,7 +115,11 @@
     <string name="change_rate_version">Evaluează această versiune</string>
     <string name="store_title">Evaluare dApp Store</string>
     <string name="store_sub">Evaluarea și recenziile publice proprii ale magazinului, doar pentru citire, afișate ca context. Aparțin Solana Mobile.</string>
-    <string name="store_total">%1$d recenzii în magazin</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d recenzie în magazin</item>
+        <item quantity="few">%1$d recenzii în magazin</item>
+        <item quantity="other">%1$d de recenzii în magazin</item>
+    </plurals>
     <string name="store_none">Magazinul nu are încă recenzii publice pentru această aplicație.</string>
     <string name="store_publisher_replied">Editorul a răspuns</string>
     <string name="store_mine_found">Ai evaluat aceasta cu %1$d★ în dApp Store pe %2$s.</string>
@@ -128,7 +132,11 @@
     <string name="import_incomplete">Magazinul nu a putut fi citit pentru %1$d din %2$d aplicații, așa că această listă poate fi incompletă. Încearcă din nou scanarea mai târziu.</string>
     <string name="import_none">Nicio recenzie a acestui portofel printre aplicațiile instalate sau urmărite.</string>
     <string name="import_publish">Semnează și importă %1$d</string>
-    <string name="import_done">%1$d recenzii importate.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d recenzie importată.</item>
+        <item quantity="few">%1$d recenzii importate.</item>
+        <item quantity="other">%1$d de recenzii importate.</item>
+    </plurals>
     <string name="import_note">Recenziile importate poartă eticheta \"works\" (4–5★) sau \"confusing\" (1–3★); le poți edita oricând cu o recenzie nouă. Textul mai lung de 140 de caractere este trunchiat.</string>
     <string name="detail_tags_title">Ce au etichetat proprietarii</string>
     <string name="detail_facts_title">Ce poate verifica dispozitivul tău</string>
@@ -195,7 +203,11 @@
     <string name="settings_ledger_body">Adresa registrului %1$s. Fiecare recenzie poate fi găsită de oricine prin această adresă. Undersigned nu rulează niciun server.</string>
     <string name="settings_refresh_ledger">Recitește registrul</string>
     <string name="settings_hidden">Recenzii ascunse</string>
-    <string name="settings_hidden_body">%1$d recenzii ascunse pe acest dispozitiv.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d recenzie ascunsă pe acest dispozitiv.</item>
+        <item quantity="few">%1$d recenzii ascunse pe acest dispozitiv.</item>
+        <item quantity="other">%1$d de recenzii ascunse pe acest dispozitiv.</item>
+    </plurals>
     <string name="settings_unhide_all">Reafișează-le pe toate</string>
     <string name="settings_legal">Legal</string>
     <string name="settings_sanctions">Jurisdicții restricționate</string>
@@ -417,7 +429,11 @@
     <string name="pro_get">Obține Pro · %1$s sau %2$s</string>
     <string name="pro_get_short">Obține Pro</string>
     <string name="pro_stay_free">Rămâi pe Gratuit</string>
-    <string name="pro_active">Activ · %1$d zile rămase</string>
+    <plurals name="pro_active">
+        <item quantity="one">Activ · %1$d zi rămasă</item>
+        <item quantity="few">Activ · %1$d zile rămase</item>
+        <item quantity="other">Activ · %1$d de zile rămase</item>
+    </plurals>
     <string name="pro_paid_line">Plătit %1$s · %2$s · valabil până la %3$s</string>
     <string name="pro_view_licence">Vezi licența on-chain</string>
     <string name="pro_renew">Reînnoiește pentru 12 luni</string>
@@ -463,7 +479,11 @@
     <string name="pro_shared_from_body">Dacă un alt portofel al tău a cumpărat Pro și l-a distribuit cu acesta, introdu acel portofel; concesiunea este citită din registru și respectată cât timp durează termenul acelui portofel.</string>
     <string name="pro_shared_from_hint">Portofelul care a plătit — adresă sau nume .skr</string>
     <string name="pro_shared_from_add">Citește concesiunea</string>
-    <string name="pro_shared_active">Activ · distribuit de %1$s · %2$d zile rămase</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Activ · distribuit de %1$s · %2$d zi rămasă</item>
+        <item quantity="few">Activ · distribuit de %1$s · %2$d zile rămase</item>
+        <item quantity="other">Activ · distribuit de %1$s · %2$d de zile rămase</item>
+    </plurals>
     <string name="pro_shared_none">Nicio concesiune de la %1$s nu numește încă acest portofel. Este păstrată aici și citită din nou odată cu registrul.</string>
     <string name="pro_shared_forget">Uită</string>
     <string name="pro_standing_note">Pro nu face parte din asta. Ponderea vine doar din dispozitiv și SKR stake-uit.</string>
@@ -486,7 +506,11 @@
     <string name="fp_weight">Cât contează opinia ta</string>
     <string name="fp_weight_both">la fel — doar dispozitivul și SKR stake-uit</string>
     <string name="desk_title">Biroul editorului</string>
-    <string name="desk_across">Pe cele %1$d dApp-uri verificate ale tale</string>
+    <plurals name="desk_across">
+        <item quantity="one">Pe %1$d dApp verificat al tău</item>
+        <item quantity="few">Pe cele %1$d dApp-uri verificate ale tale</item>
+        <item quantity="other">Pe cele %1$d de dApp-uri verificate ale tale</item>
+    </plurals>
     <string name="desk_unanswered">fără răspuns</string>
     <string name="desk_median">răspuns median</string>
     <string name="desk_answered">cu răspuns</string>
@@ -494,7 +518,11 @@
     <string name="desk_waiting">%1$d în așteptare</string>
     <string name="desk_clear">fără restanțe</string>
     <string name="desk_oldest">Cea mai veche în așteptare</string>
-    <string name="desk_days">%1$d zile</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d zi</item>
+        <item quantity="few">%1$d zile</item>
+        <item quantity="other">%1$d de zile</item>
+    </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Capacitatea de răspuns este citită din registru ca orice altceva: intervalul dintre o recenzie semnată și răspunsul tău semnat. Este afișată cititorilor pe pagina dApp-ului tău, deci coada este produsul.</string>
     <string name="desk_none">Niciun dApp verificat încă. Revendică o aplicație de pe pagina ei și dovedește site-ul; biroul se umple de acolo.</string>

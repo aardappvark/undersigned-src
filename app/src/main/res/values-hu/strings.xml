@@ -115,7 +115,10 @@
     <string name="change_rate_version">Verzió értékelése</string>
     <string name="store_title">dApp Store értékelés</string>
     <string name="store_sub">Az áruház saját nyilvános értékelése és véleményei, csak olvasható formában, tájékoztatásul. Ezek a Solana Mobile tulajdonát képezik.</string>
-    <string name="store_total">%1$d áruházi értékelés</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d áruházi értékelés</item>
+        <item quantity="other">%1$d áruházi értékelés</item>
+    </plurals>
     <string name="store_none">Az áruházban még nincs nyilvános értékelés ehhez az alkalmazáshoz.</string>
     <string name="store_publisher_replied">A kiadó válaszolt</string>
     <string name="store_mine_found">Ezt %1$d★-ra értékelted a dApp Store-ban, ekkor: %2$s.</string>
@@ -128,7 +131,10 @@
     <string name="import_incomplete">%2$d alkalmazásból %1$d esetében nem sikerült beolvasni az áruházat, így ez a lista hiányos lehet. Próbáld újra az átvizsgálást később.</string>
     <string name="import_none">Ehhez a tárcához nem található áruházi értékelés a telepített vagy követett alkalmazásaid között.</string>
     <string name="import_publish">%1$d aláírása és importálása</string>
-    <string name="import_done">%1$d értékelés importálva.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d értékelés importálva.</item>
+        <item quantity="other">%1$d értékelés importálva.</item>
+    </plurals>
     <string name="import_note">Az importált értékelések a \"works\" (4–5★) vagy a \"confusing\" (1–3★) címkét kapják; bármikor szerkesztheted őket egy új értékeléssel. A 140 karakternél hosszabb szöveg levágásra kerül.</string>
     <string name="detail_tags_title">Mit jelöltek meg a tulajdonosok</string>
     <string name="detail_facts_title">Mit tud ellenőrizni az eszközöd</string>
@@ -195,7 +201,10 @@
     <string name="settings_ledger_body">Nyilvántartási cím: %1$s. Ezen a címen keresztül bárki megtalálhat minden értékelést. Az Undersigned nem üzemeltet szervert.</string>
     <string name="settings_refresh_ledger">Nyilvántartás újraolvasása</string>
     <string name="settings_hidden">Elrejtett értékelések</string>
-    <string name="settings_hidden_body">%1$d értékelés elrejtve ezen az eszközön.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d értékelés elrejtve ezen az eszközön.</item>
+        <item quantity="other">%1$d értékelés elrejtve ezen az eszközön.</item>
+    </plurals>
     <string name="settings_unhide_all">Összes megjelenítése</string>
     <string name="settings_legal">Jogi információk</string>
     <string name="settings_sanctions">Korlátozott joghatóságok</string>
@@ -417,7 +426,10 @@
     <string name="pro_get">Pro beszerzése · %1$s vagy %2$s</string>
     <string name="pro_get_short">Pro beszerzése</string>
     <string name="pro_stay_free">Maradok az Ingyenesnél</string>
-    <string name="pro_active">Aktív · %1$d nap van hátra</string>
+    <plurals name="pro_active">
+        <item quantity="one">Aktív · %1$d nap van hátra</item>
+        <item quantity="other">Aktív · %1$d nap van hátra</item>
+    </plurals>
     <string name="pro_paid_line">Fizetve: %1$s · %2$s · lejár: %3$s</string>
     <string name="pro_view_licence">Licenc megtekintése a láncon</string>
     <string name="pro_renew">Megújítás 12 hónapra</string>
@@ -463,7 +475,10 @@
     <string name="pro_shared_from_body">Ha egy másik saját tárcád megvette a Pro-t és megosztotta ezzel, add meg azt a tárcát; az engedmény a nyilvántartásból kerül kiolvasásra, és addig tart, amíg annak a tárcának a futamideje.</string>
     <string name="pro_shared_from_hint">A fizető tárca — cím vagy .skr név</string>
     <string name="pro_shared_from_add">Engedmény beolvasása</string>
-    <string name="pro_shared_active">Aktív · megosztva tőle: %1$s · %2$d nap van hátra</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Aktív · megosztva tőle: %1$s · %2$d nap van hátra</item>
+        <item quantity="other">Aktív · megosztva tőle: %1$s · %2$d nap van hátra</item>
+    </plurals>
     <string name="pro_shared_none">%1$s részéről még nincs olyan engedmény, amely ezt a tárcát nevezné meg. Itt megmarad, és a nyilvántartással együtt újra beolvasásra kerül.</string>
     <string name="pro_shared_forget">Elfelejtés</string>
     <string name="pro_standing_note">A Pro ennek nem része. A súly csak az eszközből és a staked SKR-ből származik.</string>
@@ -486,7 +501,10 @@
     <string name="fp_weight">Mennyit számít a véleményed</string>
     <string name="fp_weight_both">ugyanannyit — csak az eszköz és a staked SKR</string>
     <string name="desk_title">Kiadói pult</string>
-    <string name="desk_across">A %1$d ellenőrzött dAppodon átívelve</string>
+    <plurals name="desk_across">
+        <item quantity="one">A %1$d ellenőrzött dAppodon átívelve</item>
+        <item quantity="other">A %1$d ellenőrzött dAppodon átívelve</item>
+    </plurals>
     <string name="desk_unanswered">megválaszolatlan</string>
     <string name="desk_median">medián válaszidő</string>
     <string name="desk_answered">megválaszolva</string>
@@ -494,7 +512,10 @@
     <string name="desk_waiting">%1$d várakozik</string>
     <string name="desk_clear">tiszta</string>
     <string name="desk_oldest">Legrégebb óta várakozik</string>
-    <string name="desk_days">%1$d nap</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d nap</item>
+        <item quantity="other">%1$d nap</item>
+    </plurals>
     <string name="desk_hours">%1$d ó</string>
     <string name="desk_note">A válaszkészség a nyilvántartásból olvasható, mint minden más: a rés egy aláírt értékelés és a te aláírt válaszod között. Ez megjelenik az olvasóknak a dApp oldaladon, tehát a sor maga a termék.</string>
     <string name="desk_none">Még nincs ellenőrzött dApp. Igényelj egy alkalmazást az oldaláról, és igazold a weboldalt; a pult onnantól feltöltődik.</string>

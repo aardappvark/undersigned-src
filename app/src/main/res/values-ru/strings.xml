@@ -105,7 +105,12 @@
     <string name="change_rate_version">Оценить эту версию</string>
     <string name="store_title">Рейтинг dApp Store</string>
     <string name="store_sub">Собственный публичный рейтинг и отзывы магазина, только для чтения, показаны для контекста. Ими владеет Solana Mobile.</string>
-    <string name="store_total">%1$d отзывов в магазине</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d отзыв в магазине</item>
+        <item quantity="few">%1$d отзыва в магазине</item>
+        <item quantity="many">%1$d отзывов в магазине</item>
+        <item quantity="other">%1$d отзыва в магазине</item>
+    </plurals>
     <string name="store_none">У магазина пока нет публичных отзывов на это приложение.</string>
     <string name="store_publisher_replied">Издатель ответил</string>
     <string name="store_mine_found">Вы поставили этому приложению %1$d★ в dApp Store %2$s.</string>
@@ -118,7 +123,12 @@
     <string name="import_incomplete">Не удалось прочитать магазин для %1$d из %2$d приложений, поэтому список может быть неполным. Повторите сканирование позже.</string>
     <string name="import_none">Среди установленных или отслеживаемых вами приложений нет отзывов этого кошелька в магазине.</string>
     <string name="import_publish">Подписать и импортировать %1$d</string>
-    <string name="import_done">Импортировано отзывов: %1$d.</string>
+    <plurals name="import_done">
+        <item quantity="one">Импортировано отзыв: %1$d.</item>
+        <item quantity="few">Импортировано отзыва: %1$d.</item>
+        <item quantity="many">Импортировано отзывов: %1$d.</item>
+        <item quantity="other">Импортировано отзыва: %1$d.</item>
+    </plurals>
     <string name="import_note">Импортированные отзывы несут тег \"works\" (4–5★) или \"confusing\" (1–3★); их можно изменить в любое время новым отзывом. Текст длиннее 140 символов обрезается.</string>
     <string name="detail_tags_title">Что отметили владельцы</string>
     <string name="detail_facts_title">Что может проверить ваше устройство</string>
@@ -179,7 +189,12 @@
     <string name="settings_ledger_body">Адрес реестра %1$s. Каждый отзыв доступен для чтения кому угодно по этому адресу. Undersigned не использует сервер.</string>
     <string name="settings_refresh_ledger">Перечитать реестр</string>
     <string name="settings_hidden">Скрытые отзывы</string>
-    <string name="settings_hidden_body">Скрыто отзывов на этом устройстве: %1$d.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">Скрыто отзыв на этом устройстве: %1$d.</item>
+        <item quantity="few">Скрыто отзыва на этом устройстве: %1$d.</item>
+        <item quantity="many">Скрыто отзывов на этом устройстве: %1$d.</item>
+        <item quantity="other">Скрыто отзыва на этом устройстве: %1$d.</item>
+    </plurals>
     <string name="settings_unhide_all">Показать все</string>
     <string name="settings_legal">Правовая информация</string>
     <string name="settings_sanctions">Ограниченные юрисдикции</string>
@@ -402,7 +417,12 @@
     <string name="pro_get">Получить Pro · %1$s или %2$s</string>
     <string name="pro_get_short">Получить Pro</string>
     <string name="pro_stay_free">Остаться на Free</string>
-    <string name="pro_active">Активно · осталось %1$d дней</string>
+    <plurals name="pro_active">
+        <item quantity="one">Активно · осталось %1$d день</item>
+        <item quantity="few">Активно · осталось %1$d дня</item>
+        <item quantity="many">Активно · осталось %1$d дней</item>
+        <item quantity="other">Активно · осталось %1$d дня</item>
+    </plurals>
     <string name="pro_paid_line">Оплачено %1$s · %2$s · действует до %3$s</string>
     <string name="pro_view_licence">Посмотреть лицензию в блокчейне</string>
     <string name="pro_renew">Продлить на 12 месяцев</string>
@@ -448,7 +468,12 @@
     <string name="pro_shared_from_body">Если другой ваш кошелёк купил Pro и поделился им с этим, введите тот кошелёк; предоставление считывается из реестра и действует, пока идёт срок того кошелька.</string>
     <string name="pro_shared_from_hint">Кошелёк, который платил — адрес или имя .skr</string>
     <string name="pro_shared_from_add">Считать предоставление</string>
-    <string name="pro_shared_active">Активно · предоставлено %1$s · осталось %2$d дней</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Активно · предоставлено %1$s · осталось %2$d день</item>
+        <item quantity="few">Активно · предоставлено %1$s · осталось %2$d дня</item>
+        <item quantity="many">Активно · предоставлено %1$s · осталось %2$d дней</item>
+        <item quantity="other">Активно · предоставлено %1$s · осталось %2$d дня</item>
+    </plurals>
     <string name="pro_shared_none">Ни одно предоставление от %1$s пока не называет этот кошелёк. Он остаётся здесь и считывается заново вместе с реестром.</string>
     <string name="pro_shared_forget">Забыть</string>
     <string name="pro_standing_note">Pro в этом не участвует. Вес определяется только устройством и застейканным SKR.</string>
@@ -471,7 +496,12 @@
     <string name="fp_weight">Насколько учитывается ваше мнение</string>
     <string name="fp_weight_both">одинаково — только устройство и застейканный SKR</string>
     <string name="desk_title">Панель издателя</string>
-    <string name="desk_across">По всем вашим %1$d подтверждённым dApps</string>
+    <plurals name="desk_across">
+        <item quantity="one">По всем вашим %1$d подтверждённым dApps</item>
+        <item quantity="few">По всем вашим %1$d подтверждённым dApps</item>
+        <item quantity="many">По всем вашим %1$d подтверждённым dApps</item>
+        <item quantity="other">По всем вашим %1$d подтверждённым dApps</item>
+    </plurals>
     <string name="desk_unanswered">без ответа</string>
     <string name="desk_median">медиана ответа</string>
     <string name="desk_answered">с ответом</string>
@@ -479,7 +509,12 @@
     <string name="desk_waiting">%1$d ждёт</string>
     <string name="desk_clear">пусто</string>
     <string name="desk_oldest">Дольше всех ждёт</string>
-    <string name="desk_days">%1$d дней</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дня</item>
+    </plurals>
     <string name="desk_hours">%1$d ч</string>
     <string name="desk_note">Отзывчивость считывается из реестра, как и всё остальное: промежуток между подписанным отзывом и вашим подписанным ответом. Она показывается читающим на странице вашей dApp, так что очередь и есть продукт.</string>
     <string name="desk_none">Пока нет подтверждённых dApps. Заявите права на приложение с его страницы и подтвердите сайт; оттуда панель заполнится.</string>

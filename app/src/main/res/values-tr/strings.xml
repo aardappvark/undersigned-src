@@ -115,7 +115,10 @@
     <string name="change_rate_version">Bu sürümü değerlendir</string>
     <string name="store_title">dApp Store puanı</string>
     <string name="store_sub">Mağazanın kendi herkese açık puanı ve incelemeleri, yalnızca okunur, bağlam için gösterilir. Bunlara Solana Mobile sahiptir.</string>
-    <string name="store_total">%1$d mağaza incelemesi</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d mağaza incelemesi</item>
+        <item quantity="other">%1$d mağaza incelemesi</item>
+    </plurals>
     <string name="store_none">Mağazada bu uygulama için henüz herkese açık inceleme yok.</string>
     <string name="store_publisher_replied">Yayıncı yanıtladı</string>
     <string name="store_mine_found">Bunu dApp Store\'da %2$s tarihinde %1$d★ olarak değerlendirdiniz.</string>
@@ -128,7 +131,10 @@
     <string name="import_incomplete">%2$d uygulamadan %1$d tanesi için mağaza okunamadı, bu nedenle bu liste eksik olabilir. Taramayı daha sonra tekrar deneyin.</string>
     <string name="import_none">Yüklü veya takip edilen uygulamalarınız arasında bu cüzdana ait mağaza incelemesi yok.</string>
     <string name="import_publish">%1$d tanesini imzala ve içe aktar</string>
-    <string name="import_done">%1$d inceleme içe aktarıldı.</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d inceleme içe aktarıldı.</item>
+        <item quantity="other">%1$d inceleme içe aktarıldı.</item>
+    </plurals>
     <string name="import_note">İçe aktarılan incelemeler \"works\" (4–5★) veya \"confusing\" (1–3★) etiketini taşır; bunları istediğiniz zaman yeni bir inceleme ile düzenleyebilirsiniz. 140 karakterden uzun metinler kısaltılır.</string>
     <string name="detail_tags_title">Sahiplerin etiketlediği şeyler</string>
     <string name="detail_facts_title">Cihazınızın doğrulayabildikleri</string>
@@ -195,7 +201,10 @@
     <string name="settings_ledger_body">Kayıt adresi %1$s. Her inceleme bu adres üzerinden herkes tarafından bulunabilir. Undersigned hiçbir sunucu çalıştırmaz.</string>
     <string name="settings_refresh_ledger">Defteri yeniden oku</string>
     <string name="settings_hidden">Gizlenen incelemeler</string>
-    <string name="settings_hidden_body">Bu cihazda %1$d inceleme gizlendi.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">Bu cihazda %1$d inceleme gizlendi.</item>
+        <item quantity="other">Bu cihazda %1$d inceleme gizlendi.</item>
+    </plurals>
     <string name="settings_unhide_all">Tümünü göster</string>
     <string name="settings_legal">Yasal</string>
     <string name="settings_sanctions">Kısıtlanmış bölgeler</string>
@@ -417,7 +426,10 @@
     <string name="pro_get">Pro\'yu alın · %1$s veya %2$s</string>
     <string name="pro_get_short">Pro\'yu al</string>
     <string name="pro_stay_free">Ücretsizde kal</string>
-    <string name="pro_active">Aktif · %1$d gün kaldı</string>
+    <plurals name="pro_active">
+        <item quantity="one">Aktif · %1$d gün kaldı</item>
+        <item quantity="other">Aktif · %1$d gün kaldı</item>
+    </plurals>
     <string name="pro_paid_line">Ödendi %1$s · %2$s · %3$s tarihine kadar geçerli</string>
     <string name="pro_view_licence">Lisansı zincirde görüntüle</string>
     <string name="pro_renew">12 ay için yenile</string>
@@ -463,7 +475,10 @@
     <string name="pro_shared_from_body">Sizin başka bir cüzdanınız Pro satın alıp bununla paylaştıysa, o cüzdanı girin; hibe defterden okunur ve o cüzdanın süresi devam ettiği sürece geçerli sayılır.</string>
     <string name="pro_shared_from_hint">Ödeyen cüzdan — adres veya .skr adı</string>
     <string name="pro_shared_from_add">Hibeyi oku</string>
-    <string name="pro_shared_active">Aktif · %1$s tarafından paylaşıldı · %2$d gün kaldı</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Aktif · %1$s tarafından paylaşıldı · %2$d gün kaldı</item>
+        <item quantity="other">Aktif · %1$s tarafından paylaşıldı · %2$d gün kaldı</item>
+    </plurals>
     <string name="pro_shared_none">%1$s tarafından henüz bu cüzdanı adlandıran bir hibe yok. Burada tutulur ve defterle birlikte tekrar okunur.</string>
     <string name="pro_shared_forget">Unut</string>
     <string name="pro_standing_note">Pro bunun bir parçası değildir. Ağırlık yalnızca cihazdan ve stake edilmiş SKR\'den gelir.</string>
@@ -486,7 +501,10 @@
     <string name="fp_weight">Görüşünüz ne kadar sayılır</string>
     <string name="fp_weight_both">aynı — yalnızca cihaz ve stake edilmiş SKR</string>
     <string name="desk_title">Yayıncı masası</string>
-    <string name="desk_across">%1$d doğrulanmış dApp\'iniz genelinde</string>
+    <plurals name="desk_across">
+        <item quantity="one">%1$d doğrulanmış dApp\'iniz genelinde</item>
+        <item quantity="other">%1$d doğrulanmış dApp\'iniz genelinde</item>
+    </plurals>
     <string name="desk_unanswered">yanıtsız</string>
     <string name="desk_median">medyan yanıt</string>
     <string name="desk_answered">yanıtlandı</string>
@@ -494,7 +512,10 @@
     <string name="desk_waiting">%1$d bekliyor</string>
     <string name="desk_clear">temiz</string>
     <string name="desk_oldest">En eski bekleyen</string>
-    <string name="desk_days">%1$d gün</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
     <string name="desk_hours">%1$d sa</string>
     <string name="desk_note">Yanıt verme hızı, defterden her şey gibi okunur: imzalı bir inceleme ile sizin imzalı yanıtınız arasındaki boşluk. Bu, okuyuculara dApp sayfanızda gösterilir, yani kuyruk ürünün kendisidir.</string>
     <string name="desk_none">Henüz doğrulanmış bir dApp yok. Sayfasından bir uygulamayı talep edin ve web sitesini kanıtlayın; masa oradan dolmaya başlar.</string>

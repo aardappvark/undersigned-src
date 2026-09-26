@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,12 +45,12 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             if (pro?.active != true) { Spacer(Modifier.height(8.dp)); ProLock(onPro = onPro); Spacer(Modifier.height(8.dp)) }
-            Text(stringResource(R.string.desk_across, desk.apps.size), color = RbColors.textTertiary, fontSize = 12.sp)
+            Text(pluralStringResource(R.plurals.desk_across, desk.apps.size, desk.apps.size), color = RbColors.textTertiary, fontSize = 12.sp)
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 val stats = listOf(
                     desk.unanswered.toString() to stringResource(R.string.desk_unanswered),
-                    (desk.medianReplyHours?.let { h -> if (h < 48) stringResource(R.string.desk_hours, h.toInt()) else stringResource(R.string.desk_days, (h / 24).toInt()) } ?: "—") to stringResource(R.string.desk_median),
+                    (desk.medianReplyHours?.let { h -> if (h < 48) stringResource(R.string.desk_hours, h.toInt()) else pluralStringResource(R.plurals.desk_days, (h / 24).toInt(), (h / 24).toInt()) } ?: "—") to stringResource(R.string.desk_median),
                     (desk.answeredPercent?.let { "$it%" } ?: "—") to stringResource(R.string.desk_answered),
                 )
                 stats.forEach { (v, l) -> GlassCard(Modifier.weight(1f)) { Text(v, color = RbColors.textPrimary, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold); Text(l, color = RbColors.textTertiary, fontSize = 11.sp) } }
@@ -77,7 +78,7 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                 val r = e.memo as ReviewMemo.Review
                 val ageDays = ((System.currentTimeMillis() / 1000 - e.blockTime) / 86400L).toInt()
                 GlassCard {
-                    Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text((domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: com.undersigned.app.solana.shortKey(e.signer, 4, 4)) + " · " + stringResource(R.string.desk_days, ageDays) + " · " + name(r.packageName), color = RbColors.textTertiary, fontSize = 11.sp) }
+                    Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text((domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: com.undersigned.app.solana.shortKey(e.signer, 4, 4)) + " · " + pluralStringResource(R.plurals.desk_days, ageDays, ageDays) + " · " + name(r.packageName), color = RbColors.textTertiary, fontSize = 11.sp) }
                     r.text?.let { Spacer(Modifier.height(4.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
                     Row {
                         TextButton(onClick = { com.undersigned.app.ui.NavIntents.pendingReply.value = e.signature to ""; onOpen(r.packageName) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontSize = 12.sp) }

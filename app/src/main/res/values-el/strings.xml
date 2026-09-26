@@ -115,7 +115,10 @@
     <string name="change_rate_version">Βαθμολογήστε αυτή την έκδοση</string>
     <string name="store_title">Βαθμολογία dApp Store</string>
     <string name="store_sub">Η δική του δημόσια βαθμολογία και οι κριτικές του καταστήματος, μόνο για ανάγνωση, εμφανίζονται για πλαίσιο. Ανήκουν στη Solana Mobile.</string>
-    <string name="store_total">%1$d κριτικές καταστήματος</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d κριτική καταστήματος</item>
+        <item quantity="other">%1$d κριτικές καταστήματος</item>
+    </plurals>
     <string name="store_none">Το κατάστημα δεν έχει ακόμα δημόσιες κριτικές για αυτή την εφαρμογή.</string>
     <string name="store_publisher_replied">Ο εκδότης απάντησε</string>
     <string name="store_mine_found">Βαθμολογήσατε αυτό με %1$d★ στο dApp Store στις %2$s.</string>
@@ -128,7 +131,10 @@
     <string name="import_incomplete">Δεν ήταν δυνατή η ανάγνωση του καταστήματος για %1$d από %2$d εφαρμογές, επομένως αυτή η λίστα ενδέχεται να είναι ελλιπής. Δοκιμάστε ξανά τη σάρωση αργότερα.</string>
     <string name="import_none">Καμία κριτική καταστήματος από αυτό το πορτοφόλι ανάμεσα στις εγκατεστημένες ή στις εφαρμογές που ακολουθείτε.</string>
     <string name="import_publish">Υπογραφή και εισαγωγή %1$d</string>
-    <string name="import_done">Έγινε εισαγωγή %1$d κριτικών.</string>
+    <plurals name="import_done">
+        <item quantity="one">Έγινε εισαγωγή %1$d κριτικής.</item>
+        <item quantity="other">Έγινε εισαγωγή %1$d κριτικών.</item>
+    </plurals>
     <string name="import_note">Οι εισαγόμενες κριτικές φέρουν την ετικέτα \"works\" (4–5★) ή \"confusing\" (1–3★)· επεξεργαστείτε τις όποτε θέλετε με νέα κριτική. Κείμενο πάνω από 140 χαρακτήρες περικόπτεται.</string>
     <string name="detail_tags_title">Τι επισήμαναν οι κάτοχοι</string>
     <string name="detail_facts_title">Τι μπορεί να επαληθεύσει η συσκευή σας</string>
@@ -195,7 +201,10 @@
     <string name="settings_ledger_body">Διεύθυνση μητρώου %1$s. Κάθε κριτική είναι ανιχνεύσιμη από τον καθένα μέσω αυτής της διεύθυνσης. Το Undersigned δεν λειτουργεί κανέναν server.</string>
     <string name="settings_refresh_ledger">Επανάγνωση του ledger</string>
     <string name="settings_hidden">Κρυμμένες κριτικές</string>
-    <string name="settings_hidden_body">%1$d κριτικές κρυμμένες σε αυτή τη συσκευή.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d κριτική κρυμμένη σε αυτή τη συσκευή.</item>
+        <item quantity="other">%1$d κριτικές κρυμμένες σε αυτή τη συσκευή.</item>
+    </plurals>
     <string name="settings_unhide_all">Εμφάνιση όλων ξανά</string>
     <string name="settings_legal">Νομικά</string>
     <string name="settings_sanctions">Περιορισμένες δικαιοδοσίες</string>
@@ -417,7 +426,10 @@
     <string name="pro_get">Απόκτηση Pro · %1$s ή %2$s</string>
     <string name="pro_get_short">Απόκτηση Pro</string>
     <string name="pro_stay_free">Παραμονή στο Δωρεάν</string>
-    <string name="pro_active">Ενεργό · %1$d ημέρες απομένουν</string>
+    <plurals name="pro_active">
+        <item quantity="one">Ενεργό · %1$d ημέρα απομένει</item>
+        <item quantity="other">Ενεργό · %1$d ημέρες απομένουν</item>
+    </plurals>
     <string name="pro_paid_line">Πληρώθηκε %1$s · %2$s · διαρκεί έως %3$s</string>
     <string name="pro_view_licence">Προβολή της άδειας on-chain</string>
     <string name="pro_renew">Ανανέωση για 12 μήνες</string>
@@ -463,7 +475,10 @@
     <string name="pro_shared_from_body">Αν κάποιο άλλο δικό σας πορτοφόλι αγόρασε το Pro και το μοιράστηκε με αυτό, εισαγάγετε εκείνο το πορτοφόλι· η παραχώρηση διαβάζεται από το ledger και τηρείται όσο διαρκεί η προθεσμία εκείνου του πορτοφολιού.</string>
     <string name="pro_shared_from_hint">Το πορτοφόλι που πλήρωσε — διεύθυνση ή όνομα .skr</string>
     <string name="pro_shared_from_add">Ανάγνωση της παραχώρησης</string>
-    <string name="pro_shared_active">Ενεργό · κοινή χρήση από %1$s · %2$d ημέρες απομένουν</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Ενεργό · κοινή χρήση από %1$s · %2$d ημέρα απομένει</item>
+        <item quantity="other">Ενεργό · κοινή χρήση από %1$s · %2$d ημέρες απομένουν</item>
+    </plurals>
     <string name="pro_shared_none">Καμία παραχώρηση από %1$s δεν ονομάζει αυτό το πορτοφόλι ακόμα. Διατηρείται εδώ και διαβάζεται ξανά με το ledger.</string>
     <string name="pro_shared_forget">Διαγραφή</string>
     <string name="pro_standing_note">Το Pro δεν είναι μέρος αυτού. Το βάρος προέρχεται μόνο από τη συσκευή και το staked SKR.</string>
@@ -486,7 +501,10 @@
     <string name="fp_weight">Πόσο μετράει η γνώμη σας</string>
     <string name="fp_weight_both">το ίδιο — μόνο η συσκευή και το staked SKR</string>
     <string name="desk_title">Γραφείο εκδότη</string>
-    <string name="desk_across">Σε %1$d επαληθευμένα dApps σας</string>
+    <plurals name="desk_across">
+        <item quantity="one">Σε %1$d επαληθευμένο dApp σας</item>
+        <item quantity="other">Σε %1$d επαληθευμένα dApps σας</item>
+    </plurals>
     <string name="desk_unanswered">αναπάντητες</string>
     <string name="desk_median">μέση απάντηση</string>
     <string name="desk_answered">απαντήθηκαν</string>
@@ -494,7 +512,10 @@
     <string name="desk_waiting">%1$d σε αναμονή</string>
     <string name="desk_clear">καθαρές</string>
     <string name="desk_oldest">Παλαιότερη σε αναμονή</string>
-    <string name="desk_days">%1$d ημέρες</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d ημέρα</item>
+        <item quantity="other">%1$d ημέρες</item>
+    </plurals>
     <string name="desk_hours">%1$d ώ</string>
     <string name="desk_note">Η ανταπόκριση διαβάζεται από το ledger όπως όλα τα άλλα: το κενό μεταξύ μιας υπογεγραμμένης κριτικής και της υπογεγραμμένης απάντησής σας. Εμφανίζεται στους αναγνώστες στη σελίδα του dApp σας, οπότε η ουρά είναι το προϊόν.</string>
     <string name="desk_none">Κανένα επαληθευμένο dApp ακόμα. Διεκδικήστε μια εφαρμογή από τη σελίδα της και αποδείξτε τον ιστότοπο· το γραφείο γεμίζει από εκεί.</string>

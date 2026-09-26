@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +63,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
             pro?.let { p ->
                 Spacer(Modifier.height(12.dp))
                 GlassCard(accent = if (p.active) RbColors.green else RbColors.warning) {
-                    Text(if (p.active) stringResource(R.string.pro_active, p.daysLeft()) else stringResource(R.string.pro_expired, df.format(Date(p.expiresAt * 1000))), color = if (p.active) RbColors.green else RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(if (p.active) pluralStringResource(R.plurals.pro_active, p.daysLeft().toInt(), p.daysLeft()) else stringResource(R.string.pro_expired, df.format(Date(p.expiresAt * 1000))), color = if (p.active) RbColors.green else RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(R.string.pro_paid_line, df.format(Date(p.paidAt * 1000)), p.amountLabel, df.format(Date(p.expiresAt * 1000))), color = RbColors.textSecondary, fontSize = 12.sp)
                     TextButton(onClick = { open(AppConfig.Api.EXPLORER_TX + p.signature) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_view_licence), color = RbColors.purpleLight, fontSize = 12.sp) }
                 }

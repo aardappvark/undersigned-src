@@ -115,7 +115,12 @@
     <string name="change_rate_version">Оцінити цю версію</string>
     <string name="store_title">Рейтинг dApp Store</string>
     <string name="store_sub">Власний публічний рейтинг і відгуки магазину, лише для читання, показані для контексту. Ними володіє Solana Mobile.</string>
-    <string name="store_total">%1$d відгуків у магазині</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d відгук у магазині</item>
+        <item quantity="few">%1$d відгуки у магазині</item>
+        <item quantity="many">%1$d відгуків у магазині</item>
+        <item quantity="other">%1$d відгуку у магазині</item>
+    </plurals>
     <string name="store_none">У магазині ще немає публічних відгуків для цього додатка.</string>
     <string name="store_publisher_replied">Видавець відповів</string>
     <string name="store_mine_found">Ви оцінили це на %1$d★ у dApp Store %2$s.</string>
@@ -128,7 +133,12 @@
     <string name="import_incomplete">Не вдалося прочитати магазин для %1$d із %2$d додатків, тому цей список може бути неповним. Спробуйте сканування ще раз пізніше.</string>
     <string name="import_none">Серед встановлених або відстежуваних вами додатків немає відгуків цього гаманця в магазині.</string>
     <string name="import_publish">Підписати й імпортувати %1$d</string>
-    <string name="import_done">Імпортовано %1$d відгуків.</string>
+    <plurals name="import_done">
+        <item quantity="one">Імпортовано %1$d відгук.</item>
+        <item quantity="few">Імпортовано %1$d відгуки.</item>
+        <item quantity="many">Імпортовано %1$d відгуків.</item>
+        <item quantity="other">Імпортовано %1$d відгуку.</item>
+    </plurals>
     <string name="import_note">Імпортовані відгуки мають тег \"works\" (4–5★) або \"confusing\" (1–3★); ви можете редагувати їх у будь-який час новим відгуком. Текст довший за 140 символів обрізається.</string>
     <string name="detail_tags_title">Що позначили власники</string>
     <string name="detail_facts_title">Що може перевірити ваш пристрій</string>
@@ -195,7 +205,12 @@
     <string name="settings_ledger_body">Адреса реєстру %1$s. Кожен відгук можна знайти через цю адресу. Undersigned не використовує жодного сервера.</string>
     <string name="settings_refresh_ledger">Перечитати реєстр</string>
     <string name="settings_hidden">Приховані відгуки</string>
-    <string name="settings_hidden_body">%1$d відгуків приховано на цьому пристрої.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d відгук приховано на цьому пристрої.</item>
+        <item quantity="few">%1$d відгуки приховано на цьому пристрої.</item>
+        <item quantity="many">%1$d відгуків приховано на цьому пристрої.</item>
+        <item quantity="other">%1$d відгуку приховано на цьому пристрої.</item>
+    </plurals>
     <string name="settings_unhide_all">Показати всі</string>
     <string name="settings_legal">Правова інформація</string>
     <string name="settings_sanctions">Обмежені юрисдикції</string>
@@ -418,7 +433,12 @@
     <string name="pro_get">Отримати Pro · %1$s або %2$s</string>
     <string name="pro_get_short">Отримати Pro</string>
     <string name="pro_stay_free">Залишитися на Free</string>
-    <string name="pro_active">Активно · залишилося %1$d днів</string>
+    <plurals name="pro_active">
+        <item quantity="one">Активно · залишилося %1$d день</item>
+        <item quantity="few">Активно · залишилося %1$d дні</item>
+        <item quantity="many">Активно · залишилося %1$d днів</item>
+        <item quantity="other">Активно · залишилося %1$d дня</item>
+    </plurals>
     <string name="pro_paid_line">Сплачено %1$s · %2$s · діє до %3$s</string>
     <string name="pro_view_licence">Переглянути ліцензію в блокчейні</string>
     <string name="pro_renew">Продовжити на 12 місяців</string>
@@ -464,7 +484,12 @@
     <string name="pro_shared_from_body">Якщо інший ваш гаманець придбав Pro і поділився ним із цим, введіть той гаманець; надання зчитується з реєстру й діє, доки триває термін того гаманця.</string>
     <string name="pro_shared_from_hint">Гаманець, який платив — адреса або ім\'я .skr</string>
     <string name="pro_shared_from_add">Зчитати надання</string>
-    <string name="pro_shared_active">Активно · надано %1$s · залишилося %2$d днів</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Активно · надано %1$s · залишилося %2$d день</item>
+        <item quantity="few">Активно · надано %1$s · залишилося %2$d дні</item>
+        <item quantity="many">Активно · надано %1$s · залишилося %2$d днів</item>
+        <item quantity="other">Активно · надано %1$s · залишилося %2$d дня</item>
+    </plurals>
     <string name="pro_shared_none">Жодне надання від %1$s поки не називає цей гаманець. Він залишається тут і зчитується знову разом із реєстром.</string>
     <string name="pro_shared_forget">Забути</string>
     <string name="pro_standing_note">Pro в цьому не бере участі. Вага визначається лише пристроєм і застейканим SKR.</string>
@@ -487,7 +512,12 @@
     <string name="fp_weight">Наскільки враховується ваша думка</string>
     <string name="fp_weight_both">однаково — лише пристрій і застейканий SKR</string>
     <string name="desk_title">Панель видавця</string>
-    <string name="desk_across">У всіх ваших %1$d підтверджених dApps</string>
+    <plurals name="desk_across">
+        <item quantity="one">У всіх ваших %1$d підтверджених dApps</item>
+        <item quantity="few">У всіх ваших %1$d підтверджених dApps</item>
+        <item quantity="many">У всіх ваших %1$d підтверджених dApps</item>
+        <item quantity="other">У всіх ваших %1$d підтверджених dApps</item>
+    </plurals>
     <string name="desk_unanswered">без відповіді</string>
     <string name="desk_median">медіана відповіді</string>
     <string name="desk_answered">з відповіддю</string>
@@ -495,7 +525,12 @@
     <string name="desk_waiting">%1$d очікує</string>
     <string name="desk_clear">порожньо</string>
     <string name="desk_oldest">Найдовше очікує</string>
-    <string name="desk_days">%1$d днів</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+        <item quantity="other">%1$d дня</item>
+    </plurals>
     <string name="desk_hours">%1$d год</string>
     <string name="desk_note">Відповідальність зчитується з реєстру, як і все інше: проміжок між підписаним відгуком і вашою підписаною відповіддю. Вона показується читачам на сторінці вашої dApp, тож черга і є продуктом.</string>
     <string name="desk_none">Поки немає підтверджених dApps. Заявіть права на додаток з його сторінки й підтвердьте вебсайт; звідти панель заповниться.</string>

@@ -118,12 +118,12 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             GlassCard(accent = if (pro?.active == true) RbColors.green else RbColors.glassBorder) {
                 val p = pro
                 if (p != null && !p.owned) {
-                    Text(stringResource(R.string.pro_shared_active, domainNames[p.sharedFrom!!]?.takeIf { it.isNotEmpty() } ?: shortKey(p.sharedFrom, 4, 4), p.daysLeft()), color = RbColors.green, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(pluralStringResource(R.plurals.pro_shared_active, p.daysLeft().toInt(), domainNames[p.sharedFrom!!]?.takeIf { it.isNotEmpty() } ?: shortKey(p.sharedFrom, 4, 4), p.daysLeft()), color = RbColors.green, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(R.string.pro_paid_line, df.format(java.util.Date(p.paidAt * 1000)), p.amountLabel, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textSecondary, fontSize = 12.sp)
                     LinkRow(stringResource(R.string.pro_view_licence)) { open(AppConfig.Api.EXPLORER_TX + p.signature) }
                     TextButton(onClick = { vm.removeGranter(p.sharedFrom) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_shared_forget), color = RbColors.textTertiary, fontSize = 12.sp) }
                 } else if (p != null) {
-                    Text(if (p.active) stringResource(R.string.pro_active, p.daysLeft()) else stringResource(R.string.pro_expired, df.format(java.util.Date(p.expiresAt * 1000))), color = if (p.active) RbColors.green else RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(if (p.active) pluralStringResource(R.plurals.pro_active, p.daysLeft().toInt(), p.daysLeft()) else stringResource(R.string.pro_expired, df.format(java.util.Date(p.expiresAt * 1000))), color = if (p.active) RbColors.green else RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(R.string.pro_paid_line, df.format(java.util.Date(p.paidAt * 1000)), p.amountLabel, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textSecondary, fontSize = 12.sp)
                     LinkRow(stringResource(R.string.pro_view_licence)) { open(AppConfig.Api.EXPLORER_TX + p.signature) }
                     Text(stringResource(R.string.pro_tied, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -212,7 +212,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         val isPro = pro?.active == true
                         fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
                             val s = sender ?: return
-                            vm.importStoreReviews(s, listOf(pkg to r), onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res -> importStage = null; importMsg = res.fold({ context.getString(R.string.import_done, it) }, { it.message }) }
+                            vm.importStoreReviews(s, listOf(pkg to r), onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res -> importStage = null; importMsg = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
                         }
                         importable.forEach { (pkg, r) ->
                             Row(Modifier.fillMaxWidth().clickable(enabled = importStage == null && isPro) { chosen = if (pkg in chosen) chosen - pkg else chosen + pkg }, verticalAlignment = Alignment.CenterVertically) {
@@ -231,7 +231,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             Spacer(Modifier.height(6.dp))
                             SecondaryButton(importStage ?: stringResource(R.string.import_publish, chosen.size), enabled = chosen.isNotEmpty() && importStage == null && sender != null, onClick = {
                                 val s = sender ?: return@SecondaryButton
-                                vm.importStoreReviews(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importMsg = r.fold({ context.getString(R.string.import_done, it) }, { it.message }) }
+                                vm.importStoreReviews(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
                             })
                             Text(stringResource(R.string.import_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                         }
@@ -294,7 +294,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
 
             SectionTitle(stringResource(R.string.settings_hidden))
             GlassCard {
-                Text(stringResource(R.string.settings_hidden_body, hidden.size), color = RbColors.textSecondary, fontSize = 12.sp)
+                Text(pluralStringResource(R.plurals.settings_hidden_body, hidden.size, hidden.size), color = RbColors.textSecondary, fontSize = 12.sp)
                 Text(stringResource(R.string.settings_hidden_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 // Settings offered "Unhide all" and never showed what (design: Screens E). Each hidden record, with its own Unhide.
                 hidden.forEach { sig ->

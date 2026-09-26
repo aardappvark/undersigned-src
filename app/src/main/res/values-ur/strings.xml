@@ -118,7 +118,10 @@
     <string name="change_rate_version">اس ورژن کی درجہ بندی کریں</string>
     <string name="store_title">dApp Store درجہ بندی</string>
     <string name="store_sub">اسٹور کی اپنی عوامی درجہ بندی اور جائزے، صرف پڑھنے کے لیے، سیاق و سباق کے لیے دکھائے گئے۔ ان کا مالک Solana Mobile ہے۔</string>
-    <string name="store_total">%1$d اسٹور جائزے</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d اسٹور جائزہ</item>
+        <item quantity="other">%1$d اسٹور جائزے</item>
+    </plurals>
     <string name="store_none">اسٹور کے پاس ابھی تک اس ایپ کے لیے کوئی عوامی جائزہ نہیں۔</string>
     <string name="store_publisher_replied">پبلشر نے جواب دیا</string>
     <string name="store_mine_found">آپ نے اسے dApp Store میں %2$s کو %1$d★ درجہ دیا۔</string>
@@ -131,7 +134,10 @@
     <string name="import_incomplete">%2$d میں سے %1$d ایپس کے لیے اسٹور نہیں پڑھا جا سکا، اس لیے یہ فہرست نامکمل ہو سکتی ہے۔ بعد میں دوبارہ اسکین کرنے کی کوشش کریں۔</string>
     <string name="import_none">آپ کی نصب شدہ یا فالو کی گئی ایپس میں اس والٹ کا کوئی اسٹور جائزہ نہیں۔</string>
     <string name="import_publish">%1$d دستخط کریں اور درآمد کریں</string>
-    <string name="import_done">%1$d جائزے درآمد کیے گئے۔</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d جائزہ درآمد کیا گیا۔</item>
+        <item quantity="other">%1$d جائزے درآمد کیے گئے۔</item>
+    </plurals>
     <string name="import_note">درآمد شدہ جائزے \"works\" (4–5★) یا \"confusing\" (1–3★) ٹیگ رکھتے ہیں؛ انہیں کسی بھی وقت نئے جائزے سے ترمیم کریں۔ 140 حروف سے طویل متن کاٹ دیا جاتا ہے۔</string>
     <string name="detail_tags_title">مالکان نے کیا ٹیگ کیا</string>
     <string name="detail_facts_title">آپ کا آلہ کیا تصدیق کر سکتا ہے</string>
@@ -198,7 +204,10 @@
     <string name="settings_ledger_body">رجسٹری پتہ %1$s۔ ہر جائزہ اس پتے کے ذریعے کسی کے بھی ذریعے قابلِ دریافت ہے۔ Undersigned کوئی سرور نہیں چلاتا۔</string>
     <string name="settings_refresh_ledger">لیجر دوبارہ پڑھیں</string>
     <string name="settings_hidden">چھپائے گئے جائزے</string>
-    <string name="settings_hidden_body">اس آلے پر %1$d جائزے چھپائے گئے۔</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">اس آلے پر %1$d جائزہ چھپایا گیا۔</item>
+        <item quantity="other">اس آلے پر %1$d جائزے چھپائے گئے۔</item>
+    </plurals>
     <string name="settings_unhide_all">سب دکھائیں</string>
     <string name="settings_legal">قانونی</string>
     <string name="settings_sanctions">پابندی زدہ دائرہ اختیارات</string>
@@ -419,7 +428,10 @@
     <string name="pro_get">Pro حاصل کریں · %1$s یا %2$s</string>
     <string name="pro_get_short">Pro حاصل کریں</string>
     <string name="pro_stay_free">مفت پر رہیں</string>
-    <string name="pro_active">فعال · %1$d دن باقی</string>
+    <plurals name="pro_active">
+        <item quantity="one">فعال · %1$d دن باقی</item>
+        <item quantity="other">فعال · %1$d دن باقی</item>
+    </plurals>
     <string name="pro_paid_line">ادا کیا گیا %1$s · %2$s · %3$s تک چلتا ہے</string>
     <string name="pro_view_licence">چین پر لائسنس دیکھیں</string>
     <string name="pro_renew">12 ماہ کے لیے تجدید کریں</string>
@@ -465,7 +477,10 @@
     <string name="pro_shared_from_body">اگر آپ کے کسی دوسرے والٹ نے Pro خریدا اور اسے اس کے ساتھ اشتراک کیا، تو وہ والٹ درج کریں؛ اجازت لیجر سے پڑھی جاتی ہے اور اس والٹ کی میعاد کے دوران مؤثر رہتی ہے۔</string>
     <string name="pro_shared_from_hint">وہ والٹ جس نے ادائیگی کی — ایڈریس یا .skr نام</string>
     <string name="pro_shared_from_add">اجازت پڑھیں</string>
-    <string name="pro_shared_active">فعال · %1$s کی جانب سے اشتراک کردہ · %2$d دن باقی</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">فعال · %1$s کی جانب سے اشتراک کردہ · %2$d دن باقی</item>
+        <item quantity="other">فعال · %1$s کی جانب سے اشتراک کردہ · %2$d دن باقی</item>
+    </plurals>
     <string name="pro_shared_none">%1$s کی جانب سے ابھی تک کوئی اجازت اس والٹ کا نام نہیں لیتی۔ یہ یہاں رکھا جاتا ہے اور لیجر کے ساتھ دوبارہ پڑھا جاتا ہے۔</string>
     <string name="pro_shared_forget">بھلا دیں</string>
     <string name="pro_standing_note">Pro اس کا حصہ نہیں ہے۔ وزن صرف آلے اور اسٹیک شدہ SKR سے آتا ہے۔</string>
@@ -488,7 +503,10 @@
     <string name="fp_weight">آپ کی رائے کتنی شمار ہوتی ہے</string>
     <string name="fp_weight_both">یکساں — صرف آلہ اور اسٹیک شدہ SKR</string>
     <string name="desk_title">پبلشر ڈیسک</string>
-    <string name="desk_across">آپ کے %1$d تصدیق شدہ dApps میں</string>
+    <plurals name="desk_across">
+        <item quantity="one">آپ کے %1$d تصدیق شدہ dApp میں</item>
+        <item quantity="other">آپ کے %1$d تصدیق شدہ dApps میں</item>
+    </plurals>
     <string name="desk_unanswered">غیر جواب شدہ</string>
     <string name="desk_median">درمیانی جواب</string>
     <string name="desk_answered">جواب دیا گیا</string>
@@ -496,7 +514,10 @@
     <string name="desk_waiting">%1$d زیرِ التوا</string>
     <string name="desk_clear">خالی</string>
     <string name="desk_oldest">سب سے پرانا زیرِ التوا</string>
-    <string name="desk_days">%1$d دن</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d دن</item>
+        <item quantity="other">%1$d دن</item>
+    </plurals>
     <string name="desk_hours">%1$d گھ</string>
     <string name="desk_note">جواب دہی لیجر سے پڑھی جاتی ہے، باقی سب کی طرح: ایک دستخط شدہ جائزے اور آپ کے دستخط شدہ جواب کے درمیان فرق۔ یہ آپ کے dApp صفحے پر قارئین کو دکھائی جاتی ہے، اس لیے قطار ہی پروڈکٹ ہے۔</string>
     <string name="desk_none">ابھی تک کوئی تصدیق شدہ dApp نہیں۔ کسی ایپ کے صفحے سے دعویٰ کریں اور ویب سائٹ ثابت کریں؛ ڈیسک وہیں سے بھرنا شروع ہوتا ہے۔</string>

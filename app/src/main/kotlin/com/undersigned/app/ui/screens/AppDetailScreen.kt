@@ -23,6 +23,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -237,7 +238,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(String.format(java.util.Locale.US, "%.1f", sr.average), color = RbColors.textPrimary, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
                         Spacer(Modifier.width(12.dp))
-                        Column { RatingStars(sr.average, size = 16); Text(stringResource(R.string.store_total, sr.total), color = RbColors.textSecondary, fontSize = 12.sp) }
+                        Column { RatingStars(sr.average, size = 16); Text(pluralStringResource(R.plurals.store_total, sr.total, sr.total), color = RbColors.textSecondary, fontSize = 12.sp) }
                     }
                     Spacer(Modifier.height(6.dp))
                     val max = (sr.byStar.maxOrNull() ?: 1).coerceAtLeast(1)
@@ -259,7 +260,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Spacer(Modifier.height(6.dp))
                         SecondaryButton(importStage ?: stringResource(R.string.store_import_one), enabled = importStage == null && sender != null, onClick = {
                             val s = sender ?: return@SecondaryButton
-                            vm.importStoreReviews(s, listOf(pkg to mine), onStage = { st -> importStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; importMsg = r.fold({ context.getString(R.string.import_done, it) }, { it.message }) }
+                            vm.importStoreReviews(s, listOf(pkg to mine), onStage = { st -> importStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
                         })
                     }
                     importMsg?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp) }

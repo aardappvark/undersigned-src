@@ -107,7 +107,9 @@
     <string name="change_rate_version">ให้คะแนนเวอร์ชันนี้</string>
     <string name="store_title">คะแนนของ dApp Store</string>
     <string name="store_sub">คะแนนและรีวิวสาธารณะของสโตร์เอง แบบอ่านอย่างเดียว แสดงไว้เพื่อบริบท Solana Mobile เป็นเจ้าของสิ่งเหล่านี้</string>
-    <string name="store_total">รีวิวในสโตร์ %1$d รายการ</string>
+    <plurals name="store_total">
+        <item quantity="other">รีวิวในสโตร์ %1$d รายการ</item>
+    </plurals>
     <string name="store_none">สโตร์ยังไม่มีรีวิวสาธารณะสำหรับแอปนี้</string>
     <string name="store_publisher_replied">ผู้เผยแพร่ตอบกลับแล้ว</string>
     <string name="store_mine_found">คุณให้คะแนนแอปนี้ %1$d★ ใน dApp Store เมื่อ %2$s</string>
@@ -120,7 +122,9 @@
     <string name="import_incomplete">ไม่สามารถอ่านสโตร์สำหรับ %1$d จาก %2$d แอป ดังนั้นรายการนี้อาจไม่สมบูรณ์ ลองสแกนอีกครั้งในภายหลัง</string>
     <string name="import_none">ไม่พบรีวิวในสโตร์ของกระเป๋าเงินนี้ในแอปที่คุณติดตั้งไว้หรือติดตามอยู่</string>
     <string name="import_publish">ลงลายเซ็นและนำเข้า %1$d รายการ</string>
-    <string name="import_done">นำเข้ารีวิวแล้ว %1$d รายการ</string>
+    <plurals name="import_done">
+        <item quantity="other">นำเข้ารีวิวแล้ว %1$d รายการ</item>
+    </plurals>
     <string name="import_note">รีวิวที่นำเข้าจะมีแท็ก \"works\" (4–5★) หรือ \"confusing\" (1–3★) ติดอยู่ แก้ไขได้ทุกเมื่อด้วยรีวิวใหม่ ข้อความที่ยาวเกิน 140 ตัวอักษรจะถูกตัดออก</string>
     <string name="detail_tags_title">สิ่งที่เจ้าของแท็กไว้</string>
     <string name="detail_facts_title">สิ่งที่อุปกรณ์ของคุณตรวจสอบได้</string>
@@ -181,7 +185,9 @@
     <string name="settings_ledger_body">ที่อยู่รีจิสทรี %1$s ทุกรีวิวสามารถค้นพบได้โดยใครก็ตามผ่านที่อยู่นี้ Undersigned ไม่ได้ใช้งานเซิร์ฟเวอร์ใด ๆ</string>
     <string name="settings_refresh_ledger">อ่านบัญชีบันทึกใหม่</string>
     <string name="settings_hidden">รีวิวที่ซ่อนไว้</string>
-    <string name="settings_hidden_body">รีวิวที่ซ่อนไว้บนอุปกรณ์นี้ %1$d รายการ</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="other">รีวิวที่ซ่อนไว้บนอุปกรณ์นี้ %1$d รายการ</item>
+    </plurals>
     <string name="settings_unhide_all">เลิกซ่อนทั้งหมด</string>
     <string name="settings_legal">กฎหมาย</string>
     <string name="settings_sanctions">เขตอำนาจศาลที่ถูกจำกัด</string>
@@ -402,7 +408,9 @@
     <string name="pro_get">รับ Pro · %1$s หรือ %2$s</string>
     <string name="pro_get_short">รับ Pro</string>
     <string name="pro_stay_free">ใช้แบบฟรีต่อไป</string>
-    <string name="pro_active">ใช้งานอยู่ · เหลือ %1$d วัน</string>
+    <plurals name="pro_active">
+        <item quantity="other">ใช้งานอยู่ · เหลือ %1$d วัน</item>
+    </plurals>
     <string name="pro_paid_line">จ่ายแล้ว %1$s · %2$s · ใช้ได้ถึง %3$s</string>
     <string name="pro_view_licence">ดูสัญญาอนุญาตบนเชน</string>
     <string name="pro_renew">ต่ออายุอีก 12 เดือน</string>
@@ -448,7 +456,9 @@
     <string name="pro_shared_from_body">หากกระเป๋าเงินอื่นของคุณซื้อ Pro และแชร์มายังกระเป๋าเงินนี้ ให้ป้อนกระเป๋าเงินนั้น สิทธิ์จะถูกอ่านจากบัญชีบันทึกและมีผลตราบเท่าที่ระยะเวลาของกระเป๋าเงินนั้นยังไม่หมด</string>
     <string name="pro_shared_from_hint">กระเป๋าเงินที่จ่ายเงิน — ที่อยู่หรือชื่อ .skr</string>
     <string name="pro_shared_from_add">อ่านสิทธิ์ที่ให้</string>
-    <string name="pro_shared_active">ใช้งานอยู่ · แชร์โดย %1$s · เหลือ %2$d วัน</string>
+    <plurals name="pro_shared_active">
+        <item quantity="other">ใช้งานอยู่ · แชร์โดย %1$s · เหลือ %2$d วัน</item>
+    </plurals>
     <string name="pro_shared_none">ยังไม่มีสิทธิ์จาก %1$s ที่ระบุกระเป๋าเงินนี้ ระบบจะเก็บไว้ที่นี่และอ่านใหม่อีกครั้งพร้อมบัญชีบันทึก</string>
     <string name="pro_shared_forget">ลืม</string>
     <string name="pro_standing_note">Pro ไม่มีส่วนเกี่ยวข้องกับสิ่งนี้ น้ำหนักมาจากอุปกรณ์และ SKR ที่สเตกเท่านั้น</string>
@@ -471,7 +481,9 @@
     <string name="fp_weight">ความเห็นของคุณมีน้ำหนักเท่าใด</string>
     <string name="fp_weight_both">เท่ากัน — จากอุปกรณ์และ SKR ที่สเตกเท่านั้น</string>
     <string name="desk_title">โต๊ะผู้เผยแพร่</string>
-    <string name="desk_across">ครอบคลุม dApp ที่ตรวจสอบแล้ว %1$d รายการของคุณ</string>
+    <plurals name="desk_across">
+        <item quantity="other">ครอบคลุม dApp ที่ตรวจสอบแล้ว %1$d รายการของคุณ</item>
+    </plurals>
     <string name="desk_unanswered">ยังไม่ตอบกลับ</string>
     <string name="desk_median">มัธยฐานการตอบกลับ</string>
     <string name="desk_answered">ตอบกลับแล้ว</string>
@@ -479,7 +491,9 @@
     <string name="desk_waiting">รอ %1$d รายการ</string>
     <string name="desk_clear">ล้าง</string>
     <string name="desk_oldest">รอมานานที่สุด</string>
-    <string name="desk_days">%1$d วัน</string>
+    <plurals name="desk_days">
+        <item quantity="other">%1$d วัน</item>
+    </plurals>
     <string name="desk_hours">%1$d ชม.</string>
     <string name="desk_note">ความรวดเร็วในการตอบสนองถูกอ่านจากบัญชีบันทึกเหมือนสิ่งอื่น ๆ ทั้งหมด: ช่วงเวลาระหว่างรีวิวที่ลงลายเซ็นกับการตอบกลับที่ลงลายเซ็นของคุณ ผู้อ่านจะเห็นสิ่งนี้บนหน้า dApp ของคุณ ดังนั้นคิวนี้จึงเป็นตัวชี้วัด</string>
     <string name="desk_none">ยังไม่มี dApp ที่ตรวจสอบแล้ว อ้างสิทธิ์แอปจากหน้าของแอปและพิสูจน์เว็บไซต์ โต๊ะผู้เผยแพร่จะเริ่มเต็มจากตรงนั้น</string>

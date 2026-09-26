@@ -117,7 +117,9 @@
     <string name="change_rate_version">Beri nilai versi ini</string>
     <string name="store_title">Peringkat dApp Store</string>
     <string name="store_sub">Peringkat dan ulasan publik milik toko sendiri, hanya-baca, ditampilkan sebagai konteks. Ini dimiliki oleh Solana Mobile.</string>
-    <string name="store_total">%1$d ulasan toko</string>
+    <plurals name="store_total">
+        <item quantity="other">%1$d ulasan toko</item>
+    </plurals>
     <string name="store_none">Toko belum memiliki ulasan publik untuk aplikasi ini.</string>
     <string name="store_publisher_replied">Penerbit membalas</string>
     <string name="store_mine_found">Anda memberi nilai %1$d★ untuk ini di dApp Store pada %2$s.</string>
@@ -130,7 +132,9 @@
     <string name="import_incomplete">Toko tidak dapat dibaca untuk %1$d dari %2$d aplikasi, sehingga daftar ini mungkin tidak lengkap. Coba pindai lagi nanti.</string>
     <string name="import_none">Tidak ada ulasan toko oleh dompet ini di antara aplikasi yang Anda instal atau ikuti.</string>
     <string name="import_publish">Tandatangani dan impor %1$d</string>
-    <string name="import_done">%1$d ulasan diimpor.</string>
+    <plurals name="import_done">
+        <item quantity="other">%1$d ulasan diimpor.</item>
+    </plurals>
     <string name="import_note">Ulasan yang diimpor membawa tag \"works\" (4–5★) atau \"confusing\" (1–3★); Anda dapat mengeditnya kapan saja dengan ulasan baru. Teks yang lebih panjang dari 140 karakter akan dipotong.</string>
     <string name="detail_tags_title">Apa yang ditandai pemilik</string>
     <string name="detail_facts_title">Apa yang dapat diverifikasi perangkat Anda</string>
@@ -197,7 +201,9 @@
     <string name="settings_ledger_body">Alamat registri %1$s. Setiap ulasan dapat ditemukan oleh siapa pun melalui alamat ini. Undersigned tidak menjalankan server.</string>
     <string name="settings_refresh_ledger">Baca ulang buku besar</string>
     <string name="settings_hidden">Ulasan tersembunyi</string>
-    <string name="settings_hidden_body">%1$d ulasan disembunyikan di perangkat ini.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="other">%1$d ulasan disembunyikan di perangkat ini.</item>
+    </plurals>
     <string name="settings_unhide_all">Tampilkan semua</string>
     <string name="settings_legal">Hukum</string>
     <string name="settings_sanctions">Yurisdiksi yang dibatasi</string>
@@ -418,7 +424,9 @@
     <string name="pro_get">Dapatkan Pro · %1$s atau %2$s</string>
     <string name="pro_get_short">Dapatkan Pro</string>
     <string name="pro_stay_free">Tetap di Gratis</string>
-    <string name="pro_active">Aktif · %1$d hari tersisa</string>
+    <plurals name="pro_active">
+        <item quantity="other">Aktif · %1$d hari tersisa</item>
+    </plurals>
     <string name="pro_paid_line">Dibayar %1$s · %2$s · berjalan hingga %3$s</string>
     <string name="pro_view_licence">Lihat lisensi on-chain</string>
     <string name="pro_renew">Perpanjang 12 bulan</string>
@@ -464,7 +472,9 @@
     <string name="pro_shared_from_body">Jika dompet lain milik Anda membeli Pro dan membagikannya dengan yang ini, masukkan dompet itu; hibah dibaca dari buku besar dan dihormati selama masa berlaku dompet itu berjalan.</string>
     <string name="pro_shared_from_hint">Dompet yang membayar — alamat atau nama .skr</string>
     <string name="pro_shared_from_add">Baca hibah</string>
-    <string name="pro_shared_active">Aktif · dibagikan oleh %1$s · %2$d hari tersisa</string>
+    <plurals name="pro_shared_active">
+        <item quantity="other">Aktif · dibagikan oleh %1$s · %2$d hari tersisa</item>
+    </plurals>
     <string name="pro_shared_none">Belum ada hibah dari %1$s yang menyebutkan dompet ini. Ini disimpan di sini dan dibaca ulang bersama buku besar.</string>
     <string name="pro_shared_forget">Lupakan</string>
     <string name="pro_standing_note">Pro bukan bagian dari ini. Bobot berasal dari perangkat dan SKR yang di-stake saja.</string>
@@ -487,7 +497,9 @@
     <string name="fp_weight">Seberapa besar opini Anda dihitung</string>
     <string name="fp_weight_both">sama — hanya dari perangkat dan SKR yang di-stake</string>
     <string name="desk_title">Meja penerbit</string>
-    <string name="desk_across">Di seluruh %1$d dApp terverifikasi Anda</string>
+    <plurals name="desk_across">
+        <item quantity="other">Di seluruh %1$d dApp terverifikasi Anda</item>
+    </plurals>
     <string name="desk_unanswered">belum dijawab</string>
     <string name="desk_median">median balasan</string>
     <string name="desk_answered">dijawab</string>
@@ -495,7 +507,9 @@
     <string name="desk_waiting">%1$d menunggu</string>
     <string name="desk_clear">bersihkan</string>
     <string name="desk_oldest">Menunggu paling lama</string>
-    <string name="desk_days">%1$d hari</string>
+    <plurals name="desk_days">
+        <item quantity="other">%1$d hari</item>
+    </plurals>
     <string name="desk_hours">%1$d j</string>
     <string name="desk_note">Responsivitas dibaca dari buku besar seperti yang lainnya: jarak antara ulasan yang ditandatangani dan balasan Anda yang ditandatangani. Ini ditampilkan kepada pembaca di halaman dApp Anda, sehingga antrean itulah yang menjadi tolok ukurnya.</string>
     <string name="desk_none">Belum ada dApp terverifikasi. Klaim aplikasi dari halamannya dan buktikan situs webnya; meja penerbit akan terisi mulai dari situ.</string>

@@ -117,7 +117,9 @@
     <string name="change_rate_version">Đánh giá phiên bản này</string>
     <string name="store_title">Xếp hạng dApp Store</string>
     <string name="store_sub">Xếp hạng và đánh giá công khai của chính cửa hàng, chỉ đọc, hiển thị để tham khảo. Solana Mobile sở hữu những dữ liệu này.</string>
-    <string name="store_total">%1$d đánh giá trên cửa hàng</string>
+    <plurals name="store_total">
+        <item quantity="other">%1$d đánh giá trên cửa hàng</item>
+    </plurals>
     <string name="store_none">Cửa hàng chưa có đánh giá công khai nào cho ứng dụng này.</string>
     <string name="store_publisher_replied">Nhà phát hành đã trả lời</string>
     <string name="store_mine_found">Bạn đã đánh giá %1$d★ cho mục này trên dApp Store vào %2$s.</string>
@@ -130,7 +132,9 @@
     <string name="import_incomplete">Không thể đọc cửa hàng cho %1$d trong số %2$d ứng dụng, vì vậy danh sách này có thể chưa đầy đủ. Hãy thử quét lại sau.</string>
     <string name="import_none">Không có đánh giá cửa hàng nào của ví này trong số các ứng dụng bạn đã cài đặt hoặc theo dõi.</string>
     <string name="import_publish">Ký và nhập %1$d</string>
-    <string name="import_done">Đã nhập %1$d đánh giá.</string>
+    <plurals name="import_done">
+        <item quantity="other">Đã nhập %1$d đánh giá.</item>
+    </plurals>
     <string name="import_note">Các đánh giá đã nhập mang thẻ \"works\" (4–5★) hoặc \"confusing\" (1–3★); bạn có thể chỉnh sửa chúng bất cứ lúc nào bằng một đánh giá mới. Văn bản dài hơn 140 ký tự sẽ bị cắt bớt.</string>
     <string name="detail_tags_title">Những gì chủ sở hữu đã gắn thẻ</string>
     <string name="detail_facts_title">Những gì thiết bị của bạn có thể xác minh</string>
@@ -197,7 +201,9 @@
     <string name="settings_ledger_body">Địa chỉ đăng ký %1$s. Mọi đánh giá đều có thể được tìm thấy bởi bất kỳ ai thông qua địa chỉ này. Undersigned không chạy máy chủ nào.</string>
     <string name="settings_refresh_ledger">Đọc lại sổ cái</string>
     <string name="settings_hidden">Đánh giá đã ẩn</string>
-    <string name="settings_hidden_body">%1$d đánh giá đã ẩn trên thiết bị này.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="other">%1$d đánh giá đã ẩn trên thiết bị này.</item>
+    </plurals>
     <string name="settings_unhide_all">Hiện lại tất cả</string>
     <string name="settings_legal">Pháp lý</string>
     <string name="settings_sanctions">Khu vực pháp lý bị hạn chế</string>
@@ -418,7 +424,9 @@
     <string name="pro_get">Lấy Pro · %1$s hoặc %2$s</string>
     <string name="pro_get_short">Lấy Pro</string>
     <string name="pro_stay_free">Ở lại bản Miễn phí</string>
-    <string name="pro_active">Đang hoạt động · còn %1$d ngày</string>
+    <plurals name="pro_active">
+        <item quantity="other">Đang hoạt động · còn %1$d ngày</item>
+    </plurals>
     <string name="pro_paid_line">Đã trả %1$s · %2$s · chạy đến %3$s</string>
     <string name="pro_view_licence">Xem giấy phép on-chain</string>
     <string name="pro_renew">Gia hạn 12 tháng</string>
@@ -464,7 +472,9 @@
     <string name="pro_shared_from_body">Nếu một ví khác của bạn đã mua Pro và chia sẻ với ví này, hãy nhập ví đó; quyền cấp được đọc từ sổ cái và có hiệu lực trong khi thời hạn của ví đó còn chạy.</string>
     <string name="pro_shared_from_hint">Ví đã trả tiền — địa chỉ hoặc tên .skr</string>
     <string name="pro_shared_from_add">Đọc quyền cấp</string>
-    <string name="pro_shared_active">Đang hoạt động · chia sẻ bởi %1$s · còn %2$d ngày</string>
+    <plurals name="pro_shared_active">
+        <item quantity="other">Đang hoạt động · chia sẻ bởi %1$s · còn %2$d ngày</item>
+    </plurals>
     <string name="pro_shared_none">Chưa có quyền cấp nào từ %1$s nêu tên ví này. Nó được lưu ở đây và đọc lại cùng với sổ cái.</string>
     <string name="pro_shared_forget">Quên</string>
     <string name="pro_standing_note">Pro không liên quan đến điều này. Trọng số chỉ đến từ thiết bị và SKR đã stake.</string>
@@ -487,7 +497,9 @@
     <string name="fp_weight">Ý kiến của bạn có giá trị bao nhiêu</string>
     <string name="fp_weight_both">như nhau — chỉ từ thiết bị và SKR đã stake</string>
     <string name="desk_title">Bàn làm việc nhà phát hành</string>
-    <string name="desk_across">Trên %1$d dApp đã xác minh của bạn</string>
+    <plurals name="desk_across">
+        <item quantity="other">Trên %1$d dApp đã xác minh của bạn</item>
+    </plurals>
     <string name="desk_unanswered">chưa trả lời</string>
     <string name="desk_median">trung vị thời gian trả lời</string>
     <string name="desk_answered">đã trả lời</string>
@@ -495,7 +507,9 @@
     <string name="desk_waiting">%1$d đang chờ</string>
     <string name="desk_clear">xóa</string>
     <string name="desk_oldest">Chờ lâu nhất</string>
-    <string name="desk_days">%1$d ngày</string>
+    <plurals name="desk_days">
+        <item quantity="other">%1$d ngày</item>
+    </plurals>
     <string name="desk_hours">%1$d giờ</string>
     <string name="desk_note">Mức độ phản hồi được đọc từ sổ cái như mọi thứ khác: khoảng cách giữa một đánh giá đã ký và phản hồi đã ký của bạn. Nó được hiển thị cho người đọc trên trang dApp của bạn, vì vậy hàng đợi chính là thước đo.</string>
     <string name="desk_none">Chưa có dApp nào đã xác minh. Xác nhận quyền sở hữu một ứng dụng từ trang của nó và chứng minh trang web; bàn làm việc sẽ đầy dần từ đó.</string>

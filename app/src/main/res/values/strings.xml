@@ -205,7 +205,10 @@
     <string name="change_rate_version">Rate this version</string>
     <string name="store_title">dApp Store rating</string>
     <string name="store_sub">The store\'s own public rating and reviews, read-only, shown for context. Solana Mobile owns these.</string>
-    <string name="store_total">%1$d store reviews</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d store review</item>
+        <item quantity="other">%1$d store reviews</item>
+    </plurals>
     <string name="store_none">The store has no public reviews for this app yet.</string>
     <string name="store_publisher_replied">Publisher replied</string>
     <string name="store_mine_found">You rated this %1$d★ in the dApp Store on %2$s.</string>
@@ -218,7 +221,10 @@
     <string name="import_incomplete">The store could not be read for %1$d of %2$d apps, so this list may be incomplete. Try the scan again later.</string>
     <string name="import_none">No store reviews by this wallet among your installed or followed apps.</string>
     <string name="import_publish">Sign and import %1$d</string>
-    <string name="import_done">Imported %1$d reviews.</string>
+    <plurals name="import_done">
+        <item quantity="one">Imported %1$d review.</item>
+        <item quantity="other">Imported %1$d reviews.</item>
+    </plurals>
     <string name="import_note">Imported reviews carry the tag \"works\" (4–5★) or \"confusing\" (1–3★); edit them any time with a new review. Text longer than 140 characters is cut.</string>
     <string name="detail_tags_title">What owners tagged</string>
     <string name="detail_facts_title">What your device can verify</string>
@@ -296,7 +302,10 @@
     <string name="settings_ledger_body">Registry address %1$s. Every review is discoverable by anyone through this address. Undersigned runs no server.</string>
     <string name="settings_refresh_ledger">Re-read the ledger</string>
     <string name="settings_hidden">Hidden reviews</string>
-    <string name="settings_hidden_body">%1$d reviews hidden on this device.</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">%1$d review hidden on this device.</item>
+        <item quantity="other">%1$d reviews hidden on this device.</item>
+    </plurals>
     <string name="settings_unhide_all">Unhide all</string>
     <string name="settings_unhide">Unhide</string>
     <string name="settings_hidden_sub">Hidden on this device only. Nothing was removed from the ledger and no one else is affected by what you hide.</string>
@@ -348,7 +357,10 @@
     <string name="pro_get">Get Pro · %1$s or %2$s</string>
     <string name="pro_get_short">Get Pro</string>
     <string name="pro_stay_free">Stay on Free</string>
-    <string name="pro_active">Active · %1$d days left</string>
+    <plurals name="pro_active">
+        <item quantity="one">Active · %1$d day left</item>
+        <item quantity="other">Active · %1$d days left</item>
+    </plurals>
     <string name="pro_paid_line">Paid %1$s · %2$s · runs to %3$s</string>
     <string name="pro_view_licence">View the licence on-chain</string>
     <string name="pro_renew">Renew for 12 months</string>
@@ -394,7 +406,10 @@
     <string name="pro_shared_from_body">If another wallet of yours bought Pro and shared it with this one, enter that wallet; the grant is read from the ledger and honoured while that wallet\'s term runs.</string>
     <string name="pro_shared_from_hint">The wallet that paid — address or .skr name</string>
     <string name="pro_shared_from_add">Read the grant</string>
-    <string name="pro_shared_active">Active · shared by %1$s · %2$d days left</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">Active · shared by %1$s · %2$d day left</item>
+        <item quantity="other">Active · shared by %1$s · %2$d days left</item>
+    </plurals>
     <string name="pro_shared_none">No grant from %1$s names this wallet yet. It is kept here and read again with the ledger.</string>
     <string name="pro_shared_forget">Forget</string>
     <string name="pro_standing_note">Pro is not part of this. Weight comes from the device and staked SKR only.</string>
@@ -417,7 +432,10 @@
     <string name="fp_weight">How much your opinion counts</string>
     <string name="fp_weight_both">the same — device and staked SKR only</string>
     <string name="desk_title">Publisher desk</string>
-    <string name="desk_across">Across your %1$d verified dApps</string>
+    <plurals name="desk_across">
+        <item quantity="one">Across your %1$d verified dApp</item>
+        <item quantity="other">Across your %1$d verified dApps</item>
+    </plurals>
     <string name="desk_unanswered">unanswered</string>
     <string name="desk_median">median reply</string>
     <string name="desk_answered">answered</string>
@@ -425,7 +443,10 @@
     <string name="desk_waiting">%1$d waiting</string>
     <string name="desk_clear">clear</string>
     <string name="desk_oldest">Oldest waiting</string>
-    <string name="desk_days">%1$d days</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Responsiveness is read from the ledger like everything else: the gap between a signed review and your signed reply. It is shown to readers on your dApp page, so the queue is the product.</string>
     <string name="desk_none">No verified dApps yet. Claim an app from its page and prove the website; the desk fills from there.</string>

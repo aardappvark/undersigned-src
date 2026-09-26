@@ -113,7 +113,10 @@
     <string name="change_rate_version">এই সংস্করণ রেট করুন</string>
     <string name="store_title">dApp Store রেটিং</string>
     <string name="store_sub">স্টোরের নিজস্ব সর্বজনীন রেটিং এবং পর্যালোচনা, শুধুমাত্র পঠনযোগ্য, প্রসঙ্গের জন্য দেখানো হয়েছে। Solana Mobile এগুলির মালিক।</string>
-    <string name="store_total">%1$d টি স্টোর পর্যালোচনা</string>
+    <plurals name="store_total">
+        <item quantity="one">%1$d টি স্টোর পর্যালোচনা</item>
+        <item quantity="other">%1$d টি স্টোর পর্যালোচনা</item>
+    </plurals>
     <string name="store_none">স্টোরে এখনও এই অ্যাপের জন্য কোনো সর্বজনীন পর্যালোচনা নেই।</string>
     <string name="store_publisher_replied">প্রকাশক উত্তর দিয়েছেন</string>
     <string name="store_mine_found">আপনি %2$s তারিখে dApp Store-এ এটিকে %1$d★ রেট করেছেন।</string>
@@ -126,7 +129,10 @@
     <string name="import_incomplete">%2$d টি অ্যাপের মধ্যে %1$d টির জন্য স্টোর পড়া যায়নি, তাই এই তালিকাটি অসম্পূর্ণ হতে পারে। পরে আবার স্ক্যান করার চেষ্টা করুন।</string>
     <string name="import_none">আপনার ইনস্টল করা বা ফলো করা অ্যাপগুলির মধ্যে এই ওয়ালেট দ্বারা কোনো স্টোর পর্যালোচনা নেই।</string>
     <string name="import_publish">%1$d টি স্বাক্ষর করে আমদানি করুন</string>
-    <string name="import_done">%1$d টি পর্যালোচনা আমদানি করা হয়েছে।</string>
+    <plurals name="import_done">
+        <item quantity="one">%1$d টি পর্যালোচনা আমদানি করা হয়েছে।</item>
+        <item quantity="other">%1$d টি পর্যালোচনা আমদানি করা হয়েছে।</item>
+    </plurals>
     <string name="import_note">আমদানি করা পর্যালোচনাগুলিতে \"works\" (৪–৫★) বা \"confusing\" (১–৩★) ট্যাগ থাকে; একটি নতুন পর্যালোচনা দিয়ে যেকোনো সময় সেগুলি সম্পাদনা করুন। ১৪০ অক্ষরের বেশি টেক্সট কেটে দেওয়া হয়।</string>
     <string name="detail_tags_title">মালিকরা যা ট্যাগ করেছেন</string>
     <string name="detail_facts_title">আপনার ডিভাইস যা যাচাই করতে পারে</string>
@@ -190,7 +196,10 @@
     <string name="settings_ledger_body">রেজিস্ট্রি ঠিকানা %1$s। এই ঠিকানার মাধ্যমে যে কেউ প্রতিটি পর্যালোচনা খুঁজে পেতে পারে। Undersigned কোনো সার্ভার চালায় না।</string>
     <string name="settings_refresh_ledger">লেজার পুনরায় পড়ুন</string>
     <string name="settings_hidden">লুকানো পর্যালোচনা</string>
-    <string name="settings_hidden_body">এই ডিভাইসে %1$d টি পর্যালোচনা লুকানো আছে।</string>
+    <plurals name="settings_hidden_body">
+        <item quantity="one">এই ডিভাইসে %1$d টি পর্যালোচনা লুকানো আছে।</item>
+        <item quantity="other">এই ডিভাইসে %1$d টি পর্যালোচনা লুকানো আছে।</item>
+    </plurals>
     <string name="settings_unhide_all">সব দেখান</string>
     <string name="settings_legal">আইনি</string>
     <string name="settings_sanctions">সীমাবদ্ধ এখতিয়ার</string>
@@ -411,7 +420,10 @@
     <string name="pro_get">Pro নিন · %1$s অথবা %2$s</string>
     <string name="pro_get_short">Pro নিন</string>
     <string name="pro_stay_free">ফ্রি-তেই থাকুন</string>
-    <string name="pro_active">সক্রিয় · %1$d দিন বাকি</string>
+    <plurals name="pro_active">
+        <item quantity="one">সক্রিয় · %1$d দিন বাকি</item>
+        <item quantity="other">সক্রিয় · %1$d দিন বাকি</item>
+    </plurals>
     <string name="pro_paid_line">পরিশোধিত %1$s · %2$s · %3$s পর্যন্ত চলবে</string>
     <string name="pro_view_licence">অন-চেইনে লাইসেন্স দেখুন</string>
     <string name="pro_renew">১২ মাসের জন্য নবায়ন করুন</string>
@@ -457,7 +469,10 @@
     <string name="pro_shared_from_body">আপনার অন্য কোনো ওয়ালেট Pro কিনে এটির সাথে শেয়ার করে থাকলে, সেই ওয়ালেটটি প্রবেশ করান; অনুমোদনটি লেজার থেকে পড়া হয় এবং সেই ওয়ালেটের মেয়াদ চলাকালীন মান্য করা হয়।</string>
     <string name="pro_shared_from_hint">যে ওয়ালেট পরিশোধ করেছে — ঠিকানা বা .skr নাম</string>
     <string name="pro_shared_from_add">অনুমোদন পড়ুন</string>
-    <string name="pro_shared_active">সক্রিয় · %1$s দ্বারা শেয়ারকৃত · %2$d দিন বাকি</string>
+    <plurals name="pro_shared_active">
+        <item quantity="one">সক্রিয় · %1$s দ্বারা শেয়ারকৃত · %2$d দিন বাকি</item>
+        <item quantity="other">সক্রিয় · %1$s দ্বারা শেয়ারকৃত · %2$d দিন বাকি</item>
+    </plurals>
     <string name="pro_shared_none">%1$s থেকে এখনও এই ওয়ালেটের নামে কোনো অনুমোদন নেই। এটি এখানে রাখা আছে এবং লেজারের সাথে আবার পড়া হবে।</string>
     <string name="pro_shared_forget">ভুলে যান</string>
     <string name="pro_standing_note">Pro এর অংশ নয়। ওজন শুধু ডিভাইস এবং স্টেক করা SKR থেকে আসে।</string>
@@ -480,7 +495,10 @@
     <string name="fp_weight">আপনার মতামত কতটা গণনা হয়</string>
     <string name="fp_weight_both">একই — শুধু ডিভাইস ও স্টেক করা SKR</string>
     <string name="desk_title">প্রকাশক ডেস্ক</string>
-    <string name="desk_across">আপনার %1$d টি যাচাইকৃত dApp জুড়ে</string>
+    <plurals name="desk_across">
+        <item quantity="one">আপনার %1$d টি যাচাইকৃত dApp জুড়ে</item>
+        <item quantity="other">আপনার %1$d টি যাচাইকৃত dApp জুড়ে</item>
+    </plurals>
     <string name="desk_unanswered">অনুত্তরিত</string>
     <string name="desk_median">মধ্যক উত্তর</string>
     <string name="desk_answered">উত্তরিত</string>
@@ -488,7 +506,10 @@
     <string name="desk_waiting">%1$d টি অপেক্ষমাণ</string>
     <string name="desk_clear">ক্লিয়ার</string>
     <string name="desk_oldest">সবচেয়ে পুরনো অপেক্ষমাণ</string>
-    <string name="desk_days">%1$d দিন</string>
+    <plurals name="desk_days">
+        <item quantity="one">%1$d দিন</item>
+        <item quantity="other">%1$d দিন</item>
+    </plurals>
     <string name="desk_hours">%1$d ঘ</string>
     <string name="desk_note">সাড়াদানের হার অন্য সবকিছুর মতোই লেজার থেকে পড়া হয়: একটি স্বাক্ষরিত পর্যালোচনা এবং আপনার স্বাক্ষরিত উত্তরের মধ্যেকার ব্যবধান। এটি আপনার dApp পেজে পাঠকদের দেখানো হয়, তাই সারিটাই আসল বিষয়।</string>
     <string name="desk_none">এখনও কোনো যাচাইকৃত dApp নেই। কোনো অ্যাপের পেজ থেকে দাবি করুন এবং ওয়েবসাইট প্রমাণ করুন; সেখান থেকে ডেস্ক পূর্ণ হবে।</string>
