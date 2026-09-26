@@ -521,4 +521,60 @@
     <string name="desk_note">Binabasa ang responsiveness mula sa ledger tulad ng lahat ng iba pa: ang agwat sa pagitan ng naka-sign na review at ng naka-sign mong sagot. Ipinapakita ito sa mga reader sa dApp page mo, kaya ang queue mismo ang sukatan.</string>
     <string name="desk_none">Wala pang na-verify na dApp. Mag-claim ng app mula sa page nito at patunayan ang website; magsisimulang mapuno ang desk mula doon.</string>
     <string name="desk_none_waiting">Walang naghihintay.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Mga Review Burst</string>
+    <string name="burst_high">5-star na review: %1$d, %2$s – %3$s · Karaniwang bilis: humigit-kumulang %4$s bawat 3 araw</string>
+    <string name="burst_low">1-star na review: %1$d, %2$s – %3$s · Karaniwang bilis: humigit-kumulang %4$s bawat 3 araw</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Naka-sign sa ledger</string>
+    <string name="burst_same_text">Parehong wording: %1$d</string>
+    <string name="burst_attested">May na-verify na device: %1$d sa %2$d</string>
+    <string name="burst_none">Na-check: %1$d na store review mula noong %2$s · Walang nahanap na burst</string>
+    <string name="burst_short">Masyadong kaunti pa ang history ng store review para ma-check ang mga burst.</string>
+    <string name="burst_reading">Binabasa ang history ng store review…</string>
+    <string name="burst_causes">Ang burst ay isang fact, hindi isang verdict: puwedeng dahilan nito ang isang store feature, isang launch, isang bagong release, o isang paid campaign.</string>
+    <string name="burst_more">Higit pang burst: %1$d</string>
+    <string name="burst_read_older">Tingnan ang mga mas lumang review</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Idagdag kung gaano na katagal ang app na ito sa telepono na ito: %1$s</string>
+    <string name="use_add_hint">Naitala on-chain kasama ng iyong review, naka-round. Ito ang report ng iyong telepono, hindi patunay.</string>
+    <string name="use_not_installed">Hindi naka-install ang app na ito sa telepono na ito, kaya walang idinagdag na install age.</string>
+    <string name="use_d0">wala pang isang araw</string>
+    <string name="use_d1">1–6 na araw</string>
+    <string name="use_w1">1–4 na linggo</string>
+    <string name="use_m1">1–3 na buwan</string>
+    <string name="use_m3">3+ na buwan</string>
+    <string name="use_pill">Sa telepono nila: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Payments Board</string>
+    <string name="pay_intro">Mga dApp na kinumpirma ng publisher ang treasury. Binibilang: mga payment na natanggap on-chain sa SOL, SKR, at USDC kung saan nagsisimula ang memo sa code ng dApp. Hindi ipinapakita ang off-chain na kita.</string>
+    <string name="pay_usd_note">USD sa presyo ngayon</string>
+    <string name="pay_row">Payment: %1$d · Payer: %2$d · May na-verify na device: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Una: %1$s · Pinakahuli: %2$s</string>
+    <string name="pay_incomplete">Hindi pa nababasa ang mas lumang history, kaya posibleng mababa ang totals.</string>
+    <string name="pay_empty">Wala pang dApp na nagkumpirma ng treasury.</string>
+    <string name="pay_loading">Binabasa ang mga treasury…</string>
+    <string name="pay_detail_title">Mga natanggap na payment</string>
+    <string name="pay_detail_sub">Treasury na kinumpirma ng publisher %1$s · Memo code: %2$s</string>
+    <string name="pay_preview_title">I-preview ang isang treasury</string>
+    <string name="pay_preview_body">Kahit sino ay makaka-preview ng mga pampublikong payment. Isang treasury lang na kinumpirma ng wallet at ng website ng publisher ang nakalista.</string>
+    <string name="pay_field_treasury">Treasury wallet</string>
+    <string name="pay_field_code">Memo code</string>
+    <string name="pay_field_package">Package name</string>
+    <string name="pay_preview">I-preview</string>
+    <string name="pay_list_title">I-list ang iyong dApp</string>
+    <string name="pay_list_step1">1. Idagdag ang linyang ito sa /.well-known/undersigned.txt sa website na nakalista ng dApp Store para sa iyong app:</string>
+    <string name="pay_list_step2">2. Pagkatapos mag-sign in gamit ang treasury wallet na iyon, i-sign ang listing sa ibaba. Ang mga payment lang na nagsisimula ang memo sa code ang binibilang.</string>
+    <string name="pay_sign">Mag-sign bilang treasury na ito</string>
+    <string name="pay_my_claims">Ang iyong mga treasury listing</string>
+    <string name="pay_claim_confirmed">Kinumpirma ng website</string>
+    <string name="pay_claim_waiting">Hinihintay ang linya sa website</string>
+    <string name="pay_withdraw">I-withdraw ang listing</string>
+    <string name="pay_bad_input">I-check ang package name at code (2–32 na letra, digit, - o _).</string>
+    <string name="pay_open">Payments Board</string>
+    <string name="pay_waiting_list">Nakalista ng treasury, hindi pa kinumpirma ng website: %1$d</string>
 </resources>

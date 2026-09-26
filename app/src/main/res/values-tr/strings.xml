@@ -519,4 +519,60 @@
     <string name="desk_note">Yanıt verme hızı, defterden her şey gibi okunur: imzalı bir inceleme ile sizin imzalı yanıtınız arasındaki boşluk. Bu, okuyuculara dApp sayfanızda gösterilir, yani kuyruk ürünün kendisidir.</string>
     <string name="desk_none">Henüz doğrulanmış bir dApp yok. Sayfasından bir uygulamayı talep edin ve web sitesini kanıtlayın; masa oradan dolmaya başlar.</string>
     <string name="desk_none_waiting">Bekleyen bir şey yok.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">İnceleme dalgaları</string>
+    <string name="burst_high">Beş yıldızlı incelemeler: %1$d, %2$s – %3$s · Olağan hız: 3 günde yaklaşık %4$s</string>
+    <string name="burst_low">Bir yıldızlı incelemeler: %1$d, %2$s – %3$s · Olağan hız: 3 günde yaklaşık %4$s</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Defterde imzalandı</string>
+    <string name="burst_same_text">Aynı ifade: %1$d</string>
+    <string name="burst_attested">Kanıtlı cihazla: %1$d / %2$d</string>
+    <string name="burst_none">Kontrol edildi: %2$s tarihinden bu yana %1$d mağaza incelemesi · Dalga bulunamadı</string>
+    <string name="burst_short">Dalgaları kontrol etmek için henüz mağaza inceleme geçmişi çok az.</string>
+    <string name="burst_reading">Mağaza inceleme geçmişi okunuyor…</string>
+    <string name="burst_causes">Dalga bir gerçektir, bir hüküm değil: bir mağaza özelliği, bir lansman, yeni bir sürüm veya ücretli bir kampanya bunun nedeni olabilir.</string>
+    <string name="burst_more">Daha fazla dalga: %1$d</string>
+    <string name="burst_read_older">Daha eski incelemeleri kontrol et</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Bu uygulamanın bu telefonda ne kadar süredir olduğunu ekleyin: %1$s</string>
+    <string name="use_add_hint">İncelemenizle birlikte zincir üzerinde kaydedilir, yuvarlanmış olarak. Bu telefonunuzun bildirdiği bilgidir, kanıt değildir.</string>
+    <string name="use_not_installed">Bu uygulama bu telefonda yüklü değil, bu yüzden kurulum yaşı eklenmiyor.</string>
+    <string name="use_d0">bir günden az</string>
+    <string name="use_d1">1–6 gün</string>
+    <string name="use_w1">1–4 hafta</string>
+    <string name="use_m1">1–3 ay</string>
+    <string name="use_m3">3+ ay</string>
+    <string name="use_pill">Onların telefonunda: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Ödemeler panosu</string>
+    <string name="pay_intro">Yayıncısı bir hazineyi onaylamış dApp\'ler. Sayılan: memo\'su dApp\'in koduyla başlayan, SOL, SKR ve USDC cinsinden zincir üzerinde alınan ödemeler. Zincir dışı gelir gösterilmez.</string>
+    <string name="pay_usd_note">Bugünkü fiyatlarla USD</string>
+    <string name="pay_row">Ödemeler: %1$d · Ödeyenler: %2$d · Kanıtlı cihazla: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">İlk: %1$s · Son: %2$s</string>
+    <string name="pay_incomplete">Daha eski geçmiş henüz okunmadı, bu yüzden toplamlar düşük olabilir.</string>
+    <string name="pay_empty">Henüz hiçbir dApp bir hazineyi onaylamadı.</string>
+    <string name="pay_loading">Hazineler okunuyor…</string>
+    <string name="pay_detail_title">Alınan ödemeler</string>
+    <string name="pay_detail_sub">Yayıncı tarafından onaylanmış hazine %1$s · Memo kodu: %2$s</string>
+    <string name="pay_preview_title">Bir hazineyi önizle</string>
+    <string name="pay_preview_body">Herkes herkese açık ödemeleri önizleyebilir. Yalnızca hem cüzdan hem de yayıncının web sitesi tarafından onaylanmış bir hazine listelenir.</string>
+    <string name="pay_field_treasury">Hazine cüzdanı</string>
+    <string name="pay_field_code">Memo kodu</string>
+    <string name="pay_field_package">Paket adı</string>
+    <string name="pay_preview">Önizleme</string>
+    <string name="pay_list_title">dApp\'inizi listeleyin</string>
+    <string name="pay_list_step1">1. dApp Store\'un uygulamanız için listelediği web sitesindeki /.well-known/undersigned.txt dosyasına şu satırı ekleyin:</string>
+    <string name="pay_list_step2">2. O hazine cüzdanıyla oturum açmış olarak, aşağıdaki listelemeyi imzalayın. Yalnızca memo\'su kodla başlayan ödemeler sayılır.</string>
+    <string name="pay_sign">Bu hazine olarak imzala</string>
+    <string name="pay_my_claims">Hazine listelemeleriniz</string>
+    <string name="pay_claim_confirmed">Web sitesi tarafından onaylandı</string>
+    <string name="pay_claim_waiting">Web sitesi satırı bekleniyor</string>
+    <string name="pay_withdraw">Listelemeyi geri çek</string>
+    <string name="pay_bad_input">Paket adını ve kodu kontrol edin (2–32 harf, rakam, - veya _).</string>
+    <string name="pay_open">Ödemeler panosu</string>
+    <string name="pay_waiting_list">Hazine tarafından listelendi, web sitesi tarafından henüz onaylanmadı: %1$d</string>
 </resources>

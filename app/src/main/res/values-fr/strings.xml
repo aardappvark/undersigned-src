@@ -525,4 +525,60 @@
     <string name="desk_note">La réactivité est lue depuis le registre comme tout le reste : l\'écart entre un avis signé et votre réponse signée. Elle est montrée aux lecteurs sur votre page de dApp, donc la file d\'attente est le produit.</string>
     <string name="desk_none">Aucun dApp vérifié pour l\'instant. Revendiquez une application depuis sa page et prouvez le site web ; le bureau se remplit à partir de là.</string>
     <string name="desk_none_waiting">Rien en attente.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Pics d\'avis</string>
+    <string name="burst_high">Avis cinq étoiles : %1$d, %2$s – %3$s · Rythme habituel : environ %4$s pour 3 jours</string>
+    <string name="burst_low">Avis une étoile : %1$d, %2$s – %3$s · Rythme habituel : environ %4$s pour 3 jours</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Signé sur le registre</string>
+    <string name="burst_same_text">Même formulation : %1$d</string>
+    <string name="burst_attested">Avec un appareil attesté : %1$d sur %2$d</string>
+    <string name="burst_none">Vérifié : %1$d avis du store depuis %2$s · Aucun pic détecté</string>
+    <string name="burst_short">Pas encore assez d\'historique d\'avis du store pour vérifier les pics.</string>
+    <string name="burst_reading">Lecture de l\'historique des avis du store…</string>
+    <string name="burst_causes">Un pic est un fait, pas un verdict : une mise en avant par le store, un lancement, une nouvelle version ou une campagne payante peuvent chacun en causer un.</string>
+    <string name="burst_more">Autres pics : %1$d</string>
+    <string name="burst_read_older">Vérifier les avis plus anciens</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Ajouter depuis combien de temps cette application est sur ce téléphone : %1$s</string>
+    <string name="use_add_hint">Enregistré on-chain avec votre avis, arrondi. C\'est ce que rapporte votre téléphone, pas une preuve.</string>
+    <string name="use_not_installed">Cette application n\'est pas installée sur ce téléphone, donc aucune ancienneté d\'installation n\'est ajoutée.</string>
+    <string name="use_d0">moins d\'un jour</string>
+    <string name="use_d1">1–6 jours</string>
+    <string name="use_w1">1–4 semaines</string>
+    <string name="use_m1">1–3 mois</string>
+    <string name="use_m3">3+ mois</string>
+    <string name="use_pill">Sur son téléphone : %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Tableau des paiements</string>
+    <string name="pay_intro">dApps dont l\'éditeur a confirmé une trésorerie. Sont comptés : les paiements reçus on-chain en SOL, SKR et USDC dont le memo commence par le code de la dApp. Les revenus off-chain ne sont pas affichés.</string>
+    <string name="pay_usd_note">USD aux cours du jour</string>
+    <string name="pay_row">Paiements : %1$d · Payeurs : %2$d · Avec un appareil attesté : %3$d</string>
+    <string name="pay_totals">SOL : %1$s · SKR : %2$s · USDC : %3$s</string>
+    <string name="pay_range">Premier : %1$s · Dernier : %2$s</string>
+    <string name="pay_incomplete">L\'historique plus ancien n\'a pas encore été lu, les totaux peuvent donc être sous-estimés.</string>
+    <string name="pay_empty">Aucune dApp n\'a encore confirmé de trésorerie.</string>
+    <string name="pay_loading">Lecture des trésoreries…</string>
+    <string name="pay_detail_title">Paiements reçus</string>
+    <string name="pay_detail_sub">Trésorerie confirmée par l\'éditeur %1$s · Code memo : %2$s</string>
+    <string name="pay_preview_title">Aperçu d\'une trésorerie</string>
+    <string name="pay_preview_body">N\'importe qui peut prévisualiser les paiements publics. Seule une trésorerie confirmée à la fois par le wallet et par le site web de l\'éditeur est répertoriée.</string>
+    <string name="pay_field_treasury">Wallet de trésorerie</string>
+    <string name="pay_field_code">Code memo</string>
+    <string name="pay_field_package">Nom du package</string>
+    <string name="pay_preview">Aperçu</string>
+    <string name="pay_list_title">Référencer votre dApp</string>
+    <string name="pay_list_step1">1. Ajoutez cette ligne à /.well-known/undersigned.txt sur le site web que le dApp Store répertorie pour votre application :</string>
+    <string name="pay_list_step2">2. Connecté avec ce wallet de trésorerie, signez l\'annonce ci-dessous. Seuls les paiements dont le memo commence par le code sont comptés.</string>
+    <string name="pay_sign">Signer en tant que cette trésorerie</string>
+    <string name="pay_my_claims">Vos annonces de trésorerie</string>
+    <string name="pay_claim_confirmed">Confirmé par le site web</string>
+    <string name="pay_claim_waiting">En attente de la ligne sur le site web</string>
+    <string name="pay_withdraw">Retirer l\'annonce</string>
+    <string name="pay_bad_input">Vérifiez le nom du package et le code (2–32 lettres, chiffres, - ou _).</string>
+    <string name="pay_open">Tableau des paiements</string>
+    <string name="pay_waiting_list">Répertorié par la trésorerie, pas encore confirmé par le site web : %1$d</string>
 </resources>

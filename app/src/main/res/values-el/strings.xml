@@ -519,4 +519,60 @@
     <string name="desk_note">Η ανταπόκριση διαβάζεται από το ledger όπως όλα τα άλλα: το κενό μεταξύ μιας υπογεγραμμένης κριτικής και της υπογεγραμμένης απάντησής σας. Εμφανίζεται στους αναγνώστες στη σελίδα του dApp σας, οπότε η ουρά είναι το προϊόν.</string>
     <string name="desk_none">Κανένα επαληθευμένο dApp ακόμα. Διεκδικήστε μια εφαρμογή από τη σελίδα της και αποδείξτε τον ιστότοπο· το γραφείο γεμίζει από εκεί.</string>
     <string name="desk_none_waiting">Τίποτα σε αναμονή.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Κύματα κριτικών</string>
+    <string name="burst_high">Κριτικές πέντε αστέρων: %1$d, %2$s – %3$s · Συνήθης ρυθμός: περίπου %4$s ανά 3 ημέρες</string>
+    <string name="burst_low">Κριτικές ενός αστέρα: %1$d, %2$s – %3$s · Συνήθης ρυθμός: περίπου %4$s ανά 3 ημέρες</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Υπογεγραμμένο στο ledger</string>
+    <string name="burst_same_text">Ίδια διατύπωση: %1$d</string>
+    <string name="burst_attested">Με πιστοποιημένη συσκευή: %1$d από %2$d</string>
+    <string name="burst_none">Ελέγχθηκαν: %1$d κριτικές καταστήματος από %2$s · Δεν βρέθηκαν κύματα</string>
+    <string name="burst_short">Ακόμα πολύ λίγο ιστορικό κριτικών καταστήματος για έλεγχο κυμάτων.</string>
+    <string name="burst_reading">Ανάγνωση ιστορικού κριτικών καταστήματος…</string>
+    <string name="burst_causes">Το κύμα είναι γεγονός, όχι ετυμηγορία: μια προβολή του καταστήματος, μια κυκλοφορία, μια νέα έκδοση ή μια επί πληρωμή καμπάνια μπορούν η καθεμία να το προκαλέσουν.</string>
+    <string name="burst_more">Περισσότερα κύματα: %1$d</string>
+    <string name="burst_read_older">Έλεγχος παλαιότερων κριτικών</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Προσθέστε πόσο καιρό είναι αυτή η εφαρμογή σε αυτό το τηλέφωνο: %1$s</string>
+    <string name="use_add_hint">Καταγράφεται on-chain μαζί με την κριτική σας, στρογγυλοποιημένο. Είναι η αναφορά του τηλεφώνου σας, όχι απόδειξη.</string>
+    <string name="use_not_installed">Αυτή η εφαρμογή δεν είναι εγκατεστημένη σε αυτό το τηλέφωνο, οπότε δεν προστίθεται ηλικία εγκατάστασης.</string>
+    <string name="use_d0">λιγότερο από μία ημέρα</string>
+    <string name="use_d1">1–6 ημέρες</string>
+    <string name="use_w1">1–4 εβδομάδες</string>
+    <string name="use_m1">1–3 μήνες</string>
+    <string name="use_m3">3+ μήνες</string>
+    <string name="use_pill">Στο τηλέφωνό τους: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Πίνακας πληρωμών</string>
+    <string name="pay_intro">dApps των οποίων ο εκδότης έχει επιβεβαιώσει ένα θησαυροφυλάκιο. Μετριούνται: πληρωμές που λαμβάνονται on-chain σε SOL, SKR και USDC των οποίων το memo ξεκινά με τον κωδικό της dApp. Τα έσοδα off-chain δεν εμφανίζονται.</string>
+    <string name="pay_usd_note">USD στις σημερινές τιμές</string>
+    <string name="pay_row">Πληρωμές: %1$d · Πληρωτές: %2$d · Με πιστοποιημένη συσκευή: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Πρώτη: %1$s · Τελευταία: %2$s</string>
+    <string name="pay_incomplete">Το παλαιότερο ιστορικό δεν έχει διαβαστεί ακόμα, οπότε τα σύνολα ενδέχεται να είναι χαμηλά.</string>
+    <string name="pay_empty">Καμία dApp δεν έχει επιβεβαιώσει θησαυροφυλάκιο ακόμα.</string>
+    <string name="pay_loading">Ανάγνωση θησαυροφυλακίων…</string>
+    <string name="pay_detail_title">Πληρωμές που ελήφθησαν</string>
+    <string name="pay_detail_sub">Θησαυροφυλάκιο επιβεβαιωμένο από τον εκδότη %1$s · Κωδικός memo: %2$s</string>
+    <string name="pay_preview_title">Προεπισκόπηση θησαυροφυλακίου</string>
+    <string name="pay_preview_body">Οποιοσδήποτε μπορεί να δει προεπισκόπηση δημόσιων πληρωμών. Εμφανίζεται μόνο ένα θησαυροφυλάκιο επιβεβαιωμένο τόσο από το πορτοφόλι όσο και από τον ιστότοπο του εκδότη.</string>
+    <string name="pay_field_treasury">Πορτοφόλι θησαυροφυλακίου</string>
+    <string name="pay_field_code">Κωδικός memo</string>
+    <string name="pay_field_package">Όνομα πακέτου</string>
+    <string name="pay_preview">Προεπισκόπηση</string>
+    <string name="pay_list_title">Καταχωρίστε τη dApp σας</string>
+    <string name="pay_list_step1">1. Προσθέστε αυτή τη γραμμή στο /.well-known/undersigned.txt στον ιστότοπο που αναφέρει το dApp Store για την εφαρμογή σας:</string>
+    <string name="pay_list_step2">2. Συνδεδεμένοι με αυτό το πορτοφόλι θησαυροφυλακίου, υπογράψτε την παρακάτω καταχώριση. Μετριούνται μόνο οι πληρωμές των οποίων το memo ξεκινά με τον κωδικό.</string>
+    <string name="pay_sign">Υπογραφή ως αυτό το θησαυροφυλάκιο</string>
+    <string name="pay_my_claims">Οι καταχωρίσεις θησαυροφυλακίου σας</string>
+    <string name="pay_claim_confirmed">Επιβεβαιωμένο από τον ιστότοπο</string>
+    <string name="pay_claim_waiting">Αναμονή της γραμμής στον ιστότοπο</string>
+    <string name="pay_withdraw">Απόσυρση καταχώρισης</string>
+    <string name="pay_bad_input">Ελέγξτε το όνομα πακέτου και τον κωδικό (2–32 γράμματα, ψηφία, - ή _).</string>
+    <string name="pay_open">Πίνακας πληρωμών</string>
+    <string name="pay_waiting_list">Καταχωρισμένο από το θησαυροφυλάκιο, δεν έχει επιβεβαιωθεί ακόμα από τον ιστότοπο: %1$d</string>
 </resources>

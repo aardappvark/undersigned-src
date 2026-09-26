@@ -549,4 +549,60 @@
     <string name="desk_note">تُقرأ الاستجابة من السجل مثل كل شيء آخر: الفجوة بين مراجعة موقّعة وردك الموقَّع. تُعرض للقرّاء في صفحة تطبيقك، فقائمة الانتظار هي المنتج.</string>
     <string name="desk_none">لا تطبيقات موثّقة بعد. طالب بتطبيق من صفحته وأثبت ملكية الموقع؛ يمتلئ المكتب من هناك.</string>
     <string name="desk_none_waiting">لا شيء بالانتظار.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">طفرات المراجعات</string>
+    <string name="burst_high">مراجعات خمس نجوم: %1$d، %2$s – %3$s · المعدّل المعتاد: نحو %4$s كل 3 أيام</string>
+    <string name="burst_low">مراجعات نجمة واحدة: %1$d، %2$s – %3$s · المعدّل المعتاد: نحو %4$s كل 3 أيام</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">موقّعة على السجل</string>
+    <string name="burst_same_text">نفس الصياغة: %1$d</string>
+    <string name="burst_attested">بجهاز مصادق: %1$d من %2$d</string>
+    <string name="burst_none">تم الفحص: %1$d من مراجعات المتجر منذ %2$s · لم يُعثر على طفرات</string>
+    <string name="burst_short">سجل مراجعات المتجر قصير جدًا للتحقق من الطفرات حتى الآن.</string>
+    <string name="burst_reading">جارٍ قراءة سجل مراجعات المتجر…</string>
+    <string name="burst_causes">الطفرة حقيقة لا حكم: يمكن أن يتسبب فيها إبراز في المتجر، أو إطلاق، أو إصدار جديد، أو حملة مدفوعة.</string>
+    <string name="burst_more">طفرات أخرى: %1$d</string>
+    <string name="burst_read_older">التحقق من مراجعات أقدم</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">أضِف مدة تثبيت هذا التطبيق على هذا الهاتف: %1$s</string>
+    <string name="use_add_hint">مسجَّلة على السلسلة مع مراجعتك، مقرّبة. إنها تقرير هاتفك، وليست دليلاً.</string>
+    <string name="use_not_installed">هذا التطبيق غير مثبَّت على هذا الهاتف، لذا لا تُضاف مدة تثبيت.</string>
+    <string name="use_d0">أقل من يوم</string>
+    <string name="use_d1">1–6 أيام</string>
+    <string name="use_w1">1–4 أسابيع</string>
+    <string name="use_m1">1–3 أشهر</string>
+    <string name="use_m3">3+ أشهر</string>
+    <string name="use_pill">على هاتفهم: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">لوحة المدفوعات</string>
+    <string name="pay_intro">dApps التي أكّد ناشرها وجود خزينة. يُحتسب: المدفوعات المستلمة على السلسلة بعملات SOL وSKR وUSDC والتي تبدأ مذكرتها برمز dApp. الإيرادات خارج السلسلة غير معروضة.</string>
+    <string name="pay_usd_note">USD بأسعار اليوم</string>
+    <string name="pay_row">المدفوعات: %1$d · الدافعون: %2$d · بجهاز مصادق: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">الأول: %1$s · الأحدث: %2$s</string>
+    <string name="pay_incomplete">لم تُقرأ السجلات الأقدم بعد، لذا قد تكون الإجماليات أقل من الواقع.</string>
+    <string name="pay_empty">لم يؤكّد أي dApp خزينة بعد.</string>
+    <string name="pay_loading">جارٍ قراءة الخزائن…</string>
+    <string name="pay_detail_title">المدفوعات المستلمة</string>
+    <string name="pay_detail_sub">خزينة أكّدها الناشر %1$s · رمز المذكرة: %2$s</string>
+    <string name="pay_preview_title">معاينة خزينة</string>
+    <string name="pay_preview_body">يمكن لأي شخص معاينة المدفوعات العامة. لا يُدرَج إلا خزينة أكّدتها المحفظة وموقع الناشر معًا.</string>
+    <string name="pay_field_treasury">محفظة الخزينة</string>
+    <string name="pay_field_code">رمز المذكرة</string>
+    <string name="pay_field_package">اسم الحزمة</string>
+    <string name="pay_preview">معاينة</string>
+    <string name="pay_list_title">أدرِج dApp الخاص بك</string>
+    <string name="pay_list_step1">1. أضف هذا السطر إلى /.well-known/undersigned.txt على الموقع الذي يدرجه dApp Store لتطبيقك:</string>
+    <string name="pay_list_step2">2. بعد تسجيل الدخول بمحفظة الخزينة تلك، وقّع الإدراج أدناه. لا تُحتسب إلا المدفوعات التي تبدأ مذكرتها بالرمز.</string>
+    <string name="pay_sign">التوقيع كهذه الخزينة</string>
+    <string name="pay_my_claims">إدراجات خزينتك</string>
+    <string name="pay_claim_confirmed">مؤكَّد من الموقع</string>
+    <string name="pay_claim_waiting">بانتظار سطر الموقع</string>
+    <string name="pay_withdraw">سحب الإدراج</string>
+    <string name="pay_bad_input">تحقّق من اسم الحزمة والرمز (2–32 حرفًا أو رقمًا أو - أو _).</string>
+    <string name="pay_open">لوحة المدفوعات</string>
+    <string name="pay_waiting_list">مُدرَجة من الخزينة، ولم تُؤكَّد من الموقع بعد: %1$d</string>
 </resources>

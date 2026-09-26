@@ -520,4 +520,60 @@
     <string name="desk_note">Отзывчивость считывается из реестра, как и всё остальное: промежуток между подписанным отзывом и вашим подписанным ответом. Она показывается читающим на странице вашей dApp, так что очередь и есть продукт.</string>
     <string name="desk_none">Пока нет подтверждённых dApps. Заявите права на приложение с его страницы и подтвердите сайт; оттуда панель заполнится.</string>
     <string name="desk_none_waiting">Ничего не ждёт.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Всплески отзывов</string>
+    <string name="burst_high">Отзывы на пять звёзд: %1$d, %2$s – %3$s · Обычный темп: около %4$s за 3 дня</string>
+    <string name="burst_low">Отзывы на одну звезду: %1$d, %2$s – %3$s · Обычный темп: около %4$s за 3 дня</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Подписано в реестре</string>
+    <string name="burst_same_text">Одинаковая формулировка: %1$d</string>
+    <string name="burst_attested">С подтверждённым устройством: %1$d из %2$d</string>
+    <string name="burst_none">Проверено: %1$d отзывов магазина с %2$s · Всплесков не найдено</string>
+    <string name="burst_short">Пока слишком мало истории отзывов магазина, чтобы проверить всплески.</string>
+    <string name="burst_reading">Чтение истории отзывов магазина…</string>
+    <string name="burst_causes">Всплеск — это факт, а не приговор: причиной может быть подборка магазина, запуск, новый релиз или платная кампания.</string>
+    <string name="burst_more">Больше всплесков: %1$d</string>
+    <string name="burst_read_older">Проверить более старые отзывы</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Добавьте, как долго это приложение на этом телефоне: %1$s</string>
+    <string name="use_add_hint">Записывается в блокчейне вместе с вашим отзывом, округлённо. Это сообщение вашего телефона, а не доказательство.</string>
+    <string name="use_not_installed">Это приложение не установлено на этом телефоне, поэтому срок установки не добавляется.</string>
+    <string name="use_d0">меньше дня</string>
+    <string name="use_d1">1–6 дней</string>
+    <string name="use_w1">1–4 недели</string>
+    <string name="use_m1">1–3 месяца</string>
+    <string name="use_m3">3+ месяцев</string>
+    <string name="use_pill">На их телефоне: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Обзор платежей</string>
+    <string name="pay_intro">dApps, чей издатель подтвердил казначейство. Учитываются: платежи, полученные в блокчейне в SOL, SKR и USDC, чьё memo начинается с кода dApp. Доход вне блокчейна не показывается.</string>
+    <string name="pay_usd_note">USD по сегодняшним ценам</string>
+    <string name="pay_row">Платежи: %1$d · Плательщики: %2$d · С подтверждённым устройством: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Первый: %1$s · Последний: %2$s</string>
+    <string name="pay_incomplete">Более старая история ещё не прочитана, поэтому суммы могут быть занижены.</string>
+    <string name="pay_empty">Ни одна dApp ещё не подтвердила казначейство.</string>
+    <string name="pay_loading">Чтение казначейств…</string>
+    <string name="pay_detail_title">Полученные платежи</string>
+    <string name="pay_detail_sub">Казначейство, подтверждённое издателем, %1$s · Код memo: %2$s</string>
+    <string name="pay_preview_title">Просмотр казначейства</string>
+    <string name="pay_preview_body">Любой может просмотреть публичные платежи. Указывается только казначейство, подтверждённое и кошельком, и сайтом издателя.</string>
+    <string name="pay_field_treasury">Кошелёк казначейства</string>
+    <string name="pay_field_code">Код memo</string>
+    <string name="pay_field_package">Имя пакета</string>
+    <string name="pay_preview">Просмотр</string>
+    <string name="pay_list_title">Добавьте свою dApp в список</string>
+    <string name="pay_list_step1">1. Добавьте эту строку в /.well-known/undersigned.txt на сайте, который dApp Store указывает для вашего приложения:</string>
+    <string name="pay_list_step2">2. Войдя с этим кошельком казначейства, подпишите запись ниже. Учитываются только платежи, чьё memo начинается с этого кода.</string>
+    <string name="pay_sign">Подписать как это казначейство</string>
+    <string name="pay_my_claims">Ваши записи казначейства</string>
+    <string name="pay_claim_confirmed">Подтверждено сайтом</string>
+    <string name="pay_claim_waiting">Ожидает строку на сайте</string>
+    <string name="pay_withdraw">Отозвать запись</string>
+    <string name="pay_bad_input">Проверьте имя пакета и код (2–32 буквы, цифры, - или _).</string>
+    <string name="pay_open">Обзор платежей</string>
+    <string name="pay_waiting_list">Указано казначейством, ещё не подтверждено сайтом: %1$d</string>
 </resources>

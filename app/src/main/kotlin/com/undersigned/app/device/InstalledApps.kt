@@ -78,6 +78,9 @@ class InstalledApps(private val context: Context) {
         return f.copy(delta = SafetyFacts.Delta(c.signerChanged, c.permsAdded, c.permsRemoved))
     }
 
+    /** When this package was first installed on this phone (ms); reinstalling resets it. Null when not installed. */
+    fun firstInstallTime(packageName: String): Long? = runCatching { pm.getPackageInfo(packageName, 0).firstInstallTime }.getOrNull()?.takeIf { it > 0 }
+
     fun appLabel(packageName: String): String? = runCatching { pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString() }.getOrNull()
 
     private fun versionCodeOf(pi: PackageInfo): Long = if (Build.VERSION.SDK_INT >= 28) pi.longVersionCode else @Suppress("DEPRECATION") pi.versionCode.toLong()

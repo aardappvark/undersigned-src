@@ -527,4 +527,60 @@
     <string name="desk_note">Capacitatea de răspuns este citită din registru ca orice altceva: intervalul dintre o recenzie semnată și răspunsul tău semnat. Este afișată cititorilor pe pagina dApp-ului tău, deci coada este produsul.</string>
     <string name="desk_none">Niciun dApp verificat încă. Revendică o aplicație de pe pagina ei și dovedește site-ul; biroul se umple de acolo.</string>
     <string name="desk_none_waiting">Nimic în așteptare.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Valuri de recenzii</string>
+    <string name="burst_high">Recenzii cu cinci stele: %1$d, %2$s – %3$s · Ritm obișnuit: aproximativ %4$s la 3 zile</string>
+    <string name="burst_low">Recenzii cu o stea: %1$d, %2$s – %3$s · Ritm obișnuit: aproximativ %4$s la 3 zile</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Semnat pe registru</string>
+    <string name="burst_same_text">Aceeași formulare: %1$d</string>
+    <string name="burst_attested">Cu dispozitiv atestat: %1$d din %2$d</string>
+    <string name="burst_none">Verificate: %1$d recenzii din magazin din %2$s · Niciun val găsit</string>
+    <string name="burst_short">Încă prea puțin istoric de recenzii din magazin pentru a verifica valuri.</string>
+    <string name="burst_reading">Se citește istoricul recenziilor din magazin…</string>
+    <string name="burst_causes">Un val este un fapt, nu un verdict: o funcție a magazinului, o lansare, o versiune nouă sau o campanie plătită pot cauza fiecare unul.</string>
+    <string name="burst_more">Mai multe valuri: %1$d</string>
+    <string name="burst_read_older">Verifică recenzii mai vechi</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Adaugă de cât timp e această aplicație pe acest telefon: %1$s</string>
+    <string name="use_add_hint">Înregistrat on-chain împreună cu recenzia ta, rotunjit. Este raportul telefonului tău, nu o dovadă.</string>
+    <string name="use_not_installed">Această aplicație nu este instalată pe acest telefon, deci nu se adaugă vechimea instalării.</string>
+    <string name="use_d0">sub o zi</string>
+    <string name="use_d1">1–6 zile</string>
+    <string name="use_w1">1–4 săptămâni</string>
+    <string name="use_m1">1–3 luni</string>
+    <string name="use_m3">3+ luni</string>
+    <string name="use_pill">Pe telefonul lor: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Tabloul plăților</string>
+    <string name="pay_intro">dApps al căror editor a confirmat o trezorerie. Se numără: plățile primite on-chain în SOL, SKR și USDC al căror memo începe cu codul dApp-ului. Veniturile off-chain nu sunt afișate.</string>
+    <string name="pay_usd_note">USD la prețurile de azi</string>
+    <string name="pay_row">Plăți: %1$d · Plătitori: %2$d · Cu dispozitiv atestat: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Prima: %1$s · Ultima: %2$s</string>
+    <string name="pay_incomplete">Istoricul mai vechi nu a fost încă citit, deci totalurile pot fi mai mici.</string>
+    <string name="pay_empty">Nicio dApp nu a confirmat încă o trezorerie.</string>
+    <string name="pay_loading">Se citesc trezoreriile…</string>
+    <string name="pay_detail_title">Plăți primite</string>
+    <string name="pay_detail_sub">Trezorerie confirmată de editor %1$s · Cod memo: %2$s</string>
+    <string name="pay_preview_title">Previzualizează o trezorerie</string>
+    <string name="pay_preview_body">Oricine poate previzualiza plățile publice. Este listată doar trezoreria confirmată atât de portofel, cât și de site-ul editorului.</string>
+    <string name="pay_field_treasury">Portofelul trezoreriei</string>
+    <string name="pay_field_code">Cod memo</string>
+    <string name="pay_field_package">Numele pachetului</string>
+    <string name="pay_preview">Previzualizare</string>
+    <string name="pay_list_title">Listează-ți dApp-ul</string>
+    <string name="pay_list_step1">1. Adaugă acest rând la /.well-known/undersigned.txt pe site-ul pe care dApp Store îl listează pentru aplicația ta:</string>
+    <string name="pay_list_step2">2. Conectat(ă) cu acel portofel de trezorerie, semnează înregistrarea de mai jos. Sunt numărate doar plățile al căror memo începe cu codul.</string>
+    <string name="pay_sign">Semnează ca această trezorerie</string>
+    <string name="pay_my_claims">Înregistrările tale de trezorerie</string>
+    <string name="pay_claim_confirmed">Confirmată de site</string>
+    <string name="pay_claim_waiting">Se așteaptă rândul de pe site</string>
+    <string name="pay_withdraw">Retrage înregistrarea</string>
+    <string name="pay_bad_input">Verifică numele pachetului și codul (2–32 de litere, cifre, - sau _).</string>
+    <string name="pay_open">Tabloul plăților</string>
+    <string name="pay_waiting_list">Listată de trezorerie, încă neconfirmată de site: %1$d</string>
 </resources>

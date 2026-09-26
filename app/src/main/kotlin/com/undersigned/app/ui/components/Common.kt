@@ -122,3 +122,13 @@ fun tagLabel(wire: String): String = when (wire) {
 fun storeDate(iso: String): String = runCatching {
     java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(java.time.Instant.parse(iso).toEpochMilli()))
 }.getOrElse { iso.take(10) }
+
+/** The reader's words for an install-age bucket. */
+@androidx.compose.runtime.Composable
+fun useLabel(b: com.undersigned.protocol.UseBucket): String = androidx.compose.ui.res.stringResource(when (b) {
+    com.undersigned.protocol.UseBucket.UNDER_DAY -> com.undersigned.app.R.string.use_d0
+    com.undersigned.protocol.UseBucket.DAYS -> com.undersigned.app.R.string.use_d1
+    com.undersigned.protocol.UseBucket.WEEKS -> com.undersigned.app.R.string.use_w1
+    com.undersigned.protocol.UseBucket.MONTHS -> com.undersigned.app.R.string.use_m1
+    com.undersigned.protocol.UseBucket.LONG -> com.undersigned.app.R.string.use_m3
+})

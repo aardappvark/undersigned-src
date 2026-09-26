@@ -519,4 +519,60 @@
     <string name="desk_note">A válaszkészség a nyilvántartásból olvasható, mint minden más: a rés egy aláírt értékelés és a te aláírt válaszod között. Ez megjelenik az olvasóknak a dApp oldaladon, tehát a sor maga a termék.</string>
     <string name="desk_none">Még nincs ellenőrzött dApp. Igényelj egy alkalmazást az oldaláról, és igazold a weboldalt; a pult onnantól feltöltődik.</string>
     <string name="desk_none_waiting">Semmi nem vár.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Értékelési hullámok</string>
+    <string name="burst_high">Ötcsillagos értékelések: %1$d, %2$s – %3$s · Szokásos ütem: kb. %4$s / 3 nap</string>
+    <string name="burst_low">Egycsillagos értékelések: %1$d, %2$s – %3$s · Szokásos ütem: kb. %4$s / 3 nap</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Aláírva a nyilvántartásban</string>
+    <string name="burst_same_text">Azonos szöveg: %1$d</string>
+    <string name="burst_attested">Hitelesített eszközzel: %1$d / %2$d</string>
+    <string name="burst_none">Ellenőrizve: %1$d áruházi értékelés %2$s óta · Nincs hullám</string>
+    <string name="burst_short">Még túl kevés az áruházi értékelési előzmény a hullámok ellenőrzéséhez.</string>
+    <string name="burst_reading">Áruházi értékelési előzmények olvasása…</string>
+    <string name="burst_causes">A hullám tény, nem ítélet: okozhatja egy áruházi kiemelés, egy indulás, egy új kiadás vagy egy fizetett kampány is.</string>
+    <string name="burst_more">További hullámok: %1$d</string>
+    <string name="burst_read_older">Korábbi értékelések ellenőrzése</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Add hozzá, mióta van ez az alkalmazás ezen a telefonon: %1$s</string>
+    <string name="use_add_hint">On-chain rögzítve az értékeléseddel együtt, kerekítve. Ez a telefonod jelentése, nem bizonyíték.</string>
+    <string name="use_not_installed">Ez az alkalmazás nincs telepítve ezen a telefonon, ezért nem kerül hozzáadásra telepítési kor.</string>
+    <string name="use_d0">egy napnál rövidebb ideje</string>
+    <string name="use_d1">1–6 napja</string>
+    <string name="use_w1">1–4 hete</string>
+    <string name="use_m1">1–3 hónapja</string>
+    <string name="use_m3">3+ hónapja</string>
+    <string name="use_pill">Az ő telefonjukon: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Fizetések áttekintése</string>
+    <string name="pay_intro">Olyan dApp-ok, amelyek kiadója megerősített egy kincstárat. Beszámítva: az on-chain, SOL-ban, SKR-ben és USDC-ben beérkezett fizetések, amelyek memója a dApp kódjával kezdődik. Az off-chain bevétel nem jelenik meg.</string>
+    <string name="pay_usd_note">USD a mai árakon</string>
+    <string name="pay_row">Fizetések: %1$d · Fizetők: %2$d · Hitelesített eszközzel: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Első: %1$s · Legutóbbi: %2$s</string>
+    <string name="pay_incomplete">A korábbi előzményeket még nem olvastuk be, ezért az összegek alacsonyabbak lehetnek.</string>
+    <string name="pay_empty">Egyetlen dApp sem erősített meg még kincstárat.</string>
+    <string name="pay_loading">Kincstárak olvasása…</string>
+    <string name="pay_detail_title">Beérkezett fizetések</string>
+    <string name="pay_detail_sub">Kiadó által megerősített kincstár: %1$s · Memo kód: %2$s</string>
+    <string name="pay_preview_title">Kincstár előnézete</string>
+    <string name="pay_preview_body">A nyilvános fizetéseket bárki megnézheti. Csak az a kincstár szerepel a listán, amelyet a tárca és a kiadó weboldala is megerősített.</string>
+    <string name="pay_field_treasury">Kincstár tárca</string>
+    <string name="pay_field_code">Memo kód</string>
+    <string name="pay_field_package">Csomagnév</string>
+    <string name="pay_preview">Előnézet</string>
+    <string name="pay_list_title">Vedd fel a listára a dApp-odat</string>
+    <string name="pay_list_step1">1. Add hozzá ezt a sort a /.well-known/undersigned.txt fájlhoz azon a weboldalon, amelyet a dApp Store az alkalmazásodhoz feltüntet:</string>
+    <string name="pay_list_step2">2. Ezzel a kincstár tárcával bejelentkezve írd alá az alábbi bejegyzést. Csak azok a fizetések számítanak, amelyek memója ezzel a kóddal kezdődik.</string>
+    <string name="pay_sign">Aláírás mint ez a kincstár</string>
+    <string name="pay_my_claims">A te kincstár-bejegyzéseid</string>
+    <string name="pay_claim_confirmed">A weboldal megerősítette</string>
+    <string name="pay_claim_waiting">A weboldal sorára vár</string>
+    <string name="pay_withdraw">Bejegyzés visszavonása</string>
+    <string name="pay_bad_input">Ellenőrizd a csomagnevet és a kódot (2–32 betű, szám, - vagy _).</string>
+    <string name="pay_open">Fizetések áttekintése</string>
+    <string name="pay_waiting_list">A kincstár listázta, a weboldal még nem erősítette meg: %1$d</string>
 </resources>

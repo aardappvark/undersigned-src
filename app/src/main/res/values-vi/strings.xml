@@ -512,4 +512,60 @@
     <string name="desk_note">Mức độ phản hồi được đọc từ sổ cái như mọi thứ khác: khoảng cách giữa một đánh giá đã ký và phản hồi đã ký của bạn. Nó được hiển thị cho người đọc trên trang dApp của bạn, vì vậy hàng đợi chính là thước đo.</string>
     <string name="desk_none">Chưa có dApp nào đã xác minh. Xác nhận quyền sở hữu một ứng dụng từ trang của nó và chứng minh trang web; bàn làm việc sẽ đầy dần từ đó.</string>
     <string name="desk_none_waiting">Không có gì đang chờ.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Đợt tăng đột biến đánh giá</string>
+    <string name="burst_high">Đánh giá 5 sao: %1$d, %2$s – %3$s · Tốc độ thông thường: khoảng %4$s mỗi 3 ngày</string>
+    <string name="burst_low">Đánh giá 1 sao: %1$d, %2$s – %3$s · Tốc độ thông thường: khoảng %4$s mỗi 3 ngày</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Đã ký trên sổ cái</string>
+    <string name="burst_same_text">Cùng nội dung: %1$d</string>
+    <string name="burst_attested">Có thiết bị được xác nhận: %1$d trên %2$d</string>
+    <string name="burst_none">Đã kiểm tra: %1$d đánh giá trên cửa hàng kể từ %2$s · Không tìm thấy đợt tăng đột biến nào</string>
+    <string name="burst_short">Lịch sử đánh giá trên cửa hàng còn quá ít để kiểm tra đợt tăng đột biến.</string>
+    <string name="burst_reading">Đang đọc lịch sử đánh giá trên cửa hàng…</string>
+    <string name="burst_causes">Một đợt tăng đột biến là một sự thật, không phải một phán quyết: một lượt nổi bật trên cửa hàng, một đợt ra mắt, một bản phát hành mới hoặc một chiến dịch trả phí đều có thể gây ra nó.</string>
+    <string name="burst_more">Thêm đợt tăng đột biến: %1$d</string>
+    <string name="burst_read_older">Xem các đánh giá cũ hơn</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Thêm thời gian ứng dụng này đã có trên điện thoại này: %1$s</string>
+    <string name="use_add_hint">Được ghi trên chuỗi cùng với đánh giá của bạn, đã làm tròn. Đây là báo cáo từ điện thoại của bạn, không phải bằng chứng.</string>
+    <string name="use_not_installed">Ứng dụng này không được cài đặt trên điện thoại này, nên không có thời gian cài đặt nào được thêm vào.</string>
+    <string name="use_d0">chưa đầy một ngày</string>
+    <string name="use_d1">1–6 ngày</string>
+    <string name="use_w1">1–4 tuần</string>
+    <string name="use_m1">1–3 tháng</string>
+    <string name="use_m3">3+ tháng</string>
+    <string name="use_pill">Trên điện thoại của họ: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Bảng thanh toán</string>
+    <string name="pay_intro">Các dApp mà nhà phát hành đã xác nhận một quỹ. Được tính: các khoản thanh toán nhận trên chuỗi bằng SOL, SKR và USDC có memo bắt đầu bằng mã của dApp. Thu nhập ngoài chuỗi không được hiển thị.</string>
+    <string name="pay_usd_note">USD theo giá hôm nay</string>
+    <string name="pay_row">Thanh toán: %1$d · Người thanh toán: %2$d · Có thiết bị được xác nhận: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Đầu tiên: %1$s · Gần nhất: %2$s</string>
+    <string name="pay_incomplete">Lịch sử cũ hơn chưa được đọc, nên tổng số có thể thấp hơn thực tế.</string>
+    <string name="pay_empty">Chưa có dApp nào xác nhận quỹ.</string>
+    <string name="pay_loading">Đang đọc các quỹ…</string>
+    <string name="pay_detail_title">Các khoản thanh toán đã nhận</string>
+    <string name="pay_detail_sub">Quỹ được nhà phát hành xác nhận %1$s · Mã memo: %2$s</string>
+    <string name="pay_preview_title">Xem trước một quỹ</string>
+    <string name="pay_preview_body">Bất kỳ ai cũng có thể xem trước các khoản thanh toán công khai. Chỉ quỹ được xác nhận bởi cả ví lẫn trang web của nhà phát hành mới được niêm yết.</string>
+    <string name="pay_field_treasury">Ví quỹ</string>
+    <string name="pay_field_code">Mã memo</string>
+    <string name="pay_field_package">Tên gói</string>
+    <string name="pay_preview">Xem trước</string>
+    <string name="pay_list_title">Niêm yết dApp của bạn</string>
+    <string name="pay_list_step1">1. Thêm dòng này vào /.well-known/undersigned.txt trên trang web mà dApp Store liệt kê cho ứng dụng của bạn:</string>
+    <string name="pay_list_step2">2. Sau khi đăng nhập bằng ví quỹ đó, hãy ký vào bản niêm yết bên dưới. Chỉ các khoản thanh toán có memo bắt đầu bằng mã mới được tính.</string>
+    <string name="pay_sign">Ký với tư cách quỹ này</string>
+    <string name="pay_my_claims">Các niêm yết quỹ của bạn</string>
+    <string name="pay_claim_confirmed">Đã được trang web xác nhận</string>
+    <string name="pay_claim_waiting">Đang chờ dòng trên trang web</string>
+    <string name="pay_withdraw">Rút niêm yết</string>
+    <string name="pay_bad_input">Kiểm tra lại tên gói và mã (2–32 chữ cái, chữ số, - hoặc _).</string>
+    <string name="pay_open">Bảng thanh toán</string>
+    <string name="pay_waiting_list">Được quỹ niêm yết, chưa được trang web xác nhận: %1$d</string>
 </resources>

@@ -496,4 +496,60 @@
     <string name="desk_note">ความรวดเร็วในการตอบสนองถูกอ่านจากบัญชีบันทึกเหมือนสิ่งอื่น ๆ ทั้งหมด: ช่วงเวลาระหว่างรีวิวที่ลงลายเซ็นกับการตอบกลับที่ลงลายเซ็นของคุณ ผู้อ่านจะเห็นสิ่งนี้บนหน้า dApp ของคุณ ดังนั้นคิวนี้จึงเป็นตัวชี้วัด</string>
     <string name="desk_none">ยังไม่มี dApp ที่ตรวจสอบแล้ว อ้างสิทธิ์แอปจากหน้าของแอปและพิสูจน์เว็บไซต์ โต๊ะผู้เผยแพร่จะเริ่มเต็มจากตรงนั้น</string>
     <string name="desk_none_waiting">ไม่มีอะไรรอ</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">การพุ่งขึ้นของรีวิว</string>
+    <string name="burst_high">รีวิวห้าดาว: %1$d, %2$s – %3$s · อัตราปกติ: ประมาณ %4$s ต่อ 3 วัน</string>
+    <string name="burst_low">รีวิวหนึ่งดาว: %1$d, %2$s – %3$s · อัตราปกติ: ประมาณ %4$s ต่อ 3 วัน</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">ลงลายเซ็นบนบัญชีบันทึก</string>
+    <string name="burst_same_text">ข้อความเดียวกัน: %1$d</string>
+    <string name="burst_attested">มีอุปกรณ์ที่ได้รับการรับรอง: %1$d จาก %2$d</string>
+    <string name="burst_none">ตรวจสอบแล้ว: รีวิวสโตร์ %1$d รายการ นับตั้งแต่ %2$s · ไม่พบการพุ่งขึ้น</string>
+    <string name="burst_short">ประวัติรีวิวสโตร์ยังน้อยเกินไปที่จะตรวจสอบการพุ่งขึ้นได้</string>
+    <string name="burst_reading">กำลังอ่านประวัติรีวิวสโตร์…</string>
+    <string name="burst_causes">การพุ่งขึ้นเป็นข้อเท็จจริง ไม่ใช่คำตัดสิน: ฟีเจอร์เด่นของสโตร์ การเปิดตัว เวอร์ชันใหม่ หรือแคมเปญแบบเสียเงิน ล้วนอาจเป็นสาเหตุได้</string>
+    <string name="burst_more">การพุ่งขึ้นเพิ่มเติม: %1$d</string>
+    <string name="burst_read_older">ดูรีวิวเก่ากว่านี้</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">เพิ่มระยะเวลาที่แอปนี้อยู่บนโทรศัพท์เครื่องนี้: %1$s</string>
+    <string name="use_add_hint">บันทึกไว้บนเชนพร้อมกับรีวิวของคุณ แบบปัดเศษ นี่คือรายงานจากโทรศัพท์ของคุณ ไม่ใช่ข้อพิสูจน์</string>
+    <string name="use_not_installed">แอปนี้ไม่ได้ติดตั้งอยู่บนโทรศัพท์เครื่องนี้ จึงไม่มีการเพิ่มระยะเวลาการติดตั้ง</string>
+    <string name="use_d0">น้อยกว่าหนึ่งวัน</string>
+    <string name="use_d1">1–6 วัน</string>
+    <string name="use_w1">1–4 สัปดาห์</string>
+    <string name="use_m1">1–3 เดือน</string>
+    <string name="use_m3">3+ เดือน</string>
+    <string name="use_pill">บนโทรศัพท์ของพวกเขา: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">กระดานการชำระเงิน</string>
+    <string name="pay_intro">dApps ที่ผู้เผยแพร่ยืนยันคลังแล้ว นับเฉพาะ: การชำระเงินที่ได้รับบนเชนเป็น SOL, SKR และ USDC ซึ่งเมโมขึ้นต้นด้วยรหัสของ dApp รายได้นอกเชนจะไม่แสดง</string>
+    <string name="pay_usd_note">USD ตามราคาวันนี้</string>
+    <string name="pay_row">การชำระเงิน: %1$d · ผู้จ่ายเงิน: %2$d · มีอุปกรณ์ที่ได้รับการรับรอง: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">ครั้งแรก: %1$s · ล่าสุด: %2$s</string>
+    <string name="pay_incomplete">ยังไม่ได้อ่านประวัติที่เก่ากว่านี้ ยอดรวมจึงอาจต่ำกว่าความเป็นจริง</string>
+    <string name="pay_empty">ยังไม่มี dApp ใดยืนยันคลัง</string>
+    <string name="pay_loading">กำลังอ่านคลัง…</string>
+    <string name="pay_detail_title">การชำระเงินที่ได้รับ</string>
+    <string name="pay_detail_sub">คลังที่ผู้เผยแพร่ยืนยันแล้ว %1$s · รหัสเมโม: %2$s</string>
+    <string name="pay_preview_title">ดูตัวอย่างคลัง</string>
+    <string name="pay_preview_body">ใครก็ดูตัวอย่างการชำระเงินสาธารณะได้ มีเพียงคลังที่ได้รับการยืนยันทั้งจากกระเป๋าเงินและเว็บไซต์ของผู้เผยแพร่เท่านั้นที่จะถูกแสดงในรายการ</string>
+    <string name="pay_field_treasury">กระเป๋าเงินคลัง</string>
+    <string name="pay_field_code">รหัสเมโม</string>
+    <string name="pay_field_package">ชื่อแพ็กเกจ</string>
+    <string name="pay_preview">ดูตัวอย่าง</string>
+    <string name="pay_list_title">ลงรายการ dApp ของคุณ</string>
+    <string name="pay_list_step1">1. เพิ่มบรรทัดนี้ไปที่ /.well-known/undersigned.txt บนเว็บไซต์ที่ dApp Store ระบุไว้สำหรับแอปของคุณ:</string>
+    <string name="pay_list_step2">2. เข้าสู่ระบบด้วยกระเป๋าเงินคลังนั้น แล้วลงลายเซ็นในรายการด้านล่าง มีเพียงการชำระเงินที่เมโมขึ้นต้นด้วยรหัสเท่านั้นที่จะถูกนับ</string>
+    <string name="pay_sign">ลงลายเซ็นในฐานะคลังนี้</string>
+    <string name="pay_my_claims">รายการคลังของคุณ</string>
+    <string name="pay_claim_confirmed">ยืนยันแล้วโดยเว็บไซต์</string>
+    <string name="pay_claim_waiting">รอบรรทัดจากเว็บไซต์</string>
+    <string name="pay_withdraw">ถอนรายการ</string>
+    <string name="pay_bad_input">ตรวจสอบชื่อแพ็กเกจและรหัส (2–32 ตัวอักษร ตัวเลข - หรือ _)</string>
+    <string name="pay_open">กระดานการชำระเงิน</string>
+    <string name="pay_waiting_list">ลงรายการโดยคลัง แต่ยังไม่ได้รับการยืนยันจากเว็บไซต์: %1$d</string>
 </resources>

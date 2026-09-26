@@ -525,4 +525,60 @@
     <string name="attest_local">This list is fixed in this build.</string>
     <string name="action_published">Signed and published. Signature %1$s</string>
     <string name="action_failed">The wallet couldn\'t complete the request. Try again.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Review bursts</string>
+    <string name="burst_high">Five-star reviews: %1$d, %2$s – %3$s · Usual pace: about %4$s per 3 days</string>
+    <string name="burst_low">One-star reviews: %1$d, %2$s – %3$s · Usual pace: about %4$s per 3 days</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Signed on the ledger</string>
+    <string name="burst_same_text">Same wording: %1$d</string>
+    <string name="burst_attested">With an attested device: %1$d of %2$d</string>
+    <string name="burst_none">Checked: %1$d store reviews since %2$s · No bursts found</string>
+    <string name="burst_short">Too little store review history to check for bursts yet.</string>
+    <string name="burst_reading">Reading store review history…</string>
+    <string name="burst_causes">A burst is a fact, not a verdict: a store feature, a launch, a new release or a paid campaign can each cause one.</string>
+    <string name="burst_more">More bursts: %1$d</string>
+    <string name="burst_read_older">Check older reviews</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Add how long this app has been on this phone: %1$s</string>
+    <string name="use_add_hint">Recorded on-chain with your review, rounded. It is your phone\'s report, not proof.</string>
+    <string name="use_not_installed">This app is not installed on this phone, so no install age is added.</string>
+    <string name="use_d0">under a day</string>
+    <string name="use_d1">1–6 days</string>
+    <string name="use_w1">1–4 weeks</string>
+    <string name="use_m1">1–3 months</string>
+    <string name="use_m3">3+ months</string>
+    <string name="use_pill">On their phone: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Payments board</string>
+    <string name="pay_intro">dApps whose publisher has confirmed a treasury. Counted: payments received on-chain in SOL, SKR and USDC whose memo starts with the dApp\'s code. Off-chain income is not shown.</string>
+    <string name="pay_usd_note">USD at today\'s prices</string>
+    <string name="pay_row">Payments: %1$d · Payers: %2$d · With an attested device: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">First: %1$s · Latest: %2$s</string>
+    <string name="pay_incomplete">Older history not read yet, so totals may be low.</string>
+    <string name="pay_empty">No dApp has confirmed a treasury yet.</string>
+    <string name="pay_loading">Reading treasuries…</string>
+    <string name="pay_detail_title">Payments received</string>
+    <string name="pay_detail_sub">Publisher-confirmed treasury %1$s · Memo code: %2$s</string>
+    <string name="pay_preview_title">Preview a treasury</string>
+    <string name="pay_preview_body">Anyone can preview public payments. Only a treasury confirmed by both the wallet and the publisher\'s website is listed.</string>
+    <string name="pay_field_treasury">Treasury wallet</string>
+    <string name="pay_field_code">Memo code</string>
+    <string name="pay_field_package">Package name</string>
+    <string name="pay_preview">Preview</string>
+    <string name="pay_list_title">List your dApp</string>
+    <string name="pay_list_step1">1. Add this line to /.well-known/undersigned.txt on the website the dApp Store lists for your app:</string>
+    <string name="pay_list_step2">2. Signed in with that treasury wallet, sign the listing below. Only payments whose memo starts with the code are counted.</string>
+    <string name="pay_sign">Sign as this treasury</string>
+    <string name="pay_my_claims">Your treasury listings</string>
+    <string name="pay_claim_confirmed">Confirmed by the website</string>
+    <string name="pay_claim_waiting">Waiting for the website line</string>
+    <string name="pay_withdraw">Withdraw listing</string>
+    <string name="pay_bad_input">Check the package name and the code (2–32 letters, digits, - or _).</string>
+    <string name="pay_open">Payments board</string>
+    <string name="pay_waiting_list">Listed by the treasury, not yet confirmed by the website: %1$d</string>
 </resources>

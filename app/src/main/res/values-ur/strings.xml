@@ -521,4 +521,60 @@
     <string name="desk_note">جواب دہی لیجر سے پڑھی جاتی ہے، باقی سب کی طرح: ایک دستخط شدہ جائزے اور آپ کے دستخط شدہ جواب کے درمیان فرق۔ یہ آپ کے dApp صفحے پر قارئین کو دکھائی جاتی ہے، اس لیے قطار ہی پروڈکٹ ہے۔</string>
     <string name="desk_none">ابھی تک کوئی تصدیق شدہ dApp نہیں۔ کسی ایپ کے صفحے سے دعویٰ کریں اور ویب سائٹ ثابت کریں؛ ڈیسک وہیں سے بھرنا شروع ہوتا ہے۔</string>
     <string name="desk_none_waiting">کچھ زیرِ التوا نہیں۔</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">جائزوں میں اضافہ</string>
+    <string name="burst_high">پانچ ستارہ جائزے: %1$d، %2$s – %3$s · معمول کی رفتار: تقریباً %4$s ہر 3 دن میں</string>
+    <string name="burst_low">ایک ستارہ جائزے: %1$d، %2$s – %3$s · معمول کی رفتار: تقریباً %4$s ہر 3 دن میں</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">لیجر پر دستخط شدہ</string>
+    <string name="burst_same_text">ایک جیسے الفاظ: %1$d</string>
+    <string name="burst_attested">تصدیق شدہ آلے کے ساتھ: %2$d میں سے %1$d</string>
+    <string name="burst_none">جانچے گئے: %2$s سے %1$d اسٹور جائزے · کوئی اضافہ نہیں ملا</string>
+    <string name="burst_short">ابھی اضافوں کی جانچ کے لیے اسٹور جائزوں کی تاریخ بہت کم ہے۔</string>
+    <string name="burst_reading">اسٹور جائزوں کی تاریخ پڑھی جا رہی ہے…</string>
+    <string name="burst_causes">اضافہ ایک حقیقت ہے، فیصلہ نہیں: اسٹور فیچر، لانچ، نیا ورژن یا ادا شدہ مہم — ہر ایک اس کا سبب بن سکتا ہے۔</string>
+    <string name="burst_more">مزید اضافے: %1$d</string>
+    <string name="burst_read_older">پرانے جائزے دیکھیں</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">اس فون پر یہ ایپ کتنی دیر سے ہے، یہ شامل کریں: %1$s</string>
+    <string name="use_add_hint">آپ کے جائزے کے ساتھ چین پر ریکارڈ کیا گیا، گول کر کے۔ یہ آپ کے فون کی رپورٹ ہے، ثبوت نہیں۔</string>
+    <string name="use_not_installed">یہ ایپ اس فون پر انسٹال نہیں ہے، اس لیے کوئی انسٹال مدت شامل نہیں کی جاتی۔</string>
+    <string name="use_d0">ایک دن سے کم</string>
+    <string name="use_d1">1–6 دن</string>
+    <string name="use_w1">1–4 ہفتے</string>
+    <string name="use_m1">1–3 مہینے</string>
+    <string name="use_m3">3+ مہینے</string>
+    <string name="use_pill">ان کے فون پر: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">ادائیگیوں کا بورڈ</string>
+    <string name="pay_intro">وہ dApps جن کے پبلشر نے خزانے کی تصدیق کی ہے۔ شمار کیا گیا: SOL، SKR اور USDC میں چین پر موصول ہونے والی وہ ادائیگیاں جن کا میمو dApp کے کوڈ سے شروع ہوتا ہے۔ چین سے باہر کی آمدنی نہیں دکھائی جاتی۔</string>
+    <string name="pay_usd_note">USD آج کی قیمتوں پر</string>
+    <string name="pay_row">ادائیگیاں: %1$d · ادائیگی کرنے والے: %2$d · تصدیق شدہ آلے کے ساتھ: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">پہلی: %1$s · تازہ ترین: %2$s</string>
+    <string name="pay_incomplete">پرانی تاریخ ابھی نہیں پڑھی گئی، اس لیے مجموعے کم ہو سکتے ہیں۔</string>
+    <string name="pay_empty">ابھی تک کسی dApp نے خزانے کی تصدیق نہیں کی۔</string>
+    <string name="pay_loading">خزانے پڑھے جا رہے ہیں…</string>
+    <string name="pay_detail_title">موصول ہونے والی ادائیگیاں</string>
+    <string name="pay_detail_sub">پبلشر سے تصدیق شدہ خزانہ %1$s · میمو کوڈ: %2$s</string>
+    <string name="pay_preview_title">خزانے کا پیش نظارہ</string>
+    <string name="pay_preview_body">کوئی بھی عوامی ادائیگیوں کا پیش نظارہ کر سکتا ہے۔ صرف وہ خزانہ درج ہوتا ہے جس کی تصدیق والٹ اور پبلشر کی ویب سائٹ دونوں نے کی ہو۔</string>
+    <string name="pay_field_treasury">خزانے کا والٹ</string>
+    <string name="pay_field_code">میمو کوڈ</string>
+    <string name="pay_field_package">پیکج کا نام</string>
+    <string name="pay_preview">پیش نظارہ</string>
+    <string name="pay_list_title">اپنا dApp درج کریں</string>
+    <string name="pay_list_step1">1۔ اپنی ایپ کے لیے dApp Store جس ویب سائٹ کو درج کرتا ہے، اس پر /.well-known/undersigned.txt میں یہ لائن شامل کریں:</string>
+    <string name="pay_list_step2">2۔ اسی خزانے کے والٹ سے سائن ان کر کے، نیچے دی گئی فہرست پر دستخط کریں۔ صرف وہ ادائیگیاں شمار ہوتی ہیں جن کا میمو کوڈ سے شروع ہوتا ہے۔</string>
+    <string name="pay_sign">بطور اس خزانے دستخط کریں</string>
+    <string name="pay_my_claims">آپ کے خزانے کے اندراجات</string>
+    <string name="pay_claim_confirmed">ویب سائٹ سے تصدیق شدہ</string>
+    <string name="pay_claim_waiting">ویب سائٹ کی لائن کا انتظار</string>
+    <string name="pay_withdraw">اندراج واپس لیں</string>
+    <string name="pay_bad_input">پیکج کا نام اور کوڈ چیک کریں (2–32 حروف، ہندسے، - یا _)۔</string>
+    <string name="pay_open">ادائیگیوں کا بورڈ</string>
+    <string name="pay_waiting_list">خزانے کی جانب سے درج، ابھی ویب سائٹ سے تصدیق شدہ نہیں: %1$d</string>
 </resources>

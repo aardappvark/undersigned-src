@@ -510,4 +510,60 @@
     <string name="desk_note">Reactiesnelheid wordt, net als al het andere, van het grootboek gelezen: het verschil tussen een ondertekende recensie en uw ondertekende reactie. Dit wordt aan lezers getoond op uw dApp-pagina, dus de wachtrij is het product.</string>
     <string name="desk_none">Nog geen geverifieerde dApps. Claim een app vanaf de pagina en bewijs de website; de desk vult zich van daaruit.</string>
     <string name="desk_none_waiting">Niets wachtend.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Recensiegolven</string>
+    <string name="burst_high">Vijfsterrenrecensies: %1$d, %2$s – %3$s · Gebruikelijk tempo: ongeveer %4$s per 3 dagen</string>
+    <string name="burst_low">Eénsterrenrecensies: %1$d, %2$s – %3$s · Gebruikelijk tempo: ongeveer %4$s per 3 dagen</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Ondertekend op het grootboek</string>
+    <string name="burst_same_text">Zelfde bewoording: %1$d</string>
+    <string name="burst_attested">Met geattesteerd apparaat: %1$d van %2$d</string>
+    <string name="burst_none">Gecontroleerd: %1$d storerecensies sinds %2$s · Geen golven gevonden</string>
+    <string name="burst_short">Nog te weinig storerecensiegeschiedenis om op golven te controleren.</string>
+    <string name="burst_reading">Storerecensiegeschiedenis wordt gelezen…</string>
+    <string name="burst_causes">Een golf is een feit, geen oordeel: een storepromotie, een lancering, een nieuwe versie of een betaalde campagne kunnen elk een golf veroorzaken.</string>
+    <string name="burst_more">Meer golven: %1$d</string>
+    <string name="burst_read_older">Oudere recensies controleren</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Toevoegen hoelang deze app al op deze telefoon staat: %1$s</string>
+    <string name="use_add_hint">Wordt samen met uw recensie on-chain vastgelegd, afgerond. Het is wat uw telefoon meldt, geen bewijs.</string>
+    <string name="use_not_installed">Deze app staat niet op deze telefoon geïnstalleerd, dus er wordt geen installatieleeftijd toegevoegd.</string>
+    <string name="use_d0">minder dan een dag</string>
+    <string name="use_d1">1–6 dagen</string>
+    <string name="use_w1">1–4 weken</string>
+    <string name="use_m1">1–3 maanden</string>
+    <string name="use_m3">3+ maanden</string>
+    <string name="use_pill">Op hun telefoon: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Betalingenoverzicht</string>
+    <string name="pay_intro">dApps waarvan de uitgever een treasury heeft bevestigd. Geteld: on-chain ontvangen betalingen in SOL, SKR en USDC waarvan het memo begint met de code van de dApp. Off-chain-inkomsten worden niet getoond.</string>
+    <string name="pay_usd_note">USD tegen de huidige koersen</string>
+    <string name="pay_row">Betalingen: %1$d · Betalers: %2$d · Met geattesteerd apparaat: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Eerste: %1$s · Laatste: %2$s</string>
+    <string name="pay_incomplete">Oudere geschiedenis is nog niet gelezen, dus de totalen kunnen te laag zijn.</string>
+    <string name="pay_empty">Nog geen dApp heeft een treasury bevestigd.</string>
+    <string name="pay_loading">Treasuries worden gelezen…</string>
+    <string name="pay_detail_title">Ontvangen betalingen</string>
+    <string name="pay_detail_sub">Door de uitgever bevestigde treasury %1$s · Memocode: %2$s</string>
+    <string name="pay_preview_title">Voorbeeld van een treasury</string>
+    <string name="pay_preview_body">Iedereen kan openbare betalingen bekijken. Alleen een treasury die zowel door de wallet als door de website van de uitgever is bevestigd, wordt vermeld.</string>
+    <string name="pay_field_treasury">Treasury-wallet</string>
+    <string name="pay_field_code">Memocode</string>
+    <string name="pay_field_package">Pakketnaam</string>
+    <string name="pay_preview">Voorbeeld</string>
+    <string name="pay_list_title">Uw dApp vermelden</string>
+    <string name="pay_list_step1">1. Voeg deze regel toe aan /.well-known/undersigned.txt op de website die de dApp Store voor uw app vermeldt:</string>
+    <string name="pay_list_step2">2. Aangemeld met die treasury-wallet, ondertekent u de vermelding hieronder. Alleen betalingen waarvan het memo begint met de code worden geteld.</string>
+    <string name="pay_sign">Ondertekenen als deze treasury</string>
+    <string name="pay_my_claims">Uw treasury-vermeldingen</string>
+    <string name="pay_claim_confirmed">Bevestigd door de website</string>
+    <string name="pay_claim_waiting">Wacht op de regel op de website</string>
+    <string name="pay_withdraw">Vermelding intrekken</string>
+    <string name="pay_bad_input">Controleer de pakketnaam en de code (2–32 letters, cijfers, - of _).</string>
+    <string name="pay_open">Betalingenoverzicht</string>
+    <string name="pay_waiting_list">Vermeld door de treasury, nog niet bevestigd door de website: %1$d</string>
 </resources>

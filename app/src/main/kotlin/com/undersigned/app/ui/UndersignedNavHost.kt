@@ -24,6 +24,7 @@ object Routes {
     const val PRO = "pro"
     const val DESK = "desk"
     const val STATS = "stats"
+    const val PAYMENTS = "payments"
     fun profile(w: String) = "profile/$w"
     fun detail(pkg: String) = "detail/$pkg"
     fun review(pkg: String) = "review/$pkg"
@@ -48,7 +49,7 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     val pending by NavIntents.pendingPackage.collectAsState()
     LaunchedEffect(pending) { pending?.let { NavIntents.pendingPackage.value = null; nav.navigate(Routes.detail(it)) } }
     val pendingScreen by NavIntents.pendingScreen.collectAsState()
-    LaunchedEffect(pendingScreen) { if (pendingScreen == Routes.MY_REVIEWS) { NavIntents.pendingScreen.value = null; nav.navigate(Routes.MY_REVIEWS) } }
+    LaunchedEffect(pendingScreen) { pendingScreen?.takeIf { it in setOf(Routes.MY_REVIEWS, Routes.PAYMENTS) }?.let { NavIntents.pendingScreen.value = null; nav.navigate(it) } }
     val pendingReply by NavIntents.pendingReply.collectAsState()
     val entries by vm.entries.collectAsState()
     LaunchedEffect(pendingReply, entries) { pendingReply?.let { (target, _) -> vm.packageOf(target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) } } }
@@ -61,7 +62,8 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
         composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onProfile = { nav.navigate(Routes.profile(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.REVIEW) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; ReviewScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onPublished = { nav.popBackStack() }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.CHANGES) { ChangesScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }) }
-        composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onHowTo = { nav.navigate(Routes.HOWTO) }, onPro = { nav.navigate(Routes.PRO) }, onDesk = { nav.navigate(Routes.DESK) }, onStats = { nav.navigate(Routes.STATS) }) }
+        composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onHowTo = { nav.navigate(Routes.HOWTO) }, onPro = { nav.navigate(Routes.PRO) }, onDesk = { nav.navigate(Routes.DESK) }, onStats = { nav.navigate(Routes.STATS) }, onPayments = { nav.navigate(Routes.PAYMENTS) }) }
+        composable(Routes.PAYMENTS) { PaymentsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.PRO) { ProScreen(vm, activityResultSender, onBack = { nav.popBackStack() }) }
         composable(Routes.DESK) { PublisherDeskScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.HOWTO) { HowToScreen(onDone = { nav.popBackStack() }) }

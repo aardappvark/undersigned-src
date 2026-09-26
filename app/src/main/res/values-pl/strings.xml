@@ -536,4 +536,60 @@
     <string name="desk_note">Responsywność jest odczytywana z rejestru jak wszystko inne: odstęp między podpisaną recenzją a Twoją podpisaną odpowiedzią. Jest pokazywana czytelnikom na stronie Twojej dApp, więc kolejka jest produktem.</string>
     <string name="desk_none">Jeszcze brak zweryfikowanych dApps. Zgłoś aplikację z jej strony i udowodnij witrynę; panel wypełni się stamtąd.</string>
     <string name="desk_none_waiting">Nic nie czeka.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Fale recenzji</string>
+    <string name="burst_high">Pięciogwiazdkowe recenzje: %1$d, %2$s – %3$s · Zwykłe tempo: około %4$s na 3 dni</string>
+    <string name="burst_low">Jednogwiazdkowe recenzje: %1$d, %2$s – %3$s · Zwykłe tempo: około %4$s na 3 dni</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Podpisano w rejestrze</string>
+    <string name="burst_same_text">Ta sama treść: %1$d</string>
+    <string name="burst_attested">Z potwierdzonym urządzeniem: %1$d z %2$d</string>
+    <string name="burst_none">Sprawdzono: %1$d recenzji sklepu od %2$s · Nie znaleziono fal</string>
+    <string name="burst_short">Za mało historii recenzji sklepu, by sprawdzić fale.</string>
+    <string name="burst_reading">Odczytywanie historii recenzji sklepu…</string>
+    <string name="burst_causes">Fala to fakt, nie wyrok: może ją wywołać funkcja sklepu, premiera, nowe wydanie lub płatna kampania.</string>
+    <string name="burst_more">Więcej fal: %1$d</string>
+    <string name="burst_read_older">Sprawdź starsze recenzje</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Dodaj, jak długo ta aplikacja jest na tym telefonie: %1$s</string>
+    <string name="use_add_hint">Zapisane na blockchainie razem z Twoją recenzją, zaokrąglone. To informacja z Twojego telefonu, nie dowód.</string>
+    <string name="use_not_installed">Ta aplikacja nie jest zainstalowana na tym telefonie, więc czas instalacji nie jest dodawany.</string>
+    <string name="use_d0">mniej niż dzień</string>
+    <string name="use_d1">1–6 dni</string>
+    <string name="use_w1">1–4 tygodnie</string>
+    <string name="use_m1">1–3 miesiące</string>
+    <string name="use_m3">3+ miesięcy</string>
+    <string name="use_pill">Na ich telefonie: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Przegląd płatności</string>
+    <string name="pay_intro">dApps, których wydawca potwierdził skarbiec. Liczone są: płatności otrzymane na blockchainie w SOL, SKR i USDC, których memo zaczyna się kodem dApp. Przychody spoza blockchaina nie są pokazywane.</string>
+    <string name="pay_usd_note">USD po dzisiejszych cenach</string>
+    <string name="pay_row">Płatności: %1$d · Płatnicy: %2$d · Z potwierdzonym urządzeniem: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Pierwsza: %1$s · Ostatnia: %2$s</string>
+    <string name="pay_incomplete">Starsza historia nie została jeszcze odczytana, więc sumy mogą być zaniżone.</string>
+    <string name="pay_empty">Żadna dApp nie potwierdziła jeszcze skarbca.</string>
+    <string name="pay_loading">Odczytywanie skarbców…</string>
+    <string name="pay_detail_title">Otrzymane płatności</string>
+    <string name="pay_detail_sub">Skarbiec potwierdzony przez wydawcę %1$s · Kod memo: %2$s</string>
+    <string name="pay_preview_title">Podgląd skarbca</string>
+    <string name="pay_preview_body">Każdy może zobaczyć podgląd publicznych płatności. Wymieniony jest tylko skarbiec potwierdzony zarówno przez portfel, jak i stronę wydawcy.</string>
+    <string name="pay_field_treasury">Portfel skarbca</string>
+    <string name="pay_field_code">Kod memo</string>
+    <string name="pay_field_package">Nazwa pakietu</string>
+    <string name="pay_preview">Podgląd</string>
+    <string name="pay_list_title">Wystaw swoją dApp</string>
+    <string name="pay_list_step1">1. Dodaj tę linię do /.well-known/undersigned.txt na stronie, którą dApp Store podaje dla Twojej aplikacji:</string>
+    <string name="pay_list_step2">2. Zalogowany(a) tym portfelem skarbca, podpisz poniższy wpis. Liczone są tylko płatności, których memo zaczyna się tym kodem.</string>
+    <string name="pay_sign">Podpisz jako ten skarbiec</string>
+    <string name="pay_my_claims">Twoje wpisy skarbca</string>
+    <string name="pay_claim_confirmed">Potwierdzone przez stronę</string>
+    <string name="pay_claim_waiting">Czeka na linię na stronie</string>
+    <string name="pay_withdraw">Wycofaj wpis</string>
+    <string name="pay_bad_input">Sprawdź nazwę pakietu i kod (2–32 litery, cyfry, - lub _).</string>
+    <string name="pay_open">Przegląd płatności</string>
+    <string name="pay_waiting_list">Wystawione przez skarbiec, jeszcze niepotwierdzone przez stronę: %1$d</string>
 </resources>

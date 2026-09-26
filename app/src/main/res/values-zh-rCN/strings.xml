@@ -512,4 +512,60 @@
     <string name="desk_note">回复速度像其他一切一样从账本中读取:即签名评价与您签名回复之间的时间差。它会显示给读者查看您的 dApp 页面,因此这个队列本身就是评判标准。</string>
     <string name="desk_none">尚无已验证的 dApp。请从应用页面认领并证明网站归属,工作台随后会自动填充。</string>
     <string name="desk_none_waiting">没有待处理项。</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">评价激增</string>
+    <string name="burst_high">五星评价:%1$d,%2$s – %3$s · 通常速度:每 3 天约 %4$s 条</string>
+    <string name="burst_low">一星评价:%1$d,%2$s – %3$s · 通常速度:每 3 天约 %4$s 条</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">已在账本签名</string>
+    <string name="burst_same_text">文本相同:%1$d</string>
+    <string name="burst_attested">已认证设备:%1$d/%2$d</string>
+    <string name="burst_none">已检查:自 %2$s 起的 %1$d 条商店评价 · 未发现激增</string>
+    <string name="burst_short">商店评价历史记录过少,尚无法检查是否存在激增。</string>
+    <string name="burst_reading">正在读取商店评价历史记录……</string>
+    <string name="burst_causes">激增只是一个事实,并非定论:商店推荐、上线活动、新版本发布或付费推广都可能引发激增。</string>
+    <string name="burst_more">更多激增:%1$d</string>
+    <string name="burst_read_older">查看更早的评价</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">添加此应用在本机上的安装时长:%1$s</string>
+    <string name="use_add_hint">与您的评价一同记录在链上,并经过取整处理。这是您手机自行报告的信息,并非证明。</string>
+    <string name="use_not_installed">此应用未安装在本机上,因此不会添加安装时长。</string>
+    <string name="use_d0">不到一天</string>
+    <string name="use_d1">1–6 天</string>
+    <string name="use_w1">1–4 周</string>
+    <string name="use_m1">1–3 个月</string>
+    <string name="use_m3">3 个月以上</string>
+    <string name="use_pill">对方手机上:%1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">付款看板</string>
+    <string name="pay_intro">发布者已确认金库的 dApp。计入范围:链上收到的、备注以该 dApp 代码开头的 SOL、SKR 和 USDC 付款。链下收入不显示。</string>
+    <string name="pay_usd_note">按今日价格换算为 USD</string>
+    <string name="pay_row">付款:%1$d · 付款人:%2$d · 使用已认证设备:%3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">最早:%1$s · 最新:%2$s</string>
+    <string name="pay_incomplete">尚未读取更早的历史记录,因此总额可能偏低。</string>
+    <string name="pay_empty">尚无 dApp 确认金库。</string>
+    <string name="pay_loading">正在读取金库……</string>
+    <string name="pay_detail_title">已收到的付款</string>
+    <string name="pay_detail_sub">发布者已确认的金库 %1$s · 备注代码:%2$s</string>
+    <string name="pay_preview_title">预览金库</string>
+    <string name="pay_preview_body">任何人都能预览公开的付款记录。仅列出经钱包和发布者网站双方共同确认的金库。</string>
+    <string name="pay_field_treasury">金库钱包</string>
+    <string name="pay_field_code">备注代码</string>
+    <string name="pay_field_package">包名</string>
+    <string name="pay_preview">预览</string>
+    <string name="pay_list_title">登记您的 dApp</string>
+    <string name="pay_list_step1">1. 在 dApp Store 为您的应用列出的网站上,将以下这行添加到 /.well-known/undersigned.txt 中:</string>
+    <string name="pay_list_step2">2. 使用该金库钱包登录后,为下方的登记签名。仅计入备注以该代码开头的付款。</string>
+    <string name="pay_sign">以此金库身份签名</string>
+    <string name="pay_my_claims">您的金库登记</string>
+    <string name="pay_claim_confirmed">网站已确认</string>
+    <string name="pay_claim_waiting">等待网站添加该行</string>
+    <string name="pay_withdraw">撤回登记</string>
+    <string name="pay_bad_input">请检查包名和代码(2–32 个字母、数字、- 或 _)。</string>
+    <string name="pay_open">付款看板</string>
+    <string name="pay_waiting_list">金库已登记但网站尚未确认:%1$d</string>
 </resources>

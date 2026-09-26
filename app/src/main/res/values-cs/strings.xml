@@ -528,4 +528,60 @@
     <string name="desk_note">Odezva se čte z evidence jako vše ostatní: rozdíl mezi podepsanou recenzí a vaší podepsanou odpovědí. Čtenářům se zobrazuje na stránce vaší dApp, takže fronta je produktem.</string>
     <string name="desk_none">Zatím žádné ověřené dApps. Nárokujte aplikaci z její stránky a prokažte web; pult se odtud naplní.</string>
     <string name="desk_none_waiting">Nic nečeká.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Vlny recenzí</string>
+    <string name="burst_high">Pětihvězdičkové recenze: %1$d, %2$s – %3$s · Obvyklé tempo: asi %4$s za 3 dny</string>
+    <string name="burst_low">Jednohvězdičkové recenze: %1$d, %2$s – %3$s · Obvyklé tempo: asi %4$s za 3 dny</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Podepsáno v evidenci</string>
+    <string name="burst_same_text">Stejné znění: %1$d</string>
+    <string name="burst_attested">S ověřeným zařízením: %1$d z %2$d</string>
+    <string name="burst_none">Zkontrolováno: %1$d recenzí z obchodu od %2$s · Žádné vlny nenalezeny</string>
+    <string name="burst_short">Zatím příliš málo historie recenzí obchodu na kontrolu vln.</string>
+    <string name="burst_reading">Čte se historie recenzí obchodu…</string>
+    <string name="burst_causes">Vlna je fakt, ne rozsudek: může ji způsobit funkce obchodu, spuštění, nové vydání nebo placená kampaň.</string>
+    <string name="burst_more">Další vlny: %1$d</string>
+    <string name="burst_read_older">Zkontrolovat starší recenze</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Přidat, jak dlouho je tato aplikace v telefonu: %1$s</string>
+    <string name="use_add_hint">Zaznamenáno na blockchainu spolu s vaší recenzí, zaokrouhleno. Jde o zprávu vašeho telefonu, ne o důkaz.</string>
+    <string name="use_not_installed">Tato aplikace není v telefonu nainstalována, takže se stáří instalace nepřidává.</string>
+    <string name="use_d0">méně než den</string>
+    <string name="use_d1">1–6 dní</string>
+    <string name="use_w1">1–4 týdny</string>
+    <string name="use_m1">1–3 měsíce</string>
+    <string name="use_m3">3+ měsíců</string>
+    <string name="use_pill">V jejich telefonu: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Přehled plateb</string>
+    <string name="pay_intro">dApps, jejichž vydavatel potvrdil pokladnu. Počítají se: platby přijaté na blockchainu v SOL, SKR a USDC, jejichž memo začíná kódem dApp. Příjmy mimo blockchain se nezobrazují.</string>
+    <string name="pay_usd_note">USD podle dnešních cen</string>
+    <string name="pay_row">Platby: %1$d · Plátci: %2$d · S ověřeným zařízením: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">První: %1$s · Poslední: %2$s</string>
+    <string name="pay_incomplete">Starší historie ještě nebyla načtena, takže součty mohou být nižší.</string>
+    <string name="pay_empty">Žádná dApp zatím nepotvrdila pokladnu.</string>
+    <string name="pay_loading">Čtou se pokladny…</string>
+    <string name="pay_detail_title">Přijaté platby</string>
+    <string name="pay_detail_sub">Pokladna potvrzená vydavatelem %1$s · Kód memo: %2$s</string>
+    <string name="pay_preview_title">Náhled pokladny</string>
+    <string name="pay_preview_body">Veřejné platby si může prohlédnout kdokoli. Uvedena je jen pokladna potvrzená peněženkou i webem vydavatele.</string>
+    <string name="pay_field_treasury">Peněženka pokladny</string>
+    <string name="pay_field_code">Kód memo</string>
+    <string name="pay_field_package">Název balíčku</string>
+    <string name="pay_preview">Náhled</string>
+    <string name="pay_list_title">Uveďte svou dApp</string>
+    <string name="pay_list_step1">1. Přidejte tento řádek na /.well-known/undersigned.txt na webu, který dApp Store uvádí pro vaši aplikaci:</string>
+    <string name="pay_list_step2">2. Přihlaste se touto peněženkou pokladny a podepište níže uvedený záznam. Počítají se jen platby, jejichž memo začíná tímto kódem.</string>
+    <string name="pay_sign">Podepsat jako tuto pokladnu</string>
+    <string name="pay_my_claims">Vaše záznamy pokladny</string>
+    <string name="pay_claim_confirmed">Potvrzeno webem</string>
+    <string name="pay_claim_waiting">Čeká se na řádek na webu</string>
+    <string name="pay_withdraw">Stáhnout záznam</string>
+    <string name="pay_bad_input">Zkontrolujte název balíčku a kód (2–32 písmen, číslic, - nebo _).</string>
+    <string name="pay_open">Přehled plateb</string>
+    <string name="pay_waiting_list">Uvedeno pokladnou, zatím nepotvrzeno webem: %1$d</string>
 </resources>

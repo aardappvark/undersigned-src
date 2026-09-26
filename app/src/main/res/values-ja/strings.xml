@@ -504,4 +504,60 @@
     <string name="desk_note">応答性も他の情報と同様に台帳から読み取られます — 署名付きレビューとあなたの署名付き返信との間隔です。あなたの dApp ページで読者に表示されるため、このキューそのものが成果になります。</string>
     <string name="desk_none">検証済みの dApp はまだありません。アプリのページから権利を主張し、ウェブサイトを証明してください。そこからデスクに反映されます。</string>
     <string name="desk_none_waiting">待機中の項目はありません。</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">レビューの急増</string>
+    <string name="burst_high">五つ星レビュー:%1$d件、%2$s – %3$s · 通常のペース:3日あたり約%4$s件</string>
+    <string name="burst_low">星一つのレビュー:%1$d件、%2$s – %3$s · 通常のペース:3日あたり約%4$s件</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">台帳で署名済み</string>
+    <string name="burst_same_text">同じ文言:%1$d</string>
+    <string name="burst_attested">証明済み端末:%1$d/%2$d</string>
+    <string name="burst_none">確認済み:%2$s以降のストアレビュー%1$d件 · 急増なし</string>
+    <string name="burst_short">ストアレビューの履歴がまだ少なく、急増の有無を確認できません。</string>
+    <string name="burst_reading">ストアレビューの履歴を読み込んでいます…</string>
+    <string name="burst_causes">急増は事実であって断定ではありません。ストアでの特集、ローンチ、新しいリリース、有料キャンペーンなどが原因となり得ます。</string>
+    <string name="burst_more">その他の急増:%1$d</string>
+    <string name="burst_read_older">過去のレビューを確認</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">このアプリがこの端末にある期間を追加:%1$s</string>
+    <string name="use_add_hint">レビューと共にオンチェーンに記録され、丸められています。これは端末による申告であり、証明ではありません。</string>
+    <string name="use_not_installed">このアプリはこの端末にインストールされていないため、インストール期間は追加されません。</string>
+    <string name="use_d0">1日未満</string>
+    <string name="use_d1">1–6日</string>
+    <string name="use_w1">1–4週間</string>
+    <string name="use_m1">1–3か月</string>
+    <string name="use_m3">3か月以上</string>
+    <string name="use_pill">相手の端末:%1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">支払いボード</string>
+    <string name="pay_intro">パブリッシャーがトレジャリーを確認済みの dApp。集計対象:オンチェーンで受け取った SOL、SKR、USDC の支払いのうち、メモが dApp のコードで始まるもの。オフチェーンの収入は表示されません。</string>
+    <string name="pay_usd_note">本日の価格による USD換算</string>
+    <string name="pay_row">支払い:%1$d · 支払者:%2$d · 証明済み端末:%3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">最初:%1$s · 最新:%2$s</string>
+    <string name="pay_incomplete">過去の履歴がまだ読み込まれていないため、合計が実際より少ない場合があります。</string>
+    <string name="pay_empty">トレジャリーを確認した dApp はまだありません。</string>
+    <string name="pay_loading">トレジャリーを読み込んでいます…</string>
+    <string name="pay_detail_title">受け取った支払い</string>
+    <string name="pay_detail_sub">パブリッシャー確認済みトレジャリー %1$s · メモコード:%2$s</string>
+    <string name="pay_preview_title">トレジャリーをプレビュー</string>
+    <string name="pay_preview_body">誰でも公開されている支払いをプレビューできます。掲載されるのは、ウォレットとパブリッシャーのウェブサイトの両方で確認されたトレジャリーのみです。</string>
+    <string name="pay_field_treasury">トレジャリーウォレット</string>
+    <string name="pay_field_code">メモコード</string>
+    <string name="pay_field_package">パッケージ名</string>
+    <string name="pay_preview">プレビュー</string>
+    <string name="pay_list_title">dApp を登録</string>
+    <string name="pay_list_step1">1. dApp Store がこのアプリ用に掲載しているウェブサイトの /.well-known/undersigned.txt に、次の行を追加してください:</string>
+    <string name="pay_list_step2">2. そのトレジャリーウォレットでサインインした状態で、下記の登録に署名してください。集計されるのは、メモがそのコードで始まる支払いのみです。</string>
+    <string name="pay_sign">このトレジャリーとして署名</string>
+    <string name="pay_my_claims">あなたのトレジャリー登録</string>
+    <string name="pay_claim_confirmed">ウェブサイトで確認済み</string>
+    <string name="pay_claim_waiting">ウェブサイトへの行追加待ち</string>
+    <string name="pay_withdraw">登録を取り下げる</string>
+    <string name="pay_bad_input">パッケージ名とコードを確認してください(2–32文字の英字、数字、-、_)。</string>
+    <string name="pay_open">支払いボード</string>
+    <string name="pay_waiting_list">トレジャリーが登録済みでウェブサイト未確認:%1$d</string>
 </resources>

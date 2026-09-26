@@ -536,4 +536,60 @@
     <string name="desk_note">Відповідальність зчитується з реєстру, як і все інше: проміжок між підписаним відгуком і вашою підписаною відповіддю. Вона показується читачам на сторінці вашої dApp, тож черга і є продуктом.</string>
     <string name="desk_none">Поки немає підтверджених dApps. Заявіть права на додаток з його сторінки й підтвердьте вебсайт; звідти панель заповниться.</string>
     <string name="desk_none_waiting">Нічого не очікує.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Сплески відгуків</string>
+    <string name="burst_high">Відгуки на п\'ять зірок: %1$d, %2$s – %3$s · Звичайний темп: близько %4$s за 3 дні</string>
+    <string name="burst_low">Відгуки на одну зірку: %1$d, %2$s – %3$s · Звичайний темп: близько %4$s за 3 дні</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Підписано в реєстрі</string>
+    <string name="burst_same_text">Однакове формулювання: %1$d</string>
+    <string name="burst_attested">З підтвердженим пристроєм: %1$d з %2$d</string>
+    <string name="burst_none">Перевірено: %1$d відгуків магазину з %2$s · Сплесків не знайдено</string>
+    <string name="burst_short">Поки що замало історії відгуків магазину, щоб перевірити сплески.</string>
+    <string name="burst_reading">Читання історії відгуків магазину…</string>
+    <string name="burst_causes">Сплеск — це факт, а не вирок: причиною може бути добірка магазину, запуск, новий випуск або платна кампанія.</string>
+    <string name="burst_more">Більше сплесків: %1$d</string>
+    <string name="burst_read_older">Перевірити старіші відгуки</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Додайте, як довго цей додаток на цьому телефоні: %1$s</string>
+    <string name="use_add_hint">Записано в блокчейні разом із вашим відгуком, округлено. Це повідомлення вашого телефона, не доказ.</string>
+    <string name="use_not_installed">Цей додаток не встановлено на цьому телефоні, тож термін встановлення не додається.</string>
+    <string name="use_d0">менше дня</string>
+    <string name="use_d1">1–6 днів</string>
+    <string name="use_w1">1–4 тижні</string>
+    <string name="use_m1">1–3 місяці</string>
+    <string name="use_m3">3+ місяців</string>
+    <string name="use_pill">На їхньому телефоні: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Огляд платежів</string>
+    <string name="pay_intro">dApps, чий видавець підтвердив скарбницю. Враховуються: платежі, отримані в блокчейні в SOL, SKR та USDC, чиє memo починається з коду dApp. Дохід поза блокчейном не показується.</string>
+    <string name="pay_usd_note">USD за сьогоднішніми цінами</string>
+    <string name="pay_row">Платежі: %1$d · Платники: %2$d · З підтвердженим пристроєм: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Перший: %1$s · Останній: %2$s</string>
+    <string name="pay_incomplete">Старішу історію ще не прочитано, тож суми можуть бути заниженими.</string>
+    <string name="pay_empty">Жодна dApp ще не підтвердила скарбницю.</string>
+    <string name="pay_loading">Читання скарбниць…</string>
+    <string name="pay_detail_title">Отримані платежі</string>
+    <string name="pay_detail_sub">Скарбниця, підтверджена видавцем, %1$s · Код memo: %2$s</string>
+    <string name="pay_preview_title">Попередній перегляд скарбниці</string>
+    <string name="pay_preview_body">Будь-хто може переглянути публічні платежі. Наведено лише скарбницю, підтверджену і гаманцем, і сайтом видавця.</string>
+    <string name="pay_field_treasury">Гаманець скарбниці</string>
+    <string name="pay_field_code">Код memo</string>
+    <string name="pay_field_package">Назва пакета</string>
+    <string name="pay_preview">Перегляд</string>
+    <string name="pay_list_title">Додайте свою dApp до списку</string>
+    <string name="pay_list_step1">1. Додайте цей рядок до /.well-known/undersigned.txt на сайті, який dApp Store вказує для вашого додатка:</string>
+    <string name="pay_list_step2">2. Увійшовши тим гаманцем скарбниці, підпишіть запис нижче. Враховуються лише платежі, чиє memo починається з цього коду.</string>
+    <string name="pay_sign">Підписати як цю скарбницю</string>
+    <string name="pay_my_claims">Ваші записи скарбниці</string>
+    <string name="pay_claim_confirmed">Підтверджено сайтом</string>
+    <string name="pay_claim_waiting">Очікує на рядок на сайті</string>
+    <string name="pay_withdraw">Вилучити запис</string>
+    <string name="pay_bad_input">Перевірте назву пакета і код (2–32 літери, цифри, - або _).</string>
+    <string name="pay_open">Огляд платежів</string>
+    <string name="pay_waiting_list">Наведено скарбницею, ще не підтверджено сайтом: %1$d</string>
 </resources>

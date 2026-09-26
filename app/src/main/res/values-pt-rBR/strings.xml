@@ -525,4 +525,60 @@
     <string name="desk_note">A capacidade de resposta é lida do registro como tudo o mais: o intervalo entre uma avaliação assinada e sua resposta assinada. Ela é mostrada aos leitores na página do seu dApp, então a fila é o produto.</string>
     <string name="desk_none">Ainda nenhum dApp verificado. Reivindique um app a partir da página dele e comprove o site; o painel se preenche a partir daí.</string>
     <string name="desk_none_waiting">Nada aguardando.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Ondas de avaliações</string>
+    <string name="burst_high">Avaliações de cinco estrelas: %1$d, %2$s – %3$s · Ritmo normal: cerca de %4$s a cada 3 dias</string>
+    <string name="burst_low">Avaliações de uma estrela: %1$d, %2$s – %3$s · Ritmo normal: cerca de %4$s a cada 3 dias</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Assinado no registro</string>
+    <string name="burst_same_text">Mesmo texto: %1$d</string>
+    <string name="burst_attested">Com dispositivo atestado: %1$d de %2$d</string>
+    <string name="burst_none">Verificado: %1$d avaliações da loja desde %2$s · Nenhuma onda encontrada</string>
+    <string name="burst_short">Ainda há histórico de avaliações da loja insuficiente para verificar ondas.</string>
+    <string name="burst_reading">Lendo o histórico de avaliações da loja…</string>
+    <string name="burst_causes">Uma onda é um fato, não um veredito: um destaque da loja, um lançamento, uma nova versão ou uma campanha paga podem, cada um, causar uma.</string>
+    <string name="burst_more">Mais ondas: %1$d</string>
+    <string name="burst_read_older">Verificar avaliações mais antigas</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Adicionar há quanto tempo este app está neste telefone: %1$s</string>
+    <string name="use_add_hint">Registrado on-chain junto com sua avaliação, arredondado. É o que seu telefone informa, não uma prova.</string>
+    <string name="use_not_installed">Este app não está instalado neste telefone, então nenhum tempo de instalação é adicionado.</string>
+    <string name="use_d0">menos de um dia</string>
+    <string name="use_d1">1–6 dias</string>
+    <string name="use_w1">1–4 semanas</string>
+    <string name="use_m1">1–3 meses</string>
+    <string name="use_m3">3+ meses</string>
+    <string name="use_pill">No telefone: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Painel de pagamentos</string>
+    <string name="pay_intro">dApps cujo publicador confirmou uma tesouraria. São contados: pagamentos recebidos on-chain em SOL, SKR e USDC cujo memo começa com o código do dApp. A receita off-chain não é exibida.</string>
+    <string name="pay_usd_note">USD nos preços de hoje</string>
+    <string name="pay_row">Pagamentos: %1$d · Pagadores: %2$d · Com dispositivo atestado: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Primeiro: %1$s · Último: %2$s</string>
+    <string name="pay_incomplete">O histórico mais antigo ainda não foi lido, então os totais podem estar baixos.</string>
+    <string name="pay_empty">Nenhum dApp confirmou uma tesouraria ainda.</string>
+    <string name="pay_loading">Lendo tesourarias…</string>
+    <string name="pay_detail_title">Pagamentos recebidos</string>
+    <string name="pay_detail_sub">Tesouraria confirmada pelo publicador %1$s · Código de memo: %2$s</string>
+    <string name="pay_preview_title">Pré-visualizar uma tesouraria</string>
+    <string name="pay_preview_body">Qualquer pessoa pode pré-visualizar pagamentos públicos. Só é listada uma tesouraria confirmada tanto pela carteira quanto pelo site do publicador.</string>
+    <string name="pay_field_treasury">Carteira de tesouraria</string>
+    <string name="pay_field_code">Código de memo</string>
+    <string name="pay_field_package">Nome do pacote</string>
+    <string name="pay_preview">Pré-visualizar</string>
+    <string name="pay_list_title">Liste seu dApp</string>
+    <string name="pay_list_step1">1. Adicione esta linha a /.well-known/undersigned.txt no site que a dApp Store lista para seu app:</string>
+    <string name="pay_list_step2">2. Com a sessão iniciada nessa carteira de tesouraria, assine a listagem abaixo. Só são contados pagamentos cujo memo começa com o código.</string>
+    <string name="pay_sign">Assinar como esta tesouraria</string>
+    <string name="pay_my_claims">Suas listagens de tesouraria</string>
+    <string name="pay_claim_confirmed">Confirmado pelo site</string>
+    <string name="pay_claim_waiting">Aguardando a linha no site</string>
+    <string name="pay_withdraw">Retirar listagem</string>
+    <string name="pay_bad_input">Verifique o nome do pacote e o código (2–32 letras, dígitos, - ou _).</string>
+    <string name="pay_open">Painel de pagamentos</string>
+    <string name="pay_waiting_list">Listado pela tesouraria, ainda não confirmado pelo site: %1$d</string>
 </resources>

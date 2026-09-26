@@ -513,4 +513,60 @@
     <string name="desk_note">সাড়াদানের হার অন্য সবকিছুর মতোই লেজার থেকে পড়া হয়: একটি স্বাক্ষরিত পর্যালোচনা এবং আপনার স্বাক্ষরিত উত্তরের মধ্যেকার ব্যবধান। এটি আপনার dApp পেজে পাঠকদের দেখানো হয়, তাই সারিটাই আসল বিষয়।</string>
     <string name="desk_none">এখনও কোনো যাচাইকৃত dApp নেই। কোনো অ্যাপের পেজ থেকে দাবি করুন এবং ওয়েবসাইট প্রমাণ করুন; সেখান থেকে ডেস্ক পূর্ণ হবে।</string>
     <string name="desk_none_waiting">কিছু অপেক্ষমাণ নেই।</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">পর্যালোচনায় উল্লম্ফন</string>
+    <string name="burst_high">পাঁচ-তারকা পর্যালোচনা: %1$d, %2$s – %3$s · স্বাভাবিক গতি: প্রতি ৩ দিনে প্রায় %4$s</string>
+    <string name="burst_low">এক-তারকা পর্যালোচনা: %1$d, %2$s – %3$s · স্বাভাবিক গতি: প্রতি ৩ দিনে প্রায় %4$s</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">লেজারে স্বাক্ষরিত</string>
+    <string name="burst_same_text">একই লেখা: %1$d</string>
+    <string name="burst_attested">প্রত্যয়িত ডিভাইস সহ: %2$d-এর মধ্যে %1$d</string>
+    <string name="burst_none">যাচাই করা হয়েছে: %2$s থেকে %1$d টি স্টোর পর্যালোচনা · কোনো উল্লম্ফন পাওয়া যায়নি</string>
+    <string name="burst_short">উল্লম্ফন যাচাইয়ের জন্য এখনও স্টোর পর্যালোচনার ইতিহাস খুবই কম।</string>
+    <string name="burst_reading">স্টোর পর্যালোচনার ইতিহাস পড়া হচ্ছে…</string>
+    <string name="burst_causes">উল্লম্ফন একটি তথ্য, রায় নয়: একটি স্টোর ফিচার, একটি লঞ্চ, একটি নতুন সংস্করণ বা একটি পেইড ক্যাম্পেইন — যেকোনোটিই এর কারণ হতে পারে।</string>
+    <string name="burst_more">আরও উল্লম্ফন: %1$d</string>
+    <string name="burst_read_older">পুরনো পর্যালোচনা দেখুন</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">এই অ্যাপটি এই ফোনে কতদিন ধরে আছে তা যোগ করুন: %1$s</string>
+    <string name="use_add_hint">আপনার পর্যালোচনার সঙ্গে চেইনে রেকর্ড করা, রাউন্ড করা। এটি আপনার ফোনের প্রতিবেদন, প্রমাণ নয়।</string>
+    <string name="use_not_installed">এই অ্যাপটি এই ফোনে ইনস্টল করা নেই, তাই কোনো ইনস্টলের বয়স যোগ করা হয়নি।</string>
+    <string name="use_d0">একদিনেরও কম</string>
+    <string name="use_d1">১–৬ দিন</string>
+    <string name="use_w1">১–৪ সপ্তাহ</string>
+    <string name="use_m1">১–৩ মাস</string>
+    <string name="use_m3">৩+ মাস</string>
+    <string name="use_pill">তাদের ফোনে: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">পেমেন্ট বোর্ড</string>
+    <string name="pay_intro">যেসব dApps-এর প্রকাশক একটি ট্রেজারি নিশ্চিত করেছেন। গণনা করা হয়েছে: SOL, SKR এবং USDC-তে চেইনে প্রাপ্ত সেসব পেমেন্ট যার মেমো dApp-এর কোড দিয়ে শুরু হয়। অফ-চেইন আয় দেখানো হয় না।</string>
+    <string name="pay_usd_note">USD আজকের দামে</string>
+    <string name="pay_row">পেমেন্ট: %1$d · প্রদানকারী: %2$d · প্রত্যয়িত ডিভাইস সহ: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">প্রথম: %1$s · সাম্প্রতিকতম: %2$s</string>
+    <string name="pay_incomplete">পুরনো ইতিহাস এখনও পড়া হয়নি, তাই মোট পরিমাণ কম হতে পারে।</string>
+    <string name="pay_empty">এখনও কোনো dApp ট্রেজারি নিশ্চিত করেনি।</string>
+    <string name="pay_loading">ট্রেজারি পড়া হচ্ছে…</string>
+    <string name="pay_detail_title">প্রাপ্ত পেমেন্ট</string>
+    <string name="pay_detail_sub">প্রকাশক-নিশ্চিত ট্রেজারি %1$s · মেমো কোড: %2$s</string>
+    <string name="pay_preview_title">একটি ট্রেজারি প্রিভিউ করুন</string>
+    <string name="pay_preview_body">যে কেউ পাবলিক পেমেন্ট প্রিভিউ করতে পারেন। শুধু সেই ট্রেজারি তালিকাভুক্ত হয় যা ওয়ালেট এবং প্রকাশকের ওয়েবসাইট উভয় দ্বারা নিশ্চিত হয়েছে।</string>
+    <string name="pay_field_treasury">ট্রেজারি ওয়ালেট</string>
+    <string name="pay_field_code">মেমো কোড</string>
+    <string name="pay_field_package">প্যাকেজের নাম</string>
+    <string name="pay_preview">প্রিভিউ</string>
+    <string name="pay_list_title">আপনার dApp তালিকাভুক্ত করুন</string>
+    <string name="pay_list_step1">১. আপনার অ্যাপের জন্য dApp Store যে ওয়েবসাইট তালিকাভুক্ত করে, সেখানে /.well-known/undersigned.txt-এ এই লাইনটি যোগ করুন:</string>
+    <string name="pay_list_step2">২. সেই ট্রেজারি ওয়ালেট দিয়ে সাইন ইন করে, নিচের তালিকাটি স্বাক্ষর করুন। শুধু সেসব পেমেন্ট গণনা করা হয় যার মেমো কোড দিয়ে শুরু হয়।</string>
+    <string name="pay_sign">এই ট্রেজারি হিসেবে স্বাক্ষর করুন</string>
+    <string name="pay_my_claims">আপনার ট্রেজারি তালিকা</string>
+    <string name="pay_claim_confirmed">ওয়েবসাইট দ্বারা নিশ্চিত</string>
+    <string name="pay_claim_waiting">ওয়েবসাইট লাইনের অপেক্ষায়</string>
+    <string name="pay_withdraw">তালিকা প্রত্যাহার করুন</string>
+    <string name="pay_bad_input">প্যাকেজের নাম এবং কোড পরীক্ষা করুন (২–৩২টি অক্ষর, সংখ্যা, - বা _)।</string>
+    <string name="pay_open">পেমেন্ট বোর্ড</string>
+    <string name="pay_waiting_list">ট্রেজারি দ্বারা তালিকাভুক্ত, এখনও ওয়েবসাইট দ্বারা নিশ্চিত নয়: %1$d</string>
 </resources>

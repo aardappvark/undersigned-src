@@ -519,4 +519,60 @@
     <string name="desk_note">Reaktionsfähigkeit wird wie alles andere vom Ledger gelesen: der Abstand zwischen einer signierten Bewertung und Ihrer signierten Antwort. Sie wird Lesern auf Ihrer dApp-Seite angezeigt, die Warteschlange ist also das Produkt.</string>
     <string name="desk_none">Noch keine verifizierten dApps. Beanspruchen Sie eine App von ihrer Seite aus und weisen Sie die Website nach; der Schreibtisch füllt sich von dort.</string>
     <string name="desk_none_waiting">Nichts wartend.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Bewertungsschübe</string>
+    <string name="burst_high">Fünf-Sterne-Bewertungen: %1$d, %2$s – %3$s · Übliches Tempo: etwa %4$s pro 3 Tage</string>
+    <string name="burst_low">Ein-Stern-Bewertungen: %1$d, %2$s – %3$s · Übliches Tempo: etwa %4$s pro 3 Tage</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Signiert auf dem Ledger</string>
+    <string name="burst_same_text">Gleicher Wortlaut: %1$d</string>
+    <string name="burst_attested">Mit attestiertem Gerät: %1$d von %2$d</string>
+    <string name="burst_none">Geprüft: %1$d Store-Bewertungen seit %2$s · Keine Schübe gefunden</string>
+    <string name="burst_short">Noch zu wenig Store-Bewertungsverlauf, um nach Schüben zu suchen.</string>
+    <string name="burst_reading">Store-Bewertungsverlauf wird gelesen…</string>
+    <string name="burst_causes">Ein Schub ist eine Tatsache, kein Urteil: eine Store-Aktion, ein Launch, eine neue Version oder eine bezahlte Kampagne kann jeweils einen auslösen.</string>
+    <string name="burst_more">Weitere Schübe: %1$d</string>
+    <string name="burst_read_older">Ältere Bewertungen prüfen</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Hinzufügen, wie lange diese App schon auf diesem Telefon ist: %1$s</string>
+    <string name="use_add_hint">Wird zusammen mit Ihrer Bewertung on-chain aufgezeichnet, gerundet. Es ist die Angabe Ihres Telefons, kein Beweis.</string>
+    <string name="use_not_installed">Diese App ist auf diesem Telefon nicht installiert, daher wird kein Installationsalter hinzugefügt.</string>
+    <string name="use_d0">weniger als ein Tag</string>
+    <string name="use_d1">1–6 Tage</string>
+    <string name="use_w1">1–4 Wochen</string>
+    <string name="use_m1">1–3 Monate</string>
+    <string name="use_m3">3+ Monate</string>
+    <string name="use_pill">Auf dem Telefon: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Zahlungsübersicht</string>
+    <string name="pay_intro">dApps, deren Herausgeber eine Treasury bestätigt hat. Gezählt werden: on-chain empfangene Zahlungen in SOL, SKR und USDC, deren Memo mit dem Code der dApp beginnt. Off-chain-Einnahmen werden nicht angezeigt.</string>
+    <string name="pay_usd_note">USD zu heutigen Kursen</string>
+    <string name="pay_row">Zahlungen: %1$d · Zahler: %2$d · Mit attestiertem Gerät: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Erste: %1$s · Letzte: %2$s</string>
+    <string name="pay_incomplete">Älterer Verlauf noch nicht gelesen, daher können die Summen zu niedrig sein.</string>
+    <string name="pay_empty">Noch keine dApp hat eine Treasury bestätigt.</string>
+    <string name="pay_loading">Treasuries werden gelesen…</string>
+    <string name="pay_detail_title">Erhaltene Zahlungen</string>
+    <string name="pay_detail_sub">Vom Herausgeber bestätigte Treasury %1$s · Memo-Code: %2$s</string>
+    <string name="pay_preview_title">Treasury-Vorschau</string>
+    <string name="pay_preview_body">Jeder kann öffentliche Zahlungen als Vorschau ansehen. Gelistet wird nur eine Treasury, die sowohl von der Wallet als auch von der Website des Herausgebers bestätigt wurde.</string>
+    <string name="pay_field_treasury">Treasury-Wallet</string>
+    <string name="pay_field_code">Memo-Code</string>
+    <string name="pay_field_package">Paketname</string>
+    <string name="pay_preview">Vorschau</string>
+    <string name="pay_list_title">Ihre dApp listen</string>
+    <string name="pay_list_step1">1. Fügen Sie diese Zeile zu /.well-known/undersigned.txt auf der Website hinzu, die der dApp Store für Ihre App listet:</string>
+    <string name="pay_list_step2">2. Melden Sie sich mit dieser Treasury-Wallet an und signieren Sie den Eintrag unten. Nur Zahlungen, deren Memo mit dem Code beginnt, werden gezählt.</string>
+    <string name="pay_sign">Als diese Treasury signieren</string>
+    <string name="pay_my_claims">Ihre Treasury-Einträge</string>
+    <string name="pay_claim_confirmed">Von der Website bestätigt</string>
+    <string name="pay_claim_waiting">Wartet auf die Zeile auf der Website</string>
+    <string name="pay_withdraw">Eintrag zurückziehen</string>
+    <string name="pay_bad_input">Prüfen Sie den Paketnamen und den Code (2–32 Buchstaben, Ziffern, - oder _).</string>
+    <string name="pay_open">Zahlungsübersicht</string>
+    <string name="pay_waiting_list">Von der Treasury gelistet, von der Website noch nicht bestätigt: %1$d</string>
 </resources>

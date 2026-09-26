@@ -29,6 +29,12 @@ import java.util.Base64
  *   SRL1|shr|<tag>                — the paying wallet shares its Pro term with another wallet of its own; the pair is
  *                                   named by hash (see ProSharing.tag), so the ledger never publishes the link
  *   SRL1|shx|<tag>                — takes that grant back
+ *   SRL1|use|<package>|<bucket>   — rides in a REVIEW's own transaction: how long the reviewed app had been installed on
+ *                                   the reviewer's phone, rounded (see Usage). The device's report, never proof.
+ *   SRL1|trs|<package>|<code>     — signed BY a treasury wallet: "payments to me whose memo starts <code> are for
+ *                                   <package>". Counted only when the store-listed website also names the wallet
+ *                                   (see Payments).
+ *   SRL1|trx|<package>            — the treasury withdraws that (latest of trs/trx per wallet and package wins)
  *
  * Three record types. A reply is a signed public comment under a review — anyone may post one
  * (the publisher answering, another owner disagreeing); replies never affect ranking. Anything else, any unknown tag, any oversize field
@@ -65,6 +71,9 @@ sealed class ReviewMemo {
     /** A shared seat on the signer's Pro term, named by the pair hash; only the paying wallet's signature makes it real. */
     data class Share(val tag: String) : ReviewMemo()
     data class Unshare(val tag: String) : ReviewMemo()
+    data class Use(val packageName: String, val bucket: UseBucket) : ReviewMemo()
+    data class Treasury(val packageName: String, val code: String) : ReviewMemo()
+    data class Untreasury(val packageName: String) : ReviewMemo()
     enum class FlagReason(val wire: String) { SPAM("spam"), ABUSE("abuse"), OFF_TOPIC("offtopic"), MISLEADING("misleading");
         companion object { fun fromWire(s: String) = entries.firstOrNull { it.wire == s } } }
 
@@ -129,6 +138,9 @@ sealed class ReviewMemo {
             is Pro -> { require(m.months in 1..MAX_PRO_MONTHS) { "months" }; "${Registry.PROTOCOL}|pro|${m.months}" }
             is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
             is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
+            is Use -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|use|${m.packageName}|${m.bucket.wire}" }
+            is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
+            is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
             is Reply -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
                 val text = m.text.trim()
@@ -172,6 +184,9 @@ sealed class ReviewMemo {
                 "pro" -> if (f.size == 3) f[2].toIntOrNull()?.takeIf { it in 1..MAX_PRO_MONTHS }?.let { Pro(it) } else null
                 "shr" -> if (f.size == 3 && TAG32.matches(f[2])) Share(f[2]) else null
                 "shx" -> if (f.size == 3 && TAG32.matches(f[2])) Unshare(f[2]) else null
+                "use" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) UseBucket.fromWire(f[3])?.let { Use(f[2], it) } else null
+                "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
+                "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null
                 "rep" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
                     val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }

@@ -87,7 +87,7 @@ class StoreReviewsClient {
      * import-scan request asked for 20, and the scan said "No store reviews by this wallet" for every wallet (found
      * 26 Sep 2026). The page size is clamped to [MAX_REVIEW_PAGE]; callers asking for more get more pages instead.
      */
-    suspend fun reviewsChecked(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, pauseMs: Long = 0, stopWhen: (StoreReview) -> Boolean = { false }): ReviewsRead = withContext(Dispatchers.IO) {
+    suspend fun reviewsChecked(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, pauseMs: Long = 0, onPage: (List<StoreReview>) -> Unit = {}, stopWhen: (StoreReview) -> Boolean = { false }): ReviewsRead = withContext(Dispatchers.IO) {
         val out = ArrayList<StoreReview>(); var after: String? = null
         val first = pageSize.coerceIn(1, MAX_REVIEW_PAGE)
         try {
@@ -102,6 +102,7 @@ class StoreReviewsClient {
                         n.str("walletAddress"), n.str("domain"), n.optJSONObject("reply")?.str("reply"))
                     out.add(r); if (stopWhen(r)) return@withContext ReviewsRead(out, complete = true, exhausted = false)
                 }
+                onPage(out.toList())
                 val pi = d.getJSONObject("pageInfo")
                 if (!pi.optBoolean("hasNextPage", false)) return@withContext ReviewsRead(out, complete = true, exhausted = true)
                 after = pi.str("endCursor") ?: return@withContext ReviewsRead(out, complete = true, exhausted = true)

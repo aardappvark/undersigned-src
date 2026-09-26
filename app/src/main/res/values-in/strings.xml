@@ -512,4 +512,60 @@
     <string name="desk_note">Responsivitas dibaca dari buku besar seperti yang lainnya: jarak antara ulasan yang ditandatangani dan balasan Anda yang ditandatangani. Ini ditampilkan kepada pembaca di halaman dApp Anda, sehingga antrean itulah yang menjadi tolok ukurnya.</string>
     <string name="desk_none">Belum ada dApp terverifikasi. Klaim aplikasi dari halamannya dan buktikan situs webnya; meja penerbit akan terisi mulai dari situ.</string>
     <string name="desk_none_waiting">Tidak ada yang menunggu.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Lonjakan ulasan</string>
+    <string name="burst_high">Ulasan bintang lima: %1$d, %2$s – %3$s · Kecepatan biasa: sekitar %4$s per 3 hari</string>
+    <string name="burst_low">Ulasan bintang satu: %1$d, %2$s – %3$s · Kecepatan biasa: sekitar %4$s per 3 hari</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Ditandatangani di buku besar</string>
+    <string name="burst_same_text">Kata-kata yang sama: %1$d</string>
+    <string name="burst_attested">Dengan perangkat terverifikasi: %1$d dari %2$d</string>
+    <string name="burst_none">Diperiksa: %1$d ulasan toko sejak %2$s · Tidak ditemukan lonjakan</string>
+    <string name="burst_short">Riwayat ulasan toko masih terlalu sedikit untuk memeriksa lonjakan.</string>
+    <string name="burst_reading">Membaca riwayat ulasan toko…</string>
+    <string name="burst_causes">Lonjakan adalah fakta, bukan putusan: sorotan toko, peluncuran, rilis baru, atau kampanye berbayar masing-masing dapat menyebabkannya.</string>
+    <string name="burst_more">Lonjakan lainnya: %1$d</string>
+    <string name="burst_read_older">Periksa ulasan yang lebih lama</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Tambahkan sudah berapa lama aplikasi ini ada di ponsel ini: %1$s</string>
+    <string name="use_add_hint">Dicatat on-chain bersama ulasan Anda, dibulatkan. Ini adalah laporan dari ponsel Anda, bukan bukti.</string>
+    <string name="use_not_installed">Aplikasi ini tidak terpasang di ponsel ini, sehingga tidak ada usia instalasi yang ditambahkan.</string>
+    <string name="use_d0">kurang dari sehari</string>
+    <string name="use_d1">1–6 hari</string>
+    <string name="use_w1">1–4 minggu</string>
+    <string name="use_m1">1–3 bulan</string>
+    <string name="use_m3">3+ bulan</string>
+    <string name="use_pill">Di ponsel mereka: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Papan pembayaran</string>
+    <string name="pay_intro">dApp yang penerbitnya telah mengonfirmasi treasuri. Dihitung: pembayaran yang diterima on-chain dalam SOL, SKR, dan USDC yang memo-nya dimulai dengan kode dApp tersebut. Pendapatan off-chain tidak ditampilkan.</string>
+    <string name="pay_usd_note">USD dengan harga hari ini</string>
+    <string name="pay_row">Pembayaran: %1$d · Pembayar: %2$d · Dengan perangkat terverifikasi: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Pertama: %1$s · Terbaru: %2$s</string>
+    <string name="pay_incomplete">Riwayat yang lebih lama belum dibaca, sehingga total mungkin lebih rendah dari sebenarnya.</string>
+    <string name="pay_empty">Belum ada dApp yang mengonfirmasi treasuri.</string>
+    <string name="pay_loading">Membaca treasuri…</string>
+    <string name="pay_detail_title">Pembayaran yang diterima</string>
+    <string name="pay_detail_sub">Treasuri yang dikonfirmasi penerbit %1$s · Kode memo: %2$s</string>
+    <string name="pay_preview_title">Pratinjau sebuah treasuri</string>
+    <string name="pay_preview_body">Siapa pun dapat melihat pratinjau pembayaran publik. Hanya treasuri yang dikonfirmasi oleh dompet maupun situs web penerbit yang dicantumkan.</string>
+    <string name="pay_field_treasury">Dompet treasuri</string>
+    <string name="pay_field_code">Kode memo</string>
+    <string name="pay_field_package">Nama paket</string>
+    <string name="pay_preview">Pratinjau</string>
+    <string name="pay_list_title">Daftarkan dApp Anda</string>
+    <string name="pay_list_step1">1. Tambahkan baris ini ke /.well-known/undersigned.txt di situs web yang dicantumkan dApp Store untuk aplikasi Anda:</string>
+    <string name="pay_list_step2">2. Setelah masuk dengan dompet treasuri tersebut, tandatangani pendaftaran di bawah ini. Hanya pembayaran yang memo-nya dimulai dengan kode yang dihitung.</string>
+    <string name="pay_sign">Tandatangani sebagai treasuri ini</string>
+    <string name="pay_my_claims">Pendaftaran treasuri Anda</string>
+    <string name="pay_claim_confirmed">Dikonfirmasi oleh situs web</string>
+    <string name="pay_claim_waiting">Menunggu baris di situs web</string>
+    <string name="pay_withdraw">Tarik pendaftaran</string>
+    <string name="pay_bad_input">Periksa nama paket dan kode (2–32 huruf, angka, - atau _).</string>
+    <string name="pay_open">Papan pembayaran</string>
+    <string name="pay_waiting_list">Didaftarkan oleh treasuri, belum dikonfirmasi oleh situs web: %1$d</string>
 </resources>

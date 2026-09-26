@@ -85,6 +85,32 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
         LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget, paidLamports, paidSkr)
     }
 
+    /**
+     * What one transaction credited [treasury]: lamports on the wallet and raw units per mint on token accounts it owns,
+     * from balances (never from the memo), and who paid (the fee payer). Null when it failed or credited nothing.
+     */
+    suspend fun getPaymentTx(signature: String, treasury: String): Result<com.undersigned.protocol.Payments.Payment?> = rpc {
+        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 0).put("commitment", "confirmed")))
+            .optJSONObject("result") ?: return@rpc null
+        val meta = tx.optJSONObject("meta") ?: return@rpc null
+        if (meta.opt("err") != null && meta.opt("err") != JSONObject.NULL) return@rpc null
+        val keys = tx.optJSONObject("transaction")?.optJSONObject("message")?.optJSONArray("accountKeys") ?: return@rpc null
+        val keyList = (0 until keys.length()).map { i -> keys.optJSONObject(i)?.optString("pubkey") ?: keys.optString(i) }
+        val payer = keyList.firstOrNull()?.takeIf { it.isNotEmpty() } ?: return@rpc null
+        val t = keyList.indexOf(treasury)
+        val lamports = if (t < 0) 0L else ((meta.optJSONArray("postBalances")?.optLong(t, 0L) ?: 0L) - (meta.optJSONArray("preBalances")?.optLong(t, 0L) ?: 0L)).coerceAtLeast(0L)
+        fun owned(arr: JSONArray?): Map<String, Long> {
+            val m = HashMap<String, Long>(); arr ?: return m
+            for (i in 0 until arr.length()) { val o = arr.optJSONObject(i) ?: continue; if (o.optString("owner") != treasury) continue
+                m[o.optString("mint")] = (m[o.optString("mint")] ?: 0L) + (o.optJSONObject("uiTokenAmount")?.optString("amount", "0")?.toLongOrNull() ?: 0L) }
+            return m
+        }
+        val pre = owned(meta.optJSONArray("preTokenBalances")); val post = owned(meta.optJSONArray("postTokenBalances"))
+        val tokens = post.mapValues { (k, v) -> v - (pre[k] ?: 0L) }.filterValues { it > 0 }
+        if (lamports == 0L && tokens.isEmpty()) null
+        else com.undersigned.protocol.Payments.Payment(signature, payer, tx.optLong("blockTime", 0L), lamports, tokens)
+    }
+
     /** Raw token units [owner] holds of [mint] across its token accounts; -1 when it has no account for the mint at all. */
     suspend fun getTokenBalanceRaw(owner: String, mint: String): Result<Long> = rpc {
         val params = JSONArray().put(owner).put(JSONObject().put("mint", mint)).put(JSONObject().put("encoding", "jsonParsed").put("commitment", "confirmed"))

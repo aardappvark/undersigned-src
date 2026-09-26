@@ -46,6 +46,25 @@ object PublisherVerifier {
         return out.filterValues { it.isNotEmpty() }
     }
 
+    /**
+     * A treasury claim is confirmed by the publisher when the same file names the wallet on a `treasury: <address>` line
+     * (see Payments.listedTreasuries). A bare address line does NOT count: it says "I publish this", not "publish what I
+     * am paid". Cached 24 h like claims, under its own key.
+     */
+    suspend fun verifyTreasury(pkg: String, treasury: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
+        UserPreferences.cachedClaim(pkg, "trs:$treasury", TTL)?.let { return@withContext it }
+        val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, "trs:$treasury", false) }
+        val ok = fetch(url)?.let { treasury in com.undersigned.protocol.Payments.listedTreasuries(it) } ?: false
+        UserPreferences.cacheClaim(pkg, "trs:$treasury", ok); ok
+    }
+
+    private fun fetch(url: String): String? = try {
+        val c = URL(url).openConnection() as HttpURLConnection
+        c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true
+        val body = if (c.responseCode in 200..299) c.inputStream.bufferedReader().use { it.readText() } else null
+        c.disconnect(); body
+    } catch (e: Exception) { Log.w(TAG, "well-known fetch failed: ${e.message?.take(60)}"); null }
+
     suspend fun verify(pkg: String, wallet: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
         UserPreferences.cachedClaim(pkg, wallet, TTL)?.let { return@withContext it }
         val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, wallet, false) }

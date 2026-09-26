@@ -32,6 +32,7 @@ import com.undersigned.app.R
 import com.undersigned.app.solana.ReviewTxService
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
+import com.undersigned.app.ui.DEEP_HISTORY_PAGES
 import com.undersigned.app.ui.components.*
 import com.undersigned.app.ui.components.label
 import androidx.compose.foundation.layout.Box
@@ -102,6 +103,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val helpful by vm.helpfulWeights.collectAsState()
     val disputesMap by vm.disputes.collectAsState()
     val similar by vm.similarity.collectAsState()
+    val usage by vm.usage.collectAsState()
+    val storeHistory by vm.storeHistory.collectAsState()
+    val storeBursts = remember(storeHistory[pkg]) { vm.storeBursts(pkg) }
+    val ledgerBursts = remember(entries) { vm.ledgerBursts(pkg) }
+    LaunchedEffect(storeBursts) { storeBursts?.bursts?.forEach { b -> vm.resolveFacts(vm.burstWallets(pkg, b)) } }
+    val boardRows by vm.boardRows.collectAsState()
+    val boardRow = remember(boardRows) { vm.boardFor(pkg) }
+    LaunchedEffect(pkg, entries) { if (vm.treasuryClaims().any { it.packageName == pkg }) vm.loadBoard() }
     var disputeTarget by remember { mutableStateOf<String?>(null) }
     var disputeText by remember { mutableStateOf("") }
     var disputeStage by remember { mutableStateOf<String?>(null) }
@@ -293,6 +302,40 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
             }
 
+            SectionTitle(stringResource(R.string.burst_title))
+            GlassCard(accent = if (storeBursts?.bursts?.isNotEmpty() == true || ledgerBursts.bursts.isNotEmpty()) RbColors.warning else RbColors.glassBorder) {
+                val sb = storeBursts
+                if (sb == null) Text(stringResource(R.string.burst_reading), color = RbColors.textTertiary, fontSize = 12.sp)
+                else {
+                    // Strongest first, three at most: a busy launch can hold many windows over a flat median.
+                    sb.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_store).takeIf { i == 0 }, vm.burstWallets(pkg, b), factsMap) }
+                    if (sb.bursts.size > 3) Text(stringResource(R.string.burst_more, sb.bursts.size - 3), color = RbColors.textTertiary, fontSize = 11.sp)
+                    if (sb.bursts.isEmpty()) {
+                        val newest = storeHistory[pkg]?.items?.firstOrNull()?.createdAt?.let { runCatching { java.time.Instant.parse(it).epochSecond }.getOrNull() }
+                        val from = sb.from
+                        if (from == null || newest == null || newest - from < com.undersigned.protocol.ReviewBursts.MIN_HISTORY_DAYS * com.undersigned.protocol.ReviewBursts.DAY)
+                            Text(stringResource(R.string.burst_short), color = RbColors.textSecondary, fontSize = 12.sp)
+                        else Text(stringResource(R.string.burst_none, sb.checked, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(from * 1000))), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
+                    }
+                }
+                ledgerBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ledger).takeIf { i == 0 }, emptyList(), factsMap) }
+                val deep by vm.historyLoading.collectAsState()
+                val read = storeHistory[pkg]
+                if (read != null && read.complete && !read.exhausted && read.items.size < DEEP_HISTORY_PAGES * 10)
+                    TextButton(enabled = pkg !in deep, onClick = { vm.loadOlderStoreHistory(pkg) }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(if (pkg in deep) stringResource(R.string.burst_reading) else stringResource(R.string.burst_read_older), color = RbColors.purpleLight, fontSize = 12.sp) }
+                Spacer(Modifier.height(6.dp))
+                Text(stringResource(R.string.burst_causes), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+            }
+
+            boardRow?.let { row ->
+                SectionTitle(stringResource(R.string.pay_detail_title))
+                GlassCard {
+                    TallyView(row, vm.quotes.collectAsState().value)
+                    Spacer(Modifier.height(6.dp))
+                    Text(stringResource(R.string.pay_detail_sub, shortKey(row.claim.treasury, 4, 4), row.claim.code), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                }
+            }
+
             SectionTitle(stringResource(R.string.detail_facts_title))
             GlassCard(accent = if (facts?.delta?.signerChanged == true) RbColors.negative else RbColors.glassBorder) {
                 Text(stringResource(R.string.detail_facts_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -379,6 +422,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         flagWeights[e.signature]?.let { fw -> Pill(stringResource(R.string.flagged_count, String.format(java.util.Locale.US, "%.1f", fw)), RbColors.warning) }
                         helpful[e.signature]?.let { hw -> Pill(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), RbColors.green) }
                         similar[e.signature]?.let { sf -> Pill(stringResource(if (sf.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge), RbColors.warning) }
+                        usage[e.signature]?.let { u -> Pill(stringResource(R.string.use_pill, useLabel(u)), RbColors.textSecondary) }
                     }
                     disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 11.sp) }
                     if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
@@ -624,4 +668,19 @@ private fun CardAction(label: String, color: androidx.compose.ui.graphics.Color,
         modifier = if (a11y != null) Modifier.semantics { contentDescription = a11y } else Modifier) {
         Text(label, color = color, fontSize = 12.sp)
     }
+}
+
+/** One burst: what, when, against what pace, and — for store bursts — how many of its reviewers hold an attested device. */
+@Composable
+private fun BurstLine(b: com.undersigned.protocol.ReviewBursts.Burst, source: String?, wallets: List<String>, facts: Map<String, com.undersigned.protocol.SignerFacts>) {
+    val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
+    val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
+    source?.let { Text(it.uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 4.dp)) }
+    Spacer(Modifier.height(4.dp))
+    Text(stringResource(if (b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH) R.string.burst_high else R.string.burst_low, b.count, df.format(Date(b.start * 1000)), df.format(Date(b.end * 1000)), pace),
+        color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 16.sp)
+    val extra = ArrayList<String>()
+    if (b.sameText > 0) extra.add(stringResource(R.string.burst_same_text, b.sameText))
+    if (wallets.isNotEmpty() && wallets.all { it in facts }) extra.add(stringResource(R.string.burst_attested, wallets.count { facts[it]?.hasGenesisToken == true }, wallets.size))
+    if (extra.isNotEmpty()) Text(extra.joinToString(" · "), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
 }

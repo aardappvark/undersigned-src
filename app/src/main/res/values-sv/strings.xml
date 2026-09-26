@@ -502,4 +502,60 @@
     <string name="desk_note">Svarsfrekvens läses från liggaren precis som allt annat: gapet mellan en signerad recension och ditt signerade svar. Det visas för läsare på din dApp-sida, så kön är produkten.</string>
     <string name="desk_none">Inga verifierade dApps ännu. Gör anspråk på en app från dess sida och bevisa webbplatsen; panelen fylls sedan på.</string>
     <string name="desk_none_waiting">Inget väntande.</string>
+
+    <!-- Review bursts (27 Sep 2026) -->
+    <string name="burst_title">Recensionsvågor</string>
+    <string name="burst_high">Femstjärniga recensioner: %1$d, %2$s – %3$s · Normal takt: cirka %4$s per 3 dagar</string>
+    <string name="burst_low">Enstjärniga recensioner: %1$d, %2$s – %3$s · Normal takt: cirka %4$s per 3 dagar</string>
+    <string name="burst_source_store">dApp Store</string>
+    <string name="burst_source_ledger">Signerad i liggaren</string>
+    <string name="burst_same_text">Samma ordalydelse: %1$d</string>
+    <string name="burst_attested">Med attesterad enhet: %1$d av %2$d</string>
+    <string name="burst_none">Kontrollerat: %1$d butiksrecensioner sedan %2$s · Inga vågor hittades</string>
+    <string name="burst_short">Ännu för lite butiksrecensionshistorik för att kontrollera vågor.</string>
+    <string name="burst_reading">Läser butikens recensionshistorik…</string>
+    <string name="burst_causes">En våg är ett faktum, inte en dom: en butikskampanj, en lansering, en ny version eller en betald kampanj kan var och en orsaka en.</string>
+    <string name="burst_more">Fler vågor: %1$d</string>
+    <string name="burst_read_older">Kontrollera äldre recensioner</string>
+
+    <!-- Install age on a review (27 Sep 2026) -->
+    <string name="use_add">Lägg till hur länge appen har funnits på den här telefonen: %1$s</string>
+    <string name="use_add_hint">Registreras on-chain tillsammans med din recension, avrundat. Det är vad din telefon rapporterar, inte ett bevis.</string>
+    <string name="use_not_installed">Appen är inte installerad på den här telefonen, så ingen installationsålder läggs till.</string>
+    <string name="use_d0">mindre än en dag</string>
+    <string name="use_d1">1–6 dagar</string>
+    <string name="use_w1">1–4 veckor</string>
+    <string name="use_m1">1–3 månader</string>
+    <string name="use_m3">3+ månader</string>
+    <string name="use_pill">På deras telefon: %1$s</string>
+
+    <!-- Payments board (27 Sep 2026) -->
+    <string name="pay_title">Betalningsöversikt</string>
+    <string name="pay_intro">dApps vars utgivare har bekräftat en treasury. Räknas: betalningar mottagna on-chain i SOL, SKR och USDC vars memo börjar med dAppens kod. Off-chain-intäkter visas inte.</string>
+    <string name="pay_usd_note">USD till dagens kurser</string>
+    <string name="pay_row">Betalningar: %1$d · Betalare: %2$d · Med attesterad enhet: %3$d</string>
+    <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
+    <string name="pay_range">Första: %1$s · Senaste: %2$s</string>
+    <string name="pay_incomplete">Äldre historik har inte lästs än, så summorna kan vara för låga.</string>
+    <string name="pay_empty">Ingen dApp har bekräftat en treasury än.</string>
+    <string name="pay_loading">Läser treasuries…</string>
+    <string name="pay_detail_title">Mottagna betalningar</string>
+    <string name="pay_detail_sub">Treasury bekräftad av utgivaren %1$s · Memokod: %2$s</string>
+    <string name="pay_preview_title">Förhandsgranska en treasury</string>
+    <string name="pay_preview_body">Vem som helst kan förhandsgranska offentliga betalningar. Endast en treasury som bekräftats av både plånboken och utgivarens webbplats listas.</string>
+    <string name="pay_field_treasury">Treasury-plånbok</string>
+    <string name="pay_field_code">Memokod</string>
+    <string name="pay_field_package">Paketnamn</string>
+    <string name="pay_preview">Förhandsgranska</string>
+    <string name="pay_list_title">Lista din dApp</string>
+    <string name="pay_list_step1">1. Lägg till den här raden i /.well-known/undersigned.txt på webbplatsen som dApp Store listar för din app:</string>
+    <string name="pay_list_step2">2. Inloggad med den treasury-plånboken, signera listningen nedan. Endast betalningar vars memo börjar med koden räknas.</string>
+    <string name="pay_sign">Signera som denna treasury</string>
+    <string name="pay_my_claims">Dina treasury-listningar</string>
+    <string name="pay_claim_confirmed">Bekräftad av webbplatsen</string>
+    <string name="pay_claim_waiting">Väntar på raden på webbplatsen</string>
+    <string name="pay_withdraw">Dra tillbaka listning</string>
+    <string name="pay_bad_input">Kontrollera paketnamnet och koden (2–32 bokstäver, siffror, - eller _).</string>
+    <string name="pay_open">Betalningsöversikt</string>
+    <string name="pay_waiting_list">Listad av treasuryn, ännu inte bekräftad av webbplatsen: %1$d</string>
 </resources>

@@ -46,6 +46,9 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     var stage by remember { mutableStateOf<String?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     var done by remember { mutableStateOf<String?>(null) }
+    // Install age rides in the review's own transaction; on by default because the reviewer sees exactly what is added.
+    val installAge = remember(pkg) { vm.installAge(pkg) }
+    var addAge by remember { mutableStateOf(true) }
 
     val bytes = text.toByteArray(Charsets.UTF_8).size
     val textOk = text.isEmpty() || (text.length <= ReviewMemo.MAX_TEXT_CHARS && bytes <= ReviewMemo.MAX_TEXT_BYTES && text.none { it == '|' || it == '\n' || it == '\r' })
@@ -97,13 +100,20 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             }
             Spacer(Modifier.height(14.dp))
             gate?.let { GlassCard { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) }; Spacer(Modifier.height(10.dp)) }
+            if (installAge != null) {
+                Row(Modifier.fillMaxWidth().clickable(enabled = stage == null) { addAge = !addAge }, verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = addAge, onCheckedChange = { addAge = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.purple))
+                    Text(stringResource(R.string.use_add, useLabel(installAge)), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
+                }
+                Text(stringResource(R.string.use_add_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(start = 48.dp, bottom = 8.dp))
+            } else { Text(stringResource(R.string.use_not_installed), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp); Spacer(Modifier.height(8.dp)) }
             Text(stringResource(R.string.review_fee_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             Spacer(Modifier.height(12.dp))
             PrimaryButton(stage ?: stringResource(R.string.review_submit), enabled = canSubmit, loading = stage != null, onClick = {
                 val s = sender ?: return@PrimaryButton
                 error = null
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, text.trim().takeIf { it.isNotEmpty() })
-                vm.publish(s, memo, onStage = { st ->
+                vm.publishReview(s, memo, installAge?.takeIf { addAge }, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = it.message }) }
             })

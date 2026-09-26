@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.undersigned.app.AppConfig
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.data.CatalogueRepository
 import com.undersigned.app.data.DAppIconCache
@@ -39,6 +40,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
+
+/** Store review pages read per opened app for the burst check (50 reviews; paced, 700 ms apart). */
+const val HISTORY_PAGES = 5
+/** "Check older reviews": 300 reviews, about 21 s at the store's pace. CrushCoin's documented campaign sat 300 back. */
+const val DEEP_HISTORY_PAGES = 30
 
 sealed class LedgerStatus {
     object Idle : LedgerStatus()
@@ -186,6 +192,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         helpfulWeights.value = Reputation.helpfulWeights(list, f)
         disputes.value = Reputation.disputes(list)
         similarity.value = com.undersigned.protocol.Similarity.findings(list)
+        usage.value = com.undersigned.protocol.Usage.index(list)
         recomputePro()
         verifyClaims(list)
     }
@@ -266,9 +273,127 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             store.rating(pkg)?.let { r -> storeRatings.value = storeRatings.value + (pkg to r) }
             if (!storeDetails.value.containsKey(pkg)) store.details(pkg)?.let { d -> storeDetails.value = storeDetails.value + (pkg to d) }
-            val list = store.reviews(pkg, pageSize = 10, maxPages = 1)
-            storeReviews.value = storeReviews.value + (pkg to list)
-            wallet.value?.let { w -> list.firstOrNull { it.walletAddress == w }?.let { mine -> myStoreReviews.value = myStoreReviews.value + (pkg to mine) } }
+            // Five pages, paced for the store's CDN: the first shows at once, all five feed the burst check.
+            val read = store.reviewsChecked(pkg, maxPages = HISTORY_PAGES, pauseMs = 700, onPage = { l -> if (l.size <= StoreReviewsClient.MAX_REVIEW_PAGE) storeReviews.update { it + (pkg to l) } })
+            storeHistory.update { it + (pkg to read) }
+            wallet.value?.let { w -> read.items.firstOrNull { it.walletAddress == w }?.let { mine -> myStoreReviews.value = myStoreReviews.value + (pkg to mine) } }
+        }
+    }
+
+    // ---- Review bursts ------------------------------------------------------------------------------------
+
+    /** Up to [HISTORY_PAGES] pages of each opened app's store reviews, newest first, for the burst check. */
+    val storeHistory = MutableStateFlow<Map<String, com.undersigned.app.data.ReviewsRead>>(emptyMap())
+    private fun storePoints(pkg: String) = storeHistory.value[pkg]?.items?.mapNotNull { r -> runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
+    fun storeBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings? = storePoints(pkg)?.let { com.undersigned.protocol.ReviewBursts.find(it) }
+    /** Signed reviews: the newest per wallet, withdrawn ones out, so an edit is not a second review. */
+    fun ledgerBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings {
+        val revoked = revokedSignatures()
+        val pts = entries.value.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in revoked }.groupBy { it.signer }.map { (_, l) -> l.maxBy { it.blockTime } }
+            .map { e -> val r = e.memo as ReviewMemo.Review; com.undersigned.protocol.ReviewBursts.Point(e.blockTime, r.rating, r.text) }
+        return com.undersigned.protocol.ReviewBursts.find(pts)
+    }
+    val historyLoading = MutableStateFlow<Set<String>>(emptySet())
+    /** Deeper read on request: up to [DEEP_HISTORY_PAGES] pages, paced, replacing the five-page read. */
+    fun loadOlderStoreHistory(pkg: String) {
+        if (pkg in historyLoading.value) return
+        historyLoading.update { it + pkg }
+        viewModelScope.launch(Dispatchers.IO) {
+            try { val read = store.reviewsChecked(pkg, maxPages = DEEP_HISTORY_PAGES, pauseMs = 700); if (read.items.size >= (storeHistory.value[pkg]?.items?.size ?: 0)) storeHistory.update { it + (pkg to read) } }
+            finally { historyLoading.update { it - pkg } }
+        }
+    }
+    /** Store reviewer wallets inside a burst, matching its star count. */
+    fun burstWallets(pkg: String, b: com.undersigned.protocol.ReviewBursts.Burst): List<String> = storeHistory.value[pkg]?.items.orEmpty()
+        .filter { r -> r.rating == b.kind.stars && (runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull() ?: -1L) in b.start..b.end }.mapNotNull { it.walletAddress }.distinct()
+
+    // ---- Install age ---------------------------------------------------------------------------------------
+
+    /** Review record id → the install age its own transaction reported (see protocol Usage). */
+    val usage = MutableStateFlow<Map<String, com.undersigned.protocol.UseBucket>>(emptyMap())
+    fun installAge(pkg: String): com.undersigned.protocol.UseBucket? = installedApps.firstInstallTime(pkg)?.let { com.undersigned.protocol.UseBucket.of(it, System.currentTimeMillis()) }
+
+    /**
+     * A review, plus its install-age record in the SAME transaction when [use] is given — one signature either way. If
+     * the pair would not fit one transaction the review goes alone: a `use` record in another transaction would attach
+     * to nothing.
+     */
+    fun publishReview(sender: ActivityResultSender, memo: ReviewMemo.Review, use: com.undersigned.protocol.UseBucket?, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        val texts = runCatching { listOf(ReviewMemo.encode(memo)) + (use?.let { listOf(ReviewMemo.encode(ReviewMemo.Use(memo.packageName, it))) } ?: emptyList()) }.getOrElse { return onResult(Result.failure(it)) }
+        if (texts.size == 1 || com.undersigned.app.solana.TxBuilder.chunkForBatches(com.undersigned.app.util.Base58.decode(w), texts).size != 1) return publish(sender, memo, onStage, onResult)
+        viewModelScope.launch {
+            if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
+            val r = txService.publishBatch(adapter, sender, w, texts, onStage)
+            r.onSuccess { sigs ->
+                val sig = sigs.first().first
+                UserPreferences.follow(memo.packageName)
+                val now = System.currentTimeMillis() / 1000
+                val fresh = texts.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), w, now, it) } }
+                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                ledgerCache.save(entries.value)
+                launch(Dispatchers.IO) { rank() }
+            }
+            onResult(r.map { it.first().first })
+        }
+    }
+
+    // ---- Payment board -------------------------------------------------------------------------------------
+
+    private val board = com.undersigned.app.ledger.PaymentBoard(app)
+    /** One listing: a treasury claim, whether the store-listed website confirms it, and what it has been paid. */
+    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean)
+    val boardRows = MutableStateFlow<List<BoardRow>>(emptyList())
+    val boardLoading = MutableStateFlow(false)
+    val boardPreview = MutableStateFlow<BoardRow?>(null)
+    val quotes = MutableStateFlow<Map<String, com.undersigned.app.ledger.Prices.Quote>>(emptyMap())
+    private var boardAt = 0L
+
+    fun treasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = com.undersigned.protocol.Payments.claims(entries.value)
+    fun myTreasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = wallet.value?.let { w -> treasuryClaims().filter { it.treasury == w } } ?: emptyList()
+    fun boardFor(pkg: String): BoardRow? = boardRows.value.firstOrNull { it.claim.packageName == pkg && it.confirmed && it.tally != null }
+
+    private suspend fun attested(w: String): Boolean = (facts.value[w] ?: runCatching { factsService.facts(w) }.getOrNull()?.also { f -> facts.update { it + (w to f) } })?.hasGenesisToken == true
+
+    private suspend fun tallyRow(claim: com.undersigned.protocol.Payments.Claim, confirmed: Boolean): BoardRow {
+        val name = catalogue.value.firstOrNull { it.packageName == claim.packageName }?.name ?: claim.packageName
+        if (!confirmed) return BoardRow(claim, name, false, null, null, true)
+        val read = board.read(claim.treasury, claim.code)
+        val att = HashMap<String, Boolean>(); for (p in read.payments.map { it.payer }.distinct()) att[p] = attested(p)
+        val t = com.undersigned.protocol.Payments.tally(read.payments, claim.treasury) { att[it] == true }
+        val q = com.undersigned.app.ledger.Prices.quotes(listOf(AppConfig.Solana.SKR_MINT, com.undersigned.app.ledger.PaymentBoard.USDC_MINT)).also { quotes.value = it }
+        return BoardRow(claim, name, true, t, com.undersigned.app.ledger.Prices.usd(t.lamports, t.tokens, q), read.complete)
+    }
+
+    /** Every claim on the ledger, checked against its website, then read. At most once every ten minutes unless [force]. */
+    fun loadBoard(force: Boolean = false) {
+        if (boardLoading.value || (!force && System.currentTimeMillis() - boardAt < 10 * 60_000L)) return
+        viewModelScope.launch(Dispatchers.IO) {
+            boardLoading.value = true
+            try {
+                val rows = ArrayList<BoardRow>()
+                for (c in treasuryClaims()) {
+                    val d = storeDetails.value[c.packageName] ?: store.details(c.packageName)?.also { d -> storeDetails.update { it + (c.packageName to d) } }
+                    val ok = PublisherVerifier.verifyTreasury(c.packageName, c.treasury, d)
+                    rows.add(runCatching { tallyRow(c, ok) }.getOrElse { BoardRow(c, c.packageName, ok, null, null, false) })
+                    boardRows.value = rows.sortedWith(compareByDescending<BoardRow> { it.usd ?: -1.0 }.thenBy { it.name })
+                }
+                boardRows.value = rows.sortedWith(compareByDescending<BoardRow> { it.usd ?: -1.0 }.thenBy { it.name })
+                boardAt = System.currentTimeMillis()
+            } finally { boardLoading.value = false }
+        }
+    }
+
+    /** What a treasury has been paid under a code, WITHOUT listing it: public data, shown to whoever asks, attributed to no app. */
+    fun previewTreasury(treasury: String, code: String) {
+        if (boardLoading.value) return
+        viewModelScope.launch(Dispatchers.IO) {
+            boardLoading.value = true
+            try {
+                val claim = com.undersigned.protocol.Payments.Claim("", treasury, code, 0L, "")
+                boardPreview.value = runCatching { tallyRow(claim, true).copy(name = code) }.getOrNull()
+            } finally { boardLoading.value = false }
         }
     }
 
@@ -468,7 +593,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback
     fun deviceFacts(pkg: String) = installedApps.factsWithDelta(pkg)
-    fun clearLocalCaches() { ledgerCache.clear(); UserPreferences.clearFacts(); entries.value = emptyList(); scores.value = emptyMap(); facts.value = emptyMap(); txMeta.value = emptyMap(); pro.value = null }
+    fun clearLocalCaches() { board.clear(); ledgerCache.clear(); UserPreferences.clearFacts(); entries.value = emptyList(); scores.value = emptyMap(); facts.value = emptyMap(); txMeta.value = emptyMap(); pro.value = null }
 
     // ---- Pro ----------------------------------------------------------------------------------------------
 
@@ -512,21 +637,22 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; else -> "" }
-        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; else -> "" }
+        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Treasury -> m.code; else -> "" }
+        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
         if (json) {
             val arr = org.json.JSONArray()
             rows.forEach { e -> val m = e.memo; arr.put(org.json.JSONObject().put("id", e.signature).put("signer", e.signer).put("time", iso.format(java.util.Date(e.blockTime * 1000))).put("kind", kind(m))
-                .put("package", (m as? ReviewMemo.Review)?.packageName ?: (m as? ReviewMemo.Claim)?.packageName ?: "").put("rating", (m as? ReviewMemo.Review)?.rating ?: org.json.JSONObject.NULL)
+                .put("package", pkgOf(m)).put("rating", (m as? ReviewMemo.Review)?.rating ?: org.json.JSONObject.NULL)
                 .put("tags", (m as? ReviewMemo.Review)?.tags?.joinToString(",") { it.wire } ?: "").put("version", (m as? ReviewMemo.Review)?.versionCode ?: org.json.JSONObject.NULL).put("target", target(m)).put("text", text(m))) }
             return arr.toString(2)
         }
         fun q(v: Any?) = "\"" + v.toString().replace("\"", "\"\"") + "\""
         val sb = StringBuilder("id,signer,time,kind,package,rating,tags,version,target,text\n")
-        rows.forEach { e -> val m = e.memo; sb.append(listOf(e.signature, e.signer, iso.format(java.util.Date(e.blockTime * 1000)), kind(m), (m as? ReviewMemo.Review)?.packageName ?: (m as? ReviewMemo.Claim)?.packageName ?: "", (m as? ReviewMemo.Review)?.rating ?: "", (m as? ReviewMemo.Review)?.tags?.joinToString(",") { it.wire } ?: "", (m as? ReviewMemo.Review)?.versionCode ?: "", target(m), text(m)).joinToString(",") { q(it) }).append('\n') }
+        rows.forEach { e -> val m = e.memo; sb.append(listOf(e.signature, e.signer, iso.format(java.util.Date(e.blockTime * 1000)), kind(m), pkgOf(m), (m as? ReviewMemo.Review)?.rating ?: "", (m as? ReviewMemo.Review)?.tags?.joinToString(",") { it.wire } ?: "", (m as? ReviewMemo.Review)?.versionCode ?: "", target(m), text(m)).joinToString(",") { q(it) }).append('\n') }
         return sb.toString()
     }
 }
