@@ -47,7 +47,18 @@ function decode(raw){const f=raw.split('|');if(f[0]!=='SRL1')return null;
  if(f[1]==='clr'&&f.length===3)return{t:'clr',target:f[2]};
  if(f[1]==='dsp'&&f.length===4)return{t:'dsp',target:f[2],text:b64u(f[3])};
  if(f[1]==='pro'&&f.length===3&&+f[2]>=1&&+f[2]<=120)return{t:'pro',months:+f[2]};
- if((f[1]==='shr'||f[1]==='shx')&&f.length===3&&/^[0-9a-f]{32}$/.test(f[2]))return{t:f[1],tag:f[2]};return null}
+ if((f[1]==='shr'||f[1]==='shx')&&f.length===3&&/^[0-9a-f]{32}$/.test(f[2]))return{t:f[1],tag:f[2]};
+ if(f[1]==='use'&&f.length===4&&USE[f[3]])return{t:'use',pkg:f[2],b:f[3]};
+ if(f[1]==='tim'&&f.length===4&&TIM[f[3]])return{t:'tim',pkg:f[2],b:f[3]};
+ if(f[1]==='snt'&&f.length===5&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(f[3]))return{t:'snt',pkg:f[2],rid:f[3],text:b64u(f[4])};
+ if(f[1]==='trs'&&f.length===4)return{t:'trs',pkg:f[2],code:f[3]};
+ if(f[1]==='trx'&&f.length===3)return{t:'trx',pkg:f[2]};return null}
+// The reviewer's device report, riding in the review's own transaction (protocol Usage): shown, never scored.
+const USE={d0:"under a day",d1:"1–6 days",w1:"1–4 weeks",m1:"1–3 months",m3:"3+ months"};
+const TIM={t0:"under 10 minutes",t1:"10–60 minutes",t2:"1–5 hours",t3:"5–20 hours",t4:"20+ hours"};
+function extrasOf(list){const byId={};for(const e of list)if(e.m.t==='rev')byId[e.id]=e;const out={};
+ for(const e of list){if(e.m.t!=='use'&&e.m.t!=='tim')continue;const r=byId[e.id.split(':')[0]];
+  if(!r||r.signer!==e.signer||r.m.pkg!==e.m.pkg)continue;(out[r.id]=out[r.id]||{})[e.m.t]=e.m.b}return out}
 function stars(n){return '★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n))}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 let entries=[],names={};
@@ -93,7 +104,7 @@ async function load(){
  render();
  const saved=new URLSearchParams(location.search).get('rpc')||localStorage.getItem('undersigned.rpc')||'';
  if(saved){document.getElementById('rpc').value=saved;readLive(saved)}}
-function render(){
+function render(){const ex=extrasOf(entries);
  const q=(document.getElementById('q').value||'').toLowerCase();
  const bySig=Object.fromEntries(entries.map(e=>[e.id,e]));
  const revoked=new Set(entries.filter(e=>e.m.t==='rvk'&&bySig[e.m.target]&&bySig[e.m.target].signer===e.signer).map(e=>e.m.target));
@@ -117,7 +128,7 @@ function render(){
   out.push(`<div class="card"><div class="row"><span class="name">${esc(name)}</span><span class="pkg">${esc(pkg)}</span></div>
   <div class="row"><span class="stars">${stars(mean)}</span><b>${mean.toFixed(1)}</b><span class="meta">${list.length} signed (unweighted)</span>${claims[pkg]?`<span class="pill g">publisher claim on-chain</span>`:''}</div>
   <div class="row">${Object.entries(tagCounts).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span class="tag">${TAGS[t]} · ${n}</span>`).join('')}</div>
-  ${list.map(e=>`<div class="rev"><div class="row"><span class="stars">${stars(e.m.rating)}</span><span class="meta">${esc(e.signer.slice(0,4))}…${esc(e.signer.slice(-4))} · ${new Date(e.t*1000).toISOString().slice(0,10)} · v${esc(e.m.vc)}</span>${e.seeker?'<span class="pill i">Seeker wallet</span>':''}${ups[e.id]?`<span class="pill g">helpful · ${ups[e.id].size}</span>`:''}${flags[e.id]?`<span class="pill" style="color:var(--w)">flags · ${flags[e.id].size}</span>`:''}${disputes[e.id]?`<span class="pill" style="color:var(--w)">disputed</span>`:''}<a class="small" href="https://solscan.io/tx/${e.id.split(':')[0]}" target="_blank" rel="noopener">tx</a></div>
+  ${list.map(e=>`<div class="rev"><div class="row"><span class="stars">${stars(e.m.rating)}</span><span class="meta">${esc(e.signer.slice(0,4))}…${esc(e.signer.slice(-4))} · ${new Date(e.t*1000).toISOString().slice(0,10)} · v${esc(e.m.vc)}</span>${e.seeker?'<span class="pill i">Seeker wallet</span>':''}${ups[e.id]?`<span class="pill g">helpful · ${ups[e.id].size}</span>`:''}${flags[e.id]?`<span class="pill" style="color:var(--w)">flags · ${flags[e.id].size}</span>`:''}${disputes[e.id]?`<span class="pill" style="color:var(--w)">disputed</span>`:''}${ex[e.id]?.use?`<span class="pill">on their phone · ${USE[ex[e.id].use]}</span>`:''}${ex[e.id]?.tim?`<span class="pill">used · ${TIM[ex[e.id].tim]}</span>`:''}<a class="small" href="https://solscan.io/tx/${e.id.split(':')[0]}" target="_blank" rel="noopener">tx</a></div>
    <div class="row">${e.m.tags.map(t=>`<span class="tag">${TAGS[t]}</span>`).join('')}</div>${e.m.text?`<p class="txt">${esc(e.m.text)}</p>`:''}
    ${(replies[e.id]||[]).map(r=>`<div class="small" style="margin:6px 0 0 12px">↳ ${esc(r.signer.slice(0,4))}…${esc(r.signer.slice(-4))}${(claims[pkg]||[]).includes(r.signer)?' <span class="pill g">publisher claim</span>':''}: ${esc(r.m.text||'')}</div>`).join('')}</div>`).join('')}</div>`)}
  const t=k=>entries.filter(e=>e.m.t===k).length, pct=(a,b)=>b?Math.round(100*a/b)+'%':'—';

@@ -46,7 +46,7 @@ server.tool("inbox", "Publisher and reviewer queues for the operator's wallets (
 
 server.tool("app_reviews", "Signed reviews of one package from the ledger, with replies, flags and withdrawal state.", { package: z.string() }, async ({ package: pkg }) => {
   const entries = L.loadCache().entries; const d = L.derive(entries);
-  const rows = d.live.filter((e) => e.m.pkg === pkg).map((e) => ({ id: e.id, rating: e.m.rating, tags: e.m.tags, text: e.m.text, version: e.m.vc, by: who(e), signer: e.signer, seekerWallet: e.seeker, at: new Date(e.t * 1000).toISOString(), flags: d.flags[e.id]?.size || 0, clears: d.clears[e.id]?.size || 0, helpful: d.ups[e.id]?.size || 0, dispute: d.disputes[e.id] || null, replies: (d.replies[e.id] || []).map((r) => ({ id: r.id, by: who(r), text: r.m.text, at: new Date(r.t * 1000).toISOString() })) }));
+  const rows = d.live.filter((e) => e.m.pkg === pkg).map((e) => ({ id: e.id, rating: e.m.rating, tags: e.m.tags, text: e.m.text, version: e.m.vc, by: who(e), signer: e.signer, seekerWallet: e.seeker, at: new Date(e.t * 1000).toISOString(), flags: d.flags[e.id]?.size || 0, clears: d.clears[e.id]?.size || 0, helpful: d.ups[e.id]?.size || 0, dispute: d.disputes[e.id] || null, installedOnTheirPhone: d.extras[e.id]?.use || null, usedOnTheirPhone: d.extras[e.id]?.tim || null, replies: (d.replies[e.id] || []).map((r) => ({ id: r.id, by: who(r), text: r.m.text, at: new Date(r.t * 1000).toISOString() })) }));
   const mean = rows.length ? rows.reduce((s, r) => s + r.rating, 0) / rows.length : null;
   return text({ package: pkg, signed: rows.length, unweightedMean: mean, verifiedClaimsOnChain: [...(d.claims[pkg] || [])], reviews: rows });
 });

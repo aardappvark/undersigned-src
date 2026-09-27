@@ -52,9 +52,18 @@ export function decode(raw) {
     // A shared Pro seat, named by the pair hash (SHA-256(granter:grantee)[:16]); shx takes it back.
     case "shr": return f.length === 3 && /^[0-9a-f]{32}$/.test(f[2]) ? { t: "shr", tag: f[2] } : null;
     case "shx": return f.length === 3 && /^[0-9a-f]{32}$/.test(f[2]) ? { t: "shx", tag: f[2] } : null;
+    // The reviewer's device report riding in the review's own transaction (install age, usage time): shown, never scored.
+    case "use": return f.length === 4 && PKG.test(f[2]) && USE[f[3]] ? { t: "use", pkg: f[2], b: f[3] } : null;
+    case "tim": return f.length === 4 && PKG.test(f[2]) && TIM[f[3]] ? { t: "tim", pkg: f[2], b: f[3] } : null;
+    // A verified publisher's signed note on a dApp Store review of their app.
+    case "snt": return f.length === 5 && PKG.test(f[2]) && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(f[3]) && f[4] ? { t: "snt", pkg: f[2], rid: f[3], text: b64u(f[4]) } : null;
+    case "trs": return f.length === 4 && PKG.test(f[2]) ? { t: "trs", pkg: f[2], code: f[3] } : null;
+    case "trx": return f.length === 3 && PKG.test(f[2]) ? { t: "trx", pkg: f[2] } : null;
     default: return null;
   }
 }
+export const USE = { d0: "under a day", d1: "1–6 days", w1: "1–4 weeks", m1: "1–3 months", m3: "3+ months" };
+export const TIM = { t0: "under 10 minutes", t1: "10–60 minutes", t2: "1–5 hours", t3: "5–20 hours", t4: "20+ hours" };
 export function encodeReply(target, text) {
   if (!SIG.test(target)) throw new Error("bad record id");
   text = text.trim(); if (!text || text.length > 140 || Buffer.byteLength(text) > 280 || /[|\n\r]/.test(text)) throw new Error("reply text must be 1–140 chars, ≤280 bytes, no '|' or newlines");
@@ -113,10 +122,13 @@ export function derive(entries) {
   const ups = {}; for (const e of entries.filter((e) => e.m.t === "up")) { const author = bySig[e.m.target]?.signer; if (author === e.signer) continue; (ups[e.m.target] = ups[e.m.target] || new Set()).add(e.signer); }
   const disputes = {}; for (const e of entries.filter((e) => e.m.t === "dsp")) if (bySig[e.m.target]?.signer === e.signer && !disputes[e.m.target]) disputes[e.m.target] = e.m.text;
   const live = entries.filter((e) => e.m.t === "rev" && !revoked.has(e.id));
+  // Install age / usage time attach to the review in the SAME transaction, same signer, same app.
+  const extras = {}; for (const e of entries) { if (e.m.t !== "use" && e.m.t !== "tim") continue; const r = bySig[e.id.split(":")[0]];
+    if (!r || r.m.t !== "rev" || r.signer !== e.signer || r.m.pkg !== e.m.pkg) continue; (extras[r.id] = extras[r.id] || {})[e.m.t] = e.m.t === "use" ? USE[e.m.b] : TIM[e.m.b]; }
   // Licence records per wallet (unverified here: the memo says a term was bought; only balances prove it) and active share seats per granter.
   const licences = {}; for (const e of entries.filter((e) => e.m.t === "pro")) (licences[e.signer] = licences[e.signer] || []).push({ id: e.id, months: e.m.months, at: e.t });
   const shares = {}; for (const e of [...entries].sort((a, b) => a.t - b.t)) { if (e.m.t !== "shr" && e.m.t !== "shx") continue; const seats = (shares[e.signer] = shares[e.signer] || []); if (e.m.t === "shx") { const i = seats.indexOf(e.m.tag); if (i >= 0) seats.splice(i, 1); } else if (!seats.includes(e.m.tag)) { seats.push(e.m.tag); if (seats.length > 2) seats.shift(); } }
-  return { bySig, revoked, replies, claims, flags, clears, ups, disputes, live, licences, shares };
+  return { bySig, revoked, replies, claims, flags, clears, ups, disputes, live, licences, shares, extras };
 }
 
 export function stars() { try { return new Set(JSON.parse(fs.readFileSync(STARS, "utf8"))); } catch { return new Set(); } }
