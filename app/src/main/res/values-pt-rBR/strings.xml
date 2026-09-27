@@ -544,6 +544,18 @@
     <string name="ratings_tracked">Notas por estrelas rastreadas neste telefone desde %1$s · Instantâneos: %2$d</string>
     <string name="notif_burst_title">%1$s: onda de avaliações</string>
     <string name="pay_paid_pill">Pago por este app</string>
+    <string name="pay_usd_paid">USD no dia de cada pagamento</string>
+    <string name="pay_usd_both">USD no dia de cada pagamento quando os preços são conhecidos, senão nos preços de hoje</string>
+    <string name="pay_own">Deixados de fora: pagamentos das próprias carteiras do publicador: %1$d</string>
+    <string name="season_pill">Durante %1$s</string>
+    <string name="season_share">Escritas durante temporadas de recompensa: %1$d de %2$d avaliações da loja lidas</string>
+    <string name="note_title">Nota assinada do publicador</string>
+    <string name="note_add">Adicionar uma nota assinada</string>
+    <string name="note_update">Atualizar minha nota assinada</string>
+    <string name="note_dialog_title">Assinar uma nota nesta avaliação da loja</string>
+    <string name="note_dialog_body">Sua nota é assinada pela sua carteira e é permanente. Os leitores a veem sob esta avaliação, marcada como do publicador. Retirá-la depois deixa o registro on-chain.</string>
+    <string name="note_hint">Sua nota</string>
+    <string name="note_sign">Assinar a nota</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Monitoramento da loja</string>
@@ -579,7 +591,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Painel de pagamentos</string>
-    <string name="pay_intro">dApps cujo publicador confirmou uma tesouraria. São contados: pagamentos recebidos on-chain em SOL, SKR e USDC cujo memo começa com o código do dApp. A receita off-chain não é exibida.</string>
+    <string name="pay_intro">dApps cujo publicador confirmou uma tesouraria. São contados: pagamentos recebidos on-chain em SOL, SKR e USDC que trazem o código de memo do dApp ou sua conta de referência. A receita off-chain não é exibida.</string>
     <string name="pay_usd_note">USD nos preços de hoje</string>
     <string name="pay_row">Pagamentos: %1$d · Pagadores: %2$d · Com dispositivo atestado: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -592,18 +604,18 @@
     <string name="pay_preview_title">Pré-visualizar uma tesouraria</string>
     <string name="pay_preview_body">Qualquer pessoa pode pré-visualizar pagamentos públicos. Só é listada uma tesouraria confirmada tanto pela carteira quanto pelo site do publicador.</string>
     <string name="pay_field_treasury">Carteira de tesouraria</string>
-    <string name="pay_field_code">Código de memo</string>
+    <string name="pay_field_code">Código de memo ou conta de referência</string>
     <string name="pay_field_package">Nome do pacote</string>
     <string name="pay_preview">Pré-visualizar</string>
     <string name="pay_list_title">Liste seu dApp</string>
     <string name="pay_list_step1">1. Adicione esta linha a /.well-known/undersigned.txt no site que a dApp Store lista para seu app:</string>
-    <string name="pay_list_step2">2. Com a sessão iniciada nessa carteira de tesouraria, assine a listagem abaixo. Só são contados pagamentos cujo memo começa com o código.</string>
+    <string name="pay_list_step2">2. Com a sessão iniciada nessa carteira de tesouraria, assine a listagem abaixo. O código é o seu código de memo de pagamento ou sua conta de referência de pagamento; só são contados pagamentos que o trazem.</string>
     <string name="pay_sign">Assinar como esta tesouraria</string>
     <string name="pay_my_claims">Suas listagens de tesouraria</string>
     <string name="pay_claim_confirmed">Confirmado pelo site</string>
     <string name="pay_claim_waiting">Aguardando a linha no site</string>
     <string name="pay_withdraw">Retirar listagem</string>
-    <string name="pay_bad_input">Verifique o nome do pacote e o código (2–32 letras, dígitos, - ou _).</string>
+    <string name="pay_bad_input">Verifique o nome do pacote e o código (um código de memo de 2–31 letras, dígitos, - ou _, ou um endereço de conta de referência).</string>
     <string name="pay_open">Painel de pagamentos</string>
     <string name="pay_waiting_list">Listado pela tesouraria, ainda não confirmado pelo site: %1$d</string>
 </resources>

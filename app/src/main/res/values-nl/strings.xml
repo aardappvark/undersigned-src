@@ -529,6 +529,18 @@
     <string name="ratings_tracked">Sterbeoordelingen bijgehouden op deze telefoon sinds %1$s · Momentopnames: %2$d</string>
     <string name="notif_burst_title">%1$s: recensiegolf</string>
     <string name="pay_paid_pill">Betaald voor deze app</string>
+    <string name="pay_usd_paid">USD op de dag van elke betaling</string>
+    <string name="pay_usd_both">USD op de dag van elke betaling waar koersen bekend zijn, anders tegen de huidige koersen</string>
+    <string name="pay_own">Weggelaten: betalingen van de eigen wallets van de uitgever: %1$d</string>
+    <string name="season_pill">Tijdens %1$s</string>
+    <string name="season_share">Geschreven tijdens beloningsseizoenen: %1$d van %2$d storerecensies gelezen</string>
+    <string name="note_title">Ondertekende notitie van de uitgever</string>
+    <string name="note_add">Ondertekende notitie toevoegen</string>
+    <string name="note_update">Mijn ondertekende notitie bijwerken</string>
+    <string name="note_dialog_title">Onderteken een notitie bij deze storerecensie</string>
+    <string name="note_dialog_body">Uw notitie wordt ondertekend door uw wallet en is permanent. Lezers zien deze onder deze recensie, gemarkeerd als van de uitgever. Later intrekken laat het record on-chain staan.</string>
+    <string name="note_hint">Uw notitie</string>
+    <string name="note_sign">Notitie ondertekenen</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Storebewaking</string>
@@ -564,7 +576,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Betalingenoverzicht</string>
-    <string name="pay_intro">dApps waarvan de uitgever een treasury heeft bevestigd. Geteld: on-chain ontvangen betalingen in SOL, SKR en USDC waarvan het memo begint met de code van de dApp. Off-chain-inkomsten worden niet getoond.</string>
+    <string name="pay_intro">dApps waarvan de uitgever een treasury heeft bevestigd. Geteld: on-chain ontvangen betalingen in SOL, SKR en USDC die de memocode van de dApp of de referentierekening dragen. Off-chain-inkomsten worden niet getoond.</string>
     <string name="pay_usd_note">USD tegen de huidige koersen</string>
     <string name="pay_row">Betalingen: %1$d · Betalers: %2$d · Met geattesteerd apparaat: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -577,18 +589,18 @@
     <string name="pay_preview_title">Voorbeeld van een treasury</string>
     <string name="pay_preview_body">Iedereen kan openbare betalingen bekijken. Alleen een treasury die zowel door de wallet als door de website van de uitgever is bevestigd, wordt vermeld.</string>
     <string name="pay_field_treasury">Treasury-wallet</string>
-    <string name="pay_field_code">Memocode</string>
+    <string name="pay_field_code">Memocode of referentierekening</string>
     <string name="pay_field_package">Pakketnaam</string>
     <string name="pay_preview">Voorbeeld</string>
     <string name="pay_list_title">Uw dApp vermelden</string>
     <string name="pay_list_step1">1. Voeg deze regel toe aan /.well-known/undersigned.txt op de website die de dApp Store voor uw app vermeldt:</string>
-    <string name="pay_list_step2">2. Aangemeld met die treasury-wallet, ondertekent u de vermelding hieronder. Alleen betalingen waarvan het memo begint met de code worden geteld.</string>
+    <string name="pay_list_step2">2. Aangemeld met die treasury-wallet, ondertekent u de vermelding hieronder. De code is óf uw betalingsmemocode óf uw betalingsreferentierekening; alleen betalingen die deze dragen, worden geteld.</string>
     <string name="pay_sign">Ondertekenen als deze treasury</string>
     <string name="pay_my_claims">Uw treasury-vermeldingen</string>
     <string name="pay_claim_confirmed">Bevestigd door de website</string>
     <string name="pay_claim_waiting">Wacht op de regel op de website</string>
     <string name="pay_withdraw">Vermelding intrekken</string>
-    <string name="pay_bad_input">Controleer de pakketnaam en de code (2–32 letters, cijfers, - of _).</string>
+    <string name="pay_bad_input">Controleer de pakketnaam en de code (een memocode van 2–31 letters, cijfers, - of _, of een referentierekeningadres).</string>
     <string name="pay_open">Betalingenoverzicht</string>
     <string name="pay_waiting_list">Vermeld door de treasury, nog niet bevestigd door de website: %1$d</string>
 </resources>

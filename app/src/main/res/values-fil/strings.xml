@@ -540,6 +540,18 @@
     <string name="ratings_tracked">Sinusubaybayan ang star rating sa telepono na ito mula noong %1$s · Mga snapshot: %2$d</string>
     <string name="notif_burst_title">%1$s: review burst</string>
     <string name="pay_paid_pill">Nagbayad para sa app na ito</string>
+    <string name="pay_usd_paid">USD sa araw ng bawat payment</string>
+    <string name="pay_usd_both">USD sa araw ng bawat payment kung saan alam ang presyo, kung hindi ay sa presyo ngayon</string>
+    <string name="pay_own">Hindi kasama: mga payment mula sa sariling wallet ng publisher: %1$d</string>
+    <string name="season_pill">Habang %1$s</string>
+    <string name="season_share">Isinulat habang reward season: %1$d sa %2$d store review ang nabasa</string>
+    <string name="note_title">Naka-sign na note ng publisher</string>
+    <string name="note_add">Magdagdag ng naka-sign na note</string>
+    <string name="note_update">I-update ang naka-sign kong note</string>
+    <string name="note_dialog_title">Pumirma ng note sa store review na ito</string>
+    <string name="note_dialog_body">Naka-sign ang note mo gamit ang wallet mo at permanent ito. Makikita ito ng mga mambabasa sa ilalim ng review na ito, naka-mark bilang sa publisher. Kapag ni-withdraw mo ito mamaya, mananatili pa rin ang record on-chain.</string>
+    <string name="note_hint">Ang note mo</string>
+    <string name="note_sign">I-sign ang note</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Pagbantay sa store</string>
@@ -575,7 +587,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Payments Board</string>
-    <string name="pay_intro">Mga dApp na kinumpirma ng publisher ang treasury. Binibilang: mga payment na natanggap on-chain sa SOL, SKR, at USDC kung saan nagsisimula ang memo sa code ng dApp. Hindi ipinapakita ang off-chain na kita.</string>
+    <string name="pay_intro">Mga dApp na kinumpirma ng publisher ang treasury. Binibilang: mga payment na natanggap on-chain sa SOL, SKR, at USDC na may dalang memo code ng dApp o reference account nito. Hindi ipinapakita ang off-chain na kita.</string>
     <string name="pay_usd_note">USD sa presyo ngayon</string>
     <string name="pay_row">Payment: %1$d · Payer: %2$d · May na-verify na device: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -588,18 +600,18 @@
     <string name="pay_preview_title">I-preview ang isang treasury</string>
     <string name="pay_preview_body">Kahit sino ay makaka-preview ng mga pampublikong payment. Isang treasury lang na kinumpirma ng wallet at ng website ng publisher ang nakalista.</string>
     <string name="pay_field_treasury">Treasury wallet</string>
-    <string name="pay_field_code">Memo code</string>
+    <string name="pay_field_code">Memo code o reference account</string>
     <string name="pay_field_package">Package name</string>
     <string name="pay_preview">I-preview</string>
     <string name="pay_list_title">I-list ang iyong dApp</string>
     <string name="pay_list_step1">1. Idagdag ang linyang ito sa /.well-known/undersigned.txt sa website na nakalista ng dApp Store para sa iyong app:</string>
-    <string name="pay_list_step2">2. Pagkatapos mag-sign in gamit ang treasury wallet na iyon, i-sign ang listing sa ibaba. Ang mga payment lang na nagsisimula ang memo sa code ang binibilang.</string>
+    <string name="pay_list_step2">2. Pagkatapos mag-sign in gamit ang treasury wallet na iyon, i-sign ang listing sa ibaba. Ang code ay maaaring ang iyong payment memo code o ang iyong payment reference account; ang mga payment lang na may dala nito ang binibilang.</string>
     <string name="pay_sign">Mag-sign bilang treasury na ito</string>
     <string name="pay_my_claims">Ang iyong mga treasury listing</string>
     <string name="pay_claim_confirmed">Kinumpirma ng website</string>
     <string name="pay_claim_waiting">Hinihintay ang linya sa website</string>
     <string name="pay_withdraw">I-withdraw ang listing</string>
-    <string name="pay_bad_input">I-check ang package name at code (2–32 na letra, digit, - o _).</string>
+    <string name="pay_bad_input">I-check ang package name at code (isang memo code na 2–31 na letra, digit, - o _, o isang reference account address).</string>
     <string name="pay_open">Payments Board</string>
     <string name="pay_waiting_list">Nakalista ng treasury, hindi pa kinumpirma ng website: %1$d</string>
 </resources>

@@ -515,6 +515,18 @@
     <string name="ratings_tracked">ติดตามคะแนนดาวบนโทรศัพท์เครื่องนี้ตั้งแต่ %1$s · สแนปช็อต: %2$d</string>
     <string name="notif_burst_title">%1$s: การพุ่งขึ้นของรีวิว</string>
     <string name="pay_paid_pill">จ่ายเงินสำหรับแอปนี้แล้ว</string>
+    <string name="pay_usd_paid">USD ตามราคาวันที่ชำระเงินแต่ละครั้ง</string>
+    <string name="pay_usd_both">USD ตามราคาวันที่ชำระเงินแต่ละครั้งเมื่อทราบราคา มิฉะนั้นตามราคาวันนี้</string>
+    <string name="pay_own">ไม่นับรวม: การชำระเงินจากกระเป๋าเงินของผู้เผยแพร่เอง: %1$d</string>
+    <string name="season_pill">ในช่วง %1$s</string>
+    <string name="season_share">เขียนในช่วงฤดูกาลรางวัล: อ่านแล้ว %1$d จาก %2$d รีวิวสโตร์</string>
+    <string name="note_title">บันทึกที่ลงลายเซ็นโดยผู้เผยแพร่</string>
+    <string name="note_add">เพิ่มบันทึกที่ลงลายเซ็น</string>
+    <string name="note_update">อัปเดตบันทึกที่ลงลายเซ็นของฉัน</string>
+    <string name="note_dialog_title">ลงลายเซ็นบันทึกในรีวิวสโตร์นี้</string>
+    <string name="note_dialog_body">บันทึกของคุณลงลายเซ็นโดยกระเป๋าเงินของคุณและถาวร ผู้อ่านจะเห็นบันทึกนี้อยู่ใต้รีวิวนี้ โดยระบุว่าเป็นของผู้เผยแพร่ การถอนบันทึกในภายหลังจะยังคงทิ้งบันทึกไว้บนเชน</string>
+    <string name="note_hint">บันทึกของคุณ</string>
+    <string name="note_sign">ลงลายเซ็นบันทึก</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">เฝ้าติดตามสโตร์</string>
@@ -550,7 +562,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">กระดานการชำระเงิน</string>
-    <string name="pay_intro">dApps ที่ผู้เผยแพร่ยืนยันคลังแล้ว นับเฉพาะ: การชำระเงินที่ได้รับบนเชนเป็น SOL, SKR และ USDC ซึ่งเมโมขึ้นต้นด้วยรหัสของ dApp รายได้นอกเชนจะไม่แสดง</string>
+    <string name="pay_intro">dApps ที่ผู้เผยแพร่ยืนยันคลังแล้ว นับเฉพาะ: การชำระเงินที่ได้รับบนเชนเป็น SOL, SKR และ USDC ที่มีรหัสเมโมของ dApp หรือบัญชีอ้างอิงของ dApp นั้น รายได้นอกเชนจะไม่แสดง</string>
     <string name="pay_usd_note">USD ตามราคาวันนี้</string>
     <string name="pay_row">การชำระเงิน: %1$d · ผู้จ่ายเงิน: %2$d · มีอุปกรณ์ที่ได้รับการรับรอง: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -563,18 +575,18 @@
     <string name="pay_preview_title">ดูตัวอย่างคลัง</string>
     <string name="pay_preview_body">ใครก็ดูตัวอย่างการชำระเงินสาธารณะได้ มีเพียงคลังที่ได้รับการยืนยันทั้งจากกระเป๋าเงินและเว็บไซต์ของผู้เผยแพร่เท่านั้นที่จะถูกแสดงในรายการ</string>
     <string name="pay_field_treasury">กระเป๋าเงินคลัง</string>
-    <string name="pay_field_code">รหัสเมโม</string>
+    <string name="pay_field_code">รหัสเมโมหรือบัญชีอ้างอิง</string>
     <string name="pay_field_package">ชื่อแพ็กเกจ</string>
     <string name="pay_preview">ดูตัวอย่าง</string>
     <string name="pay_list_title">ลงรายการ dApp ของคุณ</string>
     <string name="pay_list_step1">1. เพิ่มบรรทัดนี้ไปที่ /.well-known/undersigned.txt บนเว็บไซต์ที่ dApp Store ระบุไว้สำหรับแอปของคุณ:</string>
-    <string name="pay_list_step2">2. เข้าสู่ระบบด้วยกระเป๋าเงินคลังนั้น แล้วลงลายเซ็นในรายการด้านล่าง มีเพียงการชำระเงินที่เมโมขึ้นต้นด้วยรหัสเท่านั้นที่จะถูกนับ</string>
+    <string name="pay_list_step2">2. เข้าสู่ระบบด้วยกระเป๋าเงินคลังนั้น แล้วลงลายเซ็นในรายการด้านล่าง รหัสคือรหัสเมโมการชำระเงินของคุณหรือบัญชีอ้างอิงการชำระเงินของคุณ มีเพียงการชำระเงินที่มีรหัสนี้เท่านั้นที่จะถูกนับ</string>
     <string name="pay_sign">ลงลายเซ็นในฐานะคลังนี้</string>
     <string name="pay_my_claims">รายการคลังของคุณ</string>
     <string name="pay_claim_confirmed">ยืนยันแล้วโดยเว็บไซต์</string>
     <string name="pay_claim_waiting">รอบรรทัดจากเว็บไซต์</string>
     <string name="pay_withdraw">ถอนรายการ</string>
-    <string name="pay_bad_input">ตรวจสอบชื่อแพ็กเกจและรหัส (2–32 ตัวอักษร ตัวเลข - หรือ _)</string>
+    <string name="pay_bad_input">ตรวจสอบชื่อแพ็กเกจและรหัส (รหัสเมโมที่มีตัวอักษร ตัวเลข - หรือ _ จำนวน 2–31 ตัว หรือที่อยู่บัญชีอ้างอิง)</string>
     <string name="pay_open">กระดานการชำระเงิน</string>
     <string name="pay_waiting_list">ลงรายการโดยคลัง แต่ยังไม่ได้รับการยืนยันจากเว็บไซต์: %1$d</string>
 </resources>

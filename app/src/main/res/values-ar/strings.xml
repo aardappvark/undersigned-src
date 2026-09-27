@@ -568,6 +568,18 @@
     <string name="ratings_tracked">تقييمات النجوم متتبَّعة على هذا الهاتف منذ %1$s · لقطات: %2$d</string>
     <string name="notif_burst_title">%1$s: طفرة في المراجعات</string>
     <string name="pay_paid_pill">تم الدفع مقابل هذا التطبيق</string>
+    <string name="pay_usd_paid">USD بسعر يوم كل دفعة</string>
+    <string name="pay_usd_both">USD بسعر يوم كل دفعة حيثما كانت الأسعار معروفة، وإلا فبأسعار اليوم</string>
+    <string name="pay_own">مستبعد: مدفوعات من محافظ الناشر الخاصة: %1$d</string>
+    <string name="season_pill">خلال %1$s</string>
+    <string name="season_share">كُتبت خلال مواسم المكافآت: %1$d من %2$d من مراجعات المتجر مقروءة</string>
+    <string name="note_title">ملاحظة موقّعة من الناشر</string>
+    <string name="note_add">إضافة ملاحظة موقّعة</string>
+    <string name="note_update">تحديث ملاحظتي الموقّعة</string>
+    <string name="note_dialog_title">توقيع ملاحظة على مراجعة المتجر هذه</string>
+    <string name="note_dialog_body">تُوقّع ملاحظتك بمحفظتك وهي دائمة. يراها القرّاء أسفل هذه المراجعة، موسومة بأنها من الناشر. سحبها لاحقًا يترك السجل على السلسلة.</string>
+    <string name="note_hint">ملاحظتك</string>
+    <string name="note_sign">توقيع الملاحظة</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">مراقبة المتجر</string>
@@ -603,7 +615,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">لوحة المدفوعات</string>
-    <string name="pay_intro">dApps التي أكّد ناشرها وجود خزينة. يُحتسب: المدفوعات المستلمة على السلسلة بعملات SOL وSKR وUSDC والتي تبدأ مذكرتها برمز dApp. الإيرادات خارج السلسلة غير معروضة.</string>
+    <string name="pay_intro">dApps التي أكّد ناشرها وجود خزينة. يُحتسب: المدفوعات المستلمة على السلسلة بعملات SOL، SKR وUSDC والتي تحمل رمز مذكرة dApp أو حسابها المرجعي. الإيرادات خارج السلسلة غير معروضة.</string>
     <string name="pay_usd_note">USD بأسعار اليوم</string>
     <string name="pay_row">المدفوعات: %1$d · الدافعون: %2$d · بجهاز مصادق: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -616,18 +628,18 @@
     <string name="pay_preview_title">معاينة خزينة</string>
     <string name="pay_preview_body">يمكن لأي شخص معاينة المدفوعات العامة. لا يُدرَج إلا خزينة أكّدتها المحفظة وموقع الناشر معًا.</string>
     <string name="pay_field_treasury">محفظة الخزينة</string>
-    <string name="pay_field_code">رمز المذكرة</string>
+    <string name="pay_field_code">رمز المذكرة أو الحساب المرجعي</string>
     <string name="pay_field_package">اسم الحزمة</string>
     <string name="pay_preview">معاينة</string>
     <string name="pay_list_title">أدرِج dApp الخاص بك</string>
     <string name="pay_list_step1">1. أضف هذا السطر إلى /.well-known/undersigned.txt على الموقع الذي يدرجه dApp Store لتطبيقك:</string>
-    <string name="pay_list_step2">2. بعد تسجيل الدخول بمحفظة الخزينة تلك، وقّع الإدراج أدناه. لا تُحتسب إلا المدفوعات التي تبدأ مذكرتها بالرمز.</string>
+    <string name="pay_list_step2">2. بعد تسجيل الدخول بمحفظة الخزينة تلك، وقّع الإدراج أدناه. الرمز إما رمز مذكرة الدفع الخاص بك أو حساب الدفع المرجعي الخاص بك؛ ولا تُحتسب إلا المدفوعات التي تحمله.</string>
     <string name="pay_sign">التوقيع كهذه الخزينة</string>
     <string name="pay_my_claims">إدراجات خزينتك</string>
     <string name="pay_claim_confirmed">مؤكَّد من الموقع</string>
     <string name="pay_claim_waiting">بانتظار سطر الموقع</string>
     <string name="pay_withdraw">سحب الإدراج</string>
-    <string name="pay_bad_input">تحقّق من اسم الحزمة والرمز (2–32 حرفًا أو رقمًا أو - أو _).</string>
+    <string name="pay_bad_input">تحقّق من اسم الحزمة والرمز (رمز مذكرة مكوّن من 2–31 حرفًا أو رقمًا أو - أو _، أو عنوان حساب مرجعي).</string>
     <string name="pay_open">لوحة المدفوعات</string>
     <string name="pay_waiting_list">مُدرَجة من الخزينة، ولم تُؤكَّد من الموقع بعد: %1$d</string>
 </resources>

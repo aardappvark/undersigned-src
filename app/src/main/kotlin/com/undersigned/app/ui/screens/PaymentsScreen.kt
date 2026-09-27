@@ -81,7 +81,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             Text(stringResource(R.string.pay_intro), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
-            Text(stringResource(R.string.pay_usd_note), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
+            Text(stringResource(R.string.pay_usd_both), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
             if (loading) { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.pay_loading), color = RbColors.purpleLight, fontSize = 12.sp) }
 
             val listed = rows.filter { it.confirmed && it.tally != null }
@@ -170,13 +170,14 @@ fun TallyView(row: MainViewModel.BoardRow, quotes: Map<String, Prices.Quote>) {
     val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
     Row(verticalAlignment = Alignment.CenterVertically) {
         row.usd?.let { Text(usd(it), color = RbColors.textPrimary, fontSize = 26.sp, fontWeight = FontWeight.ExtraBold); Spacer(Modifier.width(8.dp)) }
-        Text(stringResource(R.string.pay_usd_note), color = RbColors.textTertiary, fontSize = 11.sp)
+        Text(stringResource(if (row.usdWhenPaid) R.string.pay_usd_paid else R.string.pay_usd_note), color = RbColors.textTertiary, fontSize = 11.sp)
     }
     Text(stringResource(R.string.pay_totals, amount(t.lamports, 9), amount(t.tokens[AppConfig.Solana.SKR_MINT] ?: 0L, 6), amount(t.tokens[PaymentBoard.USDC_MINT] ?: 0L, 6)), color = RbColors.textSecondary, fontSize = 12.sp)
     Text(stringResource(R.string.pay_row, t.payments, t.payers, t.attestedPayers), color = RbColors.textSecondary, fontSize = 12.sp)
     if (t.first != null && t.last != null) Text(stringResource(R.string.pay_range, df.format(Date(t.first!! * 1000)), df.format(Date(t.last!! * 1000))), color = RbColors.textTertiary, fontSize = 11.sp)
+    if (t.ownPayments > 0) Text(stringResource(R.string.pay_own, t.ownPayments), color = RbColors.textTertiary, fontSize = 11.sp)
     if (!row.complete) Text(stringResource(R.string.pay_incomplete), color = RbColors.warning, fontSize = 11.sp)
-    val months = t.months.takeLast(12).map { m -> m to (Prices.usd(m.lamports, m.tokens, quotes) ?: 0.0) }
+    val months = t.months.takeLast(12).map { m -> m to (row.monthUsd[m.key] ?: Prices.usd(m.lamports, m.tokens, quotes) ?: 0.0) }
     val max = months.maxOfOrNull { it.second }?.takeIf { it > 0 } ?: return
     Spacer(Modifier.height(6.dp))
     months.forEach { (m, v) ->

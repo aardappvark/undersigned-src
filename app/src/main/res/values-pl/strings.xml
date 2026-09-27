@@ -555,6 +555,18 @@
     <string name="ratings_tracked">Oceny gwiazdkowe śledzone na tym telefonie od %1$s · Migawki: %2$d</string>
     <string name="notif_burst_title">%1$s: fala recenzji</string>
     <string name="pay_paid_pill">Zapłacono za tę aplikację</string>
+    <string name="pay_usd_paid">USD w dniu każdej płatności</string>
+    <string name="pay_usd_both">USD w dniu każdej płatności, gdy ceny są znane, w przeciwnym razie po dzisiejszych cenach</string>
+    <string name="pay_own">Pominięte: płatności z własnych portfeli wydawcy: %1$d</string>
+    <string name="season_pill">Podczas %1$s</string>
+    <string name="season_share">Napisane podczas sezonów nagród: %1$d z %2$d recenzji sklepu przeczytanych</string>
+    <string name="note_title">Podpisana notatka wydawcy</string>
+    <string name="note_add">Dodaj podpisaną notatkę</string>
+    <string name="note_update">Zaktualizuj moją podpisaną notatkę</string>
+    <string name="note_dialog_title">Podpisz notatkę do tej recenzji sklepu</string>
+    <string name="note_dialog_body">Twoja notatka jest podpisana twoim portfelem i jest trwała. Czytelnicy widzą ją pod tą recenzją, oznaczoną jako notatka wydawcy. Późniejsze wycofanie pozostawia zapis na blockchainie.</string>
+    <string name="note_hint">Twoja notatka</string>
+    <string name="note_sign">Podpisz notatkę</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Obserwacja sklepu</string>
@@ -590,7 +602,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Przegląd płatności</string>
-    <string name="pay_intro">dApps, których wydawca potwierdził skarbiec. Liczone są: płatności otrzymane na blockchainie w SOL, SKR i USDC, których memo zaczyna się kodem dApp. Przychody spoza blockchaina nie są pokazywane.</string>
+    <string name="pay_intro">dApps, których wydawca potwierdził skarbiec. Liczone są: płatności otrzymane na blockchainie w SOL, SKR i USDC, które niosą kod memo dApp lub jej konto referencyjne. Przychody spoza blockchaina nie są pokazywane.</string>
     <string name="pay_usd_note">USD po dzisiejszych cenach</string>
     <string name="pay_row">Płatności: %1$d · Płatnicy: %2$d · Z potwierdzonym urządzeniem: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -603,18 +615,18 @@
     <string name="pay_preview_title">Podgląd skarbca</string>
     <string name="pay_preview_body">Każdy może zobaczyć podgląd publicznych płatności. Wymieniony jest tylko skarbiec potwierdzony zarówno przez portfel, jak i stronę wydawcy.</string>
     <string name="pay_field_treasury">Portfel skarbca</string>
-    <string name="pay_field_code">Kod memo</string>
+    <string name="pay_field_code">Kod memo lub konto referencyjne</string>
     <string name="pay_field_package">Nazwa pakietu</string>
     <string name="pay_preview">Podgląd</string>
     <string name="pay_list_title">Wystaw swoją dApp</string>
     <string name="pay_list_step1">1. Dodaj tę linię do /.well-known/undersigned.txt na stronie, którą dApp Store podaje dla Twojej aplikacji:</string>
-    <string name="pay_list_step2">2. Zalogowany(a) tym portfelem skarbca, podpisz poniższy wpis. Liczone są tylko płatności, których memo zaczyna się tym kodem.</string>
+    <string name="pay_list_step2">2. Zalogowany(a) tym portfelem skarbca, podpisz poniższy wpis. Kod to albo twój kod memo płatności, albo twoje konto referencyjne płatności; liczone są tylko płatności, które go niosą.</string>
     <string name="pay_sign">Podpisz jako ten skarbiec</string>
     <string name="pay_my_claims">Twoje wpisy skarbca</string>
     <string name="pay_claim_confirmed">Potwierdzone przez stronę</string>
     <string name="pay_claim_waiting">Czeka na linię na stronie</string>
     <string name="pay_withdraw">Wycofaj wpis</string>
-    <string name="pay_bad_input">Sprawdź nazwę pakietu i kod (2–32 litery, cyfry, - lub _).</string>
+    <string name="pay_bad_input">Sprawdź nazwę pakietu i kod (kod memo z 2–31 liter, cyfr, - lub _, albo adres konta referencyjnego).</string>
     <string name="pay_open">Przegląd płatności</string>
     <string name="pay_waiting_list">Wystawione przez skarbiec, jeszcze niepotwierdzone przez stronę: %1$d</string>
 </resources>

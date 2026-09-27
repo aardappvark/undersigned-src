@@ -531,6 +531,18 @@
     <string name="ratings_tracked">自 %1$s 起在本機上追蹤的星級評分 · 快照:%2$d</string>
     <string name="notif_burst_title">%1$s:評價激增</string>
     <string name="pay_paid_pill">已為此應用程式付款</string>
+    <string name="pay_usd_paid">依每筆付款當日價格換算的 USD</string>
+    <string name="pay_usd_both">價格已知時依每筆付款當日價格換算的 USD,否則依今日價格換算</string>
+    <string name="pay_own">已排除:來自發行者自有錢包的付款:%1$d</string>
+    <string name="season_pill">%1$s期間</string>
+    <string name="season_share">於獎勵季期間撰寫:已讀 %1$d/%2$d 則商店評價</string>
+    <string name="note_title">發行者的簽署備註</string>
+    <string name="note_add">新增簽署備註</string>
+    <string name="note_update">更新我的簽署備註</string>
+    <string name="note_dialog_title">為此商店評價簽署備註</string>
+    <string name="note_dialog_body">您的備註由您的錢包簽署,且永久保留。讀者會在此評價下方看到該備註,並標記為發行者所留。之後撤回該備註,鏈上記錄仍會保留。</string>
+    <string name="note_hint">您的備註</string>
+    <string name="note_sign">簽署備註</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">商店監測</string>
@@ -566,7 +578,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">付款看板</string>
-    <string name="pay_intro">發行者已確認金庫的 dApp。計入範圍:鏈上收到的、備註以該 dApp 代碼開頭的 SOL、SKR 和 USDC 付款。鏈下收入不予顯示。</string>
+    <string name="pay_intro">發行者已確認金庫的 dApp。計入範圍:鏈上收到的、帶有該 dApp 備註代碼或參考帳戶的 SOL、SKR 和 USDC 付款。鏈下收入不予顯示。</string>
     <string name="pay_usd_note">依今日價格換算為 USD</string>
     <string name="pay_row">付款:%1$d · 付款人:%2$d · 使用已驗證裝置:%3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -579,18 +591,18 @@
     <string name="pay_preview_title">預覽金庫</string>
     <string name="pay_preview_body">任何人都能預覽公開的付款記錄。僅列出經錢包與發行者網站雙方確認的金庫。</string>
     <string name="pay_field_treasury">金庫錢包</string>
-    <string name="pay_field_code">備註代碼</string>
+    <string name="pay_field_code">備註代碼或參考帳戶</string>
     <string name="pay_field_package">套件名稱</string>
     <string name="pay_preview">預覽</string>
     <string name="pay_list_title">登記您的 dApp</string>
     <string name="pay_list_step1">1. 在 dApp Store 為您的應用程式列出的網站上,將以下這一行加入 /.well-known/undersigned.txt:</string>
-    <string name="pay_list_step2">2. 使用該金庫錢包登入後,為下方的登記簽署。僅計入備註以該代碼開頭的付款。</string>
+    <string name="pay_list_step2">2. 使用該金庫錢包登入後,為下方的登記簽署。該代碼可以是您的付款備註代碼,也可以是您的付款參考帳戶;僅計入帶有該代碼的付款。</string>
     <string name="pay_sign">以此金庫身分簽署</string>
     <string name="pay_my_claims">您的金庫登記</string>
     <string name="pay_claim_confirmed">網站已確認</string>
     <string name="pay_claim_waiting">等待網站加入該行</string>
     <string name="pay_withdraw">撤回登記</string>
-    <string name="pay_bad_input">請檢查套件名稱和代碼(2–32 個字母、數字、- 或 _)。</string>
+    <string name="pay_bad_input">請檢查套件名稱和代碼(2–31 個字母、數字、- 或 _ 組成的備註代碼,或一個參考帳戶地址)。</string>
     <string name="pay_open">付款看板</string>
     <string name="pay_waiting_list">金庫已登記但網站尚未確認:%1$d</string>
 </resources>

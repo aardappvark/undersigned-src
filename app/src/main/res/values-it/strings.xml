@@ -544,6 +544,18 @@
     <string name="ratings_tracked">Valutazioni a stelle monitorate su questo telefono dal %1$s · Istantanee: %2$d</string>
     <string name="notif_burst_title">%1$s: ondata di recensioni</string>
     <string name="pay_paid_pill">Pagato per questa app</string>
+    <string name="pay_usd_paid">USD al giorno di ogni pagamento</string>
+    <string name="pay_usd_both">USD al giorno di ogni pagamento dove i prezzi sono noti, altrimenti ai prezzi odierni</string>
+    <string name="pay_own">Esclusi: pagamenti dai portafogli propri dell\'editore: %1$d</string>
+    <string name="season_pill">Durante %1$s</string>
+    <string name="season_share">Scritte durante stagioni premio: %1$d su %2$d recensioni dello store lette</string>
+    <string name="note_title">Nota firmata dell\'editore</string>
+    <string name="note_add">Aggiungi una nota firmata</string>
+    <string name="note_update">Aggiorna la mia nota firmata</string>
+    <string name="note_dialog_title">Firma una nota su questa recensione dello store</string>
+    <string name="note_dialog_body">La tua nota è firmata dal tuo portafoglio ed è permanente. I lettori la vedono sotto questa recensione, contrassegnata come dell\'editore. Ritirarla in seguito lascia il registro on-chain.</string>
+    <string name="note_hint">La tua nota</string>
+    <string name="note_sign">Firma la nota</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Controllo dello store</string>
@@ -579,7 +591,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Pannello dei pagamenti</string>
-    <string name="pay_intro">dApp il cui editore ha confermato una tesoreria. Vengono conteggiati: i pagamenti ricevuti on-chain in SOL, SKR e USDC il cui memo inizia con il codice della dApp. Le entrate off-chain non vengono mostrate.</string>
+    <string name="pay_intro">dApp il cui editore ha confermato una tesoreria. Vengono conteggiati: i pagamenti ricevuti on-chain in SOL, SKR e USDC che portano il codice memo della dApp o il suo conto di riferimento. Le entrate off-chain non vengono mostrate.</string>
     <string name="pay_usd_note">USD ai prezzi odierni</string>
     <string name="pay_row">Pagamenti: %1$d · Paganti: %2$d · Con dispositivo attestato: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -592,18 +604,18 @@
     <string name="pay_preview_title">Anteprima di una tesoreria</string>
     <string name="pay_preview_body">Chiunque può visualizzare in anteprima i pagamenti pubblici. Viene elencata solo una tesoreria confermata sia dal portafoglio sia dal sito web dell\'editore.</string>
     <string name="pay_field_treasury">Portafoglio di tesoreria</string>
-    <string name="pay_field_code">Codice memo</string>
+    <string name="pay_field_code">Codice memo o conto di riferimento</string>
     <string name="pay_field_package">Nome del pacchetto</string>
     <string name="pay_preview">Anteprima</string>
     <string name="pay_list_title">Elenca la tua dApp</string>
     <string name="pay_list_step1">1. Aggiungi questa riga a /.well-known/undersigned.txt sul sito web che il dApp Store elenca per la tua app:</string>
-    <string name="pay_list_step2">2. Accedi con quel portafoglio di tesoreria e firma l\'inserzione qui sotto. Vengono conteggiati solo i pagamenti il cui memo inizia con il codice.</string>
+    <string name="pay_list_step2">2. Accedi con quel portafoglio di tesoreria e firma l\'inserzione qui sotto. Il codice è il tuo codice memo di pagamento oppure il tuo conto di riferimento di pagamento; vengono conteggiati solo i pagamenti che lo portano.</string>
     <string name="pay_sign">Firma come questa tesoreria</string>
     <string name="pay_my_claims">Le tue inserzioni di tesoreria</string>
     <string name="pay_claim_confirmed">Confermato dal sito web</string>
     <string name="pay_claim_waiting">In attesa della riga sul sito web</string>
     <string name="pay_withdraw">Ritira inserzione</string>
-    <string name="pay_bad_input">Controlla il nome del pacchetto e il codice (2–32 lettere, cifre, - o _).</string>
+    <string name="pay_bad_input">Controlla il nome del pacchetto e il codice (un codice memo di 2–31 lettere, cifre, - o _, oppure un indirizzo di conto di riferimento).</string>
     <string name="pay_open">Pannello dei pagamenti</string>
     <string name="pay_waiting_list">Elencato dalla tesoreria, non ancora confermato dal sito web: %1$d</string>
 </resources>

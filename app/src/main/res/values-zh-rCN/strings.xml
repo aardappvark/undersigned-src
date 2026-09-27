@@ -531,6 +531,18 @@
     <string name="ratings_tracked">自 %1$s 起在本机上跟踪的星级评分 · 快照:%2$d</string>
     <string name="notif_burst_title">%1$s:评价激增</string>
     <string name="pay_paid_pill">已为此应用付费</string>
+    <string name="pay_usd_paid">按每笔付款当日价格换算的 USD</string>
+    <string name="pay_usd_both">价格已知时按每笔付款当日价格换算的 USD,否则按今日价格换算</string>
+    <string name="pay_own">已排除:来自发布者自有钱包的付款:%1$d</string>
+    <string name="season_pill">%1$s期间</string>
+    <string name="season_share">在奖励季期间撰写:已读 %1$d/%2$d 条商店评价</string>
+    <string name="note_title">发布者的签名备注</string>
+    <string name="note_add">添加签名备注</string>
+    <string name="note_update">更新我的签名备注</string>
+    <string name="note_dialog_title">为此商店评价签署备注</string>
+    <string name="note_dialog_body">您的备注由您的钱包签名,且永久保留。读者会在此评价下方看到该备注,并标记为发布者所留。之后撤回该备注,链上记录仍会保留。</string>
+    <string name="note_hint">您的备注</string>
+    <string name="note_sign">签署备注</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">商店监测</string>
@@ -566,7 +578,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">付款看板</string>
-    <string name="pay_intro">发布者已确认金库的 dApp。计入范围:链上收到的、备注以该 dApp 代码开头的 SOL、SKR 和 USDC 付款。链下收入不显示。</string>
+    <string name="pay_intro">发布者已确认金库的 dApp。计入范围:链上收到的、带有该 dApp 备注代码或参考账户的 SOL、SKR 和 USDC 付款。链下收入不显示。</string>
     <string name="pay_usd_note">按今日价格换算为 USD</string>
     <string name="pay_row">付款:%1$d · 付款人:%2$d · 使用已认证设备:%3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -579,18 +591,18 @@
     <string name="pay_preview_title">预览金库</string>
     <string name="pay_preview_body">任何人都能预览公开的付款记录。仅列出经钱包和发布者网站双方共同确认的金库。</string>
     <string name="pay_field_treasury">金库钱包</string>
-    <string name="pay_field_code">备注代码</string>
+    <string name="pay_field_code">备注代码或参考账户</string>
     <string name="pay_field_package">包名</string>
     <string name="pay_preview">预览</string>
     <string name="pay_list_title">登记您的 dApp</string>
     <string name="pay_list_step1">1. 在 dApp Store 为您的应用列出的网站上,将以下这行添加到 /.well-known/undersigned.txt 中:</string>
-    <string name="pay_list_step2">2. 使用该金库钱包登录后,为下方的登记签名。仅计入备注以该代码开头的付款。</string>
+    <string name="pay_list_step2">2. 使用该金库钱包登录后,为下方的登记签名。该代码可以是您的付款备注代码,也可以是您的付款参考账户;仅计入带有该代码的付款。</string>
     <string name="pay_sign">以此金库身份签名</string>
     <string name="pay_my_claims">您的金库登记</string>
     <string name="pay_claim_confirmed">网站已确认</string>
     <string name="pay_claim_waiting">等待网站添加该行</string>
     <string name="pay_withdraw">撤回登记</string>
-    <string name="pay_bad_input">请检查包名和代码(2–32 个字母、数字、- 或 _)。</string>
+    <string name="pay_bad_input">请检查包名和代码(2–31 个字母、数字、- 或 _ 组成的备注代码,或一个参考账户地址)。</string>
     <string name="pay_open">付款看板</string>
     <string name="pay_waiting_list">金库已登记但网站尚未确认:%1$d</string>
 </resources>

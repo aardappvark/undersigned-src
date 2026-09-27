@@ -539,6 +539,18 @@
     <string name="ratings_tracked">Звёздные рейтинги отслеживаются на этом телефоне с %1$s · Снимки: %2$d</string>
     <string name="notif_burst_title">%1$s: всплеск отзывов</string>
     <string name="pay_paid_pill">Оплачено за это приложение</string>
+    <string name="pay_usd_paid">USD по курсу дня каждого платежа</string>
+    <string name="pay_usd_both">USD по курсу дня каждого платежа, где цены известны, иначе по сегодняшним ценам</string>
+    <string name="pay_own">Не учтено: платежи с собственных кошельков издателя: %1$d</string>
+    <string name="season_pill">Во время %1$s</string>
+    <string name="season_share">Написано во время сезонов вознаграждений: %1$d из %2$d отзывов магазина прочитано</string>
+    <string name="note_title">Подписанная заметка издателя</string>
+    <string name="note_add">Добавить подписанную заметку</string>
+    <string name="note_update">Обновить мою подписанную заметку</string>
+    <string name="note_dialog_title">Подписать заметку к этому отзыву магазина</string>
+    <string name="note_dialog_body">Вашу заметку подписывает ваш кошелёк, и она постоянна. Читатели видят её под этим отзывом с пометкой издателя. Если вы отзовёте её позже, запись всё равно останется в блокчейне.</string>
+    <string name="note_hint">Ваша заметка</string>
+    <string name="note_sign">Подписать заметку</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Наблюдение за магазином</string>
@@ -574,7 +586,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Обзор платежей</string>
-    <string name="pay_intro">dApps, чей издатель подтвердил казначейство. Учитываются: платежи, полученные в блокчейне в SOL, SKR и USDC, чьё memo начинается с кода dApp. Доход вне блокчейна не показывается.</string>
+    <string name="pay_intro">dApps, чей издатель подтвердил казначейство. Учитываются: платежи, полученные в блокчейне в SOL, SKR и USDC, чьё memo несёт код dApp или её референс-счёт. Доход вне блокчейна не показывается.</string>
     <string name="pay_usd_note">USD по сегодняшним ценам</string>
     <string name="pay_row">Платежи: %1$d · Плательщики: %2$d · С подтверждённым устройством: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -587,18 +599,18 @@
     <string name="pay_preview_title">Просмотр казначейства</string>
     <string name="pay_preview_body">Любой может просмотреть публичные платежи. Указывается только казначейство, подтверждённое и кошельком, и сайтом издателя.</string>
     <string name="pay_field_treasury">Кошелёк казначейства</string>
-    <string name="pay_field_code">Код memo</string>
+    <string name="pay_field_code">Код memo или референс-счёт</string>
     <string name="pay_field_package">Имя пакета</string>
     <string name="pay_preview">Просмотр</string>
     <string name="pay_list_title">Добавьте свою dApp в список</string>
     <string name="pay_list_step1">1. Добавьте эту строку в /.well-known/undersigned.txt на сайте, который dApp Store указывает для вашего приложения:</string>
-    <string name="pay_list_step2">2. Войдя с этим кошельком казначейства, подпишите запись ниже. Учитываются только платежи, чьё memo начинается с этого кода.</string>
+    <string name="pay_list_step2">2. Войдя с этим кошельком казначейства, подпишите запись ниже. Код — это либо ваш код memo платежа, либо ваш референс-счёт платежа; учитываются только платежи, которые его несут.</string>
     <string name="pay_sign">Подписать как это казначейство</string>
     <string name="pay_my_claims">Ваши записи казначейства</string>
     <string name="pay_claim_confirmed">Подтверждено сайтом</string>
     <string name="pay_claim_waiting">Ожидает строку на сайте</string>
     <string name="pay_withdraw">Отозвать запись</string>
-    <string name="pay_bad_input">Проверьте имя пакета и код (2–32 буквы, цифры, - или _).</string>
+    <string name="pay_bad_input">Проверьте имя пакета и код (код memo из 2–31 буквы, цифры, - или _, либо адрес референс-счёта).</string>
     <string name="pay_open">Обзор платежей</string>
     <string name="pay_waiting_list">Указано казначейством, ещё не подтверждено сайтом: %1$d</string>
 </resources>

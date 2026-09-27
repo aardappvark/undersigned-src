@@ -538,6 +538,18 @@
     <string name="ratings_tracked">Csillagos értékelések követve ezen a telefonon %1$s óta · Pillanatképek: %2$d</string>
     <string name="notif_burst_title">%1$s: értékelési hullám</string>
     <string name="pay_paid_pill">Fizetve ezért az alkalmazásért</string>
+    <string name="pay_usd_paid">USD az egyes fizetések napján</string>
+    <string name="pay_usd_both">USD az egyes fizetések napján, ahol az árak ismertek, egyébként a mai árakon</string>
+    <string name="pay_own">Kihagyva: fizetések a kiadó saját tárcáiból: %1$d</string>
+    <string name="season_pill">%1$s idején</string>
+    <string name="season_share">Jutalomszezonok alatt írva: %1$d / %2$d áruházi értékelés elolvasva</string>
+    <string name="note_title">A kiadó aláírt megjegyzése</string>
+    <string name="note_add">Aláírt megjegyzés hozzáadása</string>
+    <string name="note_update">Aláírt megjegyzésem frissítése</string>
+    <string name="note_dialog_title">Megjegyzés aláírása ehhez az áruházi értékeléshez</string>
+    <string name="note_dialog_body">Megjegyzésedet a tárcád írja alá, és végleges. Az olvasók ez alatt az értékelés alatt látják, a kiadóéként megjelölve. Ha később visszavonod, a bejegyzés on-chain megmarad.</string>
+    <string name="note_hint">A megjegyzésed</string>
+    <string name="note_sign">Megjegyzés aláírása</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Áruházfigyelés</string>
@@ -573,7 +585,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Fizetések áttekintése</string>
-    <string name="pay_intro">Olyan dApp-ok, amelyek kiadója megerősített egy kincstárat. Beszámítva: az on-chain, SOL-ban, SKR-ben és USDC-ben beérkezett fizetések, amelyek memója a dApp kódjával kezdődik. Az off-chain bevétel nem jelenik meg.</string>
+    <string name="pay_intro">Olyan dApp-ok, amelyek kiadója megerősített egy kincstárat. Beszámítva: az on-chain, SOL-ban, SKR-ben és USDC-ben beérkezett fizetések, amelyek a dApp memo kódját vagy referenciaszámláját viselik. Az off-chain bevétel nem jelenik meg.</string>
     <string name="pay_usd_note">USD a mai árakon</string>
     <string name="pay_row">Fizetések: %1$d · Fizetők: %2$d · Hitelesített eszközzel: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -586,18 +598,18 @@
     <string name="pay_preview_title">Kincstár előnézete</string>
     <string name="pay_preview_body">A nyilvános fizetéseket bárki megnézheti. Csak az a kincstár szerepel a listán, amelyet a tárca és a kiadó weboldala is megerősített.</string>
     <string name="pay_field_treasury">Kincstár tárca</string>
-    <string name="pay_field_code">Memo kód</string>
+    <string name="pay_field_code">Memo kód vagy referenciaszámla</string>
     <string name="pay_field_package">Csomagnév</string>
     <string name="pay_preview">Előnézet</string>
     <string name="pay_list_title">Vedd fel a listára a dApp-odat</string>
     <string name="pay_list_step1">1. Add hozzá ezt a sort a /.well-known/undersigned.txt fájlhoz azon a weboldalon, amelyet a dApp Store az alkalmazásodhoz feltüntet:</string>
-    <string name="pay_list_step2">2. Ezzel a kincstár tárcával bejelentkezve írd alá az alábbi bejegyzést. Csak azok a fizetések számítanak, amelyek memója ezzel a kóddal kezdődik.</string>
+    <string name="pay_list_step2">2. Ezzel a kincstár tárcával bejelentkezve írd alá az alábbi bejegyzést. A kód vagy a fizetési memo kódod, vagy a fizetési referenciaszámlád; csak az azt viselő fizetések számítanak.</string>
     <string name="pay_sign">Aláírás mint ez a kincstár</string>
     <string name="pay_my_claims">A te kincstár-bejegyzéseid</string>
     <string name="pay_claim_confirmed">A weboldal megerősítette</string>
     <string name="pay_claim_waiting">A weboldal sorára vár</string>
     <string name="pay_withdraw">Bejegyzés visszavonása</string>
-    <string name="pay_bad_input">Ellenőrizd a csomagnevet és a kódot (2–32 betű, szám, - vagy _).</string>
+    <string name="pay_bad_input">Ellenőrizd a csomagnevet és a kódot (egy 2–31 betűből, számjegyből, - vagy _ jelből álló memo kód, vagy egy referenciaszámla-cím).</string>
     <string name="pay_open">Fizetések áttekintése</string>
     <string name="pay_waiting_list">A kincstár listázta, a weboldal még nem erősítette meg: %1$d</string>
 </resources>

@@ -12,6 +12,8 @@ val localProperties = Properties().apply {
 }
 
 android {
+    // Unit tests run JVM code that logs through android.util.Log; stubs return defaults instead of throwing.
+    testOptions { unitTests.isReturnDefaultValues = true }
     namespace = "com.undersigned.app"
     compileSdk = 35
 
@@ -84,5 +86,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
     // Seeker Genesis Token check (fleet library, read-only)
     implementation("com.github.aardappvark:seeker-verify:1.1.0")
+    testImplementation("org.json:json:20240303")   // the real org.json: Android's is a stub in JVM tests
     testImplementation("junit:junit:4.13.2")
 }

@@ -544,6 +544,18 @@
     <string name="ratings_tracked">Notes par étoiles suivies sur ce téléphone depuis %1$s · Instantanés : %2$d</string>
     <string name="notif_burst_title">%1$s : pic d\'avis</string>
     <string name="pay_paid_pill">Payé pour cette application</string>
+    <string name="pay_usd_paid">USD au jour de chaque paiement</string>
+    <string name="pay_usd_both">USD au jour de chaque paiement quand les cours sont connus, sinon aux cours du jour</string>
+    <string name="pay_own">Exclus : paiements provenant des propres wallets de l\'éditeur : %1$d</string>
+    <string name="season_pill">Pendant %1$s</string>
+    <string name="season_share">Écrits pendant des saisons de récompense : %1$d des %2$d avis du store lus</string>
+    <string name="note_title">Note signée de l\'éditeur</string>
+    <string name="note_add">Ajouter une note signée</string>
+    <string name="note_update">Mettre à jour ma note signée</string>
+    <string name="note_dialog_title">Signer une note sur cet avis du store</string>
+    <string name="note_dialog_body">Votre note est signée par votre wallet et est permanente. Les lecteurs la voient sous cet avis, marquée comme celle de l\'éditeur. La retirer plus tard laisse l\'enregistrement on-chain.</string>
+    <string name="note_hint">Votre note</string>
+    <string name="note_sign">Signer la note</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Veille du store</string>
@@ -579,7 +591,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Tableau des paiements</string>
-    <string name="pay_intro">dApps dont l\'éditeur a confirmé une trésorerie. Sont comptés : les paiements reçus on-chain en SOL, SKR et USDC dont le memo commence par le code de la dApp. Les revenus off-chain ne sont pas affichés.</string>
+    <string name="pay_intro">dApps dont l\'éditeur a confirmé une trésorerie. Sont comptés : les paiements reçus on-chain en SOL, SKR et USDC qui portent le code memo de la dApp ou son compte de référence. Les revenus off-chain ne sont pas affichés.</string>
     <string name="pay_usd_note">USD aux cours du jour</string>
     <string name="pay_row">Paiements : %1$d · Payeurs : %2$d · Avec un appareil attesté : %3$d</string>
     <string name="pay_totals">SOL : %1$s · SKR : %2$s · USDC : %3$s</string>
@@ -592,18 +604,18 @@
     <string name="pay_preview_title">Aperçu d\'une trésorerie</string>
     <string name="pay_preview_body">N\'importe qui peut prévisualiser les paiements publics. Seule une trésorerie confirmée à la fois par le wallet et par le site web de l\'éditeur est répertoriée.</string>
     <string name="pay_field_treasury">Wallet de trésorerie</string>
-    <string name="pay_field_code">Code memo</string>
+    <string name="pay_field_code">Code memo ou compte de référence</string>
     <string name="pay_field_package">Nom du package</string>
     <string name="pay_preview">Aperçu</string>
     <string name="pay_list_title">Référencer votre dApp</string>
     <string name="pay_list_step1">1. Ajoutez cette ligne à /.well-known/undersigned.txt sur le site web que le dApp Store répertorie pour votre application :</string>
-    <string name="pay_list_step2">2. Connecté avec ce wallet de trésorerie, signez l\'annonce ci-dessous. Seuls les paiements dont le memo commence par le code sont comptés.</string>
+    <string name="pay_list_step2">2. Connecté avec ce wallet de trésorerie, signez l\'annonce ci-dessous. Le code est soit votre code memo de paiement, soit votre compte de référence de paiement ; seuls les paiements qui le portent sont comptés.</string>
     <string name="pay_sign">Signer en tant que cette trésorerie</string>
     <string name="pay_my_claims">Vos annonces de trésorerie</string>
     <string name="pay_claim_confirmed">Confirmé par le site web</string>
     <string name="pay_claim_waiting">En attente de la ligne sur le site web</string>
     <string name="pay_withdraw">Retirer l\'annonce</string>
-    <string name="pay_bad_input">Vérifiez le nom du package et le code (2–32 lettres, chiffres, - ou _).</string>
+    <string name="pay_bad_input">Vérifiez le nom du package et le code (un code memo de 2–31 lettres, chiffres, - ou _, ou une adresse de compte de référence).</string>
     <string name="pay_open">Tableau des paiements</string>
     <string name="pay_waiting_list">Répertorié par la trésorerie, pas encore confirmé par le site web : %1$d</string>
 </resources>

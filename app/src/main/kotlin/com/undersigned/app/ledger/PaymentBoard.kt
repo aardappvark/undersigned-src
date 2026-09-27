@@ -27,8 +27,9 @@ import java.net.URL
  * Signature lists are cached per treasury and only the tail is re-read; a transaction is fetched only when its memo
  * starts with a code somebody asked about, and then never again. Everything is public chain data.
  */
-class PaymentBoard(context: Context, private val rpc: SolanaRpcClient = SolanaRpcClient()) {
-    private val dir = File(context.filesDir, "payments").apply { mkdirs() }
+class PaymentBoard(private val dir: File, private val rpc: SolanaRpcClient = SolanaRpcClient()) {
+    constructor(context: Context) : this(File(context.filesDir, "payments"))
+    init { dir.mkdirs() }
     private val lock = Mutex()
 
     /** One signature row, and the payment it made once fetched ([fetched] false = not looked at yet; [payment] null = paid nothing). */
@@ -40,33 +41,45 @@ class PaymentBoard(context: Context, private val rpc: SolanaRpcClient = SolanaRp
 
     suspend fun read(treasury: String, code: String): Read = withContext(Dispatchers.IO) {
         lock.withLock {
-            val c = load(treasury)
-            for (addr in addressesOf(treasury)) runCatching { sync(c, addr) }.onFailure { Log.w(TAG, "sync ${addr.take(6)} stopped: ${it.message?.take(80)}") }
-            // Fetch the rows this code needs, once each.
+            // A reference listing reads the reference account's own history (every transaction that names it, memo or
+            // not) into its own cache; a memo listing reads the treasury's three addresses.
+            val byRef = Payments.isReference(code)
+            val key = if (byRef) "$treasury-$code" else treasury
+            val c = load(key)
+            val addrs = if (byRef) listOf(code) else addressesOf(treasury)
+            for (addr in addrs) runCatching { sync(c, addr, keepAll = byRef) }.onFailure { Log.w(TAG, "sync ${addr.take(6)} stopped: ${it.message?.take(80)}") }
+            val wanted = { r: Row -> byRef || Payments.memoMatches(r.memo, code) }
+            // Fetch the rows this listing needs, once each.
             var n = 0
-            for (r in c.rows.values.filter { !it.fetched && Payments.memoMatches(it.memo, code) }.sortedByDescending { it.time }) {
-                val res = rpc.getPaymentTx(r.sig, treasury)
+            for (r in c.rows.values.filter { !it.fetched && wanted(it) }.sortedByDescending { it.time }) {
+                // Retried with backoff: a shared RPC key refuses bursts, and a skipped read used to vanish silently — a live
+                // run counted 0 of ART's 3 payments and still said "complete" (28 Sep 2026).
+                var res = rpc.getPaymentTx(r.sig, treasury)
+                var attempt = 1
+                while (res.isFailure && attempt < 4) { delay(600L * attempt); res = rpc.getPaymentTx(r.sig, treasury); attempt++ }
                 if (res.isFailure) { Log.w(TAG, "tx ${r.sig.take(8)}: ${res.exceptionOrNull()?.message?.take(60)}"); continue }
                 c.rows[r.sig] = r.copy(fetched = true, payment = res.getOrNull())
-                if (++n % 10 == 0) delay(150)
+                if (++n % 5 == 0) delay(300)
             }
-            save(treasury, c)
+            save(key, c)
             // Only the rails the board reads: SOL, SKR and USDC. Anything else a transaction happened to credit is left out.
             val rails = setOf(AppConfig.Solana.SKR_MINT, USDC_MINT)
-            val payments = c.rows.values.filter { it.fetched && it.payment != null && Payments.memoMatches(it.memo, code) }
+            val payments = c.rows.values.filter { it.fetched && it.payment != null && wanted(it) }
                 .mapNotNull { it.payment?.let { p -> p.copy(tokens = p.tokens.filterKeys { k -> k in rails }) } }
-            Read(payments, addressesOf(treasury).all { it in c.exhausted }, System.currentTimeMillis())
+            // Complete only when the history was read to its start AND every payment it holds was read.
+            val unread = c.rows.values.count { !it.fetched && wanted(it) }
+            Read(payments, addrs.all { it in c.exhausted } && unread == 0, System.currentTimeMillis())
         }
     }
 
-    private suspend fun sync(c: Cache, addr: String) {
+    private suspend fun sync(c: Cache, addr: String, keepAll: Boolean) {
         // Tail: everything newer than the newest seen.
         var before: String? = null; var first: String? = null
         while (true) {
             val page = rpc.getSignaturesForAddress(addr, before = before, until = c.newest[addr]).getOrThrow()
             if (page.isEmpty()) break
             if (first == null) first = page.first().signature
-            page.forEach { add(c, it) }
+            page.forEach { add(c, it, keepAll) }
             if (c.newest[addr] == null) { c.oldest[addr] = page.last().signature; if (page.size < AppConfig.Ledger.PAGE) c.exhausted.add(addr) }
             if (page.size < AppConfig.Ledger.PAGE || c.newest[addr] == null) break
             before = page.last().signature
@@ -77,19 +90,20 @@ class PaymentBoard(context: Context, private val rpc: SolanaRpcClient = SolanaRp
         while (addr !in c.exhausted && pages < BACKFILL_PAGES) {
             val from = c.oldest[addr] ?: break
             val page = rpc.getSignaturesForAddress(addr, before = from).getOrThrow()
-            page.forEach { add(c, it) }
+            page.forEach { add(c, it, keepAll) }
             if (page.isNotEmpty()) c.oldest[addr] = page.last().signature
             if (page.size < AppConfig.Ledger.PAGE) c.exhausted.add(addr)
             pages++
         }
     }
 
-    private fun add(c: Cache, s: com.undersigned.app.solana.SignatureRow) {
-        if (s.err || s.memo.isNullOrBlank() || c.rows.containsKey(s.signature)) return
-        c.rows[s.signature] = Row(s.signature, s.blockTime, s.memo, false, null)
+    /** [keepAll]: a reference account's rows are all candidates; a treasury's only matter when they carry a memo. */
+    private fun add(c: Cache, s: com.undersigned.app.solana.SignatureRow, keepAll: Boolean) {
+        if (s.err || c.rows.containsKey(s.signature) || (!keepAll && s.memo.isNullOrBlank())) return
+        c.rows[s.signature] = Row(s.signature, s.blockTime, s.memo ?: "", false, null)
     }
 
-    private fun file(treasury: String) = File(dir, "$treasury.json")
+    private fun file(key: String) = File(dir, "$key.json")
 
     private fun load(treasury: String): Cache = runCatching {
         val o = JSONObject(file(treasury).readText())
@@ -150,6 +164,38 @@ object Prices {
             val m = o.keys().asSequence().mapNotNull { k -> o.optJSONObject(k)?.let { q -> q.optDouble("usdPrice").takeIf { !it.isNaN() }?.let { k to Quote(it, q.optInt("decimals", 0)) } } }.toMap()
             cache = System.currentTimeMillis() to (have + m); have + m
         }.getOrElse { have }
+    }
+
+    /**
+     * Daily USD closes for the last 365 days (CoinGecko, keyless; `days=max` is refused without a key, measured 21 Sep
+     * 2026): SOL as "solana", SKR as "seeker". Day key yyyy-mm-dd (UTC) → price. Cached 12 hours; empty on failure.
+     */
+    @Volatile private var history: Pair<Long, Map<String, Map<String, Double>>> = 0L to emptyMap()
+    suspend fun history(): Map<String, Map<String, Double>> = withContext(Dispatchers.IO) {
+        val (at, h) = history
+        if (System.currentTimeMillis() - at < 12 * 3600_000L && h.isNotEmpty()) return@withContext h
+        val ids = mapOf(PaymentBoard.SOL_MINT to "solana", AppConfig.Solana.SKR_MINT to "seeker")
+        val out = HashMap<String, Map<String, Double>>()
+        for ((mint, id) in ids) runCatching {
+            val c = URL("https://api.coingecko.com/api/v3/coins/$id/market_chart?vs_currency=usd&days=365&interval=daily").openConnection() as HttpURLConnection
+            c.connectTimeout = 8000; c.readTimeout = 12000
+            val arr = JSONObject(c.inputStream.bufferedReader().use { it.readText() }).getJSONArray("prices"); c.disconnect()
+            out[mint] = (0 until arr.length()).associate { i -> val p = arr.getJSONArray(i); java.time.Instant.ofEpochMilli(p.getLong(0)).toString().take(10) to p.getDouble(1) }
+        }
+        if (out.size == ids.size) history = System.currentTimeMillis() to out
+        out
+    }
+
+    /** USD of one payment on the day it was paid; null when that day's price is missing. USDC counts at 1. */
+    fun usdWhenPaid(p: Payments.Payment, h: Map<String, Map<String, Double>>): Double? {
+        val day = java.time.Instant.ofEpochSecond(p.time).toString().take(10)
+        var total = if (p.lamports > 0) (h[PaymentBoard.SOL_MINT]?.get(day) ?: return null) * p.lamports / 1e9 else 0.0
+        for ((mint, raw) in p.tokens) total += when (mint) {
+            PaymentBoard.USDC_MINT -> raw / 1e6
+            AppConfig.Solana.SKR_MINT -> (h[mint]?.get(day) ?: return null) * raw / 1e6
+            else -> return null
+        }
+        return total
     }
 
     /** USD value of a tally at today's prices; null when a price is missing for anything it holds. */

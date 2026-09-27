@@ -521,6 +521,18 @@
     <string name="ratings_tracked">Stjärnbetyg spårade på den här telefonen sedan %1$s · Ögonblicksbilder: %2$d</string>
     <string name="notif_burst_title">%1$s: recensionsvåg</string>
     <string name="pay_paid_pill">Betalat för den här appen</string>
+    <string name="pay_usd_paid">USD på dagen för varje betalning</string>
+    <string name="pay_usd_both">USD på dagen för varje betalning där kurserna är kända, annars till dagens kurser</string>
+    <string name="pay_own">Uteslutna: betalningar från utgivarens egna plånböcker: %1$d</string>
+    <string name="season_pill">Under %1$s</string>
+    <string name="season_share">Skrivna under belöningsäsonger: %1$d av %2$d butiksrecensioner lästa</string>
+    <string name="note_title">Utgivarens signerade anteckning</string>
+    <string name="note_add">Lägg till en signerad anteckning</string>
+    <string name="note_update">Uppdatera min signerade anteckning</string>
+    <string name="note_dialog_title">Signera en anteckning på denna butiksrecension</string>
+    <string name="note_dialog_body">Din anteckning signeras av din plånbok och är permanent. Läsare ser den under denna recension, markerad som utgivarens. Att dra tillbaka den senare lämnar posten kvar on-chain.</string>
+    <string name="note_hint">Din anteckning</string>
+    <string name="note_sign">Signera anteckningen</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Butiksbevakning</string>
@@ -556,7 +568,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Betalningsöversikt</string>
-    <string name="pay_intro">dApps vars utgivare har bekräftat en treasury. Räknas: betalningar mottagna on-chain i SOL, SKR och USDC vars memo börjar med dAppens kod. Off-chain-intäkter visas inte.</string>
+    <string name="pay_intro">dApps vars utgivare har bekräftat en treasury. Räknas: betalningar mottagna on-chain i SOL, SKR och USDC vars memo bär dAppens memokod eller referenskonto. Off-chain-intäkter visas inte.</string>
     <string name="pay_usd_note">USD till dagens kurser</string>
     <string name="pay_row">Betalningar: %1$d · Betalare: %2$d · Med attesterad enhet: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -569,18 +581,18 @@
     <string name="pay_preview_title">Förhandsgranska en treasury</string>
     <string name="pay_preview_body">Vem som helst kan förhandsgranska offentliga betalningar. Endast en treasury som bekräftats av både plånboken och utgivarens webbplats listas.</string>
     <string name="pay_field_treasury">Treasury-plånbok</string>
-    <string name="pay_field_code">Memokod</string>
+    <string name="pay_field_code">Memokod eller referenskonto</string>
     <string name="pay_field_package">Paketnamn</string>
     <string name="pay_preview">Förhandsgranska</string>
     <string name="pay_list_title">Lista din dApp</string>
     <string name="pay_list_step1">1. Lägg till den här raden i /.well-known/undersigned.txt på webbplatsen som dApp Store listar för din app:</string>
-    <string name="pay_list_step2">2. Inloggad med den treasury-plånboken, signera listningen nedan. Endast betalningar vars memo börjar med koden räknas.</string>
+    <string name="pay_list_step2">2. Inloggad med den treasury-plånboken, signera listningen nedan. Koden är antingen din betalnings-memokod eller ditt betalnings-referenskonto; endast betalningar som bär den räknas.</string>
     <string name="pay_sign">Signera som denna treasury</string>
     <string name="pay_my_claims">Dina treasury-listningar</string>
     <string name="pay_claim_confirmed">Bekräftad av webbplatsen</string>
     <string name="pay_claim_waiting">Väntar på raden på webbplatsen</string>
     <string name="pay_withdraw">Dra tillbaka listning</string>
-    <string name="pay_bad_input">Kontrollera paketnamnet och koden (2–32 bokstäver, siffror, - eller _).</string>
+    <string name="pay_bad_input">Kontrollera paketnamnet och koden (en memokod på 2–31 bokstäver, siffror, - eller _, eller en referenskontoadress).</string>
     <string name="pay_open">Betalningsöversikt</string>
     <string name="pay_waiting_list">Listad av treasuryn, ännu inte bekräftad av webbplatsen: %1$d</string>
 </resources>

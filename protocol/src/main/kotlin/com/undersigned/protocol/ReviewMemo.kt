@@ -33,6 +33,10 @@ import java.util.Base64
  *                                   the reviewer's phone, rounded (see Usage). The device's report, never proof.
  *   SRL1|tim|<package>|<bucket>   — rides in a REVIEW's own transaction: the reviewed app's foreground time on the
  *                                   reviewer's phone, rounded (see UseTime). Opt-in; the device's report, never proof.
+ *   SRL1|snt|<package>|<store review uuid>|<b64 text>
+ *                                 — a publisher's signed note on a dApp Store review of THEIR app (the store's own reply
+ *                                   box is not on-chain and cannot be checked); shown only when the signer is a verified
+ *                                   publisher of <package>. Withdrawn with rvk like any record.
  *   SRL1|trs|<package>|<code>     — signed BY a treasury wallet: "payments to me whose memo starts <code> are for
  *                                   <package>". Counted only when the store-listed website also names the wallet
  *                                   (see Payments).
@@ -75,6 +79,7 @@ sealed class ReviewMemo {
     data class Unshare(val tag: String) : ReviewMemo()
     data class Use(val packageName: String, val bucket: UseBucket) : ReviewMemo()
     data class Time(val packageName: String, val time: UseTime) : ReviewMemo()
+    data class StoreNote(val packageName: String, val reviewId: String, val text: String) : ReviewMemo()
     data class Treasury(val packageName: String, val code: String) : ReviewMemo()
     data class Untreasury(val packageName: String) : ReviewMemo()
     enum class FlagReason(val wire: String) { SPAM("spam"), ABUSE("abuse"), OFF_TOPIC("offtopic"), MISLEADING("misleading");
@@ -105,6 +110,9 @@ sealed class ReviewMemo {
         /** A record id: the transaction signature, plus ":<n>" for the n-th memo of a batched (import) transaction. */
         private val SIGNATURE = Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}(:[1-9][0-9]?)?$")
         private val TAG32 = Regex("^[0-9a-f]{32}$")
+        /** The store's review ids, lowercase (as the store returns them). */
+        val STORE_REVIEW_ID = Regex("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+        private fun cleanText(t: String): String? = t.trim().takeIf { it.isNotEmpty() && it.length <= MAX_TEXT_CHARS && it.toByteArray(StandardCharsets.UTF_8).size <= MAX_TEXT_BYTES && it.none { c -> c == '|' || c == '\n' || c == '\r' } }
         fun recordId(txSignature: String, memoIndex: Int): String = if (memoIndex == 0) txSignature else "$txSignature:$memoIndex"
 
         fun encode(m: ReviewMemo): String = when (m) {
@@ -142,6 +150,12 @@ sealed class ReviewMemo {
             is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
             is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
             is Use -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|use|${m.packageName}|${m.bucket.wire}" }
+            is StoreNote -> {
+                require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }
+                require(STORE_REVIEW_ID.matches(m.reviewId)) { "store review id" }
+                val text = requireNotNull(cleanText(m.text)) { "note text" }
+                "${Registry.PROTOCOL}|snt|${m.packageName}|${m.reviewId}|" + Base64.getUrlEncoder().withoutPadding().encodeToString(text.toByteArray(StandardCharsets.UTF_8))
+            }
             is Time -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|tim|${m.packageName}|${m.time.wire}" }
             is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
@@ -189,6 +203,11 @@ sealed class ReviewMemo {
                 "shr" -> if (f.size == 3 && TAG32.matches(f[2])) Share(f[2]) else null
                 "shx" -> if (f.size == 3 && TAG32.matches(f[2])) Unshare(f[2]) else null
                 "use" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) UseBucket.fromWire(f[3])?.let { Use(f[2], it) } else null
+                "snt" -> {
+                    if (f.size != 5 || f[2].length > MAX_PACKAGE_CHARS || !PACKAGE.matches(f[2]) || !STORE_REVIEW_ID.matches(f[3]) || f[4].isEmpty()) return null
+                    val text = Base64.getUrlDecoder().decode(f[4]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }?.let { cleanText(it) } ?: return null
+                    StoreNote(f[2], f[3], text)
+                }
                 "tim" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) UseTime.fromWire(f[3])?.let { Time(f[2], it) } else null
                 "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null

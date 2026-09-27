@@ -531,6 +531,18 @@
     <string name="ratings_tracked">Peringkat bintang dilacak di ponsel ini sejak %1$s · Cuplikan: %2$d</string>
     <string name="notif_burst_title">%1$s: lonjakan ulasan</string>
     <string name="pay_paid_pill">Sudah membayar untuk aplikasi ini</string>
+    <string name="pay_usd_paid">USD pada hari setiap pembayaran</string>
+    <string name="pay_usd_both">USD pada hari setiap pembayaran saat harga diketahui, jika tidak dengan harga hari ini</string>
+    <string name="pay_own">Tidak dihitung: pembayaran dari dompet milik penerbit sendiri: %1$d</string>
+    <string name="season_pill">Selama %1$s</string>
+    <string name="season_share">Ditulis selama musim hadiah: %1$d dari %2$d ulasan toko dibaca</string>
+    <string name="note_title">Catatan bertanda tangan dari penerbit</string>
+    <string name="note_add">Tambahkan catatan bertanda tangan</string>
+    <string name="note_update">Perbarui catatan bertanda tangan saya</string>
+    <string name="note_dialog_title">Tandatangani catatan pada ulasan toko ini</string>
+    <string name="note_dialog_body">Catatan Anda ditandatangani oleh dompet Anda dan bersifat permanen. Pembaca melihatnya di bawah ulasan ini, ditandai sebagai milik penerbit. Menariknya kembali nanti tetap meninggalkan catatan itu on-chain.</string>
+    <string name="note_hint">Catatan Anda</string>
+    <string name="note_sign">Tandatangani catatan</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Pemantauan toko</string>
@@ -566,7 +578,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Papan pembayaran</string>
-    <string name="pay_intro">dApp yang penerbitnya telah mengonfirmasi treasuri. Dihitung: pembayaran yang diterima on-chain dalam SOL, SKR, dan USDC yang memo-nya dimulai dengan kode dApp tersebut. Pendapatan off-chain tidak ditampilkan.</string>
+    <string name="pay_intro">dApp yang penerbitnya telah mengonfirmasi treasuri. Dihitung: pembayaran yang diterima on-chain dalam SOL, SKR, dan USDC yang membawa kode memo dApp tersebut atau akun referensinya. Pendapatan off-chain tidak ditampilkan.</string>
     <string name="pay_usd_note">USD dengan harga hari ini</string>
     <string name="pay_row">Pembayaran: %1$d · Pembayar: %2$d · Dengan perangkat terverifikasi: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -579,18 +591,18 @@
     <string name="pay_preview_title">Pratinjau sebuah treasuri</string>
     <string name="pay_preview_body">Siapa pun dapat melihat pratinjau pembayaran publik. Hanya treasuri yang dikonfirmasi oleh dompet maupun situs web penerbit yang dicantumkan.</string>
     <string name="pay_field_treasury">Dompet treasuri</string>
-    <string name="pay_field_code">Kode memo</string>
+    <string name="pay_field_code">Kode memo atau akun referensi</string>
     <string name="pay_field_package">Nama paket</string>
     <string name="pay_preview">Pratinjau</string>
     <string name="pay_list_title">Daftarkan dApp Anda</string>
     <string name="pay_list_step1">1. Tambahkan baris ini ke /.well-known/undersigned.txt di situs web yang dicantumkan dApp Store untuk aplikasi Anda:</string>
-    <string name="pay_list_step2">2. Setelah masuk dengan dompet treasuri tersebut, tandatangani pendaftaran di bawah ini. Hanya pembayaran yang memo-nya dimulai dengan kode yang dihitung.</string>
+    <string name="pay_list_step2">2. Setelah masuk dengan dompet treasuri tersebut, tandatangani pendaftaran di bawah ini. Kodenya adalah kode memo pembayaran Anda atau akun referensi pembayaran Anda; hanya pembayaran yang membawanya yang dihitung.</string>
     <string name="pay_sign">Tandatangani sebagai treasuri ini</string>
     <string name="pay_my_claims">Pendaftaran treasuri Anda</string>
     <string name="pay_claim_confirmed">Dikonfirmasi oleh situs web</string>
     <string name="pay_claim_waiting">Menunggu baris di situs web</string>
     <string name="pay_withdraw">Tarik pendaftaran</string>
-    <string name="pay_bad_input">Periksa nama paket dan kode (2–32 huruf, angka, - atau _).</string>
+    <string name="pay_bad_input">Periksa nama paket dan kode (kode memo terdiri dari 2–31 huruf, angka, - atau _, atau alamat akun referensi).</string>
     <string name="pay_open">Papan pembayaran</string>
     <string name="pay_waiting_list">Didaftarkan oleh treasuri, belum dikonfirmasi oleh situs web: %1$d</string>
 </resources>

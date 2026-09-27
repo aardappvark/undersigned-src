@@ -104,6 +104,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val disputesMap by vm.disputes.collectAsState()
     val similar by vm.similarity.collectAsState()
     val usage by vm.usage.collectAsState()
+    val storeNotes by vm.storeNotes.collectAsState()
+    var noteFor by remember { mutableStateOf<String?>(null) }
+    var noteText by remember { mutableStateOf("") }
     val useTimes by vm.useTimes.collectAsState()
     val storeHistory by vm.storeHistory.collectAsState()
     val storeBursts = remember(storeHistory[pkg]) { vm.storeBursts(pkg) }
@@ -265,6 +268,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.store_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                vm.seasonShare(pkg)?.takeIf { it.first > 0 }?.let { (n, of) -> Text(stringResource(R.string.season_share, n, of), color = RbColors.textSecondary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 2.dp)) }
                 myStore[pkg]?.let { mine ->
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.store_mine_found, mine.rating, storeDate(mine.createdAt)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
@@ -290,9 +294,23 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                 factsMap[wa]?.let { f -> Pill(stringResource(if (f.hasGenesisToken) R.string.store_reviewer_genesis else R.string.store_reviewer_nogenesis), if (f.hasGenesisToken) RbColors.green else RbColors.warning); Spacer(Modifier.width(6.dp)) }
                                 if (wa in ledgerSigners) Pill(stringResource(R.string.store_reviewer_signed_here), RbColors.purpleLight)
                                 if (boardRow?.payers?.contains(wa) == true) { Spacer(Modifier.width(6.dp)); Pill(stringResource(R.string.pay_paid_pill), RbColors.green) }
+                                vm.seasonAtIso(r.createdAt)?.let { se -> Spacer(Modifier.width(6.dp)); Pill(stringResource(R.string.season_pill, se.label), RbColors.textSecondary) }
                             }
                         }
                         r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 4) }
+                        // The verified publisher's SIGNED note on this store review, when there is one (protocol StoreNotes).
+                        storeNotes[r.id]?.let { ne -> val n = ne.memo as ReviewMemo.StoreNote
+                            Column(Modifier.padding(top = 6.dp).fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(RbColors.card).padding(8.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(stringResource(R.string.note_title), color = RbColors.green, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                                    Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(ne.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 10.sp)
+                                }
+                                Text(n.text, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
+                            }
+                        }
+                        if (wallet != null && vm.isVerifiedPublisher(pkg, wallet!!) && com.undersigned.protocol.ReviewMemo.STORE_REVIEW_ID.matches(r.id))
+                            TextButton(onClick = { noteFor = r.id; noteText = (storeNotes[r.id]?.memo as? ReviewMemo.StoreNote)?.text ?: "" }, contentPadding = PaddingValues(0.dp)) {
+                                Text(stringResource(if (storeNotes[r.id] == null) R.string.note_add else R.string.note_update), color = RbColors.purpleLight, fontSize = 11.sp) }
                         // The store now shows the publisher's reply prominently (v1.59.0); the mirror showed only a pill.
                         r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->
                             var open by remember(r.id) { mutableStateOf(false) }
@@ -312,7 +330,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 if (sb == null) Text(stringResource(R.string.burst_reading), color = RbColors.textTertiary, fontSize = 12.sp)
                 else {
                     // Strongest first, three at most: a busy launch can hold many windows over a flat median.
-                    sb.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_store).takeIf { i == 0 }, vm.burstWallets(pkg, b), factsMap) }
+                    sb.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_store).takeIf { i == 0 }, vm.burstWallets(pkg, b), factsMap, season = vm.seasonAt(b.start)?.label) }
                     if (sb.bursts.size > 3) Text(stringResource(R.string.burst_more, sb.bursts.size - 3), color = RbColors.textTertiary, fontSize = 11.sp)
                     if (sb.bursts.isEmpty()) {
                         val newest = storeHistory[pkg]?.items?.firstOrNull()?.createdAt?.let { runCatching { java.time.Instant.parse(it).epochSecond }.getOrNull() }
@@ -322,9 +340,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else Text(stringResource(R.string.burst_none, sb.checked, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(from * 1000))), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
                     }
                 }
-                ratingBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ratings).takeIf { i == 0 }, emptyList(), factsMap, ratings = true) }
+                ratingBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ratings).takeIf { i == 0 }, emptyList(), factsMap, ratings = true, season = vm.seasonAt(b.start)?.label) }
                 if (snaps.size >= 2) Text(stringResource(R.string.ratings_tracked, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(snaps.first().time * 1000)), snaps.size), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
-                ledgerBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ledger).takeIf { i == 0 }, emptyList(), factsMap) }
+                ledgerBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ledger).takeIf { i == 0 }, emptyList(), factsMap, season = vm.seasonAt(b.start)?.label) }
                 val deep by vm.historyLoading.collectAsState()
                 val read = storeHistory[pkg]
                 if (read != null && read.complete && !read.exhausted && read.items.size < DEEP_HISTORY_PAGES * 10)
@@ -431,6 +449,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         usage[e.signature]?.let { u -> Pill(stringResource(R.string.use_pill, useLabel(u)), RbColors.textSecondary) }
                         useTimes[e.signature]?.let { u -> Pill(stringResource(R.string.time_pill, timeLabel(u)), RbColors.textSecondary) }
                         if (boardRow?.payers?.contains(e.signer) == true) Pill(stringResource(R.string.pay_paid_pill), RbColors.green)
+                        vm.seasonAt(e.blockTime)?.let { se -> Pill(stringResource(R.string.season_pill, se.label), RbColors.textSecondary) }
                     }
                     disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 11.sp) }
                     if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
@@ -507,6 +526,25 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             if (hiddenCount > 0) Text(stringResource(R.string.review_hidden_note, hiddenCount), color = RbColors.textTertiary, fontSize = 11.sp)
             Spacer(Modifier.height(32.dp))
         }
+    }
+
+    noteFor?.let { rid ->
+        var consent by remember(rid) { mutableStateOf(false) }
+        val ok = noteText.trim().isNotEmpty() && noteText.trim().length <= ReviewMemo.MAX_TEXT_CHARS && noteText.trim().toByteArray().size <= ReviewMemo.MAX_TEXT_BYTES && noteText.none { it == '|' || it == '\n' }
+        AlertDialog(onDismissRequest = { if (simpleStage == null) noteFor = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.note_dialog_title), color = RbColors.textPrimary) },
+            text = { Column {
+                Text(stringResource(R.string.note_dialog_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                OutlinedTextField(value = noteText, onValueChange = { noteText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = !ok && noteText.isNotEmpty(),
+                    placeholder = { Text(stringResource(R.string.note_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder))
+                Row(Modifier.fillMaxWidth().clickable { consent = !consent }.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = consent, onCheckedChange = { consent = it }, colors = CheckboxDefaults.colors(checkedColor = RbColors.warning))
+                    Text(stringResource(R.string.review_consent_check), color = RbColors.textPrimary, fontSize = 12.sp)
+                }
+            } },
+            confirmButton = { TextButton(enabled = ok && consent && simpleStage == null && sender != null, onClick = { sign(ReviewMemo.StoreNote(pkg, rid, noteText.trim())); noteFor = null }) { Text(simpleStage ?: stringResource(R.string.note_sign), color = RbColors.green) } },
+            dismissButton = { TextButton(onClick = { noteFor = null }) { Text(stringResource(android.R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     reportTarget?.let { sig ->
@@ -680,7 +718,7 @@ private fun CardAction(label: String, color: androidx.compose.ui.graphics.Color,
 
 /** One burst: what, when, against what pace, and — for store bursts — how many of its reviewers hold an attested device. */
 @Composable
-private fun BurstLine(b: com.undersigned.protocol.ReviewBursts.Burst, source: String?, wallets: List<String>, facts: Map<String, com.undersigned.protocol.SignerFacts>, ratings: Boolean = false) {
+private fun BurstLine(b: com.undersigned.protocol.ReviewBursts.Burst, source: String?, wallets: List<String>, facts: Map<String, com.undersigned.protocol.SignerFacts>, ratings: Boolean = false, season: String? = null) {
     val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
     val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
     source?.let { Text(it.uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 4.dp)) }
@@ -689,6 +727,7 @@ private fun BurstLine(b: com.undersigned.protocol.ReviewBursts.Burst, source: St
     Text(stringResource(if (ratings) (if (high) R.string.burst_high_ratings else R.string.burst_low_ratings) else (if (high) R.string.burst_high else R.string.burst_low), b.count, df.format(Date(b.start * 1000)), df.format(Date(b.end * 1000)), pace),
         color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 16.sp)
     val extra = ArrayList<String>()
+    season?.let { extra.add(stringResource(R.string.season_pill, it)) }
     if (b.sameText > 0) extra.add(stringResource(R.string.burst_same_text, b.sameText))
     if (wallets.isNotEmpty() && wallets.all { it in facts }) extra.add(stringResource(R.string.burst_attested, wallets.count { facts[it]?.hasGenesisToken == true }, wallets.size))
     if (extra.isNotEmpty()) Text(extra.joinToString(" · "), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)

@@ -58,6 +58,14 @@ object PublisherVerifier {
         UserPreferences.cacheClaim(pkg, "trs:$treasury", ok); ok
     }
 
+    private val bodies = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, String>>()
+    /** Every wallet the store-listed website's proof file names: the publisher's own wallets. Cached 24 h in memory. */
+    suspend fun listedWallets(details: StoreDetails?): Set<String> = withContext(Dispatchers.IO) {
+        val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext emptySet()
+        val body = bodies[url]?.takeIf { System.currentTimeMillis() - it.first < TTL }?.second ?: fetch(url)?.also { bodies[url] = System.currentTimeMillis() to it } ?: return@withContext emptySet()
+        com.undersigned.protocol.Payments.listedWallets(body)
+    }
+
     private fun fetch(url: String): String? = try {
         val c = URL(url).openConnection() as HttpURLConnection
         c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true

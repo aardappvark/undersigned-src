@@ -546,6 +546,18 @@
     <string name="ratings_tracked">Evaluări cu stele urmărite pe acest telefon din %1$s · Instantanee: %2$d</string>
     <string name="notif_burst_title">%1$s: val de recenzii</string>
     <string name="pay_paid_pill">Plătit pentru această aplicație</string>
+    <string name="pay_usd_paid">USD la data fiecărei plăți</string>
+    <string name="pay_usd_both">USD la data fiecărei plăți unde prețurile sunt cunoscute, altfel la prețurile de azi</string>
+    <string name="pay_own">Excluse: plăți din portofelele proprii ale editorului: %1$d</string>
+    <string name="season_pill">În timpul %1$s</string>
+    <string name="season_share">Scrise în timpul sezoanelor de recompensă: %1$d din %2$d recenzii din magazin citite</string>
+    <string name="note_title">Notă semnată a editorului</string>
+    <string name="note_add">Adaugă o notă semnată</string>
+    <string name="note_update">Actualizează nota mea semnată</string>
+    <string name="note_dialog_title">Semnează o notă pe această recenzie din magazin</string>
+    <string name="note_dialog_body">Nota ta este semnată de portofelul tău și este permanentă. Cititorii o văd sub această recenzie, marcată ca fiind a editorului. Retragerea ei ulterioară lasă înregistrarea on-chain.</string>
+    <string name="note_hint">Nota ta</string>
+    <string name="note_sign">Semnează nota</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Monitorizarea magazinului</string>
@@ -581,7 +593,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Tabloul plăților</string>
-    <string name="pay_intro">dApps al căror editor a confirmat o trezorerie. Se numără: plățile primite on-chain în SOL, SKR și USDC al căror memo începe cu codul dApp-ului. Veniturile off-chain nu sunt afișate.</string>
+    <string name="pay_intro">dApps al căror editor a confirmat o trezorerie. Se numără: plățile primite on-chain în SOL, SKR și USDC al căror memo poartă codul dApp-ului sau contul său de referință. Veniturile off-chain nu sunt afișate.</string>
     <string name="pay_usd_note">USD la prețurile de azi</string>
     <string name="pay_row">Plăți: %1$d · Plătitori: %2$d · Cu dispozitiv atestat: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -594,18 +606,18 @@
     <string name="pay_preview_title">Previzualizează o trezorerie</string>
     <string name="pay_preview_body">Oricine poate previzualiza plățile publice. Este listată doar trezoreria confirmată atât de portofel, cât și de site-ul editorului.</string>
     <string name="pay_field_treasury">Portofelul trezoreriei</string>
-    <string name="pay_field_code">Cod memo</string>
+    <string name="pay_field_code">Cod memo sau cont de referință</string>
     <string name="pay_field_package">Numele pachetului</string>
     <string name="pay_preview">Previzualizare</string>
     <string name="pay_list_title">Listează-ți dApp-ul</string>
     <string name="pay_list_step1">1. Adaugă acest rând la /.well-known/undersigned.txt pe site-ul pe care dApp Store îl listează pentru aplicația ta:</string>
-    <string name="pay_list_step2">2. Conectat(ă) cu acel portofel de trezorerie, semnează înregistrarea de mai jos. Sunt numărate doar plățile al căror memo începe cu codul.</string>
+    <string name="pay_list_step2">2. Conectat(ă) cu acel portofel de trezorerie, semnează înregistrarea de mai jos. Codul este fie codul tău memo de plată, fie contul tău de referință de plată; sunt numărate doar plățile care îl poartă.</string>
     <string name="pay_sign">Semnează ca această trezorerie</string>
     <string name="pay_my_claims">Înregistrările tale de trezorerie</string>
     <string name="pay_claim_confirmed">Confirmată de site</string>
     <string name="pay_claim_waiting">Se așteaptă rândul de pe site</string>
     <string name="pay_withdraw">Retrage înregistrarea</string>
-    <string name="pay_bad_input">Verifică numele pachetului și codul (2–32 de litere, cifre, - sau _).</string>
+    <string name="pay_bad_input">Verifică numele pachetului și codul (un cod memo de 2–31 litere, cifre, - sau _, sau o adresă de cont de referință).</string>
     <string name="pay_open">Tabloul plăților</string>
     <string name="pay_waiting_list">Listată de trezorerie, încă neconfirmată de site: %1$d</string>
 </resources>

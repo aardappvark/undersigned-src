@@ -532,6 +532,18 @@
     <string name="ratings_tracked">এই ফোনে তারকা রেটিং ট্র্যাক করা হয়েছে %1$s থেকে · স্ন্যাপশট: %2$d</string>
     <string name="notif_burst_title">%1$s: পর্যালোচনায় উল্লম্ফন</string>
     <string name="pay_paid_pill">এই অ্যাপের জন্য পরিশোধ করা হয়েছে</string>
+    <string name="pay_usd_paid">প্রতিটি পেমেন্টের দিনের USD</string>
+    <string name="pay_usd_both">যেখানে দাম জানা আছে সেখানে প্রতিটি পেমেন্টের দিনের USD, নাহলে আজকের দামে</string>
+    <string name="pay_own">বাদ দেওয়া হয়েছে: প্রকাশকের নিজস্ব ওয়ালেট থেকে পেমেন্ট: %1$d</string>
+    <string name="season_pill">%1$s চলাকালীন</string>
+    <string name="season_share">পুরস্কার মরসুমে লেখা: %2$d-এর মধ্যে %1$d স্টোর পর্যালোচনা পড়া হয়েছে</string>
+    <string name="note_title">প্রকাশকের স্বাক্ষরিত নোট</string>
+    <string name="note_add">একটি স্বাক্ষরিত নোট যোগ করুন</string>
+    <string name="note_update">আমার স্বাক্ষরিত নোট আপডেট করুন</string>
+    <string name="note_dialog_title">এই স্টোর পর্যালোচনায় একটি নোট স্বাক্ষর করুন</string>
+    <string name="note_dialog_body">আপনার নোট আপনার ওয়ালেট দ্বারা স্বাক্ষরিত এবং স্থায়ী। পাঠকরা এটি এই পর্যালোচনার নিচে দেখতে পান, প্রকাশকের হিসেবে চিহ্নিত। পরে এটি প্রত্যাহার করলেও রেকর্ড চেইনে থেকে যায়।</string>
+    <string name="note_hint">আপনার নোট</string>
+    <string name="note_sign">নোট স্বাক্ষর করুন</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">স্টোর পর্যবেক্ষণ</string>
@@ -567,7 +579,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">পেমেন্ট বোর্ড</string>
-    <string name="pay_intro">যেসব dApps-এর প্রকাশক একটি ট্রেজারি নিশ্চিত করেছেন। গণনা করা হয়েছে: SOL, SKR এবং USDC-তে চেইনে প্রাপ্ত সেসব পেমেন্ট যার মেমো dApp-এর কোড দিয়ে শুরু হয়। অফ-চেইন আয় দেখানো হয় না।</string>
+    <string name="pay_intro">যেসব dApps-এর প্রকাশক একটি ট্রেজারি নিশ্চিত করেছেন। গণনা করা হয়েছে: SOL, SKR এবং USDC-তে চেইনে প্রাপ্ত সেসব পেমেন্ট যা dApp-এর মেমো কোড বা তার রেফারেন্স অ্যাকাউন্ট বহন করে। অফ-চেইন আয় দেখানো হয় না।</string>
     <string name="pay_usd_note">USD আজকের দামে</string>
     <string name="pay_row">পেমেন্ট: %1$d · প্রদানকারী: %2$d · প্রত্যয়িত ডিভাইস সহ: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -580,18 +592,18 @@
     <string name="pay_preview_title">একটি ট্রেজারি প্রিভিউ করুন</string>
     <string name="pay_preview_body">যে কেউ পাবলিক পেমেন্ট প্রিভিউ করতে পারেন। শুধু সেই ট্রেজারি তালিকাভুক্ত হয় যা ওয়ালেট এবং প্রকাশকের ওয়েবসাইট উভয় দ্বারা নিশ্চিত হয়েছে।</string>
     <string name="pay_field_treasury">ট্রেজারি ওয়ালেট</string>
-    <string name="pay_field_code">মেমো কোড</string>
+    <string name="pay_field_code">মেমো কোড বা রেফারেন্স অ্যাকাউন্ট</string>
     <string name="pay_field_package">প্যাকেজের নাম</string>
     <string name="pay_preview">প্রিভিউ</string>
     <string name="pay_list_title">আপনার dApp তালিকাভুক্ত করুন</string>
     <string name="pay_list_step1">১. আপনার অ্যাপের জন্য dApp Store যে ওয়েবসাইট তালিকাভুক্ত করে, সেখানে /.well-known/undersigned.txt-এ এই লাইনটি যোগ করুন:</string>
-    <string name="pay_list_step2">২. সেই ট্রেজারি ওয়ালেট দিয়ে সাইন ইন করে, নিচের তালিকাটি স্বাক্ষর করুন। শুধু সেসব পেমেন্ট গণনা করা হয় যার মেমো কোড দিয়ে শুরু হয়।</string>
+    <string name="pay_list_step2">২. সেই ট্রেজারি ওয়ালেট দিয়ে সাইন ইন করে, নিচের তালিকাটি স্বাক্ষর করুন। কোডটি হয় আপনার পেমেন্ট মেমো কোড অথবা আপনার পেমেন্ট রেফারেন্স অ্যাকাউন্ট; শুধু সেসব পেমেন্ট গণনা করা হয় যা এটি বহন করে।</string>
     <string name="pay_sign">এই ট্রেজারি হিসেবে স্বাক্ষর করুন</string>
     <string name="pay_my_claims">আপনার ট্রেজারি তালিকা</string>
     <string name="pay_claim_confirmed">ওয়েবসাইট দ্বারা নিশ্চিত</string>
     <string name="pay_claim_waiting">ওয়েবসাইট লাইনের অপেক্ষায়</string>
     <string name="pay_withdraw">তালিকা প্রত্যাহার করুন</string>
-    <string name="pay_bad_input">প্যাকেজের নাম এবং কোড পরীক্ষা করুন (২–৩২টি অক্ষর, সংখ্যা, - বা _)।</string>
+    <string name="pay_bad_input">প্যাকেজের নাম এবং কোড পরীক্ষা করুন (২–৩১টি অক্ষর, সংখ্যা, - বা _ দিয়ে তৈরি মেমো কোড, বা একটি রেফারেন্স অ্যাকাউন্ট ঠিকানা)।</string>
     <string name="pay_open">পেমেন্ট বোর্ড</string>
     <string name="pay_waiting_list">ট্রেজারি দ্বারা তালিকাভুক্ত, এখনও ওয়েবসাইট দ্বারা নিশ্চিত নয়: %1$d</string>
 </resources>

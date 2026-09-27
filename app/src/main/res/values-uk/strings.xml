@@ -555,6 +555,18 @@
     <string name="ratings_tracked">Зіркові рейтинги відстежуються на цьому телефоні з %1$s · Знімки: %2$d</string>
     <string name="notif_burst_title">%1$s: сплеск відгуків</string>
     <string name="pay_paid_pill">Оплачено за цей додаток</string>
+    <string name="pay_usd_paid">USD за курсом дня кожного платежу</string>
+    <string name="pay_usd_both">USD за курсом дня кожного платежу, де курси відомі, інакше за сьогоднішніми цінами</string>
+    <string name="pay_own">Виключено: платежі з власних гаманців видавця: %1$d</string>
+    <string name="season_pill">Під час %1$s</string>
+    <string name="season_share">Написано під час сезонів винагород: %1$d з %2$d відгуків магазину прочитано</string>
+    <string name="note_title">Підписана примітка видавця</string>
+    <string name="note_add">Додати підписану примітку</string>
+    <string name="note_update">Оновити мою підписану примітку</string>
+    <string name="note_dialog_title">Підписати примітку до цього відгуку магазину</string>
+    <string name="note_dialog_body">Вашу примітку підписує ваш гаманець, і вона незмінна. Читачі бачать її під цим відгуком, позначену як від видавця. Пізніше вилучення залишає запис у блокчейні.</string>
+    <string name="note_hint">Ваша примітка</string>
+    <string name="note_sign">Підписати примітку</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Спостереження за магазином</string>
@@ -590,7 +602,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Огляд платежів</string>
-    <string name="pay_intro">dApps, чий видавець підтвердив скарбницю. Враховуються: платежі, отримані в блокчейні в SOL, SKR та USDC, чиє memo починається з коду dApp. Дохід поза блокчейном не показується.</string>
+    <string name="pay_intro">dApps, чий видавець підтвердив скарбницю. Враховуються: платежі, отримані в блокчейні в SOL, SKR та USDC, що несуть код memo dApp або її референс-рахунок. Дохід поза блокчейном не показується.</string>
     <string name="pay_usd_note">USD за сьогоднішніми цінами</string>
     <string name="pay_row">Платежі: %1$d · Платники: %2$d · З підтвердженим пристроєм: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -603,18 +615,18 @@
     <string name="pay_preview_title">Попередній перегляд скарбниці</string>
     <string name="pay_preview_body">Будь-хто може переглянути публічні платежі. Наведено лише скарбницю, підтверджену і гаманцем, і сайтом видавця.</string>
     <string name="pay_field_treasury">Гаманець скарбниці</string>
-    <string name="pay_field_code">Код memo</string>
+    <string name="pay_field_code">Код memo або референс-рахунок</string>
     <string name="pay_field_package">Назва пакета</string>
     <string name="pay_preview">Перегляд</string>
     <string name="pay_list_title">Додайте свою dApp до списку</string>
     <string name="pay_list_step1">1. Додайте цей рядок до /.well-known/undersigned.txt на сайті, який dApp Store вказує для вашого додатка:</string>
-    <string name="pay_list_step2">2. Увійшовши тим гаманцем скарбниці, підпишіть запис нижче. Враховуються лише платежі, чиє memo починається з цього коду.</string>
+    <string name="pay_list_step2">2. Увійшовши тим гаманцем скарбниці, підпишіть запис нижче. Код — це або ваш код memo платежу, або ваш референс-рахунок платежу; враховуються лише платежі, що його несуть.</string>
     <string name="pay_sign">Підписати як цю скарбницю</string>
     <string name="pay_my_claims">Ваші записи скарбниці</string>
     <string name="pay_claim_confirmed">Підтверджено сайтом</string>
     <string name="pay_claim_waiting">Очікує на рядок на сайті</string>
     <string name="pay_withdraw">Вилучити запис</string>
-    <string name="pay_bad_input">Перевірте назву пакета і код (2–32 літери, цифри, - або _).</string>
+    <string name="pay_bad_input">Перевірте назву пакета і код (код memo з 2–31 літер, цифр, - або _, або адресу референс-рахунку).</string>
     <string name="pay_open">Огляд платежів</string>
     <string name="pay_waiting_list">Наведено скарбницею, ще не підтверджено сайтом: %1$d</string>
 </resources>

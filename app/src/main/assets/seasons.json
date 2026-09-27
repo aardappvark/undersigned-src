@@ -1,0 +1,7 @@
+{
+  "note": "Reward periods in which dApp Store activity was rewarded. Dates are UTC days, end inclusive. Sources: Seeker Summer, solanamobile.com/blog/seeker-summer-is-here-complete-quests-earn-badges-and-explore-apps-all-summer-long (published 14 Jul 2026): 'July 7th through August 30th'. Season 1: from the Seeker's August 2025 launch to the snapshot before the 21 Jan 2026 SKR airdrop (solanafloor.com); neither day is published, so it is marked approximate. Season 2 (from 21 Jan 2026) has no announced end and is not listed: tagging every review since January would say nothing.",
+  "seasons": [
+    { "id": "s1", "label": "Seeker Season 1", "start": "2025-08-01", "end": "2026-01-20", "approximate": true },
+    { "id": "summer26", "label": "Seeker Summer", "start": "2026-07-07", "end": "2026-08-30", "approximate": false }
+  ]
+}

@@ -523,6 +523,18 @@
     <string name="ratings_tracked">この端末で%1$s以降に記録された星評価 · スナップショット:%2$d</string>
     <string name="notif_burst_title">%1$s：レビューの急増</string>
     <string name="pay_paid_pill">このアプリの代金を支払い済み</string>
+    <string name="pay_usd_paid">各支払い当日の価格による USD</string>
+    <string name="pay_usd_both">価格が分かる場合は各支払い当日の価格による USD、それ以外は本日の価格による</string>
+    <string name="pay_own">除外:パブリッシャー自身のウォレットからの支払い:%1$d</string>
+    <string name="season_pill">%1$s中</string>
+    <string name="season_share">リワードシーズン中に書かれた:ストアレビュー%2$d件中%1$d件既読</string>
+    <string name="note_title">パブリッシャーの署名済みメモ</string>
+    <string name="note_add">署名済みメモを追加</string>
+    <string name="note_update">署名済みメモを更新</string>
+    <string name="note_dialog_title">このストアレビューにメモを署名する</string>
+    <string name="note_dialog_body">メモはウォレットで署名され、永続的に残ります。読者はこのレビューの下に、パブリッシャーのものとして表示されたメモを見ます。後で取り下げても、記録はオンチェーンに残ります。</string>
+    <string name="note_hint">あなたのメモ</string>
+    <string name="note_sign">メモに署名</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">ストア監視</string>
@@ -558,7 +570,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">支払いボード</string>
-    <string name="pay_intro">パブリッシャーがトレジャリーを確認済みの dApp。集計対象:オンチェーンで受け取った SOL、SKR、USDC の支払いのうち、メモが dApp のコードで始まるもの。オフチェーンの収入は表示されません。</string>
+    <string name="pay_intro">パブリッシャーがトレジャリーを確認済みの dApp。集計対象:オンチェーンで受け取った SOL、SKR、USDC の支払いのうち、dApp のメモコードまたは参照アカウントを含むもの。オフチェーンの収入は表示されません。</string>
     <string name="pay_usd_note">本日の価格による USD換算</string>
     <string name="pay_row">支払い:%1$d · 支払者:%2$d · 証明済み端末:%3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -571,18 +583,18 @@
     <string name="pay_preview_title">トレジャリーをプレビュー</string>
     <string name="pay_preview_body">誰でも公開されている支払いをプレビューできます。掲載されるのは、ウォレットとパブリッシャーのウェブサイトの両方で確認されたトレジャリーのみです。</string>
     <string name="pay_field_treasury">トレジャリーウォレット</string>
-    <string name="pay_field_code">メモコード</string>
+    <string name="pay_field_code">メモコードまたは参照アカウント</string>
     <string name="pay_field_package">パッケージ名</string>
     <string name="pay_preview">プレビュー</string>
     <string name="pay_list_title">dApp を登録</string>
     <string name="pay_list_step1">1. dApp Store がこのアプリ用に掲載しているウェブサイトの /.well-known/undersigned.txt に、次の行を追加してください:</string>
-    <string name="pay_list_step2">2. そのトレジャリーウォレットでサインインした状態で、下記の登録に署名してください。集計されるのは、メモがそのコードで始まる支払いのみです。</string>
+    <string name="pay_list_step2">2. そのトレジャリーウォレットでサインインした状態で、下記の登録に署名してください。コードは支払いメモコードまたは支払い参照アカウントのいずれかです。集計されるのは、それを含む支払いのみです。</string>
     <string name="pay_sign">このトレジャリーとして署名</string>
     <string name="pay_my_claims">あなたのトレジャリー登録</string>
     <string name="pay_claim_confirmed">ウェブサイトで確認済み</string>
     <string name="pay_claim_waiting">ウェブサイトへの行追加待ち</string>
     <string name="pay_withdraw">登録を取り下げる</string>
-    <string name="pay_bad_input">パッケージ名とコードを確認してください(2–32文字の英字、数字、-、_)。</string>
+    <string name="pay_bad_input">パッケージ名とコードを確認してください(2–31文字の英字、数字、-、_ から成るメモコード、または参照アカウントのアドレス)。</string>
     <string name="pay_open">支払いボード</string>
     <string name="pay_waiting_list">トレジャリーが登録済みでウェブサイト未確認:%1$d</string>
 </resources>

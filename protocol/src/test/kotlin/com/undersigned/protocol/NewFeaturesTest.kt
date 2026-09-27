@@ -183,6 +183,23 @@ class PaymentsTest {
         assertEquals(ReviewMemo.Untreasury("com.a.b"), ReviewMemo.decode("SRL1|trx|com.a.b"))
     }
 
+    @Test fun codesAndReferences() {
+        assertTrue(Payments.validCode("UNS")); assertFalse(Payments.isReference("UNS"))
+        assertTrue(Payments.isReference("BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs")); assertTrue(Payments.validCode("BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs"))
+        assertFalse(Payments.validCode("0OIl" + "a".repeat(30)))               // not base58, too long for a code
+        assertEquals(ReviewMemo.Treasury("com.a.b", "BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs"), ReviewMemo.decode("SRL1|trs|com.a.b|BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs"))
+    }
+
+    @Test fun publisherWalletsAreCountedApart() {
+        val p = listOf(
+            Payments.Payment(sig('a'), "PayerA11111111111111111111111111111111111111", 1_758_000_000L, 60_700_000, emptyMap()),
+            Payments.Payment(sig('b'), "OwnerW11111111111111111111111111111111111111", 1_758_000_000L, 60_700_000, emptyMap()))
+        val t = Payments.tally(p, treasury, own = setOf("OwnerW11111111111111111111111111111111111111")) { false }
+        assertEquals(1, t.payments); assertEquals(1, t.ownPayments); assertEquals(60_700_000L, t.lamports)
+        val body = "# publisher\n8oLtrvMnk7bLzjYzWQdo66kJsvkG4CYL1QKoeKbBHT8F\ntreasury: $treasury\nnot an address"
+        assertEquals(setOf("8oLtrvMnk7bLzjYzWQdo66kJsvkG4CYL1QKoeKbBHT8F", treasury), Payments.listedWallets(body))
+    }
+
     @Test fun tallyCountsPayersMonthsAndIgnoresSelfAndEmpty() {
         val sep = 1_758_000_000L   // 2025-09-16 UTC
         val oct = 1_760_000_000L   // 2025-10-09 UTC
@@ -265,5 +282,31 @@ class UseTimeTest {
         assertEquals(mapOf(sig to UseTime.MANY_HOURS), Usage.time(listOf(review, tim)))
         assertTrue(Usage.time(listOf(review, tim.copy(signer = "Other111111111111111111111111111111111111111"))).isEmpty())
         assertTrue(Usage.time(listOf(review, tim.copy(memo = ReviewMemo.Time("com.x.y", UseTime.HOURS)))).isEmpty())
+    }
+}
+
+class StoreNotesTest {
+    private val pub = "Publisher11111111111111111111111111111111111"
+    private val other = "Other111111111111111111111111111111111111111"
+    private val rid = "3cf12330-0533-441e-92f8-fc8ab0707c45"
+    private fun note(sig: Char, signer: String, t: Long, text: String = "Fixed in v185, thanks") = LedgerEntry(sig.toString().repeat(88), signer, t, ReviewMemo.StoreNote("com.a.b", rid, text))
+
+    @Test fun wire() {
+        val m = ReviewMemo.StoreNote("com.a.b", rid, "Fixed in v185, thanks")
+        assertEquals(m, ReviewMemo.decode(ReviewMemo.encode(m)))
+        assertNull(ReviewMemo.decode("SRL1|snt|com.a.b|NOT-A-UUID|Zm9v"))
+        assertNull(ReviewMemo.decode("SRL1|snt|com.a.b|3CF12330-0533-441E-92F8-FC8AB0707C45|Zm9v"))   // uppercase is not canonical
+        assertNull(ReviewMemo.decode("SRL1|snt|com.a.b|$rid|"))
+        assertTrue(ReviewMemo.encode(ReviewMemo.StoreNote("a." + "b".repeat(98), rid, "ж".repeat(140))).toByteArray().size <= ReviewMemo.MAX_MEMO_BYTES)
+    }
+
+    @Test fun onlyVerifiedPublishersNewestWinsWithdrawnGone() {
+        val vp = mapOf("com.a.b" to setOf(pub))
+        val a = note('a', pub, 10, "first"); val b = note('b', pub, 20, "second"); val x = note('c', other, 30, "not the publisher")
+        assertEquals("second", (StoreNotes.current(listOf(a, b, x), vp)[rid]!!.memo as ReviewMemo.StoreNote).text)
+        assertTrue(StoreNotes.current(listOf(x), vp).isEmpty())
+        val rvk = LedgerEntry("d".repeat(88), pub, 40, ReviewMemo.Revocation(b.signature))
+        assertEquals("first", (StoreNotes.current(listOf(a, b, rvk), vp)[rid]!!.memo as ReviewMemo.StoreNote).text)
+        assertTrue(StoreNotes.current(listOf(a, b), emptyMap()).isEmpty())
     }
 }

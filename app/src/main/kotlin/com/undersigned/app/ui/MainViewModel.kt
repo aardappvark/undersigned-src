@@ -194,6 +194,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         disputes.value = Reputation.disputes(list)
         similarity.value = com.undersigned.protocol.Similarity.findings(list)
         usage.value = com.undersigned.protocol.Usage.index(list)
+        storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, verifiedPublishers.value)
         useTimes.value = com.undersigned.protocol.Usage.time(list)
         recomputePro()
         verifyClaims(list)
@@ -227,6 +228,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val changed = verifiedPublishers.value != expanded
         verifiedPublishers.value = expanded
         UserPreferences.saveVerifiedPublishers(expanded)
+        storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, expanded)
         if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f) }
     }
     private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
@@ -353,6 +355,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     // ---- Install age ---------------------------------------------------------------------------------------
 
+    /** Reward periods (assets/seasons.json) and the one a moment falls in. */
+    val seasons = com.undersigned.app.data.Seasons.all(app)
+    fun seasonAt(epochSec: Long) = com.undersigned.app.data.Seasons.at(epochSec, seasons)
+    fun seasonAtIso(iso: String) = runCatching { java.time.Instant.parse(iso).epochSecond }.getOrNull()?.let { seasonAt(it) }
+    /** Of the store reviews read for [pkg], how many were written inside a reward period, and how many were read. */
+    fun seasonShare(pkg: String): Pair<Int, Int>? = storeHistory.value[pkg]?.items?.takeIf { it.isNotEmpty() }?.let { l -> l.count { seasonAtIso(it.createdAt) != null } to l.size }
+
+    /** Store review id → the verified publisher's newest signed note on it (see protocol StoreNotes). */
+    val storeNotes = MutableStateFlow<Map<String, LedgerEntry>>(emptyMap())
+
     /** Review record id → the install age its own transaction reported (see protocol Usage). */
     val usage = MutableStateFlow<Map<String, com.undersigned.protocol.UseBucket>>(emptyMap())
     /** Total time on this phone across reinstalls (Undersigned's own log), bucketed; null when not installed now. */
@@ -401,7 +413,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val board = com.undersigned.app.ledger.PaymentBoard(app)
     /** One listing: a treasury claim, whether the store-listed website confirms it, and what it has been paid. */
     /** [payers] = wallets that paid this listing's treasury under its code; a review by one of them carries "Paid for this app". */
-    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean, val payers: Set<String> = emptySet())
+    /** [usdWhenPaid]: true when [usd] and [monthUsd] use each payment's own day's price, false when today's. */
+    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean, val payers: Set<String> = emptySet(), val usdWhenPaid: Boolean = false, val monthUsd: Map<String, Double> = emptyMap())
     val boardRows = MutableStateFlow<List<BoardRow>>(emptyList())
     val boardLoading = MutableStateFlow(false)
     val boardPreview = MutableStateFlow<BoardRow?>(null)
@@ -418,10 +431,22 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val name = catalogue.value.firstOrNull { it.packageName == claim.packageName }?.name ?: claim.packageName
         if (!confirmed) return BoardRow(claim, name, false, null, null, true)
         val read = board.read(claim.treasury, claim.code)
-        val att = HashMap<String, Boolean>(); for (p in read.payments.map { it.payer }.distinct()) att[p] = attested(p)
-        val t = com.undersigned.protocol.Payments.tally(read.payments, claim.treasury) { att[it] == true }
+        // The publisher testing their own checkout is not a customer: payments from any wallet their proof file names
+        // are counted apart. A preview (no package) has no proof file and leaves nothing out.
+        val own = if (claim.packageName.isEmpty()) emptySet() else PublisherVerifier.listedWallets(storeDetails.value[claim.packageName])
+        val counted = read.payments.filter { it.payer != claim.treasury && it.payer !in own }
+        val att = HashMap<String, Boolean>(); for (p in counted.map { it.payer }.distinct()) att[p] = attested(p)
+        val t = com.undersigned.protocol.Payments.tally(read.payments, claim.treasury, own) { att[it] == true }
         val q = com.undersigned.app.ledger.Prices.quotes(listOf(AppConfig.Solana.SKR_MINT, com.undersigned.app.ledger.PaymentBoard.USDC_MINT)).also { quotes.value = it }
-        return BoardRow(claim, name, true, t, com.undersigned.app.ledger.Prices.usd(t.lamports, t.tokens, q), read.complete, read.payments.map { it.payer }.filter { it != claim.treasury }.toSet())
+        // USD on each payment's own day when the history covers every payment; otherwise everything at today's prices.
+        val h = com.undersigned.app.ledger.Prices.history()
+        val fmt = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM").withZone(java.time.ZoneOffset.UTC)
+        val paid = counted.map { it to com.undersigned.app.ledger.Prices.usdWhenPaid(it, h) }
+        val whenPaid = paid.isNotEmpty() && paid.all { it.second != null }
+        val usd = if (whenPaid) paid.sumOf { it.second!! } else com.undersigned.app.ledger.Prices.usd(t.lamports, t.tokens, q)
+        val months = if (whenPaid) paid.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.first.time)) }.mapValues { (_, l) -> l.sumOf { it.second!! } }
+            else t.months.associate { it.key to (com.undersigned.app.ledger.Prices.usd(it.lamports, it.tokens, q) ?: 0.0) }
+        return BoardRow(claim, name, true, t, usd, read.complete, counted.map { it.payer }.toSet(), whenPaid, months)
     }
 
     /** Every claim on the ledger, checked against its website, then read. At most once every ten minutes unless [force]. */
@@ -695,10 +720,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn" }
-        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; else -> "" }
-        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.Treasury -> m.code; else -> "" }
-        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn" }
+        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; else -> "" }
+        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; else -> "" }
+        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
         if (json) {

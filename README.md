@@ -63,15 +63,32 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
   re-signs the chosen ones as ledger records in ONE wallet approval (multi-memo transactions, record ids `sig`, `sig:1`, …).
 - `.skr` main-domain names for ledger signers (AllDomains MainDomain PDA), cached on-device.
 
+## Built since (26–28 Sep 2026)
+
+- **My reviews**: every review the wallet wrote, one card per dApp, signed beside store, searchable; the store scan runs
+  in the background and notifies when done.
+- **Review bursts**: each app page flags clusters of 5★ (or 1★) reviews against the app's median day, with how many
+  reviewers hold an attested device and whether the burst fell in a reward period. Checked on real data: CrushCoin's
+  gold-for-5★ campaign (17 Mar 2026) reads as 69 five-star reviews in 17–24 Mar, 67 of 67 from attested wallets.
+- **Star-rating bursts and Store watch**: daily snapshots of the store's star counts (the batch query takes 20 apps; the
+  whole store is 72 requests), per followed app and, opt-in, store-wide; alerts on new bursts for followed apps.
+- **Install age and usage time on reviews** (`SRL1|use`, `SRL1|tim` in the review's own transaction): total time on the
+  phone across reinstalls, and opt-in foreground time, both rounded and shown as the reviewer's device report.
+- **Payments board**: a treasury confirmed by both its own signature (`SRL1|trs`) and the publisher's website, counted
+  by memo code or reference account, publisher's own wallets left out, USD at each payment's day. Matches the fleet
+  ledger exactly (SeekerVerify: 63 payments, 0.4335 SOL + 1,690 SKR). "Paid for this app" badge on reviews by payers.
+- **Publisher notes on store reviews** (`SRL1|snt`): a verified publisher's signed, permanent answer under a store review.
+- **Reward-period tags**: reviews and bursts inside Seeker Season 1 (approximate) or Seeker Summer are tagged.
+
 ## Status — what is NOT done yet
 
-- **Signing path untested end-to-end**: needs a Seeker wallet holding a Genesis Token (owner smoke on the
-  Seeker, one device). Simulation of the exact carrier tx is green on mainnet; MWA flow is the fleet's.
 - **Launcher icon is RentBack Sol's placeholder** — the fleet icon rule (one 512 source drives store icon,
   launcher layers, legal favicon = MWA identity icon, banner) must be applied before any submission.
-- **Legal site** `undersigned-legal` not created (legal last); it is also the MWA identity URI, so it must be
-  pushed before the first real sign-in on a device.
-- English only (fleet apps ship 28 locales); store assets, demo video, pitch deck.
+- **Privacy policy update** for usage access, install history and Store watch is drafted in `undersigned-legal/docs`
+  but not yet published to the live site.
+- **Payments board listing fee**: not built; it needs a price decision, and a fee paid under the `UNS` memo must be
+  told apart from a Pro licence by amount.
+- Store assets, demo video, pitch deck.
 - `FLEET_PACKAGES` lock-step on publish; Pro payment memo `UNS` reserved in the fleet registry (one 3-letter memo, nothing else).
 
 ## Owner decisions still open

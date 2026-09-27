@@ -531,6 +531,18 @@
     <string name="ratings_tracked">Xếp hạng sao được theo dõi trên điện thoại này kể từ %1$s · Ảnh chụp nhanh: %2$d</string>
     <string name="notif_burst_title">%1$s: đợt tăng đột biến đánh giá</string>
     <string name="pay_paid_pill">Đã thanh toán cho ứng dụng này</string>
+    <string name="pay_usd_paid">USD theo giá vào ngày mỗi lần thanh toán</string>
+    <string name="pay_usd_both">USD theo giá vào ngày mỗi lần thanh toán khi biết giá, nếu không thì theo giá hôm nay</string>
+    <string name="pay_own">Không tính: các khoản thanh toán từ chính ví của nhà phát hành: %1$d</string>
+    <string name="season_pill">Trong %1$s</string>
+    <string name="season_share">Được viết trong các mùa thưởng: %1$d trên %2$d đánh giá trên cửa hàng đã đọc</string>
+    <string name="note_title">Ghi chú đã ký của nhà phát hành</string>
+    <string name="note_add">Thêm ghi chú đã ký</string>
+    <string name="note_update">Cập nhật ghi chú đã ký của tôi</string>
+    <string name="note_dialog_title">Ký một ghi chú trên đánh giá cửa hàng này</string>
+    <string name="note_dialog_body">Ghi chú của bạn được ký bằng ví của bạn và là vĩnh viễn. Người đọc thấy ghi chú này ở dưới đánh giá, được đánh dấu là của nhà phát hành. Rút ghi chú sau đó vẫn để lại bản ghi trên chuỗi.</string>
+    <string name="note_hint">Ghi chú của bạn</string>
+    <string name="note_sign">Ký ghi chú</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Theo dõi cửa hàng</string>
@@ -566,7 +578,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Bảng thanh toán</string>
-    <string name="pay_intro">Các dApp mà nhà phát hành đã xác nhận một quỹ. Được tính: các khoản thanh toán nhận trên chuỗi bằng SOL, SKR và USDC có memo bắt đầu bằng mã của dApp. Thu nhập ngoài chuỗi không được hiển thị.</string>
+    <string name="pay_intro">Các dApp mà nhà phát hành đã xác nhận một quỹ. Được tính: các khoản thanh toán nhận trên chuỗi bằng SOL, SKR và USDC mang mã memo của dApp đó hoặc tài khoản tham chiếu của dApp đó. Thu nhập ngoài chuỗi không được hiển thị.</string>
     <string name="pay_usd_note">USD theo giá hôm nay</string>
     <string name="pay_row">Thanh toán: %1$d · Người thanh toán: %2$d · Có thiết bị được xác nhận: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -579,18 +591,18 @@
     <string name="pay_preview_title">Xem trước một quỹ</string>
     <string name="pay_preview_body">Bất kỳ ai cũng có thể xem trước các khoản thanh toán công khai. Chỉ quỹ được xác nhận bởi cả ví lẫn trang web của nhà phát hành mới được niêm yết.</string>
     <string name="pay_field_treasury">Ví quỹ</string>
-    <string name="pay_field_code">Mã memo</string>
+    <string name="pay_field_code">Mã memo hoặc tài khoản tham chiếu</string>
     <string name="pay_field_package">Tên gói</string>
     <string name="pay_preview">Xem trước</string>
     <string name="pay_list_title">Niêm yết dApp của bạn</string>
     <string name="pay_list_step1">1. Thêm dòng này vào /.well-known/undersigned.txt trên trang web mà dApp Store liệt kê cho ứng dụng của bạn:</string>
-    <string name="pay_list_step2">2. Sau khi đăng nhập bằng ví quỹ đó, hãy ký vào bản niêm yết bên dưới. Chỉ các khoản thanh toán có memo bắt đầu bằng mã mới được tính.</string>
+    <string name="pay_list_step2">2. Sau khi đăng nhập bằng ví quỹ đó, hãy ký vào bản niêm yết bên dưới. Mã này là mã memo thanh toán của bạn hoặc tài khoản tham chiếu thanh toán của bạn; chỉ những khoản thanh toán mang mã đó mới được tính.</string>
     <string name="pay_sign">Ký với tư cách quỹ này</string>
     <string name="pay_my_claims">Các niêm yết quỹ của bạn</string>
     <string name="pay_claim_confirmed">Đã được trang web xác nhận</string>
     <string name="pay_claim_waiting">Đang chờ dòng trên trang web</string>
     <string name="pay_withdraw">Rút niêm yết</string>
-    <string name="pay_bad_input">Kiểm tra lại tên gói và mã (2–32 chữ cái, chữ số, - hoặc _).</string>
+    <string name="pay_bad_input">Kiểm tra lại tên gói và mã (mã memo gồm 2–31 chữ cái, chữ số, - hoặc _, hoặc một địa chỉ tài khoản tham chiếu).</string>
     <string name="pay_open">Bảng thanh toán</string>
     <string name="pay_waiting_list">Được quỹ niêm yết, chưa được trang web xác nhận: %1$d</string>
 </resources>

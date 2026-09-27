@@ -538,6 +538,18 @@
     <string name="ratings_tracked">Yıldız puanları bu telefonda %1$s tarihinden bu yana izleniyor · Anlık görüntüler: %2$d</string>
     <string name="notif_burst_title">%1$s: inceleme dalgası</string>
     <string name="pay_paid_pill">Bu uygulama için ödeme yapıldı</string>
+    <string name="pay_usd_paid">Her ödemenin yapıldığı gündeki USD</string>
+    <string name="pay_usd_both">Fiyatların bilindiği yerlerde her ödemenin yapıldığı gündeki USD, aksi halde bugünkü fiyatlarla</string>
+    <string name="pay_own">Hariç tutuldu: yayıncının kendi cüzdanlarından yapılan ödemeler: %1$d</string>
+    <string name="season_pill">%1$s sırasında</string>
+    <string name="season_share">Ödül sezonlarında yazıldı: %1$d / %2$d mağaza incelemesi okundu</string>
+    <string name="note_title">Yayıncının imzalı notu</string>
+    <string name="note_add">İmzalı not ekle</string>
+    <string name="note_update">İmzalı notumu güncelle</string>
+    <string name="note_dialog_title">Bu mağaza incelemesine bir not imzala</string>
+    <string name="note_dialog_body">Notunuz cüzdanınız tarafından imzalanır ve kalıcıdır. Okuyucular bunu bu incelemenin altında, yayıncıya ait olarak işaretlenmiş şekilde görür. Daha sonra geri çekmek kaydı zincir üzerinde bırakır.</string>
+    <string name="note_hint">Notunuz</string>
+    <string name="note_sign">Notu imzala</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Mağaza izleme</string>
@@ -573,7 +585,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Ödemeler panosu</string>
-    <string name="pay_intro">Yayıncısı bir hazineyi onaylamış dApp\'ler. Sayılan: memo\'su dApp\'in koduyla başlayan, SOL, SKR ve USDC cinsinden zincir üzerinde alınan ödemeler. Zincir dışı gelir gösterilmez.</string>
+    <string name="pay_intro">Yayıncısı bir hazineyi onaylamış dApp\'ler. Sayılan: dApp\'in memo kodunu veya referans hesabını taşıyan, SOL, SKR ve USDC cinsinden zincir üzerinde alınan ödemeler. Zincir dışı gelir gösterilmez.</string>
     <string name="pay_usd_note">Bugünkü fiyatlarla USD</string>
     <string name="pay_row">Ödemeler: %1$d · Ödeyenler: %2$d · Kanıtlı cihazla: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -586,18 +598,18 @@
     <string name="pay_preview_title">Bir hazineyi önizle</string>
     <string name="pay_preview_body">Herkes herkese açık ödemeleri önizleyebilir. Yalnızca hem cüzdan hem de yayıncının web sitesi tarafından onaylanmış bir hazine listelenir.</string>
     <string name="pay_field_treasury">Hazine cüzdanı</string>
-    <string name="pay_field_code">Memo kodu</string>
+    <string name="pay_field_code">Memo kodu veya referans hesap</string>
     <string name="pay_field_package">Paket adı</string>
     <string name="pay_preview">Önizleme</string>
     <string name="pay_list_title">dApp\'inizi listeleyin</string>
     <string name="pay_list_step1">1. dApp Store\'un uygulamanız için listelediği web sitesindeki /.well-known/undersigned.txt dosyasına şu satırı ekleyin:</string>
-    <string name="pay_list_step2">2. O hazine cüzdanıyla oturum açmış olarak, aşağıdaki listelemeyi imzalayın. Yalnızca memo\'su kodla başlayan ödemeler sayılır.</string>
+    <string name="pay_list_step2">2. O hazine cüzdanıyla oturum açmış olarak, aşağıdaki listelemeyi imzalayın. Kod, ya ödeme memo kodunuz ya da ödeme referans hesabınızdır; yalnızca onu taşıyan ödemeler sayılır.</string>
     <string name="pay_sign">Bu hazine olarak imzala</string>
     <string name="pay_my_claims">Hazine listelemeleriniz</string>
     <string name="pay_claim_confirmed">Web sitesi tarafından onaylandı</string>
     <string name="pay_claim_waiting">Web sitesi satırı bekleniyor</string>
     <string name="pay_withdraw">Listelemeyi geri çek</string>
-    <string name="pay_bad_input">Paket adını ve kodu kontrol edin (2–32 harf, rakam, - veya _).</string>
+    <string name="pay_bad_input">Paket adını ve kodu kontrol edin (2–31 harf, rakam, - veya _\'den oluşan bir memo kodu ya da bir referans hesap adresi).</string>
     <string name="pay_open">Ödemeler panosu</string>
     <string name="pay_waiting_list">Hazine tarafından listelendi, web sitesi tarafından henüz onaylanmadı: %1$d</string>
 </resources>

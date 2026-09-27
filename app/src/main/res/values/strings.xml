@@ -544,6 +544,18 @@
     <string name="ratings_tracked">Star ratings tracked on this phone since %1$s · Snapshots: %2$d</string>
     <string name="notif_burst_title">%1$s: review burst</string>
     <string name="pay_paid_pill">Paid for this app</string>
+    <string name="season_pill">During %1$s</string>
+    <string name="season_share">Written during reward seasons: %1$d of %2$d store reviews read</string>
+    <string name="note_title">Publisher\'s signed note</string>
+    <string name="note_add">Add a signed note</string>
+    <string name="note_update">Update my signed note</string>
+    <string name="note_dialog_title">Sign a note on this store review</string>
+    <string name="note_dialog_body">Your note is signed by your wallet and is permanent. Readers see it under this review, marked as the publisher\'s. Withdrawing it later leaves the record on-chain.</string>
+    <string name="note_hint">Your note</string>
+    <string name="note_sign">Sign the note</string>
+    <string name="pay_usd_paid">USD on the day of each payment</string>
+    <string name="pay_usd_both">USD on the day of each payment where prices are known, otherwise at today\'s prices</string>
+    <string name="pay_own">Left out: payments from the publisher\'s own wallets: %1$d</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Store watch</string>
@@ -579,7 +591,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Payments board</string>
-    <string name="pay_intro">dApps whose publisher has confirmed a treasury. Counted: payments received on-chain in SOL, SKR and USDC whose memo starts with the dApp\'s code. Off-chain income is not shown.</string>
+    <string name="pay_intro">dApps whose publisher has confirmed a treasury. Counted: payments received on-chain in SOL, SKR and USDC that carry the dApp\'s memo code or reference account. Off-chain income is not shown.</string>
     <string name="pay_usd_note">USD at today\'s prices</string>
     <string name="pay_row">Payments: %1$d · Payers: %2$d · With an attested device: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -592,18 +604,18 @@
     <string name="pay_preview_title">Preview a treasury</string>
     <string name="pay_preview_body">Anyone can preview public payments. Only a treasury confirmed by both the wallet and the publisher\'s website is listed.</string>
     <string name="pay_field_treasury">Treasury wallet</string>
-    <string name="pay_field_code">Memo code</string>
+    <string name="pay_field_code">Memo code or reference account</string>
     <string name="pay_field_package">Package name</string>
     <string name="pay_preview">Preview</string>
     <string name="pay_list_title">List your dApp</string>
     <string name="pay_list_step1">1. Add this line to /.well-known/undersigned.txt on the website the dApp Store lists for your app:</string>
-    <string name="pay_list_step2">2. Signed in with that treasury wallet, sign the listing below. Only payments whose memo starts with the code are counted.</string>
+    <string name="pay_list_step2">2. Signed in with that treasury wallet, sign the listing below. The code is either your payment memo code or your payment reference account; only payments that carry it are counted.</string>
     <string name="pay_sign">Sign as this treasury</string>
     <string name="pay_my_claims">Your treasury listings</string>
     <string name="pay_claim_confirmed">Confirmed by the website</string>
     <string name="pay_claim_waiting">Waiting for the website line</string>
     <string name="pay_withdraw">Withdraw listing</string>
-    <string name="pay_bad_input">Check the package name and the code (2–32 letters, digits, - or _).</string>
+    <string name="pay_bad_input">Check the package name and the code (a memo code of 2–31 letters, digits, - or _, or a reference account address).</string>
     <string name="pay_open">Payments board</string>
     <string name="pay_waiting_list">Listed by the treasury, not yet confirmed by the website: %1$d</string>
 </resources>

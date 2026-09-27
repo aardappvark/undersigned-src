@@ -540,6 +540,18 @@
     <string name="ratings_tracked">इस फ़ोन पर स्टार रेटिंग ट्रैक की गई हैं %1$s से · स्नैपशॉट: %2$d</string>
     <string name="notif_burst_title">%1$s: समीक्षाओं में उछाल</string>
     <string name="pay_paid_pill">इस ऐप के लिए भुगतान किया गया</string>
+    <string name="pay_usd_paid">हर भुगतान के दिन का USD</string>
+    <string name="pay_usd_both">जहां कीमतें ज्ञात हों वहां हर भुगतान के दिन का USD, वरना आज की कीमतों पर</string>
+    <string name="pay_own">छोड़े गए: प्रकाशक के अपने wallets से भुगतान: %1$d</string>
+    <string name="season_pill">%1$s के दौरान</string>
+    <string name="season_share">इनाम सीज़न के दौरान लिखी गईं: %2$d स्टोर समीक्षाओं में से %1$d पड़़ी गईं</string>
+    <string name="note_title">प्रकाशक का हस्ताक्षरित नोट</string>
+    <string name="note_add">हस्ताक्षरित नोट जोड़़ें</string>
+    <string name="note_update">मेरा हस्ताक्षरित नोट अपडेट करें</string>
+    <string name="note_dialog_title">इस स्टोर समीक्षा पर एक नोट पर हस्ताक्षर करें</string>
+    <string name="note_dialog_body">आपका नोट आपके wallet से हस्ताक्षरित है और स्थायी है। पाठक इसे इस समीक्षा के नीचे, प्रकाशक के रूप में चिह्नित देखते हैं। बाद में इसे वापस लेने पर भी रिकॉर्ड chain पर बना रहता है।</string>
+    <string name="note_hint">आपका नोट</string>
+    <string name="note_sign">नोट पर हस्ताक्षर करें</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">स्टोर निगरानी</string>
@@ -575,7 +587,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">भुगतान बोर्ड</string>
-    <string name="pay_intro">वे dApps जिनके प्रकाशक ने ट्रेज़री की पुष्टि की है। गिना गया: SOL, SKR और USDC में chain पर मिले वे भुगतान जिनका मेमो dApp के कोड से शुरू होता है। chain से बाहर की आय नहीं दिखाई जाती।</string>
+    <string name="pay_intro">वे dApps जिनके प्रकाशक ने ट्रेज़़री की पुष्टि की है। गिना गया: SOL, SKR और USDC में chain पर मिले वे भुगतान जो dApp के मेमो कोड या उसके संदर्भ खाते के साथ हों। chain से बाहर की आय नहीं दिखाई जाती।</string>
     <string name="pay_usd_note">USD आज की कीमतों पर</string>
     <string name="pay_row">भुगतान: %1$d · भुगतानकर्ता: %2$d · प्रमाणित डिवाइस के साथ: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -588,18 +600,18 @@
     <string name="pay_preview_title">ट्रेज़री का पूर्वावलोकन</string>
     <string name="pay_preview_body">कोई भी सार्वजनिक भुगतानों का पूर्वावलोकन कर सकता है। केवल वही ट्रेज़री सूचीबद्ध होती है जिसकी पुष्टि wallet और प्रकाशक की वेबसाइट, दोनों ने की हो।</string>
     <string name="pay_field_treasury">ट्रेज़री wallet</string>
-    <string name="pay_field_code">मेमो कोड</string>
+    <string name="pay_field_code">मेमो कोड या संदर्भ खाता</string>
     <string name="pay_field_package">पैकेज नाम</string>
     <string name="pay_preview">पूर्वावलोकन</string>
     <string name="pay_list_title">अपना dApp सूचीबद्ध करें</string>
     <string name="pay_list_step1">1. अपने ऐप के लिए dApp Store जिस वेबसाइट को सूचीबद्ध करता है, उस पर /.well-known/undersigned.txt में यह लाइन जोड़ें:</string>
-    <string name="pay_list_step2">2. उसी ट्रेज़री wallet से साइन इन करके, नीचे दी गई लिस्टिंग पर हस्ताक्षर करें। केवल वे भुगतान गिने जाते हैं जिनका मेमो कोड से शुरू होता है।</string>
+    <string name="pay_list_step2">2. उसी ट्रेज़़री wallet से साइन इन करके, नीचे दी गई लिस्टिंग पर हस्ताक्षर करें। कोड या तो आपका भुगतान मेमो कोड है या आपका भुगतान संदर्भ खाता; केवल वे भुगतान गिने जाते हैं जिनके साथ यह हो।</string>
     <string name="pay_sign">इस ट्रेज़री के रूप में हस्ताक्षर करें</string>
     <string name="pay_my_claims">आपकी ट्रेज़री लिस्टिंग</string>
     <string name="pay_claim_confirmed">वेबसाइट से पुष्टि की गई</string>
     <string name="pay_claim_waiting">वेबसाइट लाइन का इंतज़ार</string>
     <string name="pay_withdraw">लिस्टिंग वापस लें</string>
-    <string name="pay_bad_input">पैकेज नाम और कोड जांचें (2–32 अक्षर, अंक, - या _)।</string>
+    <string name="pay_bad_input">पैकेज नाम और कोड जांचें (2–31 अक्षरों, अंकों, - या _ का मेमो कोड, या एक संदर्भ खाता पता)।</string>
     <string name="pay_open">भुगतान बोर्ड</string>
     <string name="pay_waiting_list">ट्रेज़री द्वारा सूचीबद्ध, अभी वेबसाइट से पुष्ट नहीं: %1$d</string>
 </resources>

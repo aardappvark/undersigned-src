@@ -547,6 +547,18 @@
     <string name="ratings_tracked">Hvězdičková hodnocení sledovaná v tomto telefonu od %1$s · Snímky: %2$d</string>
     <string name="notif_burst_title">%1$s: vlna recenzí</string>
     <string name="pay_paid_pill">Zaplaceno za tuto aplikaci</string>
+    <string name="pay_usd_paid">USD v den každé platby</string>
+    <string name="pay_usd_both">USD v den každé platby, pokud jsou ceny známé, jinak podle dnešních cen</string>
+    <string name="pay_own">Vynecháno: platby z vlastních peněženek vydavatele: %1$d</string>
+    <string name="season_pill">Během %1$s</string>
+    <string name="season_share">Napsáno během odměnových sezón: %1$d z %2$d recenzí z obchodu přečteno</string>
+    <string name="note_title">Podepsáná poznámka vydavatele</string>
+    <string name="note_add">Přidat podepsanou poznámku</string>
+    <string name="note_update">Aktualizovat mou podepsanou poznámku</string>
+    <string name="note_dialog_title">Podepsat poznámku k této recenzi z obchodu</string>
+    <string name="note_dialog_body">Vaši poznámku podepisuje vaše peněženka a je trvalá. Čtenáři ji uvidí pod touto recenzí, označenou jako poznámka vydavatele. Pozdější stažení ponechá záznam na blockchainu.</string>
+    <string name="note_hint">Vaše poznámka</string>
+    <string name="note_sign">Podepsat poznámku</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">Sledování obchodu</string>
@@ -582,7 +594,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Přehled plateb</string>
-    <string name="pay_intro">dApps, jejichž vydavatel potvrdil pokladnu. Počítají se: platby přijaté na blockchainu v SOL, SKR a USDC, jejichž memo začíná kódem dApp. Příjmy mimo blockchain se nezobrazují.</string>
+    <string name="pay_intro">dApps, jejichž vydavatel potvrdil pokladnu. Počítají se: platby přijaté na blockchainu v SOL, SKR a USDC, které nesou kód memo dApp nebo její referenční účet. Příjmy mimo blockchain se nezobrazují.</string>
     <string name="pay_usd_note">USD podle dnešních cen</string>
     <string name="pay_row">Platby: %1$d · Plátci: %2$d · S ověřeným zařízením: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -595,18 +607,18 @@
     <string name="pay_preview_title">Náhled pokladny</string>
     <string name="pay_preview_body">Veřejné platby si může prohlédnout kdokoli. Uvedena je jen pokladna potvrzená peněženkou i webem vydavatele.</string>
     <string name="pay_field_treasury">Peněženka pokladny</string>
-    <string name="pay_field_code">Kód memo</string>
+    <string name="pay_field_code">Kód memo nebo referenční účet</string>
     <string name="pay_field_package">Název balíčku</string>
     <string name="pay_preview">Náhled</string>
     <string name="pay_list_title">Uveďte svou dApp</string>
     <string name="pay_list_step1">1. Přidejte tento řádek na /.well-known/undersigned.txt na webu, který dApp Store uvádí pro vaši aplikaci:</string>
-    <string name="pay_list_step2">2. Přihlaste se touto peněženkou pokladny a podepište níže uvedený záznam. Počítají se jen platby, jejichž memo začíná tímto kódem.</string>
+    <string name="pay_list_step2">2. Přihlaste se touto peněženkou pokladny a podepšte níže uvedený záznam. Kód je buď váš platební kód memo, nebo váš platební referenční účet; počítají se jen platby, které jej nesou.</string>
     <string name="pay_sign">Podepsat jako tuto pokladnu</string>
     <string name="pay_my_claims">Vaše záznamy pokladny</string>
     <string name="pay_claim_confirmed">Potvrzeno webem</string>
     <string name="pay_claim_waiting">Čeká se na řádek na webu</string>
     <string name="pay_withdraw">Stáhnout záznam</string>
-    <string name="pay_bad_input">Zkontrolujte název balíčku a kód (2–32 písmen, číslic, - nebo _).</string>
+    <string name="pay_bad_input">Zkontrolujte název balíčku a kód (kód memo o 2–31 písmenech, číslicích, - nebo _, nebo adresu referenčního účtu).</string>
     <string name="pay_open">Přehled plateb</string>
     <string name="pay_waiting_list">Uvedeno pokladnou, zatím nepotvrzeno webem: %1$d</string>
 </resources>

@@ -98,7 +98,8 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                 val pts = read.items.mapNotNull { r -> runCatching { Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
                 val fresh = System.currentTimeMillis() / 1000 - 3 * com.undersigned.protocol.ReviewBursts.DAY
                 val listed = com.undersigned.protocol.ReviewBursts.find(pts).bursts.filter { it.end >= fresh }.map { it to false }
-                val rated = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(UserPreferences.ratingSnapshots(pkg))).bursts.filter { it.end >= fresh }.map { it to true }
+                val snaps = (com.undersigned.app.notify.StoreWatchWorker.archive(ctx).snapshots(pkg) + UserPreferences.ratingSnapshots(pkg)).sortedBy { it.time }
+                val rated = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(snaps), com.undersigned.protocol.ReviewBursts.MIN_SNAPSHOT_DAYS).bursts.filter { it.end >= fresh }.map { it to true }
                 Log.i(TAG, "  $pkg recent bursts: listed ${listed.size}, ratings ${rated.size}")
                 for ((b, fromRatings) in listed + rated) {
                     val key = "burst:$pkg:${b.kind}:${if (fromRatings) "r" else "l"}:${b.start / com.undersigned.protocol.ReviewBursts.DAY}"

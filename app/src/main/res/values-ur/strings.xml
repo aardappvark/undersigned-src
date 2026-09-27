@@ -540,6 +540,18 @@
     <string name="ratings_tracked">اس فون پر ستارہ درجہ بندیاں ٹریک کی گئیں %1$s سے · سنیپ شاٹس: %2$d</string>
     <string name="notif_burst_title">%1$s: جائزوں میں اضافہ</string>
     <string name="pay_paid_pill">اس ایپ کے لیے ادائیگی کی گئی</string>
+    <string name="pay_usd_paid">ہر ادائیگی کے دن کے مطابق USD</string>
+    <string name="pay_usd_both">جہاں قیمتیں معلوم ہوں وہاں ہر ادائیگی کے دن کے مطابق USD، ورنہ آج کی قیمتوں پر</string>
+    <string name="pay_own">چھوڑا گیا: پبلشر کے اپنے والटس سے ادائیگیاں: %1$d</string>
+    <string name="season_pill">%1$s کے دوران</string>
+    <string name="season_share">انعامی موسموں کے دوران لکھے گئے: %2$d اسटور جائزوں میں سے %1$d پڑھے گئے</string>
+    <string name="note_title">پبلشر کا دستخط شدہ نوٹ</string>
+    <string name="note_add">دستخط شدہ نوٹ شامل کریں</string>
+    <string name="note_update">میرا دستخط شدہ نوٹ اپ ڈیٹ کریں</string>
+    <string name="note_dialog_title">اس اسटور جائزے پر نوٹ پر دستخط کریں</string>
+    <string name="note_dialog_body">آپ کا نوٹ آپ کے والट سے دستخط شدہ ہے اور مستقل ہے۔ قارئین اسے اس جائزے کے نیچے دیکھتے ہیں، پبلشر کے طور پر نشان زد۔ بعد میں اسے واپس لینا ریکار↵ڈ کو چین پر باقی چھوڑ دیتا ہے۔</string>
+    <string name="note_hint">آپ کا نوٹ</string>
+    <string name="note_sign">نوٹ پر دستخط کریں</string>
 
     <!-- Store watch (28 Sep 2026) -->
     <string name="watch_title">اسٹور کی نگرانی</string>
@@ -575,7 +587,7 @@
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">ادائیگیوں کا بورڈ</string>
-    <string name="pay_intro">وہ dApps جن کے پبلشر نے خزانے کی تصدیق کی ہے۔ شمار کیا گیا: SOL، SKR اور USDC میں چین پر موصول ہونے والی وہ ادائیگیاں جن کا میمو dApp کے کوڈ سے شروع ہوتا ہے۔ چین سے باہر کی آمدنی نہیں دکھائی جاتی۔</string>
+    <string name="pay_intro">وہ dApps جن کے پبلشر نے خزانے کی تصدیق کی ہے۔ شمار کیا گیا: SOL، SKR اور USDC میں چین پر موصول ہونے والی وہ ادائیگیاں جو dApp کے میمو کوڈ یا اس کے حوالہ اکاؤنٹ کے ساتھ ہوں۔ چین سے باہر کی آمدنی نہیں دکھائی جاتی۔</string>
     <string name="pay_usd_note">USD آج کی قیمتوں پر</string>
     <string name="pay_row">ادائیگیاں: %1$d · ادائیگی کرنے والے: %2$d · تصدیق شدہ آلے کے ساتھ: %3$d</string>
     <string name="pay_totals">SOL: %1$s · SKR: %2$s · USDC: %3$s</string>
@@ -588,18 +600,18 @@
     <string name="pay_preview_title">خزانے کا پیش نظارہ</string>
     <string name="pay_preview_body">کوئی بھی عوامی ادائیگیوں کا پیش نظارہ کر سکتا ہے۔ صرف وہ خزانہ درج ہوتا ہے جس کی تصدیق والٹ اور پبلشر کی ویب سائٹ دونوں نے کی ہو۔</string>
     <string name="pay_field_treasury">خزانے کا والٹ</string>
-    <string name="pay_field_code">میمو کوڈ</string>
+    <string name="pay_field_code">میمو کوڈ یا حوالہ اکاؤنٹ</string>
     <string name="pay_field_package">پیکج کا نام</string>
     <string name="pay_preview">پیش نظارہ</string>
     <string name="pay_list_title">اپنا dApp درج کریں</string>
     <string name="pay_list_step1">1۔ اپنی ایپ کے لیے dApp Store جس ویب سائٹ کو درج کرتا ہے، اس پر /.well-known/undersigned.txt میں یہ لائن شامل کریں:</string>
-    <string name="pay_list_step2">2۔ اسی خزانے کے والٹ سے سائن ان کر کے، نیچے دی گئی فہرست پر دستخط کریں۔ صرف وہ ادائیگیاں شمار ہوتی ہیں جن کا میمو کوڈ سے شروع ہوتا ہے۔</string>
+    <string name="pay_list_step2">2۔ اسی خزانے کے والट سے سائن ان کر کے، نیچے دی گئی فہرست پر دستخط کریں۔ کوڈ یا تو آپ کا ادائیگی میمو کوڈ ہے یا آپ کا ادائیگی حوالہ اکاؤنٹ؛ صرف وہی ادائیگیاں شمار ہوتی ہیں جو اسے ساتھ رکھتی ہیں۔</string>
     <string name="pay_sign">بطور اس خزانے دستخط کریں</string>
     <string name="pay_my_claims">آپ کے خزانے کے اندراجات</string>
     <string name="pay_claim_confirmed">ویب سائٹ سے تصدیق شدہ</string>
     <string name="pay_claim_waiting">ویب سائٹ کی لائن کا انتظار</string>
     <string name="pay_withdraw">اندراج واپس لیں</string>
-    <string name="pay_bad_input">پیکج کا نام اور کوڈ چیک کریں (2–32 حروف، ہندسے، - یا _)۔</string>
+    <string name="pay_bad_input">پیکج کا نام اور کوڈ چیک کریں (2–31 حروف، ہندسوں، - یا _ پر مشتمل میمو کوڈ، یا حوالہ اکاؤنٹ ایڈریس)۔</string>
     <string name="pay_open">ادائیگیوں کا بورڈ</string>
     <string name="pay_waiting_list">خزانے کی جانب سے درج، ابھی ویب سائٹ سے تصدیق شدہ نہیں: %1$d</string>
 </resources>
