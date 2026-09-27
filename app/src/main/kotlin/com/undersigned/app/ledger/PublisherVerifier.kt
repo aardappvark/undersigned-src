@@ -68,21 +68,16 @@ object PublisherVerifier {
 
     private fun fetch(url: String): String? = try {
         val c = URL(url).openConnection() as HttpURLConnection
-        c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true
-        val body = if (c.responseCode in 200..299) c.inputStream.bufferedReader().use { it.readText() } else null
-        c.disconnect(); body
+        try {
+            c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true
+            if (c.responseCode in 200..299) c.inputStream.bufferedReader().use { it.readText() } else null
+        } finally { c.disconnect() }
     } catch (e: Exception) { Log.w(TAG, "well-known fetch failed: ${e.message?.take(60)}"); null }
 
     suspend fun verify(pkg: String, wallet: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
         UserPreferences.cachedClaim(pkg, wallet, TTL)?.let { return@withContext it }
         val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, wallet, false) }
-        val ok = try {
-            val c = URL(url).openConnection() as HttpURLConnection
-            c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true
-            val body = if (c.responseCode in 200..299) c.inputStream.bufferedReader().use { it.readText() } else ""
-            c.disconnect()
-            body.lines().any { it.trim() == wallet }
-        } catch (e: Exception) { Log.w(TAG, "well-known fetch failed: ${e.message?.take(60)}"); false }
+        val ok = fetch(url)?.lines()?.any { it.trim() == wallet } ?: false
         UserPreferences.cacheClaim(pkg, wallet, ok); ok
     }
 }

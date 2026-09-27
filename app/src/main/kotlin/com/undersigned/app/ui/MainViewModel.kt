@@ -309,12 +309,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     /** Bursts in the store's star COUNTS, from this device's daily snapshots (followed apps, and apps opened). */
     /** This app's star-count snapshots: the store-wide daily archive (Store watch) merged with the per-app ones, 20 h apart at least. */
-    fun ratingSnapshots(pkg: String): List<com.undersigned.protocol.RatingSnapshots.Snapshot> {
-        val all = (com.undersigned.app.notify.StoreWatchWorker.archive(getApplication()).snapshots(pkg) + UserPreferences.ratingSnapshots(pkg)).sortedBy { it.time }
-        val out = ArrayList<com.undersigned.protocol.RatingSnapshots.Snapshot>()
-        for (sn in all) if (out.isEmpty() || sn.time - out.last().time >= 20 * 3600) out.add(sn)
-        return out
-    }
+    /** Reads files: call off the main thread (see AppDetailScreen). */
+    fun ratingSnapshots(pkg: String): List<com.undersigned.protocol.RatingSnapshots.Snapshot> = com.undersigned.app.notify.StoreWatchWorker.snapshots(getApplication(), pkg)
     fun ratingBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(ratingSnapshots(pkg)), com.undersigned.protocol.ReviewBursts.MIN_SNAPSHOT_DAYS)
 
     // ---- Store watch ----------------------------------------------------------------------------------------
@@ -363,7 +359,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun seasonShare(pkg: String): Pair<Int, Int>? = storeHistory.value[pkg]?.items?.takeIf { it.isNotEmpty() }?.let { l -> l.count { seasonAtIso(it.createdAt) != null } to l.size }
 
     /** Store review id → the verified publisher's newest signed note on it (see protocol StoreNotes). */
-    val storeNotes = MutableStateFlow<Map<String, LedgerEntry>>(emptyMap())
+    val storeNotes = MutableStateFlow<Map<Pair<String, String>, LedgerEntry>>(emptyMap())
 
     /** Review record id → the install age its own transaction reported (see protocol Usage). */
     val usage = MutableStateFlow<Map<String, com.undersigned.protocol.UseBucket>>(emptyMap())
@@ -434,7 +430,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         // The publisher testing their own checkout is not a customer: payments from any wallet their proof file names
         // are counted apart. A preview (no package) has no proof file and leaves nothing out.
         val own = if (claim.packageName.isEmpty()) emptySet() else PublisherVerifier.listedWallets(storeDetails.value[claim.packageName])
-        val counted = read.payments.filter { it.payer != claim.treasury && it.payer !in own }
+        // The same list the tally counts: a transfer of some other token (stripped to zero) earns no badge and no total.
+        val counted = read.payments.filter { it.payer != claim.treasury && it.payer !in own && (it.lamports > 0 || it.tokens.values.any { v -> v > 0 }) }
         val att = HashMap<String, Boolean>(); for (p in counted.map { it.payer }.distinct()) att[p] = attested(p)
         val t = com.undersigned.protocol.Payments.tally(read.payments, claim.treasury, own) { att[it] == true }
         val q = com.undersigned.app.ledger.Prices.quotes(listOf(AppConfig.Solana.SKR_MINT, com.undersigned.app.ledger.PaymentBoard.USDC_MINT)).also { quotes.value = it }
@@ -451,9 +448,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Every claim on the ledger, checked against its website, then read. At most once every ten minutes unless [force]. */
     fun loadBoard(force: Boolean = false) {
-        if (boardLoading.value || (!force && System.currentTimeMillis() - boardAt < 10 * 60_000L)) return
+        if (!force && System.currentTimeMillis() - boardAt < 10 * 60_000L) return
+        // Claimed before the coroutine starts, so quick successive calls cannot start parallel loads.
+        if (!boardLoading.compareAndSet(false, true)) return
         viewModelScope.launch(Dispatchers.IO) {
-            boardLoading.value = true
             try {
                 val rows = ArrayList<BoardRow>()
                 for (c in treasuryClaims()) {
@@ -470,9 +468,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** What a treasury has been paid under a code, WITHOUT listing it: public data, shown to whoever asks, attributed to no app. */
     fun previewTreasury(treasury: String, code: String) {
-        if (boardLoading.value) return
+        if (!boardLoading.compareAndSet(false, true)) return
         viewModelScope.launch(Dispatchers.IO) {
-            boardLoading.value = true
             try {
                 val claim = com.undersigned.protocol.Payments.Claim("", treasury, code, 0L, "")
                 boardPreview.value = runCatching { tallyRow(claim, true).copy(name = code) }.getOrNull()

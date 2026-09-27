@@ -111,8 +111,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val storeHistory by vm.storeHistory.collectAsState()
     val storeBursts = remember(storeHistory[pkg]) { vm.storeBursts(pkg) }
     val ledgerBursts = remember(entries) { vm.ledgerBursts(pkg) }
-    val snaps = remember(storeRatings[pkg]) { vm.ratingSnapshots(pkg) }
-    val ratingBursts = remember(snaps) { vm.ratingBursts(pkg) }
+    // Snapshots come from files (up to 60 days of the store-wide archive): read them off the main thread.
+    val snaps by produceState(initialValue = emptyList<com.undersigned.protocol.RatingSnapshots.Snapshot>(), pkg, storeRatings[pkg]) {
+        value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { vm.ratingSnapshots(pkg) } }
+    val ratingBursts = remember(snaps) { com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(snaps), com.undersigned.protocol.ReviewBursts.MIN_SNAPSHOT_DAYS) }
     LaunchedEffect(storeBursts) { storeBursts?.bursts?.forEach { b -> vm.resolveFacts(vm.burstWallets(pkg, b)) } }
     val boardRows by vm.boardRows.collectAsState()
     val boardRow = remember(boardRows) { vm.boardFor(pkg) }
@@ -299,7 +301,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                         r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 4) }
                         // The verified publisher's SIGNED note on this store review, when there is one (protocol StoreNotes).
-                        storeNotes[r.id]?.let { ne -> val n = ne.memo as ReviewMemo.StoreNote
+                        storeNotes[pkg to r.id]?.let { ne -> val n = ne.memo as ReviewMemo.StoreNote
                             Column(Modifier.padding(top = 6.dp).fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(RbColors.card).padding(8.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(stringResource(R.string.note_title), color = RbColors.green, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
@@ -309,8 +311,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             }
                         }
                         if (wallet != null && vm.isVerifiedPublisher(pkg, wallet!!) && com.undersigned.protocol.ReviewMemo.STORE_REVIEW_ID.matches(r.id))
-                            TextButton(onClick = { noteFor = r.id; noteText = (storeNotes[r.id]?.memo as? ReviewMemo.StoreNote)?.text ?: "" }, contentPadding = PaddingValues(0.dp)) {
-                                Text(stringResource(if (storeNotes[r.id] == null) R.string.note_add else R.string.note_update), color = RbColors.purpleLight, fontSize = 11.sp) }
+                            TextButton(onClick = { noteFor = r.id; noteText = (storeNotes[pkg to r.id]?.memo as? ReviewMemo.StoreNote)?.text ?: "" }, contentPadding = PaddingValues(0.dp)) {
+                                Text(stringResource(if (storeNotes[pkg to r.id] == null) R.string.note_add else R.string.note_update), color = RbColors.purpleLight, fontSize = 11.sp) }
                         // The store now shows the publisher's reply prominently (v1.59.0); the mirror showed only a pill.
                         r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->
                             var open by remember(r.id) { mutableStateOf(false) }

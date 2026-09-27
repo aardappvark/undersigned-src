@@ -94,16 +94,21 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                 // star counts. This replaced the 24-hour "wave" rule (5+ reviews, 3+ unattested), which fired on any busy
                 // day and could not see a campaign by attested wallets — CrushCoin's was 67 of 67 attested (27 Sep 2026).
                 sr?.let { UserPreferences.recordRatingSnapshot(pkg, it.byStar) }
-                val read = store.reviewsChecked(pkg, maxPages = 3, pauseMs = 1000)
+                // Read back until the reviews span the history a verdict needs (capped): a fixed 30 reviews on a busy app
+                // spanned days, so a campaign in progress could never be judged (found in review, 28 Sep 2026).
+                val horizon = System.currentTimeMillis() / 1000 - (com.undersigned.protocol.ReviewBursts.MIN_HISTORY_DAYS + 1) * com.undersigned.protocol.ReviewBursts.DAY
+                val read = store.reviewsChecked(pkg, maxPages = 10, pauseMs = 1000, stopWhen = { r -> (runCatching { Instant.parse(r.createdAt).epochSecond }.getOrNull() ?: 0L) < horizon })
                 val pts = read.items.mapNotNull { r -> runCatching { Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
                 val fresh = System.currentTimeMillis() / 1000 - 3 * com.undersigned.protocol.ReviewBursts.DAY
                 val listed = com.undersigned.protocol.ReviewBursts.find(pts).bursts.filter { it.end >= fresh }.map { it to false }
-                val snaps = (com.undersigned.app.notify.StoreWatchWorker.archive(ctx).snapshots(pkg) + UserPreferences.ratingSnapshots(pkg)).sortedBy { it.time }
+                val snaps = StoreWatchWorker.snapshots(ctx, pkg)
                 val rated = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(snaps), com.undersigned.protocol.ReviewBursts.MIN_SNAPSHOT_DAYS).bursts.filter { it.end >= fresh }.map { it to true }
                 Log.i(TAG, "  $pkg recent bursts: listed ${listed.size}, ratings ${rated.size}")
                 for ((b, fromRatings) in listed + rated) {
-                    val key = "burst:$pkg:${b.kind}:${if (fromRatings) "r" else "l"}:${b.start / com.undersigned.protocol.ReviewBursts.DAY}"
-                    if (!UserPreferences.markBurst(key)) continue
+                    // One alert per burst: its start can shift as more history is read, so the key is the app, kind and
+                    // source, and a burst counts as new only when it starts after the last alerted one ended.
+                    val key = "burst:$pkg:${b.kind}:${if (fromRatings) "r" else "l"}"
+                    if (!UserPreferences.markBurst(key, b.start, b.end)) continue
                     val df = java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM)
                     val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
                     val res = when { fromRatings && b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high_ratings; fromRatings -> R.string.burst_low_ratings

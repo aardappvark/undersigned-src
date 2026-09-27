@@ -47,7 +47,10 @@ class PaymentBoard(private val dir: File, private val rpc: SolanaRpcClient = Sol
             val key = if (byRef) "$treasury-$code" else treasury
             val c = load(key)
             val addrs = if (byRef) listOf(code) else addressesOf(treasury)
-            for (addr in addrs) runCatching { sync(c, addr, keepAll = byRef) }.onFailure { Log.w(TAG, "sync ${addr.take(6)} stopped: ${it.message?.take(80)}") }
+            // Any failed sync makes this read incomplete, even when an earlier read reached the start of history: a failed
+            // tail read had still reported yesterday's totals as complete.
+            var syncFailed = false
+            for (addr in addrs) runCatching { sync(c, addr, keepAll = byRef) }.onFailure { syncFailed = true; Log.w(TAG, "sync ${addr.take(6)} stopped: ${it.message?.take(80)}") }
             val wanted = { r: Row -> byRef || Payments.memoMatches(r.memo, code) }
             // Fetch the rows this listing needs, once each.
             var n = 0
@@ -68,7 +71,7 @@ class PaymentBoard(private val dir: File, private val rpc: SolanaRpcClient = Sol
                 .mapNotNull { it.payment?.let { p -> p.copy(tokens = p.tokens.filterKeys { k -> k in rails }) } }
             // Complete only when the history was read to its start AND every payment it holds was read.
             val unread = c.rows.values.count { !it.fetched && wanted(it) }
-            Read(payments, addrs.all { it in c.exhausted } && unread == 0, System.currentTimeMillis())
+            Read(payments, !syncFailed && addrs.all { it in c.exhausted } && unread == 0, System.currentTimeMillis())
         }
     }
 
@@ -77,7 +80,8 @@ class PaymentBoard(private val dir: File, private val rpc: SolanaRpcClient = Sol
         var before: String? = null; var first: String? = null
         while (true) {
             val page = rpc.getSignaturesForAddress(addr, before = before, until = c.newest[addr]).getOrThrow()
-            if (page.isEmpty()) break
+            // An address with no history at all (no USDC account yet, a fresh reference) is fully read, not "incomplete".
+            if (page.isEmpty()) { if (c.newest[addr] == null && before == null) c.exhausted.add(addr); break }
             if (first == null) first = page.first().signature
             page.forEach { add(c, it, keepAll) }
             if (c.newest[addr] == null) { c.oldest[addr] = page.last().signature; if (page.size < AppConfig.Ledger.PAGE) c.exhausted.add(addr) }
@@ -160,7 +164,7 @@ object Prices {
         runCatching {
             val c = URL("https://lite-api.jup.ag/price/v3?ids=" + want.joinToString(",")).openConnection() as HttpURLConnection
             c.connectTimeout = 8000; c.readTimeout = 8000
-            val o = JSONObject(c.inputStream.bufferedReader().use { it.readText() }); c.disconnect()
+            val o = try { JSONObject(c.inputStream.bufferedReader().use { it.readText() }) } finally { c.disconnect() }
             val m = o.keys().asSequence().mapNotNull { k -> o.optJSONObject(k)?.let { q -> q.optDouble("usdPrice").takeIf { !it.isNaN() }?.let { k to Quote(it, q.optInt("decimals", 0)) } } }.toMap()
             cache = System.currentTimeMillis() to (have + m); have + m
         }.getOrElse { have }
@@ -173,16 +177,17 @@ object Prices {
     @Volatile private var history: Pair<Long, Map<String, Map<String, Double>>> = 0L to emptyMap()
     suspend fun history(): Map<String, Map<String, Double>> = withContext(Dispatchers.IO) {
         val (at, h) = history
-        if (System.currentTimeMillis() - at < 12 * 3600_000L && h.isNotEmpty()) return@withContext h
+        if (System.currentTimeMillis() - at < 12 * 3600_000L && at > 0) return@withContext h
         val ids = mapOf(PaymentBoard.SOL_MINT to "solana", AppConfig.Solana.SKR_MINT to "seeker")
         val out = HashMap<String, Map<String, Double>>()
         for ((mint, id) in ids) runCatching {
             val c = URL("https://api.coingecko.com/api/v3/coins/$id/market_chart?vs_currency=usd&days=365&interval=daily").openConnection() as HttpURLConnection
             c.connectTimeout = 8000; c.readTimeout = 12000
-            val arr = JSONObject(c.inputStream.bufferedReader().use { it.readText() }).getJSONArray("prices"); c.disconnect()
+            val arr = try { JSONObject(c.inputStream.bufferedReader().use { it.readText() }).getJSONArray("prices") } finally { c.disconnect() }
             out[mint] = (0 until arr.length()).associate { i -> val p = arr.getJSONArray(i); java.time.Instant.ofEpochMilli(p.getLong(0)).toString().take(10) to p.getDouble(1) }
         }
-        if (out.size == ids.size) history = System.currentTimeMillis() to out
+        // A partial answer is cached too, for 15 minutes, so a board of many listings does not ask CoinGecko again per listing.
+        history = (if (out.size == ids.size) System.currentTimeMillis() else System.currentTimeMillis() - 12 * 3600_000L + 15 * 60_000L) to out
         out
     }
 

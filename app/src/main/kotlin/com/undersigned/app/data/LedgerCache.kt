@@ -13,6 +13,16 @@ import java.io.File
 class LedgerCache(context: Context) {
     private val file = File(context.filesDir, "ledger_v1.json")
     private val metaFile = File(context.filesDir, "ledger_meta_v1.json")
+    private val headFile = File(context.filesDir, "ledger_head_v1.txt")
+    /**
+     * The newest registry signature the READER has listed, the `until` of the next tail read. Not the cache's first entry:
+     * a record the app inserts right after signing sits at the top before the reader has seen anything older, and using
+     * it as `until` skipped every record confirmed between the last read and that transaction (found in review, 28 Sep
+     * 2026). A batched record's id ("sig:1") is not a signature either.
+     */
+    var head: String?
+        get() = runCatching { headFile.readText().trim().takeIf { it.isNotEmpty() } }.getOrNull()
+        set(v) { runCatching { if (v == null) headFile.delete() else headFile.writeText(v) } }
 
     fun loadMeta(): Map<String, TxMeta> = runCatching {
         if (!metaFile.exists()) return emptyMap()
@@ -44,5 +54,5 @@ class LedgerCache(context: Context) {
         runCatching { file.writeText(arr.toString()) }
     }
 
-    fun clear() { runCatching { file.delete(); metaFile.delete() } }
+    fun clear() { runCatching { file.delete(); metaFile.delete(); headFile.delete() } }
 }

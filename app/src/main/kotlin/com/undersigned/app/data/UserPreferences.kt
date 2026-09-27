@@ -182,14 +182,16 @@ object UserPreferences {
         val arr = JSONObject(prefs?.getString(KEY_RATING_SNAPS, "{}") ?: "{}").optJSONArray(pkg) ?: return emptyList()
         (0 until arr.length()).mapNotNull { i -> arr.optJSONArray(i)?.let { r -> com.undersigned.protocol.RatingSnapshots.Snapshot(r.optLong(0), (1..5).map { r.optInt(it) }) } }
     }.getOrDefault(emptyList())
-    /** True the first time a burst (package, kind, start day) is seen; the burst alert posts once per burst. */
-    fun markBurst(key: String): Boolean {
+    /**
+     * True when this is a NEW burst for [key] (app, kind, source): one that starts after the last alerted burst ended (with
+     * a 3-day gap). The same burst growing or shifting keeps the mark and only extends its end. Stored as the end second.
+     */
+    @Synchronized fun markBurst(key: String, start: Long, end: Long): Boolean {
         val all = runCatching { JSONObject(prefs?.getString(KEY_BURST_MARKS, "{}") ?: "{}") }.getOrDefault(JSONObject())
-        if (all.has(key)) return false
-        all.put(key, System.currentTimeMillis())
-        val cutoff = System.currentTimeMillis() - 90L * 86_400_000L
-        all.keys().asSequence().toList().forEach { k -> if (all.optLong(k) < cutoff) all.remove(k) }
-        prefs?.edit()?.putString(KEY_BURST_MARKS, all.toString())?.apply(); return true
+        val lastEnd = all.optLong(key, Long.MIN_VALUE)
+        val fresh = lastEnd == Long.MIN_VALUE || start > lastEnd + 3 * 86_400L
+        all.put(key, maxOf(end, if (lastEnd == Long.MIN_VALUE) end else lastEnd))
+        prefs?.edit()?.putString(KEY_BURST_MARKS, all.toString())?.apply(); return fresh
     }
 
     fun cachedClaim(pkg: String, wallet: String, ttl: Long): Boolean? = runCatching {

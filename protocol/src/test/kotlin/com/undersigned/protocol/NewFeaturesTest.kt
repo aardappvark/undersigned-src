@@ -303,10 +303,19 @@ class StoreNotesTest {
     @Test fun onlyVerifiedPublishersNewestWinsWithdrawnGone() {
         val vp = mapOf("com.a.b" to setOf(pub))
         val a = note('a', pub, 10, "first"); val b = note('b', pub, 20, "second"); val x = note('c', other, 30, "not the publisher")
-        assertEquals("second", (StoreNotes.current(listOf(a, b, x), vp)[rid]!!.memo as ReviewMemo.StoreNote).text)
+        assertEquals("second", (StoreNotes.current(listOf(a, b, x), vp)["com.a.b" to rid]!!.memo as ReviewMemo.StoreNote).text)
         assertTrue(StoreNotes.current(listOf(x), vp).isEmpty())
         val rvk = LedgerEntry("d".repeat(88), pub, 40, ReviewMemo.Revocation(b.signature))
-        assertEquals("first", (StoreNotes.current(listOf(a, b, rvk), vp)[rid]!!.memo as ReviewMemo.StoreNote).text)
+        assertEquals("first", (StoreNotes.current(listOf(a, b, rvk), vp)["com.a.b" to rid]!!.memo as ReviewMemo.StoreNote).text)
         assertTrue(StoreNotes.current(listOf(a, b), emptyMap()).isEmpty())
+    }
+
+    @Test fun anotherAppsPublisherCannotNoteThisAppsReview() {
+        // The publisher of com.x.y names a review of com.a.b: it is filed under com.x.y and never replaces com.a.b's note.
+        val vp = mapOf("com.a.b" to setOf(pub), "com.x.y" to setOf(other))
+        val real = note('a', pub, 10, "the real note")
+        val intruder = LedgerEntry("e".repeat(88), other, 99, ReviewMemo.StoreNote("com.x.y", rid, "not your app"))
+        val m = StoreNotes.current(listOf(real, intruder), vp)
+        assertEquals("the real note", (m["com.a.b" to rid]!!.memo as ReviewMemo.StoreNote).text)
     }
 }

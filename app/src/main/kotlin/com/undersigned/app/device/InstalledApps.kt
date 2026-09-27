@@ -67,12 +67,13 @@ class InstalledApps(private val context: Context) {
     private fun loadPresence(): MutableMap<String, InstallHistory.Presence> = runCatching {
         val o = JSONObject(UserPreferences.presenceJson ?: "{}")
         o.keys().asSequence().associateWith { k -> val p = o.getJSONObject(k); val s = p.optJSONArray("s") ?: JSONArray()
-            InstallHistory.Presence((0 until s.length()).map { i -> s.getJSONArray(i).let { it.getLong(0) to it.getLong(1) } }, if (p.has("c")) p.getLong("c") else null, p.optLong("l"), p.optInt("r")) }.toMutableMap()
+            val cur = if (p.has("c")) p.getLong("c") else null
+            InstallHistory.Presence((0 until s.length()).map { i -> s.getJSONArray(i).let { it.getLong(0) to it.getLong(1) } }, cur, p.optLong("l"), p.optInt("r"), if (p.has("f")) p.getLong("f") else cur) }.toMutableMap()
     }.getOrDefault(HashMap())
 
     private fun savePresence(m: Map<String, InstallHistory.Presence>) {
         val o = JSONObject()
-        m.forEach { (k, p) -> o.put(k, JSONObject().put("s", JSONArray(p.spans.map { JSONArray().put(it.first).put(it.second) })).put("l", p.lastSeen).put("r", p.reinstalls).apply { p.current?.let { put("c", it) } }) }
+        m.forEach { (k, p) -> o.put(k, JSONObject().put("s", JSONArray(p.spans.map { JSONArray().put(it.first).put(it.second) })).put("l", p.lastSeen).put("r", p.reinstalls).apply { p.current?.let { put("c", it) }; p.raw?.let { put("f", it) } }) }
         UserPreferences.presenceJson = o.toString()
     }
 

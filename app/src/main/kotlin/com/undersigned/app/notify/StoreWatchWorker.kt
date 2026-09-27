@@ -62,7 +62,20 @@ class StoreWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker
         private const val UNIQUE = "store-watch"
         private const val PAUSE_MS = 1500L
         private val running = java.util.concurrent.atomic.AtomicBoolean(false)
-        fun archive(ctx: Context) = StoreRatingsArchive(File(ctx.filesDir, "ratings"))
+        @Volatile private var shared: StoreRatingsArchive? = null
+        /** One instance per process, so its parsed cache is reused (a new one per call re-read 60 files every time). */
+        fun archive(ctx: Context): StoreRatingsArchive = shared ?: synchronized(this) { shared ?: StoreRatingsArchive(File(ctx.applicationContext.filesDir, "ratings")).also { shared = it } }
+
+        /**
+         * One app's star-count snapshots: the store-wide archive merged with the per-app ones, at least 20 h apart. The
+         * screen and the background alert both use this, so they cannot disagree about a burst.
+         */
+        fun snapshots(ctx: Context, pkg: String): List<RatingSnapshots.Snapshot> {
+            val all = (archive(ctx).snapshots(pkg) + UserPreferences.ratingSnapshots(pkg)).sortedBy { it.time }
+            val out = ArrayList<RatingSnapshots.Snapshot>()
+            for (s in all) if (out.isEmpty() || s.time - out.last().time >= 20 * 3600) out.add(s)
+            return out
+        }
         fun resultFile(ctx: Context) = File(ctx.filesDir, "store_watch.json")
 
         /** Rating bursts that ended within the last 3 days, strongest first. */

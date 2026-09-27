@@ -31,6 +31,13 @@ class InstallHistoryTest {
         assertEquals(10 * D + 2 * D, InstallHistory.totalMs(p, 12 * D))
     }
 
+    @Test fun aClampedStartIsStillTheSameInstallOnLaterLooks() {
+        // The review's case: once clamped, every later look used to count another reinstall and add a span.
+        val p = run(10 * D to 0L, 12 * D to 5 * D, 14 * D to 5 * D, 16 * D to 5 * D)!!
+        assertEquals(1, p.reinstalls); assertEquals(1, p.spans.size)
+        assertEquals(10 * D + 6 * D, InstallHistory.totalMs(p, 16 * D))
+    }
+
     @Test fun neverInstalledIsNothing() {
         assertNull(run(10 * D to null))
     }
