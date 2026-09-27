@@ -230,6 +230,13 @@ class RatingSnapshotsTest {
         assertTrue(RatingSnapshots.toPoints(snaps).isEmpty())
     }
 
+    @Test fun aWeekOfDailySnapshotsIsEnoughWhenAsked() {
+        val snaps = (0..8).map { snap(it, five = it) } + snap(9, five = 8 + 30)   // points start at the first gap (day 1)
+        val pts = RatingSnapshots.toPoints(snaps)
+        assertTrue(ReviewBursts.find(pts).bursts.isEmpty())                                            // 14-day default: too short
+        assertEquals(1, ReviewBursts.find(pts, ReviewBursts.MIN_SNAPSHOT_DAYS).bursts.size)
+    }
+
     @Test fun pointsAreCapped() {
         val snaps = listOf(snap(0, five = 0), snap(1, five = 10_000_000))
         assertEquals(RatingSnapshots.MAX_POINTS_PER_GAP, RatingSnapshots.toPoints(snaps).size)

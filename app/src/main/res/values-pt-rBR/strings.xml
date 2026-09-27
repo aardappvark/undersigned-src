@@ -545,6 +545,16 @@
     <string name="notif_burst_title">%1$s: onda de avaliações</string>
     <string name="pay_paid_pill">Pago por este app</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Monitoramento da loja</string>
+    <string name="watch_toggle">Monitorar avaliações em toda a loja</string>
+    <string name="watch_toggle_body">Uma vez por dia, este telefone lê a contagem de estrelas de cada app da dApp Store (cerca de 72 solicitações pequenas) e mantém aqui 60 dias desses dados, para que as ondas de avaliações apareçam em toda a loja. Nada é enviado a mais nenhum lugar.</string>
+    <string name="watch_reading">Lendo as avaliações da loja: %1$s</string>
+    <string name="watch_last">Última leitura: %1$s · Apps: %2$d</string>
+    <string name="watch_since">Rastreamento desde: %1$s · Dias: %2$d</string>
+    <string name="watch_needs">As ondas de avaliações aparecem quando existirem %1$d dias de instantâneos.</string>
+    <string name="watch_empty">Nenhuma onda de avaliações nos últimos 3 dias.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Adicionar há quanto tempo, no total, este app está neste telefone: %1$s</string>
     <string name="use_add_hint">Registrado on-chain junto com sua avaliação, arredondado. É o que seu telefone informa, não uma prova.</string>

@@ -533,6 +533,16 @@
     <string name="notif_burst_title">%1$s: পর্যালোচনায় উল্লম্ফন</string>
     <string name="pay_paid_pill">এই অ্যাপের জন্য পরিশোধ করা হয়েছে</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">স্টোর পর্যবেক্ষণ</string>
+    <string name="watch_toggle">পুরো স্টোরে রেটিং পর্যবেক্ষণ করুন</string>
+    <string name="watch_toggle_body">দিনে একবার এই ফোনটি dApp Store-এর প্রতিটি অ্যাপের তারকা সংখ্যা পড়ে (প্রায় ৭২টি ছোট অনুরোধ) এবং তার মধ্যে ৬০ দিনের তথ্য এখানে রাখে, যাতে রেটিং-এ উল্লম্ফন পুরো স্টোরে দেখা যায়। আর কোথাও কিছু পাঠানো হয় না।</string>
+    <string name="watch_reading">স্টোরের রেটিং পড়া হচ্ছে: %1$s</string>
+    <string name="watch_last">সর্বশেষ পড়া হয়েছে: %1$s · অ্যাপ: %2$d</string>
+    <string name="watch_since">ট্র্যাক করা শুরু: %1$s · দিন: %2$d</string>
+    <string name="watch_needs">%1$d দিনের স্ন্যাপশট থাকলে রেটিং-এ উল্লম্ফন দেখা যাবে।</string>
+    <string name="watch_empty">গত ৩ দিনে রেটিং-এ কোনো উল্লম্ফন নেই।</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">এই অ্যাপটি এই ফোনে মোট কতদিন ধরে আছে তা যোগ করুন: %1$s</string>
     <string name="use_add_hint">আপনার পর্যালোচনার সঙ্গে চেইনে রেকর্ড করা, রাউন্ড করা। এটি আপনার ফোনের প্রতিবেদন, প্রমাণ নয়।</string>

@@ -524,6 +524,16 @@
     <string name="notif_burst_title">%1$s：レビューの急増</string>
     <string name="pay_paid_pill">このアプリの代金を支払い済み</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">ストア監視</string>
+    <string name="watch_toggle">ストア全体の評価を監視</string>
+    <string name="watch_toggle_body">この端末は1日に1回、dApp Store のすべてのアプリの星の数を読み取り(約72件の小さなリクエスト)、そのうち60日分をここに保存します。これにより、評価の急増がストア全体で表示されます。それ以外の場所には何も送信されません。</string>
+    <string name="watch_reading">ストアの評価を読み取り中:%1$s</string>
+    <string name="watch_last">最終読み取り:%1$s · アプリ数:%2$d</string>
+    <string name="watch_since">追跡開始:%1$s · 日数:%2$d</string>
+    <string name="watch_needs">%1$d日分のスナップショットが揃うと評価の急増が表示されます。</string>
+    <string name="watch_empty">過去3日間、評価の急増はありません。</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">このアプリがこの端末に合計でどれくらいの期間あるかを追加:%1$s</string>
     <string name="use_add_hint">レビューと共にオンチェーンに記録され、丸められています。これは端末による申告であり、証明ではありません。</string>

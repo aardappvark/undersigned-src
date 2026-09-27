@@ -548,6 +548,16 @@
     <string name="notif_burst_title">%1$s: vlna recenzí</string>
     <string name="pay_paid_pill">Zaplaceno za tuto aplikaci</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Sledování obchodu</string>
+    <string name="watch_toggle">Sledovat hodnocení v celém obchodě</string>
+    <string name="watch_toggle_body">Jednou denně tento telefon načte počet hvězdiček u každé aplikace dApp Store (asi 72 malých požadavků) a uchová si zde 60 dní z nich, aby se vlny hodnocení zobrazovaly v celém obchodě. Nic jiného se nikam neposílá.</string>
+    <string name="watch_reading">Načítání hodnocení obchodu: %1$s</string>
+    <string name="watch_last">Naposledy načteno: %1$s · Aplikace: %2$d</string>
+    <string name="watch_since">Sledováno od: %1$s · Dny: %2$d</string>
+    <string name="watch_needs">Vlny hodnocení se zobrazí, jakmile budou k dispozici %1$d dní snímků.</string>
+    <string name="watch_empty">Za poslední 3 dny žádné vlny hodnocení.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Přidat, jak dlouho je tato aplikace v telefonu celkem: %1$s</string>
     <string name="use_add_hint">Zaznamenáno na blockchainu spolu s vaší recenzí, zaokrouhleno. Jde o zprávu vašeho telefonu, ne o důkaz.</string>

@@ -541,6 +541,16 @@
     <string name="notif_burst_title">%1$s: جائزوں میں اضافہ</string>
     <string name="pay_paid_pill">اس ایپ کے لیے ادائیگی کی گئی</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">اسٹور کی نگرانی</string>
+    <string name="watch_toggle">پورے اسٹور میں درجہ بندیوں کی نگرانی کریں</string>
+    <string name="watch_toggle_body">دن میں ایک بار یہ فون dApp Store کی ہر ایپ کے ستاروں کی تعداد پڑھتا ہے (تقریباً 72 چھوٹی درخواستیں) اور ان میں سے 60 دن کا ڈیٹا یہاں محفوظ رکھتا ہے، تاکہ درجہ بندی میں اضافے پورے اسٹور میں نظر آئیں۔ کچھ بھی کہیں اور نہیں بھیجا جاتا۔</string>
+    <string name="watch_reading">اسٹور کی درجہ بندیاں پڑھی جا رہی ہیں: %1$s</string>
+    <string name="watch_last">آخری بار پڑھا گیا: %1$s · ایپس: %2$d</string>
+    <string name="watch_since">ٹریک کرنا شروع کیا: %1$s · دن: %2$d</string>
+    <string name="watch_needs">درجہ بندی میں اضافے اس وقت نظر آئیں گے جب %1$d دن کے سنیپ شاٹس موجود ہوں۔</string>
+    <string name="watch_empty">پچھلے 3 دنوں میں درجہ بندی میں کوئی اضافہ نہیں۔</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">اس فون پر یہ ایپ مجموعی طور پر کتنی دیر سے ہے، یہ شامل کریں: %1$s</string>
     <string name="use_add_hint">آپ کے جائزے کے ساتھ چین پر ریکارڈ کیا گیا، گول کر کے۔ یہ آپ کے فون کی رپورٹ ہے، ثبوت نہیں۔</string>

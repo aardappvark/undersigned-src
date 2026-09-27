@@ -34,12 +34,14 @@ object ReviewBursts {
     /** How far above the usual pace a window must run. */
     const val FACTOR = 4.0
     const val MIN_HISTORY_DAYS = 14L
+    /** Daily star-count snapshots: a week of days is enough for a median of daily counts to mean something. */
+    const val MIN_SNAPSHOT_DAYS = 7L
 
-    fun find(points: List<Point>): Findings {
+    fun find(points: List<Point>, minHistoryDays: Long = MIN_HISTORY_DAYS): Findings {
         val p = points.sortedBy { it.time }
         if (p.isEmpty()) return Findings(emptyList(), 0, null)
         val oldest = p.first().time; val newest = p.last().time
-        if (newest - oldest < MIN_HISTORY_DAYS * DAY) return Findings(emptyList(), p.size, oldest)
+        if (newest - oldest < minHistoryDays * DAY) return Findings(emptyList(), p.size, oldest)
         val days = ((newest - oldest) / DAY + 1).toInt()
         val out = ArrayList<Burst>()
         for (kind in Kind.entries) {

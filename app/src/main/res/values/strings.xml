@@ -545,6 +545,16 @@
     <string name="notif_burst_title">%1$s: review burst</string>
     <string name="pay_paid_pill">Paid for this app</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Store watch</string>
+    <string name="watch_toggle">Watch ratings across the whole store</string>
+    <string name="watch_toggle_body">Once a day this phone reads the star counts of every dApp Store app (about 72 small requests) and keeps 60 days of them here, so rating bursts show across the store. Nothing is sent anywhere else.</string>
+    <string name="watch_reading">Reading store ratings: %1$s</string>
+    <string name="watch_last">Last read: %1$s · Apps: %2$d</string>
+    <string name="watch_since">Tracking since: %1$s · Days: %2$d</string>
+    <string name="watch_needs">Rating bursts show once %1$d days of snapshots exist.</string>
+    <string name="watch_empty">No rating bursts in the last 3 days.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Add how long this app has been on this phone in total: %1$s</string>
     <string name="use_add_hint">Recorded on-chain with your review, rounded. It is your phone\'s report, not proof.</string>

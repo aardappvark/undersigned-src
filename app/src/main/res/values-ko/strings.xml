@@ -525,6 +525,16 @@
     <string name="notif_burst_title">%1$s: 리뷰 급증</string>
     <string name="pay_paid_pill">이 앱에 대한 결제 완료</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">스토어 감시</string>
+    <string name="watch_toggle">스토어 전체의 평점 감시</string>
+    <string name="watch_toggle_body">이 휴대폰은 하루에 한 번 dApp Store의 모든 앱의 별점 수를 읽어(약 72건의 작은 요청) 그중 60일치를 여기에 보관하여, 평점 급증이 스토어 전체에서 표시되도록 합니다. 그 외에는 어디로도 아무것도 전송되지 않습니다.</string>
+    <string name="watch_reading">스토어 평점 읽는 중: %1$s</string>
+    <string name="watch_last">마지막 읽기: %1$s · 앱: %2$d</string>
+    <string name="watch_since">추적 시작: %1$s · 일수: %2$d</string>
+    <string name="watch_needs">%1$d일치 스냅샷이 쌓이면 평점 급증이 표시됩니다.</string>
+    <string name="watch_empty">최근 3일간 평점 급증 없음.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">이 앱이 이 휴대폰에 있었던 총 기간 추가: %1$s</string>
     <string name="use_add_hint">리뷰와 함께 온체인에 기록되며 반올림됩니다. 이는 휴대폰이 보고하는 내용일 뿐, 증거가 아닙니다.</string>

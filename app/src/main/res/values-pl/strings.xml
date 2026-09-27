@@ -556,6 +556,16 @@
     <string name="notif_burst_title">%1$s: fala recenzji</string>
     <string name="pay_paid_pill">Zapłacono za tę aplikację</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Obserwacja sklepu</string>
+    <string name="watch_toggle">Obserwuj oceny w całym sklepie</string>
+    <string name="watch_toggle_body">Raz dziennie ten telefon odczytuje liczbę gwiazdek każdej aplikacji dApp Store (około 72 małych żądań) i przechowuje tu 60 dni tych danych, dzięki czemu fale ocen są widoczne w całym sklepie. Nic innego nigdzie nie jest wysyłane.</string>
+    <string name="watch_reading">Odczytywanie ocen sklepu: %1$s</string>
+    <string name="watch_last">Ostatni odczyt: %1$s · Aplikacje: %2$d</string>
+    <string name="watch_since">Śledzone od: %1$s · Dni: %2$d</string>
+    <string name="watch_needs">Fale ocen pojawiają się, gdy istnieje %1$d dni migawek.</string>
+    <string name="watch_empty">Brak fal ocen w ciągu ostatnich 3 dni.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Dodaj, jak długo łącznie ta aplikacja jest na tym telefonie: %1$s</string>
     <string name="use_add_hint">Zapisane na blockchainie razem z Twoją recenzją, zaokrąglone. To informacja z Twojego telefonu, nie dowód.</string>

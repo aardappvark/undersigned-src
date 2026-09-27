@@ -547,6 +547,16 @@
     <string name="notif_burst_title">%1$s: val de recenzii</string>
     <string name="pay_paid_pill">Plătit pentru această aplicație</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Monitorizarea magazinului</string>
+    <string name="watch_toggle">Monitorizează evaluările din tot magazinul</string>
+    <string name="watch_toggle_body">O dată pe zi, acest telefon citește numărul de stele al fiecărei aplicații dApp Store (aproximativ 72 de cereri mici) și păstrează aici 60 de zile din acestea, astfel încât valurile de evaluări să apară în tot magazinul. Nu se trimite nimic altundeva.</string>
+    <string name="watch_reading">Se citesc evaluările magazinului: %1$s</string>
+    <string name="watch_last">Ultima citire: %1$s · Aplicații: %2$d</string>
+    <string name="watch_since">Monitorizat din: %1$s · Zile: %2$d</string>
+    <string name="watch_needs">Valurile de evaluări apar odată ce există %1$d zile de instantanee.</string>
+    <string name="watch_empty">Niciun val de evaluări în ultimele 3 zile.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Adaugă de cât timp în total e această aplicație pe acest telefon: %1$s</string>
     <string name="use_add_hint">Înregistrat on-chain împreună cu recenzia ta, rotunjit. Este raportul telefonului tău, nu o dovadă.</string>

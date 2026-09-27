@@ -532,6 +532,16 @@
     <string name="notif_burst_title">%1$s: đợt tăng đột biến đánh giá</string>
     <string name="pay_paid_pill">Đã thanh toán cho ứng dụng này</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Theo dõi cửa hàng</string>
+    <string name="watch_toggle">Theo dõi xếp hạng trên toàn bộ cửa hàng</string>
+    <string name="watch_toggle_body">Mỗi ngày một lần, điện thoại này đọc số sao của mọi ứng dụng trên dApp Store (khoảng 72 yêu cầu nhỏ) và lưu lại 60 ngày dữ liệu đó tại đây, để các đợt tăng đột biến về xếp hạng hiển thị trên toàn bộ cửa hàng. Không có gì được gửi đi bất kỳ nơi nào khác.</string>
+    <string name="watch_reading">Đang đọc xếp hạng của cửa hàng: %1$s</string>
+    <string name="watch_last">Lần đọc gần nhất: %1$s · Ứng dụng: %2$d</string>
+    <string name="watch_since">Theo dõi từ: %1$s · Số ngày: %2$d</string>
+    <string name="watch_needs">Các đợt tăng đột biến về xếp hạng sẽ hiển thị khi có %1$d ngày ảnh chụp nhanh.</string>
+    <string name="watch_empty">Không có đợt tăng đột biến xếp hạng nào trong 3 ngày qua.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Thêm tổng thời gian ứng dụng này đã có trên điện thoại này: %1$s</string>
     <string name="use_add_hint">Được ghi trên chuỗi cùng với đánh giá của bạn, đã làm tròn. Đây là báo cáo từ điện thoại của bạn, không phải bằng chứng.</string>

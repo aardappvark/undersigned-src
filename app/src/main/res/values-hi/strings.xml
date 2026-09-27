@@ -541,6 +541,16 @@
     <string name="notif_burst_title">%1$s: समीक्षाओं में उछाल</string>
     <string name="pay_paid_pill">इस ऐप के लिए भुगतान किया गया</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">स्टोर निगरानी</string>
+    <string name="watch_toggle">पूरे स्टोर में रेटिंग पर नज़र रखें</string>
+    <string name="watch_toggle_body">यह फ़ोन दिन में एक बार dApp Store के हर ऐप के स्टार की संख्या पढ़ता है (लगभग 72 छोटे अनुरोध) और उनमें से 60 दिनों का डेटा यहां रखता है, ताकि रेटिंग में उछाल पूरे स्टोर में दिखें। कुछ भी कहीं और नहीं भेजा जाता।</string>
+    <string name="watch_reading">स्टोर की रेटिंग पढ़ी जा रही है: %1$s</string>
+    <string name="watch_last">आख़िरी बार पढ़ा गया: %1$s · ऐप्स: %2$d</string>
+    <string name="watch_since">ट्रैक करना शुरू: %1$s · दिन: %2$d</string>
+    <string name="watch_needs">रेटिंग में उछाल तब दिखते हैं जब %1$d दिनों के स्नैपशॉट मौजूद हों।</string>
+    <string name="watch_empty">पिछले 3 दिनों में रेटिंग में कोई उछाल नहीं।</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">यह ऐप इस फ़ोन पर कुल मिलाकर कब से है, यह जोड़ें: %1$s</string>
     <string name="use_add_hint">आपकी समीक्षा के साथ chain पर दर्ज, राउंड करके। यह आपके फ़ोन की रिपोर्ट है, सबूत नहीं।</string>

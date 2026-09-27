@@ -217,6 +217,10 @@ object UserPreferences {
     var changesJson: String?
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
+    /** Store watch (opt-in): the daily store-wide star-count snapshot. */
+    var storeWatch: Boolean
+        get() = prefs?.getBoolean("store_watch", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("store_watch", v)?.apply() }
     /** Install history per package (see device/InstallHistory): {pkg: {s: [[from, to]], c: current, l: lastSeen, r: reinstalls}}. */
     var presenceJson: String?
         get() = prefs?.getString("install_presence", null)

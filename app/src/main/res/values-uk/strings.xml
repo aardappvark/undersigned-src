@@ -556,6 +556,16 @@
     <string name="notif_burst_title">%1$s: сплеск відгуків</string>
     <string name="pay_paid_pill">Оплачено за цей додаток</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Спостереження за магазином</string>
+    <string name="watch_toggle">Стежити за рейтингами в усьому магазині</string>
+    <string name="watch_toggle_body">Раз на день цей телефон зчитує кількість зірок кожного додатка dApp Store (близько 72 невеликих запитів) і зберігає тут 60 днів цих даних, щоб сплески рейтингів було видно в усьому магазині. Більше нічого нікуди не надсилається.</string>
+    <string name="watch_reading">Зчитування рейтингів магазину: %1$s</string>
+    <string name="watch_last">Останнє зчитування: %1$s · Додатків: %2$d</string>
+    <string name="watch_since">Відстеження з: %1$s · Днів: %2$d</string>
+    <string name="watch_needs">Сплески рейтингів з\'являються, коли є %1$d днів знімків.</string>
+    <string name="watch_empty">Немає сплесків рейтингів за останні 3 дні.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Додайте, як довго загалом цей додаток на цьому телефоні: %1$s</string>
     <string name="use_add_hint">Записано в блокчейні разом із вашим відгуком, округлено. Це повідомлення вашого телефона, не доказ.</string>

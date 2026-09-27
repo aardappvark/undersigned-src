@@ -545,6 +545,16 @@
     <string name="notif_burst_title">%1$s: ondata di recensioni</string>
     <string name="pay_paid_pill">Pagato per questa app</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Controllo dello store</string>
+    <string name="watch_toggle">Monitora le valutazioni in tutto lo store</string>
+    <string name="watch_toggle_body">Una volta al giorno questo telefono legge il numero di stelle di ogni app di dApp Store (circa 72 piccole richieste) e ne conserva qui 60 giorni, così le ondate di valutazioni sono visibili in tutto lo store. Non viene inviato nient\'altro altrove.</string>
+    <string name="watch_reading">Lettura delle valutazioni dello store: %1$s</string>
+    <string name="watch_last">Ultima lettura: %1$s · App: %2$d</string>
+    <string name="watch_since">Monitorato dal: %1$s · Giorni: %2$d</string>
+    <string name="watch_needs">Le ondate di valutazioni vengono mostrate quando esistono %1$d giorni di istantanee.</string>
+    <string name="watch_empty">Nessuna ondata di valutazioni negli ultimi 3 giorni.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Aggiungi da quanto tempo in totale questa app è su questo telefono: %1$s</string>
     <string name="use_add_hint">Registrato on-chain insieme alla tua recensione, arrotondato. È quanto riporta il tuo telefono, non una prova.</string>

@@ -67,6 +67,22 @@ class StoreReviewsClient {
         }.getOrElse { Log.w(TAG, "rating failed: ${it.message?.take(80)}"); null }
     }
 
+    /**
+     * Star counts for up to [MAX_BATCH] apps in one request (the store app's own DAppsByPackagesSummary). Larger batches
+     * come back silently PARTIAL (30 → 9, 100 → 16, 200 → 11; measured 28 Sep 2026), so callers chunk by 20. Apps the
+     * store does not return are simply absent. Null when the request failed.
+     */
+    suspend fun ratingsBatch(pkgs: List<String>): Map<String, List<Int>>? = withContext(Dispatchers.IO) {
+        require(pkgs.size <= MAX_BATCH)
+        runCatching {
+            val d = post("DAppsByPackagesSummary", Q_BATCH, JSONObject().put("systemContext", sc).put("androidPackages", org.json.JSONArray(pkgs)))
+            val arr = d.getJSONArray("dAppsByAndroidPackages")
+            (0 until arr.length()).mapNotNull { i -> val o = arr.optJSONObject(i) ?: return@mapNotNull null
+                val r = o.optJSONObject("rating")?.optJSONArray("reviewsByRating") ?: return@mapNotNull null
+                if (r.length() != 5) null else o.optString("androidPackage") to (0 until 5).map { r.optInt(it) } }.toMap()
+        }.getOrElse { Log.w(TAG, "ratings batch failed: ${it.message?.take(80)}"); null }
+    }
+
     suspend fun details(pkg: String): StoreDetails? = withContext(Dispatchers.IO) {
         runCatching {
             val d = post("DAppByPackageSummary", Q_DETAILS, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
@@ -131,6 +147,9 @@ class StoreReviewsClient {
         private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
         /** The store's largest accepted page of reviews (v1.59.0: 11+ returns a bare error; measured 26 Sep 2026). */
         const val MAX_REVIEW_PAGE = 10
+        /** The largest star-count batch the store returns whole (see [ratingsBatch]). */
+        const val MAX_BATCH = 20
+        private const val Q_BATCH = "query DAppsByPackagesSummary(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage rating { rating reviewsByRating } } }"
         private const val Q_REVIEWS = "query DAppReviews(\$systemContext: SystemContext!, \$androidPackage: String!, \$first: Int!, \$after: String) { dAppReviews(systemContext: \$systemContext, androidPackage: \$androidPackage, first: \$first, after: \$after) { edges { node { __typename ...DAppReviewFragment } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } } }  fragment DAppReviewFragment on DAppReview { id createdAt rating review walletAddress domain isReviewerAccountDeleted reply { reply } }"
     }
 }

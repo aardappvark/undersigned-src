@@ -530,6 +530,16 @@
     <string name="notif_burst_title">%1$s: recensiegolf</string>
     <string name="pay_paid_pill">Betaald voor deze app</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Storebewaking</string>
+    <string name="watch_toggle">Beoordelingen in de hele store in de gaten houden</string>
+    <string name="watch_toggle_body">Eén keer per dag leest deze telefoon het aantal sterren van elke dApp Store-app (ongeveer 72 kleine verzoeken) en bewaart hier 60 dagen daarvan, zodat beoordelingsgolven in de hele store zichtbaar worden. Er wordt verder niets ergens anders naartoe gestuurd.</string>
+    <string name="watch_reading">Storebeoordelingen worden gelezen: %1$s</string>
+    <string name="watch_last">Laatst gelezen: %1$s · Apps: %2$d</string>
+    <string name="watch_since">Bijgehouden sinds: %1$s · Dagen: %2$d</string>
+    <string name="watch_needs">Beoordelingsgolven worden zichtbaar zodra er %1$d dagen aan momentopnames zijn.</string>
+    <string name="watch_empty">Geen beoordelingsgolven in de afgelopen 3 dagen.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Toevoegen hoelang deze app in totaal al op deze telefoon staat: %1$s</string>
     <string name="use_add_hint">Wordt samen met uw recensie on-chain vastgelegd, afgerond. Het is wat uw telefoon meldt, geen bewijs.</string>

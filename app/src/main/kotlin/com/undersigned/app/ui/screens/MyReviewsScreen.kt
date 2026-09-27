@@ -64,6 +64,13 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
                 ((d.signed?.memo as? ReviewMemo.Review)?.text ?: "").lowercase().contains(q) || (d.store?.text ?: "").lowercase().contains(q)
         }
     }
+    // The scan runs in the background and says it has finished by notification. Without notification permission (only
+    // asked for when alerts are switched on) that notice never came: popcat's scan finished silently (28 Sep 2026).
+    val askNotif = androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()) { vm.scanMyStoreReviews() }
+    fun startScan() {
+        val need = android.os.Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED
+        if (need) askNotif.launch(android.Manifest.permission.POST_NOTIFICATIONS) else vm.scanMyStoreReviews()
+    }
     fun date(sec: Long) = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(sec * 1000))
     fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
         val s = sender ?: return
@@ -100,7 +107,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
                         scannedAt != null -> stringResource(R.string.my_reviews_scanned, DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(scannedAt!!)))
                         else -> stringResource(R.string.my_reviews_never_scanned)
                     }, color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.weight(1f))
-                if (scan == null) TextButton(onClick = { vm.scanMyStoreReviews() }) { Text(stringResource(R.string.import_scan), color = RbColors.purpleLight, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+                if (scan == null) TextButton(onClick = { startScan() }) { Text(stringResource(R.string.import_scan), color = RbColors.purpleLight, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             }
             scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             scanResult?.let { (failed, total) -> if (scan == null && failed > 0) Text(stringResource(R.string.import_incomplete, failed, total), color = RbColors.warning, fontSize = 11.sp) }

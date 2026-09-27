@@ -539,6 +539,16 @@
     <string name="notif_burst_title">%1$s: Bewertungsschub</string>
     <string name="pay_paid_pill">Für diese App bezahlt</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Store-Watch</string>
+    <string name="watch_toggle">Bewertungen im ganzen Store beobachten</string>
+    <string name="watch_toggle_body">Einmal am Tag liest dieses Telefon die Sternebewertungen jeder dApp Store-App (etwa 72 kleine Anfragen) und speichert 60 Tage davon hier, damit Bewertungsschübe im ganzen Store sichtbar werden. Es wird sonst nichts gesendet.</string>
+    <string name="watch_reading">Store-Bewertungen werden gelesen: %1$s</string>
+    <string name="watch_last">Zuletzt gelesen: %1$s · Apps: %2$d</string>
+    <string name="watch_since">Verfolgt seit: %1$s · Tage: %2$d</string>
+    <string name="watch_needs">Bewertungsschübe werden angezeigt, sobald %1$d Tage an Snapshots vorliegen.</string>
+    <string name="watch_empty">Keine Bewertungsschübe in den letzten 3 Tagen.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Hinzufügen, wie lange diese App insgesamt schon auf diesem Telefon ist: %1$s</string>
     <string name="use_add_hint">Wird zusammen mit Ihrer Bewertung on-chain aufgezeichnet, gerundet. Es ist die Angabe Ihres Telefons, kein Beweis.</string>

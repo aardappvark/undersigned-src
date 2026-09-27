@@ -539,6 +539,16 @@
     <string name="notif_burst_title">%1$s: értékelési hullám</string>
     <string name="pay_paid_pill">Fizetve ezért az alkalmazásért</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Áruházfigyelés</string>
+    <string name="watch_toggle">Értékelések figyelése az egész áruházban</string>
+    <string name="watch_toggle_body">Ez a telefon naponta egyszer beolvassa az összes dApp Store-alkalmazás csillagszámát (körülbelül 72 kis kérés), és 60 napnyi adatot tárol itt belőlük, hogy az értékelési hullámok láthatók legyenek az egész áruházban. Semmi más nem kerül elküldésre máshova.</string>
+    <string name="watch_reading">Áruházi értékelések beolvasása: %1$s</string>
+    <string name="watch_last">Utolsó beolvasás: %1$s · Alkalmazások: %2$d</string>
+    <string name="watch_since">Figyelve ekkortól: %1$s · Napok: %2$d</string>
+    <string name="watch_needs">Az értékelési hullámok akkor jelennek meg, ha %1$d nap pillanatkép áll rendelkezésre.</string>
+    <string name="watch_empty">Nincs értékelési hullám az utolsó 3 napban.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Add hozzá, mióta van összesen ez az alkalmazás ezen a telefonon: %1$s</string>
     <string name="use_add_hint">On-chain rögzítve az értékeléseddel együtt, kerekítve. Ez a telefonod jelentése, nem bizonyíték.</string>

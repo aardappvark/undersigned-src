@@ -539,6 +539,16 @@
     <string name="notif_burst_title">%1$s: inceleme dalgası</string>
     <string name="pay_paid_pill">Bu uygulama için ödeme yapıldı</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Mağaza izleme</string>
+    <string name="watch_toggle">Mağazanın tamamındaki puanları izle</string>
+    <string name="watch_toggle_body">Bu telefon günde bir kez her dApp Store uygulamasının yıldız sayısını okur (yaklaşık 72 küçük istek) ve bunların 60 günlük kısmını burada tutar, böylece puan dalgaları mağazanın tamamında görünür. Başka hiçbir yere hiçbir şey gönderilmez.</string>
+    <string name="watch_reading">Mağaza puanları okunuyor: %1$s</string>
+    <string name="watch_last">Son okuma: %1$s · Uygulamalar: %2$d</string>
+    <string name="watch_since">İzleme başlangıcı: %1$s · Gün: %2$d</string>
+    <string name="watch_needs">Puan dalgaları, %1$d günlük anlık görüntü oluştuğunda görünür.</string>
+    <string name="watch_empty">Son 3 günde puan dalgası yok.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Bu uygulamanın bu telefonda toplamda ne kadar süredir olduğunu ekleyin: %1$s</string>
     <string name="use_add_hint">İncelemenizle birlikte zincir üzerinde kaydedilir, yuvarlanmış olarak. Bu telefonunuzun bildirdiği bilgidir, kanıt değildir.</string>

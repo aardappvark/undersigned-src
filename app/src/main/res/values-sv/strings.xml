@@ -522,6 +522,16 @@
     <string name="notif_burst_title">%1$s: recensionsvåg</string>
     <string name="pay_paid_pill">Betalat för den här appen</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Butiksbevakning</string>
+    <string name="watch_toggle">Bevaka betyg i hela butiken</string>
+    <string name="watch_toggle_body">En gång om dagen läser den här telefonen stjärnantalet för varje dApp Store-app (cirka 72 små förfrågningar) och sparar 60 dagar av dem här, så att betygsvågor visas i hela butiken. Inget skickas någon annanstans.</string>
+    <string name="watch_reading">Läser butikens betyg: %1$s</string>
+    <string name="watch_last">Senast läst: %1$s · Appar: %2$d</string>
+    <string name="watch_since">Bevakat sedan: %1$s · Dagar: %2$d</string>
+    <string name="watch_needs">Betygsvågor visas när %1$d dagars ögonblicksbilder finns.</string>
+    <string name="watch_empty">Inga betygsvågor de senaste 3 dagarna.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Lägg till hur länge appen totalt har funnits på den här telefonen: %1$s</string>
     <string name="use_add_hint">Registreras on-chain tillsammans med din recension, avrundat. Det är vad din telefon rapporterar, inte ett bevis.</string>

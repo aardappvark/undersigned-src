@@ -532,6 +532,16 @@
     <string name="notif_burst_title">%1$s:评价激增</string>
     <string name="pay_paid_pill">已为此应用付费</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">商店监测</string>
+    <string name="watch_toggle">监测整个商店的评分</string>
+    <string name="watch_toggle_body">此手机每天读取一次 dApp Store 中每个应用的星级数量(约 72 个小请求),并在本地保留其中 60 天的数据,以便在整个商店范围内显示评分激增。不会向其他任何地方发送任何内容。</string>
+    <string name="watch_reading">正在读取商店评分:%1$s</string>
+    <string name="watch_last">上次读取:%1$s · 应用数:%2$d</string>
+    <string name="watch_since">追踪起始:%1$s · 天数:%2$d</string>
+    <string name="watch_needs">累计 %1$d 天的快照后,将显示评分激增。</string>
+    <string name="watch_empty">过去 3 天内没有评分激增。</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">添加此应用在本机上的累计安装时长:%1$s</string>
     <string name="use_add_hint">与您的评价一同记录在链上,并经过取整处理。这是您手机自行报告的信息,并非证明。</string>

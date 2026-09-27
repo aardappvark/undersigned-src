@@ -45,7 +45,7 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}) {
+fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val wallet by vm.wallet.collectAsState()
@@ -76,6 +76,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     }
     val domainNames by vm.domainNames.collectAsState()
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
+    // The store scan reports by notification; ask first if that permission is missing (see MyReviewsScreen).
+    val askNotifForScan = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.scanMyStoreReviews() }
     val termsService = remember { TermsAcceptanceService(context) }
     val myStore by vm.myStoreReviews.collectAsState()
     val scan by vm.importScan.collectAsState()
@@ -206,7 +208,9 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 GlassCard {
                     Text(stringResource(R.string.import_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                     Spacer(Modifier.height(10.dp))
-                    SecondaryButton(scan?.let { stringResource(R.string.import_scanning, it) } ?: stringResource(R.string.import_scan), enabled = scan == null && importStage == null, onClick = { vm.scanMyStoreReviews() })
+                    SecondaryButton(scan?.let { stringResource(R.string.import_scanning, it) } ?: stringResource(R.string.import_scan), enabled = scan == null && importStage == null, onClick = {
+                        if (Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) askNotifForScan.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        else vm.scanMyStoreReviews() })
                     scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp)) }
                     val importable = myStore.filter { (pkg, _) -> vm.myReview(pkg) == null }
                     if (scan == null && myStore.isNotEmpty()) {
@@ -294,6 +298,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 SecondaryButton(stringResource(R.string.settings_refresh_ledger), onClick = { vm.syncLedger() })
                 LinkRow(stringResource(R.string.stats_open)) { onStats() }
                 LinkRow(stringResource(R.string.pay_open)) { onPayments() }
+                LinkRow(stringResource(R.string.watch_title)) { onWatch() }
             }
 
             SectionTitle(stringResource(R.string.settings_hidden))

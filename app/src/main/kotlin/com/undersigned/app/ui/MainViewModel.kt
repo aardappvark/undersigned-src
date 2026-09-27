@@ -155,6 +155,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
         watchStoreScan()
+        followWatch()
         viewModelScope.launch { UserPreferences.walletAddress.collect { w -> recomputePro(); if (w == null) selfFacts.value = null else loadSelfFacts(w)
             // Store reviews belong to ONE wallet: restore that wallet's last scan, or start empty.
             val cached = w?.let { UserPreferences.loadMyStoreReviews(it) }
@@ -305,8 +306,47 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
     /** Bursts in the store's star COUNTS, from this device's daily snapshots (followed apps, and apps opened). */
-    fun ratingSnapshots(pkg: String) = UserPreferences.ratingSnapshots(pkg)
-    fun ratingBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(ratingSnapshots(pkg)))
+    /** This app's star-count snapshots: the store-wide daily archive (Store watch) merged with the per-app ones, 20 h apart at least. */
+    fun ratingSnapshots(pkg: String): List<com.undersigned.protocol.RatingSnapshots.Snapshot> {
+        val all = (com.undersigned.app.notify.StoreWatchWorker.archive(getApplication()).snapshots(pkg) + UserPreferences.ratingSnapshots(pkg)).sortedBy { it.time }
+        val out = ArrayList<com.undersigned.protocol.RatingSnapshots.Snapshot>()
+        for (sn in all) if (out.isEmpty() || sn.time - out.last().time >= 20 * 3600) out.add(sn)
+        return out
+    }
+    fun ratingBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(ratingSnapshots(pkg)), com.undersigned.protocol.ReviewBursts.MIN_SNAPSHOT_DAYS)
+
+    // ---- Store watch ----------------------------------------------------------------------------------------
+
+    data class WatchHit(val pkg: String, val name: String, val burst: com.undersigned.protocol.ReviewBursts.Burst)
+    data class Watch(val enabled: Boolean, val at: Long?, val apps: Int, val days: List<String>, val hits: List<WatchHit>)
+    val watch = MutableStateFlow(Watch(false, null, 0, emptyList(), emptyList()))
+    /** "done/total" while today's read runs, else null. */
+    val watchProgress = MutableStateFlow<String?>(null)
+    fun loadWatch() = viewModelScope.launch(Dispatchers.IO) {
+        val f = com.undersigned.app.notify.StoreWatchWorker.resultFile(getApplication())
+        val names = catalogue.value.associate { it.packageName to it.name }
+        watch.value = runCatching {
+            val o = org.json.JSONObject(f.readText()); val h = o.getJSONArray("hits")
+            Watch(UserPreferences.storeWatch, o.getLong("at"), o.getInt("apps"), o.getJSONArray("days").let { a -> (0 until a.length()).map { a.getString(it) } },
+                (0 until h.length()).map { i -> val x = h.getJSONObject(i); WatchHit(x.getString("p"), names[x.getString("p")] ?: x.getString("p"),
+                    com.undersigned.protocol.ReviewBursts.Burst(com.undersigned.protocol.ReviewBursts.Kind.valueOf(x.getString("k")), x.getLong("s"), x.getLong("e"), x.getInt("n"), x.getInt("t"), x.getDouble("x"), 0)) })
+        }.getOrElse { Watch(UserPreferences.storeWatch, null, 0, com.undersigned.app.notify.StoreWatchWorker.archive(getApplication()).days(), emptyList()) }
+    }
+    fun setStoreWatch(on: Boolean) {
+        UserPreferences.storeWatch = on
+        if (on) com.undersigned.app.notify.StoreWatchWorker.schedule(getApplication()) else com.undersigned.app.notify.StoreWatchWorker.cancel(getApplication())
+        loadWatch()
+    }
+    private fun followWatch() = viewModelScope.launch {
+        com.undersigned.app.notify.StoreWatchWorker.work(getApplication()).collect { infos ->
+            val i = infos.lastOrNull() ?: return@collect
+            when (i.state) {
+                androidx.work.WorkInfo.State.RUNNING -> { val t = i.progress.getInt("total", 0); watchProgress.value = if (t > 0) "${minOf(i.progress.getInt("done", 0), t)}/$t" else "…" }
+                // A periodic job goes back to ENQUEUED after each run: that is the moment to reload the result.
+                else -> { if (watchProgress.value != null) loadWatch(); watchProgress.value = null }
+            }
+        }
+    }
     /** Store reviewer wallets inside a burst, matching its star count. */
     fun burstWallets(pkg: String, b: com.undersigned.protocol.ReviewBursts.Burst): List<String> = storeHistory.value[pkg]?.items.orEmpty()
         .filter { r -> r.rating == b.kind.stars && (runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull() ?: -1L) in b.start..b.end }.mapNotNull { it.walletAddress }.distinct()

@@ -569,6 +569,16 @@
     <string name="notif_burst_title">%1$s: طفرة في المراجعات</string>
     <string name="pay_paid_pill">تم الدفع مقابل هذا التطبيق</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">مراقبة المتجر</string>
+    <string name="watch_toggle">مراقبة التقييمات في المتجر بأكمله</string>
+    <string name="watch_toggle_body">مرة واحدة يوميًا، يقرأ هذا الهاتف عدد النجوم لكل تطبيق في dApp Store (نحو 72 طلبًا صغيرًا) ويحتفظ هنا بـ60 يومًا منها، حتى تظهر طفرات التقييمات في المتجر بأكمله. لا يُرسَل أي شيء آخر إلى أي مكان آخر.</string>
+    <string name="watch_reading">جارٍ قراءة تقييمات المتجر: %1$s</string>
+    <string name="watch_last">آخر قراءة: %1$s · التطبيقات: %2$d</string>
+    <string name="watch_since">التتبع منذ: %1$s · الأيام: %2$d</string>
+    <string name="watch_needs">تظهر طفرات التقييمات بمجرد توفر %1$d يومًا من اللقطات.</string>
+    <string name="watch_empty">لا توجد طفرات تقييمات في آخر 3 أيام.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">أضِف إجمالي مدة تثبيت هذا التطبيق على هذا الهاتف: %1$s</string>
     <string name="use_add_hint">مسجَّلة على السلسلة مع مراجعتك، مقرّبة. إنها تقرير هاتفك، وليست دليلاً.</string>

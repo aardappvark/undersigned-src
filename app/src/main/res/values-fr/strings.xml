@@ -545,6 +545,16 @@
     <string name="notif_burst_title">%1$s : pic d\'avis</string>
     <string name="pay_paid_pill">Payé pour cette application</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Veille du store</string>
+    <string name="watch_toggle">Surveiller les notes dans tout le store</string>
+    <string name="watch_toggle_body">Une fois par jour, ce téléphone lit le nombre d\'étoiles de chaque application du dApp Store (environ 72 petites requêtes) et en conserve 60 jours ici, afin que les pics de notes apparaissent dans tout le store. Rien n\'est envoyé ailleurs.</string>
+    <string name="watch_reading">Lecture des notes du store : %1$s</string>
+    <string name="watch_last">Dernière lecture : %1$s · Applications : %2$d</string>
+    <string name="watch_since">Suivi depuis : %1$s · Jours : %2$d</string>
+    <string name="watch_needs">Les pics de notes apparaissent une fois que %1$d jours d\'instantanés existent.</string>
+    <string name="watch_empty">Aucun pic de notes au cours des 3 derniers jours.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Ajouter depuis combien de temps cette application est sur ce téléphone au total : %1$s</string>
     <string name="use_add_hint">Enregistré on-chain avec votre avis, arrondi. C\'est ce que rapporte votre téléphone, pas une preuve.</string>

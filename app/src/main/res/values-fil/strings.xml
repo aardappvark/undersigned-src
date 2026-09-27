@@ -541,6 +541,16 @@
     <string name="notif_burst_title">%1$s: review burst</string>
     <string name="pay_paid_pill">Nagbayad para sa app na ito</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Pagbantay sa store</string>
+    <string name="watch_toggle">Bantayan ang mga rating sa buong store</string>
+    <string name="watch_toggle_body">Minsan sa isang araw, binabasa ng telepono na ito ang bilang ng bituin ng bawat app sa dApp Store (mga 72 maliliit na request) at itinatago rito ang 60 araw nito, para makita ang mga rating burst sa buong store. Wala nang ipinapadala kahit saan pa.</string>
+    <string name="watch_reading">Binabasa ang mga rating ng store: %1$s</string>
+    <string name="watch_last">Huling binasa: %1$s · App: %2$d</string>
+    <string name="watch_since">Sinusubaybayan mula noong: %1$s · Araw: %2$d</string>
+    <string name="watch_needs">Lumalabas ang mga rating burst kapag may %1$d araw nang snapshot.</string>
+    <string name="watch_empty">Walang rating burst sa nakaraang 3 araw.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Idagdag kung gaano na katagal sa kabuuan ang app na ito sa telepono na ito: %1$s</string>
     <string name="use_add_hint">Naitala on-chain kasama ng iyong review, naka-round. Ito ang report ng iyong telepono, hindi patunay.</string>

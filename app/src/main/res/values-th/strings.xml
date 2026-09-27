@@ -516,6 +516,16 @@
     <string name="notif_burst_title">%1$s: การพุ่งขึ้นของรีวิว</string>
     <string name="pay_paid_pill">จ่ายเงินสำหรับแอปนี้แล้ว</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">เฝ้าติดตามสโตร์</string>
+    <string name="watch_toggle">เฝ้าติดตามคะแนนทั่วทั้งสโตร์</string>
+    <string name="watch_toggle_body">โทรศัพท์เครื่องนี้จะอ่านจำนวนดาวของแอป dApp Store ทุกแอปวันละครั้ง (ประมาณ 72 คำขอเล็กๆ) และเก็บข้อมูลไว้ที่นี่ 60 วัน เพื่อให้เห็นการพุ่งขึ้นของคะแนนทั่วทั้งสโตร์ ไม่มีการส่งข้อมูลใดๆ ไปที่อื่นอีก</string>
+    <string name="watch_reading">กำลังอ่านคะแนนของสโตร์: %1$s</string>
+    <string name="watch_last">อ่านล่าสุด: %1$s · แอป: %2$d</string>
+    <string name="watch_since">ติดตามตั้งแต่: %1$s · วัน: %2$d</string>
+    <string name="watch_needs">การพุ่งขึ้นของคะแนนจะแสดงเมื่อมีสแนปช็อตครบ %1$d วัน</string>
+    <string name="watch_empty">ไม่มีการพุ่งขึ้นของคะแนนในช่วง 3 วันที่ผ่านมา</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">เพิ่มระยะเวลารวมที่แอปนี้อยู่บนโทรศัพท์เครื่องนี้: %1$s</string>
     <string name="use_add_hint">บันทึกไว้บนเชนพร้อมกับรีวิวของคุณ แบบปัดเศษ นี่คือรายงานจากโทรศัพท์ของคุณ ไม่ใช่ข้อพิสูจน์</string>

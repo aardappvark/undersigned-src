@@ -539,6 +539,16 @@
     <string name="notif_burst_title">%1$s: κύμα κριτικών</string>
     <string name="pay_paid_pill">Πληρώθηκε για αυτήν την εφαρμογή</string>
 
+    <!-- Store watch (28 Sep 2026) -->
+    <string name="watch_title">Παρακολούθηση καταστήματος</string>
+    <string name="watch_toggle">Παρακολούθηση βαθμολογιών σε όλο το κατάστημα</string>
+    <string name="watch_toggle_body">Μία φορά την ημέρα αυτό το τηλέφωνο διαβάζει τον αριθμό αστεριών κάθε εφαρμογής του dApp Store (περίπου 72 μικρά αιτήματα) και κρατά εδώ 60 ημέρες από αυτά, ώστε τα κύματα βαθμολογιών να εμφανίζονται σε όλο το κατάστημα. Τίποτα άλλο δεν αποστέλλεται πουθενά αλλού.</string>
+    <string name="watch_reading">Ανάγνωση βαθμολογιών καταστήματος: %1$s</string>
+    <string name="watch_last">Τελευταία ανάγνωση: %1$s · Εφαρμογές: %2$d</string>
+    <string name="watch_since">Παρακολούθηση από: %1$s · Ημέρες: %2$d</string>
+    <string name="watch_needs">Τα κύματα βαθμολογιών εμφανίζονται μόλις υπάρξουν %1$d ημέρες στιγμιότυπων.</string>
+    <string name="watch_empty">Κανένα κύμα βαθμολογιών τις τελευταίες 3 ημέρες.</string>
+
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Προσθέστε πόσο καιρό συνολικά είναι αυτή η εφαρμογή σε αυτό το τηλέφωνο: %1$s</string>
     <string name="use_add_hint">Καταγράφεται on-chain μαζί με την κριτική σας, στρογγυλοποιημένο. Είναι η αναφορά του τηλεφώνου σας, όχι απόδειξη.</string>
