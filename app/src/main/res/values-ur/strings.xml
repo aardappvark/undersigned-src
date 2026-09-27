@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">دستخط شدہ: %1$s (Seekers: %2$d) · اسٹور: %3$s (جائزے: %4$d)۔</string>
     <string name="notif_update_title">%1$s کو v%2$d میں اپ ڈیٹ کیا گیا</string>
     <string name="notif_update_body">اب بھی کام کر رہا ہے؟ اس ورژن کے لیے جائزہ دستخط کریں۔</string>
-    <string name="notif_wave_title">%1$s: اسٹور میں غیرمعمولی جائزہ سرگرمی</string>
-    <string name="notif_wave_body">24 گھنٹوں میں %1$d نئے اسٹور جائزے، %2$d ایسے والٹس سے جن میں کوئی تصدیق شدہ آلہ نہیں ملا۔</string>
     <string name="change_rate_version">اس ورژن کی درجہ بندی کریں</string>
     <string name="store_title">dApp Store درجہ بندی</string>
     <string name="store_sub">اسٹور کی اپنی عوامی درجہ بندی اور جائزے، صرف پڑھنے کے لیے، سیاق و سباق کے لیے دکھائے گئے۔ ان کا مالک Solana Mobile ہے۔</string>
@@ -536,6 +534,12 @@
     <string name="burst_causes">اضافہ ایک حقیقت ہے، فیصلہ نہیں: اسٹور فیچر، لانچ، نیا ورژن یا ادا شدہ مہم — ہر ایک اس کا سبب بن سکتا ہے۔</string>
     <string name="burst_more">مزید اضافے: %1$d</string>
     <string name="burst_read_older">پرانے جائزے دیکھیں</string>
+    <string name="burst_source_ratings">dApp Store ستارہ درجہ بندیاں</string>
+    <string name="burst_high_ratings">پانچ ستارہ درجہ بندیاں: %1$d، %2$s – %3$s · معمول کی رفتار: تقریباً %4$s ہر 3 دن میں</string>
+    <string name="burst_low_ratings">ایک ستارہ درجہ بندیاں: %1$d، %2$s – %3$s · معمول کی رفتار: تقریباً %4$s ہر 3 دن میں</string>
+    <string name="ratings_tracked">اس فون پر ستارہ درجہ بندیاں ٹریک کی گئیں %1$s سے · سنیپ شاٹس: %2$d</string>
+    <string name="notif_burst_title">%1$s: جائزوں میں اضافہ</string>
+    <string name="pay_paid_pill">اس ایپ کے لیے ادائیگی کی گئی</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">اس فون پر یہ ایپ کتنی دیر سے ہے، یہ شامل کریں: %1$s</string>

@@ -271,7 +271,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun loadStoreMirror(pkg: String) {
         if (storeRatings.value.containsKey(pkg)) return
         viewModelScope.launch(Dispatchers.IO) {
-            store.rating(pkg)?.let { r -> storeRatings.value = storeRatings.value + (pkg to r) }
+            store.rating(pkg)?.let { r -> storeRatings.value = storeRatings.value + (pkg to r); UserPreferences.recordRatingSnapshot(pkg, r.byStar) }
             if (!storeDetails.value.containsKey(pkg)) store.details(pkg)?.let { d -> storeDetails.value = storeDetails.value + (pkg to d) }
             // Five pages, paced for the store's CDN: the first shows at once, all five feed the burst check.
             val read = store.reviewsChecked(pkg, maxPages = HISTORY_PAGES, pauseMs = 700, onPage = { l -> if (l.size <= StoreReviewsClient.MAX_REVIEW_PAGE) storeReviews.update { it + (pkg to l) } })
@@ -303,6 +303,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             finally { historyLoading.update { it - pkg } }
         }
     }
+    /** Bursts in the store's star COUNTS, from this device's daily snapshots (followed apps, and apps opened). */
+    fun ratingSnapshots(pkg: String) = UserPreferences.ratingSnapshots(pkg)
+    fun ratingBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(ratingSnapshots(pkg)))
     /** Store reviewer wallets inside a burst, matching its star count. */
     fun burstWallets(pkg: String, b: com.undersigned.protocol.ReviewBursts.Burst): List<String> = storeHistory.value[pkg]?.items.orEmpty()
         .filter { r -> r.rating == b.kind.stars && (runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull() ?: -1L) in b.start..b.end }.mapNotNull { it.walletAddress }.distinct()
@@ -343,7 +346,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private val board = com.undersigned.app.ledger.PaymentBoard(app)
     /** One listing: a treasury claim, whether the store-listed website confirms it, and what it has been paid. */
-    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean)
+    /** [payers] = wallets that paid this listing's treasury under its code; a review by one of them carries "Paid for this app". */
+    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean, val payers: Set<String> = emptySet())
     val boardRows = MutableStateFlow<List<BoardRow>>(emptyList())
     val boardLoading = MutableStateFlow(false)
     val boardPreview = MutableStateFlow<BoardRow?>(null)
@@ -363,7 +367,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val att = HashMap<String, Boolean>(); for (p in read.payments.map { it.payer }.distinct()) att[p] = attested(p)
         val t = com.undersigned.protocol.Payments.tally(read.payments, claim.treasury) { att[it] == true }
         val q = com.undersigned.app.ledger.Prices.quotes(listOf(AppConfig.Solana.SKR_MINT, com.undersigned.app.ledger.PaymentBoard.USDC_MINT)).also { quotes.value = it }
-        return BoardRow(claim, name, true, t, com.undersigned.app.ledger.Prices.usd(t.lamports, t.tokens, q), read.complete)
+        return BoardRow(claim, name, true, t, com.undersigned.app.ledger.Prices.usd(t.lamports, t.tokens, q), read.complete, read.payments.map { it.payer }.filter { it != claim.treasury }.toSet())
     }
 
     /** Every claim on the ledger, checked against its website, then read. At most once every ten minutes unless [force]. */

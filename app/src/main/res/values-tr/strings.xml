@@ -97,8 +97,6 @@
     <string name="notif_divergence_body">İmzalı: %1$s (Seeker: %2$d) · Mağaza: %3$s (inceleme: %4$d).</string>
     <string name="notif_update_title">%1$s v%2$d sürümüne güncellendi</string>
     <string name="notif_update_body">Hâlâ çalışıyor mu? Bu sürüm için bir inceleme imzalayın.</string>
-    <string name="notif_wave_title">%1$s: mağazada olağandışı inceleme etkinliği</string>
-    <string name="notif_wave_body">24 saatte %1$d yeni mağaza incelemesi, bunların %2$d tanesi kanıtlı cihaz bulunamayan cüzdanlardan.</string>
     <string name="change_rate_version">Bu sürümü değerlendir</string>
     <string name="store_title">dApp Store puanı</string>
     <string name="store_sub">Mağazanın kendi herkese açık puanı ve incelemeleri, yalnızca okunur, bağlam için gösterilir. Bunlara Solana Mobile sahiptir.</string>
@@ -534,6 +532,12 @@
     <string name="burst_causes">Dalga bir gerçektir, bir hüküm değil: bir mağaza özelliği, bir lansman, yeni bir sürüm veya ücretli bir kampanya bunun nedeni olabilir.</string>
     <string name="burst_more">Daha fazla dalga: %1$d</string>
     <string name="burst_read_older">Daha eski incelemeleri kontrol et</string>
+    <string name="burst_source_ratings">dApp Store yıldız puanları</string>
+    <string name="burst_high_ratings">Beş yıldızlı puanlar: %1$d, %2$s – %3$s · Olağan hız: 3 günde yaklaşık %4$s</string>
+    <string name="burst_low_ratings">Bir yıldızlı puanlar: %1$d, %2$s – %3$s · Olağan hız: 3 günde yaklaşık %4$s</string>
+    <string name="ratings_tracked">Yıldız puanları bu telefonda %1$s tarihinden bu yana izleniyor · Anlık görüntüler: %2$d</string>
+    <string name="notif_burst_title">%1$s: inceleme dalgası</string>
+    <string name="pay_paid_pill">Bu uygulama için ödeme yapıldı</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Bu uygulamanın bu telefonda ne kadar süredir olduğunu ekleyin: %1$s</string>

@@ -107,6 +107,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val storeHistory by vm.storeHistory.collectAsState()
     val storeBursts = remember(storeHistory[pkg]) { vm.storeBursts(pkg) }
     val ledgerBursts = remember(entries) { vm.ledgerBursts(pkg) }
+    val snaps = remember(storeRatings[pkg]) { vm.ratingSnapshots(pkg) }
+    val ratingBursts = remember(snaps) { vm.ratingBursts(pkg) }
     LaunchedEffect(storeBursts) { storeBursts?.bursts?.forEach { b -> vm.resolveFacts(vm.burstWallets(pkg, b)) } }
     val boardRows by vm.boardRows.collectAsState()
     val boardRow = remember(boardRows) { vm.boardFor(pkg) }
@@ -286,6 +288,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             Row(Modifier.padding(top = 4.dp))  {
                                 factsMap[wa]?.let { f -> Pill(stringResource(if (f.hasGenesisToken) R.string.store_reviewer_genesis else R.string.store_reviewer_nogenesis), if (f.hasGenesisToken) RbColors.green else RbColors.warning); Spacer(Modifier.width(6.dp)) }
                                 if (wa in ledgerSigners) Pill(stringResource(R.string.store_reviewer_signed_here), RbColors.purpleLight)
+                                if (boardRow?.payers?.contains(wa) == true) { Spacer(Modifier.width(6.dp)); Pill(stringResource(R.string.pay_paid_pill), RbColors.green) }
                             }
                         }
                         r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = 4) }
@@ -318,6 +321,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else Text(stringResource(R.string.burst_none, sb.checked, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(from * 1000))), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
                     }
                 }
+                ratingBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ratings).takeIf { i == 0 }, emptyList(), factsMap, ratings = true) }
+                if (snaps.size >= 2) Text(stringResource(R.string.ratings_tracked, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(snaps.first().time * 1000)), snaps.size), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
                 ledgerBursts.bursts.sortedByDescending { it.intensity }.take(3).forEachIndexed { i, b -> BurstLine(b, stringResource(R.string.burst_source_ledger).takeIf { i == 0 }, emptyList(), factsMap) }
                 val deep by vm.historyLoading.collectAsState()
                 val read = storeHistory[pkg]
@@ -423,6 +428,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         helpful[e.signature]?.let { hw -> Pill(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), RbColors.green) }
                         similar[e.signature]?.let { sf -> Pill(stringResource(if (sf.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge), RbColors.warning) }
                         usage[e.signature]?.let { u -> Pill(stringResource(R.string.use_pill, useLabel(u)), RbColors.textSecondary) }
+                        if (boardRow?.payers?.contains(e.signer) == true) Pill(stringResource(R.string.pay_paid_pill), RbColors.green)
                     }
                     disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 11.sp) }
                     if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
@@ -672,12 +678,13 @@ private fun CardAction(label: String, color: androidx.compose.ui.graphics.Color,
 
 /** One burst: what, when, against what pace, and — for store bursts — how many of its reviewers hold an attested device. */
 @Composable
-private fun BurstLine(b: com.undersigned.protocol.ReviewBursts.Burst, source: String?, wallets: List<String>, facts: Map<String, com.undersigned.protocol.SignerFacts>) {
+private fun BurstLine(b: com.undersigned.protocol.ReviewBursts.Burst, source: String?, wallets: List<String>, facts: Map<String, com.undersigned.protocol.SignerFacts>, ratings: Boolean = false) {
     val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
     val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
     source?.let { Text(it.uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 4.dp)) }
     Spacer(Modifier.height(4.dp))
-    Text(stringResource(if (b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH) R.string.burst_high else R.string.burst_low, b.count, df.format(Date(b.start * 1000)), df.format(Date(b.end * 1000)), pace),
+    val high = b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH
+    Text(stringResource(if (ratings) (if (high) R.string.burst_high_ratings else R.string.burst_low_ratings) else (if (high) R.string.burst_high else R.string.burst_low), b.count, df.format(Date(b.start * 1000)), df.format(Date(b.end * 1000)), pace),
         color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 16.sp)
     val extra = ArrayList<String>()
     if (b.sameText > 0) extra.add(stringResource(R.string.burst_same_text, b.sameText))

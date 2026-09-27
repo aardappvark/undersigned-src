@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">Signé : %1$s (Seekers : %2$d) · Store : %3$s (avis : %4$d).</string>
     <string name="notif_update_title">%1$s mis à jour vers v%2$d</string>
     <string name="notif_update_body">Toujours fonctionnel ? Signez un avis pour cette version.</string>
-    <string name="notif_wave_title">%1$s : activité d\'avis inhabituelle dans le store</string>
-    <string name="notif_wave_body">%1$d nouveaux avis du store en 24 h, %2$d provenant de wallets sans appareil attesté.</string>
     <string name="change_rate_version">Noter cette version</string>
     <string name="store_title">Note du dApp Store</string>
     <string name="store_sub">La note et les avis publics propres au store, en lecture seule, affichés pour contexte. Solana Mobile en est propriétaire.</string>
@@ -540,6 +538,12 @@
     <string name="burst_causes">Un pic est un fait, pas un verdict : une mise en avant par le store, un lancement, une nouvelle version ou une campagne payante peuvent chacun en causer un.</string>
     <string name="burst_more">Autres pics : %1$d</string>
     <string name="burst_read_older">Vérifier les avis plus anciens</string>
+    <string name="burst_source_ratings">Notes par étoiles du dApp Store</string>
+    <string name="burst_high_ratings">Notes cinq étoiles: %1$d, %2$s – %3$s · Rythme habituel : environ %4$s pour 3 jours</string>
+    <string name="burst_low_ratings">Notes une étoile: %1$d, %2$s – %3$s · Rythme habituel : environ %4$s pour 3 jours</string>
+    <string name="ratings_tracked">Notes par étoiles suivies sur ce téléphone depuis %1$s · Instantanés : %2$d</string>
+    <string name="notif_burst_title">%1$s : pic d\'avis</string>
+    <string name="pay_paid_pill">Payé pour cette application</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Ajouter depuis combien de temps cette application est sur ce téléphone : %1$s</string>

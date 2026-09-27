@@ -95,8 +95,6 @@
     <string name="notif_divergence_body">স্বাক্ষরিত: %1$s (Seeker: %2$d) · স্টোর: %3$s (পর্যালোচনা: %4$d)।</string>
     <string name="notif_update_title">%1$s আপডেট হয়ে v%2$d হয়েছে</string>
     <string name="notif_update_body">এখনও কাজ করছে? এই সংস্করণের জন্য একটি পর্যালোচনা স্বাক্ষর করুন।</string>
-    <string name="notif_wave_title">%1$s: স্টোরে অস্বাভাবিক পর্যালোচনা কার্যকলাপ</string>
-    <string name="notif_wave_body">২৪ ঘণ্টায় %1$d টি নতুন স্টোর পর্যালোচনা, যার মধ্যে %2$d টি এমন ওয়ালেট থেকে যাদের কোনো প্রত্যয়িত ডিভাইস পাওয়া যায়নি।</string>
     <string name="change_rate_version">এই সংস্করণ রেট করুন</string>
     <string name="store_title">dApp Store রেটিং</string>
     <string name="store_sub">স্টোরের নিজস্ব সর্বজনীন রেটিং এবং পর্যালোচনা, শুধুমাত্র পঠনযোগ্য, প্রসঙ্গের জন্য দেখানো হয়েছে। Solana Mobile এগুলির মালিক।</string>
@@ -528,6 +526,12 @@
     <string name="burst_causes">উল্লম্ফন একটি তথ্য, রায় নয়: একটি স্টোর ফিচার, একটি লঞ্চ, একটি নতুন সংস্করণ বা একটি পেইড ক্যাম্পেইন — যেকোনোটিই এর কারণ হতে পারে।</string>
     <string name="burst_more">আরও উল্লম্ফন: %1$d</string>
     <string name="burst_read_older">পুরনো পর্যালোচনা দেখুন</string>
+    <string name="burst_source_ratings">dApp Store তারকা রেটিং</string>
+    <string name="burst_high_ratings">পাঁচ-তারকা রেটিং: %1$d, %2$s – %3$s · স্বাভাবিক গতি: প্রতি ৩ দিনে প্রায় %4$s</string>
+    <string name="burst_low_ratings">এক-তারকা রেটিং: %1$d, %2$s – %3$s · স্বাভাবিক গতি: প্রতি ৩ দিনে প্রায় %4$s</string>
+    <string name="ratings_tracked">এই ফোনে তারকা রেটিং ট্র্যাক করা হয়েছে %1$s থেকে · স্ন্যাপশট: %2$d</string>
+    <string name="notif_burst_title">%1$s: পর্যালোচনায় উল্লম্ফন</string>
+    <string name="pay_paid_pill">এই অ্যাপের জন্য পরিশোধ করা হয়েছে</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">এই অ্যাপটি এই ফোনে কতদিন ধরে আছে তা যোগ করুন: %1$s</string>

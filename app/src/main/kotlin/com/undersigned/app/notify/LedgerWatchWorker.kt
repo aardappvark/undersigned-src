@@ -22,7 +22,6 @@ import com.undersigned.app.R
 import com.undersigned.app.data.CatalogueRepository
 import com.undersigned.app.data.StoreReviewsClient
 import com.undersigned.app.device.InstalledApps
-import com.undersigned.app.solana.SignerFactsService
 import com.undersigned.protocol.Ranking
 import com.undersigned.protocol.SignerFacts
 import java.time.Instant
@@ -82,7 +81,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         }.onFailure { Log.w(TAG, "update-prompt pass failed: ${it.message?.take(80)}") }
         // (b) Signed vs store divergence and store review waves, for followed apps only (bounded RPC use).
         runCatching {
-            val factsSvc = SignerFactsService(); val store = StoreReviewsClient()
+            val store = StoreReviewsClient()
             val cachedFacts = HashMap<String, SignerFacts>()
             val f = { w: String -> cachedFacts.getOrPut(w) { UserPreferences.cachedFacts(w) ?: SignerFacts(false, 0.0) } }
             val scores = Ranking.score(after, facts = f).associateBy { it.packageName }
@@ -91,13 +90,26 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                 Log.i(TAG, "check $pkg: signed=${sc?.countedReviews ?: 0} store=${sr?.total ?: 0}")
                 if (sc != null && sr != null && sc.countedReviews >= 3 && sr.total >= 3 && kotlin.math.abs(sc.weightedMean - sr.average) >= 1.5 && UserPreferences.markDivergence(pkg, sc.weightedMean, sr.average))
                     post("div:$pkg", ctx.getString(R.string.notif_divergence_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_divergence_body, String.format(java.util.Locale.US, "%.1f", sc.weightedMean), sc.countedReviews, String.format(java.util.Locale.US, "%.1f", sr.average), sr.total), pkg)
-                val recent = store.reviews(pkg, pageSize = 10, maxPages = 1).filter { r -> runCatching { Instant.parse(r.createdAt).toEpochMilli() }.getOrDefault(0L) > System.currentTimeMillis() - 24L * 3600L * 1000L }
-                Log.i(TAG, "  $pkg store reviews in 24h: ${recent.size}")
-                if (recent.size >= 5) {
-                    val noGenesis = recent.count { r -> r.walletAddress?.let { w -> !(runCatching { factsSvc.facts(w) }.getOrNull()?.hasGenesisToken ?: true) } ?: false }
-                    Log.i(TAG, "  $pkg of those, no attested device: $noGenesis")
-                    if (noGenesis >= 3 && UserPreferences.markWave(pkg, recent.first().id)) post("wave:$pkg", ctx.getString(R.string.notif_wave_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_wave_body, recent.size, noGenesis), pkg)
+                // Review bursts (see protocol ReviewBursts), from the listed reviews and from this device's snapshots of the
+                // star counts. This replaced the 24-hour "wave" rule (5+ reviews, 3+ unattested), which fired on any busy
+                // day and could not see a campaign by attested wallets — CrushCoin's was 67 of 67 attested (27 Sep 2026).
+                sr?.let { UserPreferences.recordRatingSnapshot(pkg, it.byStar) }
+                val read = store.reviewsChecked(pkg, maxPages = 3, pauseMs = 1000)
+                val pts = read.items.mapNotNull { r -> runCatching { Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
+                val fresh = System.currentTimeMillis() / 1000 - 3 * com.undersigned.protocol.ReviewBursts.DAY
+                val listed = com.undersigned.protocol.ReviewBursts.find(pts).bursts.filter { it.end >= fresh }.map { it to false }
+                val rated = com.undersigned.protocol.ReviewBursts.find(com.undersigned.protocol.RatingSnapshots.toPoints(UserPreferences.ratingSnapshots(pkg))).bursts.filter { it.end >= fresh }.map { it to true }
+                Log.i(TAG, "  $pkg recent bursts: listed ${listed.size}, ratings ${rated.size}")
+                for ((b, fromRatings) in listed + rated) {
+                    val key = "burst:$pkg:${b.kind}:${if (fromRatings) "r" else "l"}:${b.start / com.undersigned.protocol.ReviewBursts.DAY}"
+                    if (!UserPreferences.markBurst(key)) continue
+                    val df = java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM)
+                    val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
+                    val res = when { fromRatings && b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high_ratings; fromRatings -> R.string.burst_low_ratings
+                        b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high; else -> R.string.burst_low }
+                    post(key, ctx.getString(R.string.notif_burst_title, names[pkg] ?: pkg), ctx.getString(res, b.count, df.format(java.util.Date(b.start * 1000)), df.format(java.util.Date(b.end * 1000)), pace), pkg)
                 }
+                kotlinx.coroutines.delay(1000)
             }
         }.onFailure { Log.w(TAG, "divergence/wave pass failed: ${it.message?.take(80)}") }
         val lastSeen = UserPreferences.lastNotifiedSignature

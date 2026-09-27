@@ -27,7 +27,8 @@ object UserPreferences {
     private const val KEY_DOMAINS = "skr_domains_v2"   // v1 cached "no name" from the broken derivation
     private const val KEY_CLAIMS = "publisher_claims"
     private const val KEY_DIVERGENCE = "divergence_marks"
-    private const val KEY_WAVES = "wave_marks"
+    private const val KEY_RATING_SNAPS = "rating_snaps"
+    private const val KEY_BURST_MARKS = "burst_marks"
     private const val KEY_DENSE = "reading_dense"       // device-local reading density (design §6); never on-chain
     private const val KEY_HOWTO_SEEN = "howto_seen"
     private const val KEY_WATCH_HOURS = "watch_interval_hours"
@@ -157,10 +158,38 @@ object UserPreferences {
         if (all.has(key)) return false
         all.put(key, System.currentTimeMillis()); prefs?.edit()?.putString(KEY_DIVERGENCE, all.toString())?.apply(); return true
     }
-    fun markWave(pkg: String, newestReviewId: String): Boolean {
-        val all = runCatching { JSONObject(prefs?.getString(KEY_WAVES, "{}") ?: "{}") }.getOrDefault(JSONObject())
-        if (all.optString(pkg) == newestReviewId) return false
-        all.put(pkg, newestReviewId); prefs?.edit()?.putString(KEY_WAVES, all.toString())?.apply(); return true
+
+    /**
+     * The store's star counts for [pkg] as this device saw them, oldest first (see protocol RatingSnapshots). At most one
+     * snapshot per 20 hours per app, 120 per app, 400 apps; the least recently updated app is dropped first.
+     */
+    @Synchronized fun recordRatingSnapshot(pkg: String, byStar: List<Int>, now: Long = System.currentTimeMillis() / 1000) {
+        if (byStar.size != 5) return
+        val all = runCatching { JSONObject(prefs?.getString(KEY_RATING_SNAPS, "{}") ?: "{}") }.getOrDefault(JSONObject())
+        val arr = all.optJSONArray(pkg) ?: org.json.JSONArray()
+        val lastT = if (arr.length() > 0) arr.optJSONArray(arr.length() - 1)?.optLong(0) ?: 0L else 0L
+        if (now - lastT < 20 * 3600) return
+        arr.put(org.json.JSONArray().put(now).apply { byStar.forEach { put(it) } })
+        while (arr.length() > 120) arr.remove(0)
+        all.put(pkg, arr)
+        if (all.length() > 400) {
+            val oldest = all.keys().asSequence().minByOrNull { k -> all.optJSONArray(k)?.let { a -> a.optJSONArray(a.length() - 1)?.optLong(0) } ?: 0L }
+            oldest?.let { all.remove(it) }
+        }
+        prefs?.edit()?.putString(KEY_RATING_SNAPS, all.toString())?.apply()
+    }
+    fun ratingSnapshots(pkg: String): List<com.undersigned.protocol.RatingSnapshots.Snapshot> = runCatching {
+        val arr = JSONObject(prefs?.getString(KEY_RATING_SNAPS, "{}") ?: "{}").optJSONArray(pkg) ?: return emptyList()
+        (0 until arr.length()).mapNotNull { i -> arr.optJSONArray(i)?.let { r -> com.undersigned.protocol.RatingSnapshots.Snapshot(r.optLong(0), (1..5).map { r.optInt(it) }) } }
+    }.getOrDefault(emptyList())
+    /** True the first time a burst (package, kind, start day) is seen; the burst alert posts once per burst. */
+    fun markBurst(key: String): Boolean {
+        val all = runCatching { JSONObject(prefs?.getString(KEY_BURST_MARKS, "{}") ?: "{}") }.getOrDefault(JSONObject())
+        if (all.has(key)) return false
+        all.put(key, System.currentTimeMillis())
+        val cutoff = System.currentTimeMillis() - 90L * 86_400_000L
+        all.keys().asSequence().toList().forEach { k -> if (all.optLong(k) < cutoff) all.remove(k) }
+        prefs?.edit()?.putString(KEY_BURST_MARKS, all.toString())?.apply(); return true
     }
 
     fun cachedClaim(pkg: String, wallet: String, ttl: Long): Boolean? = runCatching {

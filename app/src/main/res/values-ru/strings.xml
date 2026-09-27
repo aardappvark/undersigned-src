@@ -87,8 +87,6 @@
     <string name="notif_divergence_body">Подписано: %1$s (Seeker: %2$d) · Магазин: %3$s (отзывов: %4$d).</string>
     <string name="notif_update_title">%1$s обновлено до v%2$d</string>
     <string name="notif_update_body">Всё ещё работает? Подпишите отзыв для этой версии.</string>
-    <string name="notif_wave_title">%1$s: необычная активность отзывов в магазине</string>
-    <string name="notif_wave_body">%1$d новых отзывов магазина за 24 ч, %2$d от кошельков без найденного подтверждённого устройства.</string>
     <string name="change_rate_version">Оценить эту версию</string>
     <string name="store_title">Рейтинг dApp Store</string>
     <string name="store_sub">Собственный публичный рейтинг и отзывы магазина, только для чтения, показаны для контекста. Ими владеет Solana Mobile.</string>
@@ -535,6 +533,12 @@
     <string name="burst_causes">Всплеск — это факт, а не приговор: причиной может быть подборка магазина, запуск, новый релиз или платная кампания.</string>
     <string name="burst_more">Больше всплесков: %1$d</string>
     <string name="burst_read_older">Проверить более старые отзывы</string>
+    <string name="burst_source_ratings">Звёздные рейтинги dApp Store</string>
+    <string name="burst_high_ratings">Пятизвёздочные рейтинги: %1$d, %2$s – %3$s · Обычный темп: около %4$s за 3 дня</string>
+    <string name="burst_low_ratings">Однозвёздочные рейтинги: %1$d, %2$s – %3$s · Обычный темп: около %4$s за 3 дня</string>
+    <string name="ratings_tracked">Звёздные рейтинги отслеживаются на этом телефоне с %1$s · Снимки: %2$d</string>
+    <string name="notif_burst_title">%1$s: всплеск отзывов</string>
+    <string name="pay_paid_pill">Оплачено за это приложение</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Добавьте, как долго это приложение на этом телефоне: %1$s</string>

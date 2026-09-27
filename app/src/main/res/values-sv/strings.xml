@@ -90,8 +90,6 @@
     <string name="notif_divergence_body">Signerat: %1$s (Seekers: %2$d) · Butik: %3$s (recensioner: %4$d).</string>
     <string name="notif_update_title">%1$s uppdaterades till v%2$d</string>
     <string name="notif_update_body">Fungerar det fortfarande? Signera en recension för den här versionen.</string>
-    <string name="notif_wave_title">%1$s: ovanlig recensionsaktivitet i butiken</string>
-    <string name="notif_wave_body">%1$d nya butiksrecensioner på 24 h, %2$d från plånböcker utan attesterad enhet.</string>
     <string name="change_rate_version">Betygsätt den här versionen</string>
     <string name="store_title">dApp Store-betyg</string>
     <string name="store_sub">Butikens egna offentliga betyg och recensioner, skrivskyddat, visat som sammanhang. Solana Mobile äger dessa.</string>
@@ -517,6 +515,12 @@
     <string name="burst_causes">En våg är ett faktum, inte en dom: en butikskampanj, en lansering, en ny version eller en betald kampanj kan var och en orsaka en.</string>
     <string name="burst_more">Fler vågor: %1$d</string>
     <string name="burst_read_older">Kontrollera äldre recensioner</string>
+    <string name="burst_source_ratings">Stjärnbetyg i dApp Store</string>
+    <string name="burst_high_ratings">Femstjärniga betyg: %1$d, %2$s – %3$s · Normal takt: cirka %4$s per 3 dagar</string>
+    <string name="burst_low_ratings">Enstjärniga betyg: %1$d, %2$s – %3$s · Normal takt: cirka %4$s per 3 dagar</string>
+    <string name="ratings_tracked">Stjärnbetyg spårade på den här telefonen sedan %1$s · Ögonblicksbilder: %2$d</string>
+    <string name="notif_burst_title">%1$s: recensionsvåg</string>
+    <string name="pay_paid_pill">Betalat för den här appen</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Lägg till hur länge appen har funnits på den här telefonen: %1$s</string>

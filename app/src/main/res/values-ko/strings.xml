@@ -94,8 +94,6 @@
     <string name="notif_divergence_body">서명: %1$s(Seeker: %2$d명) · 스토어: %3$s(리뷰: %4$d건).</string>
     <string name="notif_update_title">%1$s이(가) v%2$d(으)로 업데이트되었습니다</string>
     <string name="notif_update_body">여전히 잘 작동하나요? 이 버전에 대한 리뷰에 서명해 보세요.</string>
-    <string name="notif_wave_title">%1$s: 스토어에서 비정상적인 리뷰 활동</string>
-    <string name="notif_wave_body">24시간 동안 새 스토어 리뷰 %1$d건, 그중 인증된 기기가 없는 지갑에서 작성된 것이 %2$d건입니다.</string>
     <string name="change_rate_version">이 버전 평가하기</string>
     <string name="store_title">dApp Store 평점</string>
     <string name="store_sub">스토어 자체의 공개 평점과 리뷰이며, 참고용으로 읽기 전용으로 표시됩니다. 이 데이터는 Solana Mobile이 소유합니다.</string>
@@ -520,6 +518,12 @@
     <string name="burst_causes">급증은 사실일 뿐 판정이 아닙니다. 스토어 추천, 출시, 새 버전, 유료 캠페인 등이 각각 원인이 될 수 있습니다.</string>
     <string name="burst_more">추가 급증: %1$d</string>
     <string name="burst_read_older">이전 리뷰 확인</string>
+    <string name="burst_source_ratings">dApp Store 별점</string>
+    <string name="burst_high_ratings">별점 5개 평점: %1$d건, %2$s – %3$s · 평소 속도: 3일당 약 %4$s건</string>
+    <string name="burst_low_ratings">별점 1개 평점: %1$d건, %2$s – %3$s · 평소 속도: 3일당 약 %4$s건</string>
+    <string name="ratings_tracked">이 휴대폰에서 %1$s 이후로 추적된 별점 · 스냅샷: %2$d</string>
+    <string name="notif_burst_title">%1$s: 리뷰 급증</string>
+    <string name="pay_paid_pill">이 앱에 대한 결제 완료</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">이 앱이 이 휴대폰에 있었던 기간 추가: %1$s</string>

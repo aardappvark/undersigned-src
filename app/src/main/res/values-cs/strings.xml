@@ -92,8 +92,6 @@
     <string name="notif_divergence_body">Podepsáno: %1$s (Seekerů: %2$d) · Obchod: %3$s (recenzí: %4$d).</string>
     <string name="notif_update_title">%1$s aktualizováno na v%2$d</string>
     <string name="notif_update_body">Stále funguje? Podepište recenzi pro tuto verzi.</string>
-    <string name="notif_wave_title">%1$s: neobvyklá aktivita recenzí v obchodě</string>
-    <string name="notif_wave_body">%1$d nových recenzí obchodu za 24 h, %2$d od peněženek bez nalezeného ověřeného zařízení.</string>
     <string name="change_rate_version">Ohodnotit tuto verzi</string>
     <string name="store_title">Hodnocení dApp Store</string>
     <string name="store_sub">Vlastní veřejné hodnocení a recenze obchodu, pouze pro čtení, zobrazené pro kontext. Tyto údaje vlastní Solana Mobile.</string>
@@ -543,6 +541,12 @@
     <string name="burst_causes">Vlna je fakt, ne rozsudek: může ji způsobit funkce obchodu, spuštění, nové vydání nebo placená kampaň.</string>
     <string name="burst_more">Další vlny: %1$d</string>
     <string name="burst_read_older">Zkontrolovat starší recenze</string>
+    <string name="burst_source_ratings">Hvězdičková hodnocení dApp Store</string>
+    <string name="burst_high_ratings">Pětihvězdičková hodnocení: %1$d, %2$s – %3$s · Obvyklé tempo: asi %4$s za 3 dny</string>
+    <string name="burst_low_ratings">Jednohvězdičková hodnocení: %1$d, %2$s – %3$s · Obvyklé tempo: asi %4$s za 3 dny</string>
+    <string name="ratings_tracked">Hvězdičková hodnocení sledovaná v tomto telefonu od %1$s · Snímky: %2$d</string>
+    <string name="notif_burst_title">%1$s: vlna recenzí</string>
+    <string name="pay_paid_pill">Zaplaceno za tuto aplikaci</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Přidat, jak dlouho je tato aplikace v telefonu: %1$s</string>

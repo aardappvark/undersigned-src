@@ -97,8 +97,6 @@
     <string name="notif_divergence_body">Aláírva: %1$s (Seekerek: %2$d) · Áruház: %3$s (értékelések: %4$d).</string>
     <string name="notif_update_title">%1$s frissítve erre: v%2$d</string>
     <string name="notif_update_body">Még mindig működik? Írj alá egy értékelést ehhez a verzióhoz.</string>
-    <string name="notif_wave_title">%1$s: szokatlan értékelési aktivitás az áruházban</string>
-    <string name="notif_wave_body">%1$d új áruházi értékelés 24 óra alatt, %2$d olyan tárcától, amelyhez nem található hitelesített eszköz.</string>
     <string name="change_rate_version">Verzió értékelése</string>
     <string name="store_title">dApp Store értékelés</string>
     <string name="store_sub">Az áruház saját nyilvános értékelése és véleményei, csak olvasható formában, tájékoztatásul. Ezek a Solana Mobile tulajdonát képezik.</string>
@@ -534,6 +532,12 @@
     <string name="burst_causes">A hullám tény, nem ítélet: okozhatja egy áruházi kiemelés, egy indulás, egy új kiadás vagy egy fizetett kampány is.</string>
     <string name="burst_more">További hullámok: %1$d</string>
     <string name="burst_read_older">Korábbi értékelések ellenőrzése</string>
+    <string name="burst_source_ratings">dApp Store csillagpontozások</string>
+    <string name="burst_high_ratings">Ötcsillagos pontozások: %1$d, %2$s – %3$s · Szokásos ütem: kb. %4$s / 3 nap</string>
+    <string name="burst_low_ratings">Egycsillagos pontozások: %1$d, %2$s – %3$s · Szokásos ütem: kb. %4$s / 3 nap</string>
+    <string name="ratings_tracked">Csillagos értékelések követve ezen a telefonon %1$s óta · Pillanatképek: %2$d</string>
+    <string name="notif_burst_title">%1$s: értékelési hullám</string>
+    <string name="pay_paid_pill">Fizetve ezért az alkalmazásért</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Add hozzá, mióta van ez az alkalmazás ezen a telefonon: %1$s</string>

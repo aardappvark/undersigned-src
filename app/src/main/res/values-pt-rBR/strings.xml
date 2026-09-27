@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">Assinada: %1$s (Seekers: %2$d) · Loja: %3$s (avaliações: %4$d).</string>
     <string name="notif_update_title">%1$s atualizado para v%2$d</string>
     <string name="notif_update_body">Ainda funciona? Assine uma avaliação para esta versão.</string>
-    <string name="notif_wave_title">%1$s: atividade de avaliações incomum na loja</string>
-    <string name="notif_wave_body">%1$d novas avaliações da loja em 24 h, %2$d de carteiras sem dispositivo atestado.</string>
     <string name="change_rate_version">Avaliar esta versão</string>
     <string name="store_title">Nota na dApp Store</string>
     <string name="store_sub">A própria nota pública e as avaliações da loja, somente leitura, exibidas como contexto. Pertencem à Solana Mobile.</string>
@@ -540,6 +538,12 @@
     <string name="burst_causes">Uma onda é um fato, não um veredito: um destaque da loja, um lançamento, uma nova versão ou uma campanha paga podem, cada um, causar uma.</string>
     <string name="burst_more">Mais ondas: %1$d</string>
     <string name="burst_read_older">Verificar avaliações mais antigas</string>
+    <string name="burst_source_ratings">Notas por estrelas da dApp Store</string>
+    <string name="burst_high_ratings">Notas de cinco estrelas: %1$d, %2$s – %3$s · Ritmo normal: cerca de %4$s a cada 3 dias</string>
+    <string name="burst_low_ratings">Notas de uma estrela: %1$d, %2$s – %3$s · Ritmo normal: cerca de %4$s a cada 3 dias</string>
+    <string name="ratings_tracked">Notas por estrelas rastreadas neste telefone desde %1$s · Instantâneos: %2$d</string>
+    <string name="notif_burst_title">%1$s: onda de avaliações</string>
+    <string name="pay_paid_pill">Pago por este app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Adicionar há quanto tempo este app está neste telefone: %1$s</string>

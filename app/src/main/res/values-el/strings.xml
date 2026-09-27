@@ -97,8 +97,6 @@
     <string name="notif_divergence_body">Υπογεγραμμένη: %1$s (Seekers: %2$d) · Κατάστημα: %3$s (κριτικές: %4$d).</string>
     <string name="notif_update_title">Το %1$s ενημερώθηκε στην v%2$d</string>
     <string name="notif_update_body">Λειτουργεί ακόμα; Υπογράψτε μια κριτική για αυτή την έκδοση.</string>
-    <string name="notif_wave_title">%1$s: ασυνήθιστη δραστηριότητα κριτικών στο κατάστημα</string>
-    <string name="notif_wave_body">%1$d νέες κριτικές καταστήματος σε 24 ώρες, %2$d από πορτοφόλια χωρίς πιστοποιημένη συσκευή.</string>
     <string name="change_rate_version">Βαθμολογήστε αυτή την έκδοση</string>
     <string name="store_title">Βαθμολογία dApp Store</string>
     <string name="store_sub">Η δική του δημόσια βαθμολογία και οι κριτικές του καταστήματος, μόνο για ανάγνωση, εμφανίζονται για πλαίσιο. Ανήκουν στη Solana Mobile.</string>
@@ -534,6 +532,12 @@
     <string name="burst_causes">Το κύμα είναι γεγονός, όχι ετυμηγορία: μια προβολή του καταστήματος, μια κυκλοφορία, μια νέα έκδοση ή μια επί πληρωμή καμπάνια μπορούν η καθεμία να το προκαλέσουν.</string>
     <string name="burst_more">Περισσότερα κύματα: %1$d</string>
     <string name="burst_read_older">Έλεγχος παλαιότερων κριτικών</string>
+    <string name="burst_source_ratings">Βαθμολογίες με αστέρια στο dApp Store</string>
+    <string name="burst_high_ratings">Βαθμολογίες πέντε αστέρων: %1$d, %2$s – %3$s · Συνήθης ρυθμός: περίπου %4$s ανά 3 ημέρες</string>
+    <string name="burst_low_ratings">Βαθμολογίες ενός αστέρα: %1$d, %2$s – %3$s · Συνήθης ρυθμός: περίπου %4$s ανά 3 ημέρες</string>
+    <string name="ratings_tracked">Βαθμολογίες με αστέρια που παρακολουθούνται σε αυτό το τηλέφωνο από %1$s · Στιγμιότυπα: %2$d</string>
+    <string name="notif_burst_title">%1$s: κύμα κριτικών</string>
+    <string name="pay_paid_pill">Πληρώθηκε για αυτήν την εφαρμογή</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Προσθέστε πόσο καιρό είναι αυτή η εφαρμογή σε αυτό το τηλέφωνο: %1$s</string>

@@ -99,8 +99,6 @@
     <string name="notif_divergence_body">簽署:%1$s(Seeker:%2$d 台)· 商店:%3$s(評價:%4$d 則)。</string>
     <string name="notif_update_title">%1$s 已更新至 v%2$d</string>
     <string name="notif_update_body">還能正常使用嗎?為這個版本簽署一則評價吧。</string>
-    <string name="notif_wave_title">%1$s:商店中出現異常評價活動</string>
-    <string name="notif_wave_body">24 小時內新增 %1$d 則商店評價,其中 %2$d 則來自未找到已驗證裝置的錢包。</string>
     <string name="change_rate_version">為此版本評分</string>
     <string name="store_title">dApp Store 評分</string>
     <string name="store_sub">商店自身的公開評分與評價,僅供檢視,用於提供背景資訊。這些資料歸 Solana Mobile 所有。</string>
@@ -527,6 +525,12 @@
     <string name="burst_causes">激增只是一項事實,並非定論:商店精選、上線活動、新版本發布或付費推廣皆可能引發激增。</string>
     <string name="burst_more">更多激增:%1$d</string>
     <string name="burst_read_older">查看更早的評價</string>
+    <string name="burst_source_ratings">dApp Store 星級評分</string>
+    <string name="burst_high_ratings">五星評分:%1$d,%2$s – %3$s · 平常速度:每 3 天約 %4$s 則</string>
+    <string name="burst_low_ratings">一星評分:%1$d,%2$s – %3$s · 平常速度:每 3 天約 %4$s 則</string>
+    <string name="ratings_tracked">自 %1$s 起在本機上追蹤的星級評分 · 快照:%2$d</string>
+    <string name="notif_burst_title">%1$s:評價激增</string>
+    <string name="pay_paid_pill">已為此應用程式付款</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">加入此應用程式在本機上的安裝時長:%1$s</string>

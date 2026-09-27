@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">Naka-sign: %1$s (Seeker: %2$d) · Store: %3$s (review: %4$d).</string>
     <string name="notif_update_title">Na-update ang %1$s sa v%2$d</string>
     <string name="notif_update_body">Gumagana pa rin? Mag-sign ng review para sa bersyong ito.</string>
-    <string name="notif_wave_title">%1$s: hindi pangkaraniwang aktibidad ng review sa store</string>
-    <string name="notif_wave_body">%1$d bagong review sa store sa loob ng 24 oras, %2$d mula sa mga wallet na walang nahanap na na-verify na device.</string>
     <string name="change_rate_version">I-rate ang bersyong ito</string>
     <string name="store_title">Rating sa dApp Store</string>
     <string name="store_sub">Ang sariling pampublikong rating at review ng store, read-only, ipinapakita para sa konteksto. Pag-aari ito ng Solana Mobile.</string>
@@ -536,6 +534,12 @@
     <string name="burst_causes">Ang burst ay isang fact, hindi isang verdict: puwedeng dahilan nito ang isang store feature, isang launch, isang bagong release, o isang paid campaign.</string>
     <string name="burst_more">Higit pang burst: %1$d</string>
     <string name="burst_read_older">Tingnan ang mga mas lumang review</string>
+    <string name="burst_source_ratings">Star rating ng dApp Store</string>
+    <string name="burst_high_ratings">5-star na rating: %1$d, %2$s – %3$s · Karaniwang bilis: humigit-kumulang %4$s bawat 3 araw</string>
+    <string name="burst_low_ratings">1-star na rating: %1$d, %2$s – %3$s · Karaniwang bilis: humigit-kumulang %4$s bawat 3 araw</string>
+    <string name="ratings_tracked">Sinusubaybayan ang star rating sa telepono na ito mula noong %1$s · Mga snapshot: %2$d</string>
+    <string name="notif_burst_title">%1$s: review burst</string>
+    <string name="pay_paid_pill">Nagbayad para sa app na ito</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Idagdag kung gaano na katagal ang app na ito sa telepono na ito: %1$s</string>

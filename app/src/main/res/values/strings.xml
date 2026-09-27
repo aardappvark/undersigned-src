@@ -186,8 +186,6 @@
     <string name="notif_divergence_body">Signed: %1$s (Seekers: %2$d) · Store: %3$s (reviews: %4$d).</string>
     <string name="notif_update_title">%1$s updated to v%2$d</string>
     <string name="notif_update_body">Still works? Sign a review for this version.</string>
-    <string name="notif_wave_title">%1$s: unusual review activity in the store</string>
-    <string name="notif_wave_body">%1$d new store reviews in 24 h, %2$d from wallets with no attested device found.</string>
     <string name="change_rate_version">Rate this version</string>
     <string name="store_title">dApp Store rating</string>
     <string name="store_sub">The store\'s own public rating and reviews, read-only, shown for context. Solana Mobile owns these.</string>
@@ -540,6 +538,12 @@
     <string name="burst_causes">A burst is a fact, not a verdict: a store feature, a launch, a new release or a paid campaign can each cause one.</string>
     <string name="burst_more">More bursts: %1$d</string>
     <string name="burst_read_older">Check older reviews</string>
+    <string name="burst_source_ratings">dApp Store star ratings</string>
+    <string name="burst_high_ratings">Five-star ratings: %1$d, %2$s – %3$s · Usual pace: about %4$s per 3 days</string>
+    <string name="burst_low_ratings">One-star ratings: %1$d, %2$s – %3$s · Usual pace: about %4$s per 3 days</string>
+    <string name="ratings_tracked">Star ratings tracked on this phone since %1$s · Snapshots: %2$d</string>
+    <string name="notif_burst_title">%1$s: review burst</string>
+    <string name="pay_paid_pill">Paid for this app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Add how long this app has been on this phone: %1$s</string>

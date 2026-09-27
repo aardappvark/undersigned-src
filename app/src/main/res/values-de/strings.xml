@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">Signiert: %1$s (Seekers: %2$d) · Store: %3$s (Bewertungen: %4$d).</string>
     <string name="notif_update_title">%1$s aktualisiert auf v%2$d</string>
     <string name="notif_update_body">Funktioniert es noch? Signieren Sie eine Bewertung für diese Version.</string>
-    <string name="notif_wave_title">%1$s: ungewöhnliche Bewertungsaktivität im Store</string>
-    <string name="notif_wave_body">%1$d neue Store-Bewertungen in 24 Std., %2$d von Wallets ohne gefundenes attestiertes Gerät.</string>
     <string name="change_rate_version">Diese Version bewerten</string>
     <string name="store_title">dApp-Store-Bewertung</string>
     <string name="store_sub">Die eigene öffentliche Bewertung und die Bewertungen des Stores, schreibgeschützt, zur Einordnung angezeigt. Solana Mobile besitzt diese.</string>
@@ -534,6 +532,12 @@
     <string name="burst_causes">Ein Schub ist eine Tatsache, kein Urteil: eine Store-Aktion, ein Launch, eine neue Version oder eine bezahlte Kampagne kann jeweils einen auslösen.</string>
     <string name="burst_more">Weitere Schübe: %1$d</string>
     <string name="burst_read_older">Ältere Bewertungen prüfen</string>
+    <string name="burst_source_ratings">dApp Store-Sternebewertungen</string>
+    <string name="burst_high_ratings">Fünfsternebewertungen: %1$d, %2$s – %3$s · Übliches Tempo: etwa %4$s pro 3 Tage</string>
+    <string name="burst_low_ratings">Einsternebewertungen: %1$d, %2$s – %3$s · Übliches Tempo: etwa %4$s pro 3 Tage</string>
+    <string name="ratings_tracked">Sternebewertungen auf diesem Telefon erfasst seit %1$s · Snapshots: %2$d</string>
+    <string name="notif_burst_title">%1$s: Bewertungsschub</string>
+    <string name="pay_paid_pill">Für diese App bezahlt</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Hinzufügen, wie lange diese App schon auf diesem Telefon ist: %1$s</string>

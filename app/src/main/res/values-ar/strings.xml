@@ -99,8 +99,6 @@
     <string name="notif_divergence_body">الموقّع: %1$s (أجهزة Seeker: %2$d) · المتجر: %3$s (المراجعات: %4$d).</string>
     <string name="notif_update_title">%1$s تم تحديثه إلى الإصدار %2$d</string>
     <string name="notif_update_body">ما زال يعمل؟ وقّع مراجعة لهذا الإصدار.</string>
-    <string name="notif_wave_title">%1$s: نشاط مراجعات غير معتاد في المتجر</string>
-    <string name="notif_wave_body">%1$d مراجعة جديدة في المتجر خلال 24 ساعة، %2$d منها من محافظ بلا جهاز مصادق.</string>
     <string name="change_rate_version">قيّم هذا الإصدار</string>
     <string name="store_title">تقييم dApp Store</string>
     <string name="store_sub">التقييم والمراجعات العامة الخاصة بالمتجر نفسه، للقراءة فقط، معروضة للسياق. تملك Solana Mobile هذه البيانات.</string>
@@ -564,6 +562,12 @@
     <string name="burst_causes">الطفرة حقيقة لا حكم: يمكن أن يتسبب فيها إبراز في المتجر، أو إطلاق، أو إصدار جديد، أو حملة مدفوعة.</string>
     <string name="burst_more">طفرات أخرى: %1$d</string>
     <string name="burst_read_older">التحقق من مراجعات أقدم</string>
+    <string name="burst_source_ratings">تقييمات النجوم في dApp Store</string>
+    <string name="burst_high_ratings">تقييمات خمس نجوم: %1$d، %2$s – %3$s · المعدّل المعتاد: نحو %4$s كل 3 أيام</string>
+    <string name="burst_low_ratings">تقييمات نجمة واحدة: %1$d، %2$s – %3$s · المعدّل المعتاد: نحو %4$s كل 3 أيام</string>
+    <string name="ratings_tracked">تقييمات النجوم متتبَّعة على هذا الهاتف منذ %1$s · لقطات: %2$d</string>
+    <string name="notif_burst_title">%1$s: طفرة في المراجعات</string>
+    <string name="pay_paid_pill">تم الدفع مقابل هذا التطبيق</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">أضِف مدة تثبيت هذا التطبيق على هذا الهاتف: %1$s</string>

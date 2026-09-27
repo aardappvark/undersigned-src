@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">हस्ताक्षरित: %1$s (Seekers: %2$d) · स्टोर: %3$s (समीक्षाएं: %4$d)।</string>
     <string name="notif_update_title">%1$s को v%2$d पर अपडेट किया गया</string>
     <string name="notif_update_body">अभी भी काम कर रहा है? इस वर्ज़न के लिए एक समीक्षा साइन करें।</string>
-    <string name="notif_wave_title">%1$s: स्टोर में असामान्य समीक्षा गतिविधि</string>
-    <string name="notif_wave_body">24 घंटे में %1$d नई स्टोर समीक्षाएं, इनमें से %2$d ऐसे wallets से जिनमें कोई प्रमाणित डिवाइस नहीं मिला।</string>
     <string name="change_rate_version">इस वर्ज़न को रेट करें</string>
     <string name="store_title">dApp Store रेटिंग</string>
     <string name="store_sub">स्टोर की अपनी सार्वजनिक रेटिंग और समीक्षाएं, केवल पढ़ने के लिए, संदर्भ हेतु दिखाई गई हैं। इनका स्वामित्व Solana Mobile के पास है।</string>
@@ -536,6 +534,12 @@
     <string name="burst_causes">उछाल एक तथ्य है, फैसला नहीं: कोई स्टोर फ़ीचर, लॉन्च, नया वर्शन या पेड कैंपेन — इनमें से कोई भी इसका कारण हो सकता है।</string>
     <string name="burst_more">और उछाल: %1$d</string>
     <string name="burst_read_older">पुरानी समीक्षाएं देखें</string>
+    <string name="burst_source_ratings">dApp Store स्टार रेटिंग</string>
+    <string name="burst_high_ratings">पांच-सितारा रेटिंग: %1$d, %2$s – %3$s · सामान्य रफ़्तार: लगभग %4$s प्रति 3 दिन</string>
+    <string name="burst_low_ratings">एक-सितारा रेटिंग: %1$d, %2$s – %3$s · सामान्य रफ़्तार: लगभग %4$s प्रति 3 दिन</string>
+    <string name="ratings_tracked">इस फ़ोन पर स्टार रेटिंग ट्रैक की गई हैं %1$s से · स्नैपशॉट: %2$d</string>
+    <string name="notif_burst_title">%1$s: समीक्षाओं में उछाल</string>
+    <string name="pay_paid_pill">इस ऐप के लिए भुगतान किया गया</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">यह ऐप इस फ़ोन पर कब से है, यह जोड़ें: %1$s</string>

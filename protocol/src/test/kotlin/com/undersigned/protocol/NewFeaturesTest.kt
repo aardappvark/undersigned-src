@@ -201,3 +201,37 @@ class PaymentsTest {
         assertEquals(2, t.months.last().payments)
     }
 }
+
+class RatingSnapshotsTest {
+    private val D = ReviewBursts.DAY
+    private val t0 = 1_760_000_000L
+    private fun snap(day: Int, five: Int, one: Int = 0, four: Int = 0) = RatingSnapshots.Snapshot(t0 + day * D, listOf(one, 0, 0, four, five))
+
+    @Test fun dailySnapshotsOfASteadyAppShowNoBurst() {
+        val snaps = (0..40).map { snap(it, five = it * 2, four = it) }
+        assertTrue(ReviewBursts.find(RatingSnapshots.toPoints(snaps)).bursts.isEmpty())
+    }
+
+    @Test fun aJumpInFiveStarCountsIsABurst() {
+        val snaps = (0..30).map { snap(it, five = it) } + snap(31, five = 30 + 40) + (32..40).map { snap(it, five = 70 + (it - 31)) }
+        val b = ReviewBursts.find(RatingSnapshots.toPoints(snaps)).bursts.single()
+        assertEquals(ReviewBursts.Kind.HIGH, b.kind); assertTrue(b.count >= 40, "${b.count}")
+    }
+
+    @Test fun aLongGapIsSpreadNotStacked() {
+        // Steady two a day, but the phone looked only on day 0, 20 and 40: 40 ratings per gap, which stacked on one day
+        // would read as two bursts. Spread across the gap they are the steady pace they were.
+        val snaps = listOf(snap(0, five = 0), snap(20, five = 40), snap(40, five = 80))
+        assertTrue(ReviewBursts.find(RatingSnapshots.toPoints(snaps)).bursts.isEmpty())
+    }
+
+    @Test fun fallingCountsAddNothingAndBadRowsAreSkipped() {
+        val snaps = listOf(snap(0, five = 10), snap(1, five = 8), RatingSnapshots.Snapshot(t0 + 2 * D, listOf(1, 2)))
+        assertTrue(RatingSnapshots.toPoints(snaps).isEmpty())
+    }
+
+    @Test fun pointsAreCapped() {
+        val snaps = listOf(snap(0, five = 0), snap(1, five = 10_000_000))
+        assertEquals(RatingSnapshots.MAX_POINTS_PER_GAP, RatingSnapshots.toPoints(snaps).size)
+    }
+}

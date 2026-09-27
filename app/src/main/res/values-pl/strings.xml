@@ -97,8 +97,6 @@
     <string name="notif_divergence_body">Podpisana: %1$s (Seekerów: %2$d) · Sklep: %3$s (recenzji: %4$d).</string>
     <string name="notif_update_title">%1$s zaktualizowano do v%2$d</string>
     <string name="notif_update_body">Nadal działa? Podpisz recenzję dla tej wersji.</string>
-    <string name="notif_wave_title">%1$s: nietypowa aktywność recenzji w sklepie</string>
-    <string name="notif_wave_body">%1$d nowych recenzji sklepu w ciągu 24 h, %2$d z portfeli bez znalezionego potwierdzonego urządzenia.</string>
     <string name="change_rate_version">Oceń tę wersję</string>
     <string name="store_title">Ocena w dApp Store</string>
     <string name="store_sub">Własna publiczna ocena i recenzje sklepu, tylko do odczytu, pokazywane dla kontekstu. Należą do Solana Mobile.</string>
@@ -551,6 +549,12 @@
     <string name="burst_causes">Fala to fakt, nie wyrok: może ją wywołać funkcja sklepu, premiera, nowe wydanie lub płatna kampania.</string>
     <string name="burst_more">Więcej fal: %1$d</string>
     <string name="burst_read_older">Sprawdź starsze recenzje</string>
+    <string name="burst_source_ratings">Oceny gwiazdkowe w dApp Store</string>
+    <string name="burst_high_ratings">Pięciogwiazdkowe oceny: %1$d, %2$s – %3$s · Zwykłe tempo: około %4$s na 3 dni</string>
+    <string name="burst_low_ratings">Jednogwiazdkowe oceny: %1$d, %2$s – %3$s · Zwykłe tempo: około %4$s na 3 dni</string>
+    <string name="ratings_tracked">Oceny gwiazdkowe śledzone na tym telefonie od %1$s · Migawki: %2$d</string>
+    <string name="notif_burst_title">%1$s: fala recenzji</string>
+    <string name="pay_paid_pill">Zapłacono za tę aplikację</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Dodaj, jak długo ta aplikacja jest na tym telefonie: %1$s</string>

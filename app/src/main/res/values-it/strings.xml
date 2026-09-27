@@ -100,8 +100,6 @@
     <string name="notif_divergence_body">Firmato: %1$s (Seeker: %2$d) · Store: %3$s (recensioni: %4$d).</string>
     <string name="notif_update_title">%1$s aggiornata alla v%2$d</string>
     <string name="notif_update_body">Funziona ancora? Firma una recensione per questa versione.</string>
-    <string name="notif_wave_title">%1$s: attività di recensioni insolita nello store</string>
-    <string name="notif_wave_body">%1$d nuove recensioni dello store nelle ultime 24 h, %2$d da portafogli senza dispositivo attestato.</string>
     <string name="change_rate_version">Valuta questa versione</string>
     <string name="store_title">Valutazione dApp Store</string>
     <string name="store_sub">La valutazione e le recensioni pubbliche dello store stesso, di sola lettura, mostrate come contesto. Appartengono a Solana Mobile.</string>
@@ -540,6 +538,12 @@
     <string name="burst_causes">Un\'ondata è un fatto, non un verdetto: una promozione dello store, un lancio, una nuova versione o una campagna a pagamento possono ciascuno causarne una.</string>
     <string name="burst_more">Altre ondate: %1$d</string>
     <string name="burst_read_older">Controlla recensioni più vecchie</string>
+    <string name="burst_source_ratings">Valutazioni a stelle di dApp Store</string>
+    <string name="burst_high_ratings">Valutazioni a cinque stelle: %1$d, %2$s – %3$s · Ritmo abituale: circa %4$s ogni 3 giorni</string>
+    <string name="burst_low_ratings">Valutazioni a una stella: %1$d, %2$s – %3$s · Ritmo abituale: circa %4$s ogni 3 giorni</string>
+    <string name="ratings_tracked">Valutazioni a stelle monitorate su questo telefono dal %1$s · Istantanee: %2$d</string>
+    <string name="notif_burst_title">%1$s: ondata di recensioni</string>
+    <string name="pay_paid_pill">Pagato per questa app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Aggiungi da quanto tempo questa app è su questo telefono: %1$s</string>

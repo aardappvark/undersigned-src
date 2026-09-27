@@ -89,8 +89,6 @@
     <string name="notif_divergence_body">ลงลายเซ็น: %1$s (Seeker: %2$d ราย) · สโตร์: %3$s (รีวิว: %4$d รายการ)</string>
     <string name="notif_update_title">%1$s อัปเดตเป็น v%2$d แล้ว</string>
     <string name="notif_update_body">ยังใช้งานได้อยู่ไหม? ลงลายเซ็นรีวิวสำหรับเวอร์ชันนี้</string>
-    <string name="notif_wave_title">%1$s: กิจกรรมรีวิวที่ผิดปกติในสโตร์</string>
-    <string name="notif_wave_body">รีวิวใหม่ในสโตร์ %1$d รายการใน 24 ชม. โดย %2$d รายการมาจากกระเป๋าเงินที่ไม่พบอุปกรณ์ที่ได้รับการรับรอง</string>
     <string name="change_rate_version">ให้คะแนนเวอร์ชันนี้</string>
     <string name="store_title">คะแนนของ dApp Store</string>
     <string name="store_sub">คะแนนและรีวิวสาธารณะของสโตร์เอง แบบอ่านอย่างเดียว แสดงไว้เพื่อบริบท Solana Mobile เป็นเจ้าของสิ่งเหล่านี้</string>
@@ -511,6 +509,12 @@
     <string name="burst_causes">การพุ่งขึ้นเป็นข้อเท็จจริง ไม่ใช่คำตัดสิน: ฟีเจอร์เด่นของสโตร์ การเปิดตัว เวอร์ชันใหม่ หรือแคมเปญแบบเสียเงิน ล้วนอาจเป็นสาเหตุได้</string>
     <string name="burst_more">การพุ่งขึ้นเพิ่มเติม: %1$d</string>
     <string name="burst_read_older">ดูรีวิวเก่ากว่านี้</string>
+    <string name="burst_source_ratings">คะแนนดาวจาก dApp Store</string>
+    <string name="burst_high_ratings">คะแนนห้าดาว: %1$d, %2$s – %3$s · อัตราปกติ: ประมาณ %4$s ต่อ 3 วัน</string>
+    <string name="burst_low_ratings">คะแนนหนึ่งดาว: %1$d, %2$s – %3$s · อัตราปกติ: ประมาณ %4$s ต่อ 3 วัน</string>
+    <string name="ratings_tracked">ติดตามคะแนนดาวบนโทรศัพท์เครื่องนี้ตั้งแต่ %1$s · สแนปช็อต: %2$d</string>
+    <string name="notif_burst_title">%1$s: การพุ่งขึ้นของรีวิว</string>
+    <string name="pay_paid_pill">จ่ายเงินสำหรับแอปนี้แล้ว</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">เพิ่มระยะเวลาที่แอปนี้อยู่บนโทรศัพท์เครื่องนี้: %1$s</string>

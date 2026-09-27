@@ -97,8 +97,6 @@
     <string name="notif_divergence_body">Підписано: %1$s (Seeker\'ів: %2$d) · Магазин: %3$s (відгуків: %4$d).</string>
     <string name="notif_update_title">%1$s оновлено до v%2$d</string>
     <string name="notif_update_body">Усе ще працює? Підпишіть відгук для цієї версії.</string>
-    <string name="notif_wave_title">%1$s: незвичайна активність відгуків у магазині</string>
-    <string name="notif_wave_body">%1$d нових відгуків магазину за 24 год, %2$d від гаманців без знайденого підтвердженого пристрою.</string>
     <string name="change_rate_version">Оцінити цю версію</string>
     <string name="store_title">Рейтинг dApp Store</string>
     <string name="store_sub">Власний публічний рейтинг і відгуки магазину, лише для читання, показані для контексту. Ними володіє Solana Mobile.</string>
@@ -551,6 +549,12 @@
     <string name="burst_causes">Сплеск — це факт, а не вирок: причиною може бути добірка магазину, запуск, новий випуск або платна кампанія.</string>
     <string name="burst_more">Більше сплесків: %1$d</string>
     <string name="burst_read_older">Перевірити старіші відгуки</string>
+    <string name="burst_source_ratings">Зіркові рейтинги dApp Store</string>
+    <string name="burst_high_ratings">П’ятизіркові рейтинги: %1$d, %2$s – %3$s · Звичайний темп: близько %4$s за 3 дні</string>
+    <string name="burst_low_ratings">Однозіркові рейтинги: %1$d, %2$s – %3$s · Звичайний темп: близько %4$s за 3 дні</string>
+    <string name="ratings_tracked">Зіркові рейтинги відстежуються на цьому телефоні з %1$s · Знімки: %2$d</string>
+    <string name="notif_burst_title">%1$s: сплеск відгуків</string>
+    <string name="pay_paid_pill">Оплачено за цей додаток</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Додайте, як довго цей додаток на цьому телефоні: %1$s</string>

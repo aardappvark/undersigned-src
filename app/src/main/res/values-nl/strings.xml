@@ -95,8 +95,6 @@
     <string name="notif_divergence_body">Ondertekend: %1$s (Seekers: %2$d) · Store: %3$s (recensies: %4$d).</string>
     <string name="notif_update_title">%1$s bijgewerkt naar v%2$d</string>
     <string name="notif_update_body">Werkt het nog? Onderteken een recensie voor deze versie.</string>
-    <string name="notif_wave_title">%1$s: ongewone recensieactiviteit in de store</string>
-    <string name="notif_wave_body">%1$d nieuwe storerecensies in 24 u, %2$d van wallets zonder geattesteerd apparaat.</string>
     <string name="change_rate_version">Deze versie beoordelen</string>
     <string name="store_title">dApp Store-beoordeling</string>
     <string name="store_sub">De eigen openbare beoordeling en recensies van de store, alleen-lezen en getoond ter context. Solana Mobile is eigenaar hiervan.</string>
@@ -525,6 +523,12 @@
     <string name="burst_causes">Een golf is een feit, geen oordeel: een storepromotie, een lancering, een nieuwe versie of een betaalde campagne kunnen elk een golf veroorzaken.</string>
     <string name="burst_more">Meer golven: %1$d</string>
     <string name="burst_read_older">Oudere recensies controleren</string>
+    <string name="burst_source_ratings">dApp Store-sterbeoordelingen</string>
+    <string name="burst_high_ratings">Vijfsterrenbeoordelingen: %1$d, %2$s – %3$s · Gebruikelijk tempo: ongeveer %4$s per 3 dagen</string>
+    <string name="burst_low_ratings">Eénsterrenbeoordelingen: %1$d, %2$s – %3$s · Gebruikelijk tempo: ongeveer %4$s per 3 dagen</string>
+    <string name="ratings_tracked">Sterbeoordelingen bijgehouden op deze telefoon sinds %1$s · Momentopnames: %2$d</string>
+    <string name="notif_burst_title">%1$s: recensiegolf</string>
+    <string name="pay_paid_pill">Betaald voor deze app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Toevoegen hoelang deze app al op deze telefoon staat: %1$s</string>

@@ -99,8 +99,6 @@
     <string name="notif_divergence_body">Tertandatangani: %1$s (Seeker: %2$d) · Toko: %3$s (ulasan: %4$d).</string>
     <string name="notif_update_title">%1$s diperbarui ke v%2$d</string>
     <string name="notif_update_body">Masih berfungsi? Tandatangani ulasan untuk versi ini.</string>
-    <string name="notif_wave_title">%1$s: aktivitas ulasan yang tidak biasa di toko</string>
-    <string name="notif_wave_body">%1$d ulasan toko baru dalam 24 jam, %2$d di antaranya dari dompet tanpa perangkat terverifikasi.</string>
     <string name="change_rate_version">Beri nilai versi ini</string>
     <string name="store_title">Peringkat dApp Store</string>
     <string name="store_sub">Peringkat dan ulasan publik milik toko sendiri, hanya-baca, ditampilkan sebagai konteks. Ini dimiliki oleh Solana Mobile.</string>
@@ -527,6 +525,12 @@
     <string name="burst_causes">Lonjakan adalah fakta, bukan putusan: sorotan toko, peluncuran, rilis baru, atau kampanye berbayar masing-masing dapat menyebabkannya.</string>
     <string name="burst_more">Lonjakan lainnya: %1$d</string>
     <string name="burst_read_older">Periksa ulasan yang lebih lama</string>
+    <string name="burst_source_ratings">Peringkat bintang dApp Store</string>
+    <string name="burst_high_ratings">Peringkat bintang lima: %1$d, %2$s – %3$s · Kecepatan biasa: sekitar %4$s per 3 hari</string>
+    <string name="burst_low_ratings">Peringkat bintang satu: %1$d, %2$s – %3$s · Kecepatan biasa: sekitar %4$s per 3 hari</string>
+    <string name="ratings_tracked">Peringkat bintang dilacak di ponsel ini sejak %1$s · Cuplikan: %2$d</string>
+    <string name="notif_burst_title">%1$s: lonjakan ulasan</string>
+    <string name="pay_paid_pill">Sudah membayar untuk aplikasi ini</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
     <string name="use_add">Tambahkan sudah berapa lama aplikasi ini ada di ponsel ini: %1$s</string>
