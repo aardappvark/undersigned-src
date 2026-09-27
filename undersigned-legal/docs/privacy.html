@@ -118,7 +118,7 @@
     </nav>
     <main>
         <h2>Privacy Policy</h2>
-        <p class="updated">Last updated: 8 September 2026</p>
+        <p class="updated">Last updated: 28 September 2026</p>
 
         <h3>1. Introduction</h3>
         <p>Undersigned ("the App") is developed by MidMightBit Games, trading as ADappvark ("we", "us"). This policy explains what the App does and does not do with data. The short version: there is no account, no analytics, no advertising and no server of ours in the loop. The App talks to public blockchain infrastructure and the Solana dApp Store's own public feed directly from your device.</p>
@@ -141,12 +141,15 @@
             <li>A cache of the public review ledger and dApp Store catalogue data you have read, so reopening the App does not require re-fetching everything, and the on-device installed-app safety-fact snapshots (certificate hash, permission set, version) used to show what changed since you last checked</li>
             <li>Your notification preference and the timestamp of the last local ledger check, if you have opted in to alerts</li>
             <li>A cached copy of any <code>.skr</code> domain name resolved for a signer, and a cache of any publisher-verification result</li>
+            <li>An install history for dApp Store apps on this device &mdash; when each was seen installed, and how many times it was reinstalled &mdash; built from the same snapshots and used only to work out how long an app has been on this phone in total</li>
+            <li>Daily snapshots of the dApp Store's own public star counts for apps you follow or open, used to show bursts of ratings; and a cache of public payments read for the payments board</li>
         </ul>
         <p>Nothing is backed up to any cloud by the App (Android backup is disabled). <strong>Settings &gt; Delete all app data</strong> erases all of it. Uninstalling the App does the same. None of this affects any review your wallet has already signed and published to the chain; see section 10.</p>
 
         <h3 id="permissions">3A. Permissions and What They Can See</h3>
-        <p>The App requests three permissions of its own: <code>INTERNET</code>, to read the public ledger, the dApp Store's public feed and the publisher verification file; <code>QUERY_ALL_PACKAGES</code>, to read which apps are installed on this device together with their version, signing certificate hash and requested dangerous permissions; and, only if you switch alerts on, <code>POST_NOTIFICATIONS</code>.</p>
-        <p><strong>The installed-app information read under <code>QUERY_ALL_PACKAGES</code> never leaves your device.</strong> It is compared with an earlier snapshot held in the App's own private storage so the App can show you what changed between versions, and it is not uploaded, transmitted, sold, shared with us, or included in anything you publish. Uninstalling the App deletes it.</p>
+        <p>The App requests four permissions of its own: <code>INTERNET</code>, to read the public ledger, the dApp Store's public feed and the publisher verification file; <code>QUERY_ALL_PACKAGES</code>, to read which apps are installed on this device together with their version, first-install time, signing certificate hash and requested dangerous permissions; only if you switch alerts on, <code>POST_NOTIFICATIONS</code>; and, only if you switch it on yourself in Android's settings, <code>PACKAGE_USAGE_STATS</code> ("usage access").</p>
+        <p><strong>Usage access is optional and off until you turn it on</strong> in Android's system settings; the App never turns it on for you. With it on, the App reads Android's own count of how long you have used ONE app, only when you are writing a review of that app, so it can offer to add that time, rounded, to your review. It reads nothing in the background and keeps no usage record. You can turn it off again in the same settings at any time.</p>
+        <p><strong>The installed-app information read under <code>QUERY_ALL_PACKAGES</code> never leaves your device</strong>, except the one rounded install-age fact you may choose to add to a review (section 4A). It is compared with an earlier snapshot held in the App's own private storage so the App can show you what changed between versions, and it is not uploaded, transmitted, sold, shared with us, or included in anything you publish. Uninstalling the App deletes it.</p>
         <p>Five further permissions (<code>ACCESS_NETWORK_STATE</code>, <code>WAKE_LOCK</code>, <code>RECEIVE_BOOT_COMPLETED</code>, <code>FOREGROUND_SERVICE</code>, <code>REORDER_TASKS</code>) are contributed by the Android libraries the App uses and appear on its store listing; each is explained in the Terms. The App requests no location, camera, microphone, contacts, storage, phone or SMS permission.</p>
 
 
@@ -154,7 +157,8 @@
         <p>Signing in asks your wallet to sign a short consent statement. The signature, the statement, your wallet's public address and a timestamp are stored on your device as proof that you accepted the Terms. They are not sent to us. You can export this record as JSON from Settings, and delete it there.</p>
 
         <h3>4A. What You Publish Is Public</h3>
-        <p>The App charges nothing to read or sign. If you buy the optional Pro licence, the payment and the licence record are written by your wallet to the public Solana blockchain; we hold no record of you beyond what is public there, and we cannot see who you are from it. If you choose to sign and publish a review, revocation, or reply, that record is written directly by your wallet to the public Solana blockchain, and is not something we hold or can withdraw for you. See the <a href="terms.html">Terms</a>, section 9A, and the <a href="disclaimer.html">Disclaimer</a>, before you publish anything.</p>
+        <p>The App charges nothing to read or sign. If you buy the optional Pro licence, the payment and the licence record are written by your wallet to the public Solana blockchain; we hold no record of you beyond what is public there, and we cannot see who you are from it. If you choose to sign and publish a review, revocation, or reply, that record is written directly by your wallet to the public Solana blockchain, and is not something we hold or can withdraw for you.</p>
+        <p>A review can carry two optional facts from your phone, each shown to you before you sign and each one a box you can untick: how long the reviewed app has been installed on this phone in total, rounded (under a day, 1&ndash;6 days, 1&ndash;4 weeks, 1&ndash;3 months, or 3+ months); and, only if you turned on usage access, how long you have used it, rounded (under 10 minutes, 10&ndash;60 minutes, 1&ndash;5 hours, 5&ndash;20 hours, or 20+ hours). Once signed, they are public and permanent like the rest of the review. They are your phone's report, shown to readers as such; they change no score. See the <a href="terms.html">Terms</a>, section 9A, and the <a href="disclaimer.html">Disclaimer</a>, before you publish anything.</p>
 
         <h3>5. Network Requests and Endpoints</h3>
         <p>The App contacts these hosts, directly from your device:</p>
@@ -163,6 +167,7 @@
             <li><strong>dappstore.solanamobile.com</strong> &mdash; the Solana dApp Store's public GraphQL feed, queried for app catalogue metadata, the store's own star-rating summary, and the store's own reviews for an app. Read-only: the App holds no store credentials and never writes to the store. The request carries the package name being looked up and nothing about you.</li>
             <li><strong>api.trmlabs.com</strong> &mdash; TRM Labs' public sanctions screening service, sent the connected wallet's public address before the App accepts it and before any review transaction, to check it against sanctions lists. A local copy of the OFAC SDN address list is checked first, on the device.</li>
             <li><strong>The website a store listing names for a publisher</strong> &mdash; when verifying a publisher's right to reply, the App fetches <code>/.well-known/undersigned.txt</code> from the website the dApp Store lists for that app. This request carries no data about you.</li>
+            <li><strong>lite-api.jup.ag</strong> &mdash; Jupiter's public price feed, asked for today's price of SOL, SKR and USDC when you open the payments board. The request carries those three token addresses and nothing about you.</li>
             <li><strong>aardappvark.github.io</strong> &mdash; hosts these legal pages and the App's icon for the wallet approval sheet; contacted when you open a legal link or when your wallet fetches the icon.</li>
         </ul>
         <ul>
@@ -294,7 +299,7 @@ appreciate the chance to resolve it first.</p>
 <footer>
         <p>&copy; 2026 ADappvark. All rights reserved.</p>
         <p>Contact: <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a></p>
-        <p>Last updated: 8 September 2026</p>
+        <p>Last updated: 28 September 2026</p>
     </footer>
 </body>
 </html>
