@@ -557,7 +557,7 @@
     <string name="pay_paid_pill">Zapłacono za tę aplikację</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Dodaj, jak długo ta aplikacja jest na tym telefonie: %1$s</string>
+    <string name="use_add">Dodaj, jak długo łącznie ta aplikacja jest na tym telefonie: %1$s</string>
     <string name="use_add_hint">Zapisane na blockchainie razem z Twoją recenzją, zaokrąglone. To informacja z Twojego telefonu, nie dowód.</string>
     <string name="use_not_installed">Ta aplikacja nie jest zainstalowana na tym telefonie, więc czas instalacji nie jest dodawany.</string>
     <string name="use_d0">mniej niż dzień</string>
@@ -566,6 +566,17 @@
     <string name="use_m1">1–3 miesiące</string>
     <string name="use_m3">3+ miesięcy</string>
     <string name="use_pill">Na ich telefonie: %1$s</string>
+    <string name="use_reinstalled">Wykryte ponowne instalacje: %1$d</string>
+    <string name="time_add">Dodaj, jak długo jej używasz: %1$s</string>
+    <string name="time_add_hint">Licznik użycia Androida dla tej aplikacji, zaokrąglony. Zapisywany na blockchainie razem z Twoją recenzją.</string>
+    <string name="time_needs_access">Aby dodać, jak długo używasz tej aplikacji, włącz dostęp do użycia dla Undersigned.</string>
+    <string name="time_allow">Otwórz ustawienia dostępu do użycia</string>
+    <string name="time_t0">mniej niż 10 minut</string>
+    <string name="time_t1">10–60 minut</string>
+    <string name="time_t2">1–5 godzin</string>
+    <string name="time_t3">5–20 godzin</string>
+    <string name="time_t4">20+ godzin</string>
+    <string name="time_pill">Używana na ich telefonie: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Przegląd płatności</string>

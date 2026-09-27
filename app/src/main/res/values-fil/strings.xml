@@ -542,7 +542,7 @@
     <string name="pay_paid_pill">Nagbayad para sa app na ito</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Idagdag kung gaano na katagal ang app na ito sa telepono na ito: %1$s</string>
+    <string name="use_add">Idagdag kung gaano na katagal sa kabuuan ang app na ito sa telepono na ito: %1$s</string>
     <string name="use_add_hint">Naitala on-chain kasama ng iyong review, naka-round. Ito ang report ng iyong telepono, hindi patunay.</string>
     <string name="use_not_installed">Hindi naka-install ang app na ito sa telepono na ito, kaya walang idinagdag na install age.</string>
     <string name="use_d0">wala pang isang araw</string>
@@ -551,6 +551,17 @@
     <string name="use_m1">1–3 na buwan</string>
     <string name="use_m3">3+ na buwan</string>
     <string name="use_pill">Sa telepono nila: %1$s</string>
+    <string name="use_reinstalled">Mga na-reinstall na nakita: %1$d</string>
+    <string name="time_add">Idagdag kung gaano mo na katagal ginagamit ito: %1$s</string>
+    <string name="time_add_hint">Bilang ng paggamit ng Android para sa app na ito, naka-round. Naitala on-chain kasama ng iyong review.</string>
+    <string name="time_needs_access">Para idagdag kung gaano mo na katagal ginagamit ang app na ito, i-on ang usage access para sa Undersigned.</string>
+    <string name="time_allow">Buksan ang mga setting ng usage access</string>
+    <string name="time_t0">wala pang 10 minuto</string>
+    <string name="time_t1">10–60 minuto</string>
+    <string name="time_t2">1–5 oras</string>
+    <string name="time_t3">5–20 oras</string>
+    <string name="time_t4">20+ oras</string>
+    <string name="time_pill">Ginamit sa telepono nila: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Payments Board</string>

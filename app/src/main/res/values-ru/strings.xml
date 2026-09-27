@@ -541,7 +541,7 @@
     <string name="pay_paid_pill">Оплачено за это приложение</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Добавьте, как долго это приложение на этом телефоне: %1$s</string>
+    <string name="use_add">Добавьте, сколько всего времени это приложение находится на этом телефоне: %1$s</string>
     <string name="use_add_hint">Записывается в блокчейне вместе с вашим отзывом, округлённо. Это сообщение вашего телефона, а не доказательство.</string>
     <string name="use_not_installed">Это приложение не установлено на этом телефоне, поэтому срок установки не добавляется.</string>
     <string name="use_d0">меньше дня</string>
@@ -550,6 +550,17 @@
     <string name="use_m1">1–3 месяца</string>
     <string name="use_m3">3+ месяцев</string>
     <string name="use_pill">На их телефоне: %1$s</string>
+    <string name="use_reinstalled">Обнаруженные переустановки: %1$d</string>
+    <string name="time_add">Добавьте, как долго вы им пользуетесь: %1$s</string>
+    <string name="time_add_hint">Счётчик использования Android для этого приложения, округлённо. Записывается в блокчейне вместе с вашим отзывом.</string>
+    <string name="time_needs_access">Чтобы добавить, как долго вы используете это приложение, включите доступ к использованию для Undersigned.</string>
+    <string name="time_allow">Открыть настройки доступа к использованию</string>
+    <string name="time_t0">менее 10 минут</string>
+    <string name="time_t1">10–60 минут</string>
+    <string name="time_t2">1–5 часов</string>
+    <string name="time_t3">5–20 часов</string>
+    <string name="time_t4">20+ часов</string>
+    <string name="time_pill">Использовано на их телефоне: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Обзор платежей</string>

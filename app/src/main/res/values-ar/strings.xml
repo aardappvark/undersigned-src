@@ -570,7 +570,7 @@
     <string name="pay_paid_pill">تم الدفع مقابل هذا التطبيق</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">أضِف مدة تثبيت هذا التطبيق على هذا الهاتف: %1$s</string>
+    <string name="use_add">أضِف إجمالي مدة تثبيت هذا التطبيق على هذا الهاتف: %1$s</string>
     <string name="use_add_hint">مسجَّلة على السلسلة مع مراجعتك، مقرّبة. إنها تقرير هاتفك، وليست دليلاً.</string>
     <string name="use_not_installed">هذا التطبيق غير مثبَّت على هذا الهاتف، لذا لا تُضاف مدة تثبيت.</string>
     <string name="use_d0">أقل من يوم</string>
@@ -579,6 +579,17 @@
     <string name="use_m1">1–3 أشهر</string>
     <string name="use_m3">3+ أشهر</string>
     <string name="use_pill">على هاتفهم: %1$s</string>
+    <string name="use_reinstalled">عمليات إعادة التثبيت المرصودة: %1$d</string>
+    <string name="time_add">أضِف مدة استخدامك له: %1$s</string>
+    <string name="time_add_hint">عدد استخدام أندرويد لهذا التطبيق، مقرّب. مسجَّل على السلسلة مع مراجعتك.</string>
+    <string name="time_needs_access">لإضافة مدة استخدامك لهذا التطبيق، فعِّل إذن الوصول إلى الاستخدام لتطبيق Undersigned.</string>
+    <string name="time_allow">فتح إعدادات الوصول إلى الاستخدام</string>
+    <string name="time_t0">أقل من 10 دقائق</string>
+    <string name="time_t1">10–60 دقيقة</string>
+    <string name="time_t2">1–5 ساعات</string>
+    <string name="time_t3">5–20 ساعة</string>
+    <string name="time_t4">20+ ساعة</string>
+    <string name="time_pill">استُخدم على هاتفهم: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">لوحة المدفوعات</string>

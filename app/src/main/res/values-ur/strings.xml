@@ -542,7 +542,7 @@
     <string name="pay_paid_pill">اس ایپ کے لیے ادائیگی کی گئی</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">اس فون پر یہ ایپ کتنی دیر سے ہے، یہ شامل کریں: %1$s</string>
+    <string name="use_add">اس فون پر یہ ایپ مجموعی طور پر کتنی دیر سے ہے، یہ شامل کریں: %1$s</string>
     <string name="use_add_hint">آپ کے جائزے کے ساتھ چین پر ریکارڈ کیا گیا، گول کر کے۔ یہ آپ کے فون کی رپورٹ ہے، ثبوت نہیں۔</string>
     <string name="use_not_installed">یہ ایپ اس فون پر انسٹال نہیں ہے، اس لیے کوئی انسٹال مدت شامل نہیں کی جاتی۔</string>
     <string name="use_d0">ایک دن سے کم</string>
@@ -551,6 +551,17 @@
     <string name="use_m1">1–3 مہینے</string>
     <string name="use_m3">3+ مہینے</string>
     <string name="use_pill">ان کے فون پر: %1$s</string>
+    <string name="use_reinstalled">دیکھی گئی دوبارہ تنصیبات: %1$d</string>
+    <string name="time_add">آپ نے اسے کتنی دیر استعمال کیا ہے، یہ شامل کریں: %1$s</string>
+    <string name="time_add_hint">اس ایپ کے لیے Android کا استعمال شمار، گول کر کے۔ آپ کے جائزے کے ساتھ چین پر ریکارڈ کیا گیا۔</string>
+    <string name="time_needs_access">یہ شامل کرنے کے لیے کہ آپ نے یہ ایپ کتنی دیر استعمال کی ہے، Undersigned کے لیے استعمال تک رسائی آن کریں۔</string>
+    <string name="time_allow">استعمال تک رسائی کی سیٹنگز کھولیں</string>
+    <string name="time_t0">10 منٹ سے کم</string>
+    <string name="time_t1">10–60 منٹ</string>
+    <string name="time_t2">1–5 گھنٹے</string>
+    <string name="time_t3">5–20 گھنٹے</string>
+    <string name="time_t4">20+ گھنٹے</string>
+    <string name="time_pill">ان کے فون پر استعمال کیا گیا: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">ادائیگیوں کا بورڈ</string>

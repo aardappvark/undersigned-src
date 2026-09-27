@@ -557,7 +557,7 @@
     <string name="pay_paid_pill">Оплачено за цей додаток</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Додайте, як довго цей додаток на цьому телефоні: %1$s</string>
+    <string name="use_add">Додайте, як довго загалом цей додаток на цьому телефоні: %1$s</string>
     <string name="use_add_hint">Записано в блокчейні разом із вашим відгуком, округлено. Це повідомлення вашого телефона, не доказ.</string>
     <string name="use_not_installed">Цей додаток не встановлено на цьому телефоні, тож термін встановлення не додається.</string>
     <string name="use_d0">менше дня</string>
@@ -566,6 +566,17 @@
     <string name="use_m1">1–3 місяці</string>
     <string name="use_m3">3+ місяців</string>
     <string name="use_pill">На їхньому телефоні: %1$s</string>
+    <string name="use_reinstalled">Помічені перевстановлення: %1$d</string>
+    <string name="time_add">Додайте, як довго ви ним користуєтесь: %1$s</string>
+    <string name="time_add_hint">Лічильник використання Android для цього додатка, округлено. Записано в блокчейні разом із вашим відгуком.</string>
+    <string name="time_needs_access">Щоб додати, як довго ви користуєтесь цим додатком, увімкніть доступ до використання для Undersigned.</string>
+    <string name="time_allow">Відкрити налаштування доступу до використання</string>
+    <string name="time_t0">менше 10 хвилин</string>
+    <string name="time_t1">10–60 хвилин</string>
+    <string name="time_t2">1–5 годин</string>
+    <string name="time_t3">5–20 годин</string>
+    <string name="time_t4">20+ годин</string>
+    <string name="time_pill">Використано на їхньому телефоні: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Огляд платежів</string>

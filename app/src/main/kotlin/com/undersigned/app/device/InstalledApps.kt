@@ -52,6 +52,7 @@ class InstalledApps(private val context: Context) {
                 changes.add(DeviceChange(pkg, now, f.versionCode, false, vcChanged, shaChanged, added, removed))
         }
         UserPreferences.deviceSnapshotJson = next.toString()
+        runCatching { observePresence(cataloguePackages, installed, now) }
         if (changes.isNotEmpty()) {
             val log = runCatching { JSONArray(UserPreferences.changesJson ?: "[]") }.getOrDefault(JSONArray())
             val merged = JSONArray()
@@ -60,6 +61,35 @@ class InstalledApps(private val context: Context) {
             UserPreferences.changesJson = merged.toString()
         }
         return changes
+    }
+
+    // ---- Install history (see InstallHistory) ----
+    private fun loadPresence(): MutableMap<String, InstallHistory.Presence> = runCatching {
+        val o = JSONObject(UserPreferences.presenceJson ?: "{}")
+        o.keys().asSequence().associateWith { k -> val p = o.getJSONObject(k); val s = p.optJSONArray("s") ?: JSONArray()
+            InstallHistory.Presence((0 until s.length()).map { i -> s.getJSONArray(i).let { it.getLong(0) to it.getLong(1) } }, if (p.has("c")) p.getLong("c") else null, p.optLong("l"), p.optInt("r")) }.toMutableMap()
+    }.getOrDefault(HashMap())
+
+    private fun savePresence(m: Map<String, InstallHistory.Presence>) {
+        val o = JSONObject()
+        m.forEach { (k, p) -> o.put(k, JSONObject().put("s", JSONArray(p.spans.map { JSONArray().put(it.first).put(it.second) })).put("l", p.lastSeen).put("r", p.reinstalls).apply { p.current?.let { put("c", it) } }) }
+        UserPreferences.presenceJson = o.toString()
+    }
+
+    private fun observePresence(catalogue: Collection<String>, installed: Set<String>, now: Long) {
+        val m = loadPresence()
+        for (pkg in (catalogue.filter { it in installed } + m.keys).toSet()) {
+            val fit = if (pkg in installed) firstInstallTime(pkg) else null
+            InstallHistory.observe(m[pkg], fit, now)?.let { m[pkg] = it } ?: m.remove(pkg)
+        }
+        savePresence(m)
+    }
+
+    /** This phone's total installed time for [pkg] across reinstalls, and how many reinstalls it saw; null when never seen. */
+    fun presence(pkg: String, now: Long = System.currentTimeMillis()): Pair<Long, Int>? {
+        val prev = loadPresence()[pkg]
+        val p = InstallHistory.observe(prev, firstInstallTime(pkg), now) ?: return null
+        return InstallHistory.totalMs(p, now) to p.reinstalls
     }
 
     fun changeLog(): List<DeviceChange> = runCatching {

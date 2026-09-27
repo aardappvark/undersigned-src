@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- Installed-app facts (signing certificate, permission drift) are computed ON-DEVICE and never
          uploaded. Disclosed in the privacy policy; same grant the AarDappvark Toolkit ships with. -->
+    <!-- Usage access (a system-settings switch the user turns on, never a pop-up): read for ONE app, on request, when the
+         reviewer adds its rounded foreground time to their review. Nothing is collected in the background. -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 

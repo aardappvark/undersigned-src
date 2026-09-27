@@ -533,7 +533,7 @@
     <string name="pay_paid_pill">已為此應用程式付款</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">加入此應用程式在本機上的安裝時長:%1$s</string>
+    <string name="use_add">加入此應用程式在本機上的累計安裝時長:%1$s</string>
     <string name="use_add_hint">與您的評價一同記錄在鏈上,並經過取整處理。這是您手機自行回報的資訊,並非證明。</string>
     <string name="use_not_installed">此應用程式未安裝在本機上,因此不會加入安裝時長。</string>
     <string name="use_d0">不到一天</string>
@@ -542,6 +542,17 @@
     <string name="use_m1">1–3 個月</string>
     <string name="use_m3">3 個月以上</string>
     <string name="use_pill">對方手機上:%1$s</string>
+    <string name="use_reinstalled">偵測到的重新安裝次數:%1$d</string>
+    <string name="time_add">加入您使用此應用程式的時長:%1$s</string>
+    <string name="time_add_hint">Android 為此應用程式記錄的使用次數,已取整。與您的評價一同記錄在鏈上。</string>
+    <string name="time_needs_access">若要加入您使用此應用程式的時長,請為 Undersigned 開啟使用情況存取權。</string>
+    <string name="time_allow">開啟使用情況存取設定</string>
+    <string name="time_t0">不到 10 分鐘</string>
+    <string name="time_t1">10–60 分鐘</string>
+    <string name="time_t2">1–5 小時</string>
+    <string name="time_t3">5–20 小時</string>
+    <string name="time_t4">20 小時以上</string>
+    <string name="time_pill">對方手機上的使用時長:%1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">付款看板</string>

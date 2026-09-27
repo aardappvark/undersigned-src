@@ -23,6 +23,22 @@ enum class UseBucket(val wire: String, val minDays: Long) {
     }
 }
 
+/**
+ * Foreground time the reviewer's phone recorded for the reviewed app, rounded — the usage-access counter Android keeps
+ * (measured 27 Sep 2026 on Android 16: it survived an uninstall and reinstall). Rides as `SRL1|tim|<package>|<bucket>`
+ * in the review's own transaction, like [UseBucket]. Using an app costs time; installing it costs nothing, so this says
+ * more than install age. Still the device's report: read by no score or weight.
+ */
+enum class UseTime(val wire: String, val minMinutes: Long) {
+    UNDER_10M("t0", 0), UNDER_HOUR("t1", 10), HOURS("t2", 60), MANY_HOURS("t3", 300), DAYS_OF_USE("t4", 1200);
+
+    companion object {
+        private val byWire = entries.associateBy { it.wire }
+        fun fromWire(s: String) = byWire[s]
+        fun of(foregroundMs: Long): UseTime { val m = foregroundMs.coerceAtLeast(0L) / 60_000L; return entries.last { m >= it.minMinutes } }
+    }
+}
+
 object Usage {
     /**
      * Review record id → the bucket its own transaction reported. A `use` record counts only beside a review of the
@@ -36,6 +52,19 @@ object Usage {
             val r = e.memo as? ReviewMemo.Review ?: continue
             val u = uses[e.signature.substringBefore(':')]?.firstOrNull { it.signer == e.signer && (it.memo as ReviewMemo.Use).packageName == r.packageName } ?: continue
             out[e.signature] = (u.memo as ReviewMemo.Use).bucket
+        }
+        return out
+    }
+
+    /** Review record id → the foreground time its own transaction reported; same attachment rule as [index]. */
+    fun time(entries: List<LedgerEntry>): Map<String, UseTime> {
+        val tims = entries.filter { it.memo is ReviewMemo.Time }.groupBy { it.signature.substringBefore(':') }
+        if (tims.isEmpty()) return emptyMap()
+        val out = HashMap<String, UseTime>()
+        for (e in entries) {
+            val r = e.memo as? ReviewMemo.Review ?: continue
+            val u = tims[e.signature.substringBefore(':')]?.firstOrNull { it.signer == e.signer && (it.memo as ReviewMemo.Time).packageName == r.packageName } ?: continue
+            out[e.signature] = (u.memo as ReviewMemo.Time).time
         }
         return out
     }

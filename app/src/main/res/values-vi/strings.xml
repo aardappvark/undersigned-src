@@ -533,7 +533,7 @@
     <string name="pay_paid_pill">Đã thanh toán cho ứng dụng này</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Thêm thời gian ứng dụng này đã có trên điện thoại này: %1$s</string>
+    <string name="use_add">Thêm tổng thời gian ứng dụng này đã có trên điện thoại này: %1$s</string>
     <string name="use_add_hint">Được ghi trên chuỗi cùng với đánh giá của bạn, đã làm tròn. Đây là báo cáo từ điện thoại của bạn, không phải bằng chứng.</string>
     <string name="use_not_installed">Ứng dụng này không được cài đặt trên điện thoại này, nên không có thời gian cài đặt nào được thêm vào.</string>
     <string name="use_d0">chưa đầy một ngày</string>
@@ -542,6 +542,17 @@
     <string name="use_m1">1–3 tháng</string>
     <string name="use_m3">3+ tháng</string>
     <string name="use_pill">Trên điện thoại của họ: %1$s</string>
+    <string name="use_reinstalled">Số lần cài lại đã thấy: %1$d</string>
+    <string name="time_add">Thêm thời gian bạn đã sử dụng ứng dụng này: %1$s</string>
+    <string name="time_add_hint">Số liệu sử dụng của Android cho ứng dụng này, đã làm tròn. Được ghi trên chuỗi cùng với đánh giá của bạn.</string>
+    <string name="time_needs_access">Để thêm thời gian bạn đã sử dụng ứng dụng này, hãy bật quyền truy cập dữ liệu sử dụng cho Undersigned.</string>
+    <string name="time_allow">Mở cài đặt quyền truy cập dữ liệu sử dụng</string>
+    <string name="time_t0">dưới 10 phút</string>
+    <string name="time_t1">10–60 phút</string>
+    <string name="time_t2">1–5 giờ</string>
+    <string name="time_t3">5–20 giờ</string>
+    <string name="time_t4">20+ giờ</string>
+    <string name="time_pill">Đã sử dụng trên điện thoại của họ: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Bảng thanh toán</string>

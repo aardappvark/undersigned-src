@@ -517,7 +517,7 @@
     <string name="pay_paid_pill">จ่ายเงินสำหรับแอปนี้แล้ว</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">เพิ่มระยะเวลาที่แอปนี้อยู่บนโทรศัพท์เครื่องนี้: %1$s</string>
+    <string name="use_add">เพิ่มระยะเวลารวมที่แอปนี้อยู่บนโทรศัพท์เครื่องนี้: %1$s</string>
     <string name="use_add_hint">บันทึกไว้บนเชนพร้อมกับรีวิวของคุณ แบบปัดเศษ นี่คือรายงานจากโทรศัพท์ของคุณ ไม่ใช่ข้อพิสูจน์</string>
     <string name="use_not_installed">แอปนี้ไม่ได้ติดตั้งอยู่บนโทรศัพท์เครื่องนี้ จึงไม่มีการเพิ่มระยะเวลาการติดตั้ง</string>
     <string name="use_d0">น้อยกว่าหนึ่งวัน</string>
@@ -526,6 +526,17 @@
     <string name="use_m1">1–3 เดือน</string>
     <string name="use_m3">3+ เดือน</string>
     <string name="use_pill">บนโทรศัพท์ของพวกเขา: %1$s</string>
+    <string name="use_reinstalled">พบการติดตั้งใหม่: %1$d</string>
+    <string name="time_add">เพิ่มระยะเวลาที่คุณใช้แอปนี้: %1$s</string>
+    <string name="time_add_hint">จำนวนการใช้งานของ Android สำหรับแอปนี้ แบบปัดเศษ บันทึกไว้บนเชนพร้อมกับรีวิวของคุณ</string>
+    <string name="time_needs_access">หากต้องการเพิ่มระยะเวลาที่คุณใช้แอปนี้ ให้เปิดสิทธิ์เข้าถึงข้อมูลการใช้งานสำหรับ Undersigned</string>
+    <string name="time_allow">เปิดการตั้งค่าสิทธิ์เข้าถึงข้อมูลการใช้งาน</string>
+    <string name="time_t0">น้อยกว่า 10 นาที</string>
+    <string name="time_t1">10–60 นาที</string>
+    <string name="time_t2">1–5 ชั่วโมง</string>
+    <string name="time_t3">5–20 ชั่วโมง</string>
+    <string name="time_t4">20+ ชั่วโมง</string>
+    <string name="time_pill">ใช้งานบนโทรศัพท์ของพวกเขา: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">กระดานการชำระเงิน</string>

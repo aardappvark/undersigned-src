@@ -548,7 +548,7 @@
     <string name="pay_paid_pill">Plătit pentru această aplicație</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Adaugă de cât timp e această aplicație pe acest telefon: %1$s</string>
+    <string name="use_add">Adaugă de cât timp în total e această aplicație pe acest telefon: %1$s</string>
     <string name="use_add_hint">Înregistrat on-chain împreună cu recenzia ta, rotunjit. Este raportul telefonului tău, nu o dovadă.</string>
     <string name="use_not_installed">Această aplicație nu este instalată pe acest telefon, deci nu se adaugă vechimea instalării.</string>
     <string name="use_d0">sub o zi</string>
@@ -557,6 +557,17 @@
     <string name="use_m1">1–3 luni</string>
     <string name="use_m3">3+ luni</string>
     <string name="use_pill">Pe telefonul lor: %1$s</string>
+    <string name="use_reinstalled">Reinstalări observate: %1$d</string>
+    <string name="time_add">Adaugă de cât timp o folosești: %1$s</string>
+    <string name="time_add_hint">Contorul de utilizare Android pentru această aplicație, rotunjit. Înregistrat on-chain împreună cu recenzia ta.</string>
+    <string name="time_needs_access">Ca să adaugi de cât timp folosești această aplicație, activează accesul la utilizare pentru Undersigned.</string>
+    <string name="time_allow">Deschide setările de acces la utilizare</string>
+    <string name="time_t0">sub 10 minute</string>
+    <string name="time_t1">10–60 de minute</string>
+    <string name="time_t2">1–5 ore</string>
+    <string name="time_t3">5–20 de ore</string>
+    <string name="time_t4">20+ ore</string>
+    <string name="time_pill">Folosită pe telefonul lor: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Tabloul plăților</string>

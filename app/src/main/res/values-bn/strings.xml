@@ -534,7 +534,7 @@
     <string name="pay_paid_pill">এই অ্যাপের জন্য পরিশোধ করা হয়েছে</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">এই অ্যাপটি এই ফোনে কতদিন ধরে আছে তা যোগ করুন: %1$s</string>
+    <string name="use_add">এই অ্যাপটি এই ফোনে মোট কতদিন ধরে আছে তা যোগ করুন: %1$s</string>
     <string name="use_add_hint">আপনার পর্যালোচনার সঙ্গে চেইনে রেকর্ড করা, রাউন্ড করা। এটি আপনার ফোনের প্রতিবেদন, প্রমাণ নয়।</string>
     <string name="use_not_installed">এই অ্যাপটি এই ফোনে ইনস্টল করা নেই, তাই কোনো ইনস্টলের বয়স যোগ করা হয়নি।</string>
     <string name="use_d0">একদিনেরও কম</string>
@@ -543,6 +543,17 @@
     <string name="use_m1">১–৩ মাস</string>
     <string name="use_m3">৩+ মাস</string>
     <string name="use_pill">তাদের ফোনে: %1$s</string>
+    <string name="use_reinstalled">দেখা পুনঃইনস্টল: %1$d</string>
+    <string name="time_add">আপনি এটি কতদিন ব্যবহার করেছেন তা যোগ করুন: %1$s</string>
+    <string name="time_add_hint">এই অ্যাপের জন্য Android-এর ব্যবহারের গণনা, রাউন্ড করা। আপনার পর্যালোচনার সঙ্গে চেইনে রেকর্ড করা।</string>
+    <string name="time_needs_access">আপনি এই অ্যাপটি কতদিন ব্যবহার করেছেন তা যোগ করতে, Undersigned-এর জন্য ব্যবহার অ্যাক্সেস চালু করুন।</string>
+    <string name="time_allow">ব্যবহার অ্যাক্সেস সেটিংস খুলুন</string>
+    <string name="time_t0">১০ মিনিটের কম</string>
+    <string name="time_t1">১০–৬০ মিনিট</string>
+    <string name="time_t2">১–৫ ঘণ্টা</string>
+    <string name="time_t3">৫–২০ ঘণ্টা</string>
+    <string name="time_t4">২০+ ঘণ্টা</string>
+    <string name="time_pill">তাদের ফোনে ব্যবহৃত: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">পেমেন্ট বোর্ড</string>

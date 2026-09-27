@@ -546,7 +546,7 @@
     <string name="pay_paid_pill">Payé pour cette application</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Ajouter depuis combien de temps cette application est sur ce téléphone : %1$s</string>
+    <string name="use_add">Ajouter depuis combien de temps cette application est sur ce téléphone au total : %1$s</string>
     <string name="use_add_hint">Enregistré on-chain avec votre avis, arrondi. C\'est ce que rapporte votre téléphone, pas une preuve.</string>
     <string name="use_not_installed">Cette application n\'est pas installée sur ce téléphone, donc aucune ancienneté d\'installation n\'est ajoutée.</string>
     <string name="use_d0">moins d\'un jour</string>
@@ -555,6 +555,17 @@
     <string name="use_m1">1–3 mois</string>
     <string name="use_m3">3+ mois</string>
     <string name="use_pill">Sur son téléphone : %1$s</string>
+    <string name="use_reinstalled">Réinstallations constatées : %1$d</string>
+    <string name="time_add">Ajouter depuis combien de temps vous l\'utilisez : %1$s</string>
+    <string name="time_add_hint">Compteur d\'utilisation Android pour cette application, arrondi. Enregistré on-chain avec votre avis.</string>
+    <string name="time_needs_access">Pour ajouter depuis combien de temps vous utilisez cette application, activez l\'accès à l\'utilisation pour Undersigned.</string>
+    <string name="time_allow">Ouvrir les paramètres d\'accès à l\'utilisation</string>
+    <string name="time_t0">moins de 10 minutes</string>
+    <string name="time_t1">10–60 minutes</string>
+    <string name="time_t2">1–5 heures</string>
+    <string name="time_t3">5–20 heures</string>
+    <string name="time_t4">20+ heures</string>
+    <string name="time_pill">Utilisé sur son téléphone : %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Tableau des paiements</string>

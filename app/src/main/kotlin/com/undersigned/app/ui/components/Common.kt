@@ -132,3 +132,13 @@ fun useLabel(b: com.undersigned.protocol.UseBucket): String = androidx.compose.u
     com.undersigned.protocol.UseBucket.MONTHS -> com.undersigned.app.R.string.use_m1
     com.undersigned.protocol.UseBucket.LONG -> com.undersigned.app.R.string.use_m3
 })
+
+/** The reader's words for a foreground-time bucket. */
+@androidx.compose.runtime.Composable
+fun timeLabel(t: com.undersigned.protocol.UseTime): String = androidx.compose.ui.res.stringResource(when (t) {
+    com.undersigned.protocol.UseTime.UNDER_10M -> com.undersigned.app.R.string.time_t0
+    com.undersigned.protocol.UseTime.UNDER_HOUR -> com.undersigned.app.R.string.time_t1
+    com.undersigned.protocol.UseTime.HOURS -> com.undersigned.app.R.string.time_t2
+    com.undersigned.protocol.UseTime.MANY_HOURS -> com.undersigned.app.R.string.time_t3
+    com.undersigned.protocol.UseTime.DAYS_OF_USE -> com.undersigned.app.R.string.time_t4
+})

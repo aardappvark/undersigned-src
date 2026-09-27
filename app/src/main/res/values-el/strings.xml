@@ -540,7 +540,7 @@
     <string name="pay_paid_pill">Πληρώθηκε για αυτήν την εφαρμογή</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Προσθέστε πόσο καιρό είναι αυτή η εφαρμογή σε αυτό το τηλέφωνο: %1$s</string>
+    <string name="use_add">Προσθέστε πόσο καιρό συνολικά είναι αυτή η εφαρμογή σε αυτό το τηλέφωνο: %1$s</string>
     <string name="use_add_hint">Καταγράφεται on-chain μαζί με την κριτική σας, στρογγυλοποιημένο. Είναι η αναφορά του τηλεφώνου σας, όχι απόδειξη.</string>
     <string name="use_not_installed">Αυτή η εφαρμογή δεν είναι εγκατεστημένη σε αυτό το τηλέφωνο, οπότε δεν προστίθεται ηλικία εγκατάστασης.</string>
     <string name="use_d0">λιγότερο από μία ημέρα</string>
@@ -549,6 +549,17 @@
     <string name="use_m1">1–3 μήνες</string>
     <string name="use_m3">3+ μήνες</string>
     <string name="use_pill">Στο τηλέφωνό τους: %1$s</string>
+    <string name="use_reinstalled">Επανεγκαταστάσεις που εντοπίστηκαν: %1$d</string>
+    <string name="time_add">Προσθέστε πόσο καιρό τη χρησιμοποιείτε: %1$s</string>
+    <string name="time_add_hint">Μετρητής χρήσης του Android για αυτή την εφαρμογή, στρογγυλοποιημένος. Καταγράφεται on-chain μαζί με την κριτική σας.</string>
+    <string name="time_needs_access">Για να προσθέσετε πόσο καιρό χρησιμοποιείτε αυτή την εφαρμογή, ενεργοποιήστε την πρόσβαση χρήσης για το Undersigned.</string>
+    <string name="time_allow">Άνοιγμα ρυθμίσεων πρόσβασης χρήσης</string>
+    <string name="time_t0">λιγότερο από 10 λεπτά</string>
+    <string name="time_t1">10–60 λεπτά</string>
+    <string name="time_t2">1–5 ώρες</string>
+    <string name="time_t3">5–20 ώρες</string>
+    <string name="time_t4">20+ ώρες</string>
+    <string name="time_pill">Χρησιμοποιήθηκε στο τηλέφωνό τους: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Πίνακας πληρωμών</string>

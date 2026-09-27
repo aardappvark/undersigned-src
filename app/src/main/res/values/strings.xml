@@ -546,7 +546,7 @@
     <string name="pay_paid_pill">Paid for this app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Add how long this app has been on this phone: %1$s</string>
+    <string name="use_add">Add how long this app has been on this phone in total: %1$s</string>
     <string name="use_add_hint">Recorded on-chain with your review, rounded. It is your phone\'s report, not proof.</string>
     <string name="use_not_installed">This app is not installed on this phone, so no install age is added.</string>
     <string name="use_d0">under a day</string>
@@ -555,6 +555,17 @@
     <string name="use_m1">1–3 months</string>
     <string name="use_m3">3+ months</string>
     <string name="use_pill">On their phone: %1$s</string>
+    <string name="use_reinstalled">Reinstalls seen: %1$d</string>
+    <string name="time_add">Add how long you have used it: %1$s</string>
+    <string name="time_add_hint">Android\'s usage count for this app, rounded. Recorded on-chain with your review.</string>
+    <string name="time_needs_access">To add how long you have used this app, switch on usage access for Undersigned.</string>
+    <string name="time_allow">Open usage access settings</string>
+    <string name="time_t0">under 10 minutes</string>
+    <string name="time_t1">10–60 minutes</string>
+    <string name="time_t2">1–5 hours</string>
+    <string name="time_t3">5–20 hours</string>
+    <string name="time_t4">20+ hours</string>
+    <string name="time_pill">Used on their phone: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Payments board</string>

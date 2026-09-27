@@ -235,3 +235,28 @@ class RatingSnapshotsTest {
         assertEquals(RatingSnapshots.MAX_POINTS_PER_GAP, RatingSnapshots.toPoints(snaps).size)
     }
 }
+
+class UseTimeTest {
+    private val sig = "5".repeat(88)
+    private val me = "Wallet1111111111111111111111111111111111111"
+
+    @Test fun bucketsRoundDown() {
+        val m = 60_000L
+        assertEquals(UseTime.UNDER_10M, UseTime.of(9 * m + 59_999))
+        assertEquals(UseTime.UNDER_HOUR, UseTime.of(10 * m))
+        assertEquals(UseTime.HOURS, UseTime.of(60 * m))
+        assertEquals(UseTime.MANY_HOURS, UseTime.of(300 * m))
+        assertEquals(UseTime.DAYS_OF_USE, UseTime.of(1200 * m))
+        assertEquals(UseTime.UNDER_10M, UseTime.of(-5))
+    }
+
+    @Test fun wireAndAttachment() {
+        assertEquals("SRL1|tim|com.a.b|t2", ReviewMemo.encode(ReviewMemo.Time("com.a.b", UseTime.HOURS)))
+        assertNull(ReviewMemo.decode("SRL1|tim|com.a.b|t9"))
+        val review = LedgerEntry(sig, me, 1, ReviewMemo.Review("com.a.b", 5, listOf(ReviewMemo.Tag.WORKS), 3, null))
+        val tim = LedgerEntry("$sig:2", me, 1, ReviewMemo.Time("com.a.b", UseTime.MANY_HOURS))
+        assertEquals(mapOf(sig to UseTime.MANY_HOURS), Usage.time(listOf(review, tim)))
+        assertTrue(Usage.time(listOf(review, tim.copy(signer = "Other111111111111111111111111111111111111111"))).isEmpty())
+        assertTrue(Usage.time(listOf(review, tim.copy(memo = ReviewMemo.Time("com.x.y", UseTime.HOURS)))).isEmpty())
+    }
+}

@@ -540,7 +540,7 @@
     <string name="pay_paid_pill">Fizetve ezért az alkalmazásért</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Add hozzá, mióta van ez az alkalmazás ezen a telefonon: %1$s</string>
+    <string name="use_add">Add hozzá, mióta van összesen ez az alkalmazás ezen a telefonon: %1$s</string>
     <string name="use_add_hint">On-chain rögzítve az értékeléseddel együtt, kerekítve. Ez a telefonod jelentése, nem bizonyíték.</string>
     <string name="use_not_installed">Ez az alkalmazás nincs telepítve ezen a telefonon, ezért nem kerül hozzáadásra telepítési kor.</string>
     <string name="use_d0">egy napnál rövidebb ideje</string>
@@ -549,6 +549,17 @@
     <string name="use_m1">1–3 hónapja</string>
     <string name="use_m3">3+ hónapja</string>
     <string name="use_pill">Az ő telefonjukon: %1$s</string>
+    <string name="use_reinstalled">Észlelt újratelepítések: %1$d</string>
+    <string name="time_add">Add hozzá, mióta használod: %1$s</string>
+    <string name="time_add_hint">Az Android használati számlálója ehhez az alkalmazáshoz, kerekítve. On-chain rögzítve az értékeléseddel együtt.</string>
+    <string name="time_needs_access">Ahhoz, hogy hozzáadd, mióta használod ezt az alkalmazást, kapcsold be a használati hozzáférést az Undersigned számára.</string>
+    <string name="time_allow">Használati hozzáférés beállításainak megnyitása</string>
+    <string name="time_t0">10 percnél kevesebb</string>
+    <string name="time_t1">10–60 perc</string>
+    <string name="time_t2">1–5 óra</string>
+    <string name="time_t3">5–20 óra</string>
+    <string name="time_t4">20+ óra</string>
+    <string name="time_pill">Az ő telefonjukon használva: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Fizetések áttekintése</string>

@@ -540,7 +540,7 @@
     <string name="pay_paid_pill">Bu uygulama için ödeme yapıldı</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Bu uygulamanın bu telefonda ne kadar süredir olduğunu ekleyin: %1$s</string>
+    <string name="use_add">Bu uygulamanın bu telefonda toplamda ne kadar süredir olduğunu ekleyin: %1$s</string>
     <string name="use_add_hint">İncelemenizle birlikte zincir üzerinde kaydedilir, yuvarlanmış olarak. Bu telefonunuzun bildirdiği bilgidir, kanıt değildir.</string>
     <string name="use_not_installed">Bu uygulama bu telefonda yüklü değil, bu yüzden kurulum yaşı eklenmiyor.</string>
     <string name="use_d0">bir günden az</string>
@@ -549,6 +549,17 @@
     <string name="use_m1">1–3 ay</string>
     <string name="use_m3">3+ ay</string>
     <string name="use_pill">Onların telefonunda: %1$s</string>
+    <string name="use_reinstalled">Görülen yeniden yüklemeler: %1$d</string>
+    <string name="time_add">Onu ne kadar süredir kullandığınızı ekleyin: %1$s</string>
+    <string name="time_add_hint">Bu uygulama için Android\'in kullanım sayacı, yuvarlanmış. İncelemenizle birlikte zincir üzerinde kaydedilir.</string>
+    <string name="time_needs_access">Bu uygulamayı ne kadar süredir kullandığınızı eklemek için Undersigned için kullanım erişimini açın.</string>
+    <string name="time_allow">Kullanım erişimi ayarlarını aç</string>
+    <string name="time_t0">10 dakikadan az</string>
+    <string name="time_t1">10–60 dakika</string>
+    <string name="time_t2">1–5 saat</string>
+    <string name="time_t3">5–20 saat</string>
+    <string name="time_t4">20+ saat</string>
+    <string name="time_pill">Onların telefonunda kullanıldı: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Ödemeler panosu</string>

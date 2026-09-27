@@ -193,6 +193,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         disputes.value = Reputation.disputes(list)
         similarity.value = com.undersigned.protocol.Similarity.findings(list)
         usage.value = com.undersigned.protocol.Usage.index(list)
+        useTimes.value = com.undersigned.protocol.Usage.time(list)
         recomputePro()
         verifyClaims(list)
     }
@@ -314,18 +315,31 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Review record id → the install age its own transaction reported (see protocol Usage). */
     val usage = MutableStateFlow<Map<String, com.undersigned.protocol.UseBucket>>(emptyMap())
-    fun installAge(pkg: String): com.undersigned.protocol.UseBucket? = installedApps.firstInstallTime(pkg)?.let { com.undersigned.protocol.UseBucket.of(it, System.currentTimeMillis()) }
+    /** Total time on this phone across reinstalls (Undersigned's own log), bucketed; null when not installed now. */
+    fun installAge(pkg: String): com.undersigned.protocol.UseBucket? {
+        if (installedApps.firstInstallTime(pkg) == null) return null
+        val now = System.currentTimeMillis()
+        val total = installedApps.presence(pkg, now)?.first ?: return null
+        return com.undersigned.protocol.UseBucket.of(now - total, now)
+    }
+    fun reinstalls(pkg: String): Int = installedApps.presence(pkg)?.second ?: 0
+    val useTimes = MutableStateFlow<Map<String, com.undersigned.protocol.UseTime>>(emptyMap())
+    fun useTime(pkg: String): com.undersigned.protocol.UseTime? = com.undersigned.app.device.UsageTime.foregroundMs(getApplication(), pkg)?.let { com.undersigned.protocol.UseTime.of(it) }
 
     /**
      * A review, plus its install-age record in the SAME transaction when [use] is given — one signature either way. If
      * the pair would not fit one transaction the review goes alone: a `use` record in another transaction would attach
      * to nothing.
      */
-    fun publishReview(sender: ActivityResultSender, memo: ReviewMemo.Review, use: com.undersigned.protocol.UseBucket?, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+    fun publishReview(sender: ActivityResultSender, memo: ReviewMemo.Review, use: com.undersigned.protocol.UseBucket?, time: com.undersigned.protocol.UseTime? = null, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
-        val texts = runCatching { listOf(ReviewMemo.encode(memo)) + (use?.let { listOf(ReviewMemo.encode(ReviewMemo.Use(memo.packageName, it))) } ?: emptyList()) }.getOrElse { return onResult(Result.failure(it)) }
-        if (texts.size == 1 || com.undersigned.app.solana.TxBuilder.chunkForBatches(com.undersigned.app.util.Base58.decode(w), texts).size != 1) return publish(sender, memo, onStage, onResult)
+        val extras = listOfNotNull(use?.let { ReviewMemo.Use(memo.packageName, it) }, time?.let { ReviewMemo.Time(memo.packageName, it) })
+        val signer = com.undersigned.app.util.Base58.decode(w)
+        // The review and its extras must share ONE transaction; drop extras from the end until they fit.
+        var texts = runCatching { (listOf<ReviewMemo>(memo) + extras).map { ReviewMemo.encode(it) } }.getOrElse { return onResult(Result.failure(it)) }
+        while (texts.size > 1 && com.undersigned.app.solana.TxBuilder.chunkForBatches(signer, texts).size != 1) texts = texts.dropLast(1)
+        if (texts.size == 1) return publish(sender, memo, onStage, onResult)
         viewModelScope.launch {
             if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
             val r = txService.publishBatch(adapter, sender, w, texts, onStage)
@@ -641,10 +655,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; else -> "" }
-        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Treasury -> m.code; else -> "" }
-        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
+        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.Treasury -> m.code; else -> "" }
+        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
         if (json) {

@@ -531,7 +531,7 @@
     <string name="pay_paid_pill">Betaald voor deze app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Toevoegen hoelang deze app al op deze telefoon staat: %1$s</string>
+    <string name="use_add">Toevoegen hoelang deze app in totaal al op deze telefoon staat: %1$s</string>
     <string name="use_add_hint">Wordt samen met uw recensie on-chain vastgelegd, afgerond. Het is wat uw telefoon meldt, geen bewijs.</string>
     <string name="use_not_installed">Deze app staat niet op deze telefoon geïnstalleerd, dus er wordt geen installatieleeftijd toegevoegd.</string>
     <string name="use_d0">minder dan een dag</string>
@@ -540,6 +540,17 @@
     <string name="use_m1">1–3 maanden</string>
     <string name="use_m3">3+ maanden</string>
     <string name="use_pill">Op hun telefoon: %1$s</string>
+    <string name="use_reinstalled">Herinstallaties gezien: %1$d</string>
+    <string name="time_add">Toevoegen hoelang u de app al gebruikt: %1$s</string>
+    <string name="time_add_hint">Androids gebruiksteller voor deze app, afgerond. Wordt samen met uw recensie on-chain vastgelegd.</string>
+    <string name="time_needs_access">Om toe te voegen hoelang u deze app hebt gebruikt, schakelt u gebruikstoegang voor Undersigned in.</string>
+    <string name="time_allow">Instellingen voor gebruikstoegang openen</string>
+    <string name="time_t0">minder dan 10 minuten</string>
+    <string name="time_t1">10–60 minuten</string>
+    <string name="time_t2">1–5 uur</string>
+    <string name="time_t3">5–20 uur</string>
+    <string name="time_t4">20+ uur</string>
+    <string name="time_pill">Gebruikt op hun telefoon: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Betalingenoverzicht</string>

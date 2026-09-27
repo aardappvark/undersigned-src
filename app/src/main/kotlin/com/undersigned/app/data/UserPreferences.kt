@@ -217,6 +217,10 @@ object UserPreferences {
     var changesJson: String?
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
+    /** Install history per package (see device/InstallHistory): {pkg: {s: [[from, to]], c: current, l: lastSeen, r: reinstalls}}. */
+    var presenceJson: String?
+        get() = prefs?.getString("install_presence", null)
+        set(v) { prefs?.edit()?.putString("install_presence", v)?.apply() }
 
     fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false; _dense.value = false; _howToSeen.value = false; _granters.value = emptySet() }
 }

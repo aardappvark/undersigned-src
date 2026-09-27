@@ -523,7 +523,7 @@
     <string name="pay_paid_pill">Betalat för den här appen</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Lägg till hur länge appen har funnits på den här telefonen: %1$s</string>
+    <string name="use_add">Lägg till hur länge appen totalt har funnits på den här telefonen: %1$s</string>
     <string name="use_add_hint">Registreras on-chain tillsammans med din recension, avrundat. Det är vad din telefon rapporterar, inte ett bevis.</string>
     <string name="use_not_installed">Appen är inte installerad på den här telefonen, så ingen installationsålder läggs till.</string>
     <string name="use_d0">mindre än en dag</string>
@@ -532,6 +532,17 @@
     <string name="use_m1">1–3 månader</string>
     <string name="use_m3">3+ månader</string>
     <string name="use_pill">På deras telefon: %1$s</string>
+    <string name="use_reinstalled">Ominstallationer sedda: %1$d</string>
+    <string name="time_add">Lägg till hur länge du har använt den: %1$s</string>
+    <string name="time_add_hint">Androids användningsräknare för appen, avrundad. Registreras on-chain tillsammans med din recension.</string>
+    <string name="time_needs_access">För att lägga till hur länge du har använt appen, slå på användningsåtkomst för Undersigned.</string>
+    <string name="time_allow">Öppna inställningar för användningsåtkomst</string>
+    <string name="time_t0">mindre än 10 minuter</string>
+    <string name="time_t1">10–60 minuter</string>
+    <string name="time_t2">1–5 timmar</string>
+    <string name="time_t3">5–20 timmar</string>
+    <string name="time_t4">20+ timmar</string>
+    <string name="time_pill">Använd på deras telefon: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Betalningsöversikt</string>

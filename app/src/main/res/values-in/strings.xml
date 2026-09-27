@@ -533,7 +533,7 @@
     <string name="pay_paid_pill">Sudah membayar untuk aplikasi ini</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Tambahkan sudah berapa lama aplikasi ini ada di ponsel ini: %1$s</string>
+    <string name="use_add">Tambahkan sudah berapa lama total aplikasi ini ada di ponsel ini: %1$s</string>
     <string name="use_add_hint">Dicatat on-chain bersama ulasan Anda, dibulatkan. Ini adalah laporan dari ponsel Anda, bukan bukti.</string>
     <string name="use_not_installed">Aplikasi ini tidak terpasang di ponsel ini, sehingga tidak ada usia instalasi yang ditambahkan.</string>
     <string name="use_d0">kurang dari sehari</string>
@@ -542,6 +542,17 @@
     <string name="use_m1">1–3 bulan</string>
     <string name="use_m3">3+ bulan</string>
     <string name="use_pill">Di ponsel mereka: %1$s</string>
+    <string name="use_reinstalled">Instalasi ulang yang terdeteksi: %1$d</string>
+    <string name="time_add">Tambahkan sudah berapa lama Anda menggunakannya: %1$s</string>
+    <string name="time_add_hint">Hitungan penggunaan Android untuk aplikasi ini, dibulatkan. Dicatat on-chain bersama ulasan Anda.</string>
+    <string name="time_needs_access">Untuk menambahkan sudah berapa lama Anda menggunakan aplikasi ini, aktifkan akses penggunaan untuk Undersigned.</string>
+    <string name="time_allow">Buka pengaturan akses penggunaan</string>
+    <string name="time_t0">kurang dari 10 menit</string>
+    <string name="time_t1">10–60 menit</string>
+    <string name="time_t2">1–5 jam</string>
+    <string name="time_t3">5–20 jam</string>
+    <string name="time_t4">20+ jam</string>
+    <string name="time_pill">Digunakan di ponsel mereka: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Papan pembayaran</string>

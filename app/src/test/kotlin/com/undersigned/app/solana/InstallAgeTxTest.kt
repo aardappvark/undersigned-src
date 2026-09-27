@@ -22,4 +22,17 @@ class InstallAgeTxTest {
         // For a mainnet simulateTransaction by hand (sigVerify off): TX_OUT=<file> writes the unsigned bytes.
         System.getenv("TX_OUT")?.let { java.io.File(it).writeText(java.util.Base64.getEncoder().encodeToString(TxBuilder.batchTransaction(signer, listOf(review, use), TxBuilder.ZERO_BLOCKHASH))) }
     }
+
+    /** A typical review carries both extras in one transaction; the largest one keeps at least its install age. */
+    @Test fun extrasFitOrFallBackInOrder() {
+        val signer = Base58.decode("8oLtrvMnk7bLzjYzWQdo66kJsvkG4CYL1QKoeKbBHT8F")
+        val typical = ReviewMemo.encode(ReviewMemo.Review("com.solflare.mobile", 5, listOf(ReviewMemo.Tag.WALLET_CONNECTS, ReviewMemo.Tag.WORKS), 20250, "very quick to make trades at reasonable slippage"))
+        val extras = { pkg: String -> listOf(ReviewMemo.encode(ReviewMemo.Use(pkg, UseBucket.WEEKS)), ReviewMemo.encode(ReviewMemo.Time(pkg, com.undersigned.protocol.UseTime.HOURS))) }
+        assertEquals(1, TxBuilder.chunkForBatches(signer, listOf(typical) + extras("com.solflare.mobile")).size)
+        val pkg = "a." + "b".repeat(98)
+        val worst = ReviewMemo.encode(ReviewMemo.Review(pkg, 5, listOf(ReviewMemo.Tag.SUSPECTED_SCAM, ReviewMemo.Tag.EXCESS_PERMISSIONS, ReviewMemo.Tag.WALLET_FAILS), Long.MAX_VALUE, "ж".repeat(140)))
+        var texts = listOf(worst) + extras(pkg)
+        while (texts.size > 1 && TxBuilder.chunkForBatches(signer, texts).size != 1) texts = texts.dropLast(1)
+        assertTrue("kept ${texts.size}", texts.size >= 2)
+    }
 }

@@ -549,7 +549,7 @@
     <string name="pay_paid_pill">Zaplaceno za tuto aplikaci</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Přidat, jak dlouho je tato aplikace v telefonu: %1$s</string>
+    <string name="use_add">Přidat, jak dlouho je tato aplikace v telefonu celkem: %1$s</string>
     <string name="use_add_hint">Zaznamenáno na blockchainu spolu s vaší recenzí, zaokrouhleno. Jde o zprávu vašeho telefonu, ne o důkaz.</string>
     <string name="use_not_installed">Tato aplikace není v telefonu nainstalována, takže se stáří instalace nepřidává.</string>
     <string name="use_d0">méně než den</string>
@@ -558,6 +558,17 @@
     <string name="use_m1">1–3 měsíce</string>
     <string name="use_m3">3+ měsíců</string>
     <string name="use_pill">V jejich telefonu: %1$s</string>
+    <string name="use_reinstalled">Zjištěné přeinstalace: %1$d</string>
+    <string name="time_add">Přidat, jak dlouho ji používáte: %1$s</string>
+    <string name="time_add_hint">Počet použití této aplikace podle Androidu, zaokrouhleno. Zaznamenáno na blockchainu spolu s vaší recenzí.</string>
+    <string name="time_needs_access">Chcete-li přidat, jak dlouho tuto aplikaci používáte, zapněte přístup k využití pro Undersigned.</string>
+    <string name="time_allow">Otevřít nastavení přístupu k využití</string>
+    <string name="time_t0">méně než 10 minut</string>
+    <string name="time_t1">10–60 minut</string>
+    <string name="time_t2">1–5 hodin</string>
+    <string name="time_t3">5–20 hodin</string>
+    <string name="time_t4">20+ hodin</string>
+    <string name="time_pill">Použito v jejich telefonu: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Přehled plateb</string>

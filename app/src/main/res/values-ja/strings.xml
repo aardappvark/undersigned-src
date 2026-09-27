@@ -525,7 +525,7 @@
     <string name="pay_paid_pill">このアプリの代金を支払い済み</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">このアプリがこの端末にある期間を追加:%1$s</string>
+    <string name="use_add">このアプリがこの端末に合計でどれくらいの期間あるかを追加:%1$s</string>
     <string name="use_add_hint">レビューと共にオンチェーンに記録され、丸められています。これは端末による申告であり、証明ではありません。</string>
     <string name="use_not_installed">このアプリはこの端末にインストールされていないため、インストール期間は追加されません。</string>
     <string name="use_d0">1日未満</string>
@@ -534,6 +534,17 @@
     <string name="use_m1">1–3か月</string>
     <string name="use_m3">3か月以上</string>
     <string name="use_pill">相手の端末:%1$s</string>
+    <string name="use_reinstalled">検出された再インストール回数:%1$d</string>
+    <string name="time_add">このアプリを使用した期間を追加:%1$s</string>
+    <string name="time_add_hint">このアプリのAndroidの利用回数(丸め済み)。レビューと共にオンチェーンに記録されます。</string>
+    <string name="time_needs_access">このアプリを使用した期間を追加するには、Undersignedの利用状況へのアクセスをオンにしてください。</string>
+    <string name="time_allow">利用状況へのアクセス設定を開く</string>
+    <string name="time_t0">10分未満</string>
+    <string name="time_t1">10–60分</string>
+    <string name="time_t2">1–5時間</string>
+    <string name="time_t3">5–20時間</string>
+    <string name="time_t4">20時間以上</string>
+    <string name="time_pill">相手の端末での使用時間:%1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">支払いボード</string>

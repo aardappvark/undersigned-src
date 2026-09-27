@@ -546,7 +546,7 @@
     <string name="pay_paid_pill">Pagado por esta app</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">Añadir cuánto tiempo lleva esta app en este teléfono: %1$s</string>
+    <string name="use_add">Añadir cuánto tiempo lleva esta app en total en este teléfono: %1$s</string>
     <string name="use_add_hint">Se registra on-chain junto con tu reseña, redondeado. Es lo que informa tu teléfono, no una prueba.</string>
     <string name="use_not_installed">Esta app no está instalada en este teléfono, así que no se añade ninguna antigüedad de instalación.</string>
     <string name="use_d0">menos de un día</string>
@@ -555,6 +555,17 @@
     <string name="use_m1">1–3 meses</string>
     <string name="use_m3">3+ meses</string>
     <string name="use_pill">En su teléfono: %1$s</string>
+    <string name="use_reinstalled">Reinstalaciones detectadas: %1$d</string>
+    <string name="time_add">Añadir cuánto tiempo llevas usándola: %1$s</string>
+    <string name="time_add_hint">Contador de uso de Android para esta app, redondeado. Se registra on-chain junto con tu reseña.</string>
+    <string name="time_needs_access">Para añadir cuánto tiempo has usado esta app, activa el acceso de uso para Undersigned.</string>
+    <string name="time_allow">Abrir ajustes de acceso de uso</string>
+    <string name="time_t0">menos de 10 minutos</string>
+    <string name="time_t1">10–60 minutos</string>
+    <string name="time_t2">1–5 horas</string>
+    <string name="time_t3">5–20 horas</string>
+    <string name="time_t4">20+ horas</string>
+    <string name="time_pill">Usada en su teléfono: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">Panel de pagos</string>

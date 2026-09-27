@@ -48,7 +48,15 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     var done by remember { mutableStateOf<String?>(null) }
     // Install age rides in the review's own transaction; on by default because the reviewer sees exactly what is added.
     val installAge = remember(pkg) { vm.installAge(pkg) }
+    val reinstalls = remember(pkg) { vm.reinstalls(pkg) }
     var addAge by remember { mutableStateOf(true) }
+    // Usage access is a system-settings switch, so re-read it whenever the screen comes back from Settings.
+    var resumes by remember { mutableStateOf(0) }
+    val owner = androidx.compose.ui.platform.LocalLifecycleOwner.current
+    DisposableEffect(owner) { val o = androidx.lifecycle.LifecycleEventObserver { _, e -> if (e == androidx.lifecycle.Lifecycle.Event.ON_RESUME) resumes++ }; owner.lifecycle.addObserver(o); onDispose { owner.lifecycle.removeObserver(o) } }
+    val hasUsageAccess = remember(resumes) { com.undersigned.app.device.UsageTime.hasAccess(context) }
+    val useTime = remember(pkg, hasUsageAccess) { if (hasUsageAccess && installAge != null) vm.useTime(pkg) else null }
+    var addTime by remember { mutableStateOf(true) }
 
     val bytes = text.toByteArray(Charsets.UTF_8).size
     val textOk = text.isEmpty() || (text.length <= ReviewMemo.MAX_TEXT_CHARS && bytes <= ReviewMemo.MAX_TEXT_BYTES && text.none { it == '|' || it == '\n' || it == '\r' })
@@ -105,7 +113,17 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     Checkbox(checked = addAge, onCheckedChange = { addAge = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.purple))
                     Text(stringResource(R.string.use_add, useLabel(installAge)), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
                 }
-                Text(stringResource(R.string.use_add_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(start = 48.dp, bottom = 8.dp))
+                Text(stringResource(R.string.use_add_hint) + (if (reinstalls > 0) " " + stringResource(R.string.use_reinstalled, reinstalls) else ""), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(start = 48.dp, bottom = 8.dp))
+                if (useTime != null) {
+                    Row(Modifier.fillMaxWidth().clickable(enabled = stage == null) { addTime = !addTime }, verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = addTime, onCheckedChange = { addTime = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.purple))
+                        Text(stringResource(R.string.time_add, timeLabel(useTime)), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
+                    }
+                    Text(stringResource(R.string.time_add_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(start = 48.dp, bottom = 8.dp))
+                } else if (!hasUsageAccess) {
+                    Text(stringResource(R.string.time_needs_access), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    TextButton(onClick = { runCatching { context.startActivity(com.undersigned.app.device.UsageTime.settingsIntent()) } }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.time_allow), color = RbColors.purpleLight, fontSize = 12.sp) }
+                }
             } else { Text(stringResource(R.string.use_not_installed), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp); Spacer(Modifier.height(8.dp)) }
             Text(stringResource(R.string.review_fee_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             Spacer(Modifier.height(12.dp))
@@ -113,7 +131,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 val s = sender ?: return@PrimaryButton
                 error = null
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, text.trim().takeIf { it.isNotEmpty() })
-                vm.publishReview(s, memo, installAge?.takeIf { addAge }, onStage = { st ->
+                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = it.message }) }
             })

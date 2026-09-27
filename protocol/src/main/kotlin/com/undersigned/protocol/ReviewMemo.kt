@@ -31,6 +31,8 @@ import java.util.Base64
  *   SRL1|shx|<tag>                — takes that grant back
  *   SRL1|use|<package>|<bucket>   — rides in a REVIEW's own transaction: how long the reviewed app had been installed on
  *                                   the reviewer's phone, rounded (see Usage). The device's report, never proof.
+ *   SRL1|tim|<package>|<bucket>   — rides in a REVIEW's own transaction: the reviewed app's foreground time on the
+ *                                   reviewer's phone, rounded (see UseTime). Opt-in; the device's report, never proof.
  *   SRL1|trs|<package>|<code>     — signed BY a treasury wallet: "payments to me whose memo starts <code> are for
  *                                   <package>". Counted only when the store-listed website also names the wallet
  *                                   (see Payments).
@@ -72,6 +74,7 @@ sealed class ReviewMemo {
     data class Share(val tag: String) : ReviewMemo()
     data class Unshare(val tag: String) : ReviewMemo()
     data class Use(val packageName: String, val bucket: UseBucket) : ReviewMemo()
+    data class Time(val packageName: String, val time: UseTime) : ReviewMemo()
     data class Treasury(val packageName: String, val code: String) : ReviewMemo()
     data class Untreasury(val packageName: String) : ReviewMemo()
     enum class FlagReason(val wire: String) { SPAM("spam"), ABUSE("abuse"), OFF_TOPIC("offtopic"), MISLEADING("misleading");
@@ -139,6 +142,7 @@ sealed class ReviewMemo {
             is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
             is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
             is Use -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|use|${m.packageName}|${m.bucket.wire}" }
+            is Time -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|tim|${m.packageName}|${m.time.wire}" }
             is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
             is Reply -> {
@@ -185,6 +189,7 @@ sealed class ReviewMemo {
                 "shr" -> if (f.size == 3 && TAG32.matches(f[2])) Share(f[2]) else null
                 "shx" -> if (f.size == 3 && TAG32.matches(f[2])) Unshare(f[2]) else null
                 "use" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) UseBucket.fromWire(f[3])?.let { Use(f[2], it) } else null
+                "tim" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) UseTime.fromWire(f[3])?.let { Time(f[2], it) } else null
                 "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null
                 "rep" -> {

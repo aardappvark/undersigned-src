@@ -104,6 +104,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val disputesMap by vm.disputes.collectAsState()
     val similar by vm.similarity.collectAsState()
     val usage by vm.usage.collectAsState()
+    val useTimes by vm.useTimes.collectAsState()
     val storeHistory by vm.storeHistory.collectAsState()
     val storeBursts = remember(storeHistory[pkg]) { vm.storeBursts(pkg) }
     val ledgerBursts = remember(entries) { vm.ledgerBursts(pkg) }
@@ -428,6 +429,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         helpful[e.signature]?.let { hw -> Pill(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), RbColors.green) }
                         similar[e.signature]?.let { sf -> Pill(stringResource(if (sf.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge), RbColors.warning) }
                         usage[e.signature]?.let { u -> Pill(stringResource(R.string.use_pill, useLabel(u)), RbColors.textSecondary) }
+                        useTimes[e.signature]?.let { u -> Pill(stringResource(R.string.time_pill, timeLabel(u)), RbColors.textSecondary) }
                         if (boardRow?.payers?.contains(e.signer) == true) Pill(stringResource(R.string.pay_paid_pill), RbColors.green)
                     }
                     disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.warning, fontSize = 11.sp) }

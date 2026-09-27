@@ -526,7 +526,7 @@
     <string name="pay_paid_pill">이 앱에 대한 결제 완료</string>
 
     <!-- Install age on a review (27 Sep 2026) -->
-    <string name="use_add">이 앱이 이 휴대폰에 있었던 기간 추가: %1$s</string>
+    <string name="use_add">이 앱이 이 휴대폰에 있었던 총 기간 추가: %1$s</string>
     <string name="use_add_hint">리뷰와 함께 온체인에 기록되며 반올림됩니다. 이는 휴대폰이 보고하는 내용일 뿐, 증거가 아닙니다.</string>
     <string name="use_not_installed">이 앱은 이 휴대폰에 설치되어 있지 않으므로 설치 기간이 추가되지 않습니다.</string>
     <string name="use_d0">하루 미만</string>
@@ -535,6 +535,17 @@
     <string name="use_m1">1–3개월</string>
     <string name="use_m3">3개월 이상</string>
     <string name="use_pill">상대방 휴대폰에서: %1$s</string>
+    <string name="use_reinstalled">감지된 재설치: %1$d</string>
+    <string name="time_add">이 앱을 사용한 기간 추가: %1$s</string>
+    <string name="time_add_hint">이 앱에 대한 Android의 사용 횟수(반올림). 리뷰와 함께 온체인에 기록됩니다.</string>
+    <string name="time_needs_access">이 앱을 사용한 기간을 추가하려면 Undersigned의 사용 정보 액세스를 켜세요.</string>
+    <string name="time_allow">사용 정보 액세스 설정 열기</string>
+    <string name="time_t0">10분 미만</string>
+    <string name="time_t1">10–60분</string>
+    <string name="time_t2">1–5시간</string>
+    <string name="time_t3">5–20시간</string>
+    <string name="time_t4">20시간 이상</string>
+    <string name="time_pill">상대방 휴대폰에서 사용됨: %1$s</string>
 
     <!-- Payments board (27 Sep 2026) -->
     <string name="pay_title">결제 게시판</string>
