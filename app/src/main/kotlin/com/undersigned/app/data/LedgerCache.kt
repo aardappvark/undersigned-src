@@ -14,6 +14,11 @@ class LedgerCache(context: Context) {
     private val file = File(context.filesDir, "ledger_v1.json")
     private val metaFile = File(context.filesDir, "ledger_meta_v1.json")
     private val headFile = File(context.filesDir, "ledger_head_v1.txt")
+    private val decoderFile = File(context.filesDir, "ledger_decoder_v1.txt")
+    /** The decoder version that wrote this cache (see LedgerReader.DECODER); 0 when unknown. */
+    var decoder: Int
+        get() = runCatching { decoderFile.readText().trim().toInt() }.getOrDefault(0)
+        set(v) { runCatching { decoderFile.writeText(v.toString()) } }
     /**
      * The newest registry signature the READER has listed, the `until` of the next tail read. Not the cache's first entry:
      * a record the app inserts right after signing sits at the top before the reader has seen anything older, and using
@@ -54,5 +59,5 @@ class LedgerCache(context: Context) {
         runCatching { file.writeText(arr.toString()) }
     }
 
-    fun clear() { runCatching { file.delete(); metaFile.delete(); headFile.delete() } }
+    fun clear() { runCatching { file.delete(); metaFile.delete(); headFile.delete(); decoderFile.delete() } }
 }
