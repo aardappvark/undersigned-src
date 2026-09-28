@@ -779,4 +779,7 @@
     <string name="tag_needs_account">Wymaga konta</string>
     <string name="tag_seeker_native">Natywna dla Seeker</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Wystawienie kosztuje tyle samo co płatny poziom naszych pozostałych dApps: %1$s lub %2$s (%3$s z Seeker Genesis Token). Opłata pobierana jest raz na dApp i skarbiec, w tej samej transakcji, która podpisuje wpis. Zmiana kodu lub ponowne wystawienie później kosztuje tylko opłatę sieciową.</string>
+    <string name="pay_list_pay">Zapłać %1$s i wystaw</string>
 </resources>

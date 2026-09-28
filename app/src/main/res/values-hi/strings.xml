@@ -764,4 +764,7 @@
     <string name="tag_needs_account">खाता आवश्यक</string>
     <string name="tag_seeker_native">Seeker के लिए बना</string>
     <string name="tag_webview">वेब रैपर</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">सूचीबद्ध करने का खर्च हमारे अन्य dApps के पेड टियर जितना ही है: %1$s या %2$s (Seeker Genesis Token के साथ %3$s)। यह प्रति dApp और ट्रेज़री एक बार लिया जाता है, उसी लेनदेन में जो लिस्टिंग पर हस्ताक्षर करता है। बाद में कोड बदलना या दोबारा सूचीबद्ध करना केवल नेटवर्क फीस लेता है।</string>
+    <string name="pay_list_pay">%1$s चुकाएं और सूचीबद्ध करें</string>
 </resources>

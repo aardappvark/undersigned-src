@@ -755,4 +755,7 @@
     <string name="tag_needs_account">需要帳戶</string>
     <string name="tag_seeker_native">Seeker 原生</string>
     <string name="tag_webview">網頁封裝</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">登記費用與我們其他 dApp 的付費層級相同:%1$s 或 %2$s(持有 Seeker Genesis Token 則為 %3$s)。每個 dApp 與金庫僅需支付一次,與簽署登記屬於同一筆交易。之後更改代碼或重新登記僅需支付網路費用。</string>
+    <string name="pay_list_pay">支付 %1$s 並登記</string>
 </resources>

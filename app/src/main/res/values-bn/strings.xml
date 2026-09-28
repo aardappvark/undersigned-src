@@ -757,4 +757,7 @@
     <string name="tag_needs_account">অ্যাকাউন্ট প্রয়োজন</string>
     <string name="tag_seeker_native">Seeker-নেটিভ</string>
     <string name="tag_webview">ওয়েবভিউ</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">তালিকাভুক্তির খরচ আমাদের অন্যান্য dApps-এর পেইড টিয়ারের সমান: %1$s বা %2$s (Seeker Genesis Token থাকলে %3$s)। এটি প্রতিটি dApp ও ট্রেজারির জন্য একবার পরিশোধ করা হয়, তালিকাভুক্তিতে স্বাক্ষরকারী একই লেনদেনে। পরে কোড পরিবর্তন করা বা আবার তালিকাভুক্ত করার খরচ শুধু নেটওয়ার্ক ফি।</string>
+    <string name="pay_list_pay">%1$s পরিশোধ করে তালিকাভুক্ত করুন</string>
 </resources>

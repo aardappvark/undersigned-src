@@ -792,4 +792,7 @@
     <string name="tag_needs_account">يتطلب حسابًا</string>
     <string name="tag_seeker_native">مصمم لـ Seeker</string>
     <string name="tag_webview">صفحة ويب مغلفة</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">الإدراج يكلف نفس تكلفة مستوى مدفوع من dApps الأخرى لدينا: %1$s أو %2$s (%3$s مع Seeker Genesis Token). يُدفع مرة واحدة لكل dApp وخزينة، ضمن نفس المعاملة التي توقّع الإدراج. تغيير الرمز أو الإدراج مرة أخرى لاحقًا يكلف رسوم الشبكة فقط.</string>
+    <string name="pay_list_pay">ادفع %1$s وأدرِج</string>
 </resources>

@@ -765,4 +765,7 @@
     <string name="tag_needs_account">Kailangan ng account</string>
     <string name="tag_seeker_native">Seeker native</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Ang pag-list ay nagkakahalaga ng kapareho ng paid tier ng aming iba pang dApps: %1$s o %2$s (%3$s kasama ang Seeker Genesis Token). Binabayaran ito isang beses kada dApp at treasury, sa parehong transaction na nag-sign sa listing. Ang pagbabago ng code o pag-list ulit sa hinaharap ay nagkakahalaga lang ng network fee.</string>
+    <string name="pay_list_pay">Bayaran ang %1$s at i-list</string>
 </resources>

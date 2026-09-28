@@ -28,20 +28,22 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
     class Unconfirmed(val signature: String) : Exception("Your payment was sent but is not confirmed yet. Nothing more will be charged. Do not pay again — re-read the ledger in a moment.")
     private class WouldFail(val reason: String) : Exception(reason)
 
-    suspend fun pay(context: Context, adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, rail: Rail, onStage: (ReviewTxService.Stage) -> Unit): Result<Receipt> {
+    /** [sol]/[skr] default to the Pro price; a paid listing passes its own price and its `trs` [record] (see AppConfig.Payment.LIST_SOL). */
+    suspend fun pay(context: Context, adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, rail: Rail, onStage: (ReviewTxService.Stage) -> Unit,
+                    sol: Double = AppConfig.Payment.PRO_SOL, skr: Double = AppConfig.Payment.PRO_SKR, record: String? = null): Result<Receipt> {
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
         if (runCatching { GeoBlocker(context).isBlocked() }.getOrDefault(false)) return Result.failure(Exception("Nothing was charged. Payment is not available in this region because of sanctions and legal restrictions."))
         if (WalletScreening.isSanctioned(signerAddress)) return Result.failure(Exception("Nothing was charged. This wallet address appears on a sanctions list and cannot be used with this app."))
-        val lamports = AppConfig.Payment.lamports(AppConfig.Payment.PRO_SOL)
-        val skrRaw = AppConfig.Payment.skrRaw(AppConfig.Payment.PRO_SKR)
+        val lamports = AppConfig.Payment.lamports(sol)
+        val skrRaw = AppConfig.Payment.skrRaw(skr)
 
         onStage(ReviewTxService.Stage.Simulating)
         // Funds precheck, failing OPEN: only a positive reading may stop a sale.
         when (rail) {
-            Rail.SOL -> rpc.getBalance(signerAddress).getOrNull()?.let { have -> if (have < lamports + AppConfig.Payment.FEE_HEADROOM_LAMPORTS) return Result.failure(Exception("Nothing was charged. This wallet holds ${trim(have / 1e9)} SOL; the licence needs ${AppConfig.Payment.PRO_SOL} SOL plus the network fee.")) }
+            Rail.SOL -> rpc.getBalance(signerAddress).getOrNull()?.let { have -> if (have < lamports + AppConfig.Payment.FEE_HEADROOM_LAMPORTS) return Result.failure(Exception("Nothing was charged. This wallet holds ${trim(have / 1e9)} SOL; the payment needs $sol SOL plus the network fee.")) }
             Rail.SKR -> rpc.getTokenBalanceRaw(signerAddress, AppConfig.Payment.SKR_MINT).getOrNull()?.let { have ->
                 if (have < 0L) return Result.failure(Exception("Nothing was charged. This wallet holds no SKR token account yet. Pay in SOL, or hold some SKR first."))
-                if (have < skrRaw) return Result.failure(Exception("Nothing was charged. This wallet holds ${String.format(java.util.Locale.US, "%,.2f", have / 1e6)} SKR; the licence needs ${AppConfig.Payment.skrLabel()}."))
+                if (have < skrRaw) return Result.failure(Exception("Nothing was charged. This wallet holds ${String.format(java.util.Locale.US, "%,.2f", have / 1e6)} SKR; the payment needs ${String.format(java.util.Locale.US, "%,.0f SKR", skr)}."))
                 rpc.getBalance(signerAddress).getOrNull()?.let { sol -> if (sol < AppConfig.Payment.FEE_HEADROOM_LAMPORTS) return Result.failure(Exception("Nothing was charged. The wallet needs a little SOL for the network fee (about ${trim(AppConfig.Payment.FEE_HEADROOM_LAMPORTS / 1e9)} SOL).")) }
             }
         }
@@ -49,8 +51,8 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         // "absent" would only add an idempotent create (harmless), while the wrong "present" costs nothing either.
         val treasuryHasAta = if (rail == Rail.SKR) rpc.getTokenBalanceRaw(AppConfig.Payment.TREASURY, AppConfig.Payment.SKR_MINT).fold({ it >= 0L }, { true }) else true
         fun build(bh: ByteArray): ByteArray = when (rail) {
-            Rail.SOL -> TxBuilder.proSolTransaction(signer, lamports, bh)
-            Rail.SKR -> TxBuilder.proSkrTransaction(signer, skrRaw, bh, createTreasuryAta = !treasuryHasAta)
+            Rail.SOL -> TxBuilder.proSolTransaction(signer, lamports, bh, record)
+            Rail.SKR -> TxBuilder.proSkrTransaction(signer, skrRaw, bh, createTreasuryAta = !treasuryHasAta, record = record)
         }
         // Gate: never open the signature sheet on a payment the cluster would reject.
         val sim = rpc.simulateTransaction(build(TxBuilder.ZERO_BLOCKHASH), replaceBlockhash = true)

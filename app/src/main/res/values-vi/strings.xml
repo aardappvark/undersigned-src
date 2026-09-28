@@ -756,4 +756,7 @@
     <string name="tag_needs_account">Cần tài khoản</string>
     <string name="tag_seeker_native">Dành riêng cho Seeker</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Niêm yết có giá tương đương với gói trả phí của các dApp khác của chúng tôi: %1$s hoặc %2$s (%3$s nếu có Seeker Genesis Token). Khoản này được trả một lần cho mỗi dApp và quỹ, trong cùng giao dịch ký niêm yết. Việc thay đổi mã hoặc niêm yết lại sau này chỉ tốn phí mạng.</string>
+    <string name="pay_list_pay">Trả %1$s và niêm yết</string>
 </resources>

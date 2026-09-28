@@ -790,4 +790,7 @@
     <string name="tag_needs_account">Richiede account</string>
     <string name="tag_seeker_native">Nativa per Seeker</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Elencare costa quanto un livello a pagamento delle nostre altre dApp: %1$s o %2$s (%3$s con un Seeker Genesis Token). Si paga una volta per dApp e tesoreria, nella stessa transazione che firma l\'inserzione. Cambiare il codice o elencare di nuovo in seguito costa solo la commissione di rete.</string>
+    <string name="pay_list_pay">Paga %1$s ed elenca</string>
 </resources>

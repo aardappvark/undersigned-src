@@ -781,4 +781,7 @@
     <string name="tag_needs_account">Konto nötig</string>
     <string name="tag_seeker_native">Seeker-nativ</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Das Listing kostet dasselbe wie eine bezahlte Stufe unserer anderen dApps: %1$s oder %2$s (%3$s mit einem Seeker Genesis Token). Es wird einmal pro dApp und Treasury bezahlt, in derselben Transaktion, die das Listing signiert. Den Code später zu ändern oder erneut zu listen kostet nur die Netzwerkgebühr.</string>
+    <string name="pay_list_pay">%1$s zahlen und listen</string>
 </resources>

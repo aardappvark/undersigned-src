@@ -87,6 +87,15 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             if (r.isSuccess) vm.loadBoard(force = true)
         }
     }
+    fun payList(rail: com.undersigned.app.solana.ProPaymentService.Rail, memo: ReviewMemo.Treasury) {
+        val s = sender ?: return
+        message = null
+        vm.payListing(s, rail, memo, onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
+            stage = null
+            message = r.fold({ true to context.getString(R.string.action_published, shortKey(it, 6, 6)) }, { false to (it.message ?: context.getString(R.string.action_failed)) })
+            if (r.isSuccess) vm.loadBoard(force = true)
+        }
+    }
     val back = { if (page == PayPage.BOARD) onBack() else if (page == PayPage.LIST && step == 2) step = 1 else page = PayPage.BOARD }
     androidx.activity.compose.BackHandler(enabled = page != PayPage.BOARD) { back() }
     val title = stringResource(when (page) { PayPage.BOARD -> R.string.pay_title; PayPage.LIST -> R.string.pay_list_title; PayPage.LISTINGS -> R.string.pay_my_claims; PayPage.PREVIEW -> R.string.pay_preview_title })
@@ -198,6 +207,8 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             KeyValueRow(stringResource(R.string.pay_label_signing), shortKey(w, 4, 4) + " · " + stringResource(R.string.pay_wallet_matches), RbColors.green)
                         }
                         Text(stringResource(R.string.pay_listing_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 10.dp))
+                        if (!vm.listingIsFree()) Text(stringResource(R.string.pay_list_fee, "${AppConfig.Payment.LIST_SOL} SOL", String.format(java.util.Locale.US, "%,.0f SKR", AppConfig.Payment.LIST_SKR), String.format(java.util.Locale.US, "%,.0f SKR", AppConfig.Payment.LIST_SKR_SGT)),
+                            color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 10.dp))
                         message?.let { (ok, m) -> Text(m, color = if (ok) RbColors.green else RbColors.negative, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp)) }
                     }
                 }
@@ -206,7 +217,16 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     if (step == 1) {
                         if (lineCheck?.first != true) Text(stringResource(R.string.pay_sign_early), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 8.dp))
                         PrimaryButton(stringResource(R.string.pay_continue), enabled = memo != null, onClick = { step = 2 })
-                    } else PrimaryButton(stage ?: stringResource(R.string.pay_sign), enabled = memo != null && stage == null && sender != null, loading = stage != null, onClick = { memo?.let { sign(it) } })
+                    } else if (vm.listingIsFree()) PrimaryButton(stage ?: stringResource(R.string.pay_sign), enabled = memo != null && stage == null && sender != null, loading = stage != null, onClick = { memo?.let { sign(it) } })
+                    else {
+                        // Fee and record in one transaction: the wallet sheet shows the payment and signs the listing with it.
+                        val t = memo as? ReviewMemo.Treasury
+                        PrimaryButton(stage ?: stringResource(R.string.pay_list_pay, "${AppConfig.Payment.LIST_SOL} SOL"), enabled = t != null && stage == null && sender != null, loading = stage != null,
+                            onClick = { t?.let { payList(com.undersigned.app.solana.ProPaymentService.Rail.SOL, it) } })
+                        Spacer(Modifier.height(8.dp))
+                        SecondaryButton(stringResource(R.string.pay_list_pay, String.format(java.util.Locale.US, "%,.0f SKR", vm.listSkrPrice())), enabled = t != null && stage == null && sender != null,
+                            onClick = { t?.let { payList(com.undersigned.app.solana.ProPaymentService.Rail.SKR, it) } })
+                    }
                 }
             }
             // G5 — this wallet's listings.

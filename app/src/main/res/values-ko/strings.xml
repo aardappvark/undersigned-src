@@ -748,4 +748,7 @@
     <string name="tag_needs_account">계정 필요</string>
     <string name="tag_seeker_native">Seeker 네이티브</string>
     <string name="tag_webview">웹뷰</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">등록 비용은 다른 dApp의 유료 티어와 동일합니다: %1$s 또는 %2$s(Seeker Genesis Token 보유 시 %3$s). dApp 및 트레저리당 한 번만 지불하며, 등록에 서명하는 것과 동일한 트랜잭션에서 결제됩니다. 이후 코드를 변경하거나 다시 등록하는 데는 네트워크 수수료만 듭니다.</string>
+    <string name="pay_list_pay">%1$s 결제하고 등록</string>
 </resources>

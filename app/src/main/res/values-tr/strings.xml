@@ -761,4 +761,7 @@
     <string name="tag_needs_account">Hesap gerekli</string>
     <string name="tag_seeker_native">Seeker için yerel</string>
     <string name="tag_webview">Web görünümü</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Listeleme, diğer dApp\'lerimizin ücretli katmanıyla aynı miktarda ücrete tabidir: %1$s veya %2$s (Seeker Genesis Token ile %3$s). dApp ve hazine başına bir kez, listelemeyi imzalayan işlemle aynı işlemde ödenir. Kodu değiştirmek veya daha sonra tekrar listelemek yalnızca ağ ücretine mal olur.</string>
+    <string name="pay_list_pay">%1$s öde ve listele</string>
 </resources>

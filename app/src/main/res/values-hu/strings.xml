@@ -761,4 +761,7 @@
     <string name="tag_needs_account">Fiók szükséges</string>
     <string name="tag_seeker_native">Seeker-natív</string>
     <string name="tag_webview">Becsomagolt weboldal</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">A listázás ugyanannyiba kerül, mint egyéb dApp-jaink fizetős szintje: %1$s vagy %2$s (%3$s Seeker Genesis Token esetén). dApp-onként és kincstáranként egyszer kell fizetni, ugyanabban a tranzakcióban, amely aláírja a listázást. A kód későbbi módosítása vagy az újbóli listázás csak a hálózati díjba kerül.</string>
+    <string name="pay_list_pay">%1$s fizetése és listázás</string>
 </resources>

@@ -31,11 +31,17 @@ object Payments {
     fun isReference(code: String) = REFERENCE.matches(code)
     fun validCode(code: String) = CODE.matches(code) || isReference(code)
 
-    /** Active claims: the newest `trs`/`trx` per (treasury, package) decides, as with flags and votes. */
-    fun claims(entries: List<LedgerEntry>): List<Claim> =
+    /**
+     * Active claims: the newest `trs`/`trx` per (treasury, package) decides, as with flags and votes. A listing costs a
+     * fee, paid once per (treasury, package) in the same transaction as one of its `trs` records: [paid] says whether an
+     * entry's transaction carried it. So unlisting and listing again, or changing the code, costs nothing more, and a
+     * `trs` nobody paid for lists nothing. The default treats every entry as paid (readers without transaction data).
+     */
+    fun claims(entries: List<LedgerEntry>, paid: (LedgerEntry) -> Boolean = { true }): List<Claim> =
         entries.filter { it.memo is ReviewMemo.Treasury || it.memo is ReviewMemo.Untreasury }
             .groupBy { it.signer to ((it.memo as? ReviewMemo.Treasury)?.packageName ?: (it.memo as ReviewMemo.Untreasury).packageName) }
             .mapNotNull { (k, v) -> val latest = v.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature })
+                if (v.none { it.memo is ReviewMemo.Treasury && paid(it) }) return@mapNotNull null
                 (latest.memo as? ReviewMemo.Treasury)?.let { Claim(k.second, k.first, it.code, latest.blockTime, latest.signature) } }
 
     /** Every wallet address a well-known file names, on any line: the publisher's own wallets. */

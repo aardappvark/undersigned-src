@@ -118,6 +118,26 @@ object AppConfig {
         const val CONFIRM_TIMEOUT_MS = 90_000L
         fun solLabel(): String = "$PRO_SOL SOL"
         fun skrLabel(): String = String.format(java.util.Locale.US, "%,.0f SKR", PRO_SKR)
+
+        /**
+         * Listing a treasury on the Payments board: the fleet's standard paid-tier pair (owner, 28 Sep 2026 — "the same
+         * SKR SOL price as the rest of our dApps": 0.0607 SOL, 651 SKR, 586 SKR for Seeker Genesis Token holders). Paid
+         * once per (treasury, package), in the SAME transaction as the `trs` record, to [TREASURY] with the registry as
+         * the reference and UNS as the first memo (so fleet ledger tools attribute it). A transaction carrying an SRL1
+         * record is never read as a Pro licence (see LedgerReader), so the two cannot be confused.
+         * Same rule as Pro: re-peg only with fleet-config/tools/reprice.py, and never raise a leg without moving the old
+         * amount into the LEGACY list first, or earlier listings stop counting.
+         */
+        const val LIST_SOL = 0.0607
+        const val LIST_SKR = 651.0
+        const val LIST_SKR_SGT = 586.0
+        val LEGACY_LIST_SOL: List<Double> = emptyList()
+        val LEGACY_LIST_SKR: List<Double> = emptyList()
+        /** The reader's floor is the lowest price ever charged on each rail, SGT price included. */
+        val listFloorLamports: Long get() = (LEGACY_LIST_SOL + LIST_SOL).minOf { lamports(it) }
+        val listFloorSkrRaw: Long get() = (LEGACY_LIST_SKR + LIST_SKR + LIST_SKR_SGT).minOf { skrRaw(it) }
+        fun isPaidListing(paidLamports: Long, paidSkr: Long): Boolean = paidLamports >= listFloorLamports || paidSkr >= listFloorSkrRaw
+        fun listSkr(holdsGenesisToken: Boolean): Double = if (holdsGenesisToken) LIST_SKR_SGT else LIST_SKR
     }
 
     object Features {

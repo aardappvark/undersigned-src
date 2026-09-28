@@ -747,4 +747,7 @@
     <string name="tag_needs_account">アカウント必須</string>
     <string name="tag_seeker_native">Seekerネイティブ</string>
     <string name="tag_webview">ウェブビュー</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">登録の費用は、他の dApp の有料ティアと同額です:%1$s または %2$s(Seeker Genesis Token をお持ちの場合は %3$s)。dApp とトレジャリーごとに一度だけ、登録に署名するのと同じトランザクションで支払います。後でコードを変更したり再登録したりする場合の費用はネットワーク手数料のみです。</string>
+    <string name="pay_list_pay">%1$s を支払って登録</string>
 </resources>

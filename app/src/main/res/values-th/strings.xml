@@ -740,4 +740,7 @@
     <string name="tag_needs_account">ต้องมีบัญชี</string>
     <string name="tag_seeker_native">Seeker เนทีฟ</string>
     <string name="tag_webview">เว็บวิว</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">การลงรายการมีค่าใช้จ่ายเท่ากับระดับแบบชำระเงินของ dApp อื่น ๆ ของเรา: %1$s หรือ %2$s (%3$s หากมี Seeker Genesis Token) ชำระเพียงครั้งเดียวต่อ dApp และคลัง ในธุรกรรมเดียวกันกับที่ลงลายเซ็นการลงรายการ การเปลี่ยนรหัสหรือลงรายการอีกครั้งในภายหลังมีค่าใช้จ่ายเพียงค่าธรรมเนียมเครือข่ายเท่านั้น</string>
+    <string name="pay_list_pay">จ่าย %1$s แล้วลงรายการ</string>
 </resources>

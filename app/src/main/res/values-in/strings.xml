@@ -756,4 +756,7 @@
     <string name="tag_needs_account">Perlu akun</string>
     <string name="tag_seeker_native">Native untuk Seeker</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Mendaftarkan biayanya sama dengan tingkat berbayar dApp kami yang lain: %1$s atau %2$s (%3$s dengan Seeker Genesis Token). Dibayar sekali per dApp dan treasuri, dalam transaksi yang sama yang menandatangani pendaftaran. Mengubah kode atau mendaftar lagi nanti hanya dikenakan biaya jaringan.</string>
+    <string name="pay_list_pay">Bayar %1$s dan daftarkan</string>
 </resources>

@@ -170,6 +170,21 @@ class PaymentsTest {
         assertTrue(Payments.listedTreasuries("$treasury\n").isEmpty())
     }
 
+    @Test fun listingCountsOnlyOncePaid() {
+        val unpaid = LedgerEntry(sig('a'), treasury, 10, ReviewMemo.Treasury("com.a.b", "UNS"))
+        val paidRec = LedgerEntry(sig('b') + ":1", treasury, 20, ReviewMemo.Treasury("com.a.b", "UNS"))
+        val x = LedgerEntry(sig('c'), treasury, 30, ReviewMemo.Untreasury("com.a.b"))
+        val relist = LedgerEntry(sig('d'), treasury, 40, ReviewMemo.Treasury("com.a.b", "UN2"))
+        val paid: (LedgerEntry) -> Boolean = { it.signature == sig('b') + ":1" }
+        assertTrue(Payments.claims(listOf(unpaid), paid).isEmpty())                     // a trs nobody paid for lists nothing
+        assertEquals("UNS", Payments.claims(listOf(unpaid, paidRec), paid).single().code)
+        assertTrue(Payments.claims(listOf(unpaid, paidRec, x), paid).isEmpty())         // unlisting still wins
+        assertEquals("UN2", Payments.claims(listOf(unpaid, paidRec, x, relist), paid).single().code) // relisting is free once paid
+        // Another treasury's payment never pays for this one.
+        val other = LedgerEntry(sig('e'), "HVXVfQDD1jrt6kBFRNDFcftDE2usWbyWzEDWs367yDaD", 50, ReviewMemo.Treasury("com.a.b", "HV"))
+        assertEquals(setOf(treasury), Payments.claims(listOf(paidRec, other), paid).map { it.treasury }.toSet())
+    }
+
     @Test fun claimsLatestWinsPerTreasuryAndPackage() {
         val a = LedgerEntry(sig('a'), treasury, 10, ReviewMemo.Treasury("com.a.b", "UNS"))
         val x = LedgerEntry(sig('b'), treasury, 20, ReviewMemo.Untreasury("com.a.b"))

@@ -790,4 +790,7 @@
     <string name="tag_needs_account">Compte requis</string>
     <string name="tag_seeker_native">Natif Seeker</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Le référencement coûte le même prix qu\'un palier payant de nos autres dApps : %1$s ou %2$s (%3$s avec un Seeker Genesis Token). Il est payé une fois par dApp et par trésorerie, dans la même transaction qui signe l\'annonce. Modifier le code ou se référencer à nouveau plus tard ne coûte que les frais de réseau.</string>
+    <string name="pay_list_pay">Payer %1$s et référencer</string>
 </resources>

@@ -762,4 +762,7 @@
     <string name="tag_needs_account">Нужен аккаунт</string>
     <string name="tag_seeker_native">Нативное для Seeker</string>
     <string name="tag_webview">Веб-обёртка</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Добавление в список стоит столько же, сколько платный уровень наших других dApps: %1$s или %2$s (%3$s с Seeker Genesis Token). Оплачивается один раз за dApp и казначейство, в той же транзакции, что подписывает запись. Изменение кода или повторное добавление в список позже стоит только комиссию сети.</string>
+    <string name="pay_list_pay">Заплатить %1$s и добавить в список</string>
 </resources>

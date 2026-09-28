@@ -429,7 +429,36 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val quotes = MutableStateFlow<Map<String, com.undersigned.app.ledger.Prices.Quote>>(emptyMap())
     private var boardAt = 0L
 
-    fun treasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = com.undersigned.protocol.Payments.claims(entries.value)
+    fun treasuryClaims(): List<com.undersigned.protocol.Payments.Claim> {
+        val meta = txMeta.value
+        return com.undersigned.protocol.Payments.claims(entries.value) { e ->
+            // Our own treasury lists the fleet's dApps without paying itself (a self-transfer credits nothing).
+            e.signer == com.undersigned.app.AppConfig.Payment.TREASURY ||
+                meta[e.signature.substringBefore(':')]?.let { com.undersigned.app.AppConfig.Payment.isPaidListing(it.paidLamports, it.paidSkr) } == true
+        }
+    }
+    /** Whether listing from this wallet is free: only the Undersigned treasury itself. */
+    fun listingIsFree(): Boolean = wallet.value == com.undersigned.app.AppConfig.Payment.TREASURY
+    /** The SKR price this wallet pays to list: the fleet's Seeker Genesis Token price when it holds one. */
+    fun listSkrPrice(): Double = com.undersigned.app.AppConfig.Payment.listSkr(wallet.value?.let { facts.value[it]?.hasGenesisToken } == true)
+
+    /** Pay the listing fee and sign the `trs` record in ONE transaction; inserted locally on confirmation so the listing shows at once. */
+    fun payListing(sender: ActivityResultSender, rail: com.undersigned.app.solana.ProPaymentService.Rail, memo: ReviewMemo.Treasury, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.pro_needs_wallet))))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        val text = runCatching { ReviewMemo.encode(memo) }.getOrElse { return onResult(Result.failure(it)) }
+        viewModelScope.launch {
+            val r = proService.pay(getApplication(), adapter, sender, w, rail, onStage, sol = com.undersigned.app.AppConfig.Payment.LIST_SOL, skr = listSkrPrice(), record = text)
+            r.onSuccess { rc ->
+                // The record is the transaction's second memo (UNS first), so its id is sig:1, as the reader will file it.
+                entries.value = (listOf(LedgerEntry(ReviewMemo.recordId(rc.signature, 1), w, System.currentTimeMillis() / 1000, memo)) + entries.value).distinctBy { it.signature }
+                txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, rc.paidLamports, rc.paidSkr))
+                ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
+                Log.i("MainViewModel", "paid listing ${rc.signature} (${rc.rail})")
+            }
+            onResult(r.map { it.signature })
+        }
+    }
     fun myTreasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = wallet.value?.let { w -> treasuryClaims().filter { it.treasury == w } } ?: emptyList()
     fun boardFor(pkg: String): BoardRow? = boardRows.value.firstOrNull { it.claim.packageName == pkg && it.confirmed && it.tally != null }
 

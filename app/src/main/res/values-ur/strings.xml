@@ -764,4 +764,7 @@
     <string name="tag_needs_account">اکاؤنٹ درکار</string>
     <string name="tag_seeker_native">Seeker کے لیے خاص</string>
     <string name="tag_webview">لپٹا ہوا ویب صفحہ</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">فہرست میں شامل کرنے کی لاگت ہمارے دیگر dApps کے پیڈ ٹیئر جتنی ہی ہے: %1$s یا %2$s (Seeker Genesis Token کے ساتھ %3$s)۔ یہ ہر dApp اور خزانے کے لیے ایک بار ادا کی جاتی ہے، اسی ٹرانزیکشن میں جو فہرست پر دستخط کرتی ہے۔ بعد میں کوڈ تبدیل کرنے یا دوبارہ فہرست میں شامل کرنے کی لاگت صرف نیٹ ورک فیس ہے۔</string>
+    <string name="pay_list_pay">%1$s ادا کریں اور فہرست میں شامل کریں</string>
 </resources>

@@ -64,15 +64,16 @@ object TxBuilder {
      * the AMOUNT paid, so nothing has to ride along in a memo.
      *
      * ix[0] System transfer signer → treasury, registry as the reference account · ix[1] memo UNS.
+     * A paid LISTING adds its `SRL1|trs` record as ix[2], after UNS, so the RPC's first-memo summary still shows UNS.
      */
-    fun proSolTransaction(signer: ByteArray, lamports: Long, blockhash: ByteArray): ByteArray {
+    fun proSolTransaction(signer: ByteArray, lamports: Long, blockhash: ByteArray, record: String? = null): ByteArray {
         require(lamports > 0)
-        val ixs = listOf(systemTransfer(signer, TREASURY, lamports, REGISTRY), memoInstruction(AppConfig.Payment.PAYMENT_MEMO))
+        val ixs = listOf(systemTransfer(signer, TREASURY, lamports, REGISTRY), memoInstruction(AppConfig.Payment.PAYMENT_MEMO)) + listOfNotNull(record?.let { memoInstruction(it) })
         return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
     }
 
     /** SKR rail, same rule: (CreateIdempotent treasury ATA) · TransferChecked with the registry as reference · memo UNS last. */
-    fun proSkrTransaction(signer: ByteArray, amountRaw: Long, blockhash: ByteArray, createTreasuryAta: Boolean): ByteArray {
+    fun proSkrTransaction(signer: ByteArray, amountRaw: Long, blockhash: ByteArray, createTreasuryAta: Boolean, record: String? = null): ByteArray {
         require(amountRaw > 0)
         val senderAta = associatedTokenAddress(signer, SKR_MINT)
         val treasuryAta = associatedTokenAddress(TREASURY, SKR_MINT)
@@ -80,6 +81,7 @@ object TxBuilder {
         if (createTreasuryAta) ixs.add(createAtaIdempotent(signer, treasuryAta, TREASURY, SKR_MINT))
         ixs.add(transferChecked(senderAta, SKR_MINT, treasuryAta, signer, amountRaw, AppConfig.Payment.SKR_DECIMALS, REGISTRY))
         ixs.add(memoInstruction(AppConfig.Payment.PAYMENT_MEMO))
+        record?.let { ixs.add(memoInstruction(it)) }
         return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
     }
 

@@ -761,4 +761,7 @@
     <string name="tag_needs_account">Απαιτεί λογαριασμό</string>
     <string name="tag_seeker_native">Εγγενές για Seeker</string>
     <string name="tag_webview">Ενσωματωμένη ιστοσελίδα</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Η καταχώριση κοστίζει όσο ένα επί πληρωμή επίπεδο των υπόλοιπων dApps μας: %1$s ή %2$s (%3$s με Seeker Genesis Token). Πληρώνεται μία φορά ανά dApp και θησαυροφυλάκιο, στην ίδια συναλλαγή που υπογράφει την καταχώριση. Η αλλαγή του κωδικού ή η εκ νέου καταχώριση αργότερα κοστίζει μόνο το τέλος δικτύου.</string>
+    <string name="pay_list_pay">Πληρωμή %1$s και καταχώριση</string>
 </resources>

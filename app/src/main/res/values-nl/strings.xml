@@ -770,4 +770,7 @@
     <string name="tag_needs_account">Account nodig</string>
     <string name="tag_seeker_native">Seeker-native</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Vermelden kost hetzelfde als een betaald niveau van onze andere dApps: %1$s of %2$s (%3$s met een Seeker Genesis Token). Dit wordt eenmalig betaald per dApp en treasury, in dezelfde transactie die de vermelding ondertekent. De code later wijzigen of opnieuw vermelden kost alleen de netwerkkosten.</string>
+    <string name="pay_list_pay">%1$s betalen en vermelden</string>
 </resources>

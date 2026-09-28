@@ -769,4 +769,7 @@
     <string name="tag_needs_account">Necesită cont</string>
     <string name="tag_seeker_native">Nativ pentru Seeker</string>
     <string name="tag_webview">Site încapsulat</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Listarea costă la fel ca un nivel plătit al celorlalte dApps ale noastre: %1$s sau %2$s (%3$s cu un Seeker Genesis Token). Se plătește o singură dată per dApp și trezorerie, în aceeași tranzacție care semnează listarea. Schimbarea codului sau listarea din nou mai târziu costă doar comisionul de rețea.</string>
+    <string name="pay_list_pay">Plătește %1$s și listează</string>
 </resources>

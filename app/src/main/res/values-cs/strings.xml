@@ -771,4 +771,7 @@
     <string name="tag_needs_account">Vyžaduje účet</string>
     <string name="tag_seeker_native">Nativní pro Seeker</string>
     <string name="tag_webview">Webview</string>
+    <!-- 28 Sep 2026 listing fee -->
+    <string name="pay_list_fee">Uvedení na seznamu stojí stejně jako placená úroveň našich ostatních dApps: %1$s nebo %2$s (%3$s se Seeker Genesis Token). Platí se jednou za dApp a pokladnu, ve stejné transakci, která podepisuje záznam. Pozdější změna kódu nebo opětovné uvedení na seznamu stojí jen síťový poplatek.</string>
+    <string name="pay_list_pay">Zaplatit %1$s a uvést na seznam</string>
 </resources>
