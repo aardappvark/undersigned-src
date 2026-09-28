@@ -108,8 +108,8 @@ signs or pays: paying stays the wallet owner's own act.
 ## 4. Running
 
 ```
-api/run-local.sh                # builds, reads api/.env.local (git-ignored: UNDERSIGNED_RPC, UNDERSIGNED_DB), serves on $PORT (8787 by default)
-UNDERSIGNED_API_URL=http://localhost:8787 node mcp/server.js
+api/run-local.sh                # builds, reads api/.env.local (git-ignored: UNDERSIGNED_RPC, UNDERSIGNED_DB), serves on 127.0.0.1:$PORT (8797 by default; HOST=0.0.0.0 to serve a network)
+UNDERSIGNED_API_URL=http://localhost:8797 node mcp/server.js
 ```
 
 Nothing is deployed. Hosting, a domain and the store-data question (§5) are owner decisions.

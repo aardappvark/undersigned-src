@@ -147,7 +147,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
     // ---- JDK server glue ------------------------------------------------------------------------------------------
 
     fun serve(port: Int): HttpServer {
-        val server = HttpServer.create(InetSocketAddress(port), 0)
+        val server = HttpServer.create(InetSocketAddress(Config.HOST, port), 0)
         server.executor = Executors.newFixedThreadPool(16)
         server.createContext("/") { ex -> respond(ex) }
         server.start()
@@ -187,5 +187,5 @@ fun main() {
         Thread({ while (true) { Thread.sleep(60_000); runCatching { boards.refresh(indexer.state) }.onFailure { log("boards: ${it.message?.take(80)}") }; Thread.sleep(14 * 60_000L) } }, "boards").apply { isDaemon = true }.start()
     }
     api.serve(Config.PORT)
-    log("Undersigned API on :${Config.PORT} (db ${Config.DB_PATH}, indexing ${Config.INDEX})")
+    log("Undersigned API on ${Config.HOST}:${Config.PORT} (db ${Config.DB_PATH}, indexing ${Config.INDEX})")
 }

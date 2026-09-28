@@ -7,7 +7,9 @@ import com.undersigned.protocol.Registry
  * fleet-config/tools/reprice.py before a release, and never raise a leg without keeping the old amount as a floor.
  */
 object Config {
-    val PORT: Int = System.getenv("PORT")?.toIntOrNull() ?: 8787
+    val PORT: Int = System.getenv("PORT")?.toIntOrNull() ?: 8797
+    /** Loopback by default: only this machine can call it. Set HOST=0.0.0.0 deliberately to serve a network. */
+    val HOST: String = System.getenv("HOST") ?: "127.0.0.1"
     val DB_PATH: String = System.getenv("UNDERSIGNED_DB") ?: "undersigned-api.db"
     /** Comma-separated RPC URLs, keyed provider first. Public pools refuse some methods; the client fails over. */
     val RPC: List<String> = System.getenv("UNDERSIGNED_RPC")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }
