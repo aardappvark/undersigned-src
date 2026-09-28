@@ -31,6 +31,9 @@ class ApiConfigParityTest {
         fun num(name: String) = Regex("const val $name = ([0-9.]+)").find(src)!!.groupValues[1].toDouble()
         fun str(name: String) = Regex("const val $name = \"([^\"]+)\"").find(src)!!.groupValues[1]
         assertEquals(num("PRO_SOL"), AppFloors.PRO_SOL); assertEquals(num("PRO_SKR"), AppFloors.PRO_SKR)
+        val legacy = Regex("LEGACY_PRO_SKR: List<Double> = listOf\\(([0-9., ]*)\\)").find(src)!!.groupValues[1].split(',').map { it.trim().toDouble() }
+        assertEquals(legacy, AppFloors.LEGACY_PRO_SKR)
+        assertEquals(276_000_000L, AppFloors.proFloorSkrRaw)   // the lowest price ever charged
         assertEquals(num("LIST_SOL"), AppFloors.LIST_SOL); assertEquals(num("LIST_SKR"), AppFloors.LIST_SKR); assertEquals(num("LIST_SKR_SGT"), AppFloors.LIST_SKR_SGT)
         assertEquals(str("TREASURY"), Config.TREASURY); assertEquals(str("PAYMENT_MEMO"), Config.PAYMENT_MEMO)
         // The pass is the fleet price, like the listing fee.

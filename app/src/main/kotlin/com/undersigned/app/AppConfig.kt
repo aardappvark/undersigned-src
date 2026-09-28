@@ -96,9 +96,10 @@ object AppConfig {
          * Raising either leg later REVOKES buyers unless the old amount goes into the LEGACY lists first.
          */
         const val PRO_SOL = 0.0607
-        const val PRO_SKR = 276.0
+        /** 651 SKR from 28 Sep 2026 (owner: the fleet price). 276 was the price until then and stays a floor, so the licence bought at it on 15 Sep reads. */
+        const val PRO_SKR = 651.0
         val LEGACY_PRO_SOL: List<Double> = emptyList()
-        val LEGACY_PRO_SKR: List<Double> = emptyList()
+        val LEGACY_PRO_SKR: List<Double> = listOf(276.0)
         const val TERM_MONTHS = 12
         /** Math.round, never toLong(): a truncated transfer would be one unit short of its own floor. */
         fun lamports(sol: Double): Long = Math.round(sol * 1_000_000_000.0)

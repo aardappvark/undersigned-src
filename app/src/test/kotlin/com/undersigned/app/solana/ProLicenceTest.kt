@@ -21,7 +21,7 @@ class ProLicenceTest {
     private fun meta(sol: Long = 0, skr: Long = 0) = mapOf("sig" to TxMeta(0L, true, sol, skr))
 
     @Test fun `a licence bought under the old shape still reads`() {
-        val s = ProLicence.of(listOf(entry("sig")), meta(skr = AppConfig.Payment.skrRaw(AppConfig.Payment.PRO_SKR)), wallet, now = paidAt + 86_400)
+        val s = ProLicence.of(listOf(entry("sig")), meta(skr = AppConfig.Payment.skrRaw(276.0)), wallet, now = paidAt + 86_400)
         assertTrue("the owner's 276 SKR licence must survive the change", s!!.active)
         assertEquals("SKR", s.rail)
         assertTrue(s.owned)
@@ -34,7 +34,8 @@ class ProLicenceTest {
     }
 
     @Test fun `a term that was never paid for is not a licence`() {
-        assertNull(ProLicence.of(listOf(entry("sig")), meta(skr = AppConfig.Payment.skrRaw(AppConfig.Payment.PRO_SKR) - 1), wallet, now = paidAt))
+        // The floor is the lowest price ever charged (276 SKR): one unit under it is not a licence.
+        assertNull(ProLicence.of(listOf(entry("sig")), meta(skr = AppConfig.Payment.skrRaw(276.0) - 1), wallet, now = paidAt))
         assertNull(ProLicence.of(listOf(entry("sig")), meta(sol = AppConfig.Payment.lamports(AppConfig.Payment.PRO_SOL) - 1), wallet, now = paidAt))
         assertNull(ProLicence.of(listOf(entry("sig")), emptyMap(), wallet, now = paidAt))
     }

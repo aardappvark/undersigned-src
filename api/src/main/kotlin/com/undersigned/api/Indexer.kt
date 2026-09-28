@@ -22,12 +22,14 @@ import java.nio.ByteOrder
  */
 object AppFloors {
     const val PRO_SOL = 0.0607
-    const val PRO_SKR = 276.0
+    const val PRO_SKR = 651.0
+    /** Earlier Pro prices stay floors (the 276 SKR licence of 15 Sep must still read). */
+    val LEGACY_PRO_SKR: List<Double> = listOf(276.0)
     const val LIST_SOL = 0.0607
     const val LIST_SKR = 651.0
     const val LIST_SKR_SGT = 586.0
     val proFloorLamports get() = Config.lamports(PRO_SOL)
-    val proFloorSkrRaw get() = Config.skrRaw(PRO_SKR)
+    val proFloorSkrRaw get() = (LEGACY_PRO_SKR + PRO_SKR).minOf { Config.skrRaw(it) }
     val listFloorLamports get() = Config.lamports(LIST_SOL)
     val listFloorSkrRaw get() = minOf(Config.skrRaw(LIST_SKR), Config.skrRaw(LIST_SKR_SGT))
     const val TERM_MONTHS = 12
