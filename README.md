@@ -82,11 +82,9 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 
 ## Status — what is NOT done yet
 
-- **Launcher icon is RentBack Sol's placeholder** — the fleet icon rule (one 512 source drives store icon,
-  launcher layers, legal favicon = MWA identity icon, banner) must be applied before any submission.
 - **Legal site** is live at `https://aardappvark.github.io/undersigned-legal/` (repo `aardappvark/undersigned-legal`,
-  Pages from `main`/`docs`, published 28 Sep 2026; privacy policy dated 28 Sep). Its favicon, which is also the icon in
-  the wallet approval sheet, is still RentBack Sol's placeholder.
+  Pages from `main`/`docs`, published 28 Sep 2026; privacy policy dated 28 Sep). Its favicon (the icon in the wallet approval
+  sheet), the launcher and the store icon are all the Undersigned mark from the design handoff (`handoff/store/icon-512.png`).
 - **Payments board listing fee**: not built; it needs a price decision, and a fee paid under the `UNS` memo must be
   told apart from a Pro licence by amount.
 - Store assets, demo video, pitch deck.
