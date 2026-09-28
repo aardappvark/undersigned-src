@@ -19,15 +19,29 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
 
     fun message(txSignature: String) = "Undersigned API key for $txSignature"
 
+    /**
+     * Checkout without message signing: the server hands out a random [secret] and the payment's memo carries only
+     * `UNS:<commitment>`. Whoever holds the secret redeems; a copied transaction shows the commitment, never the secret.
+     * Stateless: nothing is stored until redemption. (Seeker wallets pay a Solana Pay URL easily; signing a text is harder.)
+     */
+    data class Checkout(val secret: String, val memo: String)
+    fun checkout(): Checkout { val s = Base58.encode(ByteArray(24).also { SecureRandom().nextBytes(it) }); return Checkout(s, "${Config.PAYMENT_MEMO}:${commitment(s)}") }
+
     /** Verifies the payment and the payer's signature, then creates the wallet's pass or tops it up. */
-    fun redeem(txSignature: String, messageSignature: String, now: Long = System.currentTimeMillis() / 1000): Pass {
+    /** Redeems with EITHER the paying wallet's [messageSignature] OR the checkout [secret] whose commitment is in the memo. */
+    fun redeem(txSignature: String, messageSignature: String?, now: Long = System.currentTimeMillis() / 1000, secret: String? = null): Pass {
         if (!Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}$").matches(txSignature)) throw Refused(400, "signature must be a base58 transaction signature")
         db.query("SELECT key FROM redeemed WHERE sig = ?", txSignature) { it.getString(1) }.firstOrNull()?.let { throw Refused(409, "this payment has already been redeemed") }
         val tx = txOf(txSignature) ?: throw Refused(404, "transaction not found yet; try again once it is confirmed")
         if (!tx.ok) throw Refused(402, "the transaction failed on-chain, so nothing was paid")
         if (Config.API_REFERENCE !in tx.accountKeys) throw Refused(402, "the payment does not carry the API reference account ${Config.API_REFERENCE}")
-        if (tx.memos.none { it.trim() == Config.PAYMENT_MEMO }) throw Refused(402, "the payment does not carry the memo ${Config.PAYMENT_MEMO}")
-        if (!verifySignature(tx.feePayer, message(txSignature), messageSignature)) throw Refused(403, "the message signature is not the paying wallet's (sign \"${message(txSignature)}\" with ${tx.feePayer})")
+        val memos = tx.memos.map { it.trim() }
+        if (memos.none { it == Config.PAYMENT_MEMO || it.startsWith(Config.PAYMENT_MEMO + ":") }) throw Refused(402, "the payment does not carry the memo ${Config.PAYMENT_MEMO}")
+        when {
+            !secret.isNullOrBlank() -> if ("${Config.PAYMENT_MEMO}:${commitment(secret.trim())}" !in memos) throw Refused(403, "the secret does not match this payment's memo")
+            !messageSignature.isNullOrBlank() -> if (!verifySignature(tx.feePayer, message(txSignature), messageSignature)) throw Refused(403, "the message signature is not the paying wallet's (sign \"${message(txSignature)}\" with ${tx.feePayer})")
+            else -> throw Refused(400, "send the checkout secret, or the paying wallet's signature of \"${message(txSignature)}\"")
+        }
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
         val (rail, amount) = when {
             tx.lamportsIn >= Config.passFloorLamports -> "SOL" to tx.lamportsIn
@@ -62,6 +76,9 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
     private fun newKey(): String = "us_" + Base58.encode(ByteArray(24).also { SecureRandom().nextBytes(it) })
 
     companion object {
+        /** First 16 bytes of SHA-256("undersigned-pass:" + secret), hex: short enough for a memo, far too wide to guess. */
+        fun commitment(secret: String): String = java.security.MessageDigest.getInstance("SHA-256").digest(("undersigned-pass:" + secret).toByteArray()).take(16).joinToString("") { "%02x".format(it) }
+
         private val X509_ED25519 = byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00)
 
         /**

@@ -53,14 +53,24 @@ export function registerApiTools(server, env = process.env) {
   server.tool("api_record", "One ledger record by id (transaction signature, or signature:n), decoded, with its fee and whether it was withdrawn.", { id: z.string() }, async ({ id }) => call(`/v1/records/${encodeURIComponent(id)}`));
   server.tool("api_stats", "Ledger totals: records, live and counted reviews, signers, attested signers, apps, replies, claims, flags, listings, first and latest record.", {}, async () => call("/v1/stats"));
   server.tool("api_pricing", "What a pass costs (SOL or SKR; less in SKR with a Seeker Genesis Token), what it buys, Solana Pay URLs, and how to redeem.", {}, async () => call("/v1/pricing"));
-  server.tool("api_redeem_pass", "Turn a pass payment into an API key. signature = the payment transaction; message_signature = the PAYING wallet's signature of \"Undersigned API key for <signature>\" (base58, base64 or hex). The key is used for the rest of this session; save it as UNDERSIGNED_API_KEY to keep it.",
-    { signature: z.string(), message_signature: z.string() }, async (a) => {
+  server.tool("api_checkout", "Start buying a pass: returns a secret and Solana Pay URLs whose memo commits to it. The wallet owner pays one URL; then call api_redeem_pass with the payment signature and this secret. Paying is the owner's own act; this tool never pays.",
+    {}, async () => { const r = await fetch(`${base}/v1/checkout`, { method: "POST" }); return text(await r.json()); });
+  server.tool("api_redeem_pass", "Turn a pass payment into an API key. signature = the payment transaction; then EITHER secret (from api_checkout) OR message_signature = the PAYING wallet's signature of \"Undersigned API key for <signature>\" (base58, base64 or hex). The key is used for the rest of this session; save it as UNDERSIGNED_API_KEY to keep it.",
+    { signature: z.string(), secret: z.string().optional(), message_signature: z.string().optional() }, async (a) => {
       const r = await fetch(`${base}/v1/keys`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(a) });
       const j = await r.json().catch(() => ({}));
       if (!r.ok) return text({ refused: j.message || r.status });
       key = j.key;
       return text({ ...j, saved_for_this_session: true });
     });
+  server.tool("api_hook_create", "PASS. Create a webhook for alerts on watched apps: review, reply, store_note, burst, version, certificate. Returns a secret once; each POST carries X-Undersigned-Signature: sha256=HMAC(secret, body).",
+    { url: z.string(), packages: z.array(z.string()).min(1).max(50), events: z.array(z.enum(["review", "reply", "store_note", "burst", "version", "certificate"])).optional() },
+    async (a) => call("/v1/hooks", { method: "POST", body: a }));
+  server.tool("api_hooks", "PASS. This pass's webhooks.", {}, async () => call("/v1/hooks"));
+  server.tool("api_hook_delete", "PASS. Delete a webhook by id.", { id: z.string() }, async ({ id }) => call(`/v1/hooks/${encodeURIComponent(id)}`, { method: "DELETE" }));
+  server.tool("api_badge", "The embeddable Undersigned badge for a dApp: the image URL, the page it links to, and a ready HTML snippet for a website or README.",
+    { package: z.string() }, async ({ package: p }) => { const e = encodeURIComponent(p); const img = `${base}/v1/badge/${e}.svg`, page = `${base}/app/${e}`;
+      return text({ image: img, page, html: `<a href="${page}"><img src="${img}" alt="Undersigned signed reviews"></a>`, markdown: `[![Undersigned](${img})](${page})` }); });
   server.tool("api_pass", "This session's pass: requests left and end date.", {}, async () => key ? call("/v1/keys/me") : text("No key. Set UNDERSIGNED_API_KEY or redeem a pass with api_redeem_pass."));
   return true;
 }

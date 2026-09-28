@@ -44,14 +44,31 @@ object Config {
     const val FREE_PER_DAY = 1_000
     /** Free endpoints that list things show this many rows; a pass shows all. */
     const val FREE_ROWS = 20
+    /** Pages and badges: generous, because a badge on a busy site is fetched often (and cached an hour). */
+    const val WEB_PER_MINUTE = 120
+    const val WEB_PER_DAY = 20_000
+    /** Where this server is reached from outside, for links in pages and badge embed snippets. */
+    val PUBLIC_URL: String = (System.getenv("PUBLIC_URL") ?: "http://127.0.0.1:${System.getenv("PORT")?.toIntOrNull() ?: 8797}").trimEnd('/')
     const val FREE_TOP = 10
 
     fun lamports(sol: Double): Long = Math.round(sol * 1_000_000_000.0)
     fun skrRaw(skr: Double): Long = Math.round(skr * 1_000_000.0)
-    val passFloorLamports: Long get() = (LEGACY_PASS_SOL + PASS_SOL).minOf { lamports(it) }
+    /**
+     * Test prices for a local test run (owner, 28 Sep 2026: "one test run for 1 SKR and then 0.0001 SOL"): set
+     * UNDERSIGNED_TEST_PASS_SOL / UNDERSIGNED_TEST_PASS_SKR. Honoured ONLY while the server listens on loopback, so a
+     * server that serves a network always charges the real price; unset them and the real price is back.
+     */
+    private fun testPrice(name: String): Double? = if (HOST == "127.0.0.1" || HOST == "localhost") System.getenv(name)?.toDoubleOrNull()?.takeIf { it > 0 } else null
+    val TEST_SOL: Double? = testPrice("UNDERSIGNED_TEST_PASS_SOL")
+    val TEST_SKR: Double? = testPrice("UNDERSIGNED_TEST_PASS_SKR")
+    val testPrices: Boolean get() = TEST_SOL != null || TEST_SKR != null
+    val passSol: Double get() = TEST_SOL ?: PASS_SOL
+    val passSkr: Double get() = TEST_SKR ?: PASS_SKR
+    val passSkrSgt: Double get() = TEST_SKR ?: PASS_SKR_SGT
+    val passFloorLamports: Long get() = (LEGACY_PASS_SOL + passSol).minOf { lamports(it) }
     /** The full SKR price; the SGT price is accepted only from a wallet that holds a Seeker Genesis Token. */
-    val passFloorSkrRaw: Long get() = (LEGACY_PASS_SKR + PASS_SKR).minOf { skrRaw(it) }
-    val passFloorSkrSgtRaw: Long get() = (LEGACY_PASS_SKR + PASS_SKR_SGT).minOf { skrRaw(it) }
+    val passFloorSkrRaw: Long get() = (LEGACY_PASS_SKR + passSkr).minOf { skrRaw(it) }
+    val passFloorSkrSgtRaw: Long get() = (LEGACY_PASS_SKR + passSkrSgt).minOf { skrRaw(it) }
 
     // ---- Store --------------------------------------------------------------------------------------------------
     const val STORE_GRAPHQL = "https://dappstore.solanamobile.com/graphql"

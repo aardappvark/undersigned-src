@@ -65,12 +65,19 @@ caller's own device is available (install age and usage time exist only as what 
 |---|---|---|
 | Leaderboard by metric: signed score, signed reviews, store rating, store reviews, revenue, paying users, growth this month; overall or per category | `GET /v1/leaderboard?metric=&category=` | F (top 10) / P |
 
-### H. Later (designed, not built in v1)
-- **Transaction builders**: unsigned review / reply / flag / claim transactions (base64) for wallets and agents to sign
-  themselves — the carrier shape in `docs/SPEC.md` §1. Needs a careful abuse review first.
-- **Webhooks**: new review on a followed app, a burst, a certificate change, a publisher reply.
-- **`.skr` names** for wallets (the app's AllDomains lookup needs `getProgramAccounts`; port it with a keyed RPC).
-- **x402** pay-per-call for agents (HTTP 402 with a Solana payment requirement per request), beside the prepaid pass.
+### H. Pages, badges, alerts and web reviewing (built 28–29 Sep 2026)
+| What | Where | Tier |
+|---|---|---|
+| **Badge** for publishers' sites and READMEs: `Undersigned · 4.6 · 12 signed`, cached an hour, links to the dApp's page | `GET /v1/badge/{pkg}.svg` | F |
+| **Public pages** rendered by the server: home and search, one per dApp (both scores, stars, tags, bursts with sparklines, signed reviews with every signal, publisher proof, payments, store facts, badge snippet), one per wallet | `/`, `/app/{pkg}`, `/wallet/{address}` | F (own per-IP budget: 120/min) |
+| **Store watch report**: every store app with a star-rating burst in the last 7 days, strongest first; shows "day N of 8" while snapshots collect | `/watch` (JSON: `/v1/watch`, pass) | F |
+| **Review from a browser**: the server builds the unsigned carrier transaction (same bytes as the app; store's current version recorded), the reader's own wallet signs through the Wallet Standard (extensions, in-wallet browsers, the Seeker's wallet via Mobile Wallet Adapter in Chrome). Terms and a second consent before text; sanctions screen as in the app | `/review`, `POST /v1/tx/review` | F |
+| **`.skr` names** for reviewers and wallets (the app's lookup and its three gates; cached a week, refusals never cached) | inside reviews and `/v1/wallets/{address}` | F |
+| **Publisher proof from the store's own build**: for each claimed app the server downloads the build the store serves, reads `undersigned.publisher` from its manifest and the signing certificate from its v2/v3 signature block; a claim is proven when the build names the wallet and its certificate is the one the store lists | `proof: "store_build"` in `/v1/apps/{pkg}` | F |
+| **Webhooks** for pass holders: review, reply, store_note, burst, version, certificate on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
+| **Checkout without message signing**: a secret whose commitment rides in the payment memo (`UNS:<hash>`); whoever holds the secret redeems | `POST /v1/checkout`, then `POST /v1/keys {signature, secret}` | F |
+
+Still later: x402 pay-per-call, Solana Pay *transaction requests* for reviews (needs a public https host), localised pages.
 
 ## 2. Gating with SOL/SKR
 
@@ -87,6 +94,8 @@ caller's own device is available (install age and usage time exist only as what 
 2. Sign the message `Undersigned API key for <transaction signature>` with the paying wallet (any wallet's "sign
    message"), and `POST /v1/keys` `{signature, message_signature}`. Only the payer can redeem: a copied transaction
    signature is worthless without the payer's signature over it. Each transaction redeems once.
+   Or, without message signing: `POST /v1/checkout` returns a secret and Solana Pay URLs whose memo is `UNS:<commitment>`;
+   pay one, then `POST /v1/keys {signature, secret}`.
 3. Use the returned key as `Authorization: Bearer <key>`. `GET /v1/keys/me` shows requests left and the end date.
 
 The server verifies from balances, never from anything the memo claims: the transaction succeeded, it credited the
@@ -112,7 +121,9 @@ api/run-local.sh                # builds, reads api/.env.local (git-ignored: UND
 UNDERSIGNED_API_URL=http://localhost:8797 node mcp/server.js
 ```
 
-Nothing is deployed. Hosting, a domain and the store-data question (§5) are owner decisions.
+Hosted on this Mac only (owner, 28 Sep 2026): `api/install-local.sh` runs it as a LaunchAgent at http://127.0.0.1:8797, loopback
+only. Test prices for a local test run: `UNDERSIGNED_TEST_PASS_SOL` / `UNDERSIGNED_TEST_PASS_SKR` in `api/.env.local`,
+honoured only while the server listens on loopback. A public host, a domain and the store-data question (§5) are owner decisions.
 
 ## 5. Open questions for the owner
 - **Store data**: the catalogue, details and star counts are the dApp Store's public data. v1 serves them free and

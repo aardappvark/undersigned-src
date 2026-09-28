@@ -88,6 +88,22 @@ class BillingTest {
         assertEquals(p.endsAt + Config.PASS_DAYS * 86_400, topped.endsAt)
     }
 
+    @Test fun `checkout secret redeems its own payment and nothing else`() {
+        val txs = mutableMapOf<String, TxInfo>()
+        val b = Billing(tempDb(), { txs[it] }, { false })
+        val c = b.checkout()
+        assertTrue(c.memo.startsWith("UNS:") && c.memo.length == 4 + 32)
+        txs[sig('a')] = tx(sig('a'), memo = c.memo)
+        assertEquals(403, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000, secret = b.checkout().secret) }.status)   // another secret
+        assertEquals(400, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000) }.status)                                   // no proof at all
+        val p = b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret)
+        assertEquals(payer.address, p.wallet)
+        assertEquals(409, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret) }.status)
+        // A plain "UNS" payment has no commitment: a secret cannot redeem it, only the payer's signature can.
+        txs[sig('b')] = tx(sig('b'))
+        assertEquals(403, assertFailsWith<Billing.Refused> { b.redeem(sig('b'), null, now = 1_000_000, secret = c.secret) }.status)
+    }
+
     @Test fun `a pass is spent one request at a time and stops at zero or its end`() {
         val db = tempDb(); val b = Billing(db, { null }, { false })
         db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('k', 'w', 2, 2000, 0)")

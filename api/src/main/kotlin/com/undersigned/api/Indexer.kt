@@ -47,6 +47,8 @@ class State(
     val catalogue: List<CatalogueApp>,
     val details: Map<String, StoreDetails>,
     val builtAt: Long,
+    /** (package, wallet) → "store_build" or "website": how each verified claim was proven. */
+    val proofHow: Map<Pair<String, String>, String> = emptyMap(),
 ) {
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
@@ -70,6 +72,7 @@ class State(
 }
 
 class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val store: Store = Store()) {
+    val names = Names(db, rpc)
     @Volatile var state: State = State.EMPTY; private set
     @Volatile var lastLedgerSync: Long = 0L; private set
     @Volatile var lastStoreSync: Long = 0L; private set
@@ -166,19 +169,73 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
     }
 
     /** Website-proven claims (the API cannot see an installed APK), expanded to every app listing the same proof file. */
-    private fun verifyClaims(entries: List<LedgerEntry>, details: Map<String, StoreDetails>): Pair<Map<String, Set<String>>, Map<Pair<String, String>, Long>> {
-        val out = HashMap<String, MutableSet<String>>(); val since = HashMap<Pair<String, String>, Long>()
+    /**
+     * Proven claims, strongest first: (1) the store's own current build names the wallet and is signed by the certificate
+     * the store lists (read from the APK the store serves; see Apk); (2) the store-listed website's proof file, expanded to
+     * every app listing the same file. [how] says which, per (package, wallet).
+     */
+    private fun verifyClaims(entries: List<LedgerEntry>, details: Map<String, StoreDetails>): Triple<Map<String, Set<String>>, Map<Pair<String, String>, Long>, Map<Pair<String, String>, String>> {
+        val out = HashMap<String, MutableSet<String>>(); val since = HashMap<Pair<String, String>, Long>(); val how = HashMap<Pair<String, String>, String>()
         for (c in entries.filter { it.memo is ReviewMemo.Claim }) {
             val pkg = (c.memo as ReviewMemo.Claim).packageName
+            val d = details[pkg]
+            val build = d?.let { apkFacts(pkg, it.versionCode) }
+            if (build != null && c.signer in build.declared && d.certFingerprint != null && d.certFingerprint in build.certSha256) {
+                out.getOrPut(pkg) { HashSet() }.add(c.signer); how[pkg to c.signer] = "store_build"; continue
+            }
             val url = details[pkg]?.website?.let { PublisherProof.wellKnownUrl(it) } ?: continue
             val body = proofBody(url) ?: continue
             if (body.lines().none { it.trim() == c.signer }) continue
-            out.getOrPut(pkg) { HashSet() }.add(c.signer)
+            out.getOrPut(pkg) { HashSet() }.add(c.signer); how[pkg to c.signer] = "website"
             db.exec("INSERT OR IGNORE INTO proofs (url, wallet, first_seen) VALUES (?, ?, ?)", url, c.signer, System.currentTimeMillis() / 1000)
             db.query("SELECT first_seen FROM proofs WHERE url = ? AND wallet = ?", url, c.signer) { it.getLong(1) }.firstOrNull()?.let { since[pkg to c.signer] = it }
         }
         val reviewed = entries.mapNotNull { (it.memo as? ReviewMemo.Review)?.packageName }.toSet()
-        return PublisherProof.expandToSameProof(out, reviewed) { details[it]?.website } to since
+        return Triple(PublisherProof.expandToSameProof(out, reviewed) { details[it]?.website }, since, how)
+    }
+
+    /**
+     * Claimed apps whose current store build has not been read: fetch their details (one store request each) and read the
+     * build. Each app is tried at most every 6 hours, so a new claim is checked within minutes, not at tomorrow's crawl.
+     */
+    fun syncClaimedBuilds(): Int {
+        val (entries, _) = loadEntries()
+        val claimed = entries.mapNotNull { (it.memo as? ReviewMemo.Claim)?.packageName }.toSet()
+        var read = 0
+        for (pkg in claimed) {
+            val known = loadDetails()[pkg]
+            if (known != null && apkFacts(pkg, known.versionCode) != null) continue
+            val key = "build_tried:$pkg"
+            if (System.currentTimeMillis() - (db.get(key)?.toLongOrNull() ?: 0L) < 6 * 3600_000L) continue
+            db.put(key, System.currentTimeMillis().toString())
+            val d = store.details(pkg) ?: continue
+            db.exec("INSERT OR REPLACE INTO details (pkg, version, cert, publisher, website, email, notes, at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", pkg, d.versionCode, d.certFingerprint, d.publisherName, d.website, d.supportEmail, d.newInVersion, System.currentTimeMillis())
+            readStoreBuild(pkg, d); read++
+        }
+        return read
+    }
+
+    /** What one store build says, once read: cached per (package, versionCode). Null when not read yet. */
+    fun apkFacts(pkg: String, version: Long): Apk.Facts? = db.query("SELECT cert, declared FROM apk_proofs WHERE pkg = ? AND version = ?", pkg, version) { rs ->
+        Apk.Facts(rs.getString(2).split(',').filter { it.isNotEmpty() }.toSet(), rs.getString(1).split(',').filter { it.isNotEmpty() }.toSet()) }.firstOrNull()
+
+    /** Downloads and reads a claimed app's current store build, once per version. Paced; at most 300 MB. */
+    private fun readStoreBuild(pkg: String, d: StoreDetails) {
+        val uri = d.apkUri ?: return
+        if (apkFacts(pkg, d.versionCode) != null) return
+        val tmp = java.io.File.createTempFile("undersigned-", ".apk")
+        try {
+            val c = URL(uri).openConnection() as HttpURLConnection
+            try {
+                c.connectTimeout = 10000; c.readTimeout = 60000; c.setRequestProperty("User-Agent", "Undersigned-API/1.0")
+                if (c.responseCode != 200) { log("store build $pkg: HTTP ${c.responseCode}"); return }
+                c.inputStream.use { inp -> tmp.outputStream().use { out -> val buf = ByteArray(1 shl 16); var total = 0L
+                    while (true) { val n = inp.read(buf); if (n < 0) break; total += n; if (total > 300L * 1024 * 1024) { log("store build $pkg: over 300 MB, skipped"); return }; out.write(buf, 0, n) } } }
+            } finally { c.disconnect() }
+            val f = Apk.read(tmp)
+            db.exec("INSERT OR REPLACE INTO apk_proofs (pkg, version, cert, declared, at) VALUES (?, ?, ?, ?, ?)", pkg, d.versionCode, f.certSha256.joinToString(","), f.declared.joinToString(","), System.currentTimeMillis() / 1000)
+            log("store build $pkg v${d.versionCode}: ${f.declared.size} declared wallet(s), cert ${if (d.certFingerprint in f.certSha256) "matches" else "DOES NOT match"} the store")
+        } catch (e: Exception) { log("store build $pkg: ${e.message?.take(80)}") } finally { tmp.delete() }
     }
 
     // ---- The store ------------------------------------------------------------------------------------------------
@@ -216,6 +273,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
                 if (o.certFingerprint != null && d.certFingerprint != null && o.certFingerprint != d.certFingerprint) db.exec("INSERT INTO changes (pkg, at, kind, old, new) VALUES (?, ?, 'certificate', ?, ?)", pkg, now / 1000, o.certFingerprint, d.certFingerprint)
             }
             db.exec("INSERT OR REPLACE INTO details (pkg, version, cert, publisher, website, email, notes, at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", pkg, d.versionCode, d.certFingerprint, d.publisherName, d.website, d.supportEmail, d.newInVersion, now)
+            if (entries.any { (it.memo as? ReviewMemo.Claim)?.packageName == pkg }) { readStoreBuild(pkg, d); Thread.sleep(Config.STORE_PACE_MS) }
         }
         db.put("store_synced", now.toString())
         lastStoreSync = now
@@ -231,16 +289,25 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
 
     fun ratingPackages(): List<String> = db.query("SELECT DISTINCT pkg FROM ratings") { it.getString(1) }
 
+    /** Days on which the store-wide snapshot ran, oldest first (Store watch needs 8). */
+    fun snapshotDays(): List<String> = db.query("SELECT DISTINCT day FROM ratings ORDER BY day") { it.getString(1) }
+
     // ---- Rebuild ----------------------------------------------------------------------------------------------------
 
     /** Recomputes [state] from the database: facts for every signer, claims, scores. */
+    /** Called after each rebuild with the records the previous state did not have (none on the very first build). */
+    @Volatile var onRebuilt: ((List<LedgerEntry>) -> Unit)? = null
+
     fun rebuild() {
+        val before = state
         val (entries, meta) = loadEntries()
         val signers = entries.map { it.signer }.distinct()
         val facts = signers.associateWith { facts(it) }
+        signers.forEach { runCatching { names.resolve(it) } }   // cached a week; only new signers cost a lookup
         val details = loadDetails()
-        val (verified, since) = verifyClaims(entries, details)
-        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis())
+        val (verified, since, how) = verifyClaims(entries, details)
+        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how)
+        if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 
     /** The background loop: ledger every 5 minutes, the store once a day. Errors are logged and retried next round. */
@@ -250,6 +317,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
                 runCatching { val n = syncLedger(); if (n > 0 || state.builtAt == 0L) log("ledger: +$n records") }.onFailure { log("ledger sync failed: ${it.message?.take(100)}") }
                 // Serve the new records at once; the daily store crawl takes minutes and must not hold them back.
                 runCatching { rebuild() }.onFailure { log("rebuild failed: ${it.message?.take(100)}") }
+                runCatching { if (syncClaimedBuilds() > 0) rebuild() }.onFailure { log("store builds failed: ${it.message?.take(100)}") }
                 val before = lastStoreSync
                 runCatching { syncStore() }.onFailure { log("store sync failed: ${it.message?.take(100)}") }
                 if (lastStoreSync != before) runCatching { rebuild(); log("store: ${state.catalogue.size} apps, ${state.details.size} details") }.onFailure { log("rebuild failed: ${it.message?.take(100)}") }

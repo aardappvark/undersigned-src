@@ -6,7 +6,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 data class CatalogueApp(val packageName: String, val name: String, val updated: String, val category: String?)
-data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?, val newInVersion: String?)
+/** [apkUri]: the store's public download of its current build (read for the publisher proof, never redistributed). */
+data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?, val newInVersion: String?, val apkUri: String? = null)
 
 /**
  * READ-ONLY client for the dApp Store's public GraphQL, through the same operations the store app issues (ports of the
@@ -52,7 +53,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
             .optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return null
         val ad = rel.optJSONObject("androidDetails"); val pd = rel.optJSONObject("publisherDetails")
         StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.str("certFingerprint")?.lowercase()?.filter { it in "0123456789abcdef" },
-            pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"), rel.str("newInVersion"))
+            pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"), rel.str("newInVersion"), rel.optJSONObject("installFile")?.str("uri")?.takeIf { it.startsWith("https://") })
     }.onFailure { log("details $pkg failed: ${it.message?.take(80)}") }.getOrNull()
 
     /** Star counts (1★..5★) for up to 20 packages; larger batches come back silently partial. Null on failure. */
@@ -89,7 +90,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
         private val EXCLUDED = listOf("com.google.", "com.android.", "com.mediatek.", "com.samsung.", "com.qualcomm.", "com.sec.", "com.friendly.", "org.chromium.")
         private const val Q_CATEGORIES = "query TopCategories(\$systemContext: SystemContext!) { topCategories(systemContext: \$systemContext, first: 20) { edges { node { id name } } } }"
         private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } } } } pageInfo { hasNextPage endCursor } } } }"
-        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
+        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion installFile { uri size } androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
         private const val Q_BATCH = "query DAppsByPackagesSummary(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage rating { rating reviewsByRating } } }"
     }
 }

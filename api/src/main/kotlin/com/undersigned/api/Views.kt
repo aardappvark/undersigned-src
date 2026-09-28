@@ -175,7 +175,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         o.put("publisher", JSONObject()
             .put("claims", JSONArray(st.entries.filter { (it.memo as? ReviewMemo.Claim)?.packageName == pkg }.map { c -> JSONObject().put("wallet", c.signer).put("time", c.blockTime)
-                .put("verified", c.signer in vp).put("proof", if (c.signer in vp) "website" else JSONObject.NULL).put("proof_first_seen", st.proofSince[pkg to c.signer] ?: JSONObject.NULL) }))
+                .put("verified", c.signer in vp).put("proof", if (c.signer in vp) st.proofHow[pkg to c.signer] ?: "same_website" else JSONObject.NULL).put("proof_first_seen", st.proofSince[pkg to c.signer] ?: JSONObject.NULL) }))
             .put("verified_wallets", JSONArray(vp.toList()))
             .put("responsiveness", Reputation.responsiveness(st.entries, pkg, vp).let { r -> JSONObject().put("answered", r.answered).put("total", r.total).put("median_hours", r.medianHours?.let(::r2) ?: JSONObject.NULL) })
             .put("store_notes", JSONArray(st.notes.filter { it.key.first == pkg }.values.map { n -> val m = n.memo as ReviewMemo.StoreNote
@@ -195,7 +195,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e).put("reviewer", JSONObject().put("wallet", e.signer).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
+            record(e).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
                     .put("credibility", st.standings[e.signer]?.credibility ?: JSONObject.NULL))
                 .put("counted", f.hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
@@ -245,6 +245,30 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     fun storeRatings(pkg: String): JSONObject = JSONObject().put("package", pkg).put("snapshots", JSONArray(indexer.snapshots(pkg).map {
         JSONObject().put("day", java.time.Instant.ofEpochSecond(it.time).toString().take(10)).put("stars", JSONArray(it.byStar)) }))
 
+    /**
+     * The weekly Store watch report: every store app whose star counts jumped in the last [days], strongest first, each
+     * with its 30-day daily series. Before 8 days of snapshots exist it says how far collection has got instead.
+     */
+    fun watchReport(days: Int = 7): JSONObject {
+        val snapDays = indexer.snapshotDays()
+        val need = ReviewBursts.MIN_SNAPSHOT_DAYS.toInt() + 1
+        val o = JSONObject().put("days", days).put("snapshot_days", snapDays.size).put("needed", need)
+            .put("first_day", snapDays.firstOrNull() ?: JSONObject.NULL).put("last_day", snapDays.lastOrNull() ?: JSONObject.NULL)
+            .put("apps_read", indexer.ratingPackages().size)
+        if (snapDays.size < need) return o.put("ready", false).put("hits", JSONArray())
+        val fresh = System.currentTimeMillis() / 1000 - days * ReviewBursts.DAY
+        val hits = indexer.ratingPackages().flatMap { pkg ->
+            val pts = RatingSnapshots.toPoints(indexer.snapshots(pkg))
+            ReviewBursts.find(pts, ReviewBursts.MIN_SNAPSHOT_DAYS).bursts.filter { it.end >= fresh }.map { Triple(pkg, it, pts) }
+        }.sortedByDescending { it.second.intensity }
+        return o.put("ready", true).put("hits", JSONArray(hits.map { (pkg, b, pts) ->
+            val sp = BurstSpark.of(pts, b)
+            JSONObject().put("package", pkg).put("name", s.byPackage[pkg]?.name ?: pkg).put("category", s.byPackage[pkg]?.category ?: JSONObject.NULL)
+                .put("kind", b.kind.name.lowercase()).put("start", b.start).put("end", b.end).put("count", b.count).put("expected", r2(b.expected)).put("multiple", r2(BurstSpark.multiple(b)))
+                .put("spark", JSONObject().put("daily_counts", JSONArray(sp.counts)).put("burst_from", sp.from).put("burst_to", sp.to))
+        }))
+    }
+
     fun watch(days: Int): JSONObject {
         val fresh = System.currentTimeMillis() / 1000 - days * ReviewBursts.DAY
         val hits = indexer.ratingPackages().flatMap { pkg ->
@@ -266,7 +290,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val st = s; val f = st.facts[addr] ?: indexer.facts(addr); val stand = st.standings[addr]
         val mine = st.entries.filter { it.signer == addr }
         val reviews = mine.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
-        val o = JSONObject().put("wallet", addr).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
+        val o = JSONObject().put("wallet", addr).put("skr_name", (indexer.names.cached(addr) ?: runCatching { indexer.names.resolve(addr) }.getOrNull())?.ifEmpty { null } ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
             .put("standing", stand?.let { JSONObject().put("credibility", it.credibility).put("counted_reviews", it.countedReviews).put("withdrawn", it.withdrawn)
                 .put("flags_given", it.flagsGiven).put("flags_upheld", it.flagsUpheld).put("flags_received", it.flagsReceived).put("records_hidden", it.recordsHidden)
                 .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen) } ?: JSONObject.NULL)

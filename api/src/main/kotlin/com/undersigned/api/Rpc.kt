@@ -105,6 +105,15 @@ class Rpc(private val endpoints: List<String> = Config.RPC) {
         return (0 until arr.length()).mapNotNull { i -> arr.optJSONObject(i)?.optJSONObject("account")?.optJSONArray("data")?.optString(0)?.let { Base64.getDecoder().decode(it) } }
     }
 
+    fun latestBlockhash(): String = call("getLatestBlockhash", JSONArray().put(JSONObject().put("commitment", "confirmed"))).getJSONObject("result").getJSONObject("value").getString("blockhash")
+
+    /** Pubkeys of [program]'s accounts matching [filters] (getProgramAccounts, data sliced away). */
+    fun programAccountKeys(program: String, filters: JSONArray): List<String> {
+        val arr = call("getProgramAccounts", JSONArray().put(program).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed").put("filters", filters)
+            .put("dataSlice", JSONObject().put("offset", 0).put("length", 0)))).optJSONArray("result") ?: JSONArray()
+        return (0 until arr.length()).mapNotNull { arr.optJSONObject(it)?.optString("pubkey")?.takeIf { k -> k.isNotEmpty() } }
+    }
+
     private fun call(method: String, params: JSONArray): JSONObject {
         val body = JSONObject().put("jsonrpc", "2.0").put("id", 1).put("method", method).put("params", params).toString()
         var last: Exception? = null
