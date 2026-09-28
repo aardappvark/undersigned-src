@@ -11,6 +11,7 @@ import fs from "node:fs";
 import { execFile } from "node:child_process";
 import WebSocket from "ws";
 import * as L from "./ledger.js";
+import { registerApiTools } from "./api.js";
 
 const STORE = "https://dappstore.solanamobile.com/graphql";
 const SC = { locale: "en-US", platformSdk: 35, pixelDensity: 420, model: "Seeker" };
@@ -141,6 +142,9 @@ function startWatch() {
   connect();
 }
 startWatch();
+
+// The hosted index (docs/API.md), when configured: scores, bursts, watch, payments, rankings, without a local sync.
+registerApiTools(server);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

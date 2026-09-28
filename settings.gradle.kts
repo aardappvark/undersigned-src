@@ -10,4 +10,4 @@ dependencyResolutionManagement {
     repositories { google(); mavenCentral(); maven("https://jitpack.io") }
 }
 rootProject.name = "Undersigned"
-include(":protocol", ":app")
+include(":protocol", ":app", ":api")

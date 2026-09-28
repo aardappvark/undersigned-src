@@ -7,3 +7,6 @@ undersigned-legal/
 mcp/node_modules/
 Handoff 1.zip
 .DS_Store
+api/.env.local
+api/data/
+Handoff 2.zip

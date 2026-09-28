@@ -1,0 +1,112 @@
+package com.undersigned.api
+
+import java.security.KeyFactory
+import java.security.SecureRandom
+import java.security.Signature
+import java.security.spec.X509EncodedKeySpec
+import java.util.Base64
+import java.util.concurrent.ConcurrentHashMap
+
+/**
+ * API passes bought with SOL or SKR (docs/API.md §2). A pass is a key with a request allowance and an end date. It is
+ * redeemed from one on-chain payment, and only by the wallet that paid: a copied transaction signature is useless without
+ * the payer's signature over it. Each transaction redeems once.
+ */
+class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private val holdsGenesis: (String) -> Boolean) {
+
+    data class Pass(val key: String, val wallet: String, val requestsLeft: Long, val endsAt: Long)
+    class Refused(val status: Int, message: String) : Exception(message)
+
+    fun message(txSignature: String) = "Undersigned API key for $txSignature"
+
+    /** Verifies the payment and the payer's signature, then creates the wallet's pass or tops it up. */
+    fun redeem(txSignature: String, messageSignature: String, now: Long = System.currentTimeMillis() / 1000): Pass {
+        if (!Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}$").matches(txSignature)) throw Refused(400, "signature must be a base58 transaction signature")
+        db.query("SELECT key FROM redeemed WHERE sig = ?", txSignature) { it.getString(1) }.firstOrNull()?.let { throw Refused(409, "this payment has already been redeemed") }
+        val tx = txOf(txSignature) ?: throw Refused(404, "transaction not found yet; try again once it is confirmed")
+        if (!tx.ok) throw Refused(402, "the transaction failed on-chain, so nothing was paid")
+        if (Config.API_REFERENCE !in tx.accountKeys) throw Refused(402, "the payment does not carry the API reference account ${Config.API_REFERENCE}")
+        if (tx.memos.none { it.trim() == Config.PAYMENT_MEMO }) throw Refused(402, "the payment does not carry the memo ${Config.PAYMENT_MEMO}")
+        if (!verifySignature(tx.feePayer, message(txSignature), messageSignature)) throw Refused(403, "the message signature is not the paying wallet's (sign \"${message(txSignature)}\" with ${tx.feePayer})")
+        val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
+        val (rail, amount) = when {
+            tx.lamportsIn >= Config.passFloorLamports -> "SOL" to tx.lamportsIn
+            skr >= Config.passFloorSkrRaw -> "SKR" to skr
+            skr >= Config.passFloorSkrSgtRaw && holdsGenesis(tx.feePayer) -> "SKR" to skr
+            else -> throw Refused(402, "the payment credited the treasury ${tx.lamportsIn} lamports and $skr raw SKR, below the pass price")
+        }
+        return db.tx {
+            val current = passOf(tx.feePayer, now)
+            val pass = if (current != null) {
+                val p = current.copy(requestsLeft = current.requestsLeft + Config.PASS_REQUESTS, endsAt = maxOf(now, current.endsAt) + Config.PASS_DAYS * 86_400)
+                db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", p.requestsLeft, p.endsAt, p.key); p
+            } else {
+                val p = Pass(newKey(), tx.feePayer, Config.PASS_REQUESTS, now + Config.PASS_DAYS * 86_400)
+                db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, ?, ?, ?, ?)", p.key, p.wallet, p.requestsLeft, p.endsAt, now); p
+            }
+            db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, pass.key, tx.feePayer, rail, amount, now)
+            pass
+        }
+    }
+
+    /** The wallet's live pass (requests left, not ended), if any. */
+    fun passOf(wallet: String, now: Long = System.currentTimeMillis() / 1000): Pass? =
+        db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND ends_at > ? AND requests_left > 0 ORDER BY ends_at DESC LIMIT 1", wallet, now) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+
+    fun pass(key: String): Pass? = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE key = ?", key) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+
+    /** Spends one request. False when the key is unknown, ended or used up (the caller answers 402). */
+    fun consume(key: String, now: Long = System.currentTimeMillis() / 1000): Boolean =
+        db.exec("UPDATE passes SET requests_left = requests_left - 1 WHERE key = ? AND requests_left > 0 AND ends_at > ?", key, now) == 1
+
+    private fun newKey(): String = "us_" + Base58.encode(ByteArray(24).also { SecureRandom().nextBytes(it) })
+
+    companion object {
+        private val X509_ED25519 = byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00)
+
+        /**
+         * Ed25519 check of [message] by [wallet]. Accepts what wallets produce: the raw UTF-8 message (Phantom, Solflare,
+         * Seed Vault "sign message") or the Solana off-chain message v0 envelope (`solana sign-offchain-message`). The
+         * signature may be base58, base64 or hex.
+         */
+        fun verifySignature(wallet: String, message: String, signature: String): Boolean {
+            val pub = runCatching { Base58.decode(wallet) }.getOrNull()?.takeIf { it.size == 32 } ?: return false
+            val sig = decode64Bytes(signature.trim()) ?: return false
+            val key = runCatching { KeyFactory.getInstance("Ed25519").generatePublic(X509EncodedKeySpec(X509_ED25519 + pub)) }.getOrNull() ?: return false
+            val raw = message.toByteArray(Charsets.UTF_8)
+            return listOf(raw, offchainV0(raw)).any { m -> runCatching { Signature.getInstance("Ed25519").run { initVerify(key); update(m); verify(sig) } }.getOrDefault(false) }
+        }
+
+        /** "\xffsolana offchain" · version 0 · format (0 = restricted ASCII, 1 = UTF-8) · u16 LE length · message. */
+        fun offchainV0(message: ByteArray): ByteArray {
+            val ascii = message.all { it in 0x20..0x7e }
+            val header = byteArrayOf(0xff.toByte()) + "solana offchain".toByteArray() + byteArrayOf(0, if (ascii) 0 else 1, (message.size and 0xff).toByte(), (message.size shr 8 and 0xff).toByte())
+            return header + message
+        }
+
+        private fun decode64Bytes(s: String): ByteArray? {
+            runCatching { Base58.decode(s) }.getOrNull()?.takeIf { it.size == 64 }?.let { return it }
+            runCatching { Base64.getDecoder().decode(s) }.getOrNull()?.takeIf { it.size == 64 }?.let { return it }
+            if (s.length == 128 && s.all { it in "0123456789abcdefABCDEF" }) return s.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+            return null
+        }
+    }
+}
+
+/** Per-caller request budgets: a minute window for everyone, a day window for the free tier. In memory; a restart forgives. */
+class RateLimiter(private val clock: () -> Long = { System.currentTimeMillis() }) {
+    private val minute = ConcurrentHashMap<String, Pair<Long, Int>>()
+    private val day = ConcurrentHashMap<String, Pair<Long, Int>>()
+
+    /** Null when allowed, else the window that ran out ("minute" or "day"). */
+    fun take(caller: String, perMinute: Int, perDay: Int?): String? {
+        val now = clock()
+        val m = minute.compute(caller) { _, v -> if (v == null || now - v.first >= 60_000) now to 1 else v.first to v.second + 1 }!!
+        if (m.second > perMinute) return "minute"
+        if (perDay != null) {
+            val d = day.compute(caller) { _, v -> if (v == null || now - v.first >= 86_400_000) now to 1 else v.first to v.second + 1 }!!
+            if (d.second > perDay) return "day"
+        }
+        return null
+    }
+}
