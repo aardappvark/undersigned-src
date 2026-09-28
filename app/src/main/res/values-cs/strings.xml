@@ -621,4 +621,126 @@
     <string name="pay_bad_input">Zkontrolujte název balíčku a kód (kód memo o 2–31 písmenech, číslicích, - nebo _, nebo adresu referenčního účtu).</string>
     <string name="pay_open">Přehled plateb</string>
     <string name="pay_waiting_list">Uvedeno pokladnou, zatím nepotvrzeno webem: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Další akce</string>
+    <string name="burst_ratings_none">Žádné vlny hodnocení.</string>
+    <string name="pay_label_signing">Podepisující peněženka</string>
+    <string name="lb_title">Žebříček</string>
+    <string name="lb_open">Žebříček</string>
+    <string name="lb_overall">Celkově</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Příjmy</string>
+    <string name="lb_m_payers">Platící uživatelé</string>
+    <string name="lb_m_signed_score">Podepsané skóre</string>
+    <string name="lb_m_signed_reviews">Podepsané recenze</string>
+    <string name="lb_m_store_rating">Hodnocení obchodu</string>
+    <string name="lb_m_store_reviews">Recenze v obchodě</string>
+    <string name="lb_m_growth">Růst tento měsíc</string>
+    <string name="lb_note_revenue">Jen potvrzené pokladny, seřazené podle USD v den každé platby. Nepotvrzené částky jsou zobrazeny níže, bez zařazení do žebříčku.</string>
+    <string name="lb_note_growth">Platby tohoto měsíce oproti minulému, jen potvrzené pokladny.</string>
+    <string name="lb_note_score">Seřazeno podle hodnotícího skóre — staženého směrem k 3,0, dokud nepodepíše víc Seekerů, takže jediné 5★ nemůže být na vrcholu žebříčku. Minimálně 2 podepsané recenze.</string>
+    <string name="lb_note_signed">Počítané podepsané recenze: jedna na Seekera, stažené se nepočítají.</string>
+    <string name="lb_note_store">Vlastní počty dApp Store, přečteno %1$s. Hodnocení v obchodě vyžaduje alespoň 5 recenzí.</string>
+    <string name="lb_note_store_unread">Vlastní počty dApp Store. Hodnocení v obchodě vyžaduje alespoň 5 recenzí.</string>
+    <string name="lb_store_reading">Čtení počtů obchodu: %1$s</string>
+    <string name="lb_empty">Zatím tu není co řadit.</string>
+    <string name="lb_unconfirmed_title">Zatím nepotvrzeno · bez zařazení</string>
+    <string name="lb_unconfirmed_body">Uvedeno pokladnou, čeká se na řádek na webu vydavatele.</string>
+    <plurals name="lb_thin"><item quantity="one">Ještě %1$d další dApp zde má méně než 2 podepsané recenze a není zařazena do žebříčku.</item><item quantity="few">Ještě %1$d další dApps zde mají méně než 2 podepsané recenze a nejsou zařazeny do žebříčku.</item><item quantity="many">Ještě %1$d dalších dApps zde má méně než 2 podepsané recenze a není zařazeno do žebříčku.</item><item quantity="other">Ještě %1$d dalších dApps zde má méně než 2 podepsané recenze a není zařazeno do žebříčku.</item></plurals>
+    <string name="lb_downloads_title">Stažení</string>
+    <string name="lb_downloads_body">dApp Store nezveřejňuje počty instalací, takže žebříček stažení neexistuje. Objeví se zde, pokud bude přidán zdroj.</string>
+    <string name="lb_signed_n">Podepsané recenze: %1$d</string>
+    <string name="dd_revenue">Příjmy</string>
+    <string name="dd_signed">Podepsáno</string>
+    <string name="dd_store">Obchod</string>
+    <string name="dd_updates">Aktualizace</string>
+    <string name="dd_updates_none">Na tomto telefonu zatím nebyly zaznamenány žádné aktualizace. Poslední aktualizace v obchodě: %1$s</string>
+    <string name="dd_same_cert">Stejný podpisový certifikát</string>
+    <string name="dd_cert_changed">Certifikát SE ZMĚNIL</string>
+    <string name="dd_perm_added">Přidáno oprávnění: %1$s</string>
+    <string name="dd_perm_removed">Odebráno oprávnění: %1$s</string>
+    <string name="dd_perms_same">Oprávnění beze změny</string>
+    <string name="dd_signed_since">Podepsáno od: %1$d</string>
+    <string name="dd_worth">Stojí za zmínku</string>
+    <string name="dd_no_bursts">Žádné vlny recenzí od %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d vlna recenzí</item><item quantity="few">%1$d vlny recenzí</item><item quantity="many">%1$d vlny recenzí</item><item quantity="other">%1$d vln recenzí</item></plurals>
+    <string name="dd_treasury_confirmed">Pokladna potvrzená webem</string>
+    <string name="dd_treasury_none">Žádná potvrzená pokladna</string>
+    <string name="dd_last_update">Poslední aktualizace v obchodě: %1$s</string>
+    <string name="dd_open">Otevřít celou stránku dApp</string>
+    <string name="tr_title">Trendy</string>
+    <string name="tr_30d">30D</string>
+    <string name="tr_90d">90D</string>
+    <string name="tr_1y">1R</string>
+    <string name="tr_all">Vše</string>
+    <string name="tr_revenue">Příjmy</string>
+    <string name="tr_score">Skóre v čase</string>
+    <string name="tr_signed">Podepsáno</string>
+    <string name="tr_store">Obchod</string>
+    <string name="tr_reviews_week">Podepsané recenze za týden</string>
+    <string name="tr_payers">Platící uživatelé</string>
+    <string name="tr_no_bursts">Žádné vlny</string>
+    <string name="tr_no_data">Zatím nedostatek dat.</string>
+    <string name="tr_sum_revenue">%1$s v tomto rozsahu · Platby: %2$d</string>
+    <string name="tr_sum_score">Podepsáno: %1$s · Obchod: %2$s nyní</string>
+    <string name="tr_gap_wider">rozdíl se zvětšil</string>
+    <string name="tr_gap_narrower">rozdíl se zmenšil</string>
+    <string name="tr_gap_same">rozdíl zůstal stejný</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d podepsaná recenze v tomto rozsahu</item><item quantity="few">%1$d podepsané recenze v tomto rozsahu</item><item quantity="many">%1$d podepsané recenze v tomto rozsahu</item><item quantity="other">%1$d podepsaných recenzí v tomto rozsahu</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d platící uživatel v tomto rozsahu</item><item quantity="few">%1$d platící uživatelé v tomto rozsahu</item><item quantity="many">%1$d platícího uživatele v tomto rozsahu</item><item quantity="other">%1$d platících uživatelů v tomto rozsahu</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d den</item><item quantity="few">%1$d dny</item><item quantity="many">%1$d dne</item><item quantity="other">%1$d dní</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">den %1$d</item><item quantity="few">den %1$d</item><item quantity="many">den %1$d</item><item quantity="other">den %1$d</item></plurals>
+    <string name="pay_listing_note">Záznam v seznamu je podepsaný. Jeho pozdější stažení ponechá záznam na blockchainu.</string>
+    <string name="burst_kind_high">Pětihvězdičkové recenze</string>
+    <string name="burst_kind_low">Jednohvězdičkové recenze</string>
+    <string name="burst_kind_high_ratings">Pětihvězdičková hodnocení</string>
+    <string name="burst_kind_low_ratings">Jednohvězdičková hodnocení</string>
+    <string name="burst_times">×%1$s obvyklého tempa</string>
+    <string name="burst_pace">Obvyklé tempo: asi %1$s za 3 dny</string>
+    <string name="store_reply_source">z dApp Store</string>
+    <string name="note_signed_label">PODEPSÁNO NA BLOCKCHAINU</string>
+    <string name="permanent_title">Trvalé</string>
+    <string name="use_card_title">Váš telefon přidává</string>
+    <string name="use_row_label">Čas na tomto telefonu</string>
+    <string name="time_row_label">Doba používání</string>
+    <string name="use_card_hint">Zpráva vašeho telefonu, zaokrouhlená — není důkazem. Cokoli je zapnuto, se trvale zaznamená spolu s recenzí.</string>
+    <string name="scan_notif_title">Upozornit na dokončení kontroly</string>
+    <string name="scan_notif_body">Kontrola běží na pozadí (asi 6 min). Povolte oznámení, abyste věděli, až bude hotová.</string>
+    <string name="scan_notif_note">Bez nich stále proběhne; výsledky se zde zobrazí, až se vrátíte.</string>
+    <string name="scan_notif_allow">Povolit oznámení</string>
+    <string name="scan_notif_skip">Skenovat bez oznámení</string>
+    <string name="pay_label_payments">Platby</string>
+    <string name="pay_label_payers">Plátci</string>
+    <string name="pay_label_attested">S ověřeným zařízením</string>
+    <string name="pay_label_attested_short">Ověřeno</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">První</string>
+    <string name="pay_label_latest">Poslední</string>
+    <string name="pay_order">Seřazeno podle přijatých plateb</string>
+    <string name="pay_tools">Pro vydavatele</string>
+    <string name="pay_preview_badge">Náhled · neuvedeno</string>
+    <string name="pay_step_line">Přidat řádek</string>
+    <string name="pay_step_sign">Podepsat</string>
+    <string name="pay_copy">Kopírovat</string>
+    <string name="pay_copied">Zkopírováno</string>
+    <string name="pay_line_found">Řádek na webu nalezen</string>
+    <string name="pay_checked">Zkontrolováno: %1$s</string>
+    <string name="pay_check_again">Zkontrolovat znovu</string>
+    <string name="pay_continue">Pokračovat na krok 2</string>
+    <string name="pay_sign_early">Můžete podepsat ještě předtím, než je řádek nalezen; uvedení na seznamu na něj počká.</string>
+    <string name="pay_wallet_matches">odpovídá</string>
+    <string name="pay_open_board">Otevřít v přehledu</string>
+    <string name="pay_show_line">Zobrazit řádek</string>
+    <string name="watch_label_requests">Požadavků za den</string>
+    <string name="watch_label_kept">Zachováno</string>
+    <string name="watch_label_first">První výsledky</string>
+    <string name="watch_label_last">Naposledy přečteno</string>
+    <string name="watch_label_apps">Aplikace</string>
+    <string name="watch_label_since">Sledování od</string>
+    <plurals name="watch_days_of"><item quantity="one">z %1$d dne</item><item quantity="few">z %1$d dní</item><item quantity="many">z %1$d dní</item><item quantity="other">z %1$d dne</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d pětihvězdičkové</item><item quantity="few">%1$d pětihvězdičkové</item><item quantity="many">%1$d pětihvězdičkové</item><item quantity="other">%1$d pětihvězdičkových</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d jednohvězdičkové</item><item quantity="few">%1$d jednohvězdičkové</item><item quantity="many">%1$d jednohvězdičkové</item><item quantity="other">%1$d jednohvězdičkových</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d krok</item><item quantity="few">%1$d kroky</item><item quantity="many">%1$d kroku</item><item quantity="other">%1$d kroků</item></plurals>
 </resources>

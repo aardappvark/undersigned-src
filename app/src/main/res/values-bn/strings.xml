@@ -606,4 +606,127 @@
     <string name="pay_bad_input">প্যাকেজের নাম এবং কোড পরীক্ষা করুন (২–৩১টি অক্ষর, সংখ্যা, - বা _ দিয়ে তৈরি মেমো কোড, বা একটি রেফারেন্স অ্যাকাউন্ট ঠিকানা)।</string>
     <string name="pay_open">পেমেন্ট বোর্ড</string>
     <string name="pay_waiting_list">ট্রেজারি দ্বারা তালিকাভুক্ত, এখনও ওয়েবসাইট দ্বারা নিশ্চিত নয়: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">আরও পদক্ষেপ</string>
+    <string name="burst_ratings_none">কোনো রেটিং উল্লম্ফন নেই।</string>
+    <string name="pay_label_signing">স্বাক্ষরকারী ওয়ালেট</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">লিডারবোর্ড</string>
+    <string name="lb_open">লিডারবোর্ড</string>
+    <string name="lb_overall">সামগ্রিক</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">আয়</string>
+    <string name="lb_m_payers">অর্থ প্রদানকারী ব্যবহারকারী</string>
+    <string name="lb_m_signed_score">স্বাক্ষরিত স্কোর</string>
+    <string name="lb_m_signed_reviews">স্বাক্ষরিত পর্যালোচনা</string>
+    <string name="lb_m_store_rating">স্টোর রেটিং</string>
+    <string name="lb_m_store_reviews">স্টোর পর্যালোচনা</string>
+    <string name="lb_m_growth">এই মাসের প্রবৃদ্ধি</string>
+    <string name="lb_note_revenue">শুধু নিশ্চিত ট্রেজারি, প্রতিটি পেমেন্টের দিনের USD অনুযায়ী র‍্যাঙ্ক করা। অনিশ্চিত পরিমাণ নিচে দেখানো হয়, র‍্যাঙ্ক করা হয় না।</string>
+    <string name="lb_note_growth">এই মাসের পেমেন্ট গত মাসের বিপরীতে, শুধু নিশ্চিত ট্রেজারির জন্য।</string>
+    <string name="lb_note_score">র‍্যাঙ্ক স্কোর অনুযায়ী সাজানো — আরও Seeker স্বাক্ষর না করা পর্যন্ত ৩.০-এর দিকে সংকুচিত হয়, যাতে একটিমাত্র ৫★ তালিকার শীর্ষে না পৌঁছাতে পারে। ন্যূনতম ২টি স্বাক্ষরিত পর্যালোচনা।</string>
+    <string name="lb_note_signed">গণনা করা স্বাক্ষরিত পর্যালোচনা: প্রতি Seeker একটি, প্রত্যাহৃতগুলো বাদে।</string>
+    <string name="lb_note_store">dApp Store-এর নিজস্ব সংখ্যা, %1$s-এ পঠিত। স্টোর রেটিংয়ের জন্য কমপক্ষে ৫টি পর্যালোচনা প্রয়োজন।</string>
+    <string name="lb_note_store_unread">dApp Store-এর নিজস্ব সংখ্যা। স্টোর রেটিংয়ের জন্য কমপক্ষে ৫টি পর্যালোচনা প্রয়োজন।</string>
+    <string name="lb_store_reading">স্টোরের সংখ্যা পড়া হচ্ছে: %1$s</string>
+    <string name="lb_empty">এখানে এখনও র‍্যাঙ্ক করার মতো কিছু নেই।</string>
+    <string name="lb_unconfirmed_title">এখনও নিশ্চিত নয় · র‍্যাঙ্ক করা হয়নি</string>
+    <string name="lb_unconfirmed_body">ট্রেজারি দ্বারা তালিকাভুক্ত, প্রকাশকের ওয়েবসাইটে লাইনের অপেক্ষায়।</string>
+    <plurals name="lb_thin"><item quantity="one">এখানে আরও %1$d টি dApp-এর ২টির কম স্বাক্ষরিত পর্যালোচনা আছে এবং এটি র‍্যাঙ্ক করা হয়নি।</item><item quantity="other">এখানে আরও %1$d টি dApps-এর ২টির কম স্বাক্ষরিত পর্যালোচনা আছে এবং এগুলো র‍্যাঙ্ক করা হয়নি।</item></plurals>
+    <string name="lb_downloads_title">ডাউনলোড</string>
+    <string name="lb_downloads_body">dApp Store ইনস্টল সংখ্যা প্রকাশ করে না, তাই কোনো ডাউনলোড র‍্যাঙ্কিং নেই। কোনো উৎস যোগ হলে এটি এখানে দেখা যাবে।</string>
+    <string name="lb_signed_n">স্বাক্ষরিত পর্যালোচনা: %1$d</string>
+    <string name="dd_revenue">আয়</string>
+    <string name="dd_signed">স্বাক্ষরিত</string>
+    <string name="dd_store">স্টোর</string>
+    <string name="dd_updates">আপডেট</string>
+    <string name="dd_updates_none">এই ফোনে এখনও কোনো আপডেট দেখা যায়নি। সর্বশেষ স্টোর আপডেট: %1$s</string>
+    <string name="dd_same_cert">একই সাইনিং সার্টিফিকেট</string>
+    <string name="dd_cert_changed">সার্টিফিকেট পরিবর্তিত হয়েছে</string>
+    <string name="dd_perm_added">অনুমতি যোগ হয়েছে: %1$s</string>
+    <string name="dd_perm_removed">অনুমতি সরানো হয়েছে: %1$s</string>
+    <string name="dd_perms_same">অনুমতি অপরিবর্তিত</string>
+    <string name="dd_signed_since">স্বাক্ষরিত, তখন থেকে: %1$d</string>
+    <string name="dd_worth">জানার মতো</string>
+    <string name="dd_no_bursts">%1$s থেকে কোনো পর্যালোচনা উল্লম্ফন নেই</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d টি পর্যালোচনা উল্লম্ফন</item><item quantity="other">%1$d টি পর্যালোচনা উল্লম্ফন</item></plurals>
+    <string name="dd_treasury_confirmed">ওয়েবসাইট দ্বারা ট্রেজারি নিশ্চিত</string>
+    <string name="dd_treasury_none">কোনো নিশ্চিত ট্রেজারি নেই</string>
+    <string name="dd_last_update">সর্বশেষ স্টোর আপডেট: %1$s</string>
+    <string name="dd_open">সম্পূর্ণ dApp পেজ খুলুন</string>
+    <string name="tr_title">প্রবণতা</string>
+    <string name="tr_30d">৩০দি</string>
+    <string name="tr_90d">৯০দি</string>
+    <string name="tr_1y">১ব</string>
+    <string name="tr_all">সব</string>
+    <string name="tr_revenue">আয়</string>
+    <string name="tr_score">সময়ের সাথে স্কোর</string>
+    <string name="tr_signed">স্বাক্ষরিত</string>
+    <string name="tr_store">স্টোর</string>
+    <string name="tr_reviews_week">প্রতি সপ্তাহে স্বাক্ষরিত পর্যালোচনা</string>
+    <string name="tr_payers">অর্থ প্রদানকারী ব্যবহারকারী</string>
+    <string name="tr_no_bursts">কোনো উল্লম্ফন নেই</string>
+    <string name="tr_no_data">এখনও যথেষ্ট তথ্য নেই।</string>
+    <string name="tr_sum_revenue">এই সীমার মধ্যে %1$s · পেমেন্ট: %2$d</string>
+    <string name="tr_sum_score">স্বাক্ষরিত: %1$s · স্টোর: এখন %2$s</string>
+    <string name="tr_gap_wider">ব্যবধান বেড়েছে</string>
+    <string name="tr_gap_narrower">ব্যবধান কমেছে</string>
+    <string name="tr_gap_same">ব্যবধান অপরিবর্তিত ছিল</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">এই সীমার মধ্যে %1$d টি স্বাক্ষরিত পর্যালোচনা</item><item quantity="other">এই সীমার মধ্যে %1$d টি স্বাক্ষরিত পর্যালোচনা</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">এই সীমার মধ্যে %1$d জন অর্থ প্রদানকারী ব্যবহারকারী</item><item quantity="other">এই সীমার মধ্যে %1$d জন অর্থ প্রদানকারী ব্যবহারকারী</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d দিন</item><item quantity="other">%1$d দিন</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">দিন %1$d</item><item quantity="other">দিন %1$d</item></plurals>
+    <string name="pay_listing_note">তালিকাভুক্তি একটি স্বাক্ষরিত রেকর্ড। পরে এটি প্রত্যাহার করলেও রেকর্ডটি অন-চেইনে থেকে যায়।</string>
+    <string name="burst_kind_high">পাঁচ-তারকা পর্যালোচনা</string>
+    <string name="burst_kind_low">এক-তারকা পর্যালোচনা</string>
+    <string name="burst_kind_high_ratings">পাঁচ-তারকা রেটিং</string>
+    <string name="burst_kind_low_ratings">এক-তারকা রেটিং</string>
+    <string name="burst_times">স্বাভাবিক গতির ×%1$s</string>
+    <string name="burst_pace">স্বাভাবিক গতি: প্রতি ৩ দিনে প্রায় %1$s</string>
+    <string name="store_reply_source">dApp Store থেকে</string>
+    <string name="note_signed_label">অন-চেইনে স্বাক্ষরিত</string>
+    <string name="permanent_title">স্থায়ী</string>
+    <string name="use_card_title">আপনার ফোন যোগ করে</string>
+    <string name="use_row_label">এই ফোনে সময়</string>
+    <string name="time_row_label">আপনি যতক্ষণ এটি ব্যবহার করেছেন</string>
+    <string name="use_card_hint">আপনার ফোনের প্রতিবেদন, গোলাকার — প্রমাণ নয়। যা কিছু চালু আছে তা পর্যালোচনার সাথে স্থায়ীভাবে রেকর্ড করা হয়।</string>
+    <string name="scan_notif_title">স্ক্যান শেষ হলে জানুন</string>
+    <string name="scan_notif_body">স্ক্যান ব্যাকগ্রাউন্ডে চলে (প্রায় ৬ মিনিট)। শেষ হলে জানতে বিজ্ঞপ্তির অনুমতি দিন।</string>
+    <string name="scan_notif_note">এগুলো ছাড়াও এটি চলতে থাকে; আপনি ফিরে এলে ফলাফল এখানে দেখা যাবে।</string>
+    <string name="scan_notif_allow">বিজ্ঞপ্তির অনুমতি দিন</string>
+    <string name="scan_notif_skip">বিজ্ঞপ্তি ছাড়া স্ক্যান করুন</string>
+    <string name="pay_label_payments">পেমেন্ট</string>
+    <string name="pay_label_payers">প্রদানকারী</string>
+    <string name="pay_label_attested">প্রত্যয়িত ডিভাইস সহ</string>
+    <string name="pay_label_attested_short">প্রত্যয়িত</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">প্রথম</string>
+    <string name="pay_label_latest">সর্বশেষ</string>
+    <string name="pay_order">প্রাপ্ত পেমেন্ট অনুযায়ী সাজানো</string>
+    <string name="pay_tools">প্রকাশকদের জন্য</string>
+    <string name="pay_preview_badge">প্রিভিউ · তালিকাভুক্ত নয়</string>
+    <string name="pay_step_line">লাইন যোগ করুন</string>
+    <string name="pay_step_sign">স্বাক্ষর করুন</string>
+    <string name="pay_copy">কপি করুন</string>
+    <string name="pay_copied">কপি হয়েছে</string>
+    <string name="pay_line_found">ওয়েবসাইট লাইন পাওয়া গেছে</string>
+    <string name="pay_checked">যাচাই করা হয়েছে: %1$s</string>
+    <string name="pay_check_again">আবার যাচাই করুন</string>
+    <string name="pay_continue">ধাপ ২-এ এগিয়ে যান</string>
+    <string name="pay_sign_early">লাইন খুঁজে পাওয়ার আগেও আপনি স্বাক্ষর করতে পারেন; তালিকাভুক্তি এর অপেক্ষায় থাকে।</string>
+    <string name="pay_wallet_matches">মিলেছে</string>
+    <string name="pay_open_board">বোর্ডে খুলুন</string>
+    <string name="pay_show_line">লাইন দেখান</string>
+    <string name="watch_label_requests">প্রতিদিন অনুরোধ</string>
+    <string name="watch_label_kept">রাখা হয়েছে</string>
+    <string name="watch_label_first">প্রথম ফলাফল</string>
+    <string name="watch_label_last">সর্বশেষ পঠিত</string>
+    <string name="watch_label_apps">অ্যাপ</string>
+    <string name="watch_label_since">যখন থেকে ট্র্যাক করা হচ্ছে</string>
+    <plurals name="watch_days_of"><item quantity="one">%1$d দিনের মধ্যে</item><item quantity="other">%1$d দিনের মধ্যে</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d টি পাঁচ-তারকা</item><item quantity="other">%1$d টি পাঁচ-তারকা</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d টি এক-তারকা</item><item quantity="other">%1$d টি এক-তারকা</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d ধাপ</item><item quantity="other">%1$d ধাপ</item></plurals>
 </resources>

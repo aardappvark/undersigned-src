@@ -480,7 +480,7 @@
     <string name="pro_shared_forget">Vergessen</string>
     <string name="pro_standing_note">Pro ist hierbei nicht beteiligt. Gewichtung stammt ausschließlich vom Gerät und gestaktem SKR.</string>
     <string name="free_pro_title">Free und Pro</string>
-    <string name="fp_free">Free</string>
+    <string name="fp_free">Kostenlos</string>
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Das gesamte Ledger lesen</string>
     <string name="fp_sign">Bewertungen, Antworten, Markierungen, Einsprüche signieren</string>
@@ -674,4 +674,83 @@
         <item quantity="one">%1$d Ein-Stern</item>
         <item quantity="other">%1$d Ein-Stern</item>
     </plurals>
+
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Weitere Aktionen</string>
+    <string name="burst_ratings_none">Keine Bewertungsschübe.</string>
+    <string name="pay_label_signing">Signierende Wallet</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Bestenliste</string>
+    <string name="lb_open">Bestenliste</string>
+    <string name="lb_overall">Gesamt</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Umsatz</string>
+    <string name="lb_m_payers">Zahlende Nutzer</string>
+    <string name="lb_m_signed_score">Signierter Wert</string>
+    <string name="lb_m_signed_reviews">Signierte Bewertungen</string>
+    <string name="lb_m_store_rating">Store-Wertung</string>
+    <string name="lb_m_store_reviews">Store-Bewertungen</string>
+    <string name="lb_m_growth">Wachstum diesen Monat</string>
+    <string name="lb_note_revenue">Nur bestätigte Treasuries, sortiert nach USD am Tag jeder Zahlung. Unbestätigte Beträge werden darunter angezeigt, nicht eingestuft.</string>
+    <string name="lb_note_growth">Zahlungen dieses Monats gegen die des letzten Monats, nur bestätigte Treasuries.</string>
+    <string name="lb_note_score">Sortiert nach Rang-Wert — in Richtung 3,0 verschoben, bis mehr Seeker signieren, damit ein einzelnes 5★ nicht die Liste anführen kann. Mindestens 2 signierte Bewertungen.</string>
+    <string name="lb_note_signed">Gezählte signierte Bewertungen: eine pro Seeker, zurückgezogene ausgenommen.</string>
+    <string name="lb_note_store">Die eigenen Zahlen des dApp Store, gelesen %1$s. Die Store-Wertung braucht mindestens 5 Bewertungen.</string>
+    <string name="lb_note_store_unread">Die eigenen Zahlen des dApp Store. Die Store-Wertung braucht mindestens 5 Bewertungen.</string>
+    <string name="lb_store_reading">Store-Zahlen werden gelesen: %1$s</string>
+    <string name="lb_empty">Hier gibt es noch nichts einzustufen.</string>
+    <string name="lb_unconfirmed_title">Noch nicht bestätigt · nicht eingestuft</string>
+    <string name="lb_unconfirmed_body">Von der Treasury gelistet, wartet auf die Zeile auf der Website des Herausgebers.</string>
+    <plurals name="lb_thin"><item quantity="one">%1$d weitere dApp hier hat weniger als 2 signierte Bewertungen und ist nicht eingestuft.</item><item quantity="other">%1$d weitere dApps hier haben weniger als 2 signierte Bewertungen und sind nicht eingestuft.</item></plurals>
+    <string name="lb_downloads_title">Downloads</string>
+    <string name="lb_downloads_body">Der dApp Store veröffentlicht keine Installationszahlen, daher gibt es keine Download-Rangliste. Sie erscheint hier, wenn eine Quelle hinzugefügt wird.</string>
+    <string name="lb_signed_n">Signierte Bewertungen: %1$d</string>
+    <string name="dd_revenue">Umsatz</string>
+    <string name="dd_signed">Signiert</string>
+    <string name="dd_store">Store</string>
+    <string name="dd_updates">Updates</string>
+    <string name="dd_updates_none">Noch keine Updates auf diesem Telefon gesehen. Letztes Store-Update: %1$s</string>
+    <string name="dd_same_cert">Gleiches Signaturzertifikat</string>
+    <string name="dd_cert_changed">Zertifikat GEÄNDERT</string>
+    <string name="dd_perm_added">Berechtigung hinzugefügt: %1$s</string>
+    <string name="dd_perm_removed">Berechtigung entfernt: %1$s</string>
+    <string name="dd_perms_same">Berechtigungen unverändert</string>
+    <string name="dd_signed_since">Signiert seit: %1$d</string>
+    <string name="dd_worth">Wissenswert</string>
+    <string name="dd_no_bursts">Keine Bewertungsschübe seit %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d Bewertungsschub</item><item quantity="other">%1$d Bewertungsschübe</item></plurals>
+    <string name="dd_treasury_confirmed">Treasury von der Website bestätigt</string>
+    <string name="dd_treasury_none">Keine bestätigte Treasury</string>
+    <string name="dd_last_update">Letztes Store-Update: %1$s</string>
+    <string name="dd_open">Die vollständige dApp-Seite öffnen</string>
+    <string name="tr_title">Trends</string>
+    <string name="tr_30d">30 T</string>
+    <string name="tr_90d">90 T</string>
+    <string name="tr_1y">1 J</string>
+    <string name="tr_all">Alle</string>
+    <string name="tr_revenue">Umsatz</string>
+    <string name="tr_score">Wert im Zeitverlauf</string>
+    <string name="tr_signed">Signiert</string>
+    <string name="tr_store">Store</string>
+    <string name="tr_reviews_week">Signierte Bewertungen pro Woche</string>
+    <string name="tr_payers">Zahlende Nutzer</string>
+    <string name="tr_no_bursts">Keine Schübe</string>
+    <string name="tr_no_data">Noch nicht genug Daten.</string>
+    <string name="tr_sum_revenue">%1$s in diesem Zeitraum · Zahlungen: %2$d</string>
+    <string name="tr_sum_score">Signiert: %1$s · Store: %2$s jetzt</string>
+    <string name="tr_gap_wider">der Abstand vergrößerte sich</string>
+    <string name="tr_gap_narrower">der Abstand verringerte sich</string>
+    <string name="tr_gap_same">der Abstand blieb gleich</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d signierte Bewertung in diesem Zeitraum</item><item quantity="other">%1$d signierte Bewertungen in diesem Zeitraum</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d zahlender Nutzer in diesem Zeitraum</item><item quantity="other">%1$d zahlende Nutzer in diesem Zeitraum</item></plurals>
+    <plurals name="watch_days_n">
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
+    </plurals>
+    <plurals name="watch_day_n">
+        <item quantity="one">Tag %1$d</item>
+        <item quantity="other">Tag %1$d</item>
+    </plurals>
+    <string name="pay_listing_note">Der Eintrag ist ein signierter Datensatz. Ein späterer Widerruf lässt den Datensatz on-chain stehen.</string>
+    <plurals name="pay_steps"><item quantity="one">%1$d Schritt</item><item quantity="other">%1$d Schritte</item></plurals>
 </resources>

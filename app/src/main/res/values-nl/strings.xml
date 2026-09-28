@@ -603,4 +603,143 @@
     <string name="pay_bad_input">Controleer de pakketnaam en de code (een memocode van 2–31 letters, cijfers, - of _, of een referentierekeningadres).</string>
     <string name="pay_open">Betalingenoverzicht</string>
     <string name="pay_waiting_list">Vermeld door de treasury, nog niet bevestigd door de website: %1$d</string>
+
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Meer acties</string>
+    <string name="burst_ratings_none">Geen golven van beoordelingen.</string>
+    <string name="pay_label_signing">Ondertekenende wallet</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Ranglijst</string>
+    <string name="lb_open">Ranglijst</string>
+    <string name="lb_overall">Algemeen</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Omzet</string>
+    <string name="lb_m_payers">Betalende gebruikers</string>
+    <string name="lb_m_signed_score">Ondertekende score</string>
+    <string name="lb_m_signed_reviews">Ondertekende recensies</string>
+    <string name="lb_m_store_rating">Storebeoordeling</string>
+    <string name="lb_m_store_reviews">Storerecensies</string>
+    <string name="lb_m_growth">Groei deze maand</string>
+    <string name="lb_note_revenue">Alleen bevestigde treasuries, gerangschikt op USD op de dag van elke betaling. Onbevestigde bedragen worden eronder getoond, niet gerangschikt.</string>
+    <string name="lb_note_growth">De betalingen van deze maand tegenover die van vorige maand, alleen bevestigde treasuries.</string>
+    <string name="lb_note_score">Gerangschikt op rangscore — richting 3,0 genormaliseerd totdat meer Seekers ondertekenen, zodat een enkele 5★ de lijst niet kan aanvoeren. Minimaal 2 ondertekende recensies.</string>
+    <string name="lb_note_signed">Meegetelde ondertekende recensies: één per Seeker, ingetrokken exemplaren eruit.</string>
+    <string name="lb_note_store">De eigen aantallen van de dApp Store, gelezen %1$s. De storebeoordeling heeft minstens 5 recensies nodig.</string>
+    <string name="lb_note_store_unread">De eigen aantallen van de dApp Store. De storebeoordeling heeft minstens 5 recensies nodig.</string>
+    <string name="lb_store_reading">Storeaantallen worden gelezen: %1$s</string>
+    <string name="lb_empty">Hier is nog niets om te rangschikken.</string>
+    <string name="lb_unconfirmed_title">Nog niet bevestigd · niet gerangschikt</string>
+    <string name="lb_unconfirmed_body">Vermeld door de treasury, wachtend op de regel op de website van de uitgever.</string>
+    <plurals name="lb_thin"><item quantity="one">%1$d dApp hier heeft minder dan 2 ondertekende recensies en is niet gerangschikt.</item><item quantity="other">%1$d dApps hier hebben minder dan 2 ondertekende recensies en zijn niet gerangschikt.</item></plurals>
+    <string name="lb_downloads_title">Downloads</string>
+    <string name="lb_downloads_body">De dApp Store publiceert geen installatieaantallen, dus is er geen downloadranglijst. Die verschijnt hier als een bron wordt toegevoegd.</string>
+    <string name="lb_signed_n">Ondertekende recensies: %1$d</string>
+    <string name="dd_revenue">Omzet</string>
+    <string name="dd_signed">Ondertekend</string>
+    <string name="dd_store">Store</string>
+    <string name="dd_updates">Updates</string>
+    <string name="dd_updates_none">Nog geen updates gezien op deze telefoon. Laatste store-update: %1$s</string>
+    <string name="dd_same_cert">Zelfde ondertekeningscertificaat</string>
+    <string name="dd_cert_changed">Certificaat GEWIJZIGD</string>
+    <string name="dd_perm_added">Machtiging toegevoegd: %1$s</string>
+    <string name="dd_perm_removed">Machtiging verwijderd: %1$s</string>
+    <string name="dd_perms_same">Machtigingen ongewijzigd</string>
+    <string name="dd_signed_since">Ondertekend sinds: %1$d</string>
+    <string name="dd_worth">Goed om te weten</string>
+    <string name="dd_no_bursts">Geen recensiegolven sinds %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d recensiegolf</item><item quantity="other">%1$d recensiegolven</item></plurals>
+    <string name="dd_treasury_confirmed">Treasury bevestigd door de website</string>
+    <string name="dd_treasury_none">Geen bevestigde treasury</string>
+    <string name="dd_last_update">Laatste store-update: %1$s</string>
+    <string name="dd_open">De volledige dApp-pagina openen</string>
+    <string name="tr_title">Trends</string>
+    <string name="tr_30d">30D</string>
+    <string name="tr_90d">90D</string>
+    <string name="tr_1y">1J</string>
+    <string name="tr_all">Alles</string>
+    <string name="tr_revenue">Omzet</string>
+    <string name="tr_score">Score in de tijd</string>
+    <string name="tr_signed">Ondertekend</string>
+    <string name="tr_store">Store</string>
+    <string name="tr_reviews_week">Ondertekende recensies per week</string>
+    <string name="tr_payers">Betalende gebruikers</string>
+    <string name="tr_no_bursts">Geen golven</string>
+    <string name="tr_no_data">Nog niet genoeg gegevens.</string>
+    <string name="tr_sum_revenue">%1$s in deze periode · Betalingen: %2$d</string>
+    <string name="tr_sum_score">Ondertekend: %1$s · Store: %2$s nu</string>
+    <string name="tr_gap_wider">het verschil werd groter</string>
+    <string name="tr_gap_narrower">het verschil werd kleiner</string>
+    <string name="tr_gap_same">het verschil bleef gelijk</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d ondertekende recensie in deze periode</item><item quantity="other">%1$d ondertekende recensies in deze periode</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d betalende gebruiker in deze periode</item><item quantity="other">%1$d betalende gebruikers in deze periode</item></plurals>
+    <plurals name="watch_days_n">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
+    <plurals name="watch_day_n">
+        <item quantity="one">dag %1$d</item>
+        <item quantity="other">dag %1$d</item>
+    </plurals>
+    <string name="pay_listing_note">De vermelding is een ondertekend record. Deze later intrekken laat het record on-chain staan.</string>
+    <string name="burst_kind_high">Vijfsterrenrecensies</string>
+    <string name="burst_kind_low">Eénsterrenrecensies</string>
+    <string name="burst_kind_high_ratings">Vijfsterrenbeoordelingen</string>
+    <string name="burst_kind_low_ratings">Eénsterrenbeoordelingen</string>
+    <string name="burst_times">×%1$s het gebruikelijke tempo</string>
+    <string name="burst_pace">Gebruikelijk tempo: ongeveer %1$s per 3 dagen</string>
+    <string name="store_reply_source">van de dApp Store</string>
+    <string name="note_signed_label">ON-CHAIN ONDERTEKEND</string>
+    <string name="permanent_title">Permanent</string>
+    <string name="use_card_title">Uw telefoon voegt toe</string>
+    <string name="use_row_label">Tijd op deze telefoon</string>
+    <string name="time_row_label">Tijd dat u het hebt gebruikt</string>
+    <string name="use_card_hint">Het rapport van uw telefoon, afgerond — geen bewijs. Wat is ingeschakeld, wordt permanent samen met de recensie vastgelegd.</string>
+    <string name="scan_notif_title">Horen wanneer de scan klaar is</string>
+    <string name="scan_notif_body">De scan draait op de achtergrond (ongeveer 6 min). Sta notificaties toe om te horen wanneer hij klaar is.</string>
+    <string name="scan_notif_note">Zonder draait hij nog steeds; de resultaten verschijnen hier wanneer u terugkomt.</string>
+    <string name="scan_notif_allow">Notificaties toestaan</string>
+    <string name="scan_notif_skip">Scannen zonder notificaties</string>
+    <string name="pay_label_payments">Betalingen</string>
+    <string name="pay_label_payers">Betalers</string>
+    <string name="pay_label_attested">Met geattesteerd apparaat</string>
+    <string name="pay_label_attested_short">Geattesteerd</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Eerste</string>
+    <string name="pay_label_latest">Laatste</string>
+    <string name="pay_order">Gesorteerd op ontvangen betalingen</string>
+    <string name="pay_tools">Voor uitgevers</string>
+    <string name="pay_preview_badge">Voorbeeld · niet vermeld</string>
+    <string name="pay_step_line">De regel toevoegen</string>
+    <string name="pay_step_sign">Ondertekenen</string>
+    <string name="pay_copy">Kopiëren</string>
+    <string name="pay_copied">Gekopieerd</string>
+    <string name="pay_line_found">Regel op de website gevonden</string>
+    <string name="pay_checked">Gecontroleerd: %1$s</string>
+    <string name="pay_check_again">Opnieuw controleren</string>
+    <string name="pay_continue">Doorgaan naar stap 2</string>
+    <string name="pay_sign_early">U kunt ondertekenen voordat de regel is gevonden; de vermelding wacht erop.</string>
+    <string name="pay_wallet_matches">komt overeen</string>
+    <string name="pay_open_board">Openen op het bord</string>
+    <string name="pay_show_line">De regel tonen</string>
+    <string name="watch_label_requests">Verzoeken per dag</string>
+    <string name="watch_label_kept">Bewaard</string>
+    <string name="watch_label_first">Eerste resultaten</string>
+    <string name="watch_label_last">Laatst gelezen</string>
+    <string name="watch_label_apps">Apps</string>
+    <string name="watch_label_since">Gevolgd sinds</string>
+    <plurals name="watch_days_of">
+        <item quantity="one">van %1$d dag</item>
+        <item quantity="other">van %1$d dagen</item>
+    </plurals>
+    <plurals name="watch_count_high">
+        <item quantity="one">%1$d vijf sterren</item>
+        <item quantity="other">%1$d vijf sterren</item>
+    </plurals>
+    <plurals name="watch_count_low">
+        <item quantity="one">%1$d één ster</item>
+        <item quantity="other">%1$d één ster</item>
+    </plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d stap</item><item quantity="other">%1$d stappen</item></plurals>
 </resources>

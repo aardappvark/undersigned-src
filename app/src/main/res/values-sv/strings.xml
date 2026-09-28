@@ -595,4 +595,143 @@
     <string name="pay_bad_input">Kontrollera paketnamnet och koden (en memokod på 2–31 bokstäver, siffror, - eller _, eller en referenskontoadress).</string>
     <string name="pay_open">Betalningsöversikt</string>
     <string name="pay_waiting_list">Listad av treasuryn, ännu inte bekräftad av webbplatsen: %1$d</string>
+
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Fler åtgärder</string>
+    <string name="burst_ratings_none">Inga vågor av betyg.</string>
+    <string name="pay_label_signing">Signerande plånbok</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Topplista</string>
+    <string name="lb_open">Topplista</string>
+    <string name="lb_overall">Totalt</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Intäkter</string>
+    <string name="lb_m_payers">Betalande användare</string>
+    <string name="lb_m_signed_score">Signerad poäng</string>
+    <string name="lb_m_signed_reviews">Signerade recensioner</string>
+    <string name="lb_m_store_rating">Butikens betyg</string>
+    <string name="lb_m_store_reviews">Butiksrecensioner</string>
+    <string name="lb_m_growth">Tillväxt denna månad</string>
+    <string name="lb_note_revenue">Endast bekräftade treasuries, rankade efter USD på dagen för varje betalning. Obekräftade belopp visas nedanför, orankade.</string>
+    <string name="lb_note_growth">Denna månads betalningar mot förra månadens, endast bekräftade treasuries.</string>
+    <string name="lb_note_score">Rankad efter rankningspoäng — dragen mot 3,0 tills fler Seekers signerar, så att en enda 5★ inte kan toppa listan. Minst 2 signerade recensioner.</string>
+    <string name="lb_note_signed">Räknade signerade recensioner: en per Seeker, tillbakadragna exkluderade.</string>
+    <string name="lb_note_store">dApp Storens egna räkningar, lästa %1$s. Butikens betyg kräver minst 5 recensioner.</string>
+    <string name="lb_note_store_unread">dApp Storens egna räkningar. Butikens betyg kräver minst 5 recensioner.</string>
+    <string name="lb_store_reading">Läser butikens räkningar: %1$s</string>
+    <string name="lb_empty">Inget att ranka här än.</string>
+    <string name="lb_unconfirmed_title">Ännu inte bekräftat · orankad</string>
+    <string name="lb_unconfirmed_body">Listad av treasuryn, väntar på raden på utgivarens webbplats.</string>
+    <plurals name="lb_thin"><item quantity="one">%1$d dApp till här har färre än 2 signerade recensioner och är inte rankad.</item><item quantity="other">%1$d dApps till här har färre än 2 signerade recensioner och är inte rankade.</item></plurals>
+    <string name="lb_downloads_title">Nedladdningar</string>
+    <string name="lb_downloads_body">dApp Store publicerar inte installationsantal, så det finns ingen nedladdningsranking. Den visas här om en källa läggs till.</string>
+    <string name="lb_signed_n">Signerade recensioner: %1$d</string>
+    <string name="dd_revenue">Intäkter</string>
+    <string name="dd_signed">Signerad</string>
+    <string name="dd_store">Butik</string>
+    <string name="dd_updates">Uppdateringar</string>
+    <string name="dd_updates_none">Inga uppdateringar sedda på den här telefonen än. Senaste butiksuppdatering: %1$s</string>
+    <string name="dd_same_cert">Samma signeringscertifikat</string>
+    <string name="dd_cert_changed">Certifikat ÄNDRAT</string>
+    <string name="dd_perm_added">Behörighet tillagd: %1$s</string>
+    <string name="dd_perm_removed">Behörighet borttagen: %1$s</string>
+    <string name="dd_perms_same">Behörigheter oförändrade</string>
+    <string name="dd_signed_since">Signerad sedan: %1$d</string>
+    <string name="dd_worth">Värt att veta</string>
+    <string name="dd_no_bursts">Inga recensionsvågor sedan %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d recensionsvåg</item><item quantity="other">%1$d recensionsvågor</item></plurals>
+    <string name="dd_treasury_confirmed">Treasury bekräftad av webbplatsen</string>
+    <string name="dd_treasury_none">Ingen bekräftad treasury</string>
+    <string name="dd_last_update">Senaste butiksuppdatering: %1$s</string>
+    <string name="dd_open">Öppna hela dApp-sidan</string>
+    <string name="tr_title">Trender</string>
+    <string name="tr_30d">30D</string>
+    <string name="tr_90d">90D</string>
+    <string name="tr_1y">1 ÅR</string>
+    <string name="tr_all">Alla</string>
+    <string name="tr_revenue">Intäkter</string>
+    <string name="tr_score">Poäng över tid</string>
+    <string name="tr_signed">Signerad</string>
+    <string name="tr_store">Butik</string>
+    <string name="tr_reviews_week">Signerade recensioner per vecka</string>
+    <string name="tr_payers">Betalande användare</string>
+    <string name="tr_no_bursts">Inga vågor</string>
+    <string name="tr_no_data">Inte tillräckligt med data än.</string>
+    <string name="tr_sum_revenue">%1$s under denna period · Betalningar: %2$d</string>
+    <string name="tr_sum_score">Signerat: %1$s · Butik: %2$s nu</string>
+    <string name="tr_gap_wider">skillnaden ökade</string>
+    <string name="tr_gap_narrower">skillnaden minskade</string>
+    <string name="tr_gap_same">skillnaden var oförändrad</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d signerad recension under denna period</item><item quantity="other">%1$d signerade recensioner under denna period</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d betalande användare under denna period</item><item quantity="other">%1$d betalande användare under denna period</item></plurals>
+    <plurals name="watch_days_n">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagar</item>
+    </plurals>
+    <plurals name="watch_day_n">
+        <item quantity="one">dag %1$d</item>
+        <item quantity="other">dag %1$d</item>
+    </plurals>
+    <string name="pay_listing_note">Listningen är en signerad post. Att dra tillbaka den senare lämnar posten on-chain.</string>
+    <string name="burst_kind_high">Femstjärniga recensioner</string>
+    <string name="burst_kind_low">Enstjärniga recensioner</string>
+    <string name="burst_kind_high_ratings">Femstjärniga betyg</string>
+    <string name="burst_kind_low_ratings">Enstjärniga betyg</string>
+    <string name="burst_times">×%1$s den normala takten</string>
+    <string name="burst_pace">Normal takt: cirka %1$s per 3 dagar</string>
+    <string name="store_reply_source">från dApp Store</string>
+    <string name="note_signed_label">SIGNERAD ON-CHAIN</string>
+    <string name="permanent_title">Permanent</string>
+    <string name="use_card_title">Din telefon lägger till</string>
+    <string name="use_row_label">Tid på den här telefonen</string>
+    <string name="time_row_label">Tid du har använt den</string>
+    <string name="use_card_hint">Din telefons rapport, avrundad — inte ett bevis. Det som är påslaget registreras permanent med recensionen.</string>
+    <string name="scan_notif_title">Hör när skanningen är klar</string>
+    <string name="scan_notif_body">Skanningen körs i bakgrunden (cirka 6 min). Tillåt notiser för att höra när den är klar.</string>
+    <string name="scan_notif_note">Utan dem körs den ändå; resultaten visas här när du kommer tillbaka.</string>
+    <string name="scan_notif_allow">Tillåt notiser</string>
+    <string name="scan_notif_skip">Skanna utan notiser</string>
+    <string name="pay_label_payments">Betalningar</string>
+    <string name="pay_label_payers">Betalare</string>
+    <string name="pay_label_attested">Med attesterad enhet</string>
+    <string name="pay_label_attested_short">Attesterad</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Första</string>
+    <string name="pay_label_latest">Senaste</string>
+    <string name="pay_order">Sorterad efter mottagna betalningar</string>
+    <string name="pay_tools">För utgivare</string>
+    <string name="pay_preview_badge">Förhandsvisning · inte listad</string>
+    <string name="pay_step_line">Lägg till raden</string>
+    <string name="pay_step_sign">Signera</string>
+    <string name="pay_copy">Kopiera</string>
+    <string name="pay_copied">Kopierat</string>
+    <string name="pay_line_found">Raden hittad på webbplatsen</string>
+    <string name="pay_checked">Kontrollerat: %1$s</string>
+    <string name="pay_check_again">Kontrollera igen</string>
+    <string name="pay_continue">Fortsätt till steg 2</string>
+    <string name="pay_sign_early">Du kan signera innan raden hittas; listningen väntar på den.</string>
+    <string name="pay_wallet_matches">matchar</string>
+    <string name="pay_open_board">Öppna på anslagstavlan</string>
+    <string name="pay_show_line">Visa raden</string>
+    <string name="watch_label_requests">Förfrågningar per dag</string>
+    <string name="watch_label_kept">Behållna</string>
+    <string name="watch_label_first">Första resultaten</string>
+    <string name="watch_label_last">Senast lästa</string>
+    <string name="watch_label_apps">Appar</string>
+    <string name="watch_label_since">Spårad sedan</string>
+    <plurals name="watch_days_of">
+        <item quantity="one">av %1$d dag</item>
+        <item quantity="other">av %1$d dagar</item>
+    </plurals>
+    <plurals name="watch_count_high">
+        <item quantity="one">%1$d femstjärnigt</item>
+        <item quantity="other">%1$d femstjärnigt</item>
+    </plurals>
+    <plurals name="watch_count_low">
+        <item quantity="one">%1$d enstjärnigt</item>
+        <item quantity="other">%1$d enstjärnigt</item>
+    </plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d steg</item><item quantity="other">%1$d steg</item></plurals>
 </resources>

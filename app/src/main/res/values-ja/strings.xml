@@ -597,4 +597,126 @@
     <string name="pay_bad_input">パッケージ名とコードを確認してください(2–31文字の英字、数字、-、_ から成るメモコード、または参照アカウントのアドレス)。</string>
     <string name="pay_open">支払いボード</string>
     <string name="pay_waiting_list">トレジャリーが登録済みでウェブサイト未確認:%1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">その他の操作</string>
+    <string name="burst_ratings_none">評価の急増はありません。</string>
+    <string name="pay_label_signing">署名ウォレット</string>
+    <string name="lb_title">リーダーボード</string>
+    <string name="lb_open">リーダーボード</string>
+    <string name="lb_overall">総合</string>
+    <plurals name="lb_dapps"><item quantity="other">%1$d件の dApp</item></plurals>
+    <string name="lb_m_revenue">収入</string>
+    <string name="lb_m_payers">有料ユーザー</string>
+    <string name="lb_m_signed_score">署名スコア</string>
+    <string name="lb_m_signed_reviews">署名済みレビュー</string>
+    <string name="lb_m_store_rating">ストア評価</string>
+    <string name="lb_m_store_reviews">ストアレビュー</string>
+    <string name="lb_m_growth">今月の成長</string>
+    <string name="lb_note_revenue">確認済みトレジャリーのみを対象とし、各支払い当日の USD 換算額でランク付けします。未確認の金額は下に表示され、ランクには含まれません。</string>
+    <string name="lb_note_growth">今月の支払いと先月の支払いを比較(確認済みトレジャリーのみ対象)。</string>
+    <string name="lb_note_score">ランクスコアで並べ替え — より多くの Seeker が署名するまで 3.0 に近づくよう調整されるため、5★ が1件だけでは首位になりません。署名済みレビュー2件以上が必要です。</string>
+    <string name="lb_note_signed">集計対象の署名済みレビュー:Seeker ごとに1件、取り下げ済みは除外。</string>
+    <string name="lb_note_store">dApp Store 自体の集計値(%1$s に読み取り)。ストア評価には最低5件のレビューが必要です。</string>
+    <string name="lb_note_store_unread">dApp Store 自体の集計値です。ストア評価には最低5件のレビューが必要です。</string>
+    <string name="lb_store_reading">ストアの集計を読み取り中:%1$s</string>
+    <string name="lb_empty">まだランク付けできる項目がありません。</string>
+    <string name="lb_unconfirmed_title">未確認 · ランク対象外</string>
+    <string name="lb_unconfirmed_body">トレジャリー側で登録済み、パブリッシャーのウェブサイトにその行が掲載されるのを待っています。</string>
+    <plurals name="lb_thin"><item quantity="other">ここにはさらに %1$d 件の dApp があり、署名済みレビューが2件未満のためランク対象外です。</item></plurals>
+    <string name="lb_downloads_title">ダウンロード数</string>
+    <string name="lb_downloads_body">dApp Store はインストール数を公開していないため、ダウンロードランキングはありません。データソースが追加されれば、ここに表示されます。</string>
+    <string name="lb_signed_n">署名済みレビュー:%1$d</string>
+    <string name="dd_revenue">収入</string>
+    <string name="dd_signed">署名済み</string>
+    <string name="dd_store">ストア</string>
+    <string name="dd_updates">更新</string>
+    <string name="dd_updates_none">この端末ではまだ更新が確認されていません。ストアの最終更新:%1$s</string>
+    <string name="dd_same_cert">署名証明書は同一</string>
+    <string name="dd_cert_changed">証明書が変更されました</string>
+    <string name="dd_perm_added">追加された権限:%1$s</string>
+    <string name="dd_perm_removed">削除された権限:%1$s</string>
+    <string name="dd_perms_same">権限に変更なし</string>
+    <string name="dd_signed_since">署名開始:%1$d</string>
+    <string name="dd_worth">知っておくべきこと</string>
+    <string name="dd_no_bursts">%1$s以降、レビューの急増はありません</string>
+    <plurals name="dd_bursts"><item quantity="other">レビュー急増 %1$d 件</item></plurals>
+    <string name="dd_treasury_confirmed">トレジャリーはウェブサイトで確認済み</string>
+    <string name="dd_treasury_none">確認済みトレジャリーなし</string>
+    <string name="dd_last_update">ストアの最終更新:%1$s</string>
+    <string name="dd_open">dApp の詳細ページを開く</string>
+    <string name="tr_title">トレンド</string>
+    <string name="tr_30d">30日</string>
+    <string name="tr_90d">90日</string>
+    <string name="tr_1y">1年</string>
+    <string name="tr_all">全期間</string>
+    <string name="tr_revenue">収入</string>
+    <string name="tr_score">スコアの推移</string>
+    <string name="tr_signed">署名済み</string>
+    <string name="tr_store">ストア</string>
+    <string name="tr_reviews_week">週あたりの署名済みレビュー数</string>
+    <string name="tr_payers">有料ユーザー</string>
+    <string name="tr_no_bursts">急増なし</string>
+    <string name="tr_no_data">まだ十分なデータがありません。</string>
+    <string name="tr_sum_revenue">この期間で %1$s · 支払い件数:%2$d</string>
+    <string name="tr_sum_score">署名済み:%1$s · ストア:現在 %2$s</string>
+    <string name="tr_gap_wider">差が広がった</string>
+    <string name="tr_gap_narrower">差が縮まった</string>
+    <string name="tr_gap_same">差は変わらなかった</string>
+    <plurals name="tr_sum_reviews"><item quantity="other">この期間の署名済みレビュー %1$d 件</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="other">この期間の有料ユーザー %1$d 人</item></plurals>
+    <plurals name="watch_days_n"><item quantity="other">%1$d日</item></plurals>
+    <plurals name="watch_day_n"><item quantity="other">%1$d日目</item></plurals>
+    <string name="pay_listing_note">この登録は署名済みの記録です。後で取り下げても、記録はオンチェーンに残ります。</string>
+    <string name="burst_kind_high">五つ星レビュー</string>
+    <string name="burst_kind_low">星一つのレビュー</string>
+    <string name="burst_kind_high_ratings">五つ星評価</string>
+    <string name="burst_kind_low_ratings">星一つの評価</string>
+    <string name="burst_times">通常のペースの ×%1$s</string>
+    <string name="burst_pace">通常のペース:3日あたり約%1$s件</string>
+    <string name="store_reply_source">dApp Store より</string>
+    <string name="note_signed_label">オンチェーンで署名済み</string>
+    <string name="permanent_title">永久</string>
+    <string name="use_card_title">この端末が追加する情報</string>
+    <string name="use_row_label">この端末での利用時間</string>
+    <string name="time_row_label">これまでの利用時間</string>
+    <string name="use_card_hint">あなたの端末による申告で、丸められています — 証明ではありません。オンにした項目は、レビューとともに永久に記録されます。</string>
+    <string name="scan_notif_title">スキャン完了を通知</string>
+    <string name="scan_notif_body">スキャンはバックグラウンドで実行されます(約6分)。完了時に通知を受け取るには通知を許可してください。</string>
+    <string name="scan_notif_note">通知を許可しなくてもスキャンは実行されます。戻ってきたときに結果がここに表示されます。</string>
+    <string name="scan_notif_allow">通知を許可</string>
+    <string name="scan_notif_skip">通知なしでスキャン</string>
+    <string name="pay_label_payments">支払い</string>
+    <string name="pay_label_payers">支払者</string>
+    <string name="pay_label_attested">証明済み端末を使用</string>
+    <string name="pay_label_attested_short">証明済み</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">最初</string>
+    <string name="pay_label_latest">最新</string>
+    <string name="pay_order">受け取った支払いの順に並べ替え</string>
+    <string name="pay_tools">パブリッシャー向け</string>
+    <string name="pay_preview_badge">プレビュー · 未掲載</string>
+    <string name="pay_step_line">行を追加</string>
+    <string name="pay_step_sign">署名</string>
+    <string name="pay_copy">コピー</string>
+    <string name="pay_copied">コピーしました</string>
+    <string name="pay_line_found">ウェブサイトで行を検出しました</string>
+    <string name="pay_checked">確認済み:%1$s</string>
+    <string name="pay_check_again">もう一度確認</string>
+    <string name="pay_continue">ステップ2へ進む</string>
+    <string name="pay_sign_early">行が見つかる前でも署名できます。登録はその行が見つかるまで待機します。</string>
+    <string name="pay_wallet_matches">一致</string>
+    <string name="pay_open_board">ボードで開く</string>
+    <string name="pay_show_line">行を表示</string>
+    <string name="watch_label_requests">1日あたりのリクエスト数</string>
+    <string name="watch_label_kept">保持</string>
+    <string name="watch_label_first">最初の結果</string>
+    <string name="watch_label_last">最終読み取り</string>
+    <string name="watch_label_apps">アプリ</string>
+    <string name="watch_label_since">追跡開始</string>
+    <plurals name="watch_days_of"><item quantity="other">%1$d日中</item></plurals>
+    <plurals name="watch_count_high"><item quantity="other">五つ星 %1$d件</item></plurals>
+    <plurals name="watch_count_low"><item quantity="other">星一つ %1$d件</item></plurals>
+    <plurals name="pay_steps"><item quantity="other">%1$d ステップ</item></plurals>
 </resources>

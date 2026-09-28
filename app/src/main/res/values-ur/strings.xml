@@ -614,4 +614,127 @@
     <string name="pay_bad_input">پیکج کا نام اور کوڈ چیک کریں (2–31 حروف، ہندسوں، - یا _ پر مشتمل میمو کوڈ، یا حوالہ اکاؤنٹ ایڈریس)۔</string>
     <string name="pay_open">ادائیگیوں کا بورڈ</string>
     <string name="pay_waiting_list">خزانے کی جانب سے درج، ابھی ویب سائٹ سے تصدیق شدہ نہیں: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">مزید اقدامات</string>
+    <string name="burst_ratings_none">کوئی ریٹنگ اضافہ نہیں۔</string>
+    <string name="pay_label_signing">دستخط کرنے والا والٹ</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">لیڈر بورڈ</string>
+    <string name="lb_open">لیڈر بورڈ</string>
+    <string name="lb_overall">مجموعی</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">آمدنی</string>
+    <string name="lb_m_payers">ادائیگی کرنے والے صارفین</string>
+    <string name="lb_m_signed_score">دستخط شدہ اسکور</string>
+    <string name="lb_m_signed_reviews">دستخط شدہ جائزے</string>
+    <string name="lb_m_store_rating">اسٹور کی درجہ بندی</string>
+    <string name="lb_m_store_reviews">اسٹور جائزے</string>
+    <string name="lb_m_growth">اس مہینے کی ترقی</string>
+    <string name="lb_note_revenue">صرف تصدیق شدہ خزانے، ہر ادائیگی کے دن USD کے حساب سے درجہ بند۔ غیر تصدیق شدہ رقوم نیچے دکھائی جاتی ہیں، درجہ بند نہیں۔</string>
+    <string name="lb_note_growth">اس مہینے کی ادائیگیاں پچھلے مہینے کے مقابلے میں، صرف تصدیق شدہ خزانوں کے لیے۔</string>
+    <string name="lb_note_score">رینک اسکور کے مطابق درجہ بند — 3.0 کی طرف سکڑا رہتا ہے جب تک مزید Seekers دستخط نہ کریں، تاکہ محض ایک 5★ فہرست میں سرِفہرست نہ ہو۔ کم از کم 2 دستخط شدہ جائزے۔</string>
+    <string name="lb_note_signed">شمار شدہ دستخط شدہ جائزے: فی Seeker ایک، واپس لیے گئے شامل نہیں۔</string>
+    <string name="lb_note_store">dApp Store کے اپنے اعداد، %1$s کو پڑھے گئے۔ اسٹور کی درجہ بندی کے لیے کم از کم 5 جائزے درکار ہیں۔</string>
+    <string name="lb_note_store_unread">dApp Store کے اپنے اعداد۔ اسٹور کی درجہ بندی کے لیے کم از کم 5 جائزے درکار ہیں۔</string>
+    <string name="lb_store_reading">اسٹور کے اعداد پڑھے جا رہے ہیں: %1$s</string>
+    <string name="lb_empty">یہاں ابھی درجہ بندی کے لیے کچھ نہیں۔</string>
+    <string name="lb_unconfirmed_title">ابھی تصدیق شدہ نہیں · درجہ بند نہیں</string>
+    <string name="lb_unconfirmed_body">خزانے کے ذریعے درج، پبلشر کی ویب سائٹ پر لائن کا انتظار۔</string>
+    <plurals name="lb_thin"><item quantity="one">یہاں %1$d مزید dApp کے پاس 2 سے کم دستخط شدہ جائزے ہیں اور یہ درجہ بند نہیں۔</item><item quantity="other">یہاں %1$d مزید dApps کے پاس 2 سے کم دستخط شدہ جائزے ہیں اور یہ درجہ بند نہیں۔</item></plurals>
+    <string name="lb_downloads_title">ڈاؤن لوڈز</string>
+    <string name="lb_downloads_body">dApp Store انسٹال کی تعداد شائع نہیں کرتا، اس لیے ڈاؤن لوڈ کی کوئی درجہ بندی نہیں۔ ماخذ شامل ہونے پر یہ یہاں ظاہر ہوگا۔</string>
+    <string name="lb_signed_n">دستخط شدہ جائزے: %1$d</string>
+    <string name="dd_revenue">آمدنی</string>
+    <string name="dd_signed">دستخط شدہ</string>
+    <string name="dd_store">اسٹور</string>
+    <string name="dd_updates">اپ ڈیٹس</string>
+    <string name="dd_updates_none">اس فون پر ابھی تک کوئی اپ ڈیٹ نہیں دیکھی گئی۔ آخری اسٹور اپ ڈیٹ: %1$s</string>
+    <string name="dd_same_cert">وہی سائننگ سرٹیفکیٹ</string>
+    <string name="dd_cert_changed">سرٹیفکیٹ تبدیل ہو گیا</string>
+    <string name="dd_perm_added">اجازت شامل کی گئی: %1$s</string>
+    <string name="dd_perm_removed">اجازت ہٹا دی گئی: %1$s</string>
+    <string name="dd_perms_same">اجازتیں غیر تبدیل شدہ</string>
+    <string name="dd_signed_since">دستخط شدہ، %1$d سے</string>
+    <string name="dd_worth">جاننے کے قابل</string>
+    <string name="dd_no_bursts">%1$s سے جائزوں میں کوئی اضافہ نہیں</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d جائزہ اضافہ</item><item quantity="other">%1$d جائزہ اضافے</item></plurals>
+    <string name="dd_treasury_confirmed">خزانہ ویب سائٹ سے تصدیق شدہ</string>
+    <string name="dd_treasury_none">کوئی تصدیق شدہ خزانہ نہیں</string>
+    <string name="dd_last_update">آخری اسٹور اپ ڈیٹ: %1$s</string>
+    <string name="dd_open">مکمل dApp صفحہ کھولیں</string>
+    <string name="tr_title">رجحانات</string>
+    <string name="tr_30d">30د</string>
+    <string name="tr_90d">90د</string>
+    <string name="tr_1y">1س</string>
+    <string name="tr_all">تمام</string>
+    <string name="tr_revenue">آمدنی</string>
+    <string name="tr_score">وقت کے ساتھ اسکور</string>
+    <string name="tr_signed">دستخط شدہ</string>
+    <string name="tr_store">اسٹور</string>
+    <string name="tr_reviews_week">فی ہفتہ دستخط شدہ جائزے</string>
+    <string name="tr_payers">ادائیگی کرنے والے صارفین</string>
+    <string name="tr_no_bursts">کوئی اضافہ نہیں</string>
+    <string name="tr_no_data">ابھی کافی ڈیٹا نہیں۔</string>
+    <string name="tr_sum_revenue">اس رینج میں %1$s · ادائیگیاں: %2$d</string>
+    <string name="tr_sum_score">دستخط شدہ: %1$s · اسٹور: ابھی %2$s</string>
+    <string name="tr_gap_wider">فرق بڑھ گیا</string>
+    <string name="tr_gap_narrower">فرق کم ہو گیا</string>
+    <string name="tr_gap_same">فرق برقرار رہا</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">اس رینج میں %1$d دستخط شدہ جائزہ</item><item quantity="other">اس رینج میں %1$d دستخط شدہ جائزے</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">اس رینج میں %1$d ادائیگی کرنے والا صارف</item><item quantity="other">اس رینج میں %1$d ادائیگی کرنے والے صارفین</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d دن</item><item quantity="other">%1$d دن</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">دن %1$d</item><item quantity="other">دن %1$d</item></plurals>
+    <string name="pay_listing_note">فہرست ایک دستخط شدہ ریکارڈ ہے۔ بعد میں اسے واپس لینے سے ریکارڈ چین پر باقی رہتا ہے۔</string>
+    <string name="burst_kind_high">پانچ ستارہ جائزے</string>
+    <string name="burst_kind_low">ایک ستارہ جائزے</string>
+    <string name="burst_kind_high_ratings">پانچ ستارہ درجہ بندیاں</string>
+    <string name="burst_kind_low_ratings">ایک ستارہ درجہ بندیاں</string>
+    <string name="burst_times">معمول کی رفتار کا ×%1$s</string>
+    <string name="burst_pace">معمول کی رفتار: تقریباً %1$s ہر 3 دن میں</string>
+    <string name="store_reply_source">dApp Store سے</string>
+    <string name="note_signed_label">چین پر دستخط شدہ</string>
+    <string name="permanent_title">مستقل</string>
+    <string name="use_card_title">آپ کا فون شامل کرتا ہے</string>
+    <string name="use_row_label">اس فون پر وقت</string>
+    <string name="time_row_label">آپ نے اسے استعمال کیا وقت</string>
+    <string name="use_card_hint">آپ کے فون کی رپورٹ، مقرب — ثبوت نہیں۔ جو کچھ بھی آن ہو وہ جائزے کے ساتھ مستقل طور پر ریکارڈ ہوتا ہے۔</string>
+    <string name="scan_notif_title">جب اسکین مکمل ہو تو سنیں</string>
+    <string name="scan_notif_body">اسکین بیک گراؤنڈ میں چلتا ہے (تقریباً 6 منٹ)۔ مکمل ہونے کی اطلاع سننے کے لیے نوٹیفیکیشنز کی اجازت دیں۔</string>
+    <string name="scan_notif_note">ان کے بغیر بھی یہ چلتا رہتا ہے؛ واپس آنے پر نتائج یہاں ظاہر ہوں گے۔</string>
+    <string name="scan_notif_allow">نوٹیفیکیشنز کی اجازت دیں</string>
+    <string name="scan_notif_skip">نوٹیفیکیشنز کے بغیر اسکین کریں</string>
+    <string name="pay_label_payments">ادائیگیاں</string>
+    <string name="pay_label_payers">ادا کرنے والے</string>
+    <string name="pay_label_attested">تصدیق شدہ آلے کے ساتھ</string>
+    <string name="pay_label_attested_short">تصدیق شدہ</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">پہلی</string>
+    <string name="pay_label_latest">تازہ ترین</string>
+    <string name="pay_order">موصولہ ادائیگیوں کے حساب سے ترتیب شدہ</string>
+    <string name="pay_tools">پبلشرز کے لیے</string>
+    <string name="pay_preview_badge">پیش نظارہ · فہرست میں شامل نہیں</string>
+    <string name="pay_step_line">لائن شامل کریں</string>
+    <string name="pay_step_sign">دستخط کریں</string>
+    <string name="pay_copy">کاپی کریں</string>
+    <string name="pay_copied">کاپی ہو گئی</string>
+    <string name="pay_line_found">ویب سائٹ لائن مل گئی</string>
+    <string name="pay_checked">چیک کیا گیا: %1$s</string>
+    <string name="pay_check_again">دوبارہ چیک کریں</string>
+    <string name="pay_continue">مرحلہ 2 کی طرف جاری رکھیں</string>
+    <string name="pay_sign_early">آپ لائن ملنے سے پہلے دستخط کر سکتے ہیں؛ فہرست اس کا انتظار کرتی ہے۔</string>
+    <string name="pay_wallet_matches">مماثل ہے</string>
+    <string name="pay_open_board">بورڈ پر کھولیں</string>
+    <string name="pay_show_line">لائن دکھائیں</string>
+    <string name="watch_label_requests">روزانہ درخواستیں</string>
+    <string name="watch_label_kept">برقرار رکھی گئیں</string>
+    <string name="watch_label_first">پہلے نتائج</string>
+    <string name="watch_label_last">آخری بار پڑھا گیا</string>
+    <string name="watch_label_apps">ایپس</string>
+    <string name="watch_label_since">ٹریکنگ کب سے</string>
+    <plurals name="watch_days_of"><item quantity="one">%1$d دن میں سے</item><item quantity="other">%1$d دن میں سے</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d پانچ ستارہ</item><item quantity="other">%1$d پانچ ستارہ</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d ایک ستارہ</item><item quantity="other">%1$d ایک ستارہ</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d مرحلہ</item><item quantity="other">%1$d مراحل</item></plurals>
 </resources>

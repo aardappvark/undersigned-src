@@ -605,4 +605,126 @@
     <string name="pay_bad_input">請檢查套件名稱和代碼(2–31 個字母、數字、- 或 _ 組成的備註代碼,或一個參考帳戶地址)。</string>
     <string name="pay_open">付款看板</string>
     <string name="pay_waiting_list">金庫已登記但網站尚未確認:%1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">更多操作</string>
+    <string name="burst_ratings_none">未發現評分激增。</string>
+    <string name="pay_label_signing">簽署錢包</string>
+    <string name="lb_title">排行榜</string>
+    <string name="lb_open">排行榜</string>
+    <string name="lb_overall">總體</string>
+    <plurals name="lb_dapps"><item quantity="other">%1$d 個 dApp</item></plurals>
+    <string name="lb_m_revenue">收入</string>
+    <string name="lb_m_payers">付費用戶</string>
+    <string name="lb_m_signed_score">簽署評分</string>
+    <string name="lb_m_signed_reviews">已簽署評價</string>
+    <string name="lb_m_store_rating">商店評分</string>
+    <string name="lb_m_store_reviews">商店評價</string>
+    <string name="lb_m_growth">本月成長</string>
+    <string name="lb_note_revenue">僅計入已確認金庫,按每筆付款當日的 USD 價值排名。未確認金額顯示於下方,不參與排名。</string>
+    <string name="lb_note_growth">本月付款與上月付款對比,僅計入已確認金庫。</string>
+    <string name="lb_note_score">按排名評分排序——評分會向 3.0 收斂,直到有更多 Seeker 簽署,因此單則 5★ 評價無法登頂。至少需要 2 則已簽署評價。</string>
+    <string name="lb_note_signed">計入的已簽署評價:每位 Seeker 限一則,已撤回的不計入。</string>
+    <string name="lb_note_store">dApp Store 自身的統計數據,讀取於 %1$s。商店評分至少需要 5 則評價。</string>
+    <string name="lb_note_store_unread">dApp Store 自身的統計數據。商店評分至少需要 5 則評價。</string>
+    <string name="lb_store_reading">正在讀取商店統計:%1$s</string>
+    <string name="lb_empty">此處暫無可排名的內容。</string>
+    <string name="lb_unconfirmed_title">尚未確認 · 不參與排名</string>
+    <string name="lb_unconfirmed_body">已由金庫方登記,等待發行者網站上出現該行記錄。</string>
+    <plurals name="lb_thin"><item quantity="other">這裡還有 %1$d 個 dApp 的已簽署評價少於 2 則,未參與排名。</item></plurals>
+    <string name="lb_downloads_title">下載量</string>
+    <string name="lb_downloads_body">dApp Store 不公開安裝量,因此沒有下載排名。如新增資料來源,將於此處顯示。</string>
+    <string name="lb_signed_n">已簽署評價:%1$d</string>
+    <string name="dd_revenue">收入</string>
+    <string name="dd_signed">已簽署</string>
+    <string name="dd_store">商店</string>
+    <string name="dd_updates">更新</string>
+    <string name="dd_updates_none">此手機尚未發現更新。商店最新更新:%1$s</string>
+    <string name="dd_same_cert">簽署憑證相同</string>
+    <string name="dd_cert_changed">憑證已變更</string>
+    <string name="dd_perm_added">新增權限:%1$s</string>
+    <string name="dd_perm_removed">移除權限:%1$s</string>
+    <string name="dd_perms_same">權限未變化</string>
+    <string name="dd_signed_since">簽署始於:%1$d</string>
+    <string name="dd_worth">值得了解</string>
+    <string name="dd_no_bursts">自 %1$s 起未發現評價激增</string>
+    <plurals name="dd_bursts"><item quantity="other">%1$d 次評價激增</item></plurals>
+    <string name="dd_treasury_confirmed">金庫已由網站確認</string>
+    <string name="dd_treasury_none">無已確認金庫</string>
+    <string name="dd_last_update">商店最新更新:%1$s</string>
+    <string name="dd_open">開啟完整 dApp 頁面</string>
+    <string name="tr_title">趨勢</string>
+    <string name="tr_30d">30天</string>
+    <string name="tr_90d">90天</string>
+    <string name="tr_1y">1年</string>
+    <string name="tr_all">全部</string>
+    <string name="tr_revenue">收入</string>
+    <string name="tr_score">評分變化</string>
+    <string name="tr_signed">已簽署</string>
+    <string name="tr_store">商店</string>
+    <string name="tr_reviews_week">每週已簽署評價數</string>
+    <string name="tr_payers">付費用戶</string>
+    <string name="tr_no_bursts">無激增</string>
+    <string name="tr_no_data">資料尚不足。</string>
+    <string name="tr_sum_revenue">此區間內 %1$s · 付款次數:%2$d</string>
+    <string name="tr_sum_score">已簽署:%1$s · 商店:目前 %2$s</string>
+    <string name="tr_gap_wider">差距擴大</string>
+    <string name="tr_gap_narrower">差距縮小</string>
+    <string name="tr_gap_same">差距持平</string>
+    <plurals name="tr_sum_reviews"><item quantity="other">此區間內有 %1$d 則已簽署評價</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="other">此區間內有 %1$d 位付費用戶</item></plurals>
+    <plurals name="watch_days_n"><item quantity="other">%1$d 天</item></plurals>
+    <plurals name="watch_day_n"><item quantity="other">第 %1$d 天</item></plurals>
+    <string name="pay_listing_note">該登記是一則已簽署記錄。之後撤回仍會將記錄留在鏈上。</string>
+    <string name="burst_kind_high">五星評價</string>
+    <string name="burst_kind_low">一星評價</string>
+    <string name="burst_kind_high_ratings">五星評分</string>
+    <string name="burst_kind_low_ratings">一星評分</string>
+    <string name="burst_times">平常速度的 ×%1$s</string>
+    <string name="burst_pace">平常速度:每 3 天約 %1$s 則</string>
+    <string name="store_reply_source">來自 dApp Store</string>
+    <string name="note_signed_label">已鏈上簽署</string>
+    <string name="permanent_title">永久</string>
+    <string name="use_card_title">您的手機新增的資訊</string>
+    <string name="use_row_label">在此手機上的使用時長</string>
+    <string name="time_row_label">您已使用的時長</string>
+    <string name="use_card_hint">由您的手機自行回報,並經過取整——並非證明。凡已開啟的項目都會與評價一同永久記錄。</string>
+    <string name="scan_notif_title">掃描完成時提醒我</string>
+    <string name="scan_notif_body">掃描將在背景執行(約 6 分鐘)。允許通知即可在完成時收到提醒。</string>
+    <string name="scan_notif_note">即使不允許通知,掃描仍會照常進行;返回時結果會顯示於此處。</string>
+    <string name="scan_notif_allow">允許通知</string>
+    <string name="scan_notif_skip">不開啟通知繼續掃描</string>
+    <string name="pay_label_payments">付款</string>
+    <string name="pay_label_payers">付款人</string>
+    <string name="pay_label_attested">使用已驗證裝置</string>
+    <string name="pay_label_attested_short">已驗證</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">最早</string>
+    <string name="pay_label_latest">最新</string>
+    <string name="pay_order">按已收到的付款排序</string>
+    <string name="pay_tools">面向發行者</string>
+    <string name="pay_preview_badge">預覽 · 尚未上架</string>
+    <string name="pay_step_line">新增該行</string>
+    <string name="pay_step_sign">簽署</string>
+    <string name="pay_copy">複製</string>
+    <string name="pay_copied">已複製</string>
+    <string name="pay_line_found">已在網站上找到該行</string>
+    <string name="pay_checked">已檢查:%1$s</string>
+    <string name="pay_check_again">再次檢查</string>
+    <string name="pay_continue">繼續第 2 步</string>
+    <string name="pay_sign_early">您可以在找到該行之前先簽署;登記會等待該行出現。</string>
+    <string name="pay_wallet_matches">相符</string>
+    <string name="pay_open_board">在看板中開啟</string>
+    <string name="pay_show_line">顯示該行</string>
+    <string name="watch_label_requests">每日請求數</string>
+    <string name="watch_label_kept">已保留</string>
+    <string name="watch_label_first">首次結果</string>
+    <string name="watch_label_last">最近讀取</string>
+    <string name="watch_label_apps">應用程式</string>
+    <string name="watch_label_since">追蹤起始於</string>
+    <plurals name="watch_days_of"><item quantity="other">共 %1$d 天中</item></plurals>
+    <plurals name="watch_count_high"><item quantity="other">%1$d 則五星</item></plurals>
+    <plurals name="watch_count_low"><item quantity="other">%1$d 則一星</item></plurals>
+    <plurals name="pay_steps"><item quantity="other">%1$d 個步驟</item></plurals>
 </resources>

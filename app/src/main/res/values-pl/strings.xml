@@ -629,4 +629,126 @@
     <string name="pay_bad_input">Sprawdź nazwę pakietu i kod (kod memo z 2–31 liter, cyfr, - lub _, albo adres konta referencyjnego).</string>
     <string name="pay_open">Przegląd płatności</string>
     <string name="pay_waiting_list">Wystawione przez skarbiec, jeszcze niepotwierdzone przez stronę: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Więcej działań</string>
+    <string name="burst_ratings_none">Brak fal ocen.</string>
+    <string name="pay_label_signing">Portfel podpisujący</string>
+    <string name="lb_title">Ranking</string>
+    <string name="lb_open">Ranking</string>
+    <string name="lb_overall">Ogółem</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Przychody</string>
+    <string name="lb_m_payers">Płacący użytkownicy</string>
+    <string name="lb_m_signed_score">Podpisany wynik</string>
+    <string name="lb_m_signed_reviews">Podpisane recenzje</string>
+    <string name="lb_m_store_rating">Ocena sklepu</string>
+    <string name="lb_m_store_reviews">Recenzje w sklepie</string>
+    <string name="lb_m_growth">Wzrost w tym miesiącu</string>
+    <string name="lb_note_revenue">Tylko potwierdzone skarbce, uszeregowane według USD w dniu każdej płatności. Niepotwierdzone kwoty są pokazane poniżej, bez miejsca w rankingu.</string>
+    <string name="lb_note_growth">Płatności z tego miesiąca w porównaniu z zeszłym, tylko potwierdzone skarbce.</string>
+    <string name="lb_note_score">Uszeregowane według wyniku rankingowego — ściągniętego w stronę 3,0, dopóki nie podpisze więcej Seekerów, więc pojedyncze 5★ nie może być na szczycie rankingu. Minimum 2 podpisane recenzje.</string>
+    <string name="lb_note_signed">Liczone podpisane recenzje: jedna na Seekera, wycofane nie są liczone.</string>
+    <string name="lb_note_store">Własne liczby dApp Store, odczytane %1$s. Ocena w sklepie wymaga co najmniej 5 recenzji.</string>
+    <string name="lb_note_store_unread">Własne liczby dApp Store. Ocena w sklepie wymaga co najmniej 5 recenzji.</string>
+    <string name="lb_store_reading">Odczytywanie liczb sklepu: %1$s</string>
+    <string name="lb_empty">Nie ma jeszcze nic do uszeregowania.</string>
+    <string name="lb_unconfirmed_title">Jeszcze niepotwierdzone · bez rankingu</string>
+    <string name="lb_unconfirmed_body">Wystawione przez skarbiec, czeka na linię na stronie wydawcy.</string>
+    <plurals name="lb_thin"><item quantity="one">Jeszcze %1$d dApp ma tu mniej niż 2 podpisane recenzje i nie jest w rankingu.</item><item quantity="few">Jeszcze %1$d dApps mają tu mniej niż 2 podpisane recenzje i nie są w rankingu.</item><item quantity="many">Jeszcze %1$d dApps ma tu mniej niż 2 podpisane recenzje i nie jest w rankingu.</item><item quantity="other">Jeszcze %1$d dApps ma tu mniej niż 2 podpisane recenzje i nie jest w rankingu.</item></plurals>
+    <string name="lb_downloads_title">Pobrania</string>
+    <string name="lb_downloads_body">dApp Store nie publikuje liczby instalacji, więc nie ma rankingu pobrań. Pojawi się tutaj, jeśli zostanie dodane źródło.</string>
+    <string name="lb_signed_n">Podpisane recenzje: %1$d</string>
+    <string name="dd_revenue">Przychody</string>
+    <string name="dd_signed">Podpisane</string>
+    <string name="dd_store">Sklep</string>
+    <string name="dd_updates">Aktualizacje</string>
+    <string name="dd_updates_none">Na tym telefonie nie zaobserwowano jeszcze żadnych aktualizacji. Ostatnia aktualizacja w sklepie: %1$s</string>
+    <string name="dd_same_cert">Ten sam certyfikat podpisujący</string>
+    <string name="dd_cert_changed">Certyfikat ZMIENIONY</string>
+    <string name="dd_perm_added">Dodano uprawnienie: %1$s</string>
+    <string name="dd_perm_removed">Usunięto uprawnienie: %1$s</string>
+    <string name="dd_perms_same">Uprawnienia bez zmian</string>
+    <string name="dd_signed_since">Podpisane od: %1$d</string>
+    <string name="dd_worth">Warto wiedzieć</string>
+    <string name="dd_no_bursts">Brak fal recenzji od %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d fala recenzji</item><item quantity="few">%1$d fale recenzji</item><item quantity="many">%1$d fal recenzji</item><item quantity="other">%1$d fal recenzji</item></plurals>
+    <string name="dd_treasury_confirmed">Skarbiec potwierdzony przez stronę</string>
+    <string name="dd_treasury_none">Brak potwierdzonego skarbca</string>
+    <string name="dd_last_update">Ostatnia aktualizacja w sklepie: %1$s</string>
+    <string name="dd_open">Otwórz pełną stronę dApp</string>
+    <string name="tr_title">Trendy</string>
+    <string name="tr_30d">30D</string>
+    <string name="tr_90d">90D</string>
+    <string name="tr_1y">1R</string>
+    <string name="tr_all">Wszystko</string>
+    <string name="tr_revenue">Przychody</string>
+    <string name="tr_score">Wynik w czasie</string>
+    <string name="tr_signed">Podpisane</string>
+    <string name="tr_store">Sklep</string>
+    <string name="tr_reviews_week">Podpisane recenzje na tydzień</string>
+    <string name="tr_payers">Płacący użytkownicy</string>
+    <string name="tr_no_bursts">Brak fal</string>
+    <string name="tr_no_data">Za mało danych na razie.</string>
+    <string name="tr_sum_revenue">%1$s w tym zakresie · Płatności: %2$d</string>
+    <string name="tr_sum_score">Podpisane: %1$s · Sklep: %2$s teraz</string>
+    <string name="tr_gap_wider">różnica się powiększyła</string>
+    <string name="tr_gap_narrower">różnica się zmniejszyła</string>
+    <string name="tr_gap_same">różnica pozostała bez zmian</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d podpisana recenzja w tym zakresie</item><item quantity="few">%1$d podpisane recenzje w tym zakresie</item><item quantity="many">%1$d podpisanych recenzji w tym zakresie</item><item quantity="other">%1$d podpisanych recenzji w tym zakresie</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d płacący użytkownik w tym zakresie</item><item quantity="few">%1$d płacących użytkowników w tym zakresie</item><item quantity="many">%1$d płacących użytkowników w tym zakresie</item><item quantity="other">%1$d płacących użytkowników w tym zakresie</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d dzień</item><item quantity="few">%1$d dni</item><item quantity="many">%1$d dni</item><item quantity="other">%1$d dnia</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">dzień %1$d</item><item quantity="few">dzień %1$d</item><item quantity="many">dzień %1$d</item><item quantity="other">dzień %1$d</item></plurals>
+    <string name="pay_listing_note">Wpis na liście jest podpisanym zapisem. Jego późniejsze wycofanie pozostawia zapis na blockchainie.</string>
+    <string name="burst_kind_high">Pięciogwiazdkowe recenzje</string>
+    <string name="burst_kind_low">Jednogwiazdkowe recenzje</string>
+    <string name="burst_kind_high_ratings">Pięciogwiazdkowe oceny</string>
+    <string name="burst_kind_low_ratings">Jednogwiazdkowe oceny</string>
+    <string name="burst_times">×%1$s zwykłego tempa</string>
+    <string name="burst_pace">Zwykłe tempo: około %1$s na 3 dni</string>
+    <string name="store_reply_source">z dApp Store</string>
+    <string name="note_signed_label">PODPISANE NA BLOCKCHAINIE</string>
+    <string name="permanent_title">Trwałe</string>
+    <string name="use_card_title">Twój telefon dodaje</string>
+    <string name="use_row_label">Czas na tym telefonie</string>
+    <string name="time_row_label">Czas użytkowania</string>
+    <string name="use_card_hint">Raport Twojego telefonu, zaokrąglony — to nie dowód. Cokolwiek jest włączone, zostaje trwale zapisane wraz z recenzją.</string>
+    <string name="scan_notif_title">Powiadom o zakończeniu skanowania</string>
+    <string name="scan_notif_body">Skanowanie działa w tle (około 6 min). Zezwól na powiadomienia, aby wiedzieć, kiedy się zakończy.</string>
+    <string name="scan_notif_note">Bez nich nadal się wykona; wyniki pojawią się tutaj, gdy wrócisz.</string>
+    <string name="scan_notif_allow">Zezwól na powiadomienia</string>
+    <string name="scan_notif_skip">Skanuj bez powiadomień</string>
+    <string name="pay_label_payments">Płatności</string>
+    <string name="pay_label_payers">Płatnicy</string>
+    <string name="pay_label_attested">Z potwierdzonym urządzeniem</string>
+    <string name="pay_label_attested_short">Potwierdzone</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Pierwsza</string>
+    <string name="pay_label_latest">Ostatnia</string>
+    <string name="pay_order">Uszeregowane według otrzymanych płatności</string>
+    <string name="pay_tools">Dla wydawców</string>
+    <string name="pay_preview_badge">Podgląd · niewystawione</string>
+    <string name="pay_step_line">Dodaj linię</string>
+    <string name="pay_step_sign">Podpisz</string>
+    <string name="pay_copy">Kopiuj</string>
+    <string name="pay_copied">Skopiowano</string>
+    <string name="pay_line_found">Znaleziono linię na stronie</string>
+    <string name="pay_checked">Sprawdzono: %1$s</string>
+    <string name="pay_check_again">Sprawdź ponownie</string>
+    <string name="pay_continue">Przejdź do kroku 2</string>
+    <string name="pay_sign_early">Możesz podpisać, zanim linia zostanie znaleziona; wystawienie na liście na nią poczeka.</string>
+    <string name="pay_wallet_matches">pasuje</string>
+    <string name="pay_open_board">Otwórz w przeglądzie</string>
+    <string name="pay_show_line">Pokaż linię</string>
+    <string name="watch_label_requests">Żądań dziennie</string>
+    <string name="watch_label_kept">Zachowane</string>
+    <string name="watch_label_first">Pierwsze wyniki</string>
+    <string name="watch_label_last">Ostatnio odczytano</string>
+    <string name="watch_label_apps">Aplikacje</string>
+    <string name="watch_label_since">Śledzenie od</string>
+    <plurals name="watch_days_of"><item quantity="one">z %1$d dnia</item><item quantity="few">z %1$d dni</item><item quantity="many">z %1$d dni</item><item quantity="other">z %1$d dnia</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d pięciogwiazdkowe</item><item quantity="few">%1$d pięciogwiazdkowe</item><item quantity="many">%1$d pięciogwiazdkowych</item><item quantity="other">%1$d pięciogwiazdkowych</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d jednogwiazdkowe</item><item quantity="few">%1$d jednogwiazdkowe</item><item quantity="many">%1$d jednogwiazdkowych</item><item quantity="other">%1$d jednogwiazdkowych</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d krok</item><item quantity="few">%1$d kroki</item><item quantity="many">%1$d kroków</item><item quantity="other">%1$d kroku</item></plurals>
 </resources>

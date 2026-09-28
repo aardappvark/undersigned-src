@@ -623,6 +623,71 @@
     <string name="more_actions">More actions</string>
     <string name="burst_ratings_none">No rating bursts.</string>
     <string name="pay_label_signing">Signing wallet</string>
+    <plurals name="pay_steps"><item quantity="one">%1$d step</item><item quantity="other">%1$d steps</item></plurals>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Leaderboard</string>
+    <string name="lb_open">Leaderboard</string>
+    <string name="lb_overall">Overall</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Revenue</string>
+    <string name="lb_m_payers">Paying users</string>
+    <string name="lb_m_signed_score">Signed score</string>
+    <string name="lb_m_signed_reviews">Signed reviews</string>
+    <string name="lb_m_store_rating">Store rating</string>
+    <string name="lb_m_store_reviews">Store reviews</string>
+    <string name="lb_m_growth">Growth this month</string>
+    <string name="lb_note_revenue">Confirmed treasuries only, ranked by USD on the day of each payment. Unconfirmed amounts are shown beneath, not ranked.</string>
+    <string name="lb_note_growth">This month\'s payments against last month\'s, confirmed treasuries only.</string>
+    <string name="lb_note_score">Ranked by rank score — shrunk toward 3.0 until more Seekers sign, so a single 5★ can\'t top the list. Minimum 2 signed reviews.</string>
+    <string name="lb_note_signed">Counted signed reviews: one per Seeker, withdrawn ones out.</string>
+    <string name="lb_note_store">The dApp Store\'s own counts, read %1$s. Store rating needs at least 5 reviews.</string>
+    <string name="lb_note_store_unread">The dApp Store\'s own counts. Store rating needs at least 5 reviews.</string>
+    <string name="lb_store_reading">Reading store counts: %1$s</string>
+    <string name="lb_empty">Nothing to rank here yet.</string>
+    <string name="lb_unconfirmed_title">Not yet confirmed · not ranked</string>
+    <string name="lb_unconfirmed_body">Listed by the treasury, waiting for the line on the publisher\'s website.</string>
+    <plurals name="lb_thin"><item quantity="one">%1$d more dApp here has fewer than 2 signed reviews and is not ranked.</item><item quantity="other">%1$d more dApps here have fewer than 2 signed reviews and are not ranked.</item></plurals>
+    <string name="lb_downloads_title">Downloads</string>
+    <string name="lb_downloads_body">The dApp Store doesn\'t publish install counts, so there is no download ranking. It appears here if a source is added.</string>
+    <string name="lb_signed_n">Signed reviews: %1$d</string>
+    <string name="dd_revenue">Revenue</string>
+    <string name="dd_signed">Signed</string>
+    <string name="dd_store">Store</string>
+    <string name="dd_updates">Updates</string>
+    <string name="dd_updates_none">No updates seen on this phone yet. Last store update: %1$s</string>
+    <string name="dd_same_cert">Same signing certificate</string>
+    <string name="dd_cert_changed">Certificate CHANGED</string>
+    <string name="dd_perm_added">Permission added: %1$s</string>
+    <string name="dd_perm_removed">Permission removed: %1$s</string>
+    <string name="dd_perms_same">Permissions unchanged</string>
+    <string name="dd_signed_since">Signed since: %1$d</string>
+    <string name="dd_worth">Worth knowing</string>
+    <string name="dd_no_bursts">No review bursts since %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d review burst</item><item quantity="other">%1$d review bursts</item></plurals>
+    <string name="dd_treasury_confirmed">Treasury confirmed by the website</string>
+    <string name="dd_treasury_none">No confirmed treasury</string>
+    <string name="dd_last_update">Last store update: %1$s</string>
+    <string name="dd_open">Open the full dApp page</string>
+    <string name="tr_title">Trends</string>
+    <string name="tr_30d">30D</string>
+    <string name="tr_90d">90D</string>
+    <string name="tr_1y">1Y</string>
+    <string name="tr_all">All</string>
+    <string name="tr_revenue">Revenue</string>
+    <string name="tr_score">Score over time</string>
+    <string name="tr_signed">Signed</string>
+    <string name="tr_store">Store</string>
+    <string name="tr_reviews_week">Signed reviews per week</string>
+    <string name="tr_payers">Paying users</string>
+    <string name="tr_no_bursts">No bursts</string>
+    <string name="tr_no_data">Not enough data yet.</string>
+    <string name="tr_sum_revenue">%1$s in this range · Payments: %2$d</string>
+    <string name="tr_sum_score">Signed: %1$s · Store: %2$s now</string>
+    <string name="tr_gap_wider">the gap widened</string>
+    <string name="tr_gap_narrower">the gap narrowed</string>
+    <string name="tr_gap_same">the gap held</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d signed review in this range</item><item quantity="other">%1$d signed reviews in this range</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d paying user in this range</item><item quantity="other">%1$d paying users in this range</item></plurals>
     <plurals name="watch_days_n">
         <item quantity="one">%1$d day</item>
         <item quantity="other">%1$d days</item>

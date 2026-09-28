@@ -838,10 +838,10 @@ private fun BurstSection(source: String, bursts: List<com.undersigned.protocol.R
         lead.count, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(lead.start * 1000)), DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(lead.end * 1000)), pace)
     Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.Top) {
         Column(Modifier.weight(1f)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            // FlowRow: in German the pill is twice as wide and must wrap under the count, not be cut off (seen on device).
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text("${lead.count}", color = RbColors.textPrimary, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, lineHeight = 44.sp)
-                Spacer(Modifier.width(10.dp))
-                TrustPill(stringResource(R.string.burst_times, timesText(lead)), RbColors.warning)
+                Box(Modifier.heightIn(min = 44.dp), contentAlignment = Alignment.Center) { TrustPill(stringResource(R.string.burst_times, timesText(lead)), RbColors.warning) }
             }
             Text(burstRange(lead), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
             Text(stringResource(R.string.burst_pace, pace), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))

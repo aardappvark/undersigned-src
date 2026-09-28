@@ -612,4 +612,126 @@
     <string name="pay_bad_input">Ellenőrizd a csomagnevet és a kódot (egy 2–31 betűből, számjegyből, - vagy _ jelből álló memo kód, vagy egy referenciaszámla-cím).</string>
     <string name="pay_open">Fizetések áttekintése</string>
     <string name="pay_waiting_list">A kincstár listázta, a weboldal még nem erősítette meg: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">További műveletek</string>
+    <string name="burst_ratings_none">Nincs pontozási hullám.</string>
+    <string name="pay_label_signing">Aláíró tárca</string>
+    <string name="lb_title">Ranglista</string>
+    <string name="lb_open">Ranglista</string>
+    <string name="lb_overall">Összesített</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Bevétel</string>
+    <string name="lb_m_payers">Fizető felhasználók</string>
+    <string name="lb_m_signed_score">Aláírt pontszám</string>
+    <string name="lb_m_signed_reviews">Aláírt értékelések</string>
+    <string name="lb_m_store_rating">Áruházi pontszám</string>
+    <string name="lb_m_store_reviews">Áruházi értékelések</string>
+    <string name="lb_m_growth">Növekedés ebben a hónapban</string>
+    <string name="lb_note_revenue">Csak megerősített kincstárak, USD szerint rangsorolva az egyes fizetések napján. A meg nem erősített összegek alul jelennek meg, ranglista nélkül.</string>
+    <string name="lb_note_growth">Az e havi fizetések az előző havihoz képest, csak megerősített kincstárak.</string>
+    <string name="lb_note_score">A rangsorolási pontszám szerint rendezve — ez 3,0 felé húz, amíg több Seeker nem ír alá, így egyetlen 5★ sem kerülhet a lista élére. Minimum 2 aláírt értékelés.</string>
+    <string name="lb_note_signed">Beszámított aláírt értékelések: Seekerenként egy, a visszavontak nem számítanak.</string>
+    <string name="lb_note_store">A dApp Store saját számai, olvasva: %1$s. Az áruházi pontszámhoz legalább 5 értékelés kell.</string>
+    <string name="lb_note_store_unread">A dApp Store saját számai. Az áruházi pontszámhoz legalább 5 értékelés kell.</string>
+    <string name="lb_store_reading">Áruházi számok olvasása: %1$s</string>
+    <string name="lb_empty">Itt még nincs mit rangsorolni.</string>
+    <string name="lb_unconfirmed_title">Még nincs megerősítve · nincs a ranglistán</string>
+    <string name="lb_unconfirmed_body">A kincstár listázta, a kiadó weboldalának sorára vár.</string>
+    <plurals name="lb_thin"><item quantity="one">Még %1$d dApp van itt, amelynek kevesebb mint 2 aláírt értékelése van, és nincs rangsorolva.</item><item quantity="other">Még %1$d dApps van itt, amelyeknek kevesebb mint 2 aláírt értékelésük van, és nincsenek rangsorolva.</item></plurals>
+    <string name="lb_downloads_title">Letöltések</string>
+    <string name="lb_downloads_body">A dApp Store nem teszi közzé a telepítési számokat, ezért nincs letöltési ranglista. Itt jelenik meg, ha hozzáadnak egy forrást.</string>
+    <string name="lb_signed_n">Aláírt értékelések: %1$d</string>
+    <string name="dd_revenue">Bevétel</string>
+    <string name="dd_signed">Aláírva</string>
+    <string name="dd_store">Áruház</string>
+    <string name="dd_updates">Frissítések</string>
+    <string name="dd_updates_none">Ezen a telefonon még nem észleltünk frissítést. Legutóbbi áruházi frissítés: %1$s</string>
+    <string name="dd_same_cert">Ugyanaz az aláíró tanúsítvány</string>
+    <string name="dd_cert_changed">A tanúsítvány MEGVÁLTOZOTT</string>
+    <string name="dd_perm_added">Hozzáadott engedély: %1$s</string>
+    <string name="dd_perm_removed">Eltávolított engedély: %1$s</string>
+    <string name="dd_perms_same">Az engedélyek nem változtak</string>
+    <string name="dd_signed_since">Aláírva %1$d óta</string>
+    <string name="dd_worth">Érdemes tudni</string>
+    <string name="dd_no_bursts">Nincs értékelési hullám %1$s óta</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d értékelési hullám</item><item quantity="other">%1$d értékelési hullám</item></plurals>
+    <string name="dd_treasury_confirmed">A kincstárat a weboldal megerősítette</string>
+    <string name="dd_treasury_none">Nincs megerősített kincstár</string>
+    <string name="dd_last_update">Legutóbbi áruházi frissítés: %1$s</string>
+    <string name="dd_open">A teljes dApp-oldal megnyitása</string>
+    <string name="tr_title">Trendek</string>
+    <string name="tr_30d">30N</string>
+    <string name="tr_90d">90N</string>
+    <string name="tr_1y">1É</string>
+    <string name="tr_all">Mind</string>
+    <string name="tr_revenue">Bevétel</string>
+    <string name="tr_score">Pontszám az idő során</string>
+    <string name="tr_signed">Aláírva</string>
+    <string name="tr_store">Áruház</string>
+    <string name="tr_reviews_week">Aláírt értékelések hetente</string>
+    <string name="tr_payers">Fizető felhasználók</string>
+    <string name="tr_no_bursts">Nincs hullám</string>
+    <string name="tr_no_data">Még nincs elég adat.</string>
+    <string name="tr_sum_revenue">%1$s ebben az időszakban · Fizetések: %2$d</string>
+    <string name="tr_sum_score">Aláírva: %1$s · Áruház: %2$s most</string>
+    <string name="tr_gap_wider">a különbség nőtt</string>
+    <string name="tr_gap_narrower">a különbség csökkent</string>
+    <string name="tr_gap_same">a különbség változatlan maradt</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d aláírt értékelés ebben az időszakban</item><item quantity="other">%1$d aláírt értékelés ebben az időszakban</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d fizető felhasználó ebben az időszakban</item><item quantity="other">%1$d fizető felhasználó ebben az időszakban</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d nap</item><item quantity="other">%1$d nap</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">%1$d. nap</item><item quantity="other">%1$d. nap</item></plurals>
+    <string name="pay_listing_note">A listázás aláírt bejegyzés. A későbbi visszavonása is a láncon hagyja a bejegyzést.</string>
+    <string name="burst_kind_high">Ötcsillagos értékelések</string>
+    <string name="burst_kind_low">Egycsillagos értékelések</string>
+    <string name="burst_kind_high_ratings">Ötcsillagos pontozások</string>
+    <string name="burst_kind_low_ratings">Egycsillagos pontozások</string>
+    <string name="burst_times">×%1$s a szokásos ütemhez képest</string>
+    <string name="burst_pace">Szokásos ütem: kb. %1$s / 3 nap</string>
+    <string name="store_reply_source">a dApp Store-ból</string>
+    <string name="note_signed_label">ALÁÍRVA A LÁNCON</string>
+    <string name="permanent_title">Végleges</string>
+    <string name="use_card_title">A telefonod hozzáadja</string>
+    <string name="use_row_label">Idő ezen a telefonon</string>
+    <string name="time_row_label">A használat ideje</string>
+    <string name="use_card_hint">A telefonod jelentése, kerekítve — nem bizonyíték. Bármi, ami be van kapcsolva, véglegesen rögzül az értékeléssel együtt.</string>
+    <string name="scan_notif_title">Értesítés, ha kész a vizsgálat</string>
+    <string name="scan_notif_body">A vizsgálat a háttérben fut (kb. 6 perc). Engedélyezd az értesítéseket, hogy tudd, mikor lesz kész.</string>
+    <string name="scan_notif_note">Nélkülük is lefut; az eredmények itt jelennek meg, amikor visszatérsz.</string>
+    <string name="scan_notif_allow">Értesítések engedélyezése</string>
+    <string name="scan_notif_skip">Vizsgálat értesítések nélkül</string>
+    <string name="pay_label_payments">Fizetések</string>
+    <string name="pay_label_payers">Fizetők</string>
+    <string name="pay_label_attested">Hitelesített eszközzel</string>
+    <string name="pay_label_attested_short">Hitelesítve</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Első</string>
+    <string name="pay_label_latest">Legutóbbi</string>
+    <string name="pay_order">Beérkezett fizetések szerint rendezve</string>
+    <string name="pay_tools">Kiadóknak</string>
+    <string name="pay_preview_badge">Előnézet · nincs listázva</string>
+    <string name="pay_step_line">Sor hozzáadása</string>
+    <string name="pay_step_sign">Aláírás</string>
+    <string name="pay_copy">Másolás</string>
+    <string name="pay_copied">Másolva</string>
+    <string name="pay_line_found">A weboldal sora megtalálva</string>
+    <string name="pay_checked">Ellenőrizve: %1$s</string>
+    <string name="pay_check_again">Ellenőrzés újra</string>
+    <string name="pay_continue">Tovább a 2. lépéshez</string>
+    <string name="pay_sign_early">Aláírhatsz, mielőtt a sor megtalálásra kerülne; a listázás erre vár.</string>
+    <string name="pay_wallet_matches">egyezik</string>
+    <string name="pay_open_board">Megnyitás az áttekintésben</string>
+    <string name="pay_show_line">Sor megjelenítése</string>
+    <string name="watch_label_requests">Kérés naponta</string>
+    <string name="watch_label_kept">Megtartva</string>
+    <string name="watch_label_first">Első eredmények</string>
+    <string name="watch_label_last">Utoljára olvasva</string>
+    <string name="watch_label_apps">Alkalmazások</string>
+    <string name="watch_label_since">Követés ekkortól</string>
+    <plurals name="watch_days_of"><item quantity="one">%1$d napból</item><item quantity="other">%1$d napból</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d ötcsillagos</item><item quantity="other">%1$d ötcsillagos</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d egycsillagos</item><item quantity="other">%1$d egycsillagos</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d lépés</item><item quantity="other">%1$d lépés</item></plurals>
 </resources>

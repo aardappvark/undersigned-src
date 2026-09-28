@@ -598,4 +598,126 @@
     <string name="pay_bad_input">패키지 이름과 코드를 확인하세요(2–31자의 영문자, 숫자, - 또는 _로 된 메모 코드, 또는 참조 계정 주소).</string>
     <string name="pay_open">결제 게시판</string>
     <string name="pay_waiting_list">트레저리가 등록했지만 웹사이트에서 아직 확인되지 않음: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">추가 작업</string>
+    <string name="burst_ratings_none">평점 급증이 없습니다.</string>
+    <string name="pay_label_signing">서명 지갑</string>
+    <string name="lb_title">리더보드</string>
+    <string name="lb_open">리더보드</string>
+    <string name="lb_overall">종합</string>
+    <plurals name="lb_dapps"><item quantity="other">dApp %1$d개</item></plurals>
+    <string name="lb_m_revenue">수입</string>
+    <string name="lb_m_payers">유료 사용자</string>
+    <string name="lb_m_signed_score">서명 점수</string>
+    <string name="lb_m_signed_reviews">서명된 리뷰</string>
+    <string name="lb_m_store_rating">스토어 평점</string>
+    <string name="lb_m_store_reviews">스토어 리뷰</string>
+    <string name="lb_m_growth">이달의 성장</string>
+    <string name="lb_note_revenue">확인된 트레저리만 대상으로 하며, 각 결제 당일의 USD 환산액으로 순위를 매깁니다. 확인되지 않은 금액은 아래에 표시되며 순위에는 포함되지 않습니다.</string>
+    <string name="lb_note_growth">이번 달 결제와 지난달 결제를 비교(확인된 트레저리만 대상).</string>
+    <string name="lb_note_score">순위 점수로 정렬 — 더 많은 Seeker가 서명할 때까지 3.0 쪽으로 조정되므로, 5★ 리뷰 하나만으로는 1위가 될 수 없습니다. 서명된 리뷰 최소 2건 필요.</string>
+    <string name="lb_note_signed">집계되는 서명된 리뷰: Seeker당 1건, 철회된 것은 제외.</string>
+    <string name="lb_note_store">dApp Store 자체 집계 수치(%1$s에 읽음). 스토어 평점에는 최소 5건의 리뷰가 필요합니다.</string>
+    <string name="lb_note_store_unread">dApp Store 자체 집계 수치입니다. 스토어 평점에는 최소 5건의 리뷰가 필요합니다.</string>
+    <string name="lb_store_reading">스토어 집계 읽는 중: %1$s</string>
+    <string name="lb_empty">아직 순위를 매길 항목이 없습니다.</string>
+    <string name="lb_unconfirmed_title">아직 미확인 · 순위 제외</string>
+    <string name="lb_unconfirmed_body">트레저리 쪽에서 등록됨, 퍼블리셔 웹사이트에 해당 줄이 게시되기를 기다리는 중입니다.</string>
+    <plurals name="lb_thin"><item quantity="other">여기에 서명된 리뷰가 2건 미만이라 순위에서 제외된 dApp이 %1$d개 더 있습니다.</item></plurals>
+    <string name="lb_downloads_title">다운로드 수</string>
+    <string name="lb_downloads_body">dApp Store는 설치 수를 공개하지 않으므로 다운로드 순위는 없습니다. 데이터 소스가 추가되면 여기에 표시됩니다.</string>
+    <string name="lb_signed_n">서명된 리뷰: %1$d</string>
+    <string name="dd_revenue">수입</string>
+    <string name="dd_signed">서명됨</string>
+    <string name="dd_store">스토어</string>
+    <string name="dd_updates">업데이트</string>
+    <string name="dd_updates_none">이 휴대폰에서는 아직 업데이트가 확인되지 않았습니다. 스토어 최신 업데이트: %1$s</string>
+    <string name="dd_same_cert">서명 인증서 동일</string>
+    <string name="dd_cert_changed">인증서 변경됨</string>
+    <string name="dd_perm_added">추가된 권한: %1$s</string>
+    <string name="dd_perm_removed">제거된 권한: %1$s</string>
+    <string name="dd_perms_same">권한 변경 없음</string>
+    <string name="dd_signed_since">서명 시작: %1$d</string>
+    <string name="dd_worth">알아두면 좋은 점</string>
+    <string name="dd_no_bursts">%1$s 이후 리뷰 급증 없음</string>
+    <plurals name="dd_bursts"><item quantity="other">리뷰 급증 %1$d건</item></plurals>
+    <string name="dd_treasury_confirmed">트레저리가 웹사이트에서 확인됨</string>
+    <string name="dd_treasury_none">확인된 트레저리 없음</string>
+    <string name="dd_last_update">스토어 최신 업데이트: %1$s</string>
+    <string name="dd_open">dApp 전체 페이지 열기</string>
+    <string name="tr_title">추세</string>
+    <string name="tr_30d">30일</string>
+    <string name="tr_90d">90일</string>
+    <string name="tr_1y">1년</string>
+    <string name="tr_all">전체</string>
+    <string name="tr_revenue">수입</string>
+    <string name="tr_score">점수 추이</string>
+    <string name="tr_signed">서명됨</string>
+    <string name="tr_store">스토어</string>
+    <string name="tr_reviews_week">주당 서명된 리뷰 수</string>
+    <string name="tr_payers">유료 사용자</string>
+    <string name="tr_no_bursts">급증 없음</string>
+    <string name="tr_no_data">아직 데이터가 충분하지 않습니다.</string>
+    <string name="tr_sum_revenue">이 기간 %1$s · 결제 건수: %2$d</string>
+    <string name="tr_sum_score">서명됨: %1$s · 스토어: 현재 %2$s</string>
+    <string name="tr_gap_wider">격차가 벌어짐</string>
+    <string name="tr_gap_narrower">격차가 좁혀짐</string>
+    <string name="tr_gap_same">격차가 그대로 유지됨</string>
+    <plurals name="tr_sum_reviews"><item quantity="other">이 기간의 서명된 리뷰 %1$d건</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="other">이 기간의 유료 사용자 %1$d명</item></plurals>
+    <plurals name="watch_days_n"><item quantity="other">%1$d일</item></plurals>
+    <plurals name="watch_day_n"><item quantity="other">%1$d일차</item></plurals>
+    <string name="pay_listing_note">이 등록은 서명된 기록입니다. 나중에 철회해도 기록은 온체인에 남습니다.</string>
+    <string name="burst_kind_high">별점 5개 리뷰</string>
+    <string name="burst_kind_low">별점 1개 리뷰</string>
+    <string name="burst_kind_high_ratings">별점 5개 평가</string>
+    <string name="burst_kind_low_ratings">별점 1개 평가</string>
+    <string name="burst_times">평소 속도의 ×%1$s</string>
+    <string name="burst_pace">평소 속도: 3일당 약 %1$s건</string>
+    <string name="store_reply_source">dApp Store에서</string>
+    <string name="note_signed_label">온체인에서 서명됨</string>
+    <string name="permanent_title">영구</string>
+    <string name="use_card_title">이 휴대폰이 추가하는 정보</string>
+    <string name="use_row_label">이 휴대폰에서의 사용 시간</string>
+    <string name="time_row_label">지금까지 사용한 시간</string>
+    <string name="use_card_hint">휴대폰이 보고하는 내용이며 반올림된 값입니다 — 증거가 아닙니다. 켜져 있는 항목은 리뷰와 함께 영구적으로 기록됩니다.</string>
+    <string name="scan_notif_title">스캔이 끝나면 알림 받기</string>
+    <string name="scan_notif_body">스캔은 백그라운드에서 실행됩니다(약 6분). 완료 알림을 받으려면 알림을 허용하세요.</string>
+    <string name="scan_notif_note">알림을 허용하지 않아도 스캔은 계속 진행됩니다. 돌아오면 결과가 여기에 표시됩니다.</string>
+    <string name="scan_notif_allow">알림 허용</string>
+    <string name="scan_notif_skip">알림 없이 스캔</string>
+    <string name="pay_label_payments">결제</string>
+    <string name="pay_label_payers">결제자</string>
+    <string name="pay_label_attested">인증된 기기 사용</string>
+    <string name="pay_label_attested_short">인증됨</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">최초</string>
+    <string name="pay_label_latest">최신</string>
+    <string name="pay_order">받은 결제 순으로 정렬</string>
+    <string name="pay_tools">퍼블리셔용</string>
+    <string name="pay_preview_badge">미리보기 · 미등록</string>
+    <string name="pay_step_line">줄 추가</string>
+    <string name="pay_step_sign">서명</string>
+    <string name="pay_copy">복사</string>
+    <string name="pay_copied">복사됨</string>
+    <string name="pay_line_found">웹사이트에서 줄을 찾았습니다</string>
+    <string name="pay_checked">확인됨: %1$s</string>
+    <string name="pay_check_again">다시 확인</string>
+    <string name="pay_continue">2단계로 계속</string>
+    <string name="pay_sign_early">줄을 찾기 전에도 서명할 수 있습니다. 등록은 해당 줄을 기다립니다.</string>
+    <string name="pay_wallet_matches">일치</string>
+    <string name="pay_open_board">게시판에서 열기</string>
+    <string name="pay_show_line">줄 표시</string>
+    <string name="watch_label_requests">하루 요청 수</string>
+    <string name="watch_label_kept">유지됨</string>
+    <string name="watch_label_first">첫 결과</string>
+    <string name="watch_label_last">마지막 읽기</string>
+    <string name="watch_label_apps">앱</string>
+    <string name="watch_label_since">추적 시작</string>
+    <plurals name="watch_days_of"><item quantity="other">%1$d일 중</item></plurals>
+    <plurals name="watch_count_high"><item quantity="other">별점 5개 %1$d건</item></plurals>
+    <plurals name="watch_count_low"><item quantity="other">별점 1개 %1$d건</item></plurals>
+    <plurals name="pay_steps"><item quantity="other">%1$d단계</item></plurals>
 </resources>

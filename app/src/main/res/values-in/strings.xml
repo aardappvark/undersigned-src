@@ -605,4 +605,127 @@
     <string name="pay_bad_input">Periksa nama paket dan kode (kode memo terdiri dari 2–31 huruf, angka, - atau _, atau alamat akun referensi).</string>
     <string name="pay_open">Papan pembayaran</string>
     <string name="pay_waiting_list">Didaftarkan oleh treasuri, belum dikonfirmasi oleh situs web: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Tindakan lainnya</string>
+    <string name="burst_ratings_none">Tidak ada lonjakan peringkat.</string>
+    <string name="pay_label_signing">Dompet penandatangan</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Papan peringkat</string>
+    <string name="lb_open">Papan peringkat</string>
+    <string name="lb_overall">Keseluruhan</string>
+    <plurals name="lb_dapps"><item quantity="other">%1$d dApp</item></plurals>
+    <string name="lb_m_revenue">Pendapatan</string>
+    <string name="lb_m_payers">Pengguna berbayar</string>
+    <string name="lb_m_signed_score">Skor yang ditandatangani</string>
+    <string name="lb_m_signed_reviews">Ulasan yang ditandatangani</string>
+    <string name="lb_m_store_rating">Peringkat toko</string>
+    <string name="lb_m_store_reviews">Ulasan toko</string>
+    <string name="lb_m_growth">Pertumbuhan bulan ini</string>
+    <string name="lb_note_revenue">Hanya treasuri yang dikonfirmasi, diperingkat berdasarkan USD pada hari setiap pembayaran. Jumlah yang belum dikonfirmasi ditampilkan di bawah, tidak diperingkat.</string>
+    <string name="lb_note_growth">Pembayaran bulan ini dibandingkan bulan lalu, hanya treasuri yang dikonfirmasi.</string>
+    <string name="lb_note_score">Diperingkat berdasarkan skor peringkat — disusutkan menuju 3,0 hingga lebih banyak Seeker menandatangani, sehingga satu ulasan 5★ saja tidak bisa memuncaki daftar. Minimal 2 ulasan yang ditandatangani.</string>
+    <string name="lb_note_signed">Ulasan yang ditandatangani yang dihitung: satu per Seeker, tidak termasuk yang ditarik.</string>
+    <string name="lb_note_store">Jumlah milik dApp Store sendiri, dibaca %1$s. Peringkat toko memerlukan setidaknya 5 ulasan.</string>
+    <string name="lb_note_store_unread">Jumlah milik dApp Store sendiri. Peringkat toko memerlukan setidaknya 5 ulasan.</string>
+    <string name="lb_store_reading">Membaca jumlah toko: %1$s</string>
+    <string name="lb_empty">Belum ada yang bisa diperingkat di sini.</string>
+    <string name="lb_unconfirmed_title">Belum dikonfirmasi · tidak diperingkat</string>
+    <string name="lb_unconfirmed_body">Terdaftar oleh treasuri, menunggu baris di situs web penerbit.</string>
+    <plurals name="lb_thin"><item quantity="other">%1$d dApp lagi di sini memiliki kurang dari 2 ulasan yang ditandatangani dan tidak diperingkat.</item></plurals>
+    <string name="lb_downloads_title">Unduhan</string>
+    <string name="lb_downloads_body">dApp Store tidak mempublikasikan jumlah instalasi, sehingga tidak ada peringkat unduhan. Ini akan muncul di sini jika sumber ditambahkan.</string>
+    <string name="lb_signed_n">Ulasan yang ditandatangani: %1$d</string>
+    <string name="dd_revenue">Pendapatan</string>
+    <string name="dd_signed">Ditandatangani</string>
+    <string name="dd_store">Toko</string>
+    <string name="dd_updates">Pembaruan</string>
+    <string name="dd_updates_none">Belum ada pembaruan yang terlihat di ponsel ini. Pembaruan toko terakhir: %1$s</string>
+    <string name="dd_same_cert">Sertifikat penandatanganan yang sama</string>
+    <string name="dd_cert_changed">Sertifikat BERUBAH</string>
+    <string name="dd_perm_added">Izin ditambahkan: %1$s</string>
+    <string name="dd_perm_removed">Izin dihapus: %1$s</string>
+    <string name="dd_perms_same">Izin tidak berubah</string>
+    <string name="dd_signed_since">Ditandatangani sejak: %1$d</string>
+    <string name="dd_worth">Layak diketahui</string>
+    <string name="dd_no_bursts">Tidak ada lonjakan ulasan sejak %1$s</string>
+    <plurals name="dd_bursts"><item quantity="other">%1$d lonjakan ulasan</item></plurals>
+    <string name="dd_treasury_confirmed">Treasuri dikonfirmasi oleh situs web</string>
+    <string name="dd_treasury_none">Tidak ada treasuri yang dikonfirmasi</string>
+    <string name="dd_last_update">Pembaruan toko terakhir: %1$s</string>
+    <string name="dd_open">Buka halaman dApp lengkap</string>
+    <string name="tr_title">Tren</string>
+    <string name="tr_30d">30H</string>
+    <string name="tr_90d">90H</string>
+    <string name="tr_1y">1T</string>
+    <string name="tr_all">Semua</string>
+    <string name="tr_revenue">Pendapatan</string>
+    <string name="tr_score">Skor dari waktu ke waktu</string>
+    <string name="tr_signed">Ditandatangani</string>
+    <string name="tr_store">Toko</string>
+    <string name="tr_reviews_week">Ulasan yang ditandatangani per minggu</string>
+    <string name="tr_payers">Pengguna berbayar</string>
+    <string name="tr_no_bursts">Tidak ada lonjakan</string>
+    <string name="tr_no_data">Belum cukup data.</string>
+    <string name="tr_sum_revenue">%1$s dalam rentang ini · Pembayaran: %2$d</string>
+    <string name="tr_sum_score">Ditandatangani: %1$s · Toko: %2$s sekarang</string>
+    <string name="tr_gap_wider">kesenjangan melebar</string>
+    <string name="tr_gap_narrower">kesenjangan menyempit</string>
+    <string name="tr_gap_same">kesenjangan tetap</string>
+    <plurals name="tr_sum_reviews"><item quantity="other">%1$d ulasan yang ditandatangani dalam rentang ini</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="other">%1$d pengguna berbayar dalam rentang ini</item></plurals>
+    <plurals name="watch_days_n"><item quantity="other">%1$d hari</item></plurals>
+    <plurals name="watch_day_n"><item quantity="other">hari %1$d</item></plurals>
+    <string name="pay_listing_note">Listingan adalah catatan yang ditandatangani. Menariknya nanti tetap meninggalkan catatan itu on-chain.</string>
+    <string name="burst_kind_high">Ulasan bintang lima</string>
+    <string name="burst_kind_low">Ulasan bintang satu</string>
+    <string name="burst_kind_high_ratings">Peringkat bintang lima</string>
+    <string name="burst_kind_low_ratings">Peringkat bintang satu</string>
+    <string name="burst_times">×%1$s dari kecepatan biasa</string>
+    <string name="burst_pace">Kecepatan biasa: sekitar %1$s per 3 hari</string>
+    <string name="store_reply_source">dari dApp Store</string>
+    <string name="note_signed_label">DITANDATANGANI ON-CHAIN</string>
+    <string name="permanent_title">Permanen</string>
+    <string name="use_card_title">Yang ditambahkan ponsel Anda</string>
+    <string name="use_row_label">Waktu di ponsel ini</string>
+    <string name="time_row_label">Waktu yang telah Anda gunakan</string>
+    <string name="use_card_hint">Laporan ponsel Anda, dibulatkan — bukan bukti. Apa pun yang diaktifkan akan dicatat secara permanen bersama ulasan.</string>
+    <string name="scan_notif_title">Dengar saat pemindaian selesai</string>
+    <string name="scan_notif_body">Pemindaian berjalan di latar belakang (sekitar 6 menit). Izinkan notifikasi untuk mendengar saat selesai.</string>
+    <string name="scan_notif_note">Tanpa notifikasi pun tetap berjalan; hasilnya muncul di sini saat Anda kembali.</string>
+    <string name="scan_notif_allow">Izinkan notifikasi</string>
+    <string name="scan_notif_skip">Pindai tanpa notifikasi</string>
+    <string name="pay_label_payments">Pembayaran</string>
+    <string name="pay_label_payers">Pembayar</string>
+    <string name="pay_label_attested">Dengan perangkat terverifikasi</string>
+    <string name="pay_label_attested_short">Terverifikasi</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Pertama</string>
+    <string name="pay_label_latest">Terbaru</string>
+    <string name="pay_order">Diurutkan berdasarkan pembayaran yang diterima</string>
+    <string name="pay_tools">Untuk penerbit</string>
+    <string name="pay_preview_badge">Pratinjau · belum terdaftar</string>
+    <string name="pay_step_line">Tambahkan baris</string>
+    <string name="pay_step_sign">Tandatangani</string>
+    <string name="pay_copy">Salin</string>
+    <string name="pay_copied">Disalin</string>
+    <string name="pay_line_found">Baris situs web ditemukan</string>
+    <string name="pay_checked">Diperiksa: %1$s</string>
+    <string name="pay_check_again">Periksa lagi</string>
+    <string name="pay_continue">Lanjut ke langkah 2</string>
+    <string name="pay_sign_early">Anda dapat menandatangani sebelum baris ditemukan; listingan akan menunggunya.</string>
+    <string name="pay_wallet_matches">cocok</string>
+    <string name="pay_open_board">Buka di papan</string>
+    <string name="pay_show_line">Tampilkan baris</string>
+    <string name="watch_label_requests">Permintaan per hari</string>
+    <string name="watch_label_kept">Disimpan</string>
+    <string name="watch_label_first">Hasil pertama</string>
+    <string name="watch_label_last">Terakhir dibaca</string>
+    <string name="watch_label_apps">Aplikasi</string>
+    <string name="watch_label_since">Dilacak sejak</string>
+    <plurals name="watch_days_of"><item quantity="other">dari %1$d hari</item></plurals>
+    <plurals name="watch_count_high"><item quantity="other">%1$d bintang lima</item></plurals>
+    <plurals name="watch_count_low"><item quantity="other">%1$d bintang satu</item></plurals>
+    <plurals name="pay_steps"><item quantity="other">%1$d langkah</item></plurals>
 </resources>

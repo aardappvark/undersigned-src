@@ -629,4 +629,126 @@
     <string name="pay_bad_input">Перевірте назву пакета і код (код memo з 2–31 літер, цифр, - або _, або адресу референс-рахунку).</string>
     <string name="pay_open">Огляд платежів</string>
     <string name="pay_waiting_list">Наведено скарбницею, ще не підтверджено сайтом: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Більше дій</string>
+    <string name="burst_ratings_none">Немає сплесків рейтингів.</string>
+    <string name="pay_label_signing">Гаманець підпису</string>
+    <string name="lb_title">Таблиця лідерів</string>
+    <string name="lb_open">Таблиця лідерів</string>
+    <string name="lb_overall">Загалом</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Дохід</string>
+    <string name="lb_m_payers">Користувачі, що платять</string>
+    <string name="lb_m_signed_score">Підписана оцінка</string>
+    <string name="lb_m_signed_reviews">Підписані відгуки</string>
+    <string name="lb_m_store_rating">Рейтинг магазину</string>
+    <string name="lb_m_store_reviews">Відгуки магазину</string>
+    <string name="lb_m_growth">Зростання цього місяця</string>
+    <string name="lb_note_revenue">Лише підтверджені скарбниці, ранжовані за USD на день кожного платежу. Непідтверджені суми показані нижче, без місця в таблиці лідерів.</string>
+    <string name="lb_note_growth">Платежі цього місяця порівняно з минулим, лише підтверджені скарбниці.</string>
+    <string name="lb_note_score">Ранжовано за рейтинговою оцінкою — стягнутою до 3,0, поки не підпише більше Seeker, тож єдина 5★ не може очолити список. Мінімум 2 підписані відгуки.</string>
+    <string name="lb_note_signed">Підписані відгуки, що враховуються: один на Seeker, вилучені не рахуються.</string>
+    <string name="lb_note_store">Власні лічильники dApp Store, прочитано %1$s. Рейтинг магазину потребує щонайменше 5 відгуків.</string>
+    <string name="lb_note_store_unread">Власні лічильники dApp Store. Рейтинг магазину потребує щонайменше 5 відгуків.</string>
+    <string name="lb_store_reading">Читання лічильників магазину: %1$s</string>
+    <string name="lb_empty">Тут поки що нема чого ранжувати.</string>
+    <string name="lb_unconfirmed_title">Ще не підтверджено · без рейтингу</string>
+    <string name="lb_unconfirmed_body">Наведено скарбницею, очікує на рядок на сайті видавця.</string>
+    <plurals name="lb_thin"><item quantity="one">Ще %1$d dApp тут має менше ніж 2 підписані відгуки і не входить до рейтингу.</item><item quantity="few">Ще %1$d dApps тут мають менше ніж 2 підписані відгуки і не входять до рейтингу.</item><item quantity="many">Ще %1$d dApps тут мають менше ніж 2 підписані відгуки і не входять до рейтингу.</item><item quantity="other">Ще %1$d dApps тут має менше ніж 2 підписані відгуки і не входить до рейтингу.</item></plurals>
+    <string name="lb_downloads_title">Завантаження</string>
+    <string name="lb_downloads_body">dApp Store не публікує кількість встановлень, тому рейтингу завантажень немає. Він з\'явиться тут, якщо буде додано джерело.</string>
+    <string name="lb_signed_n">Підписані відгуки: %1$d</string>
+    <string name="dd_revenue">Дохід</string>
+    <string name="dd_signed">Підписано</string>
+    <string name="dd_store">Магазин</string>
+    <string name="dd_updates">Оновлення</string>
+    <string name="dd_updates_none">На цьому телефоні ще не помічено жодних оновлень. Останнє оновлення в магазині: %1$s</string>
+    <string name="dd_same_cert">Той самий сертифікат підпису</string>
+    <string name="dd_cert_changed">Сертифікат ЗМІНЕНО</string>
+    <string name="dd_perm_added">Додано дозвіл: %1$s</string>
+    <string name="dd_perm_removed">Видалено дозвіл: %1$s</string>
+    <string name="dd_perms_same">Дозволи без змін</string>
+    <string name="dd_signed_since">Підписано з: %1$d</string>
+    <string name="dd_worth">Варто знати</string>
+    <string name="dd_no_bursts">Немає сплесків відгуків з %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d сплеск відгуків</item><item quantity="few">%1$d сплески відгуків</item><item quantity="many">%1$d сплесків відгуків</item><item quantity="other">%1$d сплеска відгуків</item></plurals>
+    <string name="dd_treasury_confirmed">Скарбницю підтверджено сайтом</string>
+    <string name="dd_treasury_none">Немає підтвердженої скарбниці</string>
+    <string name="dd_last_update">Останнє оновлення в магазині: %1$s</string>
+    <string name="dd_open">Відкрити повну сторінку dApp</string>
+    <string name="tr_title">Тренди</string>
+    <string name="tr_30d">30Д</string>
+    <string name="tr_90d">90Д</string>
+    <string name="tr_1y">1Р</string>
+    <string name="tr_all">Усі</string>
+    <string name="tr_revenue">Дохід</string>
+    <string name="tr_score">Оцінка в часі</string>
+    <string name="tr_signed">Підписано</string>
+    <string name="tr_store">Магазин</string>
+    <string name="tr_reviews_week">Підписані відгуки за тиждень</string>
+    <string name="tr_payers">Користувачі, що платять</string>
+    <string name="tr_no_bursts">Без сплесків</string>
+    <string name="tr_no_data">Поки що недостатньо даних.</string>
+    <string name="tr_sum_revenue">%1$s у цьому діапазоні · Платежі: %2$d</string>
+    <string name="tr_sum_score">Підписано: %1$s · Магазин: %2$s зараз</string>
+    <string name="tr_gap_wider">розрив збільшився</string>
+    <string name="tr_gap_narrower">розрив зменшився</string>
+    <string name="tr_gap_same">розрив залишився незмінним</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d підписаний відгук у цьому діапазоні</item><item quantity="few">%1$d підписані відгуки у цьому діапазоні</item><item quantity="many">%1$d підписаних відгуків у цьому діапазоні</item><item quantity="other">%1$d підписаного відгуку у цьому діапазоні</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d користувач, що платить, у цьому діапазоні</item><item quantity="few">%1$d користувачі, що платять, у цьому діапазоні</item><item quantity="many">%1$d користувачів, що платять, у цьому діапазоні</item><item quantity="other">%1$d користувача, що платить, у цьому діапазоні</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d день</item><item quantity="few">%1$d дні</item><item quantity="many">%1$d днів</item><item quantity="other">%1$d дня</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">день %1$d</item><item quantity="few">день %1$d</item><item quantity="many">день %1$d</item><item quantity="other">день %1$d</item></plurals>
+    <string name="pay_listing_note">Запис у списку є підписаним. Його подальше вилучення залишає запис у блокчейні.</string>
+    <string name="burst_kind_high">П\'ятизіркові відгуки</string>
+    <string name="burst_kind_low">Однозіркові відгуки</string>
+    <string name="burst_kind_high_ratings">П\'ятизіркові рейтинги</string>
+    <string name="burst_kind_low_ratings">Однозіркові рейтинги</string>
+    <string name="burst_times">×%1$s звичайного темпу</string>
+    <string name="burst_pace">Звичайний темп: близько %1$s за 3 дні</string>
+    <string name="store_reply_source">з dApp Store</string>
+    <string name="note_signed_label">ПІДПИСАНО В БЛОКЧЕЙНІ</string>
+    <string name="permanent_title">Постійно</string>
+    <string name="use_card_title">Ваш телефон додає</string>
+    <string name="use_row_label">Час на цьому телефоні</string>
+    <string name="time_row_label">Час використання</string>
+    <string name="use_card_hint">Звіт вашого телефону, округлений — не доказ. Усе, що ввімкнено, назавжди фіксується разом із відгуком.</string>
+    <string name="scan_notif_title">Повідомити про завершення сканування</string>
+    <string name="scan_notif_body">Сканування виконується у фоновому режимі (близько 6 хв). Дозвольте сповіщення, щоб дізнатися, коли воно завершиться.</string>
+    <string name="scan_notif_note">Без них сканування все одно виконається; результати з\'являться тут, коли ви повернетесь.</string>
+    <string name="scan_notif_allow">Дозволити сповіщення</string>
+    <string name="scan_notif_skip">Сканувати без сповіщень</string>
+    <string name="pay_label_payments">Платежі</string>
+    <string name="pay_label_payers">Платники</string>
+    <string name="pay_label_attested">З підтвердженим пристроєм</string>
+    <string name="pay_label_attested_short">Підтверджено</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Перший</string>
+    <string name="pay_label_latest">Останній</string>
+    <string name="pay_order">Впорядковано за отриманими платежами</string>
+    <string name="pay_tools">Для видавців</string>
+    <string name="pay_preview_badge">Перегляд · не наведено</string>
+    <string name="pay_step_line">Додати рядок</string>
+    <string name="pay_step_sign">Підписати</string>
+    <string name="pay_copy">Копіювати</string>
+    <string name="pay_copied">Скопійовано</string>
+    <string name="pay_line_found">Рядок на сайті знайдено</string>
+    <string name="pay_checked">Перевірено: %1$s</string>
+    <string name="pay_check_again">Перевірити знову</string>
+    <string name="pay_continue">Перейти до кроку 2</string>
+    <string name="pay_sign_early">Ви можете підписати ще до того, як рядок буде знайдено; наведення в списку чекатиме на нього.</string>
+    <string name="pay_wallet_matches">збігається</string>
+    <string name="pay_open_board">Відкрити в огляді</string>
+    <string name="pay_show_line">Показати рядок</string>
+    <string name="watch_label_requests">Запитів на день</string>
+    <string name="watch_label_kept">Збережено</string>
+    <string name="watch_label_first">Перші результати</string>
+    <string name="watch_label_last">Востаннє прочитано</string>
+    <string name="watch_label_apps">Додатки</string>
+    <string name="watch_label_since">Відстеження з</string>
+    <plurals name="watch_days_of"><item quantity="one">з %1$d дня</item><item quantity="few">з %1$d днів</item><item quantity="many">з %1$d днів</item><item quantity="other">з %1$d дня</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d п\'ятизіркове</item><item quantity="few">%1$d п\'ятизіркових</item><item quantity="many">%1$d п\'ятизіркових</item><item quantity="other">%1$d п\'ятизіркового</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d однозіркове</item><item quantity="few">%1$d однозіркових</item><item quantity="many">%1$d однозіркових</item><item quantity="other">%1$d однозіркового</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d крок</item><item quantity="few">%1$d кроки</item><item quantity="many">%1$d кроків</item><item quantity="other">%1$d кроку</item></plurals>
 </resources>

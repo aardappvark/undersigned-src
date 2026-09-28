@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -131,7 +132,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 Text(stringResource(R.string.pay_tools).uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 22.dp, bottom = 8.dp))
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(RbColors.surface)) {
                     if (wallet != null) {
-                        ToolRow(stringResource(R.string.pay_list_title), "2", strong = true) { page = PayPage.LIST; step = 1; pkg = ""; listCode = "" }
+                        ToolRow(stringResource(R.string.pay_list_title), pluralStringResource(R.plurals.pay_steps, 2, 2), strong = true) { page = PayPage.LIST; step = 1; pkg = ""; listCode = "" }
                         HorizontalDivider(color = RbColors.surfaceVariant)
                         ToolRow(stringResource(R.string.pay_my_claims), if (mine.isNotEmpty()) "${mine.size}" else null, strong = true) { page = PayPage.LISTINGS }
                         HorizontalDivider(color = RbColors.surfaceVariant)

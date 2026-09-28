@@ -612,4 +612,126 @@
     <string name="pay_bad_input">Paket adını ve kodu kontrol edin (2–31 harf, rakam, - veya _\'den oluşan bir memo kodu ya da bir referans hesap adresi).</string>
     <string name="pay_open">Ödemeler panosu</string>
     <string name="pay_waiting_list">Hazine tarafından listelendi, web sitesi tarafından henüz onaylanmadı: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Diğer işlemler</string>
+    <string name="burst_ratings_none">Puan dalgası yok.</string>
+    <string name="pay_label_signing">İmzalayan cüzdan</string>
+    <string name="lb_title">Lider tablosu</string>
+    <string name="lb_open">Lider tablosu</string>
+    <string name="lb_overall">Genel</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Gelir</string>
+    <string name="lb_m_payers">Ödeme yapan kullanıcılar</string>
+    <string name="lb_m_signed_score">İmzalı puan</string>
+    <string name="lb_m_signed_reviews">İmzalı incelemeler</string>
+    <string name="lb_m_store_rating">Mağaza puanı</string>
+    <string name="lb_m_store_reviews">Mağaza incelemeleri</string>
+    <string name="lb_m_growth">Bu ayki büyüme</string>
+    <string name="lb_note_revenue">Yalnızca onaylanmış hazineler, her ödemenin yapıldığı gündeki USD değerine göre sıralanır. Onaylanmamış tutarlar altta gösterilir, sıralamaya girmez.</string>
+    <string name="lb_note_growth">Bu ayki ödemeler geçen ayla karşılaştırıldığında, yalnızca onaylanmış hazineler.</string>
+    <string name="lb_note_score">Sıra puanına göre sıralanır — daha fazla Seeker imzalayana kadar 3,0\'a doğru küçültülür, böylece tek bir 5★ listenin başına geçemez. En az 2 imzalı inceleme.</string>
+    <string name="lb_note_signed">Sayılan imzalı incelemeler: Seeker başına bir, geri çekilenler hariç.</string>
+    <string name="lb_note_store">dApp Store\'un kendi sayıları, okundu: %1$s. Mağaza puanı için en az 5 inceleme gerekir.</string>
+    <string name="lb_note_store_unread">dApp Store\'un kendi sayıları. Mağaza puanı için en az 5 inceleme gerekir.</string>
+    <string name="lb_store_reading">Mağaza sayıları okunuyor: %1$s</string>
+    <string name="lb_empty">Henüz sıralanacak bir şey yok.</string>
+    <string name="lb_unconfirmed_title">Henüz onaylanmadı · sıralamada değil</string>
+    <string name="lb_unconfirmed_body">Hazine tarafından listelendi, yayıncının web sitesindeki satırı bekliyor.</string>
+    <plurals name="lb_thin"><item quantity="one">Burada %1$d dApp daha 2\'den az imzalı incelemeye sahip ve sıralamada değil.</item><item quantity="other">Burada %1$d dApps daha 2\'den az imzalı incelemeye sahip ve sıralamada değil.</item></plurals>
+    <string name="lb_downloads_title">İndirmeler</string>
+    <string name="lb_downloads_body">dApp Store yükleme sayılarını yayımlamıyor, bu yüzden indirme sıralaması yok. Bir kaynak eklenirse burada görünür.</string>
+    <string name="lb_signed_n">İmzalı incelemeler: %1$d</string>
+    <string name="dd_revenue">Gelir</string>
+    <string name="dd_signed">İmzalı</string>
+    <string name="dd_store">Mağaza</string>
+    <string name="dd_updates">Güncellemeler</string>
+    <string name="dd_updates_none">Bu telefonda henüz bir güncelleme görülmedi. Son mağaza güncellemesi: %1$s</string>
+    <string name="dd_same_cert">Aynı imzalama sertifikası</string>
+    <string name="dd_cert_changed">Sertifika DEĞİŞTİ</string>
+    <string name="dd_perm_added">Eklenen izin: %1$s</string>
+    <string name="dd_perm_removed">Kaldırılan izin: %1$s</string>
+    <string name="dd_perms_same">İzinler değişmedi</string>
+    <string name="dd_signed_since">%1$d yılından beri imzalı</string>
+    <string name="dd_worth">Bilmekte fayda var</string>
+    <string name="dd_no_bursts">%1$s tarihinden beri inceleme dalgası yok</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d inceleme dalgası</item><item quantity="other">%1$d inceleme dalgası</item></plurals>
+    <string name="dd_treasury_confirmed">Hazine, web sitesi tarafından onaylandı</string>
+    <string name="dd_treasury_none">Onaylanmış hazine yok</string>
+    <string name="dd_last_update">Son mağaza güncellemesi: %1$s</string>
+    <string name="dd_open">dApp sayfasının tamamını aç</string>
+    <string name="tr_title">Eğilimler</string>
+    <string name="tr_30d">30G</string>
+    <string name="tr_90d">90G</string>
+    <string name="tr_1y">1Y</string>
+    <string name="tr_all">Tümü</string>
+    <string name="tr_revenue">Gelir</string>
+    <string name="tr_score">Zaman içinde puan</string>
+    <string name="tr_signed">İmzalı</string>
+    <string name="tr_store">Mağaza</string>
+    <string name="tr_reviews_week">Haftada imzalı inceleme</string>
+    <string name="tr_payers">Ödeme yapan kullanıcılar</string>
+    <string name="tr_no_bursts">Dalga yok</string>
+    <string name="tr_no_data">Henüz yeterli veri yok.</string>
+    <string name="tr_sum_revenue">Bu aralıkta %1$s · Ödemeler: %2$d</string>
+    <string name="tr_sum_score">İmzalı: %1$s · Mağaza: şu an %2$s</string>
+    <string name="tr_gap_wider">fark açıldı</string>
+    <string name="tr_gap_narrower">fark daraldı</string>
+    <string name="tr_gap_same">fark aynı kaldı</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">Bu aralıkta %1$d imzalı inceleme</item><item quantity="other">Bu aralıkta %1$d imzalı inceleme</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">Bu aralıkta %1$d ödeme yapan kullanıcı</item><item quantity="other">Bu aralıkta %1$d ödeme yapan kullanıcı</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d gün</item><item quantity="other">%1$d gün</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">%1$d. gün</item><item quantity="other">%1$d. gün</item></plurals>
+    <string name="pay_listing_note">Listeleme imzalı bir kayıttır. Daha sonra geri çekilmesi kaydı zincirde bırakır.</string>
+    <string name="burst_kind_high">Beş yıldızlı incelemeler</string>
+    <string name="burst_kind_low">Bir yıldızlı incelemeler</string>
+    <string name="burst_kind_high_ratings">Beş yıldızlı puanlar</string>
+    <string name="burst_kind_low_ratings">Bir yıldızlı puanlar</string>
+    <string name="burst_times">Olağan hızın ×%1$s katı</string>
+    <string name="burst_pace">Olağan hız: 3 günde yaklaşık %1$s</string>
+    <string name="store_reply_source">dApp Store\'dan</string>
+    <string name="note_signed_label">ZİNCİRDE İMZALANDI</string>
+    <string name="permanent_title">Kalıcı</string>
+    <string name="use_card_title">Telefonunuzun eklediği</string>
+    <string name="use_row_label">Bu telefondaki süre</string>
+    <string name="time_row_label">Kullanım süreniz</string>
+    <string name="use_card_hint">Telefonunuzun raporu, yuvarlanmış — kanıt değildir. Açık olan her şey incelemeyle birlikte kalıcı olarak kaydedilir.</string>
+    <string name="scan_notif_title">Tarama bitince haber ver</string>
+    <string name="scan_notif_body">Tarama arka planda çalışır (yaklaşık 6 dk). Bittiğinde haber almak için bildirimlere izin verin.</string>
+    <string name="scan_notif_note">Onlar olmadan da çalışır; sonuçlar geri döndüğünüzde burada görünür.</string>
+    <string name="scan_notif_allow">Bildirimlere izin ver</string>
+    <string name="scan_notif_skip">Bildirim olmadan tara</string>
+    <string name="pay_label_payments">Ödemeler</string>
+    <string name="pay_label_payers">Ödeyenler</string>
+    <string name="pay_label_attested">Kanıtlı cihazla</string>
+    <string name="pay_label_attested_short">Kanıtlı</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">İlk</string>
+    <string name="pay_label_latest">Son</string>
+    <string name="pay_order">Alınan ödemelere göre sıralandı</string>
+    <string name="pay_tools">Yayıncılar için</string>
+    <string name="pay_preview_badge">Önizleme · listelenmedi</string>
+    <string name="pay_step_line">Satırı ekleyin</string>
+    <string name="pay_step_sign">İmzala</string>
+    <string name="pay_copy">Kopyala</string>
+    <string name="pay_copied">Kopyalandı</string>
+    <string name="pay_line_found">Web sitesi satırı bulundu</string>
+    <string name="pay_checked">Kontrol edildi: %1$s</string>
+    <string name="pay_check_again">Tekrar kontrol et</string>
+    <string name="pay_continue">2. adıma devam et</string>
+    <string name="pay_sign_early">Satır bulunmadan önce imzalayabilirsiniz; listeleme onu bekler.</string>
+    <string name="pay_wallet_matches">eşleşiyor</string>
+    <string name="pay_open_board">Panoda aç</string>
+    <string name="pay_show_line">Satırı göster</string>
+    <string name="watch_label_requests">Günlük istek</string>
+    <string name="watch_label_kept">Tutulan</string>
+    <string name="watch_label_first">İlk sonuçlar</string>
+    <string name="watch_label_last">Son okunma</string>
+    <string name="watch_label_apps">Uygulamalar</string>
+    <string name="watch_label_since">İzleme başlangıcı</string>
+    <plurals name="watch_days_of"><item quantity="one">%1$d günden</item><item quantity="other">%1$d günden</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d beş yıldızlı</item><item quantity="other">%1$d beş yıldızlı</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d bir yıldızlı</item><item quantity="other">%1$d bir yıldızlı</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d adım</item><item quantity="other">%1$d adım</item></plurals>
 </resources>

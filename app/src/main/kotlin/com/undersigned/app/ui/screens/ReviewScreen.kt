@@ -161,15 +161,18 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
 }
 
 /** One "Your phone adds" row: label, the value as a chip, a switch; the whole ≥ 56 dp row toggles. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ExtraRow(label: String, value: String, on: Boolean, enabled: Boolean, description: String, onChange: (Boolean) -> Unit) {
     Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable(enabled = enabled) { onChange(!on) }.semantics(mergeDescendants = true) { contentDescription = description },
         verticalAlignment = Alignment.CenterVertically) {
-        Text(label, color = RbColors.textPrimary, fontSize = 13.sp, modifier = Modifier.weight(1f, fill = false))
+        // Label and chip wrap as units (the chip drops under the label), never mid-label (seen on device, 28 Sep).
+        FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(label, color = RbColors.textPrimary, fontSize = 13.sp, modifier = Modifier.padding(top = 3.dp))
+            Box(Modifier.clip(RoundedCornerShape(50)).background(RbColors.surfaceVariant).padding(horizontal = 10.dp, vertical = 4.dp)) {
+                Text(value, color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false) }
+        }
         Spacer(Modifier.width(8.dp))
-        Box(Modifier.clip(RoundedCornerShape(50)).background(RbColors.surfaceVariant).padding(horizontal = 10.dp, vertical = 4.dp)) {
-            Text(value, color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false) }
-        Spacer(Modifier.weight(1f))
         Switch(checked = on, onCheckedChange = onChange, enabled = enabled)
     }
 }

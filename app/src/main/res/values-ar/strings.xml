@@ -642,4 +642,127 @@
     <string name="pay_bad_input">تحقّق من اسم الحزمة والرمز (رمز مذكرة مكوّن من 2–31 حرفًا أو رقمًا أو - أو _، أو عنوان حساب مرجعي).</string>
     <string name="pay_open">لوحة المدفوعات</string>
     <string name="pay_waiting_list">مُدرَجة من الخزينة، ولم تُؤكَّد من الموقع بعد: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">المزيد من الإجراءات</string>
+    <string name="burst_ratings_none">لا توجد طفرات تقييمات.</string>
+    <string name="pay_label_signing">محفظة التوقيع</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">لوحة الصدارة</string>
+    <string name="lb_open">لوحة الصدارة</string>
+    <string name="lb_overall">الإجمالي</string>
+    <plurals name="lb_dapps"><item quantity="zero">%1$d dApp</item><item quantity="one">%1$d dApp</item><item quantity="two">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">الإيرادات</string>
+    <string name="lb_m_payers">المستخدمون الدافعون</string>
+    <string name="lb_m_signed_score">التقييم الموقّع</string>
+    <string name="lb_m_signed_reviews">المراجعات الموقّعة</string>
+    <string name="lb_m_store_rating">تقييم المتجر</string>
+    <string name="lb_m_store_reviews">مراجعات المتجر</string>
+    <string name="lb_m_growth">النمو هذا الشهر</string>
+    <string name="lb_note_revenue">الخزائن المؤكَّدة فقط، مرتّبة حسب الدولار الأمريكي في يوم كل دفعة. المبالغ غير المؤكَّدة تظهر أدناه، دون ترتيب.</string>
+    <string name="lb_note_growth">مدفوعات هذا الشهر مقابل الشهر الماضي، للخزائن المؤكَّدة فقط.</string>
+    <string name="lb_note_score">مرتّب حسب تقييم الترتيب — يُقلَّص نحو 3.0 حتى يوقّع مزيد من أجهزة Seeker، بحيث لا يتصدّر القائمة تقييم واحد بخمس نجوم. الحد الأدنى مراجعتان موقّعتان.</string>
+    <string name="lb_note_signed">المراجعات الموقّعة المحتسبة: واحدة لكل Seeker، باستثناء المسحوبة.</string>
+    <string name="lb_note_store">أعداد dApp Store الخاصة به، قُرئت %1$s. يحتاج تقييم المتجر إلى 5 مراجعات على الأقل.</string>
+    <string name="lb_note_store_unread">أعداد dApp Store الخاصة به. يحتاج تقييم المتجر إلى 5 مراجعات على الأقل.</string>
+    <string name="lb_store_reading">جارٍ قراءة أعداد المتجر: %1$s</string>
+    <string name="lb_empty">لا شيء لترتيبه هنا بعد.</string>
+    <string name="lb_unconfirmed_title">غير مؤكَّد بعد · غير مرتَّب</string>
+    <string name="lb_unconfirmed_body">مُدرَج من الخزينة، بانتظار السطر على موقع الناشر.</string>
+    <plurals name="lb_thin"><item quantity="zero">%1$d dApp أخرى هنا لديها أقل من مراجعتين موقّعتين وغير مُرتَّبة.</item><item quantity="one">%1$d dApp آخر هنا لديه أقل من مراجعتين موقّعتين وغير مُرتَّب.</item><item quantity="two">%1$d dApp آخران هنا لديهما أقل من مراجعتين موقّعتين وغير مُرتَّبين.</item><item quantity="few">%1$d dApps أخرى هنا لديها أقل من مراجعتين موقّعتين وغير مُرتَّبة.</item><item quantity="many">%1$d dApp أخرى هنا لديها أقل من مراجعتين موقّعتين وغير مُرتَّبة.</item><item quantity="other">%1$d dApps أخرى هنا لديها أقل من مراجعتين موقّعتين وغير مُرتَّبة.</item></plurals>
+    <string name="lb_downloads_title">التنزيلات</string>
+    <string name="lb_downloads_body">لا ينشر dApp Store أعداد التثبيت، لذا لا يوجد ترتيب للتنزيلات. يظهر هنا إذا أُضيف مصدر.</string>
+    <string name="lb_signed_n">المراجعات الموقّعة: %1$d</string>
+    <string name="dd_revenue">الإيرادات</string>
+    <string name="dd_signed">موقّع</string>
+    <string name="dd_store">المتجر</string>
+    <string name="dd_updates">التحديثات</string>
+    <string name="dd_updates_none">لم تُشاهَد أي تحديثات على هذا الهاتف بعد. آخر تحديث في المتجر: %1$s</string>
+    <string name="dd_same_cert">نفس شهادة التوقيع</string>
+    <string name="dd_cert_changed">الشهادة تغيّرت</string>
+    <string name="dd_perm_added">إذن مُضاف: %1$s</string>
+    <string name="dd_perm_removed">إذن مُزال: %1$s</string>
+    <string name="dd_perms_same">الأذونات دون تغيير</string>
+    <string name="dd_signed_since">موقّع منذ: %1$d</string>
+    <string name="dd_worth">يستحق المعرفة</string>
+    <string name="dd_no_bursts">لا طفرات مراجعات منذ %1$s</string>
+    <plurals name="dd_bursts"><item quantity="zero">%1$d طفرة مراجعة</item><item quantity="one">%1$d طفرة مراجعة</item><item quantity="two">%1$d طفرتا مراجعة</item><item quantity="few">%1$d طفرات مراجعة</item><item quantity="many">%1$d طفرة مراجعة</item><item quantity="other">%1$d طفرة مراجعة</item></plurals>
+    <string name="dd_treasury_confirmed">الخزينة مؤكَّدة من الموقع</string>
+    <string name="dd_treasury_none">لا خزينة مؤكَّدة</string>
+    <string name="dd_last_update">آخر تحديث في المتجر: %1$s</string>
+    <string name="dd_open">فتح صفحة dApp الكاملة</string>
+    <string name="tr_title">الاتجاهات</string>
+    <string name="tr_30d">30ي</string>
+    <string name="tr_90d">90ي</string>
+    <string name="tr_1y">1س</string>
+    <string name="tr_all">الكل</string>
+    <string name="tr_revenue">الإيرادات</string>
+    <string name="tr_score">التقييم عبر الزمن</string>
+    <string name="tr_signed">موقّع</string>
+    <string name="tr_store">المتجر</string>
+    <string name="tr_reviews_week">المراجعات الموقّعة أسبوعيًا</string>
+    <string name="tr_payers">المستخدمون الدافعون</string>
+    <string name="tr_no_bursts">لا طفرات</string>
+    <string name="tr_no_data">لا بيانات كافية بعد.</string>
+    <string name="tr_sum_revenue">%1$s في هذا النطاق · المدفوعات: %2$d</string>
+    <string name="tr_sum_score">موقّع: %1$s · المتجر: %2$s الآن</string>
+    <string name="tr_gap_wider">اتسعت الفجوة</string>
+    <string name="tr_gap_narrower">ضاقت الفجوة</string>
+    <string name="tr_gap_same">ظلّت الفجوة كما هي</string>
+    <plurals name="tr_sum_reviews"><item quantity="zero">%1$d مراجعة موقّعة في هذا النطاق</item><item quantity="one">%1$d مراجعة موقّعة في هذا النطاق</item><item quantity="two">%1$d مراجعتين موقّعتين في هذا النطاق</item><item quantity="few">%1$d مراجعات موقّعة في هذا النطاق</item><item quantity="many">%1$d مراجعة موقّعة في هذا النطاق</item><item quantity="other">%1$d مراجعة موقّعة في هذا النطاق</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="zero">%1$d مستخدم دافع في هذا النطاق</item><item quantity="one">%1$d مستخدم دافع في هذا النطاق</item><item quantity="two">%1$d مستخدمين دافعين في هذا النطاق</item><item quantity="few">%1$d مستخدمين دافعين في هذا النطاق</item><item quantity="many">%1$d مستخدمًا دافعًا في هذا النطاق</item><item quantity="other">%1$d مستخدم دافع في هذا النطاق</item></plurals>
+    <plurals name="watch_days_n"><item quantity="zero">%1$d يوم</item><item quantity="one">%1$d يوم</item><item quantity="two">%1$d يومان</item><item quantity="few">%1$d أيام</item><item quantity="many">%1$d يومًا</item><item quantity="other">%1$d يوم</item></plurals>
+    <plurals name="watch_day_n"><item quantity="zero">اليوم %1$d</item><item quantity="one">اليوم %1$d</item><item quantity="two">اليوم %1$d</item><item quantity="few">اليوم %1$d</item><item quantity="many">اليوم %1$d</item><item quantity="other">اليوم %1$d</item></plurals>
+    <string name="pay_listing_note">الإدراج سجل موقّع. سحبه لاحقًا يترك السجل على السلسلة.</string>
+    <string name="burst_kind_high">مراجعات خمس نجوم</string>
+    <string name="burst_kind_low">مراجعات نجمة واحدة</string>
+    <string name="burst_kind_high_ratings">تقييمات خمس نجوم</string>
+    <string name="burst_kind_low_ratings">تقييمات نجمة واحدة</string>
+    <string name="burst_times">×%1$s المعدّل المعتاد</string>
+    <string name="burst_pace">المعدّل المعتاد: نحو %1$s كل 3 أيام</string>
+    <string name="store_reply_source">من dApp Store</string>
+    <string name="note_signed_label">موقّع على السلسلة</string>
+    <string name="permanent_title">دائم</string>
+    <string name="use_card_title">ما يضيفه هاتفك</string>
+    <string name="use_row_label">الوقت على هذا الهاتف</string>
+    <string name="time_row_label">الوقت الذي استخدمته</string>
+    <string name="use_card_hint">تقرير هاتفك، مقرَّب — وليس إثباتًا. أي شيء مفعَّل يُسجَّل بشكل دائم مع المراجعة.</string>
+    <string name="scan_notif_title">معرفة متى ينتهي الفحص</string>
+    <string name="scan_notif_body">يعمل الفحص في الخلفية (نحو 6 دقائق). اسمح بالإشعارات لمعرفة متى ينتهي.</string>
+    <string name="scan_notif_note">بدونها يستمر العمل؛ تظهر النتائج هنا عند عودتك.</string>
+    <string name="scan_notif_allow">السماح بالإشعارات</string>
+    <string name="scan_notif_skip">الفحص بدون إشعارات</string>
+    <string name="pay_label_payments">المدفوعات</string>
+    <string name="pay_label_payers">الدافعون</string>
+    <string name="pay_label_attested">بجهاز مصادق</string>
+    <string name="pay_label_attested_short">مصادق</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">الأول</string>
+    <string name="pay_label_latest">الأحدث</string>
+    <string name="pay_order">مرتَّب حسب المدفوعات المستلَمة</string>
+    <string name="pay_tools">للناشرين</string>
+    <string name="pay_preview_badge">معاينة · غير مُدرَج</string>
+    <string name="pay_step_line">أضف السطر</string>
+    <string name="pay_step_sign">التوقيع</string>
+    <string name="pay_copy">نسخ</string>
+    <string name="pay_copied">تم النسخ</string>
+    <string name="pay_line_found">تم العثور على سطر الموقع</string>
+    <string name="pay_checked">تم الفحص: %1$s</string>
+    <string name="pay_check_again">الفحص مرة أخرى</string>
+    <string name="pay_continue">المتابعة إلى الخطوة 2</string>
+    <string name="pay_sign_early">يمكنك التوقيع قبل العثور على السطر؛ الإدراج ينتظره.</string>
+    <string name="pay_wallet_matches">مطابق</string>
+    <string name="pay_open_board">فتح على اللوحة</string>
+    <string name="pay_show_line">إظهار السطر</string>
+    <string name="watch_label_requests">الطلبات يوميًا</string>
+    <string name="watch_label_kept">المحتفَظ به</string>
+    <string name="watch_label_first">أول النتائج</string>
+    <string name="watch_label_last">آخر قراءة</string>
+    <string name="watch_label_apps">التطبيقات</string>
+    <string name="watch_label_since">التتبّع منذ</string>
+    <plurals name="watch_days_of"><item quantity="zero">من %1$d يوم</item><item quantity="one">من %1$d يوم</item><item quantity="two">من %1$d يومين</item><item quantity="few">من %1$d أيام</item><item quantity="many">من %1$d يومًا</item><item quantity="other">من %1$d يوم</item></plurals>
+    <plurals name="watch_count_high"><item quantity="zero">%1$d خمس نجوم</item><item quantity="one">%1$d خمس نجوم</item><item quantity="two">%1$d خمس نجوم</item><item quantity="few">%1$d خمس نجوم</item><item quantity="many">%1$d خمس نجوم</item><item quantity="other">%1$d خمس نجوم</item></plurals>
+    <plurals name="watch_count_low"><item quantity="zero">%1$d نجمة واحدة</item><item quantity="one">%1$d نجمة واحدة</item><item quantity="two">%1$d نجمة واحدة</item><item quantity="few">%1$d نجمة واحدة</item><item quantity="many">%1$d نجمة واحدة</item><item quantity="other">%1$d نجمة واحدة</item></plurals>
+    <plurals name="pay_steps"><item quantity="zero">%1$d خطوات</item><item quantity="one">%1$d خطوة</item><item quantity="two">%1$d خطوتان</item><item quantity="few">%1$d خطوات</item><item quantity="many">%1$d خطوة</item><item quantity="other">%1$d خطوة</item></plurals>
 </resources>

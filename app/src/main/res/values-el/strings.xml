@@ -612,4 +612,126 @@
     <string name="pay_bad_input">Ελέγξτε το όνομα πακέτου και τον κωδικό (κωδικός memo 2–31 γραμμάτων, ψηφίων, - ή _, ή διεύθυνση λογαριασμού αναφοράς).</string>
     <string name="pay_open">Πίνακας πληρωμών</string>
     <string name="pay_waiting_list">Καταχωρισμένο από το θησαυροφυλάκιο, δεν έχει επιβεβαιωθεί ακόμα από τον ιστότοπο: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Περισσότερες ενέργειες</string>
+    <string name="burst_ratings_none">Κανένα κύμα βαθμολογιών.</string>
+    <string name="pay_label_signing">Πορτοφόλι υπογραφής</string>
+    <string name="lb_title">Πίνακας κατάταξης</string>
+    <string name="lb_open">Πίνακας κατάταξης</string>
+    <string name="lb_overall">Συνολικά</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Έσοδα</string>
+    <string name="lb_m_payers">Χρήστες που πληρώνουν</string>
+    <string name="lb_m_signed_score">Υπογεγραμμένη βαθμολογία</string>
+    <string name="lb_m_signed_reviews">Υπογεγραμμένες κριτικές</string>
+    <string name="lb_m_store_rating">Βαθμολογία καταστήματος</string>
+    <string name="lb_m_store_reviews">Κριτικές καταστήματος</string>
+    <string name="lb_m_growth">Ανάπτυξη αυτόν τον μήνα</string>
+    <string name="lb_note_revenue">Μόνο επιβεβαιωμένα θησαυροφυλάκια, κατατεταγμένα κατά USD την ημέρα κάθε πληρωμής. Τα μη επιβεβαιωμένα ποσά εμφανίζονται από κάτω, χωρίς κατάταξη.</string>
+    <string name="lb_note_growth">Οι πληρωμές αυτού του μήνα σε σχέση με τον προηγούμενο, μόνο επιβεβαιωμένα θησαυροφυλάκια.</string>
+    <string name="lb_note_score">Κατάταξη με βάση τη βαθμολογία κατάταξης — που συρρικνώνεται προς το 3,0 μέχρι να υπογράψουν περισσότεροι Seeker, ώστε ένα μόνο 5★ να μην μπορεί να είναι πρώτο στη λίστα. Ελάχιστο 2 υπογεγραμμένες κριτικές.</string>
+    <string name="lb_note_signed">Καταμετρημένες υπογεγραμμένες κριτικές: μία ανά Seeker, οι αποσυρμένες εξαιρούνται.</string>
+    <string name="lb_note_store">Οι δικοί του μετρητές του dApp Store, διαβασμένοι %1$s. Η βαθμολογία καταστήματος χρειάζεται τουλάχιστον 5 κριτικές.</string>
+    <string name="lb_note_store_unread">Οι δικοί του μετρητές του dApp Store. Η βαθμολογία καταστήματος χρειάζεται τουλάχιστον 5 κριτικές.</string>
+    <string name="lb_store_reading">Ανάγνωση μετρητών καταστήματος: %1$s</string>
+    <string name="lb_empty">Δεν υπάρχει ακόμα τίποτα για κατάταξη εδώ.</string>
+    <string name="lb_unconfirmed_title">Δεν έχει επιβεβαιωθεί ακόμα · χωρίς κατάταξη</string>
+    <string name="lb_unconfirmed_body">Καταχωρίστηκε από το θησαυροφυλάκιο, περιμένει τη γραμμή στον ιστότοπο του εκδότη.</string>
+    <plurals name="lb_thin"><item quantity="one">Ακόμα %1$d dApp εδώ έχει λιγότερες από 2 υπογεγραμμένες κριτικές και δεν κατατάσσεται.</item><item quantity="other">Ακόμα %1$d dApps εδώ έχουν λιγότερες από 2 υπογεγραμμένες κριτικές και δεν κατατάσσονται.</item></plurals>
+    <string name="lb_downloads_title">Λήψεις</string>
+    <string name="lb_downloads_body">Το dApp Store δεν δημοσιεύει αριθμούς εγκαταστάσεων, άρα δεν υπάρχει κατάταξη λήψεων. Θα εμφανιστεί εδώ αν προστεθεί μια πηγή.</string>
+    <string name="lb_signed_n">Υπογεγραμμένες κριτικές: %1$d</string>
+    <string name="dd_revenue">Έσοδα</string>
+    <string name="dd_signed">Υπογεγραμμένο</string>
+    <string name="dd_store">Κατάστημα</string>
+    <string name="dd_updates">Ενημερώσεις</string>
+    <string name="dd_updates_none">Δεν έχουν εντοπιστεί ενημερώσεις σε αυτό το τηλέφωνο ακόμα. Τελευταία ενημέρωση καταστήματος: %1$s</string>
+    <string name="dd_same_cert">Ίδιο πιστοποιητικό υπογραφής</string>
+    <string name="dd_cert_changed">Το πιστοποιητικό ΑΛΛΑΞΕ</string>
+    <string name="dd_perm_added">Προστέθηκε άδεια: %1$s</string>
+    <string name="dd_perm_removed">Αφαιρέθηκε άδεια: %1$s</string>
+    <string name="dd_perms_same">Οι άδειες παραμένουν ίδιες</string>
+    <string name="dd_signed_since">Υπογεγραμμένο από: %1$d</string>
+    <string name="dd_worth">Αξίζει να γνωρίζετε</string>
+    <string name="dd_no_bursts">Κανένα κύμα κριτικών από %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d κύμα κριτικών</item><item quantity="other">%1$d κύματα κριτικών</item></plurals>
+    <string name="dd_treasury_confirmed">Το θησαυροφυλάκιο επιβεβαιώθηκε από τον ιστότοπο</string>
+    <string name="dd_treasury_none">Κανένα επιβεβαιωμένο θησαυροφυλάκιο</string>
+    <string name="dd_last_update">Τελευταία ενημέρωση καταστήματος: %1$s</string>
+    <string name="dd_open">Άνοιγμα της πλήρους σελίδας dApp</string>
+    <string name="tr_title">Τάσεις</string>
+    <string name="tr_30d">30Η</string>
+    <string name="tr_90d">90Η</string>
+    <string name="tr_1y">1Ε</string>
+    <string name="tr_all">Όλα</string>
+    <string name="tr_revenue">Έσοδα</string>
+    <string name="tr_score">Βαθμολογία με την πάροδο του χρόνου</string>
+    <string name="tr_signed">Υπογεγραμμένο</string>
+    <string name="tr_store">Κατάστημα</string>
+    <string name="tr_reviews_week">Υπογεγραμμένες κριτικές ανά εβδομάδα</string>
+    <string name="tr_payers">Χρήστες που πληρώνουν</string>
+    <string name="tr_no_bursts">Κανένα κύμα</string>
+    <string name="tr_no_data">Δεν υπάρχουν ακόμα αρκετά δεδομένα.</string>
+    <string name="tr_sum_revenue">%1$s σε αυτό το εύρος · Πληρωμές: %2$d</string>
+    <string name="tr_sum_score">Υπογεγραμμένο: %1$s · Κατάστημα: %2$s τώρα</string>
+    <string name="tr_gap_wider">το χάσμα διευρύνθηκε</string>
+    <string name="tr_gap_narrower">το χάσμα στένεψε</string>
+    <string name="tr_gap_same">το χάσμα παρέμεινε ίδιο</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d υπογεγραμμένη κριτική σε αυτό το εύρος</item><item quantity="other">%1$d υπογεγραμμένες κριτικές σε αυτό το εύρος</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d χρήστης που πληρώνει σε αυτό το εύρος</item><item quantity="other">%1$d χρήστες που πληρώνουν σε αυτό το εύρος</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d ημέρα</item><item quantity="other">%1$d ημέρες</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">ημέρα %1$d</item><item quantity="other">ημέρα %1$d</item></plurals>
+    <string name="pay_listing_note">Η καταχώριση είναι μια υπογεγραμμένη εγγραφή. Η μετέπειτα απόσυρσή της αφήνει την εγγραφή on-chain.</string>
+    <string name="burst_kind_high">Κριτικές πέντε αστέρων</string>
+    <string name="burst_kind_low">Κριτικές ενός αστέρα</string>
+    <string name="burst_kind_high_ratings">Βαθμολογίες πέντε αστέρων</string>
+    <string name="burst_kind_low_ratings">Βαθμολογίες ενός αστέρα</string>
+    <string name="burst_times">×%1$s του συνήθους ρυθμού</string>
+    <string name="burst_pace">Συνήθης ρυθμός: περίπου %1$s ανά 3 ημέρες</string>
+    <string name="store_reply_source">από το dApp Store</string>
+    <string name="note_signed_label">ΥΠΟΓΕΓΡΑΜΜΕΝΟ ON-CHAIN</string>
+    <string name="permanent_title">Μόνιμο</string>
+    <string name="use_card_title">Το τηλέφωνό σας προσθέτει</string>
+    <string name="use_row_label">Χρόνος σε αυτό το τηλέφωνο</string>
+    <string name="time_row_label">Ο χρόνος χρήσης της</string>
+    <string name="use_card_hint">Η αναφορά του τηλεφώνου σας, στρογγυλεμένη — όχι απόδειξη. Ό,τι είναι ενεργοποιημένο καταγράφεται μόνιμα μαζί με την κριτική.</string>
+    <string name="scan_notif_title">Ειδοποίηση όταν ολοκληρωθεί η σάρωση</string>
+    <string name="scan_notif_body">Η σάρωση εκτελείται στο παρασκήνιο (περίπου 6 λεπτά). Επιτρέψτε τις ειδοποιήσεις για να μάθετε πότε ολοκληρώθηκε.</string>
+    <string name="scan_notif_note">Χωρίς αυτές εκτελείται ούτως ή άλλως· τα αποτελέσματα εμφανίζονται εδώ όταν επιστρέψετε.</string>
+    <string name="scan_notif_allow">Να επιτρέπονται οι ειδοποιήσεις</string>
+    <string name="scan_notif_skip">Σάρωση χωρίς ειδοποιήσεις</string>
+    <string name="pay_label_payments">Πληρωμές</string>
+    <string name="pay_label_payers">Πληρωτές</string>
+    <string name="pay_label_attested">Με πιστοποιημένη συσκευή</string>
+    <string name="pay_label_attested_short">Πιστοποιημένο</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Πρώτη</string>
+    <string name="pay_label_latest">Τελευταία</string>
+    <string name="pay_order">Ταξινομημένα κατά ληφθείσες πληρωμές</string>
+    <string name="pay_tools">Για εκδότες</string>
+    <string name="pay_preview_badge">Προεπισκόπηση · δεν είναι καταχωρισμένο</string>
+    <string name="pay_step_line">Προσθήκη της γραμμής</string>
+    <string name="pay_step_sign">Υπογραφή</string>
+    <string name="pay_copy">Αντιγραφή</string>
+    <string name="pay_copied">Αντιγράφηκε</string>
+    <string name="pay_line_found">Η γραμμή του ιστότοπου βρέθηκε</string>
+    <string name="pay_checked">Ελέγχθηκε: %1$s</string>
+    <string name="pay_check_again">Έλεγχος ξανά</string>
+    <string name="pay_continue">Συνέχεια στο βήμα 2</string>
+    <string name="pay_sign_early">Μπορείτε να υπογράψετε πριν βρεθεί η γραμμή· η καταχώριση την περιμένει.</string>
+    <string name="pay_wallet_matches">ταιριάζει</string>
+    <string name="pay_open_board">Άνοιγμα στον πίνακα</string>
+    <string name="pay_show_line">Εμφάνιση της γραμμής</string>
+    <string name="watch_label_requests">Αιτήματα την ημέρα</string>
+    <string name="watch_label_kept">Διατηρήθηκαν</string>
+    <string name="watch_label_first">Πρώτα αποτελέσματα</string>
+    <string name="watch_label_last">Τελευταία ανάγνωση</string>
+    <string name="watch_label_apps">Εφαρμογές</string>
+    <string name="watch_label_since">Παρακολούθηση από</string>
+    <plurals name="watch_days_of"><item quantity="one">από %1$d ημέρα</item><item quantity="other">από %1$d ημέρες</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d πέντε αστέρων</item><item quantity="other">%1$d πέντε αστέρων</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d ενός αστέρα</item><item quantity="other">%1$d ενός αστέρα</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d βήμα</item><item quantity="other">%1$d βήματα</item></plurals>
 </resources>

@@ -613,4 +613,126 @@
     <string name="pay_bad_input">Проверьте имя пакета и код (код memo из 2–31 буквы, цифры, - или _, либо адрес референс-счёта).</string>
     <string name="pay_open">Обзор платежей</string>
     <string name="pay_waiting_list">Указано казначейством, ещё не подтверждено сайтом: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Другие действия</string>
+    <string name="burst_ratings_none">Нет всплесков рейтингов.</string>
+    <string name="pay_label_signing">Кошелёк подписи</string>
+    <string name="lb_title">Таблица лидеров</string>
+    <string name="lb_open">Таблица лидеров</string>
+    <string name="lb_overall">В целом</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Доход</string>
+    <string name="lb_m_payers">Платящие пользователи</string>
+    <string name="lb_m_signed_score">Подписанная оценка</string>
+    <string name="lb_m_signed_reviews">Подписанные отзывы</string>
+    <string name="lb_m_store_rating">Рейтинг магазина</string>
+    <string name="lb_m_store_reviews">Отзывы магазина</string>
+    <string name="lb_m_growth">Рост за этот месяц</string>
+    <string name="lb_note_revenue">Только подтверждённые казначейства, ранжированные по USD на день каждого платежа. Неподтверждённые суммы показаны ниже, без места в таблице лидеров.</string>
+    <string name="lb_note_growth">Платежи этого месяца по сравнению с прошлым, только подтверждённые казначейства.</string>
+    <string name="lb_note_score">Ранжировано по рейтинговой оценке — стянутой к 3,0, пока не подпишет больше Seeker, поэтому единственная 5★ не может возглавить список. Минимум 2 подписанных отзыва.</string>
+    <string name="lb_note_signed">Учитываемые подписанные отзывы: один на Seeker, отозванные не считаются.</string>
+    <string name="lb_note_store">Собственные подсчёты dApp Store, прочитано %1$s. Рейтинг магазина требует минимум 5 отзывов.</string>
+    <string name="lb_note_store_unread">Собственные подсчёты dApp Store. Рейтинг магазина требует минимум 5 отзывов.</string>
+    <string name="lb_store_reading">Чтение подсчётов магазина: %1$s</string>
+    <string name="lb_empty">Пока нечего ранжировать.</string>
+    <string name="lb_unconfirmed_title">Ещё не подтверждено · без рейтинга</string>
+    <string name="lb_unconfirmed_body">Указано казначейством, ожидает строку на сайте издателя.</string>
+    <plurals name="lb_thin"><item quantity="one">Ещё %1$d dApp здесь имеет менее 2 подписанных отзывов и не входит в рейтинг.</item><item quantity="few">Ещё %1$d dApps здесь имеют менее 2 подписанных отзывов и не входят в рейтинг.</item><item quantity="many">Ещё %1$d dApps здесь имеют менее 2 подписанных отзывов и не входят в рейтинг.</item><item quantity="other">Ещё %1$d dApps здесь имеет менее 2 подписанных отзывов и не входит в рейтинг.</item></plurals>
+    <string name="lb_downloads_title">Загрузки</string>
+    <string name="lb_downloads_body">dApp Store не публикует количество установок, поэтому рейтинга загрузок нет. Он появится здесь, если будет добавлен источник.</string>
+    <string name="lb_signed_n">Подписанные отзывы: %1$d</string>
+    <string name="dd_revenue">Доход</string>
+    <string name="dd_signed">Подписано</string>
+    <string name="dd_store">Магазин</string>
+    <string name="dd_updates">Обновления</string>
+    <string name="dd_updates_none">На этом телефоне пока не замечено обновлений. Последнее обновление в магазине: %1$s</string>
+    <string name="dd_same_cert">Тот же сертификат подписи</string>
+    <string name="dd_cert_changed">Сертификат ИЗМЕНЁН</string>
+    <string name="dd_perm_added">Добавлено разрешение: %1$s</string>
+    <string name="dd_perm_removed">Удалено разрешение: %1$s</string>
+    <string name="dd_perms_same">Разрешения без изменений</string>
+    <string name="dd_signed_since">Подписано с: %1$d</string>
+    <string name="dd_worth">Стоит знать</string>
+    <string name="dd_no_bursts">Нет всплесков отзывов с %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d всплеск отзывов</item><item quantity="few">%1$d всплеска отзывов</item><item quantity="many">%1$d всплесков отзывов</item><item quantity="other">%1$d всплеска отзывов</item></plurals>
+    <string name="dd_treasury_confirmed">Казначейство подтверждено сайтом</string>
+    <string name="dd_treasury_none">Нет подтверждённого казначейства</string>
+    <string name="dd_last_update">Последнее обновление в магазине: %1$s</string>
+    <string name="dd_open">Открыть полную страницу dApp</string>
+    <string name="tr_title">Тренды</string>
+    <string name="tr_30d">30Д</string>
+    <string name="tr_90d">90Д</string>
+    <string name="tr_1y">1Г</string>
+    <string name="tr_all">Все</string>
+    <string name="tr_revenue">Доход</string>
+    <string name="tr_score">Оценка со временем</string>
+    <string name="tr_signed">Подписано</string>
+    <string name="tr_store">Магазин</string>
+    <string name="tr_reviews_week">Подписанные отзывы в неделю</string>
+    <string name="tr_payers">Платящие пользователи</string>
+    <string name="tr_no_bursts">Без всплесков</string>
+    <string name="tr_no_data">Пока недостаточно данных.</string>
+    <string name="tr_sum_revenue">%1$s в этом диапазоне · Платежи: %2$d</string>
+    <string name="tr_sum_score">Подписано: %1$s · Магазин: %2$s сейчас</string>
+    <string name="tr_gap_wider">разрыв увеличился</string>
+    <string name="tr_gap_narrower">разрыв сократился</string>
+    <string name="tr_gap_same">разрыв остался прежним</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d подписанный отзыв в этом диапазоне</item><item quantity="few">%1$d подписанных отзыва в этом диапазоне</item><item quantity="many">%1$d подписанных отзывов в этом диапазоне</item><item quantity="other">%1$d подписанного отзыва в этом диапазоне</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d платящий пользователь в этом диапазоне</item><item quantity="few">%1$d платящих пользователя в этом диапазоне</item><item quantity="many">%1$d платящих пользователей в этом диапазоне</item><item quantity="other">%1$d платящего пользователя в этом диапазоне</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d день</item><item quantity="few">%1$d дня</item><item quantity="many">%1$d дней</item><item quantity="other">%1$d дня</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">день %1$d</item><item quantity="few">день %1$d</item><item quantity="many">день %1$d</item><item quantity="other">день %1$d</item></plurals>
+    <string name="pay_listing_note">Запись в списке — подписанная запись. Её последующий отзыв оставляет запись в блокчейне.</string>
+    <string name="burst_kind_high">Пятизвёздочные отзывы</string>
+    <string name="burst_kind_low">Однозвёздочные отзывы</string>
+    <string name="burst_kind_high_ratings">Пятизвёздочные рейтинги</string>
+    <string name="burst_kind_low_ratings">Однозвёздочные рейтинги</string>
+    <string name="burst_times">×%1$s обычного темпа</string>
+    <string name="burst_pace">Обычный темп: около %1$s за 3 дня</string>
+    <string name="store_reply_source">из dApp Store</string>
+    <string name="note_signed_label">ПОДПИСАНО В БЛОКЧЕЙНЕ</string>
+    <string name="permanent_title">Постоянно</string>
+    <string name="use_card_title">Ваш телефон добавляет</string>
+    <string name="use_row_label">Время на этом телефоне</string>
+    <string name="time_row_label">Время использования</string>
+    <string name="use_card_hint">Отчёт вашего телефона, округлённый — не доказательство. Всё, что включено, навсегда записывается вместе с отзывом.</string>
+    <string name="scan_notif_title">Уведомить о завершении сканирования</string>
+    <string name="scan_notif_body">Сканирование выполняется в фоновом режиме (около 6 мин). Разрешите уведомления, чтобы узнать, когда оно завершится.</string>
+    <string name="scan_notif_note">Без них сканирование всё равно выполнится; результаты появятся здесь, когда вы вернётесь.</string>
+    <string name="scan_notif_allow">Разрешить уведомления</string>
+    <string name="scan_notif_skip">Сканировать без уведомлений</string>
+    <string name="pay_label_payments">Платежи</string>
+    <string name="pay_label_payers">Плательщики</string>
+    <string name="pay_label_attested">С подтверждённым устройством</string>
+    <string name="pay_label_attested_short">Подтверждено</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Первый</string>
+    <string name="pay_label_latest">Последний</string>
+    <string name="pay_order">Упорядочено по полученным платежам</string>
+    <string name="pay_tools">Для издателей</string>
+    <string name="pay_preview_badge">Просмотр · не указано</string>
+    <string name="pay_step_line">Добавить строку</string>
+    <string name="pay_step_sign">Подписать</string>
+    <string name="pay_copy">Копировать</string>
+    <string name="pay_copied">Скопировано</string>
+    <string name="pay_line_found">Строка на сайте найдена</string>
+    <string name="pay_checked">Проверено: %1$s</string>
+    <string name="pay_check_again">Проверить снова</string>
+    <string name="pay_continue">Перейти к шагу 2</string>
+    <string name="pay_sign_early">Вы можете подписать ещё до того, как строка будет найдена; запись в списке будет ждать её.</string>
+    <string name="pay_wallet_matches">совпадает</string>
+    <string name="pay_open_board">Открыть в обзоре</string>
+    <string name="pay_show_line">Показать строку</string>
+    <string name="watch_label_requests">Запросов в день</string>
+    <string name="watch_label_kept">Сохранено</string>
+    <string name="watch_label_first">Первые результаты</string>
+    <string name="watch_label_last">Последнее чтение</string>
+    <string name="watch_label_apps">Приложения</string>
+    <string name="watch_label_since">Отслеживание с</string>
+    <plurals name="watch_days_of"><item quantity="one">из %1$d дня</item><item quantity="few">из %1$d дней</item><item quantity="many">из %1$d дней</item><item quantity="other">из %1$d дня</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d пятизвёздочный</item><item quantity="few">%1$d пятизвёздочных</item><item quantity="many">%1$d пятизвёздочных</item><item quantity="other">%1$d пятизвёздочного</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d однозвёздочный</item><item quantity="few">%1$d однозвёздочных</item><item quantity="many">%1$d однозвёздочных</item><item quantity="other">%1$d однозвёздочного</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d шаг</item><item quantity="few">%1$d шага</item><item quantity="many">%1$d шагов</item><item quantity="other">%1$d шага</item></plurals>
 </resources>

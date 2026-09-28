@@ -620,4 +620,126 @@
     <string name="pay_bad_input">Verifică numele pachetului și codul (un cod memo de 2–31 litere, cifre, - sau _, sau o adresă de cont de referință).</string>
     <string name="pay_open">Tabloul plăților</string>
     <string name="pay_waiting_list">Listată de trezorerie, încă neconfirmată de site: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Mai multe acțiuni</string>
+    <string name="burst_ratings_none">Niciun val de evaluări.</string>
+    <string name="pay_label_signing">Portofelul semnatar</string>
+    <string name="lb_title">Clasament</string>
+    <string name="lb_open">Clasament</string>
+    <string name="lb_overall">General</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Venituri</string>
+    <string name="lb_m_payers">Utilizatori plătitori</string>
+    <string name="lb_m_signed_score">Scor semnat</string>
+    <string name="lb_m_signed_reviews">Recenzii semnate</string>
+    <string name="lb_m_store_rating">Evaluare din magazin</string>
+    <string name="lb_m_store_reviews">Recenzii din magazin</string>
+    <string name="lb_m_growth">Creștere luna aceasta</string>
+    <string name="lb_note_revenue">Doar trezorerii confirmate, clasate după USD în ziua fiecărei plăți. Sumele neconfirmate sunt afișate dedesubt, fără loc în clasament.</string>
+    <string name="lb_note_growth">Plățile din luna aceasta față de luna trecută, doar trezorerii confirmate.</string>
+    <string name="lb_note_score">Clasat după scorul de rang — tras spre 3,0 până semnează mai mulți Seekeri, deci un singur 5★ nu poate conduce lista. Minimum 2 recenzii semnate.</string>
+    <string name="lb_note_signed">Recenzii semnate numărate: una per Seeker, cele retrase sunt excluse.</string>
+    <string name="lb_note_store">Numărătorile proprii ale dApp Store, citite %1$s. Evaluarea din magazin necesită cel puțin 5 recenzii.</string>
+    <string name="lb_note_store_unread">Numărătorile proprii ale dApp Store. Evaluarea din magazin necesită cel puțin 5 recenzii.</string>
+    <string name="lb_store_reading">Se citesc numărătorile magazinului: %1$s</string>
+    <string name="lb_empty">Încă nu este nimic de clasat aici.</string>
+    <string name="lb_unconfirmed_title">Încă neconfirmat · fără clasament</string>
+    <string name="lb_unconfirmed_body">Listată de trezorerie, așteaptă rândul de pe site-ul editorului.</string>
+    <plurals name="lb_thin"><item quantity="one">Încă %1$d dApp de aici are mai puțin de 2 recenzii semnate și nu este clasat.</item><item quantity="few">Încă %1$d dApps de aici au mai puțin de 2 recenzii semnate și nu sunt clasate.</item><item quantity="other">Încă %1$d de dApps de aici au mai puțin de 2 recenzii semnate și nu sunt clasate.</item></plurals>
+    <string name="lb_downloads_title">Descărcări</string>
+    <string name="lb_downloads_body">dApp Store nu publică numărul de instalări, așa că nu există clasament al descărcărilor. Va apărea aici dacă se adaugă o sursă.</string>
+    <string name="lb_signed_n">Recenzii semnate: %1$d</string>
+    <string name="dd_revenue">Venituri</string>
+    <string name="dd_signed">Semnat</string>
+    <string name="dd_store">Magazin</string>
+    <string name="dd_updates">Actualizări</string>
+    <string name="dd_updates_none">Nu s-a observat nicio actualizare încă pe acest telefon. Ultima actualizare din magazin: %1$s</string>
+    <string name="dd_same_cert">Același certificat de semnare</string>
+    <string name="dd_cert_changed">Certificat SCHIMBAT</string>
+    <string name="dd_perm_added">Permisiune adăugată: %1$s</string>
+    <string name="dd_perm_removed">Permisiune eliminată: %1$s</string>
+    <string name="dd_perms_same">Permisiuni neschimbate</string>
+    <string name="dd_signed_since">Semnat din: %1$d</string>
+    <string name="dd_worth">Merită știut</string>
+    <string name="dd_no_bursts">Niciun val de recenzii din %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d val de recenzii</item><item quantity="few">%1$d valuri de recenzii</item><item quantity="other">%1$d de valuri de recenzii</item></plurals>
+    <string name="dd_treasury_confirmed">Trezorerie confirmată de site</string>
+    <string name="dd_treasury_none">Nicio trezorerie confirmată</string>
+    <string name="dd_last_update">Ultima actualizare din magazin: %1$s</string>
+    <string name="dd_open">Deschide pagina completă a dApp-ului</string>
+    <string name="tr_title">Tendințe</string>
+    <string name="tr_30d">30Z</string>
+    <string name="tr_90d">90Z</string>
+    <string name="tr_1y">1A</string>
+    <string name="tr_all">Tot</string>
+    <string name="tr_revenue">Venituri</string>
+    <string name="tr_score">Scor în timp</string>
+    <string name="tr_signed">Semnat</string>
+    <string name="tr_store">Magazin</string>
+    <string name="tr_reviews_week">Recenzii semnate pe săptămână</string>
+    <string name="tr_payers">Utilizatori plătitori</string>
+    <string name="tr_no_bursts">Niciun val</string>
+    <string name="tr_no_data">Încă nu sunt suficiente date.</string>
+    <string name="tr_sum_revenue">%1$s în acest interval · Plăți: %2$d</string>
+    <string name="tr_sum_score">Semnat: %1$s · Magazin: %2$s acum</string>
+    <string name="tr_gap_wider">diferența a crescut</string>
+    <string name="tr_gap_narrower">diferența s-a redus</string>
+    <string name="tr_gap_same">diferența a rămas aceeași</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d recenzie semnată în acest interval</item><item quantity="few">%1$d recenzii semnate în acest interval</item><item quantity="other">%1$d de recenzii semnate în acest interval</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d utilizator plătitor în acest interval</item><item quantity="few">%1$d utilizatori plătitori în acest interval</item><item quantity="other">%1$d de utilizatori plătitori în acest interval</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d zi</item><item quantity="few">%1$d zile</item><item quantity="other">%1$d de zile</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">ziua %1$d</item><item quantity="few">ziua %1$d</item><item quantity="other">ziua %1$d</item></plurals>
+    <string name="pay_listing_note">Înregistrarea din listă este un document semnat. Retragerea ei ulterioară lasă înregistrarea pe blockchain.</string>
+    <string name="burst_kind_high">Recenzii cu cinci stele</string>
+    <string name="burst_kind_low">Recenzii cu o stea</string>
+    <string name="burst_kind_high_ratings">Evaluări cu cinci stele</string>
+    <string name="burst_kind_low_ratings">Evaluări cu o stea</string>
+    <string name="burst_times">×%1$s din ritmul obișnuit</string>
+    <string name="burst_pace">Ritm obișnuit: aproximativ %1$s la 3 zile</string>
+    <string name="store_reply_source">din dApp Store</string>
+    <string name="note_signed_label">SEMNAT PE BLOCKCHAIN</string>
+    <string name="permanent_title">Permanent</string>
+    <string name="use_card_title">Telefonul tău adaugă</string>
+    <string name="use_row_label">Timp pe acest telefon</string>
+    <string name="time_row_label">Timpul de utilizare</string>
+    <string name="use_card_hint">Raportul telefonului tău, rotunjit — nu este o dovadă. Orice este activat este înregistrat permanent alături de recenzie.</string>
+    <string name="scan_notif_title">Anunță-mă când scanarea se termină</string>
+    <string name="scan_notif_body">Scanarea rulează în fundal (aproximativ 6 min). Permite notificările ca să afli când s-a terminat.</string>
+    <string name="scan_notif_note">Fără ele rulează oricum; rezultatele apar aici când te întorci.</string>
+    <string name="scan_notif_allow">Permite notificările</string>
+    <string name="scan_notif_skip">Scanează fără notificări</string>
+    <string name="pay_label_payments">Plăți</string>
+    <string name="pay_label_payers">Plătitori</string>
+    <string name="pay_label_attested">Cu dispozitiv atestat</string>
+    <string name="pay_label_attested_short">Atestat</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Prima</string>
+    <string name="pay_label_latest">Ultima</string>
+    <string name="pay_order">Ordonate după plățile primite</string>
+    <string name="pay_tools">Pentru editori</string>
+    <string name="pay_preview_badge">Previzualizare · nelistat</string>
+    <string name="pay_step_line">Adaugă rândul</string>
+    <string name="pay_step_sign">Semnează</string>
+    <string name="pay_copy">Copiază</string>
+    <string name="pay_copied">Copiat</string>
+    <string name="pay_line_found">Rândul de pe site a fost găsit</string>
+    <string name="pay_checked">Verificat: %1$s</string>
+    <string name="pay_check_again">Verifică din nou</string>
+    <string name="pay_continue">Continuă la pasul 2</string>
+    <string name="pay_sign_early">Poți semna înainte ca rândul să fie găsit; listarea așteaptă după el.</string>
+    <string name="pay_wallet_matches">se potrivește</string>
+    <string name="pay_open_board">Deschide în tablou</string>
+    <string name="pay_show_line">Arată rândul</string>
+    <string name="watch_label_requests">Cereri pe zi</string>
+    <string name="watch_label_kept">Păstrate</string>
+    <string name="watch_label_first">Primele rezultate</string>
+    <string name="watch_label_last">Ultima citire</string>
+    <string name="watch_label_apps">Aplicații</string>
+    <string name="watch_label_since">Urmărire din</string>
+    <plurals name="watch_days_of"><item quantity="one">din %1$d zi</item><item quantity="few">din %1$d zile</item><item quantity="other">din %1$d de zile</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d cu cinci stele</item><item quantity="few">%1$d cu cinci stele</item><item quantity="other">%1$d cu cinci stele</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d cu o stea</item><item quantity="few">%1$d cu o stea</item><item quantity="other">%1$d cu o stea</item></plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d pas</item><item quantity="few">%1$d pași</item><item quantity="other">%1$d de pași</item></plurals>
 </resources>

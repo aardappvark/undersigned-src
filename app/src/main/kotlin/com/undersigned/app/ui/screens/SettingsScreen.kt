@@ -45,7 +45,7 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}) {
+fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}, onLeaderboard: () -> Unit = {}) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val wallet by vm.wallet.collectAsState()
@@ -303,6 +303,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 LinkRow(stringResource(R.string.stats_open)) { onStats() }
                 LinkRow(stringResource(R.string.pay_open)) { onPayments() }
                 LinkRow(stringResource(R.string.watch_title)) { onWatch() }
+                LinkRow(stringResource(R.string.lb_open)) { onLeaderboard() }
             }
 
             SectionTitle(stringResource(R.string.settings_hidden))

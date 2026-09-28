@@ -618,4 +618,148 @@
     <string name="pay_bad_input">Vérifiez le nom du package et le code (un code memo de 2–31 lettres, chiffres, - ou _, ou une adresse de compte de référence).</string>
     <string name="pay_open">Tableau des paiements</string>
     <string name="pay_waiting_list">Répertorié par la trésorerie, pas encore confirmé par le site web : %1$d</string>
+
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Autres actions</string>
+    <string name="burst_ratings_none">Aucun pic de notes.</string>
+    <string name="pay_label_signing">Wallet signataire</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Classement</string>
+    <string name="lb_open">Classement</string>
+    <string name="lb_overall">Général</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Revenus</string>
+    <string name="lb_m_payers">Utilisateurs payants</string>
+    <string name="lb_m_signed_score">Score signé</string>
+    <string name="lb_m_signed_reviews">Avis signés</string>
+    <string name="lb_m_store_rating">Note du store</string>
+    <string name="lb_m_store_reviews">Avis du store</string>
+    <string name="lb_m_growth">Croissance ce mois-ci</string>
+    <string name="lb_note_revenue">Trésoreries confirmées uniquement, classées par USD au jour de chaque paiement. Les montants non confirmés sont affichés en dessous, sans classement.</string>
+    <string name="lb_note_growth">Les paiements de ce mois comparés à ceux du mois dernier, trésoreries confirmées uniquement.</string>
+    <string name="lb_note_score">Classé par score de classement — ramené vers 3,0 tant que peu de Seekers signent, pour qu\'un seul 5★ ne puisse pas dominer la liste. Minimum 2 avis signés.</string>
+    <string name="lb_note_signed">Avis signés comptabilisés : un par Seeker, ceux retirés exclus.</string>
+    <string name="lb_note_store">Les chiffres propres au dApp Store, lus %1$s. La note du store nécessite au moins 5 avis.</string>
+    <string name="lb_note_store_unread">Les chiffres propres au dApp Store. La note du store nécessite au moins 5 avis.</string>
+    <string name="lb_store_reading">Lecture des chiffres du store : %1$s</string>
+    <string name="lb_empty">Rien à classer ici pour l\'instant.</string>
+    <string name="lb_unconfirmed_title">Pas encore confirmé · non classé</string>
+    <string name="lb_unconfirmed_body">Répertorié par la trésorerie, en attente de la ligne sur le site web de l\'éditeur.</string>
+    <plurals name="lb_thin"><item quantity="one">%1$d autre dApp ici a moins de 2 avis signés et n\'est pas classée.</item><item quantity="many">%1$d autres dApps ici ont moins de 2 avis signés et ne sont pas classées.</item><item quantity="other">%1$d autres dApps ici ont moins de 2 avis signés et ne sont pas classées.</item></plurals>
+    <string name="lb_downloads_title">Téléchargements</string>
+    <string name="lb_downloads_body">Le dApp Store ne publie pas de nombre d\'installations, donc il n\'y a pas de classement des téléchargements. Il apparaît ici si une source est ajoutée.</string>
+    <string name="lb_signed_n">Avis signés : %1$d</string>
+    <string name="dd_revenue">Revenus</string>
+    <string name="dd_signed">Signé</string>
+    <string name="dd_store">Store</string>
+    <string name="dd_updates">Mises à jour</string>
+    <string name="dd_updates_none">Aucune mise à jour vue sur ce téléphone pour l\'instant. Dernière mise à jour du store : %1$s</string>
+    <string name="dd_same_cert">Même certificat de signature</string>
+    <string name="dd_cert_changed">Certificat MODIFIÉ</string>
+    <string name="dd_perm_added">Permission ajoutée : %1$s</string>
+    <string name="dd_perm_removed">Permission supprimée : %1$s</string>
+    <string name="dd_perms_same">Permissions inchangées</string>
+    <string name="dd_signed_since">Signé depuis : %1$d</string>
+    <string name="dd_worth">À noter</string>
+    <string name="dd_no_bursts">Aucun pic d\'avis depuis %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d pic d\'avis</item><item quantity="many">%1$d pics d\'avis</item><item quantity="other">%1$d pics d\'avis</item></plurals>
+    <string name="dd_treasury_confirmed">Trésorerie confirmée par le site web</string>
+    <string name="dd_treasury_none">Aucune trésorerie confirmée</string>
+    <string name="dd_last_update">Dernière mise à jour du store : %1$s</string>
+    <string name="dd_open">Ouvrir la fiche complète de la dApp</string>
+    <string name="tr_title">Tendances</string>
+    <string name="tr_30d">30 J</string>
+    <string name="tr_90d">90 J</string>
+    <string name="tr_1y">1 AN</string>
+    <string name="tr_all">Tout</string>
+    <string name="tr_revenue">Revenus</string>
+    <string name="tr_score">Score dans le temps</string>
+    <string name="tr_signed">Signé</string>
+    <string name="tr_store">Store</string>
+    <string name="tr_reviews_week">Avis signés par semaine</string>
+    <string name="tr_payers">Utilisateurs payants</string>
+    <string name="tr_no_bursts">Aucun pic</string>
+    <string name="tr_no_data">Pas encore assez de données.</string>
+    <string name="tr_sum_revenue">%1$s sur cette période · Paiements : %2$d</string>
+    <string name="tr_sum_score">Signé : %1$s · Store : %2$s maintenant</string>
+    <string name="tr_gap_wider">l\'écart s\'est creusé</string>
+    <string name="tr_gap_narrower">l\'écart s\'est réduit</string>
+    <string name="tr_gap_same">l\'écart est resté stable</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d avis signé sur cette période</item><item quantity="many">%1$d avis signés sur cette période</item><item quantity="other">%1$d avis signés sur cette période</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d utilisateur payant sur cette période</item><item quantity="many">%1$d utilisateurs payants sur cette période</item><item quantity="other">%1$d utilisateurs payants sur cette période</item></plurals>
+    <plurals name="watch_days_n">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="many">%1$d jours</item>
+        <item quantity="other">%1$d jours</item>
+    </plurals>
+    <plurals name="watch_day_n">
+        <item quantity="one">jour %1$d</item>
+        <item quantity="many">jour %1$d</item>
+        <item quantity="other">jour %1$d</item>
+    </plurals>
+    <string name="pay_listing_note">L\'annonce est un enregistrement signé. La retirer plus tard laisse l\'enregistrement on-chain.</string>
+    <string name="burst_kind_high">Avis cinq étoiles</string>
+    <string name="burst_kind_low">Avis une étoile</string>
+    <string name="burst_kind_high_ratings">Notes cinq étoiles</string>
+    <string name="burst_kind_low_ratings">Notes une étoile</string>
+    <string name="burst_times">×%1$s le rythme habituel</string>
+    <string name="burst_pace">Rythme habituel : environ %1$s pour 3 jours</string>
+    <string name="store_reply_source">depuis le dApp Store</string>
+    <string name="note_signed_label">SIGNÉ ON-CHAIN</string>
+    <string name="permanent_title">Permanent</string>
+    <string name="use_card_title">Votre téléphone ajoute</string>
+    <string name="use_row_label">Temps sur ce téléphone</string>
+    <string name="time_row_label">Temps d\'utilisation</string>
+    <string name="use_card_hint">Le rapport de votre téléphone, arrondi — pas une preuve. Ce qui est activé est enregistré en permanence avec l\'avis.</string>
+    <string name="scan_notif_title">Être averti quand l\'analyse est terminée</string>
+    <string name="scan_notif_body">L\'analyse s\'exécute en arrière-plan (environ 6 min). Autorisez les notifications pour savoir quand elle est terminée.</string>
+    <string name="scan_notif_note">Sans elles, elle s\'exécute quand même ; les résultats apparaissent ici à votre retour.</string>
+    <string name="scan_notif_allow">Autoriser les notifications</string>
+    <string name="scan_notif_skip">Analyser sans notifications</string>
+    <string name="pay_label_payments">Paiements</string>
+    <string name="pay_label_payers">Payeurs</string>
+    <string name="pay_label_attested">Avec un appareil attesté</string>
+    <string name="pay_label_attested_short">Attesté</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Premier</string>
+    <string name="pay_label_latest">Dernier</string>
+    <string name="pay_order">Classé par paiements reçus</string>
+    <string name="pay_tools">Pour les éditeurs</string>
+    <string name="pay_preview_badge">Aperçu · non répertorié</string>
+    <string name="pay_step_line">Ajouter la ligne</string>
+    <string name="pay_step_sign">Signer</string>
+    <string name="pay_copy">Copier</string>
+    <string name="pay_copied">Copié</string>
+    <string name="pay_line_found">Ligne trouvée sur le site web</string>
+    <string name="pay_checked">Vérifié : %1$s</string>
+    <string name="pay_check_again">Vérifier à nouveau</string>
+    <string name="pay_continue">Continuer vers l\'étape 2</string>
+    <string name="pay_sign_early">Vous pouvez signer avant que la ligne soit trouvée ; la fiche attend qu\'elle le soit.</string>
+    <string name="pay_wallet_matches">correspond</string>
+    <string name="pay_open_board">Ouvrir sur le tableau</string>
+    <string name="pay_show_line">Afficher la ligne</string>
+    <string name="watch_label_requests">Requêtes par jour</string>
+    <string name="watch_label_kept">Conservées</string>
+    <string name="watch_label_first">Premiers résultats</string>
+    <string name="watch_label_last">Dernière lecture</string>
+    <string name="watch_label_apps">Applications</string>
+    <string name="watch_label_since">Suivi depuis</string>
+    <plurals name="watch_days_of">
+        <item quantity="one">sur %1$d jour</item>
+        <item quantity="many">sur %1$d jours</item>
+        <item quantity="other">sur %1$d jours</item>
+    </plurals>
+    <plurals name="watch_count_high">
+        <item quantity="one">%1$d cinq étoiles</item>
+        <item quantity="many">%1$d cinq étoiles</item>
+        <item quantity="other">%1$d cinq étoiles</item>
+    </plurals>
+    <plurals name="watch_count_low">
+        <item quantity="one">%1$d une étoile</item>
+        <item quantity="many">%1$d une étoile</item>
+        <item quantity="other">%1$d une étoile</item>
+    </plurals>
+    <plurals name="pay_steps"><item quantity="one">%1$d étape</item><item quantity="many">%1$d étapes</item><item quantity="other">%1$d étapes</item></plurals>
 </resources>

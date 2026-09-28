@@ -411,7 +411,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** One listing: a treasury claim, whether the store-listed website confirms it, and what it has been paid. */
     /** [payers] = wallets that paid this listing's treasury under its code; a review by one of them carries "Paid for this app". */
     /** [usdWhenPaid]: true when [usd] and [monthUsd] use each payment's own day's price, false when today's. */
-    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean, val payers: Set<String> = emptySet(), val usdWhenPaid: Boolean = false, val monthUsd: Map<String, Double> = emptyMap())
+    data class BoardRow(val claim: com.undersigned.protocol.Payments.Claim, val name: String, val confirmed: Boolean, val tally: com.undersigned.protocol.Payments.Tally?, val usd: Double?, val complete: Boolean, val payers: Set<String> = emptySet(), val usdWhenPaid: Boolean = false, val monthUsd: Map<String, Double> = emptyMap(),
+        /** The counted payments with their USD (payment day or today), for the drill-down's trends. */
+        val paid: List<Pair<com.undersigned.protocol.Payments.Payment, Double>> = emptyList())
     val boardRows = MutableStateFlow<List<BoardRow>>(emptyList())
     val boardLoading = MutableStateFlow(false)
     val boardPreview = MutableStateFlow<BoardRow?>(null)
@@ -422,11 +424,40 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun myTreasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = wallet.value?.let { w -> treasuryClaims().filter { it.treasury == w } } ?: emptyList()
     fun boardFor(pkg: String): BoardRow? = boardRows.value.firstOrNull { it.claim.packageName == pkg && it.confirmed && it.tally != null }
 
+    // ---- Leaderboard -------------------------------------------------------------------------------------------
+
+    /** Each app's latest store star counts (1★..5★): the Store watch archive when fresh, else read in batches of 20. */
+    val storeCounts = MutableStateFlow<Map<String, List<Int>>>(emptyMap())
+    val storeCountsRead = MutableStateFlow<Long?>(null)
+    val storeCountsProgress = MutableStateFlow<String?>(null)
+    fun loadStoreCounts(pkgs: Collection<String>) {
+        if (storeCountsProgress.value != null) return
+        viewModelScope.launch(Dispatchers.IO) {
+            val archive = com.undersigned.app.notify.StoreWatchWorker.archive(getApplication())
+            val now = System.currentTimeMillis() / 1000
+            val fresh = HashMap<String, List<Int>>(); var newest = 0L
+            archive.all().forEach { (p, snaps) -> snaps.lastOrNull()?.takeIf { now - it.time < 36 * 3600 }?.let { fresh[p] = it.byStar; newest = maxOf(newest, it.time) } }
+            storeCounts.update { it + fresh }; if (newest > 0) storeCountsRead.value = newest * 1000
+            val missing = pkgs.filter { it !in storeCounts.value }
+            if (missing.isEmpty()) return@launch
+            storeCountsProgress.value = "0/${missing.size}"
+            try {
+                val got = HashMap<String, List<Int>>()
+                for ((i, chunk) in missing.chunked(com.undersigned.app.data.StoreReviewsClient.MAX_BATCH).withIndex()) {
+                    if (i > 0) delay(1500)   // the store's CDN blocks a whole network that reads it fast
+                    store.ratingsBatch(chunk)?.let { got.putAll(it) }
+                    storeCountsProgress.value = "${minOf((i + 1) * com.undersigned.app.data.StoreReviewsClient.MAX_BATCH, missing.size)}/${missing.size}"
+                }
+                storeCounts.update { it + got }; storeCountsRead.value = System.currentTimeMillis()
+                archive.merge(got, now)   // a read of the store's counts is a day's snapshot too
+            } finally { storeCountsProgress.value = null }
+        }
+    }
+
     private suspend fun attested(w: String): Boolean = (facts.value[w] ?: runCatching { factsService.facts(w) }.getOrNull()?.also { f -> facts.update { it + (w to f) } })?.hasGenesisToken == true
 
     private suspend fun tallyRow(claim: com.undersigned.protocol.Payments.Claim, confirmed: Boolean): BoardRow {
         val name = catalogue.value.firstOrNull { it.packageName == claim.packageName }?.name ?: claim.packageName
-        if (!confirmed) return BoardRow(claim, name, false, null, null, true)
         val read = board.read(claim.treasury, claim.code)
         // The publisher testing their own checkout is not a customer: payments from any wallet their proof file names
         // are counted apart. A preview (no package) has no proof file and leaves nothing out.
@@ -444,7 +475,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val usd = if (whenPaid) paid.sumOf { it.second!! } else com.undersigned.app.ledger.Prices.usd(t.lamports, t.tokens, q)
         val months = if (whenPaid) paid.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.first.time)) }.mapValues { (_, l) -> l.sumOf { it.second!! } }
             else t.months.associate { it.key to (com.undersigned.app.ledger.Prices.usd(it.lamports, it.tokens, q) ?: 0.0) }
-        return BoardRow(claim, name, true, t, usd, read.complete, counted.map { it.payer }.toSet(), whenPaid, months)
+        val today = { p: com.undersigned.protocol.Payments.Payment -> com.undersigned.app.ledger.Prices.usd(p.lamports, p.tokens, q) ?: 0.0 }
+        // An unconfirmed listing is read too, for the leaderboard's "not yet confirmed" box, but it is never ranked or badged.
+        return BoardRow(claim, name, confirmed, t, usd, read.complete, if (confirmed) counted.map { it.payer }.toSet() else emptySet(), whenPaid, months,
+            paid.map { (p, u) -> p to (u ?: today(p)) })
     }
 
     /** Every claim on the ledger, checked against its website, then read. At most once every ten minutes unless [force]. */

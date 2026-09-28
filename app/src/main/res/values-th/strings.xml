@@ -589,4 +589,127 @@
     <string name="pay_bad_input">ตรวจสอบชื่อแพ็กเกจและรหัส (รหัสเมโมที่มีตัวอักษร ตัวเลข - หรือ _ จำนวน 2–31 ตัว หรือที่อยู่บัญชีอ้างอิง)</string>
     <string name="pay_open">กระดานการชำระเงิน</string>
     <string name="pay_waiting_list">ลงรายการโดยคลัง แต่ยังไม่ได้รับการยืนยันจากเว็บไซต์: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">การดำเนินการเพิ่มเติม</string>
+    <string name="burst_ratings_none">ไม่มีการพุ่งขึ้นของคะแนน</string>
+    <string name="pay_label_signing">กระเป๋าเงินที่ลงลายเซ็น</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">กระดานผู้นำ</string>
+    <string name="lb_open">กระดานผู้นำ</string>
+    <string name="lb_overall">โดยรวม</string>
+    <plurals name="lb_dapps"><item quantity="other">%1$d dApp</item></plurals>
+    <string name="lb_m_revenue">รายได้</string>
+    <string name="lb_m_payers">ผู้ใช้ที่ชำระเงิน</string>
+    <string name="lb_m_signed_score">คะแนนที่ลงลายเซ็น</string>
+    <string name="lb_m_signed_reviews">รีวิวที่ลงลายเซ็น</string>
+    <string name="lb_m_store_rating">คะแนนของสโตร์</string>
+    <string name="lb_m_store_reviews">รีวิวของสโตร์</string>
+    <string name="lb_m_growth">การเติบโตเดือนนี้</string>
+    <string name="lb_note_revenue">เฉพาะคลังที่ยืนยันแล้ว จัดอันดับตามมูลค่า USD ในวันที่ชำระเงินแต่ละครั้ง จำนวนที่ยังไม่ยืนยันจะแสดงด้านล่าง ไม่จัดอันดับ</string>
+    <string name="lb_note_growth">การชำระเงินเดือนนี้เทียบกับเดือนที่แล้ว เฉพาะคลังที่ยืนยันแล้ว</string>
+    <string name="lb_note_score">จัดอันดับตามคะแนนอันดับ — ถูกดึงเข้าหา 3.0 จนกว่าจะมี Seeker ลงลายเซ็นเพิ่มขึ้น เพื่อไม่ให้คะแนน 5★ เพียงรายการเดียวขึ้นนำในรายการ ต้องมีรีวิวที่ลงลายเซ็นอย่างน้อย 2 รายการ</string>
+    <string name="lb_note_signed">รีวิวที่ลงลายเซ็นที่นับ: หนึ่งรายการต่อ Seeker ไม่รวมรายการที่ถอนแล้ว</string>
+    <string name="lb_note_store">จำนวนของ dApp Store เอง อ่านเมื่อ %1$s คะแนนของสโตร์ต้องมีอย่างน้อย 5 รีวิว</string>
+    <string name="lb_note_store_unread">จำนวนของ dApp Store เอง คะแนนของสโตร์ต้องมีอย่างน้อย 5 รีวิว</string>
+    <string name="lb_store_reading">กำลังอ่านจำนวนของสโตร์: %1$s</string>
+    <string name="lb_empty">ยังไม่มีอะไรให้จัดอันดับที่นี่</string>
+    <string name="lb_unconfirmed_title">ยังไม่ยืนยัน · ไม่จัดอันดับ</string>
+    <string name="lb_unconfirmed_body">แสดงรายการโดยคลัง กำลังรอบรรทัดบนเว็บไซต์ของผู้เผยแพร่</string>
+    <plurals name="lb_thin"><item quantity="other">มี dApp อีก %1$d รายการที่นี่มีรีวิวที่ลงลายเซ็นน้อยกว่า 2 รายการและไม่ได้จัดอันดับ</item></plurals>
+    <string name="lb_downloads_title">การดาวน์โหลด</string>
+    <string name="lb_downloads_body">dApp Store ไม่เผยแพร่จำนวนการติดตั้ง จึงไม่มีการจัดอันดับการดาวน์โหลด จะปรากฏที่นี่หากมีการเพิ่มแหล่งข้อมูล</string>
+    <string name="lb_signed_n">รีวิวที่ลงลายเซ็น: %1$d</string>
+    <string name="dd_revenue">รายได้</string>
+    <string name="dd_signed">ลงลายเซ็นแล้ว</string>
+    <string name="dd_store">สโตร์</string>
+    <string name="dd_updates">การอัปเดต</string>
+    <string name="dd_updates_none">ยังไม่พบการอัปเดตบนโทรศัพท์เครื่องนี้ อัปเดตล่าสุดของสโตร์: %1$s</string>
+    <string name="dd_same_cert">ใบรับรองการลงลายเซ็นเดียวกัน</string>
+    <string name="dd_cert_changed">ใบรับรองเปลี่ยนแปลงแล้ว</string>
+    <string name="dd_perm_added">สิทธิ์ที่เพิ่มเข้ามา: %1$s</string>
+    <string name="dd_perm_removed">สิทธิ์ที่ถูกเอาออก: %1$s</string>
+    <string name="dd_perms_same">สิทธิ์ไม่เปลี่ยนแปลง</string>
+    <string name="dd_signed_since">ลงลายเซ็นตั้งแต่: %1$d</string>
+    <string name="dd_worth">ควรรู้ไว้</string>
+    <string name="dd_no_bursts">ไม่มีการพุ่งขึ้นของรีวิวตั้งแต่ %1$s</string>
+    <plurals name="dd_bursts"><item quantity="other">การพุ่งขึ้นของรีวิว %1$d ครั้ง</item></plurals>
+    <string name="dd_treasury_confirmed">คลังได้รับการยืนยันจากเว็บไซต์</string>
+    <string name="dd_treasury_none">ไม่มีคลังที่ยืนยันแล้ว</string>
+    <string name="dd_last_update">อัปเดตล่าสุดของสโตร์: %1$s</string>
+    <string name="dd_open">เปิดหน้า dApp แบบเต็ม</string>
+    <string name="tr_title">แนวโน้ม</string>
+    <string name="tr_30d">30ว</string>
+    <string name="tr_90d">90ว</string>
+    <string name="tr_1y">1ปี</string>
+    <string name="tr_all">ทั้งหมด</string>
+    <string name="tr_revenue">รายได้</string>
+    <string name="tr_score">คะแนนตามช่วงเวลา</string>
+    <string name="tr_signed">ลงลายเซ็นแล้ว</string>
+    <string name="tr_store">สโตร์</string>
+    <string name="tr_reviews_week">รีวิวที่ลงลายเซ็นต่อสัปดาห์</string>
+    <string name="tr_payers">ผู้ใช้ที่ชำระเงิน</string>
+    <string name="tr_no_bursts">ไม่มีการพุ่งขึ้น</string>
+    <string name="tr_no_data">ยังมีข้อมูลไม่เพียงพอ</string>
+    <string name="tr_sum_revenue">%1$s ในช่วงนี้ · การชำระเงิน: %2$d</string>
+    <string name="tr_sum_score">ลงลายเซ็น: %1$s · สโตร์: ตอนนี้ %2$s</string>
+    <string name="tr_gap_wider">ช่องว่างกว้างขึ้น</string>
+    <string name="tr_gap_narrower">ช่องว่างแคบลง</string>
+    <string name="tr_gap_same">ช่องว่างคงที่</string>
+    <plurals name="tr_sum_reviews"><item quantity="other">รีวิวที่ลงลายเซ็น %1$d รายการในช่วงนี้</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="other">ผู้ใช้ที่ชำระเงิน %1$d รายในช่วงนี้</item></plurals>
+    <plurals name="watch_days_n"><item quantity="other">%1$d วัน</item></plurals>
+    <plurals name="watch_day_n"><item quantity="other">วันที่ %1$d</item></plurals>
+    <string name="pay_listing_note">รายการนี้เป็นบันทึกที่ลงลายเซ็น การถอนออกในภายหลังจะทำให้บันทึกยังคงอยู่บนเชน</string>
+    <string name="burst_kind_high">รีวิวห้าดาว</string>
+    <string name="burst_kind_low">รีวิวหนึ่งดาว</string>
+    <string name="burst_kind_high_ratings">คะแนนห้าดาว</string>
+    <string name="burst_kind_low_ratings">คะแนนหนึ่งดาว</string>
+    <string name="burst_times">×%1$s ของอัตราปกติ</string>
+    <string name="burst_pace">อัตราปกติ: ประมาณ %1$s ต่อ 3 วัน</string>
+    <string name="store_reply_source">จาก dApp Store</string>
+    <string name="note_signed_label">ลงลายเซ็นบนเชน</string>
+    <string name="permanent_title">ถาวร</string>
+    <string name="use_card_title">โทรศัพท์ของคุณเพิ่ม</string>
+    <string name="use_row_label">เวลาบนโทรศัพท์เครื่องนี้</string>
+    <string name="time_row_label">เวลาที่คุณใช้งาน</string>
+    <string name="use_card_hint">รายงานของโทรศัพท์คุณ ปัดเศษแล้ว — ไม่ใช่หลักฐาน สิ่งใดก็ตามที่เปิดใช้งานจะถูกบันทึกอย่างถาวรไว้กับรีวิว</string>
+    <string name="scan_notif_title">รับแจ้งเมื่อการสแกนเสร็จสิ้น</string>
+    <string name="scan_notif_body">การสแกนทำงานในพื้นหลัง (ประมาณ 6 นาที) อนุญาตการแจ้งเตือนเพื่อรับทราบเมื่อเสร็จสิ้น</string>
+    <string name="scan_notif_note">หากไม่อนุญาตก็ยังทำงานอยู่ ผลลัพธ์จะปรากฏที่นี่เมื่อคุณกลับมา</string>
+    <string name="scan_notif_allow">อนุญาตการแจ้งเตือน</string>
+    <string name="scan_notif_skip">สแกนโดยไม่ต้องแจ้งเตือน</string>
+    <string name="pay_label_payments">การชำระเงิน</string>
+    <string name="pay_label_payers">ผู้ชำระเงิน</string>
+    <string name="pay_label_attested">ด้วยอุปกรณ์ที่ได้รับการรับรอง</string>
+    <string name="pay_label_attested_short">รับรองแล้ว</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">ครั้งแรก</string>
+    <string name="pay_label_latest">ล่าสุด</string>
+    <string name="pay_order">เรียงตามการชำระเงินที่ได้รับ</string>
+    <string name="pay_tools">สำหรับผู้เผยแพร่</string>
+    <string name="pay_preview_badge">ตัวอย่าง · ยังไม่ได้ลงรายการ</string>
+    <string name="pay_step_line">เพิ่มบรรทัด</string>
+    <string name="pay_step_sign">ลงลายเซ็น</string>
+    <string name="pay_copy">คัดลอก</string>
+    <string name="pay_copied">คัดลอกแล้ว</string>
+    <string name="pay_line_found">พบบรรทัดบนเว็บไซต์</string>
+    <string name="pay_checked">ตรวจสอบแล้ว: %1$s</string>
+    <string name="pay_check_again">ตรวจสอบอีกครั้ง</string>
+    <string name="pay_continue">ไปยังขั้นตอนที่ 2</string>
+    <string name="pay_sign_early">คุณสามารถลงลายเซ็นก่อนพบบรรทัดได้ รายการจะรอบรรทัดนี้</string>
+    <string name="pay_wallet_matches">ตรงกัน</string>
+    <string name="pay_open_board">เปิดบนกระดาน</string>
+    <string name="pay_show_line">แสดงบรรทัด</string>
+    <string name="watch_label_requests">คำขอต่อวัน</string>
+    <string name="watch_label_kept">เก็บไว้</string>
+    <string name="watch_label_first">ผลลัพธ์แรก</string>
+    <string name="watch_label_last">อ่านล่าสุด</string>
+    <string name="watch_label_apps">แอป</string>
+    <string name="watch_label_since">ติดตามตั้งแต่</string>
+    <plurals name="watch_days_of"><item quantity="other">จาก %1$d วัน</item></plurals>
+    <plurals name="watch_count_high"><item quantity="other">%1$d ห้าดาว</item></plurals>
+    <plurals name="watch_count_low"><item quantity="other">%1$d หนึ่งดาว</item></plurals>
+    <plurals name="pay_steps"><item quantity="other">%1$d ขั้นตอน</item></plurals>
 </resources>

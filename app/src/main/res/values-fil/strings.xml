@@ -614,4 +614,127 @@
     <string name="pay_bad_input">I-check ang package name at code (isang memo code na 2–31 na letra, digit, - o _, o isang reference account address).</string>
     <string name="pay_open">Payments Board</string>
     <string name="pay_waiting_list">Nakalista ng treasury, hindi pa kinumpirma ng website: %1$d</string>
+    <plurals name="pay_steps"><item quantity="one">%1$d hakbang</item><item quantity="other">%1$d hakbang</item></plurals>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Higit pang aksyon</string>
+    <string name="burst_ratings_none">Walang rating burst.</string>
+    <string name="pay_label_signing">Wallet na nag-sign</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Leaderboard</string>
+    <string name="lb_open">Leaderboard</string>
+    <string name="lb_overall">Pangkalahatan</string>
+    <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
+    <string name="lb_m_revenue">Kita</string>
+    <string name="lb_m_payers">Mga nagbabayad na user</string>
+    <string name="lb_m_signed_score">Naka-sign na iskor</string>
+    <string name="lb_m_signed_reviews">Naka-sign na review</string>
+    <string name="lb_m_store_rating">Rating ng store</string>
+    <string name="lb_m_store_reviews">Review ng store</string>
+    <string name="lb_m_growth">Paglago ngayong buwan</string>
+    <string name="lb_note_revenue">Mga na-confirm na treasury lang, inayos ayon sa USD sa araw ng bawat bayad. Ang mga hindi pa na-confirm na halaga ay ipinapakita sa ibaba, hindi inayos.</string>
+    <string name="lb_note_growth">Mga bayad ngayong buwan laban sa nakaraang buwan, mga na-confirm na treasury lang.</string>
+    <string name="lb_note_score">Inayos ayon sa rank score — pinaliit patungo sa 3.0 hanggang mas maraming Seeker ang mag-sign, para hindi maiangat ng isang 5★ lang ang buong listahan. Minimum 2 na naka-sign na review.</string>
+    <string name="lb_note_signed">Binilang na naka-sign na review: isa bawat Seeker, hindi kasama ang mga na-withdraw.</string>
+    <string name="lb_note_store">Sariling bilang ng dApp Store, binasa noong %1$s. Kailangan ng rating ng store ng hindi bababa sa 5 review.</string>
+    <string name="lb_note_store_unread">Sariling bilang ng dApp Store. Kailangan ng rating ng store ng hindi bababa sa 5 review.</string>
+    <string name="lb_store_reading">Binabasa ang bilang ng store: %1$s</string>
+    <string name="lb_empty">Wala pang aayusin dito.</string>
+    <string name="lb_unconfirmed_title">Hindi pa na-confirm · hindi inayos</string>
+    <string name="lb_unconfirmed_body">Nakalista ng treasury, hinihintay ang linya sa website ng publisher.</string>
+    <plurals name="lb_thin"><item quantity="one">May %1$d pang dApp dito na may mas kaunti sa 2 naka-sign na review at hindi inayos.</item><item quantity="other">May %1$d pang dApps dito na may mas kaunti sa 2 naka-sign na review at hindi inayos.</item></plurals>
+    <string name="lb_downloads_title">Mga Download</string>
+    <string name="lb_downloads_body">Hindi naglalathala ang dApp Store ng bilang ng install, kaya walang ranggo ng download. Lalabas ito dito kapag may idinagdag na source.</string>
+    <string name="lb_signed_n">Naka-sign na review: %1$d</string>
+    <string name="dd_revenue">Kita</string>
+    <string name="dd_signed">Naka-sign</string>
+    <string name="dd_store">Store</string>
+    <string name="dd_updates">Mga Update</string>
+    <string name="dd_updates_none">Wala pang update na nakita sa telepono na ito. Huling update sa store: %1$s</string>
+    <string name="dd_same_cert">Parehong signing certificate</string>
+    <string name="dd_cert_changed">NAGBAGO ang certificate</string>
+    <string name="dd_perm_added">Permission na idinagdag: %1$s</string>
+    <string name="dd_perm_removed">Permission na inalis: %1$s</string>
+    <string name="dd_perms_same">Walang pagbabago sa permission</string>
+    <string name="dd_signed_since">Naka-sign, mula: %1$d</string>
+    <string name="dd_worth">Karapat-dapat malaman</string>
+    <string name="dd_no_bursts">Walang review burst mula %1$s</string>
+    <plurals name="dd_bursts"><item quantity="one">%1$d review burst</item><item quantity="other">%1$d review burst</item></plurals>
+    <string name="dd_treasury_confirmed">Na-confirm ang treasury ng website</string>
+    <string name="dd_treasury_none">Walang na-confirm na treasury</string>
+    <string name="dd_last_update">Huling update sa store: %1$s</string>
+    <string name="dd_open">Buksan ang buong dApp page</string>
+    <string name="tr_title">Mga Trend</string>
+    <string name="tr_30d">30A</string>
+    <string name="tr_90d">90A</string>
+    <string name="tr_1y">1T</string>
+    <string name="tr_all">Lahat</string>
+    <string name="tr_revenue">Kita</string>
+    <string name="tr_score">Iskor sa paglipas ng panahon</string>
+    <string name="tr_signed">Naka-sign</string>
+    <string name="tr_store">Store</string>
+    <string name="tr_reviews_week">Naka-sign na review bawat linggo</string>
+    <string name="tr_payers">Mga nagbabayad na user</string>
+    <string name="tr_no_bursts">Walang burst</string>
+    <string name="tr_no_data">Hindi pa sapat ang datos.</string>
+    <string name="tr_sum_revenue">%1$s sa saklaw na ito · Mga bayad: %2$d</string>
+    <string name="tr_sum_score">Naka-sign: %1$s · Store: %2$s ngayon</string>
+    <string name="tr_gap_wider">lumawak ang agwat</string>
+    <string name="tr_gap_narrower">lumiit ang agwat</string>
+    <string name="tr_gap_same">nanatili ang agwat</string>
+    <plurals name="tr_sum_reviews"><item quantity="one">%1$d naka-sign na review sa saklaw na ito</item><item quantity="other">%1$d na naka-sign na review sa saklaw na ito</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="one">%1$d nagbabayad na user sa saklaw na ito</item><item quantity="other">%1$d na nagbabayad na user sa saklaw na ito</item></plurals>
+    <plurals name="watch_days_n"><item quantity="one">%1$d araw</item><item quantity="other">%1$d araw</item></plurals>
+    <plurals name="watch_day_n"><item quantity="one">araw %1$d</item><item quantity="other">araw %1$d</item></plurals>
+    <string name="pay_listing_note">Ang listing ay isang naka-sign na record. Ang pag-withdraw dito mamaya ay nag-iiwan pa rin ng record on-chain.</string>
+    <string name="burst_kind_high">5-star na review</string>
+    <string name="burst_kind_low">1-star na review</string>
+    <string name="burst_kind_high_ratings">5-star na rating</string>
+    <string name="burst_kind_low_ratings">1-star na rating</string>
+    <string name="burst_times">×%1$s ng karaniwang bilis</string>
+    <string name="burst_pace">Karaniwang bilis: humigit-kumulang %1$s bawat 3 araw</string>
+    <string name="store_reply_source">mula sa dApp Store</string>
+    <string name="note_signed_label">NAKA-SIGN ON-CHAIN</string>
+    <string name="permanent_title">Permanente</string>
+    <string name="use_card_title">Idinaragdag ng telepono mo</string>
+    <string name="use_row_label">Oras sa telepono na ito</string>
+    <string name="time_row_label">Oras na ginamit mo ito</string>
+    <string name="use_card_hint">Ulat ng telepono mo, naka-round — hindi patunay. Anumang naka-on ay permanenteng naitatala kasama ng review.</string>
+    <string name="scan_notif_title">Malaman kapag tapos na ang scan</string>
+    <string name="scan_notif_body">Tumatakbo ang scan sa background (mga 6 minuto). Payagan ang mga notification para malaman kapag tapos na.</string>
+    <string name="scan_notif_note">Kahit wala ang mga ito, tumatakbo pa rin ito; lalabas ang mga resulta dito paguwi mo.</string>
+    <string name="scan_notif_allow">Payagan ang mga notification</string>
+    <string name="scan_notif_skip">Mag-scan nang walang notification</string>
+    <string name="pay_label_payments">Mga Bayad</string>
+    <string name="pay_label_payers">Mga Nagbayad</string>
+    <string name="pay_label_attested">May attested device</string>
+    <string name="pay_label_attested_short">Na-verify</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Una</string>
+    <string name="pay_label_latest">Pinakabago</string>
+    <string name="pay_order">Inayos ayon sa mga natanggap na bayad</string>
+    <string name="pay_tools">Para sa mga publisher</string>
+    <string name="pay_preview_badge">Preview · hindi nakalista</string>
+    <string name="pay_step_line">Idagdag ang linya</string>
+    <string name="pay_step_sign">Mag-sign</string>
+    <string name="pay_copy">Kopyahin</string>
+    <string name="pay_copied">Nakopya</string>
+    <string name="pay_line_found">Nahanap ang linya sa website</string>
+    <string name="pay_checked">Na-check: %1$s</string>
+    <string name="pay_check_again">I-check ulit</string>
+    <string name="pay_continue">Magpatuloy sa hakbang 2</string>
+    <string name="pay_sign_early">Maaari kang mag-sign bago mahanap ang linya; hihintayin ito ng listing.</string>
+    <string name="pay_wallet_matches">tumutugma</string>
+    <string name="pay_open_board">Buksan sa board</string>
+    <string name="pay_show_line">Ipakita ang linya</string>
+    <string name="watch_label_requests">Mga request kada araw</string>
+    <string name="watch_label_kept">Naitago</string>
+    <string name="watch_label_first">Unang mga resulta</string>
+    <string name="watch_label_last">Huling binasa</string>
+    <string name="watch_label_apps">Mga App</string>
+    <string name="watch_label_since">Tina-track mula</string>
+    <plurals name="watch_days_of"><item quantity="one">sa %1$d araw</item><item quantity="other">sa %1$d araw</item></plurals>
+    <plurals name="watch_count_high"><item quantity="one">%1$d limang-bituin</item><item quantity="other">%1$d limang-bituin</item></plurals>
+    <plurals name="watch_count_low"><item quantity="one">%1$d isang-bituin</item><item quantity="other">%1$d isang-bituin</item></plurals>
 </resources>

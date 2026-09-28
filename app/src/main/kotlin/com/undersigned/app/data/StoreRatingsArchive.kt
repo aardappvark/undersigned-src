@@ -21,6 +21,18 @@ class StoreRatingsArchive(private val dir: File) {
         cache = null
     }
 
+    /** Adds [counts] to today's file, keeping every app already recorded today (a partial read never erases the day). */
+    @Synchronized fun merge(counts: Map<String, List<Int>>, nowSec: Long) {
+        if (counts.isEmpty()) return
+        val day = java.time.Instant.ofEpochSecond(nowSec).toString().take(10)
+        val f = File(dir, "$day.tsv")
+        val rows = LinkedHashMap<String, String>()
+        if (f.exists()) f.forEachLine { l -> l.substringBefore('\t').takeIf { it.isNotEmpty() }?.let { rows[it] = l } }
+        counts.forEach { (pkg, c) -> if (c.size == 5 && '\t' !in pkg) rows[pkg] = pkg + "\t" + nowSec + "\t" + c.joinToString("\t") }
+        f.writeText(rows.values.joinToString("\n", postfix = "\n"))
+        cache = null
+    }
+
     /** Days recorded, oldest first (yyyy-mm-dd). */
     fun days(): List<String> = dir.listFiles { f -> f.name.endsWith(".tsv") }?.map { it.name.removeSuffix(".tsv") }?.sorted() ?: emptyList()
 

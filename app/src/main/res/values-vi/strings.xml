@@ -605,4 +605,127 @@
     <string name="pay_bad_input">Kiểm tra lại tên gói và mã (mã memo gồm 2–31 chữ cái, chữ số, - hoặc _, hoặc một địa chỉ tài khoản tham chiếu).</string>
     <string name="pay_open">Bảng thanh toán</string>
     <string name="pay_waiting_list">Được quỹ niêm yết, chưa được trang web xác nhận: %1$d</string>
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">Thêm thao tác</string>
+    <string name="burst_ratings_none">Không có đợt tăng đột biến xếp hạng.</string>
+    <string name="pay_label_signing">Ví ký</string>
+    <!-- Leaderboard (handoff 2, H1–H3) -->
+    <string name="lb_title">Bảng xếp hạng</string>
+    <string name="lb_open">Bảng xếp hạng</string>
+    <string name="lb_overall">Tổng thể</string>
+    <plurals name="lb_dapps"><item quantity="other">%1$d dApp</item></plurals>
+    <string name="lb_m_revenue">Doanh thu</string>
+    <string name="lb_m_payers">Người dùng trả phí</string>
+    <string name="lb_m_signed_score">Điểm đã ký</string>
+    <string name="lb_m_signed_reviews">Đánh giá đã ký</string>
+    <string name="lb_m_store_rating">Xếp hạng cửa hàng</string>
+    <string name="lb_m_store_reviews">Đánh giá cửa hàng</string>
+    <string name="lb_m_growth">Tăng trưởng tháng này</string>
+    <string name="lb_note_revenue">Chỉ các quỹ đã xác nhận, xếp hạng theo USD vào ngày thanh toán mỗi lần. Các khoản chưa xác nhận hiển thị bên dưới, không xếp hạng.</string>
+    <string name="lb_note_growth">Thanh toán tháng này so với tháng trước, chỉ các quỹ đã xác nhận.</string>
+    <string name="lb_note_score">Xếp hạng theo điểm xếp hạng — được co về gần 3.0 cho đến khi có thêm Seeker ký, để một đánh giá 5★ duy nhất không thể đứng đầu danh sách. Tối thiểu 2 đánh giá đã ký.</string>
+    <string name="lb_note_signed">Đánh giá đã ký được tính: một cho mỗi Seeker, không tính các đánh giá đã rút.</string>
+    <string name="lb_note_store">Số liệu riêng của dApp Store, đọc lúc %1$s. Xếp hạng cửa hàng cần ít nhất 5 đánh giá.</string>
+    <string name="lb_note_store_unread">Số liệu riêng của dApp Store. Xếp hạng cửa hàng cần ít nhất 5 đánh giá.</string>
+    <string name="lb_store_reading">Đang đọc số liệu cửa hàng: %1$s</string>
+    <string name="lb_empty">Chưa có gì để xếp hạng ở đây.</string>
+    <string name="lb_unconfirmed_title">Chưa xác nhận · không xếp hạng</string>
+    <string name="lb_unconfirmed_body">Được liệt kê bởi quỹ, đang chờ dòng chữ trên trang web của nhà phát hành.</string>
+    <plurals name="lb_thin"><item quantity="other">Có thêm %1$d dApp ở đây có ít hơn 2 đánh giá đã ký và không được xếp hạng.</item></plurals>
+    <string name="lb_downloads_title">Lượt tải xuống</string>
+    <string name="lb_downloads_body">dApp Store không công bố số lượt cài đặt, nên không có xếp hạng lượt tải xuống. Mục này sẽ xuất hiện nếu có một nguồn được thêm vào.</string>
+    <string name="lb_signed_n">Đánh giá đã ký: %1$d</string>
+    <string name="dd_revenue">Doanh thu</string>
+    <string name="dd_signed">Đã ký</string>
+    <string name="dd_store">Cửa hàng</string>
+    <string name="dd_updates">Cập nhật</string>
+    <string name="dd_updates_none">Chưa thấy cập nhật nào trên điện thoại này. Cập nhật cửa hàng gần nhất: %1$s</string>
+    <string name="dd_same_cert">Cùng chứng chỉ ký</string>
+    <string name="dd_cert_changed">Chứng chỉ ĐÃ THAY ĐỔI</string>
+    <string name="dd_perm_added">Quyền đã thêm: %1$s</string>
+    <string name="dd_perm_removed">Quyền đã xóa: %1$s</string>
+    <string name="dd_perms_same">Quyền không đổi</string>
+    <string name="dd_signed_since">Đã ký từ: %1$d</string>
+    <string name="dd_worth">Đáng biết</string>
+    <string name="dd_no_bursts">Không có đợt tăng đột biến đánh giá nào kể từ %1$s</string>
+    <plurals name="dd_bursts"><item quantity="other">%1$d đợt tăng đột biến đánh giá</item></plurals>
+    <string name="dd_treasury_confirmed">Quỹ đã được trang web xác nhận</string>
+    <string name="dd_treasury_none">Không có quỹ đã xác nhận</string>
+    <string name="dd_last_update">Cập nhật cửa hàng gần nhất: %1$s</string>
+    <string name="dd_open">Mở toàn bộ trang dApp</string>
+    <string name="tr_title">Xu hướng</string>
+    <string name="tr_30d">30N</string>
+    <string name="tr_90d">90N</string>
+    <string name="tr_1y">1N</string>
+    <string name="tr_all">Tất cả</string>
+    <string name="tr_revenue">Doanh thu</string>
+    <string name="tr_score">Điểm theo thời gian</string>
+    <string name="tr_signed">Đã ký</string>
+    <string name="tr_store">Cửa hàng</string>
+    <string name="tr_reviews_week">Đánh giá đã ký mỗi tuần</string>
+    <string name="tr_payers">Người dùng trả phí</string>
+    <string name="tr_no_bursts">Không có đợt tăng đột biến</string>
+    <string name="tr_no_data">Chưa đủ dữ liệu.</string>
+    <string name="tr_sum_revenue">%1$s trong khoảng này · Thanh toán: %2$d</string>
+    <string name="tr_sum_score">Đã ký: %1$s · Cửa hàng: %2$s hiện tại</string>
+    <string name="tr_gap_wider">khoảng cách đã nới rộng</string>
+    <string name="tr_gap_narrower">khoảng cách đã thu hẹp</string>
+    <string name="tr_gap_same">khoảng cách giữ nguyên</string>
+    <plurals name="tr_sum_reviews"><item quantity="other">%1$d đánh giá đã ký trong khoảng này</item></plurals>
+    <plurals name="tr_sum_payers"><item quantity="other">%1$d người dùng trả phí trong khoảng này</item></plurals>
+    <plurals name="watch_days_n"><item quantity="other">%1$d ngày</item></plurals>
+    <plurals name="watch_day_n"><item quantity="other">ngày %1$d</item></plurals>
+    <string name="pay_listing_note">Bản niêm yết là một bản ghi đã ký. Rút nó sau này vẫn để lại bản ghi trên chuỗi.</string>
+    <string name="burst_kind_high">Đánh giá 5 sao</string>
+    <string name="burst_kind_low">Đánh giá 1 sao</string>
+    <string name="burst_kind_high_ratings">Xếp hạng 5 sao</string>
+    <string name="burst_kind_low_ratings">Xếp hạng 1 sao</string>
+    <string name="burst_times">×%1$s tốc độ thông thường</string>
+    <string name="burst_pace">Tốc độ thông thường: khoảng %1$s mỗi 3 ngày</string>
+    <string name="store_reply_source">từ dApp Store</string>
+    <string name="note_signed_label">ĐÃ KÝ ON-CHAIN</string>
+    <string name="permanent_title">Vĩnh viễn</string>
+    <string name="use_card_title">Điện thoại của bạn thêm vào</string>
+    <string name="use_row_label">Thời gian trên điện thoại này</string>
+    <string name="time_row_label">Thời gian bạn đã sử dụng nó</string>
+    <string name="use_card_hint">Báo cáo của điện thoại bạn, đã làm tròn — không phải bằng chứng. Bất cứ điều gì được bật sẽ được ghi lại vĩnh viễn cùng với đánh giá.</string>
+    <string name="scan_notif_title">Nghe thông báo khi quét xong</string>
+    <string name="scan_notif_body">Quá trình quét chạy ở chế độ nền (khoảng 6 phút). Cho phép thông báo để biết khi nào xong.</string>
+    <string name="scan_notif_note">Không có thông báo, nó vẫn chạy; kết quả sẽ xuất hiện ở đây khi bạn quay lại.</string>
+    <string name="scan_notif_allow">Cho phép thông báo</string>
+    <string name="scan_notif_skip">Quét mà không có thông báo</string>
+    <string name="pay_label_payments">Thanh toán</string>
+    <string name="pay_label_payers">Người thanh toán</string>
+    <string name="pay_label_attested">Có thiết bị được xác nhận</string>
+    <string name="pay_label_attested_short">Đã xác nhận</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Đầu tiên</string>
+    <string name="pay_label_latest">Gần nhất</string>
+    <string name="pay_order">Sắp xếp theo các khoản thanh toán đã nhận</string>
+    <string name="pay_tools">Dành cho nhà phát hành</string>
+    <string name="pay_preview_badge">Xem trước · chưa niêm yết</string>
+    <string name="pay_step_line">Thêm dòng chữ</string>
+    <string name="pay_step_sign">Ký</string>
+    <string name="pay_copy">Sao chép</string>
+    <string name="pay_copied">Đã sao chép</string>
+    <string name="pay_line_found">Đã tìm thấy dòng chữ trên trang web</string>
+    <string name="pay_checked">Đã kiểm tra: %1$s</string>
+    <string name="pay_check_again">Kiểm tra lại</string>
+    <string name="pay_continue">Tiếp tục đến bước 2</string>
+    <string name="pay_sign_early">Bạn có thể ký trước khi tìm thấy dòng chữ; bản niêm yết sẽ chờ nó.</string>
+    <string name="pay_wallet_matches">khớp</string>
+    <string name="pay_open_board">Mở trên bảng</string>
+    <string name="pay_show_line">Hiện dòng chữ</string>
+    <string name="watch_label_requests">Yêu cầu mỗi ngày</string>
+    <string name="watch_label_kept">Đã giữ</string>
+    <string name="watch_label_first">Kết quả đầu tiên</string>
+    <string name="watch_label_last">Đọc lần cuối</string>
+    <string name="watch_label_apps">Ứng dụng</string>
+    <string name="watch_label_since">Theo dõi từ</string>
+    <plurals name="watch_days_of"><item quantity="other">trong %1$d ngày</item></plurals>
+    <plurals name="watch_count_high"><item quantity="other">%1$d lượt 5 sao</item></plurals>
+    <plurals name="watch_count_low"><item quantity="other">%1$d lượt 1 sao</item></plurals>
+    <plurals name="pay_steps"><item quantity="other">%1$d bước</item></plurals>
 </resources>
