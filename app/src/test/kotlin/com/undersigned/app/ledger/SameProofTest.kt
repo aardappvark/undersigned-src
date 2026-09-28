@@ -33,3 +33,16 @@ class SameProofTest {
         assertTrue(PublisherVerifier.expandToSameProof(emptyMap(), sites.keys) { sites[it] }.isEmpty())
     }
 }
+
+class SharedHostTest {
+    @Test fun sharedHostsNeverVerifyAnyone() {
+        org.junit.Assert.assertNull(PublisherVerifier.wellKnownUrl("https://x.com/somegame"))
+        org.junit.Assert.assertNull(PublisherVerifier.wellKnownUrl("https://www.solana.com/"))
+        org.junit.Assert.assertNull(PublisherVerifier.wellKnownUrl("linktr.ee/project"))
+        org.junit.Assert.assertEquals("https://example.app/.well-known/undersigned.txt", PublisherVerifier.wellKnownUrl("https://example.app/about"))
+        // A shared host's apps are not merged with each other either: no proof key, no carry-over.
+        val sites = mapOf("a.one" to "https://solana.com", "b.two" to "https://solana.com")
+        val out = PublisherVerifier.expandToSameProof(mapOf("a.one" to setOf("W1")), sites.keys) { sites[it] }
+        org.junit.Assert.assertNull(out["b.two"])
+    }
+}

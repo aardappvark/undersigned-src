@@ -753,4 +753,32 @@
     </plurals>
     <string name="pay_listing_note">Der Eintrag ist ein signierter Datensatz. Ein späterer Widerruf lässt den Datensatz on-chain stehen.</string>
     <plurals name="pay_steps"><item quantity="one">%1$d Schritt</item><item quantity="other">%1$d Schritte</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Verifizierter Herausgeber — hat die Kontrolle über %1$s nachgewiesen, bekannt seit %2$s</string>
+    <string name="publisher_verified_apk">Verifizierter Herausgeber — im eigenen signierten Build der App genannt</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Funktioniert</string>
+    <string name="tag_crashes">Stürzt ab</string>
+    <string name="tag_wallet_ok">Wallet ok</string>
+    <string name="tag_wallet_fails">Wallet fehlgeschlagen</string>
+    <string name="tag_fast">Schnell</string>
+    <string name="tag_slow">Langsam</string>
+    <string name="tag_battery">Akkufresser</string>
+    <string name="tag_ads">Werbung</string>
+    <string name="tag_paywall">Paywall</string>
+    <string name="tag_fair_price">Fairer Preis</string>
+    <string name="tag_overpriced">Überteuert</string>
+    <string name="tag_perms_ok">Berechtigungen ok</string>
+    <string name="tag_perms_excess">Berechtigungen übermäßig</string>
+    <string name="tag_spam_reviews">Unnatürliche Bewertungen</string>
+    <string name="tag_misleading">Irreführend</string>
+    <string name="tag_suspected_scam">Betrugsverdacht</string>
+    <string name="tag_abandoned">Verlassen</string>
+    <string name="tag_active_dev">Aktive Entwicklung</string>
+    <string name="tag_onboarding_ok">Einstieg ok</string>
+    <string name="tag_confusing">Verwirrend</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Konto nötig</string>
+    <string name="tag_seeker_native">Seeker-nativ</string>
+    <string name="tag_webview">Webview</string>
 </resources>

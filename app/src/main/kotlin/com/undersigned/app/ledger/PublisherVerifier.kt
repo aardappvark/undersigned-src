@@ -18,8 +18,20 @@ object PublisherVerifier {
     private const val TAG = "PublisherVerifier"
     private const val TTL = 24L * 3600L * 1000L
 
+    /**
+     * Hosts whose owner is not the app's publisher: social profiles, link pages, app-store links and ecosystem sites many
+     * unrelated apps list as their "website". A proof file there would make the HOST's owner the verified publisher of every
+     * app listing it, so none of them verifies through the website (hardening, 28 Sep 2026).
+     */
+    val SHARED_HOSTS = setOf("x.com", "twitter.com", "t.me", "telegram.me", "telegram.org", "discord.gg", "discord.com", "linktr.ee", "linktree.com",
+        "medium.com", "youtube.com", "instagram.com", "facebook.com", "tiktok.com", "play.google.com", "apps.apple.com", "solana.com", "solanamobile.com",
+        "dappstore.solanamobile.com", "google.com", "sites.google.com", "notion.so", "notion.site", "gitbook.io", "substack.com", "reddit.com", "zealy.io", "galxe.com")
+
+    fun isSharedHost(host: String): Boolean { val h = host.lowercase().removePrefix("www."); return h in SHARED_HOSTS }
+
     fun wellKnownUrl(website: String): String? {
         val u = runCatching { URL(if (website.startsWith("http")) website else "https://$website") }.getOrNull() ?: return null
+        if (isSharedHost(u.host)) return null
         if (u.host.equals("github.com", true)) {
             val parts = u.path.trim('/').split('/'); if (parts.size < 2) return null
             return "https://raw.githubusercontent.com/${parts[0]}/${parts[1]}/HEAD/.well-known/undersigned.txt"
@@ -78,7 +90,11 @@ object PublisherVerifier {
     suspend fun verify(pkg: String, wallet: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
         UserPreferences.cachedClaim(pkg, wallet, TTL)?.let { return@withContext it }
         val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, wallet, false) }
-        val ok = fetch(url)?.lines()?.any { it.trim() == wallet } ?: false
+        val body = fetch(url)
+        val ok = body?.lines()?.any { it.trim() == wallet } ?: false
+        // When a wallet first appeared in the proof file, as this device saw it: shown beside the badge, so a claim that
+        // appeared yesterday on a domain that changed hands reads differently from one that has stood for months.
+        if (ok) UserPreferences.proofFirstSeen(url, wallet)
         UserPreferences.cacheClaim(pkg, wallet, ok); ok
     }
 }

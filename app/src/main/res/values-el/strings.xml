@@ -734,4 +734,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d πέντε αστέρων</item><item quantity="other">%1$d πέντε αστέρων</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d ενός αστέρα</item><item quantity="other">%1$d ενός αστέρα</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d βήμα</item><item quantity="other">%1$d βήματα</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Επαληθευμένος εκδότης — απέδειξε τον έλεγχο του %1$s, γνωστός από %2$s</string>
+    <string name="publisher_verified_apk">Επαληθευμένος εκδότης — αναφέρεται μέσα στο δικό της υπογεγραμμένο build της εφαρμογής</string>
+    <string name="tag_works">Λειτουργεί</string>
+    <string name="tag_crashes">Κρασάρει</string>
+    <string name="tag_wallet_ok">Πορτοφόλι ok</string>
+    <string name="tag_wallet_fails">Πορτοφόλι αποτυγχάνει</string>
+    <string name="tag_fast">Γρήγορο</string>
+    <string name="tag_slow">Αργό</string>
+    <string name="tag_battery">Άδειασμα μπαταρίας</string>
+    <string name="tag_ads">Διαφημίσεις</string>
+    <string name="tag_paywall">Πληρωμένο περιεχόμενο</string>
+    <string name="tag_fair_price">Δίκαιη τιμή</string>
+    <string name="tag_overpriced">Υπερτιμημένο</string>
+    <string name="tag_perms_ok">Δικαιώματα ok</string>
+    <string name="tag_perms_excess">Υπερβολικά δικαιώματα</string>
+    <string name="tag_spam_reviews">Αφύσικες κριτικές</string>
+    <string name="tag_misleading">Παραπλανητικό</string>
+    <string name="tag_suspected_scam">Πιθανή απάτη</string>
+    <string name="tag_abandoned">Εγκαταλελειμμένο</string>
+    <string name="tag_active_dev">Ενεργή ανάπτυξη</string>
+    <string name="tag_onboarding_ok">Καλή εκκίνηση</string>
+    <string name="tag_confusing">Μπερδεμένο</string>
+    <string name="tag_offline_ok">Λειτουργεί offline</string>
+    <string name="tag_needs_account">Απαιτεί λογαριασμό</string>
+    <string name="tag_seeker_native">Εγγενές για Seeker</string>
+    <string name="tag_webview">Ενσωματωμένη ιστοσελίδα</string>
 </resources>

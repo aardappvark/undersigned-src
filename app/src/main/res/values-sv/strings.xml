@@ -734,4 +734,32 @@
         <item quantity="other">%1$d enstjärnigt</item>
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d steg</item><item quantity="other">%1$d steg</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Verifierad utgivare — bevisade kontroll av %1$s, känd sedan %2$s</string>
+    <string name="publisher_verified_apk">Verifierad utgivare — namngiven i appens egen signerade build</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Fungerar</string>
+    <string name="tag_crashes">Kraschar</string>
+    <string name="tag_wallet_ok">Plånbok ok</string>
+    <string name="tag_wallet_fails">Plånbok misslyckas</string>
+    <string name="tag_fast">Snabb</string>
+    <string name="tag_slow">Långsam</string>
+    <string name="tag_battery">Batteritjuv</string>
+    <string name="tag_ads">Annonser</string>
+    <string name="tag_paywall">Betalvägg</string>
+    <string name="tag_fair_price">Rimligt pris</string>
+    <string name="tag_overpriced">Överprissatt</string>
+    <string name="tag_perms_ok">Behörigheter ok</string>
+    <string name="tag_perms_excess">För många behörigheter</string>
+    <string name="tag_spam_reviews">Onaturliga recensioner</string>
+    <string name="tag_misleading">Vilseledande</string>
+    <string name="tag_suspected_scam">Misstänkt bedrägeri</string>
+    <string name="tag_abandoned">Övergiven</string>
+    <string name="tag_active_dev">Aktiv utveckling</string>
+    <string name="tag_onboarding_ok">Introduktion ok</string>
+    <string name="tag_confusing">Förvirrande</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Kräver konto</string>
+    <string name="tag_seeker_native">Byggd för Seeker</string>
+    <string name="tag_webview">Webview</string>
 </resources>

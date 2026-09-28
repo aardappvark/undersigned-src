@@ -737,4 +737,32 @@
     <plurals name="watch_days_of"><item quantity="one">sa %1$d araw</item><item quantity="other">sa %1$d araw</item></plurals>
     <plurals name="watch_count_high"><item quantity="one">%1$d limang-bituin</item><item quantity="other">%1$d limang-bituin</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d isang-bituin</item><item quantity="other">%1$d isang-bituin</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Na-verify na publisher — napatunayang kontrolado ang %1$s, nakita mula noong %2$s</string>
+    <string name="publisher_verified_apk">Na-verify na publisher — nakalagay ang pangalan sa loob ng sarili nitong naka-sign na build ng app</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Gumagana</string>
+    <string name="tag_crashes">Nagko-crash</string>
+    <string name="tag_wallet_ok">Maayos ang wallet</string>
+    <string name="tag_wallet_fails">Palya ang wallet</string>
+    <string name="tag_fast">Mabilis</string>
+    <string name="tag_slow">Mabagal</string>
+    <string name="tag_battery">Maubos ang baterya</string>
+    <string name="tag_ads">May ads</string>
+    <string name="tag_paywall">May paywall</string>
+    <string name="tag_fair_price">Makatarungang presyo</string>
+    <string name="tag_overpriced">Sobra ang presyo</string>
+    <string name="tag_perms_ok">Maayos ang permission</string>
+    <string name="tag_perms_excess">Sobra ang permission</string>
+    <string name="tag_spam_reviews">Kakaibang review</string>
+    <string name="tag_misleading">Nakaliligaw</string>
+    <string name="tag_suspected_scam">Pinaghihinalaang scam</string>
+    <string name="tag_abandoned">Abandonado</string>
+    <string name="tag_active_dev">Aktibong dev</string>
+    <string name="tag_onboarding_ok">Maayos simula</string>
+    <string name="tag_confusing">Nakakalito</string>
+    <string name="tag_offline_ok">Gumagana offline</string>
+    <string name="tag_needs_account">Kailangan ng account</string>
+    <string name="tag_seeker_native">Seeker native</string>
+    <string name="tag_webview">Webview</string>
 </resources>

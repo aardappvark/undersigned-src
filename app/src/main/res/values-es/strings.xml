@@ -762,4 +762,32 @@
         <item quantity="other">%1$d de una estrella</item>
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d paso</item><item quantity="many">%1$d pasos</item><item quantity="other">%1$d pasos</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Editor verificado — demostró el control de %1$s, visto desde %2$s</string>
+    <string name="publisher_verified_apk">Editor verificado — nombrado dentro de la propia versión firmada de la app</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Funciona</string>
+    <string name="tag_crashes">Falla</string>
+    <string name="tag_wallet_ok">Wallet ok</string>
+    <string name="tag_wallet_fails">Wallet falla</string>
+    <string name="tag_fast">Rápida</string>
+    <string name="tag_slow">Lenta</string>
+    <string name="tag_battery">Batería</string>
+    <string name="tag_ads">Anuncios</string>
+    <string name="tag_paywall">Paywall</string>
+    <string name="tag_fair_price">Precio justo</string>
+    <string name="tag_overpriced">Cara</string>
+    <string name="tag_perms_ok">Permisos ok</string>
+    <string name="tag_perms_excess">Permisos excesivos</string>
+    <string name="tag_spam_reviews">Reseñas no naturales</string>
+    <string name="tag_misleading">Engañosa</string>
+    <string name="tag_suspected_scam">Posible estafa</string>
+    <string name="tag_abandoned">Abandonada</string>
+    <string name="tag_active_dev">Desarrollo activo</string>
+    <string name="tag_onboarding_ok">Inicio ok</string>
+    <string name="tag_confusing">Confusa</string>
+    <string name="tag_offline_ok">Sin conexión ok</string>
+    <string name="tag_needs_account">Requiere cuenta</string>
+    <string name="tag_seeker_native">Nativa de Seeker</string>
+    <string name="tag_webview">Webview</string>
 </resources>

@@ -735,4 +735,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d пятизвёздочный</item><item quantity="few">%1$d пятизвёздочных</item><item quantity="many">%1$d пятизвёздочных</item><item quantity="other">%1$d пятизвёздочного</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d однозвёздочный</item><item quantity="few">%1$d однозвёздочных</item><item quantity="many">%1$d однозвёздочных</item><item quantity="other">%1$d однозвёздочного</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d шаг</item><item quantity="few">%1$d шага</item><item quantity="many">%1$d шагов</item><item quantity="other">%1$d шага</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Проверенный издатель — доказал контроль над %1$s, известен с %2$s</string>
+    <string name="publisher_verified_apk">Проверенный издатель — указан внутри собственной подписанной сборки приложения</string>
+    <string name="tag_works">Работает</string>
+    <string name="tag_crashes">Вылетает</string>
+    <string name="tag_wallet_ok">Кошелёк ок</string>
+    <string name="tag_wallet_fails">Кошелёк не работает</string>
+    <string name="tag_fast">Быстро</string>
+    <string name="tag_slow">Медленно</string>
+    <string name="tag_battery">Расход батареи</string>
+    <string name="tag_ads">Реклама</string>
+    <string name="tag_paywall">Платный доступ</string>
+    <string name="tag_fair_price">Честная цена</string>
+    <string name="tag_overpriced">Завышенная цена</string>
+    <string name="tag_perms_ok">Разрешения ок</string>
+    <string name="tag_perms_excess">Избыточные разрешения</string>
+    <string name="tag_spam_reviews">Неестественные отзывы</string>
+    <string name="tag_misleading">Вводит в заблуждение</string>
+    <string name="tag_suspected_scam">Подозрение на мошенничество</string>
+    <string name="tag_abandoned">Заброшено</string>
+    <string name="tag_active_dev">Активная разработка</string>
+    <string name="tag_onboarding_ok">Онбординг ок</string>
+    <string name="tag_confusing">Запутанно</string>
+    <string name="tag_offline_ok">Офлайн ок</string>
+    <string name="tag_needs_account">Нужен аккаунт</string>
+    <string name="tag_seeker_native">Нативное для Seeker</string>
+    <string name="tag_webview">Веб-обёртка</string>
 </resources>

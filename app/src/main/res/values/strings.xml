@@ -165,6 +165,8 @@
     <string name="publisher_listed">Listed by the store as %1$s</string>
     <string name="publisher_verified">Verified publisher — proved control of %1$s</string>
     <string name="publisher_none">No verified publisher on the ledger yet.</string>
+    <string name="publisher_verified_since">Verified publisher — proved control of %1$s, seen since %2$s</string>
+    <string name="publisher_verified_apk">Verified publisher — named inside the app\'s own signed build</string>
     <string name="publisher_claim">I publish this app</string>
     <string name="publisher_claim_title">Claim this app</string>
     <string name="publisher_claim_body">Readers verify a claim against the website the store lists for this app (%1$s). Put a file at %2$s containing your wallet address (one line):\n\n%3$s\n\nThen sign the claim. Verification is automatic and repeats every 24 hours. If the file is missing the claim simply stays unverified; nothing else happens.</string>
@@ -757,4 +759,29 @@
         <item quantity="one">%1$d one-star</item>
         <item quantity="other">%1$d one-star</item>
     </plurals>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Works</string>
+    <string name="tag_crashes">Crashes</string>
+    <string name="tag_wallet_ok">Wallet ok</string>
+    <string name="tag_wallet_fails">Wallet fails</string>
+    <string name="tag_fast">Fast</string>
+    <string name="tag_slow">Slow</string>
+    <string name="tag_battery">Battery</string>
+    <string name="tag_ads">Ads</string>
+    <string name="tag_paywall">Paywall</string>
+    <string name="tag_fair_price">Fair price</string>
+    <string name="tag_overpriced">Overpriced</string>
+    <string name="tag_perms_ok">Perms ok</string>
+    <string name="tag_perms_excess">Perms excess</string>
+    <string name="tag_spam_reviews">Unnatural reviews</string>
+    <string name="tag_misleading">Misleading</string>
+    <string name="tag_suspected_scam">Suspected scam</string>
+    <string name="tag_abandoned">Abandoned</string>
+    <string name="tag_active_dev">Active dev</string>
+    <string name="tag_onboarding_ok">Onboarding ok</string>
+    <string name="tag_confusing">Confusing</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Needs account</string>
+    <string name="tag_seeker_native">Seeker native</string>
+    <string name="tag_webview">Webview</string>
 </resources>

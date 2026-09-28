@@ -729,4 +729,32 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d টি পাঁচ-তারকা</item><item quantity="other">%1$d টি পাঁচ-তারকা</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d টি এক-তারকা</item><item quantity="other">%1$d টি এক-তারকা</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d ধাপ</item><item quantity="other">%1$d ধাপ</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">যাচাইকৃত প্রকাশক — %1$s-এর নিয়ন্ত্রণ প্রমাণ করেছেন, %2$s থেকে দেখা যাচ্ছে</string>
+    <string name="publisher_verified_apk">যাচাইকৃত প্রকাশক — অ্যাপের নিজস্ব স্বাক্ষরিত বিল্ডের ভেতরে নাম উল্লেখিত</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">কাজ করে</string>
+    <string name="tag_crashes">ক্র্যাশ করে</string>
+    <string name="tag_wallet_ok">ওয়ালেট ঠিক আছে</string>
+    <string name="tag_wallet_fails">ওয়ালেট ব্যর্থ</string>
+    <string name="tag_fast">দ্রুত</string>
+    <string name="tag_slow">ধীর</string>
+    <string name="tag_battery">ব্যাটারি খরচ</string>
+    <string name="tag_ads">বিজ্ঞাপন</string>
+    <string name="tag_paywall">পেওয়াল</string>
+    <string name="tag_fair_price">ন্যায্য মূল্য</string>
+    <string name="tag_overpriced">অতিরিক্ত মূল্য</string>
+    <string name="tag_perms_ok">অনুমতি ঠিক আছে</string>
+    <string name="tag_perms_excess">বাড়তি অনুমতি</string>
+    <string name="tag_spam_reviews">অস্বাভাবিক পর্যালোচনা</string>
+    <string name="tag_misleading">বিভ্রান্তিকর তথ্য</string>
+    <string name="tag_suspected_scam">প্রতারণার সন্দেহ</string>
+    <string name="tag_abandoned">পরিত্যক্ত</string>
+    <string name="tag_active_dev">সক্রিয় উন্নয়ন</string>
+    <string name="tag_onboarding_ok">শুরুটা ভালো</string>
+    <string name="tag_confusing">জটিল</string>
+    <string name="tag_offline_ok">অফলাইনে চলে</string>
+    <string name="tag_needs_account">অ্যাকাউন্ট প্রয়োজন</string>
+    <string name="tag_seeker_native">Seeker-নেটিভ</string>
+    <string name="tag_webview">ওয়েবভিউ</string>
 </resources>

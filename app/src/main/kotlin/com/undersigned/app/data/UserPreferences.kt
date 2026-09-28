@@ -194,6 +194,15 @@ object UserPreferences {
         prefs?.edit()?.putString(KEY_BURST_MARKS, all.toString())?.apply(); return fresh
     }
 
+    /** First time (ms) this device found [wallet] in the proof file at [url]; recorded on first sight, returned after. */
+    @Synchronized fun proofFirstSeen(url: String, wallet: String): Long {
+        val all = runCatching { JSONObject(prefs?.getString("proof_first_seen", "{}") ?: "{}") }.getOrDefault(JSONObject())
+        val k = "$url|$wallet"
+        if (all.has(k)) return all.getLong(k)
+        val now = System.currentTimeMillis(); all.put(k, now); prefs?.edit()?.putString("proof_first_seen", all.toString())?.apply(); return now
+    }
+    fun proofSeenAt(url: String, wallet: String): Long? = runCatching { JSONObject(prefs?.getString("proof_first_seen", "{}") ?: "{}").let { if (it.has("$url|$wallet")) it.getLong("$url|$wallet") else null } }.getOrNull()
+
     fun cachedClaim(pkg: String, wallet: String, ttl: Long): Boolean? = runCatching {
         val o = JSONObject(prefs?.getString(KEY_CLAIMS, "{}") ?: "{}").optJSONObject("$pkg|$wallet") ?: return null
         if (System.currentTimeMillis() - o.optLong("at") > ttl) null else o.optBoolean("ok")

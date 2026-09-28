@@ -98,6 +98,7 @@ private fun Empty(text: String) { Box(Modifier.fillMaxSize().padding(32.dp), con
 
 @Composable
 private fun ReviewRow(e: LedgerEntry, app: String, who: String, onClick: () -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
     GlassCard(modifier = Modifier.clickable { onClick() }) {
         Text(app, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -105,7 +106,7 @@ private fun ReviewRow(e: LedgerEntry, app: String, who: String, onClick: () -> U
             Text(who + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
         }
         when (val m = e.memo) {
-            is ReviewMemo.Review -> { Text(m.tags.joinToString(" · ") { tagLabel(it.wire) }, color = RbColors.textSecondary, fontSize = 12.sp); m.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) } }
+            is ReviewMemo.Review -> { Text(m.tags.joinToString(" · ") { context.tagLabel(it.wire) }, color = RbColors.textSecondary, fontSize = 12.sp); m.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) } }
             is ReviewMemo.Reply -> Text(m.text, color = RbColors.textSecondary, fontSize = 13.sp)
             else -> {}
         }

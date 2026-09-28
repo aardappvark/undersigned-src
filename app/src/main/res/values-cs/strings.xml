@@ -743,4 +743,32 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d pětihvězdičkové</item><item quantity="few">%1$d pětihvězdičkové</item><item quantity="many">%1$d pětihvězdičkové</item><item quantity="other">%1$d pětihvězdičkových</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d jednohvězdičkové</item><item quantity="few">%1$d jednohvězdičkové</item><item quantity="many">%1$d jednohvězdičkové</item><item quantity="other">%1$d jednohvězdičkových</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d krok</item><item quantity="few">%1$d kroky</item><item quantity="many">%1$d kroku</item><item quantity="other">%1$d kroků</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Ověřený vydavatel — prokázal kontrolu nad %1$s, znám od %2$s</string>
+    <string name="publisher_verified_apk">Ověřený vydavatel — uveden ve vlastním podepsaném sestavení aplikace</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Funguje</string>
+    <string name="tag_crashes">Padá</string>
+    <string name="tag_wallet_ok">Peněženka ok</string>
+    <string name="tag_wallet_fails">Peněženka selhává</string>
+    <string name="tag_fast">Rychlá</string>
+    <string name="tag_slow">Pomalá</string>
+    <string name="tag_battery">Baterie</string>
+    <string name="tag_ads">Reklamy</string>
+    <string name="tag_paywall">Paywall</string>
+    <string name="tag_fair_price">Férová cena</string>
+    <string name="tag_overpriced">Předražená</string>
+    <string name="tag_perms_ok">Oprávnění ok</string>
+    <string name="tag_perms_excess">Nadměrná oprávnění</string>
+    <string name="tag_spam_reviews">Nepřirozené recenze</string>
+    <string name="tag_misleading">Zavádějící</string>
+    <string name="tag_suspected_scam">Podezření na podvod</string>
+    <string name="tag_abandoned">Opuštěná</string>
+    <string name="tag_active_dev">Aktivní vývoj</string>
+    <string name="tag_onboarding_ok">Úvod ok</string>
+    <string name="tag_confusing">Matoucí</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Vyžaduje účet</string>
+    <string name="tag_seeker_native">Nativní pro Seeker</string>
+    <string name="tag_webview">Webview</string>
 </resources>

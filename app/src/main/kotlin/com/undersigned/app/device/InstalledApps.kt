@@ -112,7 +112,20 @@ class InstalledApps(private val context: Context) {
     /** When this package was first installed on this phone (ms); reinstalling resets it. Null when not installed. */
     fun firstInstallTime(packageName: String): Long? = runCatching { pm.getPackageInfo(packageName, 0).firstInstallTime }.getOrNull()?.takeIf { it > 0 }
 
+    /**
+     * Wallets the app's OWN signed build declares as its publisher: `<meta-data android:name="undersigned.publisher"
+     * android:value="<wallet>[,<wallet>]"/>` in its manifest. The manifest is covered by the APK signature, so only the
+     * holder of the app's signing key can put a wallet there — the one proof a taken-over website cannot fake. Empty when
+     * the app is not installed or declares nothing.
+     */
+    fun declaredPublishers(packageName: String): Set<String> = runCatching {
+        val md = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData ?: return emptySet()
+        (md.getString(PUBLISHER_META) ?: return emptySet()).split(',', ' ', ';').map { it.trim() }.filter { it.length in 32..44 }.toSet()
+    }.getOrDefault(emptySet())
+
     fun appLabel(packageName: String): String? = runCatching { pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString() }.getOrNull()
+
+    companion object { const val PUBLISHER_META = "undersigned.publisher" }
 
     private fun versionCodeOf(pi: PackageInfo): Long = if (Build.VERSION.SDK_INT >= 28) pi.longVersionCode else @Suppress("DEPRECATION") pi.versionCode.toLong()
 

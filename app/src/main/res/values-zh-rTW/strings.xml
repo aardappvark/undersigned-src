@@ -727,4 +727,32 @@
     <plurals name="watch_count_high"><item quantity="other">%1$d 則五星</item></plurals>
     <plurals name="watch_count_low"><item quantity="other">%1$d 則一星</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d 個步驟</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">已驗證發行者——已證明對 %1$s 的控制權,自 %2$s 起可見</string>
+    <string name="publisher_verified_apk">已驗證發行者——已列於應用程式自身簽署的安裝包中</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">可用</string>
+    <string name="tag_crashes">當機</string>
+    <string name="tag_wallet_ok">錢包連接正常</string>
+    <string name="tag_wallet_fails">錢包連接失敗</string>
+    <string name="tag_fast">速度快</string>
+    <string name="tag_slow">速度慢</string>
+    <string name="tag_battery">耗電</string>
+    <string name="tag_ads">有廣告</string>
+    <string name="tag_paywall">付費牆</string>
+    <string name="tag_fair_price">價格合理</string>
+    <string name="tag_overpriced">價格過高</string>
+    <string name="tag_perms_ok">權限合理</string>
+    <string name="tag_perms_excess">權限過多</string>
+    <string name="tag_spam_reviews">評價不自然</string>
+    <string name="tag_misleading">描述誤導</string>
+    <string name="tag_suspected_scam">疑似詐騙</string>
+    <string name="tag_abandoned">已停止維護</string>
+    <string name="tag_active_dev">積極開發中</string>
+    <string name="tag_onboarding_ok">新手引導好</string>
+    <string name="tag_confusing">使用困惑</string>
+    <string name="tag_offline_ok">支援離線</string>
+    <string name="tag_needs_account">需要帳戶</string>
+    <string name="tag_seeker_native">Seeker 原生</string>
+    <string name="tag_webview">網頁封裝</string>
 </resources>

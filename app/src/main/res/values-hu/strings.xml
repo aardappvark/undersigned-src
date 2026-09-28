@@ -734,4 +734,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d ötcsillagos</item><item quantity="other">%1$d ötcsillagos</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d egycsillagos</item><item quantity="other">%1$d egycsillagos</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d lépés</item><item quantity="other">%1$d lépés</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Ellenőrzött kiadó — igazolta a felügyeletet %1$s felett, %2$s óta ismert</string>
+    <string name="publisher_verified_apk">Ellenőrzött kiadó — az alkalmazás saját aláírt buildjén belül megnevezve</string>
+    <string name="tag_works">Működik</string>
+    <string name="tag_crashes">Összeomlik</string>
+    <string name="tag_wallet_ok">Tárca ok</string>
+    <string name="tag_wallet_fails">Tárca nem működik</string>
+    <string name="tag_fast">Gyors</string>
+    <string name="tag_slow">Lassú</string>
+    <string name="tag_battery">Akkumulátor-merítés</string>
+    <string name="tag_ads">Reklámok</string>
+    <string name="tag_paywall">Fizetőfal</string>
+    <string name="tag_fair_price">Tisztességes ár</string>
+    <string name="tag_overpriced">Túlárazott</string>
+    <string name="tag_perms_ok">Jogosultságok ok</string>
+    <string name="tag_perms_excess">Túl sok jogosultság</string>
+    <string name="tag_spam_reviews">Természetellenes értékelések</string>
+    <string name="tag_misleading">Megtévesztő</string>
+    <string name="tag_suspected_scam">Átverés gyanúja</string>
+    <string name="tag_abandoned">Elhagyott</string>
+    <string name="tag_active_dev">Aktív fejlesztés</string>
+    <string name="tag_onboarding_ok">Bevezetés ok</string>
+    <string name="tag_confusing">Zavaros</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Fiók szükséges</string>
+    <string name="tag_seeker_native">Seeker-natív</string>
+    <string name="tag_webview">Becsomagolt weboldal</string>
 </resources>

@@ -737,4 +737,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d پانچ ستارہ</item><item quantity="other">%1$d پانچ ستارہ</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d ایک ستارہ</item><item quantity="other">%1$d ایک ستارہ</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d مرحلہ</item><item quantity="other">%1$d مراحل</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">تصدیق شدہ پبلشر — %1$s پر کنٹرول ثابت کیا، %2$s سے معلوم ہے</string>
+    <string name="publisher_verified_apk">تصدیق شدہ پبلشر — ایپ کی اپنی دستخط شدہ بلڈ کے اندر نامزد</string>
+    <string name="tag_works">کام کرتا ہے</string>
+    <string name="tag_crashes">کریش ہوتا ہے</string>
+    <string name="tag_wallet_ok">والٹ ٹھیک ہے</string>
+    <string name="tag_wallet_fails">والٹ ناکام</string>
+    <string name="tag_fast">تیز</string>
+    <string name="tag_slow">سست</string>
+    <string name="tag_battery">بیٹری خرچ</string>
+    <string name="tag_ads">اشتہارات</string>
+    <string name="tag_paywall">ادائیگی درکار</string>
+    <string name="tag_fair_price">مناسب قیمت</string>
+    <string name="tag_overpriced">زیادہ قیمت</string>
+    <string name="tag_perms_ok">اجازتیں ٹھیک</string>
+    <string name="tag_perms_excess">ضرورت سے زیادہ اجازتیں</string>
+    <string name="tag_spam_reviews">غیر فطری جائزے</string>
+    <string name="tag_misleading">گمراہ کن</string>
+    <string name="tag_suspected_scam">فراڈ کا شبہ</string>
+    <string name="tag_abandoned">ترک شدہ</string>
+    <string name="tag_active_dev">فعال ترقی</string>
+    <string name="tag_onboarding_ok">اچھا آغاز</string>
+    <string name="tag_confusing">الجھا دینے والا</string>
+    <string name="tag_offline_ok">آف لائن ٹھیک</string>
+    <string name="tag_needs_account">اکاؤنٹ درکار</string>
+    <string name="tag_seeker_native">Seeker کے لیے خاص</string>
+    <string name="tag_webview">لپٹا ہوا ویب صفحہ</string>
 </resources>

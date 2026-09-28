@@ -765,4 +765,31 @@
     <plurals name="watch_count_high"><item quantity="zero">%1$d خمس نجوم</item><item quantity="one">%1$d خمس نجوم</item><item quantity="two">%1$d خمس نجوم</item><item quantity="few">%1$d خمس نجوم</item><item quantity="many">%1$d خمس نجوم</item><item quantity="other">%1$d خمس نجوم</item></plurals>
     <plurals name="watch_count_low"><item quantity="zero">%1$d نجمة واحدة</item><item quantity="one">%1$d نجمة واحدة</item><item quantity="two">%1$d نجمة واحدة</item><item quantity="few">%1$d نجمة واحدة</item><item quantity="many">%1$d نجمة واحدة</item><item quantity="other">%1$d نجمة واحدة</item></plurals>
     <plurals name="pay_steps"><item quantity="zero">%1$d خطوات</item><item quantity="one">%1$d خطوة</item><item quantity="two">%1$d خطوتان</item><item quantity="few">%1$d خطوات</item><item quantity="many">%1$d خطوة</item><item quantity="other">%1$d خطوة</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">ناشر موثّق — أثبت التحكم في %1$s، معروف منذ %2$s</string>
+    <string name="publisher_verified_apk">ناشر موثّق — مذكور داخل البنية الموقّعة الخاصة بالتطبيق نفسه</string>
+    <string name="tag_works">يعمل</string>
+    <string name="tag_crashes">يتعطل</string>
+    <string name="tag_wallet_ok">محفظة سليمة</string>
+    <string name="tag_wallet_fails">فشل المحفظة</string>
+    <string name="tag_fast">سريع</string>
+    <string name="tag_slow">بطيء</string>
+    <string name="tag_battery">استهلاك البطارية</string>
+    <string name="tag_ads">إعلانات</string>
+    <string name="tag_paywall">جدار دفع</string>
+    <string name="tag_fair_price">سعر عادل</string>
+    <string name="tag_overpriced">سعر مبالغ فيه</string>
+    <string name="tag_perms_ok">أذونات معقولة</string>
+    <string name="tag_perms_excess">أذونات مفرطة</string>
+    <string name="tag_spam_reviews">مراجعات غير طبيعية</string>
+    <string name="tag_misleading">مضلل</string>
+    <string name="tag_suspected_scam">اشتباه احتيال</string>
+    <string name="tag_abandoned">مهجور</string>
+    <string name="tag_active_dev">تطوير نشط</string>
+    <string name="tag_onboarding_ok">بداية سلسة</string>
+    <string name="tag_confusing">مربك</string>
+    <string name="tag_offline_ok">يعمل دون اتصال</string>
+    <string name="tag_needs_account">يتطلب حسابًا</string>
+    <string name="tag_seeker_native">مصمم لـ Seeker</string>
+    <string name="tag_webview">صفحة ويب مغلفة</string>
 </resources>

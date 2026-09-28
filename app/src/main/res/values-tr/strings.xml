@@ -734,4 +734,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d beş yıldızlı</item><item quantity="other">%1$d beş yıldızlı</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d bir yıldızlı</item><item quantity="other">%1$d bir yıldızlı</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d adım</item><item quantity="other">%1$d adım</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Doğrulanmış yayıncı — %1$s üzerindeki kontrolünü kanıtladı, %2$s\'den beri biliniyor</string>
+    <string name="publisher_verified_apk">Doğrulanmış yayıncı — uygulamanın kendi imzalı build\'i içinde adı geçiyor</string>
+    <string name="tag_works">Çalışıyor</string>
+    <string name="tag_crashes">Çöküyor</string>
+    <string name="tag_wallet_ok">Cüzdan ok</string>
+    <string name="tag_wallet_fails">Cüzdan çalışmıyor</string>
+    <string name="tag_fast">Hızlı</string>
+    <string name="tag_slow">Yavaş</string>
+    <string name="tag_battery">Pil tüketiyor</string>
+    <string name="tag_ads">Reklamlar</string>
+    <string name="tag_paywall">Ödeme duvarı</string>
+    <string name="tag_fair_price">Adil fiyat</string>
+    <string name="tag_overpriced">Fahiş fiyat</string>
+    <string name="tag_perms_ok">İzinler ok</string>
+    <string name="tag_perms_excess">Aşırı izin</string>
+    <string name="tag_spam_reviews">Doğal olmayan incelemeler</string>
+    <string name="tag_misleading">Yanıltıcı</string>
+    <string name="tag_suspected_scam">Dolandırıcılık şüphesi</string>
+    <string name="tag_abandoned">Terk edilmiş</string>
+    <string name="tag_active_dev">Aktif geliştirme</string>
+    <string name="tag_onboarding_ok">Başlangıç ok</string>
+    <string name="tag_confusing">Kafa karıştırıcı</string>
+    <string name="tag_offline_ok">Çevrimdışı ok</string>
+    <string name="tag_needs_account">Hesap gerekli</string>
+    <string name="tag_seeker_native">Seeker için yerel</string>
+    <string name="tag_webview">Web görünümü</string>
 </resources>

@@ -719,4 +719,32 @@
     <plurals name="watch_count_high"><item quantity="other">五つ星 %1$d件</item></plurals>
     <plurals name="watch_count_low"><item quantity="other">星一つ %1$d件</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d ステップ</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">検証済みパブリッシャー — %1$sの管理権を証明済み、%2$sから確認</string>
+    <string name="publisher_verified_apk">検証済みパブリッシャー — アプリ自体の署名済みビルド内に記載</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">動作する</string>
+    <string name="tag_crashes">クラッシュする</string>
+    <string name="tag_wallet_ok">ウォレット接続OK</string>
+    <string name="tag_wallet_fails">ウォレット接続失敗</string>
+    <string name="tag_fast">高速</string>
+    <string name="tag_slow">低速</string>
+    <string name="tag_battery">バッテリー消費</string>
+    <string name="tag_ads">広告あり</string>
+    <string name="tag_paywall">ペイウォール</string>
+    <string name="tag_fair_price">適正価格</string>
+    <string name="tag_overpriced">割高</string>
+    <string name="tag_perms_ok">権限は妥当</string>
+    <string name="tag_perms_excess">権限過多</string>
+    <string name="tag_spam_reviews">不自然なレビュー</string>
+    <string name="tag_misleading">誤解を招く表示</string>
+    <string name="tag_suspected_scam">詐欺の疑い</string>
+    <string name="tag_abandoned">開発終了</string>
+    <string name="tag_active_dev">活発に開発中</string>
+    <string name="tag_onboarding_ok">導入体験が良い</string>
+    <string name="tag_confusing">分かりにくい</string>
+    <string name="tag_offline_ok">オフラインで動作</string>
+    <string name="tag_needs_account">アカウント必須</string>
+    <string name="tag_seeker_native">Seekerネイティブ</string>
+    <string name="tag_webview">ウェブビュー</string>
 </resources>

@@ -122,6 +122,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val wallet: StateFlow<String?> = UserPreferences.walletAddress
     val hidden: StateFlow<Set<String>> = UserPreferences.hidden
     val follows: StateFlow<Set<String>> = UserPreferences.follows
+    /** How each (package, wallet) verification was proven: "apk" (the app's signed build) or "web" (the listed website). */
+    val verifiedHow = MutableStateFlow<Map<Pair<String, String>, String>>(emptyMap())
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -216,7 +218,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         for (c in claims) {
             val pkg = (c.memo as ReviewMemo.Claim).packageName
             val d = storeDetails.value[pkg] ?: store.details(pkg)?.also { storeDetails.value = storeDetails.value + (pkg to it) }
-            if (PublisherVerifier.verify(pkg, c.signer, d)) out.getOrPut(pkg) { HashSet() }.add(c.signer)
+            // Strongest first: the installed app's own signed build names the wallet, and its certificate is the one the
+            // store lists (so it is the store's build). Otherwise the store-listed website's proof file.
+            val apk = installed.value.contains(pkg) && c.signer in installedApps.declaredPublishers(pkg) &&
+                !d?.certFingerprint.isNullOrEmpty() && installedApps.facts(pkg)?.signerSha256.equals(d.certFingerprint, ignoreCase = true)
+            if (apk) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "apk") } }
+            else if (PublisherVerifier.verify(pkg, c.signer, d)) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "web") } }
         }
         // Extend each verification to every reviewed app that lists the same website, so a publisher's review of their
         // own OTHER app is not counted as independent. Store details for those apps are fetched once, paced.
@@ -238,6 +245,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val live = list.filter { it.memo is ReviewMemo.Review && it.signature !in rv }
         return LedgerStatus.Synced(live.size, live.map { it.signer }.distinct().size)
     }
+    /** When this device first found [wallet] in [pkg]'s website proof file, if it did. */
+    fun proofSince(pkg: String, wallet: String): Long? = storeDetails.value[pkg]?.website?.let { PublisherVerifier.wellKnownUrl(it) }?.let { UserPreferences.proofSeenAt(it, wallet) }
     fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
     fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
     fun versionScores(pkg: String) = Reputation.byVersion(entries.value, pkg, verifiedPublishers.value) { facts.value[it] ?: SignerFacts(false, 0.0) }

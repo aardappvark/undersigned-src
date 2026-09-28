@@ -728,4 +728,32 @@
     <plurals name="watch_count_high"><item quantity="other">%1$d lượt 5 sao</item></plurals>
     <plurals name="watch_count_low"><item quantity="other">%1$d lượt 1 sao</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d bước</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Nhà phát hành đã xác minh — đã chứng minh quyền kiểm soát %1$s, được thấy từ %2$s</string>
+    <string name="publisher_verified_apk">Nhà phát hành đã xác minh — có tên bên trong bản build đã ký của chính ứng dụng</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Hoạt động tốt</string>
+    <string name="tag_crashes">Bị crash</string>
+    <string name="tag_wallet_ok">Kết nối ví tốt</string>
+    <string name="tag_wallet_fails">Kết nối ví lỗi</string>
+    <string name="tag_fast">Nhanh</string>
+    <string name="tag_slow">Chậm</string>
+    <string name="tag_battery">Tốn pin</string>
+    <string name="tag_ads">Có quảng cáo</string>
+    <string name="tag_paywall">Có paywall</string>
+    <string name="tag_fair_price">Giá hợp lý</string>
+    <string name="tag_overpriced">Giá quá cao</string>
+    <string name="tag_perms_ok">Quyền hợp lý</string>
+    <string name="tag_perms_excess">Xin quá nhiều quyền</string>
+    <string name="tag_spam_reviews">Đánh giá bất thường</string>
+    <string name="tag_misleading">Mô tả gây hiểu lầm</string>
+    <string name="tag_suspected_scam">Nghi ngờ lừa đảo</string>
+    <string name="tag_abandoned">Ngừng phát triển</string>
+    <string name="tag_active_dev">Đang phát triển tích cực</string>
+    <string name="tag_onboarding_ok">Trải nghiệm ban đầu tốt</string>
+    <string name="tag_confusing">Khó hiểu</string>
+    <string name="tag_offline_ok">Dùng offline được</string>
+    <string name="tag_needs_account">Cần tài khoản</string>
+    <string name="tag_seeker_native">Dành riêng cho Seeker</string>
+    <string name="tag_webview">Webview</string>
 </resources>

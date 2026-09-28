@@ -720,4 +720,32 @@
     <plurals name="watch_count_high"><item quantity="other">별점 5개 %1$d건</item></plurals>
     <plurals name="watch_count_low"><item quantity="other">별점 1개 %1$d건</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d단계</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">검증된 퍼블리셔 — %1$s에 대한 통제권 증명 완료, %2$s부터 확인됨</string>
+    <string name="publisher_verified_apk">검증된 퍼블리셔 — 앱 자체의 서명된 빌드 내에 명시됨</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">작동함</string>
+    <string name="tag_crashes">충돌함</string>
+    <string name="tag_wallet_ok">지갑 연결 잘됨</string>
+    <string name="tag_wallet_fails">지갑 연결 실패</string>
+    <string name="tag_fast">빠름</string>
+    <string name="tag_slow">느림</string>
+    <string name="tag_battery">배터리 소모</string>
+    <string name="tag_ads">광고 있음</string>
+    <string name="tag_paywall">페이월</string>
+    <string name="tag_fair_price">합리적 가격</string>
+    <string name="tag_overpriced">비쌈</string>
+    <string name="tag_perms_ok">권한 적절</string>
+    <string name="tag_perms_excess">권한 과다</string>
+    <string name="tag_spam_reviews">부자연스러운 리뷰</string>
+    <string name="tag_misleading">오해 소지 있음</string>
+    <string name="tag_suspected_scam">사기 의심</string>
+    <string name="tag_abandoned">관리 중단</string>
+    <string name="tag_active_dev">활발히 개발 중</string>
+    <string name="tag_onboarding_ok">첫 사용 경험 좋음</string>
+    <string name="tag_confusing">헷갈림</string>
+    <string name="tag_offline_ok">오프라인 지원</string>
+    <string name="tag_needs_account">계정 필요</string>
+    <string name="tag_seeker_native">Seeker 네이티브</string>
+    <string name="tag_webview">웹뷰</string>
 </resources>

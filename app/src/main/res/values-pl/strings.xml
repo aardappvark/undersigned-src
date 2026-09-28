@@ -751,4 +751,32 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d pięciogwiazdkowe</item><item quantity="few">%1$d pięciogwiazdkowe</item><item quantity="many">%1$d pięciogwiazdkowych</item><item quantity="other">%1$d pięciogwiazdkowych</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d jednogwiazdkowe</item><item quantity="few">%1$d jednogwiazdkowe</item><item quantity="many">%1$d jednogwiazdkowych</item><item quantity="other">%1$d jednogwiazdkowych</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d krok</item><item quantity="few">%1$d kroki</item><item quantity="many">%1$d kroków</item><item quantity="other">%1$d kroku</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Zweryfikowany wydawca — udowodniono kontrolę nad %1$s, znany od %2$s</string>
+    <string name="publisher_verified_apk">Zweryfikowany wydawca — wymieniony we własnej podpisanej kompilacji aplikacji</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Działa</string>
+    <string name="tag_crashes">Awarie</string>
+    <string name="tag_wallet_ok">Portfel ok</string>
+    <string name="tag_wallet_fails">Portfel zawodzi</string>
+    <string name="tag_fast">Szybka</string>
+    <string name="tag_slow">Wolna</string>
+    <string name="tag_battery">Bateria</string>
+    <string name="tag_ads">Reklamy</string>
+    <string name="tag_paywall">Paywall</string>
+    <string name="tag_fair_price">Uczciwa cena</string>
+    <string name="tag_overpriced">Zawyżona cena</string>
+    <string name="tag_perms_ok">Uprawnienia ok</string>
+    <string name="tag_perms_excess">Nadmierne uprawnienia</string>
+    <string name="tag_spam_reviews">Nienaturalne recenzje</string>
+    <string name="tag_misleading">Wprowadza w błąd</string>
+    <string name="tag_suspected_scam">Podejrzenie oszustwa</string>
+    <string name="tag_abandoned">Porzucona</string>
+    <string name="tag_active_dev">Aktywny rozwój</string>
+    <string name="tag_onboarding_ok">Wprowadzenie ok</string>
+    <string name="tag_confusing">Myląca</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Wymaga konta</string>
+    <string name="tag_seeker_native">Natywna dla Seeker</string>
+    <string name="tag_webview">Webview</string>
 </resources>

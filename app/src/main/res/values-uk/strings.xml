@@ -751,4 +751,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d п\'ятизіркове</item><item quantity="few">%1$d п\'ятизіркових</item><item quantity="many">%1$d п\'ятизіркових</item><item quantity="other">%1$d п\'ятизіркового</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d однозіркове</item><item quantity="few">%1$d однозіркових</item><item quantity="many">%1$d однозіркових</item><item quantity="other">%1$d однозіркового</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d крок</item><item quantity="few">%1$d кроки</item><item quantity="many">%1$d кроків</item><item quantity="other">%1$d кроку</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Підтверджений видавець — довів контроль над %1$s, відомий з %2$s</string>
+    <string name="publisher_verified_apk">Підтверджений видавець — вказаний всередині власної підписаної збірки додатка</string>
+    <string name="tag_works">Працює</string>
+    <string name="tag_crashes">Вилітає</string>
+    <string name="tag_wallet_ok">Гаманець ок</string>
+    <string name="tag_wallet_fails">Гаманець не працює</string>
+    <string name="tag_fast">Швидко</string>
+    <string name="tag_slow">Повільно</string>
+    <string name="tag_battery">Витрата батареї</string>
+    <string name="tag_ads">Реклама</string>
+    <string name="tag_paywall">Платний доступ</string>
+    <string name="tag_fair_price">Чесна ціна</string>
+    <string name="tag_overpriced">Завищена ціна</string>
+    <string name="tag_perms_ok">Дозволи ок</string>
+    <string name="tag_perms_excess">Надмірні дозволи</string>
+    <string name="tag_spam_reviews">Неприродні відгуки</string>
+    <string name="tag_misleading">Вводить в оману</string>
+    <string name="tag_suspected_scam">Підозра на шахрайство</string>
+    <string name="tag_abandoned">Покинутий</string>
+    <string name="tag_active_dev">Активна розробка</string>
+    <string name="tag_onboarding_ok">Онбординг ок</string>
+    <string name="tag_confusing">Заплутано</string>
+    <string name="tag_offline_ok">Офлайн ок</string>
+    <string name="tag_needs_account">Потрібен акаунт</string>
+    <string name="tag_seeker_native">Нативний для Seeker</string>
+    <string name="tag_webview">Веб-обгортка</string>
 </resources>

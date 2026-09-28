@@ -737,4 +737,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d पांच-सितारा</item><item quantity="other">%1$d पांच-सितारा</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d एक-सितारा</item><item quantity="other">%1$d एक-सितारा</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d चरण</item><item quantity="other">%1$d चरण</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">सत्यापित प्रकाशक — %1$s पर नियंत्रण सिद्ध किया, %2$s से ज्ञात</string>
+    <string name="publisher_verified_apk">सत्यापित प्रकाशक — ऐप के अपने हस्ताक्षरित बिल्ड के भीतर नामित</string>
+    <string name="tag_works">काम करता है</string>
+    <string name="tag_crashes">क्रैश होता है</string>
+    <string name="tag_wallet_ok">Wallet ठीक</string>
+    <string name="tag_wallet_fails">Wallet विफल</string>
+    <string name="tag_fast">तेज़</string>
+    <string name="tag_slow">धीमा</string>
+    <string name="tag_battery">बैटरी खर्च</string>
+    <string name="tag_ads">विज्ञापन</string>
+    <string name="tag_paywall">भुगतान आवश्यक</string>
+    <string name="tag_fair_price">उचित कीमत</string>
+    <string name="tag_overpriced">अधिक कीमत</string>
+    <string name="tag_perms_ok">अनुमतियां ठीक</string>
+    <string name="tag_perms_excess">अत्यधिक अनुमतियां</string>
+    <string name="tag_spam_reviews">अस्वाभाविक समीक्षाएं</string>
+    <string name="tag_misleading">भ्रामक</string>
+    <string name="tag_suspected_scam">धोखाधड़ी का संदेह</string>
+    <string name="tag_abandoned">परित्यक्त</string>
+    <string name="tag_active_dev">सक्रिय विकास</string>
+    <string name="tag_onboarding_ok">शुरुआत अच्छी</string>
+    <string name="tag_confusing">भ्रमित करने वाला</string>
+    <string name="tag_offline_ok">ऑफलाइन ठीक</string>
+    <string name="tag_needs_account">खाता आवश्यक</string>
+    <string name="tag_seeker_native">Seeker के लिए बना</string>
+    <string name="tag_webview">वेब रैपर</string>
 </resources>

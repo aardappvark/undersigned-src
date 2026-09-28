@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.components
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,9 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.undersigned.app.R
 import com.undersigned.app.ui.theme.RbColors
 
 @Composable
@@ -105,14 +108,43 @@ fun TagChip(text: String, count: Int? = null, selected: Boolean = false, onClick
     Text(if (count != null) "$text · $count" else text, color = fg, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = m)
 }
 
-/** Display label for a protocol tag: "wallet-fails" → "Wallet fails". The wire value never changes. */
-fun com.undersigned.protocol.ReviewMemo.Tag.label(): String = tagLabel(wire)
+/** Display label for a protocol tag, in the reader's language. The wire value never changes. */
+@Composable
+fun com.undersigned.protocol.ReviewMemo.Tag.label(): String = LocalContext.current.tagLabel(wire)
 
-/** Display label for a tag wire value. Wire values are on-chain vocabulary and never change; labels can. */
-fun tagLabel(wire: String): String = when (wire) {
-    "spam-reviews" -> "Unnatural reviews"
-    else -> wire.replace('-', ' ').replaceFirstChar { it.uppercase() }
+/** String resource for a tag wire value, or null for a wire value this build doesn't know. */
+fun tagLabelRes(wire: String): Int? = when (wire) {
+    "works" -> R.string.tag_works
+    "crashes" -> R.string.tag_crashes
+    "wallet-ok" -> R.string.tag_wallet_ok
+    "wallet-fails" -> R.string.tag_wallet_fails
+    "fast" -> R.string.tag_fast
+    "slow" -> R.string.tag_slow
+    "battery" -> R.string.tag_battery
+    "ads" -> R.string.tag_ads
+    "paywall" -> R.string.tag_paywall
+    "fair-price" -> R.string.tag_fair_price
+    "overpriced" -> R.string.tag_overpriced
+    "perms-ok" -> R.string.tag_perms_ok
+    "perms-excess" -> R.string.tag_perms_excess
+    "spam-reviews" -> R.string.tag_spam_reviews
+    "misleading" -> R.string.tag_misleading
+    "suspected-scam" -> R.string.tag_suspected_scam
+    "abandoned" -> R.string.tag_abandoned
+    "active-dev" -> R.string.tag_active_dev
+    "onboarding-ok" -> R.string.tag_onboarding_ok
+    "confusing" -> R.string.tag_confusing
+    "offline-ok" -> R.string.tag_offline_ok
+    "needs-account" -> R.string.tag_needs_account
+    "seeker-native" -> R.string.tag_seeker_native
+    "webview" -> R.string.tag_webview
+    else -> null
 }
+
+/** Display label for a tag wire value. Wire values are on-chain vocabulary and never change; labels can.
+ *  An unknown wire value (from a newer client) falls back to "wallet-fails" → "Wallet fails". */
+fun Context.tagLabel(wire: String): String =
+    tagLabelRes(wire)?.let(::getString) ?: wire.replace('-', ' ').replaceFirstChar { it.uppercase() }
 
 /**
  * A dApp Store timestamp ("2026-02-13T09:41:00.000Z") as the phone's own medium date ("13 Feb 2026" / "Feb 13, 2026").

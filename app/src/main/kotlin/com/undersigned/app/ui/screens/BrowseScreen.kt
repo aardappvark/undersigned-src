@@ -39,6 +39,7 @@ import com.undersigned.app.ui.components.Pill
 import com.undersigned.app.ui.components.RatingStars
 import com.undersigned.app.ui.components.TagChip
 import com.undersigned.app.ui.components.label
+import com.undersigned.app.ui.components.tagLabel
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.AppScore
 
@@ -75,7 +76,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
         catalogue.asSequence()
             .filter { when (tab) { Tab.INSTALLED -> it.packageName in installed; Tab.SIGNED -> scores[it.packageName] != null; Tab.ALL -> true } }
             // Search matches name, package, category and the tags owners applied (design: Screens E).
-            .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q) || (it.category?.lowercase()?.contains(q) == true) || (scores[it.packageName]?.tagCounts?.keys?.any { t -> t.label().lowercase().contains(q) } == true) }
+            .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q) || (it.category?.lowercase()?.contains(q) == true) || (scores[it.packageName]?.tagCounts?.keys?.any { t -> context.tagLabel(t.wire).lowercase().contains(q) || t.wire.contains(q) } == true) }
             .sortedWith(when (sort) {
                 Sort.SCORE -> compareByDescending<CatalogueApp> { scores[it.packageName]?.weightedRating ?: -1.0 }.thenByDescending { it.updated }
                 Sort.NEW -> compareByDescending<CatalogueApp> { it.updated }.thenBy { it.name.lowercase() }
@@ -215,6 +216,7 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, 
 /** Dense: one baseline, 32 dp icon, tags as dot-separated text, installed as a green dot, score in a fixed column. */
 @Composable
 private fun DenseRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, iconUrl: String?, onClick: () -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
     Row(Modifier.fillMaxWidth().clickable { onClick() }.heightIn(min = 48.dp).padding(horizontal = 20.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         DAppIcon(app.packageName, app.name, iconUrl, modifier = Modifier.size(32.dp))
         Spacer(Modifier.width(10.dp))
@@ -223,7 +225,7 @@ private fun DenseRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean
                 if (showInstalled) { Box(Modifier.size(6.dp).clip(CircleShape).background(RbColors.green)); Spacer(Modifier.width(6.dp)) }
                 Text(app.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
-            Text(score?.tagCounts?.entries?.sortedByDescending { it.value }?.take(3)?.joinToString(" · ") { it.key.label() }?.ifEmpty { null } ?: stringResource(R.string.row_no_reviews),
+            Text(score?.tagCounts?.entries?.sortedByDescending { it.value }?.take(3)?.joinToString(" · ") { context.tagLabel(it.key.wire) }?.ifEmpty { null } ?: stringResource(R.string.row_no_reviews),
                 color = RbColors.textTertiary, fontSize = 10.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
         Spacer(Modifier.width(8.dp))

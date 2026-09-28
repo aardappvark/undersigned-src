@@ -742,4 +742,31 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d cu cinci stele</item><item quantity="few">%1$d cu cinci stele</item><item quantity="other">%1$d cu cinci stele</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d cu o stea</item><item quantity="few">%1$d cu o stea</item><item quantity="other">%1$d cu o stea</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d pas</item><item quantity="few">%1$d pași</item><item quantity="other">%1$d de pași</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Editor verificat — a dovedit controlul asupra %1$s, cunoscut din %2$s</string>
+    <string name="publisher_verified_apk">Editor verificat — numit în interiorul build-ului semnat al aplicației</string>
+    <string name="tag_works">Funcționează</string>
+    <string name="tag_crashes">Se blochează</string>
+    <string name="tag_wallet_ok">Portofel ok</string>
+    <string name="tag_wallet_fails">Portofelul nu funcționează</string>
+    <string name="tag_fast">Rapid</string>
+    <string name="tag_slow">Lent</string>
+    <string name="tag_battery">Consumă bateria</string>
+    <string name="tag_ads">Reclame</string>
+    <string name="tag_paywall">Conținut plătit</string>
+    <string name="tag_fair_price">Preț corect</string>
+    <string name="tag_overpriced">Preț exagerat</string>
+    <string name="tag_perms_ok">Permisiuni ok</string>
+    <string name="tag_perms_excess">Permisiuni excesive</string>
+    <string name="tag_spam_reviews">Recenzii nenaturale</string>
+    <string name="tag_misleading">Înșelător</string>
+    <string name="tag_suspected_scam">Suspiciune de escrocherie</string>
+    <string name="tag_abandoned">Abandonat</string>
+    <string name="tag_active_dev">Dezvoltare activă</string>
+    <string name="tag_onboarding_ok">Onboarding ok</string>
+    <string name="tag_confusing">Confuz</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Necesită cont</string>
+    <string name="tag_seeker_native">Nativ pentru Seeker</string>
+    <string name="tag_webview">Site încapsulat</string>
 </resources>

@@ -712,4 +712,32 @@
     <plurals name="watch_count_high"><item quantity="other">%1$d ห้าดาว</item></plurals>
     <plurals name="watch_count_low"><item quantity="other">%1$d หนึ่งดาว</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d ขั้นตอน</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">ผู้เผยแพร่ที่ตรวจสอบแล้ว — พิสูจน์การควบคุม %1$s เห็นตั้งแต่ %2$s</string>
+    <string name="publisher_verified_apk">ผู้เผยแพร่ที่ตรวจสอบแล้ว — ระบุชื่อไว้ในบิลด์ที่ลงลายเซ็นของแอปเอง</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">ใช้งานได้</string>
+    <string name="tag_crashes">ขัดข้อง</string>
+    <string name="tag_wallet_ok">เชื่อมกระเป๋าเงินได้</string>
+    <string name="tag_wallet_fails">เชื่อมกระเป๋าเงินไม่ได้</string>
+    <string name="tag_fast">เร็ว</string>
+    <string name="tag_slow">ช้า</string>
+    <string name="tag_battery">กินแบต</string>
+    <string name="tag_ads">มีโฆษณา</string>
+    <string name="tag_paywall">มีเพย์วอลล์</string>
+    <string name="tag_fair_price">ราคาเหมาะสม</string>
+    <string name="tag_overpriced">ราคาแพงเกินไป</string>
+    <string name="tag_perms_ok">สิทธิ์เหมาะสม</string>
+    <string name="tag_perms_excess">ขอสิทธิ์เกินจำเป็น</string>
+    <string name="tag_spam_reviews">รีวิวดูผิดปกติ</string>
+    <string name="tag_misleading">ข้อมูลทำให้เข้าใจผิด</string>
+    <string name="tag_suspected_scam">สงสัยว่าหลอกลวง</string>
+    <string name="tag_abandoned">เลิกดูแลแล้ว</string>
+    <string name="tag_active_dev">พัฒนาต่อเนื่อง</string>
+    <string name="tag_onboarding_ok">เริ่มใช้งานง่าย</string>
+    <string name="tag_confusing">สับสน</string>
+    <string name="tag_offline_ok">ใช้งานออฟไลน์ได้</string>
+    <string name="tag_needs_account">ต้องมีบัญชี</string>
+    <string name="tag_seeker_native">Seeker เนทีฟ</string>
+    <string name="tag_webview">เว็บวิว</string>
 </resources>

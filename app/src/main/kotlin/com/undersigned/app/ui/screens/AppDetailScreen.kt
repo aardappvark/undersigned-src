@@ -221,7 +221,17 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 d?.publisherName?.let { Text(stringResource(R.string.publisher_listed, it + (d.website?.let { w -> " · $w" } ?: "")), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
                 val vp = verified[pkg].orEmpty()
                 if (vp.isNotEmpty()) {
-                    vp.forEach { w -> Text(stringResource(R.string.publisher_verified, (d?.website ?: "").removePrefix("https://").removePrefix("http://")) + " · " + (domainNames[w]?.takeIf { it.isNotEmpty() } ?: shortKey(w, 4, 4)), color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.clickable { onProfile(w) }) }
+                    val how by vm.verifiedHow.collectAsState()
+                    vp.forEach { w ->
+                        val who = domainNames[w]?.takeIf { it.isNotEmpty() } ?: shortKey(w, 4, 4)
+                        val site = (d?.website ?: "").removePrefix("https://").removePrefix("http://").trimEnd('/')
+                        // Say how it was proven, and since when this phone has seen the proof (hardening, 28 Sep 2026).
+                        val line = when (how[pkg to w]) {
+                            "apk" -> stringResource(R.string.publisher_verified_apk)
+                            else -> vm.proofSince(pkg, w)?.let { stringResource(R.string.publisher_verified_since, site, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))) } ?: stringResource(R.string.publisher_verified, site)
+                        }
+                        Text("$line · $who", color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 17.sp, modifier = Modifier.clickable { onProfile(w) })
+                    }
                     val b = when (responsiveness.bucket) { "hours" -> stringResource(R.string.bucket_hours); "days" -> stringResource(R.string.bucket_days); "weeks" -> stringResource(R.string.bucket_weeks); "months" -> stringResource(R.string.bucket_months); else -> responsiveness.bucket }
                     Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
                 }

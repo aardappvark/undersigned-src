@@ -742,4 +742,32 @@
         <item quantity="other">%1$d één ster</item>
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d stap</item><item quantity="other">%1$d stappen</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Geverifieerde uitgever — controle over %1$s aangetoond, bekend sinds %2$s</string>
+    <string name="publisher_verified_apk">Geverifieerde uitgever — genoemd in de eigen ondertekende build van de app</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Werkt</string>
+    <string name="tag_crashes">Crasht</string>
+    <string name="tag_wallet_ok">Wallet ok</string>
+    <string name="tag_wallet_fails">Wallet mislukt</string>
+    <string name="tag_fast">Snel</string>
+    <string name="tag_slow">Traag</string>
+    <string name="tag_battery">Batterijvreter</string>
+    <string name="tag_ads">Advertenties</string>
+    <string name="tag_paywall">Betaalmuur</string>
+    <string name="tag_fair_price">Eerlijke prijs</string>
+    <string name="tag_overpriced">Te duur</string>
+    <string name="tag_perms_ok">Machtigingen ok</string>
+    <string name="tag_perms_excess">Te veel machtigingen</string>
+    <string name="tag_spam_reviews">Onnatuurlijke recensies</string>
+    <string name="tag_misleading">Misleidend</string>
+    <string name="tag_suspected_scam">Vermoedelijke oplichting</string>
+    <string name="tag_abandoned">Verlaten</string>
+    <string name="tag_active_dev">Actieve ontwikkeling</string>
+    <string name="tag_onboarding_ok">Onboarding ok</string>
+    <string name="tag_confusing">Verwarrend</string>
+    <string name="tag_offline_ok">Offline ok</string>
+    <string name="tag_needs_account">Account nodig</string>
+    <string name="tag_seeker_native">Seeker-native</string>
+    <string name="tag_webview">Webview</string>
 </resources>

@@ -728,4 +728,32 @@
     <plurals name="watch_count_high"><item quantity="other">%1$d bintang lima</item></plurals>
     <plurals name="watch_count_low"><item quantity="other">%1$d bintang satu</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d langkah</item></plurals>
+    <!-- 28 Sep 2026 publisher proof + tag labels -->
+    <string name="publisher_verified_since">Penerbit terverifikasi — membuktikan kendali atas %1$s, terlihat sejak %2$s</string>
+    <string name="publisher_verified_apk">Penerbit terverifikasi — namanya tercantum di dalam build bertanda tangan milik aplikasi itu sendiri</string>
+    <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
+    <string name="tag_works">Berfungsi</string>
+    <string name="tag_crashes">Sering crash</string>
+    <string name="tag_wallet_ok">Dompet lancar</string>
+    <string name="tag_wallet_fails">Dompet gagal</string>
+    <string name="tag_fast">Cepat</string>
+    <string name="tag_slow">Lambat</string>
+    <string name="tag_battery">Boros baterai</string>
+    <string name="tag_ads">Ada iklan</string>
+    <string name="tag_paywall">Ada paywall</string>
+    <string name="tag_fair_price">Harga wajar</string>
+    <string name="tag_overpriced">Harga kemahalan</string>
+    <string name="tag_perms_ok">Izin wajar</string>
+    <string name="tag_perms_excess">Izin berlebihan</string>
+    <string name="tag_spam_reviews">Ulasan tidak wajar</string>
+    <string name="tag_misleading">Menyesatkan</string>
+    <string name="tag_suspected_scam">Diduga penipuan</string>
+    <string name="tag_abandoned">Tidak lagi dikelola</string>
+    <string name="tag_active_dev">Aktif dikembangkan</string>
+    <string name="tag_onboarding_ok">Onboarding lancar</string>
+    <string name="tag_confusing">Membingungkan</string>
+    <string name="tag_offline_ok">Bisa offline</string>
+    <string name="tag_needs_account">Perlu akun</string>
+    <string name="tag_seeker_native">Native untuk Seeker</string>
+    <string name="tag_webview">Webview</string>
 </resources>
