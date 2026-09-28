@@ -11,6 +11,7 @@ import java.net.URL
  * reference listing reads the reference account's own history. Amounts come from balances, never from memos.
  */
 class Board(private val db: Db, private val rpc: Rpc) {
+    private val rails = setOf(Config.SKR_MINT, Config.USDC_MINT)
     data class Read(val payments: List<Payments.Payment>, val complete: Boolean)
 
     @Synchronized fun read(treasury: String, code: String, backfillPages: Int = 5): Read {
@@ -26,11 +27,12 @@ class Board(private val db: Db, private val rpc: Rpc) {
             var tx: TxInfo? = null
             for (attempt in 0 until 4) { tx = runCatching { rpc.tx(sig, treasury) }.getOrNull(); if (tx != null) break; Thread.sleep(600L * (attempt + 1)) }
             if (tx == null) { missed++; continue }
-            val paid = tx.ok && (tx.lamportsIn > 0 || tx.tokensIn.isNotEmpty())
+            // Only the rails the board reads decide whether a transaction paid anything; a 1-unit airdrop of some other token is not a payment.
+            val tokens = tx.tokensIn.filterKeys { it in rails }
+            val paid = tx.ok && (tx.lamportsIn > 0 || tokens.isNotEmpty())
             db.exec("UPDATE pay_rows SET fetched = 1, payer = ?, lamports = ?, tokens = ? WHERE addr_key = ? AND sig = ?",
-                if (paid) tx.feePayer else null, if (paid) tx.lamportsIn else 0L, if (paid) JSONObject(tx.tokensIn as Map<*, *>).toString() else null, key, sig)
+                if (paid) tx.feePayer else null, if (paid) tx.lamportsIn else 0L, if (paid) JSONObject(tokens as Map<*, *>).toString() else null, key, sig)
         }
-        val rails = setOf(Config.SKR_MINT, Config.USDC_MINT)
         val payments = db.query("SELECT sig, time, memo, payer, lamports, tokens FROM pay_rows WHERE addr_key = ? AND fetched = 1 AND payer IS NOT NULL", key) { rs ->
             if (!wanted(rs.getString(3) ?: "")) return@query null
             val t = rs.getString(6)?.let { JSONObject(it) } ?: JSONObject()
@@ -77,26 +79,38 @@ class Board(private val db: Db, private val rpc: Rpc) {
 }
 
 /**
- * Daily USD closes, last 365 days (CoinGecko, keyless; `days=max` is refused without a key): SOL as "solana", SKR as
- * "seeker". Cached 12 hours. A payment is valued on the day it was paid; USDC counts at 1.
+ * Daily USD closes (CoinGecko, keyless, 365 days per fetch; `days=max` is refused without a key): SOL as "solana", SKR as
+ * "seeker". Every day fetched is kept in the database, so a payment older than the feed's window keeps its price. Fetched
+ * at most every 12 hours. A payment is valued on the day it was paid; USDC counts at 1.
  */
-object Prices {
-    const val SOL = "So11111111111111111111111111111111111111112"
+class Prices(private val db: Db) {
+    init { db.exec("CREATE TABLE IF NOT EXISTS prices (mint TEXT NOT NULL, day TEXT NOT NULL, usd REAL NOT NULL, PRIMARY KEY (mint, day))") }
     @Volatile private var cache: Pair<Long, Map<String, Map<String, Double>>> = 0L to emptyMap()
 
+    /** Whether the price of a payment's day is known: every day of a treasury's history is priced or the total says `unpriced`. */
     fun history(): Map<String, Map<String, Double>> {
         val (at, h) = cache
         if (at > 0 && System.currentTimeMillis() - at < 12 * 3600_000L) return h
-        val out = HashMap<String, Map<String, Double>>()
+        val out = HashMap<String, MutableMap<String, Double>>()
+        db.query("SELECT mint, day, usd FROM prices") { Triple(it.getString(1), it.getString(2), it.getDouble(3)) }.forEach { (m, d, u) -> out.getOrPut(m) { HashMap() }[d] = u }
+        var fetched = 0
         for ((mint, id) in mapOf(SOL to "solana", Config.SKR_MINT to "seeker")) runCatching {
             val c = URL("https://api.coingecko.com/api/v3/coins/$id/market_chart?vs_currency=usd&days=365&interval=daily").openConnection() as HttpURLConnection
             c.connectTimeout = 8000; c.readTimeout = 12000
             val arr = try { JSONObject(c.inputStream.bufferedReader().use { it.readText() }).getJSONArray("prices") } finally { c.disconnect() }
-            out[mint] = (0 until arr.length()).associate { i -> val p = arr.getJSONArray(i); java.time.Instant.ofEpochMilli(p.getLong(0)).toString().take(10) to p.getDouble(1) }
+            val days = (0 until arr.length()).associate { i -> val p = arr.getJSONArray(i); java.time.Instant.ofEpochMilli(p.getLong(0)).toString().take(10) to p.getDouble(1) }
+            db.tx { days.forEach { (d, u) -> db.exec("INSERT OR REPLACE INTO prices (mint, day, usd) VALUES (?, ?, ?)", mint, d, u) } }
+            out.getOrPut(mint) { HashMap() }.putAll(days); fetched++
         }
-        // A partial answer is kept only 15 minutes, so a missing price is retried soon.
-        cache = (if (out.size == 2) System.currentTimeMillis() else System.currentTimeMillis() - 12 * 3600_000L + 15 * 60_000L) to out
+        // A partial fetch is retried after 15 minutes; what the database holds serves meanwhile.
+        cache = (if (fetched == 2) System.currentTimeMillis() else System.currentTimeMillis() - 12 * 3600_000L + 15 * 60_000L) to out
         return out
+    }
+
+    companion object {
+        const val SOL = "So11111111111111111111111111111111111111112"
+        /** A payment large enough to make its payer a payer (Config.MIN_PAYER_*): totals count every unit, pills and payer counts do not. */
+        fun meaningful(p: Payments.Payment): Boolean = p.lamports >= Config.MIN_PAYER_LAMPORTS || (p.tokens[Config.SKR_MINT] ?: 0L) >= Config.MIN_PAYER_SKR_RAW || (p.tokens[Config.USDC_MINT] ?: 0L) >= Config.MIN_PAYER_USDC_RAW
     }
 
     fun usdWhenPaid(p: Payments.Payment, h: Map<String, Map<String, Double>>): Double? {

@@ -42,7 +42,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
     private fun rows(r: Req, free: Int, max: Int = 500) = if (r.caller.paid) r.int("limit", 50, max) else minOf(r.int("limit", free, free), free)
 
     init {
-        route("GET", "/v1/health", Tier.FREE, "Indexer status") { ok(JSONObject().put("ok", true).put("indexed_at", indexer.state.builtAt / 1000).put("ledger_synced", indexer.lastLedgerSync / 1000).put("store_synced", indexer.lastStoreSync / 1000)) }
+        route("GET", "/v1/health", Tier.FREE, "Indexer status: last syncs, last error, skipped transactions, hook failures") { ok(JSONObject().put("ok", true).put("indexed_at", indexer.state.builtAt / 1000).put("ledger_synced", indexer.lastLedgerSync / 1000).put("store_synced", indexer.lastStoreSync / 1000)
+            .put("last_error", indexer.lastError ?: JSONObject.NULL).put("skipped_transactions", indexer.skippedTx).put("hook_failures_24h", hooks?.failures24h() ?: 0).put("limiter_entries", limiter.size).put("public", Config.PUBLIC).put("test_prices", Config.testPrices)) }
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
         route("GET", "/v1/openapi.json", Tier.FREE, "This API's description") { ok(openApi()) }
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
@@ -106,23 +107,24 @@ class Api(private val views: Views, private val billing: Billing, private val in
             ?: return notFound("no such endpoint; see /v1/openapi.json")
         val (rt, m) = match
         val key = auth?.removePrefix("Bearer ")?.trim()?.takeIf { auth.startsWith("Bearer ") && it.isNotEmpty() }
-        // A key that is sent must be good: an ended or spent pass is told so, never silently served as free.
-        val caller = if (key != null && rt.tier != Tier.FREE || key != null && path == "/v1/keys/me") {
-            if (path == "/v1/keys/me") Caller(false, key)
-            else {
+        fun ipBudget(): Response? = limiter.take("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)?.let { w ->
+            Response(429, JSONObject().put("error", "rate_limited").put("message", "free tier: ${Config.FREE_PER_MINUTE} per minute and ${Config.FREE_PER_DAY} per day per IP ($w used up); a pass lifts it").put("pricing", pricing()),
+                mapOf("Retry-After" to if (w == "minute") "60" else "3600")) }
+        // A key opens the metered lane only once it is known to exist: a made-up key costs its sender the IP budget, not a
+        // limiter entry and a database write each. A key that is sent must be good: an ended or spent pass is told so.
+        val known = key != null && billing.pass(key) != null
+        val caller = when {
+            path == "/v1/keys/me" -> { ipBudget()?.let { return it }; Caller(false, key) }
+            key != null && !known -> { ipBudget()?.let { return it }; return paymentRequired("this key does not exist") }
+            key != null && rt.tier != Tier.FREE -> {
                 if (limiter.take("key:$key", Config.PASS_PER_MINUTE, null) != null) return Response(429, JSONObject().put("error", "rate_limited").put("message", "${Config.PASS_PER_MINUTE} requests per minute per pass"), mapOf("Retry-After" to "60"))
-                if (!billing.consume(key)) return paymentRequired("this key has no requests left, has ended, or does not exist")
+                if (!billing.consume(key)) return paymentRequired("this key has no requests left or has ended")
                 Caller(true, key)
             }
-        } else {
-            limiter.take("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)?.let { w ->
-                return Response(429, JSONObject().put("error", "rate_limited").put("message", "free tier: ${Config.FREE_PER_MINUTE} per minute and ${Config.FREE_PER_DAY} per day per IP ($w used up); a pass lifts it").put("pricing", pricing()),
-                    mapOf("Retry-After" to if (w == "minute") "60" else "3600"))
-            }
-            Caller(false, key)
+            else -> { ipBudget()?.let { return it }; Caller(false, key) }
         }
         if (rt.tier == Tier.PAID && !caller.paid) return paymentRequired("this endpoint needs a pass")
-        val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to URLDecoder.decode(m.groupValues[i + 1], "UTF-8") }.toMap()
+        val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to m.groupValues[i + 1] }.toMap()   // URI.path arrives decoded
         return try { rt.handler(Req(params, query, body, caller)) }
         catch (e: Billing.Refused) { Response(e.status, JSONObject().put("error", "refused").put("message", e.message)) }
         catch (e: Exception) { log("500 $path: ${e.message?.take(120)}"); Response(500, JSONObject().put("error", "internal")) }
@@ -189,9 +191,13 @@ class Api(private val views: Views, private val billing: Billing, private val in
         val p = JSONObject()
         for (rt in routes) {
             val path = paths[rt]!!
+            val qp = QUERY[path]?.map { JSONObject().put("name", it).put("in", "query").put("required", false).put("schema", JSONObject().put("type", "string")) } ?: emptyList()
             val op = JSONObject().put("summary", rt.summary).put("x-tier", rt.tier.name.lowercase())
-                .put("parameters", JSONArray((pathNames[rt] ?: emptyList()).map { JSONObject().put("name", it).put("in", "path").put("required", true).put("schema", JSONObject().put("type", "string")) }))
-                .put("responses", JSONObject().put("200", JSONObject().put("description", "JSON")).apply { if (rt.tier == Tier.PAID) put("402", JSONObject().put("description", "A pass is needed; the body carries the price and how to pay")) })
+                .put("parameters", JSONArray((pathNames[rt] ?: emptyList()).map { JSONObject().put("name", it).put("in", "path").put("required", true).put("schema", JSONObject().put("type", "string")) } + qp))
+                .put("responses", JSONObject().put("200", JSONObject().put("description", "JSON"))
+                    .put("400", JSONObject().put("description", "{error, message}: a malformed request"))
+                    .put("429", JSONObject().put("description", "{error: rate_limited, message, pricing?} with Retry-After"))
+                    .apply { if (rt.tier != Tier.FREE) put("402", JSONObject().put("description", "{error: payment_required, message, pricing}: a pass is needed; pricing carries the price, Solana Pay URLs and how to redeem")) })
             (p.optJSONObject(path) ?: JSONObject().also { p.put(path, it) }).put(rt.method.lowercase(), op)
         }
         return JSONObject().put("openapi", "3.0.3")
@@ -202,11 +208,29 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     private fun enc(s: String) = URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 
+    /** Query parameters per path, for the OpenAPI description. */
+    private val QUERY = mapOf(
+        "/v1/records" to listOf("type", "package", "signer", "since", "until", "before", "limit"), "/v1/apps" to listOf("q", "category", "sort", "limit"),
+        "/v1/apps/{pkg}/reviews" to listOf("limit", "offset"), "/v1/watch" to listOf("days"), "/v1/changes" to listOf("since"), "/v1/wallets/{address}" to listOf("full"),
+        "/v1/leaderboard" to listOf("metric", "category", "limit"), "/v1/payments" to listOf("limit"),
+    )
+
     // ---- JDK server glue ------------------------------------------------------------------------------------------
 
+    companion object {
+        /**
+         * The client address. Behind a trusted proxy it is the LAST hop of X-Forwarded-For — the one the proxy itself
+         * appended; the first hop is whatever the client wrote and would let anyone choose their own rate-limit bucket.
+         */
+        fun clientIp(remote: String, forwardedFor: String?, trustProxy: Boolean): String =
+            if (trustProxy) forwardedFor?.split(',')?.lastOrNull()?.trim()?.takeIf { it.isNotEmpty() } ?: remote else remote
+    }
+
     fun serve(port: Int): HttpServer {
-        val server = HttpServer.create(InetSocketAddress(Config.HOST, port), 0)
-        server.executor = Executors.newFixedThreadPool(16)
+        // A connection that sends its request slowly, or reads its answer slowly, gives up its thread after these.
+        System.setProperty("sun.net.httpserver.maxReqTime", "30"); System.setProperty("sun.net.httpserver.maxRspTime", "120")
+        val server = HttpServer.create(InetSocketAddress(Config.HOST, port), 64)
+        server.executor = Executors.newFixedThreadPool(32)
         server.createContext("/") { ex -> respond(ex) }
         server.start()
         return server
@@ -214,17 +238,19 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     private fun respond(ex: HttpExchange) {
         try {
-            val query = ex.requestURI.rawQuery?.split('&')?.mapNotNull { kv -> kv.split('=', limit = 2).takeIf { it[0].isNotEmpty() }?.let { URLDecoder.decode(it[0], "UTF-8") to URLDecoder.decode(it.getOrElse(1) { "" }, "UTF-8") } }?.toMap() ?: emptyMap()
+            val query = runCatching { ex.requestURI.rawQuery?.split('&')?.mapNotNull { kv -> kv.split('=', limit = 2).takeIf { it[0].isNotEmpty() }?.let { URLDecoder.decode(it[0], "UTF-8") to URLDecoder.decode(it.getOrElse(1) { "" }, "UTF-8") } }?.toMap() ?: emptyMap() }.getOrNull()
             val body = if (ex.requestMethod == "POST") ex.requestBody.use { String(it.readNBytes(16_384)) } else ""
-            // Behind a proxy the client address is the first X-Forwarded-For hop, trusted only when the operator says so.
-            val ip = (if (System.getenv("TRUST_PROXY") == "1") ex.requestHeaders.getFirst("X-Forwarded-For")?.split(',')?.first()?.trim() else null) ?: ex.remoteAddress.address.hostAddress
-            val r = handle(ex.requestMethod, ex.requestURI.path.trimEnd('/').ifEmpty { "/" }, query, body, ex.requestHeaders.getFirst("Authorization"), ip)
-            val bytes = if (r.status == 204) ByteArray(0) else r.raw ?: r.body.toString(if (query["pretty"] == "1") 2 else 0).toByteArray()
+            val ip = clientIp(ex.remoteAddress.address.hostAddress, ex.requestHeaders.getFirst("X-Forwarded-For"), Config.TRUST_PROXY)
+            val head = ex.requestMethod == "HEAD"
+            val r = if (query == null) Response(400, JSONObject().put("error", "bad_query").put("message", "a percent-escape in the query is malformed"))
+                else handle(if (head) "GET" else ex.requestMethod, ex.requestURI.path.trimEnd('/').ifEmpty { "/" }, query, body, ex.requestHeaders.getFirst("Authorization"), ip)
+            val bytes = if (r.status == 204 || head) ByteArray(0) else r.raw ?: r.body.toString(if (query?.get("pretty") == "1") 2 else 0).toByteArray()
             ex.responseHeaders.add("Content-Type", r.contentType)
             ex.responseHeaders.add("Access-Control-Allow-Origin", "*")
             ex.responseHeaders.add("Access-Control-Allow-Headers", "Authorization, Content-Type")
             ex.responseHeaders.add("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
             r.headers.forEach { (k, v) -> ex.responseHeaders.add(k, v) }
+            ex.responseHeaders.add("X-Content-Type-Options", "nosniff")
             ex.sendResponseHeaders(r.status, if (bytes.isEmpty()) -1 else bytes.size.toLong())
             if (bytes.isNotEmpty()) ex.responseBody.use { it.write(bytes) }
         } catch (e: Exception) { log("respond: ${e.message?.take(100)}") } finally { ex.close() }
@@ -232,14 +258,18 @@ class Api(private val views: Views, private val billing: Billing, private val in
 }
 
 fun main() {
+    Config.checkStartup()
+    // Webhook delivery reuses the resolution that was checked for private addresses (Hooks.checkUrl) for a minute.
+    java.security.Security.setProperty("networkaddress.cache.ttl", "60")
     val db = Db()
     val rpc = Rpc()
     val indexer = Indexer(db, rpc)
-    val boards = Boards(indexer, Board(db, rpc))
+    val boards = Boards(indexer, Board(db, rpc), Prices(db))
     val views = Views(indexer, boards, db)
     val billing = Billing(db, { sig -> runCatching { rpc.tx(sig, Config.TREASURY) }.getOrNull() }, { w -> indexer.facts(w).hasGenesisToken })
     val hooks = Hooks(db, billing)
     indexer.onRebuilt = { fresh -> hooks.tick(indexer, fresh) }
+    if (Config.INDEX) hooks.startWorker()
     val api = Api(views, billing, indexer, hooks = hooks)
     api.web = Web(views, indexer)
     runCatching { indexer.rebuild() }   // serve what the database already holds at once
@@ -248,5 +278,5 @@ fun main() {
         Thread({ while (true) { Thread.sleep(60_000); runCatching { boards.refresh(indexer.state) }.onFailure { log("boards: ${it.message?.take(80)}") }; Thread.sleep(14 * 60_000L) } }, "boards").apply { isDaemon = true }.start()
     }
     api.serve(Config.PORT)
-    log("Undersigned API on ${Config.HOST}:${Config.PORT} (db ${Config.DB_PATH}, indexing ${Config.INDEX})")
+    log("Undersigned API on ${Config.HOST}:${Config.PORT} (db ${Config.DB_PATH}, indexing ${Config.INDEX}, public ${Config.PUBLIC}${if (Config.testPrices) ", TEST PRICES" else ""})")
 }

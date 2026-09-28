@@ -27,12 +27,12 @@ object Seasons {
 
 /** One listed dApp on the payments board, computed in the background (reads the chain; never inside a request). */
 data class BoardRow(val claim: Payments.Claim, val name: String, val confirmed: Boolean, val tally: Payments.Tally?, val usdWhenPaid: Double?, val complete: Boolean,
-                    val monthUsd: Map<String, Double>, val payers: Set<String>)
+                    val monthUsd: Map<String, Double>, val payers: Set<String>, val unpriced: Int = 0)
 
-class Boards(private val indexer: Indexer, private val board: Board) {
+class Boards(private val indexer: Indexer, private val board: Board, private val prices: Prices) {
     @Volatile var rows: List<BoardRow> = emptyList(); private set
     fun refresh(s: State) {
-        val h = runCatching { Prices.history() }.getOrDefault(emptyMap())
+        val h = runCatching { prices.history() }.getOrDefault(emptyMap())
         rows = s.claims.map { c ->
             val name = s.byPackage[c.packageName]?.name ?: c.packageName
             val url = s.details[c.packageName]?.website?.let { PublisherProof.wellKnownUrl(it) }
@@ -43,22 +43,25 @@ class Boards(private val indexer: Indexer, private val board: Board) {
             val own = Payments.listedWallets(body!!)
             val tally = Payments.tally(read.payments, c.treasury, own) { s.factsOf(it).hasGenesisToken }
             val real = read.payments.filter { it.payer != c.treasury && it.payer !in own }
-            val usd = real.map { Prices.usdWhenPaid(it, h) }.let { l -> if (l.any { it == null }) null else l.sumOf { it!! } }
+            val priced = real.map { it to prices.usdWhenPaid(it, h) }
+            val usd = priced.mapNotNull { it.second }.let { l -> if (l.isEmpty() && real.isNotEmpty()) null else l.sum() }
             val fmt = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM").withZone(java.time.ZoneOffset.UTC)
-            val months = real.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.time)) }.mapValues { (_, l) -> l.sumOf { Prices.usdWhenPaid(it, h) ?: 0.0 } }
-            BoardRow(c, name, true, tally, usd, read.complete, months, real.map { it.payer }.toSet())
+            val months = real.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.time)) }.mapValues { (_, l) -> l.sumOf { prices.usdWhenPaid(it, h) ?: 0.0 } }
+            // A payer is someone who paid a real amount (Config.MIN_PAYER_*); the tally still counts every unit.
+            BoardRow(c, name, true, tally, usd, read.complete, months, real.filter { Prices.meaningful(it) }.map { it.payer }.toSet(), priced.count { it.second == null })
         }.sortedByDescending { it.usdWhenPaid ?: -1.0 }
     }
 }
 
 class Views(private val indexer: Indexer, private val boards: Boards, private val db: Db) {
+    /** The state a request started with, passed down: a rebuild in the middle of a request must not mix two ledgers. */
     private val s get() = indexer.state
 
     // ---- Records ------------------------------------------------------------------------------------------------
 
     fun type(m: ReviewMemo): String = ReviewMemo.encode(m).split('|').getOrElse(1) { "?" }
 
-    fun record(e: LedgerEntry): JSONObject {
+    fun record(e: LedgerEntry, st: State = indexer.state): JSONObject {
         val o = JSONObject().put("id", e.signature).put("transaction", e.signature.substringBefore(':')).put("signer", e.signer).put("time", e.blockTime).put("type", type(e.memo))
         when (val m = e.memo) {
             is ReviewMemo.Review -> o.put("package", m.packageName).put("rating", m.rating).put("tags", JSONArray(m.tags.map { it.wire })).put("version", m.versionCode).put("text", m.text ?: JSONObject.NULL)
@@ -79,15 +82,15 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             is ReviewMemo.Untreasury -> o.put("package", m.packageName)
             else -> {}
         }
-        s.meta[e.signature.substringBefore(':')]?.let { o.put("fee_lamports", it.fee).put("seeker_wallet_shape", it.seekerShape) }
-        o.put("withdrawn", e.signature in s.revoked)
+        st.meta[e.signature.substringBefore(':')]?.let { o.put("fee_lamports", it.fee).put("seeker_wallet_shape", it.seekerShape) }
+        o.put("withdrawn", e.signature in st.revoked)
         return o
     }
 
-    fun recordById(id: String): JSONObject? = s.entries.firstOrNull { it.signature == id }?.let(::record)
+    fun recordById(id: String): JSONObject? { val st = s; return st.entries.firstOrNull { it.signature == id }?.let { record(it, st) } }
 
     fun records(type: String?, pkg: String?, signer: String?, since: Long?, until: Long?, before: String?, limit: Int): JSONObject {
-        var l = s.entries.asSequence()
+        val st = s; var l = st.entries.asSequence()
         type?.let { t -> l = l.filter { type(it.memo) == t } }
         pkg?.let { p -> l = l.filter { packageOf(it.memo) == p } }
         signer?.let { w -> l = l.filter { it.signer == w } }
@@ -96,7 +99,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val all = l.toList()
         val start = before?.let { b -> all.indexOfFirst { it.signature == b }.let { if (it < 0) all.size else it + 1 } } ?: 0
         val page = all.drop(start).take(limit)
-        return JSONObject().put("records", JSONArray(page.map(::record))).put("next", if (start + limit < all.size) page.lastOrNull()?.signature ?: JSONObject.NULL else JSONObject.NULL)
+        return JSONObject().put("records", JSONArray(page.map { record(it, st) })).put("next", if (start + limit < all.size) page.lastOrNull()?.signature ?: JSONObject.NULL else JSONObject.NULL)
     }
 
     private fun packageOf(m: ReviewMemo): String? = when (m) {
@@ -127,7 +130,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     fun tags(): JSONObject {
         val counts = HashMap<String, Int>()
-        s.entries.filter { it.signature !in s.revoked }.forEach { e -> (e.memo as? ReviewMemo.Review)?.tags?.forEach { counts[it.wire] = (counts[it.wire] ?: 0) + 1 } }
+        val st = s
+        st.entries.filter { it.signature !in st.revoked }.forEach { e -> (e.memo as? ReviewMemo.Review)?.tags?.forEach { counts[it.wire] = (counts[it.wire] ?: 0) + 1 } }
         return JSONObject().put("tags", JSONArray(ReviewMemo.Tag.entries.map { JSONObject().put("wire", it.wire).put("count", counts[it.wire] ?: 0) }))
     }
 
@@ -157,7 +161,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         if (pkg !in st.byPackage && st.entries.none { packageOf(it.memo) == pkg }) return null
         val o = appRow(pkg)
         val sc = st.scores[pkg]
-        val live = liveReviews(pkg)
+        val live = liveReviews(pkg, st)
         val counted = live.filter { st.factsOf(it.signer).hasGenesisToken }
         o.put("signed", JSONObject()
             .put("rank_score", sc?.weightedRating?.let(::r2) ?: JSONObject.NULL).put("mean", sc?.weightedMean?.let(::r2) ?: JSONObject.NULL)
@@ -184,18 +188,18 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         return o
     }
 
-    private fun liveReviews(pkg: String): List<LedgerEntry> =
-        s.entries.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in s.revoked }.groupBy { it.signer }.map { (_, l) -> l.maxBy { it.blockTime } }
+    private fun liveReviews(pkg: String, st: State = indexer.state): List<LedgerEntry> =
+        st.entries.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in st.revoked }.groupBy { it.signer }.map { (_, l) -> l.maxBy { it.blockTime } }
 
     fun reviews(pkg: String, limit: Int, offset: Int): JSONObject {
         val st = s
-        val all = liveReviews(pkg).sortedByDescending { it.blockTime }
+        val all = liveReviews(pkg, st).sortedByDescending { it.blockTime }
         val paid = boards.rows.firstOrNull { it.claim.packageName == pkg }?.payers.orEmpty()
         val byTarget = st.entries.filter { it.memo is ReviewMemo.Reply }.groupBy { (it.memo as ReviewMemo.Reply).reviewSignature }
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
                     .put("credibility", st.standings[e.signer]?.credibility ?: JSONObject.NULL))
                 .put("counted", f.hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
@@ -211,16 +215,17 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         return JSONObject().put("package", pkg).put("total", all.size).put("reviews", JSONArray(list))
     }
 
-    fun versions(pkg: String): JSONObject = JSONObject().put("package", pkg).put("versions", JSONArray(
-        Reputation.byVersion(s.entries, pkg, s.verified) { s.factsOf(it) }.map { JSONObject().put("version", it.versionCode).put("mean", r2(it.mean)).put("count", it.count) }))
+    fun versions(pkg: String): JSONObject { val st = s; return JSONObject().put("package", pkg).put("versions", JSONArray(
+        Reputation.byVersion(st.entries, pkg, st.verified) { st.factsOf(it) }.map { JSONObject().put("version", it.versionCode).put("mean", r2(it.mean)).put("count", it.count) })) }
 
-    fun similar(pkg: String): JSONObject = JSONObject().put("package", pkg).put("findings", JSONArray(liveReviews(pkg).mapNotNull { e ->
-        s.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } }))
+    fun similar(pkg: String): JSONObject { val st = s; return JSONObject().put("package", pkg).put("findings", JSONArray(liveReviews(pkg, st).mapNotNull { e ->
+        st.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } })) }
 
     // ---- Bursts ------------------------------------------------------------------------------------------------------
 
     fun bursts(pkg: String): JSONObject {
-        val live = liveReviews(pkg)
+        val st = s
+        val live = liveReviews(pkg, st)
         val points = live.map { e -> val r = e.memo as ReviewMemo.Review; ReviewBursts.Point(e.blockTime, r.rating, r.text) }
         val signed = ReviewBursts.find(points)
         val ratingPoints = RatingSnapshots.toPoints(indexer.snapshots(pkg))
@@ -232,7 +237,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             BurstSpark.of(pts, b).let { sp -> o.put("spark", JSONObject().put("daily_counts", JSONArray(sp.counts)).put("burst_from", sp.from).put("burst_to", sp.to)) }
             if (withAttested) {
                 val inWin = live.filter { it.blockTime in b.start..b.end && (it.memo as ReviewMemo.Review).rating == b.kind.stars }
-                o.put("attested", inWin.count { s.factsOf(it.signer).hasGenesisToken }).put("of", inWin.size)
+                o.put("attested", inWin.count { st.factsOf(it.signer).hasGenesisToken }).put("of", inWin.size)
             }
             return o
         }
@@ -249,7 +254,13 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
      * The weekly Store watch report: every store app whose star counts jumped in the last [days], strongest first, each
      * with its 30-day daily series. Before 8 days of snapshots exist it says how far collection has got instead.
      */
+    /**
+     * The weekly Store watch report: every store app whose star counts jumped in the last [days], strongest first, each
+     * with its 30-day daily series. Computed by the indexer once per snapshot day (Indexer.watchHits), never per request.
+     * Before 8 days of snapshots exist it says how far collection has got instead.
+     */
     fun watchReport(days: Int = 7): JSONObject {
+        val st = s
         val snapDays = indexer.snapshotDays()
         val need = ReviewBursts.MIN_SNAPSHOT_DAYS.toInt() + 1
         val o = JSONObject().put("days", days).put("snapshot_days", snapDays.size).put("needed", need)
@@ -257,24 +268,18 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("apps_read", indexer.ratingPackages().size)
         if (snapDays.size < need) return o.put("ready", false).put("hits", JSONArray())
         val fresh = System.currentTimeMillis() / 1000 - days * ReviewBursts.DAY
-        val hits = indexer.ratingPackages().flatMap { pkg ->
-            val pts = RatingSnapshots.toPoints(indexer.snapshots(pkg))
-            ReviewBursts.find(pts, ReviewBursts.MIN_SNAPSHOT_DAYS).bursts.filter { it.end >= fresh }.map { Triple(pkg, it, pts) }
-        }.sortedByDescending { it.second.intensity }
-        return o.put("ready", true).put("hits", JSONArray(hits.map { (pkg, b, pts) ->
-            val sp = BurstSpark.of(pts, b)
-            JSONObject().put("package", pkg).put("name", s.byPackage[pkg]?.name ?: pkg).put("category", s.byPackage[pkg]?.category ?: JSONObject.NULL)
+        return o.put("ready", true).put("hits", JSONArray(indexer.watchHits().filter { it.burst.end >= fresh }.map { h -> val b = h.burst
+            JSONObject().put("package", h.pkg).put("name", st.byPackage[h.pkg]?.name ?: h.pkg).put("category", st.byPackage[h.pkg]?.category ?: JSONObject.NULL)
                 .put("kind", b.kind.name.lowercase()).put("start", b.start).put("end", b.end).put("count", b.count).put("expected", r2(b.expected)).put("multiple", r2(BurstSpark.multiple(b)))
-                .put("spark", JSONObject().put("daily_counts", JSONArray(sp.counts)).put("burst_from", sp.from).put("burst_to", sp.to))
+                .put("spark", JSONObject().put("daily_counts", JSONArray(h.spark.counts)).put("burst_from", h.spark.from).put("burst_to", h.spark.to))
         }))
     }
 
     fun watch(days: Int): JSONObject {
+        val st = s
         val fresh = System.currentTimeMillis() / 1000 - days * ReviewBursts.DAY
-        val hits = indexer.ratingPackages().flatMap { pkg ->
-            ReviewBursts.find(RatingSnapshots.toPoints(indexer.snapshots(pkg)), ReviewBursts.MIN_SNAPSHOT_DAYS).bursts.filter { it.end >= fresh }.map { pkg to it }
-        }.sortedByDescending { it.second.intensity }
-        return JSONObject().put("days", days).put("hits", JSONArray(hits.map { (pkg, b) -> JSONObject().put("package", pkg).put("name", s.byPackage[pkg]?.name ?: pkg)
+        return JSONObject().put("days", days).put("hits", JSONArray(indexer.watchHits().filter { it.burst.end >= fresh }.map { h -> val b = h.burst
+            JSONObject().put("package", h.pkg).put("name", st.byPackage[h.pkg]?.name ?: h.pkg)
             .put("kind", b.kind.name.lowercase()).put("start", b.start).put("end", b.end).put("count", b.count).put("expected", r2(b.expected)).put("multiple", r2(BurstSpark.multiple(b))) }))
             .put("note", "Store watch needs ${ReviewBursts.MIN_SNAPSHOT_DAYS + 1} days of daily snapshots before it can show anything.")
     }
@@ -286,18 +291,21 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     // ---- Wallets -----------------------------------------------------------------------------------------------------
 
     fun wallet(addr: String, full: Boolean): JSONObject {
-        // A wallet the ledger has not met is looked up (cached 6 h), so it is never shown as unattested for want of a read.
-        val st = s; val f = st.facts[addr] ?: indexer.facts(addr); val stand = st.standings[addr]
+        // A wallet the ledger has not met is answered from the cache only; unknown wallets are queued for the indexer,
+        // so a page of random addresses never spends chain reads or holds request threads. null = not read yet.
+        val st = s; val f = st.facts[addr] ?: indexer.cachedFacts(addr); val stand = st.standings[addr]
+        if (f == null) indexer.wanted.add(addr)
         val mine = st.entries.filter { it.signer == addr }
         val reviews = mine.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
-        val o = JSONObject().put("wallet", addr).put("skr_name", (indexer.names.cached(addr) ?: runCatching { indexer.names.resolve(addr) }.getOrNull())?.ifEmpty { null } ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
+        val o = JSONObject().put("wallet", addr).put("skr_name", indexer.names.cached(addr)?.ifEmpty { null } ?: JSONObject.NULL).put("read", f != null)
+            .put("attested_device", f?.hasGenesisToken ?: JSONObject.NULL).put("staked_skr", f?.let { r2(it.stakedSkr) } ?: JSONObject.NULL).put("weight", f?.let { r2(com.undersigned.protocol.Ranking.weight(it)) } ?: JSONObject.NULL)
             .put("standing", stand?.let { JSONObject().put("credibility", it.credibility).put("counted_reviews", it.countedReviews).put("withdrawn", it.withdrawn)
                 .put("flags_given", it.flagsGiven).put("flags_upheld", it.flagsUpheld).put("flags_received", it.flagsReceived).put("records_hidden", it.recordsHidden)
                 .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen) } ?: JSONObject.NULL)
             .put("reviews", reviews.size).put("publisher_of", JSONArray(st.verified.filterValues { addr in it }.keys.sorted()))
             .put("treasury_listings", JSONArray(st.claims.filter { it.treasury == addr }.map { JSONObject().put("package", it.packageName).put("code", it.code) }))
-            .put("pro_licence", mine.filter { it.memo is ReviewMemo.Pro }.maxOfOrNull { it.blockTime }?.let { t -> JSONObject().put("paid_at", t).put("ends_at", t + 365L * 86_400) } ?: JSONObject.NULL)
-        if (full) o.put("records", JSONArray(mine.take(500).map(::record)))
+            .put("pro_licence", mine.filter { it.memo is ReviewMemo.Pro }.maxByOrNull { it.blockTime }?.let { e -> JSONObject().put("paid_at", e.blockTime).put("months", (e.memo as ReviewMemo.Pro).months).put("ends_at", java.time.Instant.ofEpochSecond(e.blockTime).atZone(java.time.ZoneOffset.UTC).plusMonths((e.memo as ReviewMemo.Pro).months.toLong()).toEpochSecond()) } ?: JSONObject.NULL)
+        if (full) o.put("records", JSONArray(mine.take(500).map { record(it, st) }))
         return o
     }
 
@@ -331,8 +339,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     private fun boardJson(r: BoardRow, months: Boolean): JSONObject {
         val t = r.tally
         val o = JSONObject().put("package", r.claim.packageName).put("name", r.name).put("treasury", r.claim.treasury).put("code", r.claim.code).put("by_reference", r.claim.byReference)
-            .put("usd_when_paid", r.usdWhenPaid?.let(::r2) ?: JSONObject.NULL).put("complete", r.complete)
-        if (t != null) o.put("payments", t.payments).put("payers", t.payers).put("attested_payers", t.attestedPayers).put("lamports", t.lamports)
+            .put("usd_when_paid", r.usdWhenPaid?.let(::r2) ?: JSONObject.NULL).put("unpriced_payments", r.unpriced).put("complete", r.complete)
+        if (t != null) o.put("payments", t.payments).put("payers", r.payers.size).put("attested_payers", r.payers.count { indexer.state.factsOf(it).hasGenesisToken }).put("payers_counting_every_unit", t.payers).put("lamports", t.lamports)
             .put("skr_raw", t.tokens[Config.SKR_MINT] ?: 0L).put("usdc_raw", t.tokens[Config.USDC_MINT] ?: 0L).put("first", t.first ?: JSONObject.NULL).put("last", t.last ?: JSONObject.NULL)
             .put("own_wallet_payments_excluded", t.ownPayments)
         if (months && t != null) o.put("months", JSONArray(t.months.map { m -> JSONObject().put("month", m.key).put("payments", m.payments).put("lamports", m.lamports)

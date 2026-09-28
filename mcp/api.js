@@ -39,7 +39,7 @@ export function registerApiTools(server, env = process.env) {
   server.tool("api_store_ratings", "PASS. Daily snapshots of a dApp's store star counts.", { package: z.string() }, async ({ package: p }) => call(`/v1/apps/${encodeURIComponent(p)}/store-ratings`));
   server.tool("api_app_payments", "PASS. Payments a publisher-confirmed treasury received for a dApp, with a monthly series (USD on the day of each payment).", { package: z.string() }, async ({ package: p }) => call(`/v1/apps/${encodeURIComponent(p)}/payments`));
   server.tool("api_wallet", "A wallet: attested device (Seeker Genesis Token), staked SKR and review weight, credibility and standing, apps it publishes, treasury listings, Pro licence. full=true (pass) lists its records.",
-    { wallet: z.string(), full: z.boolean().optional() }, async ({ wallet, full }) => call(`/v1/wallets/${wallet}${full ? "?full=1" : ""}`));
+    { wallet: z.string(), full: z.boolean().optional() }, async ({ wallet, full }) => call(`/v1/wallets/${encodeURIComponent(wallet)}${full ? "?full=1" : ""}`));
   server.tool("api_leaderboard", "Rankings by metric (signed_score, signed_reviews, store_rating, store_reviews, revenue, payers, growth), overall or per category. Free: top 10.",
     { metric: z.enum(["signed_score", "signed_reviews", "store_rating", "store_reviews", "revenue", "payers", "growth"]).optional(), category: z.string().optional(), limit: z.number().int().min(1).max(500).optional() },
     async (a) => call(`/v1/leaderboard${q(a)}`));

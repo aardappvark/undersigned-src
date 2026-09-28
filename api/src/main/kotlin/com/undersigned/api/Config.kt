@@ -8,6 +8,13 @@ import com.undersigned.protocol.Registry
  */
 object Config {
     val PORT: Int = System.getenv("PORT")?.toIntOrNull() ?: 8797
+    /**
+     * Serving the public (behind a proxy or tunnel, or on a network): one explicit switch. It turns OFF everything that is
+     * only right on a private machine: test prices, http://localhost webhooks. A proxy in front means TRUST_PROXY=1, which
+     * implies public. HOST alone cannot tell (a tunnel forwards to 127.0.0.1).
+     */
+    val TRUST_PROXY: Boolean = System.getenv("TRUST_PROXY") == "1"
+    val PUBLIC: Boolean = System.getenv("UNDERSIGNED_PUBLIC") == "1" || TRUST_PROXY
     /** Loopback by default: only this machine can call it. Set HOST=0.0.0.0 deliberately to serve a network. */
     val HOST: String = System.getenv("HOST") ?: "127.0.0.1"
     val DB_PATH: String = System.getenv("UNDERSIGNED_DB") ?: "undersigned-api.db"
@@ -58,9 +65,26 @@ object Config {
      * UNDERSIGNED_TEST_PASS_SOL / UNDERSIGNED_TEST_PASS_SKR. Honoured ONLY while the server listens on loopback, so a
      * server that serves a network always charges the real price; unset them and the real price is back.
      */
-    private fun testPrice(name: String): Double? = if (HOST == "127.0.0.1" || HOST == "localhost") System.getenv(name)?.toDoubleOrNull()?.takeIf { it > 0 } else null
-    val TEST_SOL: Double? = testPrice("UNDERSIGNED_TEST_PASS_SOL")
-    val TEST_SKR: Double? = testPrice("UNDERSIGNED_TEST_PASS_SKR")
+    fun testPrice(value: String?, host: String = HOST, public: Boolean = PUBLIC): Double? =
+        if (!public && (host == "127.0.0.1" || host == "localhost")) value?.toDoubleOrNull()?.takeIf { it > 0 } else null
+    val TEST_SOL: Double? = testPrice(System.getenv("UNDERSIGNED_TEST_PASS_SOL"))
+    val TEST_SKR: Double? = testPrice(System.getenv("UNDERSIGNED_TEST_PASS_SKR"))
+    /** Refuses to start public with test prices in the environment: the real price must be deliberate, not a leftover. */
+    fun checkStartup() {
+        if (PUBLIC && (System.getenv("UNDERSIGNED_TEST_PASS_SOL") != null || System.getenv("UNDERSIGNED_TEST_PASS_SKR") != null))
+            error("UNDERSIGNED_TEST_PASS_* is set while serving the public; unset it")
+    }
+    /** http://localhost webhooks: only on a private loopback server, for testing. */
+    val HOOK_LOCAL_OK: Boolean get() = !PUBLIC && (HOST == "127.0.0.1" || HOST == "localhost")
+
+    // ---- Smallest amounts that count as "paid": dust cannot buy a "Paid for this app" pill or a payer ------------------
+    const val MIN_PAYER_LAMPORTS = 1_000_000L      // 0.001 SOL
+    const val MIN_PAYER_SKR_RAW = 1_000_000L       // 1 SKR
+    const val MIN_PAYER_USDC_RAW = 100_000L        // 0.10 USDC
+    /** Bounded reads of other people's bytes. */
+    const val MAX_PROOF_BYTES = 64 * 1024
+    const val MAX_MANIFEST_BYTES = 8 * 1024 * 1024
+    const val MAX_APK_BYTES = 300L * 1024 * 1024
     val testPrices: Boolean get() = TEST_SOL != null || TEST_SKR != null
     val passSol: Double get() = TEST_SOL ?: PASS_SOL
     val passSkr: Double get() = TEST_SKR ?: PASS_SKR

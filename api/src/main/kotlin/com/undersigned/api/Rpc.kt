@@ -23,9 +23,9 @@ data class TxInfo(
 class RpcException(message: String) : Exception(message)
 
 /** Read-only JSON-RPC client over a failover pool (port of the app's SolanaRpcClient, blocking). */
-class Rpc(private val endpoints: List<String> = Config.RPC) {
+open class Rpc(private val endpoints: List<String> = Config.RPC) {
 
-    fun signatures(address: String, limit: Int = 1000, before: String? = null, until: String? = null): List<SignatureRow> {
+    open fun signatures(address: String, limit: Int = 1000, before: String? = null, until: String? = null): List<SignatureRow> {
         val cfg = JSONObject().put("limit", limit).put("commitment", "confirmed")
         before?.let { cfg.put("before", it) }; until?.let { cfg.put("until", it) }
         val arr = call("getSignaturesForAddress", JSONArray().put(address).put(cfg)).optJSONArray("result") ?: JSONArray()
@@ -37,9 +37,14 @@ class Rpc(private val endpoints: List<String> = Config.RPC) {
     }
 
     /** Null when no node has the transaction (unknown, NOT "paid nothing": callers retry). */
-    fun tx(signature: String, creditsTo: String? = Config.TREASURY): TxInfo? {
+    open fun tx(signature: String, creditsTo: String? = Config.TREASURY): TxInfo? {
         val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 0).put("commitment", "confirmed")))
             .optJSONObject("result") ?: return null
+        return parseTx(signature, tx, creditsTo)
+    }
+
+    /** The money path, on its own so a fixture can test it: what a jsonParsed transaction credited [creditsTo], from balances. */
+    fun parseTx(signature: String, tx: JSONObject, creditsTo: String?): TxInfo? {
         val meta = tx.optJSONObject("meta")
         val ok = meta != null && (meta.opt("err") == null || meta.opt("err") == JSONObject.NULL)
         val msg = tx.optJSONObject("transaction")?.optJSONObject("message") ?: return null
@@ -71,44 +76,40 @@ class Rpc(private val endpoints: List<String> = Config.RPC) {
         return TxInfo(signature, payer, tx.optLong("blockTime", 0L), ok, memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget, keys, creditsTo, lamportsIn, tokensIn)
     }
 
-    fun token2022Accounts(owner: String): List<ByteArray> {
+    open fun token2022Accounts(owner: String): List<ByteArray> {
         val params = JSONArray().put(owner).put(JSONObject().put("programId", "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb")).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed"))
         val arr = call("getTokenAccountsByOwner", params).getJSONObject("result").optJSONArray("value") ?: JSONArray()
         return (0 until arr.length()).mapNotNull { i -> arr.optJSONObject(i)?.optJSONObject("account")?.optJSONArray("data")?.optString(0)?.let { Base64.getDecoder().decode(it) } }
     }
 
-    fun accountData(pubkey: String): ByteArray? {
+    open fun accountData(pubkey: String): ByteArray? {
         val v = call("getAccountInfo", JSONArray().put(pubkey).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed"))).getJSONObject("result").opt("value")
         return if (v == null || v == JSONObject.NULL) null else Base64.getDecoder().decode((v as JSONObject).getJSONArray("data").getString(0))
     }
 
     /**
-     * Does [address] hold (amount ≥ 1) a Token-2022 token whose mint authority is [mintAuthority]? For the Seeker Genesis
-     * Token this is the attested-device test the app runs. Layouts: token account = mint[0..32] owner[32..64] amount
-     * u64 LE[64..72]; mint = COption<Pubkey> mint_authority: u32 tag[0..4] (1 = Some) + pubkey[4..36].
+     * Does [address] hold a Seeker Genesis Token? The fleet's seeker-verify test, which the app runs: a Token-2022 token
+     * (amount ≥ 1) whose mint passes THREE checks — mint authority, MetadataPointer authority + address, and
+     * TokenGroupMember group. Layout: token account = mint[0..32] owner[32..64] amount u64 LE[64..72].
      */
-    fun holdsTokenFrom(address: String, mintAuthority: String): Boolean {
+    fun holdsSeekerGenesisToken(address: String): Boolean {
         val mints = token2022Accounts(address).mapNotNull { d ->
             if (d.size < 72 || ByteBuffer.wrap(d, 64, 8).order(ByteOrder.LITTLE_ENDIAN).long <= 0L) null else Base58.encode(d.copyOfRange(0, 32))
         }.distinct()
-        for (m in mints) {
-            val md = accountData(m) ?: continue
-            if (md.size >= 36 && ByteBuffer.wrap(md, 0, 4).order(ByteOrder.LITTLE_ENDIAN).int == 1 && Base58.encode(md.copyOfRange(4, 36)) == mintAuthority) return true
-        }
-        return false
+        return mints.any { m -> accountData(m)?.let { Sgt.isValid(it) } == true }
     }
 
     /** Accounts of [program] with [size] bytes whose bytes at [offset] are [base58]; base64 data. Public pools may refuse it. */
-    fun programAccounts(program: String, size: Int, offset: Int, base58: String): List<ByteArray> {
+    open fun programAccounts(program: String, size: Int, offset: Int, base58: String): List<ByteArray> {
         val filters = JSONArray().put(JSONObject().put("dataSize", size)).put(JSONObject().put("memcmp", JSONObject().put("offset", offset).put("bytes", base58)))
         val arr = call("getProgramAccounts", JSONArray().put(program).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed").put("filters", filters))).optJSONArray("result") ?: JSONArray()
         return (0 until arr.length()).mapNotNull { i -> arr.optJSONObject(i)?.optJSONObject("account")?.optJSONArray("data")?.optString(0)?.let { Base64.getDecoder().decode(it) } }
     }
 
-    fun latestBlockhash(): String = call("getLatestBlockhash", JSONArray().put(JSONObject().put("commitment", "confirmed"))).getJSONObject("result").getJSONObject("value").getString("blockhash")
+    open fun latestBlockhash(): String = call("getLatestBlockhash", JSONArray().put(JSONObject().put("commitment", "confirmed"))).getJSONObject("result").getJSONObject("value").getString("blockhash")
 
     /** Pubkeys of [program]'s accounts matching [filters] (getProgramAccounts, data sliced away). */
-    fun programAccountKeys(program: String, filters: JSONArray): List<String> {
+    open fun programAccountKeys(program: String, filters: JSONArray): List<String> {
         val arr = call("getProgramAccounts", JSONArray().put(program).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed").put("filters", filters)
             .put("dataSlice", JSONObject().put("offset", 0).put("length", 0)))).optJSONArray("result") ?: JSONArray()
         return (0 until arr.length()).mapNotNull { arr.optJSONObject(it)?.optString("pubkey")?.takeIf { k -> k.isNotEmpty() } }
@@ -133,7 +134,7 @@ class Rpc(private val endpoints: List<String> = Config.RPC) {
             c.requestMethod = "POST"; c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("User-Agent", "Undersigned-API/1.0")
             c.connectTimeout = 8000; c.readTimeout = 20000; c.doOutput = true
             c.outputStream.use { it.write(body.toByteArray()) }
-            val host = endpoint.substringBefore("?")
+            val host = URL(endpoint).host   // never the path or query: a provider key can sit in either
             if (c.responseCode != 200) throw RpcException("HTTP ${c.responseCode} from $host")
             return JSONObject(c.inputStream.bufferedReader().use { it.readText() })
         } finally { c.disconnect() }

@@ -19,7 +19,14 @@ object Apk {
 
     fun read(file: File): Facts = Facts(declaredPublishers(manifest(file)), signerCerts(file))
 
-    fun manifest(file: File): ByteArray = ZipFile(file).use { z -> z.getInputStream(z.getEntry("AndroidManifest.xml") ?: error("no manifest")).readBytes() }
+    /** The manifest entry, inflated to at most [Config.MAX_MANIFEST_BYTES]: a zip bomb from a listed publisher must not take the server down. */
+    fun manifest(file: File): ByteArray = ZipFile(file).use { z ->
+        z.getInputStream(z.getEntry("AndroidManifest.xml") ?: error("no manifest")).use { inp ->
+            val out = java.io.ByteArrayOutputStream(); val buf = ByteArray(1 shl 16)
+            while (true) { val n = inp.read(buf); if (n < 0) break; if (out.size() + n > Config.MAX_MANIFEST_BYTES) error("manifest over ${Config.MAX_MANIFEST_BYTES} bytes"); out.write(buf, 0, n) }
+            out.toByteArray()
+        }
+    }
 
     /** Wallets named by the `undersigned.publisher` meta-data, split on , ; or space and kept only if they look like addresses. */
     fun declaredPublishers(axml: ByteArray): Set<String> =
@@ -30,8 +37,10 @@ object Apk {
     private const val ATTR_NAME = 0x01010003
     private const val ATTR_VALUE = 0x01010024
 
-    /** Every `<meta-data>` name → value (string values only) in a compiled manifest. */
-    fun metaData(axml: ByteArray): Map<String, String> {
+    /** Every `<meta-data>` name → value (string values only) in a compiled manifest. Malformed input throws IllegalArgumentException, never an out-of-bounds or a huge allocation. */
+    fun metaData(axml: ByteArray): Map<String, String> = try { metaData0(axml) } catch (e: IndexOutOfBoundsException) { throw IllegalArgumentException("malformed manifest: ${e.message}") } catch (e: java.nio.BufferUnderflowException) { throw IllegalArgumentException("malformed manifest") }
+
+    private fun metaData0(axml: ByteArray): Map<String, String> {
         val b = ByteBuffer.wrap(axml).order(ByteOrder.LITTLE_ENDIAN)
         var strings: List<String> = emptyList(); var resIds = IntArray(0)
         val out = HashMap<String, String>()
@@ -68,16 +77,19 @@ object Apk {
     private fun stringPool(b: ByteBuffer, p: Int): List<String> {
         val count = b.getInt(p + 8); val flags = b.getInt(p + 16); val stringsStart = b.getInt(p + 20)
         val utf8 = flags and 0x100 != 0
+        require(count in 0..1_000_000) { "string pool count $count" }
         return (0 until count).map { i ->
             var o = p + stringsStart + b.getInt(p + 28 + i * 4)
             if (utf8) {
                 o += if (b.get(o).toInt() and 0x80 != 0) 2 else 1        // UTF-16 length, skipped
                 var len = b.get(o).toInt() and 0xff; o++
                 if (len and 0x80 != 0) { len = ((len and 0x7f) shl 8) or (b.get(o).toInt() and 0xff); o++ }
+                require(len >= 0 && o + len <= b.limit()) { "string past the end" }   // before any allocation
                 String(ByteArray(len) { b.get(o + it) }, Charsets.UTF_8)
             } else {
                 var len = b.getShort(o).toInt() and 0xffff; o += 2
                 if (len and 0x8000 != 0) { len = ((len and 0x7fff) shl 16) or (b.getShort(o).toInt() and 0xffff); o += 2 }
+                require(len >= 0 && o + len * 2L <= b.limit()) { "string past the end" }   // a forged 2^31 length allocated 4 GB before
                 String(CharArray(len) { b.getChar(o + it * 2) })
             }
         }

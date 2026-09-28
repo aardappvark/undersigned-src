@@ -34,6 +34,8 @@ class ApiConfigParityTest {
         val legacy = Regex("LEGACY_PRO_SKR: List<Double> = listOf\\(([0-9., ]*)\\)").find(src)!!.groupValues[1].split(',').map { it.trim().toDouble() }
         assertEquals(legacy, AppFloors.LEGACY_PRO_SKR)
         assertEquals(276_000_000L, AppFloors.proFloorSkrRaw)   // the lowest price ever charged
+        fun list(name: String) = Regex("$name: List<Double> = (listOf\\(([0-9., ]*)\\)|emptyList\\(\\))").find(src)!!.groupValues[2].split(',').mapNotNull { it.trim().toDoubleOrNull() }
+        assertEquals(list("LEGACY_LIST_SOL"), AppFloors.LEGACY_LIST_SOL); assertEquals(list("LEGACY_LIST_SKR"), AppFloors.LEGACY_LIST_SKR)
         assertEquals(num("LIST_SOL"), AppFloors.LIST_SOL); assertEquals(num("LIST_SKR"), AppFloors.LIST_SKR); assertEquals(num("LIST_SKR_SGT"), AppFloors.LIST_SKR_SGT)
         assertEquals(str("TREASURY"), Config.TREASURY); assertEquals(str("PAYMENT_MEMO"), Config.PAYMENT_MEMO)
         // The pass is the fleet price, like the listing fee.
@@ -140,7 +142,7 @@ class ViewsAndHttpTest {
         db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 0, 0, ?)", treasury, System.currentTimeMillis())
         val rpc = Rpc(listOf("http://127.0.0.1:9"))   // unreachable: the test must never touch the network
         val indexer = Indexer(db, rpc, Store(0)).also { it.rebuild() }
-        val boards = Boards(indexer, Board(db, rpc))
+        val boards = Boards(indexer, Board(db, rpc), Prices(db))
         val billing = Billing(db, { null }, { false })
         return Triple(db, indexer, Api(Views(indexer, boards, db), billing, indexer))
     }
@@ -169,6 +171,10 @@ class ViewsAndHttpTest {
         assertEquals(200, get("/v1/records", "Bearer us_k").status)
         assertEquals(402, get("/v1/records", "Bearer us_k").status)
         assertEquals(402, get("/v1/apps/com.a.b/reviews", "Bearer us_k").status)
+        assertEquals(402, get("/v1/stats", "Bearer us_made_up", ip = "7.7.7.7").status)             // unknown key: refused, not served free
+        // /v1/keys/me and unknown keys spend the IP budget: 30 a minute, then 429.
+        val me = (1..31).map { get("/v1/keys/me", "Bearer us_made_up", ip = "8.8.8.8").status }
+        assertEquals(401, me[0]); assertEquals(429, me[30])
         // Free tier: 30 a minute per IP.
         val codes = (1..31).map { get("/v1/stats", ip = "2.2.2.2").status }
         assertEquals(200, codes[29]); assertEquals(429, codes[30])

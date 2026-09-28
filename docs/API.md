@@ -14,7 +14,7 @@ caller's own device is available (install age and usage time exist only as what 
 ### A. The ledger (on-chain, SRL1 records on registry `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs`)
 | Data | Endpoint | Tier |
 |---|---|---|
-| Every decoded record, newest first, paginated by cursor; filter by type (`rev rvk rep clm flg clr hlp dsp use tim snt trs trx` …), package, signer, time range | `GET /v1/records` | P |
+| Every decoded record, newest first, paginated by cursor; filter by type (`rev rvk rep clm flg unf up unv clr dsp pro shr shx use tim snt trs trx`), package, signer, time range | `GET /v1/records` | P |
 | One record by id (`sig` or `sig:n`): decoded memo, signer, block time, network fee, Seeker-wallet transaction shape, revoked or not | `GET /v1/records/{id}` | F |
 | Ledger totals: records, live reviews, counted reviews, signers, attested signers, apps, replies, publisher replies, claims (verified), flags, clears, disputes, hidden, withdrawn, licences, first and latest record | `GET /v1/stats` | F |
 | Tag vocabulary (24 wire values) with counts across the ledger | `GET /v1/tags` | F |
@@ -53,7 +53,6 @@ caller's own device is available (install age and usage time exist only as what 
 |---|---|---|
 | Board: listed dApps ordered by USD received (at the price on the day of each payment), payers, payers with an attested device, SOL/SKR/USDC raw totals, first/last payment, own-wallet payments counted apart | `GET /v1/payments` | F (top 10) / P |
 | One dApp's tally with a monthly series | `GET /v1/apps/{pkg}/payments` | P |
-| Preview any treasury + memo code or reference account, unlisted | `GET /v1/payments/preview?treasury=&code=` | P |
 
 ### F. Wallets (reviewers, publishers, payers)
 | Data | Endpoint | Tier |
@@ -74,7 +73,7 @@ caller's own device is available (install age and usage time exist only as what 
 | **Review from a browser**: the server builds the unsigned carrier transaction (same bytes as the app; store's current version recorded), the reader's own wallet signs through the Wallet Standard (extensions, in-wallet browsers, the Seeker's wallet via Mobile Wallet Adapter in Chrome). Terms and a second consent before text; sanctions screen as in the app | `/review`, `POST /v1/tx/review` | F |
 | **`.skr` names** for reviewers and wallets (the app's lookup and its three gates; cached a week, refusals never cached) | inside reviews and `/v1/wallets/{address}` | F |
 | **Publisher proof from the store's own build**: for each claimed app the server downloads the build the store serves, reads `undersigned.publisher` from its manifest and the signing certificate from its v2/v3 signature block; a claim is proven when the build names the wallet and its certificate is the one the store lists | `proof: "store_build"` in `/v1/apps/{pkg}` | F |
-| **Webhooks** for pass holders: review, reply, store_note, burst, version, certificate on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
+| **Webhooks** for pass holders: review, reply, store_note, burst, version, certificate on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks (http://localhost is allowed only on a private loopback server); delivered by a worker from an outbox, three tries; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
 | **Checkout without message signing**: a secret whose commitment rides in the payment memo (`UNS:<hash>`); whoever holds the secret redeems | `POST /v1/checkout`, then `POST /v1/keys {signature, secret}` | F |
 
 Still later: x402 pay-per-call, Solana Pay *transaction requests* for reviews (needs a public https host), localised pages.
@@ -110,8 +109,8 @@ fleet ledger tools see `UNS` and attribute them to Undersigned.
 The existing `mcp/` server (the publisher desk: inbox, replies handed to the Seeker, local ledger sync) gains the API's
 tools when `UNDERSIGNED_API_URL` is set (`mcp/api.js`): `api_search_apps`, `api_app`, `api_reviews`, `api_bursts`,
 `api_versions`, `api_store_ratings`, `api_app_payments`, `api_wallet`, `api_leaderboard`, `api_store_watch`,
-`api_changes`, `api_payments_board`, `api_records`, `api_record`, `api_stats`, `api_pricing`, `api_redeem_pass`,
-`api_pass`. `UNDERSIGNED_API_KEY` holds a pass key; a 402 comes back as plain instructions to buy one. The MCP never
+`api_changes`, `api_payments_board`, `api_records`, `api_record`, `api_stats`, `api_pricing`, `api_checkout`, `api_redeem_pass`,
+`api_pass`, `api_hook_create`, `api_hooks`, `api_hook_delete`, `api_badge`. `UNDERSIGNED_API_KEY` holds a pass key; a 402 comes back as plain instructions to buy one. The MCP never
 signs or pays: paying stays the wallet owner's own act.
 
 ## 4. Running
@@ -125,7 +124,18 @@ Hosted on this Mac only (owner, 28 Sep 2026): `api/install-local.sh` runs it as 
 only. Test prices for a local test run: `UNDERSIGNED_TEST_PASS_SOL` / `UNDERSIGNED_TEST_PASS_SKR` in `api/.env.local`,
 honoured only while the server listens on loopback. A public host, a domain and the store-data question (§5) are owner decisions.
 
-## 5. Open questions for the owner
+## 5. Rules the numbers follow
+- **A payer, and "paid for this app", need a real amount**: at least 0.001 SOL, 1 SKR or 0.10 USDC in one payment
+  (`Config.MIN_PAYER_*`). Dust cannot buy a pill. Totals still count every unit, as the app's tally does.
+- **Revenue in USD** sums the payments whose day has a stored price and reports `unpriced` for the rest; daily closes are
+  kept in the database as they are fetched, so a payment older than the feed's 365 days keeps its price.
+- **Pages show up to 50 reviews; the free API shows 20** (a pass lifts it).
+- **A wallet the ledger has not met** is answered from cache only: `attested_device: null` means "not read yet" and the
+  indexer reads it within minutes. No chain call ever runs inside a request.
+- **Going public** is `UNDERSIGNED_PUBLIC=1` (or `TRUST_PROXY=1`, which reads the client address from the LAST hop of
+  X-Forwarded-For). It disables test prices (the server refuses to start with them set) and localhost webhooks.
+
+## 6. Open questions for the owner
 - **Store data**: the catalogue, details and star counts are the dApp Store's public data. v1 serves them free and
   never resells store review text. Selling passes that include store-derived series (rating history, watch, changes)
   should be checked against Solana Mobile's terms before launch.

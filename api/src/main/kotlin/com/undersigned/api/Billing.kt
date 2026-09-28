@@ -35,6 +35,8 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
         val tx = txOf(txSignature) ?: throw Refused(404, "transaction not found yet; try again once it is confirmed")
         if (!tx.ok) throw Refused(402, "the transaction failed on-chain, so nothing was paid")
         if (Config.API_REFERENCE !in tx.accountKeys) throw Refused(402, "the payment does not carry the API reference account ${Config.API_REFERENCE}")
+        // A payment that also names the registry is a Pro licence or a listing fee to the app's reader; one payment buys one thing.
+        if (Config.REGISTRY in tx.accountKeys) throw Refused(402, "the payment also names the registry, so it is read as a Pro licence or listing fee, not an API pass")
         val memos = tx.memos.map { it.trim() }
         if (memos.none { it == Config.PAYMENT_MEMO || it.startsWith(Config.PAYMENT_MEMO + ":") }) throw Refused(402, "the payment does not carry the memo ${Config.PAYMENT_MEMO}")
         when {
@@ -58,7 +60,9 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
                 val p = Pass(newKey(), tx.feePayer, Config.PASS_REQUESTS, now + Config.PASS_DAYS * 86_400)
                 db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, ?, ?, ?, ?)", p.key, p.wallet, p.requestsLeft, p.endsAt, now); p
             }
-            db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, pass.key, tx.feePayer, rail, amount, now)
+            // Two redemptions racing on one signature: the primary key lets exactly one through; the other is a replay.
+            try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, pass.key, tx.feePayer, rail, amount, now) }
+            catch (e: java.sql.SQLException) { throw Refused(409, "this payment has already been redeemed") }
             pass
         }
     }
@@ -114,10 +118,16 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
 class RateLimiter(private val clock: () -> Long = { System.currentTimeMillis() }) {
     private val minute = ConcurrentHashMap<String, Pair<Long, Int>>()
     private val day = ConcurrentHashMap<String, Pair<Long, Int>>()
+    private val ops = java.util.concurrent.atomic.AtomicLong()
+
+    /** Windows that have passed are dropped, so a stream of new callers cannot grow the tables without bound. */
+    fun sweep(now: Long = clock()) { minute.entries.removeIf { now - it.value.first >= 60_000 }; day.entries.removeIf { now - it.value.first >= 86_400_000 } }
+    val size: Int get() = minute.size + day.size
 
     /** Null when allowed, else the window that ran out ("minute" or "day"). */
     fun take(caller: String, perMinute: Int, perDay: Int?): String? {
         val now = clock()
+        if (ops.incrementAndGet() % 2000 == 0L) sweep(now)
         val m = minute.compute(caller) { _, v -> if (v == null || now - v.first >= 60_000) now to 1 else v.first to v.second + 1 }!!
         if (m.second > perMinute) return "minute"
         if (perDay != null) {

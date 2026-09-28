@@ -12,6 +12,11 @@ import java.net.URLEncoder
 class Web(private val views: Views, private val indexer: Indexer, private val extra: Map<String, (Map<String, String>) -> Api.Response> = emptyMap()) {
 
     fun handle(path: String, query: Map<String, String>): Api.Response = try {
+        handle0(path, query)
+    } catch (e: IllegalArgumentException) { notFound() }   // a bad percent-escape in a path is a 404, not a failure
+    catch (e: Exception) { log("web $path: ${e.message?.take(100)}"); Api.Response(500, JSONObject(), raw = "Something went wrong.".toByteArray(), contentType = "text/plain; charset=utf-8") }
+
+    private fun handle0(path: String, query: Map<String, String>): Api.Response = run {
         when {
             path == "/" -> page("Undersigned — signed reviews from Seeker owners", home(query["q"]))
             path.startsWith("/v1/badge/") && path.endsWith(".svg") -> badge(dec(path.removePrefix("/v1/badge/").removeSuffix(".svg")))
@@ -22,7 +27,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             extra.containsKey(path) -> extra.getValue(path)(query)
             else -> notFound()
         }
-    } catch (e: Exception) { log("web $path: ${e.message?.take(100)}"); Api.Response(500, JSONObject(), raw = "Something went wrong.".toByteArray(), contentType = "text/plain; charset=utf-8") }
+    }
 
     // ---- Badge ------------------------------------------------------------------------------------------------------
 
@@ -186,34 +191,66 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
 <style>.chip{background:#17122a;color:var(--t2);min-height:40px;padding:8px 12px;font-weight:600}.chip[aria-pressed=true]{background:var(--p);color:#fff}</style>
 <script type=module>
 import { getWallets } from 'https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm';
-import { registerMwa, createDefaultAuthorizationCache, createDefaultChainSelector, createDefaultWalletNotFoundHandler } from 'https://cdn.jsdelivr.net/npm/@solana-mobile/wallet-standard-mobile@0.6.0/+esm';
-const ${'$'} = (id) => document.getElementById(id); const st = (t) => ${'$'}('status').textContent = t;
-try { registerMwa({ appIdentity: { name: 'Undersigned', uri: location.origin, icon: '/favicon.ico' }, authorizationCache: createDefaultAuthorizationCache(), chains: ['solana:mainnet'], chainSelector: createDefaultChainSelector(), onWalletNotFound: createDefaultWalletNotFoundHandler() }); } catch (e) {}
-let rating = 0, tags = [], wallet = null, account = null;
+const $ = (id) => document.getElementById(id); const st = (t) => $('status').textContent = t;
+const IDENTITY = { name: 'Undersigned', uri: location.origin, icon: '/v1/badge/icon.svg' };
+// On Android the page talks to the wallet through the Mobile Wallet Adapter protocol directly. The Wallet Standard
+// wrapper first asks Chrome's local-network permission by fetching http://localhost, which never prompts when the page
+// itself is on localhost, so it waits forever there (found 29 Sep 2026). Elsewhere, Wallet Standard (extensions).
+const ANDROID = /Android/i.test(navigator.userAgent) && !/Firefox\//.test(navigator.userAgent);
+let rating = 0, tags = [], wallet = null, account = null, authToken = null, connecting = false;
+const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+function bs58(bytes) { let n = 0n; for (const b of bytes) n = n * 256n + BigInt(b); let s = ''; while (n > 0n) { s = B58[Number(n % 58n)] + s; n /= 58n; } for (const b of bytes) { if (b !== 0) break; s = '1' + s; } return s; }
+const b64 = (bytes) => btoa(String.fromCharCode(...bytes)); const unb64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 document.querySelectorAll('#rating .chip').forEach(b => b.onclick = () => { rating = +b.dataset.r; document.querySelectorAll('#rating .chip').forEach(x => x.setAttribute('aria-pressed', x === b)); ready(); });
 document.querySelectorAll('#tags .chip').forEach(b => b.onclick = () => { const t = b.dataset.tag; if (tags.includes(t)) tags = tags.filter(x => x !== t); else if (tags.length < 3) tags.push(t); b.setAttribute('aria-pressed', tags.includes(t)); ready(); });
-['text','permanent','terms','pkg'].forEach(id => ${'$'}(id).addEventListener('input', ready));
-function ready() { const text = ${'$'}('text').value.trim(); ${'$'}('sign').disabled = !(account && rating && tags.length && ${'$'}('terms').checked && (!text || ${'$'}('permanent').checked) && ${'$'}('pkg').value.trim()); }
-${'$'}('connect').onclick = async () => {
-  const ws = getWallets().get().filter(w => w.chains.some(c => c.startsWith('solana:')) && w.features['standard:connect'] && w.features['solana:signAndSendTransaction']);
-  if (!ws.length) { st('No Solana wallet found in this browser. On a Seeker, open this page in Chrome; on a computer, install a Solana wallet extension.'); return; }
-  wallet = ws.length === 1 ? ws[0] : ws[Math.max(0, +prompt(ws.map((w, i) => i + ': ' + w.name).join('\n'), '0') || 0)];
-  try { const r = await wallet.features['standard:connect'].connect(); account = r.accounts[0]; st('Connected: ' + account.address.slice(0, 4) + '…' + account.address.slice(-4) + ' (' + wallet.name + ')'); ready(); }
-  catch (e) { st('The wallet did not connect: ' + (e.message || e)); }
-};
-${'$'}('sign').onclick = async () => {
-  ${'$'}('sign').disabled = true; st('Building the transaction…');
+['text','permanent','terms','pkg'].forEach(id => $(id).addEventListener('input', ready));
+function ready() { const text = $('text').value.trim(); $('sign').disabled = !(account && rating && tags.length && $('terms').checked && (!text || $('permanent').checked) && $('pkg').value.trim()); }
+async function mwa() { return (await import('https://cdn.jsdelivr.net/npm/@solana-mobile/mobile-wallet-adapter-protocol@2.3.0/+esm')).transact; }
+function explain(e) { const c = e && e.code; return c === 'ERROR_WALLET_NOT_FOUND' ? 'No wallet app opened. Install a Solana wallet that supports Mobile Wallet Adapter (the Seeker Wallet does) and try again.'
+  : c === 'ERROR_ASSOCIATION_CANCELLED' ? 'Connection cancelled or timed out. Tap the button again.' : (c ? c + ' — ' : '') + (e && e.message || e); }
+$('connect').onclick = async () => {
+  if (connecting) return; connecting = true; $('connect').disabled = true;
   try {
-    const r = await fetch('/v1/tx/review', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: account.address, package: ${'$'}('pkg').value.trim(), rating, tags, text: ${'$'}('text').value.trim() }) });
+    if (ANDROID) {
+      st('Opening your wallet…');
+      const transact = await mwa();
+      const auth = await transact(async (w) => w.authorize({ chain: 'solana:mainnet', identity: IDENTITY }));
+      authToken = auth.auth_token; const acc = auth.accounts && auth.accounts[0];
+      if (!acc) { st('The wallet returned no account.'); return; }
+      account = { address: bs58(unb64(acc.address)), label: acc.label };
+    } else {
+      const ws = getWallets().get().filter(w => w.chains.some(c => c.startsWith('solana:')) && w.features['standard:connect'] && w.features['solana:signAndSendTransaction']);
+      if (!ws.length) { st('No Solana wallet found in this browser. On a Seeker, open this page in Chrome; on a computer, install a Solana wallet extension.'); return; }
+      const chosen = ws.length === 1 ? ws[0] : ws[Math.max(0, +prompt(ws.map((w, i) => i + ': ' + w.name).join('\n'), '0') || 0)];
+      if (chosen !== wallet) { account = null; ready(); }          // a stale account must never be sent to a different wallet
+      wallet = chosen;
+      if (wallet.features['standard:events']) wallet.features['standard:events'].on('change', (p) => { if (p.accounts) { account = p.accounts[0] || null; st(account ? 'Account: ' + account.address.slice(0, 4) + '…' + account.address.slice(-4) : 'The wallet disconnected.'); ready(); } });
+      st('Opening ' + wallet.name + '…');
+      const r = await wallet.features['standard:connect'].connect(); account = r.accounts && r.accounts[0];
+      if (!account) { st('The wallet returned no account. Reload this page and try again.'); return; }
+    }
+    st('Connected: ' + (account.label ? account.label + ' · ' : '') + account.address.slice(0, 4) + '…' + account.address.slice(-4)); ready();
+  } catch (e) { account = null; ready(); st('The wallet did not connect: ' + explain(e)); console.warn('connect failed', e && e.code, e && e.message); }
+  finally { connecting = false; $('connect').disabled = false; }
+};
+$('sign').onclick = async () => {
+  $('sign').disabled = true; st('Building the transaction…');
+  try {
+    const r = await fetch('/v1/tx/review', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: account.address, package: $('pkg').value.trim(), rating, tags, text: $('text').value.trim() }) });
     const j = await r.json(); if (!r.ok) { st(j.message || j.error); ready(); return; }
     st('Sign in your wallet…');
-    const tx = Uint8Array.from(atob(j.transaction), c => c.charCodeAt(0));
-    const [res] = await wallet.features['solana:signAndSendTransaction'].signAndSendTransaction({ account, transaction: tx, chain: 'solana:mainnet' });
-    const sig = bs58(res.signature);
-    ${'$'}('status').innerHTML = 'Signed and sent. <a target=_blank href="https://solscan.io/tx/' + sig + '">View the transaction</a>. It appears here within a few minutes.';
-  } catch (e) { st('Not signed: ' + (e.message || e)); ready(); }
+    let sig;
+    if (ANDROID) {
+      const transact = await mwa();
+      const res = await transact(async (w) => { await w.authorize({ chain: 'solana:mainnet', identity: IDENTITY, auth_token: authToken }); return w.signAndSendTransactions({ payloads: [j.transaction] }); });
+      sig = bs58(unb64(res.signatures[0]));
+    } else {
+      const [res] = await wallet.features['solana:signAndSendTransaction'].signAndSendTransaction({ account, transaction: unb64(j.transaction), chain: 'solana:mainnet' });
+      sig = bs58(res.signature);
+    }
+    $('status').innerHTML = 'Signed and sent. <a target=_blank href="https://solscan.io/tx/' + sig + '">View the transaction</a>. It appears here within a few minutes.';
+  } catch (e) { st('Not signed: ' + explain(e)); ready(); }
 };
-function bs58(bytes) { const A = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'; let n = 0n; for (const b of bytes) n = n * 256n + BigInt(b); let s = ''; while (n > 0n) { s = A[Number(n % 58n)] + s; n /= 58n; } for (const b of bytes) { if (b !== 0) break; s = '1' + s; } return s; }
 </script>"""
     }
 
@@ -249,9 +286,18 @@ function bs58(bytes) { const A = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmn
         return "<svg class=spark viewBox='0 0 300 52' role='img' aria-label='Reviews per day over 30 days; the burst days are shaded and marked'><rect x='${"%.1f".format(java.util.Locale.US, from * w)}' y='0' width='${"%.1f".format(java.util.Locale.US, (to - from + 1) * w)}' height='42' fill='#ffc46b' opacity='.12'/>$rects<text x='${"%.1f".format(java.util.Locale.US, from * w)}' y='51' font-size='8' fill='#ffc46b'>burst</text></svg>"
     }
 
+    /**
+     * Every page carries a Content Security Policy: scripts only from this origin's nonce and the wallet libraries' CDN,
+     * connections only to this origin, that CDN and the wallet's local websocket; nothing else loads or runs. The nonce is
+     * fresh per response, so an injected <script> (were escaping ever to fail) would not execute.
+     */
     fun page(title: String, body: String, status: Int = 200, head: String = ""): Api.Response {
-        val html = "<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>${esc(title)}</title><style>$CSS</style>$head</head><body><main>$body<footer class=small>Undersigned is an open review ledger on Solana. Reviews are the opinions of individual Seeker owners. <a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a>.</footer></main></body></html>"
-        return Api.Response(status, JSONObject(), mapOf("Cache-Control" to "public, max-age=60"), html.toByteArray(), "text/html; charset=utf-8")
+        val nonce = Base58.encode(ByteArray(16).also { java.security.SecureRandom().nextBytes(it) })
+        val withNonce = body.replace("<script type=module>", "<script type=module nonce=\"$nonce\">")
+        val html = "<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>${esc(title)}</title><style nonce=\"$nonce\">$CSS</style>$head</head><body><main>$withNonce<footer class=small>Undersigned is an open review ledger on Solana. Reviews are the opinions of individual Seeker owners. <a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a>.</footer></main></body></html>"
+        val csp = "default-src 'none'; script-src 'nonce-$nonce' https://cdn.jsdelivr.net; style-src 'nonce-$nonce' 'unsafe-inline'; img-src 'self' data: https:; " +
+            "connect-src 'self' https://cdn.jsdelivr.net ws://localhost:* wss://localhost:* ws://127.0.0.1:* wss://127.0.0.1:*; font-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+        return Api.Response(status, JSONObject(), mapOf("Cache-Control" to "public, max-age=60", "Content-Security-Policy" to csp, "Referrer-Policy" to "no-referrer", "X-Content-Type-Options" to "nosniff"), html.toByteArray(), "text/html; charset=utf-8")
     }
 
     private fun notFound() = page("Not found — Undersigned", "<h1>Not found</h1><p><a href='/'>Back to Undersigned</a></p>", 404)

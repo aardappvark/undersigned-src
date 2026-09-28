@@ -27,7 +27,7 @@ private class Fixture(sanctioned: Set<String> = emptySet()) {
     }
     val rpc = Rpc(listOf("http://127.0.0.1:9"))
     val indexer = Indexer(db, rpc, Store(0)).also { it.rebuild() }
-    val views = Views(indexer, Boards(indexer, Board(db, rpc)), db)
+    val views = Views(indexer, Boards(indexer, Board(db, rpc), Prices(db)), db)
     val billing = Billing(db, { null }, { false })
     val api = Api(views, billing, indexer, blockhash = { Base58.encode(ByteArray(32) { 7 }) }, sanctioned = { it in sanctioned }).also { it.web = Web(views, indexer) }
     /** Splits the query off the path the way the JDK server does before calling handle(). */
@@ -105,7 +105,7 @@ class HooksTest {
         val h = hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))
         val review = LedgerEntry(sigOf('n'), REVIEWER, now, ReviewMemo.Review("com.a.b", 5, listOf(ReviewMemo.Tag.FAST), 42, null))
         val other = LedgerEntry(sigOf('o'), REVIEWER, now, ReviewMemo.Review("com.x.y", 5, listOf(ReviewMemo.Tag.FAST), 42, null))
-        hooks.dispatch(listOf(review, other), emptyList(), emptyList())
+        hooks.dispatch(listOf(review, other), emptyList(), emptyList(), now); hooks.deliverDue(now)
         assertEquals(1, sent.size)
         val (_, body, signature) = sent.single()
         assertEquals(Hooks.sign(h.secret, body), signature)
@@ -113,7 +113,7 @@ class HooksTest {
         assertEquals(1, ev.length()); assertEquals("com.a.b", ev.getJSONObject(0).getString("package"))
         // The pass ends: nothing more is sent.
         f.db.exec("UPDATE passes SET ends_at = ? WHERE key = 'us_a'", now - 1)
-        hooks.dispatch(listOf(review), emptyList(), emptyList())
+        hooks.dispatch(listOf(review), emptyList(), emptyList(), now); hooks.deliverDue(now)
         assertEquals(1, sent.size)
     }
 }
