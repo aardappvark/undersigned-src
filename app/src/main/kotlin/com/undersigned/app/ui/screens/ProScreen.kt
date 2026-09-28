@@ -44,7 +44,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
     var consent by remember { mutableStateOf(false) }
     var stage by remember { mutableStateOf<String?>(null) }
     var message by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
-    val df = remember { DateFormat.getDateInstance(DateFormat.SHORT) }
+    val df = remember { DateFormat.getDateInstance(DateFormat.MEDIUM) }
     fun open(url: String) { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) { } }
     val price = if (rail == ProPaymentService.Rail.SKR) AppConfig.Payment.skrLabel() else AppConfig.Payment.solLabel()
 

@@ -85,3 +85,26 @@ object ReviewBursts {
         return norm.groupingBy { it }.eachCount().values.filter { it > 1 }.sum()
     }
 }
+
+/**
+ * Daily counts for a burst's small chart: 30 UTC days ending 3 days after the burst (or at the newest point), counting
+ * the burst's star value; [from]..[to] are the burst's day indexes in [counts], clamped. Pure, for the UI.
+ */
+object BurstSpark {
+    data class Spark(val counts: List<Int>, val from: Int, val to: Int)
+    fun of(points: List<ReviewBursts.Point>, b: ReviewBursts.Burst, days: Int = 30): Spark {
+        val D = ReviewBursts.DAY
+        val newestDay = (points.maxOfOrNull { it.time } ?: b.end) / D
+        val endDay = minOf(b.end / D + 3, maxOf(newestDay, b.end / D))
+        val startDay = endDay - days + 1
+        val counts = IntArray(days)
+        points.forEach { p -> if (p.rating == b.kind.stars) { val i = (p.time / D - startDay).toInt(); if (i in 0 until days) counts[i]++ } }
+        return Spark(counts.toList(), (b.start / D - startDay).toInt().coerceIn(0, days - 1), (b.end / D - startDay).toInt().coerceIn(0, days - 1))
+    }
+
+    /** Window-normalised multiple of the usual pace: the burst's count against the pace over the same number of days. */
+    fun multiple(b: ReviewBursts.Burst): Double {
+        val windowDays = ((b.end - b.start) / ReviewBursts.DAY + 1).toDouble()
+        return if (b.expected <= 0) 0.0 else b.count / (b.expected * windowDays / 3.0)
+    }
+}

@@ -288,15 +288,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Up to [HISTORY_PAGES] pages of each opened app's store reviews, newest first, for the burst check. */
     val storeHistory = MutableStateFlow<Map<String, com.undersigned.app.data.ReviewsRead>>(emptyMap())
-    private fun storePoints(pkg: String) = storeHistory.value[pkg]?.items?.mapNotNull { r -> runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
+    fun storePoints(pkg: String) = storeHistory.value[pkg]?.items?.mapNotNull { r -> runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
     fun storeBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings? = storePoints(pkg)?.let { com.undersigned.protocol.ReviewBursts.find(it) }
     /** Signed reviews: the newest per wallet, withdrawn ones out, so an edit is not a second review. */
-    fun ledgerBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings {
+    fun ledgerPoints(pkg: String): List<com.undersigned.protocol.ReviewBursts.Point> {
         val revoked = revokedSignatures()
-        val pts = entries.value.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in revoked }.groupBy { it.signer }.map { (_, l) -> l.maxBy { it.blockTime } }
+        return entries.value.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in revoked }.groupBy { it.signer }.map { (_, l) -> l.maxBy { it.blockTime } }
             .map { e -> val r = e.memo as ReviewMemo.Review; com.undersigned.protocol.ReviewBursts.Point(e.blockTime, r.rating, r.text) }
-        return com.undersigned.protocol.ReviewBursts.find(pts)
     }
+    fun ledgerBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings = com.undersigned.protocol.ReviewBursts.find(ledgerPoints(pkg))
     val historyLoading = MutableStateFlow<Set<String>>(emptySet())
     /** Deeper read on request: up to [DEEP_HISTORY_PAGES] pages, paced, replacing the five-page read. */
     fun loadOlderStoreHistory(pkg: String) {
@@ -315,7 +315,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     // ---- Store watch ----------------------------------------------------------------------------------------
 
-    data class WatchHit(val pkg: String, val name: String, val burst: com.undersigned.protocol.ReviewBursts.Burst)
+    data class WatchHit(val pkg: String, val name: String, val burst: com.undersigned.protocol.ReviewBursts.Burst, val spark: com.undersigned.protocol.BurstSpark.Spark? = null)
     data class Watch(val enabled: Boolean, val at: Long?, val apps: Int, val days: List<String>, val hits: List<WatchHit>)
     val watch = MutableStateFlow(Watch(false, null, 0, emptyList(), emptyList()))
     /** "done/total" while today's read runs, else null. */
@@ -326,8 +326,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         watch.value = runCatching {
             val o = org.json.JSONObject(f.readText()); val h = o.getJSONArray("hits")
             Watch(UserPreferences.storeWatch, o.getLong("at"), o.getInt("apps"), o.getJSONArray("days").let { a -> (0 until a.length()).map { a.getString(it) } },
-                (0 until h.length()).map { i -> val x = h.getJSONObject(i); WatchHit(x.getString("p"), names[x.getString("p")] ?: x.getString("p"),
-                    com.undersigned.protocol.ReviewBursts.Burst(com.undersigned.protocol.ReviewBursts.Kind.valueOf(x.getString("k")), x.getLong("s"), x.getLong("e"), x.getInt("n"), x.getInt("t"), x.getDouble("x"), 0)) })
+                (0 until h.length()).map { i -> val x = h.getJSONObject(i); val p = x.getString("p")
+                    val b = com.undersigned.protocol.ReviewBursts.Burst(com.undersigned.protocol.ReviewBursts.Kind.valueOf(x.getString("k")), x.getLong("s"), x.getLong("e"), x.getInt("n"), x.getInt("t"), x.getDouble("x"), 0)
+                    WatchHit(p, names[p] ?: p, b, runCatching { com.undersigned.protocol.BurstSpark.of(com.undersigned.protocol.RatingSnapshots.toPoints(ratingSnapshots(p)), b) }.getOrNull()) })
         }.getOrElse { Watch(UserPreferences.storeWatch, null, 0, com.undersigned.app.notify.StoreWatchWorker.archive(getApplication()).days(), emptyList()) }
     }
     fun setStoreWatch(on: Boolean) {
@@ -464,6 +465,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 boardAt = System.currentTimeMillis()
             } finally { boardLoading.value = false }
         }
+    }
+
+    /** "List your dApp": does the store-listed website for [pkg] name [treasury] yet? (found, checked-at ms, site); fresh read. */
+    val lineCheck = MutableStateFlow<Triple<Boolean, Long, String?>?>(null)
+    fun checkTreasuryLine(pkg: String, treasury: String) = viewModelScope.launch(Dispatchers.IO) {
+        val d = store.details(pkg)?.also { d -> storeDetails.update { it + (pkg to d) } }
+        val ok = PublisherVerifier.verifyTreasury(pkg, treasury, d, force = true)
+        lineCheck.value = Triple(ok, System.currentTimeMillis(), d?.website?.removePrefix("https://")?.removePrefix("http://")?.trimEnd('/'))
     }
 
     /** What a treasury has been paid under a code, WITHOUT listing it: public data, shown to whoever asks, attributed to no app. */

@@ -69,7 +69,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     fun stageOf(st: com.undersigned.app.solana.ReviewTxService.Stage) = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
     fun signShare(memo: com.undersigned.protocol.ReviewMemo, then: (Result<String>) -> Unit) { val s = sender ?: return; vm.publish(s, memo, onStage = { shareStage = stageOf(it) }) { r -> shareStage = null; then(r) } }
     var copyMsg by remember { mutableStateOf<String?>(null) }
-    val df = remember { java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT) }
+    val df = remember { java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM) }
     fun share(text: String, mime: String, title: String) { try { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = mime; putExtra(Intent.EXTRA_SUBJECT, title); putExtra(Intent.EXTRA_TEXT, text) }, title)) } catch (_: Exception) { } }
     fun copyToStore(pkg: String, text: String?) {
         if (com.undersigned.app.util.StoreHandoff.copyAndOpen(context, pkg, text)) copyMsg = context.getString(R.string.pro_copy_done)
@@ -78,6 +78,10 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val askNotif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted -> if (granted) { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) } }
     // The store scan reports by notification; ask first if that permission is missing (see MyReviewsScreen).
     val askNotifForScan = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { vm.scanMyStoreReviews() }
+    var scanRationale by remember { mutableStateOf(false) }
+    if (scanRationale) ScanRationaleSheet(
+        onAllow = { scanRationale = false; UserPreferences.scanRationaleShown = true; askNotifForScan.launch(Manifest.permission.POST_NOTIFICATIONS) },
+        onSkip = { scanRationale = false; UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() })
     val termsService = remember { TermsAcceptanceService(context) }
     val myStore by vm.myStoreReviews.collectAsState()
     val scan by vm.importScan.collectAsState()
@@ -209,8 +213,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     Text(stringResource(R.string.import_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                     Spacer(Modifier.height(10.dp))
                     SecondaryButton(scan?.let { stringResource(R.string.import_scanning, it) } ?: stringResource(R.string.import_scan), enabled = scan == null && importStage == null, onClick = {
-                        if (Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) askNotifForScan.launch(Manifest.permission.POST_NOTIFICATIONS)
-                        else vm.scanMyStoreReviews() })
+                        val need = Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED
+                        if (need && !UserPreferences.scanRationaleShown) scanRationale = true else vm.scanMyStoreReviews() })
                     scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp)) }
                     val importable = myStore.filter { (pkg, _) -> vm.myReview(pkg) == null }
                     if (scan == null && myStore.isNotEmpty()) {
@@ -312,7 +316,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     Column(Modifier.fillMaxWidth().background(RbColors.surfaceVariant, androidx.compose.foundation.shape.RoundedCornerShape(10.dp)).padding(10.dp)) {
                         val who = e?.let { domainNames[it.signer]?.takeIf { n -> n.isNotEmpty() } ?: shortKey(it.signer, 4, 4) } ?: shortKey(sig, 4, 4)
                         val app = (e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.packageName?.let { p -> catalogue.firstOrNull { it.packageName == p }?.name ?: p }
-                        Text(listOfNotNull(who, app, e?.let { java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT).format(java.util.Date(it.blockTime * 1000)) }).joinToString(" · "), color = RbColors.textTertiary, fontSize = 11.sp)
+                        Text(listOfNotNull(who, app, e?.let { java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(it.blockTime * 1000)) }).joinToString(" · "), color = RbColors.textTertiary, fontSize = 11.sp)
                         ((e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.text ?: (e?.memo as? com.undersigned.protocol.ReviewMemo.Reply)?.text)?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 2) }
                         TextButton(onClick = { vm.unhide(sig) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.settings_unhide), color = RbColors.purpleLight, fontSize = 12.sp) }
                     }

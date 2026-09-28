@@ -61,7 +61,7 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                         st?.let { Text(stringResource(R.string.profile_flags, it.flagsGiven, it.flagsUpheld, it.flagsReceived, it.recordsHidden), color = RbColors.textSecondary, fontSize = 12.sp) }
                         st?.agreement?.let { Text(stringResource(R.string.standing_agreement, String.format(java.util.Locale.US, "%.0f%%", it * 100)), color = RbColors.textSecondary, fontSize = 12.sp) }
                         st?.repliedToReplies?.let { Text(stringResource(R.string.profile_replied, String.format(java.util.Locale.US, "%.0f%%", it * 100)), color = RbColors.textSecondary, fontSize = 12.sp) }
-                        if ((st?.firstSeen ?: 0L) > 0) Text(stringResource(R.string.standing_since, DateFormat.getDateInstance(DateFormat.SHORT).format(Date(st!!.firstSeen * 1000))), color = RbColors.textTertiary, fontSize = 11.sp)
+                        if ((st?.firstSeen ?: 0L) > 0) Text(stringResource(R.string.standing_since, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(st!!.firstSeen * 1000))), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
                 }
                 Spacer(Modifier.height(6.dp)); Text(stringResource(R.string.profile_credibility_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -83,7 +83,7 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                 val r = e.memo as ReviewMemo.Review
                 GlassCard(modifier = Modifier.clickable { onOpen(r.packageName) }) {
                     Text(appName(r.packageName), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp) }
+                    Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp) }
                     r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) }
                 }
                 Spacer(Modifier.height(8.dp))

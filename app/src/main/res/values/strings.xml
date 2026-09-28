@@ -618,4 +618,78 @@
     <string name="pay_bad_input">Check the package name and the code (a memo code of 2–31 letters, digits, - or _, or a reference account address).</string>
     <string name="pay_open">Payments board</string>
     <string name="pay_waiting_list">Listed by the treasury, not yet confirmed by the website: %1$d</string>
+
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="more_actions">More actions</string>
+    <string name="burst_ratings_none">No rating bursts.</string>
+    <string name="pay_label_signing">Signing wallet</string>
+    <plurals name="watch_days_n">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <plurals name="watch_day_n">
+        <item quantity="one">day %1$d</item>
+        <item quantity="other">day %1$d</item>
+    </plurals>
+    <string name="pay_listing_note">The listing is a signed record. Withdrawing it later leaves the record on-chain.</string>
+    <string name="burst_kind_high">Five-star reviews</string>
+    <string name="burst_kind_low">One-star reviews</string>
+    <string name="burst_kind_high_ratings">Five-star ratings</string>
+    <string name="burst_kind_low_ratings">One-star ratings</string>
+    <string name="burst_times">×%1$s the usual pace</string>
+    <string name="burst_pace">Usual pace: about %1$s per 3 days</string>
+    <string name="store_reply_source">from the dApp Store</string>
+    <string name="note_signed_label">SIGNED ON-CHAIN</string>
+    <string name="permanent_title">Permanent</string>
+    <string name="use_card_title">Your phone adds</string>
+    <string name="use_row_label">Time on this phone</string>
+    <string name="time_row_label">Time you have used it</string>
+    <string name="use_card_hint">Your phone\'s report, rounded — not proof. Whatever is switched on is recorded permanently with the review.</string>
+    <string name="scan_notif_title">Hear when the scan is done</string>
+    <string name="scan_notif_body">The scan runs in the background (about 6 min). Allow notifications to hear when it\'s done.</string>
+    <string name="scan_notif_note">Without them it still runs; the results appear here when you come back.</string>
+    <string name="scan_notif_allow">Allow notifications</string>
+    <string name="scan_notif_skip">Scan without notifications</string>
+    <string name="pay_label_payments">Payments</string>
+    <string name="pay_label_payers">Payers</string>
+    <string name="pay_label_attested">With an attested device</string>
+    <string name="pay_label_attested_short">Attested</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">First</string>
+    <string name="pay_label_latest">Latest</string>
+    <string name="pay_order">Ordered by payments received</string>
+    <string name="pay_tools">For publishers</string>
+    <string name="pay_preview_badge">Preview · not listed</string>
+    <string name="pay_step_line">Add the line</string>
+    <string name="pay_step_sign">Sign</string>
+    <string name="pay_copy">Copy</string>
+    <string name="pay_copied">Copied</string>
+    <string name="pay_line_found">Website line found</string>
+    <string name="pay_checked">Checked: %1$s</string>
+    <string name="pay_check_again">Check again</string>
+    <string name="pay_continue">Continue to step 2</string>
+    <string name="pay_sign_early">You can sign before the line is found; the listing waits for it.</string>
+    <string name="pay_wallet_matches">matches</string>
+    <string name="pay_open_board">Open on the board</string>
+    <string name="pay_show_line">Show the line</string>
+    <string name="watch_label_requests">Requests a day</string>
+    <string name="watch_label_kept">Kept</string>
+    <string name="watch_label_first">First results</string>
+    <string name="watch_label_last">Last read</string>
+    <string name="watch_label_apps">Apps</string>
+    <string name="watch_label_since">Tracking since</string>
+    <plurals name="watch_days_of">
+        <item quantity="one">of %1$d day</item>
+        <item quantity="other">of %1$d days</item>
+    </plurals>
+    <plurals name="watch_count_high">
+        <item quantity="one">%1$d five-star</item>
+        <item quantity="other">%1$d five-star</item>
+    </plurals>
+    <plurals name="watch_count_low">
+        <item quantity="one">%1$d one-star</item>
+        <item quantity="other">%1$d one-star</item>
+    </plurals>
 </resources>

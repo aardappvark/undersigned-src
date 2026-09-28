@@ -76,7 +76,7 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
                          val pkg = (mine.memo as? ReviewMemo.Review)?.packageName ?: vm.packageOf(mine.signature) ?: ""
                          GlassCard(modifier = Modifier.clickable { if (pkg.isNotEmpty()) onOpen(pkg) }) {
                              Text(name(pkg), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                             Text(who(rp.signer) + " · " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
+                             Text(who(rp.signer) + " · " + DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
                              Spacer(Modifier.height(4.dp)); Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textSecondary, fontSize = 13.sp)
                          }
                          Spacer(Modifier.height(8.dp))
@@ -102,7 +102,7 @@ private fun ReviewRow(e: LedgerEntry, app: String, who: String, onClick: () -> U
         Text(app, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
         Row(verticalAlignment = Alignment.CenterVertically) {
             (e.memo as? ReviewMemo.Review)?.let { RatingStars(it.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)) }
-            Text(who + " · " + DateFormat.getDateInstance(DateFormat.SHORT).format(Date(e.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
+            Text(who + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
         }
         when (val m = e.memo) {
             is ReviewMemo.Review -> { Text(m.tags.joinToString(" · ") { tagLabel(it.wire) }, color = RbColors.textSecondary, fontSize = 12.sp); m.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) } }

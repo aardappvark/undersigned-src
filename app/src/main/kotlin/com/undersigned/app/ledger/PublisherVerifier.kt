@@ -51,8 +51,9 @@ object PublisherVerifier {
      * (see Payments.listedTreasuries). A bare address line does NOT count: it says "I publish this", not "publish what I
      * am paid". Cached 24 h like claims, under its own key.
      */
-    suspend fun verifyTreasury(pkg: String, treasury: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
-        UserPreferences.cachedClaim(pkg, "trs:$treasury", TTL)?.let { return@withContext it }
+    suspend fun verifyTreasury(pkg: String, treasury: String, details: StoreDetails?, force: Boolean = false): Boolean = withContext(Dispatchers.IO) {
+        if (!force) UserPreferences.cachedClaim(pkg, "trs:$treasury", TTL)?.let { return@withContext it }
+        if (force) bodies.clear()
         val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, "trs:$treasury", false) }
         val ok = fetch(url)?.let { treasury in com.undersigned.protocol.Payments.listedTreasuries(it) } ?: false
         UserPreferences.cacheClaim(pkg, "trs:$treasury", ok); ok

@@ -319,3 +319,18 @@ class StoreNotesTest {
         assertEquals("the real note", (m["com.a.b" to rid]!!.memo as ReviewMemo.StoreNote).text)
     }
 }
+
+class BurstSparkTest {
+    private val D = ReviewBursts.DAY
+    @Test fun crushCoinReadsAsElevenTimesNotTwentyEight() {
+        // 69 five-star over 17-24 Mar (8 days) against a usual 2.4 per 3 days: 69 / (2.4 * 8 / 3) = 10.8, shown as x11.
+        val b = ReviewBursts.Burst(ReviewBursts.Kind.HIGH, 0L, 7 * D, 69, 75, 2.4, 0)
+        assertEquals(10.78, BurstSpark.multiple(b), 0.01)
+    }
+    @Test fun sparkWindowSitsInsideThirtyDays() {
+        val pts = (0 until 40).map { ReviewBursts.Point(it * D, 5) } + (0 until 10).map { ReviewBursts.Point(35 * D + it, 5) }
+        val b = ReviewBursts.Burst(ReviewBursts.Kind.HIGH, 35 * D, 35 * D + 9, 10, 10, 1.0, 0)
+        val s = BurstSpark.of(pts, b)
+        assertEquals(30, s.counts.size); assertEquals(s.from, s.to); assertEquals(11, s.counts[s.from])
+    }
+}

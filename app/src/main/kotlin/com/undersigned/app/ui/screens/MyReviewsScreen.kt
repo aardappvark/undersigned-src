@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -67,10 +68,19 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
     // The scan runs in the background and says it has finished by notification. Without notification permission (only
     // asked for when alerts are switched on) that notice never came: popcat's scan finished silently (28 Sep 2026).
     val askNotif = androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()) { vm.scanMyStoreReviews() }
+    // Design review 28 Sep 2026 (handoff 2, F8): the first time, explain before Android's prompt; after that go straight on.
+    var rationale by remember { mutableStateOf(false) }
     fun startScan() {
         val need = android.os.Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED
-        if (need) askNotif.launch(android.Manifest.permission.POST_NOTIFICATIONS) else vm.scanMyStoreReviews()
+        when {
+            need && !com.undersigned.app.data.UserPreferences.scanRationaleShown -> rationale = true
+            need -> vm.scanMyStoreReviews()   // asked once already; a "no" in settings is respected, the scan still runs
+            else -> vm.scanMyStoreReviews()
+        }
     }
+    if (rationale) ScanRationaleSheet(
+        onAllow = { rationale = false; com.undersigned.app.data.UserPreferences.scanRationaleShown = true; askNotif.launch(android.Manifest.permission.POST_NOTIFICATIONS) },
+        onSkip = { rationale = false; com.undersigned.app.data.UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() })
     fun date(sec: Long) = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(sec * 1000))
     fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
         val s = sender ?: return
@@ -119,13 +129,13 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
         }
         LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)) {
             items(shown, key = { it.pkg }) { d ->
-                GlassCard(accent = if (d.differs) RbColors.warning else RbColors.glassBorder) {
+                GlassCard(accent = if (d.differs) RbColors.info else RbColors.glassBorder) {
                     Row(Modifier.fillMaxWidth().clickable { onOpen(d.pkg) }, verticalAlignment = Alignment.CenterVertically) {
                         DAppIcon(d.pkg, d.name, icons[d.pkg]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(36.dp))
                         Spacer(Modifier.width(10.dp))
                         Text(d.name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                     }
-                    if (d.differs) Text(stringResource(R.string.my_reviews_differs), color = RbColors.warning, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
+                    if (d.differs) Text(stringResource(R.string.my_reviews_differs), color = RbColors.info, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
 
                     // Ledger side
                     Side(stringResource(R.string.my_reviews_signed))
@@ -165,4 +175,23 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
 @Composable
 private fun Side(label: String) {
     Text(label.uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 10.dp, bottom = 2.dp))
+}
+
+/** "Hear when the scan is done" (design F8): shown once, before Android's notification prompt. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ScanRationaleSheet(onAllow: () -> Unit, onSkip: () -> Unit) {
+    ModalBottomSheet(onDismissRequest = onSkip, containerColor = RbColors.surface) {
+        Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp).padding(bottom = 24.dp)) {
+            Box(Modifier.size(48.dp).clip(androidx.compose.foundation.shape.CircleShape).background(RbColors.purple.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
+                Icon(androidx.compose.material.icons.Icons.Default.Notifications, contentDescription = null, tint = RbColors.purpleLight) }
+            Spacer(Modifier.height(14.dp))
+            Text(stringResource(R.string.scan_notif_title), color = RbColors.textPrimary, fontSize = 20.sp, lineHeight = 26.sp, fontWeight = FontWeight.ExtraBold)
+            Text(stringResource(R.string.scan_notif_body), color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 8.dp))
+            Text(stringResource(R.string.scan_notif_note), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 8.dp))
+            Spacer(Modifier.height(20.dp))
+            PrimaryButton(stringResource(R.string.scan_notif_allow), onClick = onAllow)
+            TextButton(onClick = onSkip, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.scan_notif_skip), color = RbColors.purpleLight) }
+        }
+    }
 }

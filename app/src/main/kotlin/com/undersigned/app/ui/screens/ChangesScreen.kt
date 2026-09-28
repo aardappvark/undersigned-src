@@ -50,7 +50,7 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
                         Spacer(Modifier.width(10.dp))
                         Text(name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
                     }
-                    Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(c.at)), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(c.at)), color = RbColors.textTertiary, fontSize = 11.sp)
                     Spacer(Modifier.height(6.dp))
                     if (c.signerChanged) Text(stringResource(R.string.fact_signer_changed), color = RbColors.negative, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     if (c.versionChanged) Text(stringResource(R.string.change_new_version, c.versionCode), color = RbColors.textSecondary, fontSize = 12.sp)

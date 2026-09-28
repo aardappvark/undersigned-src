@@ -9,6 +9,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -93,38 +97,42 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             )
             val looksCopied = remember(text) { vm.draftLooksCopied(text, pkg) }
             if (looksCopied) { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.compose_similar_warning), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp) }
+            // Design review 28 Sep 2026 (handoff 2, F5–F6): what the phone adds, as one card of switch rows with the value as
+            // a chip, ABOVE the permanence note; permanence in purple with the mark, not amber.
+            Spacer(Modifier.height(14.dp))
+            GlassCard {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Default.PhoneAndroid, contentDescription = null, tint = RbColors.purpleLight, modifier = Modifier.size(16.dp)); Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.use_card_title), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
+                }
+                if (installAge == null) Text(stringResource(R.string.use_not_installed), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 8.dp))
+                else {
+                    val ageDesc = stringResource(R.string.use_add, useLabel(installAge))
+                    ExtraRow(stringResource(R.string.use_row_label), useLabel(installAge), addAge, enabled = stage == null, description = ageDesc) { addAge = it }
+                    if (reinstalls > 0) Text(stringResource(R.string.use_reinstalled, reinstalls), color = RbColors.textTertiary, fontSize = 11.sp)
+                    if (useTime != null) {
+                        val timeDesc = stringResource(R.string.time_add, timeLabel(useTime))
+                        ExtraRow(stringResource(R.string.time_row_label), timeLabel(useTime), addTime, enabled = stage == null, description = timeDesc) { addTime = it }
+                    } else if (!hasUsageAccess) {
+                        HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 6.dp))
+                        Text(stringResource(R.string.time_needs_access), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                        OutlinedButton(onClick = { runCatching { context.startActivity(com.undersigned.app.device.UsageTime.settingsIntent()) } }, modifier = Modifier.padding(top = 6.dp).heightIn(min = 48.dp), shape = RoundedCornerShape(12.dp)) {
+                            Text(stringResource(R.string.time_allow), color = RbColors.purpleLight, fontSize = 13.sp) }
+                    }
+                    Text(stringResource(R.string.use_card_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 6.dp))
+                }
+            }
             if (text.isNotEmpty()) {
                 Spacer(Modifier.height(10.dp))
-                GlassCard(accent = RbColors.warning) {
-                    Text(stringResource(R.string.review_consent_title), color = RbColors.warning, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    Spacer(Modifier.height(6.dp))
-                    Text(stringResource(R.string.review_consent_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
-                    Spacer(Modifier.height(6.dp))
-                    Row(Modifier.fillMaxWidth().clickable(enabled = stage == null) { consent = !consent }, verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = consent, onCheckedChange = { consent = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.warning))
-                        Text(stringResource(R.string.review_consent_check), color = RbColors.textPrimary, fontSize = 12.sp)
+                PermanenceNote(stringResource(R.string.permanent_title), stringResource(R.string.review_consent_body)) {
+                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(enabled = stage == null) { consent = !consent }, verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = consent, onCheckedChange = { consent = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.purple))
+                        Text(stringResource(R.string.review_consent_check), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
                     }
                 }
             }
             Spacer(Modifier.height(14.dp))
             gate?.let { GlassCard { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) }; Spacer(Modifier.height(10.dp)) }
-            if (installAge != null) {
-                Row(Modifier.fillMaxWidth().clickable(enabled = stage == null) { addAge = !addAge }, verticalAlignment = Alignment.CenterVertically) {
-                    Checkbox(checked = addAge, onCheckedChange = { addAge = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.purple))
-                    Text(stringResource(R.string.use_add, useLabel(installAge)), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
-                }
-                Text(stringResource(R.string.use_add_hint) + (if (reinstalls > 0) " " + stringResource(R.string.use_reinstalled, reinstalls) else ""), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(start = 48.dp, bottom = 8.dp))
-                if (useTime != null) {
-                    Row(Modifier.fillMaxWidth().clickable(enabled = stage == null) { addTime = !addTime }, verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = addTime, onCheckedChange = { addTime = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.purple))
-                        Text(stringResource(R.string.time_add, timeLabel(useTime)), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
-                    }
-                    Text(stringResource(R.string.time_add_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(start = 48.dp, bottom = 8.dp))
-                } else if (!hasUsageAccess) {
-                    Text(stringResource(R.string.time_needs_access), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
-                    TextButton(onClick = { runCatching { context.startActivity(com.undersigned.app.device.UsageTime.settingsIntent()) } }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.time_allow), color = RbColors.purpleLight, fontSize = 12.sp) }
-                }
-            } else { Text(stringResource(R.string.use_not_installed), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp); Spacer(Modifier.height(8.dp)) }
             Text(stringResource(R.string.review_fee_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             Spacer(Modifier.height(12.dp))
             PrimaryButton(stage ?: stringResource(R.string.review_submit), enabled = canSubmit, loading = stage != null, onClick = {
@@ -149,5 +157,19 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             }
             Spacer(Modifier.height(32.dp))
         }
+    }
+}
+
+/** One "Your phone adds" row: label, the value as a chip, a switch; the whole ≥ 56 dp row toggles. */
+@Composable
+private fun ExtraRow(label: String, value: String, on: Boolean, enabled: Boolean, description: String, onChange: (Boolean) -> Unit) {
+    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable(enabled = enabled) { onChange(!on) }.semantics(mergeDescendants = true) { contentDescription = description },
+        verticalAlignment = Alignment.CenterVertically) {
+        Text(label, color = RbColors.textPrimary, fontSize = 13.sp, modifier = Modifier.weight(1f, fill = false))
+        Spacer(Modifier.width(8.dp))
+        Box(Modifier.clip(RoundedCornerShape(50)).background(RbColors.surfaceVariant).padding(horizontal = 10.dp, vertical = 4.dp)) {
+            Text(value, color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false) }
+        Spacer(Modifier.weight(1f))
+        Switch(checked = on, onCheckedChange = onChange, enabled = enabled)
     }
 }

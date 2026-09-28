@@ -612,4 +612,66 @@
     <string name="pay_bad_input">Prüfen Sie den Paketnamen und den Code (ein Memo-Code aus 2–31 Buchstaben, Ziffern, - oder _, oder eine Referenzkonto-Adresse).</string>
     <string name="pay_open">Zahlungsübersicht</string>
     <string name="pay_waiting_list">Von der Treasury gelistet, von der Website noch nicht bestätigt: %1$d</string>
+
+    <!-- 28 Sep 2026 design review (handoff 2) -->
+    <string name="burst_kind_high">Fünf-Sterne-Bewertungen</string>
+    <string name="burst_kind_low">Ein-Stern-Bewertungen</string>
+    <string name="burst_kind_high_ratings">Fünf-Sterne-Wertungen</string>
+    <string name="burst_kind_low_ratings">Ein-Stern-Wertungen</string>
+    <string name="burst_times">×%1$s des üblichen Tempos</string>
+    <string name="burst_pace">Übliches Tempo: etwa %1$s pro 3 Tage</string>
+    <string name="store_reply_source">aus dem dApp Store</string>
+    <string name="note_signed_label">ON-CHAIN SIGNIERT</string>
+    <string name="permanent_title">Dauerhaft</string>
+    <string name="use_card_title">Ihr Telefon ergänzt</string>
+    <string name="use_row_label">Zeit auf diesem Telefon</string>
+    <string name="time_row_label">Ihre Nutzungszeit</string>
+    <string name="use_card_hint">Bericht Ihres Telefons, gerundet – kein Beweis. Was eingeschaltet ist, wird dauerhaft mit der Bewertung gespeichert.</string>
+    <string name="scan_notif_title">Benachrichtigung, wenn der Scan fertig ist</string>
+    <string name="scan_notif_body">Der Scan läuft im Hintergrund (etwa 6 Min.). Erlauben Sie Benachrichtigungen, um zu erfahren, wann er fertig ist.</string>
+    <string name="scan_notif_note">Ohne sie läuft er trotzdem; die Ergebnisse erscheinen hier, wenn Sie zurückkommen.</string>
+    <string name="scan_notif_allow">Benachrichtigungen erlauben</string>
+    <string name="scan_notif_skip">Ohne Benachrichtigungen scannen</string>
+    <string name="pay_label_payments">Zahlungen</string>
+    <string name="pay_label_payers">Zahlende</string>
+    <string name="pay_label_attested">Mit attestiertem Gerät</string>
+    <string name="pay_label_attested_short">Attestiert</string>
+    <string name="pay_label_sol">SOL</string>
+    <string name="pay_label_skr">SKR</string>
+    <string name="pay_label_usdc">USDC</string>
+    <string name="pay_label_first">Erste</string>
+    <string name="pay_label_latest">Neueste</string>
+    <string name="pay_order">Sortiert nach erhaltenen Zahlungen</string>
+    <string name="pay_tools">Für Herausgeber</string>
+    <string name="pay_preview_badge">Vorschau · nicht gelistet</string>
+    <string name="pay_step_line">Zeile hinzufügen</string>
+    <string name="pay_step_sign">Signieren</string>
+    <string name="pay_copy">Kopieren</string>
+    <string name="pay_copied">Kopiert</string>
+    <string name="pay_line_found">Zeile auf der Website gefunden</string>
+    <string name="pay_checked">Geprüft: %1$s</string>
+    <string name="pay_check_again">Erneut prüfen</string>
+    <string name="pay_continue">Weiter zu Schritt 2</string>
+    <string name="pay_sign_early">Sie können signieren, bevor die Zeile gefunden ist; die Listung wartet darauf.</string>
+    <string name="pay_wallet_matches">stimmt überein</string>
+    <string name="pay_open_board">Auf der Übersicht öffnen</string>
+    <string name="pay_show_line">Zeile anzeigen</string>
+    <string name="watch_label_requests">Anfragen pro Tag</string>
+    <string name="watch_label_kept">Aufbewahrt</string>
+    <string name="watch_label_first">Erste Ergebnisse</string>
+    <string name="watch_label_last">Zuletzt gelesen</string>
+    <string name="watch_label_apps">Apps</string>
+    <string name="watch_label_since">Verfolgt seit</string>
+    <plurals name="watch_days_of">
+        <item quantity="one">von %1$d Tag</item>
+        <item quantity="other">von %1$d Tagen</item>
+    </plurals>
+    <plurals name="watch_count_high">
+        <item quantity="one">%1$d Fünf-Sterne</item>
+        <item quantity="other">%1$d Fünf-Sterne</item>
+    </plurals>
+    <plurals name="watch_count_low">
+        <item quantity="one">%1$d Ein-Stern</item>
+        <item quantity="other">%1$d Ein-Stern</item>
+    </plurals>
 </resources>
