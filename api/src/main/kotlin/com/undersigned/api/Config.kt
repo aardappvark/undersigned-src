@@ -77,10 +77,6 @@ object Config {
     /** http://localhost webhooks: only on a private loopback server, for testing. */
     val HOOK_LOCAL_OK: Boolean get() = !PUBLIC && (HOST == "127.0.0.1" || HOST == "localhost")
 
-    // ---- Smallest amounts that count as "paid": dust cannot buy a "Paid for this app" pill or a payer ------------------
-    const val MIN_PAYER_LAMPORTS = 1_000_000L      // 0.001 SOL
-    const val MIN_PAYER_SKR_RAW = 1_000_000L       // 1 SKR
-    const val MIN_PAYER_USDC_RAW = 100_000L        // 0.10 USDC
     /** Bounded reads of other people's bytes. */
     const val MAX_PROOF_BYTES = 64 * 1024
     const val MAX_MANIFEST_BYTES = 8 * 1024 * 1024

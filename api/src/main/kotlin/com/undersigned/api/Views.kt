@@ -47,7 +47,7 @@ class Boards(private val indexer: Indexer, private val board: Board, private val
             val usd = priced.mapNotNull { it.second }.let { l -> if (l.isEmpty() && real.isNotEmpty()) null else l.sum() }
             val fmt = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM").withZone(java.time.ZoneOffset.UTC)
             val months = real.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.time)) }.mapValues { (_, l) -> l.sumOf { prices.usdWhenPaid(it, h) ?: 0.0 } }
-            // A payer is someone who paid a real amount (Config.MIN_PAYER_*); the tally still counts every unit.
+            // A payer is someone who paid a real amount (protocol Payments.meaningful); the tally still counts every unit.
             BoardRow(c, name, true, tally, usd, read.complete, months, real.filter { Prices.meaningful(it) }.map { it.payer }.toSet(), priced.count { it.second == null })
         }.sortedByDescending { it.usdWhenPaid ?: -1.0 }
     }
@@ -340,7 +340,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val t = r.tally
         val o = JSONObject().put("package", r.claim.packageName).put("name", r.name).put("treasury", r.claim.treasury).put("code", r.claim.code).put("by_reference", r.claim.byReference)
             .put("usd_when_paid", r.usdWhenPaid?.let(::r2) ?: JSONObject.NULL).put("unpriced_payments", r.unpriced).put("complete", r.complete)
-        if (t != null) o.put("payments", t.payments).put("payers", r.payers.size).put("attested_payers", r.payers.count { indexer.state.factsOf(it).hasGenesisToken }).put("payers_counting_every_unit", t.payers).put("lamports", t.lamports)
+        if (t != null) o.put("payments", t.payments).put("payers", t.payers).put("attested_payers", t.attestedPayers).put("lamports", t.lamports)
             .put("skr_raw", t.tokens[Config.SKR_MINT] ?: 0L).put("usdc_raw", t.tokens[Config.USDC_MINT] ?: 0L).put("first", t.first ?: JSONObject.NULL).put("last", t.last ?: JSONObject.NULL)
             .put("own_wallet_payments_excluded", t.ownPayments)
         if (months && t != null) o.put("months", JSONArray(t.months.map { m -> JSONObject().put("month", m.key).put("payments", m.payments).put("lamports", m.lamports)

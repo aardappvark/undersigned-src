@@ -80,6 +80,20 @@ class ProtocolTest {
         assertTrue(Reputation.hiddenByConsensus(entries.take(2), facts = facts).isEmpty())
     }
 
+    @Test fun `responsiveness counts reviewers, not records`() {
+        val r1 = "1" + "A".repeat(86); val r2 = "3" + "A".repeat(86); val p = "2" + "A".repeat(86); val own = "4" + "A".repeat(86)
+        val entries = listOf(
+            LedgerEntry(r1, "u", 0, ReviewMemo.Review("com.x", 3, listOf(ReviewMemo.Tag.SLOW), 1, null)),
+            LedgerEntry(r2, "u", 100 * 3600, ReviewMemo.Review("com.x", 4, listOf(ReviewMemo.Tag.FAST), 2, null)),   // the same reviewer edits
+            LedgerEntry(own, "pub", 50, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS), 2, null)),         // the publisher's own review
+        )
+        val none = Reputation.responsiveness(entries, "com.x", setOf("pub"))
+        assertEquals(0, none.answered); assertEquals(1, none.total)                 // was "0 of 2" (and 3 with the publisher's own)
+        // A reply to the earlier review still answers that reviewer; the gap runs from the review that was answered.
+        val answered = Reputation.responsiveness(entries + LedgerEntry(p, "pub", 5 * 3600, ReviewMemo.Reply(r1, "on it")), "com.x", setOf("pub"))
+        assertEquals(1, answered.answered); assertEquals(1, answered.total); assertEquals(5.0, answered.medianHours!!, 1e-9)
+    }
+
     @Test fun `publisher responsiveness buckets by median hours`() {
         val r = "1" + "A".repeat(86); val p = "2" + "A".repeat(86)
         val entries = listOf(

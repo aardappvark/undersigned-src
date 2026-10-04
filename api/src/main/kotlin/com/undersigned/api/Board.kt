@@ -109,8 +109,8 @@ class Prices(private val db: Db) {
 
     companion object {
         const val SOL = "So11111111111111111111111111111111111111112"
-        /** A payment large enough to make its payer a payer (Config.MIN_PAYER_*): totals count every unit, pills and payer counts do not. */
-        fun meaningful(p: Payments.Payment): Boolean = p.lamports >= Config.MIN_PAYER_LAMPORTS || (p.tokens[Config.SKR_MINT] ?: 0L) >= Config.MIN_PAYER_SKR_RAW || (p.tokens[Config.USDC_MINT] ?: 0L) >= Config.MIN_PAYER_USDC_RAW
+        /** A payment large enough to make its payer a payer (protocol Payments.MIN_PAYER_*): totals count every unit, pills and payer counts do not. */
+        fun meaningful(p: Payments.Payment): Boolean = Payments.meaningful(p)   // the shared rule: phone and API agree
     }
 
     fun usdWhenPaid(p: Payments.Payment, h: Map<String, Map<String, Double>>): Double? {

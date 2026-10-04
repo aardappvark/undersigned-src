@@ -185,13 +185,18 @@ object Reputation {
     /** Publisher responsiveness per package, given the wallets whose claims verified for it. */
     fun responsiveness(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Set<String>): Responsiveness {
         val revoked = Ranking.revoked(entries)
-        val reviews = entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName == packageName }
+        // One thread per reviewer: a reviewer who edits their review (signs a newer one) is still one person waiting for
+        // one answer, and the publisher's own reviews are nothing to answer. Counting every record read "0 of 2" for a
+        // single reviewer who had edited once (seen on mainnet, 28 Sep 2026).
+        val threads = entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName == packageName && it.signer !in verifiedPublishers }
+            .groupBy { it.signer }
         val replies = entries.filter { it.memo is ReviewMemo.Reply && it.signer in verifiedPublishers }
-        val delays = reviews.mapNotNull { r ->
-            replies.filter { (it.memo as ReviewMemo.Reply).reviewSignature == r.signature && it.blockTime >= r.blockTime }.minOfOrNull { it.blockTime }?.let { (it - r.blockTime) / 3600.0 }
+        // Answered when the publisher replied to any of that reviewer's live reviews of this app; the gap runs from the review answered.
+        val delays = threads.values.mapNotNull { mine ->
+            mine.mapNotNull { r -> replies.filter { (it.memo as ReviewMemo.Reply).reviewSignature == r.signature && it.blockTime >= r.blockTime }.minOfOrNull { it.blockTime }?.let { (it - r.blockTime) / 3600.0 } }.minOrNull()
         }.sorted()
         val median = if (delays.isEmpty()) null else if (delays.size % 2 == 1) delays[delays.size / 2] else (delays[delays.size / 2 - 1] + delays[delays.size / 2]) / 2
-        return Responsiveness(packageName, delays.size, reviews.size, median)
+        return Responsiveness(packageName, delays.size, threads.size, median)
     }
 
     /** Live counted reviews of one app grouped by the version they were written against, newest version first. */

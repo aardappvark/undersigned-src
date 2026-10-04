@@ -515,7 +515,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             else t.months.associate { it.key to (com.undersigned.app.ledger.Prices.usd(it.lamports, it.tokens, q) ?: 0.0) }
         val today = { p: com.undersigned.protocol.Payments.Payment -> com.undersigned.app.ledger.Prices.usd(p.lamports, p.tokens, q) ?: 0.0 }
         // An unconfirmed listing is read too, for the leaderboard's "not yet confirmed" box, but it is never ranked or badged.
-        return BoardRow(claim, name, confirmed, t, usd, read.complete, if (confirmed) counted.map { it.payer }.toSet() else emptySet(), whenPaid, months,
+        // The pill needs a real amount, by the same shared rule the tally's payer count uses (Payments.meaningful).
+        return BoardRow(claim, name, confirmed, t, usd, read.complete, if (confirmed) counted.filter { com.undersigned.protocol.Payments.meaningful(it) }.map { it.payer }.toSet() else emptySet(), whenPaid, months,
             paid.map { (p, u) -> p to (u ?: today(p)) })
     }
 

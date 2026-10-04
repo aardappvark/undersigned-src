@@ -66,6 +66,17 @@ object Payments {
     }
 
     /** Totals, distinct payers, and payers holding an attested-device credential, by calendar month (UTC). The treasury paying itself never counts. */
+    /**
+     * The smallest single payment that makes its payer a payer: 0.001 SOL, 1 SKR (or 1 whole 6-decimal token), 0.10 USDC.
+     * Totals count every unit paid; the payer COUNT and the "Paid for this app" pill do not, or one micro-unit of USDC with
+     * the right memo would buy both (found in review, 29 Sep 2026). One rule for the phone and the API.
+     */
+    const val MIN_PAYER_LAMPORTS = 1_000_000L
+    const val MIN_PAYER_TOKEN_RAW = 1_000_000L
+    const val MIN_PAYER_USDC_RAW = 100_000L
+    const val USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    fun meaningful(p: Payment): Boolean = p.lamports >= MIN_PAYER_LAMPORTS || p.tokens.any { (mint, raw) -> raw >= (if (mint == USDC_MINT) MIN_PAYER_USDC_RAW else MIN_PAYER_TOKEN_RAW) }
+
     fun tally(payments: List<Payment>, treasury: String, own: Set<String> = emptySet(), attested: (String) -> Boolean): Tally {
         val paid = payments.filter { it.payer != treasury && (it.lamports > 0 || it.tokens.values.any { v -> v > 0 }) }.distinctBy { it.signature }
         val real = paid.filter { it.payer !in own }
@@ -73,7 +84,7 @@ object Payments {
         fun sumTokens(l: List<Payment>) = l.flatMap { it.tokens.entries }.groupBy({ it.key }, { it.value }).mapValues { it.value.sum() }.filterValues { it > 0 }
         val months = real.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.time)) }.toSortedMap()
             .map { (k, l) -> Month(k, l.size, l.sumOf { it.lamports }, sumTokens(l)) }
-        val payers = real.map { it.payer }.toSet()
+        val payers = real.filter(::meaningful).map { it.payer }.toSet()   // see [meaningful]
         return Tally(real.size, payers.size, payers.count(attested), real.sumOf { it.lamports }, sumTokens(real), months, real.minOfOrNull { it.time }, real.maxOfOrNull { it.time }, paid.size - real.size)
     }
 }

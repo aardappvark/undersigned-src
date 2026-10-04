@@ -170,6 +170,18 @@ class PaymentsTest {
         assertTrue(Payments.listedTreasuries("$treasury\n").isEmpty())
     }
 
+    @Test fun dustBuysNeitherAPayerNorAPill() {
+        val dust = Payments.Payment(sig('a'), "PayerA11111111111111111111111111111111111111", 10, 0, mapOf(Payments.USDC_MINT to 1L))
+        val real = Payments.Payment(sig('b'), "PayerB11111111111111111111111111111111111111", 20, 0, mapOf(Payments.USDC_MINT to 100_000L))
+        val lam = Payments.Payment(sig('c'), "PayerC11111111111111111111111111111111111111", 30, 999_999, emptyMap())
+        assertFalse(Payments.meaningful(dust)); assertTrue(Payments.meaningful(real)); assertFalse(Payments.meaningful(lam))
+        assertTrue(Payments.meaningful(lam.copy(lamports = 1_000_000)))
+        val t = Payments.tally(listOf(dust, real, lam), treasury) { true }
+        assertEquals(3, t.payments)                    // every unit still counts in the totals
+        assertEquals(1, t.payers); assertEquals(1, t.attestedPayers)
+        assertEquals(999_999L, t.lamports)
+    }
+
     @Test fun listingCountsOnlyOncePaid() {
         val unpaid = LedgerEntry(sig('a'), treasury, 10, ReviewMemo.Treasury("com.a.b", "UNS"))
         val paidRec = LedgerEntry(sig('b') + ":1", treasury, 20, ReviewMemo.Treasury("com.a.b", "UNS"))
