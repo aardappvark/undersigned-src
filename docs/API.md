@@ -73,10 +73,22 @@ caller's own device is available (install age and usage time exist only as what 
 | **Review from a browser**: the server builds the unsigned carrier transaction (same bytes as the app; store's current version recorded), the reader's own wallet signs through the Wallet Standard (extensions, in-wallet browsers, the Seeker's wallet via Mobile Wallet Adapter in Chrome). Terms and a second consent before text; sanctions screen as in the app | `/review`, `POST /v1/tx/review` | F |
 | **`.skr` names** for reviewers and wallets (the app's lookup and its three gates; cached a week, refusals never cached) | inside reviews and `/v1/wallets/{address}` | F |
 | **Publisher proof from the store's own build**: for each claimed app the server downloads the build the store serves, reads `undersigned.publisher` from its manifest and the signing certificate from its v2/v3 signature block; a claim is proven when the build names the wallet and its certificate is the one the store lists | `proof: "store_build"` in `/v1/apps/{pkg}` | F |
-| **Webhooks** for pass holders: review, reply, store_note, burst, version, certificate on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks (http://localhost is allowed only on a private loopback server); delivered by a worker from an outbox, three tries; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
+| **Webhooks** for pass holders: review, reply, store_note, flag, claim, burst, version, certificate on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks (http://localhost is allowed only on a private loopback server); delivered by a worker from an outbox, three tries; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
 | **Checkout without message signing**: a secret whose commitment rides in the payment memo (`UNS:<hash>`); whoever holds the secret redeems | `POST /v1/checkout`, then `POST /v1/keys {signature, secret}` | F |
 
-Still later: x402 pay-per-call, Solana Pay *transaction requests* for reviews (needs a public https host), localised pages.
+Added 5 Oct 2026:
+| What | Where | Tier |
+|---|---|---|
+| **Helpful votes, replies and flags from the web** (server builds, wallet signs) | `/act?kind=up|reply|flag&target=<record id>`, `POST /v1/tx/record` | F |
+| **QR for a phone wallet** (Solana Pay transaction request; shown on https hosts only) | `GET/POST /v1/pay/review` | F |
+| **For publishers**: the two proofs explained, and a checker of what the server reads for a package | `/publishers?package=` | F |
+| **Atom feed** of an app's counted reviews; sitemap; robots; link previews; the Undersigned icon | `/app/{pkg}/feed.xml`, `/sitemap.xml`, `/robots.txt`, `/icon.svg` | F |
+| **Labels in the reader's language** (tags, install age, usage time, flag reasons) from the app's 27 translations; `?lang=` or Accept-Language | all pages | F |
+| **The operator's hide list**: this site stops serving a record's text and says so; the record stays | `api hide|unhide|hidden`, `/report` | — |
+| **Uncounted reviews folded** on pages; counted ones lead | `/app/{pkg}` | F |
+| **Webhook events** `flag`, `claim`; **key recovery** (the same proof returns the same key) | `/v1/hooks`, `/v1/keys` | P |
+
+Still later: x402 pay-per-call, fully translated pages (only the shared vocabulary is localised today).
 
 ## 2. Gating with SOL/SKR
 

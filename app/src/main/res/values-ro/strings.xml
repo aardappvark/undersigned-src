@@ -202,7 +202,7 @@
     <string name="standing_stake">SKR stake-uit citit din blockchain: %1$s (pondere %2$s×)</string>
     <string name="standing_note">Ponderile sunt citite din blockchain. Undersigned nu-ți cere niciodată să faci stake, să cumperi sau să deții ceva.</string>
     <string name="settings_ledger">Registru</string>
-    <string name="settings_ledger_body">Adresa registrului %1$s. Fiecare recenzie poate fi găsită de oricine prin această adresă. Undersigned nu rulează niciun server.</string>
+    <string name="settings_ledger_body">Adresa registrului %1$s. Fiecare recenzie poate fi găsită de oricine prin această adresă. Această aplicație le citește direct din blockchain, nu de pe un server al nostru.</string>
     <string name="settings_refresh_ledger">Recitește registrul</string>
     <string name="settings_hidden">Recenzii ascunse</string>
     <plurals name="settings_hidden_body">

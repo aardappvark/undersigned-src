@@ -202,7 +202,7 @@
     <string name="standing_stake">chain पर पढ़ा गया staked SKR: %1$s (भार %2$s×)</string>
     <string name="standing_note">भार chain से पढ़े जाते हैं। Undersigned कभी भी आपसे stake करने, खरीदने या कुछ भी रखने के लिए नहीं कहता।</string>
     <string name="settings_ledger">लेजर</string>
-    <string name="settings_ledger_body">रजिस्ट्री पता %1$s। हर समीक्षा इस पते के माध्यम से किसी के भी द्वारा खोजी जा सकती है। Undersigned कोई सर्वर नहीं चलाता।</string>
+    <string name="settings_ledger_body">रजिस्ट्री पता %1$s। हर समीक्षा इस पते के माध्यम से किसी के भी द्वारा खोजी जा सकती है। यह ऐप इसे सीधे chain से पढ़ता है, हमारे किसी सर्वर से नहीं।</string>
     <string name="settings_refresh_ledger">Ledger फिर से पढ़ें</string>
     <string name="settings_hidden">छिपी हुई समीक्षाएं</string>
     <plurals name="settings_hidden_body">

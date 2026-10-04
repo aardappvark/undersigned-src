@@ -198,7 +198,7 @@
     <string name="standing_stake">链上读取的已质押 SKR:%1$s(权重 %2$s×)</string>
     <string name="standing_note">权重信息读取自链上。Undersigned 绝不会要求您质押、购买或持有任何东西。</string>
     <string name="settings_ledger">账本</string>
-    <string name="settings_ledger_body">注册表地址 %1$s。任何人都可以通过此地址查找到每一条评价。Undersigned 不运行任何服务器。</string>
+    <string name="settings_ledger_body">注册表地址 %1$s。任何人都可以通过此地址查找到每一条评价。本应用直接从链上读取这些内容，而不是从我们的服务器读取。</string>
     <string name="settings_refresh_ledger">重新读取账本</string>
     <string name="settings_hidden">已隐藏的评价</string>
     <plurals name="settings_hidden_body">

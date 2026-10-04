@@ -197,7 +197,7 @@
     <string name="standing_stake">Zastakovaný SKR přečtený z blockchainu: %1$s (váha %2$s×)</string>
     <string name="standing_note">Váhy se čtou z blockchainu. Undersigned vás nikdy nežádá, abyste cokoli stakovali, kupovali nebo drželi.</string>
     <string name="settings_ledger">Evidence</string>
-    <string name="settings_ledger_body">Adresa registru %1$s. Každou recenzi může kdokoli najít prostřednictvím této adresy. Undersigned neprovozuje žádný server.</string>
+    <string name="settings_ledger_body">Adresa registru %1$s. Každou recenzi může kdokoli najít prostřednictvím této adresy. Tato aplikace to čte přímo z blockchainu, ne z našeho serveru.</string>
     <string name="settings_refresh_ledger">Znovu načíst evidenci</string>
     <string name="settings_hidden">Skryté recenze</string>
     <plurals name="settings_hidden_body">

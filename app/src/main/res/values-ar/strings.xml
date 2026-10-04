@@ -210,7 +210,7 @@
     <string name="standing_stake">حصة SKR المرهونة المقروءة على السلسلة: %1$s (الوزن %2$s×)</string>
     <string name="standing_note">تُقرأ الأوزان من السلسلة. لا يطلب منك Undersigned أبدًا رهن أو شراء أو امتلاك أي شيء.</string>
     <string name="settings_ledger">السجل</string>
-    <string name="settings_ledger_body">عنوان السجل %1$s. يمكن لأي شخص اكتشاف كل مراجعة من خلال هذا العنوان. Undersigned لا يشغّل أي خادم.</string>
+    <string name="settings_ledger_body">عنوان السجل %1$s. يمكن لأي شخص اكتشاف كل مراجعة من خلال هذا العنوان. يقرأ هذا التطبيق السجل مباشرةً من السلسلة، وليس من خادم تابع لنا.</string>
     <string name="settings_refresh_ledger">إعادة قراءة السجل</string>
     <string name="settings_hidden">المراجعات المخفية</string>
     <plurals name="settings_hidden_body">

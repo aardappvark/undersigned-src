@@ -198,7 +198,7 @@
     <string name="standing_stake">SKR đã stake đọc được trên chuỗi: %1$s (trọng số %2$s×)</string>
     <string name="standing_note">Trọng số được đọc từ chuỗi. Undersigned không bao giờ yêu cầu bạn stake, mua hay giữ bất cứ thứ gì.</string>
     <string name="settings_ledger">Sổ cái</string>
-    <string name="settings_ledger_body">Địa chỉ đăng ký %1$s. Mọi đánh giá đều có thể được tìm thấy bởi bất kỳ ai thông qua địa chỉ này. Undersigned không chạy máy chủ nào.</string>
+    <string name="settings_ledger_body">Địa chỉ đăng ký %1$s. Mọi đánh giá đều có thể được tìm thấy bởi bất kỳ ai thông qua địa chỉ này. Ứng dụng này đọc trực tiếp từ chuỗi, không phải từ máy chủ của chúng tôi.</string>
     <string name="settings_refresh_ledger">Đọc lại sổ cái</string>
     <string name="settings_hidden">Đánh giá đã ẩn</string>
     <plurals name="settings_hidden_body">

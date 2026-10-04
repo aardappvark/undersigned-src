@@ -63,8 +63,8 @@ export function registerApiTools(server, env = process.env) {
       key = j.key;
       return text({ ...j, saved_for_this_session: true });
     });
-  server.tool("api_hook_create", "PASS. Create a webhook for alerts on watched apps: review, reply, store_note, burst, version, certificate. Returns a secret once; each POST carries X-Undersigned-Signature: sha256=HMAC(secret, body).",
-    { url: z.string(), packages: z.array(z.string()).min(1).max(50), events: z.array(z.enum(["review", "reply", "store_note", "burst", "version", "certificate"])).optional() },
+  server.tool("api_hook_create", "PASS. Create a webhook for alerts on watched apps: review, reply, store_note, flag, claim, burst, version, certificate. Returns a secret once; each POST carries X-Undersigned-Signature: sha256=HMAC(secret, body).",
+    { url: z.string(), packages: z.array(z.string()).min(1).max(50), events: z.array(z.enum(["review", "reply", "store_note", "flag", "claim", "burst", "version", "certificate"])).optional() },
     async (a) => call("/v1/hooks", { method: "POST", body: a }));
   server.tool("api_hooks", "PASS. This pass's webhooks.", {}, async () => call("/v1/hooks"));
   server.tool("api_hook_delete", "PASS. Delete a webhook by id.", { id: z.string() }, async ({ id }) => call(`/v1/hooks/${encodeURIComponent(id)}`, { method: "DELETE" }));

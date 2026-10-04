@@ -202,7 +202,7 @@
     <string name="standing_stake">چین پر پڑھا گیا اسٹیک شدہ SKR: %1$s (وزن %2$s×)</string>
     <string name="standing_note">وزن چین سے پڑھے جاتے ہیں۔ Undersigned کبھی آپ سے اسٹیک کرنے، خریدنے یا کچھ رکھنے کے لیے نہیں کہتا۔</string>
     <string name="settings_ledger">لیجر</string>
-    <string name="settings_ledger_body">رجسٹری پتہ %1$s۔ ہر جائزہ اس پتے کے ذریعے کسی کے بھی ذریعے قابلِ دریافت ہے۔ Undersigned کوئی سرور نہیں چلاتا۔</string>
+    <string name="settings_ledger_body">رجسٹری پتہ %1$s۔ ہر جائزہ اس پتے کے ذریعے کسی کے بھی ذریعے قابلِ دریافت ہے۔ یہ ایپ اسے براہِ راست چین سے پڑھتی ہے، ہمارے کسی سرور سے نہیں۔</string>
     <string name="settings_refresh_ledger">لیجر دوبارہ پڑھیں</string>
     <string name="settings_hidden">چھپائے گئے جائزے</string>
     <plurals name="settings_hidden_body">

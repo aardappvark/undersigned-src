@@ -199,7 +199,7 @@
     <string name="standing_stake">Zincirde okunan stake edilmiş SKR: %1$s (ağırlık %2$s×)</string>
     <string name="standing_note">Ağırlıklar zincirden okunur. Undersigned sizden hiçbir zaman stake etmenizi, satın almanızı veya bir şeye sahip olmanızı istemez.</string>
     <string name="settings_ledger">Defter</string>
-    <string name="settings_ledger_body">Kayıt adresi %1$s. Her inceleme bu adres üzerinden herkes tarafından bulunabilir. Undersigned hiçbir sunucu çalıştırmaz.</string>
+    <string name="settings_ledger_body">Kayıt adresi %1$s. Her inceleme bu adres üzerinden herkes tarafından bulunabilir. Bu uygulama bunu doğrudan zincirden okur, bize ait bir sunucudan değil.</string>
     <string name="settings_refresh_ledger">Defteri yeniden oku</string>
     <string name="settings_hidden">Gizlenen incelemeler</string>
     <plurals name="settings_hidden_body">

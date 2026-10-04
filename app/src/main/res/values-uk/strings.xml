@@ -205,7 +205,7 @@
     <string name="standing_stake">Застейканий SKR, зчитаний у блокчейні: %1$s (вага %2$s×)</string>
     <string name="standing_note">Ваги зчитуються з блокчейну. Undersigned ніколи не просить вас стейкати, купувати чи володіти чимось.</string>
     <string name="settings_ledger">Реєстр</string>
-    <string name="settings_ledger_body">Адреса реєстру %1$s. Кожен відгук можна знайти через цю адресу. Undersigned не використовує жодного сервера.</string>
+    <string name="settings_ledger_body">Адреса реєстру %1$s. Кожен відгук можна знайти через цю адресу. Цей додаток зчитує їх безпосередньо з блокчейну, а не з нашого сервера.</string>
     <string name="settings_refresh_ledger">Перечитати реєстр</string>
     <string name="settings_hidden">Приховані відгуки</string>
     <plurals name="settings_hidden_body">

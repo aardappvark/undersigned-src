@@ -301,7 +301,7 @@
     <string name="standing_stake">Staked SKR read on-chain: %1$s (weight %2$s×)</string>
     <string name="standing_note">Weights are read from the chain. Nothing you can buy changes them, Pro included.</string>
     <string name="settings_ledger">Ledger</string>
-    <string name="settings_ledger_body">Registry address %1$s. Every review is discoverable by anyone through this address. Undersigned runs no server.</string>
+    <string name="settings_ledger_body">Registry address %1$s. Every review is discoverable by anyone through this address. This app reads it straight from the chain, not from a server of ours.</string>
     <string name="settings_refresh_ledger">Re-read the ledger</string>
     <string name="settings_hidden">Hidden reviews</string>
     <plurals name="settings_hidden_body">

@@ -201,7 +201,7 @@
     <string name="standing_stake">SKR em stake lido na cadeia: %1$s (peso %2$s×)</string>
     <string name="standing_note">Os pesos são lidos da cadeia. O Undersigned nunca pede para você fazer stake, comprar ou possuir nada.</string>
     <string name="settings_ledger">Registro</string>
-    <string name="settings_ledger_body">Endereço do registro %1$s. Toda avaliação pode ser encontrada por qualquer pessoa por meio deste endereço. O Undersigned não roda nenhum servidor.</string>
+    <string name="settings_ledger_body">Endereço do registro %1$s. Toda avaliação pode ser encontrada por qualquer pessoa por meio deste endereço. Este app lê isso diretamente da cadeia, e não de um servidor nosso.</string>
     <string name="settings_refresh_ledger">Reler o registro</string>
     <string name="settings_hidden">Avaliações ocultas</string>
     <plurals name="settings_hidden_body">

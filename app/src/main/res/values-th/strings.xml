@@ -182,7 +182,7 @@
     <string name="standing_stake">SKR ที่สเตกไว้ อ่านจากเชน: %1$s (น้ำหนัก %2$s เท่า)</string>
     <string name="standing_note">น้ำหนักถูกอ่านจากเชน Undersigned ไม่เคยขอให้คุณสเตก ซื้อ หรือถือครองสิ่งใด</string>
     <string name="settings_ledger">บัญชีบันทึก</string>
-    <string name="settings_ledger_body">ที่อยู่รีจิสทรี %1$s ทุกรีวิวสามารถค้นพบได้โดยใครก็ตามผ่านที่อยู่นี้ Undersigned ไม่ได้ใช้งานเซิร์ฟเวอร์ใด ๆ</string>
+    <string name="settings_ledger_body">ที่อยู่รีจิสทรี %1$s ทุกรีวิวสามารถค้นพบได้โดยใครก็ตามผ่านที่อยู่นี้ แอปนี้อ่านข้อมูลนี้ตรงจากเชน ไม่ใช่จากเซิร์ฟเวอร์ของเรา</string>
     <string name="settings_refresh_ledger">อ่านบัญชีบันทึกใหม่</string>
     <string name="settings_hidden">รีวิวที่ซ่อนไว้</string>
     <plurals name="settings_hidden_body">

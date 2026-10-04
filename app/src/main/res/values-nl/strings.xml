@@ -191,7 +191,7 @@
     <string name="standing_stake">Gestakete SKR gelezen on-chain: %1$s (gewicht %2$s×)</string>
     <string name="standing_note">Gewichten worden van de chain gelezen. Undersigned vraagt u nooit iets te staken, kopen of aan te houden.</string>
     <string name="settings_ledger">Grootboek</string>
-    <string name="settings_ledger_body">Registeradres %1$s. Elke recensie is voor iedereen vindbaar via dit adres. Undersigned draait geen server.</string>
+    <string name="settings_ledger_body">Registeradres %1$s. Elke recensie is voor iedereen vindbaar via dit adres. Deze app leest ze rechtstreeks van de chain, niet van een server van ons.</string>
     <string name="settings_refresh_ledger">Grootboek opnieuw lezen</string>
     <string name="settings_hidden">Verborgen recensies</string>
     <plurals name="settings_hidden_body">

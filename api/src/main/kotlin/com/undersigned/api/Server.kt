@@ -255,6 +255,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     // ---- JDK server glue ------------------------------------------------------------------------------------------
 
+    /** Drops rate-limit windows that have passed (caller addresses are held in memory only, for at most a day). */
+    fun sweepLimiter() = limiter.sweep()
+
     companion object {
         /**
          * The client address. Behind a trusted proxy it is the LAST hop of X-Forwarded-For — the one the proxy itself
@@ -328,6 +331,7 @@ fun main(args: Array<String>) {
         indexer.start()
         Thread({ while (true) { Thread.sleep(60_000); runCatching { boards.refresh(indexer.state) }.onFailure { log("boards: ${it.message?.take(80)}") }; Thread.sleep(14 * 60_000L) } }, "boards").apply { isDaemon = true }.start()
     }
+    Thread({ while (true) { Thread.sleep(10 * 60_000L); runCatching { api.sweepLimiter() } } }, "limiter").apply { isDaemon = true }.start()
     api.serve(Config.PORT)
     log("Undersigned API on ${Config.HOST}:${Config.PORT} (db ${Config.DB_PATH}, indexing ${Config.INDEX}, public ${Config.PUBLIC}${if (Config.testPrices) ", TEST PRICES" else ""})")
 }

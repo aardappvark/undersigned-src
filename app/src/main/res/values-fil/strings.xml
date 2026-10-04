@@ -202,7 +202,7 @@
     <string name="standing_stake">Naka-stake na SKR na nabasa sa chain: %1$s (timbang %2$s×)</string>
     <string name="standing_note">Binabasa ang mga timbang mula sa chain. Hindi kailanman hihiling ang Undersigned na mag-stake, bumili, o maghawak ka ng kahit ano.</string>
     <string name="settings_ledger">Ang Ledger</string>
-    <string name="settings_ledger_body">Registry address %1$s. Matutuklasan ng kahit sino ang bawat review sa pamamagitan ng address na ito. Walang pinapatakbong server ang Undersigned.</string>
+    <string name="settings_ledger_body">Registry address %1$s. Matutuklasan ng kahit sino ang bawat review sa pamamagitan ng address na ito. Direktang binabasa ito ng app na ito mula sa chain, hindi mula sa server namin.</string>
     <string name="settings_refresh_ledger">Basahing muli ang ledger</string>
     <string name="settings_hidden">Mga nakatagong review</string>
     <plurals name="settings_hidden_body">

@@ -183,7 +183,7 @@
     <string name="standing_stake">Insatt SKR läst on-chain: %1$s (vikt %2$s×)</string>
     <string name="standing_note">Vikter läses från kedjan. Undersigned ber dig aldrig satsa, köpa eller inneha något.</string>
     <string name="settings_ledger">Liggare</string>
-    <string name="settings_ledger_body">Registeradress %1$s. Varje recension går att hitta av vem som helst via den här adressen. Undersigned kör ingen server.</string>
+    <string name="settings_ledger_body">Registeradress %1$s. Varje recension går att hitta av vem som helst via den här adressen. Den här appen läser det direkt från kedjan, inte från någon server hos oss.</string>
     <string name="settings_refresh_ledger">Läs om liggaren</string>
     <string name="settings_hidden">Dolda recensioner</string>
     <plurals name="settings_hidden_body">

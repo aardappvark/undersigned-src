@@ -199,7 +199,7 @@
     <string name="standing_stake">Gestaktes SKR on-chain gelesen: %1$s (Gewichtung %2$s×)</string>
     <string name="standing_note">Gewichtungen werden von der Chain gelesen. Undersigned fordert Sie nie auf, etwas zu staken, zu kaufen oder zu halten.</string>
     <string name="settings_ledger">Ledger</string>
-    <string name="settings_ledger_body">Registrierungsadresse %1$s. Jede Bewertung ist über diese Adresse für jeden auffindbar. Undersigned betreibt keinen Server.</string>
+    <string name="settings_ledger_body">Registrierungsadresse %1$s. Jede Bewertung ist über diese Adresse für jeden auffindbar. Diese App liest sie direkt von der Chain, nicht von einem Server von uns.</string>
     <string name="settings_refresh_ledger">Ledger erneut lesen</string>
     <string name="settings_hidden">Ausgeblendete Bewertungen</string>
     <plurals name="settings_hidden_body">

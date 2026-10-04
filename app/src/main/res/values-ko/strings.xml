@@ -190,7 +190,7 @@
     <string name="standing_stake">온체인에서 확인된 스테이킹 SKR: %1$s(가중치 %2$s배)</string>
     <string name="standing_note">가중치는 체인에서 읽어옵니다. Undersigned는 스테이킹, 구매, 보유를 요구하지 않습니다.</string>
     <string name="settings_ledger">원장</string>
-    <string name="settings_ledger_body">레지스트리 주소 %1$s. 모든 리뷰는 이 주소를 통해 누구나 찾을 수 있습니다. Undersigned는 서버를 운영하지 않습니다.</string>
+    <string name="settings_ledger_body">레지스트리 주소 %1$s. 모든 리뷰는 이 주소를 통해 누구나 찾을 수 있습니다. 이 앱은 이를 체인에서 직접 읽으며, 저희 서버에서 읽지 않습니다.</string>
     <string name="settings_refresh_ledger">원장 다시 읽기</string>
     <string name="settings_hidden">숨긴 리뷰</string>
     <plurals name="settings_hidden_body">

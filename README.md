@@ -3,7 +3,9 @@
 A Seeker dApp that puts a **sybil-resistant, on-chain review and trust layer** on top of the Solana
 dApp Store. One Genesis Token = one voice. Reviews are memo transactions the reviewer signs in their
 own wallet; ranking is deterministic from the chain; the phone adds the facts it can prove about
-installed apps (certificate changes, permission drift). No server, no token, no prizes, no money.
+installed apps (certificate changes, permission drift). No token and no prizes; the app itself reads the chain
+directly and uses no server of ours. An optional API and website (`api/`, `docs/API.md`) index the same public
+ledger for other programs and for readers without a Seeker.
 
 CLOCK IN hackathon entry (8 Sep – 8 Oct 2026). See `docs/SPEC.md` (protocol), `docs/LEGAL_GATES.md`
 (compliance), and this file's "How it exists" section for the relationship to the store.
@@ -16,7 +18,7 @@ and published through the same portal as the rest of the fleet, sitting *beside*
 | Layer | Who owns it | What Undersigned does with it |
 |---|---|---|
 | Store catalogue (apps, versions, categories) | Solana Mobile | **Reads** it through the same public GraphQL feed the AarDappvark Toolkit has used in production since its 2026-05-06 approval. Never writes. |
-| Store's own star ratings and reviews | Solana Mobile | **Untouched.** Not read, not mirrored, not replaced. The app never claims to be, or to speak for, the store. |
+| Store's own star ratings and reviews | Solana Mobile | **Never written to.** Read and shown beside the signed ledger, labelled as the store's own (read-only mirror); never replaced. The app never claims to be, or to speak for, the store. |
 | The review ledger | Nobody — it is public chain data | **Created by users**, one signed transaction per review, discoverable by anyone through a fixed reference address. Solana Mobile, Guardians, or any other app can read the same ledger; it is open data by construction. |
 | Installed-app facts (cert, permissions) | The user's device | Computed on-device with PackageManager, compared with the device's own earlier snapshot, never uploaded. |
 | Launching / installing an app | Solana Mobile | Deep-links out: `solanadappstore://details?id=<package>` (the Toolkit's existing path). Undersigned never installs, updates or removes anything. |
@@ -79,6 +81,20 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
   ledger exactly (SeekerVerify: 63 payments, 0.4335 SOL + 1,690 SKR). "Paid for this app" badge on reviews by payers.
 - **Publisher notes on store reviews** (`SRL1|snt`): a verified publisher's signed, permanent answer under a store review.
 - **Reward-period tags**: reviews and bursts inside Seeker Season 1 (approximate) or Seeker Summer are tagged.
+
+## Built since (28 Sep – 5 Oct 2026)
+
+- **Listing fee and Pro at the fleet price** (0.0607 SOL / 651 SKR, 586 SKR with a Seeker Genesis Token); the 276 SKR
+  Pro licence of 15 Sep still reads (legacy floor).
+- **Publisher proof hardened**: the app's own signed build names the wallet (`undersigned.publisher` manifest line), read
+  from the installed app, or on request from the build the store serves (shared reader in `:protocol`); website proof
+  refused on shared hosts. All 29 fleet apps carry the line from their next release.
+- **API, website and MCP** (`api/`, `mcp/`, `docs/API.md`, `docs/DEPLOY.md`): a JVM server over `:protocol` with
+  public pages per app and wallet, badges, a Store watch report, web reviewing (server builds, wallet signs), helpful
+  votes/replies/flags from the web, a QR path for desktops, webhooks, and passes bought in SOL or SKR. Runs on the
+  owner's Mac only; a public host is the owner's decision. Buying a pass was run end to end on mainnet (29 Sep).
+- **Two reviews** of the server code and the feature suite; their findings are fixed (see the commit log).
+- 190+ tests across `:protocol`, `:app` and `:api`, including a golden transaction both builders must produce.
 
 ## Status — what is NOT done yet
 

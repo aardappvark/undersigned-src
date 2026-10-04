@@ -201,7 +201,7 @@
     <string name="standing_stake">SKR in staking letti on-chain: %1$s (peso %2$s×)</string>
     <string name="standing_note">I pesi vengono letti dalla chain. Undersigned non ti chiede mai di fare staking, acquistare o detenere alcunché.</string>
     <string name="settings_ledger">Registro</string>
-    <string name="settings_ledger_body">Indirizzo del registro %1$s. Ogni recensione è reperibile da chiunque tramite questo indirizzo. Undersigned non gestisce alcun server.</string>
+    <string name="settings_ledger_body">Indirizzo del registro %1$s. Ogni recensione è reperibile da chiunque tramite questo indirizzo. Questa app lo legge direttamente dalla chain, non da un nostro server.</string>
     <string name="settings_refresh_ledger">Rileggi il registro</string>
     <string name="settings_hidden">Recensioni nascoste</string>
     <plurals name="settings_hidden_body">

@@ -190,7 +190,7 @@
     <string name="standing_stake">オンチェーンで確認されたステーク SKR：%1$s（重み%2$s倍）</string>
     <string name="standing_note">重みはチェーンから読み取られます。Undersigned はステーク、購入、保有を一切求めません。</string>
     <string name="settings_ledger">台帳</string>
-    <string name="settings_ledger_body">レジストリアドレス %1$s。すべてのレビューはこのアドレスを通じて誰でも見つけられます。Undersigned はサーバーを一切運用していません。</string>
+    <string name="settings_ledger_body">レジストリアドレス %1$s。すべてのレビューはこのアドレスを通じて誰でも見つけられます。このアプリはチェーンから直接読み取っており、私たちのサーバーからではありません。</string>
     <string name="settings_refresh_ledger">台帳を再読み込み</string>
     <string name="settings_hidden">非表示のレビュー</string>
     <plurals name="settings_hidden_body">

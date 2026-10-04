@@ -194,7 +194,7 @@
     <string name="standing_stake">চেইনে পঠিত স্টেক করা SKR: %1$s (ওজন %2$s×)</string>
     <string name="standing_note">ওজন চেইন থেকে পড়া হয়। Undersigned আপনাকে কখনও স্টেক, ক্রয় বা কিছু ধারণ করতে বলে না।</string>
     <string name="settings_ledger">লেজার</string>
-    <string name="settings_ledger_body">রেজিস্ট্রি ঠিকানা %1$s। এই ঠিকানার মাধ্যমে যে কেউ প্রতিটি পর্যালোচনা খুঁজে পেতে পারে। Undersigned কোনো সার্ভার চালায় না।</string>
+    <string name="settings_ledger_body">রেজিস্ট্রি ঠিকানা %1$s। এই ঠিকানার মাধ্যমে যে কেউ প্রতিটি পর্যালোচনা খুঁজে পেতে পারে। এই অ্যাপ এটি সরাসরি চেইন থেকে পড়ে, আমাদের কোনো সার্ভার থেকে নয়।</string>
     <string name="settings_refresh_ledger">লেজার পুনরায় পড়ুন</string>
     <string name="settings_hidden">লুকানো পর্যালোচনা</string>
     <plurals name="settings_hidden_body">

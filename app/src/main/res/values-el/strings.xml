@@ -199,7 +199,7 @@
     <string name="standing_stake">Staked SKR διαβασμένο on-chain: %1$s (βάρος %2$s×)</string>
     <string name="standing_note">Τα βάρη διαβάζονται από την αλυσίδα. Το Undersigned δεν σας ζητά ποτέ να κάνετε stake, να αγοράσετε ή να κατέχετε οτιδήποτε.</string>
     <string name="settings_ledger">Ledger</string>
-    <string name="settings_ledger_body">Διεύθυνση μητρώου %1$s. Κάθε κριτική είναι ανιχνεύσιμη από τον καθένα μέσω αυτής της διεύθυνσης. Το Undersigned δεν λειτουργεί κανέναν server.</string>
+    <string name="settings_ledger_body">Διεύθυνση μητρώου %1$s. Κάθε κριτική είναι ανιχνεύσιμη από τον καθένα μέσω αυτής της διεύθυνσης. Αυτή η εφαρμογή τα διαβάζει απευθείας από την αλυσίδα, όχι από server δικό μας.</string>
     <string name="settings_refresh_ledger">Επανάγνωση του ledger</string>
     <string name="settings_hidden">Κρυμμένες κριτικές</string>
     <plurals name="settings_hidden_body">

@@ -199,7 +199,7 @@
     <string name="standing_stake">Láncon olvasott staked SKR: %1$s (súly %2$s×)</string>
     <string name="standing_note">A súlyokat a láncról olvassuk. Az Undersigned soha nem kéri, hogy staked-elj, vásárolj vagy bármit is tarts.</string>
     <string name="settings_ledger">Nyilvántartás</string>
-    <string name="settings_ledger_body">Nyilvántartási cím: %1$s. Ezen a címen keresztül bárki megtalálhat minden értékelést. Az Undersigned nem üzemeltet szervert.</string>
+    <string name="settings_ledger_body">Nyilvántartási cím: %1$s. Ezen a címen keresztül bárki megtalálhat minden értékelést. Az alkalmazás közvetlenül a láncról olvassa, nem a mi szerverünkről.</string>
     <string name="settings_refresh_ledger">Nyilvántartás újraolvasása</string>
     <string name="settings_hidden">Elrejtett értékelések</string>
     <plurals name="settings_hidden_body">

@@ -36,4 +36,20 @@ cat > "$PLIST" <<PL
 </dict></plist>
 PL
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
+# The watcher: a second agent that checks the health every 10 minutes and notifies on trouble (see watch-local.sh).
+WATCH="$HOME/Library/LaunchAgents/com.undersigned.api.watch.plist"
+cp watch-local.sh "$DEST/watch.sh"; chmod +x "$DEST/watch.sh"
+launchctl bootout "gui/$(id -u)/com.undersigned.api.watch" 2>/dev/null || true
+i=0; while launchctl print "gui/$(id -u)/com.undersigned.api.watch" >/dev/null 2>&1 && [ $i -lt 20 ]; do sleep 0.5; i=$((i+1)); done
+cat > "$WATCH" <<PL
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.undersigned.api.watch</string>
+  <key>ProgramArguments</key><array><string>/bin/sh</string><string>$DEST/watch.sh</string></array>
+  <key>StartInterval</key><integer>600</integer>
+  <key>RunAtLoad</key><false/>
+</dict></plist>
+PL
+launchctl bootstrap "gui/$(id -u)" "$WATCH"
 echo "Undersigned API: http://127.0.0.1:8797/v1/health  (log: $DEST/api.log)"

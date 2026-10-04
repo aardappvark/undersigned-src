@@ -198,7 +198,7 @@
     <string name="standing_stake">SKR yang di-stake terbaca on-chain: %1$s (bobot %2$s×)</string>
     <string name="standing_note">Bobot dibaca dari chain. Undersigned tidak pernah meminta Anda untuk melakukan stake, membeli, atau menyimpan apa pun.</string>
     <string name="settings_ledger">Buku besar</string>
-    <string name="settings_ledger_body">Alamat registri %1$s. Setiap ulasan dapat ditemukan oleh siapa pun melalui alamat ini. Undersigned tidak menjalankan server.</string>
+    <string name="settings_ledger_body">Alamat registri %1$s. Setiap ulasan dapat ditemukan oleh siapa pun melalui alamat ini. Aplikasi ini membacanya langsung dari chain, bukan dari server milik kami.</string>
     <string name="settings_refresh_ledger">Baca ulang buku besar</string>
     <string name="settings_hidden">Ulasan tersembunyi</string>
     <plurals name="settings_hidden_body">
