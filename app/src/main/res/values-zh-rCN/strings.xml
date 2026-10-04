@@ -535,7 +535,7 @@
     <string name="pay_usd_both">价格已知时按每笔付款当日价格换算的 USD,否则按今日价格换算</string>
     <string name="pay_own">已排除:来自发布者自有钱包的付款:%1$d</string>
     <string name="season_pill">%1$s期间</string>
-    <string name="season_share">在奖励季期间撰写:已读 %1$d/%2$d 条商店评价</string>
+    <string name="season_share">在 Seeker 赛季期间撰写:已读 %1$d/%2$d 条商店评价</string>
     <string name="note_title">发布者的签名备注</string>
     <string name="note_add">添加签名备注</string>
     <string name="note_update">更新我的签名备注</string>
@@ -758,4 +758,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">登记费用与我们其他 dApp 的付费层级相同:%1$s 或 %2$s(持有 Seeker Genesis Token 为 %3$s)。每个 dApp 和金库仅需支付一次,与签名登记同属一笔交易。之后更改代码或重新登记仅需支付网络费用。</string>
     <string name="pay_list_pay">支付 %1$s 并登记</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">已验证发布者——已列于商店提供的安装包中</string>
+    <string name="publisher_check_build">检查商店的安装包 · %1$s</string>
+    <string name="publisher_checking_build">正在读取商店的安装包…</string>
+    <string name="publisher_build_nothing">商店的安装包中未列出发布者的钱包。</string>
+    <string name="publisher_build_other">商店的安装包中列出的是另一个钱包。</string>
+    <string name="publisher_build_failed">无法读取安装包。请在 Wi-Fi 下重试。</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">显示说明(此钱包未计入)</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.undersigned.api
 
+import com.undersigned.protocol.Apk
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import java.io.File
 import kotlin.test.Test

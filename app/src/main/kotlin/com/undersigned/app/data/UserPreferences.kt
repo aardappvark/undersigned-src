@@ -201,6 +201,18 @@ object UserPreferences {
         if (all.has(k)) return all.getLong(k)
         val now = System.currentTimeMillis(); all.put(k, now); prefs?.edit()?.putString("proof_first_seen", all.toString())?.apply(); return now
     }
+    /** What a store build (package + versionCode) was read to say: the wallets its manifest names and its signer certificates. Null = never read. */
+    fun storeBuild(pkg: String, version: Long): com.undersigned.protocol.Apk.Facts? = runCatching {
+        val o = JSONObject(prefs?.getString("store_builds", "{}") ?: "{}").optJSONObject("$pkg|$version") ?: return null
+        fun set(k: String) = o.optJSONArray(k)?.let { a -> (0 until a.length()).map { a.getString(it) }.toSet() } ?: emptySet()
+        com.undersigned.protocol.Apk.Facts(set("d"), set("c"))
+    }.getOrNull()
+    @Synchronized fun saveStoreBuild(pkg: String, version: Long, f: com.undersigned.protocol.Apk.Facts) {
+        val all = runCatching { JSONObject(prefs?.getString("store_builds", "{}") ?: "{}") }.getOrDefault(JSONObject())
+        all.put("$pkg|$version", JSONObject().put("d", org.json.JSONArray(f.declared.toList())).put("c", org.json.JSONArray(f.certSha256.toList())))
+        prefs?.edit()?.putString("store_builds", all.toString())?.apply()
+    }
+
     fun proofSeenAt(url: String, wallet: String): Long? = runCatching { JSONObject(prefs?.getString("proof_first_seen", "{}") ?: "{}").let { if (it.has("$url|$wallet")) it.getLong("$url|$wallet") else null } }.getOrNull()
 
     fun cachedClaim(pkg: String, wallet: String, ttl: Long): Boolean? = runCatching {

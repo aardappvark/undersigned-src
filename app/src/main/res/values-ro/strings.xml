@@ -550,7 +550,7 @@
     <string name="pay_usd_both">USD la data fiecărei plăți unde prețurile sunt cunoscute, altfel la prețurile de azi</string>
     <string name="pay_own">Excluse: plăți din portofelele proprii ale editorului: %1$d</string>
     <string name="season_pill">În timpul %1$s</string>
-    <string name="season_share">Scrise în timpul sezoanelor de recompensă: %1$d din %2$d recenzii din magazin citite</string>
+    <string name="season_share">Scrise în timpul sezoanelor Seeker: %1$d din %2$d recenzii din magazin citite</string>
     <string name="note_title">Notă semnată a editorului</string>
     <string name="note_add">Adaugă o notă semnată</string>
     <string name="note_update">Actualizează nota mea semnată</string>
@@ -772,4 +772,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Listarea costă la fel ca un nivel plătit al celorlalte dApps ale noastre: %1$s sau %2$s (%3$s cu un Seeker Genesis Token). Se plătește o singură dată per dApp și trezorerie, în aceeași tranzacție care semnează listarea. Schimbarea codului sau listarea din nou mai târziu costă doar comisionul de rețea.</string>
     <string name="pay_list_pay">Plătește %1$s și listează</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Editor verificat — numit în interiorul build-ului pe care îl servește magazinul</string>
+    <string name="publisher_check_build">Verifică build-ul magazinului · %1$s</string>
+    <string name="publisher_checking_build">Se citește build-ul magazinului…</string>
+    <string name="publisher_build_nothing">Build-ul magazinului nu numește niciun portofel de editor.</string>
+    <string name="publisher_build_other">Build-ul magazinului numește un alt portofel.</string>
+    <string name="publisher_build_failed">Build-ul nu a putut fi citit. Încearcă din nou pe Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Afișează nota (acest portofel nu este numărat)</string>
 </resources>

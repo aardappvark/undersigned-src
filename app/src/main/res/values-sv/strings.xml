@@ -525,7 +525,7 @@
     <string name="pay_usd_both">USD på dagen för varje betalning där kurserna är kända, annars till dagens kurser</string>
     <string name="pay_own">Uteslutna: betalningar från utgivarens egna plånböcker: %1$d</string>
     <string name="season_pill">Under %1$s</string>
-    <string name="season_share">Skrivna under belöningsäsonger: %1$d av %2$d butiksrecensioner lästa</string>
+    <string name="season_share">Skrivna under Seeker-säsonger: %1$d av %2$d butiksrecensioner lästa</string>
     <string name="note_title">Utgivarens signerade anteckning</string>
     <string name="note_add">Lägg till en signerad anteckning</string>
     <string name="note_update">Uppdatera min signerade anteckning</string>
@@ -765,4 +765,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Att lista kostar detsamma som en betald nivå av våra andra dApps: %1$s eller %2$s (%3$s med en Seeker Genesis Token). Det betalas en gång per dApp och treasury, i samma transaktion som signerar listningen. Att ändra koden eller lista igen senare kostar bara nätverksavgiften.</string>
     <string name="pay_list_pay">Betala %1$s och lista</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Verifierad utgivare — namngiven i den build som butiken levererar</string>
+    <string name="publisher_check_build">Kontrollera butikens build · %1$s</string>
+    <string name="publisher_checking_build">Läser butikens build…</string>
+    <string name="publisher_build_nothing">Butikens build namnger ingen utgivarplånbok.</string>
+    <string name="publisher_build_other">Butikens build namnger en annan plånbok.</string>
+    <string name="publisher_build_failed">Builden kunde inte läsas. Försök igen via Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Visa anteckningen (den här plånboken räknas inte)</string>
 </resources>

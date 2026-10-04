@@ -572,7 +572,7 @@
     <string name="pay_usd_both">USD بسعر يوم كل دفعة حيثما كانت الأسعار معروفة، وإلا فبأسعار اليوم</string>
     <string name="pay_own">مستبعد: مدفوعات من محافظ الناشر الخاصة: %1$d</string>
     <string name="season_pill">خلال %1$s</string>
-    <string name="season_share">كُتبت خلال مواسم المكافآت: %1$d من %2$d من مراجعات المتجر مقروءة</string>
+    <string name="season_share">كُتبت خلال مواسم Seeker: %1$d من %2$d من مراجعات المتجر مقروءة</string>
     <string name="note_title">ملاحظة موقّعة من الناشر</string>
     <string name="note_add">إضافة ملاحظة موقّعة</string>
     <string name="note_update">تحديث ملاحظتي الموقّعة</string>
@@ -795,4 +795,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">الإدراج يكلف نفس تكلفة مستوى مدفوع من dApps الأخرى لدينا: %1$s أو %2$s (%3$s مع Seeker Genesis Token). يُدفع مرة واحدة لكل dApp وخزينة، ضمن نفس المعاملة التي توقّع الإدراج. تغيير الرمز أو الإدراج مرة أخرى لاحقًا يكلف رسوم الشبكة فقط.</string>
     <string name="pay_list_pay">ادفع %1$s وأدرِج</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">ناشر موثّق — مذكور داخل البنية التي يقدّمها المتجر</string>
+    <string name="publisher_check_build">افحص بنية المتجر · %1$s</string>
+    <string name="publisher_checking_build">جارٍ قراءة بنية المتجر…</string>
+    <string name="publisher_build_nothing">لا تذكر بنية المتجر أي محفظة ناشر.</string>
+    <string name="publisher_build_other">تذكر بنية المتجر محفظة مختلفة.</string>
+    <string name="publisher_build_failed">تعذّرت قراءة البنية. حاول مجددًا عبر Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">إظهار الملاحظة (هذه المحفظة غير محتسبة)</string>
 </resources>

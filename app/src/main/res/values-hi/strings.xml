@@ -544,7 +544,7 @@
     <string name="pay_usd_both">जहां कीमतें ज्ञात हों वहां हर भुगतान के दिन का USD, वरना आज की कीमतों पर</string>
     <string name="pay_own">छोड़े गए: प्रकाशक के अपने wallets से भुगतान: %1$d</string>
     <string name="season_pill">%1$s के दौरान</string>
-    <string name="season_share">इनाम सीज़न के दौरान लिखी गईं: %2$d स्टोर समीक्षाओं में से %1$d पड़़ी गईं</string>
+    <string name="season_share">Seeker सीज़न के दौरान लिखी गईं: %2$d स्टोर समीक्षाओं में से %1$d पढ़ी गईं</string>
     <string name="note_title">प्रकाशक का हस्ताक्षरित नोट</string>
     <string name="note_add">हस्ताक्षरित नोट जोड़़ें</string>
     <string name="note_update">मेरा हस्ताक्षरित नोट अपडेट करें</string>
@@ -767,4 +767,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">सूचीबद्ध करने का खर्च हमारे अन्य dApps के पेड टियर जितना ही है: %1$s या %2$s (Seeker Genesis Token के साथ %3$s)। यह प्रति dApp और ट्रेज़री एक बार लिया जाता है, उसी लेनदेन में जो लिस्टिंग पर हस्ताक्षर करता है। बाद में कोड बदलना या दोबारा सूचीबद्ध करना केवल नेटवर्क फीस लेता है।</string>
     <string name="pay_list_pay">%1$s चुकाएं और सूचीबद्ध करें</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">सत्यापित प्रकाशक — स्टोर जो बिल्ड उपलब्ध कराता है उसके भीतर नामित</string>
+    <string name="publisher_check_build">स्टोर का बिल्ड जाँचें · %1$s</string>
+    <string name="publisher_checking_build">स्टोर का बिल्ड पढ़ा जा रहा है…</string>
+    <string name="publisher_build_nothing">स्टोर के बिल्ड में किसी प्रकाशक के wallet का नाम नहीं है।</string>
+    <string name="publisher_build_other">स्टोर के बिल्ड में किसी दूसरे wallet का नाम है।</string>
+    <string name="publisher_build_failed">बिल्ड पढ़ा नहीं जा सका। Wi-Fi पर फिर कोशिश करें।</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">नोट दिखाएं (यह wallet गिना नहीं जाता)</string>
 </resources>

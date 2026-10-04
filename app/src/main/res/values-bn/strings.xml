@@ -536,7 +536,7 @@
     <string name="pay_usd_both">যেখানে দাম জানা আছে সেখানে প্রতিটি পেমেন্টের দিনের USD, নাহলে আজকের দামে</string>
     <string name="pay_own">বাদ দেওয়া হয়েছে: প্রকাশকের নিজস্ব ওয়ালেট থেকে পেমেন্ট: %1$d</string>
     <string name="season_pill">%1$s চলাকালীন</string>
-    <string name="season_share">পুরস্কার মরসুমে লেখা: %2$d-এর মধ্যে %1$d স্টোর পর্যালোচনা পড়া হয়েছে</string>
+    <string name="season_share">Seeker মরসুমে লেখা: %2$d-এর মধ্যে %1$d স্টোর পর্যালোচনা পড়া হয়েছে</string>
     <string name="note_title">প্রকাশকের স্বাক্ষরিত নোট</string>
     <string name="note_add">একটি স্বাক্ষরিত নোট যোগ করুন</string>
     <string name="note_update">আমার স্বাক্ষরিত নোট আপডেট করুন</string>
@@ -760,4 +760,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">তালিকাভুক্তির খরচ আমাদের অন্যান্য dApps-এর পেইড টিয়ারের সমান: %1$s বা %2$s (Seeker Genesis Token থাকলে %3$s)। এটি প্রতিটি dApp ও ট্রেজারির জন্য একবার পরিশোধ করা হয়, তালিকাভুক্তিতে স্বাক্ষরকারী একই লেনদেনে। পরে কোড পরিবর্তন করা বা আবার তালিকাভুক্ত করার খরচ শুধু নেটওয়ার্ক ফি।</string>
     <string name="pay_list_pay">%1$s পরিশোধ করে তালিকাভুক্ত করুন</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">যাচাইকৃত প্রকাশক — স্টোর যে বিল্ড সরবরাহ করে তার ভেতরে নাম উল্লেখিত</string>
+    <string name="publisher_check_build">স্টোরের বিল্ড পরীক্ষা করুন · %1$s</string>
+    <string name="publisher_checking_build">স্টোরের বিল্ড পড়া হচ্ছে…</string>
+    <string name="publisher_build_nothing">স্টোরের বিল্ডে কোনো প্রকাশকের ওয়ালেট উল্লেখ নেই।</string>
+    <string name="publisher_build_other">স্টোরের বিল্ডে অন্য একটি ওয়ালেট উল্লেখ আছে।</string>
+    <string name="publisher_build_failed">বিল্ডটি পড়া যায়নি। Wi-Fi-তে আবার চেষ্টা করুন।</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">নোটটি দেখান (এই ওয়ালেট গণনা করা হয়নি)</string>
 </resources>

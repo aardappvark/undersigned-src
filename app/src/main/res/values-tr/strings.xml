@@ -542,7 +542,7 @@
     <string name="pay_usd_both">Fiyatların bilindiği yerlerde her ödemenin yapıldığı gündeki USD, aksi halde bugünkü fiyatlarla</string>
     <string name="pay_own">Hariç tutuldu: yayıncının kendi cüzdanlarından yapılan ödemeler: %1$d</string>
     <string name="season_pill">%1$s sırasında</string>
-    <string name="season_share">Ödül sezonlarında yazıldı: %1$d / %2$d mağaza incelemesi okundu</string>
+    <string name="season_share">Seeker sezonlarında yazıldı: %1$d / %2$d mağaza incelemesi okundu</string>
     <string name="note_title">Yayıncının imzalı notu</string>
     <string name="note_add">İmzalı not ekle</string>
     <string name="note_update">İmzalı notumu güncelle</string>
@@ -764,4 +764,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Listeleme, diğer dApp\'lerimizin ücretli katmanıyla aynı miktarda ücrete tabidir: %1$s veya %2$s (Seeker Genesis Token ile %3$s). dApp ve hazine başına bir kez, listelemeyi imzalayan işlemle aynı işlemde ödenir. Kodu değiştirmek veya daha sonra tekrar listelemek yalnızca ağ ücretine mal olur.</string>
     <string name="pay_list_pay">%1$s öde ve listele</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Doğrulanmış yayıncı — mağazanın sunduğu build içinde adı geçiyor</string>
+    <string name="publisher_check_build">Mağazanın build\'ini kontrol et · %1$s</string>
+    <string name="publisher_checking_build">Mağazanın build\'i okunuyor…</string>
+    <string name="publisher_build_nothing">Mağazanın build\'i hiçbir yayıncı cüzdanından söz etmiyor.</string>
+    <string name="publisher_build_other">Mağazanın build\'i farklı bir cüzdandan söz ediyor.</string>
+    <string name="publisher_build_failed">Build okunamadı. Wi-Fi üzerinden tekrar deneyin.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Notu göster (bu cüzdan sayılmıyor)</string>
 </resources>

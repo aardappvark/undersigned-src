@@ -548,7 +548,7 @@
     <string name="pay_usd_both">USD al giorno di ogni pagamento dove i prezzi sono noti, altrimenti ai prezzi odierni</string>
     <string name="pay_own">Esclusi: pagamenti dai portafogli propri dell\'editore: %1$d</string>
     <string name="season_pill">Durante %1$s</string>
-    <string name="season_share">Scritte durante stagioni premio: %1$d su %2$d recensioni dello store lette</string>
+    <string name="season_share">Scritte durante le stagioni Seeker: %1$d su %2$d recensioni dello store lette</string>
     <string name="note_title">Nota firmata dell\'editore</string>
     <string name="note_add">Aggiungi una nota firmata</string>
     <string name="note_update">Aggiorna la mia nota firmata</string>
@@ -793,4 +793,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Elencare costa quanto un livello a pagamento delle nostre altre dApp: %1$s o %2$s (%3$s con un Seeker Genesis Token). Si paga una volta per dApp e tesoreria, nella stessa transazione che firma l\'inserzione. Cambiare il codice o elencare di nuovo in seguito costa solo la commissione di rete.</string>
     <string name="pay_list_pay">Paga %1$s ed elenca</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Editore verificato — nominato all\'interno della build fornita dallo store</string>
+    <string name="publisher_check_build">Controlla la build dello store · %1$s</string>
+    <string name="publisher_checking_build">Lettura della build dello store…</string>
+    <string name="publisher_build_nothing">La build dello store non nomina alcun portafoglio dell\'editore.</string>
+    <string name="publisher_build_other">La build dello store nomina un portafoglio diverso.</string>
+    <string name="publisher_build_failed">Impossibile leggere la build. Riprova con il Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Mostra la nota (questo portafoglio non viene conteggiato)</string>
 </resources>

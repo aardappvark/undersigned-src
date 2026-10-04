@@ -1,4 +1,4 @@
-package com.undersigned.api
+package com.undersigned.protocol
 
 import java.io.File
 import java.io.RandomAccessFile
@@ -13,24 +13,28 @@ import java.util.zip.ZipFile
  *    (binary XML inside the APK), and
  *  - the SHA-256 of its signing certificate(s), from the APK Signature Scheme v2/v3 block.
  * The manifest is covered by that signature, so a wallet named there was put there by whoever holds the signing key.
+ * In the shared rules module so the phone and the API read a build the same way (the phone does not have to take the
+ * server's word for a store-build proof).
  */
 object Apk {
     data class Facts(val declared: Set<String>, val certSha256: Set<String>)
+    /** The manifest is inflated to at most this many bytes: a zip bomb must not exhaust the reader, phone or server. */
+    const val MAX_MANIFEST_BYTES = 8 * 1024 * 1024
 
     fun read(file: File): Facts = Facts(declaredPublishers(manifest(file)), signerCerts(file))
 
-    /** The manifest entry, inflated to at most [Config.MAX_MANIFEST_BYTES]: a zip bomb from a listed publisher must not take the server down. */
+    /** The manifest entry, inflated to at most [MAX_MANIFEST_BYTES]: a zip bomb from a listed publisher must not take the server down. */
     fun manifest(file: File): ByteArray = ZipFile(file).use { z ->
         z.getInputStream(z.getEntry("AndroidManifest.xml") ?: error("no manifest")).use { inp ->
             val out = java.io.ByteArrayOutputStream(); val buf = ByteArray(1 shl 16)
-            while (true) { val n = inp.read(buf); if (n < 0) break; if (out.size() + n > Config.MAX_MANIFEST_BYTES) error("manifest over ${Config.MAX_MANIFEST_BYTES} bytes"); out.write(buf, 0, n) }
+            while (true) { val n = inp.read(buf); if (n < 0) break; if (out.size() + n > MAX_MANIFEST_BYTES) error("manifest over ${MAX_MANIFEST_BYTES} bytes"); out.write(buf, 0, n) }
             out.toByteArray()
         }
     }
 
     /** Wallets named by the `undersigned.publisher` meta-data, split on , ; or space and kept only if they look like addresses. */
     fun declaredPublishers(axml: ByteArray): Set<String> =
-        metaData(axml)["undersigned.publisher"]?.split(',', ';', ' ')?.map { it.trim() }?.filter { it.length in 32..44 && runCatching { Base58.decode(it).size == 32 }.getOrDefault(false) }?.toSet() ?: emptySet()
+        metaData(axml)["undersigned.publisher"]?.split(',', ';', ' ')?.map { it.trim() }?.filter { Payments.isReference(it) }?.toSet() ?: emptySet()
 
     // ---- Binary XML ---------------------------------------------------------------------------------------------
 

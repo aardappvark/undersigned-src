@@ -547,7 +547,7 @@
     <string name="notif_burst_title">%1$s: review burst</string>
     <string name="pay_paid_pill">Paid for this app</string>
     <string name="season_pill">During %1$s</string>
-    <string name="season_share">Written during reward seasons: %1$d of %2$d store reviews read</string>
+    <string name="season_share">Written during Seeker seasons: %1$d of %2$d store reviews read</string>
     <string name="note_title">Publisher\'s signed note</string>
     <string name="note_add">Add a signed note</string>
     <string name="note_update">Update my signed note</string>
@@ -787,4 +787,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Listing costs the same as a paid tier of our other dApps: %1$s or %2$s (%3$s with a Seeker Genesis Token). It is paid once per dApp and treasury, in the same transaction that signs the listing. Changing the code or listing again later costs only the network fee.</string>
     <string name="pay_list_pay">Pay %1$s and list</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Verified publisher — named inside the build the store serves</string>
+    <string name="publisher_check_build">Check the store\'s build · %1$s</string>
+    <string name="publisher_checking_build">Reading the store\'s build…</string>
+    <string name="publisher_build_nothing">The store\'s build names no publisher wallet.</string>
+    <string name="publisher_build_other">The store\'s build names a different wallet.</string>
+    <string name="publisher_build_failed">The build could not be read. Try again on Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Show the note (this wallet is not counted)</string>
 </resources>

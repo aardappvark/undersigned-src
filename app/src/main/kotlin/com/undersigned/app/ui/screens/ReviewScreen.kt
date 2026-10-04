@@ -40,7 +40,10 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     val selfFacts by vm.selfFacts.collectAsState()
     val selfLoading by vm.selfFactsLoading.collectAsState()
     val name = catalogue.firstOrNull { it.packageName == pkg }?.name ?: vm.labelFor(pkg, pkg)
-    val versionCode = remember(pkg) { vm.deviceFacts(pkg)?.versionCode ?: 1L }
+    // The installed version; for an app not on this phone, the store's current version (a review filed as "version 1"
+    // polluted the per-version scores, and the web path already records the store's version).
+    val storeDetails by vm.storeDetails.collectAsState()
+    val versionCode = remember(pkg, storeDetails[pkg]) { vm.deviceFacts(pkg)?.versionCode ?: storeDetails[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L }
     val existing = remember(pkg) { vm.myReview(pkg)?.memo as? ReviewMemo.Review }
 
     var rating by remember { mutableStateOf(existing?.rating ?: 0) }

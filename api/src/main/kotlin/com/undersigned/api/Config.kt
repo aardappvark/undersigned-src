@@ -54,6 +54,8 @@ object Config {
     /** Pages and badges: generous, because a badge on a busy site is fetched often (and cached an hour). */
     const val WEB_PER_MINUTE = 120
     const val WEB_PER_DAY = 20_000
+    /** Who to write to about content shown on the pages (an address or a URL). Shown in every page footer and on /report. */
+    val CONTACT: String = System.getenv("UNDERSIGNED_CONTACT") ?: "https://aardappvark.github.io/undersigned-legal/"
     /** Where this server is reached from outside, for links in pages and badge embed snippets. */
     val PUBLIC_URL: String = (System.getenv("PUBLIC_URL") ?: "http://127.0.0.1:${System.getenv("PORT")?.toIntOrNull() ?: 8797}").trimEnd('/')
     const val FREE_TOP = 10
@@ -79,7 +81,6 @@ object Config {
 
     /** Bounded reads of other people's bytes. */
     const val MAX_PROOF_BYTES = 64 * 1024
-    const val MAX_MANIFEST_BYTES = 8 * 1024 * 1024
     const val MAX_APK_BYTES = 300L * 1024 * 1024
     val testPrices: Boolean get() = TEST_SOL != null || TEST_SKR != null
     val passSol: Double get() = TEST_SOL ?: PASS_SOL

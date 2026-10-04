@@ -542,7 +542,7 @@
     <string name="pay_usd_both">USD την ημέρα κάθε πληρωμής όπου οι τιμές είναι γνωστές, αλλιώς στις σημερινές τιμές</string>
     <string name="pay_own">Εξαιρέθηκαν: πληρωμές από τα δικά του πορτοφόλια του εκδότη: %1$d</string>
     <string name="season_pill">Κατά τη διάρκεια %1$s</string>
-    <string name="season_share">Γράφτηκαν κατά τη διάρκεια εποχών ανταμοιβής: %1$d από %2$d κριτικές καταστήματος διαβασμένες</string>
+    <string name="season_share">Γράφτηκαν κατά τη διάρκεια εποχών Seeker: %1$d από %2$d κριτικές καταστήματος διαβασμένες</string>
     <string name="note_title">Υπογεγραμμένη σημείωση του εκδότη</string>
     <string name="note_add">Προσθήκη υπογεγραμμένης σημείωσης</string>
     <string name="note_update">Ενημέρωση της υπογεγραμμένης σημείωσής μου</string>
@@ -764,4 +764,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Η καταχώριση κοστίζει όσο ένα επί πληρωμή επίπεδο των υπόλοιπων dApps μας: %1$s ή %2$s (%3$s με Seeker Genesis Token). Πληρώνεται μία φορά ανά dApp και θησαυροφυλάκιο, στην ίδια συναλλαγή που υπογράφει την καταχώριση. Η αλλαγή του κωδικού ή η εκ νέου καταχώριση αργότερα κοστίζει μόνο το τέλος δικτύου.</string>
     <string name="pay_list_pay">Πληρωμή %1$s και καταχώριση</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Επαληθευμένος εκδότης — αναφέρεται μέσα στο build που διαθέτει το κατάστημα</string>
+    <string name="publisher_check_build">Έλεγχος του build του καταστήματος · %1$s</string>
+    <string name="publisher_checking_build">Ανάγνωση του build του καταστήματος…</string>
+    <string name="publisher_build_nothing">Το build του καταστήματος δεν αναφέρει πορτοφόλι εκδότη.</string>
+    <string name="publisher_build_other">Το build του καταστήματος αναφέρει διαφορετικό πορτοφόλι.</string>
+    <string name="publisher_build_failed">Δεν ήταν δυνατή η ανάγνωση του build. Δοκιμάστε ξανά μέσω Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Εμφάνιση της σημείωσης (αυτό το πορτοφόλι δεν μετράει)</string>
 </resources>

@@ -559,7 +559,7 @@
     <string name="pay_usd_both">USD за курсом дня кожного платежу, де курси відомі, інакше за сьогоднішніми цінами</string>
     <string name="pay_own">Виключено: платежі з власних гаманців видавця: %1$d</string>
     <string name="season_pill">Під час %1$s</string>
-    <string name="season_share">Написано під час сезонів винагород: %1$d з %2$d відгуків магазину прочитано</string>
+    <string name="season_share">Написано під час сезонів Seeker: %1$d з %2$d відгуків магазину прочитано</string>
     <string name="note_title">Підписана примітка видавця</string>
     <string name="note_add">Додати підписану примітку</string>
     <string name="note_update">Оновити мою підписану примітку</string>
@@ -781,4 +781,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Додавання до списку коштує стільки ж, скільки платний рівень наших інших dApps: %1$s або %2$s (%3$s із Seeker Genesis Token). Оплачується один раз за dApp і скарбницю, у тій самій транзакції, що підписує запис. Зміна коду або повторне додавання до списку пізніше коштує лише комісію мережі.</string>
     <string name="pay_list_pay">Заплатити %1$s і додати до списку</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Підтверджений видавець — вказаний усередині збірки, яку віддає магазин</string>
+    <string name="publisher_check_build">Перевірити збірку магазину · %1$s</string>
+    <string name="publisher_checking_build">Читання збірки магазину…</string>
+    <string name="publisher_build_nothing">У збірці магазину не вказано гаманець видавця.</string>
+    <string name="publisher_build_other">У збірці магазину вказано інший гаманець.</string>
+    <string name="publisher_build_failed">Не вдалося прочитати збірку. Спробуйте ще раз через Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Показати примітку (цей гаманець не враховується)</string>
 </resources>

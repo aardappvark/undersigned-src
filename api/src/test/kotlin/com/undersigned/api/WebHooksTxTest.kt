@@ -33,6 +33,8 @@ private class Fixture(sanctioned: Set<String> = emptySet()) {
     /** Splits the query off the path the way the JDK server does before calling handle(). */
     fun get(url: String) = api.handle("GET", url.substringBefore('?'), url.substringAfter('?', "").split('&').filter { '=' in it }.associate { it.substringBefore('=') to it.substringAfter('=') }, "", null, "9.9.9.9")
     fun post(path: String, body: JSONObject) = api.handle("POST", path, emptyMap(), body.toString(), null, "9.9.9.9")
+    fun get(url: String, lang: String) = api.handle("GET", url.substringBefore('?'), emptyMap(), "", null, "9.9.9.9", lang)
+    fun postQ(path: String, query: Map<String, String>, body: JSONObject) = api.handle("POST", path, query, body.toString(), null, "9.9.9.9")
 }
 
 class WebTest {
@@ -115,5 +117,79 @@ class HooksTest {
         f.db.exec("UPDATE passes SET ends_at = ? WHERE key = 'us_a'", now - 1)
         hooks.dispatch(listOf(review), emptyList(), emptyList(), now); hooks.deliverDue(now)
         assertEquals(1, sent.size)
+    }
+}
+
+class GapFixesTest {
+    private val STRANGER = "FFWDeEAh2kSLDUwd6fZzXtCadewYqehatSQKChr11jVF"
+
+    @Test fun `the operator's hide list removes the text this site serves, never the record`() {
+        val f = Fixture()
+        f.indexer.hide(sigOf('r'), "private information"); f.indexer.rebuild()
+        val r = f.get("/v1/apps/com.a.b/reviews").body.getJSONArray("reviews").getJSONObject(0)
+        assertTrue(r.isNull("text")); assertTrue(r.getBoolean("hidden_by_operator")); assertEquals(4, r.getInt("rating"))   // the facts stay
+        val html = String(f.get("/app/com.a.b").raw!!)
+        assertTrue("Text not shown on this site" in html); assertFalse("alert(1)" in html)
+        assertTrue(f.indexer.unhide(sigOf('r'))); f.indexer.rebuild()
+        assertFalse(f.get("/v1/apps/com.a.b/reviews").body.getJSONArray("reviews").getJSONObject(0).isNull("text"))
+    }
+
+    @Test fun `reviews from uncounted wallets are folded away on the page`() {
+        val f = Fixture()
+        f.db.exec("INSERT INTO records (id, sig, signer, block_time, memo) VALUES (?, ?, ?, ?, ?)", sigOf('u'), sigOf('u'), STRANGER, 1_700_000_500L,
+            ReviewMemo.encode(ReviewMemo.Review("com.a.b", 1, listOf(ReviewMemo.Tag.CRASHES), 3, "uncounted words")))
+        f.db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 0, 0, ?)", STRANGER, System.currentTimeMillis()); f.indexer.rebuild()
+        val html = String(f.get("/app/com.a.b").raw!!)
+        val fold = html.indexOf("<details")
+        assertTrue(fold > 0 && "1 review(s) from wallets without an attested device" in html)
+        assertTrue(html.indexOf("uncounted words") > fold)                       // inside the fold
+        assertTrue(html.indexOf("&amp; fine") in 1 until fold)                   // the counted review is above it
+    }
+
+    @Test fun `helpful votes, replies and flags are built for the reader's wallet, and refused when malformed`() {
+        val f = Fixture()
+        fun b(kind: String, target: String = sigOf('r'), extra: JSONObject.() -> Unit = {}) = JSONObject().put("account", STRANGER).put("kind", kind).put("target", target).apply(extra)
+        val up = f.post("/v1/tx/record", b("up")); assertEquals(200, up.status, up.body.toString()); assertTrue(up.body.getString("memo").startsWith("SRL1|up|"))
+        assertTrue("|rep|" in f.post("/v1/tx/record", b("reply") { put("text", "thanks") }).body.getString("memo"))
+        assertTrue(f.post("/v1/tx/record", b("flag") { put("reason", "spam") }).body.getString("memo").endsWith("|spam"))
+        assertEquals(400, f.post("/v1/tx/record", b("reply")).status)                                  // no text
+        assertEquals(400, f.post("/v1/tx/record", b("flag") { put("reason", "because") }).status)
+        assertEquals(400, f.post("/v1/tx/record", b("up", sigOf('z'))).status)                          // not a record this server holds
+        assertEquals(400, f.post("/v1/tx/record", b("delete")).status)
+        assertEquals(200, f.get("/act?kind=up&target=${sigOf('r')}").status); assertEquals(404, f.get("/act?kind=nope&target=${sigOf('r')}").status)
+    }
+
+    @Test fun `a phone wallet can fetch the review as a Solana Pay transaction request`() {
+        val f = Fixture()
+        assertEquals("Undersigned", f.get("/v1/pay/review").body.getString("label"))
+        val r = f.postQ("/v1/pay/review", mapOf("package" to "com.a.b", "rating" to "5", "tags" to "works,fast"), JSONObject().put("account", STRANGER))
+        assertEquals(200, r.status, r.body.toString()); assertTrue(r.body.has("transaction") && r.body.has("message")); assertFalse(r.body.has("memo"))
+        assertEquals(400, f.postQ("/v1/pay/review", mapOf("package" to "com.a.b", "rating" to "9", "tags" to "works"), JSONObject().put("account", STRANGER)).status)
+    }
+
+    @Test fun `pages label tags in the reader's language, from the app's own translations`() {
+        assertEquals("de", I18n.pick("de-DE,de;q=0.9,en;q=0.8")); assertEquals("pt-rBR", I18n.pick("pt-PT")); assertEquals("zh-rTW", I18n.pick("zh-TW")); assertEquals("in", I18n.pick("id-ID"))
+        assertEquals("en", I18n.pick("xx-YY")); assertEquals("en", I18n.pick(null))
+        assertEquals("Works", I18n.tag("en", "works"))
+        val de = I18n.tag("de", "works"); assertTrue(de.isNotEmpty() && de != "Works", de)
+        assertEquals(I18n.LOCALES.size, I18n.LOCALES.count { I18n.tag(it, "crashes").isNotEmpty() && I18n.use(it, "w1") != "w1" })   // every locale's file is bundled
+        val html = String(Fixture().get("/app/com.a.b", "de-DE").raw!!)
+        assertTrue("<html lang=de>" in html); assertTrue(de in html)
+    }
+
+    @Test fun `icon, publisher checker, feed and the new alert types`() {
+        val f = Fixture()
+        assertEquals("image/svg+xml; charset=utf-8", f.get("/icon.svg").contentType)
+        assertTrue("Store version 42" in String(f.get("/publishers?package=com.a.b").raw!!))
+        val feed = f.get("/app/com.a.b/feed.xml"); assertTrue(feed.contentType.startsWith("application/atom+xml")); assertTrue("<entry>" in String(feed.raw!!))
+        assertTrue("/report" in String(f.get("/").raw!!)); assertEquals(200, f.get("/report").status); assertTrue("<urlset" in String(f.get("/sitemap.xml").raw!!))
+        val now = System.currentTimeMillis() / 1000
+        f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_h', 'w', 10, ?, 0)", now + 3600)
+        val sent = ArrayList<String>(); val hooks = Hooks(f.db, f.billing) { _, body, _ -> sent += body; 200 }
+        hooks.create("us_h", "http://localhost:9999/h", listOf("flag", "claim"), listOf("com.a.b"))
+        val review = f.indexer.state.entries.first()
+        hooks.dispatch(listOf(LedgerEntry(sigOf('f'), STRANGER, now, ReviewMemo.Flag(review.signature, ReviewMemo.FlagReason.SPAM)), LedgerEntry(sigOf('c'), STRANGER, now, ReviewMemo.Claim("com.a.b"))), emptyList(), emptyList(), now) { id -> f.indexer.state.entries.firstOrNull { it.signature == id } }
+        hooks.deliverDue(now)
+        assertEquals(setOf("flag", "claim"), JSONObject(sent.single()).getJSONArray("events").let { a -> (0 until a.length()).map { a.getJSONObject(it).getString("type") }.toSet() })
     }
 }

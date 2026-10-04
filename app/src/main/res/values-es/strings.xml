@@ -548,7 +548,7 @@
     <string name="pay_usd_both">USD al día de cada pago cuando se conocen los precios, o si no, a los precios de hoy</string>
     <string name="pay_own">Excluidos: pagos de las propias wallets del editor: %1$d</string>
     <string name="season_pill">Durante %1$s</string>
-    <string name="season_share">Escritas durante temporadas de recompensa: %1$d de %2$d reseñas de la tienda leídas</string>
+    <string name="season_share">Escritas durante temporadas de Seeker: %1$d de %2$d reseñas de la tienda leídas</string>
     <string name="note_title">Nota firmada del editor</string>
     <string name="note_add">Añadir una nota firmada</string>
     <string name="note_update">Actualizar mi nota firmada</string>
@@ -793,4 +793,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Listar cuesta lo mismo que un nivel de pago de nuestras otras dApps: %1$s o %2$s (%3$s con un Seeker Genesis Token). Se paga una vez por dApp y tesorería, en la misma transacción que firma el listado. Cambiar el código o volver a listar más tarde cuesta solo la comisión de red.</string>
     <string name="pay_list_pay">Pagar %1$s y listar</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Editor verificado — nombrado dentro de la versión que sirve la tienda</string>
+    <string name="publisher_check_build">Comprobar la versión de la tienda · %1$s</string>
+    <string name="publisher_checking_build">Leyendo la versión de la tienda…</string>
+    <string name="publisher_build_nothing">La versión de la tienda no nombra ninguna wallet de editor.</string>
+    <string name="publisher_build_other">La versión de la tienda nombra una wallet distinta.</string>
+    <string name="publisher_build_failed">No se pudo leer la versión. Inténtalo de nuevo con Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Mostrar la nota (esta wallet no se contabiliza)</string>
 </resources>

@@ -542,7 +542,7 @@
     <string name="pay_usd_both">USD az egyes fizetések napján, ahol az árak ismertek, egyébként a mai árakon</string>
     <string name="pay_own">Kihagyva: fizetések a kiadó saját tárcáiból: %1$d</string>
     <string name="season_pill">%1$s idején</string>
-    <string name="season_share">Jutalomszezonok alatt írva: %1$d / %2$d áruházi értékelés elolvasva</string>
+    <string name="season_share">Seeker-szezonok alatt írva: %1$d / %2$d áruházi értékelés elolvasva</string>
     <string name="note_title">A kiadó aláírt megjegyzése</string>
     <string name="note_add">Aláírt megjegyzés hozzáadása</string>
     <string name="note_update">Aláírt megjegyzésem frissítése</string>
@@ -764,4 +764,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">A listázás ugyanannyiba kerül, mint egyéb dApp-jaink fizetős szintje: %1$s vagy %2$s (%3$s Seeker Genesis Token esetén). dApp-onként és kincstáranként egyszer kell fizetni, ugyanabban a tranzakcióban, amely aláírja a listázást. A kód későbbi módosítása vagy az újbóli listázás csak a hálózati díjba kerül.</string>
     <string name="pay_list_pay">%1$s fizetése és listázás</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Ellenőrzött kiadó — megnevezve abban a buildben, amelyet az áruház szolgáltat</string>
+    <string name="publisher_check_build">Az áruház buildjének ellenőrzése · %1$s</string>
+    <string name="publisher_checking_build">Az áruház buildjének beolvasása…</string>
+    <string name="publisher_build_nothing">Az áruház buildje nem nevez meg kiadói tárcát.</string>
+    <string name="publisher_build_other">Az áruház buildje másik tárcát nevez meg.</string>
+    <string name="publisher_build_failed">A buildet nem sikerült beolvasni. Próbáld újra Wi-Fi-n.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Megjegyzés megjelenítése (ez a tárca nem számít bele)</string>
 </resources>

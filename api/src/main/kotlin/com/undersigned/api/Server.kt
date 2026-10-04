@@ -2,6 +2,7 @@ package com.undersigned.api
 
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
+import com.undersigned.protocol.ReviewMemo
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.InetSocketAddress
@@ -43,7 +44,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     init {
         route("GET", "/v1/health", Tier.FREE, "Indexer status: last syncs, last error, skipped transactions, hook failures") { ok(JSONObject().put("ok", true).put("indexed_at", indexer.state.builtAt / 1000).put("ledger_synced", indexer.lastLedgerSync / 1000).put("store_synced", indexer.lastStoreSync / 1000)
-            .put("last_error", indexer.lastError ?: JSONObject.NULL).put("skipped_transactions", indexer.skippedTx).put("hook_failures_24h", hooks?.failures24h() ?: 0).put("limiter_entries", limiter.size).put("public", Config.PUBLIC).put("test_prices", Config.testPrices)) }
+            .put("last_error", indexer.lastError ?: JSONObject.NULL).put("skipped_transactions", indexer.skippedTx).put("hook_failures_24h", hooks?.failures24h() ?: 0).put("limiter_entries", limiter.size).put("public", Config.PUBLIC).put("test_prices", Config.testPrices)
+            .put("snapshot_days", indexer.snapshotDays().size).put("last_snapshot_day", indexer.snapshotDays().lastOrNull() ?: JSONObject.NULL).put("last_backup", indexer.lastBackup ?: JSONObject.NULL)) }
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
         route("GET", "/v1/openapi.json", Tier.FREE, "This API's description") { ok(openApi()) }
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
@@ -93,15 +95,23 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/hooks", Tier.PAID, "Your webhooks") { r -> ok(JSONObject().put("hooks", JSONArray((hooks?.list(r.caller.key!!) ?: emptyList()).map { JSONObject().put("id", it.id).put("url", it.url).put("events", JSONArray(it.events.toList())).put("packages", JSONArray(it.packages.toList())) }))) }
         route("DELETE", "/v1/hooks/{id}", Tier.PAID, "Delete one of your webhooks") { r -> if (hooks?.delete(r.caller.key!!, r.params["id"]!!) == true) ok(JSONObject().put("deleted", r.params["id"])) else notFound("no such hook on this pass") }
         route("POST", "/v1/tx/review", Tier.FREE, "Build an unsigned review transaction for a browser wallet: {account, package, rating, tags[1-3], text?}") { r -> reviewTx(r) }
+        route("POST", "/v1/tx/record", Tier.FREE, "Build an unsigned helpful vote, reply or flag: {account, kind: up|reply|flag, target, text?, reason?}") { r -> recordTx(r) }
+        // Solana Pay transaction request (a QR a phone wallet scans): GET names the requester, POST {account} returns the transaction.
+        route("GET", "/v1/pay/review", Tier.FREE, "Solana Pay transaction request: label and icon") { ok(JSONObject().put("label", "Undersigned").put("icon", Config.PUBLIC_URL + "/icon.svg")) }
+        route("POST", "/v1/pay/review", Tier.FREE, "Solana Pay transaction request: body {account}; query package, rating, tags (comma-separated), text") { r ->
+            val account = runCatching { JSONObject(r.body).optString("account") }.getOrDefault("")
+            val res = buildReview(account, r.query["package"].orEmpty().trim(), r.query["rating"]?.toIntOrNull() ?: 0, r.query["tags"].orEmpty().split(',').map { it.trim() }.filter { it.isNotEmpty() }, r.query["text"]?.trim()?.ifEmpty { null })
+            if (res.status != 200) res else ok(JSONObject().put("transaction", res.body.getString("transaction")).put("message", "Signed review of ${res.body.getString("app")}. Permanent once signed; only the network fee is paid."))
+        }
         route("GET", "/v1/payments", Tier.LIMITED, "Payments board: confirmed treasuries by USD received") { r -> ok(views.paymentsBoard(rows(r, Config.FREE_TOP, 500))) }
     }
 
-    fun handle(method: String, path: String, query: Map<String, String>, body: String, auth: String?, ip: String): Response {
+    fun handle(method: String, path: String, query: Map<String, String>, body: String, auth: String?, ip: String, acceptLanguage: String? = null): Response {
         if (method == "OPTIONS") return Response(204, JSONObject())
         // Human pages and badges: not the metered API. Their own, looser per-IP budget.
         if (method == "GET" && web != null && (!path.startsWith("/v1/") || path.startsWith("/v1/badge/"))) {
             limiter.take("web:$ip", Config.WEB_PER_MINUTE, Config.WEB_PER_DAY)?.let { return Response(429, JSONObject().put("error", "rate_limited"), mapOf("Retry-After" to "60"), "Too many requests; try again in a minute.".toByteArray(), "text/plain; charset=utf-8") }
-            return web!!.handle(path, query)
+            return web!!.handle(path, query, I18n.pick(query["lang"] ?: acceptLanguage))
         }
         val match = routes.firstNotNullOfOrNull { rt -> if (rt.method != method) null else rt.pattern.matchEntire(path)?.let { rt to it } }
             ?: return notFound("no such endpoint; see /v1/openapi.json")
@@ -138,20 +148,48 @@ class Api(private val views: Views, private val billing: Billing, private val in
      */
     private fun reviewTx(r: Req): Response {
         val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return Response(400, JSONObject().put("error", "bad_json"))
-        val account = b.optString("account"); val pkg = b.optString("package").trim()
+        val tags = (b.optJSONArray("tags") ?: JSONArray()).let { a -> (0 until a.length()).map { a.optString(it) } }
+        return buildReview(b.optString("account"), b.optString("package").trim(), b.optInt("rating"), tags, b.optString("text").trim().ifEmpty { null })
+    }
+
+    private fun buildReview(account: String, pkg: String, rating: Int, tagWires: List<String>, text: String?): Response {
         val signer = runCatching { Base58.decode(account) }.getOrNull()?.takeIf { it.size == 32 } ?: return Response(400, JSONObject().put("error", "bad_account"))
         val app = indexer.state.byPackage[pkg] ?: return Response(400, JSONObject().put("error", "unknown_package").put("message", "only apps listed in the dApp Store can be reviewed"))
         val version = indexer.state.details[pkg]?.versionCode?.takeIf { it > 0 }
             ?: return Response(409, JSONObject().put("error", "version_unknown").put("message", "the store's current version of this app has not been read yet; try again later"))
-        val tags = (b.optJSONArray("tags") ?: JSONArray()).let { a -> (0 until a.length()).mapNotNull { i -> com.undersigned.protocol.ReviewMemo.Tag.entries.firstOrNull { it.wire == a.optString(i) } } }
-        val text = b.optString("text").trim().ifEmpty { null }
-        val memo = runCatching { com.undersigned.protocol.ReviewMemo.encode(com.undersigned.protocol.ReviewMemo.Review(pkg, b.optInt("rating"), tags, version, text)) }
+        val tags = tagWires.mapNotNull { w -> com.undersigned.protocol.ReviewMemo.Tag.entries.firstOrNull { it.wire == w } }
+        val memo = runCatching { com.undersigned.protocol.ReviewMemo.encode(com.undersigned.protocol.ReviewMemo.Review(pkg, rating, tags, version, text)) }
             .getOrElse { return Response(400, JSONObject().put("error", "invalid_review").put("message", "rating 1–5, 1 to 3 tags from the vocabulary, text at most 140 characters (${it.message})")) }
+        return signable(account, signer, memo) { it.put("app", app.name).put("version", version) }
+    }
+
+    /**
+     * A helpful vote, a reply or a flag from the web, on the same terms as a review: the server builds, the wallet signs.
+     * The target must be a record this server holds; a reply answers a review; a flag carries one of the four reasons.
+     */
+    private fun recordTx(r: Req): Response {
+        val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return Response(400, JSONObject().put("error", "bad_json"))
+        val account = b.optString("account"); val target = b.optString("target")
+        val signer = runCatching { Base58.decode(account) }.getOrNull()?.takeIf { it.size == 32 } ?: return Response(400, JSONObject().put("error", "bad_account"))
+        val rec = indexer.state.entries.firstOrNull { it.signature == target } ?: return Response(400, JSONObject().put("error", "unknown_target").put("message", "no such record"))
+        val memo = runCatching { when (b.optString("kind")) {
+            "up" -> ReviewMemo.encode(ReviewMemo.Upvote(target))
+            "reply" -> { require(rec.memo is ReviewMemo.Review) { "a reply answers a review" }; ReviewMemo.encode(ReviewMemo.Reply(target, b.optString("text").trim())) }
+            "flag" -> ReviewMemo.encode(ReviewMemo.Flag(target, ReviewMemo.FlagReason.entries.firstOrNull { it.wire == b.optString("reason") } ?: error("reason must be spam, abuse, offtopic or misleading")))
+            else -> error("kind must be up, reply or flag")
+        } }.getOrElse { return Response(400, JSONObject().put("error", "invalid_record").put("message", it.message)) }
+        return signable(account, signer, memo) { it.put("kind", b.optString("kind")) }
+    }
+
+    /** Screens the wallet, takes a blockhash, builds the carrier and says whether the wallet is counted today (cache only). */
+    private fun signable(account: String, signer: ByteArray, memo: String, extra: (JSONObject) -> JSONObject): Response {
         if (sanctioned(account)) return Response(403, JSONObject().put("error", "refused").put("message", "This wallet address appears on a sanctions list and cannot be used here."))
         val bh = runCatching { Base58.decode(blockhash()) }.getOrNull()?.takeIf { it.size == 32 } ?: return Response(503, JSONObject().put("error", "rpc_unavailable"))
         val tx = runCatching { Tx.reviewTransaction(signer, memo, bh) }.getOrElse { return Response(400, JSONObject().put("error", "too_large").put("message", it.message)) }
-        return ok(JSONObject().put("transaction", java.util.Base64.getEncoder().encodeToString(tx)).put("memo", memo).put("app", app.name).put("version", version)
-            .put("counted_only_if", "the signing wallet holds a Seeker Genesis Token").put("permanent", "A signed review stays on-chain for good; withdrawing it later leaves the record."))
+        val known = indexer.state.facts[account] ?: indexer.cachedFacts(account)
+        if (known == null) indexer.wanted.add(account)
+        return ok(extra(JSONObject().put("transaction", java.util.Base64.getEncoder().encodeToString(tx)).put("memo", memo).put("counted_now", known?.hasGenesisToken ?: JSONObject.NULL)
+            .put("counted_only_if", "the signing wallet holds a Seeker Genesis Token").put("permanent", "A signed record stays on-chain for good; withdrawing it later leaves the record.")))
     }
 
     private fun paymentRequired(why: String) = Response(402, JSONObject().put("error", "payment_required").put("message", why).put("pricing", pricing()))
@@ -243,7 +281,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val ip = clientIp(ex.remoteAddress.address.hostAddress, ex.requestHeaders.getFirst("X-Forwarded-For"), Config.TRUST_PROXY)
             val head = ex.requestMethod == "HEAD"
             val r = if (query == null) Response(400, JSONObject().put("error", "bad_query").put("message", "a percent-escape in the query is malformed"))
-                else handle(if (head) "GET" else ex.requestMethod, ex.requestURI.path.trimEnd('/').ifEmpty { "/" }, query, body, ex.requestHeaders.getFirst("Authorization"), ip)
+                else handle(if (head) "GET" else ex.requestMethod, ex.requestURI.path.trimEnd('/').ifEmpty { "/" }, query, body, ex.requestHeaders.getFirst("Authorization"), ip, ex.requestHeaders.getFirst("Accept-Language"))
             val bytes = if (r.status == 204 || head) ByteArray(0) else r.raw ?: r.body.toString(if (query?.get("pretty") == "1") 2 else 0).toByteArray()
             ex.responseHeaders.add("Content-Type", r.contentType)
             ex.responseHeaders.add("Access-Control-Allow-Origin", "*")
@@ -257,7 +295,20 @@ class Api(private val views: Views, private val billing: Billing, private val in
     }
 }
 
-fun main() {
+/**
+ * `api hide <record id> <reason…>`, `api unhide <record id>`, `api hidden`: the operator's hide list (see /report). The
+ * running server picks a change up at its next rebuild (within five minutes). Anything else starts the server.
+ */
+fun main(args: Array<String>) {
+    if (args.isNotEmpty() && args[0] in setOf("hide", "unhide", "hidden")) {
+        val ix = Indexer(Db(), Rpc(), Store())
+        when (args[0]) {
+            "hide" -> { require(args.size >= 3) { "usage: api hide <record id> <reason>" }; ix.hide(args[1], args.drop(2).joinToString(" ")); println("hidden: ${args[1]}") }
+            "unhide" -> println(if (ix.unhide(args[1])) "shown again: ${args[1]}" else "not on the list: ${args[1]}")
+            else -> ix.operatorHidden().forEach { (id, why) -> println("$id\t$why") }
+        }
+        return
+    }
     Config.checkStartup()
     // Webhook delivery reuses the resolution that was checked for private addresses (Hooks.checkUrl) for a minute.
     java.security.Security.setProperty("networkaddress.cache.ttl", "60")

@@ -228,6 +228,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         // Say how it was proven, and since when this phone has seen the proof (hardening, 28 Sep 2026).
                         val line = when (how[pkg to w]) {
                             "apk" -> stringResource(R.string.publisher_verified_apk)
+                            "store" -> stringResource(R.string.publisher_verified_store)
                             else -> vm.proofSince(pkg, w)?.let { stringResource(R.string.publisher_verified_since, site, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))) } ?: stringResource(R.string.publisher_verified, site)
                         }
                         Text("$line · $who", color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 17.sp, modifier = Modifier.clickable { onProfile(w) })
@@ -236,6 +237,23 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
                 }
                 else Text(stringResource(R.string.publisher_none), color = RbColors.textTertiary, fontSize = 12.sp)
+                // A claim nobody has proven yet can be checked against the build the store itself serves (the strongest
+                // proof, and it needs no install): offered once per version, with the download size on the button.
+                val unproven = remember(entries, vp) { vm.claimers(pkg) - vp }
+                val checking by vm.buildCheck.collectAsState()
+                if (unproven.isNotEmpty() && d?.apkUri != null) {
+                    val read = remember(d.versionCode, checking[pkg]) { com.undersigned.app.data.UserPreferences.storeBuild(pkg, d.versionCode) }
+                    Spacer(Modifier.height(8.dp))
+                    when {
+                        checking[pkg] == "reading" -> Text(stringResource(R.string.publisher_checking_build), color = RbColors.textSecondary, fontSize = 12.sp)
+                        read == null -> {
+                            SecondaryButton(stringResource(R.string.publisher_check_build, String.format(java.util.Locale.US, "%.0f MB", d.apkSize / 1e6)), onClick = { vm.checkStoreBuild(pkg) })
+                            if (checking[pkg] == "failed") Text(stringResource(R.string.publisher_build_failed), color = RbColors.negative, fontSize = 12.sp, modifier = Modifier.padding(top = 4.dp))
+                        }
+                        read.declared.isEmpty() -> Text(stringResource(R.string.publisher_build_nothing), color = RbColors.textTertiary, fontSize = 12.sp)
+                        else -> Text(stringResource(R.string.publisher_build_other), color = RbColors.textTertiary, fontSize = 12.sp)
+                    }
+                }
                 if (wallet != null && d?.website != null) {
                     Spacer(Modifier.height(8.dp))
                     val mine = vm.myClaim(pkg)
@@ -505,7 +523,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
                     Spacer(Modifier.height(6.dp))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
-                    r.text?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
+                    // A note from a wallet that is not counted stays folded until asked for: anyone can sign text for one network
+                    // fee, and an uncounted wallet's words should not sit on an app's page by default.
+                    r.text?.let { note ->
+                        var shown by remember(e.signature) { mutableStateOf(w > 0) }
+                        Spacer(Modifier.height(6.dp))
+                        if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
+                        else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
+                    }
                     // Tier 3, context: season, then similar wording (amber: that one is unusual). Text, not pills.
                     val seasonText = vm.seasonAt(e.blockTime)?.let { stringResource(R.string.season_pill, it.label) }
                     val similarText = similar[e.signature]?.let { stringResource(if (it.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge) }

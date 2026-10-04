@@ -84,6 +84,10 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         }
         st.meta[e.signature.substringBefore(':')]?.let { o.put("fee_lamports", it.fee).put("seeker_wallet_shape", it.seekerShape) }
         o.put("withdrawn", e.signature in st.revoked)
+        // The operator's hide list covers what THIS site serves: the text goes, the record and its facts stay, and it says so.
+        val hiddenWhy = st.operatorHidden[e.signature]
+        if (hiddenWhy != null && o.has("text")) o.put("text", JSONObject.NULL)
+        o.put("hidden_by_operator", hiddenWhy != null)
         return o
     }
 
@@ -183,13 +187,13 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("verified_wallets", JSONArray(vp.toList()))
             .put("responsiveness", Reputation.responsiveness(st.entries, pkg, vp).let { r -> JSONObject().put("answered", r.answered).put("total", r.total).put("median_hours", r.medianHours?.let(::r2) ?: JSONObject.NULL) })
             .put("store_notes", JSONArray(st.notes.filter { it.key.first == pkg }.values.map { n -> val m = n.memo as ReviewMemo.StoreNote
-                JSONObject().put("store_review", m.reviewId).put("wallet", n.signer).put("time", n.blockTime).put("text", m.text) })))
+                JSONObject().put("store_review", m.reviewId).put("wallet", n.signer).put("time", n.blockTime).put("text", if (n.signature in st.operatorHidden) JSONObject.NULL else m.text).put("hidden_by_operator", n.signature in st.operatorHidden) })))
         boards.rows.firstOrNull { it.claim.packageName == pkg && it.confirmed }?.let { o.put("payments", boardJson(it, false)) }
         return o
     }
 
     private fun liveReviews(pkg: String, st: State = indexer.state): List<LedgerEntry> =
-        st.entries.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in st.revoked }.groupBy { it.signer }.map { (_, l) -> l.maxBy { it.blockTime } }
+        st.entries.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in st.revoked }.groupBy { it.signer }.map { (_, l) -> l.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature }) }
 
     fun reviews(pkg: String, limit: Int, offset: Int): JSONObject {
         val st = s
@@ -210,7 +214,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("flaggers", st.flaggers[e.signature]?.size ?: 0).put("hidden_by_consensus", e.signature in st.hidden)
                 .put("helpful_weight", r2(st.helpful[e.signature] ?: 0.0)).put("disputed", st.disputes.containsKey(e.signature))
                 .put("replies", JSONArray((byTarget[e.signature] ?: emptyList()).sortedBy { it.blockTime }.filter { it.signature !in st.hidden }.map { rp ->
-                    JSONObject().put("id", rp.signature).put("wallet", rp.signer).put("time", rp.blockTime).put("text", (rp.memo as ReviewMemo.Reply).text).put("publisher", rp.signer in vp) }))
+                    JSONObject().put("id", rp.signature).put("wallet", rp.signer).put("time", rp.blockTime).put("text", if (rp.signature in st.operatorHidden) JSONObject.NULL else (rp.memo as ReviewMemo.Reply).text)
+                        .put("hidden_by_operator", rp.signature in st.operatorHidden).put("publisher", rp.signer in vp) }))
         }
         return JSONObject().put("package", pkg).put("total", all.size).put("reviews", JSONArray(list))
     }

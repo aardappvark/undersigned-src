@@ -535,7 +535,7 @@
     <string name="pay_usd_both">USD theo giá vào ngày mỗi lần thanh toán khi biết giá, nếu không thì theo giá hôm nay</string>
     <string name="pay_own">Không tính: các khoản thanh toán từ chính ví của nhà phát hành: %1$d</string>
     <string name="season_pill">Trong %1$s</string>
-    <string name="season_share">Được viết trong các mùa thưởng: %1$d trên %2$d đánh giá trên cửa hàng đã đọc</string>
+    <string name="season_share">Được viết trong các mùa Seeker: %1$d trên %2$d đánh giá trên cửa hàng đã đọc</string>
     <string name="note_title">Ghi chú đã ký của nhà phát hành</string>
     <string name="note_add">Thêm ghi chú đã ký</string>
     <string name="note_update">Cập nhật ghi chú đã ký của tôi</string>
@@ -759,4 +759,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Niêm yết có giá tương đương với gói trả phí của các dApp khác của chúng tôi: %1$s hoặc %2$s (%3$s nếu có Seeker Genesis Token). Khoản này được trả một lần cho mỗi dApp và quỹ, trong cùng giao dịch ký niêm yết. Việc thay đổi mã hoặc niêm yết lại sau này chỉ tốn phí mạng.</string>
     <string name="pay_list_pay">Trả %1$s và niêm yết</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Nhà phát hành đã xác minh — có tên bên trong bản build mà cửa hàng cung cấp</string>
+    <string name="publisher_check_build">Kiểm tra bản build của cửa hàng · %1$s</string>
+    <string name="publisher_checking_build">Đang đọc bản build của cửa hàng…</string>
+    <string name="publisher_build_nothing">Bản build của cửa hàng không nêu ví nhà phát hành nào.</string>
+    <string name="publisher_build_other">Bản build của cửa hàng nêu một ví khác.</string>
+    <string name="publisher_build_failed">Không thể đọc bản build. Hãy thử lại qua Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Hiện ghi chú (ví này không được tính)</string>
 </resources>

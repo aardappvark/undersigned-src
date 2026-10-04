@@ -55,6 +55,8 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
                 is ReviewMemo.Review -> "review" to m.packageName
                 is ReviewMemo.StoreNote -> "store_note" to m.packageName
                 is ReviewMemo.Reply -> "reply" to (byId(m.reviewSignature)?.memo as? ReviewMemo.Review)?.packageName
+                is ReviewMemo.Flag -> "flag" to (byId(m.recordId)?.memo as? ReviewMemo.Review)?.packageName
+                is ReviewMemo.Claim -> "claim" to m.packageName
                 else -> continue
             }
             pkg ?: continue
@@ -122,7 +124,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
     }
 
     companion object {
-        val EVENTS = setOf("review", "reply", "store_note", "burst", "version", "certificate")
+        val EVENTS = setOf("review", "reply", "store_note", "flag", "claim", "burst", "version", "certificate")
 
         fun sign(secret: String, body: String): String = "sha256=" + Mac.getInstance("HmacSHA256").run { init(SecretKeySpec(secret.toByteArray(), "HmacSHA256")); doFinal(body.toByteArray()) }.joinToString("") { "%02x".format(it) }
 

@@ -535,7 +535,7 @@
     <string name="pay_usd_both">價格已知時依每筆付款當日價格換算的 USD,否則依今日價格換算</string>
     <string name="pay_own">已排除:來自發行者自有錢包的付款:%1$d</string>
     <string name="season_pill">%1$s期間</string>
-    <string name="season_share">於獎勵季期間撰寫:已讀 %1$d/%2$d 則商店評價</string>
+    <string name="season_share">於 Seeker 賽季期間撰寫:已讀 %1$d/%2$d 則商店評價</string>
     <string name="note_title">發行者的簽署備註</string>
     <string name="note_add">新增簽署備註</string>
     <string name="note_update">更新我的簽署備註</string>
@@ -758,4 +758,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">登記費用與我們其他 dApp 的付費層級相同:%1$s 或 %2$s(持有 Seeker Genesis Token 則為 %3$s)。每個 dApp 與金庫僅需支付一次,與簽署登記屬於同一筆交易。之後更改代碼或重新登記僅需支付網路費用。</string>
     <string name="pay_list_pay">支付 %1$s 並登記</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">已驗證發行者——已列於商店提供的安裝包中</string>
+    <string name="publisher_check_build">檢查商店的安裝包 · %1$s</string>
+    <string name="publisher_checking_build">正在讀取商店的安裝包…</string>
+    <string name="publisher_build_nothing">商店的安裝包中未列出發行者的錢包。</string>
+    <string name="publisher_build_other">商店的安裝包中列出的是另一個錢包。</string>
+    <string name="publisher_build_failed">無法讀取安裝包。請在 Wi-Fi 下重試。</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">顯示說明(此錢包未計入)</string>
 </resources>

@@ -548,7 +548,7 @@
     <string name="pay_usd_both">USD no dia de cada pagamento quando os preços são conhecidos, senão nos preços de hoje</string>
     <string name="pay_own">Deixados de fora: pagamentos das próprias carteiras do publicador: %1$d</string>
     <string name="season_pill">Durante %1$s</string>
-    <string name="season_share">Escritas durante temporadas de recompensa: %1$d de %2$d avaliações da loja lidas</string>
+    <string name="season_share">Escritas durante temporadas do Seeker: %1$d de %2$d avaliações da loja lidas</string>
     <string name="note_title">Nota assinada do publicador</string>
     <string name="note_add">Adicionar uma nota assinada</string>
     <string name="note_update">Atualizar minha nota assinada</string>
@@ -793,4 +793,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Listar custa o mesmo que um nível pago dos nossos outros dApps: %1$s ou %2$s (%3$s com um Seeker Genesis Token). É pago uma vez por dApp e tesouraria, na mesma transação que assina a listagem. Alterar o código ou listar novamente depois custa apenas a taxa de rede.</string>
     <string name="pay_list_pay">Pagar %1$s e listar</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Publicador verificado — nomeado dentro da versão que a loja serve</string>
+    <string name="publisher_check_build">Verificar a versão da loja · %1$s</string>
+    <string name="publisher_checking_build">Lendo a versão da loja…</string>
+    <string name="publisher_build_nothing">A versão da loja não nomeia nenhuma carteira de publicador.</string>
+    <string name="publisher_build_other">A versão da loja nomeia uma carteira diferente.</string>
+    <string name="publisher_build_failed">Não foi possível ler a versão. Tente novamente no Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Mostrar a nota (esta carteira não é contabilizada)</string>
 </resources>

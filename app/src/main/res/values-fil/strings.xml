@@ -544,7 +544,7 @@
     <string name="pay_usd_both">USD sa araw ng bawat payment kung saan alam ang presyo, kung hindi ay sa presyo ngayon</string>
     <string name="pay_own">Hindi kasama: mga payment mula sa sariling wallet ng publisher: %1$d</string>
     <string name="season_pill">Habang %1$s</string>
-    <string name="season_share">Isinulat habang reward season: %1$d sa %2$d store review ang nabasa</string>
+    <string name="season_share">Isinulat habang Seeker season: %1$d sa %2$d store review ang nabasa</string>
     <string name="note_title">Naka-sign na note ng publisher</string>
     <string name="note_add">Magdagdag ng naka-sign na note</string>
     <string name="note_update">I-update ang naka-sign kong note</string>
@@ -768,4 +768,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Ang pag-list ay nagkakahalaga ng kapareho ng paid tier ng aming iba pang dApps: %1$s o %2$s (%3$s kasama ang Seeker Genesis Token). Binabayaran ito isang beses kada dApp at treasury, sa parehong transaction na nag-sign sa listing. Ang pagbabago ng code o pag-list ulit sa hinaharap ay nagkakahalaga lang ng network fee.</string>
     <string name="pay_list_pay">Bayaran ang %1$s at i-list</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Na-verify na publisher — nakalagay ang pangalan sa loob ng build na inihahatid ng store</string>
+    <string name="publisher_check_build">Suriin ang build ng store · %1$s</string>
+    <string name="publisher_checking_build">Binabasa ang build ng store…</string>
+    <string name="publisher_build_nothing">Walang pinangalanang wallet ng publisher sa build ng store.</string>
+    <string name="publisher_build_other">Ibang wallet ang pinangalanan sa build ng store.</string>
+    <string name="publisher_build_failed">Hindi mabasa ang build. Subukan ulit gamit ang Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Ipakita ang tala (hindi binibilang ang wallet na ito)</string>
 </resources>

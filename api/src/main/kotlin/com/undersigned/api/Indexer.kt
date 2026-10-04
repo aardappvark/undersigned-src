@@ -1,5 +1,6 @@
 package com.undersigned.api
 
+import com.undersigned.protocol.Apk
 import com.undersigned.protocol.LedgerEntry
 import com.undersigned.protocol.Payments
 import com.undersigned.protocol.PublisherProof
@@ -52,6 +53,8 @@ class State(
     val builtAt: Long,
     /** (package, wallet) → "store_build" or "website": how each verified claim was proven. */
     val proofHow: Map<Pair<String, String>, String> = emptyMap(),
+    /** Record ids whose TEXT this site does not show (the operator's hide list): the record itself stays listed and on-chain. */
+    val operatorHidden: Map<String, String> = emptyMap(),
 ) {
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
@@ -316,6 +319,22 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
 
     fun ratingPackages(): List<String> = db.query("SELECT DISTINCT pkg FROM ratings") { it.getString(1) }
 
+    // ---- The operator's hide list: what this SITE shows, never what the chain holds ----------------------------------
+    fun operatorHidden(): Map<String, String> = db.query("SELECT id, reason FROM operator_hidden") { it.getString(1) to it.getString(2) }.toMap()
+    fun hide(id: String, reason: String) { db.exec("INSERT OR REPLACE INTO operator_hidden (id, reason, at) VALUES (?, ?, ?)", id, reason, System.currentTimeMillis() / 1000) }
+    fun unhide(id: String): Boolean = db.exec("DELETE FROM operator_hidden WHERE id = ?", id) == 1
+
+    /** One copy a day beside the database, the newest 14 kept. */
+    @Volatile var lastBackup: String? = null; private set
+    fun backupDaily() {
+        val dir = java.io.File(java.io.File(Config.DB_PATH).absoluteFile.parentFile, "backups")
+        val day = java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString()
+        val f = java.io.File(dir, "undersigned-$day.db")
+        if (!f.exists()) { db.backupTo(f); log("backup: ${f.name} (${f.length() / 1024} KB)") }
+        dir.listFiles { x -> x.name.startsWith("undersigned-") && x.name.endsWith(".db") }?.sortedByDescending { it.name }?.drop(14)?.forEach { it.delete() }
+        lastBackup = day
+    }
+
     /** Days on which the store-wide snapshot ran, oldest first (Store watch needs 8). */
     fun snapshotDays(): List<String> = db.query("SELECT DISTINCT day FROM ratings ORDER BY day") { it.getString(1) }
 
@@ -351,7 +370,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         signers.forEach { runCatching { names.resolve(it) } }   // cached a week; only new signers cost a lookup
         val details = loadDetails()
         val (verified, since, how) = verifyClaims(entries, details)
-        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how)
+        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, operatorHidden())
         if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 
@@ -368,6 +387,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
                 val before = lastStoreSync
                 runCatching { syncStore() }.onFailure { lastError = "store: ${it.message?.take(100)}"; log("store sync failed: ${it.message?.take(100)}") }
                 runCatching { watchHits() }.onFailure { log("watch: ${it.message?.take(80)}") }
+                runCatching { backupDaily() }.onFailure { lastError = "backup: ${it.message?.take(100)}"; log("backup failed: ${it.message?.take(100)}") }
                 if (lastStoreSync != before) runCatching { rebuild(); log("store: ${state.catalogue.size} apps, ${state.details.size} details") }.onFailure { log("rebuild failed: ${it.message?.take(100)}") }
                 Thread.sleep(Config.LEDGER_EVERY_MS)
             }

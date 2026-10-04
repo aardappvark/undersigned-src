@@ -519,7 +519,7 @@
     <string name="pay_usd_both">USD ตามราคาวันที่ชำระเงินแต่ละครั้งเมื่อทราบราคา มิฉะนั้นตามราคาวันนี้</string>
     <string name="pay_own">ไม่นับรวม: การชำระเงินจากกระเป๋าเงินของผู้เผยแพร่เอง: %1$d</string>
     <string name="season_pill">ในช่วง %1$s</string>
-    <string name="season_share">เขียนในช่วงฤดูกาลรางวัล: อ่านแล้ว %1$d จาก %2$d รีวิวสโตร์</string>
+    <string name="season_share">เขียนในช่วงฤดูกาล Seeker: อ่านแล้ว %1$d จาก %2$d รีวิวสโตร์</string>
     <string name="note_title">บันทึกที่ลงลายเซ็นโดยผู้เผยแพร่</string>
     <string name="note_add">เพิ่มบันทึกที่ลงลายเซ็น</string>
     <string name="note_update">อัปเดตบันทึกที่ลงลายเซ็นของฉัน</string>
@@ -743,4 +743,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">การลงรายการมีค่าใช้จ่ายเท่ากับระดับแบบชำระเงินของ dApp อื่น ๆ ของเรา: %1$s หรือ %2$s (%3$s หากมี Seeker Genesis Token) ชำระเพียงครั้งเดียวต่อ dApp และคลัง ในธุรกรรมเดียวกันกับที่ลงลายเซ็นการลงรายการ การเปลี่ยนรหัสหรือลงรายการอีกครั้งในภายหลังมีค่าใช้จ่ายเพียงค่าธรรมเนียมเครือข่ายเท่านั้น</string>
     <string name="pay_list_pay">จ่าย %1$s แล้วลงรายการ</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">ผู้เผยแพร่ที่ตรวจสอบแล้ว — ระบุชื่อไว้ในบิลด์ที่สโตร์ให้ดาวน์โหลด</string>
+    <string name="publisher_check_build">ตรวจสอบบิลด์ของสโตร์ · %1$s</string>
+    <string name="publisher_checking_build">กำลังอ่านบิลด์ของสโตร์…</string>
+    <string name="publisher_build_nothing">บิลด์ของสโตร์ไม่ได้ระบุกระเป๋าเงินของผู้เผยแพร่</string>
+    <string name="publisher_build_other">บิลด์ของสโตร์ระบุกระเป๋าเงินอื่น</string>
+    <string name="publisher_build_failed">อ่านบิลด์ไม่ได้ ลองอีกครั้งผ่าน Wi-Fi</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">แสดงบันทึก (กระเป๋าเงินนี้ไม่ถูกนับ)</string>
 </resources>

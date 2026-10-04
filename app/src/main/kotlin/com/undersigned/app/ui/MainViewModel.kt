@@ -222,7 +222,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             // store lists (so it is the store's build). Otherwise the store-listed website's proof file.
             val apk = installed.value.contains(pkg) && c.signer in installedApps.declaredPublishers(pkg) &&
                 !d?.certFingerprint.isNullOrEmpty() && installedApps.facts(pkg)?.signerSha256.equals(d.certFingerprint, ignoreCase = true)
+            // Or the build the STORE serves names the wallet and is signed by the store-listed certificate: read on request
+            // (checkStoreBuild), by the same shared reader the API uses, so nobody has to install the app or trust a server.
+            val build = d?.let { UserPreferences.storeBuild(pkg, it.versionCode) }
+            val storeBuild = build != null && c.signer in build.declared && !d.certFingerprint.isNullOrEmpty() && d.certFingerprint in build.certSha256
             if (apk) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "apk") } }
+            else if (storeBuild) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "store") } }
             else if (PublisherVerifier.verify(pkg, c.signer, d)) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "web") } }
         }
         // Extend each verification to every reviewed app that lists the same website, so a publisher's review of their
@@ -247,6 +252,38 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     /** When this device first found [wallet] in [pkg]'s website proof file, if it did. */
     fun proofSince(pkg: String, wallet: String): Long? = storeDetails.value[pkg]?.website?.let { PublisherVerifier.wellKnownUrl(it) }?.let { UserPreferences.proofSeenAt(it, wallet) }
+    /** Wallets that signed "I publish this app" for [pkg], verified or not. */
+    fun claimers(pkg: String): Set<String> = entries.value.filter { (it.memo as? ReviewMemo.Claim)?.packageName == pkg }.map { it.signer }.toSet()
+    /** Per package: "reading", "failed", or absent. The result itself lives in UserPreferences.storeBuild. */
+    val buildCheck = MutableStateFlow<Map<String, String>>(emptyMap())
+    /**
+     * Downloads the build the store serves for [pkg] (its public install file, up to 300 MB, to the cache and deleted
+     * after), reads its publisher line and signer, remembers both per version, and re-checks the claims. Asked for by the
+     * owner from the dApp page: a download this size is never started by itself.
+     */
+    fun checkStoreBuild(pkg: String) {
+        if (buildCheck.value[pkg] == "reading") return
+        buildCheck.update { it + (pkg to "reading") }
+        viewModelScope.launch(Dispatchers.IO) {
+            val ok = runCatching {
+                val d = store.details(pkg)?.also { nd -> storeDetails.update { it + (pkg to nd) } } ?: error("no store details")
+                val uri = d.apkUri ?: error("the store lists no install file")
+                val tmp = java.io.File(getApplication<Application>().cacheDir, "storebuild-$pkg.apk")
+                try {
+                    val c = java.net.URL(uri).openConnection() as java.net.HttpURLConnection
+                    try {
+                        c.connectTimeout = 10000; c.readTimeout = 60000
+                        if (c.responseCode != 200) error("HTTP ${c.responseCode}")
+                        c.inputStream.use { inp -> tmp.outputStream().use { out -> val buf = ByteArray(1 shl 16); var total = 0L
+                            while (true) { val n = inp.read(buf); if (n < 0) break; total += n; if (total > 300L * 1024 * 1024) error("over 300 MB"); out.write(buf, 0, n) } } }
+                    } finally { c.disconnect() }
+                    UserPreferences.saveStoreBuild(pkg, d.versionCode, com.undersigned.protocol.Apk.read(tmp))
+                } finally { tmp.delete() }
+            }.onFailure { Log.w("MainViewModel", "store build $pkg: ${it.message?.take(80)}") }.isSuccess
+            if (ok) verifyClaims(entries.value)
+            buildCheck.update { if (ok) it - pkg else it + (pkg to "failed") }
+        }
+    }
     fun isVerifiedPublisher(pkg: String, wallet: String) = verifiedPublishers.value[pkg]?.contains(wallet) == true
     fun myClaim(pkg: String): LedgerEntry? = wallet.value?.let { w -> entries.value.firstOrNull { it.signer == w && (it.memo as? ReviewMemo.Claim)?.packageName == pkg } }
     fun versionScores(pkg: String) = Reputation.byVersion(entries.value, pkg, verifiedPublishers.value) { facts.value[it] ?: SignerFacts(false, 0.0) }
@@ -604,7 +641,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun importStoreReviews(sender: ActivityResultSender, chosen: List<Pair<String, StoreReview>>, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<Int>) -> Unit) {
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
-        val memos = chosen.map { (pkg, r) -> ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), listOf(ReviewMemo.Tag.WORKS).takeIf { r.rating >= 4 } ?: listOf(ReviewMemo.Tag.CONFUSING), 1L, r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }) }
+        val memos = chosen.map { (pkg, r) -> ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), listOf(ReviewMemo.Tag.WORKS).takeIf { r.rating >= 4 } ?: listOf(ReviewMemo.Tag.CONFUSING), installedApps.facts(pkg)?.versionCode ?: storeDetails.value[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L, r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }) }
         val texts = memos.map { runCatching { ReviewMemo.encode(it) }.getOrElse { return onResult(Result.failure(it)) } }
         viewModelScope.launch {
             if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))

@@ -535,7 +535,7 @@
     <string name="pay_usd_both">USD pada hari setiap pembayaran saat harga diketahui, jika tidak dengan harga hari ini</string>
     <string name="pay_own">Tidak dihitung: pembayaran dari dompet milik penerbit sendiri: %1$d</string>
     <string name="season_pill">Selama %1$s</string>
-    <string name="season_share">Ditulis selama musim hadiah: %1$d dari %2$d ulasan toko dibaca</string>
+    <string name="season_share">Ditulis selama musim Seeker: %1$d dari %2$d ulasan toko dibaca</string>
     <string name="note_title">Catatan bertanda tangan dari penerbit</string>
     <string name="note_add">Tambahkan catatan bertanda tangan</string>
     <string name="note_update">Perbarui catatan bertanda tangan saya</string>
@@ -759,4 +759,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Mendaftarkan biayanya sama dengan tingkat berbayar dApp kami yang lain: %1$s atau %2$s (%3$s dengan Seeker Genesis Token). Dibayar sekali per dApp dan treasuri, dalam transaksi yang sama yang menandatangani pendaftaran. Mengubah kode atau mendaftar lagi nanti hanya dikenakan biaya jaringan.</string>
     <string name="pay_list_pay">Bayar %1$s dan daftarkan</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Penerbit terverifikasi — namanya tercantum di dalam build yang disajikan toko</string>
+    <string name="publisher_check_build">Periksa build toko · %1$s</string>
+    <string name="publisher_checking_build">Membaca build toko…</string>
+    <string name="publisher_build_nothing">Build toko tidak mencantumkan dompet penerbit mana pun.</string>
+    <string name="publisher_build_other">Build toko mencantumkan dompet yang berbeda.</string>
+    <string name="publisher_build_failed">Build tidak dapat dibaca. Coba lagi lewat Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Tampilkan catatan (dompet ini tidak dihitung)</string>
 </resources>

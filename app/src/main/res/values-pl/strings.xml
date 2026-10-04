@@ -559,7 +559,7 @@
     <string name="pay_usd_both">USD w dniu każdej płatności, gdy ceny są znane, w przeciwnym razie po dzisiejszych cenach</string>
     <string name="pay_own">Pominięte: płatności z własnych portfeli wydawcy: %1$d</string>
     <string name="season_pill">Podczas %1$s</string>
-    <string name="season_share">Napisane podczas sezonów nagród: %1$d z %2$d recenzji sklepu przeczytanych</string>
+    <string name="season_share">Napisane podczas sezonów Seeker: %1$d z %2$d recenzji sklepu przeczytanych</string>
     <string name="note_title">Podpisana notatka wydawcy</string>
     <string name="note_add">Dodaj podpisaną notatkę</string>
     <string name="note_update">Zaktualizuj moją podpisaną notatkę</string>
@@ -782,4 +782,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Wystawienie kosztuje tyle samo co płatny poziom naszych pozostałych dApps: %1$s lub %2$s (%3$s z Seeker Genesis Token). Opłata pobierana jest raz na dApp i skarbiec, w tej samej transakcji, która podpisuje wpis. Zmiana kodu lub ponowne wystawienie później kosztuje tylko opłatę sieciową.</string>
     <string name="pay_list_pay">Zapłać %1$s i wystaw</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Zweryfikowany wydawca — wymieniony w kompilacji, którą udostępnia sklep</string>
+    <string name="publisher_check_build">Sprawdź kompilację sklepu · %1$s</string>
+    <string name="publisher_checking_build">Odczytywanie kompilacji sklepu…</string>
+    <string name="publisher_build_nothing">Kompilacja sklepu nie wymienia portfela wydawcy.</string>
+    <string name="publisher_build_other">Kompilacja sklepu wymienia inny portfel.</string>
+    <string name="publisher_build_failed">Nie udało się odczytać kompilacji. Spróbuj ponownie przez Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Pokaż notatkę (ten portfel nie liczy się)</string>
 </resources>

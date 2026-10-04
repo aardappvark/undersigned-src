@@ -527,7 +527,7 @@
     <string name="pay_usd_both">価格が分かる場合は各支払い当日の価格による USD、それ以外は本日の価格による</string>
     <string name="pay_own">除外:パブリッシャー自身のウォレットからの支払い:%1$d</string>
     <string name="season_pill">%1$s中</string>
-    <string name="season_share">リワードシーズン中に書かれた:ストアレビュー%2$d件中%1$d件既読</string>
+    <string name="season_share">Seekerシーズン中に書かれた:ストアレビュー%2$d件中%1$d件既読</string>
     <string name="note_title">パブリッシャーの署名済みメモ</string>
     <string name="note_add">署名済みメモを追加</string>
     <string name="note_update">署名済みメモを更新</string>
@@ -750,4 +750,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">登録の費用は、他の dApp の有料ティアと同額です:%1$s または %2$s(Seeker Genesis Token をお持ちの場合は %3$s)。dApp とトレジャリーごとに一度だけ、登録に署名するのと同じトランザクションで支払います。後でコードを変更したり再登録したりする場合の費用はネットワーク手数料のみです。</string>
     <string name="pay_list_pay">%1$s を支払って登録</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">検証済みパブリッシャー — ストアが配信するビルド内に記載</string>
+    <string name="publisher_check_build">ストアのビルドを確認 · %1$s</string>
+    <string name="publisher_checking_build">ストアのビルドを読み取り中…</string>
+    <string name="publisher_build_nothing">ストアのビルドにパブリッシャーのウォレットの記載はありません。</string>
+    <string name="publisher_build_other">ストアのビルドには別のウォレットが記載されています。</string>
+    <string name="publisher_build_failed">ビルドを読み取れませんでした。Wi-Fiでもう一度お試しください。</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">メモを表示（このウォレットはカウント対象外）</string>
 </resources>

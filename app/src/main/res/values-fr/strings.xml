@@ -548,7 +548,7 @@
     <string name="pay_usd_both">USD au jour de chaque paiement quand les cours sont connus, sinon aux cours du jour</string>
     <string name="pay_own">Exclus : paiements provenant des propres wallets de l\'éditeur : %1$d</string>
     <string name="season_pill">Pendant %1$s</string>
-    <string name="season_share">Écrits pendant des saisons de récompense : %1$d des %2$d avis du store lus</string>
+    <string name="season_share">Écrits pendant des saisons Seeker : %1$d des %2$d avis du store lus</string>
     <string name="note_title">Note signée de l\'éditeur</string>
     <string name="note_add">Ajouter une note signée</string>
     <string name="note_update">Mettre à jour ma note signée</string>
@@ -793,4 +793,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Le référencement coûte le même prix qu\'un palier payant de nos autres dApps : %1$s ou %2$s (%3$s avec un Seeker Genesis Token). Il est payé une fois par dApp et par trésorerie, dans la même transaction qui signe l\'annonce. Modifier le code ou se référencer à nouveau plus tard ne coûte que les frais de réseau.</string>
     <string name="pay_list_pay">Payer %1$s et référencer</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Éditeur vérifié — nommé dans la version que le store fournit</string>
+    <string name="publisher_check_build">Vérifier la version du store · %1$s</string>
+    <string name="publisher_checking_build">Lecture de la version du store…</string>
+    <string name="publisher_build_nothing">La version du store ne nomme aucun wallet d\'éditeur.</string>
+    <string name="publisher_build_other">La version du store nomme un autre wallet.</string>
+    <string name="publisher_build_failed">La version n\'a pas pu être lue. Réessayez en Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Afficher la note (ce wallet n\'est pas comptabilisé)</string>
 </resources>

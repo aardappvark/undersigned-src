@@ -1,5 +1,6 @@
 package com.undersigned.api
 
+import com.undersigned.protocol.Apk
 import com.undersigned.protocol.ReviewMemo
 import org.json.JSONArray
 import org.json.JSONObject

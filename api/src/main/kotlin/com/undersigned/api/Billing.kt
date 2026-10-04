@@ -31,7 +31,7 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
     /** Redeems with EITHER the paying wallet's [messageSignature] OR the checkout [secret] whose commitment is in the memo. */
     fun redeem(txSignature: String, messageSignature: String?, now: Long = System.currentTimeMillis() / 1000, secret: String? = null): Pass {
         if (!Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}$").matches(txSignature)) throw Refused(400, "signature must be a base58 transaction signature")
-        db.query("SELECT key FROM redeemed WHERE sig = ?", txSignature) { it.getString(1) }.firstOrNull()?.let { throw Refused(409, "this payment has already been redeemed") }
+        val already = db.query("SELECT key FROM redeemed WHERE sig = ?", txSignature) { it.getString(1) }.firstOrNull()
         val tx = txOf(txSignature) ?: throw Refused(404, "transaction not found yet; try again once it is confirmed")
         if (!tx.ok) throw Refused(402, "the transaction failed on-chain, so nothing was paid")
         if (Config.API_REFERENCE !in tx.accountKeys) throw Refused(402, "the payment does not carry the API reference account ${Config.API_REFERENCE}")
@@ -44,6 +44,8 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
             !messageSignature.isNullOrBlank() -> if (!verifySignature(tx.feePayer, message(txSignature), messageSignature)) throw Refused(403, "the message signature is not the paying wallet's (sign \"${message(txSignature)}\" with ${tx.feePayer})")
             else -> throw Refused(400, "send the checkout secret, or the paying wallet's signature of \"${message(txSignature)}\"")
         }
+        // Already redeemed: the same proof gets the SAME key back (a lost key is recoverable by the payer), never a second pass.
+        if (already != null) return pass(already) ?: throw Refused(409, "this payment has already been redeemed")
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
         val (rail, amount) = when {
             tx.lamportsIn >= Config.passFloorLamports -> "SOL" to tx.lamportsIn

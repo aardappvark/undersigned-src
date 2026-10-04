@@ -71,7 +71,8 @@ class BillingTest {
         txs[sig('a')] = tx(sig('a'))
         val p = redeem(sig('a'))
         assertEquals(Config.PASS_REQUESTS, p.requestsLeft); assertEquals(1_000_000 + Config.PASS_DAYS * 86_400, p.endsAt)
-        assertEquals(409, assertFailsWith<Billing.Refused> { redeem(sig('a')) }.status)                     // replay
+        val again = redeem(sig('a'))                                                                       // the payer proves it again: the SAME key back, nothing added
+        assertEquals(p.key, again.key); assertEquals(Config.PASS_REQUESTS, again.requestsLeft)
 
         txs[sig('b')] = tx(sig('b')); assertEquals(403, assertFailsWith<Billing.Refused> { redeem(sig('b'), Wallet()) }.status)   // not the payer
         txs[sig('c')] = tx(sig('c'), ref = false); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('c')) }.status)  // no reference
@@ -100,7 +101,8 @@ class BillingTest {
         assertEquals(400, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000) }.status)                                   // no proof at all
         val p = b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret)
         assertEquals(payer.address, p.wallet)
-        assertEquals(409, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret) }.status)
+        assertEquals(p.key, b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret).key)                // a lost key is recoverable with the same secret
+        assertEquals(403, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000, secret = "someone-else") }.status)
         // A plain "UNS" payment has no commitment: a secret cannot redeem it, only the payer's signature can.
         txs[sig('b')] = tx(sig('b'))
         assertEquals(403, assertFailsWith<Billing.Refused> { b.redeem(sig('b'), null, now = 1_000_000, secret = c.secret) }.status)

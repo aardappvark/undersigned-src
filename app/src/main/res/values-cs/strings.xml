@@ -551,7 +551,7 @@
     <string name="pay_usd_both">USD v den každé platby, pokud jsou ceny známé, jinak podle dnešních cen</string>
     <string name="pay_own">Vynecháno: platby z vlastních peněženek vydavatele: %1$d</string>
     <string name="season_pill">Během %1$s</string>
-    <string name="season_share">Napsáno během odměnových sezón: %1$d z %2$d recenzí z obchodu přečteno</string>
+    <string name="season_share">Napsáno během sezón Seeker: %1$d z %2$d recenzí z obchodu přečteno</string>
     <string name="note_title">Podepsáná poznámka vydavatele</string>
     <string name="note_add">Přidat podepsanou poznámku</string>
     <string name="note_update">Aktualizovat mou podepsanou poznámku</string>
@@ -774,4 +774,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Uvedení na seznamu stojí stejně jako placená úroveň našich ostatních dApps: %1$s nebo %2$s (%3$s se Seeker Genesis Token). Platí se jednou za dApp a pokladnu, ve stejné transakci, která podepisuje záznam. Pozdější změna kódu nebo opětovné uvedení na seznamu stojí jen síťový poplatek.</string>
     <string name="pay_list_pay">Zaplatit %1$s a uvést na seznam</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Ověřený vydavatel — uveden v sestavení, které obchod poskytuje</string>
+    <string name="publisher_check_build">Zkontrolovat sestavení obchodu · %1$s</string>
+    <string name="publisher_checking_build">Čtu sestavení obchodu…</string>
+    <string name="publisher_build_nothing">Sestavení obchodu neuvádí žádnou peněženku vydavatele.</string>
+    <string name="publisher_build_other">Sestavení obchodu uvádí jinou peněženku.</string>
+    <string name="publisher_build_failed">Sestavení se nepodařilo přečíst. Zkuste to znovu přes Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Zobrazit poznámku (tato peněženka není započítána)</string>
 </resources>

@@ -27,7 +27,9 @@ data class StoreRating(val average: Double, val byStar: List<Int>) { val total g
 data class ReviewsRead(val items: List<StoreReview>, val complete: Boolean, val exhausted: Boolean)
 
 /** [newInVersion] is the publisher's "What's new" for [versionCode] ONLY — the store's latest release, not the installed one. */
-data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?, val newInVersion: String? = null)
+/** [apkUri]/[apkSize]: the store's public download of that release, read only when the owner asks to check its publisher line. */
+data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val publisherName: String?, val website: String?, val supportEmail: String?, val newInVersion: String? = null,
+                        val apkUri: String? = null, val apkSize: Long = 0L)
 
 /**
  * The store's "What's new" text is the publisher's own, unlocalised, and sometimes raw GitHub markdown (the dApp Store's
@@ -89,7 +91,8 @@ class StoreReviewsClient {
             val rel = d.optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return@runCatching null
             val ad = rel.optJSONObject("androidDetails"); val pd = rel.optJSONObject("publisherDetails")
             StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.str("certFingerprint")?.lowercase()?.filter { c -> c in "0123456789abcdef" },
-                pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"), cleanReleaseNotes(rel.str("newInVersion")))
+                pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"), cleanReleaseNotes(rel.str("newInVersion")),
+                rel.optJSONObject("installFile")?.str("uri")?.takeIf { it.startsWith("https://") }, rel.optJSONObject("installFile")?.optLong("size", 0L) ?: 0L)
         }.getOrElse { Log.w(TAG, "details failed: ${it.message?.take(80)}"); null }
     }
 
@@ -144,7 +147,7 @@ class StoreReviewsClient {
     companion object {
         private const val TAG = "StoreReviews"
         private const val Q_RATING = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { __typename androidPackage rating { rating reviewsByRating } } }"
-        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
+        private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion installFile { uri size } androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
         /** The store's largest accepted page of reviews (v1.59.0: 11+ returns a bare error; measured 26 Sep 2026). */
         const val MAX_REVIEW_PAGE = 10
         /** The largest star-count batch the store returns whole (see [ratingsBatch]). */

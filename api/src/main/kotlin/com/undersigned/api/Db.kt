@@ -26,6 +26,7 @@ class Db(path: String = Config.DB_PATH) {
             s.execute("CREATE TABLE IF NOT EXISTS passes (key TEXT PRIMARY KEY, wallet TEXT NOT NULL, requests_left INTEGER NOT NULL, ends_at INTEGER NOT NULL, created INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS redeemed (sig TEXT PRIMARY KEY, key TEXT NOT NULL, wallet TEXT NOT NULL, rail TEXT NOT NULL, amount INTEGER NOT NULL, at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS apk_proofs (pkg TEXT NOT NULL, version INTEGER NOT NULL, cert TEXT NOT NULL, declared TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY (pkg, version))")
+            s.execute("CREATE TABLE IF NOT EXISTS operator_hidden (id TEXT PRIMARY KEY, reason TEXT NOT NULL, at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS pay_rows (addr_key TEXT NOT NULL, sig TEXT NOT NULL, time INTEGER, memo TEXT, fetched INTEGER, payer TEXT, lamports INTEGER, tokens TEXT, PRIMARY KEY (addr_key, sig))")
         }
     }
@@ -40,6 +41,9 @@ class Db(path: String = Config.DB_PATH) {
         c.autoCommit = false
         try { val r = block(); c.commit(); return r } catch (e: Exception) { c.rollback(); throw e } finally { c.autoCommit = true }
     }
+
+    /** A consistent copy of the whole database into [file] (SQLite VACUUM INTO): passes and redemptions are the one thing the chain cannot rebuild. */
+    @Synchronized fun backupTo(file: java.io.File) { file.parentFile?.mkdirs(); file.delete(); c.createStatement().use { it.execute("VACUUM INTO '" + file.path.replace("'", "''") + "'") } }
 
     fun get(k: String): String? = query("SELECT v FROM kv WHERE k = ?", k) { it.getString(1) }.firstOrNull()
     fun put(k: String, v: String) { exec("INSERT INTO kv (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v", k, v) }

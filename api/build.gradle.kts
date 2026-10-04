@@ -12,4 +12,8 @@ dependencies {
 }
 tasks.test { useJUnitPlatform() }
 // One source of truth for reward seasons: the app's own asset.
-tasks.processResources { from("../app/src/main/assets/seasons.json") }
+tasks.processResources {
+    from("../app/src/main/assets/seasons.json")
+    // The app's own translations (27 locales): pages label tags and device facts in the reader's language from them.
+    from("../app/src/main/res") { include("values*/strings.xml"); into("i18n") }
+}

@@ -70,7 +70,8 @@ object Ranking {
         val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
-            .map { (_, v) -> v.maxBy { it.blockTime } }
+            // Newest wins; two records in the same second (an import batch) break the tie on the record id, so every reader picks the same one.
+            .map { (_, v) -> v.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature }) }
         return newestPerWalletPerApp
             .groupBy { (it.memo as ReviewMemo.Review).packageName }
             .map { (pkg, list) ->

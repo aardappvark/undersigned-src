@@ -543,7 +543,7 @@
     <string name="pay_usd_both">USD по курсу дня каждого платежа, где цены известны, иначе по сегодняшним ценам</string>
     <string name="pay_own">Не учтено: платежи с собственных кошельков издателя: %1$d</string>
     <string name="season_pill">Во время %1$s</string>
-    <string name="season_share">Написано во время сезонов вознаграждений: %1$d из %2$d отзывов магазина прочитано</string>
+    <string name="season_share">Написано во время сезонов Seeker: %1$d из %2$d отзывов магазина прочитано</string>
     <string name="note_title">Подписанная заметка издателя</string>
     <string name="note_add">Добавить подписанную заметку</string>
     <string name="note_update">Обновить мою подписанную заметку</string>
@@ -765,4 +765,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Добавление в список стоит столько же, сколько платный уровень наших других dApps: %1$s или %2$s (%3$s с Seeker Genesis Token). Оплачивается один раз за dApp и казначейство, в той же транзакции, что подписывает запись. Изменение кода или повторное добавление в список позже стоит только комиссию сети.</string>
     <string name="pay_list_pay">Заплатить %1$s и добавить в список</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Проверенный издатель — указан внутри сборки, которую отдаёт магазин</string>
+    <string name="publisher_check_build">Проверить сборку магазина · %1$s</string>
+    <string name="publisher_checking_build">Чтение сборки магазина…</string>
+    <string name="publisher_build_nothing">В сборке магазина не указан кошелёк издателя.</string>
+    <string name="publisher_build_other">В сборке магазина указан другой кошелёк.</string>
+    <string name="publisher_build_failed">Не удалось прочитать сборку. Повторите попытку через Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Показать заметку (этот кошелёк не учитывается)</string>
 </resources>

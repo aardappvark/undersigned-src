@@ -528,7 +528,7 @@
     <string name="pay_usd_both">가격을 알 수 있는 경우 각 결제 당일 가격 기준 USD, 그렇지 않으면 오늘 가격 기준</string>
     <string name="pay_own">제외됨: 퍼블리셔 자신의 지갑에서 이루어진 결제: %1$d</string>
     <string name="season_pill">%1$s 동안</string>
-    <string name="season_share">보상 시즌 동안 작성됨: 스토어 리뷰 %2$d건 중 %1$d건 읽음</string>
+    <string name="season_share">Seeker 시즌 동안 작성됨: 스토어 리뷰 %2$d건 중 %1$d건 읽음</string>
     <string name="note_title">퍼블리셔의 서명된 메모</string>
     <string name="note_add">서명된 메모 추가</string>
     <string name="note_update">내 서명된 메모 업데이트</string>
@@ -751,4 +751,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">등록 비용은 다른 dApp의 유료 티어와 동일합니다: %1$s 또는 %2$s(Seeker Genesis Token 보유 시 %3$s). dApp 및 트레저리당 한 번만 지불하며, 등록에 서명하는 것과 동일한 트랜잭션에서 결제됩니다. 이후 코드를 변경하거나 다시 등록하는 데는 네트워크 수수료만 듭니다.</string>
     <string name="pay_list_pay">%1$s 결제하고 등록</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">검증된 퍼블리셔 — 스토어가 제공하는 빌드 내에 명시됨</string>
+    <string name="publisher_check_build">스토어 빌드 확인 · %1$s</string>
+    <string name="publisher_checking_build">스토어 빌드 읽는 중…</string>
+    <string name="publisher_build_nothing">스토어 빌드에 퍼블리셔 지갑이 명시되어 있지 않습니다.</string>
+    <string name="publisher_build_other">스토어 빌드에 다른 지갑이 명시되어 있습니다.</string>
+    <string name="publisher_build_failed">빌드를 읽을 수 없습니다. Wi-Fi에서 다시 시도하세요.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">메모 표시(이 지갑은 집계 제외)</string>
 </resources>

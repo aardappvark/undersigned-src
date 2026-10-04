@@ -112,6 +112,9 @@ fun TagChip(text: String, count: Int? = null, selected: Boolean = false, onClick
 @Composable
 fun com.undersigned.protocol.ReviewMemo.Tag.label(): String = LocalContext.current.tagLabel(wire)
 
+/** Tag labels for code outside Compose (notifications): the same localised strings the chips show. */
+object TagLabels { fun Context.label(wire: String): String = tagLabel(wire) }
+
 /** String resource for a tag wire value, or null for a wire value this build doesn't know. */
 fun tagLabelRes(wire: String): Int? = when (wire) {
     "works" -> R.string.tag_works

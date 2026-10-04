@@ -544,7 +544,7 @@
     <string name="pay_usd_both">جہاں قیمتیں معلوم ہوں وہاں ہر ادائیگی کے دن کے مطابق USD، ورنہ آج کی قیمتوں پر</string>
     <string name="pay_own">چھوڑا گیا: پبلشر کے اپنے والटس سے ادائیگیاں: %1$d</string>
     <string name="season_pill">%1$s کے دوران</string>
-    <string name="season_share">انعامی موسموں کے دوران لکھے گئے: %2$d اسटور جائزوں میں سے %1$d پڑھے گئے</string>
+    <string name="season_share">Seeker موسموں کے دوران لکھے گئے: %2$d اسٹور جائزوں میں سے %1$d پڑھے گئے</string>
     <string name="note_title">پبلشر کا دستخط شدہ نوٹ</string>
     <string name="note_add">دستخط شدہ نوٹ شامل کریں</string>
     <string name="note_update">میرا دستخط شدہ نوٹ اپ ڈیٹ کریں</string>
@@ -767,4 +767,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">فہرست میں شامل کرنے کی لاگت ہمارے دیگر dApps کے پیڈ ٹیئر جتنی ہی ہے: %1$s یا %2$s (Seeker Genesis Token کے ساتھ %3$s)۔ یہ ہر dApp اور خزانے کے لیے ایک بار ادا کی جاتی ہے، اسی ٹرانزیکشن میں جو فہرست پر دستخط کرتی ہے۔ بعد میں کوڈ تبدیل کرنے یا دوبارہ فہرست میں شامل کرنے کی لاگت صرف نیٹ ورک فیس ہے۔</string>
     <string name="pay_list_pay">%1$s ادا کریں اور فہرست میں شامل کریں</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">تصدیق شدہ پبلشر — اسٹور جو بلڈ فراہم کرتا ہے اس کے اندر نامزد</string>
+    <string name="publisher_check_build">اسٹور کی بلڈ چیک کریں · %1$s</string>
+    <string name="publisher_checking_build">اسٹور کی بلڈ پڑھی جا رہی ہے…</string>
+    <string name="publisher_build_nothing">اسٹور کی بلڈ میں کسی پبلشر والٹ کا نام نہیں ہے۔</string>
+    <string name="publisher_build_other">اسٹور کی بلڈ میں کوئی دوسرا والٹ نامزد ہے۔</string>
+    <string name="publisher_build_failed">بلڈ پڑھی نہیں جا سکی۔ Wi-Fi پر دوبارہ کوشش کریں۔</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">نوٹ دکھائیں (یہ والٹ شمار نہیں)</string>
 </resources>

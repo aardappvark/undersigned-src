@@ -533,7 +533,7 @@
     <string name="pay_usd_both">USD op de dag van elke betaling waar koersen bekend zijn, anders tegen de huidige koersen</string>
     <string name="pay_own">Weggelaten: betalingen van de eigen wallets van de uitgever: %1$d</string>
     <string name="season_pill">Tijdens %1$s</string>
-    <string name="season_share">Geschreven tijdens beloningsseizoenen: %1$d van %2$d storerecensies gelezen</string>
+    <string name="season_share">Geschreven tijdens Seeker-seizoenen: %1$d van %2$d storerecensies gelezen</string>
     <string name="note_title">Ondertekende notitie van de uitgever</string>
     <string name="note_add">Ondertekende notitie toevoegen</string>
     <string name="note_update">Mijn ondertekende notitie bijwerken</string>
@@ -773,4 +773,13 @@
     <!-- 28 Sep 2026 listing fee -->
     <string name="pay_list_fee">Vermelden kost hetzelfde als een betaald niveau van onze andere dApps: %1$s of %2$s (%3$s met een Seeker Genesis Token). Dit wordt eenmalig betaald per dApp en treasury, in dezelfde transactie die de vermelding ondertekent. De code later wijzigen of opnieuw vermelden kost alleen de netwerkkosten.</string>
     <string name="pay_list_pay">%1$s betalen en vermelden</string>
+    <!-- 5 Oct 2026 store-build publisher proof -->
+    <string name="publisher_verified_store">Geverifieerde uitgever — genoemd in de build die de store aanbiedt</string>
+    <string name="publisher_check_build">Build van de store controleren · %1$s</string>
+    <string name="publisher_checking_build">Build van de store wordt gelezen…</string>
+    <string name="publisher_build_nothing">De build van de store noemt geen wallet van de uitgever.</string>
+    <string name="publisher_build_other">De build van de store noemt een andere wallet.</string>
+    <string name="publisher_build_failed">De build kon niet worden gelezen. Probeer het opnieuw via Wi-Fi.</string>
+    <!-- 5 Oct 2026 uncounted notes folded -->
+    <string name="review_show_note">Opmerking tonen (deze wallet wordt niet meegeteld)</string>
 </resources>
