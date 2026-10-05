@@ -79,7 +79,7 @@
     <string name="standing_agreement">Совпадение тегов с другими подписантами: %1$s</string>
     <string name="standing_since">Подписывает с %1$s</string>
     <string name="standing_note2">Только подсчёт. Никаких оценок, нечего покупать.</string>
-    <string name="store_reviewer_genesis">Подтверждённое устройство</string>
+    <string name="store_reviewer_genesis">Владелец Seeker</string>
     <string name="store_reviewer_nogenesis">подтверждённое устройство не найдено</string>
     <string name="store_reviewer_signed_here">также подписал(а) здесь</string>
     <string name="notif_divergence_title">%1$s: подписанные и магазинные оценки расходятся</string>
@@ -144,7 +144,7 @@
     <string name="fact_perms_removed">Удалены разрешения: %1$s</string>
     <string name="fact_not_installed">Не установлено на этом устройстве. Установите его из dApp Store, чтобы увидеть факты об устройстве.</string>
     <string name="reviews_title">Подписанные отзывы</string>
-    <string name="review_weight_verified">Подтверждено ✓</string>
+    <string name="review_weight_verified">Аттестовано</string>
     <string name="review_weight_unverified">не учитывается</string>
     <string name="review_hide">Скрыть</string>
     <string name="review_report">Пожаловаться</string>
@@ -234,7 +234,7 @@
     <string name="flag_sign">Подписать отметку</string>
     <string name="flagged_hidden">Скрыто по консенсусу: отмечено как неестественное %1$s взвешенными Seeker</string>
     <string name="flagged_show">Всё равно показать</string>
-    <string name="flagged_count">вес отметок %1$s</string>
+    <string name="flagged_count">Отмечено · вес %1$s</string>
     <string name="star">В избранное</string>
     <string name="unstar">Из избранного</string>
     <string name="inbox">Входящие</string>
@@ -812,7 +812,7 @@
     <string name="notif_flagged_body">Указанная причина: %1$s. Если вы не согласны, можно подписать возражение к записи.</string>
     <string name="notif_note_title">Издатель ответил на ваш отзыв из магазина · %1$s</string>
     <string name="notif_proven_title">Ваше заявление подтверждено · %1$s</string>
-    <string name="notif_proven_body">Ваши ответы на отзывы об этом приложении теперь несут отметку Издатель ✓, а ваши собственные отзывы о нём не учитываются.</string>
+    <string name="notif_proven_body">Ваши ответы на отзывы об этом приложении теперь несут отметку Издатель, а ваши собственные отзывы о нём не учитываются.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Укажите свой кошелёк в приложении (самый надёжный)</string>
     <string name="claim_route_build_body">Добавьте эту строку внутрь &lt;application&gt; в манифесте приложения и выпустите обновление в dApp Store. Читатели смотрят сборку, которую отдаёт магазин: в строке должен быть указан этот кошелёк, а сборка должна быть подписана сертификатом, который указывает магазин. Сделать это может только владелец ключа подписи вашего приложения.</string>
@@ -830,4 +830,62 @@
     <string name="proof_not_title">Что этого не доказывает</string>
     <string name="proof_not_body">Собственная подпись кошелька, платёжный адрес или кошелёк, опубликовавший приложение в dApp Store. Магазин не сообщает, какая запись в блокчейне относится к какой карточке, и любой может создать запись с названием любого приложения.</string>
     <string name="proof_how_after">Ответы доказанного издателя получают значок Издатель, а его собственные отзывы о приложении не учитываются.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Назад</string>
+    <string name="stars_a11y">%1$s из 5 звёзд</string>
+    <string name="err_network">Нет соединения. Проверьте сеть и повторите попытку.</string>
+    <string name="err_timeout">Время запроса истекло. Повторите попытку.</string>
+    <string name="err_declined">Отклонено в кошельке. Ничего не подписано.</string>
+    <string name="err_funds">В этом кошельке недостаточно средств для этой транзакции и её сетевой комиссии.</string>
+    <string name="link_confirm_body">Ссылка запросила подпись этого. Проверьте запись ниже; перед подтверждением кошелёк покажет точное мемо.</string>
+    <string name="link_confirm_sign">Подписать</string>
+    <string name="detail_pkg_updated">%1$s · обновлено %2$s</string>
+    <string name="anonymous">Аноним</string>
+    <string name="discard_title">Отменить этот отзыв?</string>
+    <string name="discard_body">Ваша оценка, теги и текст ещё не подписаны и будут потеряны.</string>
+    <string name="discard">Отменить</string>
+    <string name="keep_editing">Продолжить редактирование</string>
+    <string name="text_invalid">Не более %1$d символов, без символа |.</string>
+    <string name="to_review_max">Вместе можно подписать до %1$d приложений.</string>
+    <string name="confirm_disconnect_body">Этот телефон забудет кошелёк. В реестре ничего не изменится, а войти снова можно в любой момент.</string>
+    <string name="confirm_unshare_title">Забрать это место Pro?</string>
+    <string name="confirm_unshare_body">Это подписывает запись, которая завершает место. Другой кошелёк потеряет предоставленный вами Pro после подтверждения.</string>
+    <string name="confirm_unhide_body">Каждая скрытая вами запись снова появится на странице своего приложения.</string>
+    <string name="confirm_delete_body">Это удалит с этого телефона запись о вашем согласии, подписки, скрытые записи и записи со звездой, добавленные вами места Pro и кошелёк. В реестре ничего не изменится. Вы снова увидите экран входа.</string>
+    <string name="confirm_delete_action">Удалить</string>
+    <string name="loading">Загрузка…</string>
+    <string name="load_failed">Не удалось загрузить. Проверьте соединение и повторите попытку.</string>
+    <string name="retry">Повторить</string>
+    <string name="pay_listing_line">Код %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Это подписывает запись, которая снимает объявление с доски. Чтобы разместить его снова, придётся снова оплатить размещение.</string>
+    <string name="confirm_withdraw_free">Это подписывает запись, которая снимает объявление с доски. Позже его можно разместить снова.</string>
+    <string name="changes_new_a11y">Изменения, есть новые</string>
+    <string name="desk_signed_mean">%1$s подписано</string>
+    <string name="stats_share_head">Реестр Undersigned, %1$s</string>
+    <string name="stats_share_registry">Реестр %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d звезда</item>
+        <item quantity="few">%1$d звезды</item>
+        <item quantity="many">%1$d звёзд</item>
+        <item quantity="other">%1$d звезды</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Показать ещё %1$d отзыв</item>
+        <item quantity="few">Показать ещё %1$d отзыва</item>
+        <item quantity="many">Показать ещё %1$d отзывов</item>
+        <item quantity="other">Показать ещё %1$d отзыва</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d подписано · достоверность %2$d</item>
+        <item quantity="few">%1$d подписано · достоверность %2$d</item>
+        <item quantity="many">%1$d подписано · достоверность %2$d</item>
+        <item quantity="other">%1$d подписано · достоверность %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Входящие, %1$d новое</item>
+        <item quantity="few">Входящие, %1$d новых</item>
+        <item quantity="many">Входящие, %1$d новых</item>
+        <item quantity="other">Входящие, %1$d нового</item>
+    </plurals>
 </resources>

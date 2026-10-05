@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material.icons.filled.Share as ShareIcon
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -84,6 +85,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     LaunchedEffect(reviews) { vm.resolveDomains(reviews.map { it.first.signer }) }
     var importStage by remember { mutableStateOf<String?>(null) }
     var importMsg by remember { mutableStateOf<String?>(null) }
+    var importOk by remember { mutableStateOf(true) }
     val details by vm.storeDetails.collectAsState()
     val verified by vm.verifiedPublishers.collectAsState()
     val txMeta by vm.txMeta.collectAsState()
@@ -137,27 +139,32 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     // Quick actions (helpful, withdraw, looks genuine) used to discard their result, so a declined or
     // timed-out wallet request did nothing visible (15 Sep 2026). The outcome is now always shown.
     var actionMessage by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
-    fun sign(memo: ReviewMemo) {
+    fun stageText(st: ReviewTxService.Stage) = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
+    fun sign(memo: ReviewMemo, onDone: (Boolean) -> Unit = {}) {
         val s = sender ?: return
         actionMessage = null
-        vm.publish(s, memo, onStage = { st -> simpleStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
+        vm.publish(s, memo, onStage = { st -> simpleStage = stageText(st) }) { r ->
             simpleStage = null
             actionMessage = r.fold(
                 onSuccess = { sig -> true to context.getString(R.string.action_published, shortKey(sig, 6, 6)) },
-                onFailure = { e -> false to (e.message ?: context.getString(R.string.action_failed)) },
+                onFailure = { e -> false to context.errorText(e) },
             )
+            onDone(r.isSuccess)
         }
     }
+    // The dialogs below used to close on any result, so a declined or failed signature looked like it went through
+    // (UI review 6 Oct 2026). Now they close only on success and say what went wrong otherwise.
+    var dialogError by remember { mutableStateOf<String?>(null) }
+    // A link may ask to withdraw a vote, a flag or a "looks genuine": never signed straight from the link.
+    var pendingSimple by remember { mutableStateOf<Pair<String, String>?>(null) }
     LaunchedEffect(pendingAction, entries) {
         pendingAction?.let { a -> if (vm.packageOf(a.target) == pkg) {
             com.undersigned.app.ui.NavIntents.pendingAction.value = null
             when (a.kind) {
-                "flag" -> flagTarget = a.target
-                "dispute" -> { disputeTarget = a.target; disputeText = a.arg }
-                "vote" -> pendingVote = a.target
-                "unvote" -> sign(ReviewMemo.Unvote(a.target))
-                "unflag" -> sign(ReviewMemo.Unflag(a.target))
-                "clear" -> sign(ReviewMemo.Clear(a.target))
+                "flag" -> { dialogError = null; flagTarget = a.target }
+                "dispute" -> { dialogError = null; disputeTarget = a.target; disputeText = a.arg }
+                "vote" -> { dialogError = null; pendingVote = a.target }
+                "unvote", "unflag", "clear" -> pendingSimple = a.kind to a.target
             }
         } }
     }
@@ -182,12 +189,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp))  {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             DAppIcon(pkg, name, icons[pkg]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp))
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text(name, color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, maxLines = 1)
-                Text(pkg + (app?.updated?.takeIf { it.isNotEmpty() }?.let { " · $it" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1)
+                Text(name, color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                Text(app?.updated?.takeIf { it.isNotEmpty() }?.let { stringResource(R.string.detail_pkg_updated, pkg, storeDate(it)) } ?: pkg, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 14.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
             }
             val ctxShare = LocalContext.current
             IconButton(onClick = { val sr = storeRatings[pkg]; com.undersigned.app.ui.components.Share.app(ctxShare, pkg, name, score, sr?.average, sr?.total) }) {
@@ -204,7 +211,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             if (launchIntent != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_open_app), onClick = { openApp() }) }
             Spacer(Modifier.height(8.dp))
             PrimaryButton(if (mine != null) stringResource(R.string.detail_update_review) else stringResource(R.string.detail_write_review), onClick = onReview)
-            if (mine != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_revoke_review), onClick = { revokeDialog = true }) }
+            if (mine != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_revoke_review), onClick = { dialogError = null; revokeDialog = true }) }
 
             SectionTitle(stringResource(R.string.detail_score_title))
             GlassCard {
@@ -221,10 +228,197 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }
 
+            // Signed reviews are what this app is for, so they come straight after the score; the store's own rating,
+            // bursts and device facts follow (UI review 6 Oct 2026: they sat about ten swipes down, under store reviews).
+            SectionTitle(stringResource(R.string.reviews_title))
+            simpleStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+            actionMessage?.let { (ok, msg) -> Text(msg, color = if (ok) RbColors.green else RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp) }
+            if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
+            else Text(stringResource(R.string.swipe_hint), color = RbColors.textTertiary, fontSize = 11.sp)
+            var show by remember { mutableStateOf(0) }   // 0 everyone · 1 mine · 2 answered by the publisher
+            var sortBy by remember { mutableStateOf(0) } // 0 most helpful (default order) · 1 newest · 2 signer · 3 version
+            if (reviews.size > 1) {
+                ChipRow(stringResource(R.string.show), listOf(0 to stringResource(R.string.show_everyone), 1 to stringResource(R.string.show_mine), 2 to stringResource(R.string.show_answered)), show, { show = it })
+                ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_helpful), 1 to stringResource(R.string.sort_newest), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_version)), sortBy, { sortBy = it })
+            }
+            val shown = remember(reviews, show, sortBy, entries, domainNames, verified) {
+                reviews.filter { (e, _) -> when (show) { 1 -> e.signer == wallet; 2 -> vm.repliesFor(e.signature).any { vm.isVerifiedPublisher(pkg, it.signer) }; else -> true } }
+                    .let { l -> when (sortBy) {
+                        1 -> l.sortedByDescending { it.first.blockTime }
+                        2 -> l.sortedBy { domainNames[it.first.signer]?.takeIf { n -> n.isNotEmpty() } ?: it.first.signer }
+                        3 -> l.sortedByDescending { (it.first.memo as ReviewMemo.Review).versionCode }
+                        else -> l
+                    } }
+            }
+            // key() by signature, not position. Without it every remember in this loop (the replies list, the
+            // swipe-to-reply state) stayed bound to a SLOT: the list is newest-first until helpful weights load and
+            // re-sort it, and the slot kept the old review's state. Measured 21 Sep 2026: a reply to 5XTu3S73 was
+            // drawn under the publisher's review, and a swipe there would have opened a reply to the wrong record.
+            var limit by rememberSaveable(pkg) { mutableStateOf(REVIEW_PAGE) }
+            shown.take(limit).forEach { (e, w) -> key(e.signature) {
+                val r = e.memo as ReviewMemo.Review
+                if (e.signature in consensusHidden && e.signature !in revealed) {
+                    GlassCard(accent = RbColors.surfaceVariant) {
+                        Text(stringResource(R.string.flagged_hidden, String.format(java.util.Locale.US, "%.1f", flagWeights[e.signature] ?: 0.0)), color = RbColors.textTertiary, fontSize = 12.sp)
+                        disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 12.sp) }
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            TextButton(onClick = { revealed = revealed + e.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 12.sp) }
+                            if (e.signer == wallet && disputesMap[e.signature] == null) { TextButton(onClick = { dialogError = null; disputeTarget = e.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.textSecondary, fontSize = 12.sp) } }
+                            if (wallet != null && e.signer != wallet) {
+                                if (vm.myFlag(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(e.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.unflag), color = RbColors.textSecondary, fontSize = 12.sp) }
+                                else if (!vm.myClear(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(e.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(simpleStage ?: stringResource(R.string.clear), color = RbColors.info, fontSize = 12.sp) }
+                            }
+                        }
+                    }
+                    Spacer(Modifier.height(8.dp)); return@forEach
+                }
+                val swipe = rememberSwipeToDismissBoxState(confirmValueChange = { v -> if (v == SwipeToDismissBoxValue.StartToEnd && wallet != null) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }; false })
+                SwipeToDismissBox(state = swipe, enableDismissFromEndToStart = false, backgroundContent = { Box(Modifier.fillMaxSize().padding(start = 16.dp), contentAlignment = Alignment.CenterStart) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontWeight = FontWeight.Bold) } }) {
+                GlassCard(accent = if (w > 0) RbColors.glassBorder else RbColors.surfaceVariant) {
+                    // Design review 28 Sep 2026 (handoff 2, F4): author row, then three tiers — trust pills, the phone's report as
+                    // one line, context as quiet text — instead of up to ten equal pills.
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RatingStars(r.rating.toDouble())
+                        Spacer(Modifier.width(8.dp))
+                        Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f).clickable { onProfile(e.signer) })
+                        standings[e.signer]?.let { st -> Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable { onProfile(e.signer) }.padding(horizontal = 4.dp), contentAlignment = Alignment.Center) {
+                            Text(pluralStringResource(R.plurals.standing_short, st.countedReviews, st.countedReviews, st.credibility), color = RbColors.textTertiary, fontSize = 11.sp) } }
+                    }
+                    val paidReviewer = boardRow?.payers?.contains(e.signer) == true
+                    val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        if (w > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w > 1.0) String.format(java.util.Locale.US, " %.1f×", w) else "", RbColors.green)
+                        else OutlinePill(stringResource(R.string.review_weight_unverified))
+                        if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
+                        if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
+                    }
+                    val seekerSigned = txMeta[e.signature.substringBefore(':')]?.seekerWallet == true
+                    val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]
+                    if (seekerSigned || useAge != null || useSpent != null) {
+                        Spacer(Modifier.height(8.dp))
+                        DeviceLine {
+                            if (seekerSigned) DeviceUnit(Icons.Default.Key, stringResource(R.string.seeker_signed), stringResource(R.string.seeker_signed), tint = RbColors.info)
+                            useAge?.let { DeviceUnit(Icons.Default.PhoneAndroid, useLabel(it), stringResource(R.string.use_pill, useLabel(it))) }
+                            useSpent?.let { DeviceUnit(Icons.Default.Schedule, timeLabel(it), stringResource(R.string.time_pill, timeLabel(it))) }
+                        }
+                    }
+                    disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 11.sp) }
+                    if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Spacer(Modifier.height(6.dp))
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
+                    // A note from a wallet that is not counted stays folded until asked for: anyone can sign text for one network
+                    // fee, and an uncounted wallet's words should not sit on an app's page by default.
+                    r.text?.let { note ->
+                        var shown by remember(e.signature) { mutableStateOf(w > 0) }
+                        Spacer(Modifier.height(6.dp))
+                        if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
+                        else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
+                    }
+                    // Tier 3, context: season, then similar wording (amber: that one is unusual). Text, not pills.
+                    val seasonText = vm.seasonAt(e.blockTime)?.let { stringResource(R.string.season_pill, it.label) }
+                    val similarText = similar[e.signature]?.let { stringResource(if (it.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge) }
+                    if (seasonText != null || similarText != null) {
+                        Spacer(Modifier.height(6.dp))
+                        Text(androidx.compose.ui.text.buildAnnotatedString {
+                            seasonText?.let { append(it) }
+                            if (seasonText != null && similarText != null) append(" · ")
+                            similarText?.let { pushStyle(androidx.compose.ui.text.SpanStyle(color = RbColors.warning)); append(it); pop() }
+                        }, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                    }
+                    // Locked in place (design: Screens D): the copy-to-store tool where the user meets it, on their own review.
+                    if (e.signer == wallet && myStore[pkg] == null) {
+                        Spacer(Modifier.height(8.dp))
+                        if (pro?.active == true) { SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) } }
+                        else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
+                    }
+                    Spacer(Modifier.height(6.dp))
+                    val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }
+                    replies.forEach { rp ->
+                        Spacer(Modifier.height(6.dp))
+                        if (rp.signature in consensusHidden && rp.signature !in revealed) {
+                            Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
+                                Text(stringResource(R.string.hidden_reply) + " · " + stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", flagWeights[rp.signature] ?: 0.0)), color = RbColors.textTertiary, fontSize = 11.sp)
+                                disputesMap[rp.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 11.sp) }
+                                FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                    TextButton(onClick = { revealed = revealed + rp.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 11.sp) }
+                                    if (rp.signer == wallet && disputesMap[rp.signature] == null) { TextButton(onClick = { dialogError = null; disputeTarget = rp.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.textSecondary, fontSize = 11.sp) } }
+                                    if (wallet != null && rp.signer != wallet && !vm.myClear(rp.signature)) { TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(rp.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.clear), color = RbColors.info, fontSize = 11.sp) } }
+                                }
+                            }
+                            return@forEach
+                        }
+                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[rp.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(rp.signer, 4, 4))) + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
+                                if (vm.isVerifiedPublisher(pkg, rp.signer)) Pill(stringResource(R.string.publisher_badge), RbColors.green)
+                            }
+                            Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                            if (wallet != null && rp.signer != wallet) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp))  {
+                                flagWeights[rp.signature]?.let { fw -> OutlinePill(stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", fw))) }
+                                val rpFlagged = vm.myFlag(rp.signature)
+                                CardAction(if (rpFlagged) stringResource(R.string.flag_on) + "\u00A0✓" else stringResource(R.string.flag), RbColors.textSecondary, enabled = !rpFlagged || simpleStage == null,
+                                    a11y = stringResource(if (rpFlagged) R.string.unflag else R.string.flag)) { if (rpFlagged) sign(ReviewMemo.Unflag(rp.signature)) else { dialogError = null; flagTarget = rp.signature } }
+                            }
+                        }
+                    }
+                    Spacer(Modifier.height(4.dp))
+                    // One compact line, as designed (handoff/screens/dapp-page-reviews.png): date, then the actions.
+                    // Toggles keep a SHORT visible label ("Helpful ✓", "Flag ✓"): "Withdraw my helpful vote" was five
+                    // times the width of "Helpful" and pushed this bar onto three lines (measured on device, 24 Sep
+                    // 2026). The full wording stays as the screen-reader label. It stays a FlowRow, never a Row: a Row
+                    // that overflows squeezes its last child to zero width and inflates its own height (20 Sep).
+                    val tick = "\u00A0✓"
+                    // Reply · Helpful + weight · Flag + weight, the date on the right; the rest in an overflow menu so the row
+                    // stays short on a Seeker (design F4). A FlowRow still, never a Row (20 Sep: a Row squeezes its last child).
+                    val voted = wallet != null && vm.myUpvote(e.signature); val flagged = wallet != null && vm.myFlag(e.signature)
+                    FlowRow {
+                        if (wallet != null) CardAction(stringResource(R.string.reply), RbColors.purpleLight) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }
+                        if (e.signer != wallet && wallet != null) {
+                            val helpfulA11y = stringResource(if (voted) R.string.unvote else R.string.helpful)
+                            TextButton(enabled = simpleStage == null, onClick = { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }, contentPadding = PaddingValues(horizontal = 4.dp),
+                                modifier = Modifier.semantics { contentDescription = helpfulA11y }) {
+                                Text(simpleStage ?: (stringResource(R.string.helpful) + if (voted) tick else ""), color = RbColors.green, fontSize = 12.sp)
+                                helpful[e.signature]?.let { hw -> Text(" " + String.format(java.util.Locale.US, "%.1f", hw), color = RbColors.textTertiary, fontSize = 12.sp) }
+                            }
+                            val flagA11y = stringResource(if (flagged) R.string.unflag else R.string.flag)
+                            TextButton(enabled = !flagged || simpleStage == null, onClick = { if (flagged) sign(ReviewMemo.Unflag(e.signature)) else { dialogError = null; flagTarget = e.signature } }, contentPadding = PaddingValues(horizontal = 4.dp),
+                                modifier = Modifier.semantics { contentDescription = flagA11y }) {
+                                Text(if (flagged) stringResource(R.string.flag_on) + tick else stringResource(R.string.flag), color = RbColors.textSecondary, fontSize = 12.sp)
+                                flagWeights[e.signature]?.let { fw -> Spacer(Modifier.width(6.dp)); OutlinePill(String.format(java.util.Locale.US, "%.1f", fw)) }
+                            }
+                        } else {
+                            helpful[e.signature]?.let { hw -> Box(Modifier.heightIn(min = 48.dp).padding(horizontal = 4.dp), contentAlignment = Alignment.CenterStart) { Text(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), color = RbColors.textTertiary, fontSize = 12.sp) } }
+                            flagWeights[e.signature]?.let { fw -> Box(Modifier.heightIn(min = 48.dp), contentAlignment = Alignment.CenterStart) { OutlinePill(stringResource(R.string.flagged_count, String.format(java.util.Locale.US, "%.1f", fw))) } }
+                        }
+                        var menu by remember(e.signature) { mutableStateOf(false) }
+                        Box {
+                            IconButton(onClick = { menu = true }, modifier = Modifier.size(48.dp)) { Icon(Icons.Default.MoreHoriz, contentDescription = stringResource(R.string.more_actions), tint = RbColors.textTertiary) }
+                            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, modifier = Modifier.background(RbColors.surface)) {
+                                DropdownMenuItem(text = { Text(stringResource(if (e.signature in starred) R.string.unstar else R.string.star)) }, onClick = { menu = false; vm.toggleStar(e.signature) })
+                                DropdownMenuItem(text = { Text(stringResource(R.string.share)) }, onClick = { menu = false; com.undersigned.app.ui.components.Share.review(context, name, e) })
+                                if (e.signer != wallet) {
+                                    // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
+                                    if (wallet != null && !flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
+                                        DropdownMenuItem(text = { Text(stringResource(R.string.clear)) }, onClick = { menu = false; sign(ReviewMemo.Clear(e.signature)) })
+                                    DropdownMenuItem(text = { Text(stringResource(R.string.review_hide)) }, onClick = { menu = false; vm.hide(e.signature) })
+                                    DropdownMenuItem(text = { Text(stringResource(R.string.review_report)) }, onClick = { menu = false; report(e.signature) })
+                                }
+                            }
+                        }
+                        Box(Modifier.heightIn(min = 48.dp).padding(start = 4.dp), contentAlignment = Alignment.CenterStart) {
+                            Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1)
+                        }
+                    }
+                }
+                }
+                Spacer(Modifier.height(8.dp))
+            } }
+            if (shown.size > limit) SecondaryButton(pluralStringResource(R.plurals.reviews_more, shown.size - limit, shown.size - limit), onClick = { limit += REVIEW_PAGE })
+            if (hiddenCount > 0) Text(stringResource(R.string.review_hidden_note, hiddenCount), color = RbColors.textTertiary, fontSize = 11.sp)
             SectionTitle(stringResource(R.string.publisher_title))
             GlassCard(accent = if (verified[pkg].isNullOrEmpty()) RbColors.glassBorder else RbColors.green) {
                 val d = details[pkg]
-                d?.publisherName?.let { Text(stringResource(R.string.publisher_listed, it + (d.website?.let { w -> " · $w" } ?: "")), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
+                d?.publisherName?.let { Text(stringResource(R.string.publisher_listed, it + (d.website?.let { w -> " · " + w.removePrefix("https://").removePrefix("http://").trimEnd('/') } ?: "")), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
                 val vp = verified[pkg].orEmpty()
                 if (vp.isNotEmpty()) {
                     val how by vm.verifiedHow.collectAsState()
@@ -237,9 +431,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             "store" -> stringResource(R.string.publisher_verified_store)
                             else -> vm.proofSince(pkg, w)?.let { stringResource(R.string.publisher_verified_since, site, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))) } ?: stringResource(R.string.publisher_verified, site)
                         }
-                        Text("$line · $who", color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 17.sp, modifier = Modifier.clickable { onProfile(w) })
+                        Text("$line · $who", color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 17.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { onProfile(w) }.padding(vertical = 6.dp))
                     }
-                    val b = when (responsiveness.bucket) { "hours" -> stringResource(R.string.bucket_hours); "days" -> stringResource(R.string.bucket_days); "weeks" -> stringResource(R.string.bucket_weeks); "months" -> stringResource(R.string.bucket_months); else -> responsiveness.bucket }
+                    val b = bucketLabel(responsiveness.bucket)
                     Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
                 }
                 else Text(stringResource(R.string.publisher_none), color = RbColors.textTertiary, fontSize = 12.sp)
@@ -267,7 +461,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 if (wallet != null) {
                     Spacer(Modifier.height(8.dp))
                     val mine = vm.myClaim(pkg)
-                    if (mine == null) SecondaryButton(claimStage ?: stringResource(R.string.publisher_claim), enabled = claimStage == null && sender != null, onClick = { claimDialog = true })
+                    if (mine == null) SecondaryButton(claimStage ?: stringResource(R.string.publisher_claim), enabled = claimStage == null && sender != null, onClick = { dialogError = null; claimDialog = true })
                     else if (!vp.contains(wallet)) Text(stringResource(R.string.publisher_claimed_pending), color = RbColors.textSecondary, fontSize = 12.sp)
                 }
             }
@@ -307,9 +501,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     (5 downTo 1).forEach { star ->
                         val n = sr.byStar.getOrNull(star - 1) ?: 0
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("$star★", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.width(26.dp))
+                            Text("$star★", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 26.dp))
                             Box(Modifier.weight(1f).height(6.dp).clip(RoundedCornerShape(3.dp)).background(RbColors.surfaceVariant)) { Box(Modifier.fillMaxWidth(n.toFloat() / max).height(6.dp).background(RbColors.purple)) }
-                            Text("$n", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.width(36.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
+                            Text("$n", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 36.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
                         }
                     }
                 }
@@ -332,10 +526,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Spacer(Modifier.height(6.dp))
                         SecondaryButton(importStage ?: stringResource(R.string.store_import_one), enabled = importStage == null && sender != null, onClick = {
                             val s = sender ?: return@SecondaryButton
-                            vm.requestImport(s, listOf(pkg to mine), onStage = { st -> importStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
+                            vm.requestImport(s, listOf(pkg to mine), onStage = { st -> importStage = stageText(st) }) { r -> importStage = null; importOk = r.isSuccess; importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { context.errorText(it) }) }
                         })
                     }
-                    importMsg?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp) }
+                    importMsg?.let { Text(it, color = if (importOk) RbColors.green else RbColors.negative, fontSize = 12.sp) }
                 }
                 // Store rows sit flat in the card (design F2): trust pills only, season as quiet text, then the store's own
                 // reply and, after it, the publisher's SIGNED note — each marked for where it comes from.
@@ -344,19 +538,24 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Column(Modifier.fillMaxWidth()) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(8.dp))
-                            Text(r.domain ?: r.walletAddress?.let { shortKey(it, 4, 4) } ?: "anonymous", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                            Text(r.domain ?: r.walletAddress?.let { shortKey(it, 4, 4) } ?: stringResource(R.string.anonymous), color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                             Text(storeDate(r.createdAt), color = RbColors.textTertiary, fontSize = 11.sp)
                         }
                         r.walletAddress?.let { wa ->
                             val f = factsMap[wa]; val paidHere = boardRow?.payers?.contains(wa) == true
                             if (f != null || wa in ledgerSigners || paidHere) FlowRow(Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                f?.let { if (it.hasGenesisToken) TrustPill(stringResource(R.string.store_reviewer_genesis), RbColors.green) else OutlinePill(stringResource(R.string.store_reviewer_nogenesis)) }
+                                // Outline, never the green pill: a store review is not a signed one (UI review 6 Oct 2026).
+                                f?.let { OutlinePill(stringResource(if (it.hasGenesisToken) R.string.store_reviewer_genesis else R.string.store_reviewer_nogenesis)) }
                                 if (paidHere) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
                                 if (wa in ledgerSigners) OutlinePill(stringResource(R.string.store_reviewer_signed_here))
                             }
                         }
                         vm.seasonAtIso(r.createdAt)?.let { se -> Text(stringResource(R.string.season_pill, se.label), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 6.dp)) }
-                        r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = 4, modifier = Modifier.padding(top = 6.dp)) }
+                        r.text?.let { t ->
+                            var full by remember(r.id) { mutableStateOf(false) }
+                            Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = if (full) Int.MAX_VALUE else 4, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
+                            if (t.length > 220) ShowMore(full) { full = !full }
+                        }
                         // The store's own reply: flat, blue, "from the dApp Store".
                         r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->
                             var open by remember(r.id) { mutableStateOf(false) }
@@ -367,7 +566,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                     Text(" · " + stringResource(R.string.store_reply_source), color = RbColors.textTertiary, fontSize = 10.sp)
                                 }
                                 Text(reply, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, maxLines = if (open) Int.MAX_VALUE else 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
-                                if (reply.length > 160) Text(stringResource(if (open) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp).clickable { open = !open })
+                                if (reply.length > 160) ShowMore(open) { open = !open }
                             }
                         }
                         // The verified publisher's SIGNED note (protocol StoreNotes): green outline, the mark, "signed on-chain".
@@ -383,7 +582,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             }
                         }
                         if (wallet != null && vm.isVerifiedPublisher(pkg, wallet!!) && com.undersigned.protocol.ReviewMemo.STORE_REVIEW_ID.matches(r.id))
-                            TextButton(onClick = { noteFor = r.id; noteText = (storeNotes[pkg to r.id]?.memo as? ReviewMemo.StoreNote)?.text ?: "" }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+                            TextButton(onClick = { actionMessage = null; noteFor = r.id; noteText = (storeNotes[pkg to r.id]?.memo as? ReviewMemo.StoreNote)?.text ?: "" }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
                                 Text(stringResource(if (storeNotes[pkg to r.id] == null) R.string.note_add else R.string.note_update), color = RbColors.purpleLight, fontSize = 13.sp) }
                     }
                 }
@@ -458,189 +657,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
             }
 
-            SectionTitle(stringResource(R.string.reviews_title))
-            simpleStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
-            actionMessage?.let { (ok, msg) -> Text(msg, color = if (ok) RbColors.green else RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp) }
-            if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
-            else Text(stringResource(R.string.swipe_hint), color = RbColors.textTertiary, fontSize = 11.sp)
-            var show by remember { mutableStateOf(0) }   // 0 everyone · 1 mine · 2 answered by the publisher
-            var sortBy by remember { mutableStateOf(0) } // 0 most helpful (default order) · 1 newest · 2 signer · 3 version
-            if (reviews.size > 1) {
-                ChipRow(stringResource(R.string.show), listOf(0 to stringResource(R.string.show_everyone), 1 to stringResource(R.string.show_mine), 2 to stringResource(R.string.show_answered)), show, { show = it })
-                ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_helpful), 1 to stringResource(R.string.sort_newest), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_version)), sortBy, { sortBy = it })
-            }
-            val shown = remember(reviews, show, sortBy, entries, domainNames, verified) {
-                reviews.filter { (e, _) -> when (show) { 1 -> e.signer == wallet; 2 -> vm.repliesFor(e.signature).any { vm.isVerifiedPublisher(pkg, it.signer) }; else -> true } }
-                    .let { l -> when (sortBy) {
-                        1 -> l.sortedByDescending { it.first.blockTime }
-                        2 -> l.sortedBy { domainNames[it.first.signer]?.takeIf { n -> n.isNotEmpty() } ?: it.first.signer }
-                        3 -> l.sortedByDescending { (it.first.memo as ReviewMemo.Review).versionCode }
-                        else -> l
-                    } }
-            }
-            // key() by signature, not position. Without it every remember in this loop (the replies list, the
-            // swipe-to-reply state) stayed bound to a SLOT: the list is newest-first until helpful weights load and
-            // re-sort it, and the slot kept the old review's state. Measured 21 Sep 2026: a reply to 5XTu3S73 was
-            // drawn under the publisher's review, and a swipe there would have opened a reply to the wrong record.
-            shown.forEach { (e, w) -> key(e.signature) {
-                val r = e.memo as ReviewMemo.Review
-                if (e.signature in consensusHidden && e.signature !in revealed) {
-                    GlassCard(accent = RbColors.surfaceVariant) {
-                        Text(stringResource(R.string.flagged_hidden, String.format(java.util.Locale.US, "%.1f", flagWeights[e.signature] ?: 0.0)), color = RbColors.textTertiary, fontSize = 12.sp)
-                        disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 12.sp) }
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                            TextButton(onClick = { revealed = revealed + e.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 12.sp) }
-                            if (e.signer == wallet && disputesMap[e.signature] == null) { TextButton(onClick = { disputeTarget = e.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.textSecondary, fontSize = 12.sp) } }
-                            if (wallet != null && e.signer != wallet) {
-                                if (vm.myFlag(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Unflag(e.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.unflag), color = RbColors.textSecondary, fontSize = 12.sp) }
-                                else if (!vm.myClear(e.signature)) TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(e.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(simpleStage ?: stringResource(R.string.clear), color = RbColors.info, fontSize = 12.sp) }
-                            }
-                        }
-                    }
-                    Spacer(Modifier.height(8.dp)); return@forEach
-                }
-                val swipe = rememberSwipeToDismissBoxState(confirmValueChange = { v -> if (v == SwipeToDismissBoxValue.StartToEnd && wallet != null) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }; false })
-                SwipeToDismissBox(state = swipe, enableDismissFromEndToStart = false, backgroundContent = { Box(Modifier.fillMaxSize().padding(start = 16.dp), contentAlignment = Alignment.CenterStart) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontWeight = FontWeight.Bold) } }) {
-                GlassCard(accent = if (w > 0) RbColors.glassBorder else RbColors.surfaceVariant) {
-                    // Design review 28 Sep 2026 (handoff 2, F4): author row, then three tiers — trust pills, the phone's report as
-                    // one line, context as quiet text — instead of up to ten equal pills.
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RatingStars(r.rating.toDouble())
-                        Spacer(Modifier.width(8.dp))
-                        Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f).clickable { onProfile(e.signer) })
-                        standings[e.signer]?.let { st -> Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable { onProfile(e.signer) }.padding(horizontal = 4.dp), contentAlignment = Alignment.Center) {
-                            Text("${st.countedReviews} signed · ${st.credibility}", color = RbColors.textTertiary, fontSize = 11.sp) } }
-                    }
-                    val paidReviewer = boardRow?.payers?.contains(e.signer) == true
-                    val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        if (w > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w > 1.0) String.format(java.util.Locale.US, " %.1f×", w) else "", RbColors.green)
-                        else OutlinePill(stringResource(R.string.review_weight_unverified))
-                        if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
-                        if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
-                    }
-                    val seekerSigned = txMeta[e.signature.substringBefore(':')]?.seekerWallet == true
-                    val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]
-                    if (seekerSigned || useAge != null || useSpent != null) {
-                        Spacer(Modifier.height(8.dp))
-                        DeviceLine {
-                            if (seekerSigned) DeviceUnit(Icons.Default.Key, stringResource(R.string.seeker_signed), stringResource(R.string.seeker_signed), tint = RbColors.info)
-                            useAge?.let { DeviceUnit(Icons.Default.PhoneAndroid, useLabel(it), stringResource(R.string.use_pill, useLabel(it))) }
-                            useSpent?.let { DeviceUnit(Icons.Default.Schedule, timeLabel(it), stringResource(R.string.time_pill, timeLabel(it))) }
-                        }
-                    }
-                    disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 11.sp) }
-                    if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
-                    Spacer(Modifier.height(6.dp))
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
-                    // A note from a wallet that is not counted stays folded until asked for: anyone can sign text for one network
-                    // fee, and an uncounted wallet's words should not sit on an app's page by default.
-                    r.text?.let { note ->
-                        var shown by remember(e.signature) { mutableStateOf(w > 0) }
-                        Spacer(Modifier.height(6.dp))
-                        if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
-                        else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
-                    }
-                    // Tier 3, context: season, then similar wording (amber: that one is unusual). Text, not pills.
-                    val seasonText = vm.seasonAt(e.blockTime)?.let { stringResource(R.string.season_pill, it.label) }
-                    val similarText = similar[e.signature]?.let { stringResource(if (it.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge) }
-                    if (seasonText != null || similarText != null) {
-                        Spacer(Modifier.height(6.dp))
-                        Text(androidx.compose.ui.text.buildAnnotatedString {
-                            seasonText?.let { append(it) }
-                            if (seasonText != null && similarText != null) append(" · ")
-                            similarText?.let { pushStyle(androidx.compose.ui.text.SpanStyle(color = RbColors.warning)); append(it); pop() }
-                        }, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-                    }
-                    // Locked in place (design: Screens D): the copy-to-store tool where the user meets it, on their own review.
-                    if (e.signer == wallet && myStore[pkg] == null) {
-                        Spacer(Modifier.height(8.dp))
-                        if (pro?.active == true) { SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) } }
-                        else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
-                    }
-                    Spacer(Modifier.height(6.dp))
-                    val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }
-                    replies.forEach { rp ->
-                        Spacer(Modifier.height(6.dp))
-                        if (rp.signature in consensusHidden && rp.signature !in revealed) {
-                            Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
-                                Text(stringResource(R.string.hidden_reply) + " · " + stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", flagWeights[rp.signature] ?: 0.0)), color = RbColors.textTertiary, fontSize = 11.sp)
-                                disputesMap[rp.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 11.sp) }
-                                FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                                    TextButton(onClick = { revealed = revealed + rp.signature }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.flagged_show), color = RbColors.purpleLight, fontSize = 11.sp) }
-                                    if (rp.signer == wallet && disputesMap[rp.signature] == null) { TextButton(onClick = { disputeTarget = rp.signature; disputeText = "" }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.dispute), color = RbColors.textSecondary, fontSize = 11.sp) } }
-                                    if (wallet != null && rp.signer != wallet && !vm.myClear(rp.signature)) { TextButton(enabled = simpleStage == null, onClick = { sign(ReviewMemo.Clear(rp.signature)) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.clear), color = RbColors.info, fontSize = 11.sp) } }
-                                }
-                            }
-                            return@forEach
-                        }
-                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[rp.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(rp.signer, 4, 4))) + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
-                                if (vm.isVerifiedPublisher(pkg, rp.signer)) Pill(stringResource(R.string.publisher_badge), RbColors.green)
-                            }
-                            Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
-                            if (wallet != null && rp.signer != wallet) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp))  {
-                                flagWeights[rp.signature]?.let { fw -> OutlinePill(stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", fw))) }
-                                val rpFlagged = vm.myFlag(rp.signature)
-                                CardAction(if (rpFlagged) stringResource(R.string.flag_on) + "\u00A0✓" else stringResource(R.string.flag), RbColors.textSecondary, enabled = !rpFlagged || simpleStage == null,
-                                    a11y = stringResource(if (rpFlagged) R.string.unflag else R.string.flag)) { if (rpFlagged) sign(ReviewMemo.Unflag(rp.signature)) else flagTarget = rp.signature }
-                            }
-                        }
-                    }
-                    Spacer(Modifier.height(4.dp))
-                    // One compact line, as designed (handoff/screens/dapp-page-reviews.png): date, then the actions.
-                    // Toggles keep a SHORT visible label ("Helpful ✓", "Flag ✓"): "Withdraw my helpful vote" was five
-                    // times the width of "Helpful" and pushed this bar onto three lines (measured on device, 24 Sep
-                    // 2026). The full wording stays as the screen-reader label. It stays a FlowRow, never a Row: a Row
-                    // that overflows squeezes its last child to zero width and inflates its own height (20 Sep).
-                    val tick = "\u00A0✓"
-                    // Reply · Helpful + weight · Flag + weight, the date on the right; the rest in an overflow menu so the row
-                    // stays short on a Seeker (design F4). A FlowRow still, never a Row (20 Sep: a Row squeezes its last child).
-                    val voted = wallet != null && vm.myUpvote(e.signature); val flagged = wallet != null && vm.myFlag(e.signature)
-                    FlowRow {
-                        if (wallet != null) CardAction(stringResource(R.string.reply), RbColors.purpleLight) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }
-                        if (e.signer != wallet && wallet != null) {
-                            val helpfulA11y = stringResource(if (voted) R.string.unvote else R.string.helpful)
-                            TextButton(enabled = simpleStage == null, onClick = { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }, contentPadding = PaddingValues(horizontal = 4.dp),
-                                modifier = Modifier.semantics { contentDescription = helpfulA11y }) {
-                                Text(simpleStage ?: (stringResource(R.string.helpful) + if (voted) tick else ""), color = RbColors.green, fontSize = 12.sp)
-                                helpful[e.signature]?.let { hw -> Text(" " + String.format(java.util.Locale.US, "%.1f", hw), color = RbColors.textTertiary, fontSize = 12.sp) }
-                            }
-                            val flagA11y = stringResource(if (flagged) R.string.unflag else R.string.flag)
-                            TextButton(enabled = !flagged || simpleStage == null, onClick = { if (flagged) sign(ReviewMemo.Unflag(e.signature)) else flagTarget = e.signature }, contentPadding = PaddingValues(horizontal = 4.dp),
-                                modifier = Modifier.semantics { contentDescription = flagA11y }) {
-                                Text(if (flagged) stringResource(R.string.flag_on) + tick else stringResource(R.string.flag), color = RbColors.textSecondary, fontSize = 12.sp)
-                                flagWeights[e.signature]?.let { fw -> Spacer(Modifier.width(6.dp)); OutlinePill(String.format(java.util.Locale.US, "%.1f", fw)) }
-                            }
-                        } else {
-                            helpful[e.signature]?.let { hw -> Box(Modifier.heightIn(min = 48.dp).padding(horizontal = 4.dp), contentAlignment = Alignment.CenterStart) { Text(stringResource(R.string.helpful_count, String.format(java.util.Locale.US, "%.1f", hw)), color = RbColors.textTertiary, fontSize = 12.sp) } }
-                            flagWeights[e.signature]?.let { fw -> Box(Modifier.heightIn(min = 48.dp), contentAlignment = Alignment.CenterStart) { OutlinePill(stringResource(R.string.flagged_count, String.format(java.util.Locale.US, "%.1f", fw))) } }
-                        }
-                        var menu by remember(e.signature) { mutableStateOf(false) }
-                        Box {
-                            IconButton(onClick = { menu = true }, modifier = Modifier.size(48.dp)) { Icon(Icons.Default.MoreHoriz, contentDescription = stringResource(R.string.more_actions), tint = RbColors.textTertiary) }
-                            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, modifier = Modifier.background(RbColors.surface)) {
-                                DropdownMenuItem(text = { Text(stringResource(if (e.signature in starred) R.string.unstar else R.string.star)) }, onClick = { menu = false; vm.toggleStar(e.signature) })
-                                DropdownMenuItem(text = { Text(stringResource(R.string.share)) }, onClick = { menu = false; com.undersigned.app.ui.components.Share.review(context, name, e) })
-                                if (e.signer != wallet) {
-                                    // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
-                                    if (wallet != null && !flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
-                                        DropdownMenuItem(text = { Text(stringResource(R.string.clear)) }, onClick = { menu = false; sign(ReviewMemo.Clear(e.signature)) })
-                                    DropdownMenuItem(text = { Text(stringResource(R.string.review_hide)) }, onClick = { menu = false; vm.hide(e.signature) })
-                                    DropdownMenuItem(text = { Text(stringResource(R.string.review_report)) }, onClick = { menu = false; report(e.signature) })
-                                }
-                            }
-                        }
-                        Box(Modifier.heightIn(min = 48.dp).padding(start = 4.dp), contentAlignment = Alignment.CenterStart) {
-                            Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1)
-                        }
-                    }
-                }
-                }
-                Spacer(Modifier.height(8.dp))
-            } }
-            if (hiddenCount > 0) Text(stringResource(R.string.review_hidden_note, hiddenCount), color = RbColors.textTertiary, fontSize = 11.sp)
             Spacer(Modifier.height(32.dp))
         }
     }
@@ -658,7 +674,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Column(Modifier.padding(top = 14.dp).fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(RbColors.surfaceVariant).padding(12.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             RatingStars(q.rating.toDouble(), size = 12); Spacer(Modifier.width(8.dp))
-                            Text(q.domain ?: q.walletAddress?.let { shortKey(it, 4, 4) } ?: "anonymous", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 1, modifier = Modifier.weight(1f))
+                            Text(q.domain ?: q.walletAddress?.let { shortKey(it, 4, 4) } ?: stringResource(R.string.anonymous), color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 1, modifier = Modifier.weight(1f))
                             Text(storeDate(q.createdAt), color = RbColors.textTertiary, fontSize = 11.sp)
                         }
                         q.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp)) }
@@ -675,11 +691,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Text(stringResource(R.string.review_consent_check), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
                     }
                 }
+                actionMessage?.takeIf { !it.first }?.let { Text(it.second, color = RbColors.negative, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp)) }
                 Spacer(Modifier.height(18.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
-                    TextButton(onClick = { noteFor = null }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(android.R.string.cancel), color = RbColors.textSecondary) }
+                    TextButton(enabled = simpleStage == null, onClick = { noteFor = null }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(android.R.string.cancel), color = RbColors.textSecondary) }
                     Spacer(Modifier.width(8.dp))
-                    PrimaryButton(simpleStage ?: stringResource(R.string.note_sign), enabled = ok && consent && simpleStage == null && sender != null, onClick = { sign(ReviewMemo.StoreNote(pkg, rid, noteText.trim())); noteFor = null }, modifier = Modifier.weight(1f))
+                    PrimaryButton(simpleStage ?: stringResource(R.string.note_sign), enabled = ok && consent && simpleStage == null && sender != null, onClick = { sign(ReviewMemo.StoreNote(pkg, rid, noteText.trim())) { ok -> if (ok) noteFor = null } }, modifier = Modifier.weight(1f))
                 }
             }
         }
@@ -705,9 +722,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
                 Spacer(Modifier.height(8.dp))
                 Text(stringResource(R.string.report_footer), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                TextButton(onClick = { vm.hide(sig); reportTarget = null }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.report_hide_instead), color = RbColors.purpleLight, fontSize = 13.sp) }
             } },
             confirmButton = { TextButton(onClick = { sendReport(sig, context.getString(reason), note); reportTarget = null }) { Text(stringResource(R.string.report_write), color = RbColors.purpleLight) } },
-            dismissButton = { TextButton(onClick = { vm.hide(sig); reportTarget = null }) { Text(stringResource(R.string.report_hide_instead), color = RbColors.textSecondary) } })
+            dismissButton = { TextButton(onClick = { reportTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     standingFor?.let { w ->
@@ -739,10 +757,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 // Route 2: the website the store lists, when it is not a shared host.
                 Text(stringResource(R.string.claim_route_site_title), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
                 Text(if (wk != null) stringResource(R.string.claim_route_site_body, site, wk, wallet ?: "") else stringResource(R.string.claim_route_site_none), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
-                Text(stringResource(R.string.claim_then_sign), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 8.dp)); claimStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) } } },
+                Text(stringResource(R.string.claim_then_sign), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 8.dp)); claimStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }; dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp) } } },
             confirmButton = { TextButton(enabled = claimStage == null && sender != null, onClick = {
                 val s = sender ?: return@TextButton
-                vm.publish(s, ReviewMemo.Claim(pkg), onStage = { st -> claimStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { claimStage = null; claimDialog = false }
+                dialogError = null
+                vm.publish(s, ReviewMemo.Claim(pkg), onStage = { st -> claimStage = stageText(st) }) { r -> claimStage = null; r.fold({ claimDialog = false }, { dialogError = context.errorText(it) }) }
             }) { Text(stringResource(R.string.publisher_claim_sign), color = RbColors.purpleLight) } },
             dismissButton = { TextButton(enabled = claimStage == null, onClick = { claimDialog = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
@@ -778,8 +797,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val s = sender ?: return@TextButton
                     replyError = null
                     vm.publish(s, ReviewMemo.Reply(target, replyText.trim()), onStage = { st ->
-                        replyStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
-                    }) { r -> replyStage = null; r.fold(onSuccess = { replyTo = null }, onFailure = { replyError = it.message }) }
+                        replyStage = stageText(st)
+                    }) { r -> replyStage = null; r.fold(onSuccess = { replyTo = null }, onFailure = { replyError = context.errorText(it) }) }
                 }) { Text(stringResource(R.string.reply_publish), color = RbColors.purpleLight) }
             },
             dismissButton = { TextButton(enabled = replyStage == null, onClick = { replyTo = null; fromLink = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
@@ -789,10 +808,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     pendingVote?.let { target ->
         AlertDialog(onDismissRequest = { if (voteStage == null) pendingVote = null }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.helpful_sign), color = RbColors.textPrimary) },
-            text = { Column { Text(stringResource(R.string.helpful_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp); voteStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) } } },
+            text = { Column { Text(stringResource(R.string.helpful_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp); voteStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }; dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp) } } },
             confirmButton = { TextButton(enabled = voteStage == null && sender != null && !vm.myUpvote(target), onClick = {
                 val s = sender ?: return@TextButton
-                vm.publish(s, ReviewMemo.Upvote(target), onStage = { st -> voteStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { voteStage = null; pendingVote = null }
+                dialogError = null
+                vm.publish(s, ReviewMemo.Upvote(target), onStage = { st -> voteStage = stageText(st) }) { r -> voteStage = null; r.fold({ pendingVote = null }, { dialogError = context.errorText(it) }) }
             }) { Text(stringResource(R.string.helpful), color = RbColors.green) } },
             dismissButton = { TextButton(enabled = voteStage == null, onClick = { pendingVote = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
@@ -808,10 +828,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
                 Text(stringResource(R.string.review_consent_body), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 disputeStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp) }
             } },
             confirmButton = { TextButton(enabled = ok && disputeStage == null && sender != null, onClick = {
                 val s = sender ?: return@TextButton
-                vm.publish(s, ReviewMemo.Dispute(target, disputeText.trim()), onStage = { st -> disputeStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { disputeStage = null; disputeTarget = null }
+                dialogError = null
+                vm.publish(s, ReviewMemo.Dispute(target, disputeText.trim()), onStage = { st -> disputeStage = stageText(st) }) { r -> disputeStage = null; r.fold({ disputeTarget = null }, { dialogError = context.errorText(it) }) }
             }) { Text(stringResource(R.string.dispute_sign), color = RbColors.purpleLight) } },
             dismissButton = { TextButton(enabled = disputeStage == null, onClick = { disputeTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
@@ -829,25 +851,41 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         .forEach { (fr, label) -> TagChip(stringResource(label), selected = reason == fr) { if (flagStage == null) reason = fr } }
                 }
                 flagStage?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp) }
             } },
             confirmButton = { TextButton(enabled = flagStage == null && sender != null, onClick = {
                 val s = sender ?: return@TextButton
-                vm.publish(s, ReviewMemo.Flag(target, reason), onStage = { st -> flagStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { flagStage = null; flagTarget = null }
+                dialogError = null
+                vm.publish(s, ReviewMemo.Flag(target, reason), onStage = { st -> flagStage = stageText(st) }) { r -> flagStage = null; r.fold({ flagTarget = null }, { dialogError = context.errorText(it) }) }
             }) { Text(stringResource(R.string.flag_sign), color = RbColors.purpleLight) } },
             dismissButton = { TextButton(enabled = flagStage == null, onClick = { flagTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
+
+    pendingSimple?.let { (kind, target) ->
+        val memo = when (kind) { "unvote" -> ReviewMemo.Unvote(target); "unflag" -> ReviewMemo.Unflag(target); else -> ReviewMemo.Clear(target) }
+        val quoted = remember(target) { vm.entryOf(target) }
+        AlertDialog(onDismissRequest = { if (simpleStage == null) pendingSimple = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(when (kind) { "unvote" -> R.string.unvote; "unflag" -> R.string.unflag; else -> R.string.clear }), color = RbColors.textPrimary) },
+            text = { Column {
+                Text(stringResource(R.string.link_confirm_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                quoted?.let { t -> Text((domainNames[t.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(t.signer, 4, 4)) + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(t.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 6.dp)) }
+                simpleStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                actionMessage?.takeIf { !it.first }?.let { Text(it.second, color = RbColors.negative, fontSize = 12.sp) }
+            } },
+            confirmButton = { TextButton(enabled = simpleStage == null && sender != null, onClick = { sign(memo) { ok -> if (ok) pendingSimple = null } }) { Text(stringResource(R.string.link_confirm_sign), color = RbColors.purpleLight) } },
+            dismissButton = { TextButton(enabled = simpleStage == null, onClick = { pendingSimple = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     if (revokeDialog && mine != null) {
         AlertDialog(
             onDismissRequest = { if (revokeStage == null) revokeDialog = false }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.revoke_title), color = RbColors.textPrimary) },
-            text = { Text(revokeStage ?: stringResource(R.string.revoke_body), color = RbColors.textSecondary, fontSize = 13.sp) },
+            text = { Column { Text(revokeStage ?: stringResource(R.string.revoke_body), color = RbColors.textSecondary, fontSize = 13.sp); dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp)) } } },
             confirmButton = {
                 TextButton(enabled = revokeStage == null, onClick = {
                     val s = sender ?: return@TextButton
-                    vm.publish(s, ReviewMemo.Revocation(mine.signature), onStage = { st ->
-                        revokeStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
-                    }) { r -> revokeStage = null; revokeDialog = false; r.onFailure { revokeStage = null } }
+                    dialogError = null
+                    vm.publish(s, ReviewMemo.Revocation(mine.signature), onStage = { st -> revokeStage = stageText(st) }) { r -> revokeStage = null; r.fold({ revokeDialog = false }, { dialogError = context.errorText(it) }) }
                 }) { Text(stringResource(R.string.revoke_confirm), color = RbColors.negative) }
             },
             dismissButton = { TextButton(enabled = revokeStage == null, onClick = { revokeDialog = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
@@ -868,7 +906,7 @@ private fun CardAction(label: String, color: androidx.compose.ui.graphics.Color,
 /** A burst's multiple of the usual pace, as shown: whole numbers from ×2 up, one decimal below. */
 private fun timesText(b: com.undersigned.protocol.ReviewBursts.Burst): String {
     val m = com.undersigned.protocol.BurstSpark.multiple(b)
-    return if (m >= 2) String.format(java.util.Locale.getDefault(), "%.0f", m) else String.format(java.util.Locale.getDefault(), "%.1f", m)
+    return if (m >= 2) String.format(java.util.Locale.US, "%.0f", m) else String.format(java.util.Locale.US, "%.1f", m)
 }
 
 @Composable
@@ -889,7 +927,7 @@ private fun BurstSection(source: String, bursts: List<com.undersigned.protocol.R
     val high = lead.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH
     val kind = stringResource(when { ratings && high -> R.string.burst_kind_high_ratings; ratings -> R.string.burst_kind_low_ratings; high -> R.string.burst_kind_high; else -> R.string.burst_kind_low })
     Text("$source · $kind".uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-    val pace = String.format(java.util.Locale.getDefault(), "%.1f", lead.expected)
+    val pace = String.format(java.util.Locale.US, "%.1f", lead.expected)
     val full = stringResource(if (ratings) (if (high) R.string.burst_high_ratings else R.string.burst_low_ratings) else (if (high) R.string.burst_high else R.string.burst_low),
         lead.count, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(lead.start * 1000)), DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(lead.end * 1000)), pace)
     Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.Top) {
@@ -914,8 +952,8 @@ private fun BurstSection(source: String, bursts: List<com.undersigned.protocol.R
     if (rest.isNotEmpty()) HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 10.dp))
     rest.forEach { b ->
         Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.Top) {
-            Text("${b.count}", color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.width(52.dp))
-            Text("×" + timesText(b), color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.width(48.dp).padding(top = 3.dp))
+            Text("${b.count}", color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.widthIn(min = 52.dp))
+            Text("×" + timesText(b), color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.widthIn(min = 48.dp).padding(top = 3.dp))
             Column(Modifier.weight(1f)) {
                 Text(burstRange(b), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                 val extra = listOfNotNull(attested(b)?.let { (n, of) -> stringResource(R.string.burst_attested, n, of) }, season(b)?.let { stringResource(R.string.season_pill, it) })
@@ -949,4 +987,13 @@ private fun ProofSheet(onClose: () -> Unit) {
             Text(stringResource(R.string.proof_how_after), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
         } },
         confirmButton = { TextButton(onClick = onClose) { Text(stringResource(android.R.string.ok), color = RbColors.purpleLight) } })
+}
+
+private const val REVIEW_PAGE = 20
+
+/** "Show more" / "Show less" under folded text, with a full touch target. */
+@Composable
+private fun ShowMore(open: Boolean, onToggle: () -> Unit) {
+    TextButton(onClick = onToggle, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+        Text(stringResource(if (open) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 12.sp) }
 }

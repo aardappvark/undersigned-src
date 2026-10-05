@@ -59,7 +59,7 @@ fun EmptyState(@DrawableRes photo: Int, title: String, body: String? = null, act
 @Composable
 fun <K> ChipRow(label: String, options: List<Pair<K, String>>, selected: K, onSelect: (K) -> Unit, modifier: Modifier = Modifier) {
     FlowRow(modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Box(Modifier.heightIn(min = 26.dp).padding(end = 4.dp), contentAlignment = Alignment.CenterStart) {
+        Box(Modifier.heightIn(min = 48.dp).padding(end = 4.dp), contentAlignment = Alignment.CenterStart) {   // level with the chips' 48 dp targets
             Text(label.uppercase(), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
         }
         options.forEach { (k, text) -> TagChip(text, selected = k == selected) { onSelect(k) } }

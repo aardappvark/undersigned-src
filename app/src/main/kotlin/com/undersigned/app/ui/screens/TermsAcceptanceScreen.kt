@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.undersigned.app.AppConfig
 import com.undersigned.app.R
+import com.undersigned.app.ui.components.errorText
 import com.undersigned.app.data.TermsAcceptanceService
 import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.ui.components.GlassCard
@@ -61,7 +63,7 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
                     if (WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned)
                     else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address); onAccepted() }
                 },
-                onFailure = { error = it.message },
+                onFailure = { error = context.errorText(it) },
             )
             isConnecting = false
         }
@@ -69,8 +71,13 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
     fun open(url: String) { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) { } }
 
     // Slide five's photograph; the type starts where the scrim is already opaque.
+    val scroll = rememberScrollState()
+    // "Browse without a wallet" opens its card below the fold: bring it into view.
+    LaunchedEffect(showNoWallet) { if (showNoWallet) scroll.animateScrollTo(scroll.maxValue) }
     PhotoBackdrop(R.drawable.photo_frame_5_margin, Modifier.fillMaxSize(), fadeFrom = 0.14f) {
-    Column(Modifier.fillMaxSize().systemBarsPadding().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp, vertical = 16.dp), horizontalAlignment = Alignment.Start) {
+    // Text scrolled up over the bright part of the photograph became unreadable: darken it as the page scrolls.
+    Box(Modifier.matchParentSize().background(androidx.compose.ui.graphics.Color.Black.copy(alpha = (scroll.value / 300f).coerceIn(0f, 0.85f))))
+    Column(Modifier.fillMaxSize().systemBarsPadding().verticalScroll(scroll).padding(horizontal = 24.dp, vertical = 16.dp), horizontalAlignment = Alignment.Start) {
         Spacer(Modifier.height(150.dp))
         Text(stringResource(R.string.intro5_title), color = RbColors.textPrimary, fontSize = 30.sp, lineHeight = 33.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
         Spacer(Modifier.height(8.dp))
@@ -94,7 +101,7 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
             LinkText(stringResource(R.string.terms_link_disclaimer)) { open(AppConfig.Identity.URI + "disclaimer.html") }
         }
         Spacer(Modifier.height(14.dp))
-        Button(onClick = { signAndAccept() }, enabled = !isConnecting, modifier = Modifier.fillMaxWidth().height(52.dp), colors = ButtonDefaults.buttonColors(containerColor = RbColors.purple, contentColor = RbColors.textPrimary)) {
+        Button(onClick = { signAndAccept() }, enabled = !isConnecting, modifier = Modifier.fillMaxWidth().height(52.dp), colors = ButtonDefaults.buttonColors(containerColor = RbColors.purple, contentColor = androidx.compose.ui.graphics.Color.White)) {
             if (isConnecting) { CircularProgressIndicator(Modifier.size(18.dp), color = RbColors.textPrimary, strokeWidth = 2.dp); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.terms_signing), fontWeight = FontWeight.Bold) }
             else { Icon(Icons.Default.Fingerprint, contentDescription = null, Modifier.size(18.dp)); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.terms_sign_accept), fontWeight = FontWeight.Bold) }
         }
@@ -102,8 +109,8 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
         Spacer(Modifier.height(12.dp))
         if (!showNoWallet) TextButton(onClick = { showNoWallet = true }) { Text(stringResource(R.string.terms_continue_without), color = RbColors.textSecondary, fontSize = 14.sp) }
         else GlassCard {
-            Row(Modifier.fillMaxWidth().clickable { accepted = !accepted }, verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(checked = accepted, onCheckedChange = { accepted = it }, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
+            Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(value = accepted, role = androidx.compose.ui.semantics.Role.Checkbox) { accepted = it }, verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(checked = accepted, onCheckedChange = null, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
                 Text(stringResource(R.string.terms_checkbox), color = RbColors.textSecondary, fontSize = 12.sp)
             }
             Spacer(Modifier.height(10.dp))

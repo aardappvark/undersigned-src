@@ -91,7 +91,7 @@
     <string name="standing_agreement">Kesesuaian tag dengan penandatangan lain: %1$s</string>
     <string name="standing_since">Menandatangani sejak %1$s</string>
     <string name="standing_note2">Hanya hitungan. Tidak ada skor, tidak ada yang perlu dibeli.</string>
-    <string name="store_reviewer_genesis">Perangkat terverifikasi</string>
+    <string name="store_reviewer_genesis">Pemilik Seeker</string>
     <string name="store_reviewer_nogenesis">tidak ditemukan perangkat terverifikasi</string>
     <string name="store_reviewer_signed_here">juga menandatangani di sini</string>
     <string name="notif_divergence_title">%1$s: skor yang ditandatangani dan skor toko berbeda</string>
@@ -147,7 +147,7 @@
     <string name="fact_perms_removed">Izin dihapus: %1$s</string>
     <string name="fact_not_installed">Tidak terpasang di perangkat ini. Instal dari dApp Store untuk melihat fakta perangkat.</string>
     <string name="reviews_title">Ulasan yang ditandatangani</string>
-    <string name="review_weight_verified">Terverifikasi ✓</string>
+    <string name="review_weight_verified">Teratestasi</string>
     <string name="review_weight_unverified">tidak dihitung</string>
     <string name="review_hide">Sembunyikan</string>
     <string name="review_report">Laporkan</string>
@@ -240,7 +240,7 @@
     <string name="flag_sign">Tandatangani tanda ini</string>
     <string name="flagged_hidden">Disembunyikan oleh konsensus: ditandai tidak wajar oleh Seeker dengan bobot %1$s</string>
     <string name="flagged_show">Tampilkan tetap</string>
-    <string name="flagged_count">Bobot tanda %1$s</string>
+    <string name="flagged_count">Ditandai · bobot %1$s</string>
     <string name="star">Bintangi</string>
     <string name="unstar">Batalkan bintang</string>
     <string name="inbox">Kotak masuk</string>
@@ -806,7 +806,7 @@
     <string name="notif_flagged_body">Alasan yang diberikan: %1$s. Jika Anda tidak setuju, Anda dapat menandatangani sanggahan pada catatan tersebut.</string>
     <string name="notif_note_title">Penerbit menjawab ulasan toko Anda · %1$s</string>
     <string name="notif_proven_title">Klaim Anda terbukti · %1$s</string>
-    <string name="notif_proven_body">Balasan Anda pada ulasan aplikasi ini kini membawa tanda Penerbit ✓, dan ulasan Anda sendiri untuk aplikasi ini tidak dihitung.</string>
+    <string name="notif_proven_body">Balasan Anda pada ulasan aplikasi ini kini membawa tanda Penerbit, dan ulasan Anda sendiri untuk aplikasi ini tidak dihitung.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Cantumkan dompet Anda di aplikasi Anda (paling kuat)</string>
     <string name="claim_route_build_body">Tambahkan baris ini di dalam &lt;application&gt; pada manifes aplikasi Anda dan rilis pembaruannya ke dApp Store. Pembaca memeriksa build yang disajikan toko: baris itu harus mencantumkan dompet ini dan build harus ditandatangani dengan sertifikat yang dicantumkan toko. Hanya pemegang kunci penandatanganan aplikasi Anda yang dapat melakukannya.</string>
@@ -824,4 +824,50 @@
     <string name="proof_not_title">Yang tidak membuktikannya</string>
     <string name="proof_not_body">Tanda tangan dompet itu sendiri, alamat pembayaran, atau dompet yang menerbitkan aplikasi di dApp Store. Toko tidak menyebutkan catatan on-chain mana yang milik listing mana, dan siapa pun dapat membuat satu yang mencantumkan aplikasi apa pun.</string>
     <string name="proof_how_after">Balasan penerbit yang terbukti membawa tanda Penerbit, dan ulasan mereka sendiri atas aplikasi tidak dihitung.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Kembali</string>
+    <string name="stars_a11y">%1$s dari 5 bintang</string>
+    <string name="err_network">Tidak ada koneksi. Periksa jaringan dan coba lagi.</string>
+    <string name="err_timeout">Permintaan kedaluwarsa. Coba lagi.</string>
+    <string name="err_declined">Ditolak di dompet. Tidak ada yang ditandatangani.</string>
+    <string name="err_funds">Dana di dompet ini tidak cukup untuk transaksi ini dan biaya jaringannya.</string>
+    <string name="link_confirm_body">Sebuah tautan meminta untuk menandatangani ini. Periksa catatan di bawah; dompet Anda menampilkan memo yang tepat sebelum Anda menyetujui.</string>
+    <string name="link_confirm_sign">Tandatangani</string>
+    <string name="detail_pkg_updated">%1$s · diperbarui %2$s</string>
+    <string name="anonymous">Anonim</string>
+    <string name="discard_title">Buang ulasan ini?</string>
+    <string name="discard_body">Rating, tag, dan teks Anda belum ditandatangani dan akan hilang.</string>
+    <string name="discard">Buang</string>
+    <string name="keep_editing">Lanjutkan mengedit</string>
+    <string name="text_invalid">Maksimal %1$d karakter, tanpa karakter |.</string>
+    <string name="to_review_max">Hingga %1$d aplikasi dapat ditandatangani sekaligus.</string>
+    <string name="confirm_disconnect_body">Ponsel ini melupakan dompet. Tidak ada yang berubah di buku besar, dan Anda dapat masuk lagi kapan saja.</string>
+    <string name="confirm_unshare_title">Tarik kembali tempat Pro ini?</string>
+    <string name="confirm_unshare_body">Ini menandatangani catatan yang mengakhiri tempat tersebut. Dompet lain kehilangan Pro yang Anda bagikan setelah dikonfirmasi.</string>
+    <string name="confirm_unhide_body">Setiap catatan yang Anda sembunyikan muncul lagi di halaman aplikasinya.</string>
+    <string name="confirm_delete_body">Ini menghapus dari ponsel ini catatan persetujuan Anda, daftar ikutan, catatan tersembunyi dan berbintang, tempat Pro yang Anda tambahkan, serta dompet. Tidak ada yang berubah di buku besar. Anda akan melihat layar masuk lagi.</string>
+    <string name="confirm_delete_action">Hapus</string>
+    <string name="loading">Memuat…</string>
+    <string name="load_failed">Tidak dapat memuat ini. Periksa koneksi dan coba lagi.</string>
+    <string name="retry">Coba lagi</string>
+    <string name="pay_listing_line">Kode %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Ini menandatangani catatan yang menarik listingan dari papan. Mendaftarkannya lagi berarti membayar biaya listing lagi.</string>
+    <string name="confirm_withdraw_free">Ini menandatangani catatan yang menarik listingan dari papan. Anda dapat mendaftarkannya lagi nanti.</string>
+    <string name="changes_new_a11y">Perubahan, ada yang baru untuk dilihat</string>
+    <string name="desk_signed_mean">%1$s ditandatangani</string>
+    <string name="stats_share_head">Buku besar Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registri %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="other">%1$d bintang</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="other">Tampilkan %1$d ulasan lagi</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="other">%1$d ditandatangani · kredibilitas %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="other">Kotak masuk, %1$d baru</item>
+    </plurals>
 </resources>

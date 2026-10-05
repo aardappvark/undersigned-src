@@ -28,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.sp
 import com.undersigned.app.AppConfig
 import com.undersigned.app.R
@@ -67,6 +69,8 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val icons by vm.iconCache.state.collectAsState()
     val details by vm.storeDetails.collectAsState()
     val lineCheck by vm.lineCheck.collectAsState()
+    val boardError by vm.boardError.collectAsState()
+    var withdrawFor by remember { mutableStateOf<String?>(null) }
     LaunchedEffect(entries) { vm.loadBoard() }
     LaunchedEffect(rows) { vm.resolveIcons(rows.map { it.claim.packageName }) }
     var page by remember { mutableStateOf(PayPage.BOARD) }
@@ -83,7 +87,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
         message = null
         vm.publish(s, memo, onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
             stage = null
-            message = r.fold({ true to context.getString(R.string.action_published, shortKey(it, 6, 6)) }, { false to (it.message ?: context.getString(R.string.action_failed)) })
+            message = r.fold({ true to context.getString(R.string.action_published, shortKey(it, 6, 6)) }, { false to context.errorText(it) })
             if (r.isSuccess) vm.loadBoard(force = true)
         }
     }
@@ -92,7 +96,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
         message = null
         vm.payListing(s, rail, memo, onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
             stage = null
-            message = r.fold({ true to context.getString(R.string.action_published, shortKey(it, 6, 6)) }, { false to (it.message ?: context.getString(R.string.action_failed)) })
+            message = r.fold({ true to context.getString(R.string.action_published, shortKey(it, 6, 6)) }, { false to context.errorText(it) })
             if (r.isSuccess) vm.loadBoard(force = true)
         }
     }
@@ -102,7 +106,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = { back() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton({ back() })
             Text(title, color = RbColors.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         }
         when (page) {
@@ -116,12 +120,15 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 if (loading) Text(stringResource(R.string.pay_loading), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
                 val listed = rows.filter { it.confirmed && it.tally != null }
                 Spacer(Modifier.height(10.dp))
-                if (listed.isEmpty() && !loading) Text(stringResource(R.string.pay_empty), color = RbColors.textSecondary, fontSize = 13.sp)
+                if (listed.isEmpty() && !loading) {
+                    if (boardError) { Text(stringResource(R.string.load_failed), color = RbColors.negative, fontSize = 13.sp); SecondaryButton(stringResource(R.string.retry), onClick = { vm.loadBoard(force = true) }, modifier = Modifier.padding(top = 8.dp)) }
+                    else Text(stringResource(R.string.pay_empty), color = RbColors.textSecondary, fontSize = 13.sp)
+                }
                 if (listed.isNotEmpty()) GlassCard {
                     listed.forEachIndexed { i, row ->
                         if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
                         Row(Modifier.fillMaxWidth().heightIn(min = 72.dp).clickable { onOpen(row.claim.packageName) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text("${i + 1}", color = RbColors.textTertiary, fontSize = 15.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.width(26.dp))
+                            Text("${i + 1}", color = RbColors.textTertiary, fontSize = 15.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.widthIn(min = 26.dp))
                             DAppIcon(row.claim.packageName, row.name, icons[row.claim.packageName]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp))
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
@@ -192,7 +199,8 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             }
                         }
                         if (memo != null && wallet != null) {
-                            LaunchedEffect(pkg, wallet) { vm.checkTreasuryLine(pkg, wallet!!) }
+                            // Debounced: this read the website once per keystroke.
+                            LaunchedEffect(pkg, wallet) { kotlinx.coroutines.delay(700); vm.checkTreasuryLine(pkg, wallet!!) }
                             LineStatus(lineCheck) { vm.checkTreasuryLine(pkg, wallet!!) }
                         }
                     } else {
@@ -241,7 +249,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             DAppIcon(c.packageName, name, icons[c.packageName]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp)); Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
                                 Text(name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                Text("${stringResource(R.string.pay_field_code)}: ${c.code} · ${shortKey(c.treasury, 4, 4)}", color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                Text(stringResource(R.string.pay_listing_line, c.code, shortKey(c.treasury, 4, 4)), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                         }
                         Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -253,7 +261,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             TextButton(onClick = { if (confirmed) onOpen(c.packageName) else { pkg = c.packageName; listCode = c.code; step = 1; page = PayPage.LIST } }, modifier = Modifier.heightIn(min = 48.dp)) {
                                 Text(stringResource(if (confirmed) R.string.pay_open_board else R.string.pay_show_line), color = RbColors.purpleLight, fontSize = 13.sp) }
                             Spacer(Modifier.weight(1f))
-                            TextButton(enabled = stage == null && sender != null, onClick = { sign(ReviewMemo.Untreasury(c.packageName)) }, modifier = Modifier.heightIn(min = 48.dp)) {
+                            TextButton(enabled = stage == null && sender != null, onClick = { withdrawFor = c.packageName }, modifier = Modifier.heightIn(min = 48.dp)) {
                                 Text(stringResource(R.string.pay_withdraw), color = RbColors.negative, fontSize = 13.sp) }
                         }
                     }
@@ -263,6 +271,14 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 Spacer(Modifier.height(32.dp))
             }
         }
+    }
+    // Withdrawing removes the listing from the board, and listing again costs the fee: ask first (it was one tap beside "Open board").
+    withdrawFor?.let { p ->
+        AlertDialog(onDismissRequest = { withdrawFor = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.pay_withdraw), color = RbColors.textPrimary) },
+            text = { Text(stringResource(if (vm.listingIsFree()) R.string.confirm_withdraw_free else R.string.confirm_withdraw_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
+            confirmButton = { TextButton(onClick = { withdrawFor = null; sign(ReviewMemo.Untreasury(p)) }) { Text(stringResource(R.string.pay_withdraw), color = RbColors.negative) } },
+            dismissButton = { TextButton(onClick = { withdrawFor = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 }
 
@@ -324,7 +340,9 @@ private fun Modifier.dashedOutline(color: androidx.compose.ui.graphics.Color, ra
 @Composable
 private fun Field(value: String, onChange: (String) -> Unit, label: String) {
     Text(label, color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 12.dp, bottom = 4.dp))
-    TextField(value = value, onValueChange = onChange, singleLine = true, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp), shape = RoundedCornerShape(12.dp),
+    // Addresses, package names and codes: no autocorrect or capitals (the keyboard mangled base58), and the label is the field's name.
+    TextField(value = value, onValueChange = onChange, singleLine = true, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp).semantics { contentDescription = label }, shape = RoundedCornerShape(12.dp),
+        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(autoCorrect = false, capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.None, keyboardType = androidx.compose.ui.text.input.KeyboardType.Ascii),
         colors = TextFieldDefaults.colors(focusedContainerColor = RbColors.surfaceVariant, unfocusedContainerColor = RbColors.surfaceVariant, focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary,
             focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent, unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent, cursorColor = RbColors.purpleLight))
 }
@@ -357,7 +375,8 @@ fun TallyView(row: MainViewModel.BoardRow, quotes: Map<String, Prices.Quote>) {
     if (max != null) {
         Spacer(Modifier.height(14.dp))
         val today = !row.usdWhenPaid
-        Row(Modifier.fillMaxWidth().height(120.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
+        val chartA11y = months.joinToString(", ") { (m, v) -> java.time.Month.of(m.key.takeLast(2).toInt()).getDisplayName(java.time.format.TextStyle.FULL, Locale.getDefault()) + " " + usd(v) }
+        Row(Modifier.fillMaxWidth().height(120.dp).semantics(mergeDescendants = true) { contentDescription = chartA11y }, horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
             months.forEach { (m, v) ->
                 Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(if (v >= 100) "$" + v.toLong() else String.format(Locale.US, "$%.0f", v), color = RbColors.textTertiary, fontSize = 9.sp, maxLines = 1)

@@ -35,11 +35,10 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
     val pro by vm.pro.collectAsState()
     val desk = remember(entries, verified) { vm.desk() }
     fun name(pkg: String) = catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg
-    @Composable fun bucket(b: String) = when (b) { "hours" -> stringResource(R.string.bucket_hours); "days" -> stringResource(R.string.bucket_days); "weeks" -> stringResource(R.string.bucket_weeks); "months" -> stringResource(R.string.bucket_months); else -> b }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.desk_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.weight(1f))
             Pill(stringResource(R.string.pro_badge), RbColors.purpleLight); Spacer(Modifier.width(12.dp))
         }
@@ -65,7 +64,7 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                         Column(Modifier.weight(1f)) {
                             Text(name(a.packageName), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                             val r = a.responsiveness
-                            Text((a.score?.let { String.format(java.util.Locale.US, "%.1f signed · ", it.weightedMean) } ?: stringResource(R.string.row_no_reviews) + " · ") + (if (r.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucket(r.bucket), r.answered, r.total)), color = RbColors.textSecondary, fontSize = 11.sp)
+                            Text((a.score?.let { stringResource(R.string.desk_signed_mean, String.format(java.util.Locale.US, "%.1f", it.weightedMean)) } ?: stringResource(R.string.row_no_reviews)) + " · " + (if (r.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucketLabel(r.bucket), r.answered, r.total)), color = RbColors.textSecondary, fontSize = 11.sp)
                         }
                         Pill(if (a.waiting > 0) stringResource(R.string.desk_waiting, a.waiting) else stringResource(R.string.desk_clear), if (a.waiting > 0) RbColors.warning else RbColors.green)
                     }

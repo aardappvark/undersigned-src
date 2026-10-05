@@ -49,7 +49,7 @@ fun HowToScreen(onDone: () -> Unit) {
         HorizontalPager(state = pager, modifier = Modifier.weight(1f)) { i ->
             val s = steps[i]
             Column(Modifier.fillMaxSize()) {
-                PhotoBackdrop(s.photo, Modifier.fillMaxWidth().height(300.dp), fadeFrom = 0.30f) {
+                PhotoBackdrop(s.photo, Modifier.fillMaxWidth().heightIn(min = 300.dp), fadeFrom = 0.30f) {
                     Row(Modifier.align(Alignment.TopEnd).systemBarsPadding().padding(horizontal = 12.dp, vertical = 4.dp)) {
                         if (!last) TextButton(onClick = onDone) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
                     }

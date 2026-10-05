@@ -89,7 +89,7 @@
     <string name="standing_agreement">Egyezés a címkékben más aláírókkal: %1$s</string>
     <string name="standing_since">Aláír %1$s óta</string>
     <string name="standing_note2">Csak számlálás. Nincs pontszám, nincs mit vásárolni.</string>
-    <string name="store_reviewer_genesis">Hitelesített eszköz</string>
+    <string name="store_reviewer_genesis">Seeker-tulajdonos</string>
     <string name="store_reviewer_nogenesis">nincs hitelesített eszköz</string>
     <string name="store_reviewer_signed_here">itt is aláírt</string>
     <string name="notif_divergence_title">%1$s: az aláírt és az áruházi pontszám eltér</string>
@@ -148,7 +148,7 @@
     <string name="fact_perms_removed">Eltávolított jogosultságok: %1$s</string>
     <string name="fact_not_installed">Nincs telepítve ezen az eszközön. Telepítsd a dApp Store-ból az eszközadatok megtekintéséhez.</string>
     <string name="reviews_title">Aláírt értékelések</string>
-    <string name="review_weight_verified">Hitelesítve ✓</string>
+    <string name="review_weight_verified">Igazolt</string>
     <string name="review_weight_unverified">nem számít bele</string>
     <string name="review_hide">Elrejtés</string>
     <string name="review_report">Jelentés</string>
@@ -242,7 +242,7 @@
     <string name="flag_sign">Jelölés aláírása</string>
     <string name="flagged_hidden">Elrejtve közmegegyezéssel: %1$s súlyozott Seeker jelezte természetellenesnek</string>
     <string name="flagged_show">Mutasd mégis</string>
-    <string name="flagged_count">%1$s jelzési súly</string>
+    <string name="flagged_count">Megjelölve · súly %1$s</string>
     <string name="star">Csillagozás</string>
     <string name="unstar">Csillag eltávolítása</string>
     <string name="inbox">Beérkezett</string>
@@ -811,7 +811,7 @@
     <string name="notif_flagged_body">Megadott ok: %1$s. Ha nem értesz egyet, aláírhatsz egy vitatást a bejegyzésen.</string>
     <string name="notif_note_title">A kiadó válaszolt az áruházi értékelésedre · %1$s</string>
     <string name="notif_proven_title">Az igényed igazolt · %1$s</string>
-    <string name="notif_proven_body">Az alkalmazás értékeléseire adott válaszaid mostantól a Kiadó ✓ jelölést viselik, a saját értékeléseid pedig nem számítanak bele.</string>
+    <string name="notif_proven_body">Az alkalmazás értékeléseire adott válaszaid mostantól a Kiadó jelölést viselik, a saját értékeléseid pedig nem számítanak bele.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Nevezd meg a tárcádat az alkalmazásodban (a legerősebb)</string>
     <string name="claim_route_build_body">Add hozzá ezt a sort az &lt;application&gt; belsejében az alkalmazásod manifestjében, és add ki a frissítést a dApp Store-on. Az olvasók azt a buildet vizsgálják, amelyet az áruház szolgáltat: a sornak ezt a tárcát kell megneveznie, és a buildet az áruház által listázott tanúsítvánnyal kell aláírni. Ezt csak az alkalmazásod aláírókulcsának birtokosa teheti meg.</string>
@@ -829,4 +829,54 @@
     <string name="proof_not_title">Mi nem bizonyítja</string>
     <string name="proof_not_body">A tárca saját aláírása, egy fizetési cím, vagy az a tárca, amely az alkalmazást közzétette a dApp Store-on. Az áruház nem mondja meg, melyik láncon lévő bejegyzés melyik listázáshoz tartozik, és bárki létrehozhat olyat, amely bármelyik alkalmazást megnevezi.</string>
     <string name="proof_how_after">A bizonyított kiadó válaszai Kiadó jelvényt kapnak, és az alkalmazásról írt saját értékeléseit nem számítjuk.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Vissza</string>
+    <string name="stars_a11y">%1$s az 5 csillagból</string>
+    <string name="err_network">Nincs kapcsolat. Ellenőrizd a hálózatot, és próbáld újra.</string>
+    <string name="err_timeout">A kérés időtúllépéssel megszakadt. Próbáld újra.</string>
+    <string name="err_declined">A tárca elutasította. Semmi nem lett aláírva.</string>
+    <string name="err_funds">Ebben a tárcában nincs elég egyenleg ehhez a tranzakcióhoz és a hálózati díjához.</string>
+    <string name="link_confirm_body">Egy hivatkozás kérte ennek az aláírását. Nézd át az alábbi bejegyzést; a tárcád jóváhagyás előtt megmutatja a pontos memót.</string>
+    <string name="link_confirm_sign">Aláírás</string>
+    <string name="detail_pkg_updated">%1$s · frissítve: %2$s</string>
+    <string name="anonymous">Névtelen</string>
+    <string name="discard_title">Elveted ezt az értékelést?</string>
+    <string name="discard_body">Az értékelésed, a címkék és a szöveg még nincsenek aláírva, és el fognak veszni.</string>
+    <string name="discard">Elvetés</string>
+    <string name="keep_editing">Szerkesztés folytatása</string>
+    <string name="text_invalid">Legfeljebb %1$d karakter lehet, a | karakter nélkül.</string>
+    <string name="to_review_max">Legfeljebb %1$d alkalmazás írható alá együtt.</string>
+    <string name="confirm_disconnect_body">Ez a telefon elfelejti a tárcát. A nyilvántartásban semmi sem változik, és bármikor újra bejelentkezhetsz.</string>
+    <string name="confirm_unshare_title">Visszaveszed ezt a Pro-helyet?</string>
+    <string name="confirm_unshare_body">Ez aláír egy bejegyzést, amely megszünteti a helyet. A másik tárca a megerősítéskor elveszíti a megosztott Pro-t.</string>
+    <string name="confirm_unhide_body">Minden elrejtett bejegyzésed újra megjelenik az alkalmazása oldalán.</string>
+    <string name="confirm_delete_body">Ez eltávolítja erről a telefonról a hozzájárulási bejegyzésedet, a követéseket, az elrejtett és csillagozott bejegyzéseket, az általad hozzáadott Pro-helyeket és a tárcát. A nyilvántartásban semmi sem változik. Újra a bejelentkezési képernyőt látod majd.</string>
+    <string name="confirm_delete_action">Törlés</string>
+    <string name="loading">Betöltés…</string>
+    <string name="load_failed">Ezt nem sikerült betölteni. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
+    <string name="retry">Próbáld újra</string>
+    <string name="pay_listing_line">Kód: %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Ez aláír egy bejegyzést, amely leveszi a listázást a tábláról. Az újralistázás a listázási díj újbóli kifizetésével jár.</string>
+    <string name="confirm_withdraw_free">Ez aláír egy bejegyzést, amely leveszi a listázást a tábláról. Később újra listázhatod.</string>
+    <string name="changes_new_a11y">Változások, új elemek várnak</string>
+    <string name="desk_signed_mean">%1$s aláírva</string>
+    <string name="stats_share_head">Undersigned nyilvántartás, %1$s</string>
+    <string name="stats_share_registry">Nyilvántartás: %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d csillag</item>
+        <item quantity="other">%1$d csillag</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Még %1$d értékelés mutatása</item>
+        <item quantity="other">Még %1$d értékelés mutatása</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d aláírva · hitelesség %2$d</item>
+        <item quantity="other">%1$d aláírva · hitelesség %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Beérkezett, %1$d új</item>
+        <item quantity="other">Beérkezett, %1$d új</item>
+    </plurals>
 </resources>

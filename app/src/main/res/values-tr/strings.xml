@@ -89,7 +89,7 @@
     <string name="standing_agreement">Diğer imzalayanlarla etiket uyumu: %1$s</string>
     <string name="standing_since">%1$s tarihinden beri imzalıyor</string>
     <string name="standing_note2">Yalnızca sayım. Puan yok, satın alınacak bir şey yok.</string>
-    <string name="store_reviewer_genesis">Kanıtlı cihaz</string>
+    <string name="store_reviewer_genesis">Seeker sahibi</string>
     <string name="store_reviewer_nogenesis">kanıtlı cihaz bulunamadı</string>
     <string name="store_reviewer_signed_here">burada da imzaladı</string>
     <string name="notif_divergence_title">%1$s: imzalı ve mağaza puanları uyuşmuyor</string>
@@ -148,7 +148,7 @@
     <string name="fact_perms_removed">Kaldırılan izinler: %1$s</string>
     <string name="fact_not_installed">Bu cihazda yüklü değil. Cihaz gerçeklerini görmek için dApp Store\'dan yükleyin.</string>
     <string name="reviews_title">İmzalı incelemeler</string>
-    <string name="review_weight_verified">Kanıtlı ✓</string>
+    <string name="review_weight_verified">Tasdikli</string>
     <string name="review_weight_unverified">sayılmıyor</string>
     <string name="review_hide">Gizle</string>
     <string name="review_report">Bildir</string>
@@ -242,7 +242,7 @@
     <string name="flag_sign">İşaretlemeyi imzala</string>
     <string name="flagged_hidden">Uzlaşıyla gizlendi: %1$s ağırlıklı Seeker tarafından doğal olmayan olarak işaretlendi</string>
     <string name="flagged_show">Yine de göster</string>
-    <string name="flagged_count">%1$s işaretleme ağırlığı</string>
+    <string name="flagged_count">İşaretlendi · ağırlık %1$s</string>
     <string name="star">Yıldızla</string>
     <string name="unstar">Yıldızı kaldır</string>
     <string name="inbox">Gelen kutusu</string>
@@ -811,7 +811,7 @@
     <string name="notif_flagged_body">Belirtilen neden: %1$s. Katılmıyorsanız kayıt üzerinde bir itiraz imzalayabilirsiniz.</string>
     <string name="notif_note_title">Yayıncı mağaza incelemenize yanıt verdi · %1$s</string>
     <string name="notif_proven_title">Talebiniz kanıtlandı · %1$s</string>
-    <string name="notif_proven_body">Bu uygulamanın incelemelerine verdiğiniz yanıtlar artık Yayıncı ✓ işaretini taşıyor ve uygulamaya ait kendi incelemeleriniz sayılmıyor.</string>
+    <string name="notif_proven_body">Bu uygulamanın incelemelerine verdiğiniz yanıtlar artık Yayıncı işaretini taşıyor ve uygulamaya ait kendi incelemeleriniz sayılmıyor.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Cüzdanınızı uygulamanızda belirtin (en güçlüsü)</string>
     <string name="claim_route_build_body">Uygulamanızın manifest\'inde &lt;application&gt; içine bu satırı ekleyin ve güncellemeyi dApp Store\'da yayınlayın. Okuyucular mağazanın sunduğu build\'i inceler: satır bu cüzdanı belirtmeli ve build, mağazanın listelediği sertifikayla imzalanmış olmalıdır. Bunu yalnızca uygulamanızın imzalama anahtarının sahibi yapabilir.</string>
@@ -829,4 +829,54 @@
     <string name="proof_not_title">Neyin kanıtlamadığı</string>
     <string name="proof_not_body">Cüzdanın kendi imzası, bir ödeme adresi veya uygulamayı dApp Store\'da yayınlayan cüzdan. Mağaza hangi zincir üstü kaydın hangi listeye ait olduğunu söylemez ve herkes herhangi bir uygulamayı belirten bir kayıt oluşturabilir.</string>
     <string name="proof_how_after">Kanıtlanmış bir yayıncının yanıtları Yayıncı rozetini taşır ve uygulamaya yazdığı kendi incelemeleri sayılmaz.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Geri</string>
+    <string name="stars_a11y">5 üzerinden %1$s yıldız</string>
+    <string name="err_network">Bağlantı yok. Ağı kontrol edin ve tekrar deneyin.</string>
+    <string name="err_timeout">İstek zaman aşımına uğradı. Tekrar deneyin.</string>
+    <string name="err_declined">Cüzdanda reddedildi. Hiçbir şey imzalanmadı.</string>
+    <string name="err_funds">Bu cüzdanda bu işlem ve ağ ücreti için yeterli bakiye yok.</string>
+    <string name="link_confirm_body">Bir bağlantı bunu imzalamayı istedi. Aşağıdaki kaydı kontrol edin; cüzdanınız onaylamadan önce tam notu gösterir.</string>
+    <string name="link_confirm_sign">İmzala</string>
+    <string name="detail_pkg_updated">%1$s · güncellendi %2$s</string>
+    <string name="anonymous">Anonim</string>
+    <string name="discard_title">Bu inceleme silinsin mi?</string>
+    <string name="discard_body">Puanınız, etiketleriniz ve metniniz henüz imzalanmadı ve kaybolacak.</string>
+    <string name="discard">Sil</string>
+    <string name="keep_editing">Düzenlemeye devam et</string>
+    <string name="text_invalid">| karakteri olmadan en fazla %1$d karakter yazın.</string>
+    <string name="to_review_max">Aynı anda en fazla %1$d uygulama imzalanabilir.</string>
+    <string name="confirm_disconnect_body">Bu telefon cüzdanı unutur. Defterde hiçbir şey değişmez ve istediğiniz zaman tekrar giriş yapabilirsiniz.</string>
+    <string name="confirm_unshare_title">Bu Pro koltuğu geri alınsın mı?</string>
+    <string name="confirm_unshare_body">Bu, koltuğu sona erdiren bir kaydı imzalar. Onaylandığında diğer cüzdan, paylaştığınız Pro\'yu kaybeder.</string>
+    <string name="confirm_unhide_body">Gizlediğiniz her kayıt, uygulamasının sayfasında yeniden görünür.</string>
+    <string name="confirm_delete_body">Bu, bu telefondan onay kaydınızı, takipleri, gizlenen ve yıldızlanan kayıtları, eklediğiniz Pro koltuklarını ve cüzdanı kaldırır. Defterde hiçbir şey değişmez. Giriş ekranını yeniden göreceksiniz.</string>
+    <string name="confirm_delete_action">Sil</string>
+    <string name="loading">Yükleniyor…</string>
+    <string name="load_failed">Bu yüklenemedi. Bağlantıyı kontrol edin ve tekrar deneyin.</string>
+    <string name="retry">Tekrar dene</string>
+    <string name="pay_listing_line">Kod %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Bu, listelemeyi panodan kaldıran bir kaydı imzalar. Yeniden listelemek, listeleme ücretini tekrar ödemek demektir.</string>
+    <string name="confirm_withdraw_free">Bu, listelemeyi panodan kaldıran bir kaydı imzalar. Daha sonra yeniden listeleyebilirsiniz.</string>
+    <string name="changes_new_a11y">Değişiklikler, görülecek yeniler var</string>
+    <string name="desk_signed_mean">%1$s imzalı</string>
+    <string name="stats_share_head">Undersigned defteri, %1$s</string>
+    <string name="stats_share_registry">Kayıt %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d yıldız</item>
+        <item quantity="other">%1$d yıldız</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">%1$d inceleme daha göster</item>
+        <item quantity="other">%1$d inceleme daha göster</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d imzalı · güvenilirlik %2$d</item>
+        <item quantity="other">%1$d imzalı · güvenilirlik %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Gelen kutusu, %1$d yeni</item>
+        <item quantity="other">Gelen kutusu, %1$d yeni</item>
+    </plurals>
 </resources>

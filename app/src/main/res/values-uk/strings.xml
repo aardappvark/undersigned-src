@@ -89,7 +89,7 @@
     <string name="standing_agreement">Збіг тегів з іншими підписантами: %1$s</string>
     <string name="standing_since">Підписує з %1$s</string>
     <string name="standing_note2">Лише підрахунок. Без балів, нічого купувати не потрібно.</string>
-    <string name="store_reviewer_genesis">Підтверджений пристрій</string>
+    <string name="store_reviewer_genesis">Власник Seeker</string>
     <string name="store_reviewer_nogenesis">підтвердженого пристрою не знайдено</string>
     <string name="store_reviewer_signed_here">також підписав(ла) тут</string>
     <string name="notif_divergence_title">%1$s: підписаний і магазинний рейтинги розходяться</string>
@@ -154,7 +154,7 @@
     <string name="fact_perms_removed">Видалені дозволи: %1$s</string>
     <string name="fact_not_installed">Не встановлено на цьому пристрої. Встановіть його з dApp Store, щоб побачити факти про пристрій.</string>
     <string name="reviews_title">Підписані відгуки</string>
-    <string name="review_weight_verified">Підтверджено ✓</string>
+    <string name="review_weight_verified">Атестовано</string>
     <string name="review_weight_unverified">не враховується</string>
     <string name="review_hide">Приховати</string>
     <string name="review_report">Поскаржитися</string>
@@ -250,7 +250,7 @@
     <string name="flag_sign">Підписати позначку</string>
     <string name="flagged_hidden">Приховано за консенсусом: позначено як неприродне %1$s зваженими Seeker</string>
     <string name="flagged_show">Все одно показати</string>
-    <string name="flagged_count">вага позначок %1$s</string>
+    <string name="flagged_count">Позначено · вага %1$s</string>
     <string name="star">До обраного</string>
     <string name="unstar">З обраного</string>
     <string name="inbox">Вхідні</string>
@@ -828,7 +828,7 @@
     <string name="notif_flagged_body">Указана причина: %1$s. Якщо ви не згодні, можете підписати оскарження запису.</string>
     <string name="notif_note_title">Видавець відповів на ваш відгук із магазину · %1$s</string>
     <string name="notif_proven_title">Вашу заяву підтверджено · %1$s</string>
-    <string name="notif_proven_body">Ваші відповіді на відгуки про цей додаток тепер мають позначку Видавець ✓, а ваші власні відгуки про нього не враховуються.</string>
+    <string name="notif_proven_body">Ваші відповіді на відгуки про цей додаток тепер мають позначку Видавець, а ваші власні відгуки про нього не враховуються.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Вкажіть свій гаманець у додатку (найнадійніший)</string>
     <string name="claim_route_build_body">Додайте цей рядок усередину &lt;application&gt; у маніфесті додатка й випустіть оновлення в dApp Store. Читачі дивляться збірку, яку віддає магазин: у рядку має бути вказано цей гаманець, а збірку має бути підписано сертифікатом, який указує магазин. Зробити це може лише власник ключа підпису вашого додатка.</string>
@@ -846,4 +846,62 @@
     <string name="proof_not_title">Що цього не доводить</string>
     <string name="proof_not_body">Власний підпис гаманця, платіжна адреса або гаманець, що опублікував додаток у dApp Store. Магазин не повідомляє, який запис у блокчейні належить до якої картки, і будь-хто може створити запис із назвою будь-якого додатка.</string>
     <string name="proof_how_after">Відповіді доведеного видавця отримують значок Видавець, а його власні відгуки про додаток не враховуються.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Назад</string>
+    <string name="stars_a11y">%1$s із 5 зірок</string>
+    <string name="err_network">Немає з\'єднання. Перевірте мережу й спробуйте ще раз.</string>
+    <string name="err_timeout">Час запиту вичерпано. Спробуйте ще раз.</string>
+    <string name="err_declined">Відхилено в гаманці. Нічого не підписано.</string>
+    <string name="err_funds">У цьому гаманці недостатньо коштів для цієї транзакції та її мережевої комісії.</string>
+    <string name="link_confirm_body">Посилання попросило підписати це. Перевірте запис нижче; перед підтвердженням гаманець покаже точне мемо.</string>
+    <string name="link_confirm_sign">Підписати</string>
+    <string name="detail_pkg_updated">%1$s · оновлено %2$s</string>
+    <string name="anonymous">Анонім</string>
+    <string name="discard_title">Скасувати цей відгук?</string>
+    <string name="discard_body">Ваша оцінка, теги й текст ще не підписані та буде втрачено.</string>
+    <string name="discard">Скасувати</string>
+    <string name="keep_editing">Продовжити редагування</string>
+    <string name="text_invalid">Не більше %1$d символів, без символу |.</string>
+    <string name="to_review_max">Разом можна підписати до %1$d додатків.</string>
+    <string name="confirm_disconnect_body">Цей телефон забуде гаманець. У реєстрі нічого не зміниться, а увійти знову можна будь-коли.</string>
+    <string name="confirm_unshare_title">Забрати це місце Pro?</string>
+    <string name="confirm_unshare_body">Це підписує запис, який завершує місце. Інший гаманець втратить Pro, яким ви поділилися, після підтвердження.</string>
+    <string name="confirm_unhide_body">Кожен прихований вами запис знову з\'явиться на сторінці свого додатка.</string>
+    <string name="confirm_delete_body">Це видалить із цього телефона запис про вашу згоду, стеження, приховані та позначені зіркою записи, додані вами місця Pro і гаманець. У реєстрі нічого не зміниться. Ви знову побачите екран входу.</string>
+    <string name="confirm_delete_action">Видалити</string>
+    <string name="loading">Завантаження…</string>
+    <string name="load_failed">Не вдалося завантажити. Перевірте з\'єднання й спробуйте ще раз.</string>
+    <string name="retry">Спробувати ще раз</string>
+    <string name="pay_listing_line">Код %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Це підписує запис, який знімає оголошення з дошки. Щоб розмістити його знову, доведеться знову сплатити плату за розміщення.</string>
+    <string name="confirm_withdraw_free">Це підписує запис, який знімає оголошення з дошки. Пізніше його можна розмістити знову.</string>
+    <string name="changes_new_a11y">Зміни, є нові</string>
+    <string name="desk_signed_mean">%1$s підписано</string>
+    <string name="stats_share_head">Реєстр Undersigned, %1$s</string>
+    <string name="stats_share_registry">Реєстр %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d зірка</item>
+        <item quantity="few">%1$d зірки</item>
+        <item quantity="many">%1$d зірок</item>
+        <item quantity="other">%1$d зірки</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Показати ще %1$d відгук</item>
+        <item quantity="few">Показати ще %1$d відгуки</item>
+        <item quantity="many">Показати ще %1$d відгуків</item>
+        <item quantity="other">Показати ще %1$d відгуку</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d підписано · достовірність %2$d</item>
+        <item quantity="few">%1$d підписано · достовірність %2$d</item>
+        <item quantity="many">%1$d підписано · достовірність %2$d</item>
+        <item quantity="other">%1$d підписано · достовірність %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Вхідні, %1$d нове</item>
+        <item quantity="few">Вхідні, %1$d нових</item>
+        <item quantity="many">Вхідні, %1$d нових</item>
+        <item quantity="other">Вхідні, %1$d нового</item>
+    </plurals>
 </resources>

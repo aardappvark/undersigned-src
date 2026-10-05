@@ -3,6 +3,7 @@ package com.undersigned.app.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -46,15 +47,15 @@ fun StoreWatchScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> 
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.watch_title), color = RbColors.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             // G6 — the switch, with the cost stated before switching it on.
             GlassCard {
-                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(value = watch.enabled, role = androidx.compose.ui.semantics.Role.Switch) { vm.setStoreWatch(it) }, verticalAlignment = Alignment.CenterVertically) {
                     Text(stringResource(R.string.watch_toggle), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold, lineHeight = 22.sp, modifier = Modifier.weight(1f))
-                    Switch(checked = watch.enabled, onCheckedChange = { vm.setStoreWatch(it) })
+                    Switch(checked = watch.enabled, onCheckedChange = null)
                 }
                 if (!watch.enabled) {
                     Text(stringResource(R.string.watch_toggle_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 19.sp, modifier = Modifier.padding(top = 6.dp))
@@ -95,13 +96,13 @@ fun StoreWatchScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> 
                                 Text(h.name, color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(pluralStringResource(if (b.kind == ReviewBursts.Kind.HIGH) R.plurals.watch_count_high else R.plurals.watch_count_low, b.count, b.count), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                                    Text("  ×" + String.format(java.util.Locale.getDefault(), "%.0f", com.undersigned.protocol.BurstSpark.multiple(b).coerceAtLeast(1.0)), color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                    Text("  ×" + String.format(java.util.Locale.US, "%.0f", com.undersigned.protocol.BurstSpark.multiple(b).coerceAtLeast(1.0)), color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                 }
                                 Text(android.text.format.DateUtils.formatDateRange(androidx.compose.ui.platform.LocalContext.current, b.start * 1000, b.end * 1000 + 1, android.text.format.DateUtils.FORMAT_ABBREV_MONTH or android.text.format.DateUtils.FORMAT_SHOW_YEAR or android.text.format.DateUtils.FORMAT_SHOW_DATE),
                                     color = RbColors.textTertiary, fontSize = 12.sp)
                             }
                             h.spark?.let { sp -> Sparkline(sp.counts, sp.from, sp.to, b.expected / 3.0,
-                                stringResource(if (b.kind == ReviewBursts.Kind.HIGH) R.string.burst_high_ratings else R.string.burst_low_ratings, b.count, df.format(Date(b.start * 1000)), df.format(Date(b.end * 1000)), String.format(java.util.Locale.getDefault(), "%.1f", b.expected)),
+                                stringResource(if (b.kind == ReviewBursts.Kind.HIGH) R.string.burst_high_ratings else R.string.burst_low_ratings, b.count, df.format(Date(b.start * 1000)), df.format(Date(b.end * 1000)), String.format(java.util.Locale.US, "%.1f", b.expected)),
                                 Modifier.size(64.dp, 28.dp)) }
                         }
                     }

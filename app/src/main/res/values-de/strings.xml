@@ -92,7 +92,7 @@
     <string name="standing_agreement">Übereinstimmung der Tags mit anderen Signierenden: %1$s</string>
     <string name="standing_since">Signiert seit %1$s</string>
     <string name="standing_note2">Nur Zählungen. Keine Bewertung, nichts zu kaufen.</string>
-    <string name="store_reviewer_genesis">Attestiertes Gerät</string>
+    <string name="store_reviewer_genesis">Seeker-Besitzer</string>
     <string name="store_reviewer_nogenesis">kein attestiertes Gerät gefunden</string>
     <string name="store_reviewer_signed_here">hat auch hier signiert</string>
     <string name="notif_divergence_title">%1$s: Signierte und Store-Bewertungen weichen ab</string>
@@ -148,7 +148,7 @@
     <string name="fact_perms_removed">Berechtigungen entfernt: %1$s</string>
     <string name="fact_not_installed">Auf diesem Gerät nicht installiert. Installieren Sie die App über den dApp Store, um Gerätefakten zu sehen.</string>
     <string name="reviews_title">Signierte Bewertungen</string>
-    <string name="review_weight_verified">Attestiert ✓</string>
+    <string name="review_weight_verified">Attestiert</string>
     <string name="review_weight_unverified">nicht gezählt</string>
     <string name="review_hide">Ausblenden</string>
     <string name="review_report">Melden</string>
@@ -242,7 +242,7 @@
     <string name="flag_sign">Die Markierung signieren</string>
     <string name="flagged_hidden">Durch Konsens ausgeblendet: von %1$s gewichteten Seekern als unnatürlich markiert</string>
     <string name="flagged_show">Trotzdem anzeigen</string>
-    <string name="flagged_count">%1$s Markierungsgewicht</string>
+    <string name="flagged_count">Markiert · Gewicht %1$s</string>
     <string name="star">Favorisieren</string>
     <string name="unstar">Favorit entfernen</string>
     <string name="inbox">Posteingang</string>
@@ -831,7 +831,7 @@
     <string name="notif_flagged_body">Angegebener Grund: %1$s. Wenn Sie nicht einverstanden sind, können Sie einen Einspruch zum Eintrag signieren.</string>
     <string name="notif_note_title">Der Herausgeber hat auf Ihre Store-Bewertung geantwortet · %1$s</string>
     <string name="notif_proven_title">Ihr Anspruch ist bestätigt · %1$s</string>
-    <string name="notif_proven_body">Ihre Antworten auf die Bewertungen dieser App tragen jetzt das Zeichen Herausgeber ✓, und Ihre eigenen Bewertungen dafür werden nicht gezählt.</string>
+    <string name="notif_proven_body">Ihre Antworten auf die Bewertungen dieser App tragen jetzt das Zeichen Herausgeber, und Ihre eigenen Bewertungen dafür werden nicht gezählt.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Nennen Sie Ihre Wallet in Ihrer App (am stärksten)</string>
     <string name="claim_route_build_body">Fügen Sie diese Zeile innerhalb von &lt;application&gt; im Manifest Ihrer App hinzu und veröffentlichen Sie das Update im dApp Store. Leser prüfen den Build, den der Store ausliefert: Die Zeile muss diese Wallet nennen, und der Build muss mit dem Zertifikat signiert sein, das der Store listet. Das kann nur der Inhaber des Signaturschlüssels Ihrer App.</string>
@@ -849,4 +849,54 @@
     <string name="proof_not_title">Was es nicht nachweist</string>
     <string name="proof_not_body">Die eigene Signatur der Wallet, eine Zahlungsadresse oder die Wallet, die die App im dApp Store veröffentlicht hat. Der Store gibt nicht an, welcher On-Chain-Eintrag zu welchem Listing gehört, und jeder kann einen erstellen, der eine beliebige App nennt.</string>
     <string name="proof_how_after">Die Antworten eines nachgewiesenen Herausgebers tragen das Kennzeichen Herausgeber, und seine eigenen Bewertungen der App werden nicht gezählt.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Zurück</string>
+    <string name="stars_a11y">%1$s von 5 Sternen</string>
+    <string name="err_network">Keine Verbindung. Prüfen Sie das Netzwerk und versuchen Sie es erneut.</string>
+    <string name="err_timeout">Die Anfrage hat zu lange gedauert. Versuchen Sie es erneut.</string>
+    <string name="err_declined">In der Wallet abgelehnt. Es wurde nichts signiert.</string>
+    <string name="err_funds">Nicht genug Guthaben in dieser Wallet für diese Transaktion und ihre Netzwerkgebühr.</string>
+    <string name="link_confirm_body">Ein Link hat darum gebeten, dies zu signieren. Prüfen Sie den Datensatz unten; Ihre Wallet zeigt vor der Freigabe das genaue Memo an.</string>
+    <string name="link_confirm_sign">Signieren</string>
+    <string name="detail_pkg_updated">%1$s · aktualisiert %2$s</string>
+    <string name="anonymous">Anonym</string>
+    <string name="discard_title">Diese Bewertung verwerfen?</string>
+    <string name="discard_body">Ihre Bewertung, Tags und Ihr Text sind noch nicht signiert und gehen verloren.</string>
+    <string name="discard">Verwerfen</string>
+    <string name="keep_editing">Weiter bearbeiten</string>
+    <string name="text_invalid">Maximal %1$d Zeichen, ohne das Zeichen |.</string>
+    <string name="to_review_max">Bis zu %1$d Apps können gemeinsam signiert werden.</string>
+    <string name="confirm_disconnect_body">Dieses Telefon vergisst die Wallet. Am Ledger ändert sich nichts, und Sie können sich jederzeit wieder anmelden.</string>
+    <string name="confirm_unshare_title">Diesen Pro-Platz zurücknehmen?</string>
+    <string name="confirm_unshare_body">Dies signiert einen Datensatz, der den Platz beendet. Die andere Wallet verliert das Pro, das Sie geteilt haben, sobald er bestätigt ist.</string>
+    <string name="confirm_unhide_body">Jeder Datensatz, den Sie ausgeblendet haben, erscheint wieder auf der Seite seiner App.</string>
+    <string name="confirm_delete_body">Dies entfernt von diesem Telefon Ihren Einwilligungs-Datensatz, Ihre Folgen, ausgeblendete und markierte Datensätze, die von Ihnen hinzugefügten Pro-Plätze und die Wallet. Am Ledger ändert sich nichts. Sie sehen danach wieder den Anmeldebildschirm.</string>
+    <string name="confirm_delete_action">Löschen</string>
+    <string name="loading">Wird geladen…</string>
+    <string name="load_failed">Das ließ sich nicht laden. Prüfen Sie die Verbindung und versuchen Sie es erneut.</string>
+    <string name="retry">Erneut versuchen</string>
+    <string name="pay_listing_line">Code %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Dies signiert einen Datensatz, der den Eintrag von der Übersicht nimmt. Ihn erneut einzutragen heißt, die Eintragsgebühr erneut zu zahlen.</string>
+    <string name="confirm_withdraw_free">Dies signiert einen Datensatz, der den Eintrag von der Übersicht nimmt. Sie können ihn später erneut eintragen.</string>
+    <string name="changes_new_a11y">Änderungen, es gibt Neues zu sehen</string>
+    <string name="desk_signed_mean">%1$s signiert</string>
+    <string name="stats_share_head">Undersigned-Ledger, %1$s</string>
+    <string name="stats_share_registry">Register %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d Stern</item>
+        <item quantity="other">%1$d Sterne</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">%1$d weitere Bewertung anzeigen</item>
+        <item quantity="other">%1$d weitere Bewertungen anzeigen</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d signiert · Glaubwürdigkeit %2$d</item>
+        <item quantity="other">%1$d signiert · Glaubwürdigkeit %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Posteingang, %1$d neu</item>
+        <item quantity="other">Posteingang, %1$d neu</item>
+    </plurals>
 </resources>

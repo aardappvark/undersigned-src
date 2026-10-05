@@ -58,7 +58,7 @@ private enum class Metric(val label: Int) {
 private data class LbRow(val pkg: String, val name: String, val category: String, val value: String, val sub: String, val growth: Double? = null)
 
 private fun usd(v: Double): String = NumberFormat.getCurrencyInstance(Locale.US).apply { maximumFractionDigits = 0 }.format(v)
-private fun pct(v: Double): String = (if (v >= 0) "+" else "−") + String.format(Locale.getDefault(), "%.0f%%", kotlin.math.abs(v * 100))
+private fun pct(v: Double): String = (if (v >= 0) "+" else "−") + String.format(Locale.US, "%.0f%%", kotlin.math.abs(v * 100))
 private fun storeAvg(c: List<Int>): Pair<Double, Int>? { val n = c.sum(); return if (n == 0) null else c.mapIndexed { i, k -> (i + 1) * k }.sum().toDouble() / n to n }
 
 /** This calendar month's USD against last month's, from a listing's monthly totals; null without both months. */
@@ -106,12 +106,12 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
             Metric.PAYERS -> confirmed.sortedByDescending { it.tally!!.payers }.map { LbRow(it.claim.packageName, it.name, catOf[it.claim.packageName] ?: "", "${it.tally!!.payers}", "usd:" + (it.usd?.let(::usd) ?: "—")) }
             Metric.GROWTH -> confirmed.mapNotNull { r -> growthOf(r)?.let { g -> r to g } }.sortedByDescending { it.second }.map { (r, g) -> LbRow(r.claim.packageName, r.name, catOf[r.claim.packageName] ?: "", pct(g), "usd:" + (r.usd?.let(::usd) ?: "—"), g) }
             Metric.SIGNED_SCORE -> scores.values.filter { it.packageName in inTab && it.countedReviews >= 2 }.sortedByDescending { it.weightedRating }
-                .map { LbRow(it.packageName, nameOf[it.packageName] ?: it.packageName, catOf[it.packageName] ?: "", String.format(Locale.getDefault(), "%.2f", it.weightedRating), "signed:${it.countedReviews}:${it.weightedMean}") }
+                .map { LbRow(it.packageName, nameOf[it.packageName] ?: it.packageName, catOf[it.packageName] ?: "", String.format(Locale.US, "%.2f", it.weightedRating), "signed:${it.countedReviews}:${it.weightedMean}") }
             Metric.SIGNED_REVIEWS -> scores.values.filter { it.packageName in inTab && it.countedReviews > 0 }.sortedByDescending { it.countedReviews }
                 .map { LbRow(it.packageName, nameOf[it.packageName] ?: it.packageName, catOf[it.packageName] ?: "", "${it.countedReviews}", "mean:${it.weightedMean}") }
             Metric.STORE_RATING -> counts.filterKeys { it in inTab }.mapNotNull { (p, c) -> storeAvg(c)?.takeIf { it.second >= 5 }?.let { p to it } }
                 .sortedWith(compareByDescending<Pair<String, Pair<Double, Int>>> { (storeMean * 20 + it.second.first * it.second.second) / (20 + it.second.second) }.thenByDescending { it.second.second })
-                .map { (p, a) -> LbRow(p, nameOf[p] ?: p, catOf[p] ?: "", String.format(Locale.getDefault(), "%.1f", a.first), "reviews:${a.second}") }
+                .map { (p, a) -> LbRow(p, nameOf[p] ?: p, catOf[p] ?: "", String.format(Locale.US, "%.1f", a.first), "reviews:${a.second}") }
             Metric.STORE_REVIEWS -> counts.filterKeys { it in inTab }.mapNotNull { (p, c) -> storeAvg(c)?.let { p to it } }.sortedByDescending { it.second.second }
                 .map { (p, a) -> LbRow(p, nameOf[p] ?: p, catOf[p] ?: "", NumberFormat.getIntegerInstance().format(a.second), "avg:${a.first}") }
         }.take(100)
@@ -120,7 +120,7 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Column {
                 Text(stringResource(R.string.lb_title), color = RbColors.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
                 Text((tab ?: stringResource(R.string.lb_overall)) + " · " + pluralStringResource(R.plurals.lb_dapps, inTab.size, inTab.size), color = RbColors.textTertiary, fontSize = 11.sp)
@@ -146,13 +146,15 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
             }
             Text(note, color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 8.dp, bottom = 10.dp))
             if (needsStore) countsProgress?.let { Text(stringResource(R.string.lb_store_reading, it), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.padding(bottom = 8.dp)) }
-            if (rows.isEmpty()) Text(stringResource(R.string.lb_empty), color = RbColors.textSecondary, fontSize = 13.sp)
+            // Loading is not "nothing to rank": the metric is still being chosen, or store counts and the board are still being read.
+            val boardLoading by vm.boardLoading.collectAsState()
+            if (rows.isEmpty()) Text(stringResource(if (metric == null || (needsStore && countsProgress != null) || (!needsStore && boardLoading)) R.string.loading else R.string.lb_empty), color = RbColors.textSecondary, fontSize = 13.sp)
             else GlassCard {
                 rows.forEachIndexed { i, r ->
                     if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
                     val rankLine = "#${i + 1} " + (tab ?: stringResource(R.string.lb_overall)) + " · " + stringResource(m.label)
                     Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).clickable { drill = r.pkg to rankLine }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text("${i + 1}", color = RbColors.textTertiary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.width(30.dp))
+                        Text("${i + 1}", color = RbColors.textTertiary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.widthIn(min = 30.dp))
                         DAppIcon(r.pkg, r.name, icons[r.pkg]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp)); Spacer(Modifier.width(12.dp))
                         Column(Modifier.weight(1f)) {
                             Text(r.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -195,9 +197,9 @@ private fun subLine(r: LbRow): String {
         "payers" -> r.category + " · " + stringResource(R.string.pay_label_payers) + " " + p[1]
         "usd" -> r.category + " · " + p.drop(1).joinToString(":")
         "signed" -> stringResource(R.string.lb_signed_n, p[1].toInt())
-        "mean" -> r.category + " · " + String.format(Locale.getDefault(), "%.1f", p[1].toDouble()) + "★"
+        "mean" -> r.category + " · " + String.format(Locale.US, "%.1f", p[1].toDouble()) + "★"
         "reviews" -> pluralStringResource(R.plurals.store_total, p[1].toInt(), p[1].toInt())
-        "avg" -> r.category + " · " + String.format(Locale.getDefault(), "%.1f", p[1].toDouble()) + "★"
+        "avg" -> r.category + " · " + String.format(Locale.US, "%.1f", p[1].toDouble()) + "★"
         else -> r.category
     }
 }
@@ -234,7 +236,7 @@ private fun DrillDown(vm: MainViewModel, pkg: String, name: String, rank: String
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             DAppIcon(pkg, name, icons[pkg]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp)); Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
                 Text(name, color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -244,8 +246,8 @@ private fun DrillDown(vm: MainViewModel, pkg: String, name: String, rank: String
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             GlassCard {
                 KeyValueGrid(listOf(stringResource(R.string.dd_revenue) to (row?.usd?.let(::usd) ?: "—"),
-                    stringResource(R.string.dd_signed) to (score?.takeIf { it.countedReviews > 0 }?.let { String.format(Locale.getDefault(), "%.1f", it.weightedMean) } ?: "—"),
-                    stringResource(R.string.dd_store) to (store?.let { String.format(Locale.getDefault(), "%.1f", it.first) } ?: "—")), columns = 3, valueSize = 20)
+                    stringResource(R.string.dd_signed) to (score?.takeIf { it.countedReviews > 0 }?.let { String.format(Locale.US, "%.1f", it.weightedMean) } ?: "—"),
+                    stringResource(R.string.dd_store) to (store?.let { String.format(Locale.US, "%.1f", it.first) } ?: "—")), columns = 3, valueSize = 20)
             }
             // Updates: what THIS phone saw of each release (the store publishes only its latest).
             SectionTitle(stringResource(R.string.dd_updates))
@@ -264,7 +266,7 @@ private fun DrillDown(vm: MainViewModel, pkg: String, name: String, rank: String
             SectionTitle(stringResource(R.string.dd_worth))
             GlassCard {
                 val resp = vm.responsiveness(pkg)
-                if (!verified[pkg].isNullOrEmpty()) Text(stringResource(R.string.publisher_badge) + " · " + (if (resp.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, resp.bucket, resp.answered, resp.total)), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                if (!verified[pkg].isNullOrEmpty()) Text(stringResource(R.string.publisher_badge) + " · " + (if (resp.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucketLabel(resp.bucket), resp.answered, resp.total)), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
                 val bursts = vm.ledgerBursts(pkg).bursts + ReviewBursts.find(RatingSnapshots.toPoints(snaps), ReviewBursts.MIN_SNAPSHOT_DAYS).bursts
                 val firstSeen = listOfNotNull(ledgerReviews.minOfOrNull { it.blockTime * 1000 }, snaps.firstOrNull()?.time?.times(1000)).minOrNull()
                     ?.takeIf { System.currentTimeMillis() - it >= ReviewBursts.MIN_HISTORY_DAYS * ReviewBursts.DAY * 1000 }   // "since today" says nothing
@@ -348,7 +350,7 @@ private fun ScoreTrend(vm: MainViewModel, pkg: String, reviews: List<com.undersi
     val gapStart = if (signed.isNotEmpty() && store.isNotEmpty()) kotlin.math.abs(signed.first().second - store.first().second) else null
     val gapNow = if (sNow != null && stNow != null) kotlin.math.abs(sNow - stNow) else null
     val gapWord = if (gapStart != null && gapNow != null) stringResource(if (gapNow > gapStart + 0.05) R.string.tr_gap_wider else if (gapNow < gapStart - 0.05) R.string.tr_gap_narrower else R.string.tr_gap_same) else ""
-    val fmt = { v: Double? -> v?.let { String.format(Locale.getDefault(), "%.1f", it) } ?: "—" }
+    val fmt = { v: Double? -> v?.let { String.format(Locale.US, "%.1f", it) } ?: "—" }
     TrendCard(stringResource(R.string.tr_score), stringResource(R.string.tr_sum_score, fmt(sNow), fmt(stNow)) + (if (gapWord.isNotEmpty()) " · $gapWord" else ""),
         trailing = { Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) { Text(stringResource(R.string.tr_signed), color = RbColors.green, fontSize = 11.sp); Text(stringResource(R.string.tr_store), color = RbColors.textTertiary, fontSize = 11.sp) } }) {
         Canvas(Modifier.fillMaxWidth().height(96.dp)) {

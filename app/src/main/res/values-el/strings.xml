@@ -89,7 +89,7 @@
     <string name="standing_agreement">Συμφωνία ετικετών με άλλους υπογράφοντες: %1$s</string>
     <string name="standing_since">Υπογράφει από %1$s</string>
     <string name="standing_note2">Μόνο μετρήσεις. Καμία βαθμολογία, τίποτα προς αγορά.</string>
-    <string name="store_reviewer_genesis">Πιστοποιημένη συσκευή</string>
+    <string name="store_reviewer_genesis">Κάτοχος Seeker</string>
     <string name="store_reviewer_nogenesis">δεν βρέθηκε πιστοποιημένη συσκευή</string>
     <string name="store_reviewer_signed_here">υπέγραψε επίσης εδώ</string>
     <string name="notif_divergence_title">%1$s: οι υπογεγραμμένες και οι βαθμολογίες του καταστήματος διαφωνούν</string>
@@ -148,7 +148,7 @@
     <string name="fact_perms_removed">Δικαιώματα που αφαιρέθηκαν: %1$s</string>
     <string name="fact_not_installed">Δεν είναι εγκατεστημένη σε αυτή τη συσκευή. Εγκαταστήστε την από το dApp Store για να δείτε τα στοιχεία της συσκευής.</string>
     <string name="reviews_title">Υπογεγραμμένες κριτικές</string>
-    <string name="review_weight_verified">Πιστοποιημένο ✓</string>
+    <string name="review_weight_verified">Πιστοποιημένο</string>
     <string name="review_weight_unverified">δεν μετράει</string>
     <string name="review_hide">Απόκρυψη</string>
     <string name="review_report">Αναφορά</string>
@@ -242,7 +242,7 @@
     <string name="flag_sign">Υπογραφή της επισήμανσης</string>
     <string name="flagged_hidden">Κρυμμένο μέσω συναίνεσης: επισημάνθηκε ως μη φυσικό από %1$s σταθμισμένους Seekers</string>
     <string name="flagged_show">Εμφάνιση ούτως ή άλλως</string>
-    <string name="flagged_count">%1$s βάρος επισημάνσεων</string>
+    <string name="flagged_count">Επισημασμένο · βάρος %1$s</string>
     <string name="star">Αστέρι</string>
     <string name="unstar">Αφαίρεση αστεριού</string>
     <string name="inbox">Εισερχόμενα</string>
@@ -811,7 +811,7 @@
     <string name="notif_flagged_body">Αιτιολογία: %1$s. Αν διαφωνείτε, μπορείτε να υπογράψετε ένσταση στην εγγραφή.</string>
     <string name="notif_note_title">Ο εκδότης απάντησε στην κριτική σας από το κατάστημα · %1$s</string>
     <string name="notif_proven_title">Η αξίωσή σας αποδείχθηκε · %1$s</string>
-    <string name="notif_proven_body">Οι απαντήσεις σας στις κριτικές αυτής της εφαρμογής φέρουν πλέον το σήμα Εκδότης ✓ και οι δικές σας κριτικές για αυτήν δεν μετράνε.</string>
+    <string name="notif_proven_body">Οι απαντήσεις σας στις κριτικές αυτής της εφαρμογής φέρουν πλέον το σήμα Εκδότης και οι δικές σας κριτικές για αυτήν δεν μετράνε.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Αναφέρετε το πορτοφόλι σας στην εφαρμογή σας (ισχυρότερο)</string>
     <string name="claim_route_build_body">Προσθέστε αυτή τη γραμμή μέσα στο &lt;application&gt; στο manifest της εφαρμογής σας και κυκλοφορήστε την ενημέρωση στο dApp Store. Οι αναγνώστες ελέγχουν το build που διαθέτει το κατάστημα: η γραμμή πρέπει να αναφέρει αυτό το πορτοφόλι και το build πρέπει να είναι υπογεγραμμένο με το πιστοποιητικό που αναφέρει το κατάστημα. Μόνο ο κάτοχος του κλειδιού υπογραφής της εφαρμογής σας μπορεί να το κάνει.</string>
@@ -829,4 +829,54 @@
     <string name="proof_not_title">Τι δεν το αποδεικνύει</string>
     <string name="proof_not_body">Η ίδια η υπογραφή του πορτοφολιού, μια διεύθυνση πληρωμής ή το πορτοφόλι που δημοσίευσε την εφαρμογή στο dApp Store. Το κατάστημα δεν λέει ποια on-chain εγγραφή ανήκει σε ποια καταχώριση, και οποιοσδήποτε μπορεί να δημιουργήσει μία που αναφέρει οποιαδήποτε εφαρμογή.</string>
     <string name="proof_how_after">Οι απαντήσεις ενός αποδεδειγμένου εκδότη φέρουν το σήμα Εκδότης και οι δικές του κριτικές για την εφαρμογή δεν μετρούν.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Πίσω</string>
+    <string name="stars_a11y">%1$s στα 5 αστέρια</string>
+    <string name="err_network">Δεν υπάρχει σύνδεση. Ελέγξτε το δίκτυο και δοκιμάστε ξανά.</string>
+    <string name="err_timeout">Το αίτημα έληξε. Δοκιμάστε ξανά.</string>
+    <string name="err_declined">Απορρίφθηκε στο πορτοφόλι. Δεν υπογράφηκε τίποτα.</string>
+    <string name="err_funds">Δεν υπάρχουν αρκετά κεφάλαια σε αυτό το πορτοφόλι για αυτή τη συναλλαγή και το τέλος δικτύου της.</string>
+    <string name="link_confirm_body">Ένας σύνδεσμος ζήτησε την υπογραφή αυτού. Ελέγξτε την εγγραφή παρακάτω· το πορτοφόλι σας δείχνει το ακριβές σημείωμα πριν εγκρίνετε.</string>
+    <string name="link_confirm_sign">Υπογραφή</string>
+    <string name="detail_pkg_updated">%1$s · ενημερώθηκε %2$s</string>
+    <string name="anonymous">Ανώνυμος</string>
+    <string name="discard_title">Απόρριψη αυτής της κριτικής;</string>
+    <string name="discard_body">Η βαθμολογία, οι ετικέτες και το κείμενό σας δεν έχουν υπογραφεί ακόμη και θα χαθούν.</string>
+    <string name="discard">Απόρριψη</string>
+    <string name="keep_editing">Συνέχεια επεξεργασίας</string>
+    <string name="text_invalid">Έως %1$d χαρακτήρες, χωρίς τον χαρακτήρα |.</string>
+    <string name="to_review_max">Έως %1$d εφαρμογές μπορούν να υπογραφούν μαζί.</string>
+    <string name="confirm_disconnect_body">Αυτό το τηλέφωνο ξεχνά το πορτοφόλι. Τίποτα στο Ledger δεν αλλάζει και μπορείτε να συνδεθείτε ξανά οποιαδήποτε στιγμή.</string>
+    <string name="confirm_unshare_title">Ανάκληση αυτής της θέσης Pro;</string>
+    <string name="confirm_unshare_body">Αυτό υπογράφει μια εγγραφή που τερματίζει τη θέση. Το άλλο πορτοφόλι χάνει το Pro που μοιραστήκατε μόλις επιβεβαιωθεί.</string>
+    <string name="confirm_unhide_body">Κάθε εγγραφή που κρύψατε εμφανίζεται ξανά στη σελίδα της εφαρμογής της.</string>
+    <string name="confirm_delete_body">Αυτό αφαιρεί από αυτό το τηλέφωνο την εγγραφή συναίνεσής σας, τις ακολουθήσεις, τις κρυμμένες και τις επισημασμένες με αστέρι εγγραφές, τις θέσεις Pro που προσθέσατε και το πορτοφόλι. Τίποτα στο Ledger δεν αλλάζει. Θα δείτε ξανά την οθόνη σύνδεσης.</string>
+    <string name="confirm_delete_action">Διαγραφή</string>
+    <string name="loading">Φόρτωση…</string>
+    <string name="load_failed">Δεν ήταν δυνατή η φόρτωση. Ελέγξτε τη σύνδεση και δοκιμάστε ξανά.</string>
+    <string name="retry">Δοκιμή ξανά</string>
+    <string name="pay_listing_line">Κωδικός %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Αυτό υπογράφει μια εγγραφή που αποσύρει την καταχώριση από τον πίνακα. Για να την καταχωρίσετε ξανά, πληρώνετε ξανά το τέλος καταχώρισης.</string>
+    <string name="confirm_withdraw_free">Αυτό υπογράφει μια εγγραφή που αποσύρει την καταχώριση από τον πίνακα. Μπορείτε να την καταχωρίσετε ξανά αργότερα.</string>
+    <string name="changes_new_a11y">Αλλαγές, υπάρχουν νέες για προβολή</string>
+    <string name="desk_signed_mean">%1$s υπογεγραμμένες</string>
+    <string name="stats_share_head">Ledger Undersigned, %1$s</string>
+    <string name="stats_share_registry">Μητρώο %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d αστέρι</item>
+        <item quantity="other">%1$d αστέρια</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Εμφάνιση %1$d ακόμη κριτικής</item>
+        <item quantity="other">Εμφάνιση %1$d ακόμη κριτικών</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d υπογεγραμμένες · αξιοπιστία %2$d</item>
+        <item quantity="other">%1$d υπογεγραμμένες · αξιοπιστία %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Εισερχόμενα, %1$d νέο</item>
+        <item quantity="other">Εισερχόμενα, %1$d νέα</item>
+    </plurals>
 </resources>

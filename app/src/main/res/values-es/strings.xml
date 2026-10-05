@@ -92,7 +92,7 @@
     <string name="standing_agreement">Coincidencia de etiquetas con otros firmantes: %1$s</string>
     <string name="standing_since">Firmando desde %1$s</string>
     <string name="standing_note2">Solo recuentos. Sin puntuación, nada que comprar.</string>
-    <string name="store_reviewer_genesis">Dispositivo atestiguado</string>
+    <string name="store_reviewer_genesis">Propietario de Seeker</string>
     <string name="store_reviewer_nogenesis">sin dispositivo atestiguado</string>
     <string name="store_reviewer_signed_here">también firmó aquí</string>
     <string name="notif_divergence_title">%1$s: las puntuaciones firmadas y de la tienda no coinciden</string>
@@ -150,7 +150,7 @@
     <string name="fact_perms_removed">Permisos eliminados: %1$s</string>
     <string name="fact_not_installed">No está instalada en este dispositivo. Instálala desde el dApp Store para ver los datos del dispositivo.</string>
     <string name="reviews_title">Reseñas firmadas</string>
-    <string name="review_weight_verified">Atestiguado ✓</string>
+    <string name="review_weight_verified">Atestiguado</string>
     <string name="review_weight_unverified">no contabilizada</string>
     <string name="review_hide">Ocultar</string>
     <string name="review_report">Denunciar</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">Firmar la marca</string>
     <string name="flagged_hidden">Oculto por consenso: marcado como poco natural por %1$s de peso en Seekers</string>
     <string name="flagged_show">Mostrar de todos modos</string>
-    <string name="flagged_count">%1$s de peso en marcas</string>
+    <string name="flagged_count">Marcado · peso %1$s</string>
     <string name="star">Destacar</string>
     <string name="unstar">Quitar de destacadas</string>
     <string name="inbox">Bandeja de entrada</string>
@@ -840,7 +840,7 @@
     <string name="notif_flagged_body">Motivo indicado: %1$s. Si no estás de acuerdo, puedes firmar una impugnación sobre el registro.</string>
     <string name="notif_note_title">El editor respondió a tu reseña de la tienda · %1$s</string>
     <string name="notif_proven_title">Tu reclamación está probada · %1$s</string>
-    <string name="notif_proven_body">Tus respuestas a las reseñas de esta app ahora llevan la marca Editor ✓, y tus propias reseñas de ella no se contabilizan.</string>
+    <string name="notif_proven_body">Tus respuestas a las reseñas de esta app ahora llevan la marca Editor, y tus propias reseñas de ella no se contabilizan.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Nombra tu wallet en tu app (lo más fuerte)</string>
     <string name="claim_route_build_body">Añade esta línea dentro de &lt;application&gt; en el manifiesto de tu app y publica la actualización en el dApp Store. Los lectores examinan la versión que sirve la tienda: la línea debe nombrar esta wallet y la versión debe estar firmada con el certificado que lista la tienda. Solo puede hacerlo quien tiene la clave de firma de tu app.</string>
@@ -858,4 +858,54 @@
     <string name="proof_not_title">Lo que no lo demuestra</string>
     <string name="proof_not_body">La propia firma de la wallet, una dirección de pago o la wallet que publicó la app en el dApp Store. La tienda no dice qué registro on-chain pertenece a qué ficha, y cualquiera puede crear uno que nombre cualquier app.</string>
     <string name="proof_how_after">Las respuestas de un editor demostrado llevan la marca Editor, y sus propias reseñas de la app no se cuentan.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Atrás</string>
+    <string name="stars_a11y">%1$s de 5 estrellas</string>
+    <string name="err_network">Sin conexión. Revisa la red e inténtalo de nuevo.</string>
+    <string name="err_timeout">La solicitud agotó el tiempo de espera. Inténtalo de nuevo.</string>
+    <string name="err_declined">Rechazado en la wallet. No se firmó nada.</string>
+    <string name="err_funds">No hay fondos suficientes en esta wallet para esta transacción y su comisión de red.</string>
+    <string name="link_confirm_body">Un enlace pidió firmar esto. Revisa el registro de abajo; tu wallet muestra el memo exacto antes de que apruebes.</string>
+    <string name="link_confirm_sign">Firmar</string>
+    <string name="detail_pkg_updated">%1$s · actualizado %2$s</string>
+    <string name="anonymous">Anónimo</string>
+    <string name="discard_title">¿Descartar esta reseña?</string>
+    <string name="discard_body">Tu valoración, etiquetas y texto aún no están firmados y se perderán.</string>
+    <string name="discard">Descartar</string>
+    <string name="keep_editing">Seguir editando</string>
+    <string name="text_invalid">Máximo %1$d caracteres, sin el carácter |.</string>
+    <string name="to_review_max">Se pueden firmar hasta %1$d apps a la vez.</string>
+    <string name="confirm_disconnect_body">Este teléfono olvida la wallet. Nada cambia en el Ledger y puedes iniciar sesión de nuevo cuando quieras.</string>
+    <string name="confirm_unshare_title">¿Retirar esta plaza de Pro?</string>
+    <string name="confirm_unshare_body">Esto firma un registro que termina la plaza. La otra wallet pierde el Pro que compartiste en cuanto se confirme.</string>
+    <string name="confirm_unhide_body">Todos los registros que ocultaste vuelven a aparecer en la página de su app.</string>
+    <string name="confirm_delete_body">Esto elimina de este teléfono tu registro de consentimiento, los seguimientos, los registros ocultos y destacados, las plazas de Pro que añadiste y la wallet. Nada cambia en el Ledger. Volverás a ver la pantalla de inicio de sesión.</string>
+    <string name="confirm_delete_action">Eliminar</string>
+    <string name="loading">Cargando…</string>
+    <string name="load_failed">No se pudo cargar. Revisa la conexión e inténtalo de nuevo.</string>
+    <string name="retry">Intentar de nuevo</string>
+    <string name="pay_listing_line">Código %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Esto firma un registro que retira el listado del panel. Volver a listarlo supone pagar de nuevo la tarifa de listado.</string>
+    <string name="confirm_withdraw_free">Esto firma un registro que retira el listado del panel. Puedes volver a listarlo más tarde.</string>
+    <string name="changes_new_a11y">Cambios, hay novedades por ver</string>
+    <string name="desk_signed_mean">%1$s firmadas</string>
+    <string name="stats_share_head">Ledger de Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registro %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d estrella</item>
+        <item quantity="other">%1$d estrellas</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Ver %1$d reseña más</item>
+        <item quantity="other">Ver %1$d reseñas más</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d firmadas · credibilidad %2$d</item>
+        <item quantity="other">%1$d firmadas · credibilidad %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Bandeja de entrada, %1$d nuevo</item>
+        <item quantity="other">Bandeja de entrada, %1$d nuevos</item>
+    </plurals>
 </resources>

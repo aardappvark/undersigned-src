@@ -180,7 +180,7 @@
     <string name="standing_agreement">Tag agreement with other signers: %1$s</string>
     <string name="standing_since">Signing since %1$s</string>
     <string name="standing_note2">Counts only. No score, nothing to buy.</string>
-    <string name="store_reviewer_genesis">Attested device</string>
+    <string name="store_reviewer_genesis">Seeker owner</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">also signed here</string>
     <string name="notif_divergence_title">%1$s: signed and store scores disagree</string>
@@ -239,7 +239,7 @@
     <string name="fact_perms_removed">Permissions removed: %1$s</string>
     <string name="fact_not_installed">Not installed on this device. Install it from the dApp Store to see device facts.</string>
     <string name="reviews_title">Signed reviews</string>
-    <string name="review_weight_verified">Attested ✓</string>
+    <string name="review_weight_verified">Attested</string>
     <string name="review_weight_unverified">not counted</string>
     <string name="review_hide">Hide</string>
     <string name="review_report">Report</string>
@@ -469,7 +469,7 @@
     <string name="flag_sign">Sign the flag</string>
     <string name="flagged_hidden">Hidden by consensus: flagged as unnatural by %1$s weighted Seekers</string>
     <string name="flagged_show">Show anyway</string>
-    <string name="flagged_count">%1$s flag weight</string>
+    <string name="flagged_count">Flagged · weight %1$s</string>
     <string name="star">Star</string>
     <string name="unstar">Unstar</string>
     <string name="inbox">Inbox</string>
@@ -855,4 +855,54 @@
     <string name="proof_not_title">What does not prove it</string>
     <string name="proof_not_body">The wallet\'s own signature, a payment address, or the wallet that published the app on the dApp Store. The store does not say which on-chain record belongs to which listing, and anyone can mint one naming any app.</string>
     <string name="proof_how_after">A proven publisher\'s replies carry the Publisher mark, and their own reviews of the app are not counted.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Back</string>
+    <string name="stars_a11y">%1$s out of 5 stars</string>
+    <string name="err_network">No connection. Check the network and try again.</string>
+    <string name="err_timeout">The request timed out. Try again.</string>
+    <string name="err_declined">Declined in the wallet. Nothing was signed.</string>
+    <string name="err_funds">Not enough funds in this wallet for this transaction and its network fee.</string>
+    <string name="link_confirm_body">A link asked to sign this. Check the record below; your wallet shows the exact memo before you approve.</string>
+    <string name="link_confirm_sign">Sign</string>
+    <string name="detail_pkg_updated">%1$s · updated %2$s</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="discard_title">Discard this review?</string>
+    <string name="discard_body">Your rating, tags and text are not signed yet and will be lost.</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep editing</string>
+    <string name="text_invalid">Keep it to %1$d characters, without the | character.</string>
+    <string name="to_review_max">Up to %1$d apps can be signed together.</string>
+    <string name="confirm_disconnect_body">This phone forgets the wallet. Nothing on the ledger changes, and you can sign in again at any time.</string>
+    <string name="confirm_unshare_title">Take back this Pro seat?</string>
+    <string name="confirm_unshare_body">This signs a record that ends the seat. The other wallet loses the Pro you shared once it is confirmed.</string>
+    <string name="confirm_unhide_body">Every record you hid shows again on its app\'s page.</string>
+    <string name="confirm_delete_body">This removes your consent record, follows, hidden and starred records, the Pro seats you added and the wallet from this phone. Nothing on the ledger changes. You will see the sign-in screen again.</string>
+    <string name="confirm_delete_action">Delete</string>
+    <string name="loading">Loading…</string>
+    <string name="load_failed">Couldn\'t load this. Check the connection and try again.</string>
+    <string name="retry">Try again</string>
+    <string name="pay_listing_line">Code %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">This signs a record that takes the listing off the board. Listing it again means paying the listing fee again.</string>
+    <string name="confirm_withdraw_free">This signs a record that takes the listing off the board. You can list it again later.</string>
+    <string name="changes_new_a11y">Changes, new ones to see</string>
+    <string name="desk_signed_mean">%1$s signed</string>
+    <string name="stats_share_head">Undersigned ledger, %1$s</string>
+    <string name="stats_share_registry">Registry %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d star</item>
+        <item quantity="other">%1$d stars</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Show %1$d more review</item>
+        <item quantity="other">Show %1$d more reviews</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d signed · credibility %2$d</item>
+        <item quantity="other">%1$d signed · credibility %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Inbox, %1$d new</item>
+        <item quantity="other">Inbox, %1$d new</item>
+    </plurals>
 </resources>

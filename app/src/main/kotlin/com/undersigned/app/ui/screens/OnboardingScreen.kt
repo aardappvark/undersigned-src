@@ -45,6 +45,8 @@ fun OnboardingScreen(onDone: () -> Unit, gate: (@Composable () -> Unit)? = null)
     val pages = slides.size
     val pager = rememberPagerState(pageCount = { pages })
     val scope = rememberCoroutineScope()
+    // Back steps to the previous slide instead of leaving the app from slide three.
+    androidx.activity.compose.BackHandler(enabled = pager.currentPage > 0) { scope.launch { pager.animateScrollToPage(pager.currentPage - 1) } }
     val last = pager.currentPage == pages - 1
     val onGate = gate != null && last
     Box(Modifier.fillMaxSize().background(RbColors.background)) {

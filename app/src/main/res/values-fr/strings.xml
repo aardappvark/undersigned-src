@@ -92,7 +92,7 @@
     <string name="standing_agreement">Accord des tags avec les autres signataires : %1$s</string>
     <string name="standing_since">Signe depuis le %1$s</string>
     <string name="standing_note2">Uniquement des chiffres. Pas de score, rien à acheter.</string>
-    <string name="store_reviewer_genesis">Appareil attesté</string>
+    <string name="store_reviewer_genesis">Propriétaire de Seeker</string>
     <string name="store_reviewer_nogenesis">aucun appareil attesté trouvé</string>
     <string name="store_reviewer_signed_here">a aussi signé ici</string>
     <string name="notif_divergence_title">%1$s : les scores signé et du store divergent</string>
@@ -150,7 +150,7 @@
     <string name="fact_perms_removed">Permissions supprimées : %1$s</string>
     <string name="fact_not_installed">Non installée sur cet appareil. Installez-la depuis le dApp Store pour voir les informations de l\'appareil.</string>
     <string name="reviews_title">Avis signés</string>
-    <string name="review_weight_verified">Attesté ✓</string>
+    <string name="review_weight_verified">Attesté</string>
     <string name="review_weight_unverified">non comptabilisé</string>
     <string name="review_hide">Masquer</string>
     <string name="review_report">Signaler</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">Signer le flag</string>
     <string name="flagged_hidden">Masqué par consensus : marqué comme non naturel par %1$s de poids de Seekers</string>
     <string name="flagged_show">Afficher quand même</string>
-    <string name="flagged_count">%1$s de poids de flags</string>
+    <string name="flagged_count">Flaggé · poids %1$s</string>
     <string name="star">Mettre en avant</string>
     <string name="unstar">Retirer de la mise en avant</string>
     <string name="inbox">Boîte de réception</string>
@@ -840,7 +840,7 @@
     <string name="notif_flagged_body">Motif indiqué : %1$s. Si vous n\'êtes pas d\'accord, vous pouvez signer une contestation sur l\'enregistrement.</string>
     <string name="notif_note_title">L\'éditeur a répondu à votre avis du store · %1$s</string>
     <string name="notif_proven_title">Votre revendication est prouvée · %1$s</string>
-    <string name="notif_proven_body">Vos réponses aux avis de cette application portent désormais la marque Éditeur ✓, et vos propres avis sur elle ne sont pas comptabilisés.</string>
+    <string name="notif_proven_body">Vos réponses aux avis de cette application portent désormais la marque Éditeur, et vos propres avis sur elle ne sont pas comptabilisés.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Nommez votre wallet dans votre application (le plus fort)</string>
     <string name="claim_route_build_body">Ajoutez cette ligne à l\'intérieur de &lt;application&gt; dans le manifeste de votre application et publiez la mise à jour sur le dApp Store. Les lecteurs examinent la version que le store fournit : la ligne doit nommer ce wallet et la version doit être signée avec le certificat que le store répertorie. Seul le détenteur de la clé de signature de votre application peut le faire.</string>
@@ -858,4 +858,54 @@
     <string name="proof_not_title">Ce qui ne le prouve pas</string>
     <string name="proof_not_body">La signature du wallet lui-même, une adresse de paiement ou le wallet qui a publié l\'application sur le dApp Store. Le store n\'indique pas quel enregistrement on-chain appartient à quelle fiche, et n\'importe qui peut en créer un nommant n\'importe quelle application.</string>
     <string name="proof_how_after">Les réponses d\'un éditeur prouvé portent la marque Éditeur, et ses propres avis sur l\'application ne sont pas comptés.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Retour</string>
+    <string name="stars_a11y">%1$s sur 5 étoiles</string>
+    <string name="err_network">Pas de connexion. Vérifiez le réseau et réessayez.</string>
+    <string name="err_timeout">La requête a expiré. Réessayez.</string>
+    <string name="err_declined">Refusé dans le wallet. Rien n\'a été signé.</string>
+    <string name="err_funds">Fonds insuffisants dans ce wallet pour cette transaction et ses frais de réseau.</string>
+    <string name="link_confirm_body">Un lien a demandé de signer ceci. Vérifiez l\'enregistrement ci-dessous ; votre wallet affiche le mémo exact avant que vous approuviez.</string>
+    <string name="link_confirm_sign">Signer</string>
+    <string name="detail_pkg_updated">%1$s · mis à jour %2$s</string>
+    <string name="anonymous">Anonyme</string>
+    <string name="discard_title">Abandonner cet avis ?</string>
+    <string name="discard_body">Votre note, vos tags et votre texte ne sont pas encore signés et seront perdus.</string>
+    <string name="discard">Abandonner</string>
+    <string name="keep_editing">Continuer à modifier</string>
+    <string name="text_invalid">Limitez-vous à %1$d caractères, sans le caractère |.</string>
+    <string name="to_review_max">Jusqu\'à %1$d apps peuvent être signées ensemble.</string>
+    <string name="confirm_disconnect_body">Ce téléphone oublie le wallet. Rien ne change sur le registre, et vous pouvez vous reconnecter à tout moment.</string>
+    <string name="confirm_unshare_title">Reprendre cette place Pro ?</string>
+    <string name="confirm_unshare_body">Cela signe un enregistrement qui met fin à la place. L\'autre wallet perd le Pro que vous avez partagé dès que c\'est confirmé.</string>
+    <string name="confirm_unhide_body">Chaque enregistrement que vous avez masqué réapparaît sur la page de son app.</string>
+    <string name="confirm_delete_body">Cela supprime de ce téléphone votre enregistrement de consentement, vos suivis, les enregistrements masqués et favoris, les places Pro que vous avez ajoutées et le wallet. Rien ne change sur le registre. Vous reverrez l\'écran de connexion.</string>
+    <string name="confirm_delete_action">Supprimer</string>
+    <string name="loading">Chargement…</string>
+    <string name="load_failed">Impossible de charger. Vérifiez la connexion et réessayez.</string>
+    <string name="retry">Réessayer</string>
+    <string name="pay_listing_line">Code %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Cela signe un enregistrement qui retire l\'annonce du tableau. La republier implique de payer à nouveau les frais d\'annonce.</string>
+    <string name="confirm_withdraw_free">Cela signe un enregistrement qui retire l\'annonce du tableau. Vous pourrez la republier plus tard.</string>
+    <string name="changes_new_a11y">Changements, du nouveau à voir</string>
+    <string name="desk_signed_mean">%1$s signés</string>
+    <string name="stats_share_head">Registre Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registre %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d étoile</item>
+        <item quantity="other">%1$d étoiles</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Voir %1$d avis de plus</item>
+        <item quantity="other">Voir %1$d avis de plus</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d signés · crédibilité %2$d</item>
+        <item quantity="other">%1$d signés · crédibilité %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Boîte de réception, %1$d nouveau</item>
+        <item quantity="other">Boîte de réception, %1$d nouveaux</item>
+    </plurals>
 </resources>

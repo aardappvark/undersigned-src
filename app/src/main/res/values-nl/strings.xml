@@ -87,7 +87,7 @@
     <string name="standing_agreement">Overeenstemming in tags met andere ondertekenaars: %1$s</string>
     <string name="standing_since">Ondertekent sinds %1$s</string>
     <string name="standing_note2">Alleen tellingen. Geen score, niets om te kopen.</string>
-    <string name="store_reviewer_genesis">Geattesteerd apparaat</string>
+    <string name="store_reviewer_genesis">Seeker-eigenaar</string>
     <string name="store_reviewer_nogenesis">geen geattesteerd apparaat gevonden</string>
     <string name="store_reviewer_signed_here">hier ook ondertekend</string>
     <string name="notif_divergence_title">%1$s: ondertekende score en storescore lopen uiteen</string>
@@ -143,7 +143,7 @@
     <string name="fact_perms_removed">Machtigingen verwijderd: %1$s</string>
     <string name="fact_not_installed">Niet geïnstalleerd op dit apparaat. Installeer de app vanuit de dApp Store om apparaatgegevens te zien.</string>
     <string name="reviews_title">Ondertekende recensies</string>
-    <string name="review_weight_verified">Geattesteerd ✓</string>
+    <string name="review_weight_verified">Geattesteerd</string>
     <string name="review_weight_unverified">niet meegeteld</string>
     <string name="review_hide">Verbergen</string>
     <string name="review_report">Rapporteren</string>
@@ -234,7 +234,7 @@
     <string name="flag_sign">De markering ondertekenen</string>
     <string name="flagged_hidden">Verborgen door consensus: gemarkeerd als onnatuurlijk door %1$s gewogen Seekers</string>
     <string name="flagged_show">Toch weergeven</string>
-    <string name="flagged_count">%1$s markeringsgewicht</string>
+    <string name="flagged_count">Gemarkeerd · gewicht %1$s</string>
     <string name="star">Ster</string>
     <string name="unstar">Ster verwijderen</string>
     <string name="inbox">Postvak</string>
@@ -820,7 +820,7 @@
     <string name="notif_flagged_body">Opgegeven reden: %1$s. Als u het er niet mee eens bent, kunt u een bezwaar op het record ondertekenen.</string>
     <string name="notif_note_title">De uitgever heeft op uw store-recensie gereageerd · %1$s</string>
     <string name="notif_proven_title">Uw claim is bewezen · %1$s</string>
-    <string name="notif_proven_body">Uw reacties op de recensies van deze app dragen nu het label Uitgever ✓, en uw eigen recensies ervan worden niet meegeteld.</string>
+    <string name="notif_proven_body">Uw reacties op de recensies van deze app dragen nu het label Uitgever, en uw eigen recensies ervan worden niet meegeteld.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Noem uw wallet in uw app (sterkst)</string>
     <string name="claim_route_build_body">Voeg deze regel toe binnen &lt;application&gt; in het manifest van uw app en breng de update uit in de dApp Store. Lezers bekijken de build die de store aanbiedt: de regel moet deze wallet noemen en de build moet zijn ondertekend met het certificaat dat de store vermeldt. Alleen de houder van de ondertekeningssleutel van uw app kan dit doen.</string>
@@ -838,4 +838,54 @@
     <string name="proof_not_title">Wat het niet bewijst</string>
     <string name="proof_not_body">De eigen handtekening van de wallet, een betaaladres of de wallet die de app in de dApp Store publiceerde. De store zegt niet welk on-chain record bij welke vermelding hoort, en iedereen kan er een maken die een willekeurige app noemt.</string>
     <string name="proof_how_after">Antwoorden van een bewezen uitgever dragen het label Uitgever, en zijn eigen recensies van de app tellen niet mee.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Terug</string>
+    <string name="stars_a11y">%1$s van 5 sterren</string>
+    <string name="err_network">Geen verbinding. Controleer het netwerk en probeer het opnieuw.</string>
+    <string name="err_timeout">Het verzoek is verlopen. Probeer het opnieuw.</string>
+    <string name="err_declined">Geweigerd in de wallet. Er is niets ondertekend.</string>
+    <string name="err_funds">Onvoldoende saldo in deze wallet voor deze transactie en de netwerkkosten.</string>
+    <string name="link_confirm_body">Een link vroeg om dit te ondertekenen. Controleer het record hieronder; uw wallet toont de exacte memo voordat u goedkeurt.</string>
+    <string name="link_confirm_sign">Ondertekenen</string>
+    <string name="detail_pkg_updated">%1$s · bijgewerkt %2$s</string>
+    <string name="anonymous">Anoniem</string>
+    <string name="discard_title">Deze recensie weggooien?</string>
+    <string name="discard_body">Uw beoordeling, tags en tekst zijn nog niet ondertekend en gaan verloren.</string>
+    <string name="discard">Weggooien</string>
+    <string name="keep_editing">Verder bewerken</string>
+    <string name="text_invalid">Houd het op %1$d tekens, zonder het teken |.</string>
+    <string name="to_review_max">Er kunnen maximaal %1$d apps samen worden ondertekend.</string>
+    <string name="confirm_disconnect_body">Deze telefoon vergeet de wallet. Er verandert niets in het grootboek en u kunt altijd weer inloggen.</string>
+    <string name="confirm_unshare_title">Deze Pro-plaats terugnemen?</string>
+    <string name="confirm_unshare_body">Dit ondertekent een record dat de plaats beëindigt. De andere wallet verliest de Pro die u deelde zodra het is bevestigd.</string>
+    <string name="confirm_unhide_body">Elk record dat u hebt verborgen, verschijnt weer op de pagina van zijn app.</string>
+    <string name="confirm_delete_body">Dit verwijdert van deze telefoon uw toestemmingsrecord, volgacties, verborgen en met ster gemarkeerde records, de Pro-plaatsen die u hebt toegevoegd en de wallet. Er verandert niets in het grootboek. U ziet het inlogscherm weer.</string>
+    <string name="confirm_delete_action">Verwijderen</string>
+    <string name="loading">Laden…</string>
+    <string name="load_failed">Dit kon niet worden geladen. Controleer de verbinding en probeer het opnieuw.</string>
+    <string name="retry">Opnieuw proberen</string>
+    <string name="pay_listing_line">Code %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Dit ondertekent een record dat de vermelding van het overzicht haalt. Opnieuw vermelden betekent opnieuw de vermeldingskosten betalen.</string>
+    <string name="confirm_withdraw_free">Dit ondertekent een record dat de vermelding van het overzicht haalt. U kunt hem later opnieuw vermelden.</string>
+    <string name="changes_new_a11y">Wijzigingen, er is nieuws om te bekijken</string>
+    <string name="desk_signed_mean">%1$s ondertekend</string>
+    <string name="stats_share_head">Undersigned-grootboek, %1$s</string>
+    <string name="stats_share_registry">Register %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d ster</item>
+        <item quantity="other">%1$d sterren</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">%1$d recensie meer tonen</item>
+        <item quantity="other">%1$d recensies meer tonen</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d ondertekend · geloofwaardigheid %2$d</item>
+        <item quantity="other">%1$d ondertekend · geloofwaardigheid %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Postvak, %1$d nieuw</item>
+        <item quantity="other">Postvak, %1$d nieuw</item>
+    </plurals>
 </resources>

@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.BackButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -36,8 +38,10 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
     val starred by vm.starred.collectAsState()
     val catalogue by vm.catalogue.collectAsState()
     val domainNames by vm.domainNames.collectAsState()
-    var tab by remember { mutableStateOf(0) }
-    var sort by remember { mutableStateOf(0) }   // 0 oldest first · 1 dApp · 2 signer · 3 rating
+    var tab by rememberSaveable { mutableStateOf(0) }
+    var sort by rememberSaveable { mutableStateOf(0) }
+    // Before the first ledger read every queue is empty: say it is loading, not "nothing here".
+    val syncing = vm.ledgerStatus.collectAsState().value is com.undersigned.app.ui.LedgerStatus.Syncing && entries.isEmpty()   // 0 oldest first · 1 dApp · 2 signer · 3 rating
     val unanswered = remember(entries, sort, domainNames) {
         val list = vm.unanswered()
         when (sort) {
@@ -54,7 +58,7 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.inbox), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
         TabRow(selectedTabIndex = tab, containerColor = RbColors.background, contentColor = RbColors.purpleLight) {
@@ -66,15 +70,15 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
             0 -> {
                 Text(stringResource(R.string.inbox_unanswered_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp))
                 Row(Modifier.padding(horizontal = 20.dp)) { TextButton(onClick = onDesk, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.desk_title) + " · " + stringResource(R.string.pro_badge), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold) } }
-                if (unanswered.isEmpty()) Empty(stringResource(R.string.inbox_unanswered_empty))
+                if (unanswered.isEmpty()) Empty(stringResource(if (syncing) R.string.loading else R.string.inbox_unanswered_empty))
                 else { ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_oldest), 1 to stringResource(R.string.sort_dapp), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_rating)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp))
                 LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) { items(unanswered, key = { it.signature }) { e -> ReviewRow(e, name((e.memo as ReviewMemo.Review).packageName), who(e.signer)) { onOpen((e.memo as ReviewMemo.Review).packageName) } } } }
             }
-            1 -> if (replies.isEmpty()) EmptyState(R.drawable.photo_empty_replies, stringResource(R.string.inbox_replies_empty))
+            1 -> if (replies.isEmpty()) EmptyState(R.drawable.photo_empty_replies, stringResource(if (syncing) R.string.loading else R.string.inbox_replies_empty))
                  else LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
                      items(replies, key = { it.first.signature }) { (rp, mine) ->
                          val pkg = (mine.memo as? ReviewMemo.Review)?.packageName ?: vm.packageOf(mine.signature) ?: ""
-                         GlassCard(modifier = Modifier.clickable { if (pkg.isNotEmpty()) onOpen(pkg) }) {
+                         GlassCard(modifier = Modifier.clickable(enabled = pkg.isNotEmpty(), role = androidx.compose.ui.semantics.Role.Button) { onOpen(pkg) }) {
                              Text(name(pkg), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                              Text(who(rp.signer) + " · " + DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
                              Spacer(Modifier.height(4.dp)); Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textSecondary, fontSize = 13.sp)
@@ -82,11 +86,11 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
                          Spacer(Modifier.height(8.dp))
                      }
                  }
-            else -> if (starredEntries.isEmpty()) Empty(stringResource(R.string.inbox_starred_empty))
+            else -> if (starredEntries.isEmpty()) Empty(stringResource(if (syncing) R.string.loading else R.string.inbox_starred_empty))
                  else LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
                      items(starredEntries, key = { it.signature }) { e ->
                          val pkg = (e.memo as? ReviewMemo.Review)?.packageName ?: vm.packageOf((e.memo as? ReviewMemo.Reply)?.reviewSignature ?: "") ?: ""
-                         ReviewRow(e, name(pkg), who(e.signer)) { if (pkg.isNotEmpty()) onOpen(pkg) }
+                         ReviewRow(e, name(pkg), who(e.signer), enabled = pkg.isNotEmpty()) { onOpen(pkg) }
                      }
                  }
         }
@@ -97,9 +101,9 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
 private fun Empty(text: String) { Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(text, color = RbColors.textSecondary, fontSize = 14.sp) } }
 
 @Composable
-private fun ReviewRow(e: LedgerEntry, app: String, who: String, onClick: () -> Unit) {
+private fun ReviewRow(e: LedgerEntry, app: String, who: String, enabled: Boolean = true, onClick: () -> Unit) {
     val context = androidx.compose.ui.platform.LocalContext.current
-    GlassCard(modifier = Modifier.clickable { onClick() }) {
+    GlassCard(modifier = Modifier.clickable(enabled = enabled, role = androidx.compose.ui.semantics.Role.Button) { onClick() }) {
         Text(app, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
         Row(verticalAlignment = Alignment.CenterVertically) {
             (e.memo as? ReviewMemo.Review)?.let { RatingStars(it.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)) }

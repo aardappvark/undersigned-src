@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -49,9 +51,9 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
     val price = if (rail == ProPaymentService.Rail.SKR) AppConfig.Payment.skrLabel() else AppConfig.Payment.solLabel()
 
     Column(Modifier.fillMaxSize().background(RbColors.background)) {
-        PhotoBackdrop(R.drawable.photo_pro_hero, Modifier.fillMaxWidth().height(240.dp), fadeFrom = 0.25f) {
+        PhotoBackdrop(R.drawable.photo_pro_hero, Modifier.fillMaxWidth().heightIn(min = 240.dp), fadeFrom = 0.25f) {
             Row(Modifier.align(Alignment.TopStart).systemBarsPadding().padding(horizontal = 8.dp, vertical = 4.dp)) {
-                IconButton(onClick = onBack, enabled = stage == null) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textPrimary) }
+                BackButton(onBack, enabled = stage == null, tint = RbColors.textPrimary)
             }
             Column(Modifier.align(Alignment.BottomStart).padding(horizontal = 20.dp, vertical = 14.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.pro_term), color = RbColors.textSecondary, fontSize = 12.sp) }
@@ -98,10 +100,10 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
             }
 
             SectionTitle(stringResource(R.string.pro_pay_in))
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(Modifier.selectableGroup(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 listOf(ProPaymentService.Rail.SKR to AppConfig.Payment.skrLabel(), ProPaymentService.Rail.SOL to AppConfig.Payment.solLabel()).forEach { (r, label) ->
                     val sel = rail == r
-                    Column(Modifier.weight(1f).clickable(enabled = stage == null) { rail = r }.background(if (sel) RbColors.purple.copy(alpha = 0.22f) else RbColors.card, androidx.compose.foundation.shape.RoundedCornerShape(14.dp)).padding(14.dp)) {
+                    Column(Modifier.weight(1f).selectable(selected = sel, enabled = stage == null, role = androidx.compose.ui.semantics.Role.RadioButton) { rail = r }.background(if (sel) RbColors.purple.copy(alpha = 0.22f) else RbColors.card, androidx.compose.foundation.shape.RoundedCornerShape(14.dp)).padding(14.dp)) {
                         Text(label, color = RbColors.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
                         Text(stringResource(if (r == ProPaymentService.Rail.SKR) R.string.pro_rail_skr_note else R.string.pro_rail_sol_note), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
@@ -116,7 +118,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
                 StatRow(stringResource(R.string.pro_line_licence), price)
                 StatRow(stringResource(R.string.pro_line_fee), stringResource(R.string.pro_line_fee_value))
                 HorizontalDivider(color = RbColors.surfaceVariant)
-                StatRow(stringResource(R.string.pro_line_total), "$price + " + stringResource(R.string.pro_line_fee_value).removePrefix("≈"))
+                StatRow(stringResource(R.string.pro_line_total), stringResource(R.string.pro_total_value, price, stringResource(R.string.pro_line_fee_value).removePrefix("≈")))
                 Spacer(Modifier.height(4.dp))
                 Text(stringResource(R.string.pro_paid_to), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }

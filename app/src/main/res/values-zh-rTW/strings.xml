@@ -91,7 +91,7 @@
     <string name="standing_agreement">與其他簽署者的標籤一致度:%1$s</string>
     <string name="standing_since">簽署起始於 %1$s</string>
     <string name="standing_note2">僅為計數。沒有評分,沒有任何東西可購買。</string>
-    <string name="store_reviewer_genesis">已驗證裝置</string>
+    <string name="store_reviewer_genesis">Seeker 持有者</string>
     <string name="store_reviewer_nogenesis">未找到已驗證裝置</string>
     <string name="store_reviewer_signed_here">也在此處簽署</string>
     <string name="notif_divergence_title">%1$s:簽署評分與商店評分不一致</string>
@@ -147,7 +147,7 @@
     <string name="fact_perms_removed">移除權限:%1$s</string>
     <string name="fact_not_installed">此裝置上未安裝。請從 dApp Store 安裝以查看裝置資訊。</string>
     <string name="reviews_title">簽署評價</string>
-    <string name="review_weight_verified">已驗證 ✓</string>
+    <string name="review_weight_verified">已證明</string>
     <string name="review_weight_unverified">未計入</string>
     <string name="review_hide">隱藏</string>
     <string name="review_report">檢舉</string>
@@ -240,7 +240,7 @@
     <string name="flag_sign">簽署標記</string>
     <string name="flagged_hidden">因共識而隱藏:被 %1$s 加權 Seeker 標記為異常</string>
     <string name="flagged_show">仍要顯示</string>
-    <string name="flagged_count">%1$s 標記權重</string>
+    <string name="flagged_count">已標記 · 權重 %1$s</string>
     <string name="star">加星號</string>
     <string name="unstar">取消星號</string>
     <string name="inbox">收件匣</string>
@@ -805,7 +805,7 @@
     <string name="notif_flagged_body">給出的原因:%1$s。如果您不同意,可以對該記錄簽署提交異議。</string>
     <string name="notif_note_title">發行者回覆了您的商店評價 · %1$s</string>
     <string name="notif_proven_title">您的認領已獲證明 · %1$s</string>
-    <string name="notif_proven_body">您對此應用程式評價的回覆現在帶有發行者 ✓ 標記,而您自己對它的評價不會計入。</string>
+    <string name="notif_proven_body">您對此應用程式評價的回覆現在帶有發行者 標記,而您自己對它的評價不會計入。</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. 在您的應用程式中寫明您的錢包(最強)</string>
     <string name="claim_route_build_body">在應用程式資訊清單的 &lt;application&gt; 內加入這一行,並將更新發布到 dApp Store。讀者會檢查商店提供的安裝包:這一行必須寫明此錢包,且安裝包必須使用商店列出的憑證簽署。只有應用程式簽署金鑰的持有者才能做到。</string>
@@ -823,4 +823,50 @@
     <string name="proof_not_title">哪些不能證明</string>
     <string name="proof_not_body">錢包自身的簽署、收款地址,或在 dApp Store 上發布該應用程式的錢包。商店不會說明哪筆鏈上記錄屬於哪個應用程式項目,任何人都可以建立一筆寫著任意應用程式名稱的記錄。</string>
     <string name="proof_how_after">已證明發行者的回覆帶有發行者標章,其對自己應用程式的評價不計入。</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">返回</string>
+    <string name="stars_a11y">5 星中的 %1$s 星</string>
+    <string name="err_network">沒有網路連線。請檢查網路後再試一次。</string>
+    <string name="err_timeout">請求逾時。請再試一次。</string>
+    <string name="err_declined">已在錢包中拒絕。沒有簽署任何內容。</string>
+    <string name="err_funds">此錢包的餘額不足以支付這筆交易及其網路費用。</string>
+    <string name="link_confirm_body">有連結要求簽署此內容。請查看下方的記錄；核准前，你的錢包會顯示確切的備忘。</string>
+    <string name="link_confirm_sign">簽署</string>
+    <string name="detail_pkg_updated">%1$s · 更新於 %2$s</string>
+    <string name="anonymous">匿名</string>
+    <string name="discard_title">捨棄這則評價？</string>
+    <string name="discard_body">你的評分、標籤和文字尚未簽署，捨棄後將遺失。</string>
+    <string name="discard">捨棄</string>
+    <string name="keep_editing">繼續編輯</string>
+    <string name="text_invalid">最多 %1$d 個字元，且不能包含 | 字元。</string>
+    <string name="to_review_max">最多可同時簽署 %1$d 個應用程式。</string>
+    <string name="confirm_disconnect_body">這支手機會忘記該錢包。帳本上不會有任何變化，你隨時可以重新登入。</string>
+    <string name="confirm_unshare_title">收回這個 Pro 名額？</string>
+    <string name="confirm_unshare_body">這將簽署一則結束該名額的記錄。確認後，另一個錢包將失去你分享的 Pro。</string>
+    <string name="confirm_unhide_body">你隱藏的每則記錄都會重新顯示在其應用程式的頁面上。</string>
+    <string name="confirm_delete_body">這會從這支手機中移除你的同意記錄、追蹤、已隱藏和加星號的記錄、你新增的 Pro 名額以及該錢包。帳本上不會有任何變化。你將再次看到登入畫面。</string>
+    <string name="confirm_delete_action">刪除</string>
+    <string name="loading">載入中…</string>
+    <string name="load_failed">無法載入。請檢查網路連線後再試一次。</string>
+    <string name="retry">再試一次</string>
+    <string name="pay_listing_line">代碼 %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">這將簽署一則把登記從看板上撤下的記錄。再次登記需要重新支付登記費。</string>
+    <string name="confirm_withdraw_free">這將簽署一則把登記從看板上撤下的記錄。你之後可以再次登記。</string>
+    <string name="changes_new_a11y">變更，有新內容可查看</string>
+    <string name="desk_signed_mean">%1$s 已簽署</string>
+    <string name="stats_share_head">Undersigned 帳本，%1$s</string>
+    <string name="stats_share_registry">註冊表 %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="other">%1$d 星</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="other">再顯示 %1$d 則評價</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="other">%1$d 則簽署 · 信譽 %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="other">收件匣，%1$d 則新訊息</item>
+    </plurals>
 </resources>

@@ -84,7 +84,7 @@
     <string name="standing_agreement">Shoda štítků s ostatními signatáři: %1$s</string>
     <string name="standing_since">Podepisuje od %1$s</string>
     <string name="standing_note2">Pouze počty. Žádné skóre, nic ke koupi.</string>
-    <string name="store_reviewer_genesis">Ověřené zařízení</string>
+    <string name="store_reviewer_genesis">Majitel Seekeru</string>
     <string name="store_reviewer_nogenesis">nenalezeno žádné ověřené zařízení</string>
     <string name="store_reviewer_signed_here">podepsal(a) i zde</string>
     <string name="notif_divergence_title">%1$s: podepsané a obchodní skóre se liší</string>
@@ -149,7 +149,7 @@
     <string name="fact_perms_removed">Odebraná oprávnění: %1$s</string>
     <string name="fact_not_installed">Na tomto zařízení není nainstalováno. Nainstalujte ji z dApp Store, abyste viděli údaje o zařízení.</string>
     <string name="reviews_title">Podepsané recenze</string>
-    <string name="review_weight_verified">Ověřeno ✓</string>
+    <string name="review_weight_verified">Atestováno</string>
     <string name="review_weight_unverified">nezapočítáno</string>
     <string name="review_hide">Skrýt</string>
     <string name="review_report">Nahlásit</string>
@@ -242,7 +242,7 @@
     <string name="flag_sign">Podepsat označení</string>
     <string name="flagged_hidden">Skryto konsensem: označeno jako nepřirozené %1$s váženými Seekery</string>
     <string name="flagged_show">Přesto zobrazit</string>
-    <string name="flagged_count">váha označení %1$s</string>
+    <string name="flagged_count">Označeno · váha %1$s</string>
     <string name="star">Do oblíbených</string>
     <string name="unstar">Z oblíbených</string>
     <string name="inbox">Schránka</string>
@@ -821,7 +821,7 @@
     <string name="notif_flagged_body">Uvedený důvod: %1$s. Pokud nesouhlasíte, můžete k záznamu podepsat rozpor.</string>
     <string name="notif_note_title">Vydavatel odpověděl na vaši recenzi z obchodu · %1$s</string>
     <string name="notif_proven_title">Váš nárok je prokázán · %1$s</string>
-    <string name="notif_proven_body">Vaše odpovědi na recenze této aplikace nyní nesou značku Vydavatel ✓ a vaše vlastní recenze na ni se nezapočítávají.</string>
+    <string name="notif_proven_body">Vaše odpovědi na recenze této aplikace nyní nesou značku Vydavatel a vaše vlastní recenze na ni se nezapočítávají.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Uveďte svou peněženku ve své aplikaci (nejsilnější)</string>
     <string name="claim_route_build_body">Přidejte tento řádek dovnitř &lt;application&gt; v manifestu své aplikace a vydejte aktualizaci do dApp Store. Čtenáři zkoumají sestavení, které obchod poskytuje: řádek musí uvádět tuto peněženku a sestavení musí být podepsané certifikátem, který obchod uvádí. Může to udělat jen držitel podpisového klíče vaší aplikace.</string>
@@ -839,4 +839,62 @@
     <string name="proof_not_title">Co to neprokazuje</string>
     <string name="proof_not_body">Podpis samotné peněženky, platební adresa nebo peněženka, která aplikaci zveřejnila v dApp Store. Obchod neříká, který záznam na blockchainu patří ke kterému záznamu v obchodě, a kdokoli může vytvořit záznam uvádějící libovolnou aplikaci.</string>
     <string name="proof_how_after">Odpovědi prokázaného vydavatele nesou značku Vydavatel a jeho vlastní recenze aplikace se nepočítají.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Zpět</string>
+    <string name="stars_a11y">%1$s z 5 hvězdiček</string>
+    <string name="err_network">Žádné připojení. Zkontrolujte síť a zkuste to znovu.</string>
+    <string name="err_timeout">Požadavek vypršel. Zkuste to znovu.</string>
+    <string name="err_declined">Odmítnuto v peněžence. Nic nebylo podepsáno.</string>
+    <string name="err_funds">V této peněžence není dost prostředků na tuto transakci a její síťový poplatek.</string>
+    <string name="link_confirm_body">Odkaz požádal o podpis tohoto záznamu. Zkontrolujte záznam níže; peněženka před schválením ukáže přesné memo.</string>
+    <string name="link_confirm_sign">Podepsat</string>
+    <string name="detail_pkg_updated">%1$s · aktualizováno %2$s</string>
+    <string name="anonymous">Anonym</string>
+    <string name="discard_title">Zahodit tuto recenzi?</string>
+    <string name="discard_body">Vaše hodnocení, štítky a text zatím nejsou podepsané a budou ztraceny.</string>
+    <string name="discard">Zahodit</string>
+    <string name="keep_editing">Pokračovat v úpravách</string>
+    <string name="text_invalid">Držte se %1$d znaků, bez znaku |.</string>
+    <string name="to_review_max">Společně lze podepsat nejvýše %1$d aplikací.</string>
+    <string name="confirm_disconnect_body">Tento telefon peněženku zapomene. V evidenci se nic nemění a přihlásit se můžete znovu kdykoli.</string>
+    <string name="confirm_unshare_title">Vzít zpět toto místo Pro?</string>
+    <string name="confirm_unshare_body">Podepíše záznam, který místo ukončí. Druhá peněženka po potvrzení přijde o Pro, které jste sdíleli.</string>
+    <string name="confirm_unhide_body">Každý záznam, který jste skryli, se znovu zobrazí na stránce své aplikace.</string>
+    <string name="confirm_delete_body">Z tohoto telefonu odstraní záznam o vašem souhlasu, sledování, skryté a hvězdičkou označené záznamy, místa Pro, která jste přidali, a peněženku. V evidenci se nic nemění. Znovu uvidíte přihlašovací obrazovku.</string>
+    <string name="confirm_delete_action">Smazat</string>
+    <string name="loading">Načítání…</string>
+    <string name="load_failed">Nepodařilo se to načíst. Zkontrolujte připojení a zkuste to znovu.</string>
+    <string name="retry">Zkusit znovu</string>
+    <string name="pay_listing_line">Kód %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Podepíše záznam, který stáhne zařazení z přehledu. Další zařazení znamená znovu zaplatit poplatek za zařazení.</string>
+    <string name="confirm_withdraw_free">Podepíše záznam, který stáhne zařazení z přehledu. Zařadit ho můžete znovu později.</string>
+    <string name="changes_new_a11y">Změny, jsou tu nové k zobrazení</string>
+    <string name="desk_signed_mean">%1$s podepsáno</string>
+    <string name="stats_share_head">Evidence Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registr %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d hvězdička</item>
+        <item quantity="few">%1$d hvězdičky</item>
+        <item quantity="many">%1$d hvězdičky</item>
+        <item quantity="other">%1$d hvězdiček</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Zobrazit %1$d další recenzi</item>
+        <item quantity="few">Zobrazit %1$d další recenze</item>
+        <item quantity="many">Zobrazit %1$d další recenze</item>
+        <item quantity="other">Zobrazit %1$d dalších recenzí</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d podepsáno · důvěryhodnost %2$d</item>
+        <item quantity="few">%1$d podepsáno · důvěryhodnost %2$d</item>
+        <item quantity="many">%1$d podepsáno · důvěryhodnost %2$d</item>
+        <item quantity="other">%1$d podepsáno · důvěryhodnost %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Schránka, %1$d nová</item>
+        <item quantity="few">Schránka, %1$d nové</item>
+        <item quantity="many">Schránka, %1$d nové</item>
+        <item quantity="other">Schránka, %1$d nových</item>
+    </plurals>
 </resources>

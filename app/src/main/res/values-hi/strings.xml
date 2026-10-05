@@ -92,7 +92,7 @@
     <string name="standing_agreement">अन्य साइनर्स के साथ टैग सहमति: %1$s</string>
     <string name="standing_since">%1$s से साइन कर रहे हैं</string>
     <string name="standing_note2">केवल गिनती। कोई स्कोर नहीं, खरीदने के लिए कुछ भी नहीं।</string>
-    <string name="store_reviewer_genesis">प्रमाणित डिवाइस</string>
+    <string name="store_reviewer_genesis">Seeker स्वामी</string>
     <string name="store_reviewer_nogenesis">कोई प्रमाणित डिवाइस नहीं मिला</string>
     <string name="store_reviewer_signed_here">यहां भी साइन किया</string>
     <string name="notif_divergence_title">%1$s: हस्ताक्षरित और स्टोर स्कोर असहमत हैं</string>
@@ -151,7 +151,7 @@
     <string name="fact_perms_removed">हटाई गई अनुमतियां: %1$s</string>
     <string name="fact_not_installed">इस डिवाइस पर इंस्टॉल नहीं है। डिवाइस की जानकारी देखने के लिए इसे dApp Store से इंस्टॉल करें।</string>
     <string name="reviews_title">हस्ताक्षरित समीक्षाएं</string>
-    <string name="review_weight_verified">प्रमाणित ✓</string>
+    <string name="review_weight_verified">प्रमाणित</string>
     <string name="review_weight_unverified">गिनी नहीं गई</string>
     <string name="review_hide">छिपाएं</string>
     <string name="review_report">रिपोर्ट करें</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">फ़्लैग साइन करें</string>
     <string name="flagged_hidden">सर्वसम्मति से छिपाया गया: %1$s भारित Seekers द्वारा अस्वाभाविक के रूप में फ़्लैग किया गया</string>
     <string name="flagged_show">फिर भी दिखाएं</string>
-    <string name="flagged_count">%1$s फ़्लैग भार</string>
+    <string name="flagged_count">फ़्लैग किया गया · भार %1$s</string>
     <string name="star">स्टार करें</string>
     <string name="unstar">स्टार हटाएं</string>
     <string name="inbox">इनबॉक्स</string>
@@ -814,7 +814,7 @@
     <string name="notif_flagged_body">बताया गया कारण: %1$s। अगर आप सहमत नहीं हैं, तो रिकॉर्ड पर विवाद साइन कर सकते हैं।</string>
     <string name="notif_note_title">प्रकाशक ने आपकी स्टोर समीक्षा का जवाब दिया · %1$s</string>
     <string name="notif_proven_title">आपका दावा साबित हुआ · %1$s</string>
-    <string name="notif_proven_body">इस ऐप की समीक्षाओं पर आपके जवाबों पर अब प्रकाशक ✓ का चिह्न दिखता है, और इसकी आपकी अपनी समीक्षाएं गिनी नहीं जातीं।</string>
+    <string name="notif_proven_body">इस ऐप की समीक्षाओं पर आपके जवाबों पर अब प्रकाशक का चिह्न दिखता है, और इसकी आपकी अपनी समीक्षाएं गिनी नहीं जातीं।</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. अपने ऐप में अपने वॉलेट का नाम दें (सबसे मज़बूत)</string>
     <string name="claim_route_build_body">अपने ऐप के मैनिफ़ेस्ट में &lt;application&gt; के अंदर यह लाइन जोड़ें और अपडेट dApp Store पर जारी करें। पाठक वह बिल्ड जांचते हैं जो स्टोर उपलब्ध कराता है: लाइन में इसी वॉलेट का नाम होना चाहिए और बिल्ड उस सर्टिफिकेट से साइन किया होना चाहिए जिसे स्टोर सूचीबद्ध करता है। यह केवल आपके ऐप की साइनिंग कुंजी का धारक ही कर सकता है।</string>
@@ -832,4 +832,54 @@
     <string name="proof_not_title">क्या इसे सिद्ध नहीं करता</string>
     <string name="proof_not_body">वॉलेट का अपना हस्ताक्षर, भुगतान पता, या वह वॉलेट जिसने ऐप को dApp Store पर प्रकाशित किया। स्टोर यह नहीं बताता कि कौन-सा ऑन-चेन रिकॉर्ड किस लिस्टिंग का है, और कोई भी किसी भी ऐप का नाम देकर एक बना सकता है।</string>
     <string name="proof_how_after">सिद्ध प्रकाशक के जवाबों पर प्रकाशक चिह्न होता है, और ऐप की उनकी अपनी समीक्षाएं गिनी नहीं जातीं।</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">वापस</string>
+    <string name="stars_a11y">5 में से %1$s स्टार</string>
+    <string name="err_network">कनेक्शन नहीं है। नेटवर्क जांचें और फिर कोशिश करें।</string>
+    <string name="err_timeout">अनुरोध का समय समाप्त हो गया। फिर कोशिश करें।</string>
+    <string name="err_declined">wallet में अस्वीकार किया गया। कुछ भी हस्ताक्षरित नहीं हुआ।</string>
+    <string name="err_funds">इस लेन-देन और इसके नेटवर्क शुल्क के लिए इस wallet में पर्याप्त राशि नहीं है।</string>
+    <string name="link_confirm_body">एक लिंक ने इस पर हस्ताक्षर मांगा है। नीचे का रिकॉर्ड जांचें; मंज़ूरी से पहले आपका wallet सटीक मेमो दिखाता है।</string>
+    <string name="link_confirm_sign">हस्ताक्षर करें</string>
+    <string name="detail_pkg_updated">%1$s · अपडेट हुआ %2$s</string>
+    <string name="anonymous">अनाम</string>
+    <string name="discard_title">यह समीक्षा छोड़ दें?</string>
+    <string name="discard_body">आपकी रेटिंग, टैग और टेक्स्ट पर अभी हस्ताक्षर नहीं हुए हैं और वे खो जाएंगे।</string>
+    <string name="discard">छोड़ दें</string>
+    <string name="keep_editing">संपादन जारी रखें</string>
+    <string name="text_invalid">| अक्षर के बिना अधिकतम %1$d अक्षर रखें।</string>
+    <string name="to_review_max">एक साथ अधिकतम %1$d ऐप्स पर हस्ताक्षर किए जा सकते हैं।</string>
+    <string name="confirm_disconnect_body">यह फ़ोन wallet को भूल जाता है। लेजर पर कुछ नहीं बदलता, और आप कभी भी फिर से साइन इन कर सकते हैं।</string>
+    <string name="confirm_unshare_title">यह Pro सीट वापस लें?</string>
+    <string name="confirm_unshare_body">यह एक रिकॉर्ड पर हस्ताक्षर करता है जो सीट को खत्म करता है। पुष्टि होते ही दूसरा wallet आपका शेयर किया हुआ Pro खो देता है।</string>
+    <string name="confirm_unhide_body">आपके छिपाए हर रिकॉर्ड फिर से उसके ऐप के पेज पर दिखेंगे।</string>
+    <string name="confirm_delete_body">यह इस फ़ोन से आपका सहमति रिकॉर्ड, फ़ॉलो, छिपे और स्टार किए रिकॉर्ड, आपके जोड़े Pro सीट और wallet हटा देता है। लेजर पर कुछ नहीं बदलता। आपको फिर से साइन इन स्क्रीन दिखेगी।</string>
+    <string name="confirm_delete_action">हटाएं</string>
+    <string name="loading">लोड हो रहा है…</string>
+    <string name="load_failed">यह लोड नहीं हो सका। कनेक्शन जांचें और फिर कोशिश करें।</string>
+    <string name="retry">फिर कोशिश करें</string>
+    <string name="pay_listing_line">कोड %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">यह एक रिकॉर्ड पर हस्ताक्षर करता है जो लिस्टिंग को बोर्ड से हटा देता है। फिर से लिस्ट करने के लिए लिस्टिंग शुल्क दोबारा देना होगा।</string>
+    <string name="confirm_withdraw_free">यह एक रिकॉर्ड पर हस्ताक्षर करता है जो लिस्टिंग को बोर्ड से हटा देता है। आप इसे बाद में फिर से लिस्ट कर सकते हैं।</string>
+    <string name="changes_new_a11y">बदलाव, देखने के लिए नए हैं</string>
+    <string name="desk_signed_mean">%1$s हस्ताक्षरित</string>
+    <string name="stats_share_head">Undersigned लेजर, %1$s</string>
+    <string name="stats_share_registry">रजिस्ट्री %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d स्टार</item>
+        <item quantity="other">%1$d स्टार</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">%1$d और समीक्षा दिखाएं</item>
+        <item quantity="other">%1$d और समीक्षाएं दिखाएं</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d हस्ताक्षरित · विश्वसनीयता %2$d</item>
+        <item quantity="other">%1$d हस्ताक्षरित · विश्वसनीयता %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">इनबॉक्स, %1$d नया</item>
+        <item quantity="other">इनबॉक्स, %1$d नया</item>
+    </plurals>
 </resources>

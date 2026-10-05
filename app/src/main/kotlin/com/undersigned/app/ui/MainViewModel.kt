@@ -462,6 +462,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val paid: List<Pair<com.undersigned.protocol.Payments.Payment, Double>> = emptyList())
     val boardRows = MutableStateFlow<List<BoardRow>>(emptyList())
     val boardLoading = MutableStateFlow(false)
+    /** The last board read failed (no network, store down): the board says so instead of "no listings". */
+    val boardError = MutableStateFlow(false)
     val boardPreview = MutableStateFlow<BoardRow?>(null)
     val quotes = MutableStateFlow<Map<String, com.undersigned.app.ledger.Prices.Quote>>(emptyMap())
     private var boardAt = 0L
@@ -572,7 +574,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                     boardRows.value = rows.sortedWith(compareByDescending<BoardRow> { it.usd ?: -1.0 }.thenBy { it.name })
                 }
                 boardRows.value = rows.sortedWith(compareByDescending<BoardRow> { it.usd ?: -1.0 }.thenBy { it.name })
-                boardAt = System.currentTimeMillis()
+                boardAt = System.currentTimeMillis(); boardError.value = false
+            } catch (e: Exception) { boardError.value = true   // was uncaught: a failed read could take the app down
             } finally { boardLoading.value = false }
         }
     }

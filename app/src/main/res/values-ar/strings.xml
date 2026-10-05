@@ -91,7 +91,7 @@
     <string name="standing_agreement">اتفاق الوسم مع الموقّعين الآخرين: %1$s</string>
     <string name="standing_since">يوقّع منذ %1$s</string>
     <string name="standing_note2">عدّ فقط. لا تقييم، لا شيء لشرائه.</string>
-    <string name="store_reviewer_genesis">جهاز مصادق</string>
+    <string name="store_reviewer_genesis">مالك Seeker</string>
     <string name="store_reviewer_nogenesis">لم يُعثر على جهاز مصادق</string>
     <string name="store_reviewer_signed_here">وقّع هنا أيضًا</string>
     <string name="notif_divergence_title">%1$s: تقييمات الموقّع والمتجر مختلفة</string>
@@ -162,7 +162,7 @@
     <string name="fact_perms_removed">أذونات مُزالة: %1$s</string>
     <string name="fact_not_installed">غير مثبَّت على هذا الجهاز. ثبّته من dApp Store لرؤية حقائق الجهاز.</string>
     <string name="reviews_title">المراجعات الموقّعة</string>
-    <string name="review_weight_verified">مصادق ✓</string>
+    <string name="review_weight_verified">مُصدَّق</string>
     <string name="review_weight_unverified">غير محتسبة</string>
     <string name="review_hide">إخفاء</string>
     <string name="review_report">إبلاغ</string>
@@ -257,7 +257,7 @@
     <string name="flag_sign">توقيع الإشارة</string>
     <string name="flagged_hidden">مخفي بالإجماع: إشارات بوزن %1$s من Seeker</string>
     <string name="flagged_show">إظهار على أي حال</string>
-    <string name="flagged_count">وزن الإشارات %1$s</string>
+    <string name="flagged_count">عليه إشارة · الوزن %1$s</string>
     <string name="star">نجمة</string>
     <string name="unstar">إلغاء النجمة</string>
     <string name="inbox">الوارد</string>
@@ -842,7 +842,7 @@
     <string name="notif_flagged_body">السبب المعطى: %1$s. إذا كنت لا توافق، يمكنك توقيع اعتراض على السجل.</string>
     <string name="notif_note_title">ردّ الناشر على مراجعتك في المتجر · %1$s</string>
     <string name="notif_proven_title">تم إثبات ادعائك · %1$s</string>
-    <string name="notif_proven_body">تحمل ردودك على مراجعات هذا التطبيق الآن علامة «ناشر ✓»، ولا تُحتسب مراجعاتك الخاصة له.</string>
+    <string name="notif_proven_body">تحمل ردودك على مراجعات هذا التطبيق الآن علامة «ناشر»، ولا تُحتسب مراجعاتك الخاصة له.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. اذكر محفظتك في تطبيقك (الأقوى)</string>
     <string name="claim_route_build_body">أضف هذا السطر داخل &lt;application&gt; في ملف manifest الخاص بتطبيقك وأصدر التحديث على dApp Store. يفحص القرّاء البنية التي يقدّمها المتجر: يجب أن يذكر السطر هذه المحفظة، وأن تكون البنية موقّعة بالشهادة التي يدرجها المتجر. لا يستطيع ذلك إلا من يملك مفتاح توقيع تطبيقك.</string>
@@ -860,4 +860,70 @@
     <string name="proof_not_title">ما الذي لا يُثبِت ذلك</string>
     <string name="proof_not_body">توقيع المحفظة نفسها، أو عنوان دفع، أو المحفظة التي نشرت التطبيق على dApp Store. لا يحدّد المتجر أي سجل على السلسلة يعود لأي إدراج، ويستطيع أي شخص إصدار سجل يذكر أي تطبيق.</string>
     <string name="proof_how_after">تحمل ردود الناشر المُثبَت علامة «ناشر»، ولا تُحتسب مراجعاته الخاصة للتطبيق.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">رجوع</string>
+    <string name="stars_a11y">%1$s من 5 نجوم</string>
+    <string name="err_network">لا يوجد اتصال. تحقق من الشبكة وحاول مرة أخرى.</string>
+    <string name="err_timeout">انتهت مهلة الطلب. حاول مرة أخرى.</string>
+    <string name="err_declined">تم الرفض في المحفظة. لم يتم توقيع أي شيء.</string>
+    <string name="err_funds">لا يكفي الرصيد في هذه المحفظة لهذه المعاملة ورسوم الشبكة الخاصة بها.</string>
+    <string name="link_confirm_body">طلب رابط توقيع هذا. تحقق من السجل أدناه؛ تعرض محفظتك المذكرة بالضبط قبل أن توافق.</string>
+    <string name="link_confirm_sign">توقيع</string>
+    <string name="detail_pkg_updated">%1$s · تم التحديث %2$s</string>
+    <string name="anonymous">مجهول</string>
+    <string name="discard_title">تجاهل هذه المراجعة؟</string>
+    <string name="discard_body">لم يتم توقيع تقييمك ووسومك ونصك بعد، وسيتم فقدانها.</string>
+    <string name="discard">تجاهل</string>
+    <string name="keep_editing">متابعة التحرير</string>
+    <string name="text_invalid">اكتفِ بـ %1$d حرفًا، دون الحرف |.</string>
+    <string name="to_review_max">يمكن توقيع ما يصل إلى %1$d من التطبيقات معًا.</string>
+    <string name="confirm_disconnect_body">ينسى هذا الهاتف المحفظة. لا يتغير شيء في السجل، ويمكنك تسجيل الدخول مجددًا في أي وقت.</string>
+    <string name="confirm_unshare_title">استرجاع مقعد Pro هذا؟</string>
+    <string name="confirm_unshare_body">يوقّع هذا سجلًا ينهي المقعد. تفقد المحفظة الأخرى Pro الذي شاركته بمجرد التأكيد.</string>
+    <string name="confirm_unhide_body">كل سجل أخفيته سيظهر مجددًا في صفحة تطبيقه.</string>
+    <string name="confirm_delete_body">يزيل هذا من هذا الهاتف سجل موافقتك والمتابعات والسجلات المخفية والمميزة بنجمة ومقاعد Pro التي أضفتها والمحفظة. لا يتغير شيء في السجل. سترى شاشة تسجيل الدخول مرة أخرى.</string>
+    <string name="confirm_delete_action">حذف</string>
+    <string name="loading">جارٍ التحميل…</string>
+    <string name="load_failed">تعذّر التحميل. تحقق من الاتصال وحاول مرة أخرى.</string>
+    <string name="retry">حاول مرة أخرى</string>
+    <string name="pay_listing_line">الرمز %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">يوقّع هذا سجلًا يزيل الإدراج من اللوحة. إدراجه مجددًا يعني دفع رسوم الإدراج مرة أخرى.</string>
+    <string name="confirm_withdraw_free">يوقّع هذا سجلًا يزيل الإدراج من اللوحة. يمكنك إدراجه مجددًا لاحقًا.</string>
+    <string name="changes_new_a11y">ما الذي تغيّر، توجد عناصر جديدة للاطلاع عليها</string>
+    <string name="desk_signed_mean">%1$s موقّعة</string>
+    <string name="stats_share_head">سجل Undersigned، %1$s</string>
+    <string name="stats_share_registry">عنوان السجل %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="zero">%1$d نجمة</item>
+        <item quantity="one">%1$d نجمة</item>
+        <item quantity="two">%1$d نجمتان</item>
+        <item quantity="few">%1$d نجوم</item>
+        <item quantity="many">%1$d نجمة</item>
+        <item quantity="other">%1$d نجمة</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="zero">عرض %1$d مراجعة إضافية</item>
+        <item quantity="one">عرض %1$d مراجعة إضافية</item>
+        <item quantity="two">عرض %1$d مراجعتين إضافيتين</item>
+        <item quantity="few">عرض %1$d مراجعات إضافية</item>
+        <item quantity="many">عرض %1$d مراجعة إضافية</item>
+        <item quantity="other">عرض %1$d مراجعة إضافية</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="zero">%1$d موقّعة · المصداقية %2$d</item>
+        <item quantity="one">%1$d موقّعة · المصداقية %2$d</item>
+        <item quantity="two">%1$d موقّعة · المصداقية %2$d</item>
+        <item quantity="few">%1$d موقّعة · المصداقية %2$d</item>
+        <item quantity="many">%1$d موقّعة · المصداقية %2$d</item>
+        <item quantity="other">%1$d موقّعة · المصداقية %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="zero">الوارد، %1$d جديد</item>
+        <item quantity="one">الوارد، %1$d جديد</item>
+        <item quantity="two">الوارد، %1$d جديد</item>
+        <item quantity="few">الوارد، %1$d جديد</item>
+        <item quantity="many">الوارد، %1$d جديد</item>
+        <item quantity="other">الوارد، %1$d جديد</item>
+    </plurals>
 </resources>

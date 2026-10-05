@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.BackButton
 import android.Manifest
 import android.content.Intent
 import android.os.Build
@@ -9,6 +10,7 @@ import com.undersigned.app.notify.LedgerWatchWorker
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.undersigned.app.AppConfig
 import com.undersigned.app.BuildConfig
 import com.undersigned.app.R
+import com.undersigned.app.ui.components.errorText
 import com.undersigned.app.data.TermsAcceptanceService
 import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.solana.shortKey
@@ -45,7 +48,7 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}, onLeaderboard: () -> Unit = {}) {
+fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onIntro: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}, onLeaderboard: () -> Unit = {}) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val wallet by vm.wallet.collectAsState()
@@ -81,7 +84,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     var scanRationale by remember { mutableStateOf(false) }
     if (scanRationale) ScanRationaleSheet(
         onAllow = { scanRationale = false; UserPreferences.scanRationaleShown = true; askNotifForScan.launch(Manifest.permission.POST_NOTIFICATIONS) },
-        onSkip = { scanRationale = false; UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() })
+        onSkip = { scanRationale = false; UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() },
+        onDismiss = { scanRationale = false })
     val termsService = remember { TermsAcceptanceService(context) }
     val myStore by vm.myStoreReviews.collectAsState()
     val scan by vm.importScan.collectAsState()
@@ -94,6 +98,16 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     var licenceText by remember { mutableStateOf<String?>(null) }
     var signing by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
+    var importOk by remember { mutableStateOf(true) }
+    // One confirmation for every action that can't be undone from here (UI review 6 Oct 2026: all were one tap).
+    var confirm by remember { mutableStateOf<Confirm?>(null) }
+    confirm?.let { c ->
+        AlertDialog(onDismissRequest = { confirm = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(c.title), color = RbColors.textPrimary) },
+            text = { Text(stringResource(c.body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
+            confirmButton = { TextButton(onClick = { confirm = null; c.run() }) { Text(stringResource(c.action), color = RbColors.negative) } },
+            dismissButton = { TextButton(onClick = { confirm = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
 
     fun open(url: String) { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) { } }
     fun signIn() {
@@ -101,14 +115,14 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
         scope.launch {
             WalletSession.signIn(s, termsService.generateConsentMessage("(pending)")).fold(
                 onSuccess = { if (WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned) else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address) } },
-                onFailure = { error = it.message },
+                onFailure = { error = context.errorText(it) },
             ); signing = false
         }
     }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.settings), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
@@ -116,7 +130,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             GlassCard {
                 Text(wallet?.let { shortKey(it, 8, 8) } ?: stringResource(R.string.settings_no_wallet), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(10.dp))
-                if (wallet != null) SecondaryButton(stringResource(R.string.disconnect_wallet), onClick = { UserPreferences.setWallet(null) })
+                if (wallet != null) SecondaryButton(stringResource(R.string.disconnect_wallet), onClick = { confirm = Confirm(R.string.disconnect_wallet, R.string.confirm_disconnect_body, R.string.disconnect_wallet) { UserPreferences.setWallet(null) } })
                 else SecondaryButton(if (signing) stringResource(R.string.terms_signing) else stringResource(R.string.settings_signin), enabled = !signing && sender != null, onClick = { signIn() })
                 error?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.negative, fontSize = 12.sp) }
             }
@@ -145,7 +159,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         seats.forEach { (tag, label) ->
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(label?.let { l -> domainNames[l]?.takeIf { it.isNotEmpty() } ?: shortKey(l, 6, 6) } ?: shortKey(tag, 6, 6), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1f))
-                                TextButton(enabled = shareStage == null && sender != null, onClick = { signShare(com.undersigned.protocol.ReviewMemo.Unshare(tag)) { r -> shareNote = r.fold({ null }, { it.message }) } }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_share_revoke), color = RbColors.warning, fontSize = 12.sp) }
+                                TextButton(enabled = shareStage == null && sender != null, onClick = { confirm = Confirm(R.string.confirm_unshare_title, R.string.confirm_unshare_body, R.string.pro_share_revoke) { signShare(com.undersigned.protocol.ReviewMemo.Unshare(tag)) { r -> shareNote = r.fold({ null }, { context.errorText(it) }) } } }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_share_revoke), color = RbColors.warning, fontSize = 12.sp) }
                             }
                         }
                         shareStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
@@ -167,7 +181,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                                 TextButton(onClick = { vm.removeGranter(g) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_shared_forget), color = RbColors.textTertiary, fontSize = 11.sp) }
                             }
                         }
-                        OutlinedTextField(value = granterInput, onValueChange = { granterInput = it; granterNote = null }, singleLine = true, placeholder = { Text(stringResource(R.string.pro_shared_from_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
+                        OutlinedTextField(value = granterInput, onValueChange = { granterInput = it; granterNote = null }, singleLine = true, keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(autoCorrect = false, capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.None, keyboardType = androidx.compose.ui.text.input.KeyboardType.Ascii), placeholder = { Text(stringResource(R.string.pro_shared_from_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
                             colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
                         granterNote?.let { Text(it, color = RbColors.warning, fontSize = 11.sp) }
                         Spacer(Modifier.height(6.dp))
@@ -198,7 +212,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         selfLoading || selfFacts == null -> Text(stringResource(R.string.review_checking_sgt), color = RbColors.textSecondary, fontSize = 13.sp)
                         else -> {
                             val f = selfFacts!!
-                            Text(if (f.hasGenesisToken) stringResource(R.string.standing_sgt_yes, com.undersigned.app.solana.AttestationList.label(context, f.attestation) ?: "attested") else stringResource(R.string.standing_sgt_no), color = if (f.hasGenesisToken) RbColors.green else RbColors.warning, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                            Text(if (f.hasGenesisToken) stringResource(R.string.standing_sgt_yes, com.undersigned.app.solana.AttestationList.label(context, f.attestation) ?: stringResource(R.string.review_weight_verified)) else stringResource(R.string.standing_sgt_no), color = if (f.hasGenesisToken) RbColors.green else RbColors.warning, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                             if (f.hasGenesisToken) { Spacer(Modifier.height(4.dp)); Text(stringResource(R.string.standing_stake, String.format(java.util.Locale.US, "%,.0f", f.stakedSkr), String.format(java.util.Locale.US, "%.2f", Ranking.weight(f))), color = RbColors.textSecondary, fontSize = 12.sp) }
                         }
                     }
@@ -242,7 +256,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             Spacer(Modifier.height(6.dp))
                             SecondaryButton(importStage ?: stringResource(R.string.import_publish, chosen.size), enabled = chosen.isNotEmpty() && importStage == null && sender != null, onClick = {
                                 val s = sender ?: return@SecondaryButton
-                                vm.requestImport(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
+                                vm.requestImport(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importOk = r.isSuccess; importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { context.errorText(it) }) }
                             })
                             Text(stringResource(R.string.import_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                         }
@@ -250,37 +264,39 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         if (failed > 0) Text(stringResource(R.string.import_incomplete, failed, total), color = RbColors.warning, fontSize = 11.sp)
                         else Text(stringResource(R.string.import_none), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
-                    importMsg?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.green, fontSize = 12.sp) }
+                    importMsg?.let { Spacer(Modifier.height(6.dp)); Text(it, color = if (importOk) RbColors.green else RbColors.negative, fontSize = 12.sp) }
                 }
             }
 
             SectionTitle(stringResource(R.string.alerts_title))
             GlassCard {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                fun setAlerts(on: Boolean) {
+                    if (!on) { UserPreferences.setAlerts(false); LedgerWatchWorker.cancel(context) }
+                    else if (Build.VERSION.SDK_INT >= 33) askNotif.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    else { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) }
+                }
+                Row(Modifier.toggleable(value = alerts, role = androidx.compose.ui.semantics.Role.Switch) { setAlerts(it) }, verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(stringResource(R.string.alerts_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                         Text(pluralStringResource(R.plurals.alerts_following, follows.size, follows.size), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
-                    Switch(checked = alerts, onCheckedChange = { on ->
-                        if (!on) { UserPreferences.setAlerts(false); LedgerWatchWorker.cancel(context) }
-                        else if (Build.VERSION.SDK_INT >= 33) askNotif.launch(Manifest.permission.POST_NOTIFICATIONS)
-                        else { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) }
-                    }, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                    Switch(checked = alerts, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
             }
 
             // The weekly reminder: one notification a week at most, off by default, naming how many apps here are unreviewed.
             GlassCard {
                 var remind by remember { mutableStateOf(UserPreferences.reviewReminder) }
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                fun setRemind(on: Boolean) {
+                    remind = on; UserPreferences.reviewReminder = on
+                    if (on) com.undersigned.app.notify.ReviewReminderWorker.schedule(context) else com.undersigned.app.notify.ReviewReminderWorker.cancel(context)
+                }
+                Row(Modifier.toggleable(value = remind, role = androidx.compose.ui.semantics.Role.Switch) { setRemind(it) }, verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(stringResource(R.string.remind_setting), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                         Text(stringResource(R.string.remind_setting_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                     }
-                    Switch(checked = remind, onCheckedChange = { on ->
-                        remind = on; UserPreferences.reviewReminder = on
-                        if (on) com.undersigned.app.notify.ReviewReminderWorker.schedule(context) else com.undersigned.app.notify.ReviewReminderWorker.cancel(context)
-                    }, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                    Switch(checked = remind, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
             }
 
@@ -337,7 +353,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         TextButton(onClick = { vm.unhide(sig) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.settings_unhide), color = RbColors.purpleLight, fontSize = 12.sp) }
                     }
                 }
-                if (hidden.isNotEmpty()) { Spacer(Modifier.height(10.dp)); SecondaryButton(stringResource(R.string.settings_unhide_all), onClick = { UserPreferences.unhideAll() }) }
+                if (hidden.isNotEmpty()) { Spacer(Modifier.height(10.dp)); SecondaryButton(stringResource(R.string.settings_unhide_all), onClick = { confirm = Confirm(R.string.settings_unhide_all, R.string.confirm_unhide_body, R.string.settings_unhide_all) { UserPreferences.unhideAll() } }) }
             }
 
             SectionTitle(stringResource(R.string.settings_legal))
@@ -361,18 +377,18 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     try { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = "application/json"; putExtra(Intent.EXTRA_TEXT, termsService.exportConsentRecordAsJson()) }, null)) } catch (_: Exception) { }
                 })
                 Spacer(Modifier.height(8.dp))
-                SecondaryButton(stringResource(R.string.settings_delete_data), onClick = {
+                SecondaryButton(stringResource(R.string.settings_delete_data), onClick = { confirm = Confirm(R.string.settings_delete_data, R.string.confirm_delete_body, R.string.confirm_delete_action) {
                     termsService.deleteAllConsentData(); vm.clearLocalCaches(); UserPreferences.clearAll()
                     try { (context as? android.app.Activity)?.recreate() } catch (_: Exception) { }
-                })
+                } })
             }
             Spacer(Modifier.height(12.dp))
-            SecondaryButton(stringResource(R.string.intro_replay), onClick = { UserPreferences.setOnboardingSeen(false) })
+            SecondaryButton(stringResource(R.string.intro_replay), onClick = onIntro)
             Spacer(Modifier.height(8.dp))
             SecondaryButton(stringResource(R.string.howto_open), onClick = onHowTo)
             Spacer(Modifier.height(20.dp))
             Text(stringResource(R.string.settings_about, BuildConfig.VERSION_NAME), color = RbColors.textDim, fontSize = 11.sp)
-            Text(stringResource(R.string.settings_contact), color = RbColors.textDim, fontSize = 11.sp)
+            Text(stringResource(R.string.settings_contact), color = RbColors.textTertiary, fontSize = 11.sp)
             Spacer(Modifier.height(24.dp))
         }
     }
@@ -385,7 +401,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             text = { Column {
                 Text(stringResource(R.string.pro_share_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                 Spacer(Modifier.height(8.dp))
-                OutlinedTextField(value = shareInput, onValueChange = { shareInput = it; shareResolved = null; shareNote = null }, singleLine = true, enabled = shareStage == null, placeholder = { Text(stringResource(R.string.pro_share_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
+                OutlinedTextField(value = shareInput, onValueChange = { shareInput = it; shareResolved = null; shareNote = null }, singleLine = true, keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(autoCorrect = false, capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.None, keyboardType = androidx.compose.ui.text.input.KeyboardType.Ascii), enabled = shareStage == null, placeholder = { Text(stringResource(R.string.pro_share_hint), color = RbColors.textTertiary, fontSize = 12.sp) }, modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
                 shareResolved?.let { Text(stringResource(R.string.pro_share_resolved, domainNames[it]?.takeIf { n -> n.isNotEmpty() } ?: shortKey(it, 6, 6)), color = RbColors.green, fontSize = 12.sp) }
                 if (shareResolved != null && displace != null && tag != null && tag !in vm.mySeats().map { it.first }) Text(stringResource(R.string.pro_share_displace, vm.mySeats().firstOrNull { it.first == displace }?.second?.let { shortKey(it, 6, 6) } ?: shortKey(displace, 6, 6)), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp)
@@ -433,8 +449,11 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
 
 @Composable
 private fun LinkRow(text: String, onClick: () -> Unit) {
-    Row(Modifier.fillMaxWidth().clickable { onClick() }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.Button) { onClick() }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(text, color = RbColors.textPrimary, fontSize = 14.sp, modifier = Modifier.weight(1f))
         Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, tint = RbColors.textTertiary, modifier = Modifier.size(16.dp))
     }
 }
+
+/** An action that asks first: what it is, what it does, and the confirm button's words. */
+private class Confirm(val title: Int, val body: Int, val action: Int, val run: () -> Unit)

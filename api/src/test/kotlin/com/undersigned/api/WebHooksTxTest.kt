@@ -50,6 +50,30 @@ class WebTest {
         assertEquals(200, f.get("/review?package=com.a.b").status)
     }
 
+    // UI review 6 Oct 2026: a nonce in style-src makes browsers IGNORE 'unsafe-inline', so every style= attribute was
+    // blocked: rating bars drew full width at 0 and the review form's chips looked selected. The property that matters is
+    // that inline styles are allowed while scripts stay nonce-only, and that the pages really rely on inline widths.
+    @Test fun `inline styles are allowed, scripts stay nonce-only`() {
+        val f = Fixture()
+        val r = f.get("/app/com.a.b")
+        val csp = r.headers.getValue("Content-Security-Policy").split(';').map { it.trim() }
+        val style = csp.first { it.startsWith("style-src") }; val script = csp.first { it.startsWith("script-src") }
+        assertTrue("'unsafe-inline'" in style && "nonce-" !in style && "sha256-" !in style, style)
+        assertTrue("nonce-" in script && "'unsafe-inline'" !in script, script)
+        val html = String(r.raw!!)
+        assertTrue(Regex("<i style='width:(\\d+)%'>").findAll(html).map { it.groupValues[1].toInt() }.toList().let { it.contains(0) && it.contains(100) }, "bars carry proportional widths, 0 % included")
+        val form = String(f.get("/review?package=com.a.b").raw!!)
+        assertTrue("How it runs" in form && "Wallet" in form, "tag groups are labelled")
+        assertFalse("review(s)" in html)
+    }
+
+    @Test fun `a wallet the ledger has not met says so instead of null`() {
+        val f = Fixture()
+        val html = String(f.get("/wallet/9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM").raw!!)
+        assertTrue("Not seen yet" in html, html)
+        assertFalse(">null<" in html)
+    }
+
     @Test fun `badge says what the ledger says`() {
         val f = Fixture()
         val svg = String(f.get("/v1/badge/com.a.b.svg").raw!!)
@@ -141,7 +165,7 @@ class GapFixesTest {
         f.db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 0, 0, ?)", STRANGER, System.currentTimeMillis()); f.indexer.rebuild()
         val html = String(f.get("/app/com.a.b").raw!!)
         val fold = html.indexOf("<details")
-        assertTrue(fold > 0 && "1 review(s) from wallets without an attested device" in html)
+        assertTrue(fold > 0 && "1 review from wallets without an attested device" in html)
         assertTrue(html.indexOf("uncounted words") > fold)                       // inside the fold
         assertTrue(html.indexOf("&amp; fine") in 1 until fold)                   // the counted review is above it
     }

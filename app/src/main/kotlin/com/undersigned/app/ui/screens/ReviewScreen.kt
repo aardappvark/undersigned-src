@@ -14,6 +14,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -46,10 +48,12 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     val versionCode = remember(pkg, storeDetails[pkg]) { vm.deviceFacts(pkg)?.versionCode ?: storeDetails[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L }
     val existing = remember(pkg) { vm.myReview(pkg)?.memo as? ReviewMemo.Review }
 
-    var rating by remember { mutableStateOf(existing?.rating ?: 0) }
-    var tags by remember { mutableStateOf(existing?.tags ?: emptyList()) }
-    var text by remember { mutableStateOf(existing?.text ?: "") }
-    var consent by remember { mutableStateOf(false) }
+    // Saveable: signing hops to the wallet app, and Android may stop this one meanwhile; a typed review must survive it.
+    var rating by rememberSaveable(pkg) { mutableStateOf(existing?.rating ?: 0) }
+    var tags by rememberSaveable(pkg, stateSaver = TagListSaver) { mutableStateOf(existing?.tags ?: emptyList()) }
+    var text by rememberSaveable(pkg) { mutableStateOf(existing?.text ?: "") }
+    var consent by rememberSaveable(pkg) { mutableStateOf(false) }
+    var confirmLeave by remember { mutableStateOf(false) }
     var stage by remember { mutableStateOf<String?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     var done by remember { mutableStateOf<String?>(null) }
@@ -73,12 +77,21 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
         selfFacts?.hasGenesisToken != true -> stringResource(R.string.review_needs_sgt)
         else -> null
     }
+    // Back while signing would lose the outcome; back with unsaved changes asks first.
+    val dirty = done == null && (rating != (existing?.rating ?: 0) || tags != (existing?.tags ?: emptyList<ReviewMemo.Tag>()) || text != (existing?.text ?: ""))
+    fun leave() { when { stage != null -> Unit; dirty -> confirmLeave = true; else -> onBack() } }
+    androidx.activity.compose.BackHandler { leave() }
+    if (confirmLeave) AlertDialog(onDismissRequest = { confirmLeave = false }, containerColor = RbColors.surface,
+        title = { Text(stringResource(R.string.discard_title), color = RbColors.textPrimary) },
+        text = { Text(stringResource(R.string.discard_body), color = RbColors.textSecondary, fontSize = 13.sp) },
+        confirmButton = { TextButton(onClick = { confirmLeave = false; onBack() }) { Text(stringResource(R.string.discard), color = RbColors.negative) } },
+        dismissButton = { TextButton(onClick = { confirmLeave = false }) { Text(stringResource(R.string.keep_editing), color = RbColors.purpleLight) } })
     val canSubmit = gate == null && rating in 1..5 && tags.isNotEmpty() && textOk && (text.isEmpty() || consent) && stage == null && done == null && sender != null
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack, enabled = stage == null) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
-            Column { Text(stringResource(R.string.review_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold); Text(stringResource(R.string.review_for, name), color = RbColors.textTertiary, fontSize = 12.sp, maxLines = 1) }
+            BackButton({ leave() }, enabled = stage == null)
+            Column { Text(stringResource(R.string.review_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold); Text(stringResource(R.string.review_for, name), color = RbColors.textTertiary, fontSize = 12.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             // "Still true on this version?": the review on the ledger is of an older version than this phone runs. One tap
@@ -95,20 +108,21 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                         error = null
                         vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
                             stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
-                        }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = it.message }) }
+                        }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
                     })
                     Text(stringResource(R.string.resign_or_edit), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 6.dp))
                 }
             }
             SectionTitle(stringResource(R.string.review_rating))
-            Row {
-                (1..5).forEach { i -> Text(if (i <= rating) "★" else "☆", color = if (i <= rating) RbColors.warning else RbColors.textTertiary, fontSize = 34.sp, modifier = Modifier.clickable(enabled = stage == null) { rating = i }.padding(end = 6.dp)) }
-            }
+            RatingInput(rating, enabled = stage == null) { rating = it }
             SectionTitle(stringResource(R.string.review_tags))
             TagPicker(tags, enabled = stage == null) { tags = it }
             SectionTitle(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - text.length, ReviewMemo.MAX_TEXT_BYTES - bytes))
             OutlinedTextField(
-                value = text, onValueChange = { if (stage == null) text = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = !textOk,
+                // A line break can't be signed: Enter and pasted paragraphs become spaces instead of a silent red border.
+                value = text, onValueChange = { if (stage == null) text = it.replace("\r\n", " ").replace('\n', ' ').replace('\r', ' ').take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = !textOk,
+                supportingText = if (!textOk) { { Text(stringResource(R.string.text_invalid, ReviewMemo.MAX_TEXT_CHARS), color = RbColors.negative, fontSize = 11.sp) } } else null,
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Done),
                 placeholder = { Text(stringResource(R.string.review_text_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight, errorBorderColor = RbColors.negative),
             )
@@ -158,7 +172,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, text.trim().takeIf { it.isNotEmpty() })
                 vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
-                }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = it.message }) }
+                }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
             })
             error?.let { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_failed, it), color = RbColors.negative, fontSize = 12.sp) }
             done?.let {
@@ -181,7 +195,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ExtraRow(label: String, value: String, on: Boolean, enabled: Boolean, description: String, onChange: (Boolean) -> Unit) {
-    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable(enabled = enabled) { onChange(!on) }.semantics(mergeDescendants = true) { contentDescription = description },
+    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(value = on, enabled = enabled, role = androidx.compose.ui.semantics.Role.Switch) { onChange(it) }.semantics(mergeDescendants = true) { contentDescription = description },
         verticalAlignment = Alignment.CenterVertically) {
         // Label and chip wrap as units (the chip drops under the label), never mid-label (seen on device, 28 Sep).
         FlowRow(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -190,6 +204,10 @@ private fun ExtraRow(label: String, value: String, on: Boolean, enabled: Boolean
                 Text(value, color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false) }
         }
         Spacer(Modifier.width(8.dp))
-        Switch(checked = on, onCheckedChange = onChange, enabled = enabled)
+        Switch(checked = on, onCheckedChange = null, enabled = enabled)
     }
 }
+
+/** Saves the chosen tags across process death by their wire names. */
+internal val TagListSaver = androidx.compose.runtime.saveable.listSaver<List<ReviewMemo.Tag>, String>(
+    save = { l -> l.map { it.wire } }, restore = { l -> l.mapNotNull { ReviewMemo.Tag.fromWire(it) } })

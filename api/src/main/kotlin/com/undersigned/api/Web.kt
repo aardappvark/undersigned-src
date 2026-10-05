@@ -88,7 +88,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         sb.append("<p class=small><a href='/'>Undersigned</a></p><h1>${esc(a.optString("name", pkg))}</h1><p class=meta>${esc(a.optString("category", ""))} · ${esc(pkg)}</p>")
         // The two scores side by side, each labelled with where it comes from.
         sb.append("<div class='card grid2'><div><div class=label>Signed by Seeker owners</div>")
-        if (sg != null && sg.optInt("counted_reviews") > 0) sb.append("<div class=big>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}</div><div class=meta>${sg.optInt("counted_reviews")} counted review(s) · rank score ${sg.opt("rank_score")}</div>${bars(sg.optJSONArray("stars"))}")
+        if (sg != null && sg.optInt("counted_reviews") > 0) sb.append("<div class=big>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}</div><div class=meta>${plural(sg.optInt("counted_reviews"), "counted review", "counted reviews")} · ranked as ${sg.opt("rank_score")} until more Seekers sign</div>${bars(sg.optJSONArray("stars"))}")
         else sb.append("<div class=big>–</div><div class=meta>No counted signed reviews yet.</div>")
         sb.append("</div><div><div class=label>The dApp Store's own rating</div>")
         if (sr != null && sr.optInt("count") > 0) sb.append("<div class=big>${sr.opt("average")}</div><div class=meta>${sr.optInt("count")} ratings, read ${esc(sr.optString("as_of"))}</div>${bars(sr.optJSONArray("stars"))}")
@@ -143,13 +143,13 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             sb.append("</div>")
         }
         sb.append(countedHtml)
-        if (nUncounted > 0) sb.append("<details class=card><summary>$nUncounted review(s) from wallets without an attested device (recorded, not counted)</summary>$uncountedHtml</details>")
+        if (nUncounted > 0) sb.append("<details class=card><summary>${plural(nUncounted, "review", "reviews")} from wallets without an attested device (recorded, not counted)</summary>$uncountedHtml</details>")
         if (rv.optInt("total") > list.length()) sb.append("<p class=meta>Showing ${list.length()} of ${rv.optInt("total")}.</p>")
 
         // Publisher
         val pub = a.optJSONObject("publisher")
         sb.append("<h2>Publisher</h2><div class=card>")
-        store?.let { sb.append("<div class=meta>The store lists: ${esc(it.optString("publisher", "–"))}${if (!it.isNull("website")) " · " + esc(it.optString("website")) else ""}</div>") }
+        store?.let { sb.append("<div class=meta>The store lists: ${esc(it.optString("publisher", "–"))}${if (!it.isNull("website")) " · " + link(it.optString("website")) else ""}</div>") }
         val claims = pub?.optJSONArray("claims") ?: JSONArray()
         if (claims.length() == 0) sb.append("<div class=meta>No wallet has claimed to publish this app.</div>")
         sb.append("<div class=small><a href='/publishers'>How a publisher is proven</a></div>")
@@ -158,7 +158,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         pub?.optJSONObject("responsiveness")?.let { if (it.optInt("total") > 0) sb.append("<div class=meta>Answered ${it.optInt("answered")} of ${it.optInt("total")} signed reviews.</div>") }
         sb.append("</div>")
         a.optJSONObject("payments")?.let { p -> sb.append("<h2>Payments received on-chain</h2><div class=card><div class=stats><div class=stat><b>${if (p.isNull("usd_when_paid")) "–" else "$" + p.opt("usd_when_paid")}</b><span>USD on the day of each payment</span></div><div class=stat><b>${p.optInt("payments")}</b><span>payments</span></div><div class=stat><b>${p.optInt("payers")}</b><span>payers</span></div><div class=stat><b>${p.optInt("attested_payers")}</b><span>payers with an attested device</span></div></div><p class=small>Publisher-confirmed treasury only. Off-chain income is invisible to this; nothing here is a statement about profit.</p></div>") }
-        store?.let { sb.append("<h2>From the store</h2><div class=card><div class=meta>Version ${it.opt("version")} · signing certificate SHA-256 <code>${esc(it.optString("certificate_sha256", "–").take(16))}…</code></div>${if (!it.isNull("whats_new")) "<p class=txt>${esc(it.optString("whats_new").take(400))}</p>" else ""}</div>") }
+        store?.let { sb.append("<h2>From the store</h2><div class=card><div class=meta>Version ${it.opt("version")} · signing certificate SHA-256 <code>${esc(it.optString("certificate_sha256", "–").take(16))}…</code></div>${if (!it.isNull("whats_new")) "<p class=txt>${esc(clip(it.optString("whats_new"), 400))}</p>" else ""}</div>") }
 
         // Embed
         val url = "${Config.PUBLIC_URL}/app/${enc(pkg)}"; val img = "${Config.PUBLIC_URL}/v1/badge/${enc(pkg)}.svg"
@@ -193,7 +193,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
     private fun review(pkg: String?, lang: String): String {
         val app = pkg?.let { indexer.state.byPackage[it] }
         // The same groups and opposite pairs as the app's composer (protocol TagGroups).
-        val tagChips = com.undersigned.protocol.TagGroups.groups.joinToString("") { (_, tags) -> "<div class=row>" + tags.joinToString("") { t -> "<button type=button class=chip data-tag='${esc(t.wire)}' data-opp='${esc(com.undersigned.protocol.TagGroups.opposites[t]?.wire ?: "")}' aria-pressed=false>${esc(I18n.tag(lang, t.wire))}</button>" } + "</div>" }
+        val tagChips = com.undersigned.protocol.TagGroups.groups.joinToString("") { (g, tags) -> "<div class=label style='margin-top:8px'>${esc(I18n.str(lang, "tag_group_" + g.name.lowercase()) ?: g.name)}</div><div class=row>" + tags.joinToString("") { t -> "<button type=button class=chip data-tag='${esc(t.wire)}' data-opp='${esc(com.undersigned.protocol.TagGroups.opposites[t]?.wire ?: "")}' aria-pressed=false>${esc(I18n.tag(lang, t.wire))}</button>" } + "</div>" }
         return """<p class=small><a href='/'>Undersigned</a></p><h1>Write a signed review</h1>
 <p class=sub>Your wallet signs the review and it is recorded on Solana. It is counted in scores only if the signing wallet holds a Seeker Genesis Token. You pay only the network fee.</p>
 <div class=card>
@@ -202,8 +202,8 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
 <div class=label style='margin-top:12px'>Rating</div><div class=row id=rating>${(1..5).joinToString("") { "<button type=button class=chip data-r=$it aria-pressed=false>$it ★</button>" }}</div>
 <div class=label style='margin-top:12px'>Tags (1 to 3)</div><div id=tags>$tagChips</div>
 <label class=label for=text style='display:block;margin-top:12px'>Text (optional, 140 characters)</label><textarea id=text maxlength=140 rows=3></textarea>
-<label class=row><input type=checkbox id=permanent style='width:auto;margin:0'> <span class=meta>I understand my text stays on-chain for good. Withdrawing the review later leaves the record.</span></label>
-<label class=row><input type=checkbox id=terms style='width:auto;margin:0'> <span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. The version recorded is the store's current version of the app.</span></label>
+<label class=check><input type=checkbox id=permanent><span class=meta>I understand my text stays on-chain for good. Withdrawing the review later leaves the record.</span></label>
+<label class=check><input type=checkbox id=terms><span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. The version recorded is the store's current version of the app.</span></label>
 <div class=row style='margin-top:12px'><button id=connect type=button>Connect wallet</button><button id=sign type=button disabled>Sign review</button><button id=qrbtn type=button hidden class=chip>Sign with a phone (QR)</button></div>
 <div id=qr></div>
 <div class=meta id=status aria-live=polite></div></div>
@@ -304,13 +304,13 @@ $('sign').onclick = async () => {
         val about = "<div class=card><div class=meta>${esc(rec.optString("package", rec.optString("type")))} · ${day(rec.optLong("time"))} · ${short(rec.getString("signer"))}</div>" +
             (if (rec.has("rating")) "<div class=stars>${"★".repeat(rec.optInt("rating"))}</div>" else "") + (if (!rec.isNull("text") && rec.has("text")) "<p class=txt>${esc(rec.optString("text"))}</p>" else "") + "</div>"
         val inputs = when (kind) {
-            "reply" -> "<label class=label for=text>Your reply (140 characters)</label><textarea id=text maxlength=140 rows=3></textarea><label class=row><input type=checkbox id=permanent style='width:auto;margin:0'> <span class=meta>I understand my reply stays on-chain for good.</span></label>"
+            "reply" -> "<label class=label for=text>Your reply (140 characters)</label><textarea id=text maxlength=140 rows=3></textarea><label class=check><input type=checkbox id=permanent><span class=meta>I understand my reply stays on-chain for good.</span></label>"
             "flag" -> "<label class=label for=reason>Reason</label><select id=reason>${com.undersigned.protocol.ReviewMemo.FlagReason.entries.joinToString("") { "<option value='${it.wire}'>${esc(I18n.flag(lang, it.wire))}</option>" }}</select><p class=meta>A flag is a signed opinion from your wallet. Records are hidden in the app only when flags from several attested devices agree.</p>"
             else -> "<p class=meta>A helpful vote is a signed record from your wallet. It counts when the wallet holds a Seeker Genesis Token.</p>"
         }
         val body = """<p class=small><a href='/'>Undersigned</a></p><h1>$title</h1>$about
 <div class=card>$inputs
-<label class=row><input type=checkbox id=terms style='width:auto;margin:0'> <span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. You pay only the network fee.</span></label>
+<label class=check><input type=checkbox id=terms><span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. You pay only the network fee.</span></label>
 <div class=row style='margin-top:12px'><button id=go type=button>Sign with your wallet</button></div><div class=meta id=status aria-live=polite></div></div>
 <script type=module>
 import { getWallets } from 'https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm';
@@ -391,8 +391,12 @@ $('go').onclick = async () => {
     private fun wallet(w: String): String {
         val j = views.wallet(w, false)
         val sb = StringBuilder("<p class=small><a href='/'>Undersigned</a></p><h1>${esc(if (j.isNull("skr_name")) short(w) else j.getString("skr_name"))}</h1><p class=meta><code>${esc(w)}</code></p><div class=card><div class=stats>")
-        sb.append("<div class=stat><b>${if (j.optBoolean("attested_device")) "Yes" else "No"}</b><span>attested device</span></div><div class=stat><b>${j.opt("weight")}</b><span>review weight</span></div><div class=stat><b>${j.optInt("reviews")}</b><span>live reviews</span></div>")
-        j.optJSONObject("standing")?.let { sb.append("<div class=stat><b>${it.optInt("credibility")}</b><span>credibility (published formula)</span></div>") }
+        if (j.isNull("weight") && j.optInt("reviews") == 0 && j.isNull("standing")) {
+            sb.append("<div class=stat><b>Not seen yet</b><span>this wallet has signed nothing on the ledger, or the index has not read it yet</span></div></div></div>")
+            return sb.toString()
+        }
+        sb.append("<div class=stat><b>${if (j.optBoolean("attested_device")) "Yes" else "No"}</b><span>attested device</span></div><div class=stat><b>${j.opt("weight")}×</b><span>how much each review counts</span></div><div class=stat><b>${j.optInt("reviews")}</b><span>live reviews</span></div>")
+        j.optJSONObject("standing")?.let { sb.append("<div class=stat><b>${it.optInt("credibility")}</b><span>credibility, 0 to 100: starts at 40; agreeing tags, helpful votes and upheld flags raise it, hidden records lower it</span></div>") }
         sb.append("</div></div>")
         val pubs = j.optJSONArray("publisher_of") ?: JSONArray()
         if (pubs.length() > 0) sb.append("<p>Proven publisher of: ${(0 until pubs.length()).joinToString(", ") { "<a href='/app/${enc(pubs.getString(it))}'>${esc(pubs.getString(it))}</a>" }}</p>")
@@ -404,6 +408,14 @@ $('go').onclick = async () => {
     }
 
     // ---- Pieces -------------------------------------------------------------------------------------------------------
+
+    private fun plural(n: Int, one: String, many: String) = "$n ${if (n == 1) one else many}"
+
+    /** Cuts long store text at a word boundary and marks the cut. */
+    private fun clip(t: String, max: Int): String = if (t.length <= max) t else t.take(max).substringBeforeLast(' ', t.take(max)).trimEnd(',', '.', ';', ':') + "…"
+
+    /** An http(s) URL as a link that leaves no referrer; anything else as plain text. */
+    private fun link(u: String): String = if (u.startsWith("https://") || u.startsWith("http://")) "<a href='${esc(u)}' rel='nofollow noopener noreferrer'>${esc(u.substringAfter("://").trimEnd('/'))}</a>" else esc(u)
 
     private fun bars(stars: JSONArray?): String {
         stars ?: return ""; val max = (0 until 5).maxOf { stars.optInt(it) }.coerceAtLeast(1)
@@ -429,7 +441,7 @@ $('go').onclick = async () => {
         val nonce = Base58.encode(ByteArray(16).also { java.security.SecureRandom().nextBytes(it) })
         val withNonce = body.replace("<script type=module>", "<script type=module nonce=\"$nonce\">")
         val html = "<!doctype html><html lang=${I18n.htmlLang(lang)}><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>${esc(title)}</title><link rel=icon href='/icon.svg'><meta name=description content='${esc(description)}'><meta property='og:title' content='${esc(title)}'><meta property='og:description' content='${esc(description)}'><meta property='og:image' content='${Config.PUBLIC_URL}/icon.svg'><meta name='twitter:card' content='summary'><style nonce=\"$nonce\">$CSS</style>$head</head><body><main>$withNonce<footer class=small>Undersigned is an open review ledger on Solana. Reviews are the opinions of individual Seeker owners. <a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a> · <a href='/report'>Report content</a>.</footer></main></body></html>"
-        val csp = "default-src 'none'; script-src 'nonce-$nonce' https://cdn.jsdelivr.net; style-src 'nonce-$nonce' 'unsafe-inline'; img-src 'self' data: https:; " +
+        val csp = "default-src 'none'; script-src 'nonce-$nonce' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; img-src 'self' data: https:; " +
             "connect-src 'self' https://cdn.jsdelivr.net ws://localhost:* wss://localhost:* ws://127.0.0.1:* wss://127.0.0.1:*; font-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
         return Api.Response(status, JSONObject(), mapOf("Cache-Control" to "public, max-age=60", "Content-Security-Policy" to csp, "Referrer-Policy" to "no-referrer"), html.toByteArray(), "text/html; charset=utf-8")
     }
@@ -458,7 +470,7 @@ function explain(e) { const c = e && e.code; return c === 'ERROR_WALLET_NOT_FOUN
             "body{margin:0;background:var(--bg);color:var(--t);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}main{max-width:820px;margin:0 auto;padding:20px 16px 48px}" +
             "h1{font-size:26px;margin:4px 0}h2{font-size:17px;margin:26px 0 8px}.sub,.meta{color:var(--t2)}.meta,.small{font-size:13px}.small{color:var(--t3)}a{color:var(--pl)}" +
             ".card{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:10px 0;text-decoration:none;color:inherit}.card.warn{border-color:#5a4524}" +
-            ".row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0}.grow{flex:1 1 auto;min-width:0}.name{font-weight:700}.score{font-size:22px;font-weight:700;text-align:right}.score small{display:block;font-size:11px;color:var(--t3);font-weight:400}" +
+            ".check{display:flex;gap:10px;align-items:flex-start;margin-top:12px;cursor:pointer}.check input{width:20px;height:20px;flex:none;margin:2px 0 0}.check span{flex:1}" + ".row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0}.grow{flex:1 1 auto;min-width:0}.name{font-weight:700}.score{font-size:22px;font-weight:700;text-align:right}.score small{display:block;font-size:11px;color:var(--t3);font-weight:400}" +
             ".grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:560px){.grid2{grid-template-columns:1fr}}.label{font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}.big{font-size:34px;font-weight:700}" +
             ".bars{margin-top:8px}.bar{display:grid;grid-template-columns:28px 1fr 44px;gap:6px;align-items:center;font-size:12px;color:var(--t2)}.bar i{display:block;height:6px;border-radius:3px;background:var(--p);min-width:2px}" +
             ".stats{display:flex;flex-wrap:wrap;gap:8px 22px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--t3)}" +

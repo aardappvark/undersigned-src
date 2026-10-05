@@ -92,7 +92,7 @@
     <string name="standing_agreement">Concordância de tags com outros signatários: %1$s</string>
     <string name="standing_since">Assinando desde %1$s</string>
     <string name="standing_note2">Apenas contagens. Sem nota, nada para comprar.</string>
-    <string name="store_reviewer_genesis">Dispositivo atestado</string>
+    <string name="store_reviewer_genesis">Dono de Seeker</string>
     <string name="store_reviewer_nogenesis">nenhum dispositivo atestado encontrado</string>
     <string name="store_reviewer_signed_here">também assinou aqui</string>
     <string name="notif_divergence_title">%1$s: notas assinada e da loja divergem</string>
@@ -150,7 +150,7 @@
     <string name="fact_perms_removed">Permissões removidas: %1$s</string>
     <string name="fact_not_installed">Não instalado neste dispositivo. Instale-o pela dApp Store para ver os dados do dispositivo.</string>
     <string name="reviews_title">Avaliações assinadas</string>
-    <string name="review_weight_verified">Atestado ✓</string>
+    <string name="review_weight_verified">Atestado</string>
     <string name="review_weight_unverified">não contabilizada</string>
     <string name="review_hide">Ocultar</string>
     <string name="review_report">Denunciar</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">Assinar a sinalização</string>
     <string name="flagged_hidden">Oculto por consenso: sinalizado como não natural por %1$s de peso em Seekers</string>
     <string name="flagged_show">Mostrar mesmo assim</string>
-    <string name="flagged_count">%1$s de peso em sinalizações</string>
+    <string name="flagged_count">Sinalizado · peso %1$s</string>
     <string name="star">Destacar</string>
     <string name="unstar">Remover destaque</string>
     <string name="inbox">Caixa de entrada</string>
@@ -840,7 +840,7 @@
     <string name="notif_flagged_body">Motivo informado: %1$s. Se você discordar, pode assinar uma contestação no registro.</string>
     <string name="notif_note_title">O publicador respondeu à sua avaliação da loja · %1$s</string>
     <string name="notif_proven_title">Sua reivindicação está comprovada · %1$s</string>
-    <string name="notif_proven_body">Suas respostas às avaliações deste app agora levam a marca Publicador ✓, e suas próprias avaliações dele não são contabilizadas.</string>
+    <string name="notif_proven_body">Suas respostas às avaliações deste app agora levam a marca Publicador, e suas próprias avaliações dele não são contabilizadas.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Nomeie sua carteira no seu app (o mais forte)</string>
     <string name="claim_route_build_body">Adicione esta linha dentro de &lt;application&gt; no manifesto do seu app e lance a atualização na dApp Store. Os leitores examinam a versão que a loja serve: a linha deve nomear esta carteira e a versão deve estar assinada com o certificado que a loja lista. Só quem tem a chave de assinatura do seu app pode fazer isso.</string>
@@ -858,4 +858,54 @@
     <string name="proof_not_title">O que não comprova</string>
     <string name="proof_not_body">A própria assinatura da carteira, um endereço de pagamento ou a carteira que publicou o app na dApp Store. A loja não diz qual registro on-chain pertence a qual listagem, e qualquer pessoa pode criar um nomeando qualquer app.</string>
     <string name="proof_how_after">As respostas de um publicador comprovado levam o selo Publicador, e as avaliações dele sobre o próprio app não são contadas.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Voltar</string>
+    <string name="stars_a11y">%1$s de 5 estrelas</string>
+    <string name="err_network">Sem conexão. Verifique a rede e tente de novo.</string>
+    <string name="err_timeout">A solicitação expirou. Tente de novo.</string>
+    <string name="err_declined">Recusado na carteira. Nada foi assinado.</string>
+    <string name="err_funds">Não há saldo suficiente nesta carteira para esta transação e sua taxa de rede.</string>
+    <string name="link_confirm_body">Um link pediu para assinar isto. Confira o registro abaixo; sua carteira mostra o memo exato antes de você aprovar.</string>
+    <string name="link_confirm_sign">Assinar</string>
+    <string name="detail_pkg_updated">%1$s · atualizado %2$s</string>
+    <string name="anonymous">Anônimo</string>
+    <string name="discard_title">Descartar esta avaliação?</string>
+    <string name="discard_body">Sua nota, suas tags e seu texto ainda não foram assinados e serão perdidos.</string>
+    <string name="discard">Descartar</string>
+    <string name="keep_editing">Continuar editando</string>
+    <string name="text_invalid">Use no máximo %1$d caracteres, sem o caractere |.</string>
+    <string name="to_review_max">Até %1$d apps podem ser assinados juntos.</string>
+    <string name="confirm_disconnect_body">Este telefone esquece a carteira. Nada muda no ledger e você pode entrar de novo a qualquer momento.</string>
+    <string name="confirm_unshare_title">Retomar esta vaga do Pro?</string>
+    <string name="confirm_unshare_body">Isto assina um registro que encerra a vaga. A outra carteira perde o Pro que você compartilhou assim que for confirmado.</string>
+    <string name="confirm_unhide_body">Todo registro que você ocultou volta a aparecer na página do app dele.</string>
+    <string name="confirm_delete_body">Isto remove deste telefone seu registro de consentimento, os seguidos, os registros ocultos e com estrela, as vagas do Pro que você adicionou e a carteira. Nada muda no ledger. Você verá a tela de entrada de novo.</string>
+    <string name="confirm_delete_action">Excluir</string>
+    <string name="loading">Carregando…</string>
+    <string name="load_failed">Não foi possível carregar. Verifique a conexão e tente de novo.</string>
+    <string name="retry">Tentar de novo</string>
+    <string name="pay_listing_line">Código %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Isto assina um registro que tira a listagem do painel. Listar de novo significa pagar a taxa de listagem outra vez.</string>
+    <string name="confirm_withdraw_free">Isto assina um registro que tira a listagem do painel. Você pode listar de novo mais tarde.</string>
+    <string name="changes_new_a11y">Mudanças, há novidades para ver</string>
+    <string name="desk_signed_mean">%1$s assinadas</string>
+    <string name="stats_share_head">Ledger do Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registro %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d estrela</item>
+        <item quantity="other">%1$d estrelas</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Ver mais %1$d avaliação</item>
+        <item quantity="other">Ver mais %1$d avaliações</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d assinadas · credibilidade %2$d</item>
+        <item quantity="other">%1$d assinadas · credibilidade %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Caixa de entrada, %1$d nova</item>
+        <item quantity="other">Caixa de entrada, %1$d novas</item>
+    </plurals>
 </resources>

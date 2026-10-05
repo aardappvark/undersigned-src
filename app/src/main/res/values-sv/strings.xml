@@ -82,7 +82,7 @@
     <string name="standing_agreement">Taggöverensstämmelse med andra signerare: %1$s</string>
     <string name="standing_since">Har signerat sedan %1$s</string>
     <string name="standing_note2">Endast räkning. Inget betyg, inget att köpa.</string>
-    <string name="store_reviewer_genesis">Attesterad enhet</string>
+    <string name="store_reviewer_genesis">Seeker-ägare</string>
     <string name="store_reviewer_nogenesis">ingen attesterad enhet hittad</string>
     <string name="store_reviewer_signed_here">signerade även här</string>
     <string name="notif_divergence_title">%1$s: signerade och butikens betyg är oense</string>
@@ -138,7 +138,7 @@
     <string name="fact_perms_removed">Behörigheter borttagna: %1$s</string>
     <string name="fact_not_installed">Inte installerad på den här enheten. Installera den från dApp Store för att se enhetsfakta.</string>
     <string name="reviews_title">Signerade recensioner</string>
-    <string name="review_weight_verified">Attesterad ✓</string>
+    <string name="review_weight_verified">Attesterad</string>
     <string name="review_weight_unverified">räknas inte</string>
     <string name="review_hide">Dölj</string>
     <string name="review_report">Rapportera</string>
@@ -226,7 +226,7 @@
     <string name="flag_sign">Signera flaggan</string>
     <string name="flagged_hidden">Dold genom konsensus: flaggad som onaturlig av %1$s viktade Seekers</string>
     <string name="flagged_show">Visa ändå</string>
-    <string name="flagged_count">%1$s flaggvikt</string>
+    <string name="flagged_count">Flaggad · vikt %1$s</string>
     <string name="star">Stjärnmärk</string>
     <string name="unstar">Ta bort stjärnmärkning</string>
     <string name="inbox">Inkorg</string>
@@ -812,7 +812,7 @@
     <string name="notif_flagged_body">Angiven orsak: %1$s. Om du inte håller med kan du signera ett bestridande på posten.</string>
     <string name="notif_note_title">Utgivaren svarade på din butiksrecension · %1$s</string>
     <string name="notif_proven_title">Ditt anspråk är bevisat · %1$s</string>
-    <string name="notif_proven_body">Dina svar på den här appens recensioner bär nu märket Utgivare ✓, och dina egna recensioner av den räknas inte.</string>
+    <string name="notif_proven_body">Dina svar på den här appens recensioner bär nu märket Utgivare, och dina egna recensioner av den räknas inte.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Namnge din plånbok i din app (starkast)</string>
     <string name="claim_route_build_body">Lägg till den här raden inuti &lt;application&gt; i din apps manifest och släpp uppdateringen i dApp Store. Läsare granskar den build som butiken levererar: raden måste namnge den här plånboken och builden måste vara signerad med certifikatet som butiken listar. Bara innehavaren av din apps signeringsnyckel kan göra detta.</string>
@@ -830,4 +830,54 @@
     <string name="proof_not_title">Vad som inte bevisar det</string>
     <string name="proof_not_body">Plånbokens egen signatur, en betalningsadress eller plånboken som publicerade appen i dApp Store. Butiken säger inte vilken on-chain-post som hör till vilken listning, och vem som helst kan skapa en som namnger vilken app som helst.</string>
     <string name="proof_how_after">Svar från en bevisad utgivare bär märkningen Utgivare, och deras egna recensioner av appen räknas inte.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Tillbaka</string>
+    <string name="stars_a11y">%1$s av 5 stjärnor</string>
+    <string name="err_network">Ingen anslutning. Kontrollera nätverket och försök igen.</string>
+    <string name="err_timeout">Begäran tog för lång tid. Försök igen.</string>
+    <string name="err_declined">Nekades i plånboken. Inget signerades.</string>
+    <string name="err_funds">Det finns inte tillräckligt med pengar i den här plånboken för den här transaktionen och dess nätverksavgift.</string>
+    <string name="link_confirm_body">En länk bad om att få signera detta. Kontrollera posten nedan; din plånbok visar det exakta memot innan du godkänner.</string>
+    <string name="link_confirm_sign">Signera</string>
+    <string name="detail_pkg_updated">%1$s · uppdaterad %2$s</string>
+    <string name="anonymous">Anonym</string>
+    <string name="discard_title">Kassera den här recensionen?</string>
+    <string name="discard_body">Ditt betyg, dina taggar och din text är inte signerade än och går förlorade.</string>
+    <string name="discard">Kassera</string>
+    <string name="keep_editing">Fortsätt redigera</string>
+    <string name="text_invalid">Håll dig till %1$d tecken, utan tecknet |.</string>
+    <string name="to_review_max">Upp till %1$d appar kan signeras tillsammans.</string>
+    <string name="confirm_disconnect_body">Den här telefonen glömmer plånboken. Inget ändras i liggaren, och du kan logga in igen när som helst.</string>
+    <string name="confirm_unshare_title">Ta tillbaka den här Pro-platsen?</string>
+    <string name="confirm_unshare_body">Det här signerar en post som avslutar platsen. Den andra plånboken förlorar det Pro du delade så fort det är bekräftat.</string>
+    <string name="confirm_unhide_body">Varje post du dolt visas igen på sin apps sida.</string>
+    <string name="confirm_delete_body">Det här tar bort från den här telefonen din samtyckespost, följda, dolda och stjärnmärkta poster, de Pro-platser du lagt till och plånboken. Inget ändras i liggaren. Du ser inloggningsskärmen igen.</string>
+    <string name="confirm_delete_action">Ta bort</string>
+    <string name="loading">Läser in…</string>
+    <string name="load_failed">Det gick inte att läsa in. Kontrollera anslutningen och försök igen.</string>
+    <string name="retry">Försök igen</string>
+    <string name="pay_listing_line">Kod %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Det här signerar en post som tar bort listningen från tavlan. Att lista den igen innebär att betala listningsavgiften igen.</string>
+    <string name="confirm_withdraw_free">Det här signerar en post som tar bort listningen från tavlan. Du kan lista den igen senare.</string>
+    <string name="changes_new_a11y">Ändringar, det finns nytt att se</string>
+    <string name="desk_signed_mean">%1$s signerade</string>
+    <string name="stats_share_head">Undersigned-liggare, %1$s</string>
+    <string name="stats_share_registry">Register %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d stjärna</item>
+        <item quantity="other">%1$d stjärnor</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Visa %1$d recension till</item>
+        <item quantity="other">Visa %1$d recensioner till</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d signerade · trovärdighet %2$d</item>
+        <item quantity="other">%1$d signerade · trovärdighet %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Inkorg, %1$d ny</item>
+        <item quantity="other">Inkorg, %1$d nya</item>
+    </plurals>
 </resources>

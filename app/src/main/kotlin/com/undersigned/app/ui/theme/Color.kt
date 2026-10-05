@@ -19,8 +19,10 @@ object RbColors {
 
     val textPrimary = Color(0xFFF2EEFF)
     val textSecondary = Color(0xFFB7AED1)
-    val textTertiary = Color(0xFF7C7396)
-    val textDim = Color(0xFF4E4766)
+    // Raised 6 Oct 2026 for WCAG AA: tertiary was 4.1–4.3:1 on cards (now 5.1–5.5:1); dim was 2.2:1 (now 3.8–4.4:1,
+    // for decoration and disabled text only, never for something the user must read).
+    val textTertiary = Color(0xFF8C83A8)
+    val textDim = Color(0xFF756D90)
 
     val positive = green
     val negative = Color(0xFFFF6B6B)

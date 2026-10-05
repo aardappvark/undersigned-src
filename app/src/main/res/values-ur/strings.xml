@@ -92,7 +92,7 @@
     <string name="standing_agreement">دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت: %1$s</string>
     <string name="standing_since">%1$s سے دستخط کر رہے ہیں</string>
     <string name="standing_note2">صرف شمار۔ کوئی اسکور نہیں، خریدنے کے لیے کچھ نہیں۔</string>
-    <string name="store_reviewer_genesis">تصدیق شدہ آلہ</string>
+    <string name="store_reviewer_genesis">Seeker کا مالک</string>
     <string name="store_reviewer_nogenesis">کوئی تصدیق شدہ آلہ نہیں ملا</string>
     <string name="store_reviewer_signed_here">یہاں بھی دستخط کیے</string>
     <string name="notif_divergence_title">%1$s: دستخط شدہ اور اسٹور کے اسکور مختلف ہیں</string>
@@ -151,7 +151,7 @@
     <string name="fact_perms_removed">ہٹائی گئی اجازتیں: %1$s</string>
     <string name="fact_not_installed">اس آلے پر نصب نہیں۔ آلے کے حقائق دیکھنے کے لیے اسے dApp Store سے نصب کریں۔</string>
     <string name="reviews_title">دستخط شدہ جائزے</string>
-    <string name="review_weight_verified">تصدیق شدہ ✓</string>
+    <string name="review_weight_verified">مصدقہ</string>
     <string name="review_weight_unverified">شمار نہیں</string>
     <string name="review_hide">چھپائیں</string>
     <string name="review_report">رپورٹ کریں</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">نشان زدگی پر دستخط کریں</string>
     <string name="flagged_hidden">اتفاق رائے سے چھپایا گیا: %1$s وزنی Seekers نے غیر فطری قرار دیا</string>
     <string name="flagged_show">پھر بھی دکھائیں</string>
-    <string name="flagged_count">%1$s نشان زدگی کا وزن</string>
+    <string name="flagged_count">نشان زد · وزن %1$s</string>
     <string name="star">اسٹار لگائیں</string>
     <string name="unstar">اسٹار ہٹائیں</string>
     <string name="inbox">ان باکس</string>
@@ -814,7 +814,7 @@
     <string name="notif_flagged_body">بتائی گئی وجہ: %1$s۔ اگر آپ متفق نہیں ہیں تو ریکارڈ پر اعتراض دستخط کر سکتے ہیں۔</string>
     <string name="notif_note_title">پبلشر نے آپ کے اسٹور جائزے کا جواب دیا · %1$s</string>
     <string name="notif_proven_title">آپ کا دعویٰ ثابت ہو گیا · %1$s</string>
-    <string name="notif_proven_body">اس ایپ کے جائزوں پر آپ کے جوابات اب پبلشر ✓ کا نشان رکھتے ہیں، اور اس کے بارے میں آپ کے اپنے جائزے شمار نہیں ہوتے۔</string>
+    <string name="notif_proven_body">اس ایپ کے جائزوں پر آپ کے جوابات اب پبلشر کا نشان رکھتے ہیں، اور اس کے بارے میں آپ کے اپنے جائزے شمار نہیں ہوتے۔</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. اپنی ایپ میں اپنے والٹ کا نام درج کریں (سب سے مضبوط)</string>
     <string name="claim_route_build_body">اپنی ایپ کے مینی فیسٹ میں &lt;application&gt; کے اندر یہ لائن شامل کریں اور اپ ڈیٹ dApp Store پر جاری کریں۔ قارئین وہ بلڈ دیکھتے ہیں جو اسٹور فراہم کرتا ہے: لائن میں اسی والٹ کا نام ہونا چاہیے اور بلڈ اس سرٹیفکیٹ سے دستخط شدہ ہونی چاہیے جسے اسٹور درج کرتا ہے۔ یہ صرف آپ کی ایپ کی دستخطی کلید کا حامل ہی کر سکتا ہے۔</string>
@@ -832,4 +832,54 @@
     <string name="proof_not_title">کیا اسے ثابت نہیں کرتا</string>
     <string name="proof_not_body">والٹ کا اپنا دستخط، ادائیگی کا پتہ، یا وہ والٹ جس نے ایپ کو dApp Store پر شائع کیا۔ اسٹور یہ نہیں بتاتا کہ کون سا آن چین ریکارڈ کس لسٹنگ کا ہے، اور کوئی بھی کسی بھی ایپ کا نام دے کر ایک بنا سکتا ہے۔</string>
     <string name="proof_how_after">ثابت شدہ پبلشر کے جوابات پر پبلشر کا نشان ہوتا ہے، اور ایپ پر ان کے اپنے جائزے شمار نہیں کیے جاتے۔</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">واپس</string>
+    <string name="stars_a11y">5 میں سے %1$s ستارے</string>
+    <string name="err_network">کنکشن نہیں ہے۔ نیٹ ورک چیک کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="err_timeout">درخواست کا وقت ختم ہو گیا۔ دوبارہ کوشش کریں۔</string>
+    <string name="err_declined">والٹ میں مسترد کر دیا گیا۔ کچھ بھی دستخط نہیں ہوا۔</string>
+    <string name="err_funds">اس والٹ میں اس ٹرانزیکشن اور اس کی نیٹ ورک فیس کے لیے کافی رقم نہیں ہے۔</string>
+    <string name="link_confirm_body">ایک لنک نے اس پر دستخط مانگے ہیں۔ نیچے ریکارڈ دیکھ لیں؛ منظوری سے پہلے آپ کا والٹ درست میمو دکھاتا ہے۔</string>
+    <string name="link_confirm_sign">دستخط کریں</string>
+    <string name="detail_pkg_updated">%1$s · اپ ڈیٹ %2$s</string>
+    <string name="anonymous">گمنام</string>
+    <string name="discard_title">یہ جائزہ رہنے دیں؟</string>
+    <string name="discard_body">آپ کی ریٹنگ، ٹیگز اور متن پر ابھی دستخط نہیں ہوئے اور وہ ضائع ہو جائیں گے۔</string>
+    <string name="discard">ضائع کریں</string>
+    <string name="keep_editing">ترمیم جاری رکھیں</string>
+    <string name="text_invalid">| حرف کے بغیر زیادہ سے زیادہ %1$d حروف رکھیں۔</string>
+    <string name="to_review_max">ایک ساتھ زیادہ سے زیادہ %1$d ایپس پر دستخط کیے جا سکتے ہیں۔</string>
+    <string name="confirm_disconnect_body">یہ فون والٹ کو بھول جاتا ہے۔ لیجر پر کچھ نہیں بدلتا، اور آپ کسی بھی وقت دوبارہ سائن ان کر سکتے ہیں۔</string>
+    <string name="confirm_unshare_title">یہ Pro نشست واپس لیں؟</string>
+    <string name="confirm_unshare_body">یہ ایک ریکارڈ پر دستخط کرتا ہے جو نشست ختم کرتا ہے۔ تصدیق ہوتے ہی دوسرا والٹ آپ کا شیئر کیا ہوا Pro کھو دیتا ہے۔</string>
+    <string name="confirm_unhide_body">آپ کے چھپائے ہوئے ہر ریکارڈ اس کی ایپ کے صفحے پر دوبارہ دکھائی دیں گے۔</string>
+    <string name="confirm_delete_body">یہ اس فون سے آپ کا رضامندی کا ریکارڈ، فالوز، چھپے ہوئے اور ستارہ لگے ریکارڈ، آپ کی شامل کردہ Pro نشستیں اور والٹ ہٹا دیتا ہے۔ لیجر پر کچھ نہیں بدلتا۔ آپ کو دوبارہ سائن ان اسکرین نظر آئے گی۔</string>
+    <string name="confirm_delete_action">حذف کریں</string>
+    <string name="loading">لوڈ ہو رہا ہے…</string>
+    <string name="load_failed">یہ لوڈ نہیں ہو سکا۔ کنکشن چیک کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="retry">دوبارہ کوشش کریں</string>
+    <string name="pay_listing_line">کوڈ %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">یہ ایک ریکارڈ پر دستخط کرتا ہے جو اندراج کو بورڈ سے ہٹا دیتا ہے۔ اسے دوبارہ درج کرنے کا مطلب اندراج کی فیس دوبارہ ادا کرنا ہے۔</string>
+    <string name="confirm_withdraw_free">یہ ایک ریکارڈ پر دستخط کرتا ہے جو اندراج کو بورڈ سے ہٹا دیتا ہے۔ آپ اسے بعد میں دوبارہ درج کر سکتے ہیں۔</string>
+    <string name="changes_new_a11y">تبدیلیاں، دیکھنے کے لیے نئی ہیں</string>
+    <string name="desk_signed_mean">%1$s دستخط شدہ</string>
+    <string name="stats_share_head">Undersigned لیجر، %1$s</string>
+    <string name="stats_share_registry">رجسٹری %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d ستارہ</item>
+        <item quantity="other">%1$d ستارے</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">مزید %1$d جائزہ دکھائیں</item>
+        <item quantity="other">مزید %1$d جائزے دکھائیں</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d دستخط شدہ · ساکھ %2$d</item>
+        <item quantity="other">%1$d دستخط شدہ · ساکھ %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">ان باکس، %1$d نیا</item>
+        <item quantity="other">ان باکس، %1$d نیا</item>
+    </plurals>
 </resources>

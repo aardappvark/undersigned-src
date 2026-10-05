@@ -92,7 +92,7 @@
     <string name="standing_agreement">Concordanza dei tag con altri firmatari: %1$s</string>
     <string name="standing_since">Firma dal %1$s</string>
     <string name="standing_note2">Solo conteggi. Nessun punteggio, niente da acquistare.</string>
-    <string name="store_reviewer_genesis">Dispositivo attestato</string>
+    <string name="store_reviewer_genesis">Proprietario di Seeker</string>
     <string name="store_reviewer_nogenesis">nessun dispositivo attestato trovato</string>
     <string name="store_reviewer_signed_here">ha firmato anche qui</string>
     <string name="notif_divergence_title">%1$s: il punteggio firmato e quello dello store non coincidono</string>
@@ -150,7 +150,7 @@
     <string name="fact_perms_removed">Permessi rimossi: %1$s</string>
     <string name="fact_not_installed">Non installata su questo dispositivo. Installala dal dApp Store per vedere i dati del dispositivo.</string>
     <string name="reviews_title">Recensioni firmate</string>
-    <string name="review_weight_verified">Attestato ✓</string>
+    <string name="review_weight_verified">Attestato</string>
     <string name="review_weight_unverified">non conteggiata</string>
     <string name="review_hide">Nascondi</string>
     <string name="review_report">Segnala</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">Firma il flag</string>
     <string name="flagged_hidden">Nascosto per consenso: contrassegnato come innaturale da %1$s di peso in Seeker</string>
     <string name="flagged_show">Mostra comunque</string>
-    <string name="flagged_count">%1$s di peso in flag</string>
+    <string name="flagged_count">Flaggato · peso %1$s</string>
     <string name="star">Aggiungi ai preferiti</string>
     <string name="unstar">Rimuovi dai preferiti</string>
     <string name="inbox">Posta in arrivo</string>
@@ -840,7 +840,7 @@
     <string name="notif_flagged_body">Motivo indicato: %1$s. Se non sei d\'accordo, puoi firmare una contestazione sul record.</string>
     <string name="notif_note_title">L\'editore ha risposto alla tua recensione dello store · %1$s</string>
     <string name="notif_proven_title">La tua rivendicazione è provata · %1$s</string>
-    <string name="notif_proven_body">Le tue risposte alle recensioni di questa app ora portano il segno Editore ✓, e le tue recensioni di questa app non vengono conteggiate.</string>
+    <string name="notif_proven_body">Le tue risposte alle recensioni di questa app ora portano il segno Editore, e le tue recensioni di questa app non vengono conteggiate.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Indica il tuo portafoglio nella tua app (il più forte)</string>
     <string name="claim_route_build_body">Aggiungi questa riga dentro &lt;application&gt; nel manifest della tua app e rilascia l\'aggiornamento sul dApp Store. I lettori esaminano la build che lo store fornisce: la riga deve indicare questo portafoglio e la build deve essere firmata con il certificato che lo store elenca. Solo chi detiene la chiave di firma della tua app può farlo.</string>
@@ -858,4 +858,54 @@
     <string name="proof_not_title">Cosa non lo dimostra</string>
     <string name="proof_not_body">La firma del portafoglio stesso, un indirizzo di pagamento o il portafoglio che ha pubblicato l\'app sul dApp Store. Lo store non dice quale record on-chain appartiene a quale scheda, e chiunque può crearne uno che indichi qualsiasi app.</string>
     <string name="proof_how_after">Le risposte di un editore dimostrato portano il marchio Editore, e le sue recensioni della propria app non vengono contate.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Indietro</string>
+    <string name="stars_a11y">%1$s su 5 stelle</string>
+    <string name="err_network">Nessuna connessione. Controlla la rete e riprova.</string>
+    <string name="err_timeout">La richiesta è scaduta. Riprova.</string>
+    <string name="err_declined">Rifiutato nel portafoglio. Non è stato firmato nulla.</string>
+    <string name="err_funds">Fondi insufficienti in questo portafoglio per questa transazione e la sua commissione di rete.</string>
+    <string name="link_confirm_body">Un link ha chiesto di firmare questo. Controlla il record qui sotto; il tuo portafoglio mostra il memo esatto prima che tu approvi.</string>
+    <string name="link_confirm_sign">Firma</string>
+    <string name="detail_pkg_updated">%1$s · aggiornato %2$s</string>
+    <string name="anonymous">Anonimo</string>
+    <string name="discard_title">Scartare questa recensione?</string>
+    <string name="discard_body">La tua valutazione, i tag e il testo non sono ancora firmati e andranno persi.</string>
+    <string name="discard">Scarta</string>
+    <string name="keep_editing">Continua a modificare</string>
+    <string name="text_invalid">Al massimo %1$d caratteri, senza il carattere |.</string>
+    <string name="to_review_max">Si possono firmare insieme fino a %1$d app.</string>
+    <string name="confirm_disconnect_body">Questo telefono dimentica il portafoglio. Nel registro non cambia nulla e puoi accedere di nuovo in qualsiasi momento.</string>
+    <string name="confirm_unshare_title">Riprendere questo posto Pro?</string>
+    <string name="confirm_unshare_body">Questo firma un record che chiude il posto. L\'altro portafoglio perde il Pro che hai condiviso non appena è confermato.</string>
+    <string name="confirm_unhide_body">Ogni record che hai nascosto torna visibile nella pagina della sua app.</string>
+    <string name="confirm_delete_body">Questo rimuove da questo telefono il tuo record di consenso, i seguiti, i record nascosti e con stella, i posti Pro che hai aggiunto e il portafoglio. Nel registro non cambia nulla. Vedrai di nuovo la schermata di accesso.</string>
+    <string name="confirm_delete_action">Elimina</string>
+    <string name="loading">Caricamento…</string>
+    <string name="load_failed">Impossibile caricare. Controlla la connessione e riprova.</string>
+    <string name="retry">Riprova</string>
+    <string name="pay_listing_line">Codice %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Questo firma un record che toglie l\'inserzione dalla bacheca. Reinserirla significa pagare di nuovo la tariffa di inserzione.</string>
+    <string name="confirm_withdraw_free">Questo firma un record che toglie l\'inserzione dalla bacheca. Potrai reinserirla più tardi.</string>
+    <string name="changes_new_a11y">Modifiche, ce ne sono di nuove da vedere</string>
+    <string name="desk_signed_mean">%1$s firmate</string>
+    <string name="stats_share_head">Registro Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registro %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d stella</item>
+        <item quantity="other">%1$d stelle</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Mostra %1$d recensione in più</item>
+        <item quantity="other">Mostra %1$d recensioni in più</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d firmate · credibilità %2$d</item>
+        <item quantity="other">%1$d firmate · credibilità %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Posta in arrivo, %1$d nuovo</item>
+        <item quantity="other">Posta in arrivo, %1$d nuovi</item>
+    </plurals>
 </resources>

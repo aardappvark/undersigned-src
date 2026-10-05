@@ -38,23 +38,23 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
     val published = remember(verified) { vm.publishedBy(wallet) }
     val reviews = remember(entries) { vm.entriesBy(wallet).sortedByDescending { it.blockTime } }
     fun appName(pkg: String) = catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg
-    @Composable fun bucket(b: String) = when (b) { "hours" -> stringResource(R.string.bucket_hours); "days" -> stringResource(R.string.bucket_days); "weeks" -> stringResource(R.string.bucket_weeks); "months" -> stringResource(R.string.bucket_months); else -> b }
 
     Column(Modifier.fillMaxSize().background(RbColors.background)) {
-        PhotoBackdrop(R.drawable.photo_frame_4_seal, Modifier.fillMaxWidth().height(200.dp), fadeFrom = 0.30f) {
+        PhotoBackdrop(R.drawable.photo_frame_4_seal, Modifier.fillMaxWidth().heightIn(min = 200.dp), fadeFrom = 0.30f) {
             Row(Modifier.align(Alignment.TopStart).systemBarsPadding().padding(horizontal = 8.dp, vertical = 4.dp)) {
-                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textPrimary) }
+                BackButton(onBack, tint = RbColors.textPrimary)
             }
             Column(Modifier.align(Alignment.BottomStart).padding(horizontal = 20.dp, vertical = 12.dp)) {
                 Text(name, color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
-                Text(wallet, color = RbColors.textTertiary, fontSize = 10.sp, maxLines = 1)
+                Text(wallet, color = RbColors.textSecondary, fontSize = 11.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
             }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             SectionTitle(stringResource(R.string.profile_credibility))
             GlassCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text((st?.credibility ?: 40).toString(), color = RbColors.textPrimary, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold)
+                    Text(st?.credibility?.toString() ?: "—",   // no made-up 40 for a wallet not read yet
+                         color = RbColors.textPrimary, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold)
                     Spacer(Modifier.width(12.dp))
                     Column {
                         st?.let { Text(stringResource(R.string.standing_line, it.countedReviews, it.withdrawn, it.repliesReceived, it.repliesGiven), color = RbColors.textSecondary, fontSize = 12.sp) }
@@ -72,7 +72,7 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                     val r = vm.responsiveness(pkg)
                     GlassCard(modifier = Modifier.clickable { onOpen(pkg) }, accent = RbColors.green) {
                         Text(appName(pkg), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        Text(if (r.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucket(r.bucket), r.answered, r.total), color = RbColors.textSecondary, fontSize = 12.sp)
+                        Text(if (r.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucketLabel(r.bucket), r.answered, r.total), color = RbColors.textSecondary, fontSize = 12.sp)
                     }
                     Spacer(Modifier.height(8.dp))
                 }

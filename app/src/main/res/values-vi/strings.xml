@@ -91,7 +91,7 @@
     <string name="standing_agreement">Mức đồng thuận thẻ với những người ký khác: %1$s</string>
     <string name="standing_since">Đã ký từ %1$s</string>
     <string name="standing_note2">Chỉ đếm số lượng. Không có điểm số, không có gì để mua.</string>
-    <string name="store_reviewer_genesis">Thiết bị được xác nhận</string>
+    <string name="store_reviewer_genesis">Chủ sở hữu Seeker</string>
     <string name="store_reviewer_nogenesis">không tìm thấy thiết bị được xác nhận</string>
     <string name="store_reviewer_signed_here">cũng đã ký tại đây</string>
     <string name="notif_divergence_title">%1$s: điểm đã ký và điểm cửa hàng không khớp</string>
@@ -147,7 +147,7 @@
     <string name="fact_perms_removed">Quyền đã xóa: %1$s</string>
     <string name="fact_not_installed">Chưa được cài đặt trên thiết bị này. Hãy cài đặt từ dApp Store để xem thông tin thiết bị.</string>
     <string name="reviews_title">Đánh giá đã ký</string>
-    <string name="review_weight_verified">Đã xác nhận ✓</string>
+    <string name="review_weight_verified">Đã chứng thực</string>
     <string name="review_weight_unverified">không được tính</string>
     <string name="review_hide">Ẩn</string>
     <string name="review_report">Báo cáo</string>
@@ -240,7 +240,7 @@
     <string name="flag_sign">Ký cờ này</string>
     <string name="flagged_hidden">Bị ẩn theo đồng thuận: bị gắn cờ là bất thường bởi các Seeker có trọng số %1$s</string>
     <string name="flagged_show">Vẫn hiển thị</string>
-    <string name="flagged_count">Trọng số cờ %1$s</string>
+    <string name="flagged_count">Đã gắn cờ · trọng số %1$s</string>
     <string name="star">Đánh dấu sao</string>
     <string name="unstar">Bỏ đánh dấu sao</string>
     <string name="inbox">Hộp thư</string>
@@ -806,7 +806,7 @@
     <string name="notif_flagged_body">Lý do được nêu: %1$s. Nếu không đồng ý, bạn có thể ký một phản đối trên bản ghi.</string>
     <string name="notif_note_title">Nhà phát hành đã trả lời đánh giá cửa hàng của bạn · %1$s</string>
     <string name="notif_proven_title">Yêu cầu của bạn đã được chứng minh · %1$s</string>
-    <string name="notif_proven_body">Các phản hồi của bạn trên đánh giá của ứng dụng này giờ mang dấu Nhà phát hành ✓, và đánh giá của chính bạn về ứng dụng này không được tính.</string>
+    <string name="notif_proven_body">Các phản hồi của bạn trên đánh giá của ứng dụng này giờ mang dấu Nhà phát hành, và đánh giá của chính bạn về ứng dụng này không được tính.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Ghi tên ví của bạn trong ứng dụng (mạnh nhất)</string>
     <string name="claim_route_build_body">Thêm dòng này vào bên trong &lt;application&gt; trong manifest của ứng dụng rồi phát hành bản cập nhật lên dApp Store. Người đọc xem xét bản build mà cửa hàng cung cấp: dòng đó phải ghi tên ví này và bản build phải được ký bằng chứng chỉ mà cửa hàng liệt kê. Chỉ người giữ khóa ký của ứng dụng mới làm được điều này.</string>
@@ -824,4 +824,50 @@
     <string name="proof_not_title">Điều không chứng minh được</string>
     <string name="proof_not_body">Chữ ký của chính ví, một địa chỉ thanh toán, hoặc ví đã phát hành ứng dụng trên dApp Store. Cửa hàng không cho biết bản ghi on-chain nào thuộc về mục nào, và ai cũng có thể tạo một bản ghi nêu tên bất kỳ ứng dụng nào.</string>
     <string name="proof_how_after">Phần trả lời của nhà phát hành đã chứng minh mang dấu Nhà phát hành, và đánh giá của chính họ về ứng dụng không được tính.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Quay lại</string>
+    <string name="stars_a11y">%1$s trên 5 sao</string>
+    <string name="err_network">Không có kết nối. Hãy kiểm tra mạng và thử lại.</string>
+    <string name="err_timeout">Yêu cầu đã hết thời gian. Hãy thử lại.</string>
+    <string name="err_declined">Đã bị từ chối trong ví. Chưa có gì được ký.</string>
+    <string name="err_funds">Ví này không đủ số dư cho giao dịch này và phí mạng của nó.</string>
+    <string name="link_confirm_body">Một liên kết đã yêu cầu ký mục này. Hãy kiểm tra bản ghi bên dưới; ví của bạn hiển thị đúng memo trước khi bạn chấp thuận.</string>
+    <string name="link_confirm_sign">Ký</string>
+    <string name="detail_pkg_updated">%1$s · cập nhật %2$s</string>
+    <string name="anonymous">Ẩn danh</string>
+    <string name="discard_title">Bỏ đánh giá này?</string>
+    <string name="discard_body">Điểm đánh giá, thẻ và nội dung của bạn chưa được ký và sẽ bị mất.</string>
+    <string name="discard">Bỏ</string>
+    <string name="keep_editing">Tiếp tục chỉnh sửa</string>
+    <string name="text_invalid">Tối đa %1$d ký tự, không dùng ký tự |.</string>
+    <string name="to_review_max">Có thể ký cùng lúc tối đa %1$d ứng dụng.</string>
+    <string name="confirm_disconnect_body">Điện thoại này sẽ quên ví. Sổ cái không thay đổi gì, và bạn có thể đăng nhập lại bất cứ lúc nào.</string>
+    <string name="confirm_unshare_title">Thu hồi chỗ Pro này?</string>
+    <string name="confirm_unshare_body">Thao tác này ký một bản ghi kết thúc chỗ này. Ví kia sẽ mất Pro bạn đã chia sẻ ngay khi được xác nhận.</string>
+    <string name="confirm_unhide_body">Mọi bản ghi bạn đã ẩn sẽ hiện lại trên trang của ứng dụng đó.</string>
+    <string name="confirm_delete_body">Thao tác này xóa khỏi điện thoại bản ghi đồng ý, các mục theo dõi, bản ghi đã ẩn và gắn sao, các chỗ Pro bạn đã thêm và ví. Sổ cái không thay đổi gì. Bạn sẽ thấy lại màn hình đăng nhập.</string>
+    <string name="confirm_delete_action">Xóa</string>
+    <string name="loading">Đang tải…</string>
+    <string name="load_failed">Không tải được. Hãy kiểm tra kết nối và thử lại.</string>
+    <string name="retry">Thử lại</string>
+    <string name="pay_listing_line">Mã %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Thao tác này ký một bản ghi gỡ niêm yết khỏi bảng. Niêm yết lại nghĩa là phải trả lại phí niêm yết.</string>
+    <string name="confirm_withdraw_free">Thao tác này ký một bản ghi gỡ niêm yết khỏi bảng. Bạn có thể niêm yết lại sau.</string>
+    <string name="changes_new_a11y">Thay đổi, có mục mới để xem</string>
+    <string name="desk_signed_mean">%1$s đã ký</string>
+    <string name="stats_share_head">Sổ cái Undersigned, %1$s</string>
+    <string name="stats_share_registry">Sổ đăng ký %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="other">%1$d sao</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="other">Xem thêm %1$d đánh giá</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="other">%1$d đã ký · uy tín %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="other">Hộp thư, %1$d mới</item>
+    </plurals>
 </resources>

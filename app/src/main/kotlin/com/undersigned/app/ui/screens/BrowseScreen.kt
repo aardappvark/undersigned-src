@@ -18,6 +18,9 @@ import androidx.compose.material.icons.filled.RateReview
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,11 +64,15 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     val icons by vm.iconCache.state.collectAsState()
     val dense by UserPreferences.dense.collectAsState()
     val refreshing by vm.catalogueRefreshing.collectAsState()
-    var query by remember { mutableStateOf("") }
-    var tab by remember { mutableStateOf(Tab.INSTALLED) }
-    var sort by remember { mutableStateOf(Sort.SCORE) }
+    // Saveable: coming back from an app page used to clear the search, tab, sort and filter (UI review 6 Oct 2026).
+    var query by rememberSaveable { mutableStateOf("") }
+    // Until the user picks a tab: Installed, or Signed when no store app is installed (a fresh phone opened on an empty list).
+    var tabPicked by rememberSaveable { mutableStateOf<Tab?>(null) }
+    val installedCount = remember(installed, catalogue) { val c = catalogue.mapTo(HashSet()) { it.packageName }; installed.count { it in c } }
+    val tab = tabPicked ?: if (installedCount == 0 && catalogue.isNotEmpty()) Tab.SIGNED else Tab.INSTALLED
+    var sort by rememberSaveable { mutableStateOf(Sort.SCORE) }
     // Filter by a tag reviewers applied: the thing the store has no way to query.
-    var tagFilter by remember { mutableStateOf<com.undersigned.protocol.ReviewMemo.Tag?>(null) }
+    var tagFilter by rememberSaveable { mutableStateOf<com.undersigned.protocol.ReviewMemo.Tag?>(null) }
     val uncategorised = stringResource(R.string.category_none)
     val domainNames by vm.domainNames.collectAsState()
     val entriesForSigners by vm.entries.collectAsState()
@@ -97,7 +104,9 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     LaunchedEffect(apps) { vm.resolveIcons(apps.take(60).map { it.packageName }) }
     val listState = rememberLazyListState()
     val firstKey = rows.firstOrNull()?.let { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }
-    LaunchedEffect(firstKey, tab, sort) { if (!listState.isScrollInProgress) listState.scrollToItem(0) }
+    // Back to the top when the list itself changes, but not on returning to this screen (its position is restored).
+    var shownKey by rememberSaveable { mutableStateOf<String?>(null) }
+    LaunchedEffect(firstKey, tab, sort) { val k = "$firstKey|$tab|$sort"; if (shownKey != null && shownKey != k && !listState.isScrollInProgress) listState.scrollToItem(0); shownKey = k }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -106,10 +115,10 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             val inboxCount = remember(entriesAll) { vm.unanswered().size + vm.repliesToMe().size }
             IconButton(onClick = onMyReviews) { Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.my_reviews_title), tint = RbColors.textSecondary) }
             IconButton(onClick = onInbox) {
-                BadgedBox(badge = { if (inboxCount > 0) Badge(containerColor = RbColors.purple) { Text("$inboxCount") } }) { Icon(Icons.Default.Inbox, contentDescription = stringResource(R.string.inbox), tint = RbColors.textSecondary) }
+                BadgedBox(badge = { if (inboxCount > 0) Badge(containerColor = RbColors.purple) { Text("$inboxCount") } }) { Icon(Icons.Default.Inbox, contentDescription = if (inboxCount > 0) pluralStringResource(R.plurals.inbox_a11y, inboxCount, inboxCount) else stringResource(R.string.inbox), tint = RbColors.textSecondary) }
             }
             IconButton(onClick = onChanges) {
-                BadgedBox(badge = { if (changes.any { !it.firstSeen }) Badge(containerColor = RbColors.warning) }) { Icon(Icons.Default.Update, contentDescription = stringResource(R.string.changes_title), tint = RbColors.textSecondary) }
+                BadgedBox(badge = { if (changes.any { !it.firstSeen }) Badge(containerColor = RbColors.warning) }) { Icon(Icons.Default.Update, contentDescription = stringResource(if (changes.any { !it.firstSeen }) R.string.changes_new_a11y else R.string.changes_title), tint = RbColors.textSecondary) }
             }
             IconButton(onClick = onSettings) { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings), tint = RbColors.textSecondary) }
         }
@@ -134,15 +143,15 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight),
         )
         TabRow(selectedTabIndex = tab.ordinal, containerColor = RbColors.background, contentColor = RbColors.purpleLight) {
-            Tab(selected = tab == Tab.INSTALLED, onClick = { tab = Tab.INSTALLED }, text = { Text(stringResource(R.string.tab_installed) + " · ${installed.count { p -> catalogue.any { it.packageName == p } }}", fontSize = 13.sp) })
-            Tab(selected = tab == Tab.SIGNED, onClick = { tab = Tab.SIGNED }, text = { Text(stringResource(R.string.tab_signed) + " · ${scores.size}", fontSize = 13.sp) })
-            Tab(selected = tab == Tab.ALL, onClick = { tab = Tab.ALL }, text = { Text(stringResource(R.string.tab_all), fontSize = 13.sp) })
+            Tab(selected = tab == Tab.INSTALLED, onClick = { tabPicked = Tab.INSTALLED }, text = { Text(stringResource(R.string.tab_installed) + " · $installedCount", fontSize = 13.sp) })
+            Tab(selected = tab == Tab.SIGNED, onClick = { tabPicked = Tab.SIGNED }, text = { Text(stringResource(R.string.tab_signed) + " · ${scores.size}", fontSize = 13.sp) })
+            Tab(selected = tab == Tab.ALL, onClick = { tabPicked = Tab.ALL }, text = { Text(stringResource(R.string.tab_all), fontSize = 13.sp) })
         }
         ChipRow(stringResource(R.string.sort), listOf(Sort.SCORE to stringResource(R.string.sort_score), Sort.NEW to stringResource(R.string.sort_new), Sort.CATEGORY to stringResource(R.string.sort_category), Sort.NAME to stringResource(R.string.sort_name)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp, vertical = 2.dp))
         // Tags in use on the ledger, most used first; tapping one shows only apps reviewers gave that tag (with its count).
         val tagsInUse = remember(scores) { scores.values.flatMap { it.tagCounts.entries }.groupBy({ it.key }, { it.value }).mapValues { it.value.sum() }.entries.sortedByDescending { it.value }.map { it.key to it.value } }
         if (tagsInUse.isNotEmpty()) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.browse_tag_filter), color = RbColors.textTertiary, fontSize = 11.sp)
+            Text(stringResource(R.string.browse_tag_filter).uppercase(), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)   // the same label style as SORT
             TagChip(stringResource(R.string.browse_tag_any), selected = tagFilter == null) { tagFilter = null }
             tagsInUse.forEach { (t, n) -> TagChip(context.tagLabel(t.wire), count = n, selected = tagFilter == t) { tagFilter = if (tagFilter == t) null else t } }
         }
@@ -153,13 +162,13 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                 if (!refreshing) TextButton(onClick = { vm.refreshCatalogue() }, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text(stringResource(R.string.reread_catalogue), color = RbColors.purpleLight, fontSize = 13.sp) }
             }
             rows.isEmpty() && tab == Tab.SIGNED -> EmptyState(R.drawable.photo_empty_signed, stringResource(R.string.empty_signed))
-            rows.isEmpty() -> Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(R.string.empty_installed), color = RbColors.textSecondary, fontSize = 14.sp, textAlign = TextAlign.Center) }
-            else -> LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(bottom = 24.dp)) {
+            rows.isEmpty() -> Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(if (catalogue.isEmpty()) R.string.loading else R.string.empty_installed), color = RbColors.textSecondary, fontSize = 14.sp, textAlign = TextAlign.Center) }
+            else -> { val standings by vm.standings.collectAsState(); LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(bottom = 24.dp)) {
                 // Signers whose name or address matches the query, above the dApps (design: Screens E "Search signers").
                 if (signerRows.isNotEmpty()) {
                     item(key = "signers-head") { CategoryHead(stringResource(R.string.signers_heading), signerRows.size) }
                     items(signerRows, key = { "signer:" + it.first }) { (w, name) ->
-                        val st = vm.standings.collectAsState().value[w]
+                        val st = standings[w]
                         androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth().clickable { onProfile(w) }.heightIn(min = 48.dp).padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                             com.undersigned.app.ui.components.LetterBadge(name, Modifier.size(36.dp))
                             Spacer(Modifier.width(12.dp))
@@ -179,7 +188,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                         }
                     }
                 }
-            }
+            } }
         }
     }
 }
@@ -193,6 +202,7 @@ private fun CategoryHead(category: String, count: Int) {
 }
 
 /** Balanced: two lines, 44 dp icon, chips with counts, the category as a pill in a right-hand column. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AppRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, onClick: () -> Unit) {
     Column(Modifier.fillMaxWidth().clickable { onClick() }.padding(horizontal = 20.dp, vertical = 10.dp)) {
@@ -211,14 +221,15 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, 
         }
         Spacer(Modifier.height(6.dp))
         if (score != null) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                RatingStars(score.weightedMean)
-                Spacer(Modifier.width(6.dp))
-                Text(String.format(java.util.Locale.US, "%.1f", score.weightedMean), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                Spacer(Modifier.width(8.dp))
-                Text(stringResource(R.string.row_signed_count, score.countedReviews), color = RbColors.textSecondary, fontSize = 12.sp)
-                Spacer(Modifier.width(8.dp))
-                score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.label(), n); Spacer(Modifier.width(4.dp)) }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RatingStars(score.weightedMean)
+                    Spacer(Modifier.width(6.dp))
+                    Text(String.format(java.util.Locale.US, "%.1f", score.weightedMean), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.row_signed_count, score.countedReviews), color = RbColors.textSecondary, fontSize = 12.sp)
+                }
+                score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.label(), n) }
             }
         } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textTertiary, fontSize = 12.sp)
     }
@@ -234,14 +245,14 @@ private fun DenseRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (showInstalled) { Box(Modifier.size(6.dp).clip(CircleShape).background(RbColors.green)); Spacer(Modifier.width(6.dp)) }
+                if (showInstalled) { val inst = stringResource(R.string.tab_installed); Box(Modifier.size(6.dp).clip(CircleShape).background(RbColors.green).semantics { contentDescription = inst }); Spacer(Modifier.width(6.dp)) }
                 Text(app.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             Text(score?.tagCounts?.entries?.sortedByDescending { it.value }?.take(3)?.joinToString(" · ") { context.tagLabel(it.key.wire) }?.ifEmpty { null } ?: stringResource(R.string.row_no_reviews),
                 color = RbColors.textTertiary, fontSize = 10.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
         Spacer(Modifier.width(8.dp))
-        Column(horizontalAlignment = Alignment.End, modifier = Modifier.width(96.dp)) {
+        Column(horizontalAlignment = Alignment.End, modifier = Modifier.widthIn(min = 96.dp)) {
             if (score != null) {
                 RatingStars(score.weightedMean, size = 10)
                 Text(String.format(java.util.Locale.US, "%.1f · %d", score.weightedMean, score.countedReviews), color = RbColors.textPrimary, fontSize = 11.sp, fontWeight = FontWeight.Bold)

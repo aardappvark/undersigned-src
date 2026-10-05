@@ -89,7 +89,7 @@
     <string name="standing_agreement">Zgodność tagów z innymi sygnatariuszami: %1$s</string>
     <string name="standing_since">Podpisuje od %1$s</string>
     <string name="standing_note2">Tylko liczby. Brak wyniku, nic do kupienia.</string>
-    <string name="store_reviewer_genesis">Potwierdzone urządzenie</string>
+    <string name="store_reviewer_genesis">Właściciel Seekera</string>
     <string name="store_reviewer_nogenesis">nie znaleziono potwierdzonego urządzenia</string>
     <string name="store_reviewer_signed_here">podpisano też tutaj</string>
     <string name="notif_divergence_title">%1$s: podpisane i sklepowe oceny się różnią</string>
@@ -154,7 +154,7 @@
     <string name="fact_perms_removed">Usunięte uprawnienia: %1$s</string>
     <string name="fact_not_installed">Nie zainstalowano na tym urządzeniu. Zainstaluj z dApp Store, aby zobaczyć fakty o urządzeniu.</string>
     <string name="reviews_title">Podpisane recenzje</string>
-    <string name="review_weight_verified">Potwierdzone ✓</string>
+    <string name="review_weight_verified">Atestowane</string>
     <string name="review_weight_unverified">nie liczy się</string>
     <string name="review_hide">Ukryj</string>
     <string name="review_report">Zgłoś</string>
@@ -250,7 +250,7 @@
     <string name="flag_sign">Podpisz oznaczenie</string>
     <string name="flagged_hidden">Ukryte przez konsensus: oznaczone jako nienaturalne przez %1$s ważonych Seekerów</string>
     <string name="flagged_show">Mimo to pokaż</string>
-    <string name="flagged_count">waga oznaczeń %1$s</string>
+    <string name="flagged_count">Oznaczono · waga %1$s</string>
     <string name="star">Do ulubionych</string>
     <string name="unstar">Z ulubionych</string>
     <string name="inbox">Skrzynka</string>
@@ -829,7 +829,7 @@
     <string name="notif_flagged_body">Podany powód: %1$s. Jeśli się nie zgadzasz, możesz podpisać zakwestionowanie tego wpisu.</string>
     <string name="notif_note_title">Wydawca odpowiedział na Twoją recenzję ze sklepu · %1$s</string>
     <string name="notif_proven_title">Twoje roszczenie jest potwierdzone · %1$s</string>
-    <string name="notif_proven_body">Twoje odpowiedzi na recenzje tej aplikacji noszą teraz oznaczenie Wydawca ✓, a Twoje własne recenzje tej aplikacji nie są liczone.</string>
+    <string name="notif_proven_body">Twoje odpowiedzi na recenzje tej aplikacji noszą teraz oznaczenie Wydawca, a Twoje własne recenzje tej aplikacji nie są liczone.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Wpisz swój portfel w swojej aplikacji (najsilniejsze)</string>
     <string name="claim_route_build_body">Dodaj tę linię wewnątrz &lt;application&gt; w manifeście swojej aplikacji i wydaj aktualizację w dApp Store. Czytelnicy sprawdzają kompilację, którą udostępnia sklep: linia musi wymieniać ten portfel, a kompilacja musi być podpisana certyfikatem, który podaje sklep. Może to zrobić tylko posiadacz klucza podpisującego Twojej aplikacji.</string>
@@ -847,4 +847,62 @@
     <string name="proof_not_title">Czego to nie dowodzi</string>
     <string name="proof_not_body">Własny podpis portfela, adres płatności albo portfel, który opublikował aplikację w dApp Store. Sklep nie mówi, który wpis on-chain należy do którego wpisu w sklepie, a każdy może utworzyć taki, który wymienia dowolną aplikację.</string>
     <string name="proof_how_after">Odpowiedzi udowodnionego wydawcy noszą odznakę Wydawca, a jego własne recenzje aplikacji nie są liczone.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Wstecz</string>
+    <string name="stars_a11y">%1$s na 5 gwiazdek</string>
+    <string name="err_network">Brak połączenia. Sprawdź sieć i spróbuj ponownie.</string>
+    <string name="err_timeout">Upłynął czas żądania. Spróbuj ponownie.</string>
+    <string name="err_declined">Odrzucono w portfelu. Nic nie zostało podpisane.</string>
+    <string name="err_funds">W tym portfelu brakuje środków na tę transakcję i jej opłatę sieciową.</string>
+    <string name="link_confirm_body">Link poprosił o podpisanie tego. Sprawdź zapis poniżej; portfel pokaże dokładne memo, zanim zatwierdzisz.</string>
+    <string name="link_confirm_sign">Podpisz</string>
+    <string name="detail_pkg_updated">%1$s · zaktualizowano %2$s</string>
+    <string name="anonymous">Anonim</string>
+    <string name="discard_title">Odrzucić tę recenzję?</string>
+    <string name="discard_body">Twoja ocena, tagi i tekst nie są jeszcze podpisane i zostaną utracone.</string>
+    <string name="discard">Odrzuć</string>
+    <string name="keep_editing">Edytuj dalej</string>
+    <string name="text_invalid">Maksymalnie %1$d znaków, bez znaku |.</string>
+    <string name="to_review_max">Razem można podpisać do %1$d aplikacji.</string>
+    <string name="confirm_disconnect_body">Ten telefon zapomina portfel. W rejestrze nic się nie zmienia, a zalogować się ponownie możesz w każdej chwili.</string>
+    <string name="confirm_unshare_title">Odebrać to miejsce Pro?</string>
+    <string name="confirm_unshare_body">To podpisuje zapis, który kończy miejsce. Drugi portfel traci udostępnione przez Ciebie Pro po potwierdzeniu.</string>
+    <string name="confirm_unhide_body">Każdy ukryty przez Ciebie zapis znowu pojawi się na stronie swojej aplikacji.</string>
+    <string name="confirm_delete_body">To usuwa z tego telefonu Twój zapis zgody, obserwowania, ukryte i oznaczone gwiazdką zapisy, dodane przez Ciebie miejsca Pro oraz portfel. W rejestrze nic się nie zmienia. Znowu zobaczysz ekran logowania.</string>
+    <string name="confirm_delete_action">Usuń</string>
+    <string name="loading">Ładowanie…</string>
+    <string name="load_failed">Nie udało się tego załadować. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="retry">Spróbuj ponownie</string>
+    <string name="pay_listing_line">Kod %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">To podpisuje zapis, który zdejmuje wpis z listy. Ponowne dodanie oznacza ponowną opłatę za wpis.</string>
+    <string name="confirm_withdraw_free">To podpisuje zapis, który zdejmuje wpis z listy. Możesz dodać go ponownie później.</string>
+    <string name="changes_new_a11y">Zmiany, są nowe do zobaczenia</string>
+    <string name="desk_signed_mean">%1$s podpisanych</string>
+    <string name="stats_share_head">Rejestr Undersigned, %1$s</string>
+    <string name="stats_share_registry">Rejestr %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d gwiazdka</item>
+        <item quantity="few">%1$d gwiazdki</item>
+        <item quantity="many">%1$d gwiazdek</item>
+        <item quantity="other">%1$d gwiazdki</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Pokaż jeszcze %1$d recenzję</item>
+        <item quantity="few">Pokaż jeszcze %1$d recenzje</item>
+        <item quantity="many">Pokaż jeszcze %1$d recenzji</item>
+        <item quantity="other">Pokaż jeszcze %1$d recenzji</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d podpisanych · wiarygodność %2$d</item>
+        <item quantity="few">%1$d podpisanych · wiarygodność %2$d</item>
+        <item quantity="many">%1$d podpisanych · wiarygodność %2$d</item>
+        <item quantity="other">%1$d podpisanych · wiarygodność %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Skrzynka, %1$d nowa</item>
+        <item quantity="few">Skrzynka, %1$d nowe</item>
+        <item quantity="many">Skrzynka, %1$d nowych</item>
+        <item quantity="other">Skrzynka, %1$d nowej</item>
+    </plurals>
 </resources>

@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.BackButton
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -60,7 +61,7 @@ fun LedgerStatsScreen(vm: MainViewModel, onBack: () -> Unit) {
     )
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.stats_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
@@ -74,7 +75,7 @@ fun LedgerStatsScreen(vm: MainViewModel, onBack: () -> Unit) {
             Spacer(Modifier.height(12.dp))
             SecondaryButton(stringResource(R.string.stats_share), onClick = {
                 val body = buildString {
-                    appendLine("Undersigned ledger — ${df.format(Date())}"); appendLine("Registry ${AppConfig.Ledger.REGISTRY}")
+                    appendLine(context.getString(R.string.stats_share_head, df.format(Date()))); appendLine(context.getString(R.string.stats_share_registry, AppConfig.Ledger.REGISTRY))
                     rows.forEach { (label, value) -> appendLine("${context.getString(label)}: $value") }
                 }
                 try { context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, body) }, null)) } catch (_: Exception) { }

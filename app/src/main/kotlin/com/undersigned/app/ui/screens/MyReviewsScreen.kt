@@ -40,7 +40,7 @@ import java.util.Date
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit, onPro: () -> Unit, onToReview: () -> Unit = {}) {
+fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit, onPro: () -> Unit, onToReview: () -> Unit = {}, onSignIn: () -> Unit = {}) {
     val context = LocalContext.current
     val wallet by vm.wallet.collectAsState()
     val entries by vm.entries.collectAsState()
@@ -55,6 +55,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
     var query by remember { mutableStateOf("") }
     var stage by remember { mutableStateOf<String?>(null) }
     var message by remember { mutableStateOf<String?>(null) }
+    var messageOk by remember { mutableStateOf(true) }
     var handoff by remember { mutableStateOf<Pair<String, String?>?>(null) }
     val all = remember(entries, store, catalogue, wallet) { vm.myDapps() }
     LaunchedEffect(all) { vm.resolveIcons(all.map { it.pkg }) }
@@ -80,24 +81,27 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
     }
     if (rationale) ScanRationaleSheet(
         onAllow = { rationale = false; com.undersigned.app.data.UserPreferences.scanRationaleShown = true; askNotif.launch(android.Manifest.permission.POST_NOTIFICATIONS) },
-        onSkip = { rationale = false; com.undersigned.app.data.UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() })
+        onSkip = { rationale = false; com.undersigned.app.data.UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() },
+        onDismiss = { rationale = false })
     fun date(sec: Long) = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(sec * 1000))
     fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
         val s = sender ?: return
         message = null
         vm.requestImport(s, listOf(pkg to r), onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res ->
             stage = null
-            message = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message })
+            messageOk = res.isSuccess
+            message = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { context.errorText(it) })
         }
     }
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.my_reviews_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
         if (wallet == null) {
             Text(stringResource(R.string.my_reviews_sign_in), color = RbColors.textSecondary, fontSize = 14.sp, modifier = Modifier.padding(20.dp))
+            SecondaryButton(stringResource(R.string.settings_signin), onClick = onSignIn, modifier = Modifier.padding(horizontal = 20.dp))   // not a dead end
             return@Column
         }
         // Apps on this phone not reviewed yet: the way into reviewing several at once.
@@ -127,7 +131,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
             }
             scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             scanResult?.let { (failed, total) -> if (scan == null && failed > 0) Text(stringResource(R.string.import_incomplete, failed, total), color = RbColors.warning, fontSize = 11.sp) }
-            (stage ?: message)?.let { Text(it, color = if (stage != null) RbColors.purpleLight else RbColors.green, fontSize = 12.sp) }
+            (stage ?: message)?.let { Text(it, color = if (stage != null) RbColors.purpleLight else if (messageOk) RbColors.green else RbColors.negative, fontSize = 12.sp) }
         }
         if (shown.isEmpty()) {
             Text(stringResource(if (all.isEmpty()) R.string.my_reviews_empty else R.string.my_reviews_no_match), color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 20.sp, modifier = Modifier.padding(20.dp))
@@ -186,8 +190,9 @@ private fun Side(label: String) {
 /** "Hear when the scan is done" (design F8): shown once, before Android's notification prompt. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScanRationaleSheet(onAllow: () -> Unit, onSkip: () -> Unit) {
-    ModalBottomSheet(onDismissRequest = onSkip, containerColor = RbColors.surface) {
+fun ScanRationaleSheet(onAllow: () -> Unit, onSkip: () -> Unit, onDismiss: () -> Unit = {}) {
+    // A swipe or a tap outside closes the sheet and starts nothing (it used to start the multi-minute scan).
+    ModalBottomSheet(onDismissRequest = onDismiss, containerColor = RbColors.surface) {
         Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp).padding(bottom = 24.dp)) {
             Box(Modifier.size(48.dp).clip(androidx.compose.foundation.shape.CircleShape).background(RbColors.purple.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
                 Icon(androidx.compose.material.icons.Icons.Default.Notifications, contentDescription = null, tint = RbColors.purpleLight) }

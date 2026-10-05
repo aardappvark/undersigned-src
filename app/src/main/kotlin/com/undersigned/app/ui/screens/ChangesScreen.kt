@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.BackButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -35,7 +36,7 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
     val details by vm.storeDetails.collectAsState()
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = RbColors.textSecondary) }
+            BackButton(onBack)
             Text(stringResource(R.string.changes_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
         Text(stringResource(R.string.changes_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp))
@@ -66,7 +67,7 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
                             Column(Modifier.padding(top = 6.dp).fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(RbColors.surfaceVariant).padding(10.dp)) {
                                 Text(stringResource(R.string.change_whats_new), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                 Text(notes, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, maxLines = if (open) Int.MAX_VALUE else 4, overflow = TextOverflow.Ellipsis)
-                                if (notes.length > 180 || notes.count { it == '\n' } >= 4) Text(stringResource(if (open) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp).clickable { open = !open })
+                                if (notes.length > 180 || notes.count { it == '\n' } >= 4) TextButton(onClick = { open = !open }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(if (open) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 12.sp) }
                             }
                         }
                     }

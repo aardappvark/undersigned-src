@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -16,6 +18,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import com.undersigned.app.R
 import com.undersigned.app.ui.theme.RbColors
 
@@ -40,7 +48,8 @@ fun PrimaryButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifi
         modifier = modifier.fillMaxWidth().height(52.dp),
         shape = RoundedCornerShape(14.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = RbColors.purple, contentColor = RbColors.textPrimary,
+            // Pure white: the off-white text was 4.2:1 on this purple, under the 4.5:1 AA minimum; white is 4.52:1.
+            containerColor = RbColors.purple, contentColor = Color.White,
             disabledContainerColor = RbColors.surfaceVariant, disabledContentColor = RbColors.textTertiary,
         ),
     ) {
@@ -92,8 +101,10 @@ fun SectionTitle(text: String, trailing: (@Composable () -> Unit)? = null) {
 
 @Composable
 fun RatingStars(rating: Double, modifier: Modifier = Modifier, size: Int = 14) {
-    Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        val full = kotlin.math.floor(rating).toInt()
+    // Rounded, not floored: 4.9 drew four stars (UI review 6 Oct 2026). Read as one phrase, not five glyph names.
+    val a11y = androidx.compose.ui.res.stringResource(R.string.stars_a11y, String.format(java.util.Locale.US, "%.1f", rating))
+    Row(modifier.semantics(mergeDescendants = true) { contentDescription = a11y }, verticalAlignment = Alignment.CenterVertically) {
+        val full = kotlin.math.round(rating).toInt()
         repeat(5) { i ->
             Text(if (i < full) "★" else "☆", color = if (i < full) RbColors.warning else RbColors.textTertiary, fontSize = size.sp)
         }
@@ -104,7 +115,9 @@ fun RatingStars(rating: Double, modifier: Modifier = Modifier, size: Int = 14) {
 fun TagChip(text: String, count: Int? = null, selected: Boolean = false, onClick: (() -> Unit)? = null) {
     val bg = if (selected) RbColors.purple.copy(alpha = 0.35f) else RbColors.surfaceVariant
     val fg = if (selected) RbColors.textPrimary else RbColors.textSecondary
-    val m = Modifier.clip(RoundedCornerShape(50)).background(bg).let { if (onClick != null) it.clickable { onClick() } else it }.padding(horizontal = 10.dp, vertical = 5.dp)
+    // A tappable chip keeps its compact look but gets a 48 dp touch target and says whether it is selected.
+    val m = (if (onClick != null) Modifier.minimumInteractiveComponentSize() else Modifier).clip(RoundedCornerShape(50)).background(bg)
+        .let { if (onClick != null) it.semantics { this.selected = selected }.clickable(role = Role.Button) { onClick() } else it }.padding(horizontal = 10.dp, vertical = 5.dp)
     Text(if (count != null) "$text · $count" else text, color = fg, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = m)
 }
 
@@ -155,7 +168,12 @@ fun Context.tagLabel(wire: String): String =
  * Falls back to the raw day if the store ever sends something unparseable.
  */
 fun storeDate(iso: String): String = runCatching {
-    java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(java.time.Instant.parse(iso).toEpochMilli()))
+    // A full timestamp, or a plain day ("2026-09-04", the catalogue's "updated"), both in the phone's format.
+    val df = java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM)
+    val ms = runCatching { java.time.Instant.parse(iso).toEpochMilli() }.getOrElse {
+        df.timeZone = java.util.TimeZone.getTimeZone("UTC")   // a calendar day has no time zone: never shift it by one
+        java.time.LocalDate.parse(iso).atStartOfDay(java.time.ZoneOffset.UTC).toInstant().toEpochMilli() }
+    df.format(java.util.Date(ms))
 }.getOrElse { iso.take(10) }
 
 /** The reader's words for an install-age bucket. */
@@ -202,5 +220,53 @@ fun TagPicker(selected: List<com.undersigned.protocol.ReviewMemo.Tag>, enabled: 
                 }
             }
         }
+    }
+}
+
+/** The back arrow every screen's header uses, with its screen-reader label (all 16 had none, UI review 6 Oct 2026). */
+@Composable
+fun BackButton(onClick: () -> Unit, enabled: Boolean = true, tint: Color = RbColors.textSecondary) {
+    IconButton(onClick = onClick, enabled = enabled) {
+        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = androidx.compose.ui.res.stringResource(R.string.back), tint = tint)
+    }
+}
+
+/** A star rating the user sets: each star is a radio button with its own label and a 48 dp target. */
+@Composable
+fun RatingInput(rating: Int, enabled: Boolean = true, size: Int = 34, onChange: (Int) -> Unit) {
+    Row(Modifier.selectableGroup(), verticalAlignment = Alignment.CenterVertically) {
+        (1..5).forEach { i ->
+            val label = androidx.compose.ui.res.pluralStringResource(R.plurals.rate_stars, i, i)
+            Box(Modifier.minimumInteractiveComponentSize().selectable(selected = rating == i, enabled = enabled, role = Role.RadioButton) { onChange(i) }
+                .semantics { contentDescription = label }, contentAlignment = Alignment.Center) {
+                Text(if (i <= rating) "★" else "☆", color = if (i <= rating) RbColors.warning else RbColors.textTertiary, fontSize = size.sp)
+            }
+        }
+    }
+}
+
+/** How quickly a publisher answers, in the reader's words; one mapping instead of four copies. */
+@Composable
+fun bucketLabel(bucket: String): String = when (bucket) {
+    "hours" -> androidx.compose.ui.res.stringResource(R.string.bucket_hours)
+    "days" -> androidx.compose.ui.res.stringResource(R.string.bucket_days)
+    "weeks" -> androidx.compose.ui.res.stringResource(R.string.bucket_weeks)
+    "months" -> androidx.compose.ui.res.stringResource(R.string.bucket_months)
+    else -> bucket
+}
+
+/**
+ * A failure in the reader's language where it can be recognised (declined in the wallet, not enough funds, no network,
+ * timed out); otherwise the wallet's or RPC's own message, and never an empty line.
+ */
+fun Context.errorText(e: Throwable?): String {
+    val m = (e?.message ?: "").lowercase()
+    return when {
+        e is java.net.UnknownHostException || e is java.net.ConnectException || "unable to resolve host" in m -> getString(R.string.err_network)
+        e is java.net.SocketTimeoutException || "timeout" in m || "timed out" in m -> getString(R.string.err_timeout)
+        "declin" in m || "reject" in m || "cancel" in m || "not authorized" in m -> getString(R.string.err_declined)
+        "insufficient" in m -> getString(R.string.err_funds)
+        m.isBlank() -> getString(R.string.action_failed)
+        else -> e!!.message!!
     }
 }

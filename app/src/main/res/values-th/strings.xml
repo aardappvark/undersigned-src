@@ -81,7 +81,7 @@
     <string name="standing_agreement">ความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น: %1$s</string>
     <string name="standing_since">ลงลายเซ็นมาตั้งแต่ %1$s</string>
     <string name="standing_note2">นับจำนวนเท่านั้น ไม่มีคะแนน ไม่มีอะไรให้ซื้อ</string>
-    <string name="store_reviewer_genesis">อุปกรณ์ที่ได้รับการรับรอง</string>
+    <string name="store_reviewer_genesis">เจ้าของ Seeker</string>
     <string name="store_reviewer_nogenesis">ไม่พบอุปกรณ์ที่ได้รับการรับรอง</string>
     <string name="store_reviewer_signed_here">ลงลายเซ็นที่นี่ด้วย</string>
     <string name="notif_divergence_title">%1$s: คะแนนที่ลงลายเซ็นและคะแนนของสโตร์ไม่ตรงกัน</string>
@@ -137,7 +137,7 @@
     <string name="fact_perms_removed">สิทธิ์ที่ถูกเอาออก: %1$s</string>
     <string name="fact_not_installed">ยังไม่ได้ติดตั้งบนอุปกรณ์นี้ ติดตั้งจาก dApp Store เพื่อดูข้อเท็จจริงของอุปกรณ์</string>
     <string name="reviews_title">รีวิวที่ลงลายเซ็น</string>
-    <string name="review_weight_verified">รับรองแล้ว ✓</string>
+    <string name="review_weight_verified">รับรองแล้ว</string>
     <string name="review_weight_unverified">ไม่ถูกนับ</string>
     <string name="review_hide">ซ่อน</string>
     <string name="review_report">รายงาน</string>
@@ -224,7 +224,7 @@
     <string name="flag_sign">ลงลายเซ็นการปักธง</string>
     <string name="flagged_hidden">ซ่อนโดยฉันทามติ: ถูกปักธงว่าผิดธรรมชาติโดย Seeker ที่มีน้ำหนักรวม %1$s</string>
     <string name="flagged_show">แสดงอยู่ดี</string>
-    <string name="flagged_count">น้ำหนักการปักธง %1$s</string>
+    <string name="flagged_count">ปักธงแล้ว · น้ำหนัก %1$s</string>
     <string name="star">ติดดาว</string>
     <string name="unstar">เลิกติดดาว</string>
     <string name="inbox">กล่องข้อความ</string>
@@ -790,7 +790,7 @@
     <string name="notif_flagged_body">เหตุผลที่ระบุ: %1$s หากไม่เห็นด้วย คุณลงลายเซ็นโต้แย้งบนบันทึกนี้ได้</string>
     <string name="notif_note_title">ผู้เผยแพร่ตอบรีวิวสโตร์ของคุณ · %1$s</string>
     <string name="notif_proven_title">การอ้างสิทธิ์ของคุณได้รับการพิสูจน์แล้ว · %1$s</string>
-    <string name="notif_proven_body">คำตอบของคุณต่อรีวิวของแอปนี้ตอนนี้มีเครื่องหมายผู้เผยแพร่ ✓ และรีวิวของคุณเองต่อแอปนี้จะไม่ถูกนับ</string>
+    <string name="notif_proven_body">คำตอบของคุณต่อรีวิวของแอปนี้ตอนนี้มีเครื่องหมายผู้เผยแพร่ และรีวิวของคุณเองต่อแอปนี้จะไม่ถูกนับ</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. ระบุกระเป๋าเงินของคุณในแอป (แข็งแกร่งที่สุด)</string>
     <string name="claim_route_build_body">เพิ่มบรรทัดนี้ภายใน &lt;application&gt; ในแมนิเฟสต์ของแอปของคุณ แล้วปล่อยอัปเดตไปยัง dApp Store ผู้อ่านจะตรวจดูบิลด์ที่สโตร์ให้ดาวน์โหลด: บรรทัดนั้นต้องระบุกระเป๋าเงินนี้ และบิลด์ต้องลงลายเซ็นด้วยใบรับรองที่สโตร์ระบุไว้ ทำได้เฉพาะผู้ถือกุญแจลงลายเซ็นของแอปคุณเท่านั้น</string>
@@ -808,4 +808,50 @@
     <string name="proof_not_title">สิ่งที่พิสูจน์ไม่ได้</string>
     <string name="proof_not_body">ลายเซ็นของกระเป๋าเงินเอง ที่อยู่สำหรับรับชำระเงิน หรือกระเป๋าเงินที่เผยแพร่แอปบน dApp Store สโตร์ไม่ได้บอกว่ารายการบนเชนใดเป็นของรายการแอปใด และใครก็สร้างรายการที่ระบุแอปใดก็ได้</string>
     <string name="proof_how_after">การตอบกลับของผู้เผยแพร่ที่พิสูจน์แล้วจะมีตราผู้เผยแพร่ และรีวิวของพวกเขาเองต่อแอปจะไม่ถูกนับ</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">ย้อนกลับ</string>
+    <string name="stars_a11y">%1$s จาก 5 ดาว</string>
+    <string name="err_network">ไม่มีการเชื่อมต่อ ตรวจสอบเครือข่ายแล้วลองอีกครั้ง</string>
+    <string name="err_timeout">คำขอหมดเวลา ลองอีกครั้ง</string>
+    <string name="err_declined">ถูกปฏิเสธในกระเป๋าเงิน ยังไม่มีสิ่งใดถูกลงลายเซ็น</string>
+    <string name="err_funds">เงินในกระเป๋านี้ไม่พอสำหรับธุรกรรมนี้และค่าธรรมเนียมเครือข่าย</string>
+    <string name="link_confirm_body">ลิงก์ขอให้ลงลายเซ็นรายการนี้ ตรวจสอบบันทึกด้านล่าง กระเป๋าเงินของคุณจะแสดงเมโมที่แน่นอนก่อนที่คุณจะอนุมัติ</string>
+    <string name="link_confirm_sign">ลงลายเซ็น</string>
+    <string name="detail_pkg_updated">%1$s · อัปเดตเมื่อ %2$s</string>
+    <string name="anonymous">ไม่ระบุชื่อ</string>
+    <string name="discard_title">ทิ้งรีวิวนี้หรือไม่</string>
+    <string name="discard_body">คะแนน แท็ก และข้อความของคุณยังไม่ได้ลงลายเซ็นและจะหายไป</string>
+    <string name="discard">ทิ้ง</string>
+    <string name="keep_editing">แก้ไขต่อ</string>
+    <string name="text_invalid">ใช้ไม่เกิน %1$d อักขระ และห้ามมีอักขระ |</string>
+    <string name="to_review_max">ลงลายเซ็นพร้อมกันได้สูงสุด %1$d แอป</string>
+    <string name="confirm_disconnect_body">โทรศัพท์เครื่องนี้จะลืมกระเป๋าเงิน ไม่มีอะไรเปลี่ยนในบัญชีบันทึก และคุณลงชื่อเข้าใช้ใหม่ได้ทุกเมื่อ</string>
+    <string name="confirm_unshare_title">เรียกคืนที่นั่ง Pro นี้หรือไม่</string>
+    <string name="confirm_unshare_body">การทำเช่นนี้จะลงลายเซ็นบันทึกที่ยุติที่นั่ง กระเป๋าเงินอีกใบจะสูญเสีย Pro ที่คุณแชร์เมื่อได้รับการยืนยันแล้ว</string>
+    <string name="confirm_unhide_body">ทุกบันทึกที่คุณซ่อนไว้จะแสดงอีกครั้งในหน้าของแอปนั้น</string>
+    <string name="confirm_delete_body">การทำเช่นนี้จะลบบันทึกการยินยอม รายการที่ติดตาม บันทึกที่ซ่อนและติดดาว ที่นั่ง Pro ที่คุณเพิ่ม และกระเป๋าเงินออกจากโทรศัพท์เครื่องนี้ ไม่มีอะไรเปลี่ยนในบัญชีบันทึก คุณจะเห็นหน้าจอลงชื่อเข้าใช้อีกครั้ง</string>
+    <string name="confirm_delete_action">ลบ</string>
+    <string name="loading">กำลังโหลด…</string>
+    <string name="load_failed">โหลดไม่สำเร็จ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="retry">ลองอีกครั้ง</string>
+    <string name="pay_listing_line">รหัส %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">การทำเช่นนี้จะลงลายเซ็นบันทึกที่ถอนรายการออกจากกระดาน การลงรายการอีกครั้งหมายถึงต้องจ่ายค่าธรรมเนียมการลงรายการอีกครั้ง</string>
+    <string name="confirm_withdraw_free">การทำเช่นนี้จะลงลายเซ็นบันทึกที่ถอนรายการออกจากกระดาน คุณลงรายการอีกครั้งได้ภายหลัง</string>
+    <string name="changes_new_a11y">การเปลี่ยนแปลง มีรายการใหม่ให้ดู</string>
+    <string name="desk_signed_mean">ลงลายเซ็นแล้ว %1$s</string>
+    <string name="stats_share_head">บัญชีบันทึก Undersigned, %1$s</string>
+    <string name="stats_share_registry">รีจิสทรี %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="other">%1$d ดาว</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="other">แสดงรีวิวเพิ่มอีก %1$d รายการ</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="other">ลงลายเซ็นแล้ว %1$d รายการ · ความน่าเชื่อถือ %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="other">กล่องข้อความ ใหม่ %1$d รายการ</item>
+    </plurals>
 </resources>

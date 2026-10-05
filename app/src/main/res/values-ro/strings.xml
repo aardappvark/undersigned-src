@@ -89,7 +89,7 @@
     <string name="standing_agreement">Concordanța etichetelor cu alți semnatari: %1$s</string>
     <string name="standing_since">Semnează din %1$s</string>
     <string name="standing_note2">Doar numărători. Fără scor, nimic de cumpărat.</string>
-    <string name="store_reviewer_genesis">Dispozitiv atestat</string>
+    <string name="store_reviewer_genesis">Proprietar Seeker</string>
     <string name="store_reviewer_nogenesis">niciun dispozitiv atestat găsit</string>
     <string name="store_reviewer_signed_here">a semnat și aici</string>
     <string name="notif_divergence_title">%1$s: scorurile semnat și al magazinului diferă</string>
@@ -151,7 +151,7 @@
     <string name="fact_perms_removed">Permisiuni eliminate: %1$s</string>
     <string name="fact_not_installed">Neinstalată pe acest dispozitiv. Instaleaz-o din dApp Store pentru a vedea faptele despre dispozitiv.</string>
     <string name="reviews_title">Recenzii semnate</string>
-    <string name="review_weight_verified">Atestat ✓</string>
+    <string name="review_weight_verified">Atestat</string>
     <string name="review_weight_unverified">nu este numărată</string>
     <string name="review_hide">Ascunde</string>
     <string name="review_report">Raportează</string>
@@ -246,7 +246,7 @@
     <string name="flag_sign">Semnează semnalarea</string>
     <string name="flagged_hidden">Ascunsă prin consens: semnalată drept nenaturală de %1$s Seekeri ponderați</string>
     <string name="flagged_show">Afișează oricum</string>
-    <string name="flagged_count">%1$s pondere semnalări</string>
+    <string name="flagged_count">Semnalat · pondere %1$s</string>
     <string name="star">Marchează cu stea</string>
     <string name="unstar">Elimină steaua</string>
     <string name="inbox">Primite</string>
@@ -819,7 +819,7 @@
     <string name="notif_flagged_body">Motiv indicat: %1$s. Dacă nu ești de acord, poți semna o contestație pe înregistrare.</string>
     <string name="notif_note_title">Editorul a răspuns la recenzia ta din magazin · %1$s</string>
     <string name="notif_proven_title">Revendicarea ta este dovedită · %1$s</string>
-    <string name="notif_proven_body">Răspunsurile tale la recenziile acestei aplicații poartă acum semnul Editor ✓, iar recenziile tale proprii despre ea nu sunt numărate.</string>
+    <string name="notif_proven_body">Răspunsurile tale la recenziile acestei aplicații poartă acum semnul Editor, iar recenziile tale proprii despre ea nu sunt numărate.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Numește-ți portofelul în aplicația ta (cel mai puternic)</string>
     <string name="claim_route_build_body">Adaugă această linie în interiorul &lt;application&gt; din manifestul aplicației tale și lansează actualizarea în dApp Store. Cititorii examinează build-ul pe care îl servește magazinul: linia trebuie să numească acest portofel, iar build-ul trebuie semnat cu certificatul pe care îl listează magazinul. Numai deținătorul cheii de semnare a aplicației tale poate face asta.</string>
@@ -837,4 +837,58 @@
     <string name="proof_not_title">Ce nu dovedește asta</string>
     <string name="proof_not_body">Semnătura proprie a portofelului, o adresă de plată sau portofelul care a publicat aplicația în dApp Store. Magazinul nu spune care înregistrare on-chain aparține cărei liste și oricine poate crea una care numește orice aplicație.</string>
     <string name="proof_how_after">Răspunsurile unui editor dovedit poartă insigna Editor, iar recenziile lui proprii asupra aplicației nu sunt numărate.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Înapoi</string>
+    <string name="stars_a11y">%1$s din 5 stele</string>
+    <string name="err_network">Nu există conexiune. Verifică rețeaua și încearcă din nou.</string>
+    <string name="err_timeout">Cererea a expirat. Încearcă din nou.</string>
+    <string name="err_declined">Refuzat în portofel. Nu s-a semnat nimic.</string>
+    <string name="err_funds">Nu sunt destui bani în acest portofel pentru această tranzacție și taxa ei de rețea.</string>
+    <string name="link_confirm_body">Un link a cerut semnarea acestui lucru. Verifică înregistrarea de mai jos; portofelul tău arată memo-ul exact înainte să aprobi.</string>
+    <string name="link_confirm_sign">Semnează</string>
+    <string name="detail_pkg_updated">%1$s · actualizat %2$s</string>
+    <string name="anonymous">Anonim</string>
+    <string name="discard_title">Renunți la această recenzie?</string>
+    <string name="discard_body">Evaluarea, etichetele și textul tău nu sunt încă semnate și vor fi pierdute.</string>
+    <string name="discard">Renunță</string>
+    <string name="keep_editing">Continuă editarea</string>
+    <string name="text_invalid">Folosește cel mult %1$d de caractere, fără caracterul |.</string>
+    <string name="to_review_max">Se pot semna împreună până la %1$d aplicații.</string>
+    <string name="confirm_disconnect_body">Acest telefon uită portofelul. Nimic nu se schimbă în registru și te poți conecta din nou oricând.</string>
+    <string name="confirm_unshare_title">Iei înapoi acest loc Pro?</string>
+    <string name="confirm_unshare_body">Aceasta semnează o înregistrare care încheie locul. Celălalt portofel pierde Pro-ul partajat de tine după confirmare.</string>
+    <string name="confirm_unhide_body">Fiecare înregistrare pe care ai ascuns-o apare din nou pe pagina aplicației ei.</string>
+    <string name="confirm_delete_body">Aceasta șterge de pe acest telefon înregistrarea consimțământului tău, urmăririle, înregistrările ascunse și cele cu stea, locurile Pro adăugate de tine și portofelul. Nimic nu se schimbă în registru. Vei vedea din nou ecranul de conectare.</string>
+    <string name="confirm_delete_action">Șterge</string>
+    <string name="loading">Se încarcă…</string>
+    <string name="load_failed">Nu s-a putut încărca. Verifică conexiunea și încearcă din nou.</string>
+    <string name="retry">Încearcă din nou</string>
+    <string name="pay_listing_line">Cod %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Aceasta semnează o înregistrare care scoate înscrierea de pe tablă. Dacă o înscrii din nou, plătești din nou taxa de înscriere.</string>
+    <string name="confirm_withdraw_free">Aceasta semnează o înregistrare care scoate înscrierea de pe tablă. O poți înscrie din nou mai târziu.</string>
+    <string name="changes_new_a11y">Modificări, sunt noutăți de văzut</string>
+    <string name="desk_signed_mean">%1$s semnate</string>
+    <string name="stats_share_head">Registrul Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registru %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d stea</item>
+        <item quantity="few">%1$d stele</item>
+        <item quantity="other">%1$d de stele</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Arată încă %1$d recenzie</item>
+        <item quantity="few">Arată încă %1$d recenzii</item>
+        <item quantity="other">Arată încă %1$d de recenzii</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d semnată · credibilitate %2$d</item>
+        <item quantity="few">%1$d semnate · credibilitate %2$d</item>
+        <item quantity="other">%1$d semnate · credibilitate %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Primite, %1$d nou</item>
+        <item quantity="few">Primite, %1$d noi</item>
+        <item quantity="other">Primite, %1$d noi</item>
+    </plurals>
 </resources>

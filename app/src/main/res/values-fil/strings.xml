@@ -92,7 +92,7 @@
     <string name="standing_agreement">Pagkakasundo ng tag sa ibang signer: %1$s</string>
     <string name="standing_since">Nag-sisign mula noong %1$s</string>
     <string name="standing_note2">Bilang lang. Walang iskor, walang bibilhin.</string>
-    <string name="store_reviewer_genesis">Na-verify na device</string>
+    <string name="store_reviewer_genesis">May-ari ng Seeker</string>
     <string name="store_reviewer_nogenesis">walang nahanap na na-verify na device</string>
     <string name="store_reviewer_signed_here">nag-sign din dito</string>
     <string name="notif_divergence_title">%1$s: hindi magkatugma ang naka-sign at store na iskor</string>
@@ -151,7 +151,7 @@
     <string name="fact_perms_removed">Mga permission na inalis: %1$s</string>
     <string name="fact_not_installed">Hindi naka-install sa device na ito. I-install ito mula sa dApp Store para makita ang mga facts ng device.</string>
     <string name="reviews_title">Mga naka-sign na review</string>
-    <string name="review_weight_verified">Na-verify ✓</string>
+    <string name="review_weight_verified">Na-attest</string>
     <string name="review_weight_unverified">hindi binilang</string>
     <string name="review_hide">Itago</string>
     <string name="review_report">I-report</string>
@@ -245,7 +245,7 @@
     <string name="flag_sign">I-sign ang flag</string>
     <string name="flagged_hidden">Nakatago ng consensus: na-flag bilang hindi likas ng mga Seeker na may timbang na %1$s</string>
     <string name="flagged_show">Ipakita pa rin</string>
-    <string name="flagged_count">%1$s na timbang ng flag</string>
+    <string name="flagged_count">Naka-flag · timbang %1$s</string>
     <string name="star">I-star</string>
     <string name="unstar">Alisin sa star</string>
     <string name="inbox">Mga Mensahe</string>
@@ -815,7 +815,7 @@
     <string name="notif_flagged_body">Ibinigay na dahilan: %1$s. Kung hindi ka sang-ayon, maaari kang mag-sign ng dispute sa record.</string>
     <string name="notif_note_title">Sumagot ang tagapaglathala sa review mo sa store · %1$s</string>
     <string name="notif_proven_title">Napatunayan ang claim mo · %1$s</string>
-    <string name="notif_proven_body">Ang mga sagot mo sa mga review ng app na ito ay may marka na ngayong Tagapaglathala ✓, at hindi binibilang ang sarili mong mga review nito.</string>
+    <string name="notif_proven_body">Ang mga sagot mo sa mga review ng app na ito ay may marka na ngayong Tagapaglathala, at hindi binibilang ang sarili mong mga review nito.</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. Ilagay ang wallet mo sa app mo (pinakamalakas)</string>
     <string name="claim_route_build_body">Idagdag ang linyang ito sa loob ng &lt;application&gt; sa manifest ng app mo at ilabas ang update sa dApp Store. Sinusuri ng mga mambabasa ang build na inihahatid ng store: dapat nakalagay sa linya ang wallet na ito at dapat naka-sign ang build gamit ang certificate na nakalista ng store. Ang may hawak lang ng signing key ng app mo ang makakagawa nito.</string>
@@ -833,4 +833,54 @@
     <string name="proof_not_title">Ang hindi nagpapatunay nito</string>
     <string name="proof_not_body">Ang sariling signature ng wallet, isang payment address, o ang wallet na nag-publish ng app sa dApp Store. Hindi sinasabi ng store kung aling on-chain record ang kabilang sa aling listing, at kahit sino ay puwedeng gumawa ng isang nagpapangalan sa kahit anong app.</string>
     <string name="proof_how_after">Taglay ng mga sagot ng napatunayang publisher ang tatak na Publisher, at hindi binibilang ang sarili nilang mga review ng app.</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">Bumalik</string>
+    <string name="stars_a11y">%1$s sa 5 star</string>
+    <string name="err_network">Walang koneksyon. Tingnan ang network at subukan ulit.</string>
+    <string name="err_timeout">Nag-time out ang request. Subukan ulit.</string>
+    <string name="err_declined">Tinanggihan sa wallet. Walang na-sign.</string>
+    <string name="err_funds">Kulang ang pondo sa wallet na ito para sa transaksyong ito at sa network fee nito.</string>
+    <string name="link_confirm_body">May link na humiling na i-sign ito. Tingnan ang record sa ibaba; ipapakita ng wallet mo ang eksaktong memo bago ka mag-apruba.</string>
+    <string name="link_confirm_sign">I-sign</string>
+    <string name="detail_pkg_updated">%1$s · na-update %2$s</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="discard_title">I-discard ang review na ito?</string>
+    <string name="discard_body">Hindi pa naka-sign ang rating, mga tag at teksto mo, at mawawala ang mga ito.</string>
+    <string name="discard">I-discard</string>
+    <string name="keep_editing">Ituloy ang pag-edit</string>
+    <string name="text_invalid">Hanggang %1$d character lang, at walang character na |.</string>
+    <string name="to_review_max">Hanggang %1$d app ang puwedeng i-sign nang sabay.</string>
+    <string name="confirm_disconnect_body">Kakalimutan ng phone na ito ang wallet. Walang magbabago sa Ledger, at puwede kang mag-sign in ulit anumang oras.</string>
+    <string name="confirm_unshare_title">Bawiin ang Pro seat na ito?</string>
+    <string name="confirm_unshare_body">Nagsa-sign ito ng record na tatapos sa seat. Mawawala sa kabilang wallet ang Pro na ibinahagi mo kapag nakumpirma na ito.</string>
+    <string name="confirm_unhide_body">Lalabas ulit sa page ng app nila ang bawat record na itinago mo.</string>
+    <string name="confirm_delete_body">Aalisin nito sa phone na ito ang consent record mo, mga sinusundan, nakatago at naka-star na record, ang mga Pro seat na idinagdag mo, at ang wallet. Walang magbabago sa Ledger. Makikita mo ulit ang sign-in screen.</string>
+    <string name="confirm_delete_action">Burahin</string>
+    <string name="loading">Naglo-load…</string>
+    <string name="load_failed">Hindi ito na-load. Tingnan ang koneksyon at subukan ulit.</string>
+    <string name="retry">Subukan ulit</string>
+    <string name="pay_listing_line">Code %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">Nagsa-sign ito ng record na mag-aalis sa listing sa board. Ang pag-list ulit nito ay nangangahulugang magbabayad ulit ng listing fee.</string>
+    <string name="confirm_withdraw_free">Nagsa-sign ito ng record na mag-aalis sa listing sa board. Puwede mo itong i-list ulit sa susunod.</string>
+    <string name="changes_new_a11y">Mga pagbabago, may bago na puwedeng makita</string>
+    <string name="desk_signed_mean">%1$s ang naka-sign</string>
+    <string name="stats_share_head">Ledger ng Undersigned, %1$s</string>
+    <string name="stats_share_registry">Registry %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="one">%1$d star</item>
+        <item quantity="other">%1$d star</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="one">Magpakita pa ng %1$d review</item>
+        <item quantity="other">Magpakita pa ng %1$d review</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="one">%1$d naka-sign · kredibilidad %2$d</item>
+        <item quantity="other">%1$d naka-sign · kredibilidad %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="one">Mga Mensahe, %1$d bago</item>
+        <item quantity="other">Mga Mensahe, %1$d bago</item>
+    </plurals>
 </resources>

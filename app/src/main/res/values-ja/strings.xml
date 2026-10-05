@@ -86,7 +86,7 @@
     <string name="standing_agreement">他の署名者とのタグの一致度：%1$s</string>
     <string name="standing_since">署名開始日：%1$s</string>
     <string name="standing_note2">カウントのみです。スコアも購入対象も一切ありません。</string>
-    <string name="store_reviewer_genesis">証明済み端末</string>
+    <string name="store_reviewer_genesis">Seeker の所有者</string>
     <string name="store_reviewer_nogenesis">証明済み端末が見つかりません</string>
     <string name="store_reviewer_signed_here">こちらでも署名済み</string>
     <string name="notif_divergence_title">%1$s：署名済みスコアとストアのスコアに差異</string>
@@ -142,7 +142,7 @@
     <string name="fact_perms_removed">削除された権限：%1$s</string>
     <string name="fact_not_installed">この端末にはインストールされていません。端末の情報を確認するには dApp Store からインストールしてください。</string>
     <string name="reviews_title">署名付きレビュー</string>
-    <string name="review_weight_verified">証明済み ✓</string>
+    <string name="review_weight_verified">証明済み</string>
     <string name="review_weight_unverified">カウント対象外</string>
     <string name="review_hide">非表示</string>
     <string name="review_report">報告</string>
@@ -232,7 +232,7 @@
     <string name="flag_sign">フラグに署名</string>
     <string name="flagged_hidden">合意により非表示：%1$s の重みを持つ Seeker が不自然と判断しました</string>
     <string name="flagged_show">それでも表示</string>
-    <string name="flagged_count">フラグの重み %1$s</string>
+    <string name="flagged_count">フラグ済み · 重み %1$s</string>
     <string name="star">スター</string>
     <string name="unstar">スター解除</string>
     <string name="inbox">受信箱</string>
@@ -797,7 +797,7 @@
     <string name="notif_flagged_body">理由:%1$s。同意できない場合は、このレコードに対する異議に署名できます。</string>
     <string name="notif_note_title">パブリッシャーがストアのレビューに返信しました · %1$s</string>
     <string name="notif_proven_title">あなたの申請が証明されました · %1$s</string>
-    <string name="notif_proven_body">このアプリのレビューへのあなたの返信に、パブリッシャー ✓ のマークが付くようになりました。このアプリへのあなた自身のレビューはカウント対象外です。</string>
+    <string name="notif_proven_body">このアプリのレビューへのあなたの返信に、パブリッシャー のマークが付くようになりました。このアプリへのあなた自身のレビューはカウント対象外です。</string>
     <!-- 6 Oct 2026 publisher proof explained -->
     <string name="claim_route_build_title">1. アプリにウォレットを記載する（最も強力）</string>
     <string name="claim_route_build_body">アプリのマニフェストの &lt;application&gt; の中に次の行を追加し、更新を dApp Store にリリースしてください。閲覧者はストアが配信するビルドを調べます。その行にこのウォレットが記載され、ビルドがストアの掲載する証明書で署名されている必要があります。これができるのは、アプリの署名鍵を持つ人だけです。</string>
@@ -815,4 +815,50 @@
     <string name="proof_not_title">証明にならないもの</string>
     <string name="proof_not_body">ウォレット自身の署名、支払い用アドレス、またはdApp Storeでそのアプリを公開したウォレット。ストアは、どのオンチェーン記録がどの掲載に属するかを示しておらず、誰でも任意のアプリを名指しした記録を作成できます。</string>
     <string name="proof_how_after">証明済みパブリッシャーの返信には「パブリッシャー」マークが付き、そのアプリに対する本人のレビューはカウントされません。</string>
+    <!-- 6 Oct 2026 UI review -->
+    <string name="back">戻る</string>
+    <string name="stars_a11y">5つ星中 %1$s</string>
+    <string name="err_network">接続がありません。ネットワークを確認して、もう一度お試しください。</string>
+    <string name="err_timeout">リクエストがタイムアウトしました。もう一度お試しください。</string>
+    <string name="err_declined">ウォレットで拒否されました。何も署名されていません。</string>
+    <string name="err_funds">このウォレットには、この取引とネットワーク手数料に足りる残高がありません。</string>
+    <string name="link_confirm_body">リンクからこの署名が求められました。下の記録を確認してください。承認する前に、ウォレットが正確なメモを表示します。</string>
+    <string name="link_confirm_sign">署名</string>
+    <string name="detail_pkg_updated">%1$s · 更新 %2$s</string>
+    <string name="anonymous">匿名</string>
+    <string name="discard_title">このレビューを破棄しますか？</string>
+    <string name="discard_body">評価、タグ、本文はまだ署名されておらず、失われます。</string>
+    <string name="discard">破棄</string>
+    <string name="keep_editing">編集を続ける</string>
+    <string name="text_invalid">%1$d 文字以内で、| は使わないでください。</string>
+    <string name="to_review_max">一度に署名できるアプリは最大 %1$d 件です。</string>
+    <string name="confirm_disconnect_body">この端末はウォレットを忘れます。台帳には何も変わらず、いつでもまたサインインできます。</string>
+    <string name="confirm_unshare_title">この Pro の枠を取り戻しますか？</string>
+    <string name="confirm_unshare_body">これは枠を終了する記録に署名します。確定すると、相手のウォレットは共有していた Pro を失います。</string>
+    <string name="confirm_unhide_body">非表示にした記録は、すべてアプリのページに再表示されます。</string>
+    <string name="confirm_delete_body">この端末から、同意の記録、フォロー、非表示とスター付きの記録、追加した Pro の枠、ウォレットを削除します。台帳には何も変わりません。サインイン画面が再び表示されます。</string>
+    <string name="confirm_delete_action">削除</string>
+    <string name="loading">読み込み中…</string>
+    <string name="load_failed">読み込めませんでした。接続を確認して、もう一度お試しください。</string>
+    <string name="retry">もう一度試す</string>
+    <string name="pay_listing_line">コード %1$s · %2$s</string>
+    <string name="confirm_withdraw_body">これは、登録をボードから外す記録に署名します。再登録するには、もう一度登録料を支払う必要があります。</string>
+    <string name="confirm_withdraw_free">これは、登録をボードから外す記録に署名します。あとで再登録できます。</string>
+    <string name="changes_new_a11y">変更、新しいものがあります</string>
+    <string name="desk_signed_mean">%1$s 署名</string>
+    <string name="stats_share_head">Undersigned 台帳、%1$s</string>
+    <string name="stats_share_registry">レジストリ %1$s</string>
+    <string name="pro_total_value">%1$s + %2$s</string>
+    <plurals name="rate_stars">
+        <item quantity="other">%1$d 星</item>
+    </plurals>
+    <plurals name="reviews_more">
+        <item quantity="other">さらに %1$d 件のレビューを表示</item>
+    </plurals>
+    <plurals name="standing_short">
+        <item quantity="other">%1$d 件署名 · 信頼度 %2$d</item>
+    </plurals>
+    <plurals name="inbox_a11y">
+        <item quantity="other">受信箱、新着 %1$d 件</item>
+    </plurals>
 </resources>

@@ -27,7 +27,9 @@ class MainActivity : ComponentActivity() {
         try { installSplashScreen() } catch (_: Exception) { }
         super.onCreate(savedInstanceState)
         try { activityResultSender = ActivityResultSender(this) } catch (e: Exception) { Log.e("MainActivity", "ActivityResultSender init failed: ${e.message}") }
-        try { enableEdgeToEdge() } catch (_: Exception) { }
+        // Always light icons: the app is always dark, and the default (auto) drew dark icons on black whenever the phone
+        // was in light mode, so the clock vanished (UI review 6 Oct 2026, emulator in light mode).
+        try { enableEdgeToEdge(statusBarStyle = androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT), navigationBarStyle = androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)) } catch (_: Exception) { }
         NavIntents.consume(intent)
         setContent {
             UndersignedTheme {
