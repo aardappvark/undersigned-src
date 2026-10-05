@@ -118,7 +118,7 @@
     </nav>
     <main>
         <h2>Privacy Policy</h2>
-        <p class="updated">Last updated: 28 September 2026</p>
+        <p class="updated">Last updated: 5 October 2026</p>
 
         <h3>1. Introduction</h3>
         <p>Undersigned ("the App") is developed by MidMightBit Games, trading as ADappvark ("we", "us"). This policy explains what the App does and does not do with data. The short version: there is no account, no analytics, no advertising and no server of ours in the loop. The App talks to public blockchain infrastructure and the Solana dApp Store's own public feed directly from your device.</p>
@@ -172,10 +172,25 @@
             <li><strong>aardappvark.github.io</strong> &mdash; hosts these legal pages and the App's icon for the wallet approval sheet; contacted when you open a legal link or when your wallet fetches the icon.</li>
         </ul>
         <ul>
-            <li>None of these requests pass through any server we operate. We operate no server for this App.</li>
+            <li><strong>solanaappstore.com</strong> &mdash; the dApp Store's own download host, contacted only when you tap &ldquo;Check the store's build&rdquo; on an app's page: the App downloads that app's install file, reads the publisher line and signing certificate from it on your device, and deletes the file.</li>
+        </ul>
+        <ul>
+            <li>None of these requests pass through any server we operate. The App does not use our website or API (section 5A).</li>
             <li>Every host you contact necessarily receives your IP address. See each provider's own privacy policy for how it handles requests.</li>
             <li>Your wallet app (for example the Seeker's built-in wallet) makes its own network requests when it simulates and submits a transaction; those are governed by its privacy policy.</li>
         </ul>
+
+        <h3 id="web">5A. The Website and API (not used by the App)</h3>
+        <p>If you visit the Undersigned website or call its API, a server we operate answers. This is what it holds and sees:</p>
+        <ul>
+            <li><strong>Public data it copies:</strong> the ledger's records (which include wallet addresses and any text their authors signed), on-chain facts about those wallets (Genesis Token, staked SKR, <code>.skr</code> name), the dApp Store's public catalogue, star counts and listing details, and payments received by treasuries that publishers listed. All of it is public elsewhere; the server only indexes it.</li>
+            <li><strong>Your IP address</strong> is used to count requests against the rate limits and is held in memory only, for at most a day; it is not written to disk or to logs.</li>
+            <li><strong>If you buy an API pass:</strong> the paying wallet's address, the payment's transaction signature, the pass key, how many requests remain and when it ends. If you create webhooks: the addresses you ask us to call, the apps you watch, and a log of deliveries kept for 30 days.</li>
+            <li><strong>If you sign from the website:</strong> the server receives your wallet's public address to build the transaction and sends it to TRM Labs' sanctions screening, as the App does. Your wallet, not the server, signs and submits.</li>
+            <li><strong>No cookies, no analytics, no advertising.</strong> The signing pages load the wallet libraries from <strong>cdn.jsdelivr.net</strong>, which therefore sees your IP address when you open those pages.</li>
+            <li><strong>Hidden text:</strong> where we stop the website showing a record's text, we keep the record's identifier and the reason.</li>
+        </ul>
+        <p>Legal basis (GDPR): our legitimate interest in running and protecting the service (Article 6(1)(f)) for the public index and rate limiting; performance of a contract (Article 6(1)(b)) for API passes and webhooks. To ask about content shown on the website, use its &ldquo;Report content&rdquo; page.</p>
 
         <h3>6. Reading Public Data</h3>
         <p>The review ledger, the dApp Store's public catalogue, and on-chain facts such as Genesis Token ownership, staked SKR, and <code>.skr</code> names are all public blockchain or public API data. Reading them &mdash; including data about wallets other than your own &mdash; does not require your own wallet's involvement and reveals nothing about you beyond the network requests described in section 5.</p>
@@ -300,7 +315,7 @@ appreciate the chance to resolve it first.</p>
 <footer>
         <p>&copy; 2026 ADappvark. All rights reserved.</p>
         <p>Contact: <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a></p>
-        <p>Last updated: 28 September 2026</p>
+        <p>Last updated: 5 October 2026</p>
     </footer>
 </body>
 </html>

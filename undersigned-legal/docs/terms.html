@@ -129,7 +129,7 @@
     </nav>
     <main>
         <h2>Terms of Service</h2>
-        <p class="updated">Last updated: 8 September 2026</p>
+        <p class="updated">Last updated: 5 October 2026</p>
 
         <div class="warning">
             <p><strong>Important:</strong> Undersigned is a non-custodial utility. It builds one unsigned memo transaction per review, which <em>you</em> approve and sign in your own wallet through Seed Vault / Mobile Wallet Adapter. Anything you choose to publish &mdash; a rating, tags, or free-text note &mdash; is written to the public Solana blockchain and cannot be deleted by you, by us, or by anyone. Reading and signing are free of charge; an optional Pro software licence (section 8A) is the only thing the App ever charges for. The App holds no token. Nothing in the App is financial advice, and no score or fact shown is a safety verdict.</p>
@@ -185,6 +185,11 @@
         <p>The App requests no location, camera, microphone, contacts, storage, phone or SMS permission of any kind.</p>
 
 
+        <h3 id="web">2B. The Website and the API</h3>
+<p>Beside the App, the Developer may run a website and an API that show the same public ledger: a page for each app with its signed reviews, a page for each wallet, a weekly Store watch report, badges that publishers can embed, and pages from which a wallet can sign a review, a reply, a helpful vote or a flag. The App does not depend on them and never sends them anything.</p>
+<p><strong>What the website can and cannot do.</strong> The website builds a transaction and your own wallet signs it; the website holds no key and cannot sign for you. Nothing on the website can change or delete a record on-chain. The Developer may stop the website and API showing the <em>text</em> of a record (for example where it is unlawful or exposes private information); the record stays listed, marked as such, and stays on-chain. See <a href="#ugc">section 9A</a> and the website's "Report content" page.</p>
+<p><strong>The API</strong> is offered as is, with rate limits, and may change or stop. Store ratings and catalogue data shown there belong to the Solana dApp Store.</p>
+
         <h3>3. Permanence and Your Responsibility</h3>
         <p>Publishing a review, revocation, or reply is final in one specific sense: the text itself cannot be deleted from the Solana blockchain by you, by us, or by anyone, once the network confirms it. Before your wallet opens, the App shows you exactly what will be written and, for free text, a second consent screen with the permanence warning in full. You are responsible for reading it. In particular:</p>
         <ul>
@@ -233,6 +238,8 @@
 <p>Reading the ledger, signing reviews, replies, flags, clears and disputes, claiming an app and the device-facts panel are free and always will be. There is no subscription, no token issued by the App, and nothing paid for reviewing, following or replying. The only value that leaves your wallet for any of these is the Solana network fee, which your own wallet sets and which goes to the Solana network, never to the Developer.</p>
 <p><strong>Pro</strong> is an optional software licence for tools around the signing: copying your signed reviews to the dApp Store listing, importing all of your store reviews in one signature, the publisher desk, exporting the ledger as CSV or JSON, and an hourly certificate watch. It is priced in SOL or in SKR, at your choice; the exact amount in each is shown in the App before you sign, and the SOL and SKR legs are re-pegged only between releases, never after you have paid. A term lasts twelve months from the moment the payment confirms. <strong>Nothing renews by itself and nothing can bill you:</strong> renewing is another transaction you choose to sign, and a renewal signed before a term ends starts when that term ends.</p>
 <p>The payment is a transfer from your wallet to the Developer's treasury address <code>DD4aPDhf396NhNDxa4PBVf1u3uzCUP2QYm2dFMmJWq2Q</code> (for SKR, to that address's associated token account), carrying a public reference and the memo <code>UNS</code>. That payment <em>is</em> the licence: the App reads the amount you paid and the twelve-month term follows from it. It is public and permanent like every other record on the ledger — anyone reading the ledger can see that the paying wallet holds Pro and until when. The licence is tied to the wallet, not to the device; any phone signed in with that wallet has it, and the App reads it from the chain with no account, no server and nothing stored about you.</p>
+<p><strong>Listing a treasury on the payments board</strong> costs a one-time fee per app and treasury, paid in SOL or SKR in the same transaction that signs the listing; the exact amount in each is shown before you sign, with a lower SKR amount for wallets holding a Seeker Genesis Token. Changing the payment code or listing again later costs only the network fee. A listing shows payments your treasury has received on-chain; it is not advertising and buys no ranking.</p>
+<p><strong>An API pass</strong> is an optional licence to call the paid parts of the API: a stated number of requests over a stated number of days, bought with one SOL or SKR transfer to the same treasury address. The amounts and what they buy are shown by the API before you pay. A pass is redeemed by the wallet that paid, or by whoever holds the checkout secret issued for that payment; keep it private. Paying again adds requests and time. A pass does not renew by itself.</p>
 <p><strong>Pro buys tools, never standing.</strong> It does not change how any review is counted, weighted or ordered, does not mark you as trusted, and does not touch the flag, clear or dispute rules. Weight comes from the attested device and staked SKR read on-chain, and from nothing else. Paying in SKR is spending, not staking, and changes no weight.</p>
 <p><strong>Refunds and your statutory rights.</strong> Pro is digital content supplied immediately, with your express consent given on the payment screen; once the licence record is on-chain the fourteen-day withdrawal right under Directive 2011/83/EU therefore no longer applies. Your rights under the Australian Consumer Law and under Directive (EU) 2019/770 (see "Conformity of digital content" below) are unaffected: if a Pro tool does not work as described and we cannot bring it into conformity within a reasonable time, you may ask for a proportionate refund of the current term, paid to the wallet that paid, in the token it paid with. Solana network fees go to the network and are not refundable by us. A payment that never confirmed on-chain was never charged. To claim, email the address in section 13 with the licence transaction signature.</p>
 
@@ -362,7 +369,7 @@ contact for vulnerability reports at <a href="https://aardappvark.github.io/unde
 <footer>
         <p>&copy; 2026 ADappvark. All rights reserved.</p>
         <p>Contact: <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a></p>
-        <p>Last updated: 8 September 2026</p>
+        <p>Last updated: 5 October 2026</p>
     </footer>
 </body>
 </html>
