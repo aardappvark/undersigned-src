@@ -824,6 +824,7 @@
     <string name="proof_not_body">錢包自身的簽署、收款地址,或在 dApp Store 上發布該應用程式的錢包。商店不會說明哪筆鏈上記錄屬於哪個應用程式項目,任何人都可以建立一筆寫著任意應用程式名稱的記錄。</string>
     <string name="proof_how_after">已證明發行者的回覆帶有發行者標章,其對自己應用程式的評價不計入。</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">簽署後，你的星等和標籤會公開並永久保存。之後撤回評論會將其移出評分，但紀錄仍會保留。</string>
     <string name="back">返回</string>
     <string name="stars_a11y">5 星中的 %1$s 星</string>
     <string name="err_network">沒有網路連線。請檢查網路後再試一次。</string>

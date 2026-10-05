@@ -850,6 +850,7 @@
     <string name="proof_not_body">Die eigene Signatur der Wallet, eine Zahlungsadresse oder die Wallet, die die App im dApp Store veröffentlicht hat. Der Store gibt nicht an, welcher On-Chain-Eintrag zu welchem Listing gehört, und jeder kann einen erstellen, der eine beliebige App nennt.</string>
     <string name="proof_how_after">Die Antworten eines nachgewiesenen Herausgebers tragen das Kennzeichen Herausgeber, und seine eigenen Bewertungen der App werden nicht gezählt.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Sterne und Tags sind nach dem Signieren öffentlich und dauerhaft. Ziehen Sie die Bewertung später zurück, fällt sie aus den Wertungen; der Eintrag bleibt.</string>
     <string name="back">Zurück</string>
     <string name="stars_a11y">%1$s von 5 Sternen</string>
     <string name="err_network">Keine Verbindung. Prüfen Sie das Netzwerk und versuchen Sie es erneut.</string>

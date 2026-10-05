@@ -825,6 +825,7 @@
     <string name="proof_not_body">Tanda tangan dompet itu sendiri, alamat pembayaran, atau dompet yang menerbitkan aplikasi di dApp Store. Toko tidak menyebutkan catatan on-chain mana yang milik listing mana, dan siapa pun dapat membuat satu yang mencantumkan aplikasi apa pun.</string>
     <string name="proof_how_after">Balasan penerbit yang terbukti membawa tanda Penerbit, dan ulasan mereka sendiri atas aplikasi tidak dihitung.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Bintang dan tag Anda bersifat publik dan permanen setelah ditandatangani. Menarik ulasan nanti mengeluarkannya dari skor; catatannya tetap ada.</string>
     <string name="back">Kembali</string>
     <string name="stars_a11y">%1$s dari 5 bintang</string>
     <string name="err_network">Tidak ada koneksi. Periksa jaringan dan coba lagi.</string>

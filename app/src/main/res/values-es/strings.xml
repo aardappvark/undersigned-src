@@ -859,6 +859,7 @@
     <string name="proof_not_body">La propia firma de la wallet, una dirección de pago o la wallet que publicó la app en el dApp Store. La tienda no dice qué registro on-chain pertenece a qué ficha, y cualquiera puede crear uno que nombre cualquier app.</string>
     <string name="proof_how_after">Las respuestas de un editor demostrado llevan la marca Editor, y sus propias reseñas de la app no se cuentan.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Tus estrellas y etiquetas son públicas y permanentes una vez firmadas. Retirar la reseña después la saca de las puntuaciones; el registro se queda.</string>
     <string name="back">Atrás</string>
     <string name="stars_a11y">%1$s de 5 estrellas</string>
     <string name="err_network">Sin conexión. Revisa la red e inténtalo de nuevo.</string>

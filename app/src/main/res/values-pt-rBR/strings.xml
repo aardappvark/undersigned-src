@@ -859,6 +859,7 @@
     <string name="proof_not_body">A própria assinatura da carteira, um endereço de pagamento ou a carteira que publicou o app na dApp Store. A loja não diz qual registro on-chain pertence a qual listagem, e qualquer pessoa pode criar um nomeando qualquer app.</string>
     <string name="proof_how_after">As respostas de um publicador comprovado levam o selo Publicador, e as avaliações dele sobre o próprio app não são contadas.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Suas estrelas e tags ficam públicas e permanentes depois de assinadas. Retirar a avaliação depois a remove das notas; o registro continua.</string>
     <string name="back">Voltar</string>
     <string name="stars_a11y">%1$s de 5 estrelas</string>
     <string name="err_network">Sem conexão. Verifique a rede e tente de novo.</string>

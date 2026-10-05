@@ -856,6 +856,7 @@
     <string name="proof_not_body">The wallet\'s own signature, a payment address, or the wallet that published the app on the dApp Store. The store does not say which on-chain record belongs to which listing, and anyone can mint one naming any app.</string>
     <string name="proof_how_after">A proven publisher\'s replies carry the Publisher mark, and their own reviews of the app are not counted.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Your stars and tags are public and permanent once signed. Withdrawing the review later takes it out of the scores; the record stays.</string>
     <string name="back">Back</string>
     <string name="stars_a11y">%1$s out of 5 stars</string>
     <string name="err_network">No connection. Check the network and try again.</string>

@@ -838,6 +838,7 @@
     <string name="proof_not_body">Semnătura proprie a portofelului, o adresă de plată sau portofelul care a publicat aplicația în dApp Store. Magazinul nu spune care înregistrare on-chain aparține cărei liste și oricine poate crea una care numește orice aplicație.</string>
     <string name="proof_how_after">Răspunsurile unui editor dovedit poartă insigna Editor, iar recenziile lui proprii asupra aplicației nu sunt numărate.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Stelele și etichetele tale sunt publice și permanente după semnare. Dacă retragi recenzia mai târziu, iese din scoruri; înregistrarea rămâne.</string>
     <string name="back">Înapoi</string>
     <string name="stars_a11y">%1$s din 5 stele</string>
     <string name="err_network">Nu există conexiune. Verifică rețeaua și încearcă din nou.</string>

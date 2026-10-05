@@ -834,6 +834,7 @@
     <string name="proof_not_body">Ang sariling signature ng wallet, isang payment address, o ang wallet na nag-publish ng app sa dApp Store. Hindi sinasabi ng store kung aling on-chain record ang kabilang sa aling listing, at kahit sino ay puwedeng gumawa ng isang nagpapangalan sa kahit anong app.</string>
     <string name="proof_how_after">Taglay ng mga sagot ng napatunayang publisher ang tatak na Publisher, at hindi binibilang ang sarili nilang mga review ng app.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Pampubliko at permanente ang iyong mga bituin at tag kapag napirmahan na. Kapag binawi mo ang review, aalisin ito sa mga score; mananatili ang record.</string>
     <string name="back">Bumalik</string>
     <string name="stars_a11y">%1$s sa 5 star</string>
     <string name="err_network">Walang koneksyon. Tingnan ang network at subukan ulit.</string>

@@ -840,6 +840,7 @@
     <string name="proof_not_body">Podpis samotné peněženky, platební adresa nebo peněženka, která aplikaci zveřejnila v dApp Store. Obchod neříká, který záznam na blockchainu patří ke kterému záznamu v obchodě, a kdokoli může vytvořit záznam uvádějící libovolnou aplikaci.</string>
     <string name="proof_how_after">Odpovědi prokázaného vydavatele nesou značku Vydavatel a jeho vlastní recenze aplikace se nepočítají.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Po podpisu jsou vaše hvězdičky a štítky veřejné a trvalé. Pozdější stažení recenze ji vyřadí ze skóre, záznam ale zůstane.</string>
     <string name="back">Zpět</string>
     <string name="stars_a11y">%1$s z 5 hvězdiček</string>
     <string name="err_network">Žádné připojení. Zkontrolujte síť a zkuste to znovu.</string>

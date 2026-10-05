@@ -817,6 +817,7 @@
     <string name="proof_not_body">지갑 자체의 서명, 결제 주소, 또는 dApp Store에 앱을 게시한 지갑. 스토어는 어떤 온체인 기록이 어떤 등록 항목에 속하는지 알려 주지 않으며, 누구든 어떤 앱이든 명시한 기록을 만들 수 있습니다.</string>
     <string name="proof_how_after">증명된 퍼블리셔의 답글에는 퍼블리셔 표시가 붙고, 해당 앱에 대한 본인의 리뷰는 집계되지 않습니다.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">서명하면 별점과 태그는 공개되며 영구적으로 남습니다. 나중에 리뷰를 철회하면 점수에서 빠지지만 기록은 남습니다.</string>
     <string name="back">뒤로</string>
     <string name="stars_a11y">5점 만점에 %1$s</string>
     <string name="err_network">연결되지 않았습니다. 네트워크를 확인하고 다시 시도하세요.</string>

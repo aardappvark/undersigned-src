@@ -816,6 +816,7 @@
     <string name="proof_not_body">ウォレット自身の署名、支払い用アドレス、またはdApp Storeでそのアプリを公開したウォレット。ストアは、どのオンチェーン記録がどの掲載に属するかを示しておらず、誰でも任意のアプリを名指しした記録を作成できます。</string>
     <string name="proof_how_after">証明済みパブリッシャーの返信には「パブリッシャー」マークが付き、そのアプリに対する本人のレビューはカウントされません。</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">署名すると、星とタグは公開され、恒久的に残ります。後でレビューを取り下げるとスコアから外れますが、記録は残ります。</string>
     <string name="back">戻る</string>
     <string name="stars_a11y">5つ星中 %1$s</string>
     <string name="err_network">接続がありません。ネットワークを確認して、もう一度お試しください。</string>

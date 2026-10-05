@@ -830,6 +830,7 @@
     <string name="proof_not_body">Cüzdanın kendi imzası, bir ödeme adresi veya uygulamayı dApp Store\'da yayınlayan cüzdan. Mağaza hangi zincir üstü kaydın hangi listeye ait olduğunu söylemez ve herkes herhangi bir uygulamayı belirten bir kayıt oluşturabilir.</string>
     <string name="proof_how_after">Kanıtlanmış bir yayıncının yanıtları Yayıncı rozetini taşır ve uygulamaya yazdığı kendi incelemeleri sayılmaz.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">İmzalandıktan sonra yıldızlarınız ve etiketleriniz herkese açık ve kalıcıdır. Değerlendirmeyi sonra geri çekmek onu puanlardan çıkarır; kayıt kalır.</string>
     <string name="back">Geri</string>
     <string name="stars_a11y">5 üzerinden %1$s yıldız</string>
     <string name="err_network">Bağlantı yok. Ağı kontrol edin ve tekrar deneyin.</string>

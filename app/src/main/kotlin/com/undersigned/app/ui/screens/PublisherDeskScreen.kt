@@ -46,13 +46,17 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
             if (pro?.active != true) { Spacer(Modifier.height(8.dp)); ProLock(onPro = onPro); Spacer(Modifier.height(8.dp)) }
             Text(pluralStringResource(R.plurals.desk_across, desk.apps.size, desk.apps.size), color = RbColors.textTertiary, fontSize = 12.sp)
             Spacer(Modifier.height(8.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            // Three tiles only when each has room: at phone width a tile was ~69 dp inside, and "12 Stunden" at 22 sp broke
+            // mid-value (UI review 6 Oct 2026). Narrower screens get one card of label/value rows.
+            BoxWithConstraints {
                 val stats = listOf(
                     desk.unanswered.toString() to stringResource(R.string.desk_unanswered),
                     (desk.medianReplyHours?.let { h -> if (h < 48) stringResource(R.string.desk_hours, h.toInt()) else pluralStringResource(R.plurals.desk_days, (h / 24).toInt(), (h / 24).toInt()) } ?: "—") to stringResource(R.string.desk_median),
                     (desk.answeredPercent?.let { "$it%" } ?: "—") to stringResource(R.string.desk_answered),
                 )
-                stats.forEach { (v, l) -> GlassCard(Modifier.weight(1f)) { Text(v, color = RbColors.textPrimary, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold); Text(l, color = RbColors.textTertiary, fontSize = 11.sp) } }
+                if (maxWidth >= 420.dp) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    stats.forEach { (v, l) -> GlassCard(Modifier.weight(1f)) { Text(v, color = RbColors.textPrimary, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold); Text(l, color = RbColors.textTertiary, fontSize = 11.sp) } }
+                } else GlassCard { stats.forEach { (v, l) -> StatRow(l, v) } }
             }
             SectionTitle(stringResource(R.string.desk_your_dapps))
             if (desk.apps.isEmpty()) Text(stringResource(R.string.desk_none), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)

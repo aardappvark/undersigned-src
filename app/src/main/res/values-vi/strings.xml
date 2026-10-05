@@ -825,6 +825,7 @@
     <string name="proof_not_body">Chữ ký của chính ví, một địa chỉ thanh toán, hoặc ví đã phát hành ứng dụng trên dApp Store. Cửa hàng không cho biết bản ghi on-chain nào thuộc về mục nào, và ai cũng có thể tạo một bản ghi nêu tên bất kỳ ứng dụng nào.</string>
     <string name="proof_how_after">Phần trả lời của nhà phát hành đã chứng minh mang dấu Nhà phát hành, và đánh giá của chính họ về ứng dụng không được tính.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Sau khi ký, số sao và thẻ của bạn là công khai và vĩnh viễn. Rút lại đánh giá sau này sẽ đưa nó ra khỏi điểm số; bản ghi vẫn còn.</string>
     <string name="back">Quay lại</string>
     <string name="stars_a11y">%1$s trên 5 sao</string>
     <string name="err_network">Không có kết nối. Hãy kiểm tra mạng và thử lại.</string>

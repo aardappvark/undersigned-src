@@ -859,6 +859,7 @@
     <string name="proof_not_body">La signature du wallet lui-même, une adresse de paiement ou le wallet qui a publié l\'application sur le dApp Store. Le store n\'indique pas quel enregistrement on-chain appartient à quelle fiche, et n\'importe qui peut en créer un nommant n\'importe quelle application.</string>
     <string name="proof_how_after">Les réponses d\'un éditeur prouvé portent la marque Éditeur, et ses propres avis sur l\'application ne sont pas comptés.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Vos étoiles et vos tags sont publics et permanents une fois signés. Retirer l\'avis plus tard le sort des notes ; l\'enregistrement reste.</string>
     <string name="back">Retour</string>
     <string name="stars_a11y">%1$s sur 5 étoiles</string>
     <string name="err_network">Pas de connexion. Vérifiez le réseau et réessayez.</string>

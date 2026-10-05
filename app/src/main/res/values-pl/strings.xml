@@ -848,6 +848,7 @@
     <string name="proof_not_body">Własny podpis portfela, adres płatności albo portfel, który opublikował aplikację w dApp Store. Sklep nie mówi, który wpis on-chain należy do którego wpisu w sklepie, a każdy może utworzyć taki, który wymienia dowolną aplikację.</string>
     <string name="proof_how_after">Odpowiedzi udowodnionego wydawcy noszą odznakę Wydawca, a jego własne recenzje aplikacji nie są liczone.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Po podpisaniu Twoje gwiazdki i tagi są publiczne i trwałe. Późniejsze wycofanie recenzji usuwa ją z ocen; wpis zostaje.</string>
     <string name="back">Wstecz</string>
     <string name="stars_a11y">%1$s na 5 gwiazdek</string>
     <string name="err_network">Brak połączenia. Sprawdź sieć i spróbuj ponownie.</string>

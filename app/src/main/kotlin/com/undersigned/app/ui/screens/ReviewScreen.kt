@@ -153,6 +153,8 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     Text(stringResource(R.string.use_card_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 6.dp))
                 }
             }
+            // A review without text is a public record too: say so, without asking for the text consent (UI review 6 Oct 2026).
+            if (text.isEmpty()) { Spacer(Modifier.height(10.dp)); PermanenceNote(null, stringResource(R.string.review_public_note)) }
             if (text.isNotEmpty()) {
                 Spacer(Modifier.height(10.dp))
                 PermanenceNote(stringResource(R.string.permanent_title), stringResource(R.string.review_consent_body)) {

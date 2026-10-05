@@ -839,6 +839,7 @@
     <string name="proof_not_body">De eigen handtekening van de wallet, een betaaladres of de wallet die de app in de dApp Store publiceerde. De store zegt niet welk on-chain record bij welke vermelding hoort, en iedereen kan er een maken die een willekeurige app noemt.</string>
     <string name="proof_how_after">Antwoorden van een bewezen uitgever dragen het label Uitgever, en zijn eigen recensies van de app tellen niet mee.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Je sterren en tags zijn na ondertekening openbaar en permanent. Trek je de review later in, dan telt hij niet meer mee in de scores; het record blijft.</string>
     <string name="back">Terug</string>
     <string name="stars_a11y">%1$s van 5 sterren</string>
     <string name="err_network">Geen verbinding. Controleer het netwerk en probeer het opnieuw.</string>

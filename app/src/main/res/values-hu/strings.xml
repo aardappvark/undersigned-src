@@ -830,6 +830,7 @@
     <string name="proof_not_body">A tárca saját aláírása, egy fizetési cím, vagy az a tárca, amely az alkalmazást közzétette a dApp Store-on. Az áruház nem mondja meg, melyik láncon lévő bejegyzés melyik listázáshoz tartozik, és bárki létrehozhat olyat, amely bármelyik alkalmazást megnevezi.</string>
     <string name="proof_how_after">A bizonyított kiadó válaszai Kiadó jelvényt kapnak, és az alkalmazásról írt saját értékeléseit nem számítjuk.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Aláírás után a csillagaid és címkéid nyilvánosak és véglegesek. Ha később visszavonod az értékelést, kikerül a pontszámokból, de a bejegyzés megmarad.</string>
     <string name="back">Vissza</string>
     <string name="stars_a11y">%1$s az 5 csillagból</string>
     <string name="err_network">Nincs kapcsolat. Ellenőrizd a hálózatot, és próbáld újra.</string>

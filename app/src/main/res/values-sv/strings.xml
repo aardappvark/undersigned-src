@@ -831,6 +831,7 @@
     <string name="proof_not_body">Plånbokens egen signatur, en betalningsadress eller plånboken som publicerade appen i dApp Store. Butiken säger inte vilken on-chain-post som hör till vilken listning, och vem som helst kan skapa en som namnger vilken app som helst.</string>
     <string name="proof_how_after">Svar från en bevisad utgivare bär märkningen Utgivare, och deras egna recensioner av appen räknas inte.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Dina stjärnor och taggar är offentliga och permanenta när de har signerats. Drar du tillbaka recensionen senare räknas den inte i betygen; posten finns kvar.</string>
     <string name="back">Tillbaka</string>
     <string name="stars_a11y">%1$s av 5 stjärnor</string>
     <string name="err_network">Ingen anslutning. Kontrollera nätverket och försök igen.</string>

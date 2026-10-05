@@ -859,6 +859,7 @@
     <string name="proof_not_body">La firma del portafoglio stesso, un indirizzo di pagamento o il portafoglio che ha pubblicato l\'app sul dApp Store. Lo store non dice quale record on-chain appartiene a quale scheda, e chiunque può crearne uno che indichi qualsiasi app.</string>
     <string name="proof_how_after">Le risposte di un editore dimostrato portano il marchio Editore, e le sue recensioni della propria app non vengono contate.</string>
     <!-- 6 Oct 2026 UI review -->
+    <string name="review_public_note">Le tue stelle e i tuoi tag sono pubblici e permanenti una volta firmati. Ritirare la recensione in seguito la toglie dai punteggi; il record resta.</string>
     <string name="back">Indietro</string>
     <string name="stars_a11y">%1$s su 5 stelle</string>
     <string name="err_network">Nessuna connessione. Controlla la rete e riprova.</string>
