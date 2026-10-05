@@ -361,3 +361,20 @@ class BurstSparkTest {
         assertEquals(30, s.counts.size); assertEquals(s.from, s.to); assertEquals(11, s.counts[s.from])
     }
 }
+
+class TagGroupsTest {
+    @Test fun everyTagInExactlyOneGroup() {
+        val all = TagGroups.groups.flatMap { it.second }
+        assertEquals(ReviewMemo.Tag.entries.size, all.size); assertEquals(ReviewMemo.Tag.entries.toSet(), all.toSet())
+    }
+
+    @Test fun choosingATagReleasesItsOpposite() {
+        val W = ReviewMemo.Tag.WORKS; val C = ReviewMemo.Tag.CRASHES; val F = ReviewMemo.Tag.FAST; val A = ReviewMemo.Tag.ADS
+        assertEquals(listOf(W), TagGroups.toggle(emptyList(), W))
+        assertEquals(listOf(C), TagGroups.toggle(listOf(W), C))                 // swap, never both
+        assertEquals(listOf(F, A, C), TagGroups.toggle(listOf(W, F, A), C))     // a full set still swaps a tag for its opposite
+        assertEquals(listOf(W, F, A), TagGroups.toggle(listOf(W, F, A), ReviewMemo.Tag.PAYWALL))   // full: a fourth is ignored
+        assertEquals(listOf(F), TagGroups.toggle(listOf(W, F), W))               // tapping a chosen tag removes it
+        TagGroups.opposites.forEach { (a, b) -> assertEquals(a, TagGroups.opposites[b]) }
+    }
+}

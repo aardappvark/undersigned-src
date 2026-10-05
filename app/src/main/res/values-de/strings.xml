@@ -793,4 +793,44 @@
     <string name="publisher_build_failed">Der Build konnte nicht gelesen werden. Versuchen Sie es erneut über Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Notiz anzeigen (diese Wallet wird nicht gezählt)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Wie sie läuft</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">Geld und Konten</string>
+    <string name="tag_group_trust">Berechtigungen und Eintrag</string>
+    <string name="tag_group_build">Pflege und Build</string>
+    <string name="resign_title">Ihre Bewertung gilt für Version %1$d. Dieses Telefon nutzt Version %2$d.</string>
+    <string name="resign_body">Stimmt es noch? Signieren Sie dieselben Sterne und Tags für die Version, die Sie jetzt nutzen.</string>
+    <string name="resign_body_text">Stimmt es noch? Signieren Sie dieselben Sterne, Tags und denselben Text für die Version, die Sie jetzt nutzen. Der Text wird erneut signiert und bleibt dauerhaft on-chain.</string>
+    <string name="resign_button">Stimmt noch: für Version %1$d signieren</string>
+    <string name="resign_or_edit">Oder unten ändern und signieren.</string>
+    <string name="to_review_title">Auf diesem Telefon nicht bewertet</string>
+    <string name="to_review_batch_title">Mehrere bewerten</string>
+    <string name="to_review_body">Apps, die seit einer Woche oder länger auf diesem Telefon sind oder eine Stunde oder länger genutzt wurden und die diese Wallet nicht bewertet hat. Bewerten Sie eine, oder haken Sie mehrere an und signieren Sie sie mit einer Bestätigung.</string>
+    <string name="to_review_empty">Nichts hier. Für jede App, die Sie eine Woche haben oder eine Stunde genutzt haben, liegt eine Bewertung von Ihnen vor.</string>
+    <string name="to_review_one">Bewerten</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d App bewerten</item><item quantity="other">%1$d Apps zusammen bewerten</item></plurals>
+    <string name="to_review_batch_body">Sterne und 1 bis 3 Tags für jede App. Hier kein Text: Öffnen Sie den eigenen Editor einer App, um eine Notiz hinzuzufügen. Jede Bewertung trägt das Installationsalter und die Nutzungszeit dieses Telefons, wie der Editor sie hinzufügt.</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d Bewertung signieren</item><item quantity="other">%1$d Bewertungen mit einer Bestätigung signieren</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d Bewertung signiert</item><item quantity="other">%1$d Bewertungen signiert</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d App auf diesem Telefon noch nicht bewertet</item><item quantity="other">%1$d Apps auf diesem Telefon noch nicht bewertet</item></plurals>
+    <string name="remind_title">Noch nicht bewertete Apps</string>
+    <plurals name="remind_body"><item quantity="one">Für %1$d App, die Sie auf diesem Telefon genutzt haben, liegt keine Bewertung von Ihnen vor.</item><item quantity="other">Für %1$d Apps, die Sie auf diesem Telefon genutzt haben, liegt keine Bewertung von Ihnen vor.</item></plurals>
+    <string name="remind_setting">Wöchentliche Erinnerung</string>
+    <string name="remind_setting_body">Höchstens einmal pro Woche: eine Benachrichtigung, wenn für Apps, die Sie auf diesem Telefon genutzt haben, keine Bewertung von Ihnen vorliegt. Aus, solange Sie es nicht einschalten.</string>
+    <string name="share">Teilen</string>
+    <string name="share_signed">Signiert von Seeker-Besitzern: %1$s · gezählte Bewertungen: %2$d</string>
+    <string name="share_no_signed">Auf Undersigned gibt es noch keine gezählten signierten Bewertungen</string>
+    <string name="share_store">dApp-Store-Bewertung: %1$s · Bewertungen: %2$d</string>
+    <string name="share_review_signed">Signiert auf Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Alle</string>
+    <string name="import_tags_title">Tags für Ihre importierte Bewertung</string>
+    <string name="import_tags_body">Ihre Store-Bewertung wird mit ihren eigenen Sternen und ihrem Text signiert. Wählen Sie für jede 1 bis 3 Tags: Sie sind Teil der signierten Bewertung und bleiben dauerhaft on-chain.</string>
+    <string name="import_tags_sign">Signieren</string>
+    <string name="notif_flagged_title">Ihr Eintrag wurde markiert · %1$s</string>
+    <string name="notif_flagged_body">Angegebener Grund: %1$s. Wenn Sie nicht einverstanden sind, können Sie einen Einspruch zum Eintrag signieren.</string>
+    <string name="notif_note_title">Der Herausgeber hat auf Ihre Store-Bewertung geantwortet · %1$s</string>
+    <string name="notif_proven_title">Ihr Anspruch ist bestätigt · %1$s</string>
+    <string name="notif_proven_body">Ihre Antworten auf die Bewertungen dieser App tragen jetzt das Zeichen Herausgeber ✓, und Ihre eigenen Bewertungen dafür werden nicht gezählt.</string>
 </resources>

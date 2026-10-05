@@ -769,4 +769,44 @@
     <string name="publisher_build_failed">বিল্ডটি পড়া যায়নি। Wi-Fi-তে আবার চেষ্টা করুন।</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">নোটটি দেখান (এই ওয়ালেট গণনা করা হয়নি)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">কীভাবে চলে</string>
+    <string name="tag_group_wallet">ওয়ালেট</string>
+    <string name="tag_group_money">অর্থ ও অ্যাকাউন্ট</string>
+    <string name="tag_group_trust">অনুমতি ও তালিকা</string>
+    <string name="tag_group_build">রক্ষণাবেক্ষণ ও বিল্ড</string>
+    <string name="resign_title">আপনার পর্যালোচনা সংস্করণ %1$d-এর। এই ফোনে সংস্করণ %2$d চলছে।</string>
+    <string name="resign_body">এখনও সত্য? এখন যে সংস্করণ ব্যবহার করছেন তার জন্য একই রেটিং ও ট্যাগ স্বাক্ষর করুন।</string>
+    <string name="resign_body_text">এখনও সত্য? এখন যে সংস্করণ ব্যবহার করছেন তার জন্য একই রেটিং, ট্যাগ ও টেক্সট স্বাক্ষর করুন। টেক্সট আবার স্বাক্ষরিত হয় এবং চিরকাল চেইনে থাকে।</string>
+    <string name="resign_button">এখনও সত্য: সংস্করণ %1$d-এর জন্য স্বাক্ষর করুন</string>
+    <string name="resign_or_edit">অথবা নিচে বদলে স্বাক্ষর করুন।</string>
+    <string name="to_review_title">এই ফোনে পর্যালোচনা করা হয়নি</string>
+    <string name="to_review_batch_title">কয়েকটি পর্যালোচনা করুন</string>
+    <string name="to_review_body">এই ফোনে এক সপ্তাহ বা তার বেশি আছে, অথবা এক ঘণ্টা বা তার বেশি ব্যবহার করা হয়েছে, এমন অ্যাপ যেগুলো এই ওয়ালেট পর্যালোচনা করেনি। একটি পর্যালোচনা করুন, অথবা কয়েকটি বেছে একটি অনুমোদনে স্বাক্ষর করুন।</string>
+    <string name="to_review_empty">এখানে কিছু নেই। যে অ্যাপ এক সপ্তাহ ধরে আছে বা এক ঘণ্টা ব্যবহার করেছেন, প্রতিটির পর্যালোচনা আপনার আছে।</string>
+    <string name="to_review_one">পর্যালোচনা</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d টি অ্যাপ পর্যালোচনা করুন</item><item quantity="other">%1$d টি অ্যাপ একসঙ্গে পর্যালোচনা করুন</item></plurals>
+    <string name="to_review_batch_body">প্রতিটি অ্যাপের জন্য রেটিং ও ১ থেকে ৩টি ট্যাগ। এখানে কোনো টেক্সট নেই: নোট যোগ করতে অ্যাপের নিজস্ব কম্পোজার খুলুন। প্রতিটি পর্যালোচনায় এই ফোনের ইনস্টলের বয়স ও ব্যবহারের সময় থাকে, যেভাবে কম্পোজার যোগ করে।</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d টি পর্যালোচনা স্বাক্ষর করুন</item><item quantity="other">একটি অনুমোদনে %1$d টি পর্যালোচনা স্বাক্ষর করুন</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d টি পর্যালোচনা স্বাক্ষরিত হয়েছে</item><item quantity="other">%1$d টি পর্যালোচনা স্বাক্ষরিত হয়েছে</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">এই ফোনে %1$d টি অ্যাপের এখনও পর্যালোচনা নেই</item><item quantity="other">এই ফোনে %1$d টি অ্যাপের এখনও পর্যালোচনা নেই</item></plurals>
+    <string name="remind_title">এখনও পর্যালোচনা না করা অ্যাপ</string>
+    <plurals name="remind_body"><item quantity="one">এই ফোনে ব্যবহার করা %1$d টি অ্যাপের জন্য আপনার কোনো পর্যালোচনা নেই।</item><item quantity="other">এই ফোনে ব্যবহার করা %1$d টি অ্যাপের জন্য আপনার কোনো পর্যালোচনা নেই।</item></plurals>
+    <string name="remind_setting">সাপ্তাহিক রিমাইন্ডার</string>
+    <string name="remind_setting_body">সপ্তাহে সর্বোচ্চ একবার: এই ফোনে ব্যবহার করা অ্যাপের জন্য আপনার পর্যালোচনা না থাকলে একটি নোটিফিকেশন। আপনি চালু না করলে বন্ধ থাকে।</string>
+    <string name="share">শেয়ার</string>
+    <string name="share_signed">Seeker মালিকদের স্বাক্ষরিত: %1$s · গণনা করা পর্যালোচনা: %2$d</string>
+    <string name="share_no_signed">Undersigned-এ এখনও গণনা করা কোনো স্বাক্ষরিত পর্যালোচনা নেই</string>
+    <string name="share_store">dApp Store রেটিং: %1$s · রেটিং: %2$d</string>
+    <string name="share_review_signed">Solana-য় স্বাক্ষরিত:</string>
+    <string name="browse_tag_filter">ট্যাগ</string>
+    <string name="browse_tag_any">যেকোনো</string>
+    <string name="import_tags_title">আপনার আমদানি করা পর্যালোচনার ট্যাগ</string>
+    <string name="import_tags_body">আপনার স্টোর পর্যালোচনা তার নিজস্ব রেটিং ও টেক্সট সহ স্বাক্ষরিত। প্রতিটির জন্য ১ থেকে ৩টি ট্যাগ বাছুন: এগুলো স্বাক্ষরিত পর্যালোচনার অংশ এবং চিরকাল চেইনে থাকে।</string>
+    <string name="import_tags_sign">স্বাক্ষর করুন</string>
+    <string name="notif_flagged_title">আপনার রেকর্ড ফ্ল্যাগ করা হয়েছে · %1$s</string>
+    <string name="notif_flagged_body">দেওয়া কারণ: %1$s। আপনি একমত না হলে রেকর্ডে একটি আপত্তি স্বাক্ষর করতে পারেন।</string>
+    <string name="notif_note_title">প্রকাশক আপনার স্টোর পর্যালোচনার উত্তর দিয়েছেন · %1$s</string>
+    <string name="notif_proven_title">আপনার দাবি প্রমাণিত · %1$s</string>
+    <string name="notif_proven_body">এই অ্যাপের পর্যালোচনায় আপনার উত্তরে এখন «প্রকাশক ✓» চিহ্ন থাকে, এবং এটির জন্য আপনার নিজের পর্যালোচনা গণনা করা হয় না।</string>
 </resources>

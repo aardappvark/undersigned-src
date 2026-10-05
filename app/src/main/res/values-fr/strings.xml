@@ -802,4 +802,44 @@
     <string name="publisher_build_failed">La version n\'a pas pu être lue. Réessayez en Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Afficher la note (ce wallet n\'est pas comptabilisé)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Fonctionnement</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">Argent et comptes</string>
+    <string name="tag_group_trust">Autorisations et fiche</string>
+    <string name="tag_group_build">Maintenance et build</string>
+    <string name="resign_title">Votre avis porte sur la version %1$d. Ce téléphone a la version %2$d.</string>
+    <string name="resign_body">Toujours vrai ? Signez les mêmes étoiles et les mêmes tags pour la version que vous utilisez maintenant.</string>
+    <string name="resign_body_text">Toujours vrai ? Signez les mêmes étoiles, les mêmes tags et le même texte pour la version que vous utilisez maintenant. Le texte est signé à nouveau et reste on-chain pour toujours.</string>
+    <string name="resign_button">Toujours vrai : signer pour la version %1$d</string>
+    <string name="resign_or_edit">Ou modifiez-le ci-dessous et signez.</string>
+    <string name="to_review_title">Non évaluées sur ce téléphone</string>
+    <string name="to_review_batch_title">Évaluer plusieurs applications</string>
+    <string name="to_review_body">Applications présentes sur ce téléphone depuis une semaine ou plus, ou utilisées depuis une heure ou plus, que ce wallet n\'a pas évaluées. Évaluez-en une, ou cochez-en plusieurs et signez-les en une seule approbation.</string>
+    <string name="to_review_empty">Rien ici. Chaque application que vous avez depuis une semaine ou utilisée une heure a un avis de votre part.</string>
+    <string name="to_review_one">Évaluer</string>
+    <plurals name="to_review_together"><item quantity="one">Évaluer %1$d application</item><item quantity="many">Évaluer %1$d applications ensemble</item><item quantity="other">Évaluer %1$d applications ensemble</item></plurals>
+    <string name="to_review_batch_body">Étoiles et 1 à 3 tags pour chaque application. Pas de texte ici : ouvrez l\'éditeur propre à une application pour ajouter une note. Chaque avis porte l\'ancienneté d\'installation et le temps d\'utilisation de ce téléphone, comme l\'éditeur les ajoute.</string>
+    <plurals name="to_review_sign"><item quantity="one">Signer %1$d avis</item><item quantity="many">Signer %1$d avis en une seule approbation</item><item quantity="other">Signer %1$d avis en une seule approbation</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d avis signé</item><item quantity="many">%1$d avis signés</item><item quantity="other">%1$d avis signés</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d application de ce téléphone pas encore évaluée</item><item quantity="many">%1$d applications de ce téléphone pas encore évaluées</item><item quantity="other">%1$d applications de ce téléphone pas encore évaluées</item></plurals>
+    <string name="remind_title">Applications pas encore évaluées</string>
+    <plurals name="remind_body"><item quantity="one">%1$d application que vous avez utilisée sur ce téléphone n\'a pas d\'avis de votre part.</item><item quantity="many">%1$d applications que vous avez utilisées sur ce téléphone n\'ont pas d\'avis de votre part.</item><item quantity="other">%1$d applications que vous avez utilisées sur ce téléphone n\'ont pas d\'avis de votre part.</item></plurals>
+    <string name="remind_setting">Rappel hebdomadaire</string>
+    <string name="remind_setting_body">Au plus une fois par semaine : une notification lorsque des applications que vous avez utilisées sur ce téléphone n\'ont pas d\'avis de votre part. Désactivé tant que vous ne l\'activez pas.</string>
+    <string name="share">Partager</string>
+    <string name="share_signed">Signé par des propriétaires de Seeker : %1$s · avis comptabilisés : %2$d</string>
+    <string name="share_no_signed">Aucun avis signé comptabilisé pour l\'instant sur Undersigned</string>
+    <string name="share_store">Note du dApp Store : %1$s · notes : %2$d</string>
+    <string name="share_review_signed">Signé sur Solana :</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Tous</string>
+    <string name="import_tags_title">Tags pour votre avis importé</string>
+    <string name="import_tags_body">Votre avis du store est signé avec ses propres étoiles et son texte. Choisissez 1 à 3 tags pour chacun : ils font partie de l\'avis signé et restent on-chain pour toujours.</string>
+    <string name="import_tags_sign">Signer</string>
+    <string name="notif_flagged_title">Votre enregistrement a été flagué · %1$s</string>
+    <string name="notif_flagged_body">Motif indiqué : %1$s. Si vous n\'êtes pas d\'accord, vous pouvez signer une contestation sur l\'enregistrement.</string>
+    <string name="notif_note_title">L\'éditeur a répondu à votre avis du store · %1$s</string>
+    <string name="notif_proven_title">Votre revendication est prouvée · %1$s</string>
+    <string name="notif_proven_body">Vos réponses aux avis de cette application portent désormais la marque Éditeur ✓, et vos propres avis sur elle ne sont pas comptabilisés.</string>
 </resources>

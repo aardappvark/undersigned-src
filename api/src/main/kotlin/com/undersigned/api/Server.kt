@@ -60,6 +60,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
             ok(JSONObject().put("wallet", p.wallet).put("requests_left", p.requestsLeft).put("ends_at", p.endsAt))
         }
         route("GET", "/v1/stats", Tier.FREE, "Ledger totals") { ok(views.stats()) }
+        route("GET", "/v1/dataset.json", Tier.FREE, "The open dataset: every record, every app's signed score, every signer's public facts (rebuilt every few minutes)") { cachedDataset() }
         route("GET", "/v1/tags", Tier.FREE, "Review tag vocabulary with counts") { ok(views.tags()) }
         route("GET", "/v1/records", Tier.PAID, "Every decoded record, newest first; filter by type, package, signer, since, until; page with before") { r ->
             ok(views.records(r.query["type"], r.query["package"], r.query["signer"], r.query["since"]?.toLongOrNull(), r.query["until"]?.toLongOrNull(), r.query["before"], r.int("limit", 100, 1000)))
@@ -190,6 +191,14 @@ class Api(private val views: Views, private val billing: Billing, private val in
         if (known == null) indexer.wanted.add(account)
         return ok(extra(JSONObject().put("transaction", java.util.Base64.getEncoder().encodeToString(tx)).put("memo", memo).put("counted_now", known?.hasGenesisToken ?: JSONObject.NULL)
             .put("counted_only_if", "the signing wallet holds a Seeker Genesis Token").put("permanent", "A signed record stays on-chain for good; withdrawing it later leaves the record.")))
+    }
+
+    /** The dataset is built at most once per rebuild and served from memory, so a crawler cannot make the server rebuild it per request. */
+    @Volatile private var dataset: Pair<Long, JSONObject>? = null
+    private fun cachedDataset(): Response {
+        val at = indexer.state.builtAt
+        val d = dataset?.takeIf { it.first == at }?.second ?: views.dataset().also { dataset = at to it }
+        return Response(200, d, mapOf("Cache-Control" to "public, max-age=600", "Content-Disposition" to "inline; filename=undersigned-dataset.json"))
     }
 
     private fun paymentRequired(why: String) = Response(402, JSONObject().put("error", "payment_required").put("message", why).put("pricing", pricing()))

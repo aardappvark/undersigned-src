@@ -774,4 +774,44 @@
     <string name="publisher_build_failed">Builden kunde inte läsas. Försök igen via Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Visa anteckningen (den här plånboken räknas inte)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Hur den fungerar</string>
+    <string name="tag_group_wallet">Plånbok</string>
+    <string name="tag_group_money">Pengar och konton</string>
+    <string name="tag_group_trust">Behörigheter och listning</string>
+    <string name="tag_group_build">Underhåll och bygge</string>
+    <string name="resign_title">Din recension gäller version %1$d. Den här telefonen kör version %2$d.</string>
+    <string name="resign_body">Stämmer det fortfarande? Signera samma stjärnor och taggar för den version du använder nu.</string>
+    <string name="resign_body_text">Stämmer det fortfarande? Signera samma stjärnor, taggar och text för den version du använder nu. Texten signeras på nytt och finns kvar on-chain för alltid.</string>
+    <string name="resign_button">Stämmer fortfarande: signera för version %1$d</string>
+    <string name="resign_or_edit">Eller ändra den nedan och signera.</string>
+    <string name="to_review_title">Inte recenserade på den här telefonen</string>
+    <string name="to_review_batch_title">Recensera flera</string>
+    <string name="to_review_body">Appar som funnits på den här telefonen i en vecka eller mer, eller använts i en timme eller mer, och som den här plånboken inte har recenserat. Recensera en, eller markera flera och signera dem med ett godkännande.</string>
+    <string name="to_review_empty">Inget här. Varje app du haft en vecka eller använt en timme har en recension från dig.</string>
+    <string name="to_review_one">Recensera</string>
+    <plurals name="to_review_together"><item quantity="one">Recensera %1$d app</item><item quantity="other">Recensera %1$d appar tillsammans</item></plurals>
+    <string name="to_review_batch_body">Stjärnor och 1 till 3 taggar för varje app. Ingen text här: öppna appens egen redigerare för att lägga till en anteckning. Varje recension bär den här telefonens installationsålder och användningstid, som redigeraren lägger till dem.</string>
+    <plurals name="to_review_sign"><item quantity="one">Signera %1$d recension</item><item quantity="other">Signera %1$d recensioner med ett godkännande</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d recension signerad</item><item quantity="other">%1$d recensioner signerade</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app på den här telefonen är ännu inte recenserad</item><item quantity="other">%1$d appar på den här telefonen är ännu inte recenserade</item></plurals>
+    <string name="remind_title">Appar som ännu inte recenserats</string>
+    <plurals name="remind_body"><item quantity="one">%1$d app du har använt på den här telefonen har ingen recension från dig.</item><item quantity="other">%1$d appar du har använt på den här telefonen har ingen recension från dig.</item></plurals>
+    <string name="remind_setting">Veckopåminnelse</string>
+    <string name="remind_setting_body">Högst en gång i veckan: en avisering när appar du har använt på den här telefonen saknar recension från dig. Av, om du inte slår på den.</string>
+    <string name="share">Dela</string>
+    <string name="share_signed">Signerat av Seeker-ägare: %1$s · räknade recensioner: %2$d</string>
+    <string name="share_no_signed">Inga räknade signerade recensioner ännu på Undersigned</string>
+    <string name="share_store">dApp Store-betyg: %1$s · betyg: %2$d</string>
+    <string name="share_review_signed">Signerad på Solana:</string>
+    <string name="browse_tag_filter">Tagg</string>
+    <string name="browse_tag_any">Alla</string>
+    <string name="import_tags_title">Taggar för din importerade recension</string>
+    <string name="import_tags_body">Din butiksrecension signeras med sina egna stjärnor och sin egen text. Välj 1 till 3 taggar för varje: de är en del av den signerade recensionen och finns kvar on-chain för alltid.</string>
+    <string name="import_tags_sign">Signera</string>
+    <string name="notif_flagged_title">Din post flaggades · %1$s</string>
+    <string name="notif_flagged_body">Angiven orsak: %1$s. Om du inte håller med kan du signera ett bestridande på posten.</string>
+    <string name="notif_note_title">Utgivaren svarade på din butiksrecension · %1$s</string>
+    <string name="notif_proven_title">Ditt anspråk är bevisat · %1$s</string>
+    <string name="notif_proven_body">Dina svar på den här appens recensioner bär nu märket Utgivare ✓, och dina egna recensioner av den räknas inte.</string>
 </resources>

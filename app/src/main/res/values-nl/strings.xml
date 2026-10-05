@@ -782,4 +782,44 @@
     <string name="publisher_build_failed">De build kon niet worden gelezen. Probeer het opnieuw via Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Opmerking tonen (deze wallet wordt niet meegeteld)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Hoe het draait</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">Geld en accounts</string>
+    <string name="tag_group_trust">Rechten en vermelding</string>
+    <string name="tag_group_build">Onderhoud en build</string>
+    <string name="resign_title">Uw recensie betreft versie %1$d. Deze telefoon draait versie %2$d.</string>
+    <string name="resign_body">Klopt het nog? Onderteken dezelfde sterren en tags voor de versie die u nu gebruikt.</string>
+    <string name="resign_body_text">Klopt het nog? Onderteken dezelfde sterren, tags en tekst voor de versie die u nu gebruikt. De tekst wordt opnieuw ondertekend en blijft voorgoed on-chain.</string>
+    <string name="resign_button">Klopt nog: ondertekenen voor versie %1$d</string>
+    <string name="resign_or_edit">Of wijzig het hieronder en onderteken.</string>
+    <string name="to_review_title">Niet beoordeeld op deze telefoon</string>
+    <string name="to_review_batch_title">Meerdere recenseren</string>
+    <string name="to_review_body">Apps die een week of langer op deze telefoon staan, of een uur of langer zijn gebruikt, en die deze wallet niet heeft beoordeeld. Recenseer er één, of vink er meerdere aan en onderteken ze met één goedkeuring.</string>
+    <string name="to_review_empty">Niets hier. Voor elke app die u een week hebt of een uur hebt gebruikt, staat er een recensie van u.</string>
+    <string name="to_review_one">Recenseren</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d app recenseren</item><item quantity="other">%1$d apps samen recenseren</item></plurals>
+    <string name="to_review_batch_body">Sterren en 1 tot 3 tags per app. Hier geen tekst: open de eigen editor van een app om een opmerking toe te voegen. Elke recensie draagt de installatieleeftijd en gebruikstijd van deze telefoon, zoals de editor ze toevoegt.</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d recensie ondertekenen</item><item quantity="other">%1$d recensies met één goedkeuring ondertekenen</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d recensie ondertekend</item><item quantity="other">%1$d recensies ondertekend</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app op deze telefoon nog niet gerecenseerd</item><item quantity="other">%1$d apps op deze telefoon nog niet gerecenseerd</item></plurals>
+    <string name="remind_title">Apps nog niet gerecenseerd</string>
+    <plurals name="remind_body"><item quantity="one">%1$d app die u op deze telefoon hebt gebruikt, heeft geen recensie van u.</item><item quantity="other">%1$d apps die u op deze telefoon hebt gebruikt, hebben geen recensie van u.</item></plurals>
+    <string name="remind_setting">Wekelijkse herinnering</string>
+    <string name="remind_setting_body">Hooguit één keer per week: een melding wanneer apps die u op deze telefoon hebt gebruikt geen recensie van u hebben. Uit, tenzij u het inschakelt.</string>
+    <string name="share">Delen</string>
+    <string name="share_signed">Ondertekend door Seeker-eigenaren: %1$s · meegetelde recensies: %2$d</string>
+    <string name="share_no_signed">Nog geen meegetelde ondertekende recensies op Undersigned</string>
+    <string name="share_store">dApp Store-beoordeling: %1$s · beoordelingen: %2$d</string>
+    <string name="share_review_signed">Ondertekend op Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Alle</string>
+    <string name="import_tags_title">Tags voor uw geïmporteerde recensie</string>
+    <string name="import_tags_body">Uw store-recensie wordt ondertekend met zijn eigen sterren en tekst. Kies voor elke recensie 1 tot 3 tags: ze maken deel uit van de ondertekende recensie en blijven voorgoed on-chain.</string>
+    <string name="import_tags_sign">Ondertekenen</string>
+    <string name="notif_flagged_title">Uw record is gemarkeerd · %1$s</string>
+    <string name="notif_flagged_body">Opgegeven reden: %1$s. Als u het er niet mee eens bent, kunt u een bezwaar op het record ondertekenen.</string>
+    <string name="notif_note_title">De uitgever heeft op uw store-recensie gereageerd · %1$s</string>
+    <string name="notif_proven_title">Uw claim is bewezen · %1$s</string>
+    <string name="notif_proven_body">Uw reacties op de recensies van deze app dragen nu het label Uitgever ✓, en uw eigen recensies ervan worden niet meegeteld.</string>
 </resources>

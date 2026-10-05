@@ -752,4 +752,44 @@
     <string name="publisher_build_failed">อ่านบิลด์ไม่ได้ ลองอีกครั้งผ่าน Wi-Fi</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">แสดงบันทึก (กระเป๋าเงินนี้ไม่ถูกนับ)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">วิธีที่ทำงาน</string>
+    <string name="tag_group_wallet">กระเป๋าเงิน</string>
+    <string name="tag_group_money">เงินและบัญชี</string>
+    <string name="tag_group_trust">สิทธิ์และการแสดงรายการ</string>
+    <string name="tag_group_build">การดูแลรักษาและบิลด์</string>
+    <string name="resign_title">รีวิวของคุณเป็นของเวอร์ชัน %1$d โทรศัพท์เครื่องนี้ใช้เวอร์ชัน %2$d</string>
+    <string name="resign_body">ยังเป็นจริงอยู่ไหม? ลงลายเซ็นดาวและแท็กชุดเดิมสำหรับเวอร์ชันที่คุณใช้ตอนนี้</string>
+    <string name="resign_body_text">ยังเป็นจริงอยู่ไหม? ลงลายเซ็นดาว แท็ก และข้อความชุดเดิมสำหรับเวอร์ชันที่คุณใช้ตอนนี้ ข้อความจะถูกลงลายเซ็นอีกครั้งและอยู่บนเชนตลอดไป</string>
+    <string name="resign_button">ยังเป็นจริงอยู่: ลงลายเซ็นสำหรับเวอร์ชัน %1$d</string>
+    <string name="resign_or_edit">หรือแก้ไขด้านล่างแล้วลงลายเซ็น</string>
+    <string name="to_review_title">ยังไม่ได้รีวิวบนโทรศัพท์เครื่องนี้</string>
+    <string name="to_review_batch_title">รีวิวหลายแอป</string>
+    <string name="to_review_body">แอปที่อยู่บนโทรศัพท์เครื่องนี้ตั้งแต่หนึ่งสัปดาห์ขึ้นไป หรือใช้งานตั้งแต่หนึ่งชั่วโมงขึ้นไป ที่กระเป๋าเงินนี้ยังไม่ได้รีวิว รีวิวทีละแอป หรือเลือกหลายแอปแล้วลงลายเซ็นในการอนุมัติครั้งเดียว</string>
+    <string name="to_review_empty">ไม่มีรายการ ทุกแอปที่คุณมีมาหนึ่งสัปดาห์หรือใช้มาหนึ่งชั่วโมงมีรีวิวจากคุณแล้ว</string>
+    <string name="to_review_one">รีวิว</string>
+    <plurals name="to_review_together"><item quantity="other">รีวิว %1$d แอปพร้อมกัน</item></plurals>
+    <string name="to_review_batch_body">ดาวและแท็ก 1 ถึง 3 รายการสำหรับแต่ละแอป ไม่มีข้อความที่นี่: เปิดตัวเขียนรีวิวของแอปนั้นเพื่อเพิ่มบันทึก รีวิวแต่ละรายการจะมีระยะเวลาการติดตั้งและเวลาที่ใช้งานบนโทรศัพท์เครื่องนี้ ตามที่ตัวเขียนรีวิวเพิ่มให้</string>
+    <plurals name="to_review_sign"><item quantity="other">ลงลายเซ็น %1$d รีวิวในการอนุมัติครั้งเดียว</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">ลงลายเซ็นแล้ว %1$d รีวิว</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">%1$d แอปบนโทรศัพท์เครื่องนี้ที่ยังไม่ได้รีวิว</item></plurals>
+    <string name="remind_title">แอปที่ยังไม่ได้รีวิว</string>
+    <plurals name="remind_body"><item quantity="other">แอป %1$d รายการที่คุณใช้บนโทรศัพท์เครื่องนี้ยังไม่มีรีวิวจากคุณ</item></plurals>
+    <string name="remind_setting">การเตือนรายสัปดาห์</string>
+    <string name="remind_setting_body">อย่างมากสัปดาห์ละครั้ง: การแจ้งเตือนเมื่อมีแอปที่คุณใช้บนโทรศัพท์เครื่องนี้ที่ยังไม่มีรีวิวจากคุณ ปิดอยู่จนกว่าคุณจะเปิด</string>
+    <string name="share">แชร์</string>
+    <string name="share_signed">ลงลายเซ็นโดยเจ้าของ Seeker: %1$s · รีวิวที่ถูกนับ: %2$d</string>
+    <string name="share_no_signed">ยังไม่มีรีวิวที่ลงลายเซ็นและถูกนับบน Undersigned</string>
+    <string name="share_store">คะแนนของ dApp Store: %1$s · จำนวนคะแนน: %2$d</string>
+    <string name="share_review_signed">ลงลายเซ็นบน Solana:</string>
+    <string name="browse_tag_filter">แท็ก</string>
+    <string name="browse_tag_any">ทั้งหมด</string>
+    <string name="import_tags_title">แท็กสำหรับรีวิวที่นำเข้าของคุณ</string>
+    <string name="import_tags_body">รีวิวจากสโตร์ของคุณจะลงลายเซ็นพร้อมดาวและข้อความของมันเอง เลือกแท็ก 1 ถึง 3 รายการสำหรับแต่ละรีวิว: แท็กเป็นส่วนหนึ่งของรีวิวที่ลงลายเซ็นและอยู่บนเชนตลอดไป</string>
+    <string name="import_tags_sign">ลงลายเซ็น</string>
+    <string name="notif_flagged_title">บันทึกของคุณถูกปักธง · %1$s</string>
+    <string name="notif_flagged_body">เหตุผลที่ระบุ: %1$s หากไม่เห็นด้วย คุณลงลายเซ็นโต้แย้งบนบันทึกนี้ได้</string>
+    <string name="notif_note_title">ผู้เผยแพร่ตอบรีวิวสโตร์ของคุณ · %1$s</string>
+    <string name="notif_proven_title">การอ้างสิทธิ์ของคุณได้รับการพิสูจน์แล้ว · %1$s</string>
+    <string name="notif_proven_body">คำตอบของคุณต่อรีวิวของแอปนี้ตอนนี้มีเครื่องหมายผู้เผยแพร่ ✓ และรีวิวของคุณเองต่อแอปนี้จะไม่ถูกนับ</string>
 </resources>

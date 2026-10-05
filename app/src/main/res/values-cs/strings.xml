@@ -783,4 +783,44 @@
     <string name="publisher_build_failed">Sestavení se nepodařilo přečíst. Zkuste to znovu přes Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Zobrazit poznámku (tato peněženka není započítána)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Jak funguje</string>
+    <string name="tag_group_wallet">Peněženka</string>
+    <string name="tag_group_money">Peníze a účty</string>
+    <string name="tag_group_trust">Oprávnění a zápis</string>
+    <string name="tag_group_build">Údržba a sestavení</string>
+    <string name="resign_title">Vaše recenze se týká verze %1$d. Tento telefon má verzi %2$d.</string>
+    <string name="resign_body">Stále platí? Podepište stejné hvězdičky a štítky pro verzi, kterou nyní používáte.</string>
+    <string name="resign_body_text">Stále platí? Podepište stejné hvězdičky, štítky a text pro verzi, kterou nyní používáte. Text se podepisuje znovu a zůstane na blockchainu navždy.</string>
+    <string name="resign_button">Stále platí: podepsat pro verzi %1$d</string>
+    <string name="resign_or_edit">Nebo ji níže upravte a podepište.</string>
+    <string name="to_review_title">Bez recenze v tomto telefonu</string>
+    <string name="to_review_batch_title">Zrecenzovat několik</string>
+    <string name="to_review_body">Aplikace v tomto telefonu týden a déle nebo používané hodinu a déle, které tato peněženka nezrecenzovala. Zrecenzujte jednu, nebo jich několik zaškrtněte a podepište jedním schválením.</string>
+    <string name="to_review_empty">Nic tu není. U každé aplikace, kterou máte týden nebo jste ji používali hodinu, je vaše recenze.</string>
+    <string name="to_review_one">Zrecenzovat</string>
+    <plurals name="to_review_together"><item quantity="one">Zrecenzovat %1$d aplikaci</item><item quantity="few">Zrecenzovat %1$d aplikace společně</item><item quantity="many">Zrecenzovat %1$d aplikace společně</item><item quantity="other">Zrecenzovat %1$d aplikací společně</item></plurals>
+    <string name="to_review_batch_body">Hvězdičky a 1 až 3 štítky pro každou aplikaci. Bez textu: poznámku přidáte v editoru dané aplikace. Každá recenze nese stáří instalace a dobu používání v tomto telefonu, jak je přidává editor.</string>
+    <plurals name="to_review_sign"><item quantity="one">Podepsat %1$d recenzi</item><item quantity="few">Podepsat %1$d recenze jedním schválením</item><item quantity="many">Podepsat %1$d recenze jedním schválením</item><item quantity="other">Podepsat %1$d recenzí jedním schválením</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">Podepsána %1$d recenze</item><item quantity="few">Podepsány %1$d recenze</item><item quantity="many">Podepsány %1$d recenze</item><item quantity="other">Podepsáno %1$d recenzí</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d aplikace v tomto telefonu zatím bez recenze</item><item quantity="few">%1$d aplikace v tomto telefonu zatím bez recenze</item><item quantity="many">%1$d aplikace v tomto telefonu zatím bez recenze</item><item quantity="other">%1$d aplikací v tomto telefonu zatím bez recenze</item></plurals>
+    <string name="remind_title">Aplikace zatím bez recenze</string>
+    <plurals name="remind_body"><item quantity="one">%1$d aplikace, kterou jste v tomto telefonu používali, nemá od vás recenzi.</item><item quantity="few">%1$d aplikace, které jste v tomto telefonu používali, nemají od vás recenzi.</item><item quantity="many">%1$d aplikace, které jste v tomto telefonu používali, nemají od vás recenzi.</item><item quantity="other">%1$d aplikací, které jste v tomto telefonu používali, nemá od vás recenzi.</item></plurals>
+    <string name="remind_setting">Týdenní připomenutí</string>
+    <string name="remind_setting_body">Nejvýše jednou týdně: oznámení, když aplikace, které jste v tomto telefonu používali, nemají od vás recenzi. Vypnuto, dokud to nezapnete.</string>
+    <string name="share">Sdílet</string>
+    <string name="share_signed">Podepsáno majiteli Seekeru: %1$s · započítané recenze: %2$d</string>
+    <string name="share_no_signed">Na Undersigned zatím nejsou žádné započítané podepsané recenze</string>
+    <string name="share_store">Hodnocení dApp Store: %1$s · hodnocení: %2$d</string>
+    <string name="share_review_signed">Podepsáno na Solana:</string>
+    <string name="browse_tag_filter">Štítek</string>
+    <string name="browse_tag_any">Jakýkoli</string>
+    <string name="import_tags_title">Štítky k importované recenzi</string>
+    <string name="import_tags_body">Vaše recenze z obchodu je podepsána s vlastními hvězdičkami a textem. Vyberte ke každé 1 až 3 štítky: jsou součástí podepsané recenze a zůstanou na blockchainu navždy.</string>
+    <string name="import_tags_sign">Podepsat</string>
+    <string name="notif_flagged_title">Váš záznam byl označen · %1$s</string>
+    <string name="notif_flagged_body">Uvedený důvod: %1$s. Pokud nesouhlasíte, můžete k záznamu podepsat rozpor.</string>
+    <string name="notif_note_title">Vydavatel odpověděl na vaši recenzi z obchodu · %1$s</string>
+    <string name="notif_proven_title">Váš nárok je prokázán · %1$s</string>
+    <string name="notif_proven_body">Vaše odpovědi na recenze této aplikace nyní nesou značku Vydavatel ✓ a vaše vlastní recenze na ni se nezapočítávají.</string>
 </resources>

@@ -78,7 +78,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             sb.append("<a class='card row link' href='/app/${enc(a.getString("package"))}'><span class=grow><span class=name>${esc(a.getString("name"))}</span><br><span class=meta>${esc(a.optString("category", ""))} · ${esc(a.getString("package"))}</span></span>")
             sb.append(if (sg != null) "<span class=score>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}<small>${sg.optInt("counted_reviews")} signed</small></span>" else "<span class=meta>no signed reviews</span>").append("</a>")
         }
-        sb.append("<p class=small><a href='/watch'>Store watch report</a> · <a href='/review'>Write a signed review</a> · <a href='/publishers'>For publishers</a> · <a href='/v1/openapi.json'>API</a> · <a href='/v1/pricing'>API pricing</a></p>")
+        sb.append("<p class=small><a href='/watch'>Store watch report</a> · <a href='/review'>Write a signed review</a> · <a href='/publishers'>For publishers</a> · <a href='/v1/dataset.json'>Open dataset</a> · <a href='/v1/openapi.json'>API</a> · <a href='/v1/pricing'>API pricing</a></p>")
         return sb.toString()
     }
 
@@ -191,14 +191,15 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
      */
     private fun review(pkg: String?, lang: String): String {
         val app = pkg?.let { indexer.state.byPackage[it] }
-        val tagChips = com.undersigned.protocol.ReviewMemo.Tag.entries.joinToString("") { t -> "<button type=button class=chip data-tag='${esc(t.wire)}' aria-pressed=false>${esc(I18n.tag(lang, t.wire))}</button>" }
+        // The same groups and opposite pairs as the app's composer (protocol TagGroups).
+        val tagChips = com.undersigned.protocol.TagGroups.groups.joinToString("") { (_, tags) -> "<div class=row>" + tags.joinToString("") { t -> "<button type=button class=chip data-tag='${esc(t.wire)}' data-opp='${esc(com.undersigned.protocol.TagGroups.opposites[t]?.wire ?: "")}' aria-pressed=false>${esc(I18n.tag(lang, t.wire))}</button>" } + "</div>" }
         return """<p class=small><a href='/'>Undersigned</a></p><h1>Write a signed review</h1>
 <p class=sub>Your wallet signs the review and it is recorded on Solana. It is counted in scores only if the signing wallet holds a Seeker Genesis Token. You pay only the network fee.</p>
 <div class=card>
 <label class=label for=pkg>App</label><input id=pkg list=apps value='${esc(pkg ?: "")}' placeholder='Package name, e.g. com.solflare.mobile' autocomplete=off>
 <div class=meta id=appname>${esc(app?.name ?: "")}</div>
 <div class=label style='margin-top:12px'>Rating</div><div class=row id=rating>${(1..5).joinToString("") { "<button type=button class=chip data-r=$it aria-pressed=false>$it ★</button>" }}</div>
-<div class=label style='margin-top:12px'>Tags (1 to 3)</div><div class=row id=tags>$tagChips</div>
+<div class=label style='margin-top:12px'>Tags (1 to 3)</div><div id=tags>$tagChips</div>
 <label class=label for=text style='display:block;margin-top:12px'>Text (optional, 140 characters)</label><textarea id=text maxlength=140 rows=3></textarea>
 <label class=row><input type=checkbox id=permanent style='width:auto;margin:0'> <span class=meta>I understand my text stays on-chain for good. Withdrawing the review later leaves the record.</span></label>
 <label class=row><input type=checkbox id=terms style='width:auto;margin:0'> <span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. The version recorded is the store's current version of the app.</span></label>
@@ -219,7 +220,9 @@ const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 function bs58(bytes) { let n = 0n; for (const b of bytes) n = n * 256n + BigInt(b); let s = ''; while (n > 0n) { s = B58[Number(n % 58n)] + s; n /= 58n; } for (const b of bytes) { if (b !== 0) break; s = '1' + s; } return s; }
 const b64 = (bytes) => btoa(String.fromCharCode(...bytes)); const unb64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 document.querySelectorAll('#rating .chip').forEach(b => b.onclick = () => { rating = +b.dataset.r; document.querySelectorAll('#rating .chip').forEach(x => x.setAttribute('aria-pressed', x === b)); ready(); });
-document.querySelectorAll('#tags .chip').forEach(b => b.onclick = () => { const t = b.dataset.tag; if (tags.includes(t)) tags = tags.filter(x => x !== t); else if (tags.length < 3) tags.push(t); b.setAttribute('aria-pressed', tags.includes(t)); ready(); });
+document.querySelectorAll('#tags .chip').forEach(b => b.onclick = () => { const t = b.dataset.tag, o = b.dataset.opp;
+  if (tags.includes(t)) tags = tags.filter(x => x !== t); else { tags = tags.filter(x => x !== o); if (tags.length < 3) tags.push(t); }
+  document.querySelectorAll('#tags .chip').forEach(x => x.setAttribute('aria-pressed', tags.includes(x.dataset.tag))); ready(); });
 ['text','permanent','terms','pkg'].forEach(id => $(id).addEventListener('input', ready));
 function ready() { const text = $('text').value.trim(); $('sign').disabled = !(account && rating && tags.length && $('terms').checked && (!text || $('permanent').checked) && $('pkg').value.trim()); }
 async function mwa() { return (await import('https://cdn.jsdelivr.net/npm/@solana-mobile/mobile-wallet-adapter-protocol@2.3.0/+esm')).transact; }

@@ -790,4 +790,44 @@
     <string name="publisher_build_failed">Не вдалося прочитати збірку. Спробуйте ще раз через Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Показати примітку (цей гаманець не враховується)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Як працює</string>
+    <string name="tag_group_wallet">Гаманець</string>
+    <string name="tag_group_money">Гроші та облікові записи</string>
+    <string name="tag_group_trust">Дозволи та лістинг</string>
+    <string name="tag_group_build">Підтримка та збірка</string>
+    <string name="resign_title">Ваш відгук стосується версії %1$d. На цьому телефоні версія %2$d.</string>
+    <string name="resign_body">Усе ще правда? Підпишіть ті самі зірки й теги для версії, якою ви користуєтесь зараз.</string>
+    <string name="resign_body_text">Усе ще правда? Підпишіть ті самі зірки, теги й текст для версії, якою ви користуєтесь зараз. Текст підписується заново й назавжди залишається в блокчейні.</string>
+    <string name="resign_button">Усе ще правда: підписати для версії %1$d</string>
+    <string name="resign_or_edit">Або змініть нижче й підпишіть.</string>
+    <string name="to_review_title">Без відгуку на цьому телефоні</string>
+    <string name="to_review_batch_title">Відгуки про кілька</string>
+    <string name="to_review_body">Додатки, які є на цьому телефоні тиждень або довше чи якими користувалися годину або довше й на які цей гаманець не залишив відгуку. Залишіть відгук про один або позначте кілька та підпишіть їх одним підтвердженням.</string>
+    <string name="to_review_empty">Тут нічого немає. На кожен додаток, який у вас тиждень або яким ви користувалися годину, є ваш відгук.</string>
+    <string name="to_review_one">Залишити відгук</string>
+    <plurals name="to_review_together"><item quantity="one">Відгук про %1$d додаток</item><item quantity="few">Відгук про %1$d додатки разом</item><item quantity="many">Відгук про %1$d додатків разом</item><item quantity="other">Відгук про %1$d додатка разом</item></plurals>
+    <string name="to_review_batch_body">Зірки й від 1 до 3 тегів для кожного додатка. Тексту тут немає: щоб додати примітку, відкрийте редактор самого додатка. Кожен відгук містить термін встановлення й час використання на цьому телефоні, як їх додає редактор.</string>
+    <plurals name="to_review_sign"><item quantity="one">Підписати %1$d відгук</item><item quantity="few">Підписати %1$d відгуки одним підтвердженням</item><item quantity="many">Підписати %1$d відгуків одним підтвердженням</item><item quantity="other">Підписати %1$d відгука одним підтвердженням</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">Підписано %1$d відгук</item><item quantity="few">Підписано %1$d відгуки</item><item quantity="many">Підписано %1$d відгуків</item><item quantity="other">Підписано %1$d відгука</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d додаток на цьому телефоні ще без відгуку</item><item quantity="few">%1$d додатки на цьому телефоні ще без відгуку</item><item quantity="many">%1$d додатків на цьому телефоні ще без відгуку</item><item quantity="other">%1$d додатка на цьому телефоні ще без відгуку</item></plurals>
+    <string name="remind_title">Додатки ще без відгуку</string>
+    <plurals name="remind_body"><item quantity="one">Відгуку від вас немає про %1$d додаток, яким ви користувалися на цьому телефоні.</item><item quantity="few">Відгуку від вас немає про %1$d додатки, якими ви користувалися на цьому телефоні.</item><item quantity="many">Відгуку від вас немає про %1$d додатків, якими ви користувалися на цьому телефоні.</item><item quantity="other">Відгуку від вас немає про %1$d додатка, якими ви користувалися на цьому телефоні.</item></plurals>
+    <string name="remind_setting">Щотижневе нагадування</string>
+    <string name="remind_setting_body">Не частіше ніж раз на тиждень: сповіщення, коли про додатки, якими ви користувалися на цьому телефоні, немає вашого відгуку. Вимкнено, доки ви не ввімкнете.</string>
+    <string name="share">Поділитися</string>
+    <string name="share_signed">Підписано власниками Seeker: %1$s · враховані відгуки: %2$d</string>
+    <string name="share_no_signed">В Undersigned поки немає врахованих підписаних відгуків</string>
+    <string name="share_store">Рейтинг dApp Store: %1$s · оцінок: %2$d</string>
+    <string name="share_review_signed">Підписано в Solana:</string>
+    <string name="browse_tag_filter">Тег</string>
+    <string name="browse_tag_any">Будь-який</string>
+    <string name="import_tags_title">Теги для імпортованого відгуку</string>
+    <string name="import_tags_body">Ваш відгук із магазину підписується зі своїми зірками й текстом. Виберіть для кожного від 1 до 3 тегів: вони входять до підписаного відгуку й назавжди залишаються в блокчейні.</string>
+    <string name="import_tags_sign">Підписати</string>
+    <string name="notif_flagged_title">Ваш запис позначили · %1$s</string>
+    <string name="notif_flagged_body">Указана причина: %1$s. Якщо ви не згодні, можете підписати оскарження запису.</string>
+    <string name="notif_note_title">Видавець відповів на ваш відгук із магазину · %1$s</string>
+    <string name="notif_proven_title">Вашу заяву підтверджено · %1$s</string>
+    <string name="notif_proven_body">Ваші відповіді на відгуки про цей додаток тепер мають позначку Видавець ✓, а ваші власні відгуки про нього не враховуються.</string>
 </resources>

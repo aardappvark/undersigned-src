@@ -759,4 +759,44 @@
     <string name="publisher_build_failed">ビルドを読み取れませんでした。Wi-Fiでもう一度お試しください。</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">メモを表示（このウォレットはカウント対象外）</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">動作のしかた</string>
+    <string name="tag_group_wallet">ウォレット</string>
+    <string name="tag_group_money">お金とアカウント</string>
+    <string name="tag_group_trust">権限と掲載内容</string>
+    <string name="tag_group_build">保守とビルド</string>
+    <string name="resign_title">あなたのレビューはバージョン%1$dのものです。この端末ではバージョン%2$dが動いています。</string>
+    <string name="resign_body">今も同じですか？今使っているバージョンについて、同じ星とタグに署名します。</string>
+    <string name="resign_body_text">今も同じですか？今使っているバージョンについて、同じ星・タグ・本文に署名します。本文は改めて署名され、オンチェーンに永久に残ります。</string>
+    <string name="resign_button">今も同じ：バージョン%1$dに署名</string>
+    <string name="resign_or_edit">または下で変更して署名します。</string>
+    <string name="to_review_title">この端末で未レビュー</string>
+    <string name="to_review_batch_title">まとめてレビュー</string>
+    <string name="to_review_body">この端末に1週間以上ある、または1時間以上使ったアプリのうち、このウォレットがまだレビューしていないものです。1件だけレビューするか、複数を選んで1回の承認でまとめて署名できます。</string>
+    <string name="to_review_empty">ここには何もありません。1週間持っている、または1時間使ったアプリには、すべてあなたのレビューがあります。</string>
+    <string name="to_review_one">レビュー</string>
+    <plurals name="to_review_together"><item quantity="other">%1$d件のアプリをまとめてレビュー</item></plurals>
+    <string name="to_review_batch_body">アプリごとに星と1〜3個のタグ。ここでは本文は書きません。メモを追加するには、そのアプリ自身の作成画面を開いてください。各レビューには、作成画面が追加するのと同じく、この端末のインストール期間と使用時間が付きます。</string>
+    <plurals name="to_review_sign"><item quantity="other">%1$d件のレビューを1回の承認で署名</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">%1$d件のレビューに署名しました</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">この端末のアプリ%1$d件が未レビュー</item></plurals>
+    <string name="remind_title">未レビューのアプリ</string>
+    <plurals name="remind_body"><item quantity="other">この端末で使ったアプリ%1$d件には、あなたのレビューがありません。</item></plurals>
+    <string name="remind_setting">週1回のリマインダー</string>
+    <string name="remind_setting_body">週に1回まで：この端末で使ったアプリにあなたのレビューがないとき、通知します。オンにしない限りオフです。</string>
+    <string name="share">共有</string>
+    <string name="share_signed">Seeker所有者の署名:%1$s · カウント対象のレビュー:%2$d</string>
+    <string name="share_no_signed">Undersignedには、カウント対象の署名済みレビューはまだありません</string>
+    <string name="share_store">dApp Store の評価:%1$s · 評価数:%2$d</string>
+    <string name="share_review_signed">Solana上で署名済み:</string>
+    <string name="browse_tag_filter">タグ</string>
+    <string name="browse_tag_any">すべて</string>
+    <string name="import_tags_title">インポートしたレビューのタグ</string>
+    <string name="import_tags_body">ストアのレビューは、その星と本文のまま署名されます。それぞれに1〜3個のタグを選んでください。タグは署名済みレビューの一部で、オンチェーンに永久に残ります。</string>
+    <string name="import_tags_sign">署名</string>
+    <string name="notif_flagged_title">あなたのレコードにフラグが立てられました · %1$s</string>
+    <string name="notif_flagged_body">理由:%1$s。同意できない場合は、このレコードに対する異議に署名できます。</string>
+    <string name="notif_note_title">パブリッシャーがストアのレビューに返信しました · %1$s</string>
+    <string name="notif_proven_title">あなたの申請が証明されました · %1$s</string>
+    <string name="notif_proven_body">このアプリのレビューへのあなたの返信に、パブリッシャー ✓ のマークが付くようになりました。このアプリへのあなた自身のレビューはカウント対象外です。</string>
 </resources>

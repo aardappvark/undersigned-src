@@ -768,4 +768,44 @@
     <string name="publisher_build_failed">Không thể đọc bản build. Hãy thử lại qua Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Hiện ghi chú (ví này không được tính)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Cách hoạt động</string>
+    <string name="tag_group_wallet">Ví</string>
+    <string name="tag_group_money">Tiền và tài khoản</string>
+    <string name="tag_group_trust">Quyền và trang niêm yết</string>
+    <string name="tag_group_build">Bảo trì và bản dựng</string>
+    <string name="resign_title">Đánh giá của bạn dành cho phiên bản %1$d. Điện thoại này đang chạy phiên bản %2$d.</string>
+    <string name="resign_body">Vẫn đúng chứ? Hãy ký cùng số sao và thẻ cho phiên bản bạn đang dùng hiện nay.</string>
+    <string name="resign_body_text">Vẫn đúng chứ? Hãy ký cùng số sao, thẻ và văn bản cho phiên bản bạn đang dùng hiện nay. Văn bản được ký lại và nằm trên chuỗi mãi mãi.</string>
+    <string name="resign_button">Vẫn đúng: ký cho phiên bản %1$d</string>
+    <string name="resign_or_edit">Hoặc thay đổi bên dưới rồi ký.</string>
+    <string name="to_review_title">Chưa đánh giá trên điện thoại này</string>
+    <string name="to_review_batch_title">Đánh giá nhiều ứng dụng</string>
+    <string name="to_review_body">Các ứng dụng đã có trên điện thoại này từ một tuần trở lên, hoặc đã dùng từ một giờ trở lên, mà ví này chưa đánh giá. Đánh giá một ứng dụng, hoặc chọn nhiều ứng dụng và ký chúng trong một lần phê duyệt.</string>
+    <string name="to_review_empty">Không có gì ở đây. Mọi ứng dụng bạn có từ một tuần hoặc đã dùng một giờ đều có đánh giá của bạn.</string>
+    <string name="to_review_one">Đánh giá</string>
+    <plurals name="to_review_together"><item quantity="other">Đánh giá %1$d ứng dụng cùng lúc</item></plurals>
+    <string name="to_review_batch_body">Số sao và 1 đến 3 thẻ cho mỗi ứng dụng. Không có văn bản ở đây: hãy mở trình soạn riêng của ứng dụng để thêm ghi chú. Mỗi đánh giá mang theo thời gian cài đặt và thời gian sử dụng của điện thoại này, như trình soạn thêm vào.</string>
+    <plurals name="to_review_sign"><item quantity="other">Ký %1$d đánh giá trong một lần phê duyệt</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">Đã ký %1$d đánh giá</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">%1$d ứng dụng trên điện thoại này chưa được đánh giá</item></plurals>
+    <string name="remind_title">Ứng dụng chưa được đánh giá</string>
+    <plurals name="remind_body"><item quantity="other">%1$d ứng dụng bạn đã dùng trên điện thoại này chưa có đánh giá từ bạn.</item></plurals>
+    <string name="remind_setting">Nhắc nhở hằng tuần</string>
+    <string name="remind_setting_body">Tối đa một lần mỗi tuần: một thông báo khi có ứng dụng bạn đã dùng trên điện thoại này chưa có đánh giá từ bạn. Tắt trừ khi bạn bật.</string>
+    <string name="share">Chia sẻ</string>
+    <string name="share_signed">Do chủ sở hữu Seeker ký: %1$s · đánh giá được tính: %2$d</string>
+    <string name="share_no_signed">Chưa có đánh giá đã ký nào được tính trên Undersigned</string>
+    <string name="share_store">Xếp hạng dApp Store: %1$s · lượt xếp hạng: %2$d</string>
+    <string name="share_review_signed">Đã ký trên Solana:</string>
+    <string name="browse_tag_filter">Thẻ</string>
+    <string name="browse_tag_any">Bất kỳ</string>
+    <string name="import_tags_title">Thẻ cho đánh giá đã nhập của bạn</string>
+    <string name="import_tags_body">Đánh giá cửa hàng của bạn được ký cùng số sao và văn bản của chính nó. Chọn 1 đến 3 thẻ cho mỗi đánh giá: thẻ là một phần của đánh giá đã ký và nằm trên chuỗi mãi mãi.</string>
+    <string name="import_tags_sign">Ký</string>
+    <string name="notif_flagged_title">Bản ghi của bạn đã bị gắn cờ · %1$s</string>
+    <string name="notif_flagged_body">Lý do được nêu: %1$s. Nếu không đồng ý, bạn có thể ký một phản đối trên bản ghi.</string>
+    <string name="notif_note_title">Nhà phát hành đã trả lời đánh giá cửa hàng của bạn · %1$s</string>
+    <string name="notif_proven_title">Yêu cầu của bạn đã được chứng minh · %1$s</string>
+    <string name="notif_proven_body">Các phản hồi của bạn trên đánh giá của ứng dụng này giờ mang dấu Nhà phát hành ✓, và đánh giá của chính bạn về ứng dụng này không được tính.</string>
 </resources>

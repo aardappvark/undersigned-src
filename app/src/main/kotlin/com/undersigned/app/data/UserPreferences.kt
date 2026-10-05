@@ -244,6 +244,14 @@ object UserPreferences {
     var scanRationaleShown: Boolean
         get() = prefs?.getBoolean("scan_rationale_shown", false) ?: false
         set(v) { prefs?.edit()?.putBoolean("scan_rationale_shown", v)?.apply() }
+    /** Packages whose proven-claim alert was already posted for this wallet. */
+    var provenNotified: Set<String>
+        get() = prefs?.getStringSet("proven_notified", emptySet())?.toSet() ?: emptySet()
+        set(v) { prefs?.edit()?.putStringSet("proven_notified", v)?.apply() }
+    /** The weekly "not reviewed on this phone" reminder (opt-in, off by default). */
+    var reviewReminder: Boolean
+        get() = prefs?.getBoolean("review_reminder", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("review_reminder", v)?.apply() }
     /** Store watch (opt-in): the daily store-wide star-count snapshot. */
     var storeWatch: Boolean
         get() = prefs?.getBoolean("store_watch", false) ?: false

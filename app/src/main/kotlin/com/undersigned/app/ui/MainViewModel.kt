@@ -638,10 +638,68 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** Re-sign chosen store reviews as ledger records — one wallet approval for the lot. */
-    fun importStoreReviews(sender: ActivityResultSender, chosen: List<Pair<String, StoreReview>>, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<Int>) -> Unit) {
+    /** An installed app this wallet has not reviewed, with what the phone can say about it. */
+    data class ToReview(val pkg: String, val name: String, val age: com.undersigned.protocol.UseBucket?, val time: com.undersigned.protocol.UseTime?)
+
+    /**
+     * Apps on this phone, in the store, that this wallet has not reviewed and that have been here a week or more, or used
+     * for an hour or more: the ones an owner can actually speak to. Most used first. Facts only; nothing is scored.
+     */
+    fun toReview(): List<ToReview> {
+        val mine = wallet.value?.let { w -> entriesBy(w).map { (it.memo as ReviewMemo.Review).packageName }.toSet() } ?: return emptyList()
+        val names = catalogue.value.associate { it.packageName to it.name }
+        return installed.value.filter { it in names && it !in mine && it != getApplication<Application>().packageName }.mapNotNull { pkg ->
+            val age = installAge(pkg); val time = useTime(pkg)
+            val enough = (age != null && age.minDays >= 7) || (time != null && time.minMinutes >= 60)
+            if (enough) ToReview(pkg, names.getValue(pkg), age, time) else null
+        }.sortedWith(compareByDescending<ToReview> { it.time?.minMinutes ?: -1 }.thenByDescending { it.age?.minDays ?: -1 })
+    }
+
+    /**
+     * Several reviews in ONE wallet approval: stars and 1–3 tags per app, no text (a note belongs in the full composer,
+     * with its consent). Each review carries its install-age and usage records in its own transaction (TxBuilder.chunkGroups).
+     */
+    fun publishMany(sender: ActivityResultSender, items: List<Triple<String, Int, List<ReviewMemo.Tag>>>, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<Int>) -> Unit) {
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
-        val memos = chosen.map { (pkg, r) -> ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), listOf(ReviewMemo.Tag.WORKS).takeIf { r.rating >= 4 } ?: listOf(ReviewMemo.Tag.CONFUSING), installedApps.facts(pkg)?.versionCode ?: storeDetails.value[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L, r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }) }
+        val groups = runCatching { items.map { (pkg, rating, tags) ->
+            val version = installedApps.facts(pkg)?.versionCode ?: storeDetails.value[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L
+            listOfNotNull<ReviewMemo>(ReviewMemo.Review(pkg, rating, tags, version, null), installAge(pkg)?.let { ReviewMemo.Use(pkg, it) }, useTime(pkg)?.let { ReviewMemo.Time(pkg, it) })
+                .map { ReviewMemo.encode(it) } } }.getOrElse { return onResult(Result.failure(it)) }
+        viewModelScope.launch {
+            if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
+            val chunks = com.undersigned.app.solana.TxBuilder.chunkGroups(com.undersigned.app.util.Base58.decode(w), groups)
+            val r = txService.publishChunks(adapter, sender, w, chunks, onStage)
+            r.onSuccess { sigs ->
+                val now = System.currentTimeMillis() / 1000
+                val fresh = ArrayList<LedgerEntry>()
+                sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
+                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                ledgerCache.save(entries.value)
+                items.forEach { UserPreferences.follow(it.first) }
+                launch(Dispatchers.IO) { rank() }
+            }
+            onResult(r.map { s -> s.sumOf { c -> c.second.count { it.startsWith("SRL1|rev|") } } })
+        }
+    }
+
+    /** An import waiting for the user's tags (ImportTagsDialog answers it). */
+    data class ImportRequest(val sender: ActivityResultSender, val chosen: List<Pair<String, StoreReview>>, val onStage: (ReviewTxService.Stage) -> Unit, val onResult: (Result<Int>) -> Unit)
+    val importRequest = MutableStateFlow<ImportRequest?>(null)
+    /**
+     * Imports start here: the user chooses each review's tags before anything is signed. The importer used to write
+     * "Works" for 4–5 stars and "Confusing" for 1–3 into every imported review, permanently, skewing tag counts and the
+     * tag-agreement part of standing (found in the feature review, 5 Oct 2026).
+     */
+    fun requestImport(sender: ActivityResultSender, chosen: List<Pair<String, StoreReview>>, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<Int>) -> Unit) {
+        importRequest.value = ImportRequest(sender, chosen, onStage, onResult)
+    }
+
+    fun importStoreReviews(sender: ActivityResultSender, chosen: List<Pair<String, StoreReview>>, tags: Map<String, List<ReviewMemo.Tag>>, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<Int>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        if (chosen.any { tags[it.first].isNullOrEmpty() }) return onResult(Result.failure(Exception("Choose tags for every review first")))
+        val memos = chosen.map { (pkg, r) -> ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), tags.getValue(pkg).take(ReviewMemo.MAX_TAGS), installedApps.facts(pkg)?.versionCode ?: storeDetails.value[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L, r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }) }
         val texts = memos.map { runCatching { ReviewMemo.encode(it) }.getOrElse { return onResult(Result.failure(it)) } }
         viewModelScope.launch {
             if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))

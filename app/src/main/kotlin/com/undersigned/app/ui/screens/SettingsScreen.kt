@@ -223,7 +223,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         val isPro = pro?.active == true
                         fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
                             val s = sender ?: return
-                            vm.importStoreReviews(s, listOf(pkg to r), onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res -> importStage = null; importMsg = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
+                            vm.requestImport(s, listOf(pkg to r), onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res -> importStage = null; importMsg = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
                         }
                         importable.forEach { (pkg, r) ->
                             Row(Modifier.fillMaxWidth().clickable(enabled = importStage == null && isPro) { chosen = if (pkg in chosen) chosen - pkg else chosen + pkg }, verticalAlignment = Alignment.CenterVertically) {
@@ -242,7 +242,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             Spacer(Modifier.height(6.dp))
                             SecondaryButton(importStage ?: stringResource(R.string.import_publish, chosen.size), enabled = chosen.isNotEmpty() && importStage == null && sender != null, onClick = {
                                 val s = sender ?: return@SecondaryButton
-                                vm.importStoreReviews(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
+                                vm.requestImport(s, importable.filter { it.key in chosen }.map { it.key to it.value }, onStage = { st -> importStage = when (st) { com.undersigned.app.solana.ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); com.undersigned.app.solana.ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); com.undersigned.app.solana.ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r -> importStage = null; chosen = emptySet(); importMsg = r.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message }) }
                             })
                             Text(stringResource(R.string.import_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                         }
@@ -265,6 +265,21 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         if (!on) { UserPreferences.setAlerts(false); LedgerWatchWorker.cancel(context) }
                         else if (Build.VERSION.SDK_INT >= 33) askNotif.launch(Manifest.permission.POST_NOTIFICATIONS)
                         else { UserPreferences.setAlerts(true); LedgerWatchWorker.schedule(context) }
+                    }, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                }
+            }
+
+            // The weekly reminder: one notification a week at most, off by default, naming how many apps here are unreviewed.
+            GlassCard {
+                var remind by remember { mutableStateOf(UserPreferences.reviewReminder) }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.remind_setting), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.remind_setting_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    }
+                    Switch(checked = remind, onCheckedChange = { on ->
+                        remind = on; UserPreferences.reviewReminder = on
+                        if (on) com.undersigned.app.notify.ReviewReminderWorker.schedule(context) else com.undersigned.app.notify.ReviewReminderWorker.cancel(context)
                     }, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
             }

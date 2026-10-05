@@ -36,6 +36,23 @@ object TxBuilder {
         return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
     }
 
+    /**
+     * Packs whole GROUPS (a review and the use/tim records that must share its transaction) under the same limit as
+     * [chunkForBatches]. A group never splits across transactions; a group too big on its own loses records from its end
+     * (the extras, never the review) until it fits.
+     */
+    fun chunkGroups(signer: ByteArray, groups: List<List<String>>): List<List<String>> {
+        fun fits(t: List<String>) = batchTransaction(signer, t, ZERO_BLOCKHASH).size <= AppConfig.Solana.MAX_TX_BYTES - 120
+        val out = ArrayList<List<String>>(); var cur = ArrayList<String>()
+        for (g0 in groups) {
+            var g = g0; while (g.size > 1 && !fits(g)) g = g.dropLast(1)
+            if (!fits(g)) continue                       // a review that cannot fit alone is not signed (the composer prevents it)
+            if (fits(cur + g)) cur.addAll(g) else { if (cur.isNotEmpty()) out.add(cur); cur = ArrayList(g) }
+        }
+        if (cur.isNotEmpty()) out.add(cur)
+        return out
+    }
+
     /** Greedy packing under the wire limit with headroom for the wallet's ComputeBudget rewrite (~120 B). */
     fun chunkForBatches(signer: ByteArray, memoTexts: List<String>): List<List<String>> {
         val out = ArrayList<List<String>>(); var cur = ArrayList<String>()

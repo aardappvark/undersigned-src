@@ -777,4 +777,44 @@
     <string name="publisher_build_failed">Hindi mabasa ang build. Subukan ulit gamit ang Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Ipakita ang tala (hindi binibilang ang wallet na ito)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Paano ito tumatakbo</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">Pera at mga account</string>
+    <string name="tag_group_trust">Mga pahintulot at listing</string>
+    <string name="tag_group_build">Pagpapanatili at build</string>
+    <string name="resign_title">Ang review mo ay para sa bersyon %1$d. Bersyon %2$d ang tumatakbo sa telepono na ito.</string>
+    <string name="resign_body">Totoo pa rin ba? I-sign ang parehong mga star at tag para sa bersyong ginagamit mo ngayon.</string>
+    <string name="resign_body_text">Totoo pa rin ba? I-sign ang parehong mga star, tag at text para sa bersyong ginagamit mo ngayon. Isa-sign muli ang text at mananatili ito on-chain magpakailanman.</string>
+    <string name="resign_button">Totoo pa rin: i-sign para sa bersyon %1$d</string>
+    <string name="resign_or_edit">O baguhin ito sa ibaba at i-sign.</string>
+    <string name="to_review_title">Hindi pa nire-review sa telepono na ito</string>
+    <string name="to_review_batch_title">Mag-review ng ilan</string>
+    <string name="to_review_body">Mga app na isang linggo o higit pa na sa telepono na ito, o ginamit nang isang oras o higit pa, na hindi pa nire-review ng wallet na ito. Mag-review ng isa, o mag-tick ng ilan at i-sign ang mga ito sa isang approval.</string>
+    <string name="to_review_empty">Walang laman dito. May review mo ang bawat app na isang linggo mo nang hawak o isang oras mong ginamit.</string>
+    <string name="to_review_one">I-review</string>
+    <plurals name="to_review_together"><item quantity="one">I-review ang %1$d app</item><item quantity="other">I-review nang sabay ang %1$d na app</item></plurals>
+    <string name="to_review_batch_body">Mga star at 1 hanggang 3 tag para sa bawat app. Walang text dito: buksan ang sariling composer ng app para magdagdag ng tala. Dala ng bawat review ang install age at oras ng paggamit ng telepono na ito, ayon sa idinaragdag ng composer.</string>
+    <plurals name="to_review_sign"><item quantity="one">I-sign ang %1$d review</item><item quantity="other">I-sign ang %1$d na review sa isang approval</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d review ang na-sign</item><item quantity="other">%1$d na review ang na-sign</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app sa telepono na ito na wala pang review</item><item quantity="other">%1$d na app sa telepono na ito na wala pang review</item></plurals>
+    <string name="remind_title">Mga app na wala pang review</string>
+    <plurals name="remind_body"><item quantity="one">Ang %1$d app na ginamit mo sa telepono na ito ay walang review mula sa iyo.</item><item quantity="other">Ang %1$d na app na ginamit mo sa telepono na ito ay walang review mula sa iyo.</item></plurals>
+    <string name="remind_setting">Lingguhang paalala</string>
+    <string name="remind_setting_body">Hanggang isang beses sa isang linggo: isang notification kapag may mga app na ginamit mo sa telepono na ito na walang review mula sa iyo. Naka-off maliban kung io-on mo.</string>
+    <string name="share">I-share</string>
+    <string name="share_signed">Naka-sign ng mga may-ari ng Seeker: %1$s · mga binilang na review: %2$d</string>
+    <string name="share_no_signed">Wala pang binilang na naka-sign na review sa Undersigned</string>
+    <string name="share_store">Rating sa dApp Store: %1$s · mga rating: %2$d</string>
+    <string name="share_review_signed">Naka-sign sa Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Alinman</string>
+    <string name="import_tags_title">Mga tag para sa na-import mong review</string>
+    <string name="import_tags_body">Naka-sign ang review mo sa store kasama ang sarili nitong mga star at text. Pumili ng 1 hanggang 3 tag para sa bawat isa: bahagi ang mga ito ng naka-sign na review at mananatili on-chain magpakailanman.</string>
+    <string name="import_tags_sign">I-sign</string>
+    <string name="notif_flagged_title">Na-flag ang record mo · %1$s</string>
+    <string name="notif_flagged_body">Ibinigay na dahilan: %1$s. Kung hindi ka sang-ayon, maaari kang mag-sign ng dispute sa record.</string>
+    <string name="notif_note_title">Sumagot ang tagapaglathala sa review mo sa store · %1$s</string>
+    <string name="notif_proven_title">Napatunayan ang claim mo · %1$s</string>
+    <string name="notif_proven_body">Ang mga sagot mo sa mga review ng app na ito ay may marka na ngayong Tagapaglathala ✓, at hindi binibilang ang sarili mong mga review nito.</string>
 </resources>

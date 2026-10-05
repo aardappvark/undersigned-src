@@ -113,6 +113,20 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     // ---- Ledger-wide ----------------------------------------------------------------------------------------------
 
+    /**
+     * The open dataset: every decoded record, each app's signed score, and the public facts about every signer, as of the
+     * last rebuild. Public data only (the chain and the store's own catalogue); the operator's hide list applies to text.
+     */
+    fun dataset(): JSONObject {
+        val st = s
+        return JSONObject().put("generated_at", st.builtAt / 1000).put("registry", Config.REGISTRY).put("licence", "Public on-chain data; use freely. Scores follow docs/SPEC.md.")
+            .put("records", JSONArray(st.entries.map { record(it, st) }))
+            .put("apps", JSONArray(st.scores.values.sortedBy { it.packageName }.map { sc -> JSONObject().put("package", sc.packageName).put("name", st.byPackage[sc.packageName]?.name ?: JSONObject.NULL)
+                .put("rank_score", r2(sc.weightedRating)).put("mean", r2(sc.weightedMean)).put("counted_reviews", sc.countedReviews).put("tags", JSONObject(sc.tagCounts.mapKeys { it.key.wire })) }))
+            .put("signers", JSONArray(st.entries.map { it.signer }.distinct().sorted().map { w -> val f = st.factsOf(w)
+                JSONObject().put("wallet", w).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f))) }))
+    }
+
     fun stats(): JSONObject {
         val st = s; val all = st.entries
         val live = all.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }

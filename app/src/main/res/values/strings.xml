@@ -796,4 +796,47 @@
     <string name="publisher_build_failed">The build could not be read. Try again on Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Show the note (this wallet is not counted)</string>
+    <!-- 6 Oct 2026 tag groups, re-sign -->
+    <string name="tag_group_use">How it runs</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">Money and accounts</string>
+    <string name="tag_group_trust">Permissions and listing</string>
+    <string name="tag_group_build">Upkeep and build</string>
+    <string name="resign_title">Your review is of version %1$d. This phone runs version %2$d.</string>
+    <string name="resign_body">Still true? Sign the same stars and tags for the version you use now.</string>
+    <string name="resign_body_text">Still true? Sign the same stars, tags and text for the version you use now. The text is signed again and stays on-chain for good.</string>
+    <string name="resign_button">Still true: sign for version %1$d</string>
+    <string name="resign_or_edit">Or change it below and sign.</string>
+    <!-- 6 Oct 2026 to review, batch, reminder, share, tag filter -->
+    <string name="to_review_title">Not reviewed on this phone</string>
+    <string name="to_review_batch_title">Review several</string>
+    <string name="to_review_body">Apps on this phone for a week or more, or used for an hour or more, that this wallet has not reviewed. Review one, or tick several and sign them in one approval.</string>
+    <string name="to_review_empty">Nothing here. Every app you have had a week or used an hour has a review from you.</string>
+    <string name="to_review_one">Review</string>
+    <plurals name="to_review_together"><item quantity="one">Review %1$d app</item><item quantity="other">Review %1$d apps together</item></plurals>
+    <string name="to_review_batch_body">Stars and 1 to 3 tags for each app. No text here: open an app\'s own composer to add a note. Each review carries this phone\'s install age and usage time, as the composer adds them.</string>
+    <plurals name="to_review_sign"><item quantity="one">Sign %1$d review</item><item quantity="other">Sign %1$d reviews in one approval</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d review signed</item><item quantity="other">%1$d reviews signed</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app on this phone not reviewed yet</item><item quantity="other">%1$d apps on this phone not reviewed yet</item></plurals>
+    <string name="remind_title">Apps not reviewed yet</string>
+    <plurals name="remind_body"><item quantity="one">%1$d app you have used on this phone has no review from you.</item><item quantity="other">%1$d apps you have used on this phone have no review from you.</item></plurals>
+    <string name="remind_setting">Weekly reminder</string>
+    <string name="remind_setting_body">At most once a week: a notification when apps you have used on this phone have no review from you. Off unless you turn it on.</string>
+    <string name="share">Share</string>
+    <string name="share_signed">Signed by Seeker owners: %1$s · counted reviews: %2$d</string>
+    <string name="share_no_signed">No counted signed reviews yet on Undersigned</string>
+    <string name="share_store">dApp Store rating: %1$s · ratings: %2$d</string>
+    <string name="share_review_signed">Signed on Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Any</string>
+    <!-- 6 Oct 2026 import tags -->
+    <string name="import_tags_title">Tags for your imported review</string>
+    <string name="import_tags_body">Your store review is signed with its own stars and text. Choose 1 to 3 tags for each: they are part of the signed review and stay on-chain for good.</string>
+    <string name="import_tags_sign">Sign</string>
+    <!-- 6 Oct 2026 more alerts -->
+    <string name="notif_flagged_title">Your record was flagged · %1$s</string>
+    <string name="notif_flagged_body">Reason given: %1$s. If you disagree, you can sign a dispute on the record.</string>
+    <string name="notif_note_title">The publisher answered your store review · %1$s</string>
+    <string name="notif_proven_title">Your claim is proven · %1$s</string>
+    <string name="notif_proven_body">Your replies to this app\'s reviews now carry the Publisher mark, and your own reviews of it are not counted.</string>
 </resources>

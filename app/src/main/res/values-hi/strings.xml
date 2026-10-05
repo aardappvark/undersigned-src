@@ -776,4 +776,44 @@
     <string name="publisher_build_failed">बिल्ड पढ़ा नहीं जा सका। Wi-Fi पर फिर कोशिश करें।</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">नोट दिखाएं (यह wallet गिना नहीं जाता)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">यह कैसे चलता है</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">पैसा और खाते</string>
+    <string name="tag_group_trust">अनुमतियां और लिस्टिंग</string>
+    <string name="tag_group_build">रखरखाव और बिल्ड</string>
+    <string name="resign_title">आपकी समीक्षा वर्ज़न %1$d की है। यह फ़ोन वर्ज़न %2$d चला रहा है।</string>
+    <string name="resign_body">क्या यह अब भी सही है? अभी जो वर्ज़न आप इस्तेमाल करते हैं, उसके लिए वही स्टार और टैग साइन करें।</string>
+    <string name="resign_body_text">क्या यह अब भी सही है? अभी जो वर्ज़न आप इस्तेमाल करते हैं, उसके लिए वही स्टार, टैग और टेक्स्ट साइन करें। टेक्स्ट दोबारा साइन होता है और हमेशा chain पर रहता है।</string>
+    <string name="resign_button">अब भी सही: वर्ज़न %1$d के लिए साइन करें</string>
+    <string name="resign_or_edit">या नीचे बदलकर साइन करें।</string>
+    <string name="to_review_title">इस फ़ोन पर समीक्षा नहीं की गई</string>
+    <string name="to_review_batch_title">कई की समीक्षा करें</string>
+    <string name="to_review_body">इस फ़ोन पर एक हफ़्ते या ज़्यादा से मौजूद, या एक घंटे या ज़्यादा इस्तेमाल किए गए ऐप, जिनकी इस wallet ने समीक्षा नहीं की है। एक की समीक्षा करें, या कई चुनकर उन्हें एक ही मंज़ूरी में साइन करें।</string>
+    <string name="to_review_empty">यहां कुछ नहीं है। जो ऐप आपके पास एक हफ़्ते से है या जिसे आपने एक घंटा इस्तेमाल किया, उसकी समीक्षा आपकी ओर से मौजूद है।</string>
+    <string name="to_review_one">समीक्षा करें</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d ऐप की समीक्षा करें</item><item quantity="other">%1$d ऐप की एक साथ समीक्षा करें</item></plurals>
+    <string name="to_review_batch_body">हर ऐप के लिए स्टार और 1 से 3 टैग। यहां कोई टेक्स्ट नहीं: नोट जोड़ने के लिए ऐप का अपना कंपोज़र खोलें। हर समीक्षा में इस फ़ोन की इंस्टॉल अवधि और इस्तेमाल का समय जुड़ता है, जैसा कंपोज़र जोड़ता है।</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d समीक्षा साइन करें</item><item quantity="other">%1$d समीक्षाएं एक ही मंज़ूरी में साइन करें</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d समीक्षा साइन की गई</item><item quantity="other">%1$d समीक्षाएं साइन की गईं</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">इस फ़ोन पर %1$d ऐप की अभी तक समीक्षा नहीं हुई</item><item quantity="other">इस फ़ोन पर %1$d ऐप की अभी तक समीक्षा नहीं हुई</item></plurals>
+    <string name="remind_title">ऐप जिनकी अभी तक समीक्षा नहीं हुई</string>
+    <plurals name="remind_body"><item quantity="one">इस फ़ोन पर इस्तेमाल किए गए %1$d ऐप की आपकी ओर से कोई समीक्षा नहीं है।</item><item quantity="other">इस फ़ोन पर इस्तेमाल किए गए %1$d ऐप की आपकी ओर से कोई समीक्षा नहीं है।</item></plurals>
+    <string name="remind_setting">साप्ताहिक रिमाइंडर</string>
+    <string name="remind_setting_body">हफ़्ते में ज़्यादा से ज़्यादा एक बार: जब इस फ़ोन पर इस्तेमाल किए गए ऐप की आपकी ओर से कोई समीक्षा न हो, तब एक नोटिफ़िकेशन। आप चालू न करें तो बंद रहता है।</string>
+    <string name="share">शेयर करें</string>
+    <string name="share_signed">Seeker मालिकों द्वारा हस्ताक्षरित: %1$s · गिनी गई समीक्षाएं: %2$d</string>
+    <string name="share_no_signed">Undersigned पर अभी तक कोई गिनी गई हस्ताक्षरित समीक्षा नहीं है</string>
+    <string name="share_store">dApp Store रेटिंग: %1$s · रेटिंग: %2$d</string>
+    <string name="share_review_signed">Solana पर हस्ताक्षरित:</string>
+    <string name="browse_tag_filter">टैग</string>
+    <string name="browse_tag_any">कोई भी</string>
+    <string name="import_tags_title">आपकी आयात की गई समीक्षा के टैग</string>
+    <string name="import_tags_body">आपकी स्टोर समीक्षा अपने स्टार और टेक्स्ट के साथ साइन होती है। हर एक के लिए 1 से 3 टैग चुनें: वे साइन की गई समीक्षा का हिस्सा हैं और हमेशा chain पर रहते हैं।</string>
+    <string name="import_tags_sign">साइन करें</string>
+    <string name="notif_flagged_title">आपका रिकॉर्ड फ़्लैग किया गया · %1$s</string>
+    <string name="notif_flagged_body">बताया गया कारण: %1$s। अगर आप सहमत नहीं हैं, तो रिकॉर्ड पर विवाद साइन कर सकते हैं।</string>
+    <string name="notif_note_title">प्रकाशक ने आपकी स्टोर समीक्षा का जवाब दिया · %1$s</string>
+    <string name="notif_proven_title">आपका दावा साबित हुआ · %1$s</string>
+    <string name="notif_proven_body">इस ऐप की समीक्षाओं पर आपके जवाबों पर अब प्रकाशक ✓ का चिह्न दिखता है, और इसकी आपकी अपनी समीक्षाएं गिनी नहीं जातीं।</string>
 </resources>

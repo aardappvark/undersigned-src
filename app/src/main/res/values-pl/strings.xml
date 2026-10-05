@@ -791,4 +791,44 @@
     <string name="publisher_build_failed">Nie udało się odczytać kompilacji. Spróbuj ponownie przez Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Pokaż notatkę (ten portfel nie liczy się)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Jak działa</string>
+    <string name="tag_group_wallet">Portfel</string>
+    <string name="tag_group_money">Pieniądze i konta</string>
+    <string name="tag_group_trust">Uprawnienia i wpis</string>
+    <string name="tag_group_build">Utrzymanie i kompilacja</string>
+    <string name="resign_title">Twoja recenzja dotyczy wersji %1$d. Ten telefon ma wersję %2$d.</string>
+    <string name="resign_body">Nadal aktualne? Podpisz te same gwiazdki i tagi dla wersji, której teraz używasz.</string>
+    <string name="resign_body_text">Nadal aktualne? Podpisz te same gwiazdki, tagi i tekst dla wersji, której teraz używasz. Tekst jest podpisywany ponownie i zostaje on-chain na zawsze.</string>
+    <string name="resign_button">Nadal aktualne: podpisz dla wersji %1$d</string>
+    <string name="resign_or_edit">Albo zmień ją poniżej i podpisz.</string>
+    <string name="to_review_title">Bez recenzji na tym telefonie</string>
+    <string name="to_review_batch_title">Zrecenzuj kilka</string>
+    <string name="to_review_body">Aplikacje, które są na tym telefonie od tygodnia lub dłużej albo były używane godzinę lub dłużej, a których ten portfel nie zrecenzował. Zrecenzuj jedną albo zaznacz kilka i podpisz je jednym zatwierdzeniem.</string>
+    <string name="to_review_empty">Nic tu nie ma. Każda aplikacja, którą masz od tygodnia lub używałeś godzinę, ma Twoją recenzję.</string>
+    <string name="to_review_one">Zrecenzuj</string>
+    <plurals name="to_review_together"><item quantity="one">Zrecenzuj %1$d aplikację</item><item quantity="few">Zrecenzuj %1$d aplikacje razem</item><item quantity="many">Zrecenzuj %1$d aplikacji razem</item><item quantity="other">Zrecenzuj %1$d aplikacji razem</item></plurals>
+    <string name="to_review_batch_body">Gwiazdki i od 1 do 3 tagów dla każdej aplikacji. Tu bez tekstu: aby dodać notatkę, otwórz edytor danej aplikacji. Każda recenzja zawiera czas od instalacji i czas użytkowania z tego telefonu, tak jak dodaje je edytor.</string>
+    <plurals name="to_review_sign"><item quantity="one">Podpisz %1$d recenzję</item><item quantity="few">Podpisz %1$d recenzje jednym zatwierdzeniem</item><item quantity="many">Podpisz %1$d recenzji jednym zatwierdzeniem</item><item quantity="other">Podpisz %1$d recenzji jednym zatwierdzeniem</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">Podpisano %1$d recenzję</item><item quantity="few">Podpisano %1$d recenzje</item><item quantity="many">Podpisano %1$d recenzji</item><item quantity="other">Podpisano %1$d recenzji</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d aplikacja na tym telefonie bez recenzji</item><item quantity="few">%1$d aplikacje na tym telefonie bez recenzji</item><item quantity="many">%1$d aplikacji na tym telefonie bez recenzji</item><item quantity="other">%1$d aplikacji na tym telefonie bez recenzji</item></plurals>
+    <string name="remind_title">Aplikacje jeszcze bez recenzji</string>
+    <plurals name="remind_body"><item quantity="one">%1$d aplikacja używana na tym telefonie nie ma Twojej recenzji.</item><item quantity="few">%1$d aplikacje używane na tym telefonie nie mają Twojej recenzji.</item><item quantity="many">%1$d aplikacji używanych na tym telefonie nie ma Twojej recenzji.</item><item quantity="other">%1$d aplikacji używanych na tym telefonie nie ma Twojej recenzji.</item></plurals>
+    <string name="remind_setting">Cotygodniowe przypomnienie</string>
+    <string name="remind_setting_body">Najwyżej raz w tygodniu: powiadomienie, gdy aplikacje używane na tym telefonie nie mają Twojej recenzji. Wyłączone, dopóki go nie włączysz.</string>
+    <string name="share">Udostępnij</string>
+    <string name="share_signed">Podpisane przez właścicieli Seekera: %1$s · policzone recenzje: %2$d</string>
+    <string name="share_no_signed">W Undersigned nie ma jeszcze policzonych podpisanych recenzji</string>
+    <string name="share_store">Ocena w dApp Store: %1$s · oceny: %2$d</string>
+    <string name="share_review_signed">Podpisano na Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Dowolny</string>
+    <string name="import_tags_title">Tagi do zaimportowanej recenzji</string>
+    <string name="import_tags_body">Twoja recenzja ze sklepu jest podpisywana z własnymi gwiazdkami i tekstem. Wybierz dla każdej od 1 do 3 tagów: są częścią podpisanej recenzji i zostają on-chain na zawsze.</string>
+    <string name="import_tags_sign">Podpisz</string>
+    <string name="notif_flagged_title">Twój wpis został oznaczony · %1$s</string>
+    <string name="notif_flagged_body">Podany powód: %1$s. Jeśli się nie zgadzasz, możesz podpisać zakwestionowanie tego wpisu.</string>
+    <string name="notif_note_title">Wydawca odpowiedział na Twoją recenzję ze sklepu · %1$s</string>
+    <string name="notif_proven_title">Twoje roszczenie jest potwierdzone · %1$s</string>
+    <string name="notif_proven_body">Twoje odpowiedzi na recenzje tej aplikacji noszą teraz oznaczenie Wydawca ✓, a Twoje własne recenzje tej aplikacji nie są liczone.</string>
 </resources>

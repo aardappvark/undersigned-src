@@ -768,4 +768,44 @@
     <string name="publisher_build_failed">Build tidak dapat dibaca. Coba lagi lewat Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Tampilkan catatan (dompet ini tidak dihitung)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Cara kerjanya</string>
+    <string name="tag_group_wallet">Dompet</string>
+    <string name="tag_group_money">Uang dan akun</string>
+    <string name="tag_group_trust">Izin dan daftar</string>
+    <string name="tag_group_build">Pemeliharaan dan build</string>
+    <string name="resign_title">Ulasan Anda untuk versi %1$d. Ponsel ini menjalankan versi %2$d.</string>
+    <string name="resign_body">Masih benar? Tandatangani bintang dan tag yang sama untuk versi yang Anda gunakan sekarang.</string>
+    <string name="resign_body_text">Masih benar? Tandatangani bintang, tag, dan teks yang sama untuk versi yang Anda gunakan sekarang. Teks ditandatangani lagi dan tetap on-chain selamanya.</string>
+    <string name="resign_button">Masih benar: tandatangani untuk versi %1$d</string>
+    <string name="resign_or_edit">Atau ubah di bawah lalu tandatangani.</string>
+    <string name="to_review_title">Belum diulas di ponsel ini</string>
+    <string name="to_review_batch_title">Ulas beberapa</string>
+    <string name="to_review_body">Aplikasi di ponsel ini selama seminggu atau lebih, atau digunakan satu jam atau lebih, yang belum diulas oleh dompet ini. Ulas satu, atau centang beberapa dan tandatangani dalam satu persetujuan.</string>
+    <string name="to_review_empty">Tidak ada apa-apa di sini. Setiap aplikasi yang Anda miliki seminggu atau Anda gunakan satu jam sudah memiliki ulasan dari Anda.</string>
+    <string name="to_review_one">Ulas</string>
+    <plurals name="to_review_together"><item quantity="other">Ulas %1$d aplikasi sekaligus</item></plurals>
+    <string name="to_review_batch_body">Bintang dan 1 hingga 3 tag untuk setiap aplikasi. Tanpa teks di sini: buka penulis ulasan milik aplikasi itu untuk menambahkan catatan. Setiap ulasan membawa usia instalasi dan waktu penggunaan ponsel ini, seperti yang ditambahkan oleh penulis ulasan.</string>
+    <plurals name="to_review_sign"><item quantity="other">Tandatangani %1$d ulasan dalam satu persetujuan</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">%1$d ulasan ditandatangani</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">%1$d aplikasi di ponsel ini belum diulas</item></plurals>
+    <string name="remind_title">Aplikasi yang belum diulas</string>
+    <plurals name="remind_body"><item quantity="other">%1$d aplikasi yang Anda gunakan di ponsel ini belum memiliki ulasan dari Anda.</item></plurals>
+    <string name="remind_setting">Pengingat mingguan</string>
+    <string name="remind_setting_body">Paling banyak seminggu sekali: notifikasi saat ada aplikasi yang Anda gunakan di ponsel ini tanpa ulasan dari Anda. Mati kecuali Anda menyalakannya.</string>
+    <string name="share">Bagikan</string>
+    <string name="share_signed">Ditandatangani pemilik Seeker: %1$s · ulasan yang dihitung: %2$d</string>
+    <string name="share_no_signed">Belum ada ulasan bertanda tangan yang dihitung di Undersigned</string>
+    <string name="share_store">Peringkat dApp Store: %1$s · peringkat: %2$d</string>
+    <string name="share_review_signed">Ditandatangani di Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Semua</string>
+    <string name="import_tags_title">Tag untuk ulasan impor Anda</string>
+    <string name="import_tags_body">Ulasan toko Anda ditandatangani dengan bintang dan teksnya sendiri. Pilih 1 hingga 3 tag untuk masing-masing: tag menjadi bagian dari ulasan yang ditandatangani dan tetap on-chain selamanya.</string>
+    <string name="import_tags_sign">Tandatangani</string>
+    <string name="notif_flagged_title">Catatan Anda ditandai · %1$s</string>
+    <string name="notif_flagged_body">Alasan yang diberikan: %1$s. Jika Anda tidak setuju, Anda dapat menandatangani sanggahan pada catatan tersebut.</string>
+    <string name="notif_note_title">Penerbit menjawab ulasan toko Anda · %1$s</string>
+    <string name="notif_proven_title">Klaim Anda terbukti · %1$s</string>
+    <string name="notif_proven_body">Balasan Anda pada ulasan aplikasi ini kini membawa tanda Penerbit ✓, dan ulasan Anda sendiri untuk aplikasi ini tidak dihitung.</string>
 </resources>

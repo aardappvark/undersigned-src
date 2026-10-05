@@ -767,4 +767,44 @@
     <string name="publisher_build_failed">無法讀取安裝包。請在 Wi-Fi 下重試。</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">顯示說明(此錢包未計入)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">運作方式</string>
+    <string name="tag_group_wallet">錢包</string>
+    <string name="tag_group_money">資金與帳戶</string>
+    <string name="tag_group_trust">權限與上架資訊</string>
+    <string name="tag_group_build">維護與建置</string>
+    <string name="resign_title">您的評價針對版本 %1$d。這支手機執行的是版本 %2$d。</string>
+    <string name="resign_body">仍然屬實嗎?為您現在使用的版本簽署相同的星級和標籤。</string>
+    <string name="resign_body_text">仍然屬實嗎?為您現在使用的版本簽署相同的星級、標籤和文字。文字會再次簽署,並永久留在鏈上。</string>
+    <string name="resign_button">仍然屬實:為版本 %1$d 簽署</string>
+    <string name="resign_or_edit">或在下方修改後簽署。</string>
+    <string name="to_review_title">此手機上尚未評價</string>
+    <string name="to_review_batch_title">批次評價</string>
+    <string name="to_review_body">已在此手機上存在一週或更久、或已使用一小時或更久,但此錢包尚未評價的應用程式。可以評價一個,也可以勾選多個,在一次核准中一併簽署。</string>
+    <string name="to_review_empty">這裡沒有內容。您已擁有一週或已使用一小時的每個應用程式,都已有您的評價。</string>
+    <string name="to_review_one">評價</string>
+    <plurals name="to_review_together"><item quantity="other">一起評價 %1$d 個應用程式</item></plurals>
+    <string name="to_review_batch_body">每個應用程式的星級和 1 到 3 個標籤。此處不寫文字:如需加入說明,請開啟該應用程式自己的編輯頁。每則評價都會帶上此手機的安裝時長和使用時長,與編輯頁加入的一致。</string>
+    <plurals name="to_review_sign"><item quantity="other">一次核准簽署 %1$d 則評價</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">已簽署 %1$d 則評價</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">此手機上有 %1$d 個應用程式尚未評價</item></plurals>
+    <string name="remind_title">尚未評價的應用程式</string>
+    <plurals name="remind_body"><item quantity="other">您在此手機上使用過的 %1$d 個應用程式還沒有您的評價。</item></plurals>
+    <string name="remind_setting">每週提醒</string>
+    <string name="remind_setting_body">每週最多一次:當您在此手機上使用過的應用程式沒有您的評價時發送通知。不開啟則保持關閉。</string>
+    <string name="share">分享</string>
+    <string name="share_signed">Seeker 持有者的簽署:%1$s · 已計入評價:%2$d</string>
+    <string name="share_no_signed">Undersigned 上尚無已計入的簽署評價</string>
+    <string name="share_store">dApp Store 評分:%1$s · 評分數:%2$d</string>
+    <string name="share_review_signed">已在 Solana 上簽署:</string>
+    <string name="browse_tag_filter">標籤</string>
+    <string name="browse_tag_any">任意</string>
+    <string name="import_tags_title">為匯入的評價選擇標籤</string>
+    <string name="import_tags_body">您的商店評價會連同其自身的星級和文字一起簽署。請為每則選擇 1 到 3 個標籤:標籤是已簽署評價的一部分,並永久留在鏈上。</string>
+    <string name="import_tags_sign">簽署</string>
+    <string name="notif_flagged_title">您的記錄被標記 · %1$s</string>
+    <string name="notif_flagged_body">給出的原因:%1$s。如果您不同意,可以對該記錄簽署提交異議。</string>
+    <string name="notif_note_title">發行者回覆了您的商店評價 · %1$s</string>
+    <string name="notif_proven_title">您的認領已獲證明 · %1$s</string>
+    <string name="notif_proven_body">您對此應用程式評價的回覆現在帶有發行者 ✓ 標記,而您自己對它的評價不會計入。</string>
 </resources>

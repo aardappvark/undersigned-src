@@ -802,4 +802,44 @@
     <string name="publisher_build_failed">Impossibile leggere la build. Riprova con il Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Mostra la nota (questo portafoglio non viene conteggiato)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Come funziona</string>
+    <string name="tag_group_wallet">Portafoglio</string>
+    <string name="tag_group_money">Denaro e account</string>
+    <string name="tag_group_trust">Permessi e scheda</string>
+    <string name="tag_group_build">Manutenzione e build</string>
+    <string name="resign_title">La tua recensione riguarda la versione %1$d. Questo telefono ha la versione %2$d.</string>
+    <string name="resign_body">È ancora vero? Firma le stesse stelle e gli stessi tag per la versione che usi ora.</string>
+    <string name="resign_body_text">È ancora vero? Firma le stesse stelle, gli stessi tag e lo stesso testo per la versione che usi ora. Il testo viene firmato di nuovo e resta on-chain per sempre.</string>
+    <string name="resign_button">È ancora vero: firma per la versione %1$d</string>
+    <string name="resign_or_edit">Oppure modificala qui sotto e firma.</string>
+    <string name="to_review_title">Non recensite su questo telefono</string>
+    <string name="to_review_batch_title">Recensisci più app</string>
+    <string name="to_review_body">App presenti su questo telefono da una settimana o più, o usate per un\'ora o più, che questo portafoglio non ha recensito. Recensiscine una, oppure spunta più app e firmale con una sola approvazione.</string>
+    <string name="to_review_empty">Niente qui. Ogni app che hai da una settimana o hai usato per un\'ora ha una recensione tua.</string>
+    <string name="to_review_one">Recensisci</string>
+    <plurals name="to_review_together"><item quantity="one">Recensisci %1$d app</item><item quantity="many">Recensisci %1$d app insieme</item><item quantity="other">Recensisci %1$d app insieme</item></plurals>
+    <string name="to_review_batch_body">Stelle e da 1 a 3 tag per ogni app. Qui nessun testo: apri l\'editor della singola app per aggiungere una nota. Ogni recensione porta l\'anzianità di installazione e il tempo di utilizzo di questo telefono, come li aggiunge l\'editor.</string>
+    <plurals name="to_review_sign"><item quantity="one">Firma %1$d recensione</item><item quantity="many">Firma %1$d recensioni con una sola approvazione</item><item quantity="other">Firma %1$d recensioni con una sola approvazione</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d recensione firmata</item><item quantity="many">%1$d recensioni firmate</item><item quantity="other">%1$d recensioni firmate</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app su questo telefono non ancora recensita</item><item quantity="many">%1$d app su questo telefono non ancora recensite</item><item quantity="other">%1$d app su questo telefono non ancora recensite</item></plurals>
+    <string name="remind_title">App non ancora recensite</string>
+    <plurals name="remind_body"><item quantity="one">%1$d app che hai usato su questo telefono non ha una recensione tua.</item><item quantity="many">%1$d app che hai usato su questo telefono non hanno una recensione tua.</item><item quantity="other">%1$d app che hai usato su questo telefono non hanno una recensione tua.</item></plurals>
+    <string name="remind_setting">Promemoria settimanale</string>
+    <string name="remind_setting_body">Al massimo una volta a settimana: una notifica quando ci sono app che hai usato su questo telefono senza una recensione tua. Disattivato finché non lo attivi.</string>
+    <string name="share">Condividi</string>
+    <string name="share_signed">Firmate da proprietari di Seeker: %1$s · recensioni conteggiate: %2$d</string>
+    <string name="share_no_signed">Su Undersigned non ci sono ancora recensioni firmate conteggiate</string>
+    <string name="share_store">Valutazione dApp Store: %1$s · valutazioni: %2$d</string>
+    <string name="share_review_signed">Firmata su Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Qualsiasi</string>
+    <string name="import_tags_title">Tag per la tua recensione importata</string>
+    <string name="import_tags_body">La tua recensione dello store viene firmata con le sue stelle e il suo testo. Scegli da 1 a 3 tag per ciascuna: fanno parte della recensione firmata e restano on-chain per sempre.</string>
+    <string name="import_tags_sign">Firma</string>
+    <string name="notif_flagged_title">Il tuo record è stato segnalato con un flag · %1$s</string>
+    <string name="notif_flagged_body">Motivo indicato: %1$s. Se non sei d\'accordo, puoi firmare una contestazione sul record.</string>
+    <string name="notif_note_title">L\'editore ha risposto alla tua recensione dello store · %1$s</string>
+    <string name="notif_proven_title">La tua rivendicazione è provata · %1$s</string>
+    <string name="notif_proven_body">Le tue risposte alle recensioni di questa app ora portano il segno Editore ✓, e le tue recensioni di questa app non vengono conteggiate.</string>
 </resources>

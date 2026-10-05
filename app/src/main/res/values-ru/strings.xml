@@ -774,4 +774,44 @@
     <string name="publisher_build_failed">Не удалось прочитать сборку. Повторите попытку через Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Показать заметку (этот кошелёк не учитывается)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Как работает</string>
+    <string name="tag_group_wallet">Кошелёк</string>
+    <string name="tag_group_money">Деньги и аккаунты</string>
+    <string name="tag_group_trust">Разрешения и листинг</string>
+    <string name="tag_group_build">Поддержка и сборка</string>
+    <string name="resign_title">Ваш отзыв относится к версии %1$d. На этом телефоне версия %2$d.</string>
+    <string name="resign_body">Всё ещё верно? Подпишите те же звёзды и теги для версии, которой вы пользуетесь сейчас.</string>
+    <string name="resign_body_text">Всё ещё верно? Подпишите те же звёзды, теги и текст для версии, которой вы пользуетесь сейчас. Текст подписывается заново и навсегда остаётся в блокчейне.</string>
+    <string name="resign_button">Всё ещё верно: подписать для версии %1$d</string>
+    <string name="resign_or_edit">Или измените ниже и подпишите.</string>
+    <string name="to_review_title">Без отзыва на этом телефоне</string>
+    <string name="to_review_batch_title">Отзывы о нескольких</string>
+    <string name="to_review_body">Приложения, которые находятся на этом телефоне неделю и дольше или которыми пользовались час и дольше и на которые этот кошелёк не оставил отзыв. Оставьте отзыв об одном или отметьте несколько и подпишите их одним подтверждением.</string>
+    <string name="to_review_empty">Здесь ничего нет. На каждое приложение, которое у вас неделю или которым вы пользовались час, есть ваш отзыв.</string>
+    <string name="to_review_one">Оставить отзыв</string>
+    <plurals name="to_review_together"><item quantity="one">Отзыв о %1$d приложении</item><item quantity="few">Отзыв о %1$d приложениях сразу</item><item quantity="many">Отзыв о %1$d приложениях сразу</item><item quantity="other">Отзыв о %1$d приложениях сразу</item></plurals>
+    <string name="to_review_batch_body">Звёзды и от 1 до 3 тегов для каждого приложения. Текста здесь нет: чтобы добавить заметку, откройте редактор самого приложения. Каждый отзыв несёт срок установки и время использования на этом телефоне, как их добавляет редактор.</string>
+    <plurals name="to_review_sign"><item quantity="one">Подписать %1$d отзыв</item><item quantity="few">Подписать %1$d отзыва одним подтверждением</item><item quantity="many">Подписать %1$d отзывов одним подтверждением</item><item quantity="other">Подписать %1$d отзыва одним подтверждением</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">Подписан %1$d отзыв</item><item quantity="few">Подписано %1$d отзыва</item><item quantity="many">Подписано %1$d отзывов</item><item quantity="other">Подписано %1$d отзыва</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d приложение на этом телефоне пока без отзыва</item><item quantity="few">%1$d приложения на этом телефоне пока без отзыва</item><item quantity="many">%1$d приложений на этом телефоне пока без отзыва</item><item quantity="other">%1$d приложения на этом телефоне пока без отзыва</item></plurals>
+    <string name="remind_title">Приложения пока без отзыва</string>
+    <plurals name="remind_body"><item quantity="one">У вас нет отзыва на %1$d приложение, которым вы пользовались на этом телефоне.</item><item quantity="few">У вас нет отзыва на %1$d приложения, которыми вы пользовались на этом телефоне.</item><item quantity="many">У вас нет отзыва на %1$d приложений, которыми вы пользовались на этом телефоне.</item><item quantity="other">У вас нет отзыва на %1$d приложения, которыми вы пользовались на этом телефоне.</item></plurals>
+    <string name="remind_setting">Еженедельное напоминание</string>
+    <string name="remind_setting_body">Не чаще раза в неделю: уведомление, когда на приложения, которыми вы пользовались на этом телефоне, нет вашего отзыва. Выключено, пока вы не включите.</string>
+    <string name="share">Поделиться</string>
+    <string name="share_signed">Подписано владельцами Seeker: %1$s · учтённые отзывы: %2$d</string>
+    <string name="share_no_signed">В Undersigned пока нет учтённых подписанных отзывов</string>
+    <string name="share_store">Рейтинг dApp Store: %1$s · оценок: %2$d</string>
+    <string name="share_review_signed">Подписано в Solana:</string>
+    <string name="browse_tag_filter">Тег</string>
+    <string name="browse_tag_any">Любой</string>
+    <string name="import_tags_title">Теги для импортированного отзыва</string>
+    <string name="import_tags_body">Ваш отзыв из магазина подписывается со своими звёздами и текстом. Выберите для каждого от 1 до 3 тегов: они входят в подписанный отзыв и навсегда остаются в блокчейне.</string>
+    <string name="import_tags_sign">Подписать</string>
+    <string name="notif_flagged_title">Вашу запись отметили · %1$s</string>
+    <string name="notif_flagged_body">Указанная причина: %1$s. Если вы не согласны, можно подписать возражение к записи.</string>
+    <string name="notif_note_title">Издатель ответил на ваш отзыв из магазина · %1$s</string>
+    <string name="notif_proven_title">Ваше заявление подтверждено · %1$s</string>
+    <string name="notif_proven_body">Ваши ответы на отзывы об этом приложении теперь несут отметку Издатель ✓, а ваши собственные отзывы о нём не учитываются.</string>
 </resources>

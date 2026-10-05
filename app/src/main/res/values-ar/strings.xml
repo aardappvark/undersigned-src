@@ -804,4 +804,44 @@
     <string name="publisher_build_failed">تعذّرت قراءة البنية. حاول مجددًا عبر Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">إظهار الملاحظة (هذه المحفظة غير محتسبة)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">طريقة التشغيل</string>
+    <string name="tag_group_wallet">المحفظة</string>
+    <string name="tag_group_money">المال والحسابات</string>
+    <string name="tag_group_trust">الأذونات والإدراج</string>
+    <string name="tag_group_build">الصيانة والبناء</string>
+    <string name="resign_title">مراجعتك لإصدار %1$d. يعمل هذا الهاتف بالإصدار %2$d.</string>
+    <string name="resign_body">ما زال صحيحًا؟ وقّع التقييم والوسوم نفسها للإصدار الذي تستخدمه الآن.</string>
+    <string name="resign_body_text">ما زال صحيحًا؟ وقّع التقييم والوسوم والنص نفسها للإصدار الذي تستخدمه الآن. يُوقَّع النص من جديد ويبقى على السلسلة إلى الأبد.</string>
+    <string name="resign_button">ما زال صحيحًا: وقّع للإصدار %1$d</string>
+    <string name="resign_or_edit">أو عدّلها أدناه ثم وقّع.</string>
+    <string name="to_review_title">غير مراجَعة على هذا الهاتف</string>
+    <string name="to_review_batch_title">مراجعة عدة تطبيقات</string>
+    <string name="to_review_body">تطبيقات على هذا الهاتف منذ أسبوع أو أكثر، أو استُخدمت لساعة أو أكثر، ولم تراجعها هذه المحفظة. راجع تطبيقًا واحدًا، أو حدّد عدة تطبيقات ووقّعها بموافقة واحدة.</string>
+    <string name="to_review_empty">لا شيء هنا. لكل تطبيق مضى عليه أسبوع أو استخدمته ساعة مراجعة منك.</string>
+    <string name="to_review_one">مراجعة</string>
+    <plurals name="to_review_together"><item quantity="zero">مراجعة %1$d من التطبيقات معًا</item><item quantity="one">مراجعة تطبيق واحد (%1$d)</item><item quantity="two">مراجعة %1$d تطبيقين معًا</item><item quantity="few">مراجعة %1$d تطبيقات معًا</item><item quantity="many">مراجعة %1$d تطبيقًا معًا</item><item quantity="other">مراجعة %1$d تطبيق معًا</item></plurals>
+    <string name="to_review_batch_body">التقييم ومن 1 إلى 3 وسوم لكل تطبيق. لا نص هنا: افتح محرر التطبيق نفسه لإضافة ملاحظة. تحمل كل مراجعة مدة تثبيت هذا الهاتف ومدة الاستخدام، كما يضيفهما المحرر.</string>
+    <plurals name="to_review_sign"><item quantity="zero">توقيع %1$d من المراجعات بموافقة واحدة</item><item quantity="one">توقيع مراجعة واحدة (%1$d)</item><item quantity="two">توقيع %1$d مراجعتين بموافقة واحدة</item><item quantity="few">توقيع %1$d مراجعات بموافقة واحدة</item><item quantity="many">توقيع %1$d مراجعة بموافقة واحدة</item><item quantity="other">توقيع %1$d مراجعة بموافقة واحدة</item></plurals>
+    <plurals name="to_review_done"><item quantity="zero">لم تُوقَّع أي مراجعة (%1$d)</item><item quantity="one">تم توقيع مراجعة واحدة (%1$d)</item><item quantity="two">تم توقيع %1$d مراجعتين</item><item quantity="few">تم توقيع %1$d مراجعات</item><item quantity="many">تم توقيع %1$d مراجعة</item><item quantity="other">تم توقيع %1$d مراجعة</item></plurals>
+    <plurals name="to_review_entry"><item quantity="zero">%1$d من التطبيقات على هذا الهاتف بلا مراجعة بعد</item><item quantity="one">تطبيق واحد (%1$d) على هذا الهاتف بلا مراجعة بعد</item><item quantity="two">%1$d تطبيقين على هذا الهاتف بلا مراجعة بعد</item><item quantity="few">%1$d تطبيقات على هذا الهاتف بلا مراجعة بعد</item><item quantity="many">%1$d تطبيقًا على هذا الهاتف بلا مراجعة بعد</item><item quantity="other">%1$d تطبيق على هذا الهاتف بلا مراجعة بعد</item></plurals>
+    <string name="remind_title">تطبيقات بلا مراجعة بعد</string>
+    <plurals name="remind_body"><item quantity="zero">لا توجد مراجعة منك لـ %1$d من التطبيقات التي استخدمتها على هذا الهاتف.</item><item quantity="one">لا توجد مراجعة منك لتطبيق واحد (%1$d) استخدمته على هذا الهاتف.</item><item quantity="two">لا توجد مراجعة منك لـ %1$d تطبيقين استخدمتهما على هذا الهاتف.</item><item quantity="few">لا توجد مراجعة منك لـ %1$d تطبيقات استخدمتها على هذا الهاتف.</item><item quantity="many">لا توجد مراجعة منك لـ %1$d تطبيقًا استخدمتها على هذا الهاتف.</item><item quantity="other">لا توجد مراجعة منك لـ %1$d تطبيق استخدمتها على هذا الهاتف.</item></plurals>
+    <string name="remind_setting">تذكير أسبوعي</string>
+    <string name="remind_setting_body">مرة واحدة في الأسبوع على الأكثر: إشعار عندما تكون هناك تطبيقات استخدمتها على هذا الهاتف بلا مراجعة منك. متوقف ما لم تفعّله.</string>
+    <string name="share">مشاركة</string>
+    <string name="share_signed">موقَّعة من مالكي Seeker: %1$s · المراجعات المحتسبة: %2$d</string>
+    <string name="share_no_signed">لا توجد بعد مراجعات موقّعة محتسبة على Undersigned</string>
+    <string name="share_store">تقييم dApp Store: %1$s · التقييمات: %2$d</string>
+    <string name="share_review_signed">موقّعة على Solana:</string>
+    <string name="browse_tag_filter">الوسم</string>
+    <string name="browse_tag_any">أي وسم</string>
+    <string name="import_tags_title">وسوم مراجعتك المستوردة</string>
+    <string name="import_tags_body">مراجعتك في المتجر موقّعة بتقييمها ونصها. اختر من 1 إلى 3 وسوم لكل مراجعة: هي جزء من المراجعة الموقّعة وتبقى على السلسلة إلى الأبد.</string>
+    <string name="import_tags_sign">توقيع</string>
+    <string name="notif_flagged_title">تم وضع إشارة على سجلك · %1$s</string>
+    <string name="notif_flagged_body">السبب المعطى: %1$s. إذا كنت لا توافق، يمكنك توقيع اعتراض على السجل.</string>
+    <string name="notif_note_title">ردّ الناشر على مراجعتك في المتجر · %1$s</string>
+    <string name="notif_proven_title">تم إثبات ادعائك · %1$s</string>
+    <string name="notif_proven_body">تحمل ردودك على مراجعات هذا التطبيق الآن علامة «ناشر ✓»، ولا تُحتسب مراجعاتك الخاصة له.</string>
 </resources>

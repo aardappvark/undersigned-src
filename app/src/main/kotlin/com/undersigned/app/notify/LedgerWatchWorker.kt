@@ -129,8 +129,20 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         if (fresh.isEmpty()) return Result.success()
 
         val mineBySig = after.filter { it.signer == me && it.memo is ReviewMemo.Review }.associateBy { it.signature }
+        val mineAny = after.filter { it.signer == me }.associateBy { it.signature }
+        // My own store reviews (from the last scan), by store review id → package: a publisher's signed note on one is news.
+        val myStoreIds = me?.let { w -> UserPreferences.loadMyStoreReviews(w)?.first?.entries?.associate { it.value.id to it.key } } ?: emptyMap()
+        val verified = UserPreferences.loadVerifiedPublishers()
         for (e in fresh) {
             when (val m = e.memo) {
+                // Someone flagged one of my records: say which and why, so I can answer with a dispute if I disagree.
+                is ReviewMemo.Flag -> mineAny[m.recordId]?.let { mine -> if (e.signer != me) {
+                    val pkg = (mine.memo as? ReviewMemo.Review)?.packageName
+                    post("flg:${e.signature}", ctx.getString(R.string.notif_flagged_title, pkg?.let { names[it] ?: it } ?: ""), ctx.getString(R.string.notif_flagged_body, flagReason(ctx, m.reason)), pkg ?: "")
+                } }
+                // A publisher's signed note under MY store review (only verified publishers' notes count, as on the app page).
+                is ReviewMemo.StoreNote -> myStoreIds[m.reviewId]?.takeIf { it == m.packageName && verified[it]?.contains(e.signer) == true }?.let { pkg ->
+                    post("snt:${e.signature}", ctx.getString(R.string.notif_note_title, names[pkg] ?: pkg), m.text, pkg) }
                 is ReviewMemo.Review -> if (m.packageName in follows && e.signer != me)
                     post("rev:${e.signature}", ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { with(com.undersigned.app.ui.components.TagLabels) { ctx.label(it.wire) } }), m.packageName)
                 is ReviewMemo.Reply -> mineBySig[m.reviewSignature]?.let { mine ->
@@ -140,6 +152,13 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             }
         }
         UserPreferences.lastNotifiedSignature = after.firstOrNull()?.signature
+        // My claim to publish an app is now proven (the app verified it since the last run): said once per app.
+        runCatching {
+            val proven = me?.let { w -> verified.filterValues { w in it }.keys } ?: emptySet()
+            val told = UserPreferences.provenNotified
+            (proven - told).forEach { pkg -> post("prv:$pkg:$me", ctx.getString(R.string.notif_proven_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_proven_body), pkg) }
+            UserPreferences.provenNotified = told + proven
+        }
         // A term bought or run out since the last schedule changes the cadence; re-evaluate without a run-now.
         if (UserPreferences.alertsEnabled.value) runCatching { schedule(ctx, runNow = false) }
         Log.i(TAG, "posted $posted notifications")
@@ -151,6 +170,10 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
      * and the notification id is its hash, so alerts from different runs sit side by side and the same record
      * never stacks a duplicate. Returns false when the system refused it (permission revoked while running).
      */
+
+    private fun flagReason(ctx: Context, r: ReviewMemo.FlagReason): String = ctx.getString(when (r) {
+        ReviewMemo.FlagReason.SPAM -> R.string.flag_spam; ReviewMemo.FlagReason.ABUSE -> R.string.flag_abuse
+        ReviewMemo.FlagReason.OFF_TOPIC -> R.string.flag_offtopic; ReviewMemo.FlagReason.MISLEADING -> R.string.flag_misleading })
 
     companion object {
         private const val TAG = "LedgerWatch"

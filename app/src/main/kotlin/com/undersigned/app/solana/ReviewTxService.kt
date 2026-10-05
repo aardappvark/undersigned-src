@@ -70,7 +70,12 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
      */
     suspend fun publishBatch(adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, memoTexts: List<String>, onStage: (Stage) -> Unit): Result<List<Pair<String, List<String>>>> {
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
-        val chunks = TxBuilder.chunkForBatches(signer, memoTexts)
+        return publishChunks(adapter, sender, signerAddress, TxBuilder.chunkForBatches(signer, memoTexts), onStage)
+    }
+
+    /** Signs already-packed transactions (see TxBuilder.chunkGroups) in ONE wallet approval. */
+    suspend fun publishChunks(adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, chunks: List<List<String>>, onStage: (Stage) -> Unit): Result<List<Pair<String, List<String>>>> {
+        val signer = Base58.decode(signerAddress); require(signer.size == 32)
         onStage(Stage.Simulating)
         for (c in chunks) {
             val sim = rpc.simulateTransaction(TxBuilder.batchTransaction(signer, c, TxBuilder.ZERO_BLOCKHASH), replaceBlockhash = true)

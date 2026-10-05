@@ -177,3 +177,30 @@ fun timeLabel(t: com.undersigned.protocol.UseTime): String = androidx.compose.ui
     com.undersigned.protocol.UseTime.MANY_HOURS -> com.undersigned.app.R.string.time_t3
     com.undersigned.protocol.UseTime.DAYS_OF_USE -> com.undersigned.app.R.string.time_t4
 })
+
+
+/**
+ * The review tags by theme (protocol TagGroups), with opposite pairs that release each other: choosing "Crashes" drops
+ * "Works". Used by the composer, the batch composer and the importer, so every review is tagged the same way.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun TagPicker(selected: List<com.undersigned.protocol.ReviewMemo.Tag>, enabled: Boolean = true, onChange: (List<com.undersigned.protocol.ReviewMemo.Tag>) -> Unit) {
+    val ctx = LocalContext.current
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        com.undersigned.protocol.TagGroups.groups.forEach { (g, tags) ->
+            Column {
+                Text(ctx.getString(when (g) {
+                    com.undersigned.protocol.TagGroups.Group.USE -> com.undersigned.app.R.string.tag_group_use
+                    com.undersigned.protocol.TagGroups.Group.WALLET -> com.undersigned.app.R.string.tag_group_wallet
+                    com.undersigned.protocol.TagGroups.Group.MONEY -> com.undersigned.app.R.string.tag_group_money
+                    com.undersigned.protocol.TagGroups.Group.TRUST -> com.undersigned.app.R.string.tag_group_trust
+                    com.undersigned.protocol.TagGroups.Group.BUILD -> com.undersigned.app.R.string.tag_group_build
+                }), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(bottom = 4.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    tags.forEach { t -> TagChip(ctx.tagLabel(t.wire), selected = t in selected) { if (enabled) onChange(com.undersigned.protocol.TagGroups.toggle(selected, t)) } }
+                }
+            }
+        }
+    }
+}

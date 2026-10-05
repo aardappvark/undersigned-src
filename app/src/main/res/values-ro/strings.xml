@@ -781,4 +781,44 @@
     <string name="publisher_build_failed">Build-ul nu a putut fi citit. Încearcă din nou pe Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Afișează nota (acest portofel nu este numărat)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Cum funcționează</string>
+    <string name="tag_group_wallet">Portofel</string>
+    <string name="tag_group_money">Bani și conturi</string>
+    <string name="tag_group_trust">Permisiuni și listare</string>
+    <string name="tag_group_build">Întreținere și build</string>
+    <string name="resign_title">Recenzia ta este pentru versiunea %1$d. Acest telefon rulează versiunea %2$d.</string>
+    <string name="resign_body">Mai este valabil? Semnează aceleași stele și etichete pentru versiunea pe care o folosești acum.</string>
+    <string name="resign_body_text">Mai este valabil? Semnează aceleași stele, etichete și același text pentru versiunea pe care o folosești acum. Textul este semnat din nou și rămâne on-chain pentru totdeauna.</string>
+    <string name="resign_button">Mai este valabil: semnează pentru versiunea %1$d</string>
+    <string name="resign_or_edit">Sau modifică mai jos și semnează.</string>
+    <string name="to_review_title">Nerecenzate pe acest telefon</string>
+    <string name="to_review_batch_title">Recenzează mai multe</string>
+    <string name="to_review_body">Aplicații aflate pe acest telefon de o săptămână sau mai mult, ori folosite o oră sau mai mult, pe care acest portofel nu le-a recenzat. Recenzează una sau bifează mai multe și semnează-le printr-o singură aprobare.</string>
+    <string name="to_review_empty">Nimic aici. Fiecare aplicație pe care o ai de o săptămână sau ai folosit-o o oră are o recenzie de la tine.</string>
+    <string name="to_review_one">Recenzează</string>
+    <plurals name="to_review_together"><item quantity="one">Recenzează %1$d aplicație</item><item quantity="few">Recenzează %1$d aplicații împreună</item><item quantity="other">Recenzează %1$d de aplicații împreună</item></plurals>
+    <string name="to_review_batch_body">Stele și 1-3 etichete pentru fiecare aplicație. Aici fără text: deschide editorul propriu al unei aplicații pentru a adăuga o notă. Fiecare recenzie poartă vechimea instalării și timpul de utilizare de pe acest telefon, așa cum le adaugă editorul.</string>
+    <plurals name="to_review_sign"><item quantity="one">Semnează %1$d recenzie</item><item quantity="few">Semnează %1$d recenzii printr-o singură aprobare</item><item quantity="other">Semnează %1$d de recenzii printr-o singură aprobare</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d recenzie semnată</item><item quantity="few">%1$d recenzii semnate</item><item quantity="other">%1$d de recenzii semnate</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d aplicație de pe acest telefon încă nerecenzată</item><item quantity="few">%1$d aplicații de pe acest telefon încă nerecenzate</item><item quantity="other">%1$d de aplicații de pe acest telefon încă nerecenzate</item></plurals>
+    <string name="remind_title">Aplicații încă nerecenzate</string>
+    <plurals name="remind_body"><item quantity="one">%1$d aplicație folosită pe acest telefon nu are nicio recenzie de la tine.</item><item quantity="few">%1$d aplicații folosite pe acest telefon nu au nicio recenzie de la tine.</item><item quantity="other">%1$d de aplicații folosite pe acest telefon nu au nicio recenzie de la tine.</item></plurals>
+    <string name="remind_setting">Memento săptămânal</string>
+    <string name="remind_setting_body">Cel mult o dată pe săptămână: o notificare atunci când aplicații folosite pe acest telefon nu au nicio recenzie de la tine. Dezactivat, dacă nu îl activezi.</string>
+    <string name="share">Distribuie</string>
+    <string name="share_signed">Semnat de proprietari de Seeker: %1$s · recenzii numărate: %2$d</string>
+    <string name="share_no_signed">Încă nu există recenzii semnate numărate pe Undersigned</string>
+    <string name="share_store">Evaluare dApp Store: %1$s · evaluări: %2$d</string>
+    <string name="share_review_signed">Semnat pe Solana:</string>
+    <string name="browse_tag_filter">Etichetă</string>
+    <string name="browse_tag_any">Oricare</string>
+    <string name="import_tags_title">Etichete pentru recenzia ta importată</string>
+    <string name="import_tags_body">Recenzia ta din magazin este semnată cu propriile stele și propriul text. Alege 1-3 etichete pentru fiecare: fac parte din recenzia semnată și rămân on-chain pentru totdeauna.</string>
+    <string name="import_tags_sign">Semnează</string>
+    <string name="notif_flagged_title">Înregistrarea ta a fost semnalată · %1$s</string>
+    <string name="notif_flagged_body">Motiv indicat: %1$s. Dacă nu ești de acord, poți semna o contestație pe înregistrare.</string>
+    <string name="notif_note_title">Editorul a răspuns la recenzia ta din magazin · %1$s</string>
+    <string name="notif_proven_title">Revendicarea ta este dovedită · %1$s</string>
+    <string name="notif_proven_body">Răspunsurile tale la recenziile acestei aplicații poartă acum semnul Editor ✓, iar recenziile tale proprii despre ea nu sunt numărate.</string>
 </resources>

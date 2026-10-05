@@ -760,4 +760,44 @@
     <string name="publisher_build_failed">빌드를 읽을 수 없습니다. Wi-Fi에서 다시 시도하세요.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">메모 표시(이 지갑은 집계 제외)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">작동 방식</string>
+    <string name="tag_group_wallet">지갑</string>
+    <string name="tag_group_money">금전과 계정</string>
+    <string name="tag_group_trust">권한과 등록 정보</string>
+    <string name="tag_group_build">유지 관리와 빌드</string>
+    <string name="resign_title">회원님의 리뷰는 버전 %1$d에 대한 것입니다. 이 휴대폰은 버전 %2$d를 사용 중입니다.</string>
+    <string name="resign_body">여전히 맞나요? 지금 사용하는 버전에 같은 별점과 태그로 서명합니다.</string>
+    <string name="resign_body_text">여전히 맞나요? 지금 사용하는 버전에 같은 별점, 태그, 텍스트로 서명합니다. 텍스트는 다시 서명되며 온체인에 영구히 남습니다.</string>
+    <string name="resign_button">여전히 맞음: 버전 %1$d에 서명</string>
+    <string name="resign_or_edit">또는 아래에서 수정한 뒤 서명하세요.</string>
+    <string name="to_review_title">이 휴대폰에서 리뷰하지 않음</string>
+    <string name="to_review_batch_title">여러 개 리뷰</string>
+    <string name="to_review_body">이 휴대폰에 일주일 이상 있었거나 한 시간 이상 사용했지만 이 지갑이 아직 리뷰하지 않은 앱입니다. 하나만 리뷰하거나, 여러 개를 선택해 한 번의 승인으로 서명할 수 있습니다.</string>
+    <string name="to_review_empty">여기에는 아무것도 없습니다. 일주일 동안 가지고 있었거나 한 시간 사용한 앱에는 모두 회원님의 리뷰가 있습니다.</string>
+    <string name="to_review_one">리뷰</string>
+    <plurals name="to_review_together"><item quantity="other">앱 %1$d개 함께 리뷰</item></plurals>
+    <string name="to_review_batch_body">앱마다 별점과 태그 1~3개. 여기서는 텍스트를 쓰지 않습니다. 메모를 추가하려면 해당 앱의 작성 화면을 여세요. 각 리뷰에는 작성 화면이 추가하는 것과 같이 이 휴대폰의 설치 기간과 사용 시간이 담깁니다.</string>
+    <plurals name="to_review_sign"><item quantity="other">리뷰 %1$d건을 한 번의 승인으로 서명</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">리뷰 %1$d건 서명 완료</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">이 휴대폰에서 아직 리뷰하지 않은 앱 %1$d개</item></plurals>
+    <string name="remind_title">아직 리뷰하지 않은 앱</string>
+    <plurals name="remind_body"><item quantity="other">이 휴대폰에서 사용한 앱 %1$d개에 회원님의 리뷰가 없습니다.</item></plurals>
+    <string name="remind_setting">주간 알림</string>
+    <string name="remind_setting_body">일주일에 최대 한 번: 이 휴대폰에서 사용한 앱에 회원님의 리뷰가 없을 때 알림을 보냅니다. 켜지 않으면 꺼져 있습니다.</string>
+    <string name="share">공유</string>
+    <string name="share_signed">Seeker 소유자 서명: %1$s · 집계된 리뷰: %2$d</string>
+    <string name="share_no_signed">Undersigned에는 아직 집계된 서명 리뷰가 없습니다</string>
+    <string name="share_store">dApp Store 평점: %1$s · 평가: %2$d</string>
+    <string name="share_review_signed">Solana에서 서명됨:</string>
+    <string name="browse_tag_filter">태그</string>
+    <string name="browse_tag_any">전체</string>
+    <string name="import_tags_title">가져온 리뷰의 태그</string>
+    <string name="import_tags_body">스토어 리뷰는 원래의 별점과 텍스트 그대로 서명됩니다. 각 리뷰에 태그를 1~3개 선택하세요. 태그는 서명된 리뷰의 일부이며 온체인에 영구히 남습니다.</string>
+    <string name="import_tags_sign">서명</string>
+    <string name="notif_flagged_title">회원님의 기록에 플래그가 지정되었습니다 · %1$s</string>
+    <string name="notif_flagged_body">제시된 사유: %1$s. 동의하지 않으면 해당 기록에 이의 제기를 서명할 수 있습니다.</string>
+    <string name="notif_note_title">퍼블리셔가 스토어 리뷰에 답변했습니다 · %1$s</string>
+    <string name="notif_proven_title">회원님의 소유 주장이 입증되었습니다 · %1$s</string>
+    <string name="notif_proven_body">이 앱의 리뷰에 단 회원님의 답변에 이제 퍼블리셔 ✓ 표시가 붙으며, 이 앱에 대한 회원님 본인의 리뷰는 집계되지 않습니다.</string>
 </resources>

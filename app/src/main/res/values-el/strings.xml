@@ -773,4 +773,44 @@
     <string name="publisher_build_failed">Δεν ήταν δυνατή η ανάγνωση του build. Δοκιμάστε ξανά μέσω Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Εμφάνιση της σημείωσης (αυτό το πορτοφόλι δεν μετράει)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Πώς λειτουργεί</string>
+    <string name="tag_group_wallet">Πορτοφόλι</string>
+    <string name="tag_group_money">Χρήματα και λογαριασμοί</string>
+    <string name="tag_group_trust">Δικαιώματα και καταχώριση</string>
+    <string name="tag_group_build">Συντήρηση και έκδοση</string>
+    <string name="resign_title">Η κριτική σας αφορά την έκδοση %1$d. Αυτό το τηλέφωνο τρέχει την έκδοση %2$d.</string>
+    <string name="resign_body">Ισχύει ακόμα; Υπογράψτε τα ίδια αστέρια και τις ίδιες ετικέτες για την έκδοση που χρησιμοποιείτε τώρα.</string>
+    <string name="resign_body_text">Ισχύει ακόμα; Υπογράψτε τα ίδια αστέρια, τις ίδιες ετικέτες και το ίδιο κείμενο για την έκδοση που χρησιμοποιείτε τώρα. Το κείμενο υπογράφεται ξανά και μένει on-chain για πάντα.</string>
+    <string name="resign_button">Ισχύει ακόμα: υπογραφή για την έκδοση %1$d</string>
+    <string name="resign_or_edit">Ή αλλάξτε το παρακάτω και υπογράψτε.</string>
+    <string name="to_review_title">Χωρίς κριτική σε αυτό το τηλέφωνο</string>
+    <string name="to_review_batch_title">Κριτική σε αρκετές</string>
+    <string name="to_review_body">Εφαρμογές σε αυτό το τηλέφωνο για μία εβδομάδα ή περισσότερο, ή που χρησιμοποιήθηκαν για μία ώρα ή περισσότερο, και δεν έχουν κριτική από αυτό το πορτοφόλι. Κάντε κριτική σε μία ή επιλέξτε αρκετές και υπογράψτε τις με μία έγκριση.</string>
+    <string name="to_review_empty">Τίποτα εδώ. Κάθε εφαρμογή που έχετε μία εβδομάδα ή χρησιμοποιήσατε μία ώρα έχει κριτική από εσάς.</string>
+    <string name="to_review_one">Κριτική</string>
+    <plurals name="to_review_together"><item quantity="one">Κριτική σε %1$d εφαρμογή</item><item quantity="other">Κριτική σε %1$d εφαρμογές μαζί</item></plurals>
+    <string name="to_review_batch_body">Αστέρια και 1 έως 3 ετικέτες για κάθε εφαρμογή. Χωρίς κείμενο εδώ: ανοίξτε τον δικό της συντάκτη για να προσθέσετε σημείωση. Κάθε κριτική φέρει την ηλικία εγκατάστασης και τον χρόνο χρήσης αυτού του τηλεφώνου, όπως τα προσθέτει ο συντάκτης.</string>
+    <plurals name="to_review_sign"><item quantity="one">Υπογραφή %1$d κριτικής</item><item quantity="other">Υπογραφή %1$d κριτικών με μία έγκριση</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">Υπογράφηκε %1$d κριτική</item><item quantity="other">Υπογράφηκαν %1$d κριτικές</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d εφαρμογή σε αυτό το τηλέφωνο χωρίς κριτική ακόμα</item><item quantity="other">%1$d εφαρμογές σε αυτό το τηλέφωνο χωρίς κριτική ακόμα</item></plurals>
+    <string name="remind_title">Εφαρμογές χωρίς κριτική ακόμα</string>
+    <plurals name="remind_body"><item quantity="one">%1$d εφαρμογή που χρησιμοποιήσατε σε αυτό το τηλέφωνο δεν έχει κριτική από εσάς.</item><item quantity="other">%1$d εφαρμογές που χρησιμοποιήσατε σε αυτό το τηλέφωνο δεν έχουν κριτική από εσάς.</item></plurals>
+    <string name="remind_setting">Εβδομαδιαία υπενθύμιση</string>
+    <string name="remind_setting_body">Το πολύ μία φορά την εβδομάδα: μια ειδοποίηση όταν εφαρμογές που χρησιμοποιήσατε σε αυτό το τηλέφωνο δεν έχουν κριτική από εσάς. Ανενεργή, εκτός αν την ενεργοποιήσετε.</string>
+    <string name="share">Κοινοποίηση</string>
+    <string name="share_signed">Υπογεγραμμένη από κατόχους Seeker: %1$s · κριτικές που μετρούν: %2$d</string>
+    <string name="share_no_signed">Δεν υπάρχουν ακόμα υπογεγραμμένες κριτικές που μετρούν στο Undersigned</string>
+    <string name="share_store">Βαθμολογία dApp Store: %1$s · βαθμολογίες: %2$d</string>
+    <string name="share_review_signed">Υπογεγραμμένο στο Solana:</string>
+    <string name="browse_tag_filter">Ετικέτα</string>
+    <string name="browse_tag_any">Οποιαδήποτε</string>
+    <string name="import_tags_title">Ετικέτες για την εισαγμένη κριτική σας</string>
+    <string name="import_tags_body">Η κριτική σας από το κατάστημα υπογράφεται με τα δικά της αστέρια και κείμενο. Επιλέξτε 1 έως 3 ετικέτες για καθεμία: αποτελούν μέρος της υπογεγραμμένης κριτικής και μένουν on-chain για πάντα.</string>
+    <string name="import_tags_sign">Υπογραφή</string>
+    <string name="notif_flagged_title">Η εγγραφή σας επισημάνθηκε · %1$s</string>
+    <string name="notif_flagged_body">Αιτιολογία: %1$s. Αν διαφωνείτε, μπορείτε να υπογράψετε ένσταση στην εγγραφή.</string>
+    <string name="notif_note_title">Ο εκδότης απάντησε στην κριτική σας από το κατάστημα · %1$s</string>
+    <string name="notif_proven_title">Η αξίωσή σας αποδείχθηκε · %1$s</string>
+    <string name="notif_proven_body">Οι απαντήσεις σας στις κριτικές αυτής της εφαρμογής φέρουν πλέον το σήμα Εκδότης ✓ και οι δικές σας κριτικές για αυτήν δεν μετράνε.</string>
 </resources>

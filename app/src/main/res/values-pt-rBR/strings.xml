@@ -802,4 +802,44 @@
     <string name="publisher_build_failed">Não foi possível ler a versão. Tente novamente no Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Mostrar a nota (esta carteira não é contabilizada)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Como funciona</string>
+    <string name="tag_group_wallet">Carteira</string>
+    <string name="tag_group_money">Dinheiro e contas</string>
+    <string name="tag_group_trust">Permissões e listagem</string>
+    <string name="tag_group_build">Manutenção e build</string>
+    <string name="resign_title">Sua avaliação é da versão %1$d. Este telefone está na versão %2$d.</string>
+    <string name="resign_body">Ainda vale? Assine as mesmas estrelas e tags para a versão que você usa agora.</string>
+    <string name="resign_body_text">Ainda vale? Assine as mesmas estrelas, tags e texto para a versão que você usa agora. O texto é assinado de novo e fica on-chain para sempre.</string>
+    <string name="resign_button">Ainda vale: assinar para a versão %1$d</string>
+    <string name="resign_or_edit">Ou altere abaixo e assine.</string>
+    <string name="to_review_title">Sem avaliação neste telefone</string>
+    <string name="to_review_batch_title">Avaliar vários</string>
+    <string name="to_review_body">Apps neste telefone há uma semana ou mais, ou usados por uma hora ou mais, que esta carteira não avaliou. Avalie um, ou marque vários e assine todos em uma única aprovação.</string>
+    <string name="to_review_empty">Nada aqui. Cada app que você tem há uma semana ou usou por uma hora tem uma avaliação sua.</string>
+    <string name="to_review_one">Avaliar</string>
+    <plurals name="to_review_together"><item quantity="one">Avaliar %1$d app</item><item quantity="many">Avaliar %1$d apps juntos</item><item quantity="other">Avaliar %1$d apps juntos</item></plurals>
+    <string name="to_review_batch_body">Estrelas e de 1 a 3 tags para cada app. Aqui não há texto: abra o editor do próprio app para adicionar uma nota. Cada avaliação leva o tempo de instalação e o tempo de uso deste telefone, como o editor os adiciona.</string>
+    <plurals name="to_review_sign"><item quantity="one">Assinar %1$d avaliação</item><item quantity="many">Assinar %1$d avaliações em uma única aprovação</item><item quantity="other">Assinar %1$d avaliações em uma única aprovação</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d avaliação assinada</item><item quantity="many">%1$d avaliações assinadas</item><item quantity="other">%1$d avaliações assinadas</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app neste telefone ainda sem avaliação</item><item quantity="many">%1$d apps neste telefone ainda sem avaliação</item><item quantity="other">%1$d apps neste telefone ainda sem avaliação</item></plurals>
+    <string name="remind_title">Apps ainda sem avaliação</string>
+    <plurals name="remind_body"><item quantity="one">%1$d app que você usou neste telefone não tem avaliação sua.</item><item quantity="many">%1$d apps que você usou neste telefone não têm avaliação sua.</item><item quantity="other">%1$d apps que você usou neste telefone não têm avaliação sua.</item></plurals>
+    <string name="remind_setting">Lembrete semanal</string>
+    <string name="remind_setting_body">No máximo uma vez por semana: uma notificação quando apps que você usou neste telefone não têm avaliação sua. Desativado, a menos que você ative.</string>
+    <string name="share">Compartilhar</string>
+    <string name="share_signed">Assinadas por donos de Seeker: %1$s · avaliações contabilizadas: %2$d</string>
+    <string name="share_no_signed">Ainda não há avaliações assinadas contabilizadas no Undersigned</string>
+    <string name="share_store">Nota na dApp Store: %1$s · notas: %2$d</string>
+    <string name="share_review_signed">Assinada na Solana:</string>
+    <string name="browse_tag_filter">Tag</string>
+    <string name="browse_tag_any">Qualquer</string>
+    <string name="import_tags_title">Tags para sua avaliação importada</string>
+    <string name="import_tags_body">Sua avaliação da loja é assinada com as próprias estrelas e o próprio texto. Escolha de 1 a 3 tags para cada uma: elas fazem parte da avaliação assinada e ficam on-chain para sempre.</string>
+    <string name="import_tags_sign">Assinar</string>
+    <string name="notif_flagged_title">Seu registro foi sinalizado · %1$s</string>
+    <string name="notif_flagged_body">Motivo informado: %1$s. Se você discordar, pode assinar uma contestação no registro.</string>
+    <string name="notif_note_title">O publicador respondeu à sua avaliação da loja · %1$s</string>
+    <string name="notif_proven_title">Sua reivindicação está comprovada · %1$s</string>
+    <string name="notif_proven_body">Suas respostas às avaliações deste app agora levam a marca Publicador ✓, e suas próprias avaliações dele não são contabilizadas.</string>
 </resources>

@@ -88,6 +88,9 @@ Added 5 Oct 2026:
 | **Uncounted reviews folded** on pages; counted ones lead | `/app/{pkg}` | F |
 | **Webhook events** `flag`, `claim`; **key recovery** (the same proof returns the same key) | `/v1/hooks`, `/v1/keys` | P |
 
+| **Open dataset**: every decoded record, every app's signed score, every signer's public facts; built once per rebuild | `/v1/dataset.json` | F |
+| **Tag groups and opposite pairs** on the web composer, as in the app (protocol `TagGroups`) | `/review` | F |
+
 Still later: x402 pay-per-call, fully translated pages (only the shared vocabulary is localised today).
 
 ## 2. Gating with SOL/SKR

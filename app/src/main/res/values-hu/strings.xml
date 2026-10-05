@@ -773,4 +773,44 @@
     <string name="publisher_build_failed">A buildet nem sikerült beolvasni. Próbáld újra Wi-Fi-n.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Megjegyzés megjelenítése (ez a tárca nem számít bele)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Hogyan működik</string>
+    <string name="tag_group_wallet">Tárca</string>
+    <string name="tag_group_money">Pénz és fiókok</string>
+    <string name="tag_group_trust">Engedélyek és adatlap</string>
+    <string name="tag_group_build">Karbantartás és build</string>
+    <string name="resign_title">Az értékelésed a(z) %1$d. verzióra szól. Ez a telefon a(z) %2$d. verziót futtatja.</string>
+    <string name="resign_body">Még igaz? Írd alá ugyanazokat a csillagokat és címkéket arra a verzióra, amelyet most használsz.</string>
+    <string name="resign_body_text">Még igaz? Írd alá ugyanazokat a csillagokat, címkéket és szöveget arra a verzióra, amelyet most használsz. A szöveget újra aláírod, és végleg on-chain marad.</string>
+    <string name="resign_button">Még igaz: aláírás a(z) %1$d. verzióra</string>
+    <string name="resign_or_edit">Vagy módosítsd lent, és írd alá.</string>
+    <string name="to_review_title">Nem értékelt ezen a telefonon</string>
+    <string name="to_review_batch_title">Több értékelése</string>
+    <string name="to_review_body">Egy hete vagy régebben a telefonon lévő, illetve egy órája vagy hosszabb ideje használt alkalmazások, amelyeket ez a tárca nem értékelt. Értékelj egyet, vagy jelölj ki többet, és írd alá őket egy jóváhagyással.</string>
+    <string name="to_review_empty">Itt nincs semmi. Minden alkalmazáshoz, amelyet egy hete birtokolsz vagy egy órát használtál, van tőled értékelés.</string>
+    <string name="to_review_one">Értékelés</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d alkalmazás értékelése</item><item quantity="other">%1$d alkalmazás értékelése együtt</item></plurals>
+    <string name="to_review_batch_body">Csillagok és 1–3 címke minden alkalmazáshoz. Itt nincs szöveg: megjegyzés hozzáadásához nyisd meg az adott alkalmazás saját szerkesztőjét. Minden értékelés hordozza a telefon telepítési korát és használati idejét, ahogy a szerkesztő hozzáadja.</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d értékelés aláírása</item><item quantity="other">%1$d értékelés aláírása egy jóváhagyással</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d értékelés aláírva</item><item quantity="other">%1$d értékelés aláírva</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d alkalmazás ezen a telefonon még nincs értékelve</item><item quantity="other">%1$d alkalmazás ezen a telefonon még nincs értékelve</item></plurals>
+    <string name="remind_title">Még nem értékelt alkalmazások</string>
+    <plurals name="remind_body"><item quantity="one">%1$d alkalmazáshoz, amelyet ezen a telefonon használtál, nincs tőled értékelés.</item><item quantity="other">%1$d alkalmazáshoz, amelyet ezen a telefonon használtál, nincs tőled értékelés.</item></plurals>
+    <string name="remind_setting">Heti emlékeztető</string>
+    <string name="remind_setting_body">Legfeljebb hetente egyszer: értesítés, ha az ezen a telefonon használt alkalmazásokhoz nincs tőled értékelés. Ki van kapcsolva, amíg be nem kapcsolod.</string>
+    <string name="share">Megosztás</string>
+    <string name="share_signed">Seeker-tulajdonosok aláírásával: %1$s · beszámított értékelések: %2$d</string>
+    <string name="share_no_signed">Az Undersigned-on még nincs beszámított aláírt értékelés</string>
+    <string name="share_store">dApp Store értékelés: %1$s · értékelések: %2$d</string>
+    <string name="share_review_signed">Aláírva a Solanán:</string>
+    <string name="browse_tag_filter">Címke</string>
+    <string name="browse_tag_any">Bármely</string>
+    <string name="import_tags_title">Címkék az importált értékelésedhez</string>
+    <string name="import_tags_body">Az áruházi értékelésed a saját csillagaival és szövegével kerül aláírásra. Válassz mindegyikhez 1–3 címkét: az aláírt értékelés részei, és végleg on-chain maradnak.</string>
+    <string name="import_tags_sign">Aláírás</string>
+    <string name="notif_flagged_title">A bejegyzésedet megjelölték · %1$s</string>
+    <string name="notif_flagged_body">Megadott ok: %1$s. Ha nem értesz egyet, aláírhatsz egy vitatást a bejegyzésen.</string>
+    <string name="notif_note_title">A kiadó válaszolt az áruházi értékelésedre · %1$s</string>
+    <string name="notif_proven_title">Az igényed igazolt · %1$s</string>
+    <string name="notif_proven_body">Az alkalmazás értékeléseire adott válaszaid mostantól a Kiadó ✓ jelölést viselik, a saját értékeléseid pedig nem számítanak bele.</string>
 </resources>

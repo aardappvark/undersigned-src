@@ -773,4 +773,44 @@
     <string name="publisher_build_failed">Build okunamadı. Wi-Fi üzerinden tekrar deneyin.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Notu göster (bu cüzdan sayılmıyor)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Nasıl çalışır</string>
+    <string name="tag_group_wallet">Cüzdan</string>
+    <string name="tag_group_money">Para ve hesaplar</string>
+    <string name="tag_group_trust">İzinler ve listeleme</string>
+    <string name="tag_group_build">Bakım ve derleme</string>
+    <string name="resign_title">İncelemeniz %1$d sürümüne ait. Bu telefon %2$d sürümünü çalıştırıyor.</string>
+    <string name="resign_body">Hâlâ doğru mu? Şu an kullandığınız sürüm için aynı yıldızları ve etiketleri imzalayın.</string>
+    <string name="resign_body_text">Hâlâ doğru mu? Şu an kullandığınız sürüm için aynı yıldızları, etiketleri ve metni imzalayın. Metin yeniden imzalanır ve kalıcı olarak zincir üzerinde kalır.</string>
+    <string name="resign_button">Hâlâ doğru: %1$d sürümü için imzala</string>
+    <string name="resign_or_edit">Veya aşağıda değiştirip imzalayın.</string>
+    <string name="to_review_title">Bu telefonda incelenmemiş</string>
+    <string name="to_review_batch_title">Birkaçını incele</string>
+    <string name="to_review_body">Bu telefonda bir hafta veya daha uzun süredir bulunan ya da bir saat veya daha uzun süre kullanılan ve bu cüzdanın incelemediği uygulamalar. Birini inceleyin ya da birkaçını işaretleyip tek onayla imzalayın.</string>
+    <string name="to_review_empty">Burada bir şey yok. Bir haftadır elinizde olan veya bir saat kullandığınız her uygulamanın sizden bir incelemesi var.</string>
+    <string name="to_review_one">İncele</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d uygulamayı incele</item><item quantity="other">%1$d uygulamayı birlikte incele</item></plurals>
+    <string name="to_review_batch_body">Her uygulama için yıldızlar ve 1 ila 3 etiket. Burada metin yok: not eklemek için uygulamanın kendi düzenleyicisini açın. Her inceleme, düzenleyicinin eklediği gibi bu telefonun kurulum yaşını ve kullanım süresini taşır.</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d incelemeyi imzala</item><item quantity="other">%1$d incelemeyi tek onayla imzala</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d inceleme imzalandı</item><item quantity="other">%1$d inceleme imzalandı</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">Bu telefonda %1$d uygulama henüz incelenmedi</item><item quantity="other">Bu telefonda %1$d uygulama henüz incelenmedi</item></plurals>
+    <string name="remind_title">Henüz incelenmemiş uygulamalar</string>
+    <plurals name="remind_body"><item quantity="one">Bu telefonda kullandığınız %1$d uygulamanın sizden bir incelemesi yok.</item><item quantity="other">Bu telefonda kullandığınız %1$d uygulamanın sizden bir incelemesi yok.</item></plurals>
+    <string name="remind_setting">Haftalık hatırlatma</string>
+    <string name="remind_setting_body">Haftada en fazla bir kez: bu telefonda kullandığınız uygulamaların sizden bir incelemesi olmadığında bildirim. Siz açmadıkça kapalıdır.</string>
+    <string name="share">Paylaş</string>
+    <string name="share_signed">Seeker sahiplerince imzalanan: %1$s · sayılan inceleme: %2$d</string>
+    <string name="share_no_signed">Undersigned\'da henüz sayılan imzalı inceleme yok</string>
+    <string name="share_store">dApp Store puanı: %1$s · puan sayısı: %2$d</string>
+    <string name="share_review_signed">Solana üzerinde imzalandı:</string>
+    <string name="browse_tag_filter">Etiket</string>
+    <string name="browse_tag_any">Herhangi</string>
+    <string name="import_tags_title">İçe aktarılan incelemeniz için etiketler</string>
+    <string name="import_tags_body">Mağaza incelemeniz kendi yıldızları ve metniyle imzalanır. Her biri için 1 ila 3 etiket seçin: etiketler imzalı incelemenin parçasıdır ve kalıcı olarak zincir üzerinde kalır.</string>
+    <string name="import_tags_sign">İmzala</string>
+    <string name="notif_flagged_title">Kaydınız işaretlendi · %1$s</string>
+    <string name="notif_flagged_body">Belirtilen neden: %1$s. Katılmıyorsanız kayıt üzerinde bir itiraz imzalayabilirsiniz.</string>
+    <string name="notif_note_title">Yayıncı mağaza incelemenize yanıt verdi · %1$s</string>
+    <string name="notif_proven_title">Talebiniz kanıtlandı · %1$s</string>
+    <string name="notif_proven_body">Bu uygulamanın incelemelerine verdiğiniz yanıtlar artık Yayıncı ✓ işaretini taşıyor ve uygulamaya ait kendi incelemeleriniz sayılmıyor.</string>
 </resources>

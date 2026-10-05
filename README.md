@@ -96,6 +96,19 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 - **Two reviews** of the server code and the feature suite; their findings are fixed (see the commit log).
 - 190+ tests across `:protocol`, `:app` and `:api`, including a golden transaction both builders must produce.
 
+## Built 6 Oct 2026
+
+- **Not reviewed on this phone**: installed store apps the wallet has not reviewed and has had a week or used an hour;
+  review one, or tick up to eight and sign them in **one approval** (stars and tags; each review keeps its install-age and
+  usage records in its own transaction, `TxBuilder.chunkGroups`; a 7-review batch simulated on mainnet). An optional
+  weekly reminder (off by default) names how many there are.
+- **"Still true on this version?"**: one tap re-signs a review for the version the phone now runs.
+- **Tags by theme with opposite pairs** (protocol `TagGroups`) in the composer, the batch, the importer and the web.
+- **Imports ask for tags** instead of writing "Works"/"Confusing" into every imported review.
+- **Links** `undersigned://app?pkg=` and `undersigned://review?pkg=`; **share** an app or a review; **filter by tag**.
+- **Alerts**: a record of mine flagged, my claim proven, a publisher's signed note on my store review.
+- **Open dataset** at `/v1/dataset.json`.
+
 ## Status — what is NOT done yet
 
 - **Legal site** is live at `https://aardappvark.github.io/undersigned-legal/` (repo `aardappvark/undersigned-legal`,

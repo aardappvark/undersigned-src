@@ -192,4 +192,15 @@ class GapFixesTest {
         hooks.deliverDue(now)
         assertEquals(setOf("flag", "claim"), JSONObject(sent.single()).getJSONArray("events").let { a -> (0 until a.length()).map { a.getJSONObject(it).getString("type") }.toSet() })
     }
+
+    @Test fun `the open dataset carries every record, score and signer, and the web composer releases opposites`() {
+        val f = Fixture()
+        val d = f.get("/v1/dataset.json").body
+        assertEquals(f.indexer.state.entries.size, d.getJSONArray("records").length())
+        assertEquals("com.a.b", d.getJSONArray("apps").getJSONObject(0).getString("package"))
+        assertEquals(REVIEWER, d.getJSONArray("signers").getJSONObject(0).getString("wallet"))
+        assertTrue(d.getJSONArray("signers").getJSONObject(0).getBoolean("attested_device"))
+        val html = String(f.get("/review?package=com.a.b").raw!!)
+        assertTrue("data-tag='works' data-opp='crashes'" in html)
+    }
 }

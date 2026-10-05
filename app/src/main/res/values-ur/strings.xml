@@ -776,4 +776,44 @@
     <string name="publisher_build_failed">بلڈ پڑھی نہیں جا سکی۔ Wi-Fi پر دوبارہ کوشش کریں۔</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">نوٹ دکھائیں (یہ والٹ شمار نہیں)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">یہ کیسے چلتی ہے</string>
+    <string name="tag_group_wallet">والٹ</string>
+    <string name="tag_group_money">رقم اور اکاؤنٹس</string>
+    <string name="tag_group_trust">اجازتیں اور لسٹنگ</string>
+    <string name="tag_group_build">دیکھ بھال اور بلڈ</string>
+    <string name="resign_title">آپ کا جائزہ ورژن %1$d کا ہے۔ یہ فون ورژن %2$d چلا رہا ہے۔</string>
+    <string name="resign_body">کیا یہ اب بھی درست ہے؟ جو ورژن آپ اب استعمال کرتے ہیں اس کے لیے وہی ستارے اور ٹیگ دستخط کریں۔</string>
+    <string name="resign_body_text">کیا یہ اب بھی درست ہے؟ جو ورژن آپ اب استعمال کرتے ہیں اس کے لیے وہی ستارے، ٹیگ اور متن دستخط کریں۔ متن دوبارہ دستخط ہوتا ہے اور ہمیشہ کے لیے چین پر رہتا ہے۔</string>
+    <string name="resign_button">اب بھی درست: ورژن %1$d کے لیے دستخط کریں</string>
+    <string name="resign_or_edit">یا نیچے تبدیل کر کے دستخط کریں۔</string>
+    <string name="to_review_title">اس فون پر جائزہ نہیں لیا گیا</string>
+    <string name="to_review_batch_title">کئی کا جائزہ لیں</string>
+    <string name="to_review_body">اس فون پر ایک ہفتے یا اس سے زیادہ سے موجود، یا ایک گھنٹے یا اس سے زیادہ استعمال کی گئی ایپس، جن کا اس والٹ نے جائزہ نہیں لیا۔ ایک کا جائزہ لیں، یا کئی منتخب کر کے ایک ہی منظوری میں دستخط کریں۔</string>
+    <string name="to_review_empty">یہاں کچھ نہیں ہے۔ جو ایپ آپ کے پاس ایک ہفتے سے ہے یا جسے آپ نے ایک گھنٹہ استعمال کیا، اس کا آپ کی طرف سے جائزہ موجود ہے۔</string>
+    <string name="to_review_one">جائزہ لیں</string>
+    <plurals name="to_review_together"><item quantity="one">%1$d ایپ کا جائزہ لیں</item><item quantity="other">%1$d ایپس کا ایک ساتھ جائزہ لیں</item></plurals>
+    <string name="to_review_batch_body">ہر ایپ کے لیے ستارے اور 1 سے 3 ٹیگ۔ یہاں کوئی متن نہیں: نوٹ شامل کرنے کے لیے ایپ کا اپنا کمپوزر کھولیں۔ ہر جائزے میں اس فون کی انسٹال مدت اور استعمال کا وقت شامل ہوتا ہے، جیسا کمپوزر شامل کرتا ہے۔</string>
+    <plurals name="to_review_sign"><item quantity="one">%1$d جائزے پر دستخط کریں</item><item quantity="other">ایک ہی منظوری میں %1$d جائزوں پر دستخط کریں</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d جائزے پر دستخط ہو گئے</item><item quantity="other">%1$d جائزوں پر دستخط ہو گئے</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">اس فون پر %1$d ایپ کا ابھی جائزہ نہیں لیا گیا</item><item quantity="other">اس فون پر %1$d ایپس کا ابھی جائزہ نہیں لیا گیا</item></plurals>
+    <string name="remind_title">ایپس جن کا ابھی جائزہ نہیں لیا گیا</string>
+    <plurals name="remind_body"><item quantity="one">اس فون پر استعمال کی گئی %1$d ایپ کا آپ کی طرف سے کوئی جائزہ نہیں ہے۔</item><item quantity="other">اس فون پر استعمال کی گئی %1$d ایپس کا آپ کی طرف سے کوئی جائزہ نہیں ہے۔</item></plurals>
+    <string name="remind_setting">ہفتہ وار یاد دہانی</string>
+    <string name="remind_setting_body">ہفتے میں زیادہ سے زیادہ ایک بار: جب اس فون پر استعمال کی گئی ایپس کا آپ کی طرف سے کوئی جائزہ نہ ہو تو ایک نوٹیفکیشن۔ آپ آن نہ کریں تو بند رہتا ہے۔</string>
+    <string name="share">اشتراک کریں</string>
+    <string name="share_signed">Seeker مالکان کے دستخط شدہ: %1$s · شمار کیے گئے جائزے: %2$d</string>
+    <string name="share_no_signed">Undersigned پر ابھی تک کوئی شمار کیا گیا دستخط شدہ جائزہ نہیں ہے</string>
+    <string name="share_store">dApp Store درجہ بندی: %1$s · درجہ بندیاں: %2$d</string>
+    <string name="share_review_signed">Solana پر دستخط شدہ:</string>
+    <string name="browse_tag_filter">ٹیگ</string>
+    <string name="browse_tag_any">کوئی بھی</string>
+    <string name="import_tags_title">آپ کے درآمد کیے گئے جائزے کے ٹیگ</string>
+    <string name="import_tags_body">آپ کا اسٹور جائزہ اپنے ستاروں اور متن کے ساتھ دستخط ہوتا ہے۔ ہر ایک کے لیے 1 سے 3 ٹیگ چنیں: وہ دستخط شدہ جائزے کا حصہ ہیں اور ہمیشہ کے لیے چین پر رہتے ہیں۔</string>
+    <string name="import_tags_sign">دستخط کریں</string>
+    <string name="notif_flagged_title">آپ کا ریکارڈ نشان زد کیا گیا · %1$s</string>
+    <string name="notif_flagged_body">بتائی گئی وجہ: %1$s۔ اگر آپ متفق نہیں ہیں تو ریکارڈ پر اعتراض دستخط کر سکتے ہیں۔</string>
+    <string name="notif_note_title">پبلشر نے آپ کے اسٹور جائزے کا جواب دیا · %1$s</string>
+    <string name="notif_proven_title">آپ کا دعویٰ ثابت ہو گیا · %1$s</string>
+    <string name="notif_proven_body">اس ایپ کے جائزوں پر آپ کے جوابات اب پبلشر ✓ کا نشان رکھتے ہیں، اور اس کے بارے میں آپ کے اپنے جائزے شمار نہیں ہوتے۔</string>
 </resources>

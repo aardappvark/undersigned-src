@@ -1,6 +1,8 @@
 package com.undersigned.app.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -62,6 +64,8 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     var query by remember { mutableStateOf("") }
     var tab by remember { mutableStateOf(Tab.INSTALLED) }
     var sort by remember { mutableStateOf(Sort.SCORE) }
+    // Filter by a tag reviewers applied: the thing the store has no way to query.
+    var tagFilter by remember { mutableStateOf<com.undersigned.protocol.ReviewMemo.Tag?>(null) }
     val uncategorised = stringResource(R.string.category_none)
     val domainNames by vm.domainNames.collectAsState()
     val entriesForSigners by vm.entries.collectAsState()
@@ -71,10 +75,11 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     val context = androidx.compose.ui.platform.LocalContext.current
     fun searchSigners() { scope.launch { val w = vm.resolveWallet(query); if (w != null) onProfile(w) else signerNote = context.getString(R.string.search_signers_none) } }
 
-    val apps = remember(catalogue, installed, scores, query, tab, sort) {
+    val apps = remember(catalogue, installed, scores, query, tab, sort, tagFilter) {
         val q = query.trim().lowercase()
         catalogue.asSequence()
             .filter { when (tab) { Tab.INSTALLED -> it.packageName in installed; Tab.SIGNED -> scores[it.packageName] != null; Tab.ALL -> true } }
+            .filter { t -> tagFilter == null || (scores[t.packageName]?.tagCounts?.get(tagFilter) ?: 0) > 0 }
             // Search matches name, package, category and the tags owners applied (design: Screens E).
             .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q) || (it.category?.lowercase()?.contains(q) == true) || (scores[it.packageName]?.tagCounts?.keys?.any { t -> context.tagLabel(t.wire).lowercase().contains(q) || t.wire.contains(q) } == true) }
             .sortedWith(when (sort) {
@@ -134,6 +139,13 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             Tab(selected = tab == Tab.ALL, onClick = { tab = Tab.ALL }, text = { Text(stringResource(R.string.tab_all), fontSize = 13.sp) })
         }
         ChipRow(stringResource(R.string.sort), listOf(Sort.SCORE to stringResource(R.string.sort_score), Sort.NEW to stringResource(R.string.sort_new), Sort.CATEGORY to stringResource(R.string.sort_category), Sort.NAME to stringResource(R.string.sort_name)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp, vertical = 2.dp))
+        // Tags in use on the ledger, most used first; tapping one shows only apps reviewers gave that tag (with its count).
+        val tagsInUse = remember(scores) { scores.values.flatMap { it.tagCounts.entries }.groupBy({ it.key }, { it.value }).mapValues { it.value.sum() }.entries.sortedByDescending { it.value }.map { it.key to it.value } }
+        if (tagsInUse.isNotEmpty()) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(stringResource(R.string.browse_tag_filter), color = RbColors.textTertiary, fontSize = 11.sp)
+            TagChip(stringResource(R.string.browse_tag_any), selected = tagFilter == null) { tagFilter = null }
+            tagsInUse.forEach { (t, n) -> TagChip(context.tagLabel(t.wire), count = n, selected = tagFilter == t) { tagFilter = if (tagFilter == t) null else t } }
+        }
         when {
             rows.isEmpty() && query.isNotBlank() && signerRows.isEmpty() -> Column(Modifier.fillMaxSize()) {
                 EmptyState(R.drawable.photo_empty_search, stringResource(R.string.empty_search_title), signerNote ?: stringResource(R.string.empty_search_body, query.trim()),

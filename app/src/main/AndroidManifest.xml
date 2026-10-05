@@ -55,6 +55,9 @@
                 <data android:scheme="undersigned" android:host="unvote" />
                 <data android:scheme="undersigned" android:host="unflag" />
                 <data android:scheme="undersigned" android:host="clear" />
+                <!-- undersigned://app?pkg=<package> and undersigned://review?pkg=<package>: links publishers and other apps can give. -->
+                <data android:scheme="undersigned" android:host="app" />
+                <data android:scheme="undersigned" android:host="review" />
             </intent-filter>
         </activity>
 

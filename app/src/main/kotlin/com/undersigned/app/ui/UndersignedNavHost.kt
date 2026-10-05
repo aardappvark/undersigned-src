@@ -27,6 +27,7 @@ object Routes {
     const val PAYMENTS = "payments"
     const val WATCH = "watch"
     const val LEADERBOARD = "leaderboard"
+    const val TO_REVIEW = "to-review"
     fun profile(w: String) = "profile/$w"
     fun detail(pkg: String) = "detail/$pkg"
     fun review(pkg: String) = "review/$pkg"
@@ -50,8 +51,12 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     val vm: MainViewModel = viewModel()
     val pending by NavIntents.pendingPackage.collectAsState()
     LaunchedEffect(pending) { pending?.let { NavIntents.pendingPackage.value = null; nav.navigate(Routes.detail(it)) } }
+    // One tag dialog for every import path (app page, My reviews, Settings).
+    com.undersigned.app.ui.components.ImportTagsDialog(vm)
+    val pendingReview by NavIntents.pendingReview.collectAsState()
+    LaunchedEffect(pendingReview) { pendingReview?.let { NavIntents.pendingReview.value = null; nav.navigate(Routes.review(it)) } }
     val pendingScreen by NavIntents.pendingScreen.collectAsState()
-    LaunchedEffect(pendingScreen) { pendingScreen?.takeIf { it in setOf(Routes.MY_REVIEWS, Routes.PAYMENTS, Routes.WATCH, Routes.LEADERBOARD) }?.let { NavIntents.pendingScreen.value = null; nav.navigate(it) } }
+    LaunchedEffect(pendingScreen) { pendingScreen?.takeIf { it in setOf(Routes.MY_REVIEWS, Routes.PAYMENTS, Routes.WATCH, Routes.LEADERBOARD, Routes.TO_REVIEW) }?.let { NavIntents.pendingScreen.value = null; nav.navigate(it) } }
     val pendingReply by NavIntents.pendingReply.collectAsState()
     val entries by vm.entries.collectAsState()
     LaunchedEffect(pendingReply, entries) { pendingReply?.let { (target, _) -> vm.packageOf(target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) } } }
@@ -59,7 +64,8 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     LaunchedEffect(pendingAction, entries) { pendingAction?.let { a -> vm.packageOf(a.target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) } } }
     NavHost(navController = nav, startDestination = Routes.BROWSE) {
         composable(Routes.BROWSE) { BrowseScreen(vm, onOpen = { nav.navigate(Routes.detail(it)) }, onChanges = { nav.navigate(Routes.CHANGES) }, onSettings = { nav.navigate(Routes.SETTINGS) }, onInbox = { nav.navigate(Routes.INBOX) }, onProfile = { nav.navigate(Routes.profile(it)) }, onStats = { nav.navigate(Routes.STATS) }, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }) }
-        composable(Routes.MY_REVIEWS) { MyReviewsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
+        composable(Routes.MY_REVIEWS) { MyReviewsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }) }
+        composable(Routes.TO_REVIEW) { ToReviewScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(it)) }) }
         composable(Routes.STATS) { LedgerStatsScreen(vm, onBack = { nav.popBackStack() }) }
         composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onProfile = { nav.navigate(Routes.profile(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.REVIEW) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; ReviewScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onPublished = { nav.popBackStack() }, onPro = { nav.navigate(Routes.PRO) }) }

@@ -767,4 +767,44 @@
     <string name="publisher_build_failed">无法读取安装包。请在 Wi-Fi 下重试。</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">显示说明(此钱包未计入)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">运行方式</string>
+    <string name="tag_group_wallet">钱包</string>
+    <string name="tag_group_money">资金与账户</string>
+    <string name="tag_group_trust">权限与上架信息</string>
+    <string name="tag_group_build">维护与构建</string>
+    <string name="resign_title">您的评价针对版本 %1$d。这部手机运行的是版本 %2$d。</string>
+    <string name="resign_body">仍然属实吗?为您现在使用的版本签名相同的星级和标签。</string>
+    <string name="resign_body_text">仍然属实吗?为您现在使用的版本签名相同的星级、标签和文字。文字会再次签名,并永久留在链上。</string>
+    <string name="resign_button">仍然属实:为版本 %1$d 签名</string>
+    <string name="resign_or_edit">或在下方修改后签名。</string>
+    <string name="to_review_title">此手机上尚未评价</string>
+    <string name="to_review_batch_title">批量评价</string>
+    <string name="to_review_body">已在此手机上存在一周或更久、或已使用一小时或更久,但此钱包尚未评价的应用。可以评价一个,也可以勾选多个,在一次批准中一并签名。</string>
+    <string name="to_review_empty">这里没有内容。您已拥有一周或已使用一小时的每个应用,都已有您的评价。</string>
+    <string name="to_review_one">评价</string>
+    <plurals name="to_review_together"><item quantity="other">一起评价 %1$d 个应用</item></plurals>
+    <string name="to_review_batch_body">每个应用的星级和 1 到 3 个标签。此处不写文字:如需添加说明,请打开该应用自己的编辑页。每条评价都会带上此手机的安装时长和使用时长,与编辑页添加的一致。</string>
+    <plurals name="to_review_sign"><item quantity="other">一次批准签名 %1$d 条评价</item></plurals>
+    <plurals name="to_review_done"><item quantity="other">已签名 %1$d 条评价</item></plurals>
+    <plurals name="to_review_entry"><item quantity="other">此手机上有 %1$d 个应用尚未评价</item></plurals>
+    <string name="remind_title">尚未评价的应用</string>
+    <plurals name="remind_body"><item quantity="other">您在此手机上使用过的 %1$d 个应用还没有您的评价。</item></plurals>
+    <string name="remind_setting">每周提醒</string>
+    <string name="remind_setting_body">每周最多一次:当您在此手机上使用过的应用没有您的评价时发送通知。不开启则保持关闭。</string>
+    <string name="share">分享</string>
+    <string name="share_signed">Seeker 持有者的签名:%1$s · 已计入评价:%2$d</string>
+    <string name="share_no_signed">Undersigned 上暂无已计入的签名评价</string>
+    <string name="share_store">dApp Store 评分:%1$s · 评分数:%2$d</string>
+    <string name="share_review_signed">已在 Solana 上签名:</string>
+    <string name="browse_tag_filter">标签</string>
+    <string name="browse_tag_any">任意</string>
+    <string name="import_tags_title">为导入的评价选择标签</string>
+    <string name="import_tags_body">您的商店评价会连同其自身的星级和文字一起签名。请为每条选择 1 到 3 个标签:标签是已签名评价的一部分,并永久留在链上。</string>
+    <string name="import_tags_sign">签名</string>
+    <string name="notif_flagged_title">您的记录被标记 · %1$s</string>
+    <string name="notif_flagged_body">给出的原因:%1$s。如果您不同意,可以对该记录签名提交申诉。</string>
+    <string name="notif_note_title">发布者回复了您的商店评价 · %1$s</string>
+    <string name="notif_proven_title">您的认领已获证明 · %1$s</string>
+    <string name="notif_proven_body">您对此应用评价的回复现在带有发布者 ✓ 标记,而您自己对它的评价不会计入。</string>
 </resources>

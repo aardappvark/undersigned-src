@@ -802,4 +802,44 @@
     <string name="publisher_build_failed">No se pudo leer la versión. Inténtalo de nuevo con Wi-Fi.</string>
     <!-- 5 Oct 2026 uncounted notes folded -->
     <string name="review_show_note">Mostrar la nota (esta wallet no se contabiliza)</string>
+    <!-- 6 Oct 2026 additions -->
+    <string name="tag_group_use">Cómo funciona</string>
+    <string name="tag_group_wallet">Wallet</string>
+    <string name="tag_group_money">Dinero y cuentas</string>
+    <string name="tag_group_trust">Permisos y ficha</string>
+    <string name="tag_group_build">Mantenimiento y compilación</string>
+    <string name="resign_title">Tu reseña es de la versión %1$d. Este teléfono tiene la versión %2$d.</string>
+    <string name="resign_body">¿Sigue siendo cierto? Firma las mismas estrellas y etiquetas para la versión que usas ahora.</string>
+    <string name="resign_body_text">¿Sigue siendo cierto? Firma las mismas estrellas, etiquetas y texto para la versión que usas ahora. El texto se firma de nuevo y queda on-chain para siempre.</string>
+    <string name="resign_button">Sigue siendo cierto: firmar para la versión %1$d</string>
+    <string name="resign_or_edit">O cámbiala abajo y firma.</string>
+    <string name="to_review_title">Sin reseñar en este teléfono</string>
+    <string name="to_review_batch_title">Reseñar varias</string>
+    <string name="to_review_body">Apps que llevan una semana o más en este teléfono, o que se han usado una hora o más, y que esta wallet no ha reseñado. Reseña una, o marca varias y fírmalas en una sola aprobación.</string>
+    <string name="to_review_empty">No hay nada aquí. Cada app que tienes desde hace una semana o has usado una hora tiene una reseña tuya.</string>
+    <string name="to_review_one">Reseñar</string>
+    <plurals name="to_review_together"><item quantity="one">Reseñar %1$d app</item><item quantity="many">Reseñar %1$d apps juntas</item><item quantity="other">Reseñar %1$d apps juntas</item></plurals>
+    <string name="to_review_batch_body">Estrellas y de 1 a 3 etiquetas para cada app. Aquí no hay texto: abre el editor propio de una app para añadir una nota. Cada reseña lleva la antigüedad de instalación y el tiempo de uso de este teléfono, como los añade el editor.</string>
+    <plurals name="to_review_sign"><item quantity="one">Firmar %1$d reseña</item><item quantity="many">Firmar %1$d reseñas en una sola aprobación</item><item quantity="other">Firmar %1$d reseñas en una sola aprobación</item></plurals>
+    <plurals name="to_review_done"><item quantity="one">%1$d reseña firmada</item><item quantity="many">%1$d reseñas firmadas</item><item quantity="other">%1$d reseñas firmadas</item></plurals>
+    <plurals name="to_review_entry"><item quantity="one">%1$d app de este teléfono aún sin reseñar</item><item quantity="many">%1$d apps de este teléfono aún sin reseñar</item><item quantity="other">%1$d apps de este teléfono aún sin reseñar</item></plurals>
+    <string name="remind_title">Apps aún sin reseñar</string>
+    <plurals name="remind_body"><item quantity="one">%1$d app que has usado en este teléfono no tiene reseña tuya.</item><item quantity="many">%1$d apps que has usado en este teléfono no tienen reseña tuya.</item><item quantity="other">%1$d apps que has usado en este teléfono no tienen reseña tuya.</item></plurals>
+    <string name="remind_setting">Recordatorio semanal</string>
+    <string name="remind_setting_body">Como máximo una vez por semana: una notificación cuando hay apps que has usado en este teléfono sin reseña tuya. Desactivado salvo que lo actives.</string>
+    <string name="share">Compartir</string>
+    <string name="share_signed">Firmada por propietarios de Seeker: %1$s · reseñas contabilizadas: %2$d</string>
+    <string name="share_no_signed">Aún no hay reseñas firmadas contabilizadas en Undersigned</string>
+    <string name="share_store">Valoración en dApp Store: %1$s · valoraciones: %2$d</string>
+    <string name="share_review_signed">Firmada en Solana:</string>
+    <string name="browse_tag_filter">Etiqueta</string>
+    <string name="browse_tag_any">Cualquiera</string>
+    <string name="import_tags_title">Etiquetas para tu reseña importada</string>
+    <string name="import_tags_body">Tu reseña de la tienda se firma con sus propias estrellas y su texto. Elige de 1 a 3 etiquetas para cada una: forman parte de la reseña firmada y quedan on-chain para siempre.</string>
+    <string name="import_tags_sign">Firmar</string>
+    <string name="notif_flagged_title">Tu registro fue marcado · %1$s</string>
+    <string name="notif_flagged_body">Motivo indicado: %1$s. Si no estás de acuerdo, puedes firmar una impugnación sobre el registro.</string>
+    <string name="notif_note_title">El editor respondió a tu reseña de la tienda · %1$s</string>
+    <string name="notif_proven_title">Tu reclamación está probada · %1$s</string>
+    <string name="notif_proven_body">Tus respuestas a las reseñas de esta app ahora llevan la marca Editor ✓, y tus propias reseñas de ella no se contabilizan.</string>
 </resources>

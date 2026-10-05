@@ -81,17 +81,31 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             Column { Text(stringResource(R.string.review_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold); Text(stringResource(R.string.review_for, name), color = RbColors.textTertiary, fontSize = 12.sp, maxLines = 1) }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
+            // "Still true on this version?": the review on the ledger is of an older version than this phone runs. One tap
+            // signs the same stars, tags and text for the version installed now, so per-version scores fill as apps update.
+            val installedVersion = remember(pkg) { vm.deviceFacts(pkg)?.versionCode }
+            if (existing != null && installedVersion != null && existing.versionCode < installedVersion && done == null) {
+                Spacer(Modifier.height(8.dp))
+                GlassCard {
+                    Text(stringResource(R.string.resign_title, existing.versionCode, installedVersion), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(if (existing.text.isNullOrEmpty()) R.string.resign_body else R.string.resign_body_text), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 4.dp))
+                    Spacer(Modifier.height(8.dp))
+                    PrimaryButton(stage ?: stringResource(R.string.resign_button, installedVersion), enabled = gate == null && stage == null && sender != null, loading = stage != null, onClick = {
+                        val s = sender ?: return@PrimaryButton
+                        error = null
+                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
+                            stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
+                        }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = it.message }) }
+                    })
+                    Text(stringResource(R.string.resign_or_edit), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 6.dp))
+                }
+            }
             SectionTitle(stringResource(R.string.review_rating))
             Row {
                 (1..5).forEach { i -> Text(if (i <= rating) "★" else "☆", color = if (i <= rating) RbColors.warning else RbColors.textTertiary, fontSize = 34.sp, modifier = Modifier.clickable(enabled = stage == null) { rating = i }.padding(end = 6.dp)) }
             }
             SectionTitle(stringResource(R.string.review_tags))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                ReviewMemo.Tag.entries.forEach { t ->
-                    val sel = t in tags
-                    TagChip(t.label(), selected = sel) { if (stage != null) return@TagChip; tags = if (sel) tags - t else if (tags.size < ReviewMemo.MAX_TAGS) tags + t else tags }
-                }
-            }
+            TagPicker(tags, enabled = stage == null) { tags = it }
             SectionTitle(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - text.length, ReviewMemo.MAX_TEXT_BYTES - bytes))
             OutlinedTextField(
                 value = text, onValueChange = { if (stage == null) text = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = !textOk,

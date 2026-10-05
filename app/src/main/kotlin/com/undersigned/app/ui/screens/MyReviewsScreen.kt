@@ -40,7 +40,7 @@ import java.util.Date
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit, onPro: () -> Unit) {
+fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit, onPro: () -> Unit, onToReview: () -> Unit = {}) {
     val context = LocalContext.current
     val wallet by vm.wallet.collectAsState()
     val entries by vm.entries.collectAsState()
@@ -85,7 +85,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
     fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
         val s = sender ?: return
         message = null
-        vm.importStoreReviews(s, listOf(pkg to r), onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res ->
+        vm.requestImport(s, listOf(pkg to r), onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res ->
             stage = null
             message = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { it.message })
         }
@@ -99,6 +99,12 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
         if (wallet == null) {
             Text(stringResource(R.string.my_reviews_sign_in), color = RbColors.textSecondary, fontSize = 14.sp, modifier = Modifier.padding(20.dp))
             return@Column
+        }
+        // Apps on this phone not reviewed yet: the way into reviewing several at once.
+        val entriesNow by vm.entries.collectAsState()
+        val toReview = remember(entriesNow) { vm.toReview().size }
+        if (toReview > 0) TextButton(onClick = onToReview, modifier = Modifier.padding(horizontal = 12.dp)) {
+            Text(pluralStringResource(R.plurals.to_review_entry, toReview, toReview), color = RbColors.purpleLight, fontSize = 13.sp)
         }
         OutlinedTextField(
             value = query, onValueChange = { query = it }, singleLine = true,
