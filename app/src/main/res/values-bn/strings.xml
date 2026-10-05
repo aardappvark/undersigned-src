@@ -249,8 +249,6 @@
     <string name="inbox_replies_empty">আপনার রেকর্ডে এখনও কোনো উত্তর নেই।</string>
     <string name="inbox_starred_empty">এখানে রাখতে একটি পর্যালোচনা স্টার করুন।</string>
     <string name="swipe_hint">উত্তর দিতে একটি পর্যালোচনা ডানদিকে সোয়াইপ করুন।</string>
-    <string name="profile_credibility">বিশ্বাসযোগ্যতা</string>
-    <string name="profile_credibility_sub">৪০ ভিত্তি, অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতির জন্য +৩০, প্রাপ্ত সহায়ক ভোটের জন্য +১০, ঐকমত্যে বহাল থাকা ফ্ল্যাগের জন্য +২০, ঐকমত্যে লুকানো রেকর্ডের অংশের জন্য −৫০ ×। প্রকাশিত সূত্র, এর সাথে কিছুই জড়িত নয়।</string>
     <string name="profile_flags">স্বাক্ষরিত ফ্ল্যাগ: %1$d · বহাল: %2$d · প্রাপ্ত: %3$d · লুকানো রেকর্ড: %4$d</string>
     <string name="profile_replied">তাদের পর্যালোচনায় %1$s সময় উত্তর দেন</string>
     <string name="profile_publishes">প্রমাণিত প্রকাশক</string>
@@ -867,10 +865,6 @@
     <plurals name="reviews_more">
         <item quantity="one">আরও %1$d টি পর্যালোচনা দেখান</item>
         <item quantity="other">আরও %1$d টি পর্যালোচনা দেখান</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d স্বাক্ষরিত · বিশ্বাসযোগ্যতা %2$d</item>
-        <item quantity="other">%1$d স্বাক্ষরিত · বিশ্বাসযোগ্যতা %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">ইনবক্স, %1$d টি নতুন</item>

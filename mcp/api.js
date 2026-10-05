@@ -30,7 +30,7 @@ export function registerApiTools(server, env = process.env) {
     async (a) => call(`/v1/apps${q(a)}`));
   server.tool("api_app", "One dApp: signed score (rank score + mean, counted reviews, stars, tags, install-age and usage-time mix), store details (version, certificate, publisher, website), store rating, publisher claims and proof, store notes, payments received.",
     { package: z.string() }, async ({ package: p }) => call(`/v1/apps/${encodeURIComponent(p)}`));
-  server.tool("api_reviews", "Signed reviews of a dApp with every signal: attested device, weight, credibility, install age, usage time, season, paid for this app, copy-paste findings, flags, helpful weight, replies (publisher marked). Free: newest 20.",
+  server.tool("api_reviews", "Signed reviews of a dApp with every signal: attested device, weight, install age, usage time, season, paid for this app, copy-paste findings, flags, helpful weight, replies (publisher marked). Free: newest 20.",
     { package: z.string(), limit: z.number().int().min(1).max(500).optional(), offset: z.number().int().min(0).optional() },
     async ({ package: p, ...a }) => call(`/v1/apps/${encodeURIComponent(p)}/reviews${q(a)}`));
   server.tool("api_bursts", "PASS. Review bursts and store-rating bursts for a dApp: window, count against the usual pace, multiple, attested share, same-text count, season overlap, 30-day sparkline. A burst is a fact about timing, not a verdict.",
@@ -38,7 +38,7 @@ export function registerApiTools(server, env = process.env) {
   server.tool("api_versions", "PASS. Signed score per app version.", { package: z.string() }, async ({ package: p }) => call(`/v1/apps/${encodeURIComponent(p)}/versions`));
   server.tool("api_store_ratings", "PASS. Daily snapshots of a dApp's store star counts.", { package: z.string() }, async ({ package: p }) => call(`/v1/apps/${encodeURIComponent(p)}/store-ratings`));
   server.tool("api_app_payments", "PASS. Payments a publisher-confirmed treasury received for a dApp, with a monthly series (USD on the day of each payment).", { package: z.string() }, async ({ package: p }) => call(`/v1/apps/${encodeURIComponent(p)}/payments`));
-  server.tool("api_wallet", "A wallet: attested device (Seeker Genesis Token), staked SKR and review weight, credibility and standing, apps it publishes, treasury listings, Pro licence. full=true (pass) lists its records.",
+  server.tool("api_wallet", "A wallet: attested device (Seeker Genesis Token), staked SKR and review weight, standing counts, apps it publishes, treasury listings, Pro licence. full=true (pass) lists its records.",
     { wallet: z.string(), full: z.boolean().optional() }, async ({ wallet, full }) => call(`/v1/wallets/${encodeURIComponent(wallet)}${full ? "?full=1" : ""}`));
   server.tool("api_leaderboard", "Rankings by metric (signed_score, signed_reviews, store_rating, store_reviews, revenue, payers, growth), overall or per category. Free: top 10.",
     { metric: z.enum(["signed_score", "signed_reviews", "store_rating", "store_reviews", "revenue", "payers", "growth"]).optional(), category: z.string().optional(), limit: z.number().int().min(1).max(500).optional() },

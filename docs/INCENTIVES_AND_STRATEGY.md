@@ -9,7 +9,7 @@ The rule that keeps every incentive on the right side of securities, gambling an
 ### Seeker owners
 | Incentive | Why it works | Why it is safe |
 |---|---|---|
-| **Portable standing** — credibility, helpful votes, agreement, all bound to the wallet and readable by any app | Reputation that outlives one store or one phone is rare in crypto; people invest in it | Counts and a published formula; nothing transferable, nothing priced |
+| **Portable standing** — counts of reviews, helpful votes, agreement, upheld flags, all bound to the wallet and readable by any app | Reputation that outlives one store or one phone is rare in crypto; people invest in it | Counts and a published formula; nothing transferable, nothing priced |
 | **Being answered** — verified publishers reply on-chain; the inbox tells you | The main reason people stop reviewing is silence | UGC, no money |
 | **Being useful to yourself** — cert-match, permission drift, version scores, update prompts | The app earns its place on the phone on days you write nothing | Device facts, never uploaded |
 | **Being seen** — helpful votes pin the best reviews; "signers who caught it first" on version pages; a weekly viewer page of the most helpful signed reviews | Reddit-style social proof, no karma shop | Recognition, not reward |
@@ -35,7 +35,7 @@ What the protocol gives them, in the order they would care:
 2. **Store integrity signals they never have to explain.** Flags with consensus, disputes, near-duplicate labels, "no Genesis found" on their own reviewers, review-wave alerts. All public, all recomputable. Guardians can moderate from it; the store can rank from it; nobody has to trust Undersigned.
 3. **Publisher verification they can reuse.** The claim-plus-well-known check binds a wallet to the website the store already lists. That is a verified-publisher registry for the store itself, for free.
 4. **Ecosystem telemetry without an SDK.** Version adoption, certificate changes, permission drift, responsiveness, per-version sentiment, all from consented device snapshots and the chain. No analytics SDK in 500 apps, no data broker.
-5. **Evidence that SKR staking correlates with good citizenship** (or does not). Weighting is read from the chain; the correlation between staked SKR and credibility, agreement and upheld flags is computable by anyone. That is a marketing fact for the token if it holds, and a design fact if it does not.
+5. **Evidence that SKR staking correlates with good citizenship** (or does not). Weighting is read from the chain; the correlation between staked SKR and standing (upheld flags, helpful votes, hidden records), agreement and upheld flags is computable by anyone. That is a marketing fact for the token if it holds, and a design fact if it does not.
 6. **Season integrity signals.** Automated review activity and airdrop-farming activity overlap. Duplicate-text clusters, no-Genesis waves and flag consensus are inputs their reward programmes can use.
 7. **A hackathon story that keeps giving:** "N signed reviews from real devices" is a number they can publish.
 

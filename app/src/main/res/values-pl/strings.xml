@@ -262,8 +262,6 @@
     <string name="inbox_replies_empty">Jeszcze brak odpowiedzi na Twoje wpisy.</string>
     <string name="inbox_starred_empty">Dodaj recenzję do ulubionych, aby została tutaj.</string>
     <string name="swipe_hint">Przesuń recenzję w prawo, aby odpowiedzieć.</string>
-    <string name="profile_credibility">Wiarygodność</string>
-    <string name="profile_credibility_sub">40 bazy, +30 za zgodność tagów z innymi sygnatariuszami, +10 za otrzymane głosy Pomocne, +20 za oznaczenia potwierdzone konsensusem, −50 × udział wpisów ukrytych przez konsensus. Opublikowany wzór, nic z tym nie jest powiązane.</string>
     <string name="profile_flags">Podpisane oznaczenia: %1$d · Potwierdzone: %2$d · Otrzymane: %3$d · Ukryte wpisy: %4$d</string>
     <string name="profile_replied">Odpowiada na odpowiedzi do swoich recenzji w %1$s przypadków</string>
     <string name="profile_publishes">Udowodniony wydawca aplikacji</string>
@@ -893,12 +891,6 @@
         <item quantity="few">Pokaż jeszcze %1$d recenzje</item>
         <item quantity="many">Pokaż jeszcze %1$d recenzji</item>
         <item quantity="other">Pokaż jeszcze %1$d recenzji</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d podpisanych · wiarygodność %2$d</item>
-        <item quantity="few">%1$d podpisanych · wiarygodność %2$d</item>
-        <item quantity="many">%1$d podpisanych · wiarygodność %2$d</item>
-        <item quantity="other">%1$d podpisanych · wiarygodność %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Skrzynka, %1$d nowa</item>

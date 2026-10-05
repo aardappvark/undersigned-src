@@ -254,8 +254,6 @@
     <string name="inbox_replies_empty">Zatím žádné odpovědi na vaše záznamy.</string>
     <string name="inbox_starred_empty">Přidejte recenzi do oblíbených, aby zůstala zde.</string>
     <string name="swipe_hint">Přejetím recenze doprava odpovíte.</string>
-    <string name="profile_credibility">Důvěryhodnost</string>
-    <string name="profile_credibility_sub">40 základ, +30 za shodu štítků s ostatními signatáři, +10 za obdržené hlasy Užitečné, +20 za označení potvrzená konsensem, −50 × podíl záznamů skrytých konsensem. Zveřejněný vzorec, nic k tomu není připojeno.</string>
     <string name="profile_flags">Podepsaná označení: %1$d · Potvrzeno: %2$d · Obdrženo: %3$d · Skryté záznamy: %4$d</string>
     <string name="profile_replied">Odpovídá na odpovědi ke svým recenzím v %1$s případů</string>
     <string name="profile_publishes">Prokázaný vydavatel aplikace</string>
@@ -885,12 +883,6 @@
         <item quantity="few">Zobrazit %1$d další recenze</item>
         <item quantity="many">Zobrazit %1$d další recenze</item>
         <item quantity="other">Zobrazit %1$d dalších recenzí</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d podepsáno · důvěryhodnost %2$d</item>
-        <item quantity="few">%1$d podepsáno · důvěryhodnost %2$d</item>
-        <item quantity="many">%1$d podepsáno · důvěryhodnost %2$d</item>
-        <item quantity="other">%1$d podepsáno · důvěryhodnost %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Schránka, %1$d nová</item>

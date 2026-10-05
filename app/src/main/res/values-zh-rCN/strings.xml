@@ -252,8 +252,6 @@
     <string name="inbox_replies_empty">您的记录尚未收到任何回复。</string>
     <string name="inbox_starred_empty">收藏一条评价即可保存在这里。</string>
     <string name="swipe_hint">向右滑动评价即可回复。</string>
-    <string name="profile_credibility">信誉度</string>
-    <string name="profile_credibility_sub">基础分 40,与其他签名者标签一致 +30,收到有用投票 +10,标记被共识采纳 +20,记录被共识隐藏的比例 ×(−50)。公开的计算公式,不附带任何东西。</string>
     <string name="profile_flags">已签署标记:%1$d · 已采纳:%2$d · 已收到:%3$d · 记录已隐藏:%4$d</string>
     <string name="profile_replied">对自己评价的回复率为 %1$s</string>
     <string name="profile_publishes">已证明发布者身份:</string>
@@ -863,9 +861,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">再显示 %1$d 条评价</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">%1$d 条签名 · 信誉度 %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">收件箱，%1$d 条新消息</item>

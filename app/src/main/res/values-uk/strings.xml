@@ -262,8 +262,6 @@
     <string name="inbox_replies_empty">Поки немає відповідей на ваші записи.</string>
     <string name="inbox_starred_empty">Додайте відгук до обраного, щоб він залишився тут.</string>
     <string name="swipe_hint">Проведіть по відгуку вправо, щоб відповісти.</string>
-    <string name="profile_credibility">Достовірність</string>
-    <string name="profile_credibility_sub">40 базових, +30 за збіг тегів з іншими підписантами, +10 за отримані голоси Корисно, +20 за позначки, підтверджені консенсусом, −50 × частка записів, прихованих консенсусом. Опублікована формула, нічого до неї не прив\'язано.</string>
     <string name="profile_flags">Підписані позначки: %1$d · Підтверджено: %2$d · Отримано: %3$d · Приховані записи: %4$d</string>
     <string name="profile_replied">Відповідає на відповіді до своїх відгуків у %1$s випадків</string>
     <string name="profile_publishes">Доведений видавець</string>
@@ -892,12 +890,6 @@
         <item quantity="few">Показати ще %1$d відгуки</item>
         <item quantity="many">Показати ще %1$d відгуків</item>
         <item quantity="other">Показати ще %1$d відгуку</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d підписано · достовірність %2$d</item>
-        <item quantity="few">%1$d підписано · достовірність %2$d</item>
-        <item quantity="many">%1$d підписано · достовірність %2$d</item>
-        <item quantity="other">%1$d підписано · достовірність %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Вхідні, %1$d нове</item>

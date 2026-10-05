@@ -257,8 +257,6 @@
     <string name="inbox_replies_empty">Wala pang sagot sa mga record mo.</string>
     <string name="inbox_starred_empty">Mag-star ng review para itago ito dito.</string>
     <string name="swipe_hint">I-swipe ang review pakanan para sumagot.</string>
-    <string name="profile_credibility">Kredibilidad</string>
-    <string name="profile_credibility_sub">40 base, +30 para sa pagkakasundo ng tag sa ibang signer, +10 para sa mga natanggap na helpful vote, +20 para sa mga flag na pinagtibay ng consensus, −50 × bahagi ng mga record na nakatago ng consensus. Pampublikong formula, walang nakakabit dito.</string>
     <string name="profile_flags">Naka-sign na flag: %1$d · Pinagtibay: %2$d · Natanggap: %3$d · Nakatagong record: %4$d</string>
     <string name="profile_replied">Sumasagot sa mga sagot sa kanilang review %1$s ng oras</string>
     <string name="profile_publishes">Napatunayang publisher ng</string>
@@ -875,10 +873,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Magpakita pa ng %1$d review</item>
         <item quantity="other">Magpakita pa ng %1$d review</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d naka-sign · kredibilidad %2$d</item>
-        <item quantity="other">%1$d naka-sign · kredibilidad %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Mga Mensahe, %1$d bago</item>

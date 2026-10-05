@@ -84,10 +84,10 @@ fun StatRow(label: String, value: String, valueColor: Color = RbColors.textPrima
 }
 
 @Composable
-fun Pill(text: String, color: Color = RbColors.purpleLight) {
+fun Pill(text: String, color: Color = RbColors.purpleLight, modifier: Modifier = Modifier) {
     Text(
-        text, color = color, fontSize = 11.sp, fontWeight = FontWeight.Bold,
-        modifier = Modifier.clip(RoundedCornerShape(50)).background(color.copy(alpha = 0.14f)).padding(horizontal = 10.dp, vertical = 4.dp),
+        text, color = color, fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+        modifier = modifier.clip(RoundedCornerShape(50)).background(color.copy(alpha = 0.14f)).padding(horizontal = 10.dp, vertical = 4.dp),
     )
 }
 

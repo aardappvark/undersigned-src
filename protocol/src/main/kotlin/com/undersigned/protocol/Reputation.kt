@@ -17,17 +17,7 @@ data class SignerStanding(
     val recordsHidden: Int,       // their records that reached consensus
     val repliedToReplies: Double?, // reviewer responsiveness: share of replies on their reviews they answered; null if none received
     val helpfulReceived: Double = 0.0, // Genesis-weighted upvotes on their records, self excluded
-) {
-    /** 0–100. Base 40; +30 tag agreement; +20 upheld flags; +10 × min(1, helpful/10); −50 × share of records hidden by consensus. Published formula, no reward attached. */
-    val credibility: Int get() {
-        var c = 40.0
-        agreement?.let { c += 30.0 * it }
-        c += 10.0 * minOf(1.0, helpfulReceived / 10.0)
-        if (flagsGiven > 0) c += 20.0 * (flagsUpheld.toDouble() / flagsGiven)
-        if (countedReviews + recordsHidden > 0) c -= 50.0 * (recordsHidden.toDouble() / (countedReviews + recordsHidden))
-        return c.coerceIn(0.0, 100.0).roundToInt()
-    }
-}
+)
 
 /** How quickly a verified publisher answers signed reviews of one package. */
 data class Responsiveness(

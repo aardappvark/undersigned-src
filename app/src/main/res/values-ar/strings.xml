@@ -269,8 +269,6 @@
     <string name="inbox_replies_empty">لا ردود على سجلاتك بعد.</string>
     <string name="inbox_starred_empty">ميّز مراجعة بنجمة لحفظها هنا.</string>
     <string name="swipe_hint">اسحب المراجعة يمينًا للرد.</string>
-    <string name="profile_credibility">المصداقية</string>
-    <string name="profile_credibility_sub">40 أساس، +30 لاتفاق الوسم مع الموقّعين الآخرين، +10 لأصوات الإفادة المستلَمة، +20 للإشارات التي أيّدها الإجماع، −50 × نسبة السجلات المخفية بالإجماع. صيغة منشورة، لا شيء مرتبط بها.</string>
     <string name="profile_flags">الإشارات الموقَّعة: %1$d · المؤيَّدة: %2$d · المستلَمة: %3$d · السجلات المخفية: %4$d</string>
     <string name="profile_replied">يجيب عن الردود على مراجعاته %1$s من الوقت</string>
     <string name="profile_publishes">ناشر مُثبَت لـ</string>
@@ -910,14 +908,6 @@
         <item quantity="few">عرض %1$d مراجعات إضافية</item>
         <item quantity="many">عرض %1$d مراجعة إضافية</item>
         <item quantity="other">عرض %1$d مراجعة إضافية</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="zero">%1$d موقّعة · المصداقية %2$d</item>
-        <item quantity="one">%1$d موقّعة · المصداقية %2$d</item>
-        <item quantity="two">%1$d موقّعة · المصداقية %2$d</item>
-        <item quantity="few">%1$d موقّعة · المصداقية %2$d</item>
-        <item quantity="many">%1$d موقّعة · المصداقية %2$d</item>
-        <item quantity="other">%1$d موقّعة · المصداقية %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="zero">الوارد، %1$d جديد</item>

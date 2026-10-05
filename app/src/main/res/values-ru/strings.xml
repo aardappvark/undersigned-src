@@ -246,8 +246,6 @@
     <string name="inbox_replies_empty">Пока нет ответов на ваши записи.</string>
     <string name="inbox_starred_empty">Добавьте отзыв в избранное, чтобы он остался здесь.</string>
     <string name="swipe_hint">Смахните отзыв вправо, чтобы ответить.</string>
-    <string name="profile_credibility">Достоверность</string>
-    <string name="profile_credibility_sub">40 базовых, +30 за совпадение тегов с другими подписантами, +10 за полученные голоса Полезно, +20 за отметки, подтверждённые консенсусом, −50 × доля записей, скрытых консенсусом. Опубликованная формула, ничего к ней не привязано.</string>
     <string name="profile_flags">Подписанные отметки: %1$d · Подтверждено: %2$d · Получено: %3$d · Скрытые записи: %4$d</string>
     <string name="profile_replied">Отвечает на ответы к своим отзывам в %1$s случаев</string>
     <string name="profile_publishes">Доказанный издатель</string>
@@ -876,12 +874,6 @@
         <item quantity="few">Показать ещё %1$d отзыва</item>
         <item quantity="many">Показать ещё %1$d отзывов</item>
         <item quantity="other">Показать ещё %1$d отзыва</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d подписано · достоверность %2$d</item>
-        <item quantity="few">%1$d подписано · достоверность %2$d</item>
-        <item quantity="many">%1$d подписано · достоверность %2$d</item>
-        <item quantity="other">%1$d подписано · достоверность %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Входящие, %1$d новое</item>

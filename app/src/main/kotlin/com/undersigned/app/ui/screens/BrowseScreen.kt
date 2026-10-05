@@ -110,7 +110,10 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp, modifier = Modifier.weight(1f))
+            // The name is a wordmark: it grows at most 15 % with the system font size and never breaks mid-word
+            // ("Undersigne / d" at 1.3× beside four icons, UI pass 6 Oct 2026).
+            val fs = androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
+            Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = (28f * minOf(fs, 1.15f) / fs).sp, lineHeight = (30f * minOf(fs, 1.15f) / fs).sp, maxLines = 1, softWrap = false, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp, modifier = Modifier.weight(1f))
             val entriesAll by vm.entries.collectAsState()
             val inboxCount = remember(entriesAll) { vm.unanswered().size + vm.repliesToMe().size }
             IconButton(onClick = onMyReviews) { Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.my_reviews_title), tint = RbColors.textSecondary) }
@@ -215,7 +218,7 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, 
             }
             Spacer(Modifier.width(8.dp))
             Column(horizontalAlignment = Alignment.End) {
-                if (showCategory) app.category?.let { Pill(it) }
+                if (showCategory) app.category?.let { Pill(it, modifier = Modifier.widthIn(max = 128.dp)) }   // the app's name keeps the room
                 if (showInstalled) { if (showCategory && app.category != null) Spacer(Modifier.height(4.dp)); Pill(stringResource(R.string.tab_installed), RbColors.green) }
             }
         }

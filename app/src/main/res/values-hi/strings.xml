@@ -257,8 +257,6 @@
     <string name="inbox_replies_empty">आपके रिकॉर्ड्स पर अभी तक कोई जवाब नहीं।</string>
     <string name="inbox_starred_empty">किसी समीक्षा को यहां रखने के लिए उसे स्टार करें।</string>
     <string name="swipe_hint">जवाब देने के लिए किसी समीक्षा को दाईं ओर स्वाइप करें।</string>
-    <string name="profile_credibility">विश्वसनीयता</string>
-    <string name="profile_credibility_sub">40 आधार, अन्य साइनर्स के साथ टैग सहमति के लिए +30, प्राप्त उपयोगी वोटों के लिए +10, सर्वसम्मति से बरकरार रखे गए फ़्लैग के लिए +20, सर्वसम्मति से छिपाए गए रिकॉर्ड्स के हिस्से के लिए −50 ×। प्रकाशित सूत्र, इससे कुछ भी जुड़ा नहीं।</string>
     <string name="profile_flags">साइन किए गए फ़्लैग: %1$d · बरकरार: %2$d · प्राप्त: %3$d · छिपाए गए रिकॉर्ड: %4$d</string>
     <string name="profile_replied">अपनी समीक्षाओं पर %1$s बार जवाब देते हैं</string>
     <string name="profile_publishes">सिद्ध प्रकाशक</string>
@@ -874,10 +872,6 @@
     <plurals name="reviews_more">
         <item quantity="one">%1$d और समीक्षा दिखाएं</item>
         <item quantity="other">%1$d और समीक्षाएं दिखाएं</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d हस्ताक्षरित · विश्वसनीयता %2$d</item>
-        <item quantity="other">%1$d हस्ताक्षरित · विश्वसनीयता %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">इनबॉक्स, %1$d नया</item>

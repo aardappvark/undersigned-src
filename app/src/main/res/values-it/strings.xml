@@ -257,8 +257,6 @@
     <string name="inbox_replies_empty">Ancora nessuna risposta ai tuoi record.</string>
     <string name="inbox_starred_empty">Aggiungi una recensione ai preferiti per conservarla qui.</string>
     <string name="swipe_hint">Scorri una recensione verso destra per rispondere.</string>
-    <string name="profile_credibility">Credibilità</string>
-    <string name="profile_credibility_sub">40 di base, +30 per la concordanza dei tag con altri firmatari, +10 per i voti utili ricevuti, +20 per i flag confermati per consenso, −50 × quota di record nascosti per consenso. Formula pubblicata, nient\'altro collegato.</string>
     <string name="profile_flags">Flag firmati: %1$d · Confermati: %2$d · Ricevuti: %3$d · Record nascosti: %4$d</string>
     <string name="profile_replied">Risponde alle risposte sulle sue recensioni il %1$s delle volte</string>
     <string name="profile_publishes">Editore dimostrato di</string>
@@ -900,10 +898,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Mostra %1$d recensione in più</item>
         <item quantity="other">Mostra %1$d recensioni in più</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d firmate · credibilità %2$d</item>
-        <item quantity="other">%1$d firmate · credibilità %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Posta in arrivo, %1$d nuovo</item>

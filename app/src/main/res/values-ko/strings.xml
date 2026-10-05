@@ -244,8 +244,6 @@
     <string name="inbox_replies_empty">아직 내 기록에 달린 답글이 없습니다.</string>
     <string name="inbox_starred_empty">리뷰에 별표를 표시하면 여기에 보관됩니다.</string>
     <string name="swipe_hint">리뷰를 오른쪽으로 스와이프하면 답글을 달 수 있습니다.</string>
-    <string name="profile_credibility">신뢰도</string>
-    <string name="profile_credibility_sub">기본 40점, 다른 서명자와의 태그 일치 +30점, 받은 유용해요 투표 +10점, 합의로 인정된 플래그 +20점, 합의로 숨겨진 기록 비율 × −50점. 공개된 계산식이며, 그 외에 딸린 것은 없습니다.</string>
     <string name="profile_flags">서명한 플래그: %1$d건 · 인정됨: %2$d건 · 받은 플래그: %3$d건 · 숨겨진 기록: %4$d건</string>
     <string name="profile_replied">리뷰에 답글을 남기는 비율: %1$s</string>
     <string name="profile_publishes">증명된 퍼블리셔:</string>
@@ -856,9 +854,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">리뷰 %1$d개 더 보기</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">%1$d건 서명 · 신뢰도 %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">받은함, 새 항목 %1$d개</item>

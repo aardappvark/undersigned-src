@@ -257,8 +257,6 @@
     <string name="inbox_replies_empty">Aún no hay respuestas a tus registros.</string>
     <string name="inbox_starred_empty">Destaca una reseña para guardarla aquí.</string>
     <string name="swipe_hint">Desliza una reseña a la derecha para responder.</string>
-    <string name="profile_credibility">Credibilidad</string>
-    <string name="profile_credibility_sub">40 de base, +30 por coincidencia de etiquetas con otros firmantes, +10 por votos útiles recibidos, +20 por marcas confirmadas por consenso, −50 × proporción de registros ocultos por consenso. Fórmula publicada, sin nada más asociado.</string>
     <string name="profile_flags">Marcas firmadas: %1$d · Confirmadas: %2$d · Recibidas: %3$d · Registros ocultos: %4$d</string>
     <string name="profile_replied">Responde a las respuestas de sus reseñas el %1$s de las veces</string>
     <string name="profile_publishes">Editor demostrado de</string>
@@ -900,10 +898,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Ver %1$d reseña más</item>
         <item quantity="other">Ver %1$d reseñas más</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d firmadas · credibilidad %2$d</item>
-        <item quantity="other">%1$d firmadas · credibilidad %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Bandeja de entrada, %1$d nuevo</item>

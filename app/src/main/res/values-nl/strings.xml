@@ -246,8 +246,6 @@
     <string name="inbox_replies_empty">Nog geen reacties op uw records.</string>
     <string name="inbox_starred_empty">Geef een recensie een ster om deze hier te bewaren.</string>
     <string name="swipe_hint">Veeg een recensie naar rechts om te reageren.</string>
-    <string name="profile_credibility">Geloofwaardigheid</string>
-    <string name="profile_credibility_sub">40 basis, +30 voor tagovereenstemming met andere ondertekenaars, +10 voor ontvangen nuttige stemmen, +20 voor door consensus bevestigde markeringen, −50 × aandeel records verborgen door consensus. Gepubliceerde formule, er is niets aan verbonden.</string>
     <string name="profile_flags">Markeringen ondertekend: %1$d · Bevestigd: %2$d · Ontvangen: %3$d · Records verborgen: %4$d</string>
     <string name="profile_replied">Beantwoordt %1$s van de reacties op hun eigen recensies</string>
     <string name="profile_publishes">Bewezen uitgever van</string>
@@ -880,10 +878,6 @@
     <plurals name="reviews_more">
         <item quantity="one">%1$d recensie meer tonen</item>
         <item quantity="other">%1$d recensies meer tonen</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d ondertekend · geloofwaardigheid %2$d</item>
-        <item quantity="other">%1$d ondertekend · geloofwaardigheid %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Postvak, %1$d nieuw</item>

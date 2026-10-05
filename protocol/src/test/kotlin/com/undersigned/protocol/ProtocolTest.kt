@@ -62,7 +62,7 @@ class ProtocolTest {
         assertEquals(1, v.size); assertEquals(4.5, v[0].mean, 1e-9)
     }
 
-    @Test fun `flags reach consensus, hide the record from ranking, and feed credibility`() {
+    @Test fun `flags reach consensus, hide the record from ranking, and count in standing`() {
         val r1 = "1" + "A".repeat(86); val f1 = "2" + "A".repeat(86); val f2 = "3" + "A".repeat(86); val f3 = "4" + "A".repeat(86)
         val flag = ReviewMemo.Flag(r1, ReviewMemo.FlagReason.SPAM)
         assertEquals(flag, ReviewMemo.decode(ReviewMemo.encode(flag)))
@@ -74,8 +74,8 @@ class ProtocolTest {
         assertEquals(setOf(r1), Reputation.hiddenByConsensus(entries, facts = facts))
         assertTrue(Ranking.score(entries, facts = facts).isEmpty())
         val st = Reputation.standing(entries, facts = facts)
-        assertEquals(1, st["a"]!!.flagsUpheld); assertEquals(60, st["a"]!!.credibility)
-        assertEquals(1, st["spammer"]!!.recordsHidden); assertEquals(0, st["spammer"]!!.credibility)
+        assertEquals(1, st["a"]!!.flagsUpheld)
+        assertEquals(1, st["spammer"]!!.recordsHidden)
         // one flag alone is not consensus
         assertTrue(Reputation.hiddenByConsensus(entries.take(2), facts = facts).isEmpty())
     }

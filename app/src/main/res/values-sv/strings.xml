@@ -238,8 +238,6 @@
     <string name="inbox_replies_empty">Inga svar på dina poster ännu.</string>
     <string name="inbox_starred_empty">Stjärnmärk en recension för att spara den här.</string>
     <string name="swipe_hint">Svep en recension åt höger för att svara.</string>
-    <string name="profile_credibility">Trovärdighet</string>
-    <string name="profile_credibility_sub">40 grund, +30 för taggöverensstämmelse med andra signerare, +10 för mottagna hjälpsamma röster, +20 för flaggor som fastställts genom konsensus, −50 × andel poster dolda genom konsensus. Publicerad formel, inget är knutet till den.</string>
     <string name="profile_flags">Flaggor signerade: %1$d · Fastställda: %2$d · Mottagna: %3$d · Poster dolda: %4$d</string>
     <string name="profile_replied">Besvarar %1$s av svaren på sina egna recensioner</string>
     <string name="profile_publishes">Bevisad utgivare av</string>
@@ -872,10 +870,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Visa %1$d recension till</item>
         <item quantity="other">Visa %1$d recensioner till</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d signerade · trovärdighet %2$d</item>
-        <item quantity="other">%1$d signerade · trovärdighet %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Inkorg, %1$d ny</item>

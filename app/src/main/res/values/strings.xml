@@ -481,8 +481,6 @@
     <string name="inbox_replies_empty">No replies to your records yet.</string>
     <string name="inbox_starred_empty">Star a review to keep it here.</string>
     <string name="swipe_hint">Swipe a review right to reply.</string>
-    <string name="profile_credibility">Credibility</string>
-    <string name="profile_credibility_sub">40 base, +30 for tag agreement with other signers, +10 for helpful votes received, +20 for flags upheld by consensus, −50 × share of records hidden by consensus. Published formula, nothing attached to it.</string>
     <string name="profile_flags">Flags signed: %1$d · Upheld: %2$d · Received: %3$d · Records hidden: %4$d</string>
     <string name="profile_replied">Answers replies on their reviews %1$s of the time</string>
     <string name="profile_publishes">Proven publisher of</string>
@@ -897,10 +895,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Show %1$d more review</item>
         <item quantity="other">Show %1$d more reviews</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d signed · credibility %2$d</item>
-        <item quantity="other">%1$d signed · credibility %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Inbox, %1$d new</item>

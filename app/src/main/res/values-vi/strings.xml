@@ -252,8 +252,6 @@
     <string name="inbox_replies_empty">Chưa có trả lời nào cho bản ghi của bạn.</string>
     <string name="inbox_starred_empty">Đánh dấu sao một đánh giá để giữ nó ở đây.</string>
     <string name="swipe_hint">Vuốt một đánh giá sang phải để trả lời.</string>
-    <string name="profile_credibility">Uy tín</string>
-    <string name="profile_credibility_sub">Nền 40, +30 cho sự đồng thuận thẻ với người ký khác, +10 cho phiếu hữu ích nhận được, +20 cho cờ được giữ vững theo đồng thuận, −50 × tỷ lệ bản ghi bị ẩn theo đồng thuận. Công thức được công bố, không có gì gắn kèm.</string>
     <string name="profile_flags">Cờ đã ký: %1$d · Được giữ vững: %2$d · Nhận được: %3$d · Bản ghi bị ẩn: %4$d</string>
     <string name="profile_replied">Trả lời phản hồi trên đánh giá của họ %1$s thời gian</string>
     <string name="profile_publishes">Nhà phát hành đã chứng minh của</string>
@@ -864,9 +862,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">Xem thêm %1$d đánh giá</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">%1$d đã ký · uy tín %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">Hộp thư, %1$d mới</item>

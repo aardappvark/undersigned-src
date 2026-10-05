@@ -244,8 +244,6 @@
     <string name="inbox_replies_empty">あなたのレコードへの返信はまだありません。</string>
     <string name="inbox_starred_empty">レビューにスターを付けると、ここに保存されます。</string>
     <string name="swipe_hint">レビューを右にスワイプすると返信できます。</string>
-    <string name="profile_credibility">信頼度</string>
-    <string name="profile_credibility_sub">基本40点、他の署名者とのタグの一致で+30点、受け取った「参考になった」票で+10点、合意で支持されたフラグで+20点、合意で非表示になったレコードの割合×−50点。公開された計算式であり、それ以上の意味はありません。</string>
     <string name="profile_flags">署名したフラグ:%1$d件 · 支持:%2$d件 · 受信:%3$d件 · 非表示:%4$d件</string>
     <string name="profile_replied">レビューへの返信に%1$sの割合で応答</string>
     <string name="profile_publishes">証明済みパブリッシャー：</string>
@@ -855,9 +853,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">さらに %1$d 件のレビューを表示</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">%1$d 件署名 · 信頼度 %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">受信箱、新着 %1$d 件</item>

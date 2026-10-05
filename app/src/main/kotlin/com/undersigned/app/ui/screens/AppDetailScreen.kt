@@ -282,7 +282,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Spacer(Modifier.width(8.dp))
                         Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f).clickable { onProfile(e.signer) })
                         standings[e.signer]?.let { st -> Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable { onProfile(e.signer) }.padding(horizontal = 4.dp), contentAlignment = Alignment.Center) {
-                            Text(pluralStringResource(R.plurals.standing_short, st.countedReviews, st.countedReviews, st.credibility), color = RbColors.textTertiary, fontSize = 11.sp) } }
+                            Text(stringResource(R.string.row_signed_count, st.countedReviews), color = RbColors.textTertiary, fontSize = 11.sp) } }
                     }
                     val paidReviewer = boardRow?.payers?.contains(e.signer) == true
                     val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)

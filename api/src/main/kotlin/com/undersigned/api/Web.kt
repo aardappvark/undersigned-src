@@ -396,7 +396,6 @@ $('go').onclick = async () => {
             return sb.toString()
         }
         sb.append("<div class=stat><b>${if (j.optBoolean("attested_device")) "Yes" else "No"}</b><span>attested device</span></div><div class=stat><b>${j.opt("weight")}×</b><span>how much each review counts</span></div><div class=stat><b>${j.optInt("reviews")}</b><span>live reviews</span></div>")
-        j.optJSONObject("standing")?.let { sb.append("<div class=stat><b>${it.optInt("credibility")}</b><span>credibility, 0 to 100: starts at 40; agreeing tags, helpful votes and upheld flags raise it, hidden records lower it</span></div>") }
         sb.append("</div></div>")
         val pubs = j.optJSONArray("publisher_of") ?: JSONArray()
         if (pubs.length() > 0) sb.append("<p>Proven publisher of: ${(0 until pubs.length()).joinToString(", ") { "<a href='/app/${enc(pubs.getString(it))}'>${esc(pubs.getString(it))}</a>" }}</p>")

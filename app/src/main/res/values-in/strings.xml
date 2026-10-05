@@ -252,8 +252,6 @@
     <string name="inbox_replies_empty">Belum ada balasan untuk catatan Anda.</string>
     <string name="inbox_starred_empty">Bintangi ulasan untuk menyimpannya di sini.</string>
     <string name="swipe_hint">Geser ulasan ke kanan untuk membalas.</string>
-    <string name="profile_credibility">Kredibilitas</string>
-    <string name="profile_credibility_sub">Dasar 40, +30 untuk kesesuaian tag dengan penandatangan lain, +10 untuk suara bermanfaat yang diterima, +20 untuk tanda yang ditegakkan oleh konsensus, −50 × bagian catatan yang disembunyikan oleh konsensus. Rumus yang dipublikasikan, tidak ada yang melekat padanya.</string>
     <string name="profile_flags">Tanda ditandatangani: %1$d · Ditegakkan: %2$d · Diterima: %3$d · Catatan disembunyikan: %4$d</string>
     <string name="profile_replied">Menjawab balasan pada ulasan mereka %1$s dari waktu</string>
     <string name="profile_publishes">Penerbit terbukti dari</string>
@@ -864,9 +862,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">Tampilkan %1$d ulasan lagi</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">%1$d ditandatangani · kredibilitas %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">Kotak masuk, %1$d baru</item>

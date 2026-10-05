@@ -258,8 +258,6 @@
     <string name="inbox_replies_empty">Încă niciun răspuns la înregistrările tale.</string>
     <string name="inbox_starred_empty">Marchează o recenzie cu stea ca s-o păstrezi aici.</string>
     <string name="swipe_hint">Glisează o recenzie spre dreapta pentru a răspunde.</string>
-    <string name="profile_credibility">Credibilitate</string>
-    <string name="profile_credibility_sub">40 bază, +30 pentru concordanța etichetelor cu alți semnatari, +10 pentru voturile utile primite, +20 pentru semnalările confirmate prin consens, −50 × ponderea înregistrărilor ascunse prin consens. Formulă publicată, nimic atașat de ea.</string>
     <string name="profile_flags">Semnalări semnate: %1$d · Confirmate: %2$d · Primite: %3$d · Înregistrări ascunse: %4$d</string>
     <string name="profile_replied">Răspunde la recenziile sale în %1$s din timp</string>
     <string name="profile_publishes">Editor dovedit al</string>
@@ -881,11 +879,6 @@
         <item quantity="one">Arată încă %1$d recenzie</item>
         <item quantity="few">Arată încă %1$d recenzii</item>
         <item quantity="other">Arată încă %1$d de recenzii</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d semnată · credibilitate %2$d</item>
-        <item quantity="few">%1$d semnate · credibilitate %2$d</item>
-        <item quantity="other">%1$d semnate · credibilitate %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Primite, %1$d nou</item>

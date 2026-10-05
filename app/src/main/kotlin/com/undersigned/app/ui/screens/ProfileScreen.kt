@@ -50,13 +50,13 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
             }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
-            SectionTitle(stringResource(R.string.profile_credibility))
+            // Counts, not a score (6 Oct 2026): a single 0–100 number read as a verdict on a person and sat beside
+            // "Counts only. No score" in the same app. The facts it was built from are shown as they are.
+            SectionTitle(stringResource(R.string.standing_title))
             GlassCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(st?.credibility?.toString() ?: "—",   // no made-up 40 for a wallet not read yet
-                         color = RbColors.textPrimary, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold)
-                    Spacer(Modifier.width(12.dp))
                     Column {
+                        if (st == null) Text(stringResource(R.string.loading), color = RbColors.textSecondary, fontSize = 12.sp)
                         st?.let { Text(stringResource(R.string.standing_line, it.countedReviews, it.withdrawn, it.repliesReceived, it.repliesGiven), color = RbColors.textSecondary, fontSize = 12.sp) }
                         st?.let { Text(stringResource(R.string.profile_flags, it.flagsGiven, it.flagsUpheld, it.flagsReceived, it.recordsHidden), color = RbColors.textSecondary, fontSize = 12.sp) }
                         st?.agreement?.let { Text(stringResource(R.string.standing_agreement, String.format(java.util.Locale.US, "%.0f%%", it * 100)), color = RbColors.textSecondary, fontSize = 12.sp) }
@@ -64,7 +64,7 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                         if ((st?.firstSeen ?: 0L) > 0) Text(stringResource(R.string.standing_since, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(st!!.firstSeen * 1000))), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
                 }
-                Spacer(Modifier.height(6.dp)); Text(stringResource(R.string.profile_credibility_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                Spacer(Modifier.height(6.dp)); Text(stringResource(R.string.standing_note2), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }
             if (published.isNotEmpty()) {
                 SectionTitle(stringResource(R.string.profile_publishes))

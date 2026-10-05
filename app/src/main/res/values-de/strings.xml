@@ -254,8 +254,6 @@
     <string name="inbox_replies_empty">Noch keine Antworten auf Ihre Einträge.</string>
     <string name="inbox_starred_empty">Favorisieren Sie eine Bewertung, um sie hier zu behalten.</string>
     <string name="swipe_hint">Wischen Sie eine Bewertung nach rechts, um zu antworten.</string>
-    <string name="profile_credibility">Glaubwürdigkeit</string>
-    <string name="profile_credibility_sub">40 Basis, +30 für Tag-Übereinstimmung mit anderen Signierenden, +10 für erhaltene hilfreiche Stimmen, +20 für per Konsens bestätigte Markierungen, −50 × Anteil der per Konsens ausgeblendeten Einträge. Veröffentlichte Formel, nichts daran geknüpft.</string>
     <string name="profile_flags">Markierungen signiert: %1$d · Bestätigt: %2$d · Erhalten: %3$d · Einträge ausgeblendet: %4$d</string>
     <string name="profile_replied">Beantwortet %1$s der Antworten auf die eigenen Bewertungen</string>
     <string name="profile_publishes">Nachgewiesener Herausgeber von</string>
@@ -891,10 +889,6 @@
     <plurals name="reviews_more">
         <item quantity="one">%1$d weitere Bewertung anzeigen</item>
         <item quantity="other">%1$d weitere Bewertungen anzeigen</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d signiert · Glaubwürdigkeit %2$d</item>
-        <item quantity="other">%1$d signiert · Glaubwürdigkeit %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Posteingang, %1$d neu</item>

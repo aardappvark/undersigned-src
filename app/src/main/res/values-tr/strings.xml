@@ -254,8 +254,6 @@
     <string name="inbox_replies_empty">Kayıtlarınıza henüz yanıt yok.</string>
     <string name="inbox_starred_empty">Burada tutmak için bir incelemeyi yıldızlayın.</string>
     <string name="swipe_hint">Yanıtlamak için bir incelemeyi sağa kaydırın.</string>
-    <string name="profile_credibility">Güvenilirlik</string>
-    <string name="profile_credibility_sub">40 taban, diğer imzalayanlarla etiket uyumu için +30, alınan yararlı oylar için +10, uzlaşıyla onaylanan işaretlemeler için +20, uzlaşıyla gizlenen kayıtların payı × −50. Yayınlanmış formül, buna bağlı hiçbir şey yok.</string>
     <string name="profile_flags">İmzalanan işaretleme: %1$d · Onaylanan: %2$d · Alınan: %3$d · Gizlenen kayıt: %4$d</string>
     <string name="profile_replied">İncelemelerine zamanın %1$s kadarında yanıt veriyor</string>
     <string name="profile_publishes">Kanıtlanmış yayıncısı</string>
@@ -871,10 +869,6 @@
     <plurals name="reviews_more">
         <item quantity="one">%1$d inceleme daha göster</item>
         <item quantity="other">%1$d inceleme daha göster</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d imzalı · güvenilirlik %2$d</item>
-        <item quantity="other">%1$d imzalı · güvenilirlik %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Gelen kutusu, %1$d yeni</item>

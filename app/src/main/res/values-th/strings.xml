@@ -236,8 +236,6 @@
     <string name="inbox_replies_empty">ยังไม่มีการตอบกลับบันทึกของคุณ</string>
     <string name="inbox_starred_empty">ติดดาวรีวิวเพื่อเก็บไว้ที่นี่</string>
     <string name="swipe_hint">ปัดรีวิวไปทางขวาเพื่อตอบกลับ</string>
-    <string name="profile_credibility">ความน่าเชื่อถือ</string>
-    <string name="profile_credibility_sub">ฐาน 40, +30 สำหรับความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น, +10 สำหรับเสียงโหวตว่ามีประโยชน์ที่ได้รับ, +20 สำหรับการปักธงที่ยืนยันโดยฉันทามติ, −50 × สัดส่วนของบันทึกที่ถูกซ่อนโดยฉันทามติ สูตรที่เผยแพร่ไว้ ไม่มีสิ่งใดผูกติดกับมัน</string>
     <string name="profile_flags">ปักธงแล้ว: %1$d · ยืนยันแล้ว: %2$d · ได้รับ: %3$d · บันทึกถูกซ่อน: %4$d</string>
     <string name="profile_replied">ตอบกลับรีวิวของตน %1$s ของเวลาทั้งหมด</string>
     <string name="profile_publishes">ผู้เผยแพร่ที่พิสูจน์แล้วของ</string>
@@ -848,9 +846,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">แสดงรีวิวเพิ่มอีก %1$d รายการ</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">ลงลายเซ็นแล้ว %1$d รายการ · ความน่าเชื่อถือ %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">กล่องข้อความ ใหม่ %1$d รายการ</item>

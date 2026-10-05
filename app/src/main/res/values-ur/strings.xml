@@ -257,8 +257,6 @@
     <string name="inbox_replies_empty">ابھی تک آپ کے ریکارڈز پر کوئی جواب نہیں۔</string>
     <string name="inbox_starred_empty">کسی جائزے کو یہاں رکھنے کے لیے اسٹار لگائیں۔</string>
     <string name="swipe_hint">جواب دینے کے لیے جائزے کو دائیں طرف سوائپ کریں۔</string>
-    <string name="profile_credibility">ساکھ</string>
-    <string name="profile_credibility_sub">بنیادی 40، دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت پر +30، موصولہ مددگار ووٹوں پر +10، اتفاق رائے سے برقرار رکھی گئی نشان زدگیوں پر +20، اتفاق رائے سے چھپائے گئے ریکارڈز کے تناسب پر −50×۔ شائع شدہ فارمولا، اس کے ساتھ کچھ منسلک نہیں۔</string>
     <string name="profile_flags">دستخط شدہ نشانات: %1$d · برقرار: %2$d · موصولہ: %3$d · چھپائے گئے ریکارڈز: %4$d</string>
     <string name="profile_replied">اپنے جائزوں کے جوابات %1$s وقت میں دیتے ہیں</string>
     <string name="profile_publishes">ثابت شدہ پبلشر برائے</string>
@@ -874,10 +872,6 @@
     <plurals name="reviews_more">
         <item quantity="one">مزید %1$d جائزہ دکھائیں</item>
         <item quantity="other">مزید %1$d جائزے دکھائیں</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d دستخط شدہ · ساکھ %2$d</item>
-        <item quantity="other">%1$d دستخط شدہ · ساکھ %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">ان باکس، %1$d نیا</item>

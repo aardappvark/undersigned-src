@@ -254,8 +254,6 @@
     <string name="inbox_replies_empty">Καμία απάντηση στις εγγραφές σας ακόμα.</string>
     <string name="inbox_starred_empty">Βάλτε αστέρι σε μια κριτική για να τη διατηρήσετε εδώ.</string>
     <string name="swipe_hint">Σύρετε μια κριτική προς τα δεξιά για να απαντήσετε.</string>
-    <string name="profile_credibility">Αξιοπιστία</string>
-    <string name="profile_credibility_sub">40 βάση, +30 για συμφωνία ετικετών με άλλους υπογράφοντες, +10 για χρήσιμες ψήφους που λάβατε, +20 για επισημάνσεις που επικυρώθηκαν με συναίνεση, −50 × μερίδιο εγγραφών κρυμμένων με συναίνεση. Δημοσιευμένος τύπος, τίποτα προσαρτημένο σε αυτόν.</string>
     <string name="profile_flags">Υπογεγραμμένες επισημάνσεις: %1$d · Επικυρωμένες: %2$d · Ληφθείσες: %3$d · Κρυμμένες εγγραφές: %4$d</string>
     <string name="profile_replied">Απαντά στις κριτικές του %1$s του χρόνου</string>
     <string name="profile_publishes">Αποδεδειγμένος εκδότης του</string>
@@ -871,10 +869,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Εμφάνιση %1$d ακόμη κριτικής</item>
         <item quantity="other">Εμφάνιση %1$d ακόμη κριτικών</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d υπογεγραμμένες · αξιοπιστία %2$d</item>
-        <item quantity="other">%1$d υπογεγραμμένες · αξιοπιστία %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Εισερχόμενα, %1$d νέο</item>

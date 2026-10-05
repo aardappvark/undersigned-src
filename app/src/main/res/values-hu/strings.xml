@@ -254,8 +254,6 @@
     <string name="inbox_replies_empty">Még nincs válasz a bejegyzéseidre.</string>
     <string name="inbox_starred_empty">Csillagozz meg egy értékelést, hogy itt tartsd.</string>
     <string name="swipe_hint">Húzd jobbra az értékelést a válaszhoz.</string>
-    <string name="profile_credibility">Hitelesség</string>
-    <string name="profile_credibility_sub">40 alap, +30 a más aláírókkal való címke-egyezésért, +10 a kapott hasznos szavazatokért, +20 a közmegegyezéssel helybenhagyott jelölésekért, −50 × a közmegegyezéssel elrejtett bejegyzések aránya. Nyilvános képlet, semmi nincs hozzákötve.</string>
     <string name="profile_flags">Aláírt jelölések: %1$d · Helybenhagyva: %2$d · Kapott: %3$d · Elrejtett bejegyzések: %4$d</string>
     <string name="profile_replied">Az esetek %1$s részében válaszol az értékeléseire</string>
     <string name="profile_publishes">Bizonyított kiadója</string>
@@ -871,10 +869,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Még %1$d értékelés mutatása</item>
         <item quantity="other">Még %1$d értékelés mutatása</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d aláírva · hitelesség %2$d</item>
-        <item quantity="other">%1$d aláírva · hitelesség %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Beérkezett, %1$d új</item>

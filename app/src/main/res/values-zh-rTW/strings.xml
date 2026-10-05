@@ -252,8 +252,6 @@
     <string name="inbox_replies_empty">您的記錄尚未收到任何回覆。</string>
     <string name="inbox_starred_empty">為評價加星號即可保留在此。</string>
     <string name="swipe_hint">向右滑動評價即可回覆。</string>
-    <string name="profile_credibility">信譽</string>
-    <string name="profile_credibility_sub">基礎 40 分,與其他簽署者標籤一致 +30 分,收到有幫助投票 +10 分,標記獲共識支持 +20 分,記錄被共識隱藏的比例 ×(−50)。公式公開,沒有任何附加價值。</string>
     <string name="profile_flags">簽署標記:%1$d · 獲支持:%2$d · 收到:%3$d · 記錄被隱藏:%4$d</string>
     <string name="profile_replied">%1$s 的評價已獲得回覆</string>
     <string name="profile_publishes">已證明發行者身分:</string>
@@ -863,9 +861,6 @@
     </plurals>
     <plurals name="reviews_more">
         <item quantity="other">再顯示 %1$d 則評價</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="other">%1$d 則簽署 · 信譽 %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="other">收件匣，%1$d 則新訊息</item>

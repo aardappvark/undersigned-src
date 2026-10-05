@@ -218,7 +218,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
             record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f)))
-                    .put("credibility", st.standings[e.signer]?.credibility ?: JSONObject.NULL))
+                    )
                 .put("counted", f.hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("install_age", st.usage[e.signature]?.wire ?: JSONObject.NULL).put("usage_time", st.useTimes[e.signature]?.wire ?: JSONObject.NULL)
@@ -318,7 +318,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val reviews = mine.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
         val o = JSONObject().put("wallet", addr).put("skr_name", indexer.names.cached(addr)?.ifEmpty { null } ?: JSONObject.NULL).put("read", f != null)
             .put("attested_device", f?.hasGenesisToken ?: JSONObject.NULL).put("staked_skr", f?.let { r2(it.stakedSkr) } ?: JSONObject.NULL).put("weight", f?.let { r2(com.undersigned.protocol.Ranking.weight(it)) } ?: JSONObject.NULL)
-            .put("standing", stand?.let { JSONObject().put("credibility", it.credibility).put("counted_reviews", it.countedReviews).put("withdrawn", it.withdrawn)
+            .put("standing", stand?.let { JSONObject().put("counted_reviews", it.countedReviews).put("withdrawn", it.withdrawn)
                 .put("flags_given", it.flagsGiven).put("flags_upheld", it.flagsUpheld).put("flags_received", it.flagsReceived).put("records_hidden", it.recordsHidden)
                 .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen) } ?: JSONObject.NULL)
             .put("reviews", reviews.size).put("publisher_of", JSONArray(st.verified.filterValues { addr in it }.keys.sorted()))

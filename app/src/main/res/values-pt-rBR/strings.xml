@@ -257,8 +257,6 @@
     <string name="inbox_replies_empty">Ainda sem respostas aos seus registros.</string>
     <string name="inbox_starred_empty">Destaque uma avaliação para guardá-la aqui.</string>
     <string name="swipe_hint">Deslize uma avaliação para a direita para responder.</string>
-    <string name="profile_credibility">Credibilidade</string>
-    <string name="profile_credibility_sub">40 de base, +30 por concordância de tags com outros signatários, +10 por votos úteis recebidos, +20 por sinalizações confirmadas por consenso, −50 × proporção de registros ocultados por consenso. Fórmula publicada, nada mais associado a ela.</string>
     <string name="profile_flags">Sinalizações assinadas: %1$d · Confirmadas: %2$d · Recebidas: %3$d · Registros ocultados: %4$d</string>
     <string name="profile_replied">Responde às respostas em suas avaliações %1$s das vezes</string>
     <string name="profile_publishes">Publicador comprovado de</string>
@@ -900,10 +898,6 @@
     <plurals name="reviews_more">
         <item quantity="one">Ver mais %1$d avaliação</item>
         <item quantity="other">Ver mais %1$d avaliações</item>
-    </plurals>
-    <plurals name="standing_short">
-        <item quantity="one">%1$d assinadas · credibilidade %2$d</item>
-        <item quantity="other">%1$d assinadas · credibilidade %2$d</item>
     </plurals>
     <plurals name="inbox_a11y">
         <item quantity="one">Caixa de entrada, %1$d nova</item>
