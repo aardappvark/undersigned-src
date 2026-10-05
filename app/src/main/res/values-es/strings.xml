@@ -77,14 +77,13 @@
     <string name="fact_store_version">Código de versión de la tienda</string>
     <string name="publisher_title">Editor</string>
     <string name="publisher_listed">La tienda lo lista como %1$s</string>
-    <string name="publisher_verified">Editor verificado — demostró el control de %1$s</string>
-    <string name="publisher_none">Aún no hay ningún editor verificado en el ledger.</string>
+    <string name="publisher_verified">Editor, demostrado por el sitio web que lista la tienda (%1$s)</string>
+    <string name="publisher_none">Aún no hay ningún editor demostrado.</string>
     <string name="publisher_claim">Yo publico esta app</string>
     <string name="publisher_claim_title">Reclamar esta app</string>
-    <string name="publisher_claim_body">Los lectores verifican una reclamación frente al sitio web que la tienda indica para esta app (%1$s). Coloca un archivo en %2$s que contenga tu dirección de wallet (una línea):\n\n%3$s\n\nLuego firma la reclamación. La verificación es automática y se repite cada 24 horas. Si falta el archivo, la reclamación simplemente queda sin verificar; no ocurre nada más.</string>
     <string name="publisher_claim_sign">Firmar la reclamación</string>
-    <string name="publisher_claimed_pending">Tu reclamación está on-chain pero aún no verificada (no se encontró el archivo en el sitio web indicado).</string>
-    <string name="publisher_badge">Editor ✓</string>
+    <string name="publisher_claimed_pending">Tu reclamación está firmada pero aún no demostrada. Nombra tu wallet en el manifiesto de la app y publica la actualización, o coloca el archivo en el sitio web que lista la tienda.</string>
+    <string name="publisher_badge">Editor</string>
     <string name="versions_title">Por versión</string>
     <string name="versions_row">v%1$d · %2$s · %3$d firmadas</string>
     <string name="versions_installed">instalada</string>
@@ -233,7 +232,7 @@
     <string name="intro4_title">Lo que tu teléfono puede probar</string>
     <string name="intro4_body">Para las apps que tienes instaladas, Undersigned muestra si la versión coincide con el certificado que indica la tienda y si cambiaron los permisos. Datos, nunca veredictos.</string>
     <string name="intro5_title">Sigue, entérate, responde</string>
-    <string name="intro5_body">Sigue apps para saber de nuevas reseñas firmadas, actualizaciones y respuestas. Los editores reclaman su app firmando y responden con una insignia verificada. Todo lo que publicas es permanente y público.</string>
+    <string name="intro5_body">Sigue apps para saber de nuevas reseñas firmadas, actualizaciones y respuestas. Los editores reclaman su app firmando, y sus respuestas llevan la marca Editor una vez que la reclamación está demostrada. Todo lo que publicas es permanente y público.</string>
     <string name="review_also_store">Publicar también en el dApp Store</string>
     <string name="review_also_store_hint">Copia tu nota y abre la ficha, donde la publicas en «Calificaciones y Reseñas» → «Revisar esta dApp». La tienda no tiene forma de que otra app publique por ti, así que los últimos toques son tuyos.</string>
     <string name="flag">Marcar</string>
@@ -253,7 +252,7 @@
     <string name="inbox_unanswered">Sin responder</string>
     <string name="inbox_replies">Respuestas para mí</string>
     <string name="inbox_starred">Destacadas</string>
-    <string name="inbox_unanswered_sub">Reseñas firmadas en apps donde te has verificado como editor, sin respuesta tuya.</string>
+    <string name="inbox_unanswered_sub">Reseñas firmadas en apps de las que eres el editor demostrado, sin respuesta tuya.</string>
     <string name="inbox_unanswered_empty">Nada en espera. Verifica una reclamación de editor para ver aquí tus apps.</string>
     <string name="inbox_replies_empty">Aún no hay respuestas a tus registros.</string>
     <string name="inbox_starred_empty">Destaca una reseña para guardarla aquí.</string>
@@ -262,7 +261,7 @@
     <string name="profile_credibility_sub">40 de base, +30 por coincidencia de etiquetas con otros firmantes, +10 por votos útiles recibidos, +20 por marcas confirmadas por consenso, −50 × proporción de registros ocultos por consenso. Fórmula publicada, sin nada más asociado.</string>
     <string name="profile_flags">Marcas firmadas: %1$d · Confirmadas: %2$d · Recibidas: %3$d · Registros ocultos: %4$d</string>
     <string name="profile_replied">Responde a las respuestas de sus reseñas el %1$s de las veces</string>
-    <string name="profile_publishes">Editor verificado de</string>
+    <string name="profile_publishes">Editor demostrado de</string>
     <string name="profile_reviews">Reseñas firmadas</string>
     <string name="responsiveness_line">Responde reseñas firmadas en %1$s · %2$d de %3$d respondidas</string>
     <string name="responsiveness_never">Aún no ha respondido a ninguna reseña firmada</string>
@@ -290,7 +289,7 @@
     <string name="clear_body">Un voto de \"parece legítima\" compensa las marcas de este registro. Uno por wallet, con el mismo peso que una marca. Úsalo cuando creas que las marcas están equivocadas.</string>
     <string name="unvote">Retirar mi voto de útil</string>
     <string name="flag_net">neto %1$s</string>
-    <string name="publisher_flags_ignored">Las marcas de un editor verificado sobre reseñas de su propia app no cuentan; responde en su lugar.</string>
+    <string name="publisher_flags_ignored">Las marcas de un editor demostrado sobre reseñas de su propia app no cuentan; responde en su lugar.</string>
     <string name="hidden_reply">Respuesta oculta por consenso</string>
     <string name="review_self_published">No contabilizada — es la app del propio editor</string>
     <string name="attest_title">Qué cuenta como una voz</string>
@@ -341,8 +340,8 @@
     <string name="stats_apps">dApps con una reseña firmada</string>
     <string name="stats_apps_scored">dApps con puntuación</string>
     <string name="stats_replies">Respuestas</string>
-    <string name="stats_publisher_replies">de un editor verificado</string>
-    <string name="stats_claims">Reclamaciones de editor · verificadas</string>
+    <string name="stats_publisher_replies">de un editor demostrado</string>
+    <string name="stats_claims">Reclamaciones de editor · demostradas</string>
     <string name="stats_moderation">Marcas · aclaraciones · impugnaciones</string>
     <string name="stats_hidden">Ocultas por consenso</string>
     <string name="stats_withdrawn">Retiradas por su autor</string>
@@ -400,7 +399,7 @@
     <string name="pro_tool_import_title">Importa todas de vuelta</string>
     <string name="pro_tool_import_body">Cada reseña que has escrito en la tienda, firmada en el ledger en una sola aprobación en lugar de una a una.</string>
     <string name="pro_tool_desk_title">Panel del editor</string>
-    <string name="pro_tool_desk_body">La cola sin responder y la capacidad de respuesta de cada dApp que has verificado, en una sola lista.</string>
+    <string name="pro_tool_desk_body">La cola sin responder y la capacidad de respuesta de cada dApp de la que eres el editor demostrado, en una sola lista.</string>
     <string name="pro_tool_export_title">Exporta el ledger</string>
     <string name="pro_tool_export_body">Cualquier dApp, cualquier firmante, como CSV o JSON. Los datos son públicos; Pro hace la lectura por ti.</string>
     <string name="pro_tool_watch_title">Vigilancia horaria del certificado</string>
@@ -489,7 +488,7 @@
     <string name="fp_read">Leer todo el ledger</string>
     <string name="fp_sign">Firmar reseñas, respuestas, marcas, impugnaciones</string>
     <string name="fp_facts">Lo que tu dispositivo puede verificar</string>
-    <string name="fp_claim">Reclamar un dApp, responder con una insignia verificada</string>
+    <string name="fp_claim">Reclamar un dApp, responder como su editor demostrado</string>
     <string name="fp_copy">Copiar una reseña a la tienda</string>
     <string name="fp_import">Importar reseñas de la tienda</string>
     <string name="fp_import_free">una a una</string>
@@ -503,9 +502,9 @@
     <string name="fp_weight_both">lo mismo — solo dispositivo y SKR en staking</string>
     <string name="desk_title">Panel del editor</string>
     <plurals name="desk_across">
-        <item quantity="one">En tu %1$d dApp verificada</item>
-        <item quantity="other">En tus %1$d dApps verificadas</item>
-        <item quantity="many">En tus %1$d dApps verificadas</item>
+        <item quantity="one">En tu %1$d dApp demostrada</item>
+        <item quantity="other">En tus %1$d dApps demostradas</item>
+        <item quantity="many">En tus %1$d dApps demostradas</item>
     </plurals>
     <string name="desk_unanswered">sin responder</string>
     <string name="desk_median">respuesta mediana</string>
@@ -521,7 +520,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">La capacidad de respuesta se lee del ledger como todo lo demás: el tiempo entre una reseña firmada y tu respuesta firmada. Se muestra a los lectores en tu página de dApp, así que la cola es el producto.</string>
-    <string name="desk_none">Aún no hay dApps verificadas. Reclama una app desde su página y demuestra el sitio web; el panel se llena a partir de ahí.</string>
+    <string name="desk_none">Aún no hay dApps demostrados. Reclama una app desde su página y demuéstralo (versión firmada o sitio web); el panel se llena a partir de ahí.</string>
     <string name="desk_none_waiting">Nada en espera.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -763,8 +762,8 @@
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d paso</item><item quantity="many">%1$d pasos</item><item quantity="other">%1$d pasos</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Editor verificado — demostró el control de %1$s, visto desde %2$s</string>
-    <string name="publisher_verified_apk">Editor verificado — nombrado dentro de la propia versión firmada de la app</string>
+    <string name="publisher_verified_since">Editor, demostrado por el sitio web que lista la tienda (%1$s), visto desde %2$s</string>
+    <string name="publisher_verified_apk">Editor, demostrado por la propia versión firmada de la app en este teléfono</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Funciona</string>
     <string name="tag_crashes">Falla</string>
@@ -794,7 +793,7 @@
     <string name="pay_list_fee">Listar cuesta lo mismo que un nivel de pago de nuestras otras dApps: %1$s o %2$s (%3$s con un Seeker Genesis Token). Se paga una vez por dApp y tesorería, en la misma transacción que firma el listado. Cambiar el código o volver a listar más tarde cuesta solo la comisión de red.</string>
     <string name="pay_list_pay">Pagar %1$s y listar</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Editor verificado — nombrado dentro de la versión que sirve la tienda</string>
+    <string name="publisher_verified_store">Editor, demostrado por la versión que sirve el dApp Store</string>
     <string name="publisher_check_build">Comprobar la versión de la tienda · %1$s</string>
     <string name="publisher_checking_build">Leyendo la versión de la tienda…</string>
     <string name="publisher_build_nothing">La versión de la tienda no nombra ninguna wallet de editor.</string>
@@ -842,4 +841,21 @@
     <string name="notif_note_title">El editor respondió a tu reseña de la tienda · %1$s</string>
     <string name="notif_proven_title">Tu reclamación está probada · %1$s</string>
     <string name="notif_proven_body">Tus respuestas a las reseñas de esta app ahora llevan la marca Editor ✓, y tus propias reseñas de ella no se contabilizan.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Nombra tu wallet en tu app (lo más fuerte)</string>
+    <string name="claim_route_build_body">Añade esta línea dentro de &lt;application&gt; en el manifiesto de tu app y publica la actualización en el dApp Store. Los lectores examinan la versión que sirve la tienda: la línea debe nombrar esta wallet y la versión debe estar firmada con el certificado que lista la tienda. Solo puede hacerlo quien tiene la clave de firma de tu app.</string>
+    <string name="claim_route_site_title">2. O coloca un archivo en el sitio web que lista la tienda</string>
+    <string name="claim_route_site_body">La tienda lista %1$s para esta app. Coloca en %2$s un archivo que contenga la dirección de tu wallet en una línea:\n\n%3$s</string>
+    <string name="claim_route_site_none">La tienda no lista para esta app ningún sitio web que pueda demostrarlo (los perfiles de redes sociales y los alojamientos compartidos no cuentan). Usa la versión firmada.</string>
+    <string name="claim_then_sign">Después firma la reclamación. Mientras no se encuentre una de las dos pruebas, la reclamación aparece como no demostrada; no ocurre nada más. La prueba se examina de nuevo cada día.</string>
+    <string name="proof_how_link">¿Cómo se demuestra esto?</string>
+    <string name="proof_how_title">Cómo se demuestra un editor</string>
+    <string name="proof_how_intro">Cualquiera puede firmar «Publico esta app». Una firma solo muestra quién reclama. Una reclamación está demostrada cuando algo que solo controla el editor real nombra la misma wallet.</string>
+    <string name="proof_key_title">La clave de firma de la app (lo más fuerte)</string>
+    <string name="proof_key_body">Toda app de Android está firmada con una clave que es su identidad: la tienda lista su certificado y los teléfonos rechazan una actualización firmada con cualquier otra clave. Cuando el editor nombra una wallet dentro del manifiesto de la app, la línea queda dentro de la versión firmada, así que solo el titular de la clave pudo ponerla ahí. Undersigned examina la versión que sirve la tienda o la instalada en este teléfono.</string>
+    <string name="proof_site_title">El sitio web que lista la tienda</string>
+    <string name="proof_site_body">El editor fija el sitio web en el portal de editores de la tienda. Un archivo allí que nombra la wallet muestra control de ese sitio. Más débil: los dominios cambian de manos, por eso se muestra la fecha en que se vio por primera vez. No se aceptan perfiles de redes sociales ni alojamientos compartidos.</string>
+    <string name="proof_not_title">Lo que no lo demuestra</string>
+    <string name="proof_not_body">La propia firma de la wallet, una dirección de pago o la wallet que publicó la app en el dApp Store. La tienda no dice qué registro on-chain pertenece a qué ficha, y cualquiera puede crear uno que nombre cualquier app.</string>
+    <string name="proof_how_after">Las respuestas de un editor demostrado llevan la marca Editor, y sus propias reseñas de la app no se cuentan.</string>
 </resources>

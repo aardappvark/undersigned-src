@@ -76,14 +76,13 @@
     <string name="fact_store_version">商店版本代碼</string>
     <string name="publisher_title">發行者</string>
     <string name="publisher_listed">商店列出的發行者為 %1$s</string>
-    <string name="publisher_verified">已驗證發行者——已證明對 %1$s 的控制權</string>
-    <string name="publisher_none">帳本上尚無已驗證的發行者。</string>
+    <string name="publisher_verified">發行者,由商店列出的網站(%1$s)證明</string>
+    <string name="publisher_none">尚無已證明的發行者。</string>
     <string name="publisher_claim">我是此應用程式的發行者</string>
     <string name="publisher_claim_title">認領此應用程式</string>
-    <string name="publisher_claim_body">讀者會將認領資訊與商店為此應用程式列出的網站(%1$s)進行核對。請在 %2$s 處放置一個檔案,內容為您的錢包地址(一行):\n\n%3$s\n\n然後簽署提交認領。驗證是自動進行的,每 24 小時重複一次。如果檔案缺失,認領只會維持未驗證狀態;不會發生其他任何事。</string>
     <string name="publisher_claim_sign">簽署提交認領</string>
-    <string name="publisher_claimed_pending">您的認領已上鏈,但尚未驗證(在列出的網站上未找到該檔案)。</string>
-    <string name="publisher_badge">發行者 ✓</string>
+    <string name="publisher_claimed_pending">您的認領已簽署,但尚未證明。請在應用程式的資訊清單中寫明您的錢包並發布更新,或將該檔案放到商店列出的網站上。</string>
+    <string name="publisher_badge">發行者</string>
     <string name="versions_title">依版本</string>
     <string name="versions_row">v%1$d · %2$s · %3$d 則簽署</string>
     <string name="versions_installed">已安裝</string>
@@ -228,7 +227,7 @@
     <string name="intro4_title">您的手機能證明什麼</string>
     <string name="intro4_body">對於您已安裝的應用程式,Undersigned 會顯示已安裝的版本是否與商店列出的憑證一致,以及權限是否有變化。只有事實,絕無定論。</string>
     <string name="intro5_title">追蹤、獲知、回覆</string>
-    <string name="intro5_body">追蹤應用程式即可獲知新的簽署評價、更新與回覆。發行者透過簽署認領應用程式,並以已驗證徽章回覆。您發布的一切都是永久且公開的。</string>
+    <string name="intro5_body">追蹤應用程式即可獲知新的簽署評價、更新與回覆。發行者透過簽署認領應用程式,認領獲得證明後,其回覆會帶有發行者標章。您發布的一切都是永久且公開的。</string>
     <string name="review_also_store">同時發布到 dApp Store</string>
     <string name="review_also_store_hint">複製您的說明文字,並開啟應用程式頁面,您需要在 \"評分與評論\" → \"評論這個 dApp\" 下自行發布。商店沒有辦法讓其他應用程式代您發布,因此最後的操作仍需您親自完成。</string>
     <string name="flag">標記</string>
@@ -248,7 +247,7 @@
     <string name="inbox_unanswered">未回覆</string>
     <string name="inbox_replies">回覆給我的</string>
     <string name="inbox_starred">已加星號</string>
-    <string name="inbox_unanswered_sub">您以發行者身分驗證的應用程式上,尚未獲得您回覆的簽署評價。</string>
+    <string name="inbox_unanswered_sub">您作為已證明發行者的應用程式上,尚未獲得您回覆的簽署評價。</string>
     <string name="inbox_unanswered_empty">沒有待處理項目。驗證發行者認領後,您的應用程式就會出現在這裡。</string>
     <string name="inbox_replies_empty">您的記錄尚未收到任何回覆。</string>
     <string name="inbox_starred_empty">為評價加星號即可保留在此。</string>
@@ -257,7 +256,7 @@
     <string name="profile_credibility_sub">基礎 40 分,與其他簽署者標籤一致 +30 分,收到有幫助投票 +10 分,標記獲共識支持 +20 分,記錄被共識隱藏的比例 ×(−50)。公式公開,沒有任何附加價值。</string>
     <string name="profile_flags">簽署標記:%1$d · 獲支持:%2$d · 收到:%3$d · 記錄被隱藏:%4$d</string>
     <string name="profile_replied">%1$s 的評價已獲得回覆</string>
-    <string name="profile_publishes">已驗證發行:</string>
+    <string name="profile_publishes">已證明發行者身分:</string>
     <string name="profile_reviews">簽署評價</string>
     <string name="responsiveness_line">在 %1$s 內回覆簽署評價 · %3$d 則中已回覆 %2$d 則</string>
     <string name="responsiveness_never">尚未回覆過任何簽署評價</string>
@@ -285,7 +284,7 @@
     <string name="clear_body">\"看起來無異\" 投票會抵銷此記錄上的標記。每個錢包限一票,權重與標記相同。當您認為標記有誤時可以使用。</string>
     <string name="unvote">撤回我的有幫助投票</string>
     <string name="flag_net">淨權重 %1$s</string>
-    <string name="publisher_flags_ignored">已驗證發行者對自己應用程式評價所做的標記不計入;請改用回覆。</string>
+    <string name="publisher_flags_ignored">應用程式的已證明發行者對自己應用程式評價所做的標記不計入;請改用回覆。</string>
     <string name="hidden_reply">回覆因共識而隱藏</string>
     <string name="review_self_published">不計入——發行者自己的應用程式</string>
     <string name="attest_title">什麼樣的聲音才算數</string>
@@ -336,8 +335,8 @@
     <string name="stats_apps">有簽署評價的 dApp</string>
     <string name="stats_apps_scored">有評分的 dApp</string>
     <string name="stats_replies">回覆</string>
-    <string name="stats_publisher_replies">其中來自已驗證發行者</string>
-    <string name="stats_claims">發行者認領 · 已驗證</string>
+    <string name="stats_publisher_replies">其中來自已證明發行者</string>
+    <string name="stats_claims">發行者認領 · 已證明</string>
     <string name="stats_moderation">標記 · 無異 · 異議</string>
     <string name="stats_hidden">因共識而隱藏</string>
     <string name="stats_withdrawn">由作者撤回</string>
@@ -395,7 +394,7 @@
     <string name="pro_tool_import_title">將它們全部匯入回來</string>
     <string name="pro_tool_import_body">您寫過的每一則商店評價,一次核准即可全部簽署到帳本上,而非一次一則。</string>
     <string name="pro_tool_desk_title">發行者工作台</string>
-    <string name="pro_tool_desk_body">您已驗證的每個 dApp 的待回覆佇列與回覆速度,集中於一份清單。</string>
+    <string name="pro_tool_desk_body">您作為已證明發行者的每個 dApp 的待回覆佇列與回覆速度,集中於一份清單。</string>
     <string name="pro_tool_export_title">匯出帳本</string>
     <string name="pro_tool_export_body">任何 dApp、任何簽署者,匯出為 CSV 或 JSON。資料本就公開;Pro 只是替您讀取。</string>
     <string name="pro_tool_watch_title">每小時憑證監控</string>
@@ -480,7 +479,7 @@
     <string name="fp_read">閱讀完整帳本</string>
     <string name="fp_sign">簽署評價、回覆、標記、異議</string>
     <string name="fp_facts">您的裝置能驗證的內容</string>
-    <string name="fp_claim">認領 dApp,以已驗證徽章回覆</string>
+    <string name="fp_claim">認領 dApp,以其已證明發行者的身分回覆</string>
     <string name="fp_copy">將評價複製到商店</string>
     <string name="fp_import">匯入商店評價</string>
     <string name="fp_import_free">一次一則</string>
@@ -494,7 +493,7 @@
     <string name="fp_weight_both">相同——僅計算裝置與已質押 SKR</string>
     <string name="desk_title">發行者工作台</string>
     <plurals name="desk_across">
-        <item quantity="other">橫跨您已驗證的 %1$d 個 dApp</item>
+        <item quantity="other">橫跨您已證明的 %1$d 個 dApp</item>
     </plurals>
     <string name="desk_unanswered">未回覆</string>
     <string name="desk_median">回覆時間中位數</string>
@@ -508,7 +507,7 @@
     </plurals>
     <string name="desk_hours">%1$d 小時</string>
     <string name="desk_note">回覆速度和其他一切一樣是從帳本讀取的:簽署評價與您簽署回覆之間的間隔。這會顯示給讀者在您的 dApp 頁面上,因此這份待處理清單本身就是成果。</string>
-    <string name="desk_none">尚無已驗證的 dApp。從應用程式頁面認領並證明網站,工作台便會開始累積資料。</string>
+    <string name="desk_none">尚無已證明的 dApp。從應用程式頁面認領並加以證明(簽署安裝包或網站),工作台便會開始累積資料。</string>
     <string name="desk_none_waiting">沒有待處理項目。</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -728,8 +727,8 @@
     <plurals name="watch_count_low"><item quantity="other">%1$d 則一星</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d 個步驟</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">已驗證發行者——已證明對 %1$s 的控制權,自 %2$s 起可見</string>
-    <string name="publisher_verified_apk">已驗證發行者——已列於應用程式自身簽署的安裝包中</string>
+    <string name="publisher_verified_since">發行者,由商店列出的網站(%1$s)證明,自 %2$s 起可見</string>
+    <string name="publisher_verified_apk">發行者,由此手機上應用程式自身簽署的安裝包證明</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">可用</string>
     <string name="tag_crashes">當機</string>
@@ -759,7 +758,7 @@
     <string name="pay_list_fee">登記費用與我們其他 dApp 的付費層級相同:%1$s 或 %2$s(持有 Seeker Genesis Token 則為 %3$s)。每個 dApp 與金庫僅需支付一次,與簽署登記屬於同一筆交易。之後更改代碼或重新登記僅需支付網路費用。</string>
     <string name="pay_list_pay">支付 %1$s 並登記</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">已驗證發行者——已列於商店提供的安裝包中</string>
+    <string name="publisher_verified_store">發行者,由 dApp Store 提供的安裝包證明</string>
     <string name="publisher_check_build">檢查商店的安裝包 · %1$s</string>
     <string name="publisher_checking_build">正在讀取商店的安裝包…</string>
     <string name="publisher_build_nothing">商店的安裝包中未列出發行者的錢包。</string>
@@ -807,4 +806,21 @@
     <string name="notif_note_title">發行者回覆了您的商店評價 · %1$s</string>
     <string name="notif_proven_title">您的認領已獲證明 · %1$s</string>
     <string name="notif_proven_body">您對此應用程式評價的回覆現在帶有發行者 ✓ 標記,而您自己對它的評價不會計入。</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. 在您的應用程式中寫明您的錢包(最強)</string>
+    <string name="claim_route_build_body">在應用程式資訊清單的 &lt;application&gt; 內加入這一行,並將更新發布到 dApp Store。讀者會檢查商店提供的安裝包:這一行必須寫明此錢包,且安裝包必須使用商店列出的憑證簽署。只有應用程式簽署金鑰的持有者才能做到。</string>
+    <string name="claim_route_site_title">2. 或在商店列出的網站上放一個檔案</string>
+    <string name="claim_route_site_body">商店為此應用程式列出的是 %1$s。請在 %2$s 放置一個檔案,內容為您的錢包地址,單獨一行:\n\n%3$s</string>
+    <string name="claim_route_site_none">商店沒有為此應用程式列出可用於證明的網站(社群檔案與共享主機不算)。請使用簽署安裝包。</string>
+    <string name="claim_then_sign">接著對認領簽署。在找到兩種證明之一以前,該認領顯示為未證明;不會發生其他事情。證明每天會重新檢查一次。</string>
+    <string name="proof_how_link">這是如何證明的?</string>
+    <string name="proof_how_title">發行者如何被證明</string>
+    <string name="proof_how_intro">任何人都可以簽署「我發行了這個應用程式」。簽名只能顯示是誰在認領。當只有真正的發行者才能控制的內容寫明了同一個錢包時,認領才算被證明。</string>
+    <string name="proof_key_title">應用程式的簽署金鑰(最強)</string>
+    <string name="proof_key_body">每個 Android 應用程式都用一把金鑰簽署,這把金鑰就是它的身分:商店列出其憑證,手機會拒絕由任何其他金鑰簽署的更新。當發行者在應用程式資訊清單中寫明錢包時,這一行位於已簽署的安裝包之內,因此只有金鑰持有者才可能放進去。Undersigned 會檢查商店提供的安裝包,或此手機上已安裝的安裝包。</string>
+    <string name="proof_site_title">商店列出的網站</string>
+    <string name="proof_site_body">發行者在商店的發行者入口網站中設定網站。該網站上寫明錢包的檔案,表示發行者控制著該網站。較弱:網域可能易主,因此會顯示首次看到的日期。不接受社群檔案與共享主機。</string>
+    <string name="proof_not_title">哪些不能證明</string>
+    <string name="proof_not_body">錢包自身的簽署、收款地址,或在 dApp Store 上發布該應用程式的錢包。商店不會說明哪筆鏈上記錄屬於哪個應用程式項目,任何人都可以建立一筆寫著任意應用程式名稱的記錄。</string>
+    <string name="proof_how_after">已證明發行者的回覆帶有發行者標章,其對自己應用程式的評價不計入。</string>
 </resources>

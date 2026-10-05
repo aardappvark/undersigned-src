@@ -74,14 +74,13 @@
     <string name="fact_store_version">Код версії в магазині</string>
     <string name="publisher_title">Видавець</string>
     <string name="publisher_listed">Вказаний магазином як %1$s</string>
-    <string name="publisher_verified">Підтверджений видавець — довів контроль над %1$s</string>
-    <string name="publisher_none">У реєстрі ще немає підтвердженого видавця.</string>
+    <string name="publisher_verified">Видавець, доведений сайтом, який указує магазин (%1$s)</string>
+    <string name="publisher_none">Поки немає доведеного видавця.</string>
     <string name="publisher_claim">Я видавець цього додатка</string>
     <string name="publisher_claim_title">Заявити права на цей додаток</string>
-    <string name="publisher_claim_body">Читачі перевіряють заявку за вебсайтом, який магазин вказує для цього додатка (%1$s). Розмістіть за адресою %2$s файл із адресою вашого гаманця (один рядок):\n\n%3$s\n\nПотім підпишіть заявку. Перевірка виконується автоматично й повторюється кожні 24 години. Якщо файл відсутній, заявка просто залишається непідтвердженою; більше нічого не відбувається.</string>
     <string name="publisher_claim_sign">Підписати заявку</string>
-    <string name="publisher_claimed_pending">Ваша заявка в блокчейні, але ще не підтверджена (файл не знайдено на вказаному вебсайті).</string>
-    <string name="publisher_badge">Видавець ✓</string>
+    <string name="publisher_claimed_pending">Вашу заявку підписано, але ще не доведено. Вкажіть свій гаманець у маніфесті додатка й випустіть оновлення або покладіть файл на сайт, який указує магазин.</string>
+    <string name="publisher_badge">Видавець</string>
     <string name="versions_title">За версіями</string>
     <string name="versions_row">v%1$d · %2$s · %3$d підписано</string>
     <string name="versions_installed">встановлено</string>
@@ -238,7 +237,7 @@
     <string name="intro4_title">Що може довести ваш телефон</string>
     <string name="intro4_body">Для встановлених додатків Undersigned показує, чи відповідає збірка сертифікату, вказаному магазином, і чи змінилися дозволи. Факти, ніколи не вердикти.</string>
     <string name="intro5_title">Стежте, дізнавайтеся, відповідайте</string>
-    <string name="intro5_body">Стежте за додатками, щоб дізнаватися про нові підписані відгуки, оновлення й відповіді. Видавці заявляють права на свій додаток підписом і відповідають зі значком підтверджено. Усе, що ви публікуєте, постійне й публічне.</string>
+    <string name="intro5_body">Стежте за додатками, щоб дізнаватися про нові підписані відгуки, оновлення й відповіді. Видавці заявляють права на свій додаток підписом, а їхні відповіді отримують значок Видавець, коли заявку доведено. Усе, що ви публікуєте, постійне й публічне.</string>
     <string name="review_also_store">Також опублікувати в dApp Store</string>
     <string name="review_also_store_hint">Копіює вашу примітку й відкриває сторінку, де ви публікуєте її в розділі \"Оцінки та відгуки\" → \"Залиште відгук цьому децентралізованому застосунку\". У магазину немає способу, щоб інший додаток опублікував за вас, тож останні дотики — за вами.</string>
     <string name="flag">Позначити</string>
@@ -258,7 +257,7 @@
     <string name="inbox_unanswered">Без відповіді</string>
     <string name="inbox_replies">Відповіді мені</string>
     <string name="inbox_starred">Обране</string>
-    <string name="inbox_unanswered_sub">Підписані відгуки на додатки, які ви підтвердили як видавець, без вашої відповіді.</string>
+    <string name="inbox_unanswered_sub">Підписані відгуки на додатки, де ви доведений видавець, без вашої відповіді.</string>
     <string name="inbox_unanswered_empty">Нічого не очікує. Підтвердьте заявку видавця, щоб побачити тут свої додатки.</string>
     <string name="inbox_replies_empty">Поки немає відповідей на ваші записи.</string>
     <string name="inbox_starred_empty">Додайте відгук до обраного, щоб він залишився тут.</string>
@@ -267,7 +266,7 @@
     <string name="profile_credibility_sub">40 базових, +30 за збіг тегів з іншими підписантами, +10 за отримані голоси Корисно, +20 за позначки, підтверджені консенсусом, −50 × частка записів, прихованих консенсусом. Опублікована формула, нічого до неї не прив\'язано.</string>
     <string name="profile_flags">Підписані позначки: %1$d · Підтверджено: %2$d · Отримано: %3$d · Приховані записи: %4$d</string>
     <string name="profile_replied">Відповідає на відповіді до своїх відгуків у %1$s випадків</string>
-    <string name="profile_publishes">Підтверджений видавець</string>
+    <string name="profile_publishes">Доведений видавець</string>
     <string name="profile_reviews">Підписані відгуки</string>
     <string name="responsiveness_line">Відповідає на підписані відгуки за %1$s · відповідено на %2$d з %3$d</string>
     <string name="responsiveness_never">Ще не відповів(ла) на жоден підписаний відгук</string>
@@ -295,7 +294,7 @@
     <string name="clear_body">Голос \"виглядає справжнім\" компенсує позначки цього запису. Один на гаманець, зважений як позначка. Використовуйте його, якщо вважаєте позначки помилковими.</string>
     <string name="unvote">Вилучити мій голос Корисно</string>
     <string name="flag_net">нетто %1$s</string>
-    <string name="publisher_flags_ignored">Позначки від підтвердженого видавця на відгуках про його власний додаток не враховуються; натомість дайте відповідь.</string>
+    <string name="publisher_flags_ignored">Позначки доведеного видавця додатка на відгуках про його власний додаток не враховуються; натомість дайте відповідь.</string>
     <string name="hidden_reply">Відповідь приховано за консенсусом</string>
     <string name="review_self_published">Не враховується — власний додаток видавця</string>
     <string name="attest_title">Що вважається голосом</string>
@@ -348,8 +347,8 @@
     <string name="stats_apps">dApps із підписаним відгуком</string>
     <string name="stats_apps_scored">dApps із рейтингом</string>
     <string name="stats_replies">Відповіді</string>
-    <string name="stats_publisher_replies">з них від підтвердженого видавця</string>
-    <string name="stats_claims">Заявки видавців · підтверджено</string>
+    <string name="stats_publisher_replies">з них від доведеного видавця</string>
+    <string name="stats_claims">Заявки видавців · доведено</string>
     <string name="stats_moderation">Позначки · підтвердження автентичності · оскарження</string>
     <string name="stats_hidden">Приховано за консенсусом</string>
     <string name="stats_withdrawn">Вилучено автором</string>
@@ -407,7 +406,7 @@
     <string name="pro_tool_import_title">Імпортувати їх усі назад</string>
     <string name="pro_tool_import_body">Кожен написаний вами відгук у магазині підписується в реєстр одним підтвердженням замість по одному.</string>
     <string name="pro_tool_desk_title">Панель видавця</string>
-    <string name="pro_tool_desk_body">Черга без відповіді та відповідальність за всіма підтвердженими вами dApps в одному списку.</string>
+    <string name="pro_tool_desk_body">Черга без відповіді та швидкість відповідей за всіма dApps, де ви доведений видавець, в одному списку.</string>
     <string name="pro_tool_export_title">Експортувати реєстр</string>
     <string name="pro_tool_export_body">Будь-яку dApp, будь-якого підписанта, як CSV чи JSON. Дані публічні; Pro читає їх за вас.</string>
     <string name="pro_tool_watch_title">Щогодинне спостереження за сертифікатом</string>
@@ -498,7 +497,7 @@
     <string name="fp_read">Читати весь реєстр</string>
     <string name="fp_sign">Підписувати відгуки, відповіді, позначки, оскарження</string>
     <string name="fp_facts">Що може перевірити ваш пристрій</string>
-    <string name="fp_claim">Заявити права на dApp, відповідати зі значком підтверджено</string>
+    <string name="fp_claim">Заявити права на dApp, відповідати як доведений видавець</string>
     <string name="fp_copy">Скопіювати відгук у магазин</string>
     <string name="fp_import">Імпортувати відгуки магазину</string>
     <string name="fp_import_free">по одному</string>
@@ -512,10 +511,10 @@
     <string name="fp_weight_both">однаково — лише пристрій і застейканий SKR</string>
     <string name="desk_title">Панель видавця</string>
     <plurals name="desk_across">
-        <item quantity="one">У всіх ваших %1$d підтверджених dApps</item>
-        <item quantity="few">У всіх ваших %1$d підтверджених dApps</item>
-        <item quantity="many">У всіх ваших %1$d підтверджених dApps</item>
-        <item quantity="other">У всіх ваших %1$d підтверджених dApps</item>
+        <item quantity="one">У всіх ваших %1$d доведених dApps</item>
+        <item quantity="few">У всіх ваших %1$d доведених dApps</item>
+        <item quantity="many">У всіх ваших %1$d доведених dApps</item>
+        <item quantity="other">У всіх ваших %1$d доведених dApps</item>
     </plurals>
     <string name="desk_unanswered">без відповіді</string>
     <string name="desk_median">медіана відповіді</string>
@@ -532,7 +531,7 @@
     </plurals>
     <string name="desk_hours">%1$d год</string>
     <string name="desk_note">Відповідальність зчитується з реєстру, як і все інше: проміжок між підписаним відгуком і вашою підписаною відповіддю. Вона показується читачам на сторінці вашої dApp, тож черга і є продуктом.</string>
-    <string name="desk_none">Поки немає підтверджених dApps. Заявіть права на додаток з його сторінки й підтвердьте вебсайт; звідти панель заповниться.</string>
+    <string name="desk_none">Поки немає доведених dApps. Заявіть права на додаток з його сторінки й доведіть їх (підписана збірка або сайт); звідти панель заповниться.</string>
     <string name="desk_none_waiting">Нічого не очікує.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -752,8 +751,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d однозіркове</item><item quantity="few">%1$d однозіркових</item><item quantity="many">%1$d однозіркових</item><item quantity="other">%1$d однозіркового</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d крок</item><item quantity="few">%1$d кроки</item><item quantity="many">%1$d кроків</item><item quantity="other">%1$d кроку</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Підтверджений видавець — довів контроль над %1$s, відомий з %2$s</string>
-    <string name="publisher_verified_apk">Підтверджений видавець — вказаний всередині власної підписаної збірки додатка</string>
+    <string name="publisher_verified_since">Видавець, доведений сайтом, який указує магазин (%1$s), відомий з %2$s</string>
+    <string name="publisher_verified_apk">Видавець, доведений власною підписаною збіркою додатка на цьому телефоні</string>
     <string name="tag_works">Працює</string>
     <string name="tag_crashes">Вилітає</string>
     <string name="tag_wallet_ok">Гаманець ок</string>
@@ -782,7 +781,7 @@
     <string name="pay_list_fee">Додавання до списку коштує стільки ж, скільки платний рівень наших інших dApps: %1$s або %2$s (%3$s із Seeker Genesis Token). Оплачується один раз за dApp і скарбницю, у тій самій транзакції, що підписує запис. Зміна коду або повторне додавання до списку пізніше коштує лише комісію мережі.</string>
     <string name="pay_list_pay">Заплатити %1$s і додати до списку</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Підтверджений видавець — вказаний усередині збірки, яку віддає магазин</string>
+    <string name="publisher_verified_store">Видавець, доведений збіркою, яку віддає dApp Store</string>
     <string name="publisher_check_build">Перевірити збірку магазину · %1$s</string>
     <string name="publisher_checking_build">Читання збірки магазину…</string>
     <string name="publisher_build_nothing">У збірці магазину не вказано гаманець видавця.</string>
@@ -830,4 +829,21 @@
     <string name="notif_note_title">Видавець відповів на ваш відгук із магазину · %1$s</string>
     <string name="notif_proven_title">Вашу заяву підтверджено · %1$s</string>
     <string name="notif_proven_body">Ваші відповіді на відгуки про цей додаток тепер мають позначку Видавець ✓, а ваші власні відгуки про нього не враховуються.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Вкажіть свій гаманець у додатку (найнадійніший)</string>
+    <string name="claim_route_build_body">Додайте цей рядок усередину &lt;application&gt; у маніфесті додатка й випустіть оновлення в dApp Store. Читачі дивляться збірку, яку віддає магазин: у рядку має бути вказано цей гаманець, а збірку має бути підписано сертифікатом, який указує магазин. Зробити це може лише власник ключа підпису вашого додатка.</string>
+    <string name="claim_route_site_title">2. Або покладіть файл на сайт, який указує магазин</string>
+    <string name="claim_route_site_body">Магазин указує для цього додатка %1$s. Покладіть за адресою %2$s файл з адресою вашого гаманця в одному рядку:\n\n%3$s</string>
+    <string name="claim_route_site_none">Магазин не указує для цього додатка сайт, який міг би це довести (профілі в соцмережах і спільні хостинги не враховуються). Використовуйте підписану збірку.</string>
+    <string name="claim_then_sign">Потім підпишіть заявку. Доки не знайдено одне з двох доказів, заявка показується як недоведена; більше нічого не відбувається. Доказ перевіряється знову щодня.</string>
+    <string name="proof_how_link">Як це доводиться?</string>
+    <string name="proof_how_title">Як доводиться видавець</string>
+    <string name="proof_how_intro">Будь-хто може підписати «Я видаю цей додаток». Підпис лише показує, хто заявляє. Заявку доведено, коли дещо, що контролює лише справжній видавець, називає той самий гаманець.</string>
+    <string name="proof_key_title">Ключ підпису додатка (найнадійніший)</string>
+    <string name="proof_key_body">Кожен додаток Android підписано ключем, який є його особою: магазин указує його сертифікат, а телефони відхиляють оновлення, підписане будь-яким іншим ключем. Коли видавець указує гаманець у маніфесті додатка, рядок міститься всередині підписаної збірки, тож розмістити його там міг лише власник ключа. Undersigned дивиться збірку, яку віддає магазин, або встановлену на цьому телефоні.</string>
+    <string name="proof_site_title">Сайт, який указує магазин</string>
+    <string name="proof_site_body">Видавець задає сайт на порталі видавців магазину. Файл там, що називає гаманець, показує контроль над цим сайтом. Слабше: домени переходять з рук у руки, тому показується дата, коли його вперше побачили. Профілі в соцмережах і спільні хостинги не приймаються.</string>
+    <string name="proof_not_title">Що цього не доводить</string>
+    <string name="proof_not_body">Власний підпис гаманця, платіжна адреса або гаманець, що опублікував додаток у dApp Store. Магазин не повідомляє, який запис у блокчейні належить до якої картки, і будь-хто може створити запис із назвою будь-якого додатка.</string>
+    <string name="proof_how_after">Відповіді доведеного видавця отримують значок Видавець, а його власні відгуки про додаток не враховуються.</string>
 </resources>

@@ -77,14 +77,13 @@
     <string name="fact_store_version">Version code sa store</string>
     <string name="publisher_title">Tagapaglathala</string>
     <string name="publisher_listed">Nakalista ng store bilang %1$s</string>
-    <string name="publisher_verified">Na-verify na publisher — napatunayang kontrolado ang %1$s</string>
-    <string name="publisher_none">Wala pang na-verify na publisher sa ledger.</string>
+    <string name="publisher_verified">Publisher, napatunayan ng website na nakalista ng store (%1$s)</string>
+    <string name="publisher_none">Wala pang napatunayang publisher.</string>
     <string name="publisher_claim">Ako ang naglathala ng app na ito</string>
     <string name="publisher_claim_title">I-claim ang app na ito</string>
-    <string name="publisher_claim_body">Sinusuri ng mga reader ang isang claim laban sa website na nakalista ng store para sa app na ito (%1$s). Maglagay ng file sa %2$s na naglalaman ng iyong wallet address (isang linya):\n\n%3$s\n\nPagkatapos, i-sign ang claim. Awtomatiko ang pag-verify at umuulit ito tuwing 24 na oras. Kung nawawala ang file, mananatili lang na unverified ang claim; wala nang ibang mangyayari.</string>
     <string name="publisher_claim_sign">I-sign ang claim</string>
-    <string name="publisher_claimed_pending">Nasa chain na ang iyong claim pero hindi pa na-verify (hindi nahanap ang file sa nakalistang website).</string>
-    <string name="publisher_badge">Tagapaglathala ✓</string>
+    <string name="publisher_claimed_pending">Naka-sign na ang iyong claim pero hindi pa napatunayan. Ilagay ang pangalan ng wallet mo sa manifest ng app at ilabas ang update, o ilagay ang file sa website na nakalista ng store.</string>
+    <string name="publisher_badge">Publisher</string>
     <string name="versions_title">Ayon sa bersyon</string>
     <string name="versions_row">v%1$d · %2$s · %3$d naka-sign</string>
     <string name="versions_installed">naka-install</string>
@@ -233,7 +232,7 @@
     <string name="intro4_title">Ano ang mapapatunayan ng telepono mo</string>
     <string name="intro4_body">Para sa mga app na naka-install sa iyo, ipinapakita ng Undersigned kung tumutugma ba ang build sa certificate na nakalista ng store at kung nagbago ba ang mga permission. Facts, hindi kailanman verdict.</string>
     <string name="intro5_title">Sundan, maalaman, sumagot</string>
-    <string name="intro5_body">Sundan ang mga app para malaman ang mga bagong naka-sign na review, update at sagot. Kino-claim ng mga publisher ang kanilang app sa pamamagitan ng pag-sign at sumasagot gamit ang na-verify na badge. Permanente at pampubliko ang lahat ng ini-publish mo.</string>
+    <string name="intro5_body">Sundan ang mga app para malaman ang mga bagong naka-sign na review, update at sagot. Kino-claim ng mga publisher ang kanilang app sa pamamagitan ng pag-sign, at taglay ng kanilang mga sagot ang tatak na Publisher kapag napatunayan na ang claim. Permanente at pampubliko ang lahat ng ini-publish mo.</string>
     <string name="review_also_store">I-post din sa dApp Store</string>
     <string name="review_also_store_hint">Kinokopya ang tala mo at binubuksan ang listing, kung saan mo ito ipo-post sa ilalim ng “Ratings &amp; Reviews” → “Review this dApp”. Walang paraan ang store para makapag-post ang ibang app para sa iyo, kaya sa iyo ang huling mga tap.</string>
     <string name="flag">I-flag</string>
@@ -253,7 +252,7 @@
     <string name="inbox_unanswered">Hindi pa nasasagot</string>
     <string name="inbox_replies">Mga sagot sa akin</string>
     <string name="inbox_starred">Naka-star</string>
-    <string name="inbox_unanswered_sub">Mga naka-sign na review sa app na na-verify mo bilang publisher, na wala ka pang sagot.</string>
+    <string name="inbox_unanswered_sub">Mga naka-sign na review sa mga app na ikaw ang napatunayang publisher, na wala ka pang sagot.</string>
     <string name="inbox_unanswered_empty">Walang naghihintay. I-verify ang isang publisher claim para makita ang mga app mo dito.</string>
     <string name="inbox_replies_empty">Wala pang sagot sa mga record mo.</string>
     <string name="inbox_starred_empty">Mag-star ng review para itago ito dito.</string>
@@ -262,7 +261,7 @@
     <string name="profile_credibility_sub">40 base, +30 para sa pagkakasundo ng tag sa ibang signer, +10 para sa mga natanggap na helpful vote, +20 para sa mga flag na pinagtibay ng consensus, −50 × bahagi ng mga record na nakatago ng consensus. Pampublikong formula, walang nakakabit dito.</string>
     <string name="profile_flags">Naka-sign na flag: %1$d · Pinagtibay: %2$d · Natanggap: %3$d · Nakatagong record: %4$d</string>
     <string name="profile_replied">Sumasagot sa mga sagot sa kanilang review %1$s ng oras</string>
-    <string name="profile_publishes">Na-verify na tagapaglathala ng</string>
+    <string name="profile_publishes">Napatunayang publisher ng</string>
     <string name="profile_reviews">Mga naka-sign na review</string>
     <string name="responsiveness_line">Sumasagot ng naka-sign na review sa loob ng %1$s · %2$d sa %3$d ang nasagot</string>
     <string name="responsiveness_never">Wala pa itong nasasagot na naka-sign na review</string>
@@ -290,7 +289,7 @@
     <string name="clear_body">Ang botong clear ay nagbabawas sa mga flag sa record na ito. Isa bawat wallet, may timbang tulad ng flag. Gamitin ito kapag sa tingin mo ay mali ang mga flag.</string>
     <string name="unvote">I-withdraw ang boto kong nakatulong</string>
     <string name="flag_net">neto %1$s</string>
-    <string name="publisher_flags_ignored">Hindi binibilang ang mga flag mula sa isang na-verify na publisher sa mga review ng sarili nilang app; sumagot na lang sa halip.</string>
+    <string name="publisher_flags_ignored">Hindi binibilang ang mga flag mula sa napatunayang publisher ng isang app sa mga review ng sarili nilang app; sumagot na lang sa halip.</string>
     <string name="hidden_reply">Sagot na nakatago ng consensus</string>
     <string name="review_self_published">Hindi binibilang — sariling app ng publisher</string>
     <string name="attest_title">Ano ang binibilang na boses</string>
@@ -341,8 +340,8 @@
     <string name="stats_apps">Mga dApp na may naka-sign na review</string>
     <string name="stats_apps_scored">Mga dApp na may iskor</string>
     <string name="stats_replies">Mga sagot</string>
-    <string name="stats_publisher_replies">sa mga iyon ay mula sa isang na-verify na publisher</string>
-    <string name="stats_claims">Mga claim ng publisher · na-verify</string>
+    <string name="stats_publisher_replies">sa mga iyon ay mula sa isang napatunayang publisher</string>
+    <string name="stats_claims">Mga claim ng publisher · napatunayan</string>
     <string name="stats_moderation">Flag · clear · dispute</string>
     <string name="stats_hidden">Nakatago ng consensus</string>
     <string name="stats_withdrawn">Na-withdraw ng sariling may-akda</string>
@@ -400,7 +399,7 @@
     <string name="pro_tool_import_title">Ibalik ang lahat sa pag-import</string>
     <string name="pro_tool_import_body">Bawat review sa store na isinulat mo, naka-sign sa ledger sa isang approval sa halip na tig-isa.</string>
     <string name="pro_tool_desk_title">Desk ng publisher</string>
-    <string name="pro_tool_desk_body">Ang unanswered na queue at responsiveness sa bawat dApp na na-verify mo, sa isang listahan.</string>
+    <string name="pro_tool_desk_body">Ang unanswered na queue at responsiveness sa bawat dApp na ikaw ang napatunayang publisher, sa isang listahan.</string>
     <string name="pro_tool_export_title">I-export ang ledger</string>
     <string name="pro_tool_export_body">Anumang dApp, anumang signer, bilang CSV o JSON. Pampubliko ang datos; ang Pro na ang bumabasa para sa iyo.</string>
     <string name="pro_tool_watch_title">Oras-oras na pagbantay sa certificate</string>
@@ -487,7 +486,7 @@
     <string name="fp_read">Basahin ang buong ledger</string>
     <string name="fp_sign">Mag-sign ng review, sagot, flag, dispute</string>
     <string name="fp_facts">Ano ang mave-verify ng device mo</string>
-    <string name="fp_claim">Mag-claim ng dApp, sumagot gamit ang na-verify na badge</string>
+    <string name="fp_claim">Mag-claim ng dApp, sumagot bilang napatunayang publisher nito</string>
     <string name="fp_copy">Kopyahin ang isang review sa store</string>
     <string name="fp_import">I-import ang mga review sa store</string>
     <string name="fp_import_free">tig-isa</string>
@@ -501,8 +500,8 @@
     <string name="fp_weight_both">pareho — mula sa device at naka-stake na SKR lang</string>
     <string name="desk_title">Desk ng publisher</string>
     <plurals name="desk_across">
-        <item quantity="one">Sa lahat ng %1$d na na-verify mong dApp</item>
-        <item quantity="other">Sa lahat ng %1$d na na-verify mong dApp</item>
+        <item quantity="one">Sa lahat ng %1$d na napatunayan mong dApp</item>
+        <item quantity="other">Sa lahat ng %1$d na napatunayan mong dApp</item>
     </plurals>
     <string name="desk_unanswered">hindi pa sinasagot</string>
     <string name="desk_median">median na oras ng pagsagot</string>
@@ -517,7 +516,7 @@
     </plurals>
     <string name="desk_hours">%1$d oras</string>
     <string name="desk_note">Binabasa ang responsiveness mula sa ledger tulad ng lahat ng iba pa: ang agwat sa pagitan ng naka-sign na review at ng naka-sign mong sagot. Ipinapakita ito sa mga reader sa dApp page mo, kaya ang queue mismo ang sukatan.</string>
-    <string name="desk_none">Wala pang na-verify na dApp. Mag-claim ng app mula sa page nito at patunayan ang website; magsisimulang mapuno ang desk mula doon.</string>
+    <string name="desk_none">Wala pang napatunayang dApp. Mag-claim ng app mula sa page nito at patunayan ito (naka-sign na build o website); magsisimulang mapuno ang desk mula doon.</string>
     <string name="desk_none_waiting">Walang naghihintay.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -738,8 +737,8 @@
     <plurals name="watch_count_high"><item quantity="one">%1$d limang-bituin</item><item quantity="other">%1$d limang-bituin</item></plurals>
     <plurals name="watch_count_low"><item quantity="one">%1$d isang-bituin</item><item quantity="other">%1$d isang-bituin</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Na-verify na publisher — napatunayang kontrolado ang %1$s, nakita mula noong %2$s</string>
-    <string name="publisher_verified_apk">Na-verify na publisher — nakalagay ang pangalan sa loob ng sarili nitong naka-sign na build ng app</string>
+    <string name="publisher_verified_since">Publisher, napatunayan ng website na nakalista ng store (%1$s), nakita mula noong %2$s</string>
+    <string name="publisher_verified_apk">Publisher, napatunayan ng sariling naka-sign na build ng app sa phone na ito</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Gumagana</string>
     <string name="tag_crashes">Nagko-crash</string>
@@ -769,7 +768,7 @@
     <string name="pay_list_fee">Ang pag-list ay nagkakahalaga ng kapareho ng paid tier ng aming iba pang dApps: %1$s o %2$s (%3$s kasama ang Seeker Genesis Token). Binabayaran ito isang beses kada dApp at treasury, sa parehong transaction na nag-sign sa listing. Ang pagbabago ng code o pag-list ulit sa hinaharap ay nagkakahalaga lang ng network fee.</string>
     <string name="pay_list_pay">Bayaran ang %1$s at i-list</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Na-verify na publisher — nakalagay ang pangalan sa loob ng build na inihahatid ng store</string>
+    <string name="publisher_verified_store">Publisher, napatunayan ng build na inihahatid ng dApp Store</string>
     <string name="publisher_check_build">Suriin ang build ng store · %1$s</string>
     <string name="publisher_checking_build">Binabasa ang build ng store…</string>
     <string name="publisher_build_nothing">Walang pinangalanang wallet ng publisher sa build ng store.</string>
@@ -817,4 +816,21 @@
     <string name="notif_note_title">Sumagot ang tagapaglathala sa review mo sa store · %1$s</string>
     <string name="notif_proven_title">Napatunayan ang claim mo · %1$s</string>
     <string name="notif_proven_body">Ang mga sagot mo sa mga review ng app na ito ay may marka na ngayong Tagapaglathala ✓, at hindi binibilang ang sarili mong mga review nito.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Ilagay ang wallet mo sa app mo (pinakamalakas)</string>
+    <string name="claim_route_build_body">Idagdag ang linyang ito sa loob ng &lt;application&gt; sa manifest ng app mo at ilabas ang update sa dApp Store. Sinusuri ng mga mambabasa ang build na inihahatid ng store: dapat nakalagay sa linya ang wallet na ito at dapat naka-sign ang build gamit ang certificate na nakalista ng store. Ang may hawak lang ng signing key ng app mo ang makakagawa nito.</string>
+    <string name="claim_route_site_title">2. O maglagay ng file sa website na nakalista ng store</string>
+    <string name="claim_route_site_body">Nakalista ng store ang %1$s para sa app na ito. Maglagay ng file sa %2$s na naglalaman ng wallet address mo sa isang linya:\n\n%3$s</string>
+    <string name="claim_route_site_none">Walang nakalistang website ang store para sa app na ito na makapagpapatunay nito (hindi binibilang ang mga social profile at shared host). Gamitin ang naka-sign na build.</string>
+    <string name="claim_then_sign">Pagkatapos, i-sign ang claim. Hangga\'t wala pang nahahanap na isa sa dalawang patunay, nakikitang hindi pa napatunayan ang claim; wala nang ibang mangyayari. Sinusuri muli ang patunay araw-araw.</string>
+    <string name="proof_how_link">Paano ito napapatunayan?</string>
+    <string name="proof_how_title">Paano napapatunayan ang isang publisher</string>
+    <string name="proof_how_intro">Kahit sino ay puwedeng mag-sign ng \"Ako ang nag-publish ng app na ito\". Ipinapakita lang ng signature kung sino ang nag-claim. Napatunayan ang isang claim kapag may bagay na ang tunay na publisher lang ang may kontrol na nagpapangalan sa parehong wallet.</string>
+    <string name="proof_key_title">Ang signing key ng app (pinakamalakas)</string>
+    <string name="proof_key_body">Bawat Android app ay naka-sign gamit ang key na siyang pagkakakilanlan nito: nakalista ng store ang certificate nito, at tinatanggihan ng mga phone ang update na naka-sign ng ibang key. Kapag nilagay ng publisher ang pangalan ng wallet sa loob ng manifest ng app, nasa loob ng naka-sign na build ang linya, kaya ang may hawak lang ng key ang makapaglalagay nito roon. Sinusuri ng Undersigned ang build na inihahatid ng store, o ang naka-install sa phone na ito.</string>
+    <string name="proof_site_title">Ang website na nakalista ng store</string>
+    <string name="proof_site_body">Itinatakda ng publisher ang website sa publisher portal ng store. Ang file doon na nagpapangalan sa wallet ay nagpapakita ng kontrol sa site na iyon. Mas mahina: nagpapalit-palit ng may-ari ang mga domain, kaya ipinapakita ang petsa kung kailan ito unang nakita. Hindi tinatanggap ang mga social profile at shared host.</string>
+    <string name="proof_not_title">Ang hindi nagpapatunay nito</string>
+    <string name="proof_not_body">Ang sariling signature ng wallet, isang payment address, o ang wallet na nag-publish ng app sa dApp Store. Hindi sinasabi ng store kung aling on-chain record ang kabilang sa aling listing, at kahit sino ay puwedeng gumawa ng isang nagpapangalan sa kahit anong app.</string>
+    <string name="proof_how_after">Taglay ng mga sagot ng napatunayang publisher ang tatak na Publisher, at hindi binibilang ang sarili nilang mga review ng app.</string>
 </resources>

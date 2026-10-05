@@ -74,14 +74,13 @@
     <string name="fact_store_version">Kod wersji w sklepie</string>
     <string name="publisher_title">Wydawca</string>
     <string name="publisher_listed">Wymieniony przez sklep jako %1$s</string>
-    <string name="publisher_verified">Zweryfikowany wydawca — udowodniono kontrolę nad %1$s</string>
-    <string name="publisher_none">Brak zweryfikowanego wydawcy w rejestrze.</string>
+    <string name="publisher_verified">Wydawca, udowodniony przez stronę, którą podaje sklep (%1$s)</string>
+    <string name="publisher_none">Brak udowodnionego wydawcy.</string>
     <string name="publisher_claim">Publikuję tę aplikację</string>
     <string name="publisher_claim_title">Zgłoś tę aplikację</string>
-    <string name="publisher_claim_body">Czytelnicy weryfikują zgłoszenie względem strony internetowej podanej przez sklep dla tej aplikacji (%1$s). Umieść plik pod adresem %2$s zawierający adres Twojego portfela (jedna linia):\n\n%3$s\n\nNastępnie podpisz zgłoszenie. Weryfikacja jest automatyczna i powtarza się co 24 godziny. Jeśli plik nie zostanie znaleziony, zgłoszenie po prostu pozostaje niezweryfikowane; nic więcej się nie dzieje.</string>
     <string name="publisher_claim_sign">Podpisz zgłoszenie</string>
-    <string name="publisher_claimed_pending">Twoje zgłoszenie znajduje się na blockchainie, ale nie zostało jeszcze zweryfikowane (nie znaleziono pliku na podanej stronie).</string>
-    <string name="publisher_badge">Wydawca ✓</string>
+    <string name="publisher_claimed_pending">Twoje zgłoszenie jest podpisane, ale jeszcze nie udowodnione. Wpisz swój portfel w manifeście aplikacji i wydaj aktualizację albo umieść plik na stronie, którą podaje sklep.</string>
+    <string name="publisher_badge">Wydawca</string>
     <string name="versions_title">Według wersji</string>
     <string name="versions_row">v%1$d · %2$s · %3$d podpisanych</string>
     <string name="versions_installed">zainstalowana</string>
@@ -238,7 +237,7 @@
     <string name="intro4_title">Co może udowodnić Twój telefon</string>
     <string name="intro4_body">Dla zainstalowanych aplikacji Undersigned pokazuje, czy kompilacja odpowiada certyfikatowi podanemu przez sklep i czy zmieniły się uprawnienia. Fakty, nigdy wyroki.</string>
     <string name="intro5_title">Obserwuj, bądź informowany, odpowiadaj</string>
-    <string name="intro5_body">Obserwuj aplikacje, aby dowiadywać się o nowych podpisanych recenzjach, aktualizacjach i odpowiedziach. Wydawcy zgłaszają swoją aplikację podpisem i odpowiadają z odznaką zweryfikowany. Wszystko, co publikujesz, jest trwałe i publiczne.</string>
+    <string name="intro5_body">Obserwuj aplikacje, aby dowiadywać się o nowych podpisanych recenzjach, aktualizacjach i odpowiedziach. Wydawcy zgłaszają swoją aplikację podpisem, a ich odpowiedzi noszą odznakę Wydawca, gdy zgłoszenie jest udowodnione. Wszystko, co publikujesz, jest trwałe i publiczne.</string>
     <string name="review_also_store">Opublikuj też w dApp Store</string>
     <string name="review_also_store_hint">Kopiuje Twoją notatkę i otwiera ofertę, gdzie publikujesz ją w sekcji \"Oceny i Recenzje\" → \"Zrecenzuj tę dApp\". Sklep nie ma sposobu, aby inna aplikacja opublikowała coś za Ciebie, więc ostatnie dotknięcia należą do Ciebie.</string>
     <string name="flag">Oznacz</string>
@@ -258,7 +257,7 @@
     <string name="inbox_unanswered">Bez odpowiedzi</string>
     <string name="inbox_replies">Odpowiedzi do mnie</string>
     <string name="inbox_starred">Ulubione</string>
-    <string name="inbox_unanswered_sub">Podpisane recenzje aplikacji, które zweryfikowałeś jako wydawca, bez Twojej odpowiedzi.</string>
+    <string name="inbox_unanswered_sub">Podpisane recenzje aplikacji, których jesteś udowodnionym wydawcą, bez Twojej odpowiedzi.</string>
     <string name="inbox_unanswered_empty">Nic nie czeka. Zweryfikuj zgłoszenie wydawcy, aby zobaczyć tutaj swoje aplikacje.</string>
     <string name="inbox_replies_empty">Jeszcze brak odpowiedzi na Twoje wpisy.</string>
     <string name="inbox_starred_empty">Dodaj recenzję do ulubionych, aby została tutaj.</string>
@@ -267,7 +266,7 @@
     <string name="profile_credibility_sub">40 bazy, +30 za zgodność tagów z innymi sygnatariuszami, +10 za otrzymane głosy Pomocne, +20 za oznaczenia potwierdzone konsensusem, −50 × udział wpisów ukrytych przez konsensus. Opublikowany wzór, nic z tym nie jest powiązane.</string>
     <string name="profile_flags">Podpisane oznaczenia: %1$d · Potwierdzone: %2$d · Otrzymane: %3$d · Ukryte wpisy: %4$d</string>
     <string name="profile_replied">Odpowiada na odpowiedzi do swoich recenzji w %1$s przypadków</string>
-    <string name="profile_publishes">Zweryfikowany wydawca aplikacji</string>
+    <string name="profile_publishes">Udowodniony wydawca aplikacji</string>
     <string name="profile_reviews">Podpisane recenzje</string>
     <string name="responsiveness_line">Odpowiada na podpisane recenzje w ciągu %1$s · odpowiedziano na %2$d z %3$d</string>
     <string name="responsiveness_never">Jeszcze nie odpowiedział(a) na żadną podpisaną recenzję</string>
@@ -295,7 +294,7 @@
     <string name="clear_body">Głos \"wygląda autentycznie\" równoważy oznaczenia tego wpisu. Jeden na portfel, ważony jak oznaczenie. Użyj go, gdy uważasz, że oznaczenia są błędne.</string>
     <string name="unvote">Wycofaj mój głos Pomocne</string>
     <string name="flag_net">netto %1$s</string>
-    <string name="publisher_flags_ignored">Oznaczenia od zweryfikowanego wydawcy na recenzjach jego własnej aplikacji się nie liczą; zamiast tego odpowiedz.</string>
+    <string name="publisher_flags_ignored">Oznaczenia od udowodnionego wydawcy aplikacji na recenzjach jego własnej aplikacji się nie liczą; zamiast tego odpowiedz.</string>
     <string name="hidden_reply">Odpowiedź ukryta przez konsensus</string>
     <string name="review_self_published">Nieliczone — własna aplikacja wydawcy</string>
     <string name="attest_title">Co liczy się jako głos</string>
@@ -348,8 +347,8 @@
     <string name="stats_apps">dApps z podpisaną recenzją</string>
     <string name="stats_apps_scored">dApps z wynikiem</string>
     <string name="stats_replies">Odpowiedzi</string>
-    <string name="stats_publisher_replies">z nich od zweryfikowanego wydawcy</string>
-    <string name="stats_claims">Zgłoszenia wydawców · zweryfikowane</string>
+    <string name="stats_publisher_replies">z nich od udowodnionego wydawcy</string>
+    <string name="stats_claims">Zgłoszenia wydawców · udowodnione</string>
     <string name="stats_moderation">Oznaczenia · potwierdzenia autentyczności · zakwestionowania</string>
     <string name="stats_hidden">Ukryte przez konsensus</string>
     <string name="stats_withdrawn">Wycofane przez autora</string>
@@ -407,7 +406,7 @@
     <string name="pro_tool_import_title">Zaimportuj je wszystkie z powrotem</string>
     <string name="pro_tool_import_body">Każdą recenzję ze sklepu, którą napisałeś, podpiszesz do rejestru jednym zatwierdzeniem zamiast pojedynczo.</string>
     <string name="pro_tool_desk_title">Panel wydawcy</string>
-    <string name="pro_tool_desk_body">Kolejka nieodpowiedzianych i responsywność we wszystkich zweryfikowanych przez Ciebie dApps, w jednej liście.</string>
+    <string name="pro_tool_desk_body">Kolejka nieodpowiedzianych i responsywność we wszystkich dApps, których jesteś udowodnionym wydawcą, w jednej liście.</string>
     <string name="pro_tool_export_title">Eksportuj rejestr</string>
     <string name="pro_tool_export_body">Dowolną dApp, dowolnego sygnatariusza, jako CSV lub JSON. Dane są publiczne; Pro czyta je za Ciebie.</string>
     <string name="pro_tool_watch_title">Godzinowe monitorowanie certyfikatu</string>
@@ -498,7 +497,7 @@
     <string name="fp_read">Czytaj cały rejestr</string>
     <string name="fp_sign">Podpisuj recenzje, odpowiedzi, oznaczenia, zakwestionowania</string>
     <string name="fp_facts">Co może zweryfikować Twoje urządzenie</string>
-    <string name="fp_claim">Zgłoś dApp, odpowiadaj z odznaką zweryfikowany</string>
+    <string name="fp_claim">Zgłoś dApp, odpowiadaj jako jego udowodniony wydawca</string>
     <string name="fp_copy">Skopiuj recenzję do sklepu</string>
     <string name="fp_import">Importuj recenzje ze sklepu</string>
     <string name="fp_import_free">pojedynczo</string>
@@ -512,10 +511,10 @@
     <string name="fp_weight_both">tak samo — tylko urządzenie i zastawiony SKR</string>
     <string name="desk_title">Panel wydawcy</string>
     <plurals name="desk_across">
-        <item quantity="one">We wszystkich %1$d zweryfikowanych dApps</item>
-        <item quantity="few">We wszystkich %1$d zweryfikowanych dApps</item>
-        <item quantity="many">We wszystkich %1$d zweryfikowanych dApps</item>
-        <item quantity="other">We wszystkich %1$d zweryfikowanych dApps</item>
+        <item quantity="one">We wszystkich %1$d udowodnionych dApps</item>
+        <item quantity="few">We wszystkich %1$d udowodnionych dApps</item>
+        <item quantity="many">We wszystkich %1$d udowodnionych dApps</item>
+        <item quantity="other">We wszystkich %1$d udowodnionych dApps</item>
     </plurals>
     <string name="desk_unanswered">bez odpowiedzi</string>
     <string name="desk_median">mediana odpowiedzi</string>
@@ -532,7 +531,7 @@
     </plurals>
     <string name="desk_hours">%1$d godz.</string>
     <string name="desk_note">Responsywność jest odczytywana z rejestru jak wszystko inne: odstęp między podpisaną recenzją a Twoją podpisaną odpowiedzią. Jest pokazywana czytelnikom na stronie Twojej dApp, więc kolejka jest produktem.</string>
-    <string name="desk_none">Jeszcze brak zweryfikowanych dApps. Zgłoś aplikację z jej strony i udowodnij witrynę; panel wypełni się stamtąd.</string>
+    <string name="desk_none">Jeszcze brak udowodnionych dApps. Zgłoś aplikację z jej strony i udowodnij zgłoszenie (podpisana kompilacja lub strona); panel wypełni się stamtąd.</string>
     <string name="desk_none_waiting">Nic nie czeka.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -752,8 +751,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d jednogwiazdkowe</item><item quantity="few">%1$d jednogwiazdkowe</item><item quantity="many">%1$d jednogwiazdkowych</item><item quantity="other">%1$d jednogwiazdkowych</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d krok</item><item quantity="few">%1$d kroki</item><item quantity="many">%1$d kroków</item><item quantity="other">%1$d kroku</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Zweryfikowany wydawca — udowodniono kontrolę nad %1$s, znany od %2$s</string>
-    <string name="publisher_verified_apk">Zweryfikowany wydawca — wymieniony we własnej podpisanej kompilacji aplikacji</string>
+    <string name="publisher_verified_since">Wydawca, udowodniony przez stronę, którą podaje sklep (%1$s), znany od %2$s</string>
+    <string name="publisher_verified_apk">Wydawca, udowodniony przez własną podpisaną kompilację aplikacji na tym telefonie</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Działa</string>
     <string name="tag_crashes">Awarie</string>
@@ -783,7 +782,7 @@
     <string name="pay_list_fee">Wystawienie kosztuje tyle samo co płatny poziom naszych pozostałych dApps: %1$s lub %2$s (%3$s z Seeker Genesis Token). Opłata pobierana jest raz na dApp i skarbiec, w tej samej transakcji, która podpisuje wpis. Zmiana kodu lub ponowne wystawienie później kosztuje tylko opłatę sieciową.</string>
     <string name="pay_list_pay">Zapłać %1$s i wystaw</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Zweryfikowany wydawca — wymieniony w kompilacji, którą udostępnia sklep</string>
+    <string name="publisher_verified_store">Wydawca, udowodniony przez kompilację, którą udostępnia dApp Store</string>
     <string name="publisher_check_build">Sprawdź kompilację sklepu · %1$s</string>
     <string name="publisher_checking_build">Odczytywanie kompilacji sklepu…</string>
     <string name="publisher_build_nothing">Kompilacja sklepu nie wymienia portfela wydawcy.</string>
@@ -831,4 +830,21 @@
     <string name="notif_note_title">Wydawca odpowiedział na Twoją recenzję ze sklepu · %1$s</string>
     <string name="notif_proven_title">Twoje roszczenie jest potwierdzone · %1$s</string>
     <string name="notif_proven_body">Twoje odpowiedzi na recenzje tej aplikacji noszą teraz oznaczenie Wydawca ✓, a Twoje własne recenzje tej aplikacji nie są liczone.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Wpisz swój portfel w swojej aplikacji (najsilniejsze)</string>
+    <string name="claim_route_build_body">Dodaj tę linię wewnątrz &lt;application&gt; w manifeście swojej aplikacji i wydaj aktualizację w dApp Store. Czytelnicy sprawdzają kompilację, którą udostępnia sklep: linia musi wymieniać ten portfel, a kompilacja musi być podpisana certyfikatem, który podaje sklep. Może to zrobić tylko posiadacz klucza podpisującego Twojej aplikacji.</string>
+    <string name="claim_route_site_title">2. Albo umieść plik na stronie, którą podaje sklep</string>
+    <string name="claim_route_site_body">Sklep podaje dla tej aplikacji %1$s. Umieść pod adresem %2$s plik zawierający adres Twojego portfela w jednej linii:\n\n%3$s</string>
+    <string name="claim_route_site_none">Sklep nie podaje dla tej aplikacji żadnej strony, która mogłaby to udowodnić (profile w mediach społecznościowych i współdzielony hosting się nie liczą). Użyj podpisanej kompilacji.</string>
+    <string name="claim_then_sign">Następnie podpisz zgłoszenie. Dopóki nie zostanie znaleziony jeden z dwóch dowodów, zgłoszenie jest pokazywane jako nieudowodnione; nic więcej się nie dzieje. Dowód jest sprawdzany ponownie każdego dnia.</string>
+    <string name="proof_how_link">Jak to jest udowadniane?</string>
+    <string name="proof_how_title">Jak udowadnia się wydawcę</string>
+    <string name="proof_how_intro">Każdy może podpisać „Wydaję tę aplikację”. Podpis pokazuje tylko, kto zgłasza. Zgłoszenie jest udowodnione, gdy coś, co kontroluje tylko prawdziwy wydawca, wymienia ten sam portfel.</string>
+    <string name="proof_key_title">Klucz podpisujący aplikacji (najsilniejszy)</string>
+    <string name="proof_key_body">Każda aplikacja Android jest podpisana kluczem, który jest jej tożsamością: sklep podaje jego certyfikat, a telefony odrzucają aktualizację podpisaną innym kluczem. Gdy wydawca wymienia portfel w manifeście aplikacji, linia znajduje się wewnątrz podpisanej kompilacji, więc mógł ją tam umieścić tylko posiadacz klucza. Undersigned sprawdza kompilację, którą udostępnia sklep, albo tę zainstalowaną na tym telefonie.</string>
+    <string name="proof_site_title">Strona, którą podaje sklep</string>
+    <string name="proof_site_body">Wydawca ustawia stronę w portalu wydawców sklepu. Plik tam, wymieniający portfel, pokazuje kontrolę nad tą stroną. Słabsze: domeny zmieniają właścicieli, dlatego pokazywana jest data pierwszego zobaczenia. Profile w mediach społecznościowych i współdzielony hosting nie są akceptowane.</string>
+    <string name="proof_not_title">Czego to nie dowodzi</string>
+    <string name="proof_not_body">Własny podpis portfela, adres płatności albo portfel, który opublikował aplikację w dApp Store. Sklep nie mówi, który wpis on-chain należy do którego wpisu w sklepie, a każdy może utworzyć taki, który wymienia dowolną aplikację.</string>
+    <string name="proof_how_after">Odpowiedzi udowodnionego wydawcy noszą odznakę Wydawca, a jego własne recenzje aplikacji nie są liczone.</string>
 </resources>

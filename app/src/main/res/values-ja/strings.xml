@@ -71,14 +71,13 @@
     <string name="fact_store_version">ストアのバージョンコード</string>
     <string name="publisher_title">パブリッシャー</string>
     <string name="publisher_listed">ストアの登録名：%1$s</string>
-    <string name="publisher_verified">検証済みパブリッシャー — %1$sの管理権を証明済み</string>
-    <string name="publisher_none">まだ台帳に検証済みパブリッシャーがいません。</string>
+    <string name="publisher_verified">パブリッシャー、ストアが掲載するウェブサイト（%1$s）により証明済み</string>
+    <string name="publisher_none">証明済みのパブリッシャーはまだいません。</string>
     <string name="publisher_claim">このアプリを公開しています</string>
     <string name="publisher_claim_title">このアプリの権利を主張する</string>
-    <string name="publisher_claim_body">読者は、このアプリについてストアに記載されているウェブサイト（%1$s）に対して主張を検証します。%2$s にウォレットアドレスを1行だけ記載したファイルを置いてください：\n\n%3$s\n\nその後、主張に署名してください。検証は自動で行われ、24時間ごとに繰り返されます。ファイルが見つからない場合、主張は単に未検証のままとなり、それ以外は何も起こりません。</string>
     <string name="publisher_claim_sign">主張に署名</string>
-    <string name="publisher_claimed_pending">あなたの主張はオンチェーンに記録されていますが、まだ検証されていません（記載のウェブサイトでファイルが見つかりません）。</string>
-    <string name="publisher_badge">パブリッシャー ✓</string>
+    <string name="publisher_claimed_pending">あなたの主張は署名済みですが、まだ証明されていません。アプリのマニフェストにウォレットを記載して更新をリリースするか、ストアが掲載するウェブサイトにファイルを置いてください。</string>
+    <string name="publisher_badge">パブリッシャー</string>
     <string name="versions_title">バージョン別</string>
     <string name="versions_row">v%1$d・%2$s・%3$d件の署名</string>
     <string name="versions_installed">インストール済み</string>
@@ -220,7 +219,7 @@
     <string name="intro4_title">あなたの端末が証明できること</string>
     <string name="intro4_body">インストール済みのアプリについて、Undersigned はビルドがストア記載の証明書と一致しているか、権限が変更されていないかを表示します。事実のみで、判定は行いません。</string>
     <string name="intro5_title">フォローして、知らせを受け取り、返信する</string>
-    <string name="intro5_body">アプリをフォローすると、新しい署名付きレビュー、更新、返信を知ることができます。パブリッシャーは署名してアプリの権利を主張し、検証済みバッジを付けて返信します。公開した内容はすべて永久に残り、公開されます。</string>
+    <string name="intro5_body">アプリをフォローすると、新しい署名付きレビュー、更新、返信を知ることができます。パブリッシャーは署名してアプリの権利を主張し、主張が証明されると返信に「パブリッシャー」マークが付きます。公開した内容はすべて永久に残り、公開されます。</string>
     <string name="review_also_store">dApp Store にも投稿</string>
     <string name="review_also_store_hint">メモをコピーしてリスティングを開き、「評価 &amp;レビュー」→「このdAppをレビュー」の下でご自身が投稿します。ストアには他のアプリが代わりに投稿する仕組みがないため、最後の操作はご自身で行っていただきます。</string>
     <string name="flag">フラグ</string>
@@ -240,7 +239,7 @@
     <string name="inbox_unanswered">未回答</string>
     <string name="inbox_replies">自分への返信</string>
     <string name="inbox_starred">スター付き</string>
-    <string name="inbox_unanswered_sub">パブリッシャーとして検証したアプリへの署名付きレビューのうち、あなたからの返信がないもの。</string>
+    <string name="inbox_unanswered_sub">あなたが証明済みパブリッシャーであるアプリへの署名付きレビューのうち、あなたからの返信がないもの。</string>
     <string name="inbox_unanswered_empty">待機中の項目はありません。パブリッシャーの主張を検証すると、ここにあなたのアプリが表示されます。</string>
     <string name="inbox_replies_empty">あなたのレコードへの返信はまだありません。</string>
     <string name="inbox_starred_empty">レビューにスターを付けると、ここに保存されます。</string>
@@ -249,7 +248,7 @@
     <string name="profile_credibility_sub">基本40点、他の署名者とのタグの一致で+30点、受け取った「参考になった」票で+10点、合意で支持されたフラグで+20点、合意で非表示になったレコードの割合×−50点。公開された計算式であり、それ以上の意味はありません。</string>
     <string name="profile_flags">署名したフラグ:%1$d件 · 支持:%2$d件 · 受信:%3$d件 · 非表示:%4$d件</string>
     <string name="profile_replied">レビューへの返信に%1$sの割合で応答</string>
-    <string name="profile_publishes">検証済みパブリッシャー：</string>
+    <string name="profile_publishes">証明済みパブリッシャー：</string>
     <string name="profile_reviews">署名付きレビュー</string>
     <string name="responsiveness_line">署名付きレビューに%1$sで応答 · %3$d件中%2$d件に回答済み</string>
     <string name="responsiveness_never">署名付きレビューにまだ回答していません</string>
@@ -277,7 +276,7 @@
     <string name="clear_body">「本物だと思う」票は、このレコードのフラグを相殺します。1ウォレットにつき1票で、フラグと同じ重み付けです。フラグが誤りだと思うときに使用してください。</string>
     <string name="unvote">自分の「参考になった」票を取り下げる</string>
     <string name="flag_net">正味 %1$s</string>
-    <string name="publisher_flags_ignored">検証済みパブリッシャーが自分のアプリのレビューに立てたフラグはカウントされません。代わりに返信してください。</string>
+    <string name="publisher_flags_ignored">アプリの証明済みパブリッシャーが自分のアプリのレビューに立てたフラグはカウントされません。代わりに返信してください。</string>
     <string name="hidden_reply">合意により非表示の返信</string>
     <string name="review_self_published">カウント対象外 — パブリッシャー自身のアプリ</string>
     <string name="attest_title">何が「声」としてカウントされるか</string>
@@ -328,8 +327,8 @@
     <string name="stats_apps">署名付きレビューのある dApp</string>
     <string name="stats_apps_scored">スコアのある dApp</string>
     <string name="stats_replies">返信</string>
-    <string name="stats_publisher_replies">そのうち検証済みパブリッシャーからの返信</string>
-    <string name="stats_claims">パブリッシャーの主張 · 検証済み</string>
+    <string name="stats_publisher_replies">そのうち証明済みパブリッシャーからの返信</string>
+    <string name="stats_claims">パブリッシャーの主張 · 証明済み</string>
     <string name="stats_moderation">フラグ · 本物だと思う票 · 異議</string>
     <string name="stats_hidden">合意により非表示</string>
     <string name="stats_withdrawn">投稿者によって取り下げ</string>
@@ -387,7 +386,7 @@
     <string name="pro_tool_import_title">すべてをまとめてインポート</string>
     <string name="pro_tool_import_body">あなたが書いたすべてのストアレビューを、1件ずつではなく、1回の承認で台帳に署名します。</string>
     <string name="pro_tool_desk_title">パブリッシャーデスク</string>
-    <string name="pro_tool_desk_body">検証済みのすべての dApp について、未回答のキューと応答状況を1つのリストで確認できます。</string>
+    <string name="pro_tool_desk_body">証明済みパブリッシャーであるすべての dApp について、未回答のキューと応答状況を1つのリストで見られます。</string>
     <string name="pro_tool_export_title">台帳をエクスポート</string>
     <string name="pro_tool_export_body">任意の dApp、任意の署名者のデータを CSV または JSON で出力します。データは公開されており、Pro が読み取り作業を代行します。</string>
     <string name="pro_tool_watch_title">1時間ごとの証明書ウォッチ</string>
@@ -472,7 +471,7 @@
     <string name="fp_read">台帳をすべて読む</string>
     <string name="fp_sign">レビュー・返信・フラグ・異議に署名</string>
     <string name="fp_facts">端末が確認できること</string>
-    <string name="fp_claim">dApp の権利を主張し、検証済みバッジで返信</string>
+    <string name="fp_claim">dApp の権利を主張し、証明済みパブリッシャーとして返信</string>
     <string name="fp_copy">レビューをストアにコピー</string>
     <string name="fp_import">ストアレビューをインポート</string>
     <string name="fp_import_free">1件ずつ</string>
@@ -486,7 +485,7 @@
     <string name="fp_weight_both">同じ — 端末とステークされた SKR のみ</string>
     <string name="desk_title">パブリッシャーデスク</string>
     <plurals name="desk_across">
-        <item quantity="other">検証済みの%1$d件の dApp すべてで</item>
+        <item quantity="other">証明済みの%1$d件の dApp すべてで</item>
     </plurals>
     <string name="desk_unanswered">未回答</string>
     <string name="desk_median">返信の中央値</string>
@@ -500,7 +499,7 @@
     </plurals>
     <string name="desk_hours">%1$d時間</string>
     <string name="desk_note">応答性も他の情報と同様に台帳から読み取られます — 署名付きレビューとあなたの署名付き返信との間隔です。あなたの dApp ページで読者に表示されるため、このキューそのものが成果になります。</string>
-    <string name="desk_none">検証済みの dApp はまだありません。アプリのページから権利を主張し、ウェブサイトを証明してください。そこからデスクに反映されます。</string>
+    <string name="desk_none">証明済みの dApp はまだありません。アプリのページから権利を主張して証明してください（署名済みビルドまたはウェブサイト）。そこからデスクに反映されます。</string>
     <string name="desk_none_waiting">待機中の項目はありません。</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -720,8 +719,8 @@
     <plurals name="watch_count_low"><item quantity="other">星一つ %1$d件</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d ステップ</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">検証済みパブリッシャー — %1$sの管理権を証明済み、%2$sから確認</string>
-    <string name="publisher_verified_apk">検証済みパブリッシャー — アプリ自体の署名済みビルド内に記載</string>
+    <string name="publisher_verified_since">パブリッシャー、ストアが掲載するウェブサイト（%1$s）により証明済み、%2$sから見られる</string>
+    <string name="publisher_verified_apk">パブリッシャー、このスマートフォン上のアプリ自体の署名済みビルドにより証明済み</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">動作する</string>
     <string name="tag_crashes">クラッシュする</string>
@@ -751,7 +750,7 @@
     <string name="pay_list_fee">登録の費用は、他の dApp の有料ティアと同額です:%1$s または %2$s(Seeker Genesis Token をお持ちの場合は %3$s)。dApp とトレジャリーごとに一度だけ、登録に署名するのと同じトランザクションで支払います。後でコードを変更したり再登録したりする場合の費用はネットワーク手数料のみです。</string>
     <string name="pay_list_pay">%1$s を支払って登録</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">検証済みパブリッシャー — ストアが配信するビルド内に記載</string>
+    <string name="publisher_verified_store">パブリッシャー、dApp Storeが配信するビルドにより証明済み</string>
     <string name="publisher_check_build">ストアのビルドを確認 · %1$s</string>
     <string name="publisher_checking_build">ストアのビルドを読み取り中…</string>
     <string name="publisher_build_nothing">ストアのビルドにパブリッシャーのウォレットの記載はありません。</string>
@@ -799,4 +798,21 @@
     <string name="notif_note_title">パブリッシャーがストアのレビューに返信しました · %1$s</string>
     <string name="notif_proven_title">あなたの申請が証明されました · %1$s</string>
     <string name="notif_proven_body">このアプリのレビューへのあなたの返信に、パブリッシャー ✓ のマークが付くようになりました。このアプリへのあなた自身のレビューはカウント対象外です。</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. アプリにウォレットを記載する（最も強力）</string>
+    <string name="claim_route_build_body">アプリのマニフェストの &lt;application&gt; の中に次の行を追加し、更新を dApp Store にリリースしてください。閲覧者はストアが配信するビルドを調べます。その行にこのウォレットが記載され、ビルドがストアの掲載する証明書で署名されている必要があります。これができるのは、アプリの署名鍵を持つ人だけです。</string>
+    <string name="claim_route_site_title">2. またはストアが掲載するウェブサイトにファイルを置く</string>
+    <string name="claim_route_site_body">ストアはこのアプリに %1$s を掲載しています。%2$s に、ウォレットアドレスを1行で記したファイルを置いてください:\n\n%3$s</string>
+    <string name="claim_route_site_none">ストアはこのアプリについて、証明に使えるウェブサイトを掲載していません（SNSのプロフィールや共有ホストは対象外です）。署名済みビルドを使ってください。</string>
+    <string name="claim_then_sign">次に、主張に署名します。2つの証明のどちらかが見つかるまで、主張は証明されていないものとして表示されます。ほかには何も起こりません。証明は毎日あらためて調べられます。</string>
+    <string name="proof_how_link">これはどのように証明されますか？</string>
+    <string name="proof_how_title">パブリッシャーはどのように証明されるか</string>
+    <string name="proof_how_intro">誰でも「私がこのアプリを公開しています」と署名できます。署名が示すのは、誰が主張しているかだけです。本物のパブリッシャーだけが管理できるものが同じウォレットを記載しているとき、主張は証明されます。</string>
+    <string name="proof_key_title">アプリの署名鍵（最も強力）</string>
+    <string name="proof_key_body">すべての Android アプリは、その身元となる鍵で署名されています。ストアはその証明書を掲載し、スマートフォンは別の鍵で署名された更新を拒否します。パブリッシャーがアプリのマニフェストにウォレットを記載すると、その行は署名済みビルドの中に入るため、鍵の持ち主だけがそこに置けたことになります。Undersigned は、ストアが配信するビルド、またはこのスマートフォンにインストールされているビルドを調べます。</string>
+    <string name="proof_site_title">ストアが掲載するウェブサイト</string>
+    <string name="proof_site_body">パブリッシャーは、ストアのパブリッシャーポータルでウェブサイトを設定します。そこにウォレットを記載したファイルがあれば、そのサイトを管理していることを示します。より弱い方法です。ドメインは持ち主が変わるため、最初に確認された日付を表示します。SNSのプロフィールや共有ホストは受け付けません。</string>
+    <string name="proof_not_title">証明にならないもの</string>
+    <string name="proof_not_body">ウォレット自身の署名、支払い用アドレス、またはdApp Storeでそのアプリを公開したウォレット。ストアは、どのオンチェーン記録がどの掲載に属するかを示しておらず、誰でも任意のアプリを名指しした記録を作成できます。</string>
+    <string name="proof_how_after">証明済みパブリッシャーの返信には「パブリッシャー」マークが付き、そのアプリに対する本人のレビューはカウントされません。</string>
 </resources>

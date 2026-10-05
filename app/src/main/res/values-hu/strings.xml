@@ -74,14 +74,13 @@
     <string name="fact_store_version">Áruházi verziókód</string>
     <string name="publisher_title">Kiadó</string>
     <string name="publisher_listed">Az áruházban %1$s néven van feltüntetve</string>
-    <string name="publisher_verified">Ellenőrzött kiadó — igazolta a felügyeletet %1$s felett</string>
-    <string name="publisher_none">Még nincs ellenőrzött kiadó a nyilvántartásban.</string>
+    <string name="publisher_verified">Kiadó, bizonyította az áruház által listázott weboldal (%1$s)</string>
+    <string name="publisher_none">Még nincs bizonyított kiadó.</string>
     <string name="publisher_claim">Én adom ki ezt az alkalmazást</string>
     <string name="publisher_claim_title">Alkalmazás igénylése</string>
-    <string name="publisher_claim_body">Az olvasók az igénylést az áruház által ennél az alkalmazásnál feltüntetett weboldallal (%1$s) ellenőrzik. Helyezz el egy fájlt itt: %2$s, amely a tárcacímedet tartalmazza (egy sorban):\n\n%3$s\n\nEzután írd alá az igénylést. Az ellenőrzés automatikus, és 24 óránként megismétlődik. Ha a fájl hiányzik, az igénylés egyszerűen ellenőrizetlen marad; más nem történik.</string>
     <string name="publisher_claim_sign">Igénylés aláírása</string>
-    <string name="publisher_claimed_pending">Az igénylésed a láncon van, de még nincs ellenőrizve (a fájl nem található a megadott weboldalon).</string>
-    <string name="publisher_badge">Kiadó ✓</string>
+    <string name="publisher_claimed_pending">Az igénylésed alá van írva, de még nem bizonyított. Nevezd meg a tárcádat az alkalmazás manifestjében, és add ki a frissítést, vagy tedd a fájlt az áruház által listázott weboldalra.</string>
+    <string name="publisher_badge">Kiadó</string>
     <string name="versions_title">Verziók szerint</string>
     <string name="versions_row">v%1$d · %2$s · %3$d aláírva</string>
     <string name="versions_installed">telepítve</string>
@@ -230,7 +229,7 @@
     <string name="intro4_title">Amit a telefonod bizonyítani tud</string>
     <string name="intro4_body">A telepített alkalmazásoknál az Undersigned megmutatja, hogy a build megegyezik-e az áruház által feltüntetett tanúsítvánnyal, és hogy változtak-e a jogosultságok. Tények, sohasem ítéletek.</string>
     <string name="intro5_title">Kövesd, értesülj, válaszolj</string>
-    <string name="intro5_body">Kövess alkalmazásokat, hogy értesülj az új aláírt értékelésekről, frissítésekről és válaszokról. A kiadók aláírással igénylik az alkalmazásukat, és ellenőrzött jelvénnyel válaszolnak. Amit közzéteszel, az végleges és nyilvános.</string>
+    <string name="intro5_body">Kövess alkalmazásokat, hogy értesülj az új aláírt értékelésekről, frissítésekről és válaszokról. A kiadók aláírással igénylik az alkalmazásukat, és a válaszaik Kiadó jelvényt kapnak, ha az igénylés bizonyított. Amit közzéteszel, az végleges és nyilvános.</string>
     <string name="review_also_store">Közzététel a dApp Store-ban is</string>
     <string name="review_also_store_hint">Átmásolja a megjegyzésedet, és megnyitja a listázást, ahol a \"Ratings &amp; Reviews\" → \"Review this dApp\" alatt teszed közzé. Az áruháznak nincs módja arra, hogy egy másik alkalmazás közzétegyen helyetted, így az utolsó koppintások a tieid.</string>
     <string name="flag">Jelölés</string>
@@ -250,7 +249,7 @@
     <string name="inbox_unanswered">Válaszra vár</string>
     <string name="inbox_replies">Válaszok nekem</string>
     <string name="inbox_starred">Csillagozott</string>
-    <string name="inbox_unanswered_sub">Aláírt értékelések olyan alkalmazásokon, amelyeket kiadóként igazoltál, és amelyekre még nem válaszoltál.</string>
+    <string name="inbox_unanswered_sub">Aláírt értékelések olyan alkalmazásokon, amelyeknek te vagy a bizonyított kiadója, és amelyekre még nem válaszoltál.</string>
     <string name="inbox_unanswered_empty">Nincs semmi függőben. Igazolj egy kiadói igénylést, hogy itt lásd az alkalmazásaidat.</string>
     <string name="inbox_replies_empty">Még nincs válasz a bejegyzéseidre.</string>
     <string name="inbox_starred_empty">Csillagozz meg egy értékelést, hogy itt tartsd.</string>
@@ -259,7 +258,7 @@
     <string name="profile_credibility_sub">40 alap, +30 a más aláírókkal való címke-egyezésért, +10 a kapott hasznos szavazatokért, +20 a közmegegyezéssel helybenhagyott jelölésekért, −50 × a közmegegyezéssel elrejtett bejegyzések aránya. Nyilvános képlet, semmi nincs hozzákötve.</string>
     <string name="profile_flags">Aláírt jelölések: %1$d · Helybenhagyva: %2$d · Kapott: %3$d · Elrejtett bejegyzések: %4$d</string>
     <string name="profile_replied">Az esetek %1$s részében válaszol az értékeléseire</string>
-    <string name="profile_publishes">Ellenőrzött kiadója</string>
+    <string name="profile_publishes">Bizonyított kiadója</string>
     <string name="profile_reviews">Aláírt értékelések</string>
     <string name="responsiveness_line">Aláírt értékelésekre %1$s alatt válaszol · %2$d / %3$d megválaszolva</string>
     <string name="responsiveness_never">Még nem válaszolt aláírt értékelésre</string>
@@ -287,7 +286,7 @@
     <string name="clear_body">A \"valódinak tűnik\" szavazat ellensúlyozza a bejegyzésen lévő jelöléseket. Tárcánként egy, a jelöléshez hasonlóan súlyozva. Akkor használd, ha úgy gondolod, hogy a jelölések tévesek.</string>
     <string name="unvote">Hasznos szavazatom visszavonása</string>
     <string name="flag_net">nettó %1$s</string>
-    <string name="publisher_flags_ignored">Az ellenőrzött kiadó jelölései a saját alkalmazása értékelésein nem számítanak; inkább válaszolj.</string>
+    <string name="publisher_flags_ignored">Egy alkalmazás bizonyított kiadójának jelölései a saját alkalmazása értékelésein nem számítanak; inkább válaszolj.</string>
     <string name="hidden_reply">Válasz elrejtve közmegegyezéssel</string>
     <string name="review_self_published">Nem számít bele — a kiadó saját alkalmazása</string>
     <string name="attest_title">Mi számít hangnak</string>
@@ -339,8 +338,8 @@
     <string name="stats_apps">dAppok aláírt értékeléssel</string>
     <string name="stats_apps_scored">dAppok pontszámmal</string>
     <string name="stats_replies">Válaszok</string>
-    <string name="stats_publisher_replies">ezekből ellenőrzött kiadótól</string>
-    <string name="stats_claims">Kiadói igénylések · ellenőrzött</string>
+    <string name="stats_publisher_replies">ezekből bizonyított kiadótól</string>
+    <string name="stats_claims">Kiadói igénylések · bizonyított</string>
     <string name="stats_moderation">Jelölések · cáfolatok · vitatások</string>
     <string name="stats_hidden">Közmegegyezéssel elrejtve</string>
     <string name="stats_withdrawn">A szerzőjük által visszavonva</string>
@@ -398,7 +397,7 @@
     <string name="pro_tool_import_title">Mindet hozd vissza</string>
     <string name="pro_tool_import_body">Minden általad írt áruházi értékelés, egyetlen jóváhagyással a nyilvántartásba aláírva, egyenként helyett.</string>
     <string name="pro_tool_desk_title">Kiadói pult</string>
-    <string name="pro_tool_desk_body">A megválaszolatlanok sora és a válaszkészség minden általad ellenőrzött dAppnál, egy listában.</string>
+    <string name="pro_tool_desk_body">A megválaszolatlanok sora és a válaszkészség minden dAppnál, amelynek te vagy a bizonyított kiadója, egy listában.</string>
     <string name="pro_tool_export_title">Nyilvántartás exportálása</string>
     <string name="pro_tool_export_body">Bármely dApp, bármely aláíró, CSV vagy JSON formátumban. Az adat nyilvános; a Pro olvassa ki helyetted.</string>
     <string name="pro_tool_watch_title">Óránkénti tanúsítvány-figyelés</string>
@@ -485,7 +484,7 @@
     <string name="fp_read">A teljes nyilvántartás olvasása</string>
     <string name="fp_sign">Értékelések, válaszok, jelölések, vitatások aláírása</string>
     <string name="fp_facts">Amit az eszközöd ellenőrizni tud</string>
-    <string name="fp_claim">dApp igénylése, válasz ellenőrzött jelvénnyel</string>
+    <string name="fp_claim">dApp igénylése, válasz a bizonyított kiadójaként</string>
     <string name="fp_copy">Értékelés átmásolása az áruházba</string>
     <string name="fp_import">Áruházi értékelések importálása</string>
     <string name="fp_import_free">egyenként</string>
@@ -499,8 +498,8 @@
     <string name="fp_weight_both">ugyanannyit — csak az eszköz és a staked SKR</string>
     <string name="desk_title">Kiadói pult</string>
     <plurals name="desk_across">
-        <item quantity="one">A %1$d ellenőrzött dAppodon átívelve</item>
-        <item quantity="other">A %1$d ellenőrzött dAppodon átívelve</item>
+        <item quantity="one">A %1$d bizonyított dAppodon átívelve</item>
+        <item quantity="other">A %1$d bizonyított dAppodon átívelve</item>
     </plurals>
     <string name="desk_unanswered">megválaszolatlan</string>
     <string name="desk_median">medián válaszidő</string>
@@ -515,7 +514,7 @@
     </plurals>
     <string name="desk_hours">%1$d ó</string>
     <string name="desk_note">A válaszkészség a nyilvántartásból olvasható, mint minden más: a rés egy aláírt értékelés és a te aláírt válaszod között. Ez megjelenik az olvasóknak a dApp oldaladon, tehát a sor maga a termék.</string>
-    <string name="desk_none">Még nincs ellenőrzött dApp. Igényelj egy alkalmazást az oldaláról, és igazold a weboldalt; a pult onnantól feltöltődik.</string>
+    <string name="desk_none">Még nincs bizonyított dApp. Igényelj egy alkalmazást az oldaláról, és bizonyítsd be (aláírt build vagy weboldal); a pult onnantól feltöltődik.</string>
     <string name="desk_none_waiting">Semmi nem vár.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -735,8 +734,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d egycsillagos</item><item quantity="other">%1$d egycsillagos</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d lépés</item><item quantity="other">%1$d lépés</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Ellenőrzött kiadó — igazolta a felügyeletet %1$s felett, %2$s óta ismert</string>
-    <string name="publisher_verified_apk">Ellenőrzött kiadó — az alkalmazás saját aláírt buildjén belül megnevezve</string>
+    <string name="publisher_verified_since">Kiadó, bizonyította az áruház által listázott weboldal (%1$s), %2$s óta ismert</string>
+    <string name="publisher_verified_apk">Kiadó, bizonyította az alkalmazás saját aláírt buildje ezen a telefonon</string>
     <string name="tag_works">Működik</string>
     <string name="tag_crashes">Összeomlik</string>
     <string name="tag_wallet_ok">Tárca ok</string>
@@ -765,7 +764,7 @@
     <string name="pay_list_fee">A listázás ugyanannyiba kerül, mint egyéb dApp-jaink fizetős szintje: %1$s vagy %2$s (%3$s Seeker Genesis Token esetén). dApp-onként és kincstáranként egyszer kell fizetni, ugyanabban a tranzakcióban, amely aláírja a listázást. A kód későbbi módosítása vagy az újbóli listázás csak a hálózati díjba kerül.</string>
     <string name="pay_list_pay">%1$s fizetése és listázás</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Ellenőrzött kiadó — megnevezve abban a buildben, amelyet az áruház szolgáltat</string>
+    <string name="publisher_verified_store">Kiadó, bizonyította a build, amelyet a dApp Store szolgáltat</string>
     <string name="publisher_check_build">Az áruház buildjének ellenőrzése · %1$s</string>
     <string name="publisher_checking_build">Az áruház buildjének beolvasása…</string>
     <string name="publisher_build_nothing">Az áruház buildje nem nevez meg kiadói tárcát.</string>
@@ -813,4 +812,21 @@
     <string name="notif_note_title">A kiadó válaszolt az áruházi értékelésedre · %1$s</string>
     <string name="notif_proven_title">Az igényed igazolt · %1$s</string>
     <string name="notif_proven_body">Az alkalmazás értékeléseire adott válaszaid mostantól a Kiadó ✓ jelölést viselik, a saját értékeléseid pedig nem számítanak bele.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Nevezd meg a tárcádat az alkalmazásodban (a legerősebb)</string>
+    <string name="claim_route_build_body">Add hozzá ezt a sort az &lt;application&gt; belsejében az alkalmazásod manifestjében, és add ki a frissítést a dApp Store-on. Az olvasók azt a buildet vizsgálják, amelyet az áruház szolgáltat: a sornak ezt a tárcát kell megneveznie, és a buildet az áruház által listázott tanúsítvánnyal kell aláírni. Ezt csak az alkalmazásod aláírókulcsának birtokosa teheti meg.</string>
+    <string name="claim_route_site_title">2. Vagy tegyél egy fájlt az áruház által listázott weboldalra</string>
+    <string name="claim_route_site_body">Az áruház a(z) %1$s címet listázza ehhez az alkalmazáshoz. Tegyél a(z) %2$s címre egy fájlt, amely egy sorban a tárcád címét tartalmazza:\n\n%3$s</string>
+    <string name="claim_route_site_none">Az áruház ehhez az alkalmazáshoz nem listáz olyan weboldalt, amely bizonyíthatná (a közösségi profilok és a megosztott tárhelyek nem számítanak). Használd az aláírt buildet.</string>
+    <string name="claim_then_sign">Ezután írd alá az igénylést. Amíg a két bizonyíték egyike sem található, az igénylés bizonyítatlanként jelenik meg; más nem történik. A bizonyítékot minden nap újra megvizsgáljuk.</string>
+    <string name="proof_how_link">Hogyan bizonyítható ez?</string>
+    <string name="proof_how_title">Hogyan bizonyítható egy kiadó</string>
+    <string name="proof_how_intro">Bárki aláírhatja, hogy „Én adom ki ezt az alkalmazást”. Az aláírás csak azt mutatja, ki igényli. Az igénylés akkor bizonyított, ha valami, amit csak a valódi kiadó irányít, ugyanazt a tárcát nevezi meg.</string>
+    <string name="proof_key_title">Az alkalmazás aláírókulcsa (a legerősebb)</string>
+    <string name="proof_key_body">Minden Android-alkalmazás egy kulccsal van aláírva, amely az azonosítója: az áruház listázza a tanúsítványát, és a telefonok elutasítanak minden más kulccsal aláírt frissítést. Amikor a kiadó megnevez egy tárcát az alkalmazás manifestjében, a sor az aláírt buildben van, így csak a kulcs birtokosa tehette oda. Az Undersigned azt a buildet vizsgálja, amelyet az áruház szolgáltat, vagy amelyik ezen a telefonon van telepítve.</string>
+    <string name="proof_site_title">Az áruház által listázott weboldal</string>
+    <string name="proof_site_body">A kiadó az áruház kiadói portálján állítja be a weboldalt. Egy ott lévő, a tárcát megnevező fájl az adott oldal feletti irányítást mutatja. Gyengébb: a domainek gazdát cserélnek, ezért megjelenik az első észlelés dátuma. A közösségi profilok és a megosztott tárhelyek nem elfogadottak.</string>
+    <string name="proof_not_title">Mi nem bizonyítja</string>
+    <string name="proof_not_body">A tárca saját aláírása, egy fizetési cím, vagy az a tárca, amely az alkalmazást közzétette a dApp Store-on. Az áruház nem mondja meg, melyik láncon lévő bejegyzés melyik listázáshoz tartozik, és bárki létrehozhat olyat, amely bármelyik alkalmazást megnevezi.</string>
+    <string name="proof_how_after">A bizonyított kiadó válaszai Kiadó jelvényt kapnak, és az alkalmazásról írt saját értékeléseit nem számítjuk.</string>
 </resources>

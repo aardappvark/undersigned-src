@@ -76,14 +76,13 @@
     <string name="fact_store_version">رمز إصدار المتجر</string>
     <string name="publisher_title">الناشر</string>
     <string name="publisher_listed">مُدرج في المتجر باسم %1$s</string>
-    <string name="publisher_verified">ناشر موثّق — أثبت التحكم في %1$s</string>
-    <string name="publisher_none">لا يوجد ناشر موثّق على السجل بعد.</string>
+    <string name="publisher_verified">ناشر مُثبَت بواسطة الموقع الذي يدرجه المتجر (%1$s)</string>
+    <string name="publisher_none">لا يوجد ناشر مُثبَت بعد.</string>
     <string name="publisher_claim">أنا ناشر هذا التطبيق</string>
     <string name="publisher_claim_title">المطالبة بهذا التطبيق</string>
-    <string name="publisher_claim_body">يتحقق القراء من المطالبة مقابل الموقع الذي يدرجه المتجر لهذا التطبيق (%1$s). ضع ملفًا في %2$s يحتوي على عنوان محفظتك (سطر واحد):\n\n%3$s\n\nثم وقّع المطالبة. التحقق تلقائي ويتكرر كل 24 ساعة. إذا كان الملف مفقودًا فستبقى المطالبة غير موثّقة فحسب؛ لن يحدث شيء آخر.</string>
     <string name="publisher_claim_sign">توقيع المطالبة</string>
-    <string name="publisher_claimed_pending">مطالبتك موجودة على السلسلة لكنها غير موثّقة بعد (لم يُعثر على الملف في الموقع المدرج).</string>
-    <string name="publisher_badge">ناشر ✓</string>
+    <string name="publisher_claimed_pending">مطالبتك موقّعة لكنها غير مُثبَتة بعد. اذكر محفظتك في ملف manifest الخاص بالتطبيق وأصدر التحديث، أو ضع الملف على الموقع الذي يدرجه المتجر.</string>
+    <string name="publisher_badge">ناشر</string>
     <string name="versions_title">حسب الإصدار</string>
     <string name="versions_row">الإصدار %1$d · %2$s · %3$d موقّعة</string>
     <string name="versions_installed">مثبَّت</string>
@@ -245,7 +244,7 @@
     <string name="intro4_title">ما يمكن لهاتفك إثباته</string>
     <string name="intro4_body">بالنسبة للتطبيقات المثبتة لديك، يعرض Undersigned ما إذا كانت البنية تطابق الشهادة التي يدرجها المتجر وما إذا تغيّرت الأذونات. حقائق، لا أحكام أبدًا.</string>
     <string name="intro5_title">تابع، اعرف، رد</string>
-    <string name="intro5_body">تابع التطبيقات لتعرف بالمراجعات الموقّعة الجديدة والتحديثات والردود. يطالب الناشرون بتطبيقاتهم بالتوقيع ويردّون بشارة موثّقة. كل ما تنشره عامّ ودائم.</string>
+    <string name="intro5_body">تابع التطبيقات لتعرف بالمراجعات الموقّعة الجديدة والتحديثات والردود. يطالب الناشرون بتطبيقاتهم بالتوقيع، وتحمل ردودهم علامة «ناشر» متى كانت المطالبة مُثبَتة. كل ما تنشره عامّ ودائم.</string>
     <string name="review_also_store">النشر أيضًا في dApp Store</string>
     <string name="review_also_store_hint">ينسخ ملاحظتك ويفتح القائمة، حيث تنشرها ضمن “التقييمات &amp; الآراء” → “راجع تطبيق dApp هذا”. لا توجد طريقة للمتجر ليقبل نشرًا من تطبيق آخر نيابة عنك، لذا فإن النقرات الأخيرة تبقى لك.</string>
     <string name="flag">إشارة</string>
@@ -265,7 +264,7 @@
     <string name="inbox_unanswered">بلا رد</string>
     <string name="inbox_replies">الردود عليّ</string>
     <string name="inbox_starred">المميزة بنجمة</string>
-    <string name="inbox_unanswered_sub">مراجعات موقّعة على تطبيقات أثبتّ أنك ناشرها، بلا رد منك.</string>
+    <string name="inbox_unanswered_sub">مراجعات موقّعة على تطبيقات أنت ناشرها المُثبَت، بلا رد منك.</string>
     <string name="inbox_unanswered_empty">لا شيء بالانتظار. أثبِت مطالبة بنشر لرؤية تطبيقاتك هنا.</string>
     <string name="inbox_replies_empty">لا ردود على سجلاتك بعد.</string>
     <string name="inbox_starred_empty">ميّز مراجعة بنجمة لحفظها هنا.</string>
@@ -274,7 +273,7 @@
     <string name="profile_credibility_sub">40 أساس، +30 لاتفاق الوسم مع الموقّعين الآخرين، +10 لأصوات الإفادة المستلَمة، +20 للإشارات التي أيّدها الإجماع، −50 × نسبة السجلات المخفية بالإجماع. صيغة منشورة، لا شيء مرتبط بها.</string>
     <string name="profile_flags">الإشارات الموقَّعة: %1$d · المؤيَّدة: %2$d · المستلَمة: %3$d · السجلات المخفية: %4$d</string>
     <string name="profile_replied">يجيب عن الردود على مراجعاته %1$s من الوقت</string>
-    <string name="profile_publishes">ناشر موثّق لـ</string>
+    <string name="profile_publishes">ناشر مُثبَت لـ</string>
     <string name="profile_reviews">المراجعات الموقّعة</string>
     <string name="responsiveness_line">يجيب عن المراجعات الموقّعة خلال %1$s · %2$d من %3$d تمت الإجابة عنها</string>
     <string name="responsiveness_never">لم يُجب عن مراجعة موقّعة بعد</string>
@@ -302,7 +301,7 @@
     <string name="clear_body">صوت \"يبدو أصليًا\" يعادل الإشارات على هذا السجل. واحد لكل محفظة، مرجّح مثل الإشارة. استخدمه حين تظن أن الإشارات خاطئة.</string>
     <string name="unvote">سحب صوتي المفيد</string>
     <string name="flag_net">صافي %1$s</string>
-    <string name="publisher_flags_ignored">إشارات الناشر الموثّق على مراجعات تطبيقه الخاص لا تُحتسب؛ رُدّ بدلاً من ذلك.</string>
+    <string name="publisher_flags_ignored">إشارات الناشر المُثبَت على مراجعات تطبيقه الخاص لا تُحتسب؛ رُدّ بدلاً من ذلك.</string>
     <string name="hidden_reply">رد مخفي بالإجماع</string>
     <string name="review_self_published">غير محتسبة — تطبيق الناشر نفسه</string>
     <string name="attest_title">ما الذي يُحتسب كصوت</string>
@@ -353,8 +352,8 @@
     <string name="stats_apps">تطبيقات بمراجعة موقّعة</string>
     <string name="stats_apps_scored">تطبيقات بتقييم</string>
     <string name="stats_replies">الردود</string>
-    <string name="stats_publisher_replies">منها من ناشر موثّق</string>
-    <string name="stats_claims">مطالبات الناشرين · موثّقة</string>
+    <string name="stats_publisher_replies">منها من ناشر مُثبَت</string>
+    <string name="stats_claims">مطالبات الناشرين · مُثبَتة</string>
     <string name="stats_moderation">الإشارات · يبدو أصليًا · الاعتراضات</string>
     <string name="stats_hidden">مخفي بالإجماع</string>
     <string name="stats_withdrawn">مسحوبة من كاتبها</string>
@@ -412,7 +411,7 @@
     <string name="pro_tool_import_title">استيراد جميعها دفعة واحدة</string>
     <string name="pro_tool_import_body">كل مراجعة كتبتها في المتجر، تُوقَّع على السجل بموافقة واحدة بدلاً من واحدة تلو الأخرى.</string>
     <string name="pro_tool_desk_title">مكتب الناشر</string>
-    <string name="pro_tool_desk_body">قائمة انتظار الردود ومعدل الاستجابة عبر كل تطبيق أثبتّ ملكيته، في قائمة واحدة.</string>
+    <string name="pro_tool_desk_body">قائمة انتظار الردود ومعدل الاستجابة عبر كل dApp أنت ناشرها المُثبَت، في قائمة واحدة.</string>
     <string name="pro_tool_export_title">تصدير السجل</string>
     <string name="pro_tool_export_body">أي تطبيق، أي موقِّع، كملف CSV أو JSON. البيانات عامة؛ Pro يقرأها نيابة عنك.</string>
     <string name="pro_tool_watch_title">مراقبة الشهادة كل ساعة</string>
@@ -507,7 +506,7 @@
     <string name="fp_read">قراءة السجل بالكامل</string>
     <string name="fp_sign">توقيع المراجعات والردود والإشارات والاعتراضات</string>
     <string name="fp_facts">ما يمكن لجهازك التحقق منه</string>
-    <string name="fp_claim">المطالبة بتطبيق، والرد بشارة موثّقة</string>
+    <string name="fp_claim">المطالبة بـ dApp، والرد بصفتك ناشرها المُثبَت</string>
     <string name="fp_copy">نسخ مراجعة إلى المتجر</string>
     <string name="fp_import">استيراد مراجعات المتجر</string>
     <string name="fp_import_free">واحدة تلو الأخرى</string>
@@ -521,12 +520,12 @@
     <string name="fp_weight_both">نفسه — الجهاز وحصة SKR المرهونة فقط</string>
     <string name="desk_title">مكتب الناشر</string>
     <plurals name="desk_across">
-        <item quantity="zero">عبر %1$d من تطبيقاتك الموثّقة</item>
-        <item quantity="one">عبر %1$d من تطبيقاتك الموثّقة</item>
-        <item quantity="two">عبر %1$d من تطبيقاتك الموثّقة</item>
-        <item quantity="few">عبر %1$d من تطبيقاتك الموثّقة</item>
-        <item quantity="many">عبر %1$d من تطبيقاتك الموثّقة</item>
-        <item quantity="other">عبر %1$d من تطبيقاتك الموثّقة</item>
+        <item quantity="zero">عبر %1$d من تطبيقاتك المُثبَتة</item>
+        <item quantity="one">عبر %1$d من تطبيقاتك المُثبَتة</item>
+        <item quantity="two">عبر %1$d من تطبيقاتك المُثبَتة</item>
+        <item quantity="few">عبر %1$d من تطبيقاتك المُثبَتة</item>
+        <item quantity="many">عبر %1$d من تطبيقاتك المُثبَتة</item>
+        <item quantity="other">عبر %1$d من تطبيقاتك المُثبَتة</item>
     </plurals>
     <string name="desk_unanswered">بلا رد</string>
     <string name="desk_median">متوسط الرد</string>
@@ -545,7 +544,7 @@
     </plurals>
     <string name="desk_hours">%1$d س</string>
     <string name="desk_note">تُقرأ الاستجابة من السجل مثل كل شيء آخر: الفجوة بين مراجعة موقّعة وردك الموقَّع. تُعرض للقرّاء في صفحة تطبيقك، فقائمة الانتظار هي المنتج.</string>
-    <string name="desk_none">لا تطبيقات موثّقة بعد. طالب بتطبيق من صفحته وأثبت ملكية الموقع؛ يمتلئ المكتب من هناك.</string>
+    <string name="desk_none">لا توجد dApp مُثبَتة بعد. طالب بتطبيق من صفحته وأثبت المطالبة (ببنية موقّعة أو بموقع)؛ يمتلئ المكتب من هناك.</string>
     <string name="desk_none_waiting">لا شيء بالانتظار.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -766,8 +765,8 @@
     <plurals name="watch_count_low"><item quantity="zero">%1$d نجمة واحدة</item><item quantity="one">%1$d نجمة واحدة</item><item quantity="two">%1$d نجمة واحدة</item><item quantity="few">%1$d نجمة واحدة</item><item quantity="many">%1$d نجمة واحدة</item><item quantity="other">%1$d نجمة واحدة</item></plurals>
     <plurals name="pay_steps"><item quantity="zero">%1$d خطوات</item><item quantity="one">%1$d خطوة</item><item quantity="two">%1$d خطوتان</item><item quantity="few">%1$d خطوات</item><item quantity="many">%1$d خطوة</item><item quantity="other">%1$d خطوة</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">ناشر موثّق — أثبت التحكم في %1$s، معروف منذ %2$s</string>
-    <string name="publisher_verified_apk">ناشر موثّق — مذكور داخل البنية الموقّعة الخاصة بالتطبيق نفسه</string>
+    <string name="publisher_verified_since">ناشر مُثبَت بواسطة الموقع الذي يدرجه المتجر (%1$s)، معروف منذ %2$s</string>
+    <string name="publisher_verified_apk">ناشر مُثبَت بواسطة البنية الموقّعة الخاصة بالتطبيق نفسه على هذا الهاتف</string>
     <string name="tag_works">يعمل</string>
     <string name="tag_crashes">يتعطل</string>
     <string name="tag_wallet_ok">محفظة سليمة</string>
@@ -796,7 +795,7 @@
     <string name="pay_list_fee">الإدراج يكلف نفس تكلفة مستوى مدفوع من dApps الأخرى لدينا: %1$s أو %2$s (%3$s مع Seeker Genesis Token). يُدفع مرة واحدة لكل dApp وخزينة، ضمن نفس المعاملة التي توقّع الإدراج. تغيير الرمز أو الإدراج مرة أخرى لاحقًا يكلف رسوم الشبكة فقط.</string>
     <string name="pay_list_pay">ادفع %1$s وأدرِج</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">ناشر موثّق — مذكور داخل البنية التي يقدّمها المتجر</string>
+    <string name="publisher_verified_store">ناشر مُثبَت بواسطة البنية التي يقدّمها dApp Store</string>
     <string name="publisher_check_build">افحص بنية المتجر · %1$s</string>
     <string name="publisher_checking_build">جارٍ قراءة بنية المتجر…</string>
     <string name="publisher_build_nothing">لا تذكر بنية المتجر أي محفظة ناشر.</string>
@@ -844,4 +843,21 @@
     <string name="notif_note_title">ردّ الناشر على مراجعتك في المتجر · %1$s</string>
     <string name="notif_proven_title">تم إثبات ادعائك · %1$s</string>
     <string name="notif_proven_body">تحمل ردودك على مراجعات هذا التطبيق الآن علامة «ناشر ✓»، ولا تُحتسب مراجعاتك الخاصة له.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. اذكر محفظتك في تطبيقك (الأقوى)</string>
+    <string name="claim_route_build_body">أضف هذا السطر داخل &lt;application&gt; في ملف manifest الخاص بتطبيقك وأصدر التحديث على dApp Store. يفحص القرّاء البنية التي يقدّمها المتجر: يجب أن يذكر السطر هذه المحفظة، وأن تكون البنية موقّعة بالشهادة التي يدرجها المتجر. لا يستطيع ذلك إلا من يملك مفتاح توقيع تطبيقك.</string>
+    <string name="claim_route_site_title">2. أو ضع ملفًا على الموقع الذي يدرجه المتجر</string>
+    <string name="claim_route_site_body">يدرج المتجر %1$s لهذا التطبيق. ضع ملفًا في %2$s يحتوي على عنوان محفظتك في سطر واحد:\n\n%3$s</string>
+    <string name="claim_route_site_none">لا يدرج المتجر لهذا التطبيق موقعًا يصلح للإثبات (الحسابات على وسائل التواصل والاستضافات المشتركة لا تُحتسب). استخدم البنية الموقّعة.</string>
+    <string name="claim_then_sign">ثم وقّع المطالبة. إلى أن يُعثر على أحد الإثباتين، تظهر المطالبة كغير مُثبَتة؛ ولا يحدث شيء آخر. يُفحص الإثبات من جديد كل يوم.</string>
+    <string name="proof_how_link">كيف يُثبَت هذا؟</string>
+    <string name="proof_how_title">كيف يُثبَت الناشر</string>
+    <string name="proof_how_intro">يستطيع أي شخص أن يوقّع «أنا أنشر هذا التطبيق». التوقيع لا يُظهر إلا من يطالب. وتكون المطالبة مُثبَتة حين يذكر المحفظة نفسها شيء لا يتحكم به إلا الناشر الحقيقي.</string>
+    <string name="proof_key_title">مفتاح توقيع التطبيق (الأقوى)</string>
+    <string name="proof_key_body">كل تطبيق Android موقّع بمفتاح هو هويته: يدرج المتجر شهادته، وترفض الهواتف أي تحديث موقّع بمفتاح آخر. وحين يذكر الناشر محفظة داخل ملف manifest الخاص بالتطبيق، يكون السطر داخل البنية الموقّعة، فلا يستطيع وضعه هناك إلا صاحب المفتاح. يفحص Undersigned البنية التي يقدّمها المتجر، أو المثبّتة على هذا الهاتف.</string>
+    <string name="proof_site_title">الموقع الذي يدرجه المتجر</string>
+    <string name="proof_site_body">يحدّد الناشر الموقع في بوابة الناشرين الخاصة بالمتجر. ملف هناك يذكر المحفظة يدل على التحكم بذلك الموقع. وهو أضعف: فالنطاقات تنتقل بين الملّاك، لذا يُعرض تاريخ أول ظهور له. لا تُقبل حسابات وسائل التواصل ولا الاستضافات المشتركة.</string>
+    <string name="proof_not_title">ما الذي لا يُثبِت ذلك</string>
+    <string name="proof_not_body">توقيع المحفظة نفسها، أو عنوان دفع، أو المحفظة التي نشرت التطبيق على dApp Store. لا يحدّد المتجر أي سجل على السلسلة يعود لأي إدراج، ويستطيع أي شخص إصدار سجل يذكر أي تطبيق.</string>
+    <string name="proof_how_after">تحمل ردود الناشر المُثبَت علامة «ناشر»، ولا تُحتسب مراجعاته الخاصة للتطبيق.</string>
 </resources>

@@ -77,14 +77,13 @@
     <string name="fact_store_version">Código de versão na loja</string>
     <string name="publisher_title">Publicador</string>
     <string name="publisher_listed">Listado pela loja como %1$s</string>
-    <string name="publisher_verified">Publicador verificado — provou controle de %1$s</string>
-    <string name="publisher_none">Ainda não há publicador verificado no registro.</string>
+    <string name="publisher_verified">Publicador, comprovado pelo site que a loja lista (%1$s)</string>
+    <string name="publisher_none">Ainda não há publicador comprovado.</string>
     <string name="publisher_claim">Eu publico este app</string>
     <string name="publisher_claim_title">Reivindicar este app</string>
-    <string name="publisher_claim_body">Os leitores verificam uma reivindicação em relação ao site que a loja lista para este app (%1$s). Coloque um arquivo em %2$s contendo o endereço da sua carteira (uma linha):\n\n%3$s\n\nDepois assine a reivindicação. A verificação é automática e se repete a cada 24 horas. Se o arquivo não for encontrado, a reivindicação simplesmente permanece não verificada; nada mais acontece.</string>
     <string name="publisher_claim_sign">Assinar a reivindicação</string>
-    <string name="publisher_claimed_pending">Sua reivindicação está na cadeia, mas ainda não foi verificada (arquivo não encontrado no site listado).</string>
-    <string name="publisher_badge">Publicador ✓</string>
+    <string name="publisher_claimed_pending">Sua reivindicação está assinada, mas ainda não comprovada. Nomeie sua carteira no manifesto do app e lance a atualização, ou coloque o arquivo no site que a loja lista.</string>
+    <string name="publisher_badge">Publicador</string>
     <string name="versions_title">Por versão</string>
     <string name="versions_row">v%1$d · %2$s · %3$d assinadas</string>
     <string name="versions_installed">instalada</string>
@@ -233,7 +232,7 @@
     <string name="intro4_title">O que seu celular pode provar</string>
     <string name="intro4_body">Para os apps que você instalou, o Undersigned mostra se a versão corresponde ao certificado listado pela loja e se as permissões mudaram. Fatos, nunca veredictos.</string>
     <string name="intro5_title">Siga, seja avisado, responda</string>
-    <string name="intro5_body">Siga apps para saber de novas avaliações assinadas, atualizações e respostas. Publicadores reivindicam seu app assinando e respondem com um selo verificado. Tudo o que você publica é permanente e público.</string>
+    <string name="intro5_body">Siga apps para saber de novas avaliações assinadas, atualizações e respostas. Publicadores reivindicam seu app assinando, e suas respostas levam o selo Publicador quando a reivindicação está comprovada. Tudo o que você publica é permanente e público.</string>
     <string name="review_also_store">Publicar também na dApp Store</string>
     <string name="review_also_store_hint">Copia sua nota e abre a página, onde você a publica em “Classificações &amp; Críticas” → “Avaliar esta dApp”. A loja não tem como deixar outro app publicar por você, então os últimos toques são seus.</string>
     <string name="flag">Sinalizar</string>
@@ -253,7 +252,7 @@
     <string name="inbox_unanswered">Sem resposta</string>
     <string name="inbox_replies">Respostas para mim</string>
     <string name="inbox_starred">Destacadas</string>
-    <string name="inbox_unanswered_sub">Avaliações assinadas em apps que você verificou como publicador, sem resposta sua.</string>
+    <string name="inbox_unanswered_sub">Avaliações assinadas em apps dos quais você é o publicador comprovado, sem resposta sua.</string>
     <string name="inbox_unanswered_empty">Nada aguardando. Verifique uma reivindicação de publicador para ver seus apps aqui.</string>
     <string name="inbox_replies_empty">Ainda sem respostas aos seus registros.</string>
     <string name="inbox_starred_empty">Destaque uma avaliação para guardá-la aqui.</string>
@@ -262,7 +261,7 @@
     <string name="profile_credibility_sub">40 de base, +30 por concordância de tags com outros signatários, +10 por votos úteis recebidos, +20 por sinalizações confirmadas por consenso, −50 × proporção de registros ocultados por consenso. Fórmula publicada, nada mais associado a ela.</string>
     <string name="profile_flags">Sinalizações assinadas: %1$d · Confirmadas: %2$d · Recebidas: %3$d · Registros ocultados: %4$d</string>
     <string name="profile_replied">Responde às respostas em suas avaliações %1$s das vezes</string>
-    <string name="profile_publishes">Publicador verificado de</string>
+    <string name="profile_publishes">Publicador comprovado de</string>
     <string name="profile_reviews">Avaliações assinadas</string>
     <string name="responsiveness_line">Responde avaliações assinadas em %1$s · %2$d de %3$d respondidas</string>
     <string name="responsiveness_never">Ainda não respondeu a nenhuma avaliação assinada</string>
@@ -290,7 +289,7 @@
     <string name="clear_body">Um voto de \"parece genuína\" compensa sinalizações neste registro. Um por carteira, com o mesmo peso de uma sinalização. Use quando achar que as sinalizações estão erradas.</string>
     <string name="unvote">Retirar meu voto útil</string>
     <string name="flag_net">líquido %1$s</string>
-    <string name="publisher_flags_ignored">Sinalizações de um publicador verificado em avaliações do próprio app dele não contam; responda em vez disso.</string>
+    <string name="publisher_flags_ignored">Sinalizações do publicador comprovado de um app em avaliações do próprio app dele não contam; responda em vez disso.</string>
     <string name="hidden_reply">Resposta oculta por consenso</string>
     <string name="review_self_published">Não contabilizada — é o próprio app do publicador</string>
     <string name="attest_title">O que conta como uma voz</string>
@@ -341,8 +340,8 @@
     <string name="stats_apps">dApps com uma avaliação assinada</string>
     <string name="stats_apps_scored">dApps com uma nota</string>
     <string name="stats_replies">Respostas</string>
-    <string name="stats_publisher_replies">delas de um publicador verificado</string>
-    <string name="stats_claims">Reivindicações de publicador · verificadas</string>
+    <string name="stats_publisher_replies">delas de um publicador comprovado</string>
+    <string name="stats_claims">Reivindicações de publicador · comprovadas</string>
     <string name="stats_moderation">Sinalizações · esclarecimentos · contestações</string>
     <string name="stats_hidden">Ocultos por consenso</string>
     <string name="stats_withdrawn">Retirados pelo autor</string>
@@ -400,7 +399,7 @@
     <string name="pro_tool_import_title">Importe todas de volta</string>
     <string name="pro_tool_import_body">Cada avaliação da loja que você escreveu, assinada no registro em uma única aprovação em vez de uma de cada vez.</string>
     <string name="pro_tool_desk_title">Painel do publicador</string>
-    <string name="pro_tool_desk_body">A fila sem resposta e a capacidade de resposta em cada dApp que você verificou, em uma única lista.</string>
+    <string name="pro_tool_desk_body">A fila sem resposta e a capacidade de resposta em cada dApp da qual você é o publicador comprovado, em uma única lista.</string>
     <string name="pro_tool_export_title">Exporte o registro</string>
     <string name="pro_tool_export_body">Qualquer dApp, qualquer signatário, como CSV ou JSON. Os dados são públicos; o Pro faz a leitura por você.</string>
     <string name="pro_tool_watch_title">Verificação horária do certificado</string>
@@ -489,7 +488,7 @@
     <string name="fp_read">Ler todo o registro</string>
     <string name="fp_sign">Assinar avaliações, respostas, sinalizações, contestações</string>
     <string name="fp_facts">O que seu dispositivo pode verificar</string>
-    <string name="fp_claim">Reivindicar um dApp, responder com um selo verificado</string>
+    <string name="fp_claim">Reivindicar um dApp, responder como seu publicador comprovado</string>
     <string name="fp_copy">Copiar uma avaliação para a loja</string>
     <string name="fp_import">Importar avaliações da loja</string>
     <string name="fp_import_free">uma de cada vez</string>
@@ -503,9 +502,9 @@
     <string name="fp_weight_both">o mesmo — só dispositivo e SKR em stake</string>
     <string name="desk_title">Painel do publicador</string>
     <plurals name="desk_across">
-        <item quantity="one">Em seu %1$d dApp verificado</item>
-        <item quantity="other">Em seus %1$d dApps verificados</item>
-        <item quantity="many">Em seus %1$d dApps verificados</item>
+        <item quantity="one">Em seu %1$d dApp comprovado</item>
+        <item quantity="other">Em seus %1$d dApps comprovados</item>
+        <item quantity="many">Em seus %1$d dApps comprovados</item>
     </plurals>
     <string name="desk_unanswered">sem resposta</string>
     <string name="desk_median">resposta mediana</string>
@@ -521,7 +520,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">A capacidade de resposta é lida do registro como tudo o mais: o intervalo entre uma avaliação assinada e sua resposta assinada. Ela é mostrada aos leitores na página do seu dApp, então a fila é o produto.</string>
-    <string name="desk_none">Ainda nenhum dApp verificado. Reivindique um app a partir da página dele e comprove o site; o painel se preenche a partir daí.</string>
+    <string name="desk_none">Ainda nenhum dApp comprovado. Reivindique um app a partir da página dele e comprove (versão assinada ou site); o painel se preenche a partir daí.</string>
     <string name="desk_none_waiting">Nada aguardando.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -763,8 +762,8 @@
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d etapa</item><item quantity="many">%1$d etapas</item><item quantity="other">%1$d etapas</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Publicador verificado — provou controle de %1$s, visto desde %2$s</string>
-    <string name="publisher_verified_apk">Publicador verificado — nomeado dentro da própria versão assinada do app</string>
+    <string name="publisher_verified_since">Publicador, comprovado pelo site que a loja lista (%1$s), visto desde %2$s</string>
+    <string name="publisher_verified_apk">Publicador, comprovado pela própria versão assinada do app neste telefone</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Funciona</string>
     <string name="tag_crashes">Trava</string>
@@ -794,7 +793,7 @@
     <string name="pay_list_fee">Listar custa o mesmo que um nível pago dos nossos outros dApps: %1$s ou %2$s (%3$s com um Seeker Genesis Token). É pago uma vez por dApp e tesouraria, na mesma transação que assina a listagem. Alterar o código ou listar novamente depois custa apenas a taxa de rede.</string>
     <string name="pay_list_pay">Pagar %1$s e listar</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Publicador verificado — nomeado dentro da versão que a loja serve</string>
+    <string name="publisher_verified_store">Publicador, comprovado pela versão que a dApp Store serve</string>
     <string name="publisher_check_build">Verificar a versão da loja · %1$s</string>
     <string name="publisher_checking_build">Lendo a versão da loja…</string>
     <string name="publisher_build_nothing">A versão da loja não nomeia nenhuma carteira de publicador.</string>
@@ -842,4 +841,21 @@
     <string name="notif_note_title">O publicador respondeu à sua avaliação da loja · %1$s</string>
     <string name="notif_proven_title">Sua reivindicação está comprovada · %1$s</string>
     <string name="notif_proven_body">Suas respostas às avaliações deste app agora levam a marca Publicador ✓, e suas próprias avaliações dele não são contabilizadas.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Nomeie sua carteira no seu app (o mais forte)</string>
+    <string name="claim_route_build_body">Adicione esta linha dentro de &lt;application&gt; no manifesto do seu app e lance a atualização na dApp Store. Os leitores examinam a versão que a loja serve: a linha deve nomear esta carteira e a versão deve estar assinada com o certificado que a loja lista. Só quem tem a chave de assinatura do seu app pode fazer isso.</string>
+    <string name="claim_route_site_title">2. Ou coloque um arquivo no site que a loja lista</string>
+    <string name="claim_route_site_body">A loja lista %1$s para este app. Coloque em %2$s um arquivo contendo o endereço da sua carteira em uma linha:\n\n%3$s</string>
+    <string name="claim_route_site_none">A loja não lista para este app nenhum site que possa comprová-lo (perfis de redes sociais e hospedagens compartilhadas não contam). Use a versão assinada.</string>
+    <string name="claim_then_sign">Depois, assine a reivindicação. Enquanto uma das duas provas não for encontrada, a reivindicação aparece como não comprovada; nada mais acontece. A prova é examinada de novo todos os dias.</string>
+    <string name="proof_how_link">Como isso é comprovado?</string>
+    <string name="proof_how_title">Como um publicador é comprovado</string>
+    <string name="proof_how_intro">Qualquer pessoa pode assinar \"Eu publico este app\". Uma assinatura só mostra quem está reivindicando. Uma reivindicação está comprovada quando algo que só o publicador real controla nomeia a mesma carteira.</string>
+    <string name="proof_key_title">A chave de assinatura do app (a mais forte)</string>
+    <string name="proof_key_body">Todo app Android é assinado com uma chave que é a sua identidade: a loja lista o certificado dela, e os telefones recusam uma atualização assinada por qualquer outra chave. Quando o publicador nomeia uma carteira dentro do manifesto do app, a linha fica dentro da versão assinada, então só o dono da chave poderia tê-la colocado ali. O Undersigned examina a versão que a loja serve, ou a instalada neste telefone.</string>
+    <string name="proof_site_title">O site que a loja lista</string>
+    <string name="proof_site_body">O publicador define o site no portal de publicadores da loja. Um arquivo ali nomeando a carteira mostra controle sobre esse site. Mais fraco: domínios mudam de dono, por isso a data em que foi visto pela primeira vez é mostrada. Perfis de redes sociais e hospedagens compartilhadas não são aceitos.</string>
+    <string name="proof_not_title">O que não comprova</string>
+    <string name="proof_not_body">A própria assinatura da carteira, um endereço de pagamento ou a carteira que publicou o app na dApp Store. A loja não diz qual registro on-chain pertence a qual listagem, e qualquer pessoa pode criar um nomeando qualquer app.</string>
+    <string name="proof_how_after">As respostas de um publicador comprovado levam o selo Publicador, e as avaliações dele sobre o próprio app não são contadas.</string>
 </resources>

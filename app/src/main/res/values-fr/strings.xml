@@ -77,14 +77,13 @@
     <string name="fact_store_version">Version répertoriée par le store</string>
     <string name="publisher_title">Éditeur</string>
     <string name="publisher_listed">Répertorié par le store comme %1$s</string>
-    <string name="publisher_verified">Éditeur vérifié — a prouvé le contrôle de %1$s</string>
-    <string name="publisher_none">Aucun éditeur vérifié sur le registre pour l\'instant.</string>
+    <string name="publisher_verified">Éditeur, prouvé par le site web que le store répertorie (%1$s)</string>
+    <string name="publisher_none">Aucun éditeur prouvé pour l\'instant.</string>
     <string name="publisher_claim">Je publie cette application</string>
     <string name="publisher_claim_title">Revendiquer cette application</string>
-    <string name="publisher_claim_body">Les lecteurs vérifient une revendication par rapport au site web indiqué par le store pour cette application (%1$s). Placez un fichier à %2$s contenant votre adresse de wallet (une ligne) :\n\n%3$s\n\nSignez ensuite la revendication. La vérification est automatique et se répète toutes les 24 heures. Si le fichier est manquant, la revendication reste simplement non vérifiée ; rien d\'autre ne se produit.</string>
     <string name="publisher_claim_sign">Signer la revendication</string>
-    <string name="publisher_claimed_pending">Votre revendication est on-chain mais pas encore vérifiée (fichier introuvable sur le site web indiqué).</string>
-    <string name="publisher_badge">Éditeur ✓</string>
+    <string name="publisher_claimed_pending">Votre revendication est signée mais pas encore prouvée. Nommez votre wallet dans le manifeste de l\'application et publiez la mise à jour, ou placez le fichier sur le site web que le store répertorie.</string>
+    <string name="publisher_badge">Éditeur</string>
     <string name="versions_title">Par version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signés</string>
     <string name="versions_installed">installée</string>
@@ -233,7 +232,7 @@
     <string name="intro4_title">Ce que votre téléphone peut prouver</string>
     <string name="intro4_body">Pour les applications que vous avez installées, Undersigned montre si la version correspond au certificat indiqué par le store et si les permissions ont changé. Des faits, jamais des verdicts.</string>
     <string name="intro5_title">Suivez, soyez informé, répondez</string>
-    <string name="intro5_body">Suivez des applications pour être informé des nouveaux avis signés, mises à jour et réponses. Les éditeurs revendiquent leur application en signant et répondent avec un badge vérifié. Tout ce que vous publiez est permanent et public.</string>
+    <string name="intro5_body">Suivez des applications pour être informé des nouveaux avis signés, mises à jour et réponses. Les éditeurs revendiquent leur application en signant, et leurs réponses portent la marque Éditeur une fois la revendication prouvée. Tout ce que vous publiez est permanent et public.</string>
     <string name="review_also_store">Publier aussi dans le dApp Store</string>
     <string name="review_also_store_hint">Copie votre note et ouvre la fiche, où vous la publiez sous «Notes &amp; Commentaires» → «Donnez votre avis sur cette dApp». Le store n\'a aucun moyen de laisser une autre application publier à votre place, donc les derniers gestes sont les vôtres.</string>
     <string name="flag">Flag</string>
@@ -253,7 +252,7 @@
     <string name="inbox_unanswered">Sans réponse</string>
     <string name="inbox_replies">Réponses qui me sont adressées</string>
     <string name="inbox_starred">Mis en avant</string>
-    <string name="inbox_unanswered_sub">Avis signés sur des applications où vous êtes vérifié comme éditeur, sans réponse de votre part.</string>
+    <string name="inbox_unanswered_sub">Avis signés sur des applications dont vous êtes l\'éditeur prouvé, sans réponse de votre part.</string>
     <string name="inbox_unanswered_empty">Rien en attente. Vérifiez une revendication d\'éditeur pour voir vos applications ici.</string>
     <string name="inbox_replies_empty">Aucune réponse à vos enregistrements pour l\'instant.</string>
     <string name="inbox_starred_empty">Mettez un avis en avant pour le conserver ici.</string>
@@ -262,7 +261,7 @@
     <string name="profile_credibility_sub">40 de base, +30 pour l\'accord des tags avec d\'autres signataires, +10 pour les votes utiles reçus, +20 pour les flags confirmés par consensus, −50 × part des enregistrements masqués par consensus. Formule publiée, rien d\'autre n\'y est associé.</string>
     <string name="profile_flags">Flags signés : %1$d · Confirmés : %2$d · Reçus : %3$d · Enregistrements masqués : %4$d</string>
     <string name="profile_replied">Répond aux réponses sur ses avis %1$s du temps</string>
-    <string name="profile_publishes">Éditeur vérifié de</string>
+    <string name="profile_publishes">Éditeur prouvé de</string>
     <string name="profile_reviews">Avis signés</string>
     <string name="responsiveness_line">Répond aux avis signés en %1$s · %2$d sur %3$d répondus</string>
     <string name="responsiveness_never">N\'a pas encore répondu à un avis signé</string>
@@ -290,7 +289,7 @@
     <string name="clear_body">Un vote \"paraît authentique\" compense les flags sur cet enregistrement. Un par wallet, pondéré comme un flag. Utilisez-le quand vous pensez que les flags sont erronés.</string>
     <string name="unvote">Retirer mon vote utile</string>
     <string name="flag_net">net %1$s</string>
-    <string name="publisher_flags_ignored">Les flags d\'un éditeur vérifié sur les avis de sa propre application ne comptent pas ; répondez plutôt.</string>
+    <string name="publisher_flags_ignored">Les flags d\'un éditeur prouvé sur les avis de sa propre application ne comptent pas ; répondez plutôt.</string>
     <string name="hidden_reply">Réponse masquée par consensus</string>
     <string name="review_self_published">Non comptabilisé — l\'application appartient à l\'éditeur</string>
     <string name="attest_title">Ce qui compte comme une voix</string>
@@ -341,8 +340,8 @@
     <string name="stats_apps">dApps avec un avis signé</string>
     <string name="stats_apps_scored">dApps avec un score</string>
     <string name="stats_replies">Réponses</string>
-    <string name="stats_publisher_replies">dont d\'un éditeur vérifié</string>
-    <string name="stats_claims">Revendications d\'éditeur · vérifiées</string>
+    <string name="stats_publisher_replies">dont d\'un éditeur prouvé</string>
+    <string name="stats_claims">Revendications d\'éditeur · prouvées</string>
     <string name="stats_moderation">Signalements · clarifications · contestations</string>
     <string name="stats_hidden">Masqués par consensus</string>
     <string name="stats_withdrawn">Retirés par leur auteur</string>
@@ -400,7 +399,7 @@
     <string name="pro_tool_import_title">Réimportez-les tous</string>
     <string name="pro_tool_import_body">Chaque avis du store que vous avez écrit, signé sur le registre en une seule approbation au lieu d\'un par un.</string>
     <string name="pro_tool_desk_title">Bureau de l\'éditeur</string>
-    <string name="pro_tool_desk_body">La file sans réponse et la réactivité pour chaque dApp que vous avez vérifiée, dans une seule liste.</string>
+    <string name="pro_tool_desk_body">La file sans réponse et la réactivité pour chaque dApp dont vous êtes l\'éditeur prouvé, dans une seule liste.</string>
     <string name="pro_tool_export_title">Exportez le registre</string>
     <string name="pro_tool_export_body">N\'importe quel dApp, n\'importe quel signataire, en CSV ou JSON. Les données sont publiques ; Pro fait la lecture à votre place.</string>
     <string name="pro_tool_watch_title">Surveillance horaire du certificat</string>
@@ -489,7 +488,7 @@
     <string name="fp_read">Lire tout le registre</string>
     <string name="fp_sign">Signer avis, réponses, signalements, contestations</string>
     <string name="fp_facts">Ce que votre appareil peut vérifier</string>
-    <string name="fp_claim">Revendiquer un dApp, répondre avec un badge vérifié</string>
+    <string name="fp_claim">Revendiquer un dApp, répondre en tant que son éditeur prouvé</string>
     <string name="fp_copy">Copier un avis vers le store</string>
     <string name="fp_import">Importer les avis du store</string>
     <string name="fp_import_free">un par un</string>
@@ -503,9 +502,9 @@
     <string name="fp_weight_both">le même — appareil et SKR staké uniquement</string>
     <string name="desk_title">Bureau de l\'éditeur</string>
     <plurals name="desk_across">
-        <item quantity="one">Sur vos %1$d dApp vérifiée</item>
-        <item quantity="other">Sur vos %1$d dApps vérifiées</item>
-        <item quantity="many">Sur vos %1$d dApps vérifiées</item>
+        <item quantity="one">Sur vos %1$d dApp prouvée</item>
+        <item quantity="other">Sur vos %1$d dApps prouvées</item>
+        <item quantity="many">Sur vos %1$d dApps prouvées</item>
     </plurals>
     <string name="desk_unanswered">sans réponse</string>
     <string name="desk_median">réponse médiane</string>
@@ -521,7 +520,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">La réactivité est lue depuis le registre comme tout le reste : l\'écart entre un avis signé et votre réponse signée. Elle est montrée aux lecteurs sur votre page de dApp, donc la file d\'attente est le produit.</string>
-    <string name="desk_none">Aucun dApp vérifié pour l\'instant. Revendiquez une application depuis sa page et prouvez le site web ; le bureau se remplit à partir de là.</string>
+    <string name="desk_none">Aucun dApp prouvé pour l\'instant. Revendiquez une application depuis sa page et prouvez-le (version signée ou site web) ; le bureau se remplit à partir de là.</string>
     <string name="desk_none_waiting">Rien en attente.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -763,8 +762,8 @@
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d étape</item><item quantity="many">%1$d étapes</item><item quantity="other">%1$d étapes</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Éditeur vérifié — a prouvé le contrôle de %1$s, connu depuis %2$s</string>
-    <string name="publisher_verified_apk">Éditeur vérifié — nommé dans la version signée de l\'application elle-même</string>
+    <string name="publisher_verified_since">Éditeur, prouvé par le site web que le store répertorie (%1$s), connu depuis %2$s</string>
+    <string name="publisher_verified_apk">Éditeur, prouvé par la version signée de l\'application elle-même sur ce téléphone</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Fonctionne</string>
     <string name="tag_crashes">Plante</string>
@@ -794,7 +793,7 @@
     <string name="pay_list_fee">Le référencement coûte le même prix qu\'un palier payant de nos autres dApps : %1$s ou %2$s (%3$s avec un Seeker Genesis Token). Il est payé une fois par dApp et par trésorerie, dans la même transaction qui signe l\'annonce. Modifier le code ou se référencer à nouveau plus tard ne coûte que les frais de réseau.</string>
     <string name="pay_list_pay">Payer %1$s et référencer</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Éditeur vérifié — nommé dans la version que le store fournit</string>
+    <string name="publisher_verified_store">Éditeur, prouvé par la version que le dApp Store fournit</string>
     <string name="publisher_check_build">Vérifier la version du store · %1$s</string>
     <string name="publisher_checking_build">Lecture de la version du store…</string>
     <string name="publisher_build_nothing">La version du store ne nomme aucun wallet d\'éditeur.</string>
@@ -842,4 +841,21 @@
     <string name="notif_note_title">L\'éditeur a répondu à votre avis du store · %1$s</string>
     <string name="notif_proven_title">Votre revendication est prouvée · %1$s</string>
     <string name="notif_proven_body">Vos réponses aux avis de cette application portent désormais la marque Éditeur ✓, et vos propres avis sur elle ne sont pas comptabilisés.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Nommez votre wallet dans votre application (le plus fort)</string>
+    <string name="claim_route_build_body">Ajoutez cette ligne à l\'intérieur de &lt;application&gt; dans le manifeste de votre application et publiez la mise à jour sur le dApp Store. Les lecteurs examinent la version que le store fournit : la ligne doit nommer ce wallet et la version doit être signée avec le certificat que le store répertorie. Seul le détenteur de la clé de signature de votre application peut le faire.</string>
+    <string name="claim_route_site_title">2. Ou placez un fichier sur le site web que le store répertorie</string>
+    <string name="claim_route_site_body">Le store répertorie %1$s pour cette application. Placez à %2$s un fichier contenant l\'adresse de votre wallet sur une seule ligne :\n\n%3$s</string>
+    <string name="claim_route_site_none">Le store ne répertorie, pour cette application, aucun site web pouvant le prouver (les profils de réseaux sociaux et les hébergements partagés ne comptent pas). Utilisez la version signée.</string>
+    <string name="claim_then_sign">Signez ensuite la revendication. Tant qu\'aucune des deux preuves n\'est trouvée, la revendication s\'affiche comme non prouvée ; rien d\'autre ne se passe. La preuve est réexaminée chaque jour.</string>
+    <string name="proof_how_link">Comment est-ce prouvé ?</string>
+    <string name="proof_how_title">Comment un éditeur est prouvé</string>
+    <string name="proof_how_intro">N\'importe qui peut signer « Je publie cette application ». Une signature montre seulement qui revendique. Une revendication est prouvée lorsque quelque chose que seul le véritable éditeur contrôle nomme le même wallet.</string>
+    <string name="proof_key_title">La clé de signature de l\'application (le plus fort)</string>
+    <string name="proof_key_body">Chaque application Android est signée avec une clé qui est son identité : le store répertorie son certificat, et les téléphones refusent une mise à jour signée par une autre clé. Lorsque l\'éditeur nomme un wallet dans le manifeste de l\'application, la ligne se trouve dans la version signée, donc seul le détenteur de la clé a pu l\'y mettre. Undersigned examine la version que le store fournit, ou celle installée sur ce téléphone.</string>
+    <string name="proof_site_title">Le site web que le store répertorie</string>
+    <string name="proof_site_body">L\'éditeur définit le site web dans le portail éditeur du store. Un fichier qui y nomme le wallet montre le contrôle de ce site. Plus faible : les domaines changent de mains, c\'est pourquoi la date de première observation est affichée. Les profils de réseaux sociaux et les hébergements partagés ne sont pas acceptés.</string>
+    <string name="proof_not_title">Ce qui ne le prouve pas</string>
+    <string name="proof_not_body">La signature du wallet lui-même, une adresse de paiement ou le wallet qui a publié l\'application sur le dApp Store. Le store n\'indique pas quel enregistrement on-chain appartient à quelle fiche, et n\'importe qui peut en créer un nommant n\'importe quelle application.</string>
+    <string name="proof_how_after">Les réponses d\'un éditeur prouvé portent la marque Éditeur, et ses propres avis sur l\'application ne sont pas comptés.</string>
 </resources>

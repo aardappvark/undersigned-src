@@ -72,14 +72,13 @@
     <string name="fact_store_version">Versiecode in de store</string>
     <string name="publisher_title">Uitgever</string>
     <string name="publisher_listed">Vermeld door de store als %1$s</string>
-    <string name="publisher_verified">Geverifieerde uitgever — controle over %1$s aangetoond</string>
-    <string name="publisher_none">Nog geen geverifieerde uitgever op het grootboek.</string>
+    <string name="publisher_verified">Uitgever, bewezen door de website die de store vermeldt (%1$s)</string>
+    <string name="publisher_none">Nog geen bewezen uitgever.</string>
     <string name="publisher_claim">Ik geef deze app uit</string>
     <string name="publisher_claim_title">Deze app claimen</string>
-    <string name="publisher_claim_body">Lezers verifiëren een claim aan de hand van de website die de store voor deze app vermeldt (%1$s). Plaats een bestand op %2$s met uw walletadres (één regel):\n\n%3$s\n\nOnderteken vervolgens de claim. Verificatie gebeurt automatisch en herhaalt elke 24 uur. Als het bestand ontbreekt, blijft de claim gewoon ongeverifieerd; er gebeurt verder niets.</string>
     <string name="publisher_claim_sign">De claim ondertekenen</string>
-    <string name="publisher_claimed_pending">Uw claim staat on-chain maar is nog niet geverifieerd (bestand niet gevonden op de vermelde website).</string>
-    <string name="publisher_badge">Uitgever ✓</string>
+    <string name="publisher_claimed_pending">Uw claim is ondertekend maar nog niet bewezen. Noem uw wallet in het manifest van de app en breng de update uit, of zet het bestand op de website die de store vermeldt.</string>
+    <string name="publisher_badge">Uitgever</string>
     <string name="versions_title">Per versie</string>
     <string name="versions_row">v%1$d · %2$s · %3$d ondertekend</string>
     <string name="versions_installed">geïnstalleerd</string>
@@ -222,7 +221,7 @@
     <string name="intro4_title">Wat uw telefoon kan bewijzen</string>
     <string name="intro4_body">Voor apps die u hebt geïnstalleerd, toont Undersigned of de build overeenkomt met het certificaat dat de store vermeldt en of machtigingen zijn veranderd. Feiten, nooit oordelen.</string>
     <string name="intro5_title">Volgen, op de hoogte blijven, reageren</string>
-    <string name="intro5_body">Volg apps om te horen over nieuwe ondertekende recensies, updates en reacties. Uitgevers claimen hun app door te ondertekenen en antwoorden met een geverifieerd label. Alles wat u publiceert is permanent en openbaar.</string>
+    <string name="intro5_body">Volg apps om te horen over nieuwe ondertekende recensies, updates en reacties. Uitgevers claimen hun app door te ondertekenen, en hun antwoorden dragen het label Uitgever zodra de claim bewezen is. Alles wat u publiceert is permanent en openbaar.</string>
     <string name="review_also_store">Ook plaatsen in de dApp Store</string>
     <string name="review_also_store_hint">Kopieert uw opmerking en opent de vermelding, waar u deze plaatst onder „Beoordelingen &amp; Recensies” → „Beoordeel deze dApp”. De store heeft geen manier voor een andere app om voor u te plaatsen, dus de laatste tikken zijn aan u.</string>
     <string name="flag">Markeren</string>
@@ -242,7 +241,7 @@
     <string name="inbox_unanswered">Onbeantwoord</string>
     <string name="inbox_replies">Reacties aan mij</string>
     <string name="inbox_starred">Met ster</string>
-    <string name="inbox_unanswered_sub">Ondertekende recensies op apps waarvoor u als uitgever bent geverifieerd, zonder reactie van u.</string>
+    <string name="inbox_unanswered_sub">Ondertekende recensies op apps waarvan u de bewezen uitgever bent, zonder reactie van u.</string>
     <string name="inbox_unanswered_empty">Niets wachtend. Verifieer een uitgeversclaim om uw apps hier te zien.</string>
     <string name="inbox_replies_empty">Nog geen reacties op uw records.</string>
     <string name="inbox_starred_empty">Geef een recensie een ster om deze hier te bewaren.</string>
@@ -251,7 +250,7 @@
     <string name="profile_credibility_sub">40 basis, +30 voor tagovereenstemming met andere ondertekenaars, +10 voor ontvangen nuttige stemmen, +20 voor door consensus bevestigde markeringen, −50 × aandeel records verborgen door consensus. Gepubliceerde formule, er is niets aan verbonden.</string>
     <string name="profile_flags">Markeringen ondertekend: %1$d · Bevestigd: %2$d · Ontvangen: %3$d · Records verborgen: %4$d</string>
     <string name="profile_replied">Beantwoordt %1$s van de reacties op hun eigen recensies</string>
-    <string name="profile_publishes">Geverifieerde uitgever van</string>
+    <string name="profile_publishes">Bewezen uitgever van</string>
     <string name="profile_reviews">Ondertekende recensies</string>
     <string name="responsiveness_line">Beantwoordt ondertekende recensies binnen %1$s · %2$d van %3$d beantwoord</string>
     <string name="responsiveness_never">Heeft nog geen ondertekende recensie beantwoord</string>
@@ -279,7 +278,7 @@
     <string name="clear_body">Een \"lijkt echt\"-stem compenseert markeringen op dit record. Eén per wallet, gewogen als een markering. Gebruik dit wanneer u denkt dat de markeringen onterecht zijn.</string>
     <string name="unvote">Mijn nuttig-stem terugtrekken</string>
     <string name="flag_net">netto %1$s</string>
-    <string name="publisher_flags_ignored">Markeringen van een geverifieerde uitgever op recensies van hun eigen app tellen niet mee; reageer in plaats daarvan.</string>
+    <string name="publisher_flags_ignored">Markeringen van de bewezen uitgever van een app op recensies van de eigen app tellen niet mee; reageer in plaats daarvan.</string>
     <string name="hidden_reply">Reactie verborgen door consensus</string>
     <string name="review_self_published">Niet meegeteld — de eigen app van de uitgever</string>
     <string name="attest_title">Wat telt als stem</string>
@@ -330,8 +329,8 @@
     <string name="stats_apps">dApps met een ondertekende recensie</string>
     <string name="stats_apps_scored">dApps met een score</string>
     <string name="stats_replies">Reacties</string>
-    <string name="stats_publisher_replies">daarvan van een geverifieerde uitgever</string>
-    <string name="stats_claims">Uitgeversclaims · geverifieerd</string>
+    <string name="stats_publisher_replies">daarvan van een bewezen uitgever</string>
+    <string name="stats_claims">Uitgeversclaims · bewezen</string>
     <string name="stats_moderation">Markeringen · echt-stemmen · bezwaren</string>
     <string name="stats_hidden">Verborgen door consensus</string>
     <string name="stats_withdrawn">Teruggetrokken door de auteur</string>
@@ -389,7 +388,7 @@
     <string name="pro_tool_import_title">Ze allemaal terug importeren</string>
     <string name="pro_tool_import_body">Elke storerecensie die u hebt geschreven, met één goedkeuring op het grootboek ondertekend in plaats van één voor één.</string>
     <string name="pro_tool_desk_title">Uitgeversdesk</string>
-    <string name="pro_tool_desk_body">De wachtrij van onbeantwoorde recensies en de reactiesnelheid van al uw geverifieerde dApps, in één lijst.</string>
+    <string name="pro_tool_desk_body">De wachtrij van onbeantwoorde recensies en de reactiesnelheid van elke dApp waarvan u de bewezen uitgever bent, in één lijst.</string>
     <string name="pro_tool_export_title">Het grootboek exporteren</string>
     <string name="pro_tool_export_body">Elke dApp, elke ondertekenaar, als CSV of JSON. De gegevens zijn openbaar; Pro doet het lezen voor u.</string>
     <string name="pro_tool_watch_title">Uurlijkse certificaatbewaking</string>
@@ -476,7 +475,7 @@
     <string name="fp_read">Het hele grootboek lezen</string>
     <string name="fp_sign">Recensies, reacties, markeringen, bezwaren ondertekenen</string>
     <string name="fp_facts">Wat uw apparaat kan verifiëren</string>
-    <string name="fp_claim">Een dApp claimen, antwoorden met een geverifieerd label</string>
+    <string name="fp_claim">Een dApp claimen, antwoorden als de bewezen uitgever ervan</string>
     <string name="fp_copy">Een recensie naar de store kopiëren</string>
     <string name="fp_import">Storerecensies importeren</string>
     <string name="fp_import_free">één voor één</string>
@@ -490,8 +489,8 @@
     <string name="fp_weight_both">hetzelfde — alleen apparaat en gestakete SKR</string>
     <string name="desk_title">Uitgeversdesk</string>
     <plurals name="desk_across">
-        <item quantity="one">Voor al uw %1$d geverifieerde dApp</item>
-        <item quantity="other">Voor al uw %1$d geverifieerde dApps</item>
+        <item quantity="one">Voor al uw %1$d bewezen dApp</item>
+        <item quantity="other">Voor al uw %1$d bewezen dApps</item>
     </plurals>
     <string name="desk_unanswered">onbeantwoord</string>
     <string name="desk_median">mediane reactietijd</string>
@@ -506,7 +505,7 @@
     </plurals>
     <string name="desk_hours">%1$d u</string>
     <string name="desk_note">Reactiesnelheid wordt, net als al het andere, van het grootboek gelezen: het verschil tussen een ondertekende recensie en uw ondertekende reactie. Dit wordt aan lezers getoond op uw dApp-pagina, dus de wachtrij is het product.</string>
-    <string name="desk_none">Nog geen geverifieerde dApps. Claim een app vanaf de pagina en bewijs de website; de desk vult zich van daaruit.</string>
+    <string name="desk_none">Nog geen bewezen dApps. Claim een app vanaf de pagina en bewijs de claim (ondertekende build of website); de desk vult zich van daaruit.</string>
     <string name="desk_none_waiting">Niets wachtend.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -743,8 +742,8 @@
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d stap</item><item quantity="other">%1$d stappen</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Geverifieerde uitgever — controle over %1$s aangetoond, bekend sinds %2$s</string>
-    <string name="publisher_verified_apk">Geverifieerde uitgever — genoemd in de eigen ondertekende build van de app</string>
+    <string name="publisher_verified_since">Uitgever, bewezen door de website die de store vermeldt (%1$s), bekend sinds %2$s</string>
+    <string name="publisher_verified_apk">Uitgever, bewezen door de eigen ondertekende build van de app op deze telefoon</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Werkt</string>
     <string name="tag_crashes">Crasht</string>
@@ -774,7 +773,7 @@
     <string name="pay_list_fee">Vermelden kost hetzelfde als een betaald niveau van onze andere dApps: %1$s of %2$s (%3$s met een Seeker Genesis Token). Dit wordt eenmalig betaald per dApp en treasury, in dezelfde transactie die de vermelding ondertekent. De code later wijzigen of opnieuw vermelden kost alleen de netwerkkosten.</string>
     <string name="pay_list_pay">%1$s betalen en vermelden</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Geverifieerde uitgever — genoemd in de build die de store aanbiedt</string>
+    <string name="publisher_verified_store">Uitgever, bewezen door de build die de dApp Store aanbiedt</string>
     <string name="publisher_check_build">Build van de store controleren · %1$s</string>
     <string name="publisher_checking_build">Build van de store wordt gelezen…</string>
     <string name="publisher_build_nothing">De build van de store noemt geen wallet van de uitgever.</string>
@@ -822,4 +821,21 @@
     <string name="notif_note_title">De uitgever heeft op uw store-recensie gereageerd · %1$s</string>
     <string name="notif_proven_title">Uw claim is bewezen · %1$s</string>
     <string name="notif_proven_body">Uw reacties op de recensies van deze app dragen nu het label Uitgever ✓, en uw eigen recensies ervan worden niet meegeteld.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Noem uw wallet in uw app (sterkst)</string>
+    <string name="claim_route_build_body">Voeg deze regel toe binnen &lt;application&gt; in het manifest van uw app en breng de update uit in de dApp Store. Lezers bekijken de build die de store aanbiedt: de regel moet deze wallet noemen en de build moet zijn ondertekend met het certificaat dat de store vermeldt. Alleen de houder van de ondertekeningssleutel van uw app kan dit doen.</string>
+    <string name="claim_route_site_title">2. Of zet een bestand op de website die de store vermeldt</string>
+    <string name="claim_route_site_body">De store vermeldt %1$s voor deze app. Zet op %2$s een bestand met uw wallet-adres op één regel:\n\n%3$s</string>
+    <string name="claim_route_site_none">De store vermeldt voor deze app geen website die het kan bewijzen (socialemedia-profielen en gedeelde hosts tellen niet). Gebruik de ondertekende build.</string>
+    <string name="claim_then_sign">Onderteken daarna de claim. Zolang geen van beide bewijzen is gevonden, wordt de claim getoond als niet bewezen; er gebeurt verder niets. Het bewijs wordt elke dag opnieuw bekeken.</string>
+    <string name="proof_how_link">Hoe wordt dit bewezen?</string>
+    <string name="proof_how_title">Hoe een uitgever wordt bewezen</string>
+    <string name="proof_how_intro">Iedereen kan „Ik publiceer deze app” ondertekenen. Een handtekening toont alleen wie de claim doet. Een claim is bewezen wanneer iets wat alleen de echte uitgever beheert dezelfde wallet noemt.</string>
+    <string name="proof_key_title">De ondertekeningssleutel van de app (sterkst)</string>
+    <string name="proof_key_body">Elke Android-app is ondertekend met een sleutel die haar identiteit is: de store vermeldt het certificaat ervan, en telefoons weigeren een update die met een andere sleutel is ondertekend. Wanneer de uitgever een wallet noemt in het manifest van de app, staat de regel in de ondertekende build, zodat alleen de sleutelhouder hem daar kan hebben gezet. Undersigned bekijkt de build die de store aanbiedt, of die op deze telefoon is geïnstalleerd.</string>
+    <string name="proof_site_title">De website die de store vermeldt</string>
+    <string name="proof_site_body">De uitgever stelt de website in via het uitgeversportaal van de store. Een bestand daar dat de wallet noemt, toont controle over die site. Zwakker: domeinen wisselen van eigenaar, daarom wordt de datum van eerste waarneming getoond. Socialemedia-profielen en gedeelde hosts worden niet geaccepteerd.</string>
+    <string name="proof_not_title">Wat het niet bewijst</string>
+    <string name="proof_not_body">De eigen handtekening van de wallet, een betaaladres of de wallet die de app in de dApp Store publiceerde. De store zegt niet welk on-chain record bij welke vermelding hoort, en iedereen kan er een maken die een willekeurige app noemt.</string>
+    <string name="proof_how_after">Antwoorden van een bewezen uitgever dragen het label Uitgever, en zijn eigen recensies van de app tellen niet mee.</string>
 </resources>

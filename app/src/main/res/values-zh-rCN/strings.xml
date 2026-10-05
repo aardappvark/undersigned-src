@@ -76,14 +76,13 @@
     <string name="fact_store_version">商店版本号</string>
     <string name="publisher_title">发布者</string>
     <string name="publisher_listed">商店列出的发布者为 %1$s</string>
-    <string name="publisher_verified">已验证发布者——已证明对 %1$s 的控制权</string>
-    <string name="publisher_none">账本上尚无已验证的发布者。</string>
+    <string name="publisher_verified">发布者,由商店列出的网站(%1$s)证明</string>
+    <string name="publisher_none">尚无已证明的发布者。</string>
     <string name="publisher_claim">我是此应用的发布者</string>
     <string name="publisher_claim_title">认领此应用</string>
-    <string name="publisher_claim_body">读者会将认领信息与商店为此应用列出的网站(%1$s)进行核对。请在 %2$s 处放置一个文件,内容为您的钱包地址(一行):\n\n%3$s\n\n然后签名提交认领。验证是自动进行的,每 24 小时重复一次。如果文件缺失,认领只会保持未验证状态;不会发生其他任何事。</string>
     <string name="publisher_claim_sign">签名提交认领</string>
-    <string name="publisher_claimed_pending">您的认领已上链,但尚未验证(在列出的网站上未找到该文件)。</string>
-    <string name="publisher_badge">发布者 ✓</string>
+    <string name="publisher_claimed_pending">您的认领已签名,但尚未证明。请在应用的清单文件中写明您的钱包并发布更新,或将该文件放到商店列出的网站上。</string>
+    <string name="publisher_badge">发布者</string>
     <string name="versions_title">按版本</string>
     <string name="versions_row">v%1$d · %2$s · %3$d 条签名</string>
     <string name="versions_installed">已安装</string>
@@ -228,7 +227,7 @@
     <string name="intro4_title">您的手机能证明什么</string>
     <string name="intro4_body">对于您已安装的应用,Undersigned 会显示已安装版本是否与商店列出的证书一致,以及权限是否发生变化。只有事实,绝无定论。</string>
     <string name="intro5_title">关注、获知、回复</string>
-    <string name="intro5_body">关注应用即可获知新的签名评价、更新和回复。发布者通过签名认领应用,并以认证徽章作答。您发布的一切都是永久且公开的。</string>
+    <string name="intro5_body">关注应用即可获知新的签名评价、更新和回复。发布者通过签名认领应用,认领被证明后,其回复会带有发布者标识。您发布的一切都是永久且公开的。</string>
     <string name="review_also_store">同时发布到 dApp Store</string>
     <string name="review_also_store_hint">复制您的说明并打开应用页面,您需要在“评分和评价”→“评价此 dApp”下自行发布。商店无法让其他应用代您发布,因此最后的操作需要您自己完成。</string>
     <string name="flag">标记</string>
@@ -248,7 +247,7 @@
     <string name="inbox_unanswered">未回复</string>
     <string name="inbox_replies">给我的回复</string>
     <string name="inbox_starred">已收藏</string>
-    <string name="inbox_unanswered_sub">您已认证为发布者的应用上尚未收到您回复的签名评价。</string>
+    <string name="inbox_unanswered_sub">您作为已证明发布者的应用上尚未收到您回复的签名评价。</string>
     <string name="inbox_unanswered_empty">没有待处理项。认领并通过发布者验证后,您的应用会显示在这里。</string>
     <string name="inbox_replies_empty">您的记录尚未收到任何回复。</string>
     <string name="inbox_starred_empty">收藏一条评价即可保存在这里。</string>
@@ -257,7 +256,7 @@
     <string name="profile_credibility_sub">基础分 40,与其他签名者标签一致 +30,收到有用投票 +10,标记被共识采纳 +20,记录被共识隐藏的比例 ×(−50)。公开的计算公式,不附带任何东西。</string>
     <string name="profile_flags">已签署标记:%1$d · 已采纳:%2$d · 已收到:%3$d · 记录已隐藏:%4$d</string>
     <string name="profile_replied">对自己评价的回复率为 %1$s</string>
-    <string name="profile_publishes">已验证发布者身份:</string>
+    <string name="profile_publishes">已证明发布者身份:</string>
     <string name="profile_reviews">签名评价</string>
     <string name="responsiveness_line">平均 %1$s 内回复签名评价 · 已回复 %2$d/%3$d 条</string>
     <string name="responsiveness_never">尚未回复过任何签名评价</string>
@@ -285,7 +284,7 @@
     <string name="clear_body">“看似真实”投票可抵消此记录上的标记。每个钱包一票,权重计算方式与标记相同。当您认为标记有误时使用。</string>
     <string name="unvote">撤回我的有用投票</string>
     <string name="flag_net">净值 %1$s</string>
-    <string name="publisher_flags_ignored">已验证发布者对自己应用评价所作的标记不计入;请改用回复。</string>
+    <string name="publisher_flags_ignored">应用的已证明发布者对自己应用评价所作的标记不计入;请改用回复。</string>
     <string name="hidden_reply">回复已被共识隐藏</string>
     <string name="review_self_published">不计入——发布者本人的应用</string>
     <string name="attest_title">什么才算一个声音</string>
@@ -336,8 +335,8 @@
     <string name="stats_apps">拥有签名评价的 dApp</string>
     <string name="stats_apps_scored">拥有评分的 dApp</string>
     <string name="stats_replies">回复数</string>
-    <string name="stats_publisher_replies">其中来自已验证发布者</string>
-    <string name="stats_claims">发布者认领 · 已验证</string>
+    <string name="stats_publisher_replies">其中来自已证明发布者</string>
+    <string name="stats_claims">发布者认领 · 已证明</string>
     <string name="stats_moderation">标记 · 看似真实 · 申诉</string>
     <string name="stats_hidden">被共识隐藏</string>
     <string name="stats_withdrawn">被作者撤回</string>
@@ -395,7 +394,7 @@
     <string name="pro_tool_import_title">一次性导回全部</string>
     <string name="pro_tool_import_body">您写过的每一条商店评价,只需一次批准即可全部签入账本,无需逐条操作。</string>
     <string name="pro_tool_desk_title">发布者工作台</string>
-    <string name="pro_tool_desk_body">在一个列表中查看您已验证的所有 dApp 的待回复队列和回复速度。</string>
+    <string name="pro_tool_desk_body">在一个列表中查看您作为已证明发布者的所有 dApp 的待回复队列和回复速度。</string>
     <string name="pro_tool_export_title">导出账本</string>
     <string name="pro_tool_export_body">任意 dApp、任意签名者,均可导出为 CSV 或 JSON。数据本身是公开的;Pro 只是替您完成读取工作。</string>
     <string name="pro_tool_watch_title">每小时证书监测</string>
@@ -480,7 +479,7 @@
     <string name="fp_read">阅读完整账本</string>
     <string name="fp_sign">签名评价、回复、标记、申诉</string>
     <string name="fp_facts">您设备可以验证的内容</string>
-    <string name="fp_claim">认领 dApp,以认证徽章作答</string>
+    <string name="fp_claim">认领 dApp,以其已证明发布者的身份作答</string>
     <string name="fp_copy">将评价复制到商店</string>
     <string name="fp_import">导入商店评价</string>
     <string name="fp_import_free">每次一条</string>
@@ -494,7 +493,7 @@
     <string name="fp_weight_both">相同——仅取决于设备认证和质押 SKR</string>
     <string name="desk_title">发布者工作台</string>
     <plurals name="desk_across">
-        <item quantity="other">跨您已验证的 %1$d 个 dApp</item>
+        <item quantity="other">跨您已证明的 %1$d 个 dApp</item>
     </plurals>
     <string name="desk_unanswered">未回复</string>
     <string name="desk_median">回复中位数</string>
@@ -508,7 +507,7 @@
     </plurals>
     <string name="desk_hours">%1$d 小时</string>
     <string name="desk_note">回复速度像其他一切一样从账本中读取:即签名评价与您签名回复之间的时间差。它会显示给读者查看您的 dApp 页面,因此这个队列本身就是评判标准。</string>
-    <string name="desk_none">尚无已验证的 dApp。请从应用页面认领并证明网站归属,工作台随后会自动填充。</string>
+    <string name="desk_none">尚无已证明的 dApp。请从应用页面认领并加以证明(签名安装包或网站),工作台随后会自动填充。</string>
     <string name="desk_none_waiting">没有待处理项。</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -728,8 +727,8 @@
     <plurals name="watch_count_low"><item quantity="other">%1$d 条一星</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d 个步骤</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">已验证发布者——已证明对 %1$s 的控制权,自 %2$s 起可见</string>
-    <string name="publisher_verified_apk">已验证发布者——已列于应用自身签名的安装包中</string>
+    <string name="publisher_verified_since">发布者,由商店列出的网站(%1$s)证明,自 %2$s 起可见</string>
+    <string name="publisher_verified_apk">发布者,由此手机上应用自身签名的安装包证明</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">可用</string>
     <string name="tag_crashes">崩溃</string>
@@ -759,7 +758,7 @@
     <string name="pay_list_fee">登记费用与我们其他 dApp 的付费层级相同:%1$s 或 %2$s(持有 Seeker Genesis Token 为 %3$s)。每个 dApp 和金库仅需支付一次,与签名登记同属一笔交易。之后更改代码或重新登记仅需支付网络费用。</string>
     <string name="pay_list_pay">支付 %1$s 并登记</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">已验证发布者——已列于商店提供的安装包中</string>
+    <string name="publisher_verified_store">发布者,由 dApp Store 提供的安装包证明</string>
     <string name="publisher_check_build">检查商店的安装包 · %1$s</string>
     <string name="publisher_checking_build">正在读取商店的安装包…</string>
     <string name="publisher_build_nothing">商店的安装包中未列出发布者的钱包。</string>
@@ -807,4 +806,21 @@
     <string name="notif_note_title">发布者回复了您的商店评价 · %1$s</string>
     <string name="notif_proven_title">您的认领已获证明 · %1$s</string>
     <string name="notif_proven_body">您对此应用评价的回复现在带有发布者 ✓ 标记,而您自己对它的评价不会计入。</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. 在您的应用中写明您的钱包(最强)</string>
+    <string name="claim_route_build_body">在应用清单文件的 &lt;application&gt; 内添加这一行,并将更新发布到 dApp Store。读者会检查商店提供的安装包:这一行必须写明此钱包,且安装包必须使用商店列出的证书签名。只有应用签名密钥的持有者才能做到。</string>
+    <string name="claim_route_site_title">2. 或在商店列出的网站上放一个文件</string>
+    <string name="claim_route_site_body">商店为此应用列出的是 %1$s。请在 %2$s 放置一个文件,内容为您的钱包地址,单独一行:\n\n%3$s</string>
+    <string name="claim_route_site_none">商店没有为此应用列出可用于证明的网站(社交主页和共享主机不算)。请使用签名安装包。</string>
+    <string name="claim_then_sign">然后对认领签名。在找到两种证明之一以前,该认领显示为未证明;不会发生其他事情。证明每天会重新检查一次。</string>
+    <string name="proof_how_link">这是如何证明的?</string>
+    <string name="proof_how_title">发布者如何被证明</string>
+    <string name="proof_how_intro">任何人都可以签名“我发布了这个应用”。签名只能显示是谁在认领。当只有真正的发布者才能控制的内容写明了同一个钱包时,认领才算被证明。</string>
+    <string name="proof_key_title">应用的签名密钥(最强)</string>
+    <string name="proof_key_body">每个 Android 应用都用一把密钥签名,这把密钥就是它的身份:商店列出其证书,手机会拒绝由任何其他密钥签名的更新。当发布者在应用清单文件中写明钱包时,这一行位于已签名的安装包之内,因此只有密钥持有者才可能放进去。Undersigned 会检查商店提供的安装包,或此手机上已安装的安装包。</string>
+    <string name="proof_site_title">商店列出的网站</string>
+    <string name="proof_site_body">发布者在商店的发布者门户中设置网站。该网站上写明钱包的文件,表明发布者控制着该网站。较弱:域名可能易主,因此会显示首次看到的日期。不接受社交主页和共享主机。</string>
+    <string name="proof_not_title">哪些不能证明</string>
+    <string name="proof_not_body">钱包自身的签名、收款地址,或在 dApp Store 上发布该应用的钱包。商店不会说明哪条链上记录属于哪个应用条目,任何人都可以创建一条写着任意应用名称的记录。</string>
+    <string name="proof_how_after">已证明发布者的回复带有发布者标识,其对自己应用的评价不计入。</string>
 </resources>

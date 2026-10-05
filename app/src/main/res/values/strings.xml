@@ -61,7 +61,7 @@
     <string name="intro4_title">What your phone can prove</string>
     <string name="intro4_body">For apps you have installed, Undersigned shows whether the build matches the certificate the store lists and whether permissions changed. Facts, never verdicts.</string>
     <string name="intro5_title">Follow, get told, reply</string>
-    <string name="intro5_body">Follow apps to hear about new signed reviews, updates and replies. Publishers claim their app by signing and answer with a verified badge. Everything you publish is permanent and public.</string>
+    <string name="intro5_body">Follow apps to hear about new signed reviews, updates and replies. Publishers claim their app by signing, and their replies carry the Publisher mark once the claim is proven. Everything you publish is permanent and public.</string>
 
     <!-- Browse -->
     <string name="browse_title">Undersigned</string>
@@ -100,8 +100,8 @@
     <string name="stats_apps">dApps with a signed review</string>
     <string name="stats_apps_scored">dApps with a score</string>
     <string name="stats_replies">Replies</string>
-    <string name="stats_publisher_replies">of them from a verified publisher</string>
-    <string name="stats_claims">Publisher claims · verified</string>
+    <string name="stats_publisher_replies">of them from a proven publisher</string>
+    <string name="stats_claims">Publisher claims · proven</string>
     <string name="stats_moderation">Flags · clears · disputes</string>
     <string name="stats_hidden">Hidden by consensus</string>
     <string name="stats_withdrawn">Withdrawn by their author</string>
@@ -163,16 +163,15 @@
     <string name="fact_store_version">Store version code</string>
     <string name="publisher_title">Publisher</string>
     <string name="publisher_listed">Listed by the store as %1$s</string>
-    <string name="publisher_verified">Verified publisher — proved control of %1$s</string>
-    <string name="publisher_none">No verified publisher on the ledger yet.</string>
-    <string name="publisher_verified_since">Verified publisher — proved control of %1$s, seen since %2$s</string>
-    <string name="publisher_verified_apk">Verified publisher — named inside the app\'s own signed build</string>
+    <string name="publisher_verified">Publisher, proven by the website the store lists (%1$s)</string>
+    <string name="publisher_none">No proven publisher yet.</string>
+    <string name="publisher_verified_since">Publisher, proven by the website the store lists (%1$s), seen since %2$s</string>
+    <string name="publisher_verified_apk">Publisher, proven by the app\'s own signed build on this phone</string>
     <string name="publisher_claim">I publish this app</string>
     <string name="publisher_claim_title">Claim this app</string>
-    <string name="publisher_claim_body">Readers verify a claim against the website the store lists for this app (%1$s). Put a file at %2$s containing your wallet address (one line):\n\n%3$s\n\nThen sign the claim. Verification is automatic and repeats every 24 hours. If the file is missing the claim simply stays unverified; nothing else happens.</string>
     <string name="publisher_claim_sign">Sign the claim</string>
-    <string name="publisher_claimed_pending">Your claim is on-chain but not verified yet (file not found on the listed website).</string>
-    <string name="publisher_badge">Publisher ✓</string>
+    <string name="publisher_claimed_pending">Your claim is signed but not proven yet. Name your wallet in the app\'s manifest and release the update, or put the file on the website the store lists.</string>
+    <string name="publisher_badge">Publisher</string>
     <string name="versions_title">By version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signed</string>
     <string name="versions_installed">installed</string>
@@ -332,7 +331,7 @@
     <string name="pro_tool_import_title">Import all of them back</string>
     <string name="pro_tool_import_body">Every store review you have written, signed onto the ledger in one approval instead of one at a time.</string>
     <string name="pro_tool_desk_title">Publisher desk</string>
-    <string name="pro_tool_desk_body">The unanswered queue and responsiveness across every dApp you have verified, in one list.</string>
+    <string name="pro_tool_desk_body">The unanswered queue and responsiveness across every dApp you are the proven publisher of, in one list.</string>
     <string name="pro_tool_export_title">Export the ledger</string>
     <string name="pro_tool_export_body">Any dApp, any signer, as CSV or JSON. The data is public; Pro does the reading for you.</string>
     <string name="pro_tool_watch_title">Hourly certificate watch</string>
@@ -419,7 +418,7 @@
     <string name="fp_read">Read the whole ledger</string>
     <string name="fp_sign">Sign reviews, replies, flags, disputes</string>
     <string name="fp_facts">What your device can verify</string>
-    <string name="fp_claim">Claim a dApp, answer with a verified badge</string>
+    <string name="fp_claim">Claim a dApp, answer as its proven publisher</string>
     <string name="fp_copy">Copy a review to the store</string>
     <string name="fp_import">Import store reviews</string>
     <string name="fp_import_free">one at a time</string>
@@ -433,8 +432,8 @@
     <string name="fp_weight_both">the same — device and staked SKR only</string>
     <string name="desk_title">Publisher desk</string>
     <plurals name="desk_across">
-        <item quantity="one">Across your %1$d verified dApp</item>
-        <item quantity="other">Across your %1$d verified dApps</item>
+        <item quantity="one">Across your %1$d proven dApp</item>
+        <item quantity="other">Across your %1$d proven dApps</item>
     </plurals>
     <string name="desk_unanswered">unanswered</string>
     <string name="desk_median">median reply</string>
@@ -449,7 +448,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Responsiveness is read from the ledger like everything else: the gap between a signed review and your signed reply. It is shown to readers on your dApp page, so the queue is the product.</string>
-    <string name="desk_none">No verified dApps yet. Claim an app from its page and prove the website; the desk fills from there.</string>
+    <string name="desk_none">No proven dApps yet. Claim an app from its page and prove it (signed build or website); the desk fills from there.</string>
     <string name="desk_none_waiting">Nothing waiting.</string>
     <string name="settings_data">Your data</string>
     <string name="settings_data_body">Nothing leaves this device except the public addresses in your RPC requests and the reviews you choose to sign. Consent records, hidden lists and device snapshots stay local.</string>
@@ -477,7 +476,7 @@
     <string name="inbox_unanswered">Unanswered</string>
     <string name="inbox_replies">Replies to me</string>
     <string name="inbox_starred">Starred</string>
-    <string name="inbox_unanswered_sub">Signed reviews on apps you have verified as publisher, with no reply from you.</string>
+    <string name="inbox_unanswered_sub">Signed reviews on apps you are the proven publisher of, with no reply from you.</string>
     <string name="inbox_unanswered_empty">Nothing waiting. Verify a publisher claim to see your apps here.</string>
     <string name="inbox_replies_empty">No replies to your records yet.</string>
     <string name="inbox_starred_empty">Star a review to keep it here.</string>
@@ -486,7 +485,7 @@
     <string name="profile_credibility_sub">40 base, +30 for tag agreement with other signers, +10 for helpful votes received, +20 for flags upheld by consensus, −50 × share of records hidden by consensus. Published formula, nothing attached to it.</string>
     <string name="profile_flags">Flags signed: %1$d · Upheld: %2$d · Received: %3$d · Records hidden: %4$d</string>
     <string name="profile_replied">Answers replies on their reviews %1$s of the time</string>
-    <string name="profile_publishes">Verified publisher of</string>
+    <string name="profile_publishes">Proven publisher of</string>
     <string name="profile_reviews">Signed reviews</string>
     <string name="responsiveness_line">Answers signed reviews in %1$s · %2$d of %3$d answered</string>
     <string name="responsiveness_never">Has not answered a signed review yet</string>
@@ -514,7 +513,7 @@
     <string name="clear_body">A clear vote offsets flags on this record. One per wallet, weighted like a flag. Use it when you think the flags are wrong.</string>
     <string name="unvote">Withdraw my helpful vote</string>
     <string name="flag_net">net %1$s</string>
-    <string name="publisher_flags_ignored">Flags from a verified publisher on reviews of their own app do not count; reply instead.</string>
+    <string name="publisher_flags_ignored">Flags from an app\'s proven publisher on reviews of their own app do not count; reply instead.</string>
     <string name="hidden_reply">Reply hidden by consensus</string>
     <string name="review_self_published">Not counted — the publisher\'s own app</string>
     <string name="attest_title">What counts as a voice</string>
@@ -788,7 +787,7 @@
     <string name="pay_list_fee">Listing costs the same as a paid tier of our other dApps: %1$s or %2$s (%3$s with a Seeker Genesis Token). It is paid once per dApp and treasury, in the same transaction that signs the listing. Changing the code or listing again later costs only the network fee.</string>
     <string name="pay_list_pay">Pay %1$s and list</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Verified publisher — named inside the build the store serves</string>
+    <string name="publisher_verified_store">Publisher, proven by the build the dApp Store serves</string>
     <string name="publisher_check_build">Check the store\'s build · %1$s</string>
     <string name="publisher_checking_build">Reading the store\'s build…</string>
     <string name="publisher_build_nothing">The store\'s build names no publisher wallet.</string>
@@ -839,4 +838,21 @@
     <string name="notif_note_title">The publisher answered your store review · %1$s</string>
     <string name="notif_proven_title">Your claim is proven · %1$s</string>
     <string name="notif_proven_body">Your replies to this app\'s reviews now carry the Publisher mark, and your own reviews of it are not counted.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Name your wallet in your app (strongest)</string>
+    <string name="claim_route_build_body">Add this line inside &lt;application&gt; in your app\'s manifest and release the update to the dApp Store. Readers check the build the store serves: the line must name this wallet and the build must be signed with the certificate the store lists. Only the holder of your app\'s signing key can do this.</string>
+    <string name="claim_route_site_title">2. Or put a file on the website the store lists</string>
+    <string name="claim_route_site_body">The store lists %1$s for this app. Put a file at %2$s containing your wallet address on one line:\n\n%3$s</string>
+    <string name="claim_route_site_none">The store lists no website for this app that can prove it (social profiles and shared hosts do not count). Use the signed build.</string>
+    <string name="claim_then_sign">Then sign the claim. Until one of the two proofs is found, the claim shows as not proven; nothing else happens. Proof is checked again every day.</string>
+    <string name="proof_how_link">How is this proven?</string>
+    <string name="proof_how_title">How a publisher is proven</string>
+    <string name="proof_how_intro">Anyone can sign \"I publish this app\". A signature only shows who is claiming. A claim is proven when something only the real publisher controls names the same wallet.</string>
+    <string name="proof_key_title">The app\'s signing key (strongest)</string>
+    <string name="proof_key_body">Every Android app is signed with a key that is its identity: the store lists its certificate, and phones refuse an update signed by any other key. When the publisher names a wallet inside the app\'s manifest, the line sits inside the signed build, so only the key\'s holder could have put it there. Undersigned checks the build the store serves, or the one installed on this phone.</string>
+    <string name="proof_site_title">The website the store lists</string>
+    <string name="proof_site_body">The publisher sets the website in the store\'s publisher portal. A file there naming the wallet shows control of that site. Weaker: domains change hands, so the date it was first seen is shown. Social profiles and shared hosts are not accepted.</string>
+    <string name="proof_not_title">What does not prove it</string>
+    <string name="proof_not_body">The wallet\'s own signature, a payment address, or the wallet that published the app on the dApp Store. The store does not say which on-chain record belongs to which listing, and anyone can mint one naming any app.</string>
+    <string name="proof_how_after">A proven publisher\'s replies carry the Publisher mark, and their own reviews of the app are not counted.</string>
 </resources>

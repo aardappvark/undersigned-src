@@ -91,6 +91,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val factsMap by vm.facts.collectAsState()
     var standingFor by remember { mutableStateOf<String?>(null) }
     var claimDialog by remember { mutableStateOf(false) }
+    var proofSheet by remember { mutableStateOf(false) }
     var claimStage by remember { mutableStateOf<String?>(null) }
     val versionScores = remember(entries, factsMap) { vm.versionScores(pkg) }
     LaunchedEffect(storeReviews[pkg]) { storeReviews[pkg]?.mapNotNull { it.walletAddress }?.let { vm.resolveFacts(it) } }
@@ -259,7 +260,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else -> Text(stringResource(R.string.publisher_build_other), color = RbColors.textTertiary, fontSize = 12.sp)
                     }
                 }
-                if (wallet != null && d?.website != null) {
+                // How a claim becomes proven: the signing key names the wallet; the store's publishing wallet alone is not proof.
+                TextButton(onClick = { proofSheet = true }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.proof_how_link), color = RbColors.purpleLight, fontSize = 12.sp) }
+                // A claim needs no website: the strongest proof is the app's own signed build.
+                if (wallet != null) {
                     Spacer(Modifier.height(8.dp))
                     val mine = vm.myClaim(pkg)
                     if (mine == null) SecondaryButton(claimStage ?: stringResource(R.string.publisher_claim), enabled = claimStage == null && sender != null, onClick = { claimDialog = true })
@@ -723,16 +728,26 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
 
     if (claimDialog) {
         val d = details[pkg]; val site = d?.website ?: ""
-        val wk = com.undersigned.app.ledger.PublisherVerifier.wellKnownUrl(site) ?: ""
+        val wk = com.undersigned.app.ledger.PublisherVerifier.wellKnownUrl(site)
         AlertDialog(onDismissRequest = { if (claimStage == null) claimDialog = false }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.publisher_claim_title), color = RbColors.textPrimary) },
-            text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(stringResource(R.string.publisher_claim_body, site, wk, wallet ?: ""), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp); claimStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) } } },
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+                // Route 1, strongest: name the wallet inside the app's own signed build.
+                Text(stringResource(R.string.claim_route_build_title), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.claim_route_build_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                androidx.compose.foundation.text.selection.SelectionContainer { Text("<meta-data android:name=\"undersigned.publisher\"\n    android:value=\"${wallet ?: ""}\" />", color = RbColors.textPrimary, fontSize = 11.sp, lineHeight = 15.sp, fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, modifier = Modifier.padding(vertical = 6.dp)) }
+                // Route 2: the website the store lists, when it is not a shared host.
+                Text(stringResource(R.string.claim_route_site_title), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
+                Text(if (wk != null) stringResource(R.string.claim_route_site_body, site, wk, wallet ?: "") else stringResource(R.string.claim_route_site_none), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Text(stringResource(R.string.claim_then_sign), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 8.dp)); claimStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) } } },
             confirmButton = { TextButton(enabled = claimStage == null && sender != null, onClick = {
                 val s = sender ?: return@TextButton
                 vm.publish(s, ReviewMemo.Claim(pkg), onStage = { st -> claimStage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { claimStage = null; claimDialog = false }
             }) { Text(stringResource(R.string.publisher_claim_sign), color = RbColors.purpleLight) } },
             dismissButton = { TextButton(enabled = claimStage == null, onClick = { claimDialog = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
+
+    if (proofSheet) ProofSheet { proofSheet = false }
 
     replyTo?.let { target ->
         val bytes = replyText.toByteArray(Charsets.UTF_8).size
@@ -912,4 +927,26 @@ private fun BurstSection(source: String, bursts: List<com.undersigned.protocol.R
         Text(stringResource(R.string.burst_more, sorted.size - 3), color = RbColors.purpleLight, fontSize = 13.sp, modifier = Modifier.weight(1f))
         Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = RbColors.purpleLight)
     }
+}
+
+
+/**
+ * "How is this proven?": why a publisher claim is proven by the app's signing key (or the store-listed website), and
+ * why neither a wallet's own signature nor the wallet that published on the dApp Store proves it by itself.
+ */
+@Composable
+private fun ProofSheet(onClose: () -> Unit) {
+    AlertDialog(onDismissRequest = onClose, containerColor = RbColors.surface,
+        title = { Text(stringResource(R.string.proof_how_title), color = RbColors.textPrimary, fontWeight = FontWeight.ExtraBold) },
+        text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(stringResource(R.string.proof_how_intro), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+            listOf(R.string.proof_key_title to R.string.proof_key_body, R.string.proof_site_title to R.string.proof_site_body, R.string.proof_not_title to R.string.proof_not_body).forEach { (t, b) ->
+                Column {
+                    Text(stringResource(t), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(b), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                }
+            }
+            Text(stringResource(R.string.proof_how_after), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+        } },
+        confirmButton = { TextButton(onClick = onClose) { Text(stringResource(android.R.string.ok), color = RbColors.purpleLight) } })
 }

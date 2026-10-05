@@ -76,14 +76,13 @@
     <string name="fact_store_version">Kode versi toko</string>
     <string name="publisher_title">Penerbit</string>
     <string name="publisher_listed">Terdaftar di toko sebagai %1$s</string>
-    <string name="publisher_verified">Penerbit terverifikasi — membuktikan kendali atas %1$s</string>
-    <string name="publisher_none">Belum ada penerbit terverifikasi di buku besar.</string>
+    <string name="publisher_verified">Penerbit, terbukti oleh situs web yang dicantumkan toko (%1$s)</string>
+    <string name="publisher_none">Belum ada penerbit yang terbukti.</string>
     <string name="publisher_claim">Saya menerbitkan aplikasi ini</string>
     <string name="publisher_claim_title">Klaim aplikasi ini</string>
-    <string name="publisher_claim_body">Pembaca memverifikasi klaim terhadap situs web yang dicantumkan toko untuk aplikasi ini (%1$s). Letakkan file di %2$s yang berisi alamat dompet Anda (satu baris):\n\n%3$s\n\nKemudian tandatangani klaim tersebut. Verifikasi bersifat otomatis dan berulang setiap 24 jam. Jika file tidak ditemukan, klaim hanya tetap belum terverifikasi; tidak ada hal lain yang terjadi.</string>
     <string name="publisher_claim_sign">Tandatangani klaim</string>
-    <string name="publisher_claimed_pending">Klaim Anda sudah on-chain tetapi belum diverifikasi (file tidak ditemukan di situs web yang tercantum).</string>
-    <string name="publisher_badge">Penerbit ✓</string>
+    <string name="publisher_claimed_pending">Klaim Anda sudah ditandatangani tetapi belum terbukti. Cantumkan dompet Anda di manifes aplikasi dan rilis pembaruannya, atau letakkan file di situs web yang dicantumkan toko.</string>
+    <string name="publisher_badge">Penerbit</string>
     <string name="versions_title">Berdasarkan versi</string>
     <string name="versions_row">v%1$d · %2$s · %3$d ditandatangani</string>
     <string name="versions_installed">terpasang</string>
@@ -228,7 +227,7 @@
     <string name="intro4_title">Apa yang bisa dibuktikan ponsel Anda</string>
     <string name="intro4_body">Untuk aplikasi yang telah Anda instal, Undersigned menunjukkan apakah build cocok dengan sertifikat yang dicantumkan toko dan apakah izin berubah. Fakta, bukan vonis.</string>
     <string name="intro5_title">Ikuti, diberi tahu, balas</string>
-    <string name="intro5_body">Ikuti aplikasi untuk mendengar tentang ulasan baru yang ditandatangani, pembaruan dan balasan. Penerbit mengklaim aplikasi mereka dengan menandatangani dan menjawab dengan lencana terverifikasi. Semua yang Anda publikasikan bersifat permanen dan publik.</string>
+    <string name="intro5_body">Ikuti aplikasi untuk mendengar tentang ulasan baru yang ditandatangani, pembaruan dan balasan. Penerbit mengklaim aplikasi mereka dengan menandatangani, dan balasan mereka membawa tanda Penerbit setelah klaim terbukti. Semua yang Anda publikasikan bersifat permanen dan publik.</string>
     <string name="review_also_store">Posting juga di dApp Store</string>
     <string name="review_also_store_hint">Menyalin catatan Anda dan membuka listingan, tempat Anda memposting di bawah “Ratings &amp; Reviews” → “Review this dApp”. Toko tidak memiliki cara bagi aplikasi lain untuk memposting atas nama Anda, jadi ketukan terakhir adalah milik Anda.</string>
     <string name="flag">Tandai</string>
@@ -248,7 +247,7 @@
     <string name="inbox_unanswered">Belum dijawab</string>
     <string name="inbox_replies">Balasan untuk saya</string>
     <string name="inbox_starred">Dibintangi</string>
-    <string name="inbox_unanswered_sub">Ulasan yang ditandatangani pada aplikasi yang telah Anda verifikasi sebagai penerbit, tanpa balasan dari Anda.</string>
+    <string name="inbox_unanswered_sub">Ulasan yang ditandatangani pada aplikasi yang Anda terbukti sebagai penerbitnya, tanpa balasan dari Anda.</string>
     <string name="inbox_unanswered_empty">Tidak ada yang menunggu. Verifikasi klaim penerbit untuk melihat aplikasi Anda di sini.</string>
     <string name="inbox_replies_empty">Belum ada balasan untuk catatan Anda.</string>
     <string name="inbox_starred_empty">Bintangi ulasan untuk menyimpannya di sini.</string>
@@ -257,7 +256,7 @@
     <string name="profile_credibility_sub">Dasar 40, +30 untuk kesesuaian tag dengan penandatangan lain, +10 untuk suara bermanfaat yang diterima, +20 untuk tanda yang ditegakkan oleh konsensus, −50 × bagian catatan yang disembunyikan oleh konsensus. Rumus yang dipublikasikan, tidak ada yang melekat padanya.</string>
     <string name="profile_flags">Tanda ditandatangani: %1$d · Ditegakkan: %2$d · Diterima: %3$d · Catatan disembunyikan: %4$d</string>
     <string name="profile_replied">Menjawab balasan pada ulasan mereka %1$s dari waktu</string>
-    <string name="profile_publishes">Penerbit terverifikasi dari</string>
+    <string name="profile_publishes">Penerbit terbukti dari</string>
     <string name="profile_reviews">Ulasan yang ditandatangani</string>
     <string name="responsiveness_line">Menjawab ulasan yang ditandatangani dalam %1$s · %2$d dari %3$d dijawab</string>
     <string name="responsiveness_never">Belum pernah menjawab ulasan yang ditandatangani</string>
@@ -285,7 +284,7 @@
     <string name="clear_body">Suara pembersih mengimbangi tanda pada catatan ini. Satu per dompet, berbobot seperti tanda. Gunakan saat Anda merasa tanda itu salah.</string>
     <string name="unvote">Tarik suara bermanfaat saya</string>
     <string name="flag_net">bersih %1$s</string>
-    <string name="publisher_flags_ignored">Tanda dari penerbit terverifikasi pada ulasan aplikasi mereka sendiri tidak dihitung; balas saja sebagai gantinya.</string>
+    <string name="publisher_flags_ignored">Tanda dari penerbit yang terbukti pada ulasan aplikasi mereka sendiri tidak dihitung; balas saja sebagai gantinya.</string>
     <string name="hidden_reply">Balasan disembunyikan oleh konsensus</string>
     <string name="review_self_published">Tidak dihitung — aplikasi milik penerbit sendiri</string>
     <string name="attest_title">Apa yang dianggap sebagai suara</string>
@@ -336,8 +335,8 @@
     <string name="stats_apps">dApp dengan ulasan yang ditandatangani</string>
     <string name="stats_apps_scored">dApp dengan skor</string>
     <string name="stats_replies">Balasan</string>
-    <string name="stats_publisher_replies">di antaranya dari penerbit terverifikasi</string>
-    <string name="stats_claims">Klaim penerbit · terverifikasi</string>
+    <string name="stats_publisher_replies">di antaranya dari penerbit yang terbukti</string>
+    <string name="stats_claims">Klaim penerbit · terbukti</string>
     <string name="stats_moderation">Tanda · pembersihan · sanggahan</string>
     <string name="stats_hidden">Disembunyikan oleh konsensus</string>
     <string name="stats_withdrawn">Ditarik oleh penulisnya sendiri</string>
@@ -395,7 +394,7 @@
     <string name="pro_tool_import_title">Impor semuanya kembali</string>
     <string name="pro_tool_import_body">Setiap ulasan toko yang telah Anda tulis, ditandatangani ke buku besar dalam satu persetujuan, bukan satu per satu.</string>
     <string name="pro_tool_desk_title">Meja penerbit</string>
-    <string name="pro_tool_desk_body">Antrean yang belum dijawab dan responsivitas di setiap dApp yang telah Anda verifikasi, dalam satu daftar.</string>
+    <string name="pro_tool_desk_body">Antrean yang belum dijawab dan responsivitas di setiap dApp yang Anda terbukti sebagai penerbitnya, dalam satu daftar.</string>
     <string name="pro_tool_export_title">Ekspor buku besar</string>
     <string name="pro_tool_export_body">dApp apa pun, penandatangan mana pun, sebagai CSV atau JSON. Data ini publik; Pro membacakannya untuk Anda.</string>
     <string name="pro_tool_watch_title">Pengawasan sertifikat setiap jam</string>
@@ -480,7 +479,7 @@
     <string name="fp_read">Membaca seluruh buku besar</string>
     <string name="fp_sign">Menandatangani ulasan, balasan, tanda, sanggahan</string>
     <string name="fp_facts">Apa yang dapat diverifikasi perangkat Anda</string>
-    <string name="fp_claim">Klaim sebuah dApp, jawab dengan lencana terverifikasi</string>
+    <string name="fp_claim">Klaim sebuah dApp, jawab sebagai penerbitnya yang terbukti</string>
     <string name="fp_copy">Salin ulasan ke toko</string>
     <string name="fp_import">Impor ulasan toko</string>
     <string name="fp_import_free">satu per satu</string>
@@ -494,7 +493,7 @@
     <string name="fp_weight_both">sama — hanya dari perangkat dan SKR yang di-stake</string>
     <string name="desk_title">Meja penerbit</string>
     <plurals name="desk_across">
-        <item quantity="other">Di seluruh %1$d dApp terverifikasi Anda</item>
+        <item quantity="other">Di seluruh %1$d dApp Anda yang terbukti</item>
     </plurals>
     <string name="desk_unanswered">belum dijawab</string>
     <string name="desk_median">median balasan</string>
@@ -508,7 +507,7 @@
     </plurals>
     <string name="desk_hours">%1$d j</string>
     <string name="desk_note">Responsivitas dibaca dari buku besar seperti yang lainnya: jarak antara ulasan yang ditandatangani dan balasan Anda yang ditandatangani. Ini ditampilkan kepada pembaca di halaman dApp Anda, sehingga antrean itulah yang menjadi tolok ukurnya.</string>
-    <string name="desk_none">Belum ada dApp terverifikasi. Klaim aplikasi dari halamannya dan buktikan situs webnya; meja penerbit akan terisi mulai dari situ.</string>
+    <string name="desk_none">Belum ada dApp yang terbukti. Klaim aplikasi dari halamannya dan buktikan (build bertanda tangan atau situs web); meja penerbit akan terisi mulai dari situ.</string>
     <string name="desk_none_waiting">Tidak ada yang menunggu.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -729,8 +728,8 @@
     <plurals name="watch_count_low"><item quantity="other">%1$d bintang satu</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d langkah</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Penerbit terverifikasi — membuktikan kendali atas %1$s, terlihat sejak %2$s</string>
-    <string name="publisher_verified_apk">Penerbit terverifikasi — namanya tercantum di dalam build bertanda tangan milik aplikasi itu sendiri</string>
+    <string name="publisher_verified_since">Penerbit, terbukti oleh situs web yang dicantumkan toko (%1$s), terlihat sejak %2$s</string>
+    <string name="publisher_verified_apk">Penerbit, terbukti oleh build bertanda tangan milik aplikasi itu sendiri di ponsel ini</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Berfungsi</string>
     <string name="tag_crashes">Sering crash</string>
@@ -760,7 +759,7 @@
     <string name="pay_list_fee">Mendaftarkan biayanya sama dengan tingkat berbayar dApp kami yang lain: %1$s atau %2$s (%3$s dengan Seeker Genesis Token). Dibayar sekali per dApp dan treasuri, dalam transaksi yang sama yang menandatangani pendaftaran. Mengubah kode atau mendaftar lagi nanti hanya dikenakan biaya jaringan.</string>
     <string name="pay_list_pay">Bayar %1$s dan daftarkan</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Penerbit terverifikasi — namanya tercantum di dalam build yang disajikan toko</string>
+    <string name="publisher_verified_store">Penerbit, terbukti oleh build yang disajikan dApp Store</string>
     <string name="publisher_check_build">Periksa build toko · %1$s</string>
     <string name="publisher_checking_build">Membaca build toko…</string>
     <string name="publisher_build_nothing">Build toko tidak mencantumkan dompet penerbit mana pun.</string>
@@ -808,4 +807,21 @@
     <string name="notif_note_title">Penerbit menjawab ulasan toko Anda · %1$s</string>
     <string name="notif_proven_title">Klaim Anda terbukti · %1$s</string>
     <string name="notif_proven_body">Balasan Anda pada ulasan aplikasi ini kini membawa tanda Penerbit ✓, dan ulasan Anda sendiri untuk aplikasi ini tidak dihitung.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Cantumkan dompet Anda di aplikasi Anda (paling kuat)</string>
+    <string name="claim_route_build_body">Tambahkan baris ini di dalam &lt;application&gt; pada manifes aplikasi Anda dan rilis pembaruannya ke dApp Store. Pembaca memeriksa build yang disajikan toko: baris itu harus mencantumkan dompet ini dan build harus ditandatangani dengan sertifikat yang dicantumkan toko. Hanya pemegang kunci penandatanganan aplikasi Anda yang dapat melakukannya.</string>
+    <string name="claim_route_site_title">2. Atau letakkan file di situs web yang dicantumkan toko</string>
+    <string name="claim_route_site_body">Toko mencantumkan %1$s untuk aplikasi ini. Letakkan file di %2$s yang berisi alamat dompet Anda dalam satu baris:\n\n%3$s</string>
+    <string name="claim_route_site_none">Toko tidak mencantumkan situs web untuk aplikasi ini yang dapat membuktikannya (profil media sosial dan hosting bersama tidak dihitung). Gunakan build bertanda tangan.</string>
+    <string name="claim_then_sign">Lalu tandatangani klaim. Sampai salah satu dari dua bukti ditemukan, klaim ditampilkan sebagai belum terbukti; tidak ada hal lain yang terjadi. Bukti diperiksa ulang setiap hari.</string>
+    <string name="proof_how_link">Bagaimana ini dibuktikan?</string>
+    <string name="proof_how_title">Bagaimana penerbit dibuktikan</string>
+    <string name="proof_how_intro">Siapa pun dapat menandatangani \"Saya menerbitkan aplikasi ini\". Tanda tangan hanya menunjukkan siapa yang mengklaim. Klaim terbukti ketika sesuatu yang hanya dikendalikan penerbit sebenarnya mencantumkan dompet yang sama.</string>
+    <string name="proof_key_title">Kunci penandatanganan aplikasi (paling kuat)</string>
+    <string name="proof_key_body">Setiap aplikasi Android ditandatangani dengan kunci yang menjadi identitasnya: toko mencantumkan sertifikatnya, dan ponsel menolak pembaruan yang ditandatangani kunci lain. Saat penerbit mencantumkan dompet di dalam manifes aplikasi, barisnya berada di dalam build bertanda tangan, sehingga hanya pemegang kunci yang bisa menaruhnya di sana. Undersigned memeriksa build yang disajikan toko, atau yang terpasang di ponsel ini.</string>
+    <string name="proof_site_title">Situs web yang dicantumkan toko</string>
+    <string name="proof_site_body">Penerbit menetapkan situs web di portal penerbit toko. File di sana yang mencantumkan dompet menunjukkan kendali atas situs itu. Lebih lemah: domain berpindah tangan, jadi tanggal pertama kali terlihat ditampilkan. Profil media sosial dan hosting bersama tidak diterima.</string>
+    <string name="proof_not_title">Yang tidak membuktikannya</string>
+    <string name="proof_not_body">Tanda tangan dompet itu sendiri, alamat pembayaran, atau dompet yang menerbitkan aplikasi di dApp Store. Toko tidak menyebutkan catatan on-chain mana yang milik listing mana, dan siapa pun dapat membuat satu yang mencantumkan aplikasi apa pun.</string>
+    <string name="proof_how_after">Balasan penerbit yang terbukti membawa tanda Penerbit, dan ulasan mereka sendiri atas aplikasi tidak dihitung.</string>
 </resources>

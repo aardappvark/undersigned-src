@@ -76,14 +76,13 @@
     <string name="fact_store_version">Mã phiên bản của cửa hàng</string>
     <string name="publisher_title">Nhà phát hành</string>
     <string name="publisher_listed">Được cửa hàng liệt kê là %1$s</string>
-    <string name="publisher_verified">Nhà phát hành đã xác minh — đã chứng minh quyền kiểm soát %1$s</string>
-    <string name="publisher_none">Chưa có nhà phát hành đã xác minh nào trên sổ cái.</string>
+    <string name="publisher_verified">Nhà phát hành, đã chứng minh bằng trang web mà cửa hàng liệt kê (%1$s)</string>
+    <string name="publisher_none">Chưa có nhà phát hành nào đã chứng minh.</string>
     <string name="publisher_claim">Tôi phát hành ứng dụng này</string>
     <string name="publisher_claim_title">Xác nhận quyền sở hữu ứng dụng này</string>
-    <string name="publisher_claim_body">Người đọc xác minh yêu cầu bằng cách đối chiếu với trang web mà cửa hàng liệt kê cho ứng dụng này (%1$s). Đặt một tệp tại %2$s chứa địa chỉ ví của bạn (một dòng):\n\n%3$s\n\nSau đó ký yêu cầu. Việc xác minh diễn ra tự động và lặp lại mỗi 24 giờ. Nếu tệp bị thiếu, yêu cầu chỉ đơn giản là vẫn chưa được xác minh; không có gì khác xảy ra.</string>
     <string name="publisher_claim_sign">Ký yêu cầu</string>
-    <string name="publisher_claimed_pending">Yêu cầu của bạn đã ở trên chuỗi nhưng chưa được xác minh (không tìm thấy tệp trên trang web đã liệt kê).</string>
-    <string name="publisher_badge">Nhà phát hành ✓</string>
+    <string name="publisher_claimed_pending">Yêu cầu của bạn đã được ký nhưng chưa được chứng minh. Hãy ghi tên ví của bạn trong manifest của ứng dụng rồi phát hành bản cập nhật, hoặc đặt tệp lên trang web mà cửa hàng liệt kê.</string>
+    <string name="publisher_badge">Nhà phát hành</string>
     <string name="versions_title">Theo phiên bản</string>
     <string name="versions_row">v%1$d · %2$s · %3$d đã ký</string>
     <string name="versions_installed">đã cài đặt</string>
@@ -228,7 +227,7 @@
     <string name="intro4_title">Những gì điện thoại của bạn có thể chứng minh</string>
     <string name="intro4_body">Đối với các ứng dụng bạn đã cài đặt, Undersigned cho biết liệu bản build có khớp với chứng chỉ mà cửa hàng liệt kê hay không và liệu quyền có thay đổi hay không. Chỉ là thông tin thực tế, không bao giờ là phán quyết.</string>
     <string name="intro5_title">Theo dõi, được báo, trả lời</string>
-    <string name="intro5_body">Theo dõi ứng dụng để biết về các đánh giá đã ký mới, cập nhật và trả lời. Nhà phát hành xác nhận quyền sở hữu ứng dụng của họ bằng cách ký và trả lời bằng huy hiệu đã xác minh. Mọi thứ bạn đăng đều là vĩnh viễn và công khai.</string>
+    <string name="intro5_body">Theo dõi ứng dụng để biết về các đánh giá đã ký mới, cập nhật và trả lời. Nhà phát hành gửi yêu cầu cho ứng dụng của họ bằng cách ký, và phần trả lời của họ mang dấu Nhà phát hành khi yêu cầu đã được chứng minh. Mọi thứ bạn đăng đều là vĩnh viễn và công khai.</string>
     <string name="review_also_store">Cũng đăng trong dApp Store</string>
     <string name="review_also_store_hint">Sao chép ghi chú của bạn và mở trang niêm yết, nơi bạn đăng nó dưới mục “Ratings &amp; Reviews” → “Review this dApp”. Cửa hàng không có cách nào để ứng dụng khác đăng thay bạn, nên các thao tác chạm cuối cùng là của bạn.</string>
     <string name="flag">Gắn cờ</string>
@@ -248,7 +247,7 @@
     <string name="inbox_unanswered">Chưa trả lời</string>
     <string name="inbox_replies">Trả lời cho tôi</string>
     <string name="inbox_starred">Đã đánh dấu sao</string>
-    <string name="inbox_unanswered_sub">Các đánh giá đã ký trên ứng dụng bạn đã xác minh là nhà phát hành, mà bạn chưa trả lời.</string>
+    <string name="inbox_unanswered_sub">Các đánh giá đã ký trên ứng dụng mà bạn là nhà phát hành đã chứng minh, mà bạn chưa trả lời.</string>
     <string name="inbox_unanswered_empty">Không có gì đang chờ. Xác minh quyền sở hữu nhà phát hành để xem ứng dụng của bạn ở đây.</string>
     <string name="inbox_replies_empty">Chưa có trả lời nào cho bản ghi của bạn.</string>
     <string name="inbox_starred_empty">Đánh dấu sao một đánh giá để giữ nó ở đây.</string>
@@ -257,7 +256,7 @@
     <string name="profile_credibility_sub">Nền 40, +30 cho sự đồng thuận thẻ với người ký khác, +10 cho phiếu hữu ích nhận được, +20 cho cờ được giữ vững theo đồng thuận, −50 × tỷ lệ bản ghi bị ẩn theo đồng thuận. Công thức được công bố, không có gì gắn kèm.</string>
     <string name="profile_flags">Cờ đã ký: %1$d · Được giữ vững: %2$d · Nhận được: %3$d · Bản ghi bị ẩn: %4$d</string>
     <string name="profile_replied">Trả lời phản hồi trên đánh giá của họ %1$s thời gian</string>
-    <string name="profile_publishes">Nhà phát hành đã xác minh của</string>
+    <string name="profile_publishes">Nhà phát hành đã chứng minh của</string>
     <string name="profile_reviews">Đánh giá đã ký</string>
     <string name="responsiveness_line">Trả lời đánh giá đã ký trong %1$s · %2$d trên %3$d đã trả lời</string>
     <string name="responsiveness_never">Chưa từng trả lời một đánh giá đã ký nào</string>
@@ -285,7 +284,7 @@
     <string name="clear_body">Một phiếu xóa cờ bù trừ cho các cờ trên bản ghi này. Một phiếu mỗi ví, có trọng số như một cờ. Dùng khi bạn nghĩ các cờ đó sai.</string>
     <string name="unvote">Rút phiếu hữu ích của tôi</string>
     <string name="flag_net">ròng %1$s</string>
-    <string name="publisher_flags_ignored">Cờ từ một nhà phát hành đã xác minh trên đánh giá của ứng dụng chính họ không được tính; hãy trả lời thay vào đó.</string>
+    <string name="publisher_flags_ignored">Cờ từ nhà phát hành đã chứng minh của một ứng dụng trên đánh giá của chính ứng dụng đó không được tính; hãy trả lời thay vào đó.</string>
     <string name="hidden_reply">Trả lời bị ẩn theo đồng thuận</string>
     <string name="review_self_published">Không được tính — ứng dụng của chính nhà phát hành</string>
     <string name="attest_title">Điều gì được tính là một tiếng nói</string>
@@ -336,8 +335,8 @@
     <string name="stats_apps">dApp có đánh giá đã ký</string>
     <string name="stats_apps_scored">dApp có điểm</string>
     <string name="stats_replies">Trả lời</string>
-    <string name="stats_publisher_replies">trong số đó từ một nhà phát hành đã xác minh</string>
-    <string name="stats_claims">Yêu cầu của nhà phát hành · đã xác minh</string>
+    <string name="stats_publisher_replies">trong số đó từ một nhà phát hành đã chứng minh</string>
+    <string name="stats_claims">Yêu cầu của nhà phát hành · đã chứng minh</string>
     <string name="stats_moderation">Cờ · xóa cờ · phản đối</string>
     <string name="stats_hidden">Bị ẩn theo đồng thuận</string>
     <string name="stats_withdrawn">Bị rút bởi chính tác giả</string>
@@ -395,7 +394,7 @@
     <string name="pro_tool_import_title">Nhập lại tất cả</string>
     <string name="pro_tool_import_body">Mọi đánh giá cửa hàng bạn đã viết, được ký lên sổ cái trong một lần phê duyệt thay vì từng cái một.</string>
     <string name="pro_tool_desk_title">Bàn làm việc nhà phát hành</string>
-    <string name="pro_tool_desk_body">Hàng đợi chưa trả lời và mức độ phản hồi trên mọi dApp bạn đã xác minh, trong một danh sách.</string>
+    <string name="pro_tool_desk_body">Hàng đợi chưa trả lời và mức độ phản hồi trên mọi dApp mà bạn là nhà phát hành đã chứng minh, trong một danh sách.</string>
     <string name="pro_tool_export_title">Xuất sổ cái</string>
     <string name="pro_tool_export_body">Bất kỳ dApp nào, bất kỳ người ký nào, dưới dạng CSV hoặc JSON. Dữ liệu là công khai; Pro đọc giúp bạn.</string>
     <string name="pro_tool_watch_title">Theo dõi chứng chỉ hàng giờ</string>
@@ -480,7 +479,7 @@
     <string name="fp_read">Đọc toàn bộ sổ cái</string>
     <string name="fp_sign">Ký đánh giá, trả lời, cờ, phản đối</string>
     <string name="fp_facts">Những gì thiết bị của bạn có thể xác minh</string>
-    <string name="fp_claim">Xác nhận quyền sở hữu một dApp, trả lời bằng huy hiệu đã xác minh</string>
+    <string name="fp_claim">Gửi yêu cầu cho một dApp, trả lời với tư cách nhà phát hành đã chứng minh của nó</string>
     <string name="fp_copy">Sao chép một đánh giá sang cửa hàng</string>
     <string name="fp_import">Nhập đánh giá cửa hàng</string>
     <string name="fp_import_free">từng cái một</string>
@@ -494,7 +493,7 @@
     <string name="fp_weight_both">như nhau — chỉ từ thiết bị và SKR đã stake</string>
     <string name="desk_title">Bàn làm việc nhà phát hành</string>
     <plurals name="desk_across">
-        <item quantity="other">Trên %1$d dApp đã xác minh của bạn</item>
+        <item quantity="other">Trên %1$d dApp đã chứng minh của bạn</item>
     </plurals>
     <string name="desk_unanswered">chưa trả lời</string>
     <string name="desk_median">trung vị thời gian trả lời</string>
@@ -508,7 +507,7 @@
     </plurals>
     <string name="desk_hours">%1$d giờ</string>
     <string name="desk_note">Mức độ phản hồi được đọc từ sổ cái như mọi thứ khác: khoảng cách giữa một đánh giá đã ký và phản hồi đã ký của bạn. Nó được hiển thị cho người đọc trên trang dApp của bạn, vì vậy hàng đợi chính là thước đo.</string>
-    <string name="desk_none">Chưa có dApp nào đã xác minh. Xác nhận quyền sở hữu một ứng dụng từ trang của nó và chứng minh trang web; bàn làm việc sẽ đầy dần từ đó.</string>
+    <string name="desk_none">Chưa có dApp nào đã chứng minh. Gửi yêu cầu cho một ứng dụng từ trang của nó và chứng minh (bản build đã ký hoặc trang web); bàn làm việc sẽ đầy dần từ đó.</string>
     <string name="desk_none_waiting">Không có gì đang chờ.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -729,8 +728,8 @@
     <plurals name="watch_count_low"><item quantity="other">%1$d lượt 1 sao</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d bước</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Nhà phát hành đã xác minh — đã chứng minh quyền kiểm soát %1$s, được thấy từ %2$s</string>
-    <string name="publisher_verified_apk">Nhà phát hành đã xác minh — có tên bên trong bản build đã ký của chính ứng dụng</string>
+    <string name="publisher_verified_since">Nhà phát hành, đã chứng minh bằng trang web mà cửa hàng liệt kê (%1$s), được thấy từ %2$s</string>
+    <string name="publisher_verified_apk">Nhà phát hành, đã chứng minh bằng bản build đã ký của chính ứng dụng trên điện thoại này</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Hoạt động tốt</string>
     <string name="tag_crashes">Bị crash</string>
@@ -760,7 +759,7 @@
     <string name="pay_list_fee">Niêm yết có giá tương đương với gói trả phí của các dApp khác của chúng tôi: %1$s hoặc %2$s (%3$s nếu có Seeker Genesis Token). Khoản này được trả một lần cho mỗi dApp và quỹ, trong cùng giao dịch ký niêm yết. Việc thay đổi mã hoặc niêm yết lại sau này chỉ tốn phí mạng.</string>
     <string name="pay_list_pay">Trả %1$s và niêm yết</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Nhà phát hành đã xác minh — có tên bên trong bản build mà cửa hàng cung cấp</string>
+    <string name="publisher_verified_store">Nhà phát hành, đã chứng minh bằng bản build mà dApp Store cung cấp</string>
     <string name="publisher_check_build">Kiểm tra bản build của cửa hàng · %1$s</string>
     <string name="publisher_checking_build">Đang đọc bản build của cửa hàng…</string>
     <string name="publisher_build_nothing">Bản build của cửa hàng không nêu ví nhà phát hành nào.</string>
@@ -808,4 +807,21 @@
     <string name="notif_note_title">Nhà phát hành đã trả lời đánh giá cửa hàng của bạn · %1$s</string>
     <string name="notif_proven_title">Yêu cầu của bạn đã được chứng minh · %1$s</string>
     <string name="notif_proven_body">Các phản hồi của bạn trên đánh giá của ứng dụng này giờ mang dấu Nhà phát hành ✓, và đánh giá của chính bạn về ứng dụng này không được tính.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Ghi tên ví của bạn trong ứng dụng (mạnh nhất)</string>
+    <string name="claim_route_build_body">Thêm dòng này vào bên trong &lt;application&gt; trong manifest của ứng dụng rồi phát hành bản cập nhật lên dApp Store. Người đọc xem xét bản build mà cửa hàng cung cấp: dòng đó phải ghi tên ví này và bản build phải được ký bằng chứng chỉ mà cửa hàng liệt kê. Chỉ người giữ khóa ký của ứng dụng mới làm được điều này.</string>
+    <string name="claim_route_site_title">2. Hoặc đặt một tệp lên trang web mà cửa hàng liệt kê</string>
+    <string name="claim_route_site_body">Cửa hàng liệt kê %1$s cho ứng dụng này. Đặt một tệp tại %2$s chứa địa chỉ ví của bạn trên một dòng:\n\n%3$s</string>
+    <string name="claim_route_site_none">Cửa hàng không liệt kê trang web nào cho ứng dụng này có thể chứng minh điều đó (hồ sơ mạng xã hội và máy chủ dùng chung không được tính). Hãy dùng bản build đã ký.</string>
+    <string name="claim_then_sign">Sau đó ký yêu cầu. Cho đến khi tìm thấy một trong hai bằng chứng, yêu cầu hiển thị là chưa được chứng minh; không có gì khác xảy ra. Bằng chứng được xem xét lại mỗi ngày.</string>
+    <string name="proof_how_link">Điều này được chứng minh thế nào?</string>
+    <string name="proof_how_title">Nhà phát hành được chứng minh thế nào</string>
+    <string name="proof_how_intro">Ai cũng có thể ký \"Tôi phát hành ứng dụng này\". Chữ ký chỉ cho thấy ai đang yêu cầu. Yêu cầu được chứng minh khi một thứ mà chỉ nhà phát hành thật kiểm soát ghi tên cùng một ví.</string>
+    <string name="proof_key_title">Khóa ký của ứng dụng (mạnh nhất)</string>
+    <string name="proof_key_body">Mỗi ứng dụng Android được ký bằng một khóa chính là danh tính của nó: cửa hàng liệt kê chứng chỉ của khóa đó, và điện thoại từ chối bản cập nhật được ký bằng khóa khác. Khi nhà phát hành ghi tên một ví trong manifest của ứng dụng, dòng đó nằm bên trong bản build đã ký, nên chỉ người giữ khóa mới có thể đặt nó ở đó. Undersigned xem xét bản build mà cửa hàng cung cấp, hoặc bản được cài trên điện thoại này.</string>
+    <string name="proof_site_title">Trang web mà cửa hàng liệt kê</string>
+    <string name="proof_site_body">Nhà phát hành đặt trang web trong cổng nhà phát hành của cửa hàng. Một tệp ở đó ghi tên ví cho thấy quyền kiểm soát trang web ấy. Yếu hơn: tên miền đổi chủ, nên ngày lần đầu thấy được hiển thị. Hồ sơ mạng xã hội và máy chủ dùng chung không được chấp nhận.</string>
+    <string name="proof_not_title">Điều không chứng minh được</string>
+    <string name="proof_not_body">Chữ ký của chính ví, một địa chỉ thanh toán, hoặc ví đã phát hành ứng dụng trên dApp Store. Cửa hàng không cho biết bản ghi on-chain nào thuộc về mục nào, và ai cũng có thể tạo một bản ghi nêu tên bất kỳ ứng dụng nào.</string>
+    <string name="proof_how_after">Phần trả lời của nhà phát hành đã chứng minh mang dấu Nhà phát hành, và đánh giá của chính họ về ứng dụng không được tính.</string>
 </resources>

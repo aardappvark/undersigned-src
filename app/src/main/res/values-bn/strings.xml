@@ -72,14 +72,13 @@
     <string name="fact_store_version">স্টোর সংস্করণ কোড</string>
     <string name="publisher_title">প্রকাশক</string>
     <string name="publisher_listed">স্টোর দ্বারা %1$s হিসেবে তালিকাভুক্ত</string>
-    <string name="publisher_verified">যাচাইকৃত প্রকাশক — %1$s-এর নিয়ন্ত্রণ প্রমাণ করেছেন</string>
-    <string name="publisher_none">লেজারে এখনও কোনো যাচাইকৃত প্রকাশক নেই।</string>
+    <string name="publisher_verified">প্রকাশক, স্টোরের তালিকাভুক্ত ওয়েবসাইটের (%1$s) মাধ্যমে প্রমাণিত</string>
+    <string name="publisher_none">এখনও কোনো প্রমাণিত প্রকাশক নেই।</string>
     <string name="publisher_claim">আমি এই অ্যাপ প্রকাশ করি</string>
     <string name="publisher_claim_title">এই অ্যাপের দাবি করুন</string>
-    <string name="publisher_claim_body">পাঠকরা এই অ্যাপের জন্য স্টোরের তালিকাভুক্ত ওয়েবসাইটের (%1$s) বিপরীতে একটি দাবি যাচাই করে। আপনার ওয়ালেট ঠিকানা (এক লাইনে) সম্বলিত একটি ফাইল %2$s-এ রাখুন:\n\n%3$s\n\nএরপর দাবিটি স্বাক্ষর করুন। যাচাইকরণ স্বয়ংক্রিয় এবং প্রতি ২৪ ঘণ্টায় পুনরাবৃত্তি হয়। যদি ফাইলটি অনুপস্থিত থাকে তবে দাবিটি কেবল অযাচাইকৃত থেকে যায়; আর কিছু ঘটে না।</string>
     <string name="publisher_claim_sign">দাবি স্বাক্ষর করুন</string>
-    <string name="publisher_claimed_pending">আপনার দাবি চেইনে আছে কিন্তু এখনও যাচাই করা হয়নি (তালিকাভুক্ত ওয়েবসাইটে ফাইলটি পাওয়া যায়নি)।</string>
-    <string name="publisher_badge">প্রকাশক ✓</string>
+    <string name="publisher_claimed_pending">আপনার দাবি স্বাক্ষরিত, কিন্তু এখনও প্রমাণিত হয়নি। অ্যাপের ম্যানিফেস্টে আপনার ওয়ালেটের নাম দিন এবং আপডেট প্রকাশ করুন, অথবা স্টোরের তালিকাভুক্ত ওয়েবসাইটে ফাইলটি রাখুন।</string>
+    <string name="publisher_badge">প্রকাশক</string>
     <string name="versions_title">সংস্করণ অনুযায়ী</string>
     <string name="versions_row">v%1$d · %2$s · %3$d স্বাক্ষরিত</string>
     <string name="versions_installed">ইনস্টল করা</string>
@@ -225,7 +224,7 @@
     <string name="intro4_title">আপনার ফোন যা প্রমাণ করতে পারে</string>
     <string name="intro4_body">আপনার ইনস্টল করা অ্যাপগুলির জন্য, Undersigned দেখায় বিল্ডটি স্টোরের তালিকাভুক্ত সার্টিফিকেটের সাথে মেলে কিনা এবং অনুমতি পরিবর্তিত হয়েছে কিনা। তথ্য, কখনও রায় নয়।</string>
     <string name="intro5_title">ফলো করুন, জানুন, উত্তর দিন</string>
-    <string name="intro5_body">নতুন স্বাক্ষরিত পর্যালোচনা, আপডেট এবং উত্তর জানতে অ্যাপ ফলো করুন। প্রকাশকরা স্বাক্ষর করে তাদের অ্যাপের দাবি করেন এবং একটি যাচাইকৃত ব্যাজ সহ উত্তর দেন। আপনি যা প্রকাশ করেন তা স্থায়ী ও সর্বজনীন।</string>
+    <string name="intro5_body">নতুন স্বাক্ষরিত পর্যালোচনা, আপডেট এবং উত্তর জানতে অ্যাপ ফলো করুন। প্রকাশকরা স্বাক্ষর করে তাদের অ্যাপের দাবি করেন, এবং দাবি প্রমাণিত হলে তাদের উত্তরে প্রকাশক চিহ্ন থাকে। আপনি যা প্রকাশ করেন তা স্থায়ী ও সর্বজনীন।</string>
     <string name="review_also_store">dApp Store-এও পোস্ট করুন</string>
     <string name="review_also_store_hint">আপনার নোট কপি করে এবং তালিকাটি খোলে, যেখানে আপনি এটি “Ratings &amp; Reviews” → “Review this dApp”-এর অধীনে পোস্ট করেন। অন্য কোনো অ্যাপের পক্ষে স্টোরে আপনার হয়ে পোস্ট করার উপায় নেই, তাই শেষ ট্যাপগুলো আপনার নিজের।</string>
     <string name="flag">ফ্ল্যাগ</string>
@@ -245,7 +244,7 @@
     <string name="inbox_unanswered">অনুত্তরিত</string>
     <string name="inbox_replies">আমাকে দেওয়া উত্তর</string>
     <string name="inbox_starred">স্টার করা</string>
-    <string name="inbox_unanswered_sub">আপনি প্রকাশক হিসেবে যাচাই করা অ্যাপগুলোর স্বাক্ষরিত পর্যালোচনা, যেগুলোতে আপনার কোনো উত্তর নেই।</string>
+    <string name="inbox_unanswered_sub">আপনি যে অ্যাপগুলোর প্রমাণিত প্রকাশক, সেগুলোর স্বাক্ষরিত পর্যালোচনা, যেগুলোতে আপনার কোনো উত্তর নেই।</string>
     <string name="inbox_unanswered_empty">অপেক্ষমাণ কিছু নেই। এখানে আপনার অ্যাপ দেখতে একটি প্রকাশক দাবি যাচাই করুন।</string>
     <string name="inbox_replies_empty">আপনার রেকর্ডে এখনও কোনো উত্তর নেই।</string>
     <string name="inbox_starred_empty">এখানে রাখতে একটি পর্যালোচনা স্টার করুন।</string>
@@ -254,7 +253,7 @@
     <string name="profile_credibility_sub">৪০ ভিত্তি, অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতির জন্য +৩০, প্রাপ্ত সহায়ক ভোটের জন্য +১০, ঐকমত্যে বহাল থাকা ফ্ল্যাগের জন্য +২০, ঐকমত্যে লুকানো রেকর্ডের অংশের জন্য −৫০ ×। প্রকাশিত সূত্র, এর সাথে কিছুই জড়িত নয়।</string>
     <string name="profile_flags">স্বাক্ষরিত ফ্ল্যাগ: %1$d · বহাল: %2$d · প্রাপ্ত: %3$d · লুকানো রেকর্ড: %4$d</string>
     <string name="profile_replied">তাদের পর্যালোচনায় %1$s সময় উত্তর দেন</string>
-    <string name="profile_publishes">যাচাইকৃত প্রকাশক</string>
+    <string name="profile_publishes">প্রমাণিত প্রকাশক</string>
     <string name="profile_reviews">স্বাক্ষরিত পর্যালোচনা</string>
     <string name="responsiveness_line">%1$s সময়ে স্বাক্ষরিত পর্যালোচনার উত্তর দেন · %3$d টির মধ্যে %2$d টি উত্তরিত</string>
     <string name="responsiveness_never">এখনও কোনো স্বাক্ষরিত পর্যালোচনার উত্তর দেননি</string>
@@ -282,7 +281,7 @@
     <string name="clear_body">একটি \"খাঁটি মনে হচ্ছে\" ভোট এই রেকর্ডের ফ্ল্যাগ প্রশমিত করে। প্রতি ওয়ালেটে একটি, ফ্ল্যাগের মতোই ওজনযুক্ত। ফ্ল্যাগগুলো ভুল মনে হলে এটি ব্যবহার করুন।</string>
     <string name="unvote">আমার সহায়ক ভোট প্রত্যাহার করুন</string>
     <string name="flag_net">নিট %1$s</string>
-    <string name="publisher_flags_ignored">নিজের অ্যাপের পর্যালোচনায় যাচাইকৃত প্রকাশকের ফ্ল্যাগ গণনা করা হয় না; পরিবর্তে উত্তর দিন।</string>
+    <string name="publisher_flags_ignored">নিজের অ্যাপের পর্যালোচনায় অ্যাপের প্রমাণিত প্রকাশকের ফ্ল্যাগ গণনা করা হয় না; পরিবর্তে উত্তর দিন।</string>
     <string name="hidden_reply">ঐকমত্যে উত্তর লুকানো হয়েছে</string>
     <string name="review_self_published">গণনা করা হয়নি — প্রকাশকের নিজের অ্যাপ</string>
     <string name="attest_title">কী একটি কণ্ঠস্বর হিসেবে গণ্য হয়</string>
@@ -333,8 +332,8 @@
     <string name="stats_apps">স্বাক্ষরিত পর্যালোচনাসহ dApp</string>
     <string name="stats_apps_scored">স্কোরসহ dApp</string>
     <string name="stats_replies">উত্তর</string>
-    <string name="stats_publisher_replies">তার মধ্যে যাচাইকৃত প্রকাশকের কাছ থেকে</string>
-    <string name="stats_claims">প্রকাশক দাবি · যাচাইকৃত</string>
+    <string name="stats_publisher_replies">তার মধ্যে প্রমাণিত প্রকাশকের কাছ থেকে</string>
+    <string name="stats_claims">প্রকাশক দাবি · প্রমাণিত</string>
     <string name="stats_moderation">ফ্ল্যাগ · ক্লিয়ার · আপত্তি</string>
     <string name="stats_hidden">ঐকমত্যে লুকানো</string>
     <string name="stats_withdrawn">লেখক দ্বারা প্রত্যাহৃত</string>
@@ -392,7 +391,7 @@
     <string name="pro_tool_import_title">সবগুলো ফিরিয়ে আমদানি করুন</string>
     <string name="pro_tool_import_body">আপনার লেখা প্রতিটি স্টোর পর্যালোচনা, একটির পর একটির বদলে একবারেই একটি অনুমোদনে লেজারে স্বাক্ষরিত।</string>
     <string name="pro_tool_desk_title">প্রকাশক ডেস্ক</string>
-    <string name="pro_tool_desk_body">আপনার যাচাই করা প্রতিটি dApp জুড়ে অনুত্তরিত সারি ও সাড়াদানের হার, একটি তালিকায়।</string>
+    <string name="pro_tool_desk_body">আপনি যে প্রতিটি dApp-এর প্রমাণিত প্রকাশক, তার অনুত্তরিত সারি ও সাড়াদানের হার, একটি তালিকায়।</string>
     <string name="pro_tool_export_title">লেজার রপ্তানি করুন</string>
     <string name="pro_tool_export_body">যেকোনো dApp, যেকোনো স্বাক্ষরকারী, CSV বা JSON হিসেবে। তথ্য সর্বজনীন; Pro আপনার জন্য পড়ার কাজটি করে।</string>
     <string name="pro_tool_watch_title">ঘণ্টাভিত্তিক সার্টিফিকেট নজরদারি</string>
@@ -479,7 +478,7 @@
     <string name="fp_read">পুরো লেজার পড়ুন</string>
     <string name="fp_sign">পর্যালোচনা, উত্তর, ফ্ল্যাগ, আপত্তি স্বাক্ষর করুন</string>
     <string name="fp_facts">আপনার ডিভাইস যা যাচাই করতে পারে</string>
-    <string name="fp_claim">একটি dApp দাবি করুন, যাচাইকৃত ব্যাজ সহ উত্তর দিন</string>
+    <string name="fp_claim">একটি dApp-এর দাবি করুন, তার প্রমাণিত প্রকাশক হিসেবে উত্তর দিন</string>
     <string name="fp_copy">স্টোরে একটি পর্যালোচনা কপি করুন</string>
     <string name="fp_import">স্টোর পর্যালোচনা আমদানি করুন</string>
     <string name="fp_import_free">একবারে একটি</string>
@@ -493,8 +492,8 @@
     <string name="fp_weight_both">একই — শুধু ডিভাইস ও স্টেক করা SKR</string>
     <string name="desk_title">প্রকাশক ডেস্ক</string>
     <plurals name="desk_across">
-        <item quantity="one">আপনার %1$d টি যাচাইকৃত dApp জুড়ে</item>
-        <item quantity="other">আপনার %1$d টি যাচাইকৃত dApp জুড়ে</item>
+        <item quantity="one">আপনার %1$d টি প্রমাণিত dApp জুড়ে</item>
+        <item quantity="other">আপনার %1$d টি প্রমাণিত dApp জুড়ে</item>
     </plurals>
     <string name="desk_unanswered">অনুত্তরিত</string>
     <string name="desk_median">মধ্যক উত্তর</string>
@@ -509,7 +508,7 @@
     </plurals>
     <string name="desk_hours">%1$d ঘ</string>
     <string name="desk_note">সাড়াদানের হার অন্য সবকিছুর মতোই লেজার থেকে পড়া হয়: একটি স্বাক্ষরিত পর্যালোচনা এবং আপনার স্বাক্ষরিত উত্তরের মধ্যেকার ব্যবধান। এটি আপনার dApp পেজে পাঠকদের দেখানো হয়, তাই সারিটাই আসল বিষয়।</string>
-    <string name="desk_none">এখনও কোনো যাচাইকৃত dApp নেই। কোনো অ্যাপের পেজ থেকে দাবি করুন এবং ওয়েবসাইট প্রমাণ করুন; সেখান থেকে ডেস্ক পূর্ণ হবে।</string>
+    <string name="desk_none">এখনও কোনো প্রমাণিত dApp নেই। অ্যাপের পেজ থেকে দাবি করুন এবং তা প্রমাণ করুন (স্বাক্ষরিত বিল্ড বা ওয়েবসাইট); সেখান থেকে ডেস্ক পূর্ণ হবে।</string>
     <string name="desk_none_waiting">কিছু অপেক্ষমাণ নেই।</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -730,8 +729,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d টি এক-তারকা</item><item quantity="other">%1$d টি এক-তারকা</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d ধাপ</item><item quantity="other">%1$d ধাপ</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">যাচাইকৃত প্রকাশক — %1$s-এর নিয়ন্ত্রণ প্রমাণ করেছেন, %2$s থেকে দেখা যাচ্ছে</string>
-    <string name="publisher_verified_apk">যাচাইকৃত প্রকাশক — অ্যাপের নিজস্ব স্বাক্ষরিত বিল্ডের ভেতরে নাম উল্লেখিত</string>
+    <string name="publisher_verified_since">প্রকাশক, স্টোরের তালিকাভুক্ত ওয়েবসাইটের (%1$s) মাধ্যমে প্রমাণিত, %2$s থেকে দেখা যাচ্ছে</string>
+    <string name="publisher_verified_apk">প্রকাশক, এই ফোনে অ্যাপের নিজস্ব স্বাক্ষরিত বিল্ডের মাধ্যমে প্রমাণিত</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">কাজ করে</string>
     <string name="tag_crashes">ক্র্যাশ করে</string>
@@ -761,7 +760,7 @@
     <string name="pay_list_fee">তালিকাভুক্তির খরচ আমাদের অন্যান্য dApps-এর পেইড টিয়ারের সমান: %1$s বা %2$s (Seeker Genesis Token থাকলে %3$s)। এটি প্রতিটি dApp ও ট্রেজারির জন্য একবার পরিশোধ করা হয়, তালিকাভুক্তিতে স্বাক্ষরকারী একই লেনদেনে। পরে কোড পরিবর্তন করা বা আবার তালিকাভুক্ত করার খরচ শুধু নেটওয়ার্ক ফি।</string>
     <string name="pay_list_pay">%1$s পরিশোধ করে তালিকাভুক্ত করুন</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">যাচাইকৃত প্রকাশক — স্টোর যে বিল্ড সরবরাহ করে তার ভেতরে নাম উল্লেখিত</string>
+    <string name="publisher_verified_store">প্রকাশক, dApp Store যে বিল্ড সরবরাহ করে তার মাধ্যমে প্রমাণিত</string>
     <string name="publisher_check_build">স্টোরের বিল্ড পরীক্ষা করুন · %1$s</string>
     <string name="publisher_checking_build">স্টোরের বিল্ড পড়া হচ্ছে…</string>
     <string name="publisher_build_nothing">স্টোরের বিল্ডে কোনো প্রকাশকের ওয়ালেট উল্লেখ নেই।</string>
@@ -809,4 +808,21 @@
     <string name="notif_note_title">প্রকাশক আপনার স্টোর পর্যালোচনার উত্তর দিয়েছেন · %1$s</string>
     <string name="notif_proven_title">আপনার দাবি প্রমাণিত · %1$s</string>
     <string name="notif_proven_body">এই অ্যাপের পর্যালোচনায় আপনার উত্তরে এখন «প্রকাশক ✓» চিহ্ন থাকে, এবং এটির জন্য আপনার নিজের পর্যালোচনা গণনা করা হয় না।</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">১. আপনার অ্যাপে আপনার ওয়ালেটের নাম দিন (সবচেয়ে শক্তিশালী)</string>
+    <string name="claim_route_build_body">আপনার অ্যাপের ম্যানিফেস্টে &lt;application&gt;-এর ভেতরে এই লাইনটি যোগ করুন এবং আপডেটটি dApp Store-এ প্রকাশ করুন। পাঠকেরা স্টোর যে বিল্ড সরবরাহ করে তা দেখেন: লাইনটিতে এই ওয়ালেটের নাম থাকতে হবে এবং বিল্ডটি স্টোরের তালিকাভুক্ত সার্টিফিকেট দিয়ে স্বাক্ষরিত হতে হবে। শুধু আপনার অ্যাপের স্বাক্ষর কীর ধারকই এটি করতে পারেন।</string>
+    <string name="claim_route_site_title">২. অথবা স্টোরের তালিকাভুক্ত ওয়েবসাইটে একটি ফাইল রাখুন</string>
+    <string name="claim_route_site_body">স্টোর এই অ্যাপের জন্য %1$s তালিকাভুক্ত করেছে। %2$s-এ একটি ফাইল রাখুন, যার এক লাইনে আপনার ওয়ালেট ঠিকানা থাকবে:\n\n%3$s</string>
+    <string name="claim_route_site_none">স্টোর এই অ্যাপের জন্য এমন কোনো ওয়েবসাইট তালিকাভুক্ত করেনি যা প্রমাণ দিতে পারে (সোশ্যাল প্রোফাইল ও শেয়ার্ড হোস্ট গণ্য হয় না)। স্বাক্ষরিত বিল্ড ব্যবহার করুন।</string>
+    <string name="claim_then_sign">তারপর দাবিতে স্বাক্ষর করুন। দুটি প্রমাণের একটি না পাওয়া পর্যন্ত দাবিটি অপ্রমাণিত দেখায়; আর কিছু ঘটে না। প্রমাণ প্রতিদিন আবার দেখা হয়।</string>
+    <string name="proof_how_link">এটি কীভাবে প্রমাণিত হয়?</string>
+    <string name="proof_how_title">প্রকাশক কীভাবে প্রমাণিত হন</string>
+    <string name="proof_how_intro">যে কেউ \"আমি এই অ্যাপ প্রকাশ করি\" বলে স্বাক্ষর করতে পারেন। স্বাক্ষর শুধু দেখায় কে দাবি করছে। দাবি তখনই প্রমাণিত হয় যখন এমন কিছু, যা শুধু আসল প্রকাশকের নিয়ন্ত্রণে থাকে, একই ওয়ালেটের নাম বলে।</string>
+    <string name="proof_key_title">অ্যাপের স্বাক্ষর কী (সবচেয়ে শক্তিশালী)</string>
+    <string name="proof_key_body">প্রতিটি Android অ্যাপ একটি কী দিয়ে স্বাক্ষরিত, যা তার পরিচয়: স্টোর তার সার্টিফিকেট তালিকাভুক্ত করে, এবং ফোন অন্য কোনো কী দিয়ে স্বাক্ষরিত আপডেট প্রত্যাখ্যান করে। প্রকাশক যখন অ্যাপের ম্যানিফেস্টের ভেতরে একটি ওয়ালেটের নাম দেন, লাইনটি স্বাক্ষরিত বিল্ডের ভেতরেই থাকে, তাই কেবল কী-এর ধারকই সেটি সেখানে রাখতে পারতেন। Undersigned স্টোর যে বিল্ড সরবরাহ করে, বা এই ফোনে ইনস্টল করা বিল্ডটি দেখে।</string>
+    <string name="proof_site_title">স্টোরের তালিকাভুক্ত ওয়েবসাইট</string>
+    <string name="proof_site_body">প্রকাশক স্টোরের প্রকাশক পোর্টালে ওয়েবসাইট নির্ধারণ করেন। সেখানে ওয়ালেটের নাম থাকা একটি ফাইল ওই সাইটের নিয়ন্ত্রণ দেখায়। এটি দুর্বলতর: ডোমেইন হাত বদলায়, তাই প্রথম কবে দেখা গিয়েছিল সেই তারিখ দেখানো হয়। সোশ্যাল প্রোফাইল ও শেয়ার্ড হোস্ট গ্রহণ করা হয় না।</string>
+    <string name="proof_not_title">যা এটি প্রমাণ করে না</string>
+    <string name="proof_not_body">ওয়ালেটের নিজের স্বাক্ষর, একটি পেমেন্ট ঠিকানা, বা dApp Store-এ অ্যাপটি যে ওয়ালেট প্রকাশ করেছে। স্টোর বলে না কোন অন-চেইন রেকর্ড কোন তালিকার, এবং যে কেউ যেকোনো অ্যাপের নাম দিয়ে একটি তৈরি করতে পারে।</string>
+    <string name="proof_how_after">প্রমাণিত প্রকাশকের উত্তরে প্রকাশক চিহ্ন থাকে, এবং অ্যাপটির উপর তাদের নিজের পর্যালোচনা গণনা করা হয় না।</string>
 </resources>

@@ -74,14 +74,13 @@
     <string name="fact_store_version">Codul versiunii din magazin</string>
     <string name="publisher_title">Editor</string>
     <string name="publisher_listed">Listat de magazin ca %1$s</string>
-    <string name="publisher_verified">Editor verificat — a dovedit controlul asupra %1$s</string>
-    <string name="publisher_none">Încă niciun editor verificat în registru.</string>
+    <string name="publisher_verified">Editor, dovedit de site-ul pe care îl listează magazinul (%1$s)</string>
+    <string name="publisher_none">Încă niciun editor dovedit.</string>
     <string name="publisher_claim">Public această aplicație</string>
     <string name="publisher_claim_title">Revendică această aplicație</string>
-    <string name="publisher_claim_body">Cititorii verifică o revendicare comparând-o cu site-ul pe care magazinul îl listează pentru această aplicație (%1$s). Pune un fișier la %2$s care conține adresa portofelului tău (o singură linie):\n\n%3$s\n\nApoi semnează revendicarea. Verificarea este automată și se repetă la fiecare 24 de ore. Dacă fișierul lipsește, revendicarea rămâne pur și simplu neverificată; nu se mai întâmplă nimic altceva.</string>
     <string name="publisher_claim_sign">Semnează revendicarea</string>
-    <string name="publisher_claimed_pending">Revendicarea ta este pe blockchain, dar încă neverificată (fișierul nu a fost găsit pe site-ul listat).</string>
-    <string name="publisher_badge">Editor ✓</string>
+    <string name="publisher_claimed_pending">Revendicarea ta este semnată, dar încă nedovedită. Numește-ți portofelul în manifestul aplicației și lansează actualizarea, sau pune fișierul pe site-ul pe care îl listează magazinul.</string>
+    <string name="publisher_badge">Editor</string>
     <string name="versions_title">După versiune</string>
     <string name="versions_row">v%1$d · %2$s · %3$d semnate</string>
     <string name="versions_installed">instalată</string>
@@ -234,7 +233,7 @@
     <string name="intro4_title">Ce poate dovedi telefonul tău</string>
     <string name="intro4_body">Pentru aplicațiile instalate, Undersigned arată dacă build-ul corespunde certificatului listat de magazin și dacă permisiunile s-au schimbat. Fapte, niciodată verdicte.</string>
     <string name="intro5_title">Urmărește, află, răspunde</string>
-    <string name="intro5_body">Urmărește aplicații ca să afli despre recenzii noi semnate, actualizări și răspunsuri. Editorii își revendică aplicația prin semnare și răspund cu o insignă verificată. Tot ce publici este permanent și public.</string>
+    <string name="intro5_body">Urmărește aplicații ca să afli despre recenzii noi semnate, actualizări și răspunsuri. Editorii își revendică aplicația prin semnare, iar răspunsurile lor poartă insigna Editor după ce revendicarea este dovedită. Tot ce publici este permanent și public.</string>
     <string name="review_also_store">Publică și în dApp Store</string>
     <string name="review_also_store_hint">Copiază nota ta și deschide listarea, unde o publici la \"Ratings &amp; Reviews\" → \"Review this dApp\". Magazinul nu are cum să permită altei aplicații să publice în locul tău, deci ultimele atingeri îți aparțin.</string>
     <string name="flag">Semnalează</string>
@@ -254,7 +253,7 @@
     <string name="inbox_unanswered">Fără răspuns</string>
     <string name="inbox_replies">Răspunsuri pentru mine</string>
     <string name="inbox_starred">Cu stea</string>
-    <string name="inbox_unanswered_sub">Recenzii semnate la aplicații pe care le-ai verificat ca editor, fără răspuns din partea ta.</string>
+    <string name="inbox_unanswered_sub">Recenzii semnate la aplicații ale căror editor dovedit ești, fără răspuns din partea ta.</string>
     <string name="inbox_unanswered_empty">Nimic în așteptare. Verifică o revendicare de editor ca să-ți vezi aplicațiile aici.</string>
     <string name="inbox_replies_empty">Încă niciun răspuns la înregistrările tale.</string>
     <string name="inbox_starred_empty">Marchează o recenzie cu stea ca s-o păstrezi aici.</string>
@@ -263,7 +262,7 @@
     <string name="profile_credibility_sub">40 bază, +30 pentru concordanța etichetelor cu alți semnatari, +10 pentru voturile utile primite, +20 pentru semnalările confirmate prin consens, −50 × ponderea înregistrărilor ascunse prin consens. Formulă publicată, nimic atașat de ea.</string>
     <string name="profile_flags">Semnalări semnate: %1$d · Confirmate: %2$d · Primite: %3$d · Înregistrări ascunse: %4$d</string>
     <string name="profile_replied">Răspunde la recenziile sale în %1$s din timp</string>
-    <string name="profile_publishes">Editor verificat al</string>
+    <string name="profile_publishes">Editor dovedit al</string>
     <string name="profile_reviews">Recenzii semnate</string>
     <string name="responsiveness_line">Răspunde la recenzii semnate în %1$s · %2$d din %3$d cu răspuns</string>
     <string name="responsiveness_never">Nu a răspuns încă la nicio recenzie semnată</string>
@@ -291,7 +290,7 @@
     <string name="clear_body">Un vot \"pare autentică\" compensează semnalările de pe această înregistrare. Unul pe portofel, ponderat ca o semnalare. Folosește-l când crezi că semnalările sunt greșite.</string>
     <string name="unvote">Retrage-mi votul de utilitate</string>
     <string name="flag_net">net %1$s</string>
-    <string name="publisher_flags_ignored">Semnalările unui editor verificat pe recenziile propriei aplicații nu contează; răspunde în schimb.</string>
+    <string name="publisher_flags_ignored">Semnalările editorului dovedit al unei aplicații pe recenziile propriei aplicații nu contează; răspunde în schimb.</string>
     <string name="hidden_reply">Răspuns ascuns prin consens</string>
     <string name="review_self_published">Nu este numărată — aplicația proprie a editorului</string>
     <string name="attest_title">Ce contează drept voce</string>
@@ -343,8 +342,8 @@
     <string name="stats_apps">dApp-uri cu recenzie semnată</string>
     <string name="stats_apps_scored">dApp-uri cu scor</string>
     <string name="stats_replies">Răspunsuri</string>
-    <string name="stats_publisher_replies">dintre acestea, de la un editor verificat</string>
-    <string name="stats_claims">Revendicări de editori · verificate</string>
+    <string name="stats_publisher_replies">dintre acestea, de la un editor dovedit</string>
+    <string name="stats_claims">Revendicări de editori · dovedite</string>
     <string name="stats_moderation">Semnalări · dezmințiri · contestații</string>
     <string name="stats_hidden">Ascunse prin consens</string>
     <string name="stats_withdrawn">Retrase de autorul lor</string>
@@ -402,7 +401,7 @@
     <string name="pro_tool_import_title">Importă-le pe toate înapoi</string>
     <string name="pro_tool_import_body">Fiecare recenzie din magazin pe care ai scris-o, semnată în registru dintr-o singură aprobare, în loc de una câte una.</string>
     <string name="pro_tool_desk_title">Biroul editorului</string>
-    <string name="pro_tool_desk_body">Coada fără răspuns și capacitatea de răspuns pentru fiecare dApp verificat de tine, într-o singură listă.</string>
+    <string name="pro_tool_desk_body">Coada fără răspuns și capacitatea de răspuns pentru fiecare dApp al cărui editor dovedit ești, într-o singură listă.</string>
     <string name="pro_tool_export_title">Exportă registrul</string>
     <string name="pro_tool_export_body">Orice dApp, orice semnatar, ca CSV sau JSON. Datele sunt publice; Pro citește pentru tine.</string>
     <string name="pro_tool_watch_title">Monitorizare orară a certificatului</string>
@@ -491,7 +490,7 @@
     <string name="fp_read">Citește tot registrul</string>
     <string name="fp_sign">Semnează recenzii, răspunsuri, semnalări, contestații</string>
     <string name="fp_facts">Ce poate verifica dispozitivul tău</string>
-    <string name="fp_claim">Revendică un dApp, răspunde cu insignă verificată</string>
+    <string name="fp_claim">Revendică un dApp, răspunde ca editorul lui dovedit</string>
     <string name="fp_copy">Copiază o recenzie în magazin</string>
     <string name="fp_import">Importă recenzii din magazin</string>
     <string name="fp_import_free">una câte una</string>
@@ -505,9 +504,9 @@
     <string name="fp_weight_both">la fel — doar dispozitivul și SKR stake-uit</string>
     <string name="desk_title">Biroul editorului</string>
     <plurals name="desk_across">
-        <item quantity="one">Pe %1$d dApp verificat al tău</item>
-        <item quantity="few">Pe cele %1$d dApp-uri verificate ale tale</item>
-        <item quantity="other">Pe cele %1$d de dApp-uri verificate ale tale</item>
+        <item quantity="one">Pe %1$d dApp dovedit al tău</item>
+        <item quantity="few">Pe cele %1$d dApp-uri dovedite ale tale</item>
+        <item quantity="other">Pe cele %1$d de dApp-uri dovedite ale tale</item>
     </plurals>
     <string name="desk_unanswered">fără răspuns</string>
     <string name="desk_median">răspuns median</string>
@@ -523,7 +522,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Capacitatea de răspuns este citită din registru ca orice altceva: intervalul dintre o recenzie semnată și răspunsul tău semnat. Este afișată cititorilor pe pagina dApp-ului tău, deci coada este produsul.</string>
-    <string name="desk_none">Niciun dApp verificat încă. Revendică o aplicație de pe pagina ei și dovedește site-ul; biroul se umple de acolo.</string>
+    <string name="desk_none">Încă niciun dApp dovedit. Revendică o aplicație de pe pagina ei și dovedește revendicarea (build semnat sau site); biroul se umple de acolo.</string>
     <string name="desk_none_waiting">Nimic în așteptare.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -743,8 +742,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d cu o stea</item><item quantity="few">%1$d cu o stea</item><item quantity="other">%1$d cu o stea</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d pas</item><item quantity="few">%1$d pași</item><item quantity="other">%1$d de pași</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Editor verificat — a dovedit controlul asupra %1$s, cunoscut din %2$s</string>
-    <string name="publisher_verified_apk">Editor verificat — numit în interiorul build-ului semnat al aplicației</string>
+    <string name="publisher_verified_since">Editor, dovedit de site-ul pe care îl listează magazinul (%1$s), cunoscut din %2$s</string>
+    <string name="publisher_verified_apk">Editor, dovedit de build-ul semnat al aplicației însăși, de pe acest telefon</string>
     <string name="tag_works">Funcționează</string>
     <string name="tag_crashes">Se blochează</string>
     <string name="tag_wallet_ok">Portofel ok</string>
@@ -773,7 +772,7 @@
     <string name="pay_list_fee">Listarea costă la fel ca un nivel plătit al celorlalte dApps ale noastre: %1$s sau %2$s (%3$s cu un Seeker Genesis Token). Se plătește o singură dată per dApp și trezorerie, în aceeași tranzacție care semnează listarea. Schimbarea codului sau listarea din nou mai târziu costă doar comisionul de rețea.</string>
     <string name="pay_list_pay">Plătește %1$s și listează</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Editor verificat — numit în interiorul build-ului pe care îl servește magazinul</string>
+    <string name="publisher_verified_store">Editor, dovedit de build-ul pe care îl servește dApp Store</string>
     <string name="publisher_check_build">Verifică build-ul magazinului · %1$s</string>
     <string name="publisher_checking_build">Se citește build-ul magazinului…</string>
     <string name="publisher_build_nothing">Build-ul magazinului nu numește niciun portofel de editor.</string>
@@ -821,4 +820,21 @@
     <string name="notif_note_title">Editorul a răspuns la recenzia ta din magazin · %1$s</string>
     <string name="notif_proven_title">Revendicarea ta este dovedită · %1$s</string>
     <string name="notif_proven_body">Răspunsurile tale la recenziile acestei aplicații poartă acum semnul Editor ✓, iar recenziile tale proprii despre ea nu sunt numărate.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Numește-ți portofelul în aplicația ta (cel mai puternic)</string>
+    <string name="claim_route_build_body">Adaugă această linie în interiorul &lt;application&gt; din manifestul aplicației tale și lansează actualizarea în dApp Store. Cititorii examinează build-ul pe care îl servește magazinul: linia trebuie să numească acest portofel, iar build-ul trebuie semnat cu certificatul pe care îl listează magazinul. Numai deținătorul cheii de semnare a aplicației tale poate face asta.</string>
+    <string name="claim_route_site_title">2. Sau pune un fișier pe site-ul pe care îl listează magazinul</string>
+    <string name="claim_route_site_body">Magazinul listează %1$s pentru această aplicație. Pune la %2$s un fișier care conține adresa portofelului tău pe un singur rând:\n\n%3$s</string>
+    <string name="claim_route_site_none">Magazinul nu listează pentru această aplicație niciun site care s-o poată dovedi (profilurile de pe rețelele sociale și găzduirile partajate nu contează). Folosește build-ul semnat.</string>
+    <string name="claim_then_sign">Apoi semnează revendicarea. Până când nu se găsește una dintre cele două dovezi, revendicarea apare ca nedovedită; nu se întâmplă nimic altceva. Dovada este examinată din nou în fiecare zi.</string>
+    <string name="proof_how_link">Cum se dovedește asta?</string>
+    <string name="proof_how_title">Cum se dovedește un editor</string>
+    <string name="proof_how_intro">Oricine poate semna „Public această aplicație”. O semnătură arată doar cine revendică. O revendicare este dovedită atunci când ceva ce controlează numai editorul real numește același portofel.</string>
+    <string name="proof_key_title">Cheia de semnare a aplicației (cea mai puternică)</string>
+    <string name="proof_key_body">Fiecare aplicație Android este semnată cu o cheie care este identitatea ei: magazinul listează certificatul ei, iar telefoanele refuză o actualizare semnată cu orice altă cheie. Când editorul numește un portofel în manifestul aplicației, linia se află în interiorul build-ului semnat, deci numai deținătorul cheii a putut să o pună acolo. Undersigned examinează build-ul pe care îl servește magazinul sau pe cel instalat pe acest telefon.</string>
+    <string name="proof_site_title">Site-ul pe care îl listează magazinul</string>
+    <string name="proof_site_body">Editorul setează site-ul în portalul de editori al magazinului. Un fișier de acolo care numește portofelul arată controlul asupra acelui site. Mai slab: domeniile își schimbă proprietarii, de aceea este afișată data la care a fost văzut prima dată. Profilurile de pe rețelele sociale și găzduirile partajate nu sunt acceptate.</string>
+    <string name="proof_not_title">Ce nu dovedește asta</string>
+    <string name="proof_not_body">Semnătura proprie a portofelului, o adresă de plată sau portofelul care a publicat aplicația în dApp Store. Magazinul nu spune care înregistrare on-chain aparține cărei liste și oricine poate crea una care numește orice aplicație.</string>
+    <string name="proof_how_after">Răspunsurile unui editor dovedit poartă insigna Editor, iar recenziile lui proprii asupra aplicației nu sunt numărate.</string>
 </resources>

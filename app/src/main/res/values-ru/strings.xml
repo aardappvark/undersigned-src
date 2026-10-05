@@ -64,14 +64,13 @@
     <string name="fact_store_version">Код версии в магазине</string>
     <string name="publisher_title">Издатель</string>
     <string name="publisher_listed">Указан магазином как %1$s</string>
-    <string name="publisher_verified">Проверенный издатель — доказал контроль над %1$s</string>
-    <string name="publisher_none">На реестре пока нет проверенного издателя.</string>
+    <string name="publisher_verified">Издатель, доказанный сайтом, который указывает магазин (%1$s)</string>
+    <string name="publisher_none">Пока нет доказанного издателя.</string>
     <string name="publisher_claim">Я издатель этого приложения</string>
     <string name="publisher_claim_title">Заявить права на это приложение</string>
-    <string name="publisher_claim_body">Читатели проверяют заявку по сайту, который магазин указывает для этого приложения (%1$s). Разместите по адресу %2$s файл с адресом вашего кошелька (одна строка):\n\n%3$s\n\nЗатем подпишите заявку. Проверка выполняется автоматически и повторяется каждые 24 часа. Если файл отсутствует, заявка просто остаётся непроверенной; больше ничего не происходит.</string>
     <string name="publisher_claim_sign">Подписать заявку</string>
-    <string name="publisher_claimed_pending">Ваша заявка находится в блокчейне, но ещё не проверена (файл не найден на указанном сайте).</string>
-    <string name="publisher_badge">Издатель ✓</string>
+    <string name="publisher_claimed_pending">Ваша заявка подписана, но ещё не доказана. Укажите свой кошелёк в манифесте приложения и выпустите обновление или положите файл на сайт, который указывает магазин.</string>
+    <string name="publisher_badge">Издатель</string>
     <string name="versions_title">По версиям</string>
     <string name="versions_row">v%1$d · %2$s · подписано %3$d</string>
     <string name="versions_installed">установлено</string>
@@ -222,7 +221,7 @@
     <string name="intro4_title">Что может доказать ваш телефон</string>
     <string name="intro4_body">Для установленных приложений Undersigned показывает, соответствует ли сборка сертификату, указанному магазином, и изменились ли разрешения. Факты, а не вердикты.</string>
     <string name="intro5_title">Подписывайтесь, узнавайте, отвечайте</string>
-    <string name="intro5_body">Подписывайтесь на приложения, чтобы узнавать о новых подписанных отзывах, обновлениях и ответах. Издатели заявляют права на своё приложение подписью и отвечают со значком подтверждён. Всё, что вы публикуете, постоянно и публично.</string>
+    <string name="intro5_body">Подписывайтесь на приложения, чтобы узнавать о новых подписанных отзывах, обновлениях и ответах. Издатели заявляют права на своё приложение подписью, а их ответы получают значок Издатель, когда заявка доказана. Всё, что вы публикуете, постоянно и публично.</string>
     <string name="review_also_store">Также опубликовать в dApp Store</string>
     <string name="review_also_store_hint">Копирует вашу заметку и открывает листинг, где вы публикуете её в разделе \"Оценки и Отзывы\" → \"Оценить это децентрализованное приложение\". У магазина нет способа для другого приложения опубликовать за вас, поэтому последние нажатия — за вами.</string>
     <string name="flag">Отметить</string>
@@ -242,7 +241,7 @@
     <string name="inbox_unanswered">Без ответа</string>
     <string name="inbox_replies">Ответы мне</string>
     <string name="inbox_starred">Избранное</string>
-    <string name="inbox_unanswered_sub">Подписанные отзывы на приложения, которые вы подтвердили как издатель, без вашего ответа.</string>
+    <string name="inbox_unanswered_sub">Подписанные отзывы на приложения, где вы доказанный издатель, без вашего ответа.</string>
     <string name="inbox_unanswered_empty">Ничего не ждёт. Подтвердите заявку издателя, чтобы увидеть здесь свои приложения.</string>
     <string name="inbox_replies_empty">Пока нет ответов на ваши записи.</string>
     <string name="inbox_starred_empty">Добавьте отзыв в избранное, чтобы он остался здесь.</string>
@@ -251,7 +250,7 @@
     <string name="profile_credibility_sub">40 базовых, +30 за совпадение тегов с другими подписантами, +10 за полученные голоса Полезно, +20 за отметки, подтверждённые консенсусом, −50 × доля записей, скрытых консенсусом. Опубликованная формула, ничего к ней не привязано.</string>
     <string name="profile_flags">Подписанные отметки: %1$d · Подтверждено: %2$d · Получено: %3$d · Скрытые записи: %4$d</string>
     <string name="profile_replied">Отвечает на ответы к своим отзывам в %1$s случаев</string>
-    <string name="profile_publishes">Подтверждённый издатель</string>
+    <string name="profile_publishes">Доказанный издатель</string>
     <string name="profile_reviews">Подписанные отзывы</string>
     <string name="responsiveness_line">Отвечает на подписанные отзывы за %1$s · отвечено на %2$d из %3$d</string>
     <string name="responsiveness_never">Пока не ответил(а) ни на один подписанный отзыв</string>
@@ -279,7 +278,7 @@
     <string name="clear_body">Голос \"выглядит подлинным\" компенсирует отметки этой записи. Один на кошелёк, взвешенный как отметка. Используйте его, если считаете отметки ошибочными.</string>
     <string name="unvote">Отозвать мой голос Полезно</string>
     <string name="flag_net">нетто %1$s</string>
-    <string name="publisher_flags_ignored">Отметки от подтверждённого издателя на отзывах о его собственном приложении не учитываются; вместо этого ответьте.</string>
+    <string name="publisher_flags_ignored">Отметки доказанного издателя приложения на отзывах о его собственном приложении не учитываются; вместо этого ответьте.</string>
     <string name="hidden_reply">Ответ скрыт по консенсусу</string>
     <string name="review_self_published">Не учитывается — собственное приложение издателя</string>
     <string name="attest_title">Что считается голосом</string>
@@ -332,8 +331,8 @@
     <string name="stats_apps">dApps с подписанным отзывом</string>
     <string name="stats_apps_scored">dApps с оценкой</string>
     <string name="stats_replies">Ответы</string>
-    <string name="stats_publisher_replies">из них от проверенного издателя</string>
-    <string name="stats_claims">Заявки издателей · подтверждено</string>
+    <string name="stats_publisher_replies">из них от доказанного издателя</string>
+    <string name="stats_claims">Заявки издателей · доказаны</string>
     <string name="stats_moderation">Отметки · подтверждения подлинности · споры</string>
     <string name="stats_hidden">Скрыто по консенсусу</string>
     <string name="stats_withdrawn">Отозвано автором</string>
@@ -391,7 +390,7 @@
     <string name="pro_tool_import_title">Импортировать их все обратно</string>
     <string name="pro_tool_import_body">Каждый написанный вами отзыв магазина подписывается в реестр одним подтверждением вместо по одному.</string>
     <string name="pro_tool_desk_title">Панель издателя</string>
-    <string name="pro_tool_desk_body">Очередь без ответа и отзывчивость по всем подтверждённым вами dApps в одном списке.</string>
+    <string name="pro_tool_desk_body">Очередь без ответа и отзывчивость по всем dApps, где вы доказанный издатель, в одном списке.</string>
     <string name="pro_tool_export_title">Экспортировать реестр</string>
     <string name="pro_tool_export_body">Любую dApp, любого подписанта, в формате CSV или JSON. Данные публичны; Pro читает их за вас.</string>
     <string name="pro_tool_watch_title">Ежечасное наблюдение за сертификатом</string>
@@ -482,7 +481,7 @@
     <string name="fp_read">Читать весь реестр</string>
     <string name="fp_sign">Подписывать отзывы, ответы, отметки, споры</string>
     <string name="fp_facts">Что может проверить ваше устройство</string>
-    <string name="fp_claim">Заявить права на dApp, отвечать со значком подтверждён</string>
+    <string name="fp_claim">Заявить права на dApp, отвечать как доказанный издатель</string>
     <string name="fp_copy">Скопировать отзыв в магазин</string>
     <string name="fp_import">Импортировать отзывы магазина</string>
     <string name="fp_import_free">по одному</string>
@@ -496,10 +495,10 @@
     <string name="fp_weight_both">одинаково — только устройство и застейканный SKR</string>
     <string name="desk_title">Панель издателя</string>
     <plurals name="desk_across">
-        <item quantity="one">По всем вашим %1$d подтверждённым dApps</item>
-        <item quantity="few">По всем вашим %1$d подтверждённым dApps</item>
-        <item quantity="many">По всем вашим %1$d подтверждённым dApps</item>
-        <item quantity="other">По всем вашим %1$d подтверждённым dApps</item>
+        <item quantity="one">По всем вашим %1$d доказанным dApps</item>
+        <item quantity="few">По всем вашим %1$d доказанным dApps</item>
+        <item quantity="many">По всем вашим %1$d доказанным dApps</item>
+        <item quantity="other">По всем вашим %1$d доказанным dApps</item>
     </plurals>
     <string name="desk_unanswered">без ответа</string>
     <string name="desk_median">медиана ответа</string>
@@ -516,7 +515,7 @@
     </plurals>
     <string name="desk_hours">%1$d ч</string>
     <string name="desk_note">Отзывчивость считывается из реестра, как и всё остальное: промежуток между подписанным отзывом и вашим подписанным ответом. Она показывается читающим на странице вашей dApp, так что очередь и есть продукт.</string>
-    <string name="desk_none">Пока нет подтверждённых dApps. Заявите права на приложение с его страницы и подтвердите сайт; оттуда панель заполнится.</string>
+    <string name="desk_none">Пока нет доказанных dApps. Заявите права на приложение с его страницы и докажите их (подписанная сборка или сайт); оттуда панель заполнится.</string>
     <string name="desk_none_waiting">Ничего не ждёт.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -736,8 +735,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d однозвёздочный</item><item quantity="few">%1$d однозвёздочных</item><item quantity="many">%1$d однозвёздочных</item><item quantity="other">%1$d однозвёздочного</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d шаг</item><item quantity="few">%1$d шага</item><item quantity="many">%1$d шагов</item><item quantity="other">%1$d шага</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Проверенный издатель — доказал контроль над %1$s, известен с %2$s</string>
-    <string name="publisher_verified_apk">Проверенный издатель — указан внутри собственной подписанной сборки приложения</string>
+    <string name="publisher_verified_since">Издатель, доказанный сайтом, который указывает магазин (%1$s), известен с %2$s</string>
+    <string name="publisher_verified_apk">Издатель, доказанный собственной подписанной сборкой приложения на этом телефоне</string>
     <string name="tag_works">Работает</string>
     <string name="tag_crashes">Вылетает</string>
     <string name="tag_wallet_ok">Кошелёк ок</string>
@@ -766,7 +765,7 @@
     <string name="pay_list_fee">Добавление в список стоит столько же, сколько платный уровень наших других dApps: %1$s или %2$s (%3$s с Seeker Genesis Token). Оплачивается один раз за dApp и казначейство, в той же транзакции, что подписывает запись. Изменение кода или повторное добавление в список позже стоит только комиссию сети.</string>
     <string name="pay_list_pay">Заплатить %1$s и добавить в список</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Проверенный издатель — указан внутри сборки, которую отдаёт магазин</string>
+    <string name="publisher_verified_store">Издатель, доказанный сборкой, которую отдаёт dApp Store</string>
     <string name="publisher_check_build">Проверить сборку магазина · %1$s</string>
     <string name="publisher_checking_build">Чтение сборки магазина…</string>
     <string name="publisher_build_nothing">В сборке магазина не указан кошелёк издателя.</string>
@@ -814,4 +813,21 @@
     <string name="notif_note_title">Издатель ответил на ваш отзыв из магазина · %1$s</string>
     <string name="notif_proven_title">Ваше заявление подтверждено · %1$s</string>
     <string name="notif_proven_body">Ваши ответы на отзывы об этом приложении теперь несут отметку Издатель ✓, а ваши собственные отзывы о нём не учитываются.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Укажите свой кошелёк в приложении (самый надёжный)</string>
+    <string name="claim_route_build_body">Добавьте эту строку внутрь &lt;application&gt; в манифесте приложения и выпустите обновление в dApp Store. Читатели смотрят сборку, которую отдаёт магазин: в строке должен быть указан этот кошелёк, а сборка должна быть подписана сертификатом, который указывает магазин. Сделать это может только владелец ключа подписи вашего приложения.</string>
+    <string name="claim_route_site_title">2. Или положите файл на сайт, который указывает магазин</string>
+    <string name="claim_route_site_body">Магазин указывает для этого приложения %1$s. Положите по адресу %2$s файл с адресом вашего кошелька в одной строке:\n\n%3$s</string>
+    <string name="claim_route_site_none">Магазин не указывает для этого приложения сайт, который мог бы это доказать (профили в соцсетях и общие хостинги не считаются). Используйте подписанную сборку.</string>
+    <string name="claim_then_sign">Затем подпишите заявку. Пока не найдено одно из двух доказательств, заявка показывается как недоказанная; больше ничего не происходит. Доказательство проверяется заново каждый день.</string>
+    <string name="proof_how_link">Как это доказывается?</string>
+    <string name="proof_how_title">Как доказывается издатель</string>
+    <string name="proof_how_intro">Любой может подписать «Я издаю это приложение». Подпись показывает лишь, кто заявляет. Заявка доказана, когда нечто, что контролирует только настоящий издатель, называет тот же кошелёк.</string>
+    <string name="proof_key_title">Ключ подписи приложения (самый надёжный)</string>
+    <string name="proof_key_body">Каждое приложение Android подписано ключом, который является его личностью: магазин указывает его сертификат, а телефоны отклоняют обновление, подписанное любым другим ключом. Когда издатель указывает кошелёк в манифесте приложения, строка находится внутри подписанной сборки, поэтому поместить её туда мог только владелец ключа. Undersigned смотрит сборку, которую отдаёт магазин, или установленную на этом телефоне.</string>
+    <string name="proof_site_title">Сайт, который указывает магазин</string>
+    <string name="proof_site_body">Издатель задаёт сайт на портале издателей магазина. Файл там, называющий кошелёк, показывает контроль над этим сайтом. Слабее: домены переходят из рук в руки, поэтому показывается дата, когда его впервые увидели. Профили в соцсетях и общие хостинги не принимаются.</string>
+    <string name="proof_not_title">Что этого не доказывает</string>
+    <string name="proof_not_body">Собственная подпись кошелька, платёжный адрес или кошелёк, опубликовавший приложение в dApp Store. Магазин не сообщает, какая запись в блокчейне относится к какой карточке, и любой может создать запись с названием любого приложения.</string>
+    <string name="proof_how_after">Ответы доказанного издателя получают значок Издатель, а его собственные отзывы о приложении не учитываются.</string>
 </resources>

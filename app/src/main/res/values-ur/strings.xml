@@ -77,14 +77,13 @@
     <string name="fact_store_version">اسٹور ورژن کوڈ</string>
     <string name="publisher_title">پبلشر</string>
     <string name="publisher_listed">اسٹور کی جانب سے %1$s کے طور پر درج</string>
-    <string name="publisher_verified">تصدیق شدہ پبلشر — %1$s پر کنٹرول ثابت کیا</string>
-    <string name="publisher_none">لیجر پر ابھی تک کوئی تصدیق شدہ پبلشر نہیں۔</string>
+    <string name="publisher_verified">پبلشر، اسٹور کی درج کردہ ویب سائٹ (%1$s) سے ثابت شدہ</string>
+    <string name="publisher_none">ابھی تک کوئی ثابت شدہ پبلشر نہیں۔</string>
     <string name="publisher_claim">میں اس ایپ کا پبلشر ہوں</string>
     <string name="publisher_claim_title">اس ایپ کا دعویٰ کریں</string>
-    <string name="publisher_claim_body">قارئین دعوے کی تصدیق اس ویب سائٹ کے خلاف کرتے ہیں جو اسٹور اس ایپ کے لیے درج کرتا ہے (%1$s)۔ %2$s پر اپنے والٹ ایڈریس پر مشتمل ایک فائل رکھیں (ایک سطر):\n\n%3$s\n\nپھر دعوے پر دستخط کریں۔ تصدیق خودکار ہے اور ہر 24 گھنٹے بعد دہرائی جاتی ہے۔ اگر فائل موجود نہیں تو دعویٰ محض غیر تصدیق شدہ رہتا ہے؛ اور کچھ نہیں ہوتا۔</string>
     <string name="publisher_claim_sign">دعوے پر دستخط کریں</string>
-    <string name="publisher_claimed_pending">آپ کا دعویٰ چین پر موجود ہے لیکن ابھی تک تصدیق شدہ نہیں (فائل درج شدہ ویب سائٹ پر نہیں ملی)۔</string>
-    <string name="publisher_badge">پبلشر ✓</string>
+    <string name="publisher_claimed_pending">آپ کا دعویٰ دستخط شدہ ہے لیکن ابھی ثابت نہیں ہوا۔ ایپ کے مینی فیسٹ میں اپنے والٹ کا نام درج کریں اور اپ ڈیٹ جاری کریں، یا فائل کو اسٹور کی درج کردہ ویب سائٹ پر رکھیں۔</string>
+    <string name="publisher_badge">پبلشر</string>
     <string name="versions_title">ورژن کے حساب سے</string>
     <string name="versions_row">v%1$d · %2$s · %3$d دستخط شدہ</string>
     <string name="versions_installed">نصب شدہ</string>
@@ -233,7 +232,7 @@
     <string name="intro4_title">آپ کا فون کیا ثابت کر سکتا ہے</string>
     <string name="intro4_body">جن ایپس آپ نے نصب کر رکھی ہیں ان کے لیے، Undersigned دکھاتا ہے کہ آیا بلڈ اسٹور کے درج کردہ سرٹیفکیٹ سے مماثل ہے اور آیا اجازتیں تبدیل ہوئیں۔ حقائق، کبھی فیصلے نہیں۔</string>
     <string name="intro5_title">فالو کریں، اطلاع پائیں، جواب دیں</string>
-    <string name="intro5_body">نئے دستخط شدہ جائزوں، اپ ڈیٹس اور جوابات کے بارے میں جاننے کے لیے ایپس کو فالو کریں۔ پبلشرز دستخط کر کے اپنی ایپ کا دعویٰ کرتے ہیں اور تصدیق شدہ بیج کے ساتھ جواب دیتے ہیں۔ آپ جو کچھ بھی شائع کرتے ہیں وہ مستقل اور عوامی ہے۔</string>
+    <string name="intro5_body">نئے دستخط شدہ جائزوں، اپ ڈیٹس اور جوابات کے بارے میں جاننے کے لیے ایپس کو فالو کریں۔ پبلشرز دستخط کر کے اپنی ایپ کا دعویٰ کرتے ہیں، اور دعویٰ ثابت ہونے پر ان کے جوابات پر پبلشر کا نشان ہوتا ہے۔ آپ جو کچھ بھی شائع کرتے ہیں وہ مستقل اور عوامی ہے۔</string>
     <string name="review_also_store">dApp Store میں بھی پوسٹ کریں</string>
     <string name="review_also_store_hint">آپ کا نوٹ کاپی کرتا ہے اور فہرست کھولتا ہے، جہاں آپ اسے “Ratings &amp; Reviews” → “Review this dApp” کے تحت پوسٹ کرتے ہیں۔ اسٹور کے پاس کسی دوسری ایپ کو آپ کی جانب سے پوسٹ کرنے کا کوئی طریقہ نہیں، اس لیے آخری ٹیپس آپ کے اپنے ہیں۔</string>
     <string name="flag">نشان زد کریں</string>
@@ -253,7 +252,7 @@
     <string name="inbox_unanswered">غیر جواب شدہ</string>
     <string name="inbox_replies">مجھے موصول جوابات</string>
     <string name="inbox_starred">اسٹار شدہ</string>
-    <string name="inbox_unanswered_sub">ان ایپس پر دستخط شدہ جائزے جنہیں آپ نے بطور پبلشر تصدیق کیا ہے، جن کا آپ نے ابھی جواب نہیں دیا۔</string>
+    <string name="inbox_unanswered_sub">ان ایپس پر دستخط شدہ جائزے جن کے آپ ثابت شدہ پبلشر ہیں، جن کا آپ نے ابھی جواب نہیں دیا۔</string>
     <string name="inbox_unanswered_empty">کچھ زیرِ التوا نہیں۔ یہاں اپنی ایپس دیکھنے کے لیے پبلشر دعویٰ تصدیق کریں۔</string>
     <string name="inbox_replies_empty">ابھی تک آپ کے ریکارڈز پر کوئی جواب نہیں۔</string>
     <string name="inbox_starred_empty">کسی جائزے کو یہاں رکھنے کے لیے اسٹار لگائیں۔</string>
@@ -262,7 +261,7 @@
     <string name="profile_credibility_sub">بنیادی 40، دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت پر +30، موصولہ مددگار ووٹوں پر +10، اتفاق رائے سے برقرار رکھی گئی نشان زدگیوں پر +20، اتفاق رائے سے چھپائے گئے ریکارڈز کے تناسب پر −50×۔ شائع شدہ فارمولا، اس کے ساتھ کچھ منسلک نہیں۔</string>
     <string name="profile_flags">دستخط شدہ نشانات: %1$d · برقرار: %2$d · موصولہ: %3$d · چھپائے گئے ریکارڈز: %4$d</string>
     <string name="profile_replied">اپنے جائزوں کے جوابات %1$s وقت میں دیتے ہیں</string>
-    <string name="profile_publishes">تصدیق شدہ پبلشر برائے</string>
+    <string name="profile_publishes">ثابت شدہ پبلشر برائے</string>
     <string name="profile_reviews">دستخط شدہ جائزے</string>
     <string name="responsiveness_line">دستخط شدہ جائزوں کا جواب %1$s میں دیتے ہیں · %3$d میں سے %2$d کا جواب دیا گیا</string>
     <string name="responsiveness_never">ابھی تک کسی دستخط شدہ جائزے کا جواب نہیں دیا</string>
@@ -290,7 +289,7 @@
     <string name="clear_body">ایک صاف ووٹ اس ریکارڈ پر نشان زدگیوں کو متوازن کرتا ہے۔ ہر والٹ کا ایک، نشان زدگی کی طرح وزن دار۔ اسے تب استعمال کریں جب آپ سمجھیں کہ نشان زدگیاں غلط ہیں۔</string>
     <string name="unvote">میرا مددگار ووٹ واپس لیں</string>
     <string name="flag_net">خالص %1$s</string>
-    <string name="publisher_flags_ignored">اپنی ہی ایپ کے جائزوں پر تصدیق شدہ پبلشر کی نشان زدگیاں شمار نہیں ہوتیں؛ اس کے بجائے جواب دیں۔</string>
+    <string name="publisher_flags_ignored">کسی ایپ کے ثابت شدہ پبلشر کی اپنی ہی ایپ کے جائزوں پر نشان زدگیاں شمار نہیں ہوتیں؛ اس کے بجائے جواب دیں۔</string>
     <string name="hidden_reply">جواب اتفاق رائے سے چھپایا گیا</string>
     <string name="review_self_published">شمار نہیں — پبلشر کی اپنی ایپ</string>
     <string name="attest_title">آواز کے طور پر کیا شمار ہوتا ہے</string>
@@ -341,8 +340,8 @@
     <string name="stats_apps">دستخط شدہ جائزے کے حامل dApps</string>
     <string name="stats_apps_scored">اسکور کے حامل dApps</string>
     <string name="stats_replies">جوابات</string>
-    <string name="stats_publisher_replies">ان میں سے تصدیق شدہ پبلشر کی جانب سے</string>
-    <string name="stats_claims">پبلشر دعوے · تصدیق شدہ</string>
+    <string name="stats_publisher_replies">ان میں سے ثابت شدہ پبلشر کی جانب سے</string>
+    <string name="stats_claims">پبلشر دعوے · ثابت شدہ</string>
     <string name="stats_moderation">نشان زدگیاں · صاف ووٹ · اعتراضات</string>
     <string name="stats_hidden">اتفاق رائے سے چھپائے گئے</string>
     <string name="stats_withdrawn">اپنے مصنف کی جانب سے واپس لیے گئے</string>
@@ -400,7 +399,7 @@
     <string name="pro_tool_import_title">سب کو واپس درآمد کریں</string>
     <string name="pro_tool_import_body">آپ کا لکھا ہوا ہر اسٹور جائزہ، ایک ایک کے بجائے ایک ہی منظوری میں لیجر پر دستخط شدہ۔</string>
     <string name="pro_tool_desk_title">پبلشر ڈیسک</string>
-    <string name="pro_tool_desk_body">آپ کی تصدیق شدہ ہر dApp میں غیر جواب شدہ قطار اور جواب دہی، ایک ہی فہرست میں۔</string>
+    <string name="pro_tool_desk_body">ہر اس dApp میں غیر جواب شدہ قطار اور جواب دہی جس کے آپ ثابت شدہ پبلشر ہیں، ایک ہی فہرست میں۔</string>
     <string name="pro_tool_export_title">لیجر برآمد کریں</string>
     <string name="pro_tool_export_body">کوئی بھی dApp، کوئی بھی دستخط کنندہ، CSV یا JSON کے طور پر۔ ڈیٹا عوامی ہے؛ Pro آپ کے لیے اسے پڑھنے کا کام کرتا ہے۔</string>
     <string name="pro_tool_watch_title">ہر گھنٹے سرٹیفکیٹ نگرانی</string>
@@ -487,7 +486,7 @@
     <string name="fp_read">پورا لیجر پڑھیں</string>
     <string name="fp_sign">جائزوں، جوابات، نشان زدگیوں، اعتراضات پر دستخط کریں</string>
     <string name="fp_facts">آپ کا آلہ کیا تصدیق کر سکتا ہے</string>
-    <string name="fp_claim">کسی dApp کا دعویٰ کریں، تصدیق شدہ بیج کے ساتھ جواب دیں</string>
+    <string name="fp_claim">کسی dApp کا دعویٰ کریں، اس کے ثابت شدہ پبلشر کے طور پر جواب دیں</string>
     <string name="fp_copy">جائزہ اسٹور میں کاپی کریں</string>
     <string name="fp_import">اسٹور جائزے درآمد کریں</string>
     <string name="fp_import_free">ایک ایک کر کے</string>
@@ -501,8 +500,8 @@
     <string name="fp_weight_both">یکساں — صرف آلہ اور اسٹیک شدہ SKR</string>
     <string name="desk_title">پبلشر ڈیسک</string>
     <plurals name="desk_across">
-        <item quantity="one">آپ کے %1$d تصدیق شدہ dApp میں</item>
-        <item quantity="other">آپ کے %1$d تصدیق شدہ dApps میں</item>
+        <item quantity="one">آپ کے %1$d ثابت شدہ dApp میں</item>
+        <item quantity="other">آپ کے %1$d ثابت شدہ dApps میں</item>
     </plurals>
     <string name="desk_unanswered">غیر جواب شدہ</string>
     <string name="desk_median">درمیانی جواب</string>
@@ -517,7 +516,7 @@
     </plurals>
     <string name="desk_hours">%1$d گھ</string>
     <string name="desk_note">جواب دہی لیجر سے پڑھی جاتی ہے، باقی سب کی طرح: ایک دستخط شدہ جائزے اور آپ کے دستخط شدہ جواب کے درمیان فرق۔ یہ آپ کے dApp صفحے پر قارئین کو دکھائی جاتی ہے، اس لیے قطار ہی پروڈکٹ ہے۔</string>
-    <string name="desk_none">ابھی تک کوئی تصدیق شدہ dApp نہیں۔ کسی ایپ کے صفحے سے دعویٰ کریں اور ویب سائٹ ثابت کریں؛ ڈیسک وہیں سے بھرنا شروع ہوتا ہے۔</string>
+    <string name="desk_none">ابھی تک کوئی ثابت شدہ dApp نہیں۔ کسی ایپ کے صفحے سے دعویٰ کریں اور اسے ثابت کریں (دستخط شدہ بلڈ یا ویب سائٹ)؛ ڈیسک وہیں سے بھرنا شروع ہوتا ہے۔</string>
     <string name="desk_none_waiting">کچھ زیرِ التوا نہیں۔</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -738,8 +737,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d ایک ستارہ</item><item quantity="other">%1$d ایک ستارہ</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d مرحلہ</item><item quantity="other">%1$d مراحل</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">تصدیق شدہ پبلشر — %1$s پر کنٹرول ثابت کیا، %2$s سے معلوم ہے</string>
-    <string name="publisher_verified_apk">تصدیق شدہ پبلشر — ایپ کی اپنی دستخط شدہ بلڈ کے اندر نامزد</string>
+    <string name="publisher_verified_since">پبلشر، اسٹور کی درج کردہ ویب سائٹ (%1$s) سے ثابت شدہ، %2$s سے معلوم ہے</string>
+    <string name="publisher_verified_apk">پبلشر، اس فون پر ایپ کی اپنی دستخط شدہ بلڈ سے ثابت شدہ</string>
     <string name="tag_works">کام کرتا ہے</string>
     <string name="tag_crashes">کریش ہوتا ہے</string>
     <string name="tag_wallet_ok">والٹ ٹھیک ہے</string>
@@ -768,7 +767,7 @@
     <string name="pay_list_fee">فہرست میں شامل کرنے کی لاگت ہمارے دیگر dApps کے پیڈ ٹیئر جتنی ہی ہے: %1$s یا %2$s (Seeker Genesis Token کے ساتھ %3$s)۔ یہ ہر dApp اور خزانے کے لیے ایک بار ادا کی جاتی ہے، اسی ٹرانزیکشن میں جو فہرست پر دستخط کرتی ہے۔ بعد میں کوڈ تبدیل کرنے یا دوبارہ فہرست میں شامل کرنے کی لاگت صرف نیٹ ورک فیس ہے۔</string>
     <string name="pay_list_pay">%1$s ادا کریں اور فہرست میں شامل کریں</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">تصدیق شدہ پبلشر — اسٹور جو بلڈ فراہم کرتا ہے اس کے اندر نامزد</string>
+    <string name="publisher_verified_store">پبلشر، dApp Store جو بلڈ فراہم کرتا ہے اس سے ثابت شدہ</string>
     <string name="publisher_check_build">اسٹور کی بلڈ چیک کریں · %1$s</string>
     <string name="publisher_checking_build">اسٹور کی بلڈ پڑھی جا رہی ہے…</string>
     <string name="publisher_build_nothing">اسٹور کی بلڈ میں کسی پبلشر والٹ کا نام نہیں ہے۔</string>
@@ -816,4 +815,21 @@
     <string name="notif_note_title">پبلشر نے آپ کے اسٹور جائزے کا جواب دیا · %1$s</string>
     <string name="notif_proven_title">آپ کا دعویٰ ثابت ہو گیا · %1$s</string>
     <string name="notif_proven_body">اس ایپ کے جائزوں پر آپ کے جوابات اب پبلشر ✓ کا نشان رکھتے ہیں، اور اس کے بارے میں آپ کے اپنے جائزے شمار نہیں ہوتے۔</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. اپنی ایپ میں اپنے والٹ کا نام درج کریں (سب سے مضبوط)</string>
+    <string name="claim_route_build_body">اپنی ایپ کے مینی فیسٹ میں &lt;application&gt; کے اندر یہ لائن شامل کریں اور اپ ڈیٹ dApp Store پر جاری کریں۔ قارئین وہ بلڈ دیکھتے ہیں جو اسٹور فراہم کرتا ہے: لائن میں اسی والٹ کا نام ہونا چاہیے اور بلڈ اس سرٹیفکیٹ سے دستخط شدہ ہونی چاہیے جسے اسٹور درج کرتا ہے۔ یہ صرف آپ کی ایپ کی دستخطی کلید کا حامل ہی کر سکتا ہے۔</string>
+    <string name="claim_route_site_title">2. یا اسٹور کی درج کردہ ویب سائٹ پر ایک فائل رکھیں</string>
+    <string name="claim_route_site_body">اسٹور اس ایپ کے لیے %1$s درج کرتا ہے۔ %2$s پر ایک فائل رکھیں جس کی ایک لائن میں آپ کے والٹ کا پتہ ہو:\n\n%3$s</string>
+    <string name="claim_route_site_none">اسٹور اس ایپ کے لیے کوئی ایسی ویب سائٹ درج نہیں کرتا جو اسے ثابت کر سکے (سوشل پروفائلز اور مشترکہ ہوسٹس شمار نہیں ہوتے)۔ دستخط شدہ بلڈ استعمال کریں۔</string>
+    <string name="claim_then_sign">پھر دعوے پر دستخط کریں۔ جب تک دونوں میں سے کوئی ایک ثبوت نہیں ملتا، دعویٰ غیر ثابت شدہ دکھائی دیتا ہے؛ اور کچھ نہیں ہوتا۔ ثبوت ہر روز دوبارہ دیکھا جاتا ہے۔</string>
+    <string name="proof_how_link">یہ کیسے ثابت ہوتا ہے؟</string>
+    <string name="proof_how_title">پبلشر کیسے ثابت ہوتا ہے</string>
+    <string name="proof_how_intro">کوئی بھی \"میں یہ ایپ شائع کرتا ہوں\" پر دستخط کر سکتا ہے۔ دستخط صرف یہ دکھاتا ہے کہ دعویٰ کون کر رہا ہے۔ دعویٰ تب ثابت ہوتا ہے جب کوئی ایسی چیز، جسے صرف اصل پبلشر کنٹرول کرتا ہے، اسی والٹ کا نام بتائے۔</string>
+    <string name="proof_key_title">ایپ کی دستخطی کلید (سب سے مضبوط)</string>
+    <string name="proof_key_body">ہر Android ایپ ایک ایسی کلید سے دستخط شدہ ہوتی ہے جو اس کی شناخت ہے: اسٹور اس کا سرٹیفکیٹ درج کرتا ہے، اور فون کسی دوسری کلید سے دستخط شدہ اپ ڈیٹ مسترد کر دیتے ہیں۔ جب پبلشر ایپ کے مینی فیسٹ کے اندر والٹ کا نام درج کرتا ہے تو وہ لائن دستخط شدہ بلڈ کے اندر ہوتی ہے، اس لیے اسے وہاں صرف کلید کا حامل ہی رکھ سکتا تھا۔ Undersigned وہ بلڈ دیکھتا ہے جو اسٹور فراہم کرتا ہے، یا اس فون پر انسٹال شدہ بلڈ۔</string>
+    <string name="proof_site_title">اسٹور کی درج کردہ ویب سائٹ</string>
+    <string name="proof_site_body">پبلشر ویب سائٹ اسٹور کے پبلشر پورٹل میں طے کرتا ہے۔ وہاں والٹ کا نام بتانے والی فائل اس سائٹ پر کنٹرول دکھاتی ہے۔ یہ کمزور ہے: ڈومینز ہاتھ بدلتے ہیں، اس لیے پہلی بار دیکھے جانے کی تاریخ دکھائی جاتی ہے۔ سوشل پروفائلز اور مشترکہ ہوسٹس قبول نہیں کیے جاتے۔</string>
+    <string name="proof_not_title">کیا اسے ثابت نہیں کرتا</string>
+    <string name="proof_not_body">والٹ کا اپنا دستخط، ادائیگی کا پتہ، یا وہ والٹ جس نے ایپ کو dApp Store پر شائع کیا۔ اسٹور یہ نہیں بتاتا کہ کون سا آن چین ریکارڈ کس لسٹنگ کا ہے، اور کوئی بھی کسی بھی ایپ کا نام دے کر ایک بنا سکتا ہے۔</string>
+    <string name="proof_how_after">ثابت شدہ پبلشر کے جوابات پر پبلشر کا نشان ہوتا ہے، اور ایپ پر ان کے اپنے جائزے شمار نہیں کیے جاتے۔</string>
 </resources>

@@ -77,14 +77,13 @@
     <string name="fact_store_version">स्टोर वर्ज़न कोड</string>
     <string name="publisher_title">प्रकाशक</string>
     <string name="publisher_listed">स्टोर द्वारा %1$s के रूप में सूचीबद्ध</string>
-    <string name="publisher_verified">सत्यापित प्रकाशक — %1$s पर नियंत्रण सिद्ध किया</string>
-    <string name="publisher_none">ledger पर अभी तक कोई सत्यापित प्रकाशक नहीं है।</string>
+    <string name="publisher_verified">प्रकाशक, स्टोर की सूचीबद्ध वेबसाइट (%1$s) से सिद्ध</string>
+    <string name="publisher_none">अभी तक कोई सिद्ध प्रकाशक नहीं।</string>
     <string name="publisher_claim">मैं इस ऐप को प्रकाशित करता/करती हूं</string>
     <string name="publisher_claim_title">इस ऐप का दावा करें</string>
-    <string name="publisher_claim_body">पाठक इस ऐप के लिए स्टोर द्वारा सूचीबद्ध वेबसाइट (%1$s) के विरुद्ध दावे को सत्यापित करते हैं। %2$s पर अपना wallet पता (एक पंक्ति में) रखते हुए एक फ़ाइल रखें:\n\n%3$s\n\nफिर दावे को साइन करें। सत्यापन स्वचालित है और हर 24 घंटे में दोहराया जाता है। यदि फ़ाइल गायब है, तो दावा केवल असत्यापित रहता है; कुछ और नहीं होता।</string>
     <string name="publisher_claim_sign">दावा साइन करें</string>
-    <string name="publisher_claimed_pending">आपका दावा chain पर है लेकिन अभी तक सत्यापित नहीं हुआ (सूचीबद्ध वेबसाइट पर फ़ाइल नहीं मिली)।</string>
-    <string name="publisher_badge">प्रकाशक ✓</string>
+    <string name="publisher_claimed_pending">आपका दावा साइन किया गया है लेकिन अभी तक सिद्ध नहीं हुआ। ऐप के मैनिफ़ेस्ट में अपने वॉलेट का नाम दें और अपडेट जारी करें, या फ़ाइल को स्टोर की सूचीबद्ध वेबसाइट पर रखें।</string>
+    <string name="publisher_badge">प्रकाशक</string>
     <string name="versions_title">वर्ज़न के अनुसार</string>
     <string name="versions_row">v%1$d · %2$s · %3$d हस्ताक्षरित</string>
     <string name="versions_installed">इंस्टॉल किया गया</string>
@@ -233,7 +232,7 @@
     <string name="intro4_title">आपका फ़ोन क्या साबित कर सकता है</string>
     <string name="intro4_body">जो ऐप्स आपने इंस्टॉल किए हैं उनके लिए, Undersigned दिखाता है कि क्या बिल्ड स्टोर द्वारा सूचीबद्ध certificate से मेल खाता है और क्या अनुमतियां बदलीं। तथ्य, कभी फैसले नहीं।</string>
     <string name="intro5_title">फ़ॉलो करें, सूचना पाएं, जवाब दें</string>
-    <string name="intro5_body">नई हस्ताक्षरित समीक्षाओं, अपडेट और जवाबों के बारे में जानने के लिए ऐप्स को फ़ॉलो करें। प्रकाशक साइन करके अपने ऐप का दावा करते हैं और सत्यापित बैज के साथ जवाब देते हैं। आप जो भी प्रकाशित करते हैं वह स्थायी और सार्वजनिक है।</string>
+    <string name="intro5_body">नई हस्ताक्षरित समीक्षाओं, अपडेट और जवाबों के बारे में जानने के लिए ऐप्स को फ़ॉलो करें। प्रकाशक साइन करके अपने ऐप का दावा करते हैं, और दावा सिद्ध होने पर उनके जवाबों पर प्रकाशक चिह्न होता है। आप जो भी प्रकाशित करते हैं वह स्थायी और सार्वजनिक है।</string>
     <string name="review_also_store">dApp Store में भी पोस्ट करें</string>
     <string name="review_also_store_hint">आपका नोट कॉपी करता है और लिस्टिंग खोलता है, जहां आप इसे “रेटिंग &amp; रिव्यु” → “dApp का रिव्यू दें” के तहत पोस्ट करते हैं। स्टोर के पास किसी अन्य ऐप को आपकी ओर से पोस्ट करने का कोई तरीका नहीं है, इसलिए आखिरी टैप आपके ही होते हैं।</string>
     <string name="flag">फ़्लैग</string>
@@ -253,7 +252,7 @@
     <string name="inbox_unanswered">अनुत्तरित</string>
     <string name="inbox_replies">मुझे मिले जवाब</string>
     <string name="inbox_starred">स्टार की गईं</string>
-    <string name="inbox_unanswered_sub">उन ऐप्स पर हस्ताक्षरित समीक्षाएं जिन्हें आपने प्रकाशक के रूप में सत्यापित किया है, जिनका आपने अभी जवाब नहीं दिया।</string>
+    <string name="inbox_unanswered_sub">उन ऐप्स पर हस्ताक्षरित समीक्षाएं जिनके आप सिद्ध प्रकाशक हैं, जिनका आपने अभी जवाब नहीं दिया।</string>
     <string name="inbox_unanswered_empty">कुछ भी प्रतीक्षा में नहीं है। यहां अपने ऐप्स देखने के लिए एक प्रकाशक दावा सत्यापित करें।</string>
     <string name="inbox_replies_empty">आपके रिकॉर्ड्स पर अभी तक कोई जवाब नहीं।</string>
     <string name="inbox_starred_empty">किसी समीक्षा को यहां रखने के लिए उसे स्टार करें।</string>
@@ -262,7 +261,7 @@
     <string name="profile_credibility_sub">40 आधार, अन्य साइनर्स के साथ टैग सहमति के लिए +30, प्राप्त उपयोगी वोटों के लिए +10, सर्वसम्मति से बरकरार रखे गए फ़्लैग के लिए +20, सर्वसम्मति से छिपाए गए रिकॉर्ड्स के हिस्से के लिए −50 ×। प्रकाशित सूत्र, इससे कुछ भी जुड़ा नहीं।</string>
     <string name="profile_flags">साइन किए गए फ़्लैग: %1$d · बरकरार: %2$d · प्राप्त: %3$d · छिपाए गए रिकॉर्ड: %4$d</string>
     <string name="profile_replied">अपनी समीक्षाओं पर %1$s बार जवाब देते हैं</string>
-    <string name="profile_publishes">सत्यापित प्रकाशक</string>
+    <string name="profile_publishes">सिद्ध प्रकाशक</string>
     <string name="profile_reviews">हस्ताक्षरित समीक्षाएं</string>
     <string name="responsiveness_line">हस्ताक्षरित समीक्षाओं का जवाब %1$s में देते हैं · %3$d में से %2$d का जवाब दिया</string>
     <string name="responsiveness_never">अभी तक किसी हस्ताक्षरित समीक्षा का जवाब नहीं दिया</string>
@@ -290,7 +289,7 @@
     <string name="clear_body">यह वोट इस रिकॉर्ड पर फ़्लैग को संतुलित करता है। प्रति wallet एक, फ़्लैग की तरह भारित। इसका उपयोग करें जब आपको लगे कि फ़्लैग गलत हैं।</string>
     <string name="unvote">मेरा उपयोगी वोट वापस लें</string>
     <string name="flag_net">शुद्ध %1$s</string>
-    <string name="publisher_flags_ignored">किसी सत्यापित प्रकाशक द्वारा अपने ही ऐप की समीक्षाओं पर दिए गए फ़्लैग नहीं गिने जाते; इसके बजाय जवाब दें।</string>
+    <string name="publisher_flags_ignored">किसी ऐप के सिद्ध प्रकाशक द्वारा अपने ही ऐप की समीक्षाओं पर दिए गए फ़्लैग नहीं गिने जाते; इसके बजाय जवाब दें।</string>
     <string name="hidden_reply">सर्वसम्मति से छिपाया गया जवाब</string>
     <string name="review_self_published">गिना नहीं गया — प्रकाशक का अपना ऐप</string>
     <string name="attest_title">आवाज़ के रूप में क्या गिना जाता है</string>
@@ -341,8 +340,8 @@
     <string name="stats_apps">हस्ताक्षरित समीक्षा वाले dApps</string>
     <string name="stats_apps_scored">स्कोर वाले dApps</string>
     <string name="stats_replies">जवाब</string>
-    <string name="stats_publisher_replies">इनमें से सत्यापित प्रकाशक से</string>
-    <string name="stats_claims">प्रकाशक दावे · सत्यापित</string>
+    <string name="stats_publisher_replies">इनमें से सिद्ध प्रकाशक से</string>
+    <string name="stats_claims">प्रकाशक दावे · सिद्ध</string>
     <string name="stats_moderation">फ़्लैग · क्लियर · विवाद</string>
     <string name="stats_hidden">सर्वसम्मति से छिपाई गईं</string>
     <string name="stats_withdrawn">उनके लेखक द्वारा वापस ली गईं</string>
@@ -400,7 +399,7 @@
     <string name="pro_tool_import_title">उन सबको वापस आयात करें</string>
     <string name="pro_tool_import_body">आपने जो भी स्टोर समीक्षाएं लिखी हैं, वे एक बार में, एक-एक करने के बजाय, एक ही अनुमोदन में Ledger पर साइन हो जाती हैं।</string>
     <string name="pro_tool_desk_title">प्रकाशक डेस्क</string>
-    <string name="pro_tool_desk_body">आपके सत्यापित किए हर dApp की अनुत्तरित कतार और जवाबदेही, एक ही सूची में।</string>
+    <string name="pro_tool_desk_body">हर उस dApp की अनुत्तरित कतार और जवाबदेही, जिसके आप सिद्ध प्रकाशक हैं, एक ही सूची में।</string>
     <string name="pro_tool_export_title">Ledger एक्सपोर्ट करें</string>
     <string name="pro_tool_export_body">कोई भी dApp, कोई भी साइनर, CSV या JSON के रूप में। डेटा सार्वजनिक है; Pro आपके लिए पढ़ने का काम करता है।</string>
     <string name="pro_tool_watch_title">हर घंटे certificate जांच</string>
@@ -487,7 +486,7 @@
     <string name="fp_read">पूरा Ledger पढ़ें</string>
     <string name="fp_sign">समीक्षाएं, जवाब, फ़्लैग, विवाद साइन करें</string>
     <string name="fp_facts">आपका डिवाइस क्या सत्यापित कर सकता है</string>
-    <string name="fp_claim">किसी dApp का दावा करें, सत्यापित बैज के साथ जवाब दें</string>
+    <string name="fp_claim">किसी dApp का दावा करें, उसके सिद्ध प्रकाशक के रूप में जवाब दें</string>
     <string name="fp_copy">एक समीक्षा स्टोर में कॉपी करें</string>
     <string name="fp_import">स्टोर समीक्षाएं आयात करें</string>
     <string name="fp_import_free">एक-एक करके</string>
@@ -501,8 +500,8 @@
     <string name="fp_weight_both">समान — केवल डिवाइस और staked SKR</string>
     <string name="desk_title">प्रकाशक डेस्क</string>
     <plurals name="desk_across">
-        <item quantity="one">आपके %1$d सत्यापित dApp में</item>
-        <item quantity="other">आपके %1$d सत्यापित dApps में</item>
+        <item quantity="one">आपके %1$d सिद्ध dApp में</item>
+        <item quantity="other">आपके %1$d सिद्ध dApps में</item>
     </plurals>
     <string name="desk_unanswered">अनुत्तरित</string>
     <string name="desk_median">माध्यिका जवाब</string>
@@ -517,7 +516,7 @@
     </plurals>
     <string name="desk_hours">%1$d घं</string>
     <string name="desk_note">जवाबदेही बाकी सब चीज़ों की तरह Ledger से पढ़ी जाती है: एक हस्ताक्षरित समीक्षा और आपके हस्ताक्षरित जवाब के बीच का अंतर। यह पाठकों को आपके dApp पेज पर दिखाई जाती है, इसलिए यह कतार ही असल चीज़ है।</string>
-    <string name="desk_none">अभी तक कोई सत्यापित dApp नहीं। किसी ऐप के पेज से उसका दावा करें और वेबसाइट साबित करें; डेस्क वहां से भरती है।</string>
+    <string name="desk_none">अभी तक कोई सिद्ध dApp नहीं। किसी ऐप के पेज से उसका दावा करें और उसे सिद्ध करें (हस्ताक्षरित बिल्ड या वेबसाइट); डेस्क वहां से भरती है।</string>
     <string name="desk_none_waiting">कुछ भी प्रतीक्षा में नहीं।</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -738,8 +737,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d एक-सितारा</item><item quantity="other">%1$d एक-सितारा</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d चरण</item><item quantity="other">%1$d चरण</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">सत्यापित प्रकाशक — %1$s पर नियंत्रण सिद्ध किया, %2$s से ज्ञात</string>
-    <string name="publisher_verified_apk">सत्यापित प्रकाशक — ऐप के अपने हस्ताक्षरित बिल्ड के भीतर नामित</string>
+    <string name="publisher_verified_since">प्रकाशक, स्टोर की सूचीबद्ध वेबसाइट (%1$s) से सिद्ध, %2$s से ज्ञात</string>
+    <string name="publisher_verified_apk">प्रकाशक, इस फ़ोन पर ऐप के अपने हस्ताक्षरित बिल्ड से सिद्ध</string>
     <string name="tag_works">काम करता है</string>
     <string name="tag_crashes">क्रैश होता है</string>
     <string name="tag_wallet_ok">Wallet ठीक</string>
@@ -768,7 +767,7 @@
     <string name="pay_list_fee">सूचीबद्ध करने का खर्च हमारे अन्य dApps के पेड टियर जितना ही है: %1$s या %2$s (Seeker Genesis Token के साथ %3$s)। यह प्रति dApp और ट्रेज़री एक बार लिया जाता है, उसी लेनदेन में जो लिस्टिंग पर हस्ताक्षर करता है। बाद में कोड बदलना या दोबारा सूचीबद्ध करना केवल नेटवर्क फीस लेता है।</string>
     <string name="pay_list_pay">%1$s चुकाएं और सूचीबद्ध करें</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">सत्यापित प्रकाशक — स्टोर जो बिल्ड उपलब्ध कराता है उसके भीतर नामित</string>
+    <string name="publisher_verified_store">प्रकाशक, dApp Store जो बिल्ड उपलब्ध कराता है उससे सिद्ध</string>
     <string name="publisher_check_build">स्टोर का बिल्ड जाँचें · %1$s</string>
     <string name="publisher_checking_build">स्टोर का बिल्ड पढ़ा जा रहा है…</string>
     <string name="publisher_build_nothing">स्टोर के बिल्ड में किसी प्रकाशक के wallet का नाम नहीं है।</string>
@@ -816,4 +815,21 @@
     <string name="notif_note_title">प्रकाशक ने आपकी स्टोर समीक्षा का जवाब दिया · %1$s</string>
     <string name="notif_proven_title">आपका दावा साबित हुआ · %1$s</string>
     <string name="notif_proven_body">इस ऐप की समीक्षाओं पर आपके जवाबों पर अब प्रकाशक ✓ का चिह्न दिखता है, और इसकी आपकी अपनी समीक्षाएं गिनी नहीं जातीं।</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. अपने ऐप में अपने वॉलेट का नाम दें (सबसे मज़बूत)</string>
+    <string name="claim_route_build_body">अपने ऐप के मैनिफ़ेस्ट में &lt;application&gt; के अंदर यह लाइन जोड़ें और अपडेट dApp Store पर जारी करें। पाठक वह बिल्ड जांचते हैं जो स्टोर उपलब्ध कराता है: लाइन में इसी वॉलेट का नाम होना चाहिए और बिल्ड उस सर्टिफिकेट से साइन किया होना चाहिए जिसे स्टोर सूचीबद्ध करता है। यह केवल आपके ऐप की साइनिंग कुंजी का धारक ही कर सकता है।</string>
+    <string name="claim_route_site_title">2. या स्टोर की सूचीबद्ध वेबसाइट पर एक फ़ाइल रखें</string>
+    <string name="claim_route_site_body">स्टोर इस ऐप के लिए %1$s सूचीबद्ध करता है। %2$s पर एक फ़ाइल रखें, जिसकी एक लाइन में आपका वॉलेट पता हो:\n\n%3$s</string>
+    <string name="claim_route_site_none">स्टोर इस ऐप के लिए ऐसी कोई वेबसाइट सूचीबद्ध नहीं करता जो इसे सिद्ध कर सके (सोशल प्रोफ़ाइल और साझा होस्ट नहीं गिने जाते)। हस्ताक्षरित बिल्ड का उपयोग करें।</string>
+    <string name="claim_then_sign">फिर दावा साइन करें। जब तक दोनों में से कोई एक प्रमाण नहीं मिलता, दावा असिद्ध दिखता है; और कुछ नहीं होता। प्रमाण हर दिन दोबारा जांचा जाता है।</string>
+    <string name="proof_how_link">यह कैसे सिद्ध होता है?</string>
+    <string name="proof_how_title">प्रकाशक कैसे सिद्ध होता है</string>
+    <string name="proof_how_intro">कोई भी \"मैं यह ऐप प्रकाशित करता हूँ\" साइन कर सकता है। हस्ताक्षर केवल यह दिखाता है कि दावा कौन कर रहा है। दावा तब सिद्ध होता है जब कोई ऐसी चीज़, जिसे केवल असली प्रकाशक नियंत्रित करता है, उसी वॉलेट का नाम बताती है।</string>
+    <string name="proof_key_title">ऐप की साइनिंग कुंजी (सबसे मज़बूत)</string>
+    <string name="proof_key_body">हर Android ऐप एक कुंजी से साइन होता है जो उसकी पहचान है: स्टोर उसका सर्टिफिकेट सूचीबद्ध करता है, और फ़ोन किसी अन्य कुंजी से साइन किया अपडेट अस्वीकार कर देते हैं। जब प्रकाशक ऐप के मैनिफ़ेस्ट के भीतर वॉलेट का नाम देता है, तो वह लाइन हस्ताक्षरित बिल्ड के भीतर होती है, इसलिए केवल कुंजी का धारक ही उसे वहां रख सकता था। Undersigned वह बिल्ड जांचता है जो स्टोर उपलब्ध कराता है, या इस फ़ोन पर इंस्टॉल किया हुआ बिल्ड।</string>
+    <string name="proof_site_title">स्टोर की सूचीबद्ध वेबसाइट</string>
+    <string name="proof_site_body">प्रकाशक स्टोर के प्रकाशक पोर्टल में वेबसाइट तय करता है। वहां वॉलेट का नाम बताने वाली फ़ाइल उस साइट पर नियंत्रण दिखाती है। यह कमज़ोर है: डोमेन हाथ बदलते हैं, इसलिए पहली बार देखे जाने की तारीख दिखाई जाती है। सोशल प्रोफ़ाइल और साझा होस्ट स्वीकार नहीं किए जाते।</string>
+    <string name="proof_not_title">क्या इसे सिद्ध नहीं करता</string>
+    <string name="proof_not_body">वॉलेट का अपना हस्ताक्षर, भुगतान पता, या वह वॉलेट जिसने ऐप को dApp Store पर प्रकाशित किया। स्टोर यह नहीं बताता कि कौन-सा ऑन-चेन रिकॉर्ड किस लिस्टिंग का है, और कोई भी किसी भी ऐप का नाम देकर एक बना सकता है।</string>
+    <string name="proof_how_after">सिद्ध प्रकाशक के जवाबों पर प्रकाशक चिह्न होता है, और ऐप की उनकी अपनी समीक्षाएं गिनी नहीं जातीं।</string>
 </resources>

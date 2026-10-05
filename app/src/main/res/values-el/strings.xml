@@ -74,14 +74,13 @@
     <string name="fact_store_version">Κωδικός έκδοσης καταστήματος</string>
     <string name="publisher_title">Εκδότης</string>
     <string name="publisher_listed">Αναφέρεται από το κατάστημα ως %1$s</string>
-    <string name="publisher_verified">Επαληθευμένος εκδότης — απέδειξε τον έλεγχο του %1$s</string>
-    <string name="publisher_none">Κανένας επαληθευμένος εκδότης στο ledger ακόμα.</string>
+    <string name="publisher_verified">Εκδότης, αποδεδειγμένος από τον ιστότοπο που αναφέρει το κατάστημα (%1$s)</string>
+    <string name="publisher_none">Κανένας αποδεδειγμένος εκδότης ακόμα.</string>
     <string name="publisher_claim">Εγώ εκδίδω αυτή την εφαρμογή</string>
     <string name="publisher_claim_title">Διεκδίκηση αυτής της εφαρμογής</string>
-    <string name="publisher_claim_body">Οι αναγνώστες επαληθεύουν μια διεκδίκηση έναντι του ιστότοπου που αναφέρει το κατάστημα για αυτή την εφαρμογή (%1$s). Τοποθετήστε ένα αρχείο στο %2$s που να περιέχει τη διεύθυνση του πορτοφολιού σας (μία γραμμή):\n\n%3$s\n\nΈπειτα υπογράψτε τη διεκδίκηση. Η επαλήθευση είναι αυτόματη και επαναλαμβάνεται κάθε 24 ώρες. Αν το αρχείο λείπει, η διεκδίκηση απλώς παραμένει μη επαληθευμένη· τίποτα άλλο δεν συμβαίνει.</string>
     <string name="publisher_claim_sign">Υπογραφή της διεκδίκησης</string>
-    <string name="publisher_claimed_pending">Η διεκδίκησή σας είναι on-chain αλλά δεν έχει επαληθευτεί ακόμα (το αρχείο δεν βρέθηκε στον αναφερόμενο ιστότοπο).</string>
-    <string name="publisher_badge">Εκδότης ✓</string>
+    <string name="publisher_claimed_pending">Η διεκδίκησή σας είναι υπογεγραμμένη αλλά δεν είναι ακόμα αποδεδειγμένη. Αναφέρετε το πορτοφόλι σας στο manifest της εφαρμογής και κυκλοφορήστε την ενημέρωση, ή τοποθετήστε το αρχείο στον ιστότοπο που αναφέρει το κατάστημα.</string>
+    <string name="publisher_badge">Εκδότης</string>
     <string name="versions_title">Ανά έκδοση</string>
     <string name="versions_row">v%1$d · %2$s · %3$d υπογεγραμμένες</string>
     <string name="versions_installed">εγκατεστημένη</string>
@@ -230,7 +229,7 @@
     <string name="intro4_title">Τι μπορεί να αποδείξει το τηλέφωνό σας</string>
     <string name="intro4_body">Για τις εφαρμογές που έχετε εγκαταστήσει, το Undersigned δείχνει αν το build ταιριάζει με το πιστοποιητικό που αναφέρει το κατάστημα και αν άλλαξαν τα δικαιώματα. Στοιχεία, ποτέ κρίσεις.</string>
     <string name="intro5_title">Ακολουθήστε, ενημερωθείτε, απαντήστε</string>
-    <string name="intro5_body">Ακολουθήστε εφαρμογές για να μαθαίνετε για νέες υπογεγραμμένες κριτικές, ενημερώσεις και απαντήσεις. Οι εκδότες διεκδικούν την εφαρμογή τους υπογράφοντας και απαντούν με ένα επαληθευμένο σήμα. Ό,τι δημοσιεύετε είναι μόνιμο και δημόσιο.</string>
+    <string name="intro5_body">Ακολουθήστε εφαρμογές για να μαθαίνετε για νέες υπογεγραμμένες κριτικές, ενημερώσεις και απαντήσεις. Οι εκδότες διεκδικούν την εφαρμογή τους υπογράφοντας, και οι απαντήσεις τους φέρουν το σήμα Εκδότης όταν η διεκδίκηση είναι αποδεδειγμένη. Ό,τι δημοσιεύετε είναι μόνιμο και δημόσιο.</string>
     <string name="review_also_store">Δημοσίευση και στο dApp Store</string>
     <string name="review_also_store_hint">Αντιγράφει τη σημείωσή σας και ανοίγει την καταχώριση, όπου τη δημοσιεύετε στο \"Ratings &amp; Reviews\" → \"Review this dApp\". Το κατάστημα δεν επιτρέπει σε άλλη εφαρμογή να δημοσιεύει για εσάς, οπότε τα τελευταία πατήματα είναι δικά σας.</string>
     <string name="flag">Επισήμανση</string>
@@ -250,7 +249,7 @@
     <string name="inbox_unanswered">Αναπάντητα</string>
     <string name="inbox_replies">Απαντήσεις σε εμένα</string>
     <string name="inbox_starred">Με αστέρι</string>
-    <string name="inbox_unanswered_sub">Υπογεγραμμένες κριτικές σε εφαρμογές που έχετε επαληθεύσει ως εκδότης, χωρίς απάντηση από εσάς.</string>
+    <string name="inbox_unanswered_sub">Υπογεγραμμένες κριτικές σε εφαρμογές των οποίων είστε ο αποδεδειγμένος εκδότης, χωρίς απάντηση από εσάς.</string>
     <string name="inbox_unanswered_empty">Τίποτα σε αναμονή. Επαληθεύστε μια διεκδίκηση εκδότη για να δείτε τις εφαρμογές σας εδώ.</string>
     <string name="inbox_replies_empty">Καμία απάντηση στις εγγραφές σας ακόμα.</string>
     <string name="inbox_starred_empty">Βάλτε αστέρι σε μια κριτική για να τη διατηρήσετε εδώ.</string>
@@ -259,7 +258,7 @@
     <string name="profile_credibility_sub">40 βάση, +30 για συμφωνία ετικετών με άλλους υπογράφοντες, +10 για χρήσιμες ψήφους που λάβατε, +20 για επισημάνσεις που επικυρώθηκαν με συναίνεση, −50 × μερίδιο εγγραφών κρυμμένων με συναίνεση. Δημοσιευμένος τύπος, τίποτα προσαρτημένο σε αυτόν.</string>
     <string name="profile_flags">Υπογεγραμμένες επισημάνσεις: %1$d · Επικυρωμένες: %2$d · Ληφθείσες: %3$d · Κρυμμένες εγγραφές: %4$d</string>
     <string name="profile_replied">Απαντά στις κριτικές του %1$s του χρόνου</string>
-    <string name="profile_publishes">Επαληθευμένος εκδότης του</string>
+    <string name="profile_publishes">Αποδεδειγμένος εκδότης του</string>
     <string name="profile_reviews">Υπογεγραμμένες κριτικές</string>
     <string name="responsiveness_line">Απαντά σε υπογεγραμμένες κριτικές σε %1$s · %2$d από %3$d απαντήθηκαν</string>
     <string name="responsiveness_never">Δεν έχει απαντήσει ακόμα σε υπογεγραμμένη κριτική</string>
@@ -287,7 +286,7 @@
     <string name="clear_body">Μια ψήφος \"φαίνεται γνήσια\" αντισταθμίζει επισημάνσεις σε αυτή την εγγραφή. Μία ανά πορτοφόλι, σταθμισμένη όπως μια επισήμανση. Χρησιμοποιήστε τη όταν πιστεύετε ότι οι επισημάνσεις είναι λάθος.</string>
     <string name="unvote">Απόσυρση της ψήφου χρησιμότητας</string>
     <string name="flag_net">καθαρό %1$s</string>
-    <string name="publisher_flags_ignored">Οι επισημάνσεις από επαληθευμένο εκδότη σε κριτικές της δικής του εφαρμογής δεν μετρούν· απαντήστε αντ\' αυτού.</string>
+    <string name="publisher_flags_ignored">Οι επισημάνσεις από τον αποδεδειγμένο εκδότη μιας εφαρμογής σε κριτικές της δικής του εφαρμογής δεν μετρούν· απαντήστε αντ\' αυτού.</string>
     <string name="hidden_reply">Απάντηση κρυμμένη με συναίνεση</string>
     <string name="review_self_published">Δεν μετράει — η ίδια εφαρμογή του εκδότη</string>
     <string name="attest_title">Τι μετράει ως φωνή</string>
@@ -339,8 +338,8 @@
     <string name="stats_apps">dApps με υπογεγραμμένη κριτική</string>
     <string name="stats_apps_scored">dApps με βαθμολογία</string>
     <string name="stats_replies">Απαντήσεις</string>
-    <string name="stats_publisher_replies">από αυτές, από επαληθευμένο εκδότη</string>
-    <string name="stats_claims">Διεκδικήσεις εκδοτών · επαληθευμένες</string>
+    <string name="stats_publisher_replies">από αυτές, από αποδεδειγμένο εκδότη</string>
+    <string name="stats_claims">Διεκδικήσεις εκδοτών · αποδεδειγμένες</string>
     <string name="stats_moderation">Επισημάνσεις · διαψεύσεις · ενστάσεις</string>
     <string name="stats_hidden">Κρυμμένες με συναίνεση</string>
     <string name="stats_withdrawn">Αποσύρθηκαν από τον συντάκτη τους</string>
@@ -398,7 +397,7 @@
     <string name="pro_tool_import_title">Εισαγωγή όλων ξανά</string>
     <string name="pro_tool_import_body">Κάθε κριτική καταστήματος που έχετε γράψει, υπογεγραμμένη στο ledger με μία έγκριση αντί για μία τη φορά.</string>
     <string name="pro_tool_desk_title">Γραφείο εκδότη</string>
-    <string name="pro_tool_desk_body">Η ουρά αναπάντητων και η ανταπόκριση σε κάθε dApp που έχετε επαληθεύσει, σε μία λίστα.</string>
+    <string name="pro_tool_desk_body">Η ουρά αναπάντητων και η ανταπόκριση σε κάθε dApp του οποίου είστε ο αποδεδειγμένος εκδότης, σε μία λίστα.</string>
     <string name="pro_tool_export_title">Εξαγωγή του ledger</string>
     <string name="pro_tool_export_body">Οποιοδήποτε dApp, οποιοσδήποτε υπογράφων, ως CSV ή JSON. Τα δεδομένα είναι δημόσια· το Pro κάνει την ανάγνωση για εσάς.</string>
     <string name="pro_tool_watch_title">Ωριαία παρακολούθηση πιστοποιητικού</string>
@@ -485,7 +484,7 @@
     <string name="fp_read">Ανάγνωση ολόκληρου του ledger</string>
     <string name="fp_sign">Υπογραφή κριτικών, απαντήσεων, επισημάνσεων, ενστάσεων</string>
     <string name="fp_facts">Τι μπορεί να επαληθεύσει η συσκευή σας</string>
-    <string name="fp_claim">Διεκδίκηση dApp, απάντηση με επαληθευμένο σήμα</string>
+    <string name="fp_claim">Διεκδίκηση dApp, απάντηση ως αποδεδειγμένος εκδότης του</string>
     <string name="fp_copy">Αντιγραφή κριτικής στο κατάστημα</string>
     <string name="fp_import">Εισαγωγή κριτικών καταστήματος</string>
     <string name="fp_import_free">μία τη φορά</string>
@@ -499,8 +498,8 @@
     <string name="fp_weight_both">το ίδιο — μόνο η συσκευή και το staked SKR</string>
     <string name="desk_title">Γραφείο εκδότη</string>
     <plurals name="desk_across">
-        <item quantity="one">Σε %1$d επαληθευμένο dApp σας</item>
-        <item quantity="other">Σε %1$d επαληθευμένα dApps σας</item>
+        <item quantity="one">Σε %1$d αποδεδειγμένο dApp σας</item>
+        <item quantity="other">Σε %1$d αποδεδειγμένα dApps σας</item>
     </plurals>
     <string name="desk_unanswered">αναπάντητες</string>
     <string name="desk_median">μέση απάντηση</string>
@@ -515,7 +514,7 @@
     </plurals>
     <string name="desk_hours">%1$d ώ</string>
     <string name="desk_note">Η ανταπόκριση διαβάζεται από το ledger όπως όλα τα άλλα: το κενό μεταξύ μιας υπογεγραμμένης κριτικής και της υπογεγραμμένης απάντησής σας. Εμφανίζεται στους αναγνώστες στη σελίδα του dApp σας, οπότε η ουρά είναι το προϊόν.</string>
-    <string name="desk_none">Κανένα επαληθευμένο dApp ακόμα. Διεκδικήστε μια εφαρμογή από τη σελίδα της και αποδείξτε τον ιστότοπο· το γραφείο γεμίζει από εκεί.</string>
+    <string name="desk_none">Κανένα αποδεδειγμένο dApp ακόμα. Διεκδικήστε μια εφαρμογή από τη σελίδα της και αποδείξτε τη διεκδίκηση (υπογεγραμμένο build ή ιστότοπος)· το γραφείο γεμίζει από εκεί.</string>
     <string name="desk_none_waiting">Τίποτα σε αναμονή.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -735,8 +734,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d ενός αστέρα</item><item quantity="other">%1$d ενός αστέρα</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d βήμα</item><item quantity="other">%1$d βήματα</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Επαληθευμένος εκδότης — απέδειξε τον έλεγχο του %1$s, γνωστός από %2$s</string>
-    <string name="publisher_verified_apk">Επαληθευμένος εκδότης — αναφέρεται μέσα στο δικό της υπογεγραμμένο build της εφαρμογής</string>
+    <string name="publisher_verified_since">Εκδότης, αποδεδειγμένος από τον ιστότοπο που αναφέρει το κατάστημα (%1$s), γνωστός από %2$s</string>
+    <string name="publisher_verified_apk">Εκδότης, αποδεδειγμένος από το δικό της υπογεγραμμένο build της εφαρμογής σε αυτό το τηλέφωνο</string>
     <string name="tag_works">Λειτουργεί</string>
     <string name="tag_crashes">Κρασάρει</string>
     <string name="tag_wallet_ok">Πορτοφόλι ok</string>
@@ -765,7 +764,7 @@
     <string name="pay_list_fee">Η καταχώριση κοστίζει όσο ένα επί πληρωμή επίπεδο των υπόλοιπων dApps μας: %1$s ή %2$s (%3$s με Seeker Genesis Token). Πληρώνεται μία φορά ανά dApp και θησαυροφυλάκιο, στην ίδια συναλλαγή που υπογράφει την καταχώριση. Η αλλαγή του κωδικού ή η εκ νέου καταχώριση αργότερα κοστίζει μόνο το τέλος δικτύου.</string>
     <string name="pay_list_pay">Πληρωμή %1$s και καταχώριση</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Επαληθευμένος εκδότης — αναφέρεται μέσα στο build που διαθέτει το κατάστημα</string>
+    <string name="publisher_verified_store">Εκδότης, αποδεδειγμένος από το build που διαθέτει το dApp Store</string>
     <string name="publisher_check_build">Έλεγχος του build του καταστήματος · %1$s</string>
     <string name="publisher_checking_build">Ανάγνωση του build του καταστήματος…</string>
     <string name="publisher_build_nothing">Το build του καταστήματος δεν αναφέρει πορτοφόλι εκδότη.</string>
@@ -813,4 +812,21 @@
     <string name="notif_note_title">Ο εκδότης απάντησε στην κριτική σας από το κατάστημα · %1$s</string>
     <string name="notif_proven_title">Η αξίωσή σας αποδείχθηκε · %1$s</string>
     <string name="notif_proven_body">Οι απαντήσεις σας στις κριτικές αυτής της εφαρμογής φέρουν πλέον το σήμα Εκδότης ✓ και οι δικές σας κριτικές για αυτήν δεν μετράνε.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Αναφέρετε το πορτοφόλι σας στην εφαρμογή σας (ισχυρότερο)</string>
+    <string name="claim_route_build_body">Προσθέστε αυτή τη γραμμή μέσα στο &lt;application&gt; στο manifest της εφαρμογής σας και κυκλοφορήστε την ενημέρωση στο dApp Store. Οι αναγνώστες ελέγχουν το build που διαθέτει το κατάστημα: η γραμμή πρέπει να αναφέρει αυτό το πορτοφόλι και το build πρέπει να είναι υπογεγραμμένο με το πιστοποιητικό που αναφέρει το κατάστημα. Μόνο ο κάτοχος του κλειδιού υπογραφής της εφαρμογής σας μπορεί να το κάνει.</string>
+    <string name="claim_route_site_title">2. Ή τοποθετήστε ένα αρχείο στον ιστότοπο που αναφέρει το κατάστημα</string>
+    <string name="claim_route_site_body">Το κατάστημα αναφέρει το %1$s για αυτή την εφαρμογή. Τοποθετήστε στο %2$s ένα αρχείο που περιέχει τη διεύθυνση του πορτοφολιού σας σε μία γραμμή:\n\n%3$s</string>
+    <string name="claim_route_site_none">Το κατάστημα δεν αναφέρει για αυτή την εφαρμογή ιστότοπο που να μπορεί να την αποδείξει (τα προφίλ κοινωνικών δικτύων και οι κοινόχρηστοι διακομιστές δεν μετρούν). Χρησιμοποιήστε το υπογεγραμμένο build.</string>
+    <string name="claim_then_sign">Έπειτα υπογράψτε τη διεκδίκηση. Μέχρι να βρεθεί μία από τις δύο αποδείξεις, η διεκδίκηση εμφανίζεται ως μη αποδεδειγμένη· τίποτε άλλο δεν συμβαίνει. Η απόδειξη ελέγχεται ξανά κάθε μέρα.</string>
+    <string name="proof_how_link">Πώς αποδεικνύεται αυτό;</string>
+    <string name="proof_how_title">Πώς αποδεικνύεται ένας εκδότης</string>
+    <string name="proof_how_intro">Οποιοσδήποτε μπορεί να υπογράψει «Εκδίδω αυτή την εφαρμογή». Μια υπογραφή δείχνει μόνο ποιος διεκδικεί. Μια διεκδίκηση είναι αποδεδειγμένη όταν κάτι που ελέγχει μόνο ο πραγματικός εκδότης αναφέρει το ίδιο πορτοφόλι.</string>
+    <string name="proof_key_title">Το κλειδί υπογραφής της εφαρμογής (ισχυρότερο)</string>
+    <string name="proof_key_body">Κάθε εφαρμογή Android υπογράφεται με ένα κλειδί που αποτελεί την ταυτότητά της: το κατάστημα αναφέρει το πιστοποιητικό της και τα τηλέφωνα αρνούνται μια ενημέρωση υπογεγραμμένη με άλλο κλειδί. Όταν ο εκδότης αναφέρει ένα πορτοφόλι μέσα στο manifest της εφαρμογής, η γραμμή βρίσκεται μέσα στο υπογεγραμμένο build, οπότε μόνο ο κάτοχος του κλειδιού θα μπορούσε να την έχει βάλει εκεί. Το Undersigned ελέγχει το build που διαθέτει το κατάστημα ή αυτό που είναι εγκατεστημένο σε αυτό το τηλέφωνο.</string>
+    <string name="proof_site_title">Ο ιστότοπος που αναφέρει το κατάστημα</string>
+    <string name="proof_site_body">Ο εκδότης ορίζει τον ιστότοπο στην πύλη εκδοτών του καταστήματος. Ένα αρχείο εκεί που αναφέρει το πορτοφόλι δείχνει έλεγχο αυτού του ιστότοπου. Ασθενέστερο: τα domains αλλάζουν χέρια, γι\' αυτό εμφανίζεται η ημερομηνία που πρωτοεμφανίστηκε. Τα προφίλ κοινωνικών δικτύων και οι κοινόχρηστοι διακομιστές δεν γίνονται δεκτά.</string>
+    <string name="proof_not_title">Τι δεν το αποδεικνύει</string>
+    <string name="proof_not_body">Η ίδια η υπογραφή του πορτοφολιού, μια διεύθυνση πληρωμής ή το πορτοφόλι που δημοσίευσε την εφαρμογή στο dApp Store. Το κατάστημα δεν λέει ποια on-chain εγγραφή ανήκει σε ποια καταχώριση, και οποιοσδήποτε μπορεί να δημιουργήσει μία που αναφέρει οποιαδήποτε εφαρμογή.</string>
+    <string name="proof_how_after">Οι απαντήσεις ενός αποδεδειγμένου εκδότη φέρουν το σήμα Εκδότης και οι δικές του κριτικές για την εφαρμογή δεν μετρούν.</string>
 </resources>

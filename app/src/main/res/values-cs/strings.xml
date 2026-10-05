@@ -69,14 +69,13 @@
     <string name="fact_store_version">Kód verze v obchodě</string>
     <string name="publisher_title">Vydavatel</string>
     <string name="publisher_listed">V obchodě uveden jako %1$s</string>
-    <string name="publisher_verified">Ověřený vydavatel — prokázal kontrolu nad %1$s</string>
-    <string name="publisher_none">V evidenci zatím není žádný ověřený vydavatel.</string>
+    <string name="publisher_verified">Vydavatel, prokázaný webem, který obchod uvádí (%1$s)</string>
+    <string name="publisher_none">Zatím žádný prokázaný vydavatel.</string>
     <string name="publisher_claim">Vydávám tuto aplikaci</string>
     <string name="publisher_claim_title">Nárokovat tuto aplikaci</string>
-    <string name="publisher_claim_body">Čtenáři ověřují nárok proti webu, který obchod pro tuto aplikaci uvádí (%1$s). Umístěte na %2$s soubor obsahující adresu vaší peněženky (jeden řádek):\n\n%3$s\n\nPoté nárok podepište. Ověření je automatické a opakuje se každých 24 hodin. Pokud soubor chybí, nárok jednoduše zůstane neověřený; nic jiného se nestane.</string>
     <string name="publisher_claim_sign">Podepsat nárok</string>
-    <string name="publisher_claimed_pending">Váš nárok je na blockchainu, ale zatím není ověřený (soubor nebyl na uvedeném webu nalezen).</string>
-    <string name="publisher_badge">Vydavatel ✓</string>
+    <string name="publisher_claimed_pending">Váš nárok je podepsaný, ale zatím není prokázaný. Uveďte svou peněženku v manifestu aplikace a vydejte aktualizaci, nebo umístěte soubor na web, který obchod uvádí.</string>
+    <string name="publisher_badge">Vydavatel</string>
     <string name="versions_title">Podle verze</string>
     <string name="versions_row">v%1$d · %2$s · %3$d podepsáno</string>
     <string name="versions_installed">nainstalováno</string>
@@ -230,7 +229,7 @@
     <string name="intro4_title">Co dokáže váš telefon prokázat</string>
     <string name="intro4_body">U nainstalovaných aplikací Undersigned ukazuje, zda sestavení odpovídá certifikátu uvedenému obchodem a zda se změnila oprávnění. Fakta, nikdy verdikty.</string>
     <string name="intro5_title">Sledujte, buďte informováni, odpovídejte</string>
-    <string name="intro5_body">Sledujte aplikace, abyste se dozvěděli o nových podepsaných recenzích, aktualizacích a odpovědích. Vydavatelé si nárokují svou aplikaci podpisem a odpovídají s odznakem ověřeno. Vše, co zveřejníte, je trvalé a veřejné.</string>
+    <string name="intro5_body">Sledujte aplikace, abyste se dozvěděli o nových podepsaných recenzích, aktualizacích a odpovědích. Vydavatelé si nárokují svou aplikaci podpisem a jejich odpovědi nesou značku Vydavatel, jakmile je nárok prokázaný. Vše, co zveřejníte, je trvalé a veřejné.</string>
     <string name="review_also_store">Zveřejnit i v dApp Store</string>
     <string name="review_also_store_hint">Zkopíruje vaši poznámku a otevře záznam, kde ji zveřejníte v části \"Ratings &amp; Reviews\" → \"Review this dApp\". Obchod nemá způsob, jak by za vás mohla zveřejnit jiná aplikace, takže poslední klepnutí jsou na vás.</string>
     <string name="flag">Označit</string>
@@ -250,7 +249,7 @@
     <string name="inbox_unanswered">Nezodpovězené</string>
     <string name="inbox_replies">Odpovědi mně</string>
     <string name="inbox_starred">Oblíbené</string>
-    <string name="inbox_unanswered_sub">Podepsané recenze aplikací, které jste ověřili jako vydavatel, bez vaší odpovědi.</string>
+    <string name="inbox_unanswered_sub">Podepsané recenze aplikací, jejichž jste prokázaným vydavatelem, bez vaší odpovědi.</string>
     <string name="inbox_unanswered_empty">Nic nečeká. Ověřte nárok vydavatele, aby se zde zobrazily vaše aplikace.</string>
     <string name="inbox_replies_empty">Zatím žádné odpovědi na vaše záznamy.</string>
     <string name="inbox_starred_empty">Přidejte recenzi do oblíbených, aby zůstala zde.</string>
@@ -259,7 +258,7 @@
     <string name="profile_credibility_sub">40 základ, +30 za shodu štítků s ostatními signatáři, +10 za obdržené hlasy Užitečné, +20 za označení potvrzená konsensem, −50 × podíl záznamů skrytých konsensem. Zveřejněný vzorec, nic k tomu není připojeno.</string>
     <string name="profile_flags">Podepsaná označení: %1$d · Potvrzeno: %2$d · Obdrženo: %3$d · Skryté záznamy: %4$d</string>
     <string name="profile_replied">Odpovídá na odpovědi ke svým recenzím v %1$s případů</string>
-    <string name="profile_publishes">Ověřený vydavatel aplikace</string>
+    <string name="profile_publishes">Prokázaný vydavatel aplikace</string>
     <string name="profile_reviews">Podepsané recenze</string>
     <string name="responsiveness_line">Odpovídá na podepsané recenze za %1$s · zodpovězeno %2$d z %3$d</string>
     <string name="responsiveness_never">Zatím neodpověděl(a) na žádnou podepsanou recenzi</string>
@@ -287,7 +286,7 @@
     <string name="clear_body">Hlas \"vypadá jako pravé\" vyrovnává označení tohoto záznamu. Jeden na peněženku, vážený jako označení. Použijte ho, když si myslíte, že jsou označení mylná.</string>
     <string name="unvote">Stáhnout můj hlas Užitečné</string>
     <string name="flag_net">čisté %1$s</string>
-    <string name="publisher_flags_ignored">Označení od ověřeného vydavatele na recenzích jeho vlastní aplikace se nepočítají; místo toho odpovězte.</string>
+    <string name="publisher_flags_ignored">Označení od prokázaného vydavatele aplikace na recenzích jeho vlastní aplikace se nepočítají; místo toho odpovězte.</string>
     <string name="hidden_reply">Odpověď skryta konsensem</string>
     <string name="review_self_published">Nezapočítáno — vlastní aplikace vydavatele</string>
     <string name="attest_title">Co se počítá jako hlas</string>
@@ -340,8 +339,8 @@
     <string name="stats_apps">dApps s podepsanou recenzí</string>
     <string name="stats_apps_scored">dApps se skóre</string>
     <string name="stats_replies">Odpovědi</string>
-    <string name="stats_publisher_replies">z toho od ověřeného vydavatele</string>
-    <string name="stats_claims">Nároky vydavatelů · ověřeno</string>
+    <string name="stats_publisher_replies">z toho od prokázaného vydavatele</string>
+    <string name="stats_claims">Nároky vydavatelů · prokázané</string>
     <string name="stats_moderation">Označení · potvrzení pravosti · rozpory</string>
     <string name="stats_hidden">Skryto konsensem</string>
     <string name="stats_withdrawn">Staženo autorem</string>
@@ -399,7 +398,7 @@
     <string name="pro_tool_import_title">Importovat je všechny zpět</string>
     <string name="pro_tool_import_body">Každou recenzi z obchodu, kterou jste napsali, podepíšete do evidence jedním schválením místo po jedné.</string>
     <string name="pro_tool_desk_title">Pult vydavatele</string>
-    <string name="pro_tool_desk_body">Fronta nezodpovězených a odezva napříč všemi dApps, které jste ověřili, v jednom seznamu.</string>
+    <string name="pro_tool_desk_body">Fronta nezodpovězených a odezva napříč všemi dApps, jejichž jste prokázaným vydavatelem, v jednom seznamu.</string>
     <string name="pro_tool_export_title">Exportovat evidenci</string>
     <string name="pro_tool_export_body">Jakoukoli dApp, jakéhokoli signatáře, jako CSV nebo JSON. Data jsou veřejná; Pro za vás udělá čtení.</string>
     <string name="pro_tool_watch_title">Hodinové sledování certifikátu</string>
@@ -490,7 +489,7 @@
     <string name="fp_read">Číst celou evidenci</string>
     <string name="fp_sign">Podepisovat recenze, odpovědi, označení, rozpory</string>
     <string name="fp_facts">Co dokáže vaše zařízení ověřit</string>
-    <string name="fp_claim">Nárokovat dApp, odpovídat s odznakem ověřeno</string>
+    <string name="fp_claim">Nárokovat dApp, odpovídat jako její prokázaný vydavatel</string>
     <string name="fp_copy">Zkopírovat recenzi do obchodu</string>
     <string name="fp_import">Importovat recenze z obchodu</string>
     <string name="fp_import_free">po jedné</string>
@@ -504,10 +503,10 @@
     <string name="fp_weight_both">stejně — pouze zařízení a zastakovaný SKR</string>
     <string name="desk_title">Pult vydavatele</string>
     <plurals name="desk_across">
-        <item quantity="one">Napříč vašimi %1$d ověřenými dApps</item>
-        <item quantity="few">Napříč vašimi %1$d ověřenými dApps</item>
-        <item quantity="many">Napříč vašimi %1$d ověřenými dApps</item>
-        <item quantity="other">Napříč vašimi %1$d ověřenými dApps</item>
+        <item quantity="one">Napříč vašimi %1$d prokázanými dApps</item>
+        <item quantity="few">Napříč vašimi %1$d prokázanými dApps</item>
+        <item quantity="many">Napříč vašimi %1$d prokázanými dApps</item>
+        <item quantity="other">Napříč vašimi %1$d prokázanými dApps</item>
     </plurals>
     <string name="desk_unanswered">nezodpovězeno</string>
     <string name="desk_median">medián odpovědi</string>
@@ -524,7 +523,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Odezva se čte z evidence jako vše ostatní: rozdíl mezi podepsanou recenzí a vaší podepsanou odpovědí. Čtenářům se zobrazuje na stránce vaší dApp, takže fronta je produktem.</string>
-    <string name="desk_none">Zatím žádné ověřené dApps. Nárokujte aplikaci z její stránky a prokažte web; pult se odtud naplní.</string>
+    <string name="desk_none">Zatím žádné prokázané dApps. Nárokujte aplikaci z její stránky a prokažte nárok (podepsané sestavení nebo web); pult se odtud naplní.</string>
     <string name="desk_none_waiting">Nic nečeká.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -744,8 +743,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d jednohvězdičkové</item><item quantity="few">%1$d jednohvězdičkové</item><item quantity="many">%1$d jednohvězdičkové</item><item quantity="other">%1$d jednohvězdičkových</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d krok</item><item quantity="few">%1$d kroky</item><item quantity="many">%1$d kroku</item><item quantity="other">%1$d kroků</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Ověřený vydavatel — prokázal kontrolu nad %1$s, znám od %2$s</string>
-    <string name="publisher_verified_apk">Ověřený vydavatel — uveden ve vlastním podepsaném sestavení aplikace</string>
+    <string name="publisher_verified_since">Vydavatel, prokázaný webem, který obchod uvádí (%1$s), znám od %2$s</string>
+    <string name="publisher_verified_apk">Vydavatel, prokázaný vlastním podepsaným sestavením aplikace v tomto telefonu</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Funguje</string>
     <string name="tag_crashes">Padá</string>
@@ -775,7 +774,7 @@
     <string name="pay_list_fee">Uvedení na seznamu stojí stejně jako placená úroveň našich ostatních dApps: %1$s nebo %2$s (%3$s se Seeker Genesis Token). Platí se jednou za dApp a pokladnu, ve stejné transakci, která podepisuje záznam. Pozdější změna kódu nebo opětovné uvedení na seznamu stojí jen síťový poplatek.</string>
     <string name="pay_list_pay">Zaplatit %1$s a uvést na seznam</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Ověřený vydavatel — uveden v sestavení, které obchod poskytuje</string>
+    <string name="publisher_verified_store">Vydavatel, prokázaný sestavením, které poskytuje dApp Store</string>
     <string name="publisher_check_build">Zkontrolovat sestavení obchodu · %1$s</string>
     <string name="publisher_checking_build">Čtu sestavení obchodu…</string>
     <string name="publisher_build_nothing">Sestavení obchodu neuvádí žádnou peněženku vydavatele.</string>
@@ -823,4 +822,21 @@
     <string name="notif_note_title">Vydavatel odpověděl na vaši recenzi z obchodu · %1$s</string>
     <string name="notif_proven_title">Váš nárok je prokázán · %1$s</string>
     <string name="notif_proven_body">Vaše odpovědi na recenze této aplikace nyní nesou značku Vydavatel ✓ a vaše vlastní recenze na ni se nezapočítávají.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Uveďte svou peněženku ve své aplikaci (nejsilnější)</string>
+    <string name="claim_route_build_body">Přidejte tento řádek dovnitř &lt;application&gt; v manifestu své aplikace a vydejte aktualizaci do dApp Store. Čtenáři zkoumají sestavení, které obchod poskytuje: řádek musí uvádět tuto peněženku a sestavení musí být podepsané certifikátem, který obchod uvádí. Může to udělat jen držitel podpisového klíče vaší aplikace.</string>
+    <string name="claim_route_site_title">2. Nebo umístěte soubor na web, který obchod uvádí</string>
+    <string name="claim_route_site_body">Obchod pro tuto aplikaci uvádí %1$s. Umístěte na %2$s soubor s adresou své peněženky na jednom řádku:\n\n%3$s</string>
+    <string name="claim_route_site_none">Obchod pro tuto aplikaci neuvádí žádný web, který by mohl nárok prokázat (profily na sociálních sítích a sdílené hostingy se nepočítají). Použijte podepsané sestavení.</string>
+    <string name="claim_then_sign">Pak nárok podepište. Dokud se nenajde jeden ze dvou důkazů, nárok se zobrazuje jako neprokázaný; nic dalšího se neděje. Důkaz se znovu zkoumá každý den.</string>
+    <string name="proof_how_link">Jak se to prokazuje?</string>
+    <string name="proof_how_title">Jak se prokazuje vydavatel</string>
+    <string name="proof_how_intro">Kdokoli může podepsat „Vydávám tuto aplikaci“. Podpis ukazuje jen to, kdo nárok uplatňuje. Nárok je prokázaný, když tutéž peněženku uvádí něco, co ovládá jen skutečný vydavatel.</string>
+    <string name="proof_key_title">Podpisový klíč aplikace (nejsilnější)</string>
+    <string name="proof_key_body">Každá aplikace pro Android je podepsána klíčem, který je její identitou: obchod uvádí jeho certifikát a telefony odmítnou aktualizaci podepsanou jakýmkoli jiným klíčem. Když vydavatel uvede peněženku v manifestu aplikace, řádek je uvnitř podepsaného sestavení, takže ho tam mohl dát jen držitel klíče. Undersigned zkoumá sestavení, které obchod poskytuje, nebo to, které je nainstalované v tomto telefonu.</string>
+    <string name="proof_site_title">Web, který obchod uvádí</string>
+    <string name="proof_site_body">Vydavatel nastavuje web v portálu vydavatelů obchodu. Soubor tam uvádějící peněženku ukazuje kontrolu nad tím webem. Slabší: domény mění majitele, proto se zobrazuje datum, kdy byl poprvé spatřen. Profily na sociálních sítích a sdílené hostingy se nepřijímají.</string>
+    <string name="proof_not_title">Co to neprokazuje</string>
+    <string name="proof_not_body">Podpis samotné peněženky, platební adresa nebo peněženka, která aplikaci zveřejnila v dApp Store. Obchod neříká, který záznam na blockchainu patří ke kterému záznamu v obchodě, a kdokoli může vytvořit záznam uvádějící libovolnou aplikaci.</string>
+    <string name="proof_how_after">Odpovědi prokázaného vydavatele nesou značku Vydavatel a jeho vlastní recenze aplikace se nepočítají.</string>
 </resources>

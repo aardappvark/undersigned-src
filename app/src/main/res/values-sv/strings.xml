@@ -67,14 +67,13 @@
     <string name="fact_store_version">Butikens versionskod</string>
     <string name="publisher_title">Utgivare</string>
     <string name="publisher_listed">Listad av butiken som %1$s</string>
-    <string name="publisher_verified">Verifierad utgivare — bevisade kontroll av %1$s</string>
-    <string name="publisher_none">Ingen verifierad utgivare på liggaren än.</string>
+    <string name="publisher_verified">Utgivare, bevisad av webbplatsen som butiken listar (%1$s)</string>
+    <string name="publisher_none">Ingen bevisad utgivare än.</string>
     <string name="publisher_claim">Jag ger ut den här appen</string>
     <string name="publisher_claim_title">Gör anspråk på den här appen</string>
-    <string name="publisher_claim_body">Läsare verifierar ett anspråk mot webbplatsen butiken listar för den här appen (%1$s). Lägg en fil på %2$s som innehåller din plånboksadress (en rad):\n\n%3$s\n\nSignera sedan anspråket. Verifiering är automatisk och upprepas var 24:e timme. Om filen saknas förblir anspråket bara overifierat; inget annat händer.</string>
     <string name="publisher_claim_sign">Signera anspråket</string>
-    <string name="publisher_claimed_pending">Ditt anspråk är on-chain men inte verifierat än (filen hittades inte på den listade webbplatsen).</string>
-    <string name="publisher_badge">Utgivare ✓</string>
+    <string name="publisher_claimed_pending">Ditt anspråk är signerat men inte bevisat än. Namnge din plånbok i appens manifest och släpp uppdateringen, eller lägg filen på webbplatsen som butiken listar.</string>
+    <string name="publisher_badge">Utgivare</string>
     <string name="versions_title">Efter version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signerade</string>
     <string name="versions_installed">installerad</string>
@@ -214,7 +213,7 @@
     <string name="intro4_title">Vad din telefon kan bevisa</string>
     <string name="intro4_body">För appar du har installerat visar Undersigned om byggversionen matchar certifikatet som butiken listar och om behörigheter har ändrats. Fakta, aldrig domar.</string>
     <string name="intro5_title">Följ, bli informerad, svara</string>
-    <string name="intro5_body">Följ appar för att höra om nya signerade recensioner, uppdateringar och svar. Utgivare gör anspråk på sin app genom att signera och svarar med en verifierad märkning. Allt du publicerar är permanent och offentligt.</string>
+    <string name="intro5_body">Följ appar för att höra om nya signerade recensioner, uppdateringar och svar. Utgivare gör anspråk på sin app genom att signera, och deras svar bär märkningen Utgivare när anspråket är bevisat. Allt du publicerar är permanent och offentligt.</string>
     <string name="review_also_store">Publicera även i dApp Store</string>
     <string name="review_also_store_hint">Kopierar din anteckning och öppnar listningen, där du publicerar den under ”Ratings &amp; Reviews” → ”Review this dApp”. Butiken har inget sätt för en annan app att publicera åt dig, så de sista tryckningarna är dina.</string>
     <string name="flag">Flagga</string>
@@ -234,7 +233,7 @@
     <string name="inbox_unanswered">Obesvarat</string>
     <string name="inbox_replies">Svar till mig</string>
     <string name="inbox_starred">Stjärnmärkta</string>
-    <string name="inbox_unanswered_sub">Signerade recensioner på appar du har verifierats som utgivare för, utan svar från dig.</string>
+    <string name="inbox_unanswered_sub">Signerade recensioner på appar där du är den bevisade utgivaren, utan svar från dig.</string>
     <string name="inbox_unanswered_empty">Inget väntande. Verifiera ett utgivaranspråk för att se dina appar här.</string>
     <string name="inbox_replies_empty">Inga svar på dina poster ännu.</string>
     <string name="inbox_starred_empty">Stjärnmärk en recension för att spara den här.</string>
@@ -243,7 +242,7 @@
     <string name="profile_credibility_sub">40 grund, +30 för taggöverensstämmelse med andra signerare, +10 för mottagna hjälpsamma röster, +20 för flaggor som fastställts genom konsensus, −50 × andel poster dolda genom konsensus. Publicerad formel, inget är knutet till den.</string>
     <string name="profile_flags">Flaggor signerade: %1$d · Fastställda: %2$d · Mottagna: %3$d · Poster dolda: %4$d</string>
     <string name="profile_replied">Besvarar %1$s av svaren på sina egna recensioner</string>
-    <string name="profile_publishes">Verifierad utgivare av</string>
+    <string name="profile_publishes">Bevisad utgivare av</string>
     <string name="profile_reviews">Signerade recensioner</string>
     <string name="responsiveness_line">Besvarar signerade recensioner inom %1$s · %2$d av %3$d besvarade</string>
     <string name="responsiveness_never">Har inte besvarat någon signerad recension ännu</string>
@@ -271,7 +270,7 @@
     <string name="clear_body">En \"verkar äkta\"-röst motverkar flaggor på den här posten. En per plånbok, viktad som en flagga. Använd den när du tycker att flaggorna är fel.</string>
     <string name="unvote">Dra tillbaka min hjälpsam-röst</string>
     <string name="flag_net">netto %1$s</string>
-    <string name="publisher_flags_ignored">Flaggor från en verifierad utgivare på recensioner av sin egen app räknas inte; svara istället.</string>
+    <string name="publisher_flags_ignored">Flaggor från en apps bevisade utgivare på recensioner av den egna appen räknas inte; svara istället.</string>
     <string name="hidden_reply">Svar doldat genom konsensus</string>
     <string name="review_self_published">Räknas inte — utgivarens egen app</string>
     <string name="attest_title">Vad som räknas som en röst</string>
@@ -322,8 +321,8 @@
     <string name="stats_apps">dApps med en signerad recension</string>
     <string name="stats_apps_scored">dApps med ett betyg</string>
     <string name="stats_replies">Svar</string>
-    <string name="stats_publisher_replies">varav från en verifierad utgivare</string>
-    <string name="stats_claims">Utgivaranspråk · verifierade</string>
+    <string name="stats_publisher_replies">varav från en bevisad utgivare</string>
+    <string name="stats_claims">Utgivaranspråk · bevisade</string>
     <string name="stats_moderation">Flaggor · äkta-röster · bestridanden</string>
     <string name="stats_hidden">Dold genom konsensus</string>
     <string name="stats_withdrawn">Tillbakadragen av författaren</string>
@@ -381,7 +380,7 @@
     <string name="pro_tool_import_title">Importera tillbaka alla</string>
     <string name="pro_tool_import_body">Varje butiksrecension du har skrivit, signerad till liggaren i ett godkännande istället för en i taget.</string>
     <string name="pro_tool_desk_title">Utgivarpanel</string>
-    <string name="pro_tool_desk_body">Kön med obesvarade recensioner och svarsfrekvensen för varje dApp du har verifierat, i en lista.</string>
+    <string name="pro_tool_desk_body">Kön med obesvarade recensioner och svarsfrekvensen för varje dApp där du är den bevisade utgivaren, i en lista.</string>
     <string name="pro_tool_export_title">Exportera liggaren</string>
     <string name="pro_tool_export_body">Vilken dApp som helst, vilken signerare som helst, som CSV eller JSON. Datan är offentlig; Pro läser den åt dig.</string>
     <string name="pro_tool_watch_title">Timvis certifikatbevakning</string>
@@ -468,7 +467,7 @@
     <string name="fp_read">Läs hela liggaren</string>
     <string name="fp_sign">Signera recensioner, svar, flaggor, bestridanden</string>
     <string name="fp_facts">Vad din enhet kan verifiera</string>
-    <string name="fp_claim">Gör anspråk på en dApp, svara med en verifierad märkning</string>
+    <string name="fp_claim">Gör anspråk på en dApp, svara som dess bevisade utgivare</string>
     <string name="fp_copy">Kopiera en recension till butiken</string>
     <string name="fp_import">Importera butiksrecensioner</string>
     <string name="fp_import_free">en i taget</string>
@@ -482,8 +481,8 @@
     <string name="fp_weight_both">detsamma — endast enhet och insatt SKR</string>
     <string name="desk_title">Utgivarpanel</string>
     <plurals name="desk_across">
-        <item quantity="one">Över din %1$d verifierade dApp</item>
-        <item quantity="other">Över dina %1$d verifierade dApps</item>
+        <item quantity="one">Över din %1$d bevisade dApp</item>
+        <item quantity="other">Över dina %1$d bevisade dApps</item>
     </plurals>
     <string name="desk_unanswered">obesvarade</string>
     <string name="desk_median">medianrespons</string>
@@ -498,7 +497,7 @@
     </plurals>
     <string name="desk_hours">%1$d h</string>
     <string name="desk_note">Svarsfrekvens läses från liggaren precis som allt annat: gapet mellan en signerad recension och ditt signerade svar. Det visas för läsare på din dApp-sida, så kön är produkten.</string>
-    <string name="desk_none">Inga verifierade dApps ännu. Gör anspråk på en app från dess sida och bevisa webbplatsen; panelen fylls sedan på.</string>
+    <string name="desk_none">Inga bevisade dApps ännu. Gör anspråk på en app från dess sida och bevisa anspråket (signerad build eller webbplats); panelen fylls sedan på.</string>
     <string name="desk_none_waiting">Inget väntande.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -735,8 +734,8 @@
     </plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d steg</item><item quantity="other">%1$d steg</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Verifierad utgivare — bevisade kontroll av %1$s, känd sedan %2$s</string>
-    <string name="publisher_verified_apk">Verifierad utgivare — namngiven i appens egen signerade build</string>
+    <string name="publisher_verified_since">Utgivare, bevisad av webbplatsen som butiken listar (%1$s), känd sedan %2$s</string>
+    <string name="publisher_verified_apk">Utgivare, bevisad av appens egen signerade build på den här telefonen</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Fungerar</string>
     <string name="tag_crashes">Kraschar</string>
@@ -766,7 +765,7 @@
     <string name="pay_list_fee">Att lista kostar detsamma som en betald nivå av våra andra dApps: %1$s eller %2$s (%3$s med en Seeker Genesis Token). Det betalas en gång per dApp och treasury, i samma transaktion som signerar listningen. Att ändra koden eller lista igen senare kostar bara nätverksavgiften.</string>
     <string name="pay_list_pay">Betala %1$s och lista</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Verifierad utgivare — namngiven i den build som butiken levererar</string>
+    <string name="publisher_verified_store">Utgivare, bevisad av den build som dApp Store levererar</string>
     <string name="publisher_check_build">Kontrollera butikens build · %1$s</string>
     <string name="publisher_checking_build">Läser butikens build…</string>
     <string name="publisher_build_nothing">Butikens build namnger ingen utgivarplånbok.</string>
@@ -814,4 +813,21 @@
     <string name="notif_note_title">Utgivaren svarade på din butiksrecension · %1$s</string>
     <string name="notif_proven_title">Ditt anspråk är bevisat · %1$s</string>
     <string name="notif_proven_body">Dina svar på den här appens recensioner bär nu märket Utgivare ✓, och dina egna recensioner av den räknas inte.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Namnge din plånbok i din app (starkast)</string>
+    <string name="claim_route_build_body">Lägg till den här raden inuti &lt;application&gt; i din apps manifest och släpp uppdateringen i dApp Store. Läsare granskar den build som butiken levererar: raden måste namnge den här plånboken och builden måste vara signerad med certifikatet som butiken listar. Bara innehavaren av din apps signeringsnyckel kan göra detta.</string>
+    <string name="claim_route_site_title">2. Eller lägg en fil på webbplatsen som butiken listar</string>
+    <string name="claim_route_site_body">Butiken listar %1$s för den här appen. Lägg en fil på %2$s som innehåller din plånboksadress på en rad:\n\n%3$s</string>
+    <string name="claim_route_site_none">Butiken listar ingen webbplats för den här appen som kan bevisa det (sociala profiler och delade webbhotell räknas inte). Använd den signerade builden.</string>
+    <string name="claim_then_sign">Signera sedan anspråket. Tills ett av de två bevisen hittas visas anspråket som obevisat; inget annat händer. Beviset granskas på nytt varje dag.</string>
+    <string name="proof_how_link">Hur bevisas detta?</string>
+    <string name="proof_how_title">Hur en utgivare bevisas</string>
+    <string name="proof_how_intro">Vem som helst kan signera ”Jag publicerar den här appen”. En signatur visar bara vem som gör anspråket. Ett anspråk är bevisat när något som bara den verkliga utgivaren kontrollerar namnger samma plånbok.</string>
+    <string name="proof_key_title">Appens signeringsnyckel (starkast)</string>
+    <string name="proof_key_body">Varje Android-app är signerad med en nyckel som är dess identitet: butiken listar dess certifikat, och telefoner vägrar en uppdatering signerad med någon annan nyckel. När utgivaren namnger en plånbok i appens manifest ligger raden i den signerade builden, så bara nyckelns innehavare kan ha lagt den där. Undersigned granskar den build som butiken levererar, eller den som är installerad på den här telefonen.</string>
+    <string name="proof_site_title">Webbplatsen som butiken listar</string>
+    <string name="proof_site_body">Utgivaren anger webbplatsen i butikens utgivarportal. En fil där som namnger plånboken visar kontroll över den webbplatsen. Svagare: domäner byter ägare, därför visas datumet då den först sågs. Sociala profiler och delade webbhotell accepteras inte.</string>
+    <string name="proof_not_title">Vad som inte bevisar det</string>
+    <string name="proof_not_body">Plånbokens egen signatur, en betalningsadress eller plånboken som publicerade appen i dApp Store. Butiken säger inte vilken on-chain-post som hör till vilken listning, och vem som helst kan skapa en som namnger vilken app som helst.</string>
+    <string name="proof_how_after">Svar från en bevisad utgivare bär märkningen Utgivare, och deras egna recensioner av appen räknas inte.</string>
 </resources>

@@ -74,14 +74,13 @@
     <string name="fact_store_version">Mağaza sürüm kodu</string>
     <string name="publisher_title">Yayıncı</string>
     <string name="publisher_listed">Mağaza tarafından %1$s olarak listelendi</string>
-    <string name="publisher_verified">Doğrulanmış yayıncı — %1$s üzerindeki kontrolünü kanıtladı</string>
-    <string name="publisher_none">Defterde henüz doğrulanmış bir yayıncı yok.</string>
+    <string name="publisher_verified">Yayıncı, mağazanın listelediği web sitesi (%1$s) tarafından kanıtlanmış</string>
+    <string name="publisher_none">Henüz kanıtlanmış bir yayıncı yok.</string>
     <string name="publisher_claim">Bu uygulamayı ben yayınlıyorum</string>
     <string name="publisher_claim_title">Bu uygulamayı talep et</string>
-    <string name="publisher_claim_body">Okuyucular, bir talebi mağazanın bu uygulama için listelediği web sitesine (%1$s) göre doğrular. %2$s adresine cüzdan adresinizi içeren bir dosya koyun (tek satır):\n\n%3$s\n\nArdından talebi imzalayın. Doğrulama otomatiktir ve her 24 saatte bir tekrarlanır. Dosya bulunamazsa talep yalnızca doğrulanmamış kalır; başka bir şey olmaz.</string>
     <string name="publisher_claim_sign">Talebi imzala</string>
-    <string name="publisher_claimed_pending">Talebiniz zincirde ama henüz doğrulanmadı (dosya listelenen web sitesinde bulunamadı).</string>
-    <string name="publisher_badge">Yayıncı ✓</string>
+    <string name="publisher_claimed_pending">Talebiniz imzalandı ama henüz kanıtlanmadı. Cüzdanınızı uygulamanın manifest\'inde belirtin ve güncellemeyi yayınlayın veya dosyayı mağazanın listelediği web sitesine koyun.</string>
+    <string name="publisher_badge">Yayıncı</string>
     <string name="versions_title">Sürüme göre</string>
     <string name="versions_row">v%1$d · %2$s · %3$d imzalı</string>
     <string name="versions_installed">yüklü</string>
@@ -230,7 +229,7 @@
     <string name="intro4_title">Telefonunuzun kanıtlayabildikleri</string>
     <string name="intro4_body">Yüklediğiniz uygulamalar için Undersigned, build\'in mağazanın listelediği sertifikayla eşleşip eşleşmediğini ve izinlerin değişip değişmediğini gösterir. Gerçekler, asla hüküm değil.</string>
     <string name="intro5_title">Takip edin, haberdar olun, yanıtlayın</string>
-    <string name="intro5_body">Yeni imzalı incelemeler, güncellemeler ve yanıtlardan haberdar olmak için uygulamaları takip edin. Yayıncılar uygulamalarını imzalayarak talep eder ve doğrulanmış rozetle yanıt verir. Yayınladığınız her şey kalıcı ve herkese açıktır.</string>
+    <string name="intro5_body">Yeni imzalı incelemeler, güncellemeler ve yanıtlardan haberdar olmak için uygulamaları takip edin. Yayıncılar uygulamalarını imzalayarak talep eder ve talep kanıtlandığında yanıtları Yayıncı rozetini taşır. Yayınladığınız her şey kalıcı ve herkese açıktır.</string>
     <string name="review_also_store">dApp Store\'da da paylaş</string>
     <string name="review_also_store_hint">Notunuzu kopyalar ve listelemeyi açar; burada \"Ratings &amp; Reviews\" → \"Review this dApp\" altında paylaşırsınız. Mağazanın başka bir uygulamanın sizin adınıza paylaşım yapmasına izin verecek bir yolu yoktur, bu yüzden son dokunuşlar size aittir.</string>
     <string name="flag">İşaretle</string>
@@ -250,7 +249,7 @@
     <string name="inbox_unanswered">Yanıtsız</string>
     <string name="inbox_replies">Bana gelen yanıtlar</string>
     <string name="inbox_starred">Yıldızlı</string>
-    <string name="inbox_unanswered_sub">Yayıncı olarak doğruladığınız uygulamalardaki, sizden yanıt almamış imzalı incelemeler.</string>
+    <string name="inbox_unanswered_sub">Kanıtlanmış yayıncısı olduğunuz uygulamalardaki, sizden yanıt almamış imzalı incelemeler.</string>
     <string name="inbox_unanswered_empty">Bekleyen bir şey yok. Uygulamalarınızı burada görmek için bir yayıncı talebini doğrulayın.</string>
     <string name="inbox_replies_empty">Kayıtlarınıza henüz yanıt yok.</string>
     <string name="inbox_starred_empty">Burada tutmak için bir incelemeyi yıldızlayın.</string>
@@ -259,7 +258,7 @@
     <string name="profile_credibility_sub">40 taban, diğer imzalayanlarla etiket uyumu için +30, alınan yararlı oylar için +10, uzlaşıyla onaylanan işaretlemeler için +20, uzlaşıyla gizlenen kayıtların payı × −50. Yayınlanmış formül, buna bağlı hiçbir şey yok.</string>
     <string name="profile_flags">İmzalanan işaretleme: %1$d · Onaylanan: %2$d · Alınan: %3$d · Gizlenen kayıt: %4$d</string>
     <string name="profile_replied">İncelemelerine zamanın %1$s kadarında yanıt veriyor</string>
-    <string name="profile_publishes">Doğrulanmış yayıncısı</string>
+    <string name="profile_publishes">Kanıtlanmış yayıncısı</string>
     <string name="profile_reviews">İmzalı incelemeler</string>
     <string name="responsiveness_line">İmzalı incelemelere %1$s içinde yanıt veriyor · %3$d incelemeden %2$d yanıtlandı</string>
     <string name="responsiveness_never">Henüz imzalı bir incelemeye yanıt vermedi</string>
@@ -287,7 +286,7 @@
     <string name="clear_body">\"Gerçek görünüyor\" oyu, bu kayıttaki işaretlemeleri dengeler. Cüzdan başına bir oy, işaretleme gibi ağırlıklandırılır. İşaretlemelerin yanlış olduğunu düşündüğünüzde kullanın.</string>
     <string name="unvote">Yararlı oyumu geri çek</string>
     <string name="flag_net">net %1$s</string>
-    <string name="publisher_flags_ignored">Doğrulanmış bir yayıncının kendi uygulamasının incelemelerine yaptığı işaretlemeler sayılmaz; bunun yerine yanıtlayın.</string>
+    <string name="publisher_flags_ignored">Bir uygulamanın kanıtlanmış yayıncısının kendi uygulamasının incelemelerine yaptığı işaretlemeler sayılmaz; bunun yerine yanıtlayın.</string>
     <string name="hidden_reply">Uzlaşıyla gizlenen yanıt</string>
     <string name="review_self_published">Sayılmıyor — yayıncının kendi uygulaması</string>
     <string name="attest_title">Ses olarak ne sayılır</string>
@@ -339,8 +338,8 @@
     <string name="stats_apps">İmzalı incelemesi olan dApp\'ler</string>
     <string name="stats_apps_scored">Puanı olan dApp\'ler</string>
     <string name="stats_replies">Yanıtlar</string>
-    <string name="stats_publisher_replies">bunların doğrulanmış bir yayıncıdan gelenleri</string>
-    <string name="stats_claims">Yayıncı talepleri · doğrulanmış</string>
+    <string name="stats_publisher_replies">bunların kanıtlanmış bir yayıncıdan gelenleri</string>
+    <string name="stats_claims">Yayıncı talepleri · kanıtlanmış</string>
     <string name="stats_moderation">İşaretlemeler · temizlemeler · itirazlar</string>
     <string name="stats_hidden">Uzlaşıyla gizlenenler</string>
     <string name="stats_withdrawn">Yazarları tarafından geri çekilenler</string>
@@ -398,7 +397,7 @@
     <string name="pro_tool_import_title">Hepsini geri içe aktarın</string>
     <string name="pro_tool_import_body">Yazdığınız her mağaza incelemesi, teker teker yerine tek bir onayla deftere imzalanır.</string>
     <string name="pro_tool_desk_title">Yayıncı masası</string>
-    <string name="pro_tool_desk_body">Doğruladığınız her dApp genelinde yanıtsız kuyruğu ve yanıt verme hızı, tek bir listede.</string>
+    <string name="pro_tool_desk_body">Kanıtlanmış yayıncısı olduğunuz her dApp genelinde yanıtsız kuyruğu ve yanıt verme hızı, tek bir listede.</string>
     <string name="pro_tool_export_title">Defteri dışa aktar</string>
     <string name="pro_tool_export_body">Herhangi bir dApp, herhangi bir imzalayan, CSV veya JSON olarak. Veriler herkese açıktır; Pro okumayı sizin için yapar.</string>
     <string name="pro_tool_watch_title">Saatlik sertifika izleme</string>
@@ -485,7 +484,7 @@
     <string name="fp_read">Tüm defteri oku</string>
     <string name="fp_sign">İncelemeleri, yanıtları, işaretlemeleri, itirazları imzala</string>
     <string name="fp_facts">Cihazınızın doğrulayabildikleri</string>
-    <string name="fp_claim">Bir dApp talep edin, doğrulanmış rozetle yanıt verin</string>
+    <string name="fp_claim">Bir dApp talep edin, kanıtlanmış yayıncısı olarak yanıt verin</string>
     <string name="fp_copy">Bir incelemeyi mağazaya kopyala</string>
     <string name="fp_import">Mağaza incelemelerini içe aktar</string>
     <string name="fp_import_free">birer birer</string>
@@ -499,8 +498,8 @@
     <string name="fp_weight_both">aynı — yalnızca cihaz ve stake edilmiş SKR</string>
     <string name="desk_title">Yayıncı masası</string>
     <plurals name="desk_across">
-        <item quantity="one">%1$d doğrulanmış dApp\'iniz genelinde</item>
-        <item quantity="other">%1$d doğrulanmış dApp\'iniz genelinde</item>
+        <item quantity="one">%1$d kanıtlanmış dApp\'iniz genelinde</item>
+        <item quantity="other">%1$d kanıtlanmış dApp\'iniz genelinde</item>
     </plurals>
     <string name="desk_unanswered">yanıtsız</string>
     <string name="desk_median">medyan yanıt</string>
@@ -515,7 +514,7 @@
     </plurals>
     <string name="desk_hours">%1$d sa</string>
     <string name="desk_note">Yanıt verme hızı, defterden her şey gibi okunur: imzalı bir inceleme ile sizin imzalı yanıtınız arasındaki boşluk. Bu, okuyuculara dApp sayfanızda gösterilir, yani kuyruk ürünün kendisidir.</string>
-    <string name="desk_none">Henüz doğrulanmış bir dApp yok. Sayfasından bir uygulamayı talep edin ve web sitesini kanıtlayın; masa oradan dolmaya başlar.</string>
+    <string name="desk_none">Henüz kanıtlanmış bir dApp yok. Sayfasından bir uygulamayı talep edin ve kanıtlayın (imzalı build veya web sitesi); masa oradan dolmaya başlar.</string>
     <string name="desk_none_waiting">Bekleyen bir şey yok.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -735,8 +734,8 @@
     <plurals name="watch_count_low"><item quantity="one">%1$d bir yıldızlı</item><item quantity="other">%1$d bir yıldızlı</item></plurals>
     <plurals name="pay_steps"><item quantity="one">%1$d adım</item><item quantity="other">%1$d adım</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Doğrulanmış yayıncı — %1$s üzerindeki kontrolünü kanıtladı, %2$s\'den beri biliniyor</string>
-    <string name="publisher_verified_apk">Doğrulanmış yayıncı — uygulamanın kendi imzalı build\'i içinde adı geçiyor</string>
+    <string name="publisher_verified_since">Yayıncı, mağazanın listelediği web sitesi (%1$s) tarafından kanıtlanmış, %2$s\'den beri biliniyor</string>
+    <string name="publisher_verified_apk">Yayıncı, bu telefondaki uygulamanın kendi imzalı build\'i tarafından kanıtlanmış</string>
     <string name="tag_works">Çalışıyor</string>
     <string name="tag_crashes">Çöküyor</string>
     <string name="tag_wallet_ok">Cüzdan ok</string>
@@ -765,7 +764,7 @@
     <string name="pay_list_fee">Listeleme, diğer dApp\'lerimizin ücretli katmanıyla aynı miktarda ücrete tabidir: %1$s veya %2$s (Seeker Genesis Token ile %3$s). dApp ve hazine başına bir kez, listelemeyi imzalayan işlemle aynı işlemde ödenir. Kodu değiştirmek veya daha sonra tekrar listelemek yalnızca ağ ücretine mal olur.</string>
     <string name="pay_list_pay">%1$s öde ve listele</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Doğrulanmış yayıncı — mağazanın sunduğu build içinde adı geçiyor</string>
+    <string name="publisher_verified_store">Yayıncı, dApp Store\'un sunduğu build tarafından kanıtlanmış</string>
     <string name="publisher_check_build">Mağazanın build\'ini kontrol et · %1$s</string>
     <string name="publisher_checking_build">Mağazanın build\'i okunuyor…</string>
     <string name="publisher_build_nothing">Mağazanın build\'i hiçbir yayıncı cüzdanından söz etmiyor.</string>
@@ -813,4 +812,21 @@
     <string name="notif_note_title">Yayıncı mağaza incelemenize yanıt verdi · %1$s</string>
     <string name="notif_proven_title">Talebiniz kanıtlandı · %1$s</string>
     <string name="notif_proven_body">Bu uygulamanın incelemelerine verdiğiniz yanıtlar artık Yayıncı ✓ işaretini taşıyor ve uygulamaya ait kendi incelemeleriniz sayılmıyor.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Cüzdanınızı uygulamanızda belirtin (en güçlüsü)</string>
+    <string name="claim_route_build_body">Uygulamanızın manifest\'inde &lt;application&gt; içine bu satırı ekleyin ve güncellemeyi dApp Store\'da yayınlayın. Okuyucular mağazanın sunduğu build\'i inceler: satır bu cüzdanı belirtmeli ve build, mağazanın listelediği sertifikayla imzalanmış olmalıdır. Bunu yalnızca uygulamanızın imzalama anahtarının sahibi yapabilir.</string>
+    <string name="claim_route_site_title">2. Veya mağazanın listelediği web sitesine bir dosya koyun</string>
+    <string name="claim_route_site_body">Mağaza bu uygulama için %1$s adresini listeler. %2$s adresine, cüzdan adresinizi tek satırda içeren bir dosya koyun:\n\n%3$s</string>
+    <string name="claim_route_site_none">Mağaza bu uygulama için bunu kanıtlayabilecek bir web sitesi listelemiyor (sosyal medya profilleri ve paylaşımlı barındırmalar sayılmaz). İmzalı build\'i kullanın.</string>
+    <string name="claim_then_sign">Sonra talebi imzalayın. İki kanıttan biri bulunana kadar talep kanıtlanmamış olarak görünür; başka bir şey olmaz. Kanıt her gün yeniden incelenir.</string>
+    <string name="proof_how_link">Bu nasıl kanıtlanır?</string>
+    <string name="proof_how_title">Bir yayıncı nasıl kanıtlanır</string>
+    <string name="proof_how_intro">Herkes \"Bu uygulamayı yayınlıyorum\" diye imzalayabilir. İmza yalnızca talebi kimin yaptığını gösterir. Talep, yalnızca gerçek yayıncının denetlediği bir şey aynı cüzdanı belirttiğinde kanıtlanmış olur.</string>
+    <string name="proof_key_title">Uygulamanın imzalama anahtarı (en güçlüsü)</string>
+    <string name="proof_key_body">Her Android uygulaması, kimliği olan bir anahtarla imzalanır: mağaza anahtarın sertifikasını listeler ve telefonlar başka bir anahtarla imzalanmış güncellemeyi reddeder. Yayıncı uygulamanın manifest\'inde bir cüzdan belirttiğinde satır imzalı build\'in içinde yer alır; bu yüzden onu oraya yalnızca anahtarın sahibi koyabilirdi. Undersigned, mağazanın sunduğu build\'i veya bu telefona kurulu olanı inceler.</string>
+    <string name="proof_site_title">Mağazanın listelediği web sitesi</string>
+    <string name="proof_site_body">Yayıncı web sitesini mağazanın yayıncı portalında belirler. Orada cüzdanı belirten bir dosya, o siteyi denetlediğini gösterir. Daha zayıftır: alan adları el değiştirir, bu yüzden ilk görüldüğü tarih gösterilir. Sosyal medya profilleri ve paylaşımlı barındırmalar kabul edilmez.</string>
+    <string name="proof_not_title">Neyin kanıtlamadığı</string>
+    <string name="proof_not_body">Cüzdanın kendi imzası, bir ödeme adresi veya uygulamayı dApp Store\'da yayınlayan cüzdan. Mağaza hangi zincir üstü kaydın hangi listeye ait olduğunu söylemez ve herkes herhangi bir uygulamayı belirten bir kayıt oluşturabilir.</string>
+    <string name="proof_how_after">Kanıtlanmış bir yayıncının yanıtları Yayıncı rozetini taşır ve uygulamaya yazdığı kendi incelemeleri sayılmaz.</string>
 </resources>

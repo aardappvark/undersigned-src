@@ -66,14 +66,13 @@
     <string name="fact_store_version">รหัสเวอร์ชันของสโตร์</string>
     <string name="publisher_title">ผู้เผยแพร่</string>
     <string name="publisher_listed">ระบุโดยสโตร์ว่าเป็น %1$s</string>
-    <string name="publisher_verified">ผู้เผยแพร่ที่ตรวจสอบแล้ว — พิสูจน์การควบคุม %1$s</string>
-    <string name="publisher_none">ยังไม่มีผู้เผยแพร่ที่ตรวจสอบแล้วในบัญชีบันทึก</string>
+    <string name="publisher_verified">ผู้เผยแพร่ พิสูจน์แล้วโดยเว็บไซต์ที่สโตร์ระบุไว้ (%1$s)</string>
+    <string name="publisher_none">ยังไม่มีผู้เผยแพร่ที่พิสูจน์แล้ว</string>
     <string name="publisher_claim">ฉันเป็นผู้เผยแพร่แอปนี้</string>
     <string name="publisher_claim_title">อ้างสิทธิ์แอปนี้</string>
-    <string name="publisher_claim_body">ผู้อ่านจะตรวจสอบการอ้างสิทธิ์กับเว็บไซต์ที่สโตร์ระบุไว้สำหรับแอปนี้ (%1$s) วางไฟล์ไว้ที่ %2$s ที่มีที่อยู่กระเป๋าเงินของคุณ (หนึ่งบรรทัด):\n\n%3$s\n\nจากนั้นลงลายเซ็นการอ้างสิทธิ์ การตรวจสอบเป็นไปโดยอัตโนมัติและทำซ้ำทุก 24 ชั่วโมง หากไม่พบไฟล์ การอ้างสิทธิ์จะยังคงไม่ผ่านการตรวจสอบเท่านั้น ไม่มีอะไรอื่นเกิดขึ้น</string>
     <string name="publisher_claim_sign">ลงลายเซ็นการอ้างสิทธิ์</string>
-    <string name="publisher_claimed_pending">การอ้างสิทธิ์ของคุณอยู่บนเชนแล้วแต่ยังไม่ได้รับการตรวจสอบ (ไม่พบไฟล์บนเว็บไซต์ที่ระบุไว้)</string>
-    <string name="publisher_badge">ผู้เผยแพร่ ✓</string>
+    <string name="publisher_claimed_pending">การอ้างสิทธิ์ของคุณลงลายเซ็นแล้วแต่ยังไม่ได้พิสูจน์ ให้ระบุกระเป๋าเงินของคุณในแมนิเฟสต์ของแอปแล้วปล่อยอัปเดต หรือวางไฟล์บนเว็บไซต์ที่สโตร์ระบุไว้</string>
+    <string name="publisher_badge">ผู้เผยแพร่</string>
     <string name="versions_title">ตามเวอร์ชัน</string>
     <string name="versions_row">v%1$d · %2$s · ลงลายเซ็นแล้ว %3$d รายการ</string>
     <string name="versions_installed">ติดตั้งแล้ว</string>
@@ -212,7 +211,7 @@
     <string name="intro4_title">สิ่งที่โทรศัพท์ของคุณพิสูจน์ได้</string>
     <string name="intro4_body">สำหรับแอปที่คุณติดตั้งไว้ Undersigned จะแสดงว่าบิลด์ตรงกับใบรับรองที่สโตร์ระบุไว้หรือไม่ และสิทธิ์เปลี่ยนแปลงหรือไม่ เป็นข้อเท็จจริง ไม่ใช่คำตัดสิน</string>
     <string name="intro5_title">ติดตาม รับแจ้ง ตอบกลับ</string>
-    <string name="intro5_body">ติดตามแอปเพื่อรับรู้เกี่ยวกับรีวิวที่ลงลายเซ็นใหม่ การอัปเดต และการตอบกลับ ผู้เผยแพร่อ้างสิทธิ์แอปของตนด้วยการลงลายเซ็นและตอบกลับด้วยตราตรวจสอบแล้ว ทุกสิ่งที่คุณเผยแพร่เป็นการถาวรและสาธารณะ</string>
+    <string name="intro5_body">ติดตามแอปเพื่อรับรู้เกี่ยวกับรีวิวที่ลงลายเซ็นใหม่ การอัปเดต และการตอบกลับ ผู้เผยแพร่อ้างสิทธิ์แอปของตนด้วยการลงลายเซ็น และการตอบกลับของพวกเขาจะมีตราผู้เผยแพร่เมื่อการอ้างสิทธิ์พิสูจน์แล้ว ทุกสิ่งที่คุณเผยแพร่เป็นการถาวรและสาธารณะ</string>
     <string name="review_also_store">โพสต์ใน dApp Store ด้วย</string>
     <string name="review_also_store_hint">คัดลอกบันทึกของคุณและเปิดหน้ารายการ ซึ่งคุณโพสต์ไว้ภายใต้ “การให้คะแนนและรีวิว” → “รีวิวแอปนี้” สโตร์ไม่มีวิธีให้แอปอื่นโพสต์แทนคุณ ดังนั้นการแตะครั้งสุดท้ายจึงเป็นของคุณเอง</string>
     <string name="flag">ปักธง</string>
@@ -232,7 +231,7 @@
     <string name="inbox_unanswered">ยังไม่ตอบกลับ</string>
     <string name="inbox_replies">การตอบกลับถึงฉัน</string>
     <string name="inbox_starred">ติดดาวไว้</string>
-    <string name="inbox_unanswered_sub">รีวิวที่ลงลายเซ็นบนแอปที่คุณตรวจสอบในฐานะผู้เผยแพร่ ซึ่งคุณยังไม่ได้ตอบกลับ</string>
+    <string name="inbox_unanswered_sub">รีวิวที่ลงลายเซ็นบนแอปที่คุณเป็นผู้เผยแพร่ที่พิสูจน์แล้ว ซึ่งคุณยังไม่ได้ตอบกลับ</string>
     <string name="inbox_unanswered_empty">ไม่มีอะไรรออยู่ ตรวจสอบการอ้างสิทธิ์ผู้เผยแพร่เพื่อดูแอปของคุณที่นี่</string>
     <string name="inbox_replies_empty">ยังไม่มีการตอบกลับบันทึกของคุณ</string>
     <string name="inbox_starred_empty">ติดดาวรีวิวเพื่อเก็บไว้ที่นี่</string>
@@ -241,7 +240,7 @@
     <string name="profile_credibility_sub">ฐาน 40, +30 สำหรับความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น, +10 สำหรับเสียงโหวตว่ามีประโยชน์ที่ได้รับ, +20 สำหรับการปักธงที่ยืนยันโดยฉันทามติ, −50 × สัดส่วนของบันทึกที่ถูกซ่อนโดยฉันทามติ สูตรที่เผยแพร่ไว้ ไม่มีสิ่งใดผูกติดกับมัน</string>
     <string name="profile_flags">ปักธงแล้ว: %1$d · ยืนยันแล้ว: %2$d · ได้รับ: %3$d · บันทึกถูกซ่อน: %4$d</string>
     <string name="profile_replied">ตอบกลับรีวิวของตน %1$s ของเวลาทั้งหมด</string>
-    <string name="profile_publishes">ผู้เผยแพร่ที่ตรวจสอบแล้วของ</string>
+    <string name="profile_publishes">ผู้เผยแพร่ที่พิสูจน์แล้วของ</string>
     <string name="profile_reviews">รีวิวที่ลงลายเซ็น</string>
     <string name="responsiveness_line">ตอบกลับรีวิวที่ลงลายเซ็นภายใน %1$s · ตอบแล้ว %2$d จาก %3$d</string>
     <string name="responsiveness_never">ยังไม่ได้ตอบกลับรีวิวที่ลงลายเซ็นเลย</string>
@@ -269,7 +268,7 @@
     <string name="clear_body">การโหวตล้างธงจะหักล้างการปักธงบนบันทึกนี้ หนึ่งครั้งต่อกระเป๋าเงิน มีน้ำหนักเหมือนการปักธง ใช้เมื่อคุณคิดว่าการปักธงนั้นผิด</string>
     <string name="unvote">ถอนโหวตมีประโยชน์ของฉัน</string>
     <string name="flag_net">สุทธิ %1$s</string>
-    <string name="publisher_flags_ignored">การปักธงจากผู้เผยแพร่ที่ตรวจสอบแล้วบนรีวิวของแอปตนเองจะไม่ถูกนับ ให้ตอบกลับแทน</string>
+    <string name="publisher_flags_ignored">การปักธงจากผู้เผยแพร่ที่พิสูจน์แล้วของแอปบนรีวิวของแอปตนเองจะไม่ถูกนับ ให้ตอบกลับแทน</string>
     <string name="hidden_reply">การตอบกลับถูกซ่อนโดยฉันทามติ</string>
     <string name="review_self_published">ไม่ถูกนับ — เป็นแอปของผู้เผยแพร่เอง</string>
     <string name="attest_title">อะไรที่นับเป็นเสียง</string>
@@ -320,8 +319,8 @@
     <string name="stats_apps">dApp ที่มีรีวิวซึ่งลงลายเซ็นแล้ว</string>
     <string name="stats_apps_scored">dApp ที่มีคะแนน</string>
     <string name="stats_replies">การตอบกลับ</string>
-    <string name="stats_publisher_replies">จากจำนวนนั้นมาจากผู้เผยแพร่ที่ตรวจสอบแล้ว</string>
-    <string name="stats_claims">การอ้างสิทธิ์ผู้เผยแพร่ · ตรวจสอบแล้ว</string>
+    <string name="stats_publisher_replies">จากจำนวนนั้นมาจากผู้เผยแพร่ที่พิสูจน์แล้ว</string>
+    <string name="stats_claims">การอ้างสิทธิ์ผู้เผยแพร่ · พิสูจน์แล้ว</string>
     <string name="stats_moderation">ปักธง · ล้างธง · โต้แย้ง</string>
     <string name="stats_hidden">ซ่อนโดยฉันทามติ</string>
     <string name="stats_withdrawn">ถอนโดยผู้เขียนเอง</string>
@@ -379,7 +378,7 @@
     <string name="pro_tool_import_title">นำเข้ากลับมาทั้งหมด</string>
     <string name="pro_tool_import_body">รีวิวในสโตร์ทุกรายการที่คุณเขียนไว้ ลงลายเซ็นลงบัญชีบันทึกด้วยการอนุมัติครั้งเดียวแทนที่จะทำทีละรายการ</string>
     <string name="pro_tool_desk_title">โต๊ะผู้เผยแพร่</string>
-    <string name="pro_tool_desk_body">คิวที่ยังไม่ตอบกลับและความรวดเร็วในการตอบสนองของทุก dApp ที่คุณตรวจสอบแล้ว ในรายการเดียว</string>
+    <string name="pro_tool_desk_body">คิวที่ยังไม่ตอบกลับและความรวดเร็วในการตอบสนองของทุก dApp ที่คุณเป็นผู้เผยแพร่ที่พิสูจน์แล้ว ในรายการเดียว</string>
     <string name="pro_tool_export_title">ส่งออกบัญชีบันทึก</string>
     <string name="pro_tool_export_body">dApp ใดก็ได้ ผู้ลงลายเซ็นคนใดก็ได้ ในรูปแบบ CSV หรือ JSON ข้อมูลเป็นสาธารณะ Pro ช่วยอ่านให้คุณ</string>
     <string name="pro_tool_watch_title">การเฝ้าดูใบรับรองทุกชั่วโมง</string>
@@ -464,7 +463,7 @@
     <string name="fp_read">อ่านบัญชีบันทึกทั้งหมด</string>
     <string name="fp_sign">ลงลายเซ็นรีวิว การตอบกลับ การปักธง การโต้แย้ง</string>
     <string name="fp_facts">สิ่งที่อุปกรณ์ของคุณตรวจสอบได้</string>
-    <string name="fp_claim">อ้างสิทธิ์ dApp ตอบกลับด้วยตราตรวจสอบแล้ว</string>
+    <string name="fp_claim">อ้างสิทธิ์ dApp ตอบกลับในฐานะผู้เผยแพร่ที่พิสูจน์แล้ว</string>
     <string name="fp_copy">คัดลอกรีวิวไปยังสโตร์</string>
     <string name="fp_import">นำเข้ารีวิวจากสโตร์</string>
     <string name="fp_import_free">ทีละรายการ</string>
@@ -478,7 +477,7 @@
     <string name="fp_weight_both">เท่ากัน — จากอุปกรณ์และ SKR ที่สเตกเท่านั้น</string>
     <string name="desk_title">โต๊ะผู้เผยแพร่</string>
     <plurals name="desk_across">
-        <item quantity="other">ครอบคลุม dApp ที่ตรวจสอบแล้ว %1$d รายการของคุณ</item>
+        <item quantity="other">ครอบคลุม dApp ที่พิสูจน์แล้ว %1$d รายการของคุณ</item>
     </plurals>
     <string name="desk_unanswered">ยังไม่ตอบกลับ</string>
     <string name="desk_median">มัธยฐานการตอบกลับ</string>
@@ -492,7 +491,7 @@
     </plurals>
     <string name="desk_hours">%1$d ชม.</string>
     <string name="desk_note">ความรวดเร็วในการตอบสนองถูกอ่านจากบัญชีบันทึกเหมือนสิ่งอื่น ๆ ทั้งหมด: ช่วงเวลาระหว่างรีวิวที่ลงลายเซ็นกับการตอบกลับที่ลงลายเซ็นของคุณ ผู้อ่านจะเห็นสิ่งนี้บนหน้า dApp ของคุณ ดังนั้นคิวนี้จึงเป็นตัวชี้วัด</string>
-    <string name="desk_none">ยังไม่มี dApp ที่ตรวจสอบแล้ว อ้างสิทธิ์แอปจากหน้าของแอปและพิสูจน์เว็บไซต์ โต๊ะผู้เผยแพร่จะเริ่มเต็มจากตรงนั้น</string>
+    <string name="desk_none">ยังไม่มี dApp ที่พิสูจน์แล้ว อ้างสิทธิ์แอปจากหน้าของแอปและพิสูจน์ (บิลด์ที่ลงลายเซ็นหรือเว็บไซต์) โต๊ะผู้เผยแพร่จะเริ่มเต็มจากตรงนั้น</string>
     <string name="desk_none_waiting">ไม่มีอะไรรอ</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -713,8 +712,8 @@
     <plurals name="watch_count_low"><item quantity="other">%1$d หนึ่งดาว</item></plurals>
     <plurals name="pay_steps"><item quantity="other">%1$d ขั้นตอน</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">ผู้เผยแพร่ที่ตรวจสอบแล้ว — พิสูจน์การควบคุม %1$s เห็นตั้งแต่ %2$s</string>
-    <string name="publisher_verified_apk">ผู้เผยแพร่ที่ตรวจสอบแล้ว — ระบุชื่อไว้ในบิลด์ที่ลงลายเซ็นของแอปเอง</string>
+    <string name="publisher_verified_since">ผู้เผยแพร่ พิสูจน์แล้วโดยเว็บไซต์ที่สโตร์ระบุไว้ (%1$s) เห็นตั้งแต่ %2$s</string>
+    <string name="publisher_verified_apk">ผู้เผยแพร่ พิสูจน์แล้วโดยบิลด์ที่ลงลายเซ็นของแอปเองบนโทรศัพท์เครื่องนี้</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">ใช้งานได้</string>
     <string name="tag_crashes">ขัดข้อง</string>
@@ -744,7 +743,7 @@
     <string name="pay_list_fee">การลงรายการมีค่าใช้จ่ายเท่ากับระดับแบบชำระเงินของ dApp อื่น ๆ ของเรา: %1$s หรือ %2$s (%3$s หากมี Seeker Genesis Token) ชำระเพียงครั้งเดียวต่อ dApp และคลัง ในธุรกรรมเดียวกันกับที่ลงลายเซ็นการลงรายการ การเปลี่ยนรหัสหรือลงรายการอีกครั้งในภายหลังมีค่าใช้จ่ายเพียงค่าธรรมเนียมเครือข่ายเท่านั้น</string>
     <string name="pay_list_pay">จ่าย %1$s แล้วลงรายการ</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">ผู้เผยแพร่ที่ตรวจสอบแล้ว — ระบุชื่อไว้ในบิลด์ที่สโตร์ให้ดาวน์โหลด</string>
+    <string name="publisher_verified_store">ผู้เผยแพร่ พิสูจน์แล้วโดยบิลด์ที่ dApp Store ให้ดาวน์โหลด</string>
     <string name="publisher_check_build">ตรวจสอบบิลด์ของสโตร์ · %1$s</string>
     <string name="publisher_checking_build">กำลังอ่านบิลด์ของสโตร์…</string>
     <string name="publisher_build_nothing">บิลด์ของสโตร์ไม่ได้ระบุกระเป๋าเงินของผู้เผยแพร่</string>
@@ -792,4 +791,21 @@
     <string name="notif_note_title">ผู้เผยแพร่ตอบรีวิวสโตร์ของคุณ · %1$s</string>
     <string name="notif_proven_title">การอ้างสิทธิ์ของคุณได้รับการพิสูจน์แล้ว · %1$s</string>
     <string name="notif_proven_body">คำตอบของคุณต่อรีวิวของแอปนี้ตอนนี้มีเครื่องหมายผู้เผยแพร่ ✓ และรีวิวของคุณเองต่อแอปนี้จะไม่ถูกนับ</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. ระบุกระเป๋าเงินของคุณในแอป (แข็งแกร่งที่สุด)</string>
+    <string name="claim_route_build_body">เพิ่มบรรทัดนี้ภายใน &lt;application&gt; ในแมนิเฟสต์ของแอปของคุณ แล้วปล่อยอัปเดตไปยัง dApp Store ผู้อ่านจะตรวจดูบิลด์ที่สโตร์ให้ดาวน์โหลด: บรรทัดนั้นต้องระบุกระเป๋าเงินนี้ และบิลด์ต้องลงลายเซ็นด้วยใบรับรองที่สโตร์ระบุไว้ ทำได้เฉพาะผู้ถือกุญแจลงลายเซ็นของแอปคุณเท่านั้น</string>
+    <string name="claim_route_site_title">2. หรือวางไฟล์บนเว็บไซต์ที่สโตร์ระบุไว้</string>
+    <string name="claim_route_site_body">สโตร์ระบุ %1$s สำหรับแอปนี้ วางไฟล์ที่ %2$s โดยมีที่อยู่กระเป๋าเงินของคุณหนึ่งบรรทัด:\n\n%3$s</string>
+    <string name="claim_route_site_none">สโตร์ไม่ได้ระบุเว็บไซต์สำหรับแอปนี้ที่พิสูจน์ได้ (โปรไฟล์โซเชียลและโฮสต์ที่ใช้ร่วมกันไม่นับ) ให้ใช้บิลด์ที่ลงลายเซ็น</string>
+    <string name="claim_then_sign">จากนั้นลงลายเซ็นการอ้างสิทธิ์ จนกว่าจะพบหลักฐานอย่างใดอย่างหนึ่งในสองอย่าง การอ้างสิทธิ์จะแสดงเป็นยังไม่พิสูจน์ ไม่มีอะไรเกิดขึ้นอีก หลักฐานจะถูกตรวจดูใหม่ทุกวัน</string>
+    <string name="proof_how_link">สิ่งนี้พิสูจน์ได้อย่างไร</string>
+    <string name="proof_how_title">ผู้เผยแพร่ถูกพิสูจน์อย่างไร</string>
+    <string name="proof_how_intro">ใครก็ลงลายเซ็นว่า \"ฉันเผยแพร่แอปนี้\" ได้ ลายเซ็นแสดงเพียงว่าใครเป็นผู้อ้างสิทธิ์ การอ้างสิทธิ์จะพิสูจน์แล้วเมื่อสิ่งที่มีเพียงผู้เผยแพร่ตัวจริงควบคุมได้ระบุกระเป๋าเงินเดียวกัน</string>
+    <string name="proof_key_title">กุญแจลงลายเซ็นของแอป (แข็งแกร่งที่สุด)</string>
+    <string name="proof_key_body">แอป Android ทุกแอปลงลายเซ็นด้วยกุญแจที่เป็นตัวตนของแอป: สโตร์ระบุใบรับรองของกุญแจนั้น และโทรศัพท์จะปฏิเสธอัปเดตที่ลงลายเซ็นด้วยกุญแจอื่น เมื่อผู้เผยแพร่ระบุกระเป๋าเงินไว้ในแมนิเฟสต์ของแอป บรรทัดนั้นจะอยู่ในบิลด์ที่ลงลายเซ็น ดังนั้นมีเพียงผู้ถือกุญแจเท่านั้นที่วางไว้ตรงนั้นได้ Undersigned ตรวจดูบิลด์ที่สโตร์ให้ดาวน์โหลด หรือบิลด์ที่ติดตั้งบนโทรศัพท์เครื่องนี้</string>
+    <string name="proof_site_title">เว็บไซต์ที่สโตร์ระบุไว้</string>
+    <string name="proof_site_body">ผู้เผยแพร่กำหนดเว็บไซต์ในพอร์ทัลผู้เผยแพร่ของสโตร์ ไฟล์ที่นั่นซึ่งระบุกระเป๋าเงินแสดงว่าควบคุมเว็บไซต์นั้นได้ หลักฐานนี้อ่อนกว่า: โดเมนเปลี่ยนมือได้ จึงแสดงวันที่เห็นครั้งแรกไว้ด้วย ไม่รับโปรไฟล์โซเชียลและโฮสต์ที่ใช้ร่วมกัน</string>
+    <string name="proof_not_title">สิ่งที่พิสูจน์ไม่ได้</string>
+    <string name="proof_not_body">ลายเซ็นของกระเป๋าเงินเอง ที่อยู่สำหรับรับชำระเงิน หรือกระเป๋าเงินที่เผยแพร่แอปบน dApp Store สโตร์ไม่ได้บอกว่ารายการบนเชนใดเป็นของรายการแอปใด และใครก็สร้างรายการที่ระบุแอปใดก็ได้</string>
+    <string name="proof_how_after">การตอบกลับของผู้เผยแพร่ที่พิสูจน์แล้วจะมีตราผู้เผยแพร่ และรีวิวของพวกเขาเองต่อแอปจะไม่ถูกนับ</string>
 </resources>

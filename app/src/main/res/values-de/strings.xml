@@ -77,14 +77,13 @@
     <string name="fact_store_version">Store-Versionscode</string>
     <string name="publisher_title">Herausgeber</string>
     <string name="publisher_listed">Vom Store gelistet als %1$s</string>
-    <string name="publisher_verified">Verifizierter Herausgeber — hat die Kontrolle über %1$s nachgewiesen</string>
-    <string name="publisher_none">Noch kein verifizierter Herausgeber im Ledger.</string>
+    <string name="publisher_verified">Herausgeber, nachgewiesen durch die Website, die der Store listet (%1$s)</string>
+    <string name="publisher_none">Noch kein nachgewiesener Herausgeber.</string>
     <string name="publisher_claim">Ich veröffentliche diese App</string>
     <string name="publisher_claim_title">Diese App beanspruchen</string>
-    <string name="publisher_claim_body">Leser verifizieren einen Anspruch anhand der Website, die der Store für diese App listet (%1$s). Legen Sie eine Datei unter %2$s ab, die Ihre Wallet-Adresse enthält (eine Zeile):\n\n%3$s\n\nSignieren Sie dann den Anspruch. Die Verifizierung erfolgt automatisch und wiederholt sich alle 24 Stunden. Fehlt die Datei, bleibt der Anspruch einfach unverifiziert; sonst passiert nichts.</string>
     <string name="publisher_claim_sign">Anspruch signieren</string>
-    <string name="publisher_claimed_pending">Ihr Anspruch ist on-chain, aber noch nicht verifiziert (Datei auf der gelisteten Website nicht gefunden).</string>
-    <string name="publisher_badge">Herausgeber ✓</string>
+    <string name="publisher_claimed_pending">Ihr Anspruch ist signiert, aber noch nicht nachgewiesen. Nennen Sie Ihre Wallet im Manifest der App und veröffentlichen Sie das Update, oder legen Sie die Datei auf der Website ab, die der Store listet.</string>
+    <string name="publisher_badge">Herausgeber</string>
     <string name="versions_title">Nach Version</string>
     <string name="versions_row">v%1$d · %2$s · %3$d signiert</string>
     <string name="versions_installed">installiert</string>
@@ -230,7 +229,7 @@
     <string name="intro4_title">Was Ihr Telefon beweisen kann</string>
     <string name="intro4_body">Für installierte Apps zeigt Undersigned, ob der Build mit dem vom Store gelisteten Zertifikat übereinstimmt und ob sich Berechtigungen geändert haben. Fakten, niemals Urteile.</string>
     <string name="intro5_title">Folgen, benachrichtigt werden, antworten</string>
-    <string name="intro5_body">Folgen Sie Apps, um von neuen signierten Bewertungen, Updates und Antworten zu erfahren. Herausgeber beanspruchen ihre App durch Signieren und antworten mit einem verifizierten Abzeichen. Alles, was Sie veröffentlichen, ist dauerhaft und öffentlich.</string>
+    <string name="intro5_body">Folgen Sie Apps, um von neuen signierten Bewertungen, Updates und Antworten zu erfahren. Herausgeber beanspruchen ihre App durch Signieren, und ihre Antworten tragen das Kennzeichen Herausgeber, sobald der Anspruch nachgewiesen ist. Alles, was Sie veröffentlichen, ist dauerhaft und öffentlich.</string>
     <string name="review_also_store">Auch im dApp Store posten</string>
     <string name="review_also_store_hint">Kopiert Ihre Notiz und öffnet den Eintrag, wo Sie sie unter „Bewertungen &amp; Rezensionen“ → „Eine Rezension für diese dApp hinterlassen“ posten. Der Store bietet keine Möglichkeit für eine andere App, für Sie zu posten, daher bleiben die letzten Schritte bei Ihnen.</string>
     <string name="flag">Markieren</string>
@@ -250,7 +249,7 @@
     <string name="inbox_unanswered">Unbeantwortet</string>
     <string name="inbox_replies">Antworten an mich</string>
     <string name="inbox_starred">Favorisiert</string>
-    <string name="inbox_unanswered_sub">Signierte Bewertungen zu Apps, bei denen Sie als Herausgeber verifiziert sind, ohne Antwort von Ihnen.</string>
+    <string name="inbox_unanswered_sub">Signierte Bewertungen zu Apps, deren nachgewiesener Herausgeber Sie sind, ohne Antwort von Ihnen.</string>
     <string name="inbox_unanswered_empty">Nichts wartet. Verifizieren Sie einen Herausgeber-Anspruch, um Ihre Apps hier zu sehen.</string>
     <string name="inbox_replies_empty">Noch keine Antworten auf Ihre Einträge.</string>
     <string name="inbox_starred_empty">Favorisieren Sie eine Bewertung, um sie hier zu behalten.</string>
@@ -259,7 +258,7 @@
     <string name="profile_credibility_sub">40 Basis, +30 für Tag-Übereinstimmung mit anderen Signierenden, +10 für erhaltene hilfreiche Stimmen, +20 für per Konsens bestätigte Markierungen, −50 × Anteil der per Konsens ausgeblendeten Einträge. Veröffentlichte Formel, nichts daran geknüpft.</string>
     <string name="profile_flags">Markierungen signiert: %1$d · Bestätigt: %2$d · Erhalten: %3$d · Einträge ausgeblendet: %4$d</string>
     <string name="profile_replied">Beantwortet %1$s der Antworten auf die eigenen Bewertungen</string>
-    <string name="profile_publishes">Verifizierter Herausgeber von</string>
+    <string name="profile_publishes">Nachgewiesener Herausgeber von</string>
     <string name="profile_reviews">Signierte Bewertungen</string>
     <string name="responsiveness_line">Beantwortet signierte Bewertungen in %1$s · %2$d von %3$d beantwortet</string>
     <string name="responsiveness_never">Hat noch keine signierte Bewertung beantwortet</string>
@@ -287,7 +286,7 @@
     <string name="clear_body">Eine \"wirkt echt\"-Stimme gleicht Markierungen auf diesem Eintrag aus. Eine pro Wallet, gewichtet wie eine Markierung. Nutzen Sie sie, wenn Sie die Markierungen für falsch halten.</string>
     <string name="unvote">Meine hilfreich-Stimme zurückziehen</string>
     <string name="flag_net">netto %1$s</string>
-    <string name="publisher_flags_ignored">Markierungen eines verifizierten Herausgebers auf Bewertungen der eigenen App zählen nicht; antworten Sie stattdessen.</string>
+    <string name="publisher_flags_ignored">Markierungen des nachgewiesenen Herausgebers einer App auf Bewertungen der eigenen App zählen nicht; antworten Sie stattdessen.</string>
     <string name="hidden_reply">Antwort per Konsens ausgeblendet</string>
     <string name="review_self_published">Nicht gezählt — die eigene App des Herausgebers</string>
     <string name="attest_title">Was als Stimme zählt</string>
@@ -378,8 +377,8 @@
     <string name="stats_apps">dApps mit einer signierten Bewertung</string>
     <string name="stats_apps_scored">dApps mit einer Bewertung</string>
     <string name="stats_replies">Antworten</string>
-    <string name="stats_publisher_replies">davon von einem verifizierten Herausgeber</string>
-    <string name="stats_claims">Herausgeberansprüche · verifiziert</string>
+    <string name="stats_publisher_replies">davon von einem nachgewiesenen Herausgeber</string>
+    <string name="stats_claims">Herausgeberansprüche · nachgewiesen</string>
     <string name="stats_moderation">Markierungen · Echtheits-Stimmen · Einsprüche</string>
     <string name="stats_hidden">Per Konsens ausgeblendet</string>
     <string name="stats_withdrawn">Von der Autorin oder dem Autor zurückgezogen</string>
@@ -398,7 +397,7 @@
     <string name="pro_tool_import_title">Alle davon zurück importieren</string>
     <string name="pro_tool_import_body">Jede Store-Bewertung, die Sie geschrieben haben, mit einer Genehmigung auf das Ledger signiert statt einzeln.</string>
     <string name="pro_tool_desk_title">Herausgeber-Schreibtisch</string>
-    <string name="pro_tool_desk_body">Die Warteschlange unbeantworteter Bewertungen und die Reaktionsfähigkeit über jede von Ihnen verifizierte dApp, in einer Liste.</string>
+    <string name="pro_tool_desk_body">Die Warteschlange unbeantworteter Bewertungen und die Reaktionsfähigkeit über jede dApp, deren nachgewiesener Herausgeber Sie sind, in einer Liste.</string>
     <string name="pro_tool_export_title">Das Ledger exportieren</string>
     <string name="pro_tool_export_body">Jede dApp, jeder Signierende, als CSV oder JSON. Die Daten sind öffentlich; Pro übernimmt das Lesen für Sie.</string>
     <string name="pro_tool_watch_title">Stündliche Zertifikatsüberwachung</string>
@@ -485,7 +484,7 @@
     <string name="fp_read">Das gesamte Ledger lesen</string>
     <string name="fp_sign">Bewertungen, Antworten, Markierungen, Einsprüche signieren</string>
     <string name="fp_facts">Was Ihr Gerät verifizieren kann</string>
-    <string name="fp_claim">Eine dApp beanspruchen, mit einem verifizierten Abzeichen antworten</string>
+    <string name="fp_claim">Eine dApp beanspruchen, als ihr nachgewiesener Herausgeber antworten</string>
     <string name="fp_copy">Eine Bewertung in den Store kopieren</string>
     <string name="fp_import">Store-Bewertungen importieren</string>
     <string name="fp_import_free">einzeln</string>
@@ -499,8 +498,8 @@
     <string name="fp_weight_both">gleich — nur Gerät und gestaktes SKR</string>
     <string name="desk_title">Herausgeber-Schreibtisch</string>
     <plurals name="desk_across">
-        <item quantity="one">Über Ihre %1$d verifizierte dApp</item>
-        <item quantity="other">Über Ihre %1$d verifizierten dApps</item>
+        <item quantity="one">Über Ihre %1$d nachgewiesene dApp</item>
+        <item quantity="other">Über Ihre %1$d nachgewiesenen dApps</item>
     </plurals>
     <string name="desk_unanswered">unbeantwortet</string>
     <string name="desk_median">mittlere Antwortzeit</string>
@@ -515,7 +514,7 @@
     </plurals>
     <string name="desk_hours">%1$d Std.</string>
     <string name="desk_note">Reaktionsfähigkeit wird wie alles andere vom Ledger gelesen: der Abstand zwischen einer signierten Bewertung und Ihrer signierten Antwort. Sie wird Lesern auf Ihrer dApp-Seite angezeigt, die Warteschlange ist also das Produkt.</string>
-    <string name="desk_none">Noch keine verifizierten dApps. Beanspruchen Sie eine App von ihrer Seite aus und weisen Sie die Website nach; der Schreibtisch füllt sich von dort.</string>
+    <string name="desk_none">Noch keine nachgewiesenen dApps. Beanspruchen Sie eine App von ihrer Seite aus und weisen Sie den Anspruch nach (signierter Build oder Website); der Schreibtisch füllt sich von dort.</string>
     <string name="desk_none_waiting">Nichts wartend.</string>
 
     <!-- Review bursts (27 Sep 2026) -->
@@ -754,8 +753,8 @@
     <string name="pay_listing_note">Der Eintrag ist ein signierter Datensatz. Ein späterer Widerruf lässt den Datensatz on-chain stehen.</string>
     <plurals name="pay_steps"><item quantity="one">%1$d Schritt</item><item quantity="other">%1$d Schritte</item></plurals>
     <!-- 28 Sep 2026 publisher proof + tag labels -->
-    <string name="publisher_verified_since">Verifizierter Herausgeber — hat die Kontrolle über %1$s nachgewiesen, bekannt seit %2$s</string>
-    <string name="publisher_verified_apk">Verifizierter Herausgeber — im eigenen signierten Build der App genannt</string>
+    <string name="publisher_verified_since">Herausgeber, nachgewiesen durch die Website, die der Store listet (%1$s), bekannt seit %2$s</string>
+    <string name="publisher_verified_apk">Herausgeber, nachgewiesen durch den eigenen signierten Build der App auf diesem Telefon</string>
     <!-- Review tag labels. The wire value on-chain never changes; only these labels do. -->
     <string name="tag_works">Funktioniert</string>
     <string name="tag_crashes">Stürzt ab</string>
@@ -785,7 +784,7 @@
     <string name="pay_list_fee">Das Listing kostet dasselbe wie eine bezahlte Stufe unserer anderen dApps: %1$s oder %2$s (%3$s mit einem Seeker Genesis Token). Es wird einmal pro dApp und Treasury bezahlt, in derselben Transaktion, die das Listing signiert. Den Code später zu ändern oder erneut zu listen kostet nur die Netzwerkgebühr.</string>
     <string name="pay_list_pay">%1$s zahlen und listen</string>
     <!-- 5 Oct 2026 store-build publisher proof -->
-    <string name="publisher_verified_store">Verifizierter Herausgeber — im Build genannt, den der Store ausliefert</string>
+    <string name="publisher_verified_store">Herausgeber, nachgewiesen durch den Build, den der dApp Store ausliefert</string>
     <string name="publisher_check_build">Build des Stores prüfen · %1$s</string>
     <string name="publisher_checking_build">Build des Stores wird gelesen…</string>
     <string name="publisher_build_nothing">Der Build des Stores nennt keine Wallet des Herausgebers.</string>
@@ -833,4 +832,21 @@
     <string name="notif_note_title">Der Herausgeber hat auf Ihre Store-Bewertung geantwortet · %1$s</string>
     <string name="notif_proven_title">Ihr Anspruch ist bestätigt · %1$s</string>
     <string name="notif_proven_body">Ihre Antworten auf die Bewertungen dieser App tragen jetzt das Zeichen Herausgeber ✓, und Ihre eigenen Bewertungen dafür werden nicht gezählt.</string>
+    <!-- 6 Oct 2026 publisher proof explained -->
+    <string name="claim_route_build_title">1. Nennen Sie Ihre Wallet in Ihrer App (am stärksten)</string>
+    <string name="claim_route_build_body">Fügen Sie diese Zeile innerhalb von &lt;application&gt; im Manifest Ihrer App hinzu und veröffentlichen Sie das Update im dApp Store. Leser prüfen den Build, den der Store ausliefert: Die Zeile muss diese Wallet nennen, und der Build muss mit dem Zertifikat signiert sein, das der Store listet. Das kann nur der Inhaber des Signaturschlüssels Ihrer App.</string>
+    <string name="claim_route_site_title">2. Oder legen Sie eine Datei auf der Website ab, die der Store listet</string>
+    <string name="claim_route_site_body">Der Store listet %1$s für diese App. Legen Sie unter %2$s eine Datei ab, die Ihre Wallet-Adresse in einer Zeile enthält:\n\n%3$s</string>
+    <string name="claim_route_site_none">Der Store listet für diese App keine Website, die es nachweisen kann (Social-Media-Profile und geteilte Hosts zählen nicht). Verwenden Sie den signierten Build.</string>
+    <string name="claim_then_sign">Signieren Sie dann den Anspruch. Solange keiner der beiden Nachweise gefunden wird, wird der Anspruch als nicht nachgewiesen angezeigt; sonst passiert nichts. Der Nachweis wird jeden Tag erneut geprüft.</string>
+    <string name="proof_how_link">Wie wird das nachgewiesen?</string>
+    <string name="proof_how_title">Wie ein Herausgeber nachgewiesen wird</string>
+    <string name="proof_how_intro">Jeder kann „Ich veröffentliche diese App“ signieren. Eine Signatur zeigt nur, wer den Anspruch erhebt. Ein Anspruch ist nachgewiesen, wenn etwas, das nur der echte Herausgeber kontrolliert, dieselbe Wallet nennt.</string>
+    <string name="proof_key_title">Der Signaturschlüssel der App (am stärksten)</string>
+    <string name="proof_key_body">Jede Android-App ist mit einem Schlüssel signiert, der ihre Identität ist: Der Store listet sein Zertifikat, und Telefone lehnen ein Update ab, das mit einem anderen Schlüssel signiert wurde. Nennt der Herausgeber eine Wallet im Manifest der App, steht die Zeile im signierten Build, sodass nur der Schlüsselinhaber sie dort hinterlegen konnte. Undersigned prüft den Build, den der Store ausliefert, oder den auf diesem Telefon installierten.</string>
+    <string name="proof_site_title">Die Website, die der Store listet</string>
+    <string name="proof_site_body">Der Herausgeber legt die Website im Herausgeberportal des Stores fest. Eine Datei dort, die die Wallet nennt, zeigt die Kontrolle über diese Website. Schwächer: Domains wechseln den Besitzer, daher wird das Datum der ersten Sichtung angezeigt. Social-Media-Profile und geteilte Hosts werden nicht akzeptiert.</string>
+    <string name="proof_not_title">Was es nicht nachweist</string>
+    <string name="proof_not_body">Die eigene Signatur der Wallet, eine Zahlungsadresse oder die Wallet, die die App im dApp Store veröffentlicht hat. Der Store gibt nicht an, welcher On-Chain-Eintrag zu welchem Listing gehört, und jeder kann einen erstellen, der eine beliebige App nennt.</string>
+    <string name="proof_how_after">Die Antworten eines nachgewiesenen Herausgebers tragen das Kennzeichen Herausgeber, und seine eigenen Bewertungen der App werden nicht gezählt.</string>
 </resources>
