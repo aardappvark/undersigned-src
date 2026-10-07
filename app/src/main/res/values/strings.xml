@@ -959,4 +959,15 @@
     <string name="pay_publisher_needed">Your wallet is not this app\'s proven publisher yet. Prove it on the app\'s page first (How is this proven?), then list.</string>
     <string name="pay_signing_publisher">proven publisher</string>
     <string name="pay_signing_not_publisher">not the proven publisher</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">today</string>
+    <string name="catalogue_ago_yesterday">yesterday</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d new · added %2$s</item>
+        <item quantity="other">%1$d new · added %2$s</item>
+    </plurals>
 </resources>

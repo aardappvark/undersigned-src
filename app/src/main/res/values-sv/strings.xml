@@ -934,4 +934,15 @@
     <string name="pay_publisher_needed">Din plånbok är inte den bevisade utgivaren av den här appen än. Bevisa det först på appens sida (Hur bevisas detta?) och lista sedan.</string>
     <string name="pay_signing_publisher">bevisad utgivare</string>
     <string name="pay_signing_not_publisher">inte den bevisade utgivaren</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">idag</string>
+    <string name="catalogue_ago_yesterday">igår</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">för %1$d dag sedan</item>
+        <item quantity="other">för %1$d dagar sedan</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d ny · tillagd %2$s</item>
+        <item quantity="other">%1$d nya · tillagda %2$s</item>
+    </plurals>
 </resources>

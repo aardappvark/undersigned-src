@@ -920,4 +920,13 @@
     <string name="pay_publisher_needed">Dompet Anda belum menjadi penerbit terbukti aplikasi ini. Buktikan dulu di halaman aplikasi (Bagaimana ini dibuktikan?), lalu daftarkan.</string>
     <string name="pay_signing_publisher">penerbit terbukti</string>
     <string name="pay_signing_not_publisher">bukan penerbit terbukti</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">hari ini</string>
+    <string name="catalogue_ago_yesterday">kemarin</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="other">%1$d hari lalu</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="other">%1$d baru · ditambahkan %2$s</item>
+    </plurals>
 </resources>

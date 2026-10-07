@@ -919,4 +919,13 @@
     <string name="pay_publisher_needed">您的錢包尚不是此應用程式的已證明發行者。請先在應用程式頁面上證明(這是如何證明的?),然後再登記。</string>
     <string name="pay_signing_publisher">已證明發行者</string>
     <string name="pay_signing_not_publisher">不是已證明發行者</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">今天</string>
+    <string name="catalogue_ago_yesterday">昨天</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="other">%1$d 天前</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="other">新增 %1$d · %2$s加入</item>
+    </plurals>
 </resources>

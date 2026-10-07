@@ -936,4 +936,15 @@
     <string name="pay_publisher_needed">आपका wallet अभी इस ऐप का सिद्ध प्रकाशक नहीं है। पहले ऐप के पेज पर इसे सिद्ध करें (यह कैसे सिद्ध होता है?), फिर सूचीबद्ध करें।</string>
     <string name="pay_signing_publisher">सिद्ध प्रकाशक</string>
     <string name="pay_signing_not_publisher">सिद्ध प्रकाशक नहीं</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">आज</string>
+    <string name="catalogue_ago_yesterday">बीता कल</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d दिन पहले</item>
+        <item quantity="other">%1$d दिन पहले</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d नए · जोड़े गए %2$s</item>
+        <item quantity="other">%1$d नए · जोड़े गए %2$s</item>
+    </plurals>
 </resources>

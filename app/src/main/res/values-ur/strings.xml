@@ -936,4 +936,15 @@
     <string name="pay_publisher_needed">آپ کا والٹ ابھی اس ایپ کا ثابت شدہ پبلشر نہیں ہے۔ پہلے ایپ کے صفحے پر اسے ثابت کریں (یہ کیسے ثابت ہوتا ہے؟)، پھر فہرست میں شامل کریں۔</string>
     <string name="pay_signing_publisher">ثابت شدہ پبلشر</string>
     <string name="pay_signing_not_publisher">ثابت شدہ پبلشر نہیں</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">آج</string>
+    <string name="catalogue_ago_yesterday">گزشتہ کل</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d دن پہلے</item>
+        <item quantity="other">%1$d دن پہلے</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d نئے · شامل کیے گئے %2$s</item>
+        <item quantity="other">%1$d نئے · شامل کیے گئے %2$s</item>
+    </plurals>
 </resources>

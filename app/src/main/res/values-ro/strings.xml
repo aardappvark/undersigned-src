@@ -949,4 +949,17 @@
     <string name="pay_publisher_needed">Portofelul tău nu este încă editorul dovedit al acestei aplicații. Dovedește mai întâi pe pagina aplicației (Cum se dovedește asta?), apoi listează.</string>
     <string name="pay_signing_publisher">editor dovedit</string>
     <string name="pay_signing_not_publisher">nu este editorul dovedit</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">astăzi</string>
+    <string name="catalogue_ago_yesterday">ieri</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">acum %1$d zi</item>
+        <item quantity="few">acum %1$d zile</item>
+        <item quantity="other">acum %1$d de zile</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d nouă · adăugată %2$s</item>
+        <item quantity="few">%1$d noi · adăugate %2$s</item>
+        <item quantity="other">%1$d de noi · adăugate %2$s</item>
+    </plurals>
 </resources>

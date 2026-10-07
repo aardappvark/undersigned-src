@@ -104,6 +104,9 @@ object WeeklyCatalogue {
         return if (last <= 0L) 0L else (last + MANUAL_COOLDOWN_MS - nowMs).coerceIn(0L, MANUAL_COOLDOWN_MS)
     }
 
+    /** When New last gained apps (ms); 0 before the first such check. */
+    fun newAddedMs(c: Context): Long = prefs(c).getLong("new_added_ms", 0L)
+
     /** The week's New: apps first listed by this week's check (or the most recent check that added any). */
     fun newThisWeek(list: List<CatalogueApp>): List<CatalogueApp> {
         val latest = list.mapNotNull { it.addedIn }.maxOrNull() ?: return emptyList()
@@ -132,7 +135,8 @@ object WeeklyCatalogue {
         } catch (e: Exception) { Outcome.Failed(e.message ?: e.javaClass.simpleName, retryable = false) }
         prefs(app).edit().apply {
             when (outcome) {
-                is Outcome.Ok -> { putLong("last_ok_ms", started); putString("last_batch", batch); putInt("last_added", outcome.added.size); remove("last_error") }
+                is Outcome.Ok -> { putLong("last_ok_ms", started); putString("last_batch", batch); putInt("last_added", outcome.added.size); remove("last_error")
+                    if (outcome.added.isNotEmpty()) putLong("new_added_ms", started) }   // "added 3 days ago" (a later check that finds nothing doesn't move it)
                 is Outcome.Failed -> { putString("last_error", outcome.reason); if (!outcome.retryable) putString("gave_up_week", batch) }
                 is Outcome.Skipped -> Unit
             }

@@ -920,4 +920,13 @@
     <string name="pay_publisher_needed">Ví của bạn chưa phải là nhà phát hành đã được chứng minh của ứng dụng này. Hãy chứng minh trước trên trang của ứng dụng (Điều này được chứng minh thế nào?), rồi niêm yết.</string>
     <string name="pay_signing_publisher">nhà phát hành đã chứng minh</string>
     <string name="pay_signing_not_publisher">không phải nhà phát hành đã chứng minh</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">hôm nay</string>
+    <string name="catalogue_ago_yesterday">hôm qua</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="other">%1$d ngày trước</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="other">%1$d mới · thêm %2$s</item>
+    </plurals>
 </resources>

@@ -962,4 +962,15 @@
     <string name="pay_publisher_needed">Votre wallet n\'est pas encore l\'éditeur prouvé de cette application. Prouvez-le d\'abord sur la page de l\'application (Comment est-ce prouvé ?), puis référencez.</string>
     <string name="pay_signing_publisher">éditeur prouvé</string>
     <string name="pay_signing_not_publisher">pas l\'éditeur prouvé</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">aujourd’hui</string>
+    <string name="catalogue_ago_yesterday">hier</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">il y a %1$d jour</item>
+        <item quantity="other">il y a %1$d jours</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d nouveau · ajouté %2$s</item>
+        <item quantity="other">%1$d nouveaux · ajoutés %2$s</item>
+    </plurals>
 </resources>

@@ -950,4 +950,19 @@
     <string name="pay_publisher_needed">Ваш кошелёк пока не является доказанным издателем этого приложения. Сначала докажите это на странице приложения (Как это доказывается?), затем добавьте в список.</string>
     <string name="pay_signing_publisher">доказанный издатель</string>
     <string name="pay_signing_not_publisher">не является доказанным издателем</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">сегодня</string>
+    <string name="catalogue_ago_yesterday">вчера</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d день назад</item>
+        <item quantity="few">%1$d дня назад</item>
+        <item quantity="many">%1$d дней назад</item>
+        <item quantity="other">%1$d дня назад</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d новое · добавлено %2$s</item>
+        <item quantity="few">%1$d новых · добавлено %2$s</item>
+        <item quantity="many">%1$d новых · добавлено %2$s</item>
+        <item quantity="other">%1$d новых · добавлено %2$s</item>
+    </plurals>
 </resources>

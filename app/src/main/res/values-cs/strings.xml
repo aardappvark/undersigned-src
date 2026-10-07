@@ -959,4 +959,19 @@
     <string name="pay_publisher_needed">Vaše peněženka zatím není prokázaným vydavatelem této aplikace. Nejprve to prokažte na stránce aplikace (Jak se to prokazuje?), poté dApp uveďte na seznam.</string>
     <string name="pay_signing_publisher">prokázaný vydavatel</string>
     <string name="pay_signing_not_publisher">není prokázaný vydavatel</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">dnes</string>
+    <string name="catalogue_ago_yesterday">včera</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">před %1$d dnem</item>
+        <item quantity="few">před %1$d dny</item>
+        <item quantity="many">před %1$d dne</item>
+        <item quantity="other">před %1$d dny</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d nové · přidáno %2$s</item>
+        <item quantity="few">%1$d nové · přidáno %2$s</item>
+        <item quantity="many">%1$d nové · přidáno %2$s</item>
+        <item quantity="other">%1$d nové · přidáno %2$s</item>
+    </plurals>
 </resources>

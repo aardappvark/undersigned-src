@@ -933,4 +933,15 @@
     <string name="pay_publisher_needed">Cüzdanınız henüz bu uygulamanın kanıtlanmış yayıncısı değil. Önce bunu uygulamanın sayfasında kanıtlayın (Bu nasıl kanıtlanır?), sonra listeleyin.</string>
     <string name="pay_signing_publisher">kanıtlanmış yayıncı</string>
     <string name="pay_signing_not_publisher">kanıtlanmış yayıncı değil</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">bugün</string>
+    <string name="catalogue_ago_yesterday">dün</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d gün önce</item>
+        <item quantity="other">%1$d gün önce</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d yeni · %2$s eklendi</item>
+        <item quantity="other">%1$d yeni · %2$s eklendi</item>
+    </plurals>
 </resources>

@@ -966,4 +966,19 @@
     <string name="pay_publisher_needed">Ваш гаманець поки не є доведеним видавцем цього додатка. Спершу доведіть це на сторінці додатка (Як це доводиться?), а потім додайте до списку.</string>
     <string name="pay_signing_publisher">доведений видавець</string>
     <string name="pay_signing_not_publisher">не є доведеним видавцем</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">сьогодні</string>
+    <string name="catalogue_ago_yesterday">вчора</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d день тому</item>
+        <item quantity="few">%1$d дні тому</item>
+        <item quantity="many">%1$d днів тому</item>
+        <item quantity="other">%1$d дня тому</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d нове · додано %2$s</item>
+        <item quantity="few">%1$d нових · додано %2$s</item>
+        <item quantity="many">%1$d нових · додано %2$s</item>
+        <item quantity="other">%1$d нових · додано %2$s</item>
+    </plurals>
 </resources>

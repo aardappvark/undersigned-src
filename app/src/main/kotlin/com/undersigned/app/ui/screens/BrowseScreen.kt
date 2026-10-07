@@ -18,6 +18,8 @@ import androidx.compose.material.icons.filled.RateReview
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.undersigned.app.ui.components.AlphaRail
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -115,7 +117,18 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     var shownKey by rememberSaveable { mutableStateOf<String?>(null) }
     LaunchedEffect(firstKey, tab, sort) { val k = "$firstKey|$tab|$sort"; if (shownKey != null && shownKey != k && !listState.isScrollInProgress) listState.scrollToItem(0); shownKey = k }
 
-    Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
+    // Scrolling down the list slides everything under the title away, so the list runs up to the Undersigned bar;
+    // scrolling back up (or reaching the top) brings it back (owner, 7 Oct 2026).
+    var headerShown by rememberSaveable { mutableStateOf(true) }
+    val atTop by remember { derivedStateOf { listState.firstVisibleItemIndex == 0 && listState.firstVisibleItemScrollOffset == 0 } }
+    LaunchedEffect(atTop) { if (atTop) headerShown = true }
+    val collapse = remember { object : androidx.compose.ui.input.nestedscroll.NestedScrollConnection {
+        override fun onPreScroll(available: androidx.compose.ui.geometry.Offset, source: androidx.compose.ui.input.nestedscroll.NestedScrollSource): androidx.compose.ui.geometry.Offset {
+            if (available.y < -8f) headerShown = false else if (available.y > 8f) headerShown = true
+            return androidx.compose.ui.geometry.Offset.Zero
+        } } }
+
+    Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding().nestedScroll(collapse)) {
         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             // The name is a wordmark: it grows at most 15 % with the system font size and never breaks mid-word
             // ("Undersigne / d" at 1.3× beside four icons, UI pass 6 Oct 2026).
@@ -132,6 +145,8 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             }
             IconButton(onClick = onSettings) { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings), tint = RbColors.textSecondary) }
         }
+        androidx.compose.animation.AnimatedVisibility(visible = headerShown || query.isNotEmpty(), enter = androidx.compose.animation.expandVertically() + androidx.compose.animation.fadeIn(),
+            exit = androidx.compose.animation.shrinkVertically() + androidx.compose.animation.fadeOut()) { Column {
         Row(Modifier.padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 when (val s = status) {
@@ -175,6 +190,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             TagChip(stringResource(R.string.browse_tag_any), selected = tagFilter == null) { tagFilter = null }
             tagsInUse.forEach { (t, n) -> TagChip(context.tagLabel(t.wire), count = n, selected = tagFilter == t) { tagFilter = if (tagFilter == t) null else t } }
         }
+        } }
         when {
             rows.isEmpty() && query.isNotBlank() && signerRows.isEmpty() -> Column(Modifier.fillMaxSize()) {
                 EmptyState(R.drawable.photo_empty_search, stringResource(R.string.empty_search_title), signerNote ?: stringResource(R.string.empty_search_body, query.trim()),
@@ -183,7 +199,13 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             }
             rows.isEmpty() && tab == Tab.SIGNED -> EmptyState(R.drawable.photo_empty_signed, stringResource(R.string.empty_signed))
             rows.isEmpty() -> Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(if (catalogue.isEmpty()) R.string.loading else R.string.empty_installed), color = RbColors.textSecondary, fontSize = 14.sp, textAlign = TextAlign.Center) }
-            else -> { val standings by vm.standings.collectAsState(); LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(bottom = 24.dp)) {
+            else -> { val standings by vm.standings.collectAsState()
+              // The A–Z rail on long lists (Toolkit port); the list leaves room for it on the right.
+              val railKeys = remember(rows) { rows.map { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } } }
+              val railNames = remember(rows) { rows.filterIsInstance<Row.App>().associate { it.app.packageName to it.app.name } }
+              val showRail = railNames.size > 30
+              Box(Modifier.fillMaxSize()) {
+              LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(bottom = 24.dp, end = if (showRail) 26.dp else 0.dp)) {
                 // Signers whose name or address matches the query, above the dApps (design: Screens E "Search signers").
                 if (signerRows.isNotEmpty()) {
                     item(key = "signers-head") { CategoryHead(stringResource(R.string.signers_heading), signerRows.size) }
@@ -204,7 +226,13 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                             CatalogueFreshness(catAt, catalogue.size, Modifier.weight(1f))
                             TextButton(onClick = { vm.refreshCatalogue() }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.catalogue_update), color = RbColors.purpleLight, fontSize = 12.sp) }
                         }
-                        if (newOnes.isNotEmpty()) TagChip(pluralStringResource(R.plurals.catalogue_new_chip, newOnes.size, newOnes.size), selected = newOnly) { newOnly = !newOnly }
+                        // "2 new · added 3 days ago": when, not just how many (owner, 7 Oct 2026).
+                        if (newOnes.isNotEmpty()) {
+                            val addedMs = remember(catAt) { com.undersigned.app.data.WeeklyCatalogue.newAddedMs(context) }
+                            val days = if (addedMs > 0) java.time.temporal.ChronoUnit.DAYS.between(java.time.Instant.ofEpochMilli(addedMs).atZone(java.time.ZoneId.systemDefault()).toLocalDate(), java.time.LocalDate.now()).toInt() else -1
+                            val ago = when { days < 0 -> null; days == 0 -> stringResource(R.string.catalogue_ago_today); days == 1 -> stringResource(R.string.catalogue_ago_yesterday); else -> pluralStringResource(R.plurals.catalogue_ago_days, days, days) }
+                            TagChip(if (ago != null) pluralStringResource(R.plurals.catalogue_new_added, newOnes.size, newOnes.size, ago) else pluralStringResource(R.plurals.catalogue_new_chip, newOnes.size, newOnes.size), selected = newOnly) { newOnly = !newOnly }
+                        }
                     }
                 }
                 items(rows, key = { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }) { r ->
@@ -218,7 +246,10 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                         }
                     }
                 }
-            } }
+            }
+              if (showRail) AlphaRail(railKeys, railNames, listState, isAlphaOrder = sort == Sort.NAME, onRequestAlphaOrder = { sort = Sort.NAME },
+                  modifier = Modifier.align(Alignment.CenterEnd).padding(vertical = 8.dp))
+              } }
         }
     }
 }

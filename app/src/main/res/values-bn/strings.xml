@@ -929,4 +929,15 @@
     <string name="pay_publisher_needed">আপনার ওয়ালেট এখনও এই অ্যাপের প্রমাণিত প্রকাশক নয়। আগে অ্যাপের পেজে এটি প্রমাণ করুন (এটি কীভাবে প্রমাণিত হয়?), তারপর তালিকাভুক্ত করুন।</string>
     <string name="pay_signing_publisher">প্রমাণিত প্রকাশক</string>
     <string name="pay_signing_not_publisher">প্রমাণিত প্রকাশক নয়</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">আজ</string>
+    <string name="catalogue_ago_yesterday">গতকাল</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d দিন আগে</item>
+        <item quantity="other">%1$d দিন আগে</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d নতুন · যোগ হয়েছে %2$s</item>
+        <item quantity="other">%1$d নতুন · যোগ হয়েছে %2$s</item>
+    </plurals>
 </resources>

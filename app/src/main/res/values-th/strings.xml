@@ -904,4 +904,13 @@
     <string name="pay_publisher_needed">กระเป๋าเงินของคุณยังไม่ใช่ผู้เผยแพร่ที่พิสูจน์แล้วของแอปนี้ โปรดพิสูจน์ที่หน้าของแอปก่อน (สิ่งนี้พิสูจน์ได้อย่างไร) แล้วจึงลงรายการ</string>
     <string name="pay_signing_publisher">ผู้เผยแพร่ที่พิสูจน์แล้ว</string>
     <string name="pay_signing_not_publisher">ไม่ใช่ผู้เผยแพร่ที่พิสูจน์แล้ว</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">วันนี้</string>
+    <string name="catalogue_ago_yesterday">เมื่อวาน</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="other">%1$d วันก่อน</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="other">ใหม่ %1$d · เพิ่ม %2$s</item>
+    </plurals>
 </resources>

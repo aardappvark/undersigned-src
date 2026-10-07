@@ -962,4 +962,15 @@
     <string name="pay_publisher_needed">Sua carteira ainda não é o publicador comprovado deste app. Comprove isso primeiro na página do app (Como isso é comprovado?) e depois liste.</string>
     <string name="pay_signing_publisher">publicador comprovado</string>
     <string name="pay_signing_not_publisher">não é o publicador comprovado</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">hoje</string>
+    <string name="catalogue_ago_yesterday">ontem</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">há %1$d dia</item>
+        <item quantity="other">há %1$d dias</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d novo · adicionado %2$s</item>
+        <item quantity="other">%1$d novos · adicionados %2$s</item>
+    </plurals>
 </resources>

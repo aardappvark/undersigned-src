@@ -962,4 +962,15 @@
     <string name="pay_publisher_needed">Tu wallet aún no es el editor demostrado de esta app. Demuéstralo primero en la página de la app (¿Cómo se demuestra esto?), y luego lista.</string>
     <string name="pay_signing_publisher">editor demostrado</string>
     <string name="pay_signing_not_publisher">no es el editor demostrado</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">hoy</string>
+    <string name="catalogue_ago_yesterday">ayer</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">hace %1$d día</item>
+        <item quantity="other">hace %1$d días</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d nueva · añadida %2$s</item>
+        <item quantity="other">%1$d nuevas · añadidas %2$s</item>
+    </plurals>
 </resources>

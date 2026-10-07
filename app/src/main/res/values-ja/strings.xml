@@ -911,4 +911,13 @@
     <string name="pay_publisher_needed">お使いのウォレットはまだこのアプリの証明済みパブリッシャーではありません。先にアプリのページで証明してください（これはどのように証明されますか？）。その後、登録します。</string>
     <string name="pay_signing_publisher">証明済みパブリッシャー</string>
     <string name="pay_signing_not_publisher">証明済みパブリッシャーではない</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">今日</string>
+    <string name="catalogue_ago_yesterday">昨日</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="other">%1$d日前</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="other">新着 %1$d 件 · %2$s追加</item>
+    </plurals>
 </resources>

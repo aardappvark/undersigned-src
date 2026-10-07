@@ -962,4 +962,15 @@
     <string name="pay_publisher_needed">Il tuo portafoglio non è ancora l\'editore dimostrato di questa app. Dimostralo prima nella pagina dell\'app (Come si dimostra?), poi elenca.</string>
     <string name="pay_signing_publisher">editore dimostrato</string>
     <string name="pay_signing_not_publisher">non è l\'editore dimostrato</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">oggi</string>
+    <string name="catalogue_ago_yesterday">ieri</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d giorno fa</item>
+        <item quantity="other">%1$d giorni fa</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d nuova · aggiunta %2$s</item>
+        <item quantity="other">%1$d nuove · aggiunte %2$s</item>
+    </plurals>
 </resources>

@@ -937,4 +937,15 @@
     <string name="pay_publisher_needed">Hindi pa napatunayang publisher ng app na ito ang wallet mo. Patunayan muna ito sa page ng app (Paano ito napapatunayan?), saka mag-list.</string>
     <string name="pay_signing_publisher">napatunayang publisher</string>
     <string name="pay_signing_not_publisher">hindi ang napatunayang publisher</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">ngayon</string>
+    <string name="catalogue_ago_yesterday">kahapon</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d araw ang nakalipas</item>
+        <item quantity="other">%1$d araw ang nakalipas</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d bago · idinagdag %2$s</item>
+        <item quantity="other">%1$d bago · idinagdag %2$s</item>
+    </plurals>
 </resources>

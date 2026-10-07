@@ -953,4 +953,15 @@
     <string name="pay_publisher_needed">Ihre Wallet ist noch nicht der nachgewiesene Herausgeber dieser App. Weisen Sie das zuerst auf der Seite der App nach (Wie wird das nachgewiesen?), und listen Sie dann.</string>
     <string name="pay_signing_publisher">nachgewiesener Herausgeber</string>
     <string name="pay_signing_not_publisher">nicht der nachgewiesene Herausgeber</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">heute</string>
+    <string name="catalogue_ago_yesterday">gestern</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">vor %1$d Tag</item>
+        <item quantity="other">vor %1$d Tagen</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d neu · hinzugefügt %2$s</item>
+        <item quantity="other">%1$d neu · hinzugefügt %2$s</item>
+    </plurals>
 </resources>

@@ -933,4 +933,15 @@
     <string name="pay_publisher_needed">A tárcád még nem ennek az alkalmazásnak a bizonyított kiadója. Először bizonyítsd ezt az alkalmazás oldalán (Hogyan bizonyítható ez?), utána listázz.</string>
     <string name="pay_signing_publisher">bizonyított kiadó</string>
     <string name="pay_signing_not_publisher">nem a bizonyított kiadó</string>
+    <!-- 7 Oct 2026 when New was added -->
+    <string name="catalogue_ago_today">ma</string>
+    <string name="catalogue_ago_yesterday">tegnap</string>
+    <plurals name="catalogue_ago_days">
+        <item quantity="one">%1$d nappal ezelőtt</item>
+        <item quantity="other">%1$d nappal ezelőtt</item>
+    </plurals>
+    <plurals name="catalogue_new_added">
+        <item quantity="one">%1$d új · hozzáadva %2$s</item>
+        <item quantity="other">%1$d új · hozzáadva %2$s</item>
+    </plurals>
 </resources>
