@@ -891,7 +891,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      */
     private var iconFill: kotlinx.coroutines.Job? = null
     fun fillIcons() { if (iconFill?.isActive == true) return
-        iconFill = viewModelScope.launch(Dispatchers.IO) { kotlinx.coroutines.delay(5_000); runCatching { iconCache.resolve(catalogue.value.map { it.packageName }, paceMs = 2_500L) } } }
+        iconFill = viewModelScope.launch(Dispatchers.IO) {
+            // The list carries every icon address (8 Oct 2026): fill the cache from it, no requests. The store lookup
+            // stays only for an app the list has no address for, paced.
+            runCatching { iconCache.seed(catalogue.value.mapNotNull { a -> a.iconUri?.let { a.packageName to it } }.toMap()) }
+            kotlinx.coroutines.delay(5_000)
+            runCatching { iconCache.resolve(catalogue.value.filter { it.iconUri == null }.map { it.packageName }, paceMs = 2_500L) } } }
+    init { viewModelScope.launch(Dispatchers.IO) { catalogue.collect { list -> runCatching { iconCache.seed(list.mapNotNull { a -> a.iconUri?.let { a.packageName to it } }.toMap()) } } } }
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback
     fun deviceFacts(pkg: String) = installedApps.factsWithDelta(pkg)

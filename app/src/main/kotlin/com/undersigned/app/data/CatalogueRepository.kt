@@ -15,7 +15,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 /** [addedIn]: the Monday (ISO date) of the weekly check that first listed it here; null for apps the build shipped with. */
-data class CatalogueApp(val packageName: String, val name: String, val updated: String, val category: String?, val addedIn: String? = null)
+/** [iconUri]: the store's icon address, shipped with the list and kept current by the refresh, so no per-app lookup is needed. */
+data class CatalogueApp(val packageName: String, val name: String, val updated: String, val category: String?, val addedIn: String? = null, val iconUri: String? = null)
 
 /**
  * The store's public catalogue: a bundled snapshot for instant first paint, refreshed in the
@@ -31,7 +32,9 @@ class CatalogueRepository(private val context: Context) {
      */
     fun load(): List<CatalogueApp> {
         val saved = runCatching { if (file.exists()) parse(file.readText()) else emptyList() }.getOrDefault(emptyList())
-        return (bundled() + saved).associateBy { it.packageName }.values.toList()
+        // Saved entries win, but keep the shipped icon address when a saved one has none (lists saved before 8 Oct).
+        val shipped = bundled().associateBy { it.packageName }
+        return (shipped.values + saved.map { s -> if (s.iconUri == null) s.copy(iconUri = shipped[s.packageName]?.iconUri) else s }).associateBy { it.packageName }.values.toList()
     }
 
     private fun bundled(): List<CatalogueApp> = runCatching { parse(context.assets.open(AppConfig.Store.SNAPSHOT_ASSET).bufferedReader().use { it.readText() }) }.getOrDefault(emptyList())
@@ -42,7 +45,8 @@ class CatalogueRepository(private val context: Context) {
             val o = arr.optJSONObject(i) ?: return@mapNotNull null
             val p = o.optString("p").takeIf { it.isNotEmpty() } ?: return@mapNotNull null
             CatalogueApp(p, o.optString("n", p), o.optString("u", ""), o.optString("c", null).takeIf { !it.isNullOrEmpty() && it != "null" },
-                if (o.has("a") && !o.isNull("a")) o.optString("a").takeIf { it.isNotEmpty() } else null)
+                if (o.has("a") && !o.isNull("a")) o.optString("a").takeIf { it.isNotEmpty() } else null,
+                if (o.has("i") && !o.isNull("i")) o.optString("i").takeIf { it.startsWith("https://") } else null)
         }
     }.getOrDefault(emptyList())
 
@@ -91,12 +95,14 @@ class CatalogueRepository(private val context: Context) {
                         val pkg = n.optString("androidPackage").takeIf { it.isNotEmpty() } ?: continue
                         if (EXCLUDED.any { pkg.startsWith(it) }) continue
                         val rel = n.optJSONObject("lastRelease")
+                        val icon = rel?.optJSONObject("icon")?.optString("uri")?.takeIf { it.startsWith("https://") }
                         val existing = out[pkg]
                         out[pkg] = CatalogueApp(pkg, rel?.optString("displayName")?.takeIf { it.isNotEmpty() } ?: existing?.name ?: pkg,
                             rel?.optString("updatedOn")?.take(10) ?: existing?.updated ?: "",
                             // First REAL category wins. A curated shelf ("Top Picks") is listed first by the store, so it
                             // used to become the label of every app on it; a shelf only fills in if nothing better exists.
-                            existing?.category?.takeUnless { it in CURATED_SHELVES } ?: if (shelf) existing?.category ?: name else name)
+                            existing?.category?.takeUnless { it in CURATED_SHELVES } ?: if (shelf) existing?.category ?: name else name,
+                            iconUri = icon ?: existing?.iconUri)
                     }
                     val pi = d.getJSONObject("pageInfo")
                     if (!pi.optBoolean("hasNextPage", false)) break
@@ -113,10 +119,10 @@ class CatalogueRepository(private val context: Context) {
             val extra = ((known.keys - out.keys) + (discover() + searched).filter { it !in out && it !in known }).filter { p -> EXCLUDED.none { p.startsWith(it) } }
             val live = live(extra)
             if (live == null) known.values.forEach { if (it.packageName !in out) out[it.packageName] = it }   // could not ask: keep what we had
-            else extra.forEach { p -> live[p]?.let { l -> out[p] = CatalogueApp(p, l.name, l.updated.ifEmpty { known[p]?.updated ?: "" }, known[p]?.category) } }
+            else extra.forEach { p -> live[p]?.let { l -> out[p] = CatalogueApp(p, l.name, l.updated.ifEmpty { known[p]?.updated ?: "" }, known[p]?.category, iconUri = l.icon ?: known[p]?.iconUri) } }
             // What this phone already had keeps its stamp; what it never listed before is this week's New.
-            out.replaceAll { p, a -> a.copy(addedIn = known[p]?.addedIn ?: if (p in known) null else batch) }
-            val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category).put("a", it.addedIn ?: JSONObject.NULL)) }
+            out.replaceAll { p, a -> a.copy(addedIn = known[p]?.addedIn ?: if (p in known) null else batch, iconUri = a.iconUri ?: known[p]?.iconUri) }
+            val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category).put("a", it.addedIn ?: JSONObject.NULL).put("i", it.iconUri ?: JSONObject.NULL)) }
             file.writeText(arr.toString())
             UserPreferences.catalogueRefreshedAt = System.currentTimeMillis()
             out.values.toList()
@@ -157,7 +163,7 @@ class CatalogueRepository(private val context: Context) {
         found
     }.getOrDefault(emptySet())
 
-    private class Live(val name: String, val updated: String)
+    private class Live(val name: String, val updated: String, val icon: String? = null)
 
     /** Which of [pkgs] the store lists now (name, last update), 20 per request; null if any request failed. */
     private suspend fun live(pkgs: Collection<String>): Map<String, Live>? = runCatching {
@@ -167,7 +173,8 @@ class CatalogueRepository(private val context: Context) {
             if (i > 0) kotlinx.coroutines.delay(1500)   // paced: the store's CDN blocks fast readers
             val arr = post("DAppsByPackages", Q_BATCH, JSONObject().put("systemContext", sc).put("androidPackages", JSONArray(chunk))).getJSONArray("dAppsByAndroidPackages")
             for (k in 0 until arr.length()) { val a = arr.getJSONObject(k); val rel = a.optJSONObject("lastRelease")
-                out[a.getString("androidPackage")] = Live(rel?.optString("displayName")?.takeIf { it.isNotEmpty() } ?: a.getString("androidPackage"), rel?.optString("updatedOn")?.take(10) ?: "") }
+                out[a.getString("androidPackage")] = Live(rel?.optString("displayName")?.takeIf { it.isNotEmpty() } ?: a.getString("androidPackage"), rel?.optString("updatedOn")?.take(10) ?: "",
+                    rel?.optJSONObject("icon")?.optString("uri")?.takeIf { it.startsWith("https://") }) }
         }
         out
     }.getOrElse { Log.w(TAG, "liveness check failed: ${it.message?.take(80)}"); null }
@@ -210,7 +217,7 @@ class CatalogueRepository(private val context: Context) {
         private const val SEARCH_SLICE = 52
         // `first` above 10 is rejected; omitted, the store returns the first 10 matches (Toolkit tools/discover_dapps.py).
         private const val Q_SEARCH = "query Search(\$systemContext: SystemContext!, \$searchText: String!, \$after: String) { search { results(systemContext: \$systemContext, searchText: \$searchText, after: \$after) { __typename ... on DAppsUnit { dApps { edges { node { androidPackage } } pageInfo { hasNextPage endCursor } } } } } }"
-        private const val Q_BATCH = "query DAppsByPackages(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn } } }"
-        private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } } } } pageInfo { hasNextPage endCursor } } } }"
+        private const val Q_BATCH = "query DAppsByPackages(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn icon { uri } } } }"
+        private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } icon { uri } } } } pageInfo { hasNextPage endCursor } } } }"
     }
 }

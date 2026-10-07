@@ -45,6 +45,16 @@ class DAppIconCache(context: Context) {
     /** A package marked "no icon" is asked about again after this long: an old answer may have been wrong. */
     private fun stale(pkg: String) = _state.value[pkg] == "" && System.currentTimeMillis() - missingAt.getLong("m:$pkg", 0L) > MISSING_RETRY_MS
 
+    /** Icon addresses the dApp list already carries: filled in where this cache has none (or "no icon"), no request sent. */
+    suspend fun seed(known: Map<String, String>) {
+        if (known.isEmpty()) return
+        mutex.withLock {
+            val merged = _state.value.toMutableMap(); var changed = false
+            known.forEach { (pkg, uri) -> if (merged[pkg].isNullOrEmpty() || merged[pkg] != uri) { merged[pkg] = uri; changed = true } }
+            if (changed) { _state.value = merged; persist(merged) }
+        }
+    }
+
     suspend fun resolve(packages: Collection<String>, paceMs: Long = 0L) {
         val unknown = packages.distinct().filter { it !in _state.value || stale(it) }
         if (unknown.isEmpty()) return
