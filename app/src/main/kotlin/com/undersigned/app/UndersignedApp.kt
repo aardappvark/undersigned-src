@@ -3,7 +3,18 @@ package com.undersigned.app
 import android.app.Application
 import com.undersigned.app.data.UserPreferences
 
-class UndersignedApp : Application() {
+class UndersignedApp : Application(), coil.ImageLoaderFactory {
+    /**
+     * dApp icons stay on the phone (owner, 7 Oct 2026: "should be loaded and saved on the device"): a 64 MB disk cache that
+     * ignores the store CDN's cache headers, so an icon seen once shows instantly from then on, offline too.
+     */
+    override fun newImageLoader(): coil.ImageLoader = coil.ImageLoader.Builder(this)
+        .diskCache { coil.disk.DiskCache.Builder().directory(cacheDir.resolve("dapp_icons")).maxSizeBytes(64L * 1024 * 1024).build() }
+        .memoryCache { coil.memory.MemoryCache.Builder(this).maxSizePercent(0.15).build() }
+        .respectCacheHeaders(false)
+        .crossfade(false)
+        .build()
+
     override fun onCreate() {
         super.onCreate()
         try { UserPreferences.init(this) } catch (_: Exception) { }

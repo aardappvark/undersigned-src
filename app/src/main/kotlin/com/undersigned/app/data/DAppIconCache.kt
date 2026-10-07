@@ -36,10 +36,11 @@ class DAppIconCache(context: Context) {
 
     fun cached(pkg: String): String? = _state.value[pkg]?.takeIf { it.isNotEmpty() }
 
-    suspend fun resolve(packages: Collection<String>) {
+    suspend fun resolve(packages: Collection<String>, paceMs: Long = 0L) {
         val unknown = packages.distinct().filter { it !in _state.value }
         if (unknown.isEmpty()) return
-        for (batch in unknown.chunked(BATCH)) {
+        for ((i, batch) in unknown.chunked(BATCH).withIndex()) {
+            if (i > 0 && paceMs > 0) kotlinx.coroutines.delay(paceMs)   // the store's CDN blocks fast readers
             val resolved = fetch(batch) ?: continue
             mutex.withLock {
                 val merged = _state.value.toMutableMap()

@@ -97,8 +97,12 @@ fun AlphaRail(keys: List<String>, names: Map<String, String>, listState: LazyLis
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 anchors.forEachIndexed { i, (c, _) ->
                     val on = i == active
-                    Text(c.toString(), fontSize = 11.sp, fontWeight = FontWeight.Bold, color = if (on) RbColors.textPrimary else RbColors.purpleLight, textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(vertical = 0.5.dp).clip(CircleShape).background(if (on) RbColors.purple.copy(alpha = 0.35f) else Color.Transparent).size(width = 20.dp, height = 16.dp))
+                    // A fixed cell with the letter centred in it, so the highlight sits exactly on the letter (the oval was
+                    // offset when the text's line height and the cell disagreed, owner 7 Oct 2026).
+                    Box(Modifier.size(18.dp).clip(CircleShape).background(if (on) RbColors.purple.copy(alpha = 0.45f) else Color.Transparent), contentAlignment = Alignment.Center) {
+                        Text(c.toString(), fontSize = 11.sp, lineHeight = 11.sp, fontWeight = FontWeight.Bold, color = if (on) RbColors.textPrimary else RbColors.purpleLight, textAlign = TextAlign.Center,
+                            style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false), lineHeightStyle = androidx.compose.ui.text.style.LineHeightStyle(androidx.compose.ui.text.style.LineHeightStyle.Alignment.Center, androidx.compose.ui.text.style.LineHeightStyle.Trim.Both)))
+                    }
                 }
             }
         }

@@ -884,6 +884,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** Icons for the rows currently on screen; cached results are never refetched. */
     fun resolveIcons(packages: List<String>) { if (packages.isNotEmpty()) viewModelScope.launch(Dispatchers.IO) { runCatching { iconCache.resolve(packages) } } }
 
+    /**
+     * Every icon address in the list, looked up once in the background (15 per request, paced) and kept on the phone,
+     * so the whole list has icons without waiting for each row to scroll into view. Only Browse's first 60 used to be
+     * asked for, so everything further down showed letters (owner, 7 Oct 2026).
+     */
+    private var iconFill: kotlinx.coroutines.Job? = null
+    fun fillIcons() { if (iconFill?.isActive == true) return
+        iconFill = viewModelScope.launch(Dispatchers.IO) { kotlinx.coroutines.delay(5_000); runCatching { iconCache.resolve(catalogue.value.map { it.packageName }, paceMs = 1_200L) } } }
+
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback
     fun deviceFacts(pkg: String) = installedApps.factsWithDelta(pkg)
     fun clearLocalCaches() { board.clear(); ledgerCache.clear(); UserPreferences.clearFacts(); entries.value = emptyList(); scores.value = emptyMap(); facts.value = emptyMap(); txMeta.value = emptyMap(); pro.value = null }

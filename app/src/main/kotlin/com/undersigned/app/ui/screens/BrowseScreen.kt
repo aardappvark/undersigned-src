@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.RateReview
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import coil.imageLoader
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.undersigned.app.ui.components.AlphaRail
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -110,8 +111,17 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
         else apps.groupBy { it.category ?: uncategorised }.flatMap { (c, l) -> listOf(Row.Head(c, l.size)) + l.map { Row.App(it) } }
     }
 
-    LaunchedEffect(apps) { vm.resolveIcons(apps.take(60).map { it.packageName }) }
+    LaunchedEffect(apps) { vm.resolveIcons(apps.take(60).map { it.packageName }); vm.fillIcons() }
     val listState = rememberLazyListState()
+    // Icons for what is on screen and the next 40 rows, as the list scrolls; their images are fetched ahead so they
+    // are already on the phone when the rows arrive.
+    LaunchedEffect(listState, apps) {
+        snapshotFlow { listState.firstVisibleItemIndex }.collect { first ->
+            val ahead = apps.drop((first - 5).coerceAtLeast(0)).take(50).map { it.packageName }
+            vm.resolveIcons(ahead)
+            ahead.mapNotNull { icons[it]?.takeIf { u -> u.isNotEmpty() } }.forEach { u -> context.imageLoader.enqueue(coil.request.ImageRequest.Builder(context).data(u).build()) }
+        }
+    }
     val firstKey = rows.firstOrNull()?.let { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }
     // Back to the top when the list itself changes, but not on returning to this screen (its position is restored).
     var shownKey by rememberSaveable { mutableStateOf<String?>(null) }
@@ -248,7 +258,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                 }
             }
               if (showRail) AlphaRail(railKeys, railNames, listState, isAlphaOrder = sort == Sort.NAME, onRequestAlphaOrder = { sort = Sort.NAME },
-                  modifier = Modifier.align(Alignment.CenterEnd).padding(vertical = 8.dp))
+                  modifier = Modifier.align(Alignment.TopEnd).padding(top = 8.dp, bottom = 72.dp))   // high on the screen: Z was near the bottom edge
               } }
         }
     }
