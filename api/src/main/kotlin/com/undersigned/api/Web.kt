@@ -29,6 +29,9 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/icon.svg" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=86400"), ICON.toByteArray(), "image/svg+xml; charset=utf-8")
             path == "/report" -> page("Report content — Undersigned", report())
             path == "/moderation" -> page("Moderation — Undersigned", moderation())
+            // This site is the website Undersigned's store listing names: its own publisher proof lives here.
+            path == "/.well-known/undersigned.txt" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"),
+                raw = "DD4aPDhf396NhNDxa4PBVf1u3uzCUP2QYm2dFMmJWq2Q\nHVXVfQDD1jrt6kBFRNDFcftDE2usWbyWzEDWs367yDaD\ntreasury: DD4aPDhf396NhNDxa4PBVf1u3uzCUP2QYm2dFMmJWq2Q\n".toByteArray(), contentType = "text/plain; charset=utf-8")
             path == "/robots.txt" -> Api.Response(200, JSONObject(), raw = "User-agent: *\nAllow: /\nDisallow: /v1/\nSitemap: ${Config.PUBLIC_URL}/sitemap.xml\n".toByteArray(), contentType = "text/plain; charset=utf-8")
             path == "/sitemap.xml" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"), sitemap().toByteArray(), "application/xml; charset=utf-8")
             path == "/watch" -> page("Store watch — Undersigned", watch())

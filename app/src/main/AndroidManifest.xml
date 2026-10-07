@@ -30,6 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Undersigned">
+        <!-- Publisher proof for Undersigned itself: the wallets that publish it (the store's build carries this line). -->
+        <meta-data android:name="undersigned.publisher" android:value="DD4aPDhf396NhNDxa4PBVf1u3uzCUP2QYm2dFMmJWq2Q,HVXVfQDD1jrt6kBFRNDFcftDE2usWbyWzEDWs367yDaD" />
 
         <!-- Portrait only: the owner approved the design handoff's §4.1 on 15 Sep 2026 ("do all"). The photo-led
              screens crop badly in a landscape dock. This is the one app-level orientation declaration in the fleet. -->

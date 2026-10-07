@@ -23,8 +23,8 @@ android {
         applicationId = "com.undersigned.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 10
+        versionName = "1.0.0"
         // Keyed RPC provider from local.properties — never in source control. Empty = public pools only.
         resValue("string", "helius_api_key", localProperties.getProperty("HELIUS_API_KEY", ""))
         // Fleet last-resort key: lives ONLY in ~/.gradle/gradle.properties (never committed). Appended LAST.
@@ -79,7 +79,11 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // Solana Mobile Wallet Adapter (SIWS + signAndSendTransactions)
-    implementation("com.solanamobile:mobile-wallet-adapter-clientlib-ktx:2.0.3")
+    // MWA clientlib-ktx 2.0.3 declares androidx.test.ext:junit (and so androidx.test:core and junit) as runtime
+    // dependencies: test code shipped in the release APK and added REORDER_TASKS to its permissions (found 7 Oct 2026).
+    implementation("com.solanamobile:mobile-wallet-adapter-clientlib-ktx:2.0.3") {
+        exclude(group = "androidx.test.ext"); exclude(group = "androidx.test"); exclude(group = "junit"); exclude(group = "org.hamcrest")
+    }
     // Periodic ledger watch for local notifications (followed apps, replies to my reviews)
     implementation("androidx.work:work-runtime-ktx:2.9.1")
     // dApp icons from the store's icon URIs (Toolkit pattern)
