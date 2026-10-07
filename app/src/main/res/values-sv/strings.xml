@@ -875,4 +875,23 @@
         <item quantity="one">Inkorg, %1$d ny</item>
         <item quantity="other">Inkorg, %1$d nya</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Ny vecka, nya dApps</string>
+    <string name="catalogue_week_body">Din lista har %1$s dApps från %2$s. Uppdatera den för att se vad som har lagts till sedan dess.</string>
+    <string name="catalogue_week_bundled">Din lista har de %1$s dApps som följde med den här versionen. Uppdatera den för att se allt som finns i butiken nu.</string>
+    <string name="catalogue_update">Uppdatera dApps</string>
+    <string name="catalogue_updating">Uppdaterar dApp-listan… %1$s</string>
+    <string name="catalogue_failed">Det gick inte att uppdatera dApp-listan. Kontrollera anslutningen och försök igen.</string>
+    <string name="catalogue_done">Uppdaterad: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · uppdaterad %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · från den här versionen av appen</string>
+    <string name="settings_catalogue_title">dApp-lista</string>
+    <string name="settings_catalogue_auto">Uppdatera varje måndagsmorgon</string>
+    <string name="settings_catalogue_auto_body">Hämtar hela dApp Store-listan i bakgrunden varje måndag kl. 7:00, så att nya appar finns här när du öppnar Undersigned.</string>
+    <string name="pro_tool_catalogue_title">dApp-listan, varje måndag</string>
+    <string name="pro_tool_catalogue_body">Hela dApp Store-listan uppdaterar sig själv i bakgrunden varje måndagsmorgon. Utan Pro trycker du på Uppdatera under Bläddra.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d ny</item>
+        <item quantity="other">%1$d nya</item>
+    </plurals>
 </resources>

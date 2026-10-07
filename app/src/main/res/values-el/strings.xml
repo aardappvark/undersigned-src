@@ -874,4 +874,23 @@
         <item quantity="one">Εισερχόμενα, %1$d νέο</item>
         <item quantity="other">Εισερχόμενα, %1$d νέα</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Νέα εβδομάδα, νέα dApps</string>
+    <string name="catalogue_week_body">Η λίστα σας έχει %1$s dApps από %2$s. Ενημερώστε την για να δείτε τι προστέθηκε από τότε.</string>
+    <string name="catalogue_week_bundled">Η λίστα σας έχει τα %1$s dApps που περιλάμβανε αυτή η έκδοση. Ενημερώστε την για να δείτε όλα όσα υπάρχουν τώρα στο κατάστημα.</string>
+    <string name="catalogue_update">Ενημέρωση dApps</string>
+    <string name="catalogue_updating">Ενημέρωση της λίστας dApps… %1$s</string>
+    <string name="catalogue_failed">Δεν ήταν δυνατή η ενημέρωση της λίστας dApps. Ελέγξτε τη σύνδεση και δοκιμάστε ξανά.</string>
+    <string name="catalogue_done">Ενημερωμένη: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · ενημερώθηκε %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · από αυτή την έκδοση της εφαρμογής</string>
+    <string name="settings_catalogue_title">Λίστα dApps</string>
+    <string name="settings_catalogue_auto">Ενημέρωση κάθε Δευτέρα πρωί</string>
+    <string name="settings_catalogue_auto_body">Κατεβάζει στο παρασκήνιο την πλήρη λίστα του dApp Store κάθε Δευτέρα στις 7:00, ώστε οι νέες εφαρμογές να είναι εδώ όταν ανοίγετε το Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Η λίστα dApps, κάθε Δευτέρα</string>
+    <string name="pro_tool_catalogue_body">Η πλήρης λίστα του dApp Store ενημερώνεται μόνη της στο παρασκήνιο κάθε Δευτέρα πρωί. Χωρίς Pro, πατήστε Ενημέρωση στην Περιήγηση.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d νέο</item>
+        <item quantity="other">%1$d νέα</item>
+    </plurals>
 </resources>

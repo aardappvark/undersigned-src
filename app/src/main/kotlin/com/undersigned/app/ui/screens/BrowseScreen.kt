@@ -38,6 +38,7 @@ import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.ui.LedgerStatus
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.ChipRow
+import com.undersigned.app.ui.components.GlassCard
 import com.undersigned.app.ui.components.DAppIcon
 import com.undersigned.app.ui.components.EmptyState
 import com.undersigned.app.ui.components.Pill
@@ -138,6 +139,14 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             if (status is LedgerStatus.Error) TextButton(onClick = { vm.syncLedger() }, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.ledger_retry), color = RbColors.purpleLight, fontSize = 12.sp) }
             else TextButton(onClick = onStats, contentPadding = PaddingValues(horizontal = 6.dp)) { Text(stringResource(R.string.stats_open), color = RbColors.purpleLight, fontSize = 12.sp) }
         }
+        // The dApp list: an Update banner once it is older than this week's Monday morning, progress while it runs, and
+        // what it found when done (owner, 7 Oct 2026). Pro refreshes in the background instead (Settings).
+        val catRefreshedAt by vm.catalogueRefreshedAt.collectAsState()
+        val catProgress by vm.catalogueProgress.collectAsState()
+        val catResult by vm.catalogueResult.collectAsState()
+        val catFailed by vm.catalogueFailed.collectAsState()
+        val lastWeeks = remember(catRefreshedAt) { com.undersigned.app.notify.CatalogueWorker.isLastWeeks(catRefreshedAt) }
+        if (refreshing || catFailed || catResult != null || lastWeeks) CatalogueBar(refreshing, catProgress, catResult, catFailed, catRefreshedAt, catalogue.size) { vm.refreshCatalogue() }
         OutlinedTextField(
             value = query, onValueChange = { query = it }, singleLine = true,
             placeholder = { Text(stringResource(R.string.browse_search_hint), color = RbColors.textTertiary) },
@@ -180,6 +189,15 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                         HorizontalDivider(color = RbColors.surfaceVariant, thickness = 1.dp)
                     }
                 }
+                if (tab == Tab.ALL && !refreshing) item(key = "catalogue-line") {
+                    val catAt by vm.catalogueRefreshedAt.collectAsState()
+                    androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        val n = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(catalogue.size)
+                        Text(if (catAt > 0) stringResource(R.string.catalogue_line, n, java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(catAt))) else stringResource(R.string.catalogue_line_bundled, n),
+                            color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.weight(1f))
+                        TextButton(onClick = { vm.refreshCatalogue() }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.catalogue_update), color = RbColors.purpleLight, fontSize = 12.sp) }
+                    }
+                }
                 items(rows, key = { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }) { r ->
                     when (r) {
                         is Row.Head -> CategoryHead(r.category, r.count)
@@ -192,6 +210,30 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                     }
                 }
             } }
+        }
+    }
+}
+
+/** The dApp list's state with its Update button: last week's list, updating, done (+N new) or failed. */
+@Composable
+private fun CatalogueBar(running: Boolean, progress: String?, added: Int?, failed: Boolean, refreshedAt: Long, total: Int, onUpdate: () -> Unit) {
+    val count = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(total)
+    val since = if (refreshedAt > 0) java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(refreshedAt)) else null
+    GlassCard(Modifier.padding(horizontal = 16.dp, vertical = 4.dp), accent = if (failed) RbColors.negative else RbColors.glassBorder) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                when {
+                    running -> Text(stringResource(R.string.catalogue_updating, progress ?: ""), color = RbColors.purpleLight, fontSize = 13.sp)
+                    failed -> Text(stringResource(R.string.catalogue_failed), color = RbColors.negative, fontSize = 13.sp, lineHeight = 18.sp)
+                    added != null -> Text(stringResource(R.string.catalogue_done, count) + " · " + pluralStringResource(R.plurals.catalogue_new, added, added), color = RbColors.green, fontSize = 13.sp)
+                    else -> {
+                        Text(stringResource(R.string.catalogue_week_title), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                        Text(if (since != null) stringResource(R.string.catalogue_week_body, count, since) else stringResource(R.string.catalogue_week_bundled, count), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    }
+                }
+            }
+            if (!running && added == null) { Spacer(Modifier.width(8.dp)); TextButton(onClick = onUpdate, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.catalogue_update), color = RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold) } }
+            if (running) CircularProgressIndicator(Modifier.size(18.dp), color = RbColors.purpleLight, strokeWidth = 2.dp)
         }
     }
 }

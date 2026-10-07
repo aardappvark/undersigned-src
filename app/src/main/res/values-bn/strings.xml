@@ -870,4 +870,23 @@
         <item quantity="one">ইনবক্স, %1$d টি নতুন</item>
         <item quantity="other">ইনবক্স, %1$d টি নতুন</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">নতুন সপ্তাহ, নতুন dApp</string>
+    <string name="catalogue_week_body">আপনার তালিকায় %2$s পর্যন্ত %1$sটি dApp আছে। এরপর কী যোগ হয়েছে দেখতে আপডেট করুন।</string>
+    <string name="catalogue_week_bundled">আপনার তালিকায় এই সংস্করণের সঙ্গে আসা %1$sটি dApp আছে। এখন স্টোরে যা আছে সব দেখতে আপডেট করুন।</string>
+    <string name="catalogue_update">dApp আপডেট করুন</string>
+    <string name="catalogue_updating">dApp তালিকা আপডেট হচ্ছে… %1$s</string>
+    <string name="catalogue_failed">dApp তালিকা আপডেট করা যায়নি। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</string>
+    <string name="catalogue_done">সর্বশেষ অবস্থায় আছে: %1$sটি dApp</string>
+    <string name="catalogue_line">%1$sটি dApp · আপডেট হয়েছে %2$s</string>
+    <string name="catalogue_line_bundled">%1$sটি dApp · অ্যাপের এই সংস্করণ থেকে</string>
+    <string name="settings_catalogue_title">dApp তালিকা</string>
+    <string name="settings_catalogue_auto">প্রতি সোমবার সকালে আপডেট</string>
+    <string name="settings_catalogue_auto_body">প্রতি সোমবার সকাল ৭:০০টায় ব্যাকগ্রাউন্ডে dApp Store-এর পূর্ণ তালিকা ডাউনলোড করে, যাতে Undersigned খুললে নতুন অ্যাপগুলো এখানে থাকে।</string>
+    <string name="pro_tool_catalogue_title">dApp তালিকা, প্রতি সোমবার</string>
+    <string name="pro_tool_catalogue_body">dApp Store-এর পূর্ণ তালিকা প্রতি সোমবার সকালে ব্যাকগ্রাউন্ডে নিজে থেকে আপডেট হয়। Pro ছাড়া ব্রাউজ-এ আপডেট ট্যাপ করুন।</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$dটি নতুন</item>
+        <item quantity="other">%1$dটি নতুন</item>
+    </plurals>
 </resources>

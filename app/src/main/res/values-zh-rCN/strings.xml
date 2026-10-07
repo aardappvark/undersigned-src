@@ -865,4 +865,22 @@
     <plurals name="inbox_a11y">
         <item quantity="other">收件箱，%1$d 条新消息</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">新的一周,新的 dApp</string>
+    <string name="catalogue_week_body">您的列表中有 %1$s 个 dApp,截至 %2$s。更新后即可查看此后新增的内容。</string>
+    <string name="catalogue_week_bundled">您的列表中有此版本自带的 %1$s 个 dApp。更新后即可查看商店中目前的全部内容。</string>
+    <string name="catalogue_update">更新 dApp</string>
+    <string name="catalogue_updating">正在更新 dApp 列表… %1$s</string>
+    <string name="catalogue_failed">无法更新 dApp 列表。请检查网络连接后重试。</string>
+    <string name="catalogue_done">已是最新: %1$s 个 dApp</string>
+    <string name="catalogue_line">%1$s 个 dApp · 更新于 %2$s</string>
+    <string name="catalogue_line_bundled">%1$s 个 dApp · 来自此版本的应用</string>
+    <string name="settings_catalogue_title">dApp 列表</string>
+    <string name="settings_catalogue_auto">每周一早晨更新</string>
+    <string name="settings_catalogue_auto_body">每周一 7:00 在后台下载 dApp Store 的完整列表,这样您打开 Undersigned 时,新应用已经在这里了。</string>
+    <string name="pro_tool_catalogue_title">dApp 列表,每周一更新</string>
+    <string name="pro_tool_catalogue_body">dApp Store 的完整列表会在每周一早晨于后台自动更新。没有 Pro 时,请在“浏览”中点按“更新”。</string>
+    <plurals name="catalogue_new">
+        <item quantity="other">%1$d 个新增</item>
+    </plurals>
 </resources>

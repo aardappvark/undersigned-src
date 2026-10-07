@@ -866,4 +866,22 @@
     <plurals name="inbox_a11y">
         <item quantity="other">Hộp thư, %1$d mới</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Tuần mới, dApp mới</string>
+    <string name="catalogue_week_body">Danh sách của bạn có %1$s dApp tính đến %2$s. Hãy cập nhật để xem những gì đã được thêm kể từ đó.</string>
+    <string name="catalogue_week_bundled">Danh sách của bạn có %1$s dApp đi kèm phiên bản này. Hãy cập nhật để xem mọi thứ hiện có trong cửa hàng.</string>
+    <string name="catalogue_update">Cập nhật dApp</string>
+    <string name="catalogue_updating">Đang cập nhật danh sách dApp… %1$s</string>
+    <string name="catalogue_failed">Không thể cập nhật danh sách dApp. Hãy kiểm tra kết nối và thử lại.</string>
+    <string name="catalogue_done">Đã cập nhật: %1$s dApp</string>
+    <string name="catalogue_line">%1$s dApp · cập nhật %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApp · từ phiên bản này của ứng dụng</string>
+    <string name="settings_catalogue_title">Danh sách dApp</string>
+    <string name="settings_catalogue_auto">Cập nhật vào sáng thứ Hai hằng tuần</string>
+    <string name="settings_catalogue_auto_body">Tải danh sách dApp Store đầy đủ ở chế độ nền vào 7:00 sáng thứ Hai hằng tuần, để ứng dụng mới đã có sẵn khi bạn mở Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Danh sách dApp, mỗi thứ Hai</string>
+    <string name="pro_tool_catalogue_body">Danh sách dApp Store đầy đủ tự cập nhật ở chế độ nền vào sáng thứ Hai hằng tuần. Không có Pro, hãy chạm Cập nhật trong Duyệt xem.</string>
+    <plurals name="catalogue_new">
+        <item quantity="other">%1$d mới</item>
+    </plurals>
 </resources>

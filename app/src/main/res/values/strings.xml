@@ -900,4 +900,23 @@
         <item quantity="one">Inbox, %1$d new</item>
         <item quantity="other">Inbox, %1$d new</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">New week, new dApps</string>
+    <string name="catalogue_week_body">Your list has %1$s dApps from %2$s. Update it to see what was added since.</string>
+    <string name="catalogue_week_bundled">Your list has the %1$s dApps this version shipped with. Update it to see everything in the store now.</string>
+    <string name="catalogue_update">Update dApps</string>
+    <string name="catalogue_updating">Updating the dApp list… %1$s</string>
+    <string name="catalogue_failed">Couldn\'t update the dApp list. Check the connection and try again.</string>
+    <string name="catalogue_done">Up to date: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · updated %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · from this version of the app</string>
+    <string name="settings_catalogue_title">dApp list</string>
+    <string name="settings_catalogue_auto">Update every Monday morning</string>
+    <string name="settings_catalogue_auto_body">Downloads the full dApp Store list in the background each Monday at 7:00, so new apps are here when you open Undersigned.</string>
+    <string name="pro_tool_catalogue_title">The dApp list, every Monday</string>
+    <string name="pro_tool_catalogue_body">The full dApp Store list updates itself in the background each Monday morning. Without Pro, tap Update on Browse.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d new</item>
+        <item quantity="other">%1$d new</item>
+    </plurals>
 </resources>

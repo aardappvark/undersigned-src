@@ -300,6 +300,32 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 }
             }
 
+            // The dApp list: Pro refreshes it in the background every Monday morning; everyone has the Update button on Browse.
+            SectionTitle(stringResource(R.string.settings_catalogue_title), trailing = { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) })
+            GlassCard {
+                var auto by remember { mutableStateOf(UserPreferences.catalogueAuto) }
+                val isPro = pro?.active == true
+                fun setAuto(on: Boolean) {
+                    auto = on; UserPreferences.catalogueAuto = on
+                    if (on && isPro) com.undersigned.app.notify.CatalogueWorker.schedule(context) else com.undersigned.app.notify.CatalogueWorker.cancel(context)
+                }
+                Row(Modifier.toggleable(value = auto && isPro, enabled = isPro, role = androidx.compose.ui.semantics.Role.Switch) { setAuto(it) }, verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.settings_catalogue_auto), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.settings_catalogue_auto_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    }
+                    Switch(checked = auto && isPro, onCheckedChange = null, enabled = isPro, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                }
+                if (!isPro) { Spacer(Modifier.height(8.dp)); com.undersigned.app.ui.screens.ProLock(hint = stringResource(R.string.settings_catalogue_auto), onPro = onPro) }
+                Spacer(Modifier.height(6.dp))
+                val catAt by vm.catalogueRefreshedAt.collectAsState()
+                val refreshingCat by vm.catalogueRefreshing.collectAsState()
+                val catalogueNow by vm.catalogue.collectAsState()
+                val n = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(catalogueNow.size)
+                Text(if (catAt > 0) stringResource(R.string.catalogue_line, n, df.format(java.util.Date(catAt))) else stringResource(R.string.catalogue_line_bundled, n), color = RbColors.textTertiary, fontSize = 11.sp)
+                SecondaryButton(stringResource(R.string.catalogue_update), enabled = !refreshingCat, onClick = { vm.refreshCatalogue() }, modifier = Modifier.padding(top = 6.dp))
+            }
+
             SectionTitle(stringResource(R.string.density_title))
             GlassCard {
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {

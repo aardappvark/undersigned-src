@@ -65,6 +65,8 @@ object AppConfig {
 
     object Store {
         const val GRAPHQL = "https://dappstore.solanamobile.com/graphql"
+        /** The store's publisher portal records, public on Arweave: finds listings that sit in no category. */
+        const val ARWEAVE_GRAPHQL = "https://arweave.net/graphql"
         const val DEEP_LINK = "solanadappstore://details?id="
         /** Bundled catalogue snapshot (package, name, updated, category) refreshed in the background. */
         const val SNAPSHOT_ASSET = "catalogue_snapshot.json"

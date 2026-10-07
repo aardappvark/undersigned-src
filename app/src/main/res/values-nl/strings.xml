@@ -883,4 +883,23 @@
         <item quantity="one">Postvak, %1$d nieuw</item>
         <item quantity="other">Postvak, %1$d nieuw</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Nieuwe week, nieuwe dApps</string>
+    <string name="catalogue_week_body">Uw lijst bevat %1$s dApps van %2$s. Werk de lijst bij om te zien wat er sindsdien is toegevoegd.</string>
+    <string name="catalogue_week_bundled">Uw lijst bevat de %1$s dApps die bij deze versie zaten. Werk de lijst bij om alles te zien wat nu in de store staat.</string>
+    <string name="catalogue_update">dApps bijwerken</string>
+    <string name="catalogue_updating">dApp-lijst bijwerken… %1$s</string>
+    <string name="catalogue_failed">De dApp-lijst kon niet worden bijgewerkt. Controleer de verbinding en probeer het opnieuw.</string>
+    <string name="catalogue_done">Up-to-date: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · bijgewerkt %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · uit deze versie van de app</string>
+    <string name="settings_catalogue_title">dApp-lijst</string>
+    <string name="settings_catalogue_auto">Elke maandagochtend bijwerken</string>
+    <string name="settings_catalogue_auto_body">Downloadt elke maandag om 7:00 uur op de achtergrond de volledige dApp Store-lijst, zodat nieuwe apps er al staan wanneer u Undersigned opent.</string>
+    <string name="pro_tool_catalogue_title">De dApp-lijst, elke maandag</string>
+    <string name="pro_tool_catalogue_body">De volledige dApp Store-lijst werkt zichzelf elke maandagochtend op de achtergrond bij. Zonder Pro tikt u in Bladeren op Bijwerken.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d nieuw</item>
+        <item quantity="other">%1$d nieuw</item>
+    </plurals>
 </resources>

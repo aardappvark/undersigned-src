@@ -885,4 +885,24 @@
         <item quantity="few">Primite, %1$d noi</item>
         <item quantity="other">Primite, %1$d noi</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Săptămână nouă, dApps noi</string>
+    <string name="catalogue_week_body">Lista ta conține %1$s dApps din %2$s. Actualizeaz-o ca să vezi ce s-a adăugat de atunci.</string>
+    <string name="catalogue_week_bundled">Lista ta conține cele %1$s dApps livrate cu această versiune. Actualizeaz-o ca să vezi tot ce este acum în magazin.</string>
+    <string name="catalogue_update">Actualizează dApps</string>
+    <string name="catalogue_updating">Se actualizează lista dApps… %1$s</string>
+    <string name="catalogue_failed">Lista dApps nu a putut fi actualizată. Verifică conexiunea și încearcă din nou.</string>
+    <string name="catalogue_done">La zi: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · actualizată %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · din această versiune a aplicației</string>
+    <string name="settings_catalogue_title">Lista dApps</string>
+    <string name="settings_catalogue_auto">Actualizează în fiecare luni dimineața</string>
+    <string name="settings_catalogue_auto_body">Descarcă în fundal lista completă din dApp Store în fiecare luni la 7:00, ca aplicațiile noi să fie aici când deschizi Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Lista dApps, în fiecare luni</string>
+    <string name="pro_tool_catalogue_body">Lista completă din dApp Store se actualizează singură în fundal în fiecare luni dimineața. Fără Pro, atinge Actualizează în Răsfoiește.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d nou</item>
+        <item quantity="few">%1$d noi</item>
+        <item quantity="other">%1$d de noi</item>
+    </plurals>
 </resources>

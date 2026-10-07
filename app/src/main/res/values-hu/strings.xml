@@ -874,4 +874,23 @@
         <item quantity="one">Beérkezett, %1$d új</item>
         <item quantity="other">Beérkezett, %1$d új</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Új hét, új dApp-ok</string>
+    <string name="catalogue_week_body">A listád %1$s dApp-ot tartalmaz, %2$s állapot szerint. Frissítsd, hogy lásd, mi került be azóta.</string>
+    <string name="catalogue_week_bundled">A listád a verzióval együtt érkezett %1$s dApp-ot tartalmazza. Frissítsd, hogy lásd, mi van most az áruházban.</string>
+    <string name="catalogue_update">dApp-ok frissítése</string>
+    <string name="catalogue_updating">A dApp-lista frissítése… %1$s</string>
+    <string name="catalogue_failed">Nem sikerült frissíteni a dApp-listát. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
+    <string name="catalogue_done">Naprakész: %1$s dApp</string>
+    <string name="catalogue_line">%1$s dApp · frissítve: %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApp · az alkalmazás ezen verziójából</string>
+    <string name="settings_catalogue_title">dApp-lista</string>
+    <string name="settings_catalogue_auto">Frissítés minden hétfő reggel</string>
+    <string name="settings_catalogue_auto_body">Minden hétfőn 7:00-kor a háttérben letölti a teljes dApp Store-listát, hogy az új alkalmazások már itt legyenek, amikor megnyitod az Undersigned-ot.</string>
+    <string name="pro_tool_catalogue_title">A dApp-lista, minden hétfőn</string>
+    <string name="pro_tool_catalogue_body">A teljes dApp Store-lista minden hétfő reggel magától frissül a háttérben. Pro nélkül koppints a Frissítés gombra a Böngészés fülön.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d új</item>
+        <item quantity="other">%1$d új</item>
+    </plurals>
 </resources>

@@ -917,4 +917,27 @@
         <item quantity="many">الوارد، %1$d جديد</item>
         <item quantity="other">الوارد، %1$d جديد</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">أسبوع جديد، dApps جديدة</string>
+    <string name="catalogue_week_body">تضم قائمتك %1$s من dApps بتاريخ %2$s. حدّثها لترى ما أُضيف منذ ذلك الحين.</string>
+    <string name="catalogue_week_bundled">تضم قائمتك %1$s من dApps التي جاء بها هذا الإصدار. حدّثها لترى كل ما في المتجر الآن.</string>
+    <string name="catalogue_update">تحديث dApps</string>
+    <string name="catalogue_updating">جارٍ تحديث قائمة dApps… %1$s</string>
+    <string name="catalogue_failed">تعذّر تحديث قائمة dApps. تحقق من الاتصال وحاول مرة أخرى.</string>
+    <string name="catalogue_done">القائمة محدّثة: %1$s من dApps</string>
+    <string name="catalogue_line">%1$s من dApps · حُدّثت %2$s</string>
+    <string name="catalogue_line_bundled">%1$s من dApps · من هذا الإصدار من التطبيق</string>
+    <string name="settings_catalogue_title">قائمة dApps</string>
+    <string name="settings_catalogue_auto">التحديث صباح كل اثنين</string>
+    <string name="settings_catalogue_auto_body">ينزّل قائمة dApp Store الكاملة في الخلفية كل اثنين عند الساعة 7:00، فتجد التطبيقات الجديدة هنا عند فتح Undersigned.</string>
+    <string name="pro_tool_catalogue_title">قائمة dApps، كل اثنين</string>
+    <string name="pro_tool_catalogue_body">تُحدَّث قائمة dApp Store الكاملة تلقائيًا في الخلفية صباح كل اثنين. بدون Pro، اضغط تحديث في تصفح.</string>
+    <plurals name="catalogue_new">
+        <item quantity="zero">%1$d جديد</item>
+        <item quantity="one">%1$d جديد</item>
+        <item quantity="two">%1$d جديدان</item>
+        <item quantity="few">%1$d جديدة</item>
+        <item quantity="many">%1$d جديدًا</item>
+        <item quantity="other">%1$d جديد</item>
+    </plurals>
 </resources>

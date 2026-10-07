@@ -903,4 +903,23 @@
         <item quantity="one">Boîte de réception, %1$d nouveau</item>
         <item quantity="other">Boîte de réception, %1$d nouveaux</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Nouvelle semaine, nouvelles dApps</string>
+    <string name="catalogue_week_body">Votre liste contient %1$s dApps au %2$s. Mettez-la à jour pour voir ce qui a été ajouté depuis.</string>
+    <string name="catalogue_week_bundled">Votre liste contient les %1$s dApps fournies avec cette version. Mettez-la à jour pour voir tout ce que le store propose maintenant.</string>
+    <string name="catalogue_update">Mettre à jour les dApps</string>
+    <string name="catalogue_updating">Mise à jour de la liste des dApps… %1$s</string>
+    <string name="catalogue_failed">Impossible de mettre à jour la liste des dApps. Vérifiez la connexion et réessayez.</string>
+    <string name="catalogue_done">À jour : %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · mise à jour %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · de cette version de l’application</string>
+    <string name="settings_catalogue_title">Liste des dApps</string>
+    <string name="settings_catalogue_auto">Mettre à jour chaque lundi matin</string>
+    <string name="settings_catalogue_auto_body">Télécharge en arrière-plan la liste complète du dApp Store chaque lundi à 7 h 00, pour que les nouvelles applications soient déjà là quand vous ouvrez Undersigned.</string>
+    <string name="pro_tool_catalogue_title">La liste des dApps, chaque lundi</string>
+    <string name="pro_tool_catalogue_body">La liste complète du dApp Store se met à jour toute seule en arrière-plan chaque lundi matin. Sans Pro, touchez Mettre à jour dans Parcourir.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d nouvelle</item>
+        <item quantity="other">%1$d nouvelles</item>
+    </plurals>
 </resources>

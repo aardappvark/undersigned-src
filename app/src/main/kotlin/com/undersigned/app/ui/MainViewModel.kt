@@ -143,9 +143,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         // chain above it waited on the whole ledger sync, and a phone opened briefly never got to it: the airdropper
         // was still on the bundled 8 Sep catalogue — old category names, the dApp Store labelled "Games" — days
         // after install (24 Sep 2026).
-        viewModelScope.launch(Dispatchers.IO) {
-            if (catalogueRepo.isStale()) catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
-        }
+        // No crawl on open any more (owner, 7 Oct 2026): the full list is a few hundred store requests. Browse offers an Update
+        // button once the list is older than this week's Monday morning; Pro gets it in the background (CatalogueWorker).
+        viewModelScope.launch { pro.collect { p -> if (p?.active == true && com.undersigned.app.data.UserPreferences.catalogueAuto) com.undersigned.app.notify.CatalogueWorker.schedule(app) else if (p != null) com.undersigned.app.notify.CatalogueWorker.cancel(app) } }
         // The governed attestation list decides whose voice counts, so it refreshes on its own coroutine.
         // Sequencing it after the catalogue crawl starved it: that crawl is hundreds of requests and the
         // refresh never ran within a session (measured 9 Sep 2026).
@@ -809,12 +809,24 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** "Re-read the catalogue" from the empty search state: a forced store crawl, then the device snapshot follows it. */
     val catalogueRefreshing = MutableStateFlow(false)
+    /** "3/18" while categories are walked, "+" while extra listings are checked; null when idle. */
+    val catalogueProgress = MutableStateFlow<String?>(null)
+    /** The last Update: how many dApps it added, or null if it failed. Cleared on the next one. */
+    val catalogueResult = MutableStateFlow<Int?>(null)
+    val catalogueFailed = MutableStateFlow(false)
+    val catalogueRefreshedAt = MutableStateFlow(com.undersigned.app.data.UserPreferences.catalogueRefreshedAt)
     fun refreshCatalogue() {
         if (catalogueRefreshing.value) return
         viewModelScope.launch(Dispatchers.IO) {
-            catalogueRefreshing.value = true
-            catalogueRepo.refresh()?.let { fresh -> catalogue.value = fresh; runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog() }
-            catalogueRefreshing.value = false
+            catalogueRefreshing.value = true; catalogueFailed.value = false; catalogueResult.value = null
+            val before = catalogue.value.mapTo(HashSet()) { it.packageName }
+            val fresh = catalogueRepo.refresh { catalogueProgress.value = it }
+            if (fresh != null) {
+                catalogue.value = fresh; catalogueResult.value = fresh.count { it.packageName !in before }
+                catalogueRefreshedAt.value = com.undersigned.app.data.UserPreferences.catalogueRefreshedAt
+                runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog()
+            } else catalogueFailed.value = true
+            catalogueProgress.value = null; catalogueRefreshing.value = false
         }
     }
 

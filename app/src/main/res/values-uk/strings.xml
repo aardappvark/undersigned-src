@@ -897,4 +897,25 @@
         <item quantity="many">Вхідні, %1$d нових</item>
         <item quantity="other">Вхідні, %1$d нового</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Новий тиждень, нові dApps</string>
+    <string name="catalogue_week_body">У вашому списку %1$s dApps станом на %2$s. Оновіть його, щоб побачити, що додалося відтоді.</string>
+    <string name="catalogue_week_bundled">У вашому списку %1$s dApps, що постачалися з цією версією. Оновіть його, щоб побачити все, що зараз є в магазині.</string>
+    <string name="catalogue_update">Оновити dApps</string>
+    <string name="catalogue_updating">Оновлення списку dApps… %1$s</string>
+    <string name="catalogue_failed">Не вдалося оновити список dApps. Перевірте з’єднання й спробуйте ще раз.</string>
+    <string name="catalogue_done">Актуально: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · оновлено %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · з цієї версії додатка</string>
+    <string name="settings_catalogue_title">Список dApps</string>
+    <string name="settings_catalogue_auto">Оновлювати щопонеділка вранці</string>
+    <string name="settings_catalogue_auto_body">Щопонеділка о 7:00 завантажує у фоні повний список dApp Store, щоб нові додатки були тут, коли ви відкриєте Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Список dApps, щопонеділка</string>
+    <string name="pro_tool_catalogue_body">Повний список dApp Store сам оновлюється у фоні щопонеділка вранці. Без Pro натисніть «Оновити» в розділі «Перегляд».</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d нове</item>
+        <item quantity="few">%1$d нових</item>
+        <item quantity="many">%1$d нових</item>
+        <item quantity="other">%1$d нових</item>
+    </plurals>
 </resources>

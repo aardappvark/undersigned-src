@@ -898,4 +898,25 @@
         <item quantity="many">Skrzynka, %1$d nowych</item>
         <item quantity="other">Skrzynka, %1$d nowej</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Nowy tydzień, nowe dApps</string>
+    <string name="catalogue_week_body">Twoja lista zawiera %1$s dApps według stanu z %2$s. Zaktualizuj ją, aby zobaczyć, co dodano od tego czasu.</string>
+    <string name="catalogue_week_bundled">Twoja lista zawiera %1$s dApps dołączonych do tej wersji. Zaktualizuj ją, aby zobaczyć wszystko, co jest teraz w sklepie.</string>
+    <string name="catalogue_update">Zaktualizuj dApps</string>
+    <string name="catalogue_updating">Aktualizowanie listy dApps… %1$s</string>
+    <string name="catalogue_failed">Nie udało się zaktualizować listy dApps. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="catalogue_done">Aktualne: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · zaktualizowano %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · z tej wersji aplikacji</string>
+    <string name="settings_catalogue_title">Lista dApps</string>
+    <string name="settings_catalogue_auto">Aktualizuj w każdy poniedziałek rano</string>
+    <string name="settings_catalogue_auto_body">W każdy poniedziałek o 7:00 pobiera w tle pełną listę z dApp Store, aby nowe aplikacje były tu, gdy otworzysz Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Lista dApps w każdy poniedziałek</string>
+    <string name="pro_tool_catalogue_body">Pełna lista z dApp Store sama aktualizuje się w tle w każdy poniedziałek rano. Bez Pro stuknij Zaktualizuj w Przeglądaj.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d nowa</item>
+        <item quantity="few">%1$d nowe</item>
+        <item quantity="many">%1$d nowych</item>
+        <item quantity="other">%1$d nowej</item>
+    </plurals>
 </resources>

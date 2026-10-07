@@ -894,4 +894,23 @@
         <item quantity="one">Posteingang, %1$d neu</item>
         <item quantity="other">Posteingang, %1$d neu</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Neue Woche, neue dApps</string>
+    <string name="catalogue_week_body">Ihre Liste enthält %1$s dApps, Stand %2$s. Aktualisieren Sie sie, um zu sehen, was seither hinzugekommen ist.</string>
+    <string name="catalogue_week_bundled">Ihre Liste enthält die %1$s dApps, mit denen diese Version ausgeliefert wurde. Aktualisieren Sie sie, um alles zu sehen, was jetzt im Store ist.</string>
+    <string name="catalogue_update">dApps aktualisieren</string>
+    <string name="catalogue_updating">dApp-Liste wird aktualisiert… %1$s</string>
+    <string name="catalogue_failed">Die dApp-Liste konnte nicht aktualisiert werden. Prüfen Sie die Verbindung und versuchen Sie es erneut.</string>
+    <string name="catalogue_done">Auf dem neuesten Stand: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · aktualisiert %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · aus dieser Version der App</string>
+    <string name="settings_catalogue_title">dApp-Liste</string>
+    <string name="settings_catalogue_auto">Jeden Montagmorgen aktualisieren</string>
+    <string name="settings_catalogue_auto_body">Lädt jeden Montag um 7:00 Uhr die vollständige dApp Store-Liste im Hintergrund herunter, damit neue Apps schon da sind, wenn Sie Undersigned öffnen.</string>
+    <string name="pro_tool_catalogue_title">Die dApp-Liste, jeden Montag</string>
+    <string name="pro_tool_catalogue_body">Die vollständige dApp Store-Liste aktualisiert sich jeden Montagmorgen im Hintergrund selbst. Ohne Pro tippen Sie unter Browsen auf Aktualisieren.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d neu</item>
+        <item quantity="other">%1$d neu</item>
+    </plurals>
 </resources>

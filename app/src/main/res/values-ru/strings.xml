@@ -881,4 +881,25 @@
         <item quantity="many">Входящие, %1$d новых</item>
         <item quantity="other">Входящие, %1$d нового</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Новая неделя, новые dApps</string>
+    <string name="catalogue_week_body">В вашем списке %1$s dApps по состоянию на %2$s. Обновите его, чтобы увидеть, что добавилось с тех пор.</string>
+    <string name="catalogue_week_bundled">В вашем списке %1$s dApps, поставляемых с этой версией. Обновите его, чтобы увидеть всё, что сейчас есть в магазине.</string>
+    <string name="catalogue_update">Обновить dApps</string>
+    <string name="catalogue_updating">Обновление списка dApps… %1$s</string>
+    <string name="catalogue_failed">Не удалось обновить список dApps. Проверьте соединение и повторите попытку.</string>
+    <string name="catalogue_done">Актуально: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · обновлено %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · из этой версии приложения</string>
+    <string name="settings_catalogue_title">Список dApps</string>
+    <string name="settings_catalogue_auto">Обновлять по понедельникам утром</string>
+    <string name="settings_catalogue_auto_body">Каждый понедельник в 7:00 в фоновом режиме загружает полный список dApp Store, чтобы новые приложения уже были здесь, когда вы откроете Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Список dApps, каждый понедельник</string>
+    <string name="pro_tool_catalogue_body">Полный список dApp Store сам обновляется в фоновом режиме каждый понедельник утром. Без Pro нажмите «Обновить» в разделе «Просмотр».</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d новое</item>
+        <item quantity="few">%1$d новых</item>
+        <item quantity="many">%1$d новых</item>
+        <item quantity="other">%1$d новых</item>
+    </plurals>
 </resources>

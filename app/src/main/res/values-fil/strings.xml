@@ -878,4 +878,23 @@
         <item quantity="one">Mga Mensahe, %1$d bago</item>
         <item quantity="other">Mga Mensahe, %1$d bago</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Bagong linggo, mga bagong dApp</string>
+    <string name="catalogue_week_body">May %1$s dApp ang listahan mo mula %2$s. I-update ito para makita ang mga naidagdag mula noon.</string>
+    <string name="catalogue_week_bundled">May %1$s dApp ang listahan mo na kasama ng bersyong ito. I-update ito para makita ang lahat ng nasa store ngayon.</string>
+    <string name="catalogue_update">I-update ang mga dApp</string>
+    <string name="catalogue_updating">Ina-update ang listahan ng dApp… %1$s</string>
+    <string name="catalogue_failed">Hindi ma-update ang listahan ng dApp. Tingnan ang koneksyon at subukan muli.</string>
+    <string name="catalogue_done">Updated na: %1$s dApp</string>
+    <string name="catalogue_line">%1$s dApp · na-update %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApp · mula sa bersyong ito ng app</string>
+    <string name="settings_catalogue_title">Listahan ng dApp</string>
+    <string name="settings_catalogue_auto">I-update tuwing Lunes ng umaga</string>
+    <string name="settings_catalogue_auto_body">Dina-download sa background ang buong listahan ng dApp Store tuwing Lunes ng 7:00, para nandito na ang mga bagong app pagbukas mo ng Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Ang listahan ng dApp, tuwing Lunes</string>
+    <string name="pro_tool_catalogue_body">Kusang nag-a-update sa background ang buong listahan ng dApp Store tuwing Lunes ng umaga. Kung wala ang Pro, i-tap ang I-update sa Browse.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d bago</item>
+        <item quantity="other">%1$d bago</item>
+    </plurals>
 </resources>

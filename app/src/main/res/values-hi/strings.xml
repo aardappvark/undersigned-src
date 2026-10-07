@@ -877,4 +877,23 @@
         <item quantity="one">इनबॉक्स, %1$d नया</item>
         <item quantity="other">इनबॉक्स, %1$d नया</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">नया सप्ताह, नए dApps</string>
+    <string name="catalogue_week_body">आपकी सूची में %2$s तक के %1$s dApps हैं। उसके बाद जो जुड़ा, उसे देखने के लिए अपडेट करें।</string>
+    <string name="catalogue_week_bundled">आपकी सूची में इस संस्करण के साथ आए %1$s dApps हैं। अभी स्टोर में जो कुछ है, वह सब देखने के लिए अपडेट करें।</string>
+    <string name="catalogue_update">dApps अपडेट करें</string>
+    <string name="catalogue_updating">dApp सूची अपडेट हो रही है… %1$s</string>
+    <string name="catalogue_failed">dApp सूची अपडेट नहीं हो सकी। कनेक्शन जांचें और फिर कोशिश करें।</string>
+    <string name="catalogue_done">अप-टू-डेट: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · अपडेट किया गया %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · ऐप के इस संस्करण से</string>
+    <string name="settings_catalogue_title">dApp सूची</string>
+    <string name="settings_catalogue_auto">हर सोमवार सुबह अपडेट करें</string>
+    <string name="settings_catalogue_auto_body">हर सोमवार सुबह 7:00 बजे बैकग्राउंड में पूरी dApp Store सूची डाउनलोड करता है, ताकि Undersigned खोलने पर नए ऐप्स यहां मिलें।</string>
+    <string name="pro_tool_catalogue_title">dApp सूची, हर सोमवार</string>
+    <string name="pro_tool_catalogue_body">पूरी dApp Store सूची हर सोमवार सुबह बैकग्राउंड में अपने आप अपडेट हो जाती है। Pro के बिना, ब्राउज़ में अपडेट पर टैप करें।</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d नया</item>
+        <item quantity="other">%1$d नए</item>
+    </plurals>
 </resources>

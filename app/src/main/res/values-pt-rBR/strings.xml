@@ -903,4 +903,23 @@
         <item quantity="one">Caixa de entrada, %1$d nova</item>
         <item quantity="other">Caixa de entrada, %1$d novas</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Semana nova, dApps novos</string>
+    <string name="catalogue_week_body">Sua lista tem %1$s dApps de %2$s. Atualize para ver o que foi adicionado desde então.</string>
+    <string name="catalogue_week_bundled">Sua lista tem os %1$s dApps que vieram com esta versão. Atualize para ver tudo o que está na loja agora.</string>
+    <string name="catalogue_update">Atualizar dApps</string>
+    <string name="catalogue_updating">Atualizando a lista de dApps… %1$s</string>
+    <string name="catalogue_failed">Não foi possível atualizar a lista de dApps. Verifique a conexão e tente de novo.</string>
+    <string name="catalogue_done">Tudo em dia: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · atualizada %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · desta versão do app</string>
+    <string name="settings_catalogue_title">Lista de dApps</string>
+    <string name="settings_catalogue_auto">Atualizar toda segunda-feira de manhã</string>
+    <string name="settings_catalogue_auto_body">Baixa a lista completa da dApp Store em segundo plano toda segunda-feira às 7:00, para que os apps novos já estejam aqui quando você abrir o Undersigned.</string>
+    <string name="pro_tool_catalogue_title">A lista de dApps, toda segunda-feira</string>
+    <string name="pro_tool_catalogue_body">A lista completa da dApp Store se atualiza sozinha em segundo plano toda segunda-feira de manhã. Sem Pro, toque em Atualizar em Navegar.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d novo</item>
+        <item quantity="other">%1$d novos</item>
+    </plurals>
 </resources>

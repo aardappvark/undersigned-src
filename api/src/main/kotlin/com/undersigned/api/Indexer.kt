@@ -288,8 +288,19 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
     fun syncStore(force: Boolean = false) {
         val now = System.currentTimeMillis()
         if (!force && now - (db.get("store_synced")?.toLongOrNull() ?: 0L) < Config.CATALOGUE_EVERY_MS) return
-        store.catalogue()?.let { cat ->
-            val arr = JSONArray(); cat.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category)) }
+        // Union, never replace (7 Oct 2026): listings in no category are invisible to the crawl. Keep what was known,
+        // discover more from the portal's Arweave records, and drop an app only when the store answered without it.
+        store.catalogue()?.let { crawl ->
+            val out = LinkedHashMap<String, CatalogueApp>(); crawl.forEach { out[it.packageName] = it }
+            val known = loadCatalogue().associateBy { it.packageName }
+            val extra = (known.keys - out.keys) + store.discover().filter { it !in out && it !in known }
+            var answered = true
+            for (chunk in extra.toList().chunked(Config.STORE_BATCH)) {
+                val live = store.live(chunk) ?: run { answered = false; null } ?: continue
+                live.values.forEach { a -> out[a.packageName] = a.copy(category = known[a.packageName]?.category) }
+            }
+            if (!answered) known.values.forEach { if (it.packageName !in out) out[it.packageName] = it }
+            val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category)) }
             db.put("catalogue", arr.toString())
         }
         val cat = loadCatalogue()

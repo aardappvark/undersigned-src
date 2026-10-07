@@ -858,4 +858,22 @@
     <plurals name="inbox_a11y">
         <item quantity="other">받은함, 새 항목 %1$d개</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">새로운 주, 새로운 dApp</string>
+    <string name="catalogue_week_body">목록에 %2$s 기준 dApp %1$s개가 있습니다. 그 이후에 추가된 항목을 보려면 업데이트하세요.</string>
+    <string name="catalogue_week_bundled">목록에 이 버전과 함께 제공된 dApp %1$s개가 있습니다. 지금 스토어에 있는 모든 항목을 보려면 업데이트하세요.</string>
+    <string name="catalogue_update">dApp 업데이트</string>
+    <string name="catalogue_updating">dApp 목록 업데이트 중… %1$s</string>
+    <string name="catalogue_failed">dApp 목록을 업데이트하지 못했습니다. 연결을 확인하고 다시 시도하세요.</string>
+    <string name="catalogue_done">최신 상태: dApp %1$s개</string>
+    <string name="catalogue_line">dApp %1$s개 · %2$s 업데이트</string>
+    <string name="catalogue_line_bundled">dApp %1$s개 · 이 버전의 앱 기준</string>
+    <string name="settings_catalogue_title">dApp 목록</string>
+    <string name="settings_catalogue_auto">매주 월요일 아침 업데이트</string>
+    <string name="settings_catalogue_auto_body">매주 월요일 7:00에 dApp Store 전체 목록을 백그라운드에서 내려받아, Undersigned를 열면 새 앱이 이미 와 있습니다.</string>
+    <string name="pro_tool_catalogue_title">dApp 목록, 매주 월요일</string>
+    <string name="pro_tool_catalogue_body">dApp Store 전체 목록이 매주 월요일 아침 백그라운드에서 저절로 업데이트됩니다. Pro가 없으면 둘러보기에서 업데이트를 탭하세요.</string>
+    <plurals name="catalogue_new">
+        <item quantity="other">신규 %1$d개</item>
+    </plurals>
 </resources>

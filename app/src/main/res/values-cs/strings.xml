@@ -890,4 +890,25 @@
         <item quantity="many">Schránka, %1$d nové</item>
         <item quantity="other">Schránka, %1$d nových</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Nový týden, nové dApps</string>
+    <string name="catalogue_week_body">Váš seznam obsahuje %1$s dApps ze dne %2$s. Aktualizujte ho a uvidíte, co od té doby přibylo.</string>
+    <string name="catalogue_week_bundled">Váš seznam obsahuje %1$s dApps, které byly součástí této verze. Aktualizujte ho a uvidíte vše, co je v obchodě teď.</string>
+    <string name="catalogue_update">Aktualizovat dApps</string>
+    <string name="catalogue_updating">Aktualizuje se seznam dApps… %1$s</string>
+    <string name="catalogue_failed">Seznam dApps se nepodařilo aktualizovat. Zkontrolujte připojení a zkuste to znovu.</string>
+    <string name="catalogue_done">Aktuální: %1$s dApps</string>
+    <string name="catalogue_line">%1$s dApps · aktualizováno %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApps · z této verze aplikace</string>
+    <string name="settings_catalogue_title">Seznam dApps</string>
+    <string name="settings_catalogue_auto">Aktualizovat každé pondělí ráno</string>
+    <string name="settings_catalogue_auto_body">Každé pondělí v 7:00 stáhne na pozadí úplný seznam z dApp Store, takže nové aplikace tu jsou, když otevřete Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Seznam dApps, každé pondělí</string>
+    <string name="pro_tool_catalogue_body">Úplný seznam z dApp Store se každé pondělí ráno sám aktualizuje na pozadí. Bez Pro klepněte na Aktualizovat v části Procházet.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d nová</item>
+        <item quantity="few">%1$d nové</item>
+        <item quantity="many">%1$d nové</item>
+        <item quantity="other">%1$d nových</item>
+    </plurals>
 </resources>

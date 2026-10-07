@@ -42,9 +42,21 @@ class CatalogueRepository(private val context: Context) {
 
     fun isStale(): Boolean = System.currentTimeMillis() - UserPreferences.catalogueRefreshedAt > AppConfig.Store.REFRESH_INTERVAL_MS
 
-    /** Full crawl; returns the merged list or null on failure (the caller keeps what it has). */
-    suspend fun refresh(): List<CatalogueApp>? = withContext(Dispatchers.IO) {
+    /**
+     * Full refresh; returns the merged list or null on failure (the caller keeps what it has).
+     *
+     * UNION, never replace (7 Oct 2026, owner: "it only has a small selection"). The category walk cannot see a listing
+     * that sits in no category: measured that day, 15 live apps already bundled and 37 more found only through the store's
+     * public portal records on Arweave. So: walk the categories, add every app this phone already knew, discover new
+     * packages from the portal records, then ask the store which of the extra ones are live. An app is dropped only when the
+     * store answered and did not list it.
+     */
+    suspend fun refresh(onProgress: (String) -> Unit = {}): List<CatalogueApp>? = withContext(Dispatchers.IO) {
         try {
+            // What this phone knew plus the list this version shipped with: an older replace-style refresh may have dropped
+            // category-less apps from the saved list, and the shipped list still names them.
+            val bundled = runCatching { parse(context.assets.open(AppConfig.Store.SNAPSHOT_ASSET).bufferedReader().use { it.readText() }) }.getOrDefault(emptyList())
+            val known = (bundled + load()).associateBy { it.packageName }
             val sc = JSONObject().put("locale", "en-US").put("platformSdk", 35).put("pixelDensity", 420).put("model", "Seeker")
             val cats = post("TopCategories", Q_CATEGORIES, JSONObject().put("systemContext", sc))
                 .getJSONObject("topCategories").getJSONArray("edges")
@@ -53,6 +65,7 @@ class CatalogueRepository(private val context: Context) {
                 val node = cats.getJSONObject(c).getJSONObject("node")
                 val id = node.getString("id"); val name = node.getString("name")
                 val shelf = name in CURATED_SHELVES
+                onProgress("${c + 1}/${cats.length()}")
                 var after: String? = null; var pages = 0
                 while (pages++ < 200) {
                     val vars = JSONObject().put("systemContext", sc).put("categoryId", id).put("first", AppConfig.Store.PAGE_SIZE)
@@ -78,11 +91,58 @@ class CatalogueRepository(private val context: Context) {
                 }
             }
             if (out.size < 100) throw IllegalStateException("catalogue crawl returned only ${out.size} apps")   // truncated storefront → keep the old data
+            onProgress("+")
+            val extra = ((known.keys - out.keys) + discover().filter { it !in out && it !in known }).filter { p -> EXCLUDED.none { p.startsWith(it) } }
+            val live = live(extra)
+            if (live == null) known.values.forEach { if (it.packageName !in out) out[it.packageName] = it }   // could not ask: keep what we had
+            else extra.forEach { p -> live[p]?.let { l -> out[p] = CatalogueApp(p, l.name, l.updated.ifEmpty { known[p]?.updated ?: "" }, known[p]?.category) } }
             val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category)) }
             file.writeText(arr.toString())
             UserPreferences.catalogueRefreshedAt = System.currentTimeMillis()
             out.values.toList()
         } catch (e: Exception) { Log.w(TAG, "catalogue refresh failed: ${e.message?.take(100)}"); null }
+    }
+
+    /** Packages the store's publisher portal has recorded on Arweave (public, read-only); empty if Arweave cannot be read. */
+    private fun discover(): Set<String> = runCatching {
+        val found = HashSet<String>(); var after: String? = null
+        for (page in 0 until 80) {
+            val cursor = after?.let { ", after: \"$it\"" } ?: ""
+            val q = "query { transactions(first: 100$cursor, tags: [{name: \"App-Name\", values: [\"solana-mobile-dapp-publisher-portal\"]}, {name: \"Type\", values: [\"app-nft-metadata\", \"release-nft-metadata\"]}]) { pageInfo { hasNextPage } edges { cursor node { tags { name value } } } } }"
+            val t = postTo(AppConfig.Store.ARWEAVE_GRAPHQL, JSONObject().put("query", q).toString()).getJSONObject("transactions")
+            val edges = t.getJSONArray("edges")
+            for (i in 0 until edges.length()) { val tags = edges.getJSONObject(i).getJSONObject("node").getJSONArray("tags")
+                for (j in 0 until tags.length()) tags.getJSONObject(j).takeIf { it.optString("name") == "Android-Package" }?.optString("value")?.takeIf { it.isNotEmpty() }?.let(found::add) }
+            if (!t.getJSONObject("pageInfo").optBoolean("hasNextPage") || edges.length() == 0) break
+            after = edges.getJSONObject(edges.length() - 1).getString("cursor")
+        }
+        found
+    }.getOrElse { Log.w(TAG, "discovery skipped: ${it.message?.take(80)}"); emptySet() }
+
+    private class Live(val name: String, val updated: String)
+
+    /** Which of [pkgs] the store lists now (name, last update), 20 per request; null if any request failed. */
+    private suspend fun live(pkgs: Collection<String>): Map<String, Live>? = runCatching {
+        val sc = JSONObject().put("locale", "en-US").put("platformSdk", 35).put("pixelDensity", 420).put("model", "Seeker")
+        val out = HashMap<String, Live>()
+        pkgs.chunked(20).forEachIndexed { i, chunk ->
+            if (i > 0) kotlinx.coroutines.delay(1500)   // paced: the store's CDN blocks fast readers
+            val arr = post("DAppsByPackages", Q_BATCH, JSONObject().put("systemContext", sc).put("androidPackages", JSONArray(chunk))).getJSONArray("dAppsByAndroidPackages")
+            for (k in 0 until arr.length()) { val a = arr.getJSONObject(k); val rel = a.optJSONObject("lastRelease")
+                out[a.getString("androidPackage")] = Live(rel?.optString("displayName")?.takeIf { it.isNotEmpty() } ?: a.getString("androidPackage"), rel?.optString("updatedOn")?.take(10) ?: "") }
+        }
+        out
+    }.getOrElse { Log.w(TAG, "liveness check failed: ${it.message?.take(80)}"); null }
+
+    private fun postTo(url: String, body: String): JSONObject {
+        val c = URL(url).openConnection() as HttpURLConnection
+        try {
+            c.requestMethod = "POST"; c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("Accept", "application/json")
+            c.connectTimeout = 10000; c.readTimeout = 20000; c.doOutput = true
+            OutputStreamWriter(c.outputStream).use { it.write(body); it.flush() }
+            if (c.responseCode != 200) throw IllegalStateException("HTTP ${c.responseCode}")
+            return JSONObject(BufferedReader(InputStreamReader(c.inputStream)).use { it.readText() }).getJSONObject("data")
+        } finally { c.disconnect() }
     }
 
     private fun post(op: String, query: String, variables: JSONObject): JSONObject {
@@ -108,6 +168,7 @@ class CatalogueRepository(private val context: Context) {
         val CURATED_SHELVES = setOf("Top Picks")
         private val EXCLUDED = listOf("com.google.", "com.android.", "com.mediatek.", "com.samsung.", "com.qualcomm.", "com.sec.", "com.friendly.", "org.chromium.")
         private const val Q_CATEGORIES = "query TopCategories(\$systemContext: SystemContext!) { topCategories(systemContext: \$systemContext, first: 20) { edges { node { id name } } } }"
+        private const val Q_BATCH = "query DAppsByPackages(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn } } }"
         private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } } } } pageInfo { hasNextPage endCursor } } } }"
     }
 }

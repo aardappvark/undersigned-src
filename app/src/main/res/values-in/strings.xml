@@ -866,4 +866,22 @@
     <plurals name="inbox_a11y">
         <item quantity="other">Kotak masuk, %1$d baru</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Pekan baru, dApp baru</string>
+    <string name="catalogue_week_body">Daftar Anda berisi %1$s dApp per %2$s. Perbarui untuk melihat apa yang ditambahkan sejak itu.</string>
+    <string name="catalogue_week_bundled">Daftar Anda berisi %1$s dApp yang disertakan dalam versi ini. Perbarui untuk melihat semua yang ada di toko sekarang.</string>
+    <string name="catalogue_update">Perbarui dApp</string>
+    <string name="catalogue_updating">Memperbarui daftar dApp… %1$s</string>
+    <string name="catalogue_failed">Tidak dapat memperbarui daftar dApp. Periksa koneksi lalu coba lagi.</string>
+    <string name="catalogue_done">Sudah terbaru: %1$s dApp</string>
+    <string name="catalogue_line">%1$s dApp · diperbarui %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApp · dari versi aplikasi ini</string>
+    <string name="settings_catalogue_title">Daftar dApp</string>
+    <string name="settings_catalogue_auto">Perbarui setiap Senin pagi</string>
+    <string name="settings_catalogue_auto_body">Mengunduh daftar lengkap dApp Store di latar belakang setiap Senin pukul 7:00, sehingga aplikasi baru sudah ada saat Anda membuka Undersigned.</string>
+    <string name="pro_tool_catalogue_title">Daftar dApp, setiap Senin</string>
+    <string name="pro_tool_catalogue_body">Daftar lengkap dApp Store diperbarui otomatis di latar belakang setiap Senin pagi. Tanpa Pro, ketuk Perbarui di Jelajahi.</string>
+    <plurals name="catalogue_new">
+        <item quantity="other">%1$d baru</item>
+    </plurals>
 </resources>

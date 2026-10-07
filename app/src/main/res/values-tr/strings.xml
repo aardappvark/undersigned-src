@@ -874,4 +874,23 @@
         <item quantity="one">Gelen kutusu, %1$d yeni</item>
         <item quantity="other">Gelen kutusu, %1$d yeni</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Yeni hafta, yeni dApp’ler</string>
+    <string name="catalogue_week_body">Listenizde %2$s tarihli %1$s dApp var. Bu tarihten sonra eklenenleri görmek için güncelleyin.</string>
+    <string name="catalogue_week_bundled">Listenizde bu sürümle gelen %1$s dApp var. Mağazadaki her şeyi görmek için güncelleyin.</string>
+    <string name="catalogue_update">dApp’leri güncelle</string>
+    <string name="catalogue_updating">dApp listesi güncelleniyor… %1$s</string>
+    <string name="catalogue_failed">dApp listesi güncellenemedi. Bağlantıyı kontrol edip tekrar deneyin.</string>
+    <string name="catalogue_done">Güncel: %1$s dApp</string>
+    <string name="catalogue_line">%1$s dApp · güncellendi %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApp · uygulamanın bu sürümünden</string>
+    <string name="settings_catalogue_title">dApp listesi</string>
+    <string name="settings_catalogue_auto">Her pazartesi sabahı güncelle</string>
+    <string name="settings_catalogue_auto_body">Her pazartesi saat 7:00’de dApp Store’un tam listesini arka planda indirir; böylece Undersigned’ı açtığınızda yeni uygulamalar burada olur.</string>
+    <string name="pro_tool_catalogue_title">dApp listesi, her pazartesi</string>
+    <string name="pro_tool_catalogue_body">dApp Store’un tam listesi her pazartesi sabahı arka planda kendiliğinden güncellenir. Pro olmadan Göz at ekranında Güncelle’ye dokunun.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d yeni</item>
+        <item quantity="other">%1$d yeni</item>
+    </plurals>
 </resources>

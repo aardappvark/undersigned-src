@@ -31,7 +31,7 @@ private data class Step(@DrawableRes val photo: Int, val title: Int, val sub: In
 
 /**
  * Four how-to steps after the intro: the intro says what Undersigned is, these say how to use it.
- * The photo is a band at the top and the step occupies the black. Reachable any time from Settings.
+ * The photo fills the screen down to the button, as on the intro. Reachable any time from Settings.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -45,38 +45,44 @@ fun HowToScreen(onDone: () -> Unit) {
     val pager = rememberPagerState(pageCount = { steps.size })
     val scope = rememberCoroutineScope()
     val last = pager.currentPage == steps.lastIndex
-    Column(Modifier.fillMaxSize().background(RbColors.background)) {
-        HorizontalPager(state = pager, modifier = Modifier.weight(1f)) { i ->
+    // Full-bleed like the intro (owner, 7 Oct 2026): the photograph runs all the way down to the button, and the step
+    // sits over its dark lower part. It used to be a 300 dp band with plain black under it.
+    Box(Modifier.fillMaxSize().background(RbColors.background)) {
+        HorizontalPager(state = pager, modifier = Modifier.fillMaxSize()) { i ->
             val s = steps[i]
-            Column(Modifier.fillMaxSize()) {
-                PhotoBackdrop(s.photo, Modifier.fillMaxWidth().heightIn(min = 300.dp), fadeFrom = 0.30f) {
-                    Row(Modifier.align(Alignment.TopEnd).systemBarsPadding().padding(horizontal = 12.dp, vertical = 4.dp)) {
-                        if (!last) TextButton(onClick = onDone) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
-                    }
-                    Column(Modifier.align(Alignment.BottomStart).padding(horizontal = 24.dp, vertical = 16.dp)) {
+            val scroll = rememberScrollState()
+            PhotoBackdrop(s.photo, Modifier.fillMaxSize(), fadeFrom = 0.16f) {
+                // Long steps scroll; as they do, the photograph darkens so the text stays readable over it.
+                Box(Modifier.matchParentSize().background(androidx.compose.ui.graphics.Color.Black.copy(alpha = (scroll.value / 300f).coerceIn(0f, 0.85f))))
+                BoxWithConstraints(Modifier.fillMaxSize()) {
+                    Column(Modifier.verticalScroll(scroll).heightIn(min = maxHeight).fillMaxWidth().systemBarsPadding().padding(start = 24.dp, end = 24.dp, top = 56.dp, bottom = 150.dp),
+                        verticalArrangement = Arrangement.Bottom) {
                         Text("${i + 1}", color = RbColors.purpleLight, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, lineHeight = 40.sp)
                         Text(stringResource(s.title), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
                         Text(stringResource(s.sub), color = RbColors.textSecondary, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                        Spacer(Modifier.height(12.dp))
+                        Text(stringResource(s.body), color = RbColors.textPrimary, fontSize = 14.sp, lineHeight = 20.sp)
+                        Spacer(Modifier.height(14.dp))
+                        GlassCard(accent = if (i == 2) RbColors.warning else RbColors.glassBorder) {
+                            Text(stringResource(s.noteTitle), color = if (i == 2) RbColors.warning else RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                            Spacer(Modifier.height(4.dp))
+                            Text(stringResource(s.note), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                        }
                     }
-                }
-                Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 24.dp, vertical = 16.dp)) {
-                    Text(stringResource(s.body), color = RbColors.textPrimary, fontSize = 14.sp, lineHeight = 20.sp)
-                    Spacer(Modifier.height(14.dp))
-                    GlassCard(accent = if (i == 2) RbColors.warning else RbColors.glassBorder) {
-                        Text(stringResource(s.noteTitle), color = if (i == 2) RbColors.warning else RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        Spacer(Modifier.height(4.dp))
-                        Text(stringResource(s.note), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
-                    }
-                    Spacer(Modifier.height(12.dp))
                 }
             }
         }
-        Row(Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalArrangement = Arrangement.Center) {
-            steps.indices.forEach { i -> Box(Modifier.padding(4.dp).size(if (i == pager.currentPage) 10.dp else 7.dp).clip(CircleShape).background(if (i == pager.currentPage) RbColors.purpleLight else RbColors.textDim)) }
+        if (!last) Row(Modifier.align(Alignment.TopEnd).systemBarsPadding().padding(horizontal = 12.dp, vertical = 4.dp)) {
+            TextButton(onClick = onDone) { Text(stringResource(R.string.intro_skip), color = RbColors.textSecondary, fontSize = 14.sp) }
         }
-        Box(Modifier.padding(horizontal = 24.dp).navigationBarsPadding()) {
-            PrimaryButton(if (last) stringResource(R.string.onboarding_cta) else stringResource(R.string.intro_next), onClick = { if (last) onDone() else scope.launch { pager.animateScrollToPage(pager.currentPage + 1) } })
+        Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()) {
+            Row(Modifier.fillMaxWidth().padding(bottom = 18.dp), horizontalArrangement = Arrangement.Center) {
+                steps.indices.forEach { i -> Box(Modifier.padding(4.dp).size(if (i == pager.currentPage) 10.dp else 7.dp).clip(CircleShape).background(if (i == pager.currentPage) RbColors.purpleLight else RbColors.textDim)) }
+            }
+            Box(Modifier.padding(horizontal = 24.dp)) {
+                PrimaryButton(if (last) stringResource(R.string.onboarding_cta) else stringResource(R.string.intro_next), onClick = { if (last) onDone() else scope.launch { pager.animateScrollToPage(pager.currentPage + 1) } })
+            }
+            Spacer(Modifier.height(22.dp))
         }
-        Spacer(Modifier.height(22.dp))
     }
 }

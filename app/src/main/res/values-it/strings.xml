@@ -903,4 +903,23 @@
         <item quantity="one">Posta in arrivo, %1$d nuovo</item>
         <item quantity="other">Posta in arrivo, %1$d nuovi</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">Nuova settimana, nuove dApp</string>
+    <string name="catalogue_week_body">La tua lista ha %1$s dApp al %2$s. Aggiornala per vedere cosa è stato aggiunto da allora.</string>
+    <string name="catalogue_week_bundled">La tua lista ha le %1$s dApp incluse in questa versione. Aggiornala per vedere tutto ciò che c’è ora nello store.</string>
+    <string name="catalogue_update">Aggiorna le dApp</string>
+    <string name="catalogue_updating">Aggiornamento della lista delle dApp… %1$s</string>
+    <string name="catalogue_failed">Impossibile aggiornare la lista delle dApp. Controlla la connessione e riprova.</string>
+    <string name="catalogue_done">Aggiornato: %1$s dApp</string>
+    <string name="catalogue_line">%1$s dApp · aggiornata %2$s</string>
+    <string name="catalogue_line_bundled">%1$s dApp · da questa versione dell’app</string>
+    <string name="settings_catalogue_title">Lista delle dApp</string>
+    <string name="settings_catalogue_auto">Aggiorna ogni lunedì mattina</string>
+    <string name="settings_catalogue_auto_body">Scarica in background la lista completa del dApp Store ogni lunedì alle 7:00, così le nuove app sono già qui quando apri Undersigned.</string>
+    <string name="pro_tool_catalogue_title">La lista delle dApp, ogni lunedì</string>
+    <string name="pro_tool_catalogue_body">La lista completa del dApp Store si aggiorna da sola in background ogni lunedì mattina. Senza Pro, tocca Aggiorna in Naviga.</string>
+    <plurals name="catalogue_new">
+        <item quantity="one">%1$d nuova</item>
+        <item quantity="other">%1$d nuove</item>
+    </plurals>
 </resources>

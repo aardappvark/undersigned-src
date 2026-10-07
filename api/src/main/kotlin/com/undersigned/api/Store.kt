@@ -48,6 +48,37 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
         out.values.toList()
     }.onFailure { log("catalogue failed: ${it.message?.take(100)}") }.getOrNull()
 
+    /** Packages the store's publisher portal recorded on Arweave: finds listings that sit in no category. Empty on failure. */
+    fun discover(): Set<String> = runCatching {
+        val found = HashSet<String>(); var after: String? = null
+        for (page in 0 until 80) {
+            val cursor = after?.let { ", after: \"$it\"" } ?: ""
+            val q = "query { transactions(first: 100$cursor, tags: [{name: \"App-Name\", values: [\"solana-mobile-dapp-publisher-portal\"]}, {name: \"Type\", values: [\"app-nft-metadata\", \"release-nft-metadata\"]}]) { pageInfo { hasNextPage } edges { cursor node { tags { name value } } } } }"
+            val c = java.net.URI("https://arweave.net/graphql").toURL().openConnection() as java.net.HttpURLConnection
+            val t = try {
+                c.requestMethod = "POST"; c.setRequestProperty("Content-Type", "application/json"); c.connectTimeout = 10000; c.readTimeout = 20000; c.doOutput = true
+                c.outputStream.use { it.write(JSONObject().put("query", q).toString().toByteArray()) }
+                JSONObject(c.inputStream.bufferedReader().use { it.readText() }).getJSONObject("data").getJSONObject("transactions")
+            } finally { c.disconnect() }
+            val edges = t.getJSONArray("edges")
+            for (i in 0 until edges.length()) { val tags = edges.getJSONObject(i).getJSONObject("node").getJSONArray("tags")
+                for (j in 0 until tags.length()) tags.getJSONObject(j).takeIf { it.optString("name") == "Android-Package" }?.optString("value")?.takeIf { it.isNotEmpty() }?.let(found::add) }
+            if (!t.getJSONObject("pageInfo").optBoolean("hasNextPage") || edges.length() == 0) break
+            after = edges.getJSONObject(edges.length() - 1).getString("cursor")
+        }
+        found.filterTo(HashSet()) { p -> EXCLUDED.none { p.startsWith(it) } }
+    }.onFailure { log("discovery skipped: ${it.message?.take(80)}") }.getOrDefault(emptySet())
+
+    /** Which of up to 20 packages the store lists now, with name and last update; null on failure. */
+    fun live(pkgs: List<String>): Map<String, CatalogueApp>? {
+        require(pkgs.size <= Config.STORE_BATCH)
+        return runCatching {
+            val arr = post("DAppsByPackagesLive", Q_LIVE, JSONObject().put("systemContext", sc).put("androidPackages", JSONArray(pkgs))).getJSONArray("dAppsByAndroidPackages")
+            (0 until arr.length()).associate { i -> val o = arr.getJSONObject(i); val p = o.getString("androidPackage"); val rel = o.optJSONObject("lastRelease")
+                p to CatalogueApp(p, rel?.optString("displayName")?.takeIf { it.isNotEmpty() } ?: p, rel?.optString("updatedOn")?.take(10) ?: "", null) }
+        }.onFailure { log("live check failed: ${it.message?.take(80)}") }.getOrNull()
+    }
+
     fun details(pkg: String): StoreDetails? = runCatching {
         val rel = post("DAppByPackageSummary", Q_DETAILS, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
             .optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return null
@@ -91,6 +122,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
         private const val Q_CATEGORIES = "query TopCategories(\$systemContext: SystemContext!) { topCategories(systemContext: \$systemContext, first: 20) { edges { node { id name } } } }"
         private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } } } } pageInfo { hasNextPage endCursor } } } }"
         private const val Q_DETAILS = "query DAppByPackageSummary(\$systemContext: SystemContext!, \$androidPackage: String!) { dAppByAndroidPackage(systemContext: \$systemContext, androidPackage: \$androidPackage) { androidPackage lastRelease(systemContext: \$systemContext) { newInVersion installFile { uri size } androidDetails { versionCode certFingerprint } publisherDetails { name website contact supportEmail } } } }"
+        private const val Q_LIVE = "query DAppsByPackagesLive(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn } } }"
         private const val Q_BATCH = "query DAppsByPackagesSummary(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage rating { rating reviewsByRating } } }"
     }
 }

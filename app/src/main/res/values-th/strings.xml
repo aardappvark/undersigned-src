@@ -850,4 +850,22 @@
     <plurals name="inbox_a11y">
         <item quantity="other">กล่องข้อความ ใหม่ %1$d รายการ</item>
     </plurals>
+    <!-- 7 Oct 2026 dApp list -->
+    <string name="catalogue_week_title">สัปดาห์ใหม่ dApp ใหม่</string>
+    <string name="catalogue_week_body">รายการของคุณมี dApp %1$s รายการ ณ วันที่ %2$s อัปเดตเพื่อดูสิ่งที่เพิ่มเข้ามาตั้งแต่นั้น</string>
+    <string name="catalogue_week_bundled">รายการของคุณมี dApp %1$s รายการที่มากับเวอร์ชันนี้ อัปเดตเพื่อดูทุกอย่างที่อยู่ในสโตร์ตอนนี้</string>
+    <string name="catalogue_update">อัปเดต dApp</string>
+    <string name="catalogue_updating">กำลังอัปเดตรายการ dApp… %1$s</string>
+    <string name="catalogue_failed">อัปเดตรายการ dApp ไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="catalogue_done">เป็นปัจจุบันแล้ว: dApp %1$s รายการ</string>
+    <string name="catalogue_line">dApp %1$s รายการ · อัปเดตเมื่อ %2$s</string>
+    <string name="catalogue_line_bundled">dApp %1$s รายการ · จากแอปเวอร์ชันนี้</string>
+    <string name="settings_catalogue_title">รายการ dApp</string>
+    <string name="settings_catalogue_auto">อัปเดตทุกเช้าวันจันทร์</string>
+    <string name="settings_catalogue_auto_body">ดาวน์โหลดรายการ dApp Store ฉบับเต็มในเบื้องหลังทุกวันจันทร์เวลา 7:00 น. เพื่อให้แอปใหม่พร้อมอยู่ที่นี่เมื่อคุณเปิด Undersigned</string>
+    <string name="pro_tool_catalogue_title">รายการ dApp ทุกวันจันทร์</string>
+    <string name="pro_tool_catalogue_body">รายการ dApp Store ฉบับเต็มอัปเดตตัวเองในเบื้องหลังทุกเช้าวันจันทร์ หากไม่มี Pro ให้แตะอัปเดตในหน้าเรียกดู</string>
+    <plurals name="catalogue_new">
+        <item quantity="other">ใหม่ %1$d รายการ</item>
+    </plurals>
 </resources>
