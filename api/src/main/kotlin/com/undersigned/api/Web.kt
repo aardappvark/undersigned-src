@@ -35,6 +35,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/review" -> page("Write a signed review — Undersigned", review(query["package"], lang), lang = lang)
             path == "/seed" -> page("Seed the fleet — Undersigned", seed())
             path == "/act" -> act(query["kind"].orEmpty(), query["target"].orEmpty(), lang)
+            path == "/api" -> page("API — Undersigned", apiPage())
             path == "/publishers" -> page("For publishers — Undersigned", publishers(query["package"]?.trim()))
             extra.containsKey(path) -> extra.getValue(path)(query)
             else -> notFound()
@@ -94,7 +95,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             sb.append(if (sg != null) "<span class=score>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}<small>${sg.optInt("counted_reviews")} signed</small></span>" else "<span class=meta>no signed reviews yet</span>").append("</a>")
         }
         if (shown == 0) sb.append("<p class=meta>${if (q.isNullOrBlank()) "No signed reviews yet." else "No app matches. Try part of its name or its package."}</p>")
-        sb.append("<div class='card how'><div class=label>More</div><p class=meta><a href='/watch'>Store watch</a>: a weekly report of unusual rating bursts. <a href='/publishers'>For publishers</a>: prove an app is yours and answer reviews. <a href='/v1/dataset.json'>Open dataset</a> and <a href='/v1/openapi.json'>API</a>: every record, free to read.</p></div>")
+        sb.append("<div class='card how'><div class=label>More</div><p class=meta><a href='/watch'>Store watch</a>: a weekly report of unusual rating bursts. <a href='/publishers'>For publishers</a>: prove an app is yours and answer reviews. <a href='/v1/dataset.json'>Open dataset</a> and <a href='/api'>API</a>: every record, free to read within limits.</p></div>")
         return sb.toString()
     }
 
@@ -313,6 +314,37 @@ if (!ANDROID && location.protocol === 'https:') { $('qrbtn').hidden = false; $('
 }; }
 ready();
 </script>"""
+    }
+
+    /** Set by the server: the pass price and pay links, and the endpoint list (OpenAPI with x-tier). */
+    var apiInfo: (() -> JSONObject)? = null
+    var apiDocs: (() -> JSONObject)? = null
+
+    /** The API for people (the nav's "API" used to open raw JSON, which read as an error, owner 7 Oct 2026). */
+    private fun apiPage(): String {
+        val p = apiInfo?.invoke() ?: JSONObject(); val pass = p.optJSONObject("pass") ?: JSONObject(); val price = pass.optJSONObject("price") ?: JSONObject()
+        val free = p.optJSONObject("free") ?: JSONObject(); val pay = p.optJSONObject("solana_pay") ?: JSONObject()
+        val n = { v: Long -> "%,d".format(java.util.Locale.US, v) }
+        val sb = StringBuilder("<h1>The Undersigned API</h1><p class=sub>Every signed review, publisher proof, store rating, rating burst and payment board, as JSON. Read it free within limits; a pass lifts them. The ledger itself is on Solana, so anyone can also read it directly.</p>")
+        sb.append("<div class=grid2><div class=card><div class=label>Free, no key</div><div class=big>${n(free.optLong("per_day"))}</div><p class=meta>requests a day per address (${free.optInt("per_minute")} a minute). Lists return the top ${free.optInt("rows")} rows.</p><p class=meta><a href='/v1/dataset.json'>Open dataset</a>: every record and score, rebuilt every few minutes.</p></div>")
+        sb.append("<div class='card how'><div class=label>Pass</div><div class=big>${n(pass.optLong("requests"))}</div><p class=meta>requests over ${pass.optLong("days")} days, ${pass.optInt("per_minute")} a minute, every endpoint. ")
+        sb.append("${esc(price.opt("sol").toString())} SOL or ${n(price.optDouble("skr").toLong())} SKR (${n(price.optDouble("skr_with_seeker_genesis_token").toLong())} SKR with a Seeker Genesis Token). Paying again adds another pass.</p>")
+        sb.append("<div class=ctas><a class=btn href='${esc(pay.optString("sol"))}'>Pay in SOL</a><a class='btn sec' href='${esc(pay.optString("skr"))}'>Pay in SKR</a></div><div id=qr></div></div></div>")
+        sb.append("<div class='card how'><div class=label>Getting a key</div><ol><li><b>Pay</b> with the button above from a phone wallet, or scan the QR code on a computer. The payment carries the pass reference, so it is found on-chain.</li>" +
+            "<li><b>Redeem</b>: <code>POST /v1/keys</code> with the payment's signature and the paying wallet's signature of the message <code>Undersigned API key for &lt;payment signature&gt;</code>. Only the wallet that paid can redeem it. Or start with <code>POST /v1/checkout</code> for a one-time secret instead of a message signature.</li>" +
+            "<li><b>Call</b> with <code>Authorization: Bearer &lt;key&gt;</code>. <code>GET /v1/keys/me</code> shows what is left.</li></ol></div>")
+        val docs = apiDocs?.invoke()?.optJSONObject("paths") ?: JSONObject()
+        val rows = docs.keys().asSequence().flatMap { path -> docs.getJSONObject(path).let { m -> m.keys().asSequence().map { verb -> Triple(path, verb.uppercase(), m.getJSONObject(verb)) } } }.toList()
+        for ((tier, title) in listOf("free" to "Free", "limited" to "Free within the limits above", "paid" to "With a pass")) {
+            val t = rows.filter { it.third.optString("x-tier") == tier }.sortedBy { it.first }
+            if (t.isEmpty()) continue
+            sb.append("<h2>$title</h2><div class=card>")
+            t.forEach { (path, verb, op) -> sb.append("<div class=rev style='padding:10px 0'><code style='color:var(--t)'>$verb ${esc(path)}</code><div class=meta>${esc(op.optString("summary"))}</div></div>") }
+            sb.append("</div>")
+        }
+        sb.append("<p class=small>Full description: <a href='/v1/openapi.json'>OpenAPI</a> · Raw price and pay links: <a href='/v1/pricing'>/v1/pricing</a> · Store data shown here belongs to the Solana dApp Store.</p>")
+        sb.append("<script type=module>\n${'$'}JS_HELPERS_PLACEHOLDER\nif (!ANDROID) { const QR = (await import('https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm')).default; const u = document.querySelector('.ctas a.btn').href;\n  document.getElementById('qr').innerHTML = '<img alt=\"QR code to pay for a pass\" width=200 height=200 style=\"border-radius:12px;margin-top:12px\" src=\"' + await QR.toDataURL(u, { margin: 1, width: 200 }) + '\"><div class=meta>Scan with your phone wallet to pay in SOL.</div>'; }\n</script>")
+        return sb.toString().replace("${'$'}JS_HELPERS_PLACEHOLDER", JS_HELPERS)
     }
 
     /** What this site can and cannot do about content, and who to write to. */
@@ -585,7 +617,7 @@ async function follow(sig, liveUrl, what) {
         /** The mark, inline (the same vector as /icon.svg and the app's launcher). */
         private val MARK: String get() = ICON.replace("<svg ", "<svg aria-hidden=true ")
         val HEADER: String get() = "<header class=top><div class=in><a class=brand href='/'>$MARK<span>Undersigned</span></a><nav class=nav aria-label=Main>" +
-            "<a href='/'>Apps</a><a href='/watch'>Store watch</a><a href='/publishers'>Publishers</a><a href='/v1/pricing'>API</a><a class=cta href='/review'>Write a review</a></nav></div></header>"
+            "<a href='/'>Apps</a><a href='/watch'>Store watch</a><a href='/publishers'>Publishers</a><a href='/api'>API</a><a class=cta href='/review'>Write a review</a></nav></div></header>"
         const val FOOTER = "<footer class=foot><div class=in><div class=small style='max-width:520px'>Undersigned is an open review ledger on Solana. Reviews are the opinions of individual Seeker owners, " +
             "signed by their own wallets. Not affiliated with Solana Mobile.</div><nav class=small><a href='/review'>How to review</a><a href='/publishers'>For publishers</a><a href='/moderation'>Moderation</a>" +
             "<a href='/report'>Report content</a><a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a><a href='/assets/OFL-1.1.txt'>Font licence</a></nav></div></footer>"

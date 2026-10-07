@@ -363,7 +363,7 @@ fun main(args: Array<String>) {
     indexer.onRebuilt = { fresh -> hooks.tick(indexer, fresh) }
     if (Config.INDEX) hooks.startWorker()
     val api = Api(views, billing, indexer, hooks = hooks)
-    api.web = Web(views, indexer)
+    api.web = Web(views, indexer).also { w -> w.apiInfo = { api.pricing() }; w.apiDocs = { api.openApi() } }
     runCatching { indexer.rebuild() }   // serve what the database already holds at once
     if (Config.INDEX) {
         indexer.start()
