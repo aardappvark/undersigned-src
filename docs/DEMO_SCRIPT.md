@@ -1,6 +1,8 @@
 # Undersigned — 3-minute demo script (CLOCK IN submission video)
 
-Device: Seeker, wallet airdropper.skr, Undersigned installed. Second window: the open viewer at https://aardappvark.github.io/undersigned-viewer/ and Solscan.
+Device: Seeker, wallet airdropper.skr, Undersigned 1.0.0 installed. Second window: https://undersigned.provenby.dev (the app's page for the Toolkit) and Solscan. Deadline for the video: with the submission, Monday 12 Oct 13:59 Budapest.
+
+Updated 8 Oct for the current build. Judges score "completion based on the demo video", so the one thing it must show end to end is: write → double-tap → the record read back from the chain somewhere that is not the app. Open on Browse → All apps → Name and flick the A–Z rail once (1,539 apps, every icon) before the Toolkit page: it says "every dApp" better than words.
 
 | t | On screen | Say |
 |---|---|---|
