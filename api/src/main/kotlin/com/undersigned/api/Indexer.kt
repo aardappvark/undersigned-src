@@ -277,6 +277,14 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
 
     // ---- The store ------------------------------------------------------------------------------------------------
 
+    /** The dApp list the Android app ships (app/src/main/assets/catalogue_snapshot.json, copied in by the build). */
+    fun shippedCatalogue(): Map<String, CatalogueApp> = runCatching {
+        val text = javaClass.getResourceAsStream("/catalogue_snapshot.json")?.bufferedReader()?.use { it.readText() } ?: return emptyMap()
+        val arr = JSONArray(text)
+        (0 until arr.length()).map { i -> val o = arr.getJSONObject(i); CatalogueApp(o.getString("p"), o.optString("n").ifEmpty { o.getString("p") }, o.optString("u"), o.optString("c").takeIf { it.isNotEmpty() && it != "null" }) }
+            .associateBy { it.packageName }
+    }.getOrDefault(emptyMap())
+
     fun loadCatalogue(): List<CatalogueApp> = runCatching {
         val arr = JSONArray(db.get("catalogue") ?: return emptyList())
         (0 until arr.length()).map { i -> val o = arr.getJSONObject(i); CatalogueApp(o.getString("p"), o.getString("n"), o.optString("u"), o.optString("c").takeIf { it.isNotEmpty() && it != "null" }) }
@@ -289,12 +297,16 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
     /** Daily: the catalogue, every app's star counts (Store watch), and details for every app the ledger mentions. */
     fun syncStore(force: Boolean = false) {
         val now = System.currentTimeMillis()
-        if (!force && now - (db.get("store_synced")?.toLongOrNull() ?: 0L) < Config.CATALOGUE_EVERY_MS) return
+        val shipped = shippedCatalogue()
+        val have = loadCatalogue().size
+        if (!force && now - (db.get("store_synced")?.toLongOrNull() ?: 0L) < Config.CATALOGUE_EVERY_MS && have >= shipped.size) return
+        log("store sync: $have known, ${shipped.size} shipped${if (force) ", forced" else ""}")
         // Union, never replace (7 Oct 2026): listings in no category are invisible to the crawl. Keep what was known,
         // discover more from the portal's Arweave records, and drop an app only when the store answered without it.
         store.catalogue()?.let { crawl ->
             val out = LinkedHashMap<String, CatalogueApp>(); crawl.forEach { out[it.packageName] = it }
-            val known = loadCatalogue().associateBy { it.packageName }
+            // The app's shipped list counts as known: its apps are checked live below like any other, and kept if the store is silent.
+            val known = (shipped + loadCatalogue().associateBy { it.packageName })
             val extra = (known.keys - out.keys) + store.discover().filter { it !in out && it !in known }
             var answered = true
             for (chunk in extra.toList().chunked(Config.STORE_BATCH)) {

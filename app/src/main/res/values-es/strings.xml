@@ -974,4 +974,12 @@
         <item quantity="other">%1$d nuevas · añadidas %2$s</item>
     </plurals>
     <string name="icons_status">%1$s de %2$s iconos de dApps en este teléfono</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">¿Reseñar %1$s?</string>
+    <string name="nudge_body">Lleva un tiempo en este teléfono. Un Seeker, una voz: cuenta lo que encontraste, firmado con tu monedero.</string>
+    <string name="nudge_setting">Avisos de reseña</string>
+    <string name="nudge_setting_body">Como mucho uno al día: una notificación que nombra una app de la tienda que lleva aquí una semana o se ha usado una hora y no tiene reseña tuya. Cada app se pregunta una sola vez. Desactivado salvo que lo actives.</string>
+    <string name="badge_copy">Copiar la insignia para tu web</string>
+    <string name="badge_copied">Código de la insignia copiado. Pégalo en tu web o README.</string>
 </resources>

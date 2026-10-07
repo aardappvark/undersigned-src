@@ -67,7 +67,7 @@ caller's own device is available (install age and usage time exist only as what 
 ### H. Pages, badges, alerts and web reviewing (built 28–29 Sep 2026)
 | What | Where | Tier |
 |---|---|---|
-| **Badge** for publishers' sites and READMEs: `Undersigned · 4.6 · 12 signed`, cached an hour, links to the dApp's page | `GET /v1/badge/{pkg}.svg` | F |
+| **Badge** for publishers' sites and READMEs (the app page offers the proven publisher a one-tap "Copy the badge for your website"; the web app page shows the same snippet under *Badge*): `Undersigned · 4.6 · 12 signed`, cached an hour, links to the dApp's page | `GET /v1/badge/{pkg}.svg` | F |
 | **Public pages** rendered by the server: home and search, one per dApp (both scores, stars, tags, bursts with sparklines, signed reviews with every signal, publisher proof, payments, store facts, badge snippet), one per wallet | `/`, `/app/{pkg}`, `/wallet/{address}` | F (own per-IP budget: 120/min) |
 | **Store watch report**: every store app with a star-rating burst in the last 7 days, strongest first; shows "day N of 8" while snapshots collect | `/watch` (JSON: `/v1/watch`, pass) | F |
 | **Review from a browser**: the server builds the unsigned carrier transaction (same bytes as the app; store's current version recorded), the reader's own wallet signs through the Wallet Standard (extensions, in-wallet browsers, the Seeker's wallet via Mobile Wallet Adapter in Chrome). Terms and a second consent before text; sanctions screen as in the app | `/review`, `POST /v1/tx/review` | F |

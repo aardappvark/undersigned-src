@@ -443,6 +443,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                         Text("$line · $who", color = RbColors.green, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, lineHeight = 17.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { onProfile(w) }.padding(vertical = 6.dp))
                     }
+                    // The proven publisher, signed in here, can take the badge for their website or README (feature list, 8 Oct 2026).
+                    if (wallet != null && wallet in vp) {
+                        val copied = stringResource(R.string.badge_copied)
+                        TextButton(onClick = {
+                            (context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("badge", com.undersigned.app.AppConfig.Site.badgeEmbed(pkg)))
+                            android.widget.Toast.makeText(context, copied, android.widget.Toast.LENGTH_SHORT).show()
+                        }, contentPadding = PaddingValues(0.dp), modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.badge_copy), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.Bold) }
+                    }
                     val b = bucketLabel(responsiveness.bucket)
                     Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
                 }

@@ -61,6 +61,12 @@
                 <data android:scheme="undersigned" android:host="app" />
                 <data android:scheme="undersigned" android:host="review" />
             </intent-filter>
+            <!-- "Share to Undersigned": a store listing link or an app name shared from any app opens that app's page (or a search). -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
         </activity>
 
         <!-- Stripped from the merged manifest; the classes are test-only and absent from a release build,

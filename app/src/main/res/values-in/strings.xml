@@ -930,4 +930,12 @@
         <item quantity="other">%1$d baru · ditambahkan %2$s</item>
     </plurals>
     <string name="icons_status">%1$s dari %2$s ikon dApp di ponsel ini</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Ulas %1$s?</string>
+    <string name="nudge_body">Sudah cukup lama ada di ponsel ini. Satu Seeker, satu suara: sampaikan yang Anda temukan, ditandatangani dompet Anda.</string>
+    <string name="nudge_setting">Pengingat ulasan</string>
+    <string name="nudge_setting_body">Paling banyak sekali sehari: notifikasi yang menyebut satu aplikasi dari toko yang sudah seminggu di sini atau dipakai satu jam dan belum Anda ulas. Setiap aplikasi ditanyakan sekali. Nonaktif kecuali Anda mengaktifkannya.</string>
+    <string name="badge_copy">Salin lencana untuk situs web Anda</string>
+    <string name="badge_copied">Kode lencana disalin. Tempelkan di situs web atau README Anda.</string>
 </resources>

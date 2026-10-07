@@ -954,4 +954,12 @@
         <item quantity="other">%1$d nieuw · toegevoegd %2$s</item>
     </plurals>
     <string name="icons_status">%1$s van %2$s dApp-pictogrammen op deze telefoon</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">%1$s beoordelen?</string>
+    <string name="nudge_body">Staat al een tijdje op deze telefoon. Eén Seeker, één stem: vertel wat u hebt gemerkt, ondertekend met uw wallet.</string>
+    <string name="nudge_setting">Beoordelingsherinneringen</string>
+    <string name="nudge_setting_body">Hooguit één per dag: een melding met één app uit de store die hier een week staat of een uur is gebruikt en geen beoordeling van u heeft. Elke app wordt één keer gevraagd. Uit tenzij u het inschakelt.</string>
+    <string name="badge_copy">Badge voor uw website kopiëren</string>
+    <string name="badge_copied">Badgecode gekopieerd. Plak hem op uw website of in de README.</string>
 </resources>

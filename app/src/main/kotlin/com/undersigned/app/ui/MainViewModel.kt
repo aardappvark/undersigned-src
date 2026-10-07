@@ -36,6 +36,8 @@ import com.undersigned.protocol.SignerFacts
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.update
@@ -898,6 +900,17 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             kotlinx.coroutines.delay(5_000)
             runCatching { iconCache.resolve(catalogue.value.filter { it.iconUri == null }.map { it.packageName }, paceMs = 2_500L) } } }
     init { viewModelScope.launch(Dispatchers.IO) { com.undersigned.app.data.BundledIcons.index(app) } }   // read once, off the main thread
+    // "Share to Undersigned": a store link or text names a listed package → its page; else the text (trimmed of URLs) becomes a Browse search.
+    init { viewModelScope.launch { NavIntents.pendingShare.collect { text -> if (text != null) { NavIntents.pendingShare.value = null; resolveShare(text) } } } }
+    private suspend fun resolveShare(text: String) {
+        // On a cold start the list is still loading when the share arrives: wait for it (a few seconds at most) before deciding.
+        val list = kotlinx.coroutines.withTimeoutOrNull(8_000L) { catalogue.filter { it.isNotEmpty() }.first() } ?: catalogue.value
+        val listed = list.associateBy { it.packageName }
+        val pkg = NavIntents.packagesIn(text).firstOrNull { it in listed } ?: NavIntents.packagesIn(text).firstOrNull { it in installed.value }
+        if (pkg != null) { NavIntents.pendingPackage.value = pkg; return }
+        val words = text.replace(Regex("https?://\\S+"), " ").replace(Regex("\\s+"), " ").trim().take(60)
+        NavIntents.pendingSearch.value = words.ifEmpty { text.take(60) }
+    }
     init { viewModelScope.launch(Dispatchers.IO) { catalogue.collect { list -> runCatching { iconCache.seed(list.mapNotNull { a -> a.iconUri?.let { a.packageName to it } }.toMap()) } } } }
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback

@@ -946,4 +946,12 @@
         <item quantity="other">%1$d nya · tillagda %2$s</item>
     </plurals>
     <string name="icons_status">%1$s av %2$s dApp-ikoner på den här telefonen</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Recensera %1$s?</string>
+    <string name="nudge_body">Den har funnits på den här telefonen ett tag. En Seeker, en röst: berätta vad du såg, signerat med din plånbok.</string>
+    <string name="nudge_setting">Recensionspåminnelser</string>
+    <string name="nudge_setting_body">Högst en per dag: en avisering som nämner en app från butiken som funnits här en vecka eller använts en timme och saknar recension från dig. Varje app frågas om en gång. Av tills du slår på det.</string>
+    <string name="badge_copy">Kopiera märket till din webbplats</string>
+    <string name="badge_copied">Märkets kod kopierad. Klistra in den på din webbplats eller i README.</string>
 </resources>

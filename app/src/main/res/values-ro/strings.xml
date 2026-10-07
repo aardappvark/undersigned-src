@@ -963,4 +963,12 @@
         <item quantity="other">%1$d de noi · adăugate %2$s</item>
     </plurals>
     <string name="icons_status">%1$s din %2$s pictograme dApp pe acest telefon</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Evaluați %1$s?</string>
+    <string name="nudge_body">Este pe acest telefon de ceva vreme. Un Seeker, o voce: spuneți ce ați constatat, semnat cu portofelul dvs.</string>
+    <string name="nudge_setting">Îndemnuri la evaluare</string>
+    <string name="nudge_setting_body">Cel mult o dată pe zi: o notificare care numește o aplicație din magazin aflată aici de o săptămână sau folosită o oră și fără o evaluare de la dvs. Fiecare aplicație este propusă o singură dată. Dezactivat până îl porniți.</string>
+    <string name="badge_copy">Copiați insigna pentru site-ul dvs.</string>
+    <string name="badge_copied">Codul insignei a fost copiat. Lipiți-l pe site sau în README.</string>
 </resources>

@@ -1016,4 +1016,12 @@
         <item quantity="other">%1$d جديد · أُضيف %2$s</item>
     </plurals>
     <string name="icons_status">%1$s من %2$s من أيقونات dApp على هذا الهاتف</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">مراجعة %1$s؟</string>
+    <string name="nudge_body">موجود على هذا الهاتف منذ فترة. جهاز Seeker واحد، صوت واحد: قل ما وجدته، موقّعاً بمحفظتك.</string>
+    <string name="nudge_setting">تنبيهات المراجعة</string>
+    <string name="nudge_setting_body">مرة واحدة يومياً على الأكثر: إشعار يذكر تطبيقاً واحداً من المتجر موجوداً هنا منذ أسبوع أو استُخدم لساعة وليس له مراجعة منك. يُسأل عن كل تطبيق مرة واحدة. متوقف ما لم تفعّله.</string>
+    <string name="badge_copy">انسخ الشارة لموقعك</string>
+    <string name="badge_copied">تم نسخ كود الشارة. الصقه في موقعك أو ملف README.</string>
 </resources>

@@ -983,4 +983,12 @@
         <item quantity="other">%1$d nowej · dodano %2$s</item>
     </plurals>
     <string name="icons_status">%1$s z %2$s ikon dApp na tym telefonie</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Ocenić %1$s?</string>
+    <string name="nudge_body">Jest na tym telefonie już od jakiegoś czasu. Jeden Seeker, jeden głos: powiedz, co zauważyłeś, podpisane Twoim portfelem.</string>
+    <string name="nudge_setting">Przypomnienia o recenzjach</string>
+    <string name="nudge_setting_body">Najwyżej raz dziennie: powiadomienie o jednej aplikacji ze sklepu, która jest tu od tygodnia lub była używana godzinę i nie ma Twojej recenzji. O każdą aplikację pytamy raz. Wyłączone, dopóki nie włączysz.</string>
+    <string name="badge_copy">Skopiuj odznakę na swoją stronę</string>
+    <string name="badge_copied">Kod odznaki skopiowany. Wklej go na stronę lub do README.</string>
 </resources>

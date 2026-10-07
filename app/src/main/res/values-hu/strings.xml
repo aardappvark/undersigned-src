@@ -945,4 +945,12 @@
         <item quantity="other">%1$d új · hozzáadva %2$s</item>
     </plurals>
     <string name="icons_status">%1$s / %2$s dApp-ikon ezen a telefonon</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Értékeli: %1$s?</string>
+    <string name="nudge_body">Már egy ideje ezen a telefonon van. Egy Seeker, egy hang: mondja el, mit tapasztalt, a tárcájával aláírva.</string>
+    <string name="nudge_setting">Értékelési emlékeztetők</string>
+    <string name="nudge_setting_body">Naponta legfeljebb egyszer: értesítés egy olyan áruházbeli alkalmazásról, amely egy hete itt van vagy egy órát használta, és nincs róla értékelése. Minden alkalmazásról egyszer kérdezünk. Kikapcsolva, amíg be nem kapcsolja.</string>
+    <string name="badge_copy">Jelvény másolása a webhelyéhez</string>
+    <string name="badge_copied">Jelvénykód kimásolva. Illessze be a webhelyére vagy a README-be.</string>
 </resources>

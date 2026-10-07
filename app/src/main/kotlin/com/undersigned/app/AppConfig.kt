@@ -143,6 +143,12 @@ object AppConfig {
         fun listSkr(holdsGenesisToken: Boolean): Double = if (holdsGenesisToken) LIST_SKR_SGT else LIST_SKR
     }
 
+    /** The public website and API (served from the owner's Mac by Cloudflare Tunnel since 7 Oct 2026). Badges and share links point here. */
+    object Site {
+        const val URL = "https://undersigned.provenby.dev"
+        fun badgeEmbed(pkg: String) = "<a href=\"$URL/app/$pkg\"><img src=\"$URL/v1/badge/$pkg.svg\" alt=\"Undersigned signed reviews\"></a>"
+    }
+
     object Features {
         const val WALLET_SCREENING_ENABLED = true
     }

@@ -18,10 +18,26 @@ object NavIntents {
     data class Action(val kind: String, val target: String, val arg: String)
     val pendingAction = MutableStateFlow<Action?>(null)
 
+    /** Text another app shared to Undersigned (a store listing link, an app name); MainViewModel resolves it against the list. */
+    val pendingShare = MutableStateFlow<String?>(null)
+    /** A search to run in Browse when a shared text names no listed package. */
+    val pendingSearch = MutableStateFlow<String?>(null)
+
+    /** Package-like tokens in a shared text, longest first: a store link's id= value, a package in a path, or a bare package. */
+    fun packagesIn(text: String): List<String> = Regex("[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+").findAll(text)
+        .map { it.value.trimEnd('.') }.filter { PACKAGE.matches(it) && !it.startsWith("www.") && it.count { c -> c == '.' } >= 1 }.distinct().sortedByDescending { it.length }.toList()
+
     fun consume(intent: Intent?) {
         intent ?: return
         intent.getStringExtra("pkg")?.takeIf { it.isNotBlank() }?.let { pendingPackage.value = it }
         intent.getStringExtra("screen")?.takeIf { it.isNotBlank() }?.let { pendingScreen.value = it }
+        intent.getStringExtra("review")?.takeIf { PACKAGE.matches(it) }?.let { pendingReview.value = it }
+        if (intent.action == Intent.ACTION_SEND) {
+            // "Share to Undersigned" from the dApp Store or anywhere else: the text is resolved to an app page, else a search.
+            val shared = listOfNotNull(intent.getStringExtra(Intent.EXTRA_TEXT), intent.getStringExtra(Intent.EXTRA_SUBJECT)).joinToString(" ").trim()
+            if (shared.isNotEmpty()) pendingShare.value = shared.take(2000)
+            return
+        }
         val u = intent.data ?: return
         if (u.scheme != "undersigned") return
         // undersigned://app?pkg=… opens an app's page; undersigned://review?pkg=… its composer (the reviewer still chooses

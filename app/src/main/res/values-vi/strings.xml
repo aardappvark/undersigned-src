@@ -930,4 +930,12 @@
         <item quantity="other">%1$d mới · thêm %2$s</item>
     </plurals>
     <string name="icons_status">%1$s trên %2$s biểu tượng dApp trên điện thoại này</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Đánh giá %1$s?</string>
+    <string name="nudge_body">Ứng dụng này đã ở trên điện thoại một thời gian. Một Seeker, một tiếng nói: hãy nói điều bạn thấy, có chữ ký của ví bạn.</string>
+    <string name="nudge_setting">Nhắc đánh giá</string>
+    <string name="nudge_setting_body">Tối đa một lần mỗi ngày: một thông báo nêu tên một ứng dụng từ cửa hàng đã ở đây một tuần hoặc được dùng một giờ mà chưa có đánh giá của bạn. Mỗi ứng dụng chỉ được hỏi một lần. Tắt trừ khi bạn bật.</string>
+    <string name="badge_copy">Sao chép huy hiệu cho trang web của bạn</string>
+    <string name="badge_copied">Đã sao chép mã huy hiệu. Dán vào trang web hoặc README của bạn.</string>
 </resources>

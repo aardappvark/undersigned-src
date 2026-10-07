@@ -300,6 +300,22 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 }
             }
 
+            // Review nudges: one app a day at most, each asked about once, off by default (feature list, 8 Oct 2026).
+            GlassCard {
+                var nudge by remember { mutableStateOf(UserPreferences.reviewNudge) }
+                fun setNudge(on: Boolean) {
+                    nudge = on; UserPreferences.reviewNudge = on
+                    if (on) com.undersigned.app.notify.UseNudgeWorker.schedule(context) else com.undersigned.app.notify.UseNudgeWorker.cancel(context)
+                }
+                Row(Modifier.toggleable(value = nudge, role = androidx.compose.ui.semantics.Role.Switch) { setNudge(it) }, verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.nudge_setting), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.nudge_setting_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    }
+                    Switch(checked = nudge, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                }
+            }
+
             // The dApp list: Pro refreshes it in the background every Monday morning; everyone has the Update button on Browse.
             SectionTitle(stringResource(R.string.settings_catalogue_title), trailing = { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) })
             GlassCard {

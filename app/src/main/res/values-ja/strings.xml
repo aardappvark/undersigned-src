@@ -921,4 +921,12 @@
         <item quantity="other">新着 %1$d 件 · %2$s追加</item>
     </plurals>
     <string name="icons_status">この端末の dApp アイコン：%2$s 件中 %1$s 件</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">%1$s をレビューしますか？</string>
+    <string name="nudge_body">この端末にしばらく入っています。1台のSeekerに1つの声：見つけたことを、あなたのウォレットの署名付きで伝えましょう。</string>
+    <string name="nudge_setting">レビューのうながし</string>
+    <string name="nudge_setting_body">1日1回まで：この端末に1週間あるか1時間使われ、あなたのレビューがないストアのアプリを1つ知らせる通知です。各アプリについて尋ねるのは1回だけです。オンにするまでオフです。</string>
+    <string name="badge_copy">ウェブサイト用バッジをコピー</string>
+    <string name="badge_copied">バッジのコードをコピーしました。ウェブサイトやREADMEに貼り付けてください。</string>
 </resources>

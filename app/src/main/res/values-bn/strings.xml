@@ -941,4 +941,12 @@
         <item quantity="other">%1$d নতুন · যোগ হয়েছে %2$s</item>
     </plurals>
     <string name="icons_status">এই ফোনে %2$s-এর মধ্যে %1$s dApp আইকন</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">%1$s পর্যালোচনা করবেন?</string>
+    <string name="nudge_body">এটি কিছুদিন ধরে এই ফোনে আছে। এক Seeker, এক কণ্ঠ: আপনি যা পেয়েছেন তা বলুন, আপনার ওয়ালেট দিয়ে স্বাক্ষরিত।</string>
+    <string name="nudge_setting">পর্যালোচনার অনুস্মারক</string>
+    <string name="nudge_setting_body">দিনে সর্বোচ্চ একবার: স্টোরের এমন একটি অ্যাপের নাম জানিয়ে বিজ্ঞপ্তি, যা এক সপ্তাহ ধরে এখানে আছে বা এক ঘণ্টা ব্যবহৃত হয়েছে এবং আপনার কোনো পর্যালোচনা নেই। প্রতিটি অ্যাপ সম্পর্কে একবারই জিজ্ঞাসা করা হয়। আপনি চালু না করলে বন্ধ।</string>
+    <string name="badge_copy">আপনার ওয়েবসাইটের জন্য ব্যাজ কপি করুন</string>
+    <string name="badge_copied">ব্যাজের কোড কপি হয়েছে। এটি আপনার ওয়েবসাইট বা README-তে পেস্ট করুন।</string>
 </resources>

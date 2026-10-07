@@ -945,4 +945,12 @@
         <item quantity="other">%1$d νέα · προστέθηκαν %2$s</item>
     </plurals>
     <string name="icons_status">%1$s από %2$s εικονίδια dApp σε αυτό το τηλέφωνο</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Αξιολόγηση του %1$s;</string>
+    <string name="nudge_body">Βρίσκεται σε αυτό το τηλέφωνο εδώ και καιρό. Ένα Seeker, μία φωνή: πείτε τι διαπιστώσατε, υπογεγραμμένο από το πορτοφόλι σας.</string>
+    <string name="nudge_setting">Υπενθυμίσεις αξιολόγησης</string>
+    <string name="nudge_setting_body">Το πολύ μία φορά την ημέρα: μια ειδοποίηση που ονομάζει μία εφαρμογή από το κατάστημα που είναι εδώ μία εβδομάδα ή χρησιμοποιήθηκε μία ώρα και δεν έχει αξιολόγηση από εσάς. Για κάθε εφαρμογή ρωτάμε μία φορά. Απενεργοποιημένο αν δεν το ενεργοποιήσετε.</string>
+    <string name="badge_copy">Αντιγραφή σήματος για τον ιστότοπό σας</string>
+    <string name="badge_copied">Ο κώδικας του σήματος αντιγράφηκε. Επικολλήστε τον στον ιστότοπο ή στο README σας.</string>
 </resources>

@@ -949,4 +949,12 @@
         <item quantity="other">%1$d bago · idinagdag %2$s</item>
     </plurals>
     <string name="icons_status">%1$s sa %2$s na icon ng dApp sa teleponong ito</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">I-review ang %1$s?</string>
+    <string name="nudge_body">Matagal na ito sa teleponong ito. Isang Seeker, isang boses: sabihin ang nakita mo, pirmado ng iyong wallet.</string>
+    <string name="nudge_setting">Mga paalala sa review</string>
+    <string name="nudge_setting_body">Hanggang isa kada araw: isang notipikasyon na nagsasabi ng isang app mula sa store na isang linggo nang narito o isang oras nang ginagamit at walang review mula sa iyo. Isang beses lang itatanong ang bawat app. Naka-off maliban kung buksan mo.</string>
+    <string name="badge_copy">Kopyahin ang badge para sa iyong website</string>
+    <string name="badge_copied">Nakopya ang code ng badge. I-paste ito sa iyong website o README.</string>
 </resources>

@@ -966,4 +966,12 @@
         <item quantity="other">%1$d новых · добавлено %2$s</item>
     </plurals>
     <string name="icons_status">Значки dApp на этом телефоне: %1$s из %2$s</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">Оценить %1$s?</string>
+    <string name="nudge_body">Оно на этом телефоне уже давно. Один Seeker — один голос: расскажите, что вы заметили, с подписью вашего кошелька.</string>
+    <string name="nudge_setting">Напоминания об отзывах</string>
+    <string name="nudge_setting_body">Не чаще раза в день: уведомление об одном приложении из магазина, которое здесь уже неделю или использовалось час и не имеет вашего отзыва. О каждом приложении спрашиваем один раз. Выключено, пока вы не включите.</string>
+    <string name="badge_copy">Скопировать значок для вашего сайта</string>
+    <string name="badge_copied">Код значка скопирован. Вставьте его на сайт или в README.</string>
 </resources>

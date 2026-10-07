@@ -14,6 +14,9 @@ tasks.test { useJUnitPlatform() }
 // One source of truth for reward seasons: the app's own asset.
 tasks.processResources {
     from("../app/src/main/assets/seasons.json")
+    // The app's shipped dApp list (1,539 on 8 Oct 2026, from category crawl + portal records + a search sweep): the
+    // server's own crawl + discovery found 1,462, so the shipped list seeds it and a shortfall triggers a sync.
+    from("../app/src/main/assets/catalogue_snapshot.json")
     // The app's own translations (27 locales): pages label tags and device facts in the reader's language from them.
     from("../app/src/main/res") { include("values*/strings.xml"); into("i18n") }
 }

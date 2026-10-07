@@ -264,6 +264,14 @@ object UserPreferences {
     var reviewReminder: Boolean
         get() = prefs?.getBoolean("review_reminder", false) ?: false
         set(v) { prefs?.edit()?.putBoolean("review_reminder", v)?.apply() }
+    /** Review nudges (opt-in): one notification, at most one a day, when a store app here has earned a review and has none from this wallet. */
+    var reviewNudge: Boolean
+        get() = prefs?.getBoolean("review_nudge", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("review_nudge", v)?.apply() }
+    /** Packages already nudged, so an app is asked about once. */
+    var nudged: Set<String>
+        get() = prefs?.getStringSet("review_nudged", emptySet()) ?: emptySet()
+        set(v) { prefs?.edit()?.putStringSet("review_nudged", v)?.apply() }
     /** Store watch (opt-in): the daily store-wide star-count snapshot. */
     var storeWatch: Boolean
         get() = prefs?.getBoolean("store_watch", false) ?: false

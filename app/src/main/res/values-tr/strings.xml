@@ -945,4 +945,12 @@
         <item quantity="other">%1$d yeni · %2$s eklendi</item>
     </plurals>
     <string name="icons_status">Bu telefonda %2$s dApp simgesinden %1$s tanesi</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">%1$s için değerlendirme yazılsın mı?</string>
+    <string name="nudge_body">Bir süredir bu telefonda. Bir Seeker, bir ses: bulduklarınızı cüzdanınızla imzalayarak anlatın.</string>
+    <string name="nudge_setting">Değerlendirme hatırlatmaları</string>
+    <string name="nudge_setting_body">Günde en fazla bir kez: bir haftadır burada olan ya da bir saat kullanılmış ve sizden değerlendirme almamış mağaza uygulamalarından birini bildiren bir bildirim. Her uygulama bir kez sorulur. Siz açmadıkça kapalı.</string>
+    <string name="badge_copy">Web siteniz için rozeti kopyala</string>
+    <string name="badge_copied">Rozet kodu kopyalandı. Web sitenize veya README dosyanıza yapıştırın.</string>
 </resources>

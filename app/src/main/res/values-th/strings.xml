@@ -914,4 +914,12 @@
         <item quantity="other">ใหม่ %1$d · เพิ่ม %2$s</item>
     </plurals>
     <string name="icons_status">ไอคอน dApp บนโทรศัพท์เครื่องนี้ %1$s จาก %2$s</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">รีวิว %1$s ไหม</string>
+    <string name="nudge_body">อยู่ในโทรศัพท์เครื่องนี้มาสักพักแล้ว หนึ่ง Seeker หนึ่งเสียง: บอกสิ่งที่คุณพบ ลงนามด้วยกระเป๋าของคุณ</string>
+    <string name="nudge_setting">การเตือนให้รีวิว</string>
+    <string name="nudge_setting_body">ไม่เกินวันละครั้ง: การแจ้งเตือนที่ระบุชื่อแอปจากสโตร์หนึ่งแอปซึ่งอยู่ที่นี่มาหนึ่งสัปดาห์หรือใช้งานมาหนึ่งชั่วโมงและยังไม่มีรีวิวจากคุณ แต่ละแอปจะถูกถามเพียงครั้งเดียว ปิดอยู่จนกว่าคุณจะเปิด</string>
+    <string name="badge_copy">คัดลอกตราสำหรับเว็บไซต์ของคุณ</string>
+    <string name="badge_copied">คัดลอกโค้ดตราแล้ว วางลงในเว็บไซต์หรือ README ของคุณ</string>
 </resources>

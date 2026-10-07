@@ -929,4 +929,12 @@
         <item quantity="other">新增 %1$d · %2$s加入</item>
     </plurals>
     <string name="icons_status">此手機上的 dApp 圖示：%1$s / %2$s</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">評價 %1$s？</string>
+    <string name="nudge_body">它在這支手機上已有一段時間。一台 Seeker，一個聲音：說出你的發現，由你的錢包簽署。</string>
+    <string name="nudge_setting">評價提醒</string>
+    <string name="nudge_setting_body">每天最多一次：通知提到商店中的一個應用程式，它在這裡已滿一週或已使用一小時，且沒有你的評價。每個應用程式只詢問一次。除非你開啟，否則關閉。</string>
+    <string name="badge_copy">複製網站用徽章</string>
+    <string name="badge_copied">徽章代碼已複製。請貼到你的網站或 README 中。</string>
 </resources>

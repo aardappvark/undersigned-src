@@ -82,6 +82,8 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     val newOnes = remember(catalogue) { com.undersigned.app.data.WeeklyCatalogue.newThisWeek(catalogue).mapTo(HashSet()) { it.packageName } }
     val pendingScreen by com.undersigned.app.ui.NavIntents.pendingScreen.collectAsState()
     LaunchedEffect(pendingScreen) { if (pendingScreen == "new") { com.undersigned.app.ui.NavIntents.pendingScreen.value = null; tabPicked = Tab.ALL; newOnly = true; query = ""; tagFilter = null } }
+    val pendingSearch by com.undersigned.app.ui.NavIntents.pendingSearch.collectAsState()
+    LaunchedEffect(pendingSearch) { pendingSearch?.let { com.undersigned.app.ui.NavIntents.pendingSearch.value = null; tabPicked = Tab.ALL; newOnly = false; tagFilter = null; query = it } }
     val uncategorised = stringResource(R.string.category_none)
     val domainNames by vm.domainNames.collectAsState()
     val entriesForSigners by vm.entries.collectAsState()

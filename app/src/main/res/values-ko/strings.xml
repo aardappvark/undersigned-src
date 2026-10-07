@@ -922,4 +922,12 @@
         <item quantity="other">신규 %1$d개 · %2$s 추가</item>
     </plurals>
     <string name="icons_status">이 휴대폰의 dApp 아이콘: %2$s개 중 %1$s개</string>
+
+    <!-- Review nudges and the publisher badge (8 Oct 2026) -->
+    <string name="nudge_title">%1$s을(를) 리뷰할까요?</string>
+    <string name="nudge_body">이 휴대폰에 설치된 지 꽤 되었습니다. 한 Seeker, 한 목소리: 발견한 것을 지갑 서명과 함께 남겨 주세요.</string>
+    <string name="nudge_setting">리뷰 알림</string>
+    <string name="nudge_setting_body">하루 최대 한 번: 이곳에 일주일 있었거나 한 시간 사용되었고 아직 리뷰하지 않은 스토어 앱 하나를 알려 주는 알림입니다. 각 앱은 한 번만 묻습니다. 켜지 않으면 꺼져 있습니다.</string>
+    <string name="badge_copy">웹사이트용 배지 복사</string>
+    <string name="badge_copied">배지 코드가 복사되었습니다. 웹사이트나 README에 붙여 넣으세요.</string>
 </resources>
