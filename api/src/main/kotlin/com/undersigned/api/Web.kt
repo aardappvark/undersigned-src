@@ -24,6 +24,8 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path.startsWith("/app/") -> dec(path.removePrefix("/app/")).let { pkg -> views.app(pkg)?.let { page("${it.optString("name", pkg)} — Undersigned", app(pkg, it, lang), lang = lang,
                 description = "Signed reviews of ${it.optString("name", pkg)} from Seeker owners, beside the dApp Store's own rating.", head = "<link rel=alternate type='application/atom+xml' href='/app/${enc(pkg)}/feed.xml'>") } ?: notFound() }
             path.startsWith("/wallet/") -> dec(path.removePrefix("/wallet/")).let { w -> if (runCatching { Base58.decode(w).size }.getOrNull() == 32) page("Wallet ${short(w)} — Undersigned", wallet(w)) else notFound() }
+            // The app's own font (OFL, licence beside it) and photographs, served from here: no third-party requests.
+            path.startsWith("/assets/") -> asset(path.removePrefix("/assets/")) ?: notFound()
             path == "/icon.svg" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=86400"), ICON.toByteArray(), "image/svg+xml; charset=utf-8")
             path == "/report" -> page("Report content — Undersigned", report())
             path == "/moderation" -> page("Moderation — Undersigned", moderation())
@@ -66,28 +68,41 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
     private fun home(q: String?): String {
         val s = views.stats()
         val sb = StringBuilder()
-        sb.append("<h1>Undersigned</h1><p class=sub>Reviews of Solana dApp Store apps, each signed on-chain by a Seeker owner's wallet. Only wallets holding a Seeker Genesis Token are counted. Not affiliated with Solana Mobile.</p>")
-        sb.append("<div class=card><div class=stats>")
-        listOf("reviews_counted" to "counted reviews", "attested_signers" to "attested reviewers", "apps_reviewed" to "apps reviewed", "publisher_replies" to "publisher replies", "catalogue_apps" to "apps in the store")
-            .forEach { (k, l) -> sb.append("<div class=stat><b>${s.opt(k)}</b><span>$l</span></div>") }
-        sb.append("</div></div>")
-        sb.append("<form method=get action='/'><input name=q value='${esc(q ?: "")}' placeholder='Search apps by name or package' aria-label='Search apps'></form>")
+        if (q.isNullOrBlank()) {
+            sb.append("<section class=hero style=\"background-image:url('/assets/photo-fingertip.jpg')\"><div class=in><div class=label style='color:#d9d2ee'>For the Solana dApp Store</div>" +
+                "<h1>Signed reviews from Seeker owners</h1><p class=sub>Every review here is signed on-chain by its author's own wallet. Only wallets holding a Seeker Genesis Token are counted: one phone, one voice, nothing to buy.</p>" +
+                "<div class=ctas><a class=btn href='/review'>Write a signed review</a><a class='btn sec' href='#apps'>Browse apps</a></div></div></section>")
+            sb.append("<div class=card><div class=stats>")
+            listOf("reviews_counted" to "counted reviews", "attested_signers" to "Seeker owners reviewing", "apps_reviewed" to "apps reviewed", "publisher_replies" to "publisher replies", "catalogue_apps" to "apps in the store")
+                .forEach { (k, l) -> sb.append("<div class=stat><b>${"%,d".format(java.util.Locale.US, s.optLong(k))}</b><span>$l</span></div>") }
+            sb.append("</div></div>")
+            sb.append("<h2>How it works</h2><div class=steps3>" +
+                "<div class=card><b>1</b><strong>Rate an app</strong><p class=meta>Stars, one to three tags, a short note if you like. From this site or the Undersigned app.</p></div>" +
+                "<div class=card><b>2</b><strong>Sign it with your wallet</strong><p class=meta>Your wallet signs the record. You pay only the Solana network fee; Undersigned takes nothing.</p></div>" +
+                "<div class=card><b>3</b><strong>It counts beside the store's rating</strong><p class=meta>Reviews from Seeker owners are counted. Publishers can answer, and anyone can check every record.</p></div></div>")
+        }
+        sb.append("<h2 id=apps>${if (q.isNullOrBlank()) "Apps with signed reviews" else "Results for “${esc(q)}”"}</h2>")
+        sb.append("<form method=get action='/' role=search><input name=q value='${esc(q ?: "")}' placeholder='Search ${"%,d".format(java.util.Locale.US, s.optLong("catalogue_apps"))} dApp Store apps by name or package' aria-label='Search apps'></form>")
         val apps = views.apps(q, null, if (q.isNullOrBlank()) "signed" else "name", 30).getJSONArray("apps")
-        sb.append("<h2>${if (q.isNullOrBlank()) "Signed scores" else "Results"}</h2>")
+        var shown = 0
         for (i in 0 until apps.length()) {
             val a = apps.getJSONObject(i); val sg = a.optJSONObject("signed")
             if (q.isNullOrBlank() && sg == null) continue
-            sb.append("<a class='card row link' href='/app/${enc(a.getString("package"))}'><span class=grow><span class=name>${esc(a.getString("name"))}</span><br><span class=meta>${esc(a.optString("category", ""))} · ${esc(a.getString("package"))}</span></span>")
-            sb.append(if (sg != null) "<span class=score>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}<small>${sg.optInt("counted_reviews")} signed</small></span>" else "<span class=meta>no signed reviews</span>").append("</a>")
+            shown++
+            val name = a.getString("name")
+            sb.append("<a class='card row link' href='/app/${enc(a.getString("package"))}'><span class=badge aria-hidden=true>${esc(name.trim().take(1).uppercase())}</span><span class=grow><span class=name>${esc(name)}</span><br><span class=meta>${esc(a.optString("category", ""))} · ${esc(a.getString("package"))}</span></span>")
+            sb.append(if (sg != null) "<span class=score>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}<small>${sg.optInt("counted_reviews")} signed</small></span>" else "<span class=meta>no signed reviews yet</span>").append("</a>")
         }
-        sb.append("<p class=small><a href='/watch'>Store watch report</a> · <a href='/review'>Write a signed review</a> · <a href='/publishers'>For publishers</a> · <a href='/v1/dataset.json'>Open dataset</a> · <a href='/v1/openapi.json'>API</a> · <a href='/v1/pricing'>API pricing</a></p>")
+        if (shown == 0) sb.append("<p class=meta>${if (q.isNullOrBlank()) "No signed reviews yet." else "No app matches. Try part of its name or its package."}</p>")
+        sb.append("<div class='card how'><div class=label>More</div><p class=meta><a href='/watch'>Store watch</a>: a weekly report of unusual rating bursts. <a href='/publishers'>For publishers</a>: prove an app is yours and answer reviews. <a href='/v1/dataset.json'>Open dataset</a> and <a href='/v1/openapi.json'>API</a>: every record, free to read.</p></div>")
         return sb.toString()
     }
 
     private fun app(pkg: String, a: JSONObject, lang: String): String {
         val sb = StringBuilder()
         val sg = a.optJSONObject("signed"); val store = a.optJSONObject("store"); val sr = a.optJSONObject("store_rating")
-        sb.append("<p class=small><a href='/'>Undersigned</a></p><h1>${esc(a.optString("name", pkg))}</h1><p class=meta>${esc(a.optString("category", ""))} · ${esc(pkg)}</p>")
+        sb.append("<h1>${esc(a.optString("name", pkg))}</h1><p class=meta>${esc(a.optString("category", ""))} · ${esc(pkg)}</p>")
+        sb.append("<div class=ctas><a class=btn href='/review?package=${enc(pkg)}'>Write a signed review</a><a class='btn sec' href='/app/${enc(pkg)}/feed.xml' title='New signed reviews of this app, in any feed reader'>Follow new reviews (RSS)</a></div>")
         // The two scores side by side, each labelled with where it comes from.
         sb.append("<div class='card grid2'><div><div class=label>Signed by Seeker owners</div>")
         if (sg != null && sg.optInt("counted_reviews") > 0) sb.append("<div class=big>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}</div><div class=meta>${plural(sg.optInt("counted_reviews"), "counted review", "counted reviews")} · ranked as ${sg.opt("rank_score")} until more Seekers sign</div>${bars(sg.optJSONArray("stars"))}")
@@ -101,16 +116,18 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         // Bursts: timing facts with a daily sparkline, the burst window shaded AND labelled (never colour alone).
         val b = views.bursts(pkg)
         val sbur = b.getJSONObject("signed_reviews").getJSONArray("bursts"); val rbur = b.getJSONObject("store_ratings").getJSONArray("bursts")
-        sb.append("<h2>Bursts</h2>")
-        if (sbur.length() == 0 && rbur.length() == 0) sb.append("<p class=meta>No bursts found. Signed reviews checked: ${b.getJSONObject("signed_reviews").optInt("checked")}. Days of store snapshots: ${b.getJSONObject("store_ratings").optInt("snapshot_days")} (8 needed).</p>")
+        // Bursts after the signed reviews, as in the app: the reviews are what the page is for.
+        val bursts = StringBuilder()
+        bursts.append("<h2>Bursts</h2>")
+        if (sbur.length() == 0 && rbur.length() == 0) bursts.append("<p class=meta>No bursts found. Signed reviews checked: ${b.getJSONObject("signed_reviews").optInt("checked")}. Days of store snapshots: ${b.getJSONObject("store_ratings").optInt("snapshot_days")} (8 needed).</p>")
         for ((label, arr) in listOf("Signed reviews" to sbur, "Store star ratings" to rbur)) for (i in 0 until arr.length()) {
             val x = arr.getJSONObject(i)
-            sb.append("<div class='card warn'><div class=label>$label · ${if (x.optString("kind") == "high") "5★" else "1★"}</div><div><b>${x.optInt("count")}</b> against about ${x.opt("expected")} usual · ×${x.opt("multiple")}</div>")
-            sb.append("<div class=meta>${day(x.optLong("start"))} – ${day(x.optLong("end"))}${if (x.has("attested")) " · ${x.optInt("attested")} of ${x.optInt("of")} with an attested device" else ""}${if (!x.isNull("season")) " · during ${esc(x.optString("season"))}" else ""}</div>")
-            x.optJSONObject("spark")?.let { sb.append(spark(it)) }
-            sb.append("</div>")
+            bursts.append("<div class='card warn'><div class=label>$label · ${if (x.optString("kind") == "high") "5★" else "1★"}</div><div><b>${x.optInt("count")}</b> against about ${x.opt("expected")} usual · ×${x.opt("multiple")}</div>")
+            bursts.append("<div class=meta>${day(x.optLong("start"))} – ${day(x.optLong("end"))}${if (x.has("attested")) " · ${x.optInt("attested")} of ${x.optInt("of")} with an attested device" else ""}${if (!x.isNull("season")) " · during ${esc(x.optString("season"))}" else ""}</div>")
+            x.optJSONObject("spark")?.let { bursts.append(spark(it)) }
+            bursts.append("</div>")
         }
-        sb.append("<p class=small>A burst is a fact about timing, not a verdict about the reviews.</p>")
+        bursts.append("<p class=small>A burst is a fact about timing, not a verdict about the reviews.</p>")
 
         // Reviews
         val rv = views.reviews(pkg, 50, 0)
@@ -151,6 +168,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
 
         // Publisher
         val pub = a.optJSONObject("publisher")
+        sb.append(bursts)
         sb.append("<h2>Publisher</h2><div class=card>")
         store?.let { sb.append("<div class=meta>The store lists: ${esc(it.optString("publisher", "–"))}${if (!it.isNull("website")) " · " + link(it.optString("website")) else ""}</div>") }
         val claims = pub?.optJSONArray("claims") ?: JSONArray()
@@ -172,7 +190,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
 
     private fun watch(): String {
         val r = views.watchReport(7)
-        val sb = StringBuilder("<p class=small><a href='/'>Undersigned</a></p><h1>Store watch</h1><p class=sub>Every dApp Store app whose star ratings jumped far above its usual daily pace in the last 7 days, from one reading of the store's public star counts each day. Strongest first.</p>")
+        val sb = StringBuilder("<h1>Store watch</h1><p class=sub>Every dApp Store app whose star ratings jumped far above its usual daily pace in the last 7 days, from one reading of the store's public star counts each day. Strongest first.</p>")
         if (!r.optBoolean("ready")) {
             val have = r.optInt("snapshot_days"); val need = r.optInt("needed")
             sb.append("<div class=card><div class=label>Collecting</div><div class=big>Day $have of $need</div><progress max='$need' value='$have' style='width:100%'></progress><div class=meta>${r.optInt("apps_read")} apps read each day${if (!r.isNull("first_day")) ", since ${esc(r.optString("first_day"))}" else ""}. A burst can only be told from an app's usual pace once there are $need days to compare.</div></div>")
@@ -194,7 +212,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
      * explicit consent before any text goes on-chain for good.
      */
     /** Local only: the treasury wallet signs the fleet's claims and listings from this Mac's browser (docs/FLEET_SEEDING.md). */
-    private fun seed(): String = "<p class=small><a href='/'>Undersigned</a></p><h1>Seed the fleet</h1>" +
+    private fun seed(): String = "<h1>Seed the fleet</h1>" +
         "<p>Connect the treasury wallet <code>DD4a…Wq2Q</code> (Phantom in this browser). This builds a publisher claim and a free treasury listing for each of the fleet's 28 apps, skipping any this wallet already signed, in as few transactions as fit, and asks the wallet to sign each one. Network fees only.</p>" +
         "<div class=card><div class=row><button id=connect>Connect wallet</button><button id=sign disabled>Build and sign</button></div><p id=status class=meta></p><pre id=plan class=code hidden></pre></div>" +
         "<script type=module>\nimport { getWallets } from 'https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm';\n$JS_HELPERS\n" + """
@@ -230,98 +248,75 @@ $('sign').onclick = async () => {
     private fun review(pkg: String?, lang: String): String {
         val app = pkg?.let { indexer.state.byPackage[it] }
         // The same groups and opposite pairs as the app's composer (protocol TagGroups).
-        val tagChips = com.undersigned.protocol.TagGroups.groups.joinToString("") { (g, tags) -> "<div class=label style='margin-top:8px'>${esc(I18n.str(lang, "tag_group_" + g.name.lowercase()) ?: g.name)}</div><div class=row>" + tags.joinToString("") { t -> "<button type=button class=chip data-tag='${esc(t.wire)}' data-opp='${esc(com.undersigned.protocol.TagGroups.opposites[t]?.wire ?: "")}' aria-pressed=false>${esc(I18n.tag(lang, t.wire))}</button>" } + "</div>" }
-        return """<p class=small><a href='/'>Undersigned</a></p><h1>Write a signed review</h1>
-<p class=sub>Your wallet signs the review and it is recorded on Solana. It is counted in scores only if the signing wallet holds a Seeker Genesis Token. You pay only the network fee.</p>
+        val tagChips = com.undersigned.protocol.TagGroups.groups.joinToString("") { (g, tags) -> "<div class=label style='margin-top:10px'>${esc(I18n.str(lang, "tag_group_" + g.name.lowercase()) ?: g.name)}</div><div class=row>" + tags.joinToString("") { t -> "<button type=button class=chip data-tag='${esc(t.wire)}' data-opp='${esc(com.undersigned.protocol.TagGroups.opposites[t]?.wire ?: "")}' aria-pressed=false>${esc(I18n.tag(lang, t.wire))}</button>" } + "</div>" }
+        return """<h1>Write a signed review</h1>
+<p class=sub>Rate a dApp Store app with your own wallet. The review is recorded on Solana, signed by you, and counted beside the store's own rating.</p>
+<ol class=stepper aria-label=Progress><li class=on>1 · Write</li><li>2 · Connect</li><li>3 · Sign</li><li>4 · Recorded</li></ol>
+<div class=grid2>
 <div class=card>
-<label class=label for=pkg>App</label><input id=pkg list=apps value='${esc(pkg ?: "")}' placeholder='Package name, e.g. com.solflare.mobile' autocomplete=off>
+<label class=label for=pkg>App (package name)</label><input id=pkg value='${esc(pkg ?: "")}' placeholder='e.g. com.solflare.mobile' autocomplete=off spellcheck=false autocapitalize=off>
 <div class=meta id=appname>${esc(app?.name ?: "")}</div>
-<div class=label style='margin-top:12px'>Rating</div><div class=row id=rating>${(1..5).joinToString("") { "<button type=button class=chip data-r=$it aria-pressed=false>$it ★</button>" }}</div>
-<div class=label style='margin-top:12px'>Tags (1 to 3)</div><div id=tags>$tagChips</div>
-<label class=label for=text style='display:block;margin-top:12px'>Text (optional, 140 characters)</label><textarea id=text maxlength=140 rows=3></textarea>
-<label class=check><input type=checkbox id=permanent><span class=meta>I understand my text stays on-chain for good. Withdrawing the review later leaves the record.</span></label>
+<div class=label style='margin-top:14px'>Rating</div><div class=row id=rating role=radiogroup aria-label=Rating>${(1..5).joinToString("") { "<button type=button class=chip data-r=$it aria-pressed=false aria-label='$it of 5'>$it ★</button>" }}</div>
+<div class=label style='margin-top:14px'>Tags (one to three)</div><div id=tags>$tagChips</div>
+<label class=label for=text style='display:block;margin-top:14px'>Note (optional, 140 characters)</label><textarea id=text maxlength=140 rows=3 placeholder='Short, factual, in your own words.'></textarea>
+<label class=check><input type=checkbox id=permanent><span class=meta>I understand my note stays on-chain for good. Withdrawing the review later takes it out of the scores; the record stays.</span></label>
 <label class=check><input type=checkbox id=terms><span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. The version recorded is the store's current version of the app.</span></label>
-<div class=row style='margin-top:12px'><button id=connect type=button>Connect wallet</button><button id=sign type=button disabled>Sign review</button><button id=qrbtn type=button hidden class=chip>Sign with a phone (QR)</button></div>
+<div class=ctas><button id=connect type=button class=sec>Connect wallet</button><button id=sign type=button disabled>Sign review</button><button id=qrbtn type=button hidden class=sec>Sign with a phone (QR)</button></div>
 <div id=qr></div>
-<div class=meta id=status aria-live=polite></div></div>
-<style>.chip{background:#17122a;color:var(--t2);min-height:40px;padding:8px 12px;font-weight:600}.chip[aria-pressed=true]{background:var(--p);color:#fff}</style>
+<p class=meta id=status aria-live=polite></p>
+</div>
+<div class='card how'><div class=label>How it works</div><ol>
+<li><b>Pick the app and rate it:</b> stars, one to three tags, a short note if you like.</li>
+<li><b>Connect a wallet.</b> On a Seeker, open this page in Chrome and use the Seeker Wallet. On a computer, use Phantom, Solflare or Backpack in this browser, or <b>Sign with a phone</b> to scan a QR code with your phone's wallet.</li>
+<li><b>Approve in your wallet.</b> It shows the exact record before you sign. You pay only the Solana network fee your wallet sets (about 0.00005 SOL). Undersigned takes nothing.</li>
+<li><b>Recorded.</b> This page tells you when your review is live, and can send a browser notification.</li></ol>
+<p class=small>Counted in scores only when the signing wallet holds a Seeker Genesis Token; other reviews are recorded but not counted. Everything you sign is public and permanent.</p></div>
+</div>
 <script type=module>
-import { getWallets } from 'https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm';
-const $ = (id) => document.getElementById(id); const st = (t) => $('status').textContent = t;
-const IDENTITY = { name: 'Undersigned', uri: location.origin, icon: '/icon.svg' };
-// On Android the page talks to the wallet through the Mobile Wallet Adapter protocol directly. The Wallet Standard
-// wrapper first asks Chrome's local-network permission by fetching http://localhost, which never prompts when the page
-// itself is on localhost, so it waits forever there (found 29 Sep 2026). Elsewhere, Wallet Standard (extensions).
-const ANDROID = /Android/i.test(navigator.userAgent) && !/Firefox\//.test(navigator.userAgent);
-let rating = 0, tags = [], wallet = null, account = null, authToken = null, connecting = false;
-const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-function bs58(bytes) { let n = 0n; for (const b of bytes) n = n * 256n + BigInt(b); let s = ''; while (n > 0n) { s = B58[Number(n % 58n)] + s; n /= 58n; } for (const b of bytes) { if (b !== 0) break; s = '1' + s; } return s; }
-const b64 = (bytes) => btoa(String.fromCharCode(...bytes)); const unb64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+$JS_HELPERS
+let rating = 0, tags = [];
+const PKG = () => $('pkg').value.trim();
+function ready() { const text = $('text').value.trim(); const ok = rating && tags.length && $('terms').checked && (!text || $('permanent').checked) && PKG();
+  if (!$('sign').querySelector('.spin')) $('sign').disabled = !(W.address && ok); step(!ok ? 1 : (!W.address ? 2 : 3)); }
 document.querySelectorAll('#rating .chip').forEach(b => b.onclick = () => { rating = +b.dataset.r; document.querySelectorAll('#rating .chip').forEach(x => x.setAttribute('aria-pressed', x === b)); ready(); });
 document.querySelectorAll('#tags .chip').forEach(b => b.onclick = () => { const t = b.dataset.tag, o = b.dataset.opp;
-  if (tags.includes(t)) tags = tags.filter(x => x !== t); else { tags = tags.filter(x => x !== o); if (tags.length < 3) tags.push(t); }
+  if (tags.includes(t)) tags = tags.filter(x => x !== t); else { tags = tags.filter(x => x !== o); if (tags.length < 3) tags.push(t); else toast('Three tags at most: remove one first.', 'warn', 4000); }
   document.querySelectorAll('#tags .chip').forEach(x => x.setAttribute('aria-pressed', tags.includes(x.dataset.tag))); ready(); });
-['text','permanent','terms','pkg'].forEach(id => $(id).addEventListener('input', ready));
-function ready() { const text = $('text').value.trim(); $('sign').disabled = !(account && rating && tags.length && $('terms').checked && (!text || $('permanent').checked) && $('pkg').value.trim()); }
-async function mwa() { return (await import('https://cdn.jsdelivr.net/npm/@solana-mobile/mobile-wallet-adapter-protocol@2.3.0/+esm')).transact; }
-function explain(e) { const c = e && e.code; return c === 'ERROR_WALLET_NOT_FOUND' ? 'No wallet app opened. Install a Solana wallet that supports Mobile Wallet Adapter (the Seeker Wallet does) and try again.'
-  : c === 'ERROR_ASSOCIATION_CANCELLED' ? 'Connection cancelled or timed out. Tap the button again.' : (c ? c + ' — ' : '') + (e && e.message || e); }
+['text', 'permanent', 'terms'].forEach(id => $(id).addEventListener('input', ready));
+let lookup; $('pkg').addEventListener('input', () => { clearTimeout(lookup); ready(); lookup = setTimeout(async () => { const p = PKG(); if (!p) { $('appname').textContent = ''; return; }
+  try { const r = await fetch('/v1/apps/' + encodeURIComponent(p)); if (r.ok) { const j = await r.json(); $('appname').textContent = j.name || p; } else $('appname').textContent = 'Not in the dApp Store list. Check the package name.'; } catch (e) {} }, 450); });
 $('connect').onclick = async () => {
-  if (connecting) return; connecting = true; $('connect').disabled = true;
+  busy($('connect'), true, ANDROID ? 'Opening your wallet…' : 'Choose a wallet…');
+  try { await connectWallet(); busy($('connect'), false); $('connect').innerHTML = 'Connected · ' + esc(W.address.slice(0, 4) + '…' + W.address.slice(-4));
+    toast('Connected to ' + esc(W.label || 'your wallet') + '.', 'ok', 4000); }
+  catch (e) { busy($('connect'), false); toast('Not connected: ' + esc(explain(e)), 'err'); }
+  ready(); };
+$('sign').onclick = async () => {
+  busy($('sign'), true, 'Building…'); step(3);
   try {
-    if (ANDROID) {
-      st('Opening your wallet…');
-      const transact = await mwa();
-      const auth = await transact(async (w) => w.authorize({ chain: 'solana:mainnet', identity: IDENTITY }));
-      authToken = auth.auth_token; const acc = auth.accounts && auth.accounts[0];
-      if (!acc) { st('The wallet returned no account.'); return; }
-      account = { address: bs58(unb64(acc.address)), label: acc.label };
-    } else {
-      const ws = getWallets().get().filter(w => w.chains.some(c => c.startsWith('solana:')) && w.features['standard:connect'] && w.features['solana:signAndSendTransaction']);
-      if (!ws.length) { st('No Solana wallet found in this browser. On a Seeker, open this page in Chrome; on a computer, install a Solana wallet extension.'); return; }
-      const chosen = ws.length === 1 ? ws[0] : ws[Math.max(0, +prompt(ws.map((w, i) => i + ': ' + w.name).join('\n'), '0') || 0)];
-      if (chosen !== wallet) { account = null; ready(); }          // a stale account must never be sent to a different wallet
-      wallet = chosen;
-      if (wallet.features['standard:events']) wallet.features['standard:events'].on('change', (p) => { if (p.accounts) { account = p.accounts[0] || null; st(account ? 'Account: ' + account.address.slice(0, 4) + '…' + account.address.slice(-4) : 'The wallet disconnected.'); ready(); } });
-      st('Opening ' + wallet.name + '…');
-      const r = await wallet.features['standard:connect'].connect(); account = r.accounts && r.accounts[0];
-      if (!account) { st('The wallet returned no account. Reload this page and try again.'); return; }
-    }
-    st('Connected: ' + (account.label ? account.label + ' · ' : '') + account.address.slice(0, 4) + '…' + account.address.slice(-4)); ready();
-  } catch (e) { account = null; ready(); st('The wallet did not connect: ' + explain(e)); console.warn('connect failed', e && e.code, e && e.message); }
-  finally { connecting = false; $('connect').disabled = false; }
+    const r = await fetch('/v1/tx/review', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: W.address, package: PKG(), rating, tags, text: $('text').value.trim() }) });
+    const j = await r.json(); if (!r.ok) { busy($('sign'), false); toast(esc(j.message || j.error), 'err'); ready(); return; }
+    if (j.counted_now === false) toast('This site has read no Seeker Genesis Token on this wallet, so the review will be recorded but not counted in scores.', 'warn', 12000);
+    busy($('sign'), false); busy($('sign'), true, ANDROID ? 'Approve in your wallet (double-tap)…' : 'Approve in your wallet…');
+    const sig = await sendTx(j.transaction);
+    busy($('sign'), false); $('sign').disabled = true; $('sign').innerHTML = 'Signed';
+    follow(sig, '/app/' + encodeURIComponent(PKG()), 'Your review');
+  } catch (e) { busy($('sign'), false); toast('Not signed: ' + esc(explain(e)), 'err'); ready(); }
 };
 if (!ANDROID && location.protocol === 'https:') { $('qrbtn').hidden = false; $('qrbtn').onclick = async () => {
   const text = $('text').value.trim();
-  if (!(rating && tags.length && $('terms').checked && (!text || $('permanent').checked) && $('pkg').value.trim())) { st('Choose a rating and tags and tick the boxes first.'); return; }
-  const u = location.origin + '/v1/pay/review?package=' + encodeURIComponent($('pkg').value.trim()) + '&rating=' + rating + '&tags=' + encodeURIComponent(tags.join(',')) + (text ? '&text=' + encodeURIComponent(text) : '');
+  if (!(rating && tags.length && $('terms').checked && (!text || $('permanent').checked) && PKG())) { toast('Choose a rating and tags and tick the boxes first.', 'warn'); return; }
+  const u = location.origin + '/v1/pay/review?package=' + encodeURIComponent(PKG()) + '&rating=' + rating + '&tags=' + encodeURIComponent(tags.join(',')) + (text ? '&text=' + encodeURIComponent(text) : '');
   const QR = (await import('https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm')).default;
   const img = await QR.toDataURL('solana:' + encodeURIComponent(u), { margin: 1, width: 280 });
-  $('qr').innerHTML = '<img alt="QR code for a phone wallet" width=280 height=280 src="' + img + '"><div class=meta>Scan with the wallet on your Seeker. It shows the transaction and asks you to sign.</div>';
+  $('qr').innerHTML = '<img alt="QR code for a phone wallet" width=280 height=280 style="border-radius:14px;margin-top:10px" src="' + img + '"><div class=meta>Scan with the wallet on your Seeker. It shows the review and asks you to sign. Your review appears here within a few minutes.</div>';
 }; }
-$('sign').onclick = async () => {
-  $('sign').disabled = true; st('Building the transaction…');
-  try {
-    const r = await fetch('/v1/tx/review', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: account.address, package: $('pkg').value.trim(), rating, tags, text: $('text').value.trim() }) });
-    const j = await r.json(); if (!r.ok) { st(j.message || j.error); ready(); return; }
-    st((j.counted_now === false ? 'Note: this server has read no Seeker Genesis Token on this wallet, so the review will be recorded but not counted. ' : '') + 'Sign in your wallet…');
-    let sig;
-    if (ANDROID) {
-      const transact = await mwa();
-      const res = await transact(async (w) => { await w.authorize({ chain: 'solana:mainnet', identity: IDENTITY, auth_token: authToken }); return w.signAndSendTransactions({ payloads: [j.transaction] }); });
-      sig = bs58(unb64(res.signatures[0]));
-    } else {
-      const [res] = await wallet.features['solana:signAndSendTransaction'].signAndSendTransaction({ account, transaction: unb64(j.transaction), chain: 'solana:mainnet' });
-      sig = bs58(res.signature);
-    }
-    $('status').innerHTML = 'Signed and sent. <a target=_blank href="https://solscan.io/tx/' + sig + '">View the transaction</a>. It appears here within a few minutes.';
-  } catch (e) { st('Not signed: ' + explain(e)); ready(); }
-};
+ready();
 </script>"""
     }
 
     /** What this site can and cannot do about content, and who to write to. */
-    private fun report(): String = """<p class=small><a href='/'>Undersigned</a></p><h1>Report content</h1>
+    private fun report(): String = """<h1>Report content</h1>
 <p>Every review, reply and note shown here was signed by its author's wallet and recorded on Solana. Nobody can change or delete a record on-chain: not its author, not this site.</p>
 <p>What this site can do is stop showing a record's <b>text</b>. When it does, the record still appears with its rating, tags and date, marked "Text not shown on this site". The hide list is the operator's, applies to this site and its API only, and does not touch the Undersigned app. Separately, a moderator can hide a record's text everywhere, the app included, by signing a public record (<a href='/moderation'>how moderation works</a>).</p>
 <p>Write to us about text that is unlawful where you are, exposes private information, or targets a person: ${if (Config.CONTACT.startsWith("http")) "<a href='${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>" else "<a href='mailto:${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>"}. Say which record (its page link, or the transaction signature) and why. Disagreeing with a rating is not a reason; publishers can answer a review with a signed reply instead.</p>
@@ -340,7 +335,7 @@ $('sign').onclick = async () => {
         }
         val contact = if (Config.CONTACT.startsWith("http")) "<a href='${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>" else "<a href='mailto:${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>"
         val who = com.undersigned.protocol.Moderation.MODERATORS.joinToString(", ") { short(it) }
-        return "<p class=small><a href='/'>Undersigned</a></p><h1>Moderation</h1>" +
+        return "<h1>Moderation</h1>" +
             "<p>Moderation on Undersigned hides <b>text</b>, never a voice. A moderator can stop a review's or reply's words from being shown; its rating, tags and weight still count, and the record stays on Solana, where nobody can change or delete it.</p>" +
             "<div class=card><div class=label>Who moderates</div><p>The wallets named in the app's and this site's source code (<code>Moderation.MODERATORS</code>). Today that is one wallet, the operator's: <code>${esc(who)}</code>. Adding or removing one is a new release, visible to anyone.</p></div>" +
             "<div class=card><div class=label>The only four reasons</div><p>Illegal content · someone's personal data (names, addresses, phone numbers, keys or seed words) · abuse or harassment aimed at a person · impersonating a publisher.</p>" +
@@ -368,37 +363,29 @@ $('sign').onclick = async () => {
             "flag" -> "<label class=label for=reason>Reason</label><select id=reason>${com.undersigned.protocol.ReviewMemo.FlagReason.entries.joinToString("") { "<option value='${it.wire}'>${esc(I18n.flag(lang, it.wire))}</option>" }}</select><p class=meta>A flag is a signed opinion from your wallet. Records are hidden in the app only when flags from several attested devices agree.</p>"
             else -> "<p class=meta>A helpful vote is a signed record from your wallet. It counts when the wallet holds a Seeker Genesis Token.</p>"
         }
-        val body = """<p class=small><a href='/'>Undersigned</a></p><h1>$title</h1>$about
+        val pkg = rec.optString("package", "")
+        val body = """<p class=small><a href='/app/${enc(pkg)}'>Back to the app</a></p><h1>$title</h1>$about
+<ol class=stepper aria-label=Progress><li class=on>1 · Connect</li><li>2 · Check</li><li>3 · Sign</li><li>4 · Recorded</li></ol>
 <div class=card>$inputs
-<label class=check><input type=checkbox id=terms><span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. You pay only the network fee.</span></label>
-<div class=row style='margin-top:12px'><button id=go type=button>Sign with your wallet</button></div><div class=meta id=status aria-live=polite></div></div>
+<label class=check><input type=checkbox id=terms><span class=meta>I accept the <a href='https://aardappvark.github.io/undersigned-legal/terms.html' target=_blank>Terms</a>. You pay only the Solana network fee your wallet sets (about 0.00005 SOL).</span></label>
+<div class=ctas><button id=go type=button>Sign with your wallet</button></div><p class=meta id=status aria-live=polite></p>
+<p class=small>On a Seeker, open this page in Chrome and approve with the Seeker Wallet. On a computer, use a wallet extension such as Phantom, Solflare or Backpack.</p></div>
 <script type=module>
-import { getWallets } from 'https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm';
 $JS_HELPERS
-const KIND = '${esc(kind)}', TARGET = '${esc(target)}';
+const KIND = '${esc(kind)}', TARGET = '${esc(target)}', LIVE = '/app/${enc(pkg)}';
 $('go').onclick = async () => {
-  if (!$('terms').checked) { st('Tick the Terms box first.'); return; }
-  if (KIND === 'reply' && (!$('text').value.trim() || !$('permanent').checked)) { st('Write the reply and tick the box about permanence.'); return; }
-  const build = async (address) => { const r = await fetch('/v1/tx/record', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: address, kind: KIND, target: TARGET, text: $('text') ? $('text').value.trim() : undefined, reason: $('reason') ? $('reason').value : undefined }) });
-    const j = await r.json(); if (!r.ok) throw new Error(j.message || j.error); return j.transaction; };
-  $('go').disabled = true;
+  if (!$('terms').checked) { toast('Tick the Terms box first.', 'warn'); return; }
+  if (KIND === 'reply' && (!$('text').value.trim() || !$('permanent').checked)) { toast('Write the reply and tick the box about permanence.', 'warn'); return; }
   try {
-    let sig;
-    if (ANDROID) {
-      st('Opening your wallet…'); const transact = await mwa();
-      const res = await transact(async (w) => { const auth = await w.authorize({ chain: 'solana:mainnet', identity: IDENTITY }); const tx = await build(bs58(unb64(auth.accounts[0].address))); return w.signAndSendTransactions({ payloads: [tx] }); });
-      sig = bs58(unb64(res.signatures[0]));
-    } else {
-      const ws = getWallets().get().filter(w => w.chains.some(c => c.startsWith('solana:')) && w.features['standard:connect'] && w.features['solana:signAndSendTransaction']);
-      if (!ws.length) { st('No Solana wallet found in this browser. On a Seeker, open this page in Chrome; on a computer, install a Solana wallet extension.'); return; }
-      const wallet = ws[0]; st('Opening ' + wallet.name + '…');
-      const r = await wallet.features['standard:connect'].connect(); const account = r.accounts && r.accounts[0];
-      if (!account) { st('The wallet returned no account. Reload this page and try again.'); return; }
-      const [res] = await wallet.features['solana:signAndSendTransaction'].signAndSendTransaction({ account, transaction: unb64(await build(account.address)), chain: 'solana:mainnet' });
-      sig = bs58(res.signature);
-    }
-    $('status').innerHTML = 'Signed and sent. <a target=_blank href="https://solscan.io/tx/' + sig + '">View the transaction</a>.';
-  } catch (e) { st('Not signed: ' + explain(e)); } finally { $('go').disabled = false; }
+    if (!W.address) { busy($('go'), true, ANDROID ? 'Opening your wallet…' : 'Choose a wallet…'); step(1); await connectWallet(); busy($('go'), false); toast('Connected to ' + esc(W.label || 'your wallet') + '.', 'ok', 4000); }
+    busy($('go'), true, 'Building…'); step(2);
+    const r = await fetch('/v1/tx/record', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: W.address, kind: KIND, target: TARGET, text: $('text') ? $('text').value.trim() : undefined, reason: $('reason') ? $('reason').value : undefined }) });
+    const j = await r.json(); if (!r.ok) { busy($('go'), false); toast(esc(j.message || j.error), 'err'); return; }
+    busy($('go'), false); busy($('go'), true, ANDROID ? 'Approve in your wallet (double-tap)…' : 'Approve in your wallet…'); step(3);
+    const sig = await sendTx(j.transaction);
+    busy($('go'), false); $('go').disabled = true; $('go').innerHTML = 'Signed';
+    follow(sig, LIVE, KIND === 'reply' ? 'Your reply' : KIND === 'up' ? 'Your helpful vote' : 'Your flag');
+  } catch (e) { busy($('go'), false); toast('Not signed: ' + esc(explain(e)), 'err'); }
 };
 </script>"""
         return page("$title — Undersigned", body, lang = lang)
@@ -406,7 +393,7 @@ $('go').onclick = async () => {
 
     /** How a publisher proves an app is theirs, and what this server currently reads for one package (from its cache only). */
     private fun publishers(pkg: String?): String {
-        val sb = StringBuilder("""<p class=small><a href='/'>Undersigned</a></p><h1>For publishers</h1>
+        val sb = StringBuilder("""<h1>For publishers</h1>
 <p class=sub>Anyone can sign "I publish this app". A claim only shows as proven when one of two things is true.</p>
 <div class=card><div class=label>1 · Name your wallet in the app itself</div><p>Add one line inside <code>&lt;application&gt;</code> in your manifest and ship a release:</p>
 <pre class=code>&lt;meta-data android:name="undersigned.publisher" android:value="YOUR_WALLET_ADDRESS" /&gt;</pre>
@@ -450,7 +437,7 @@ $('go').onclick = async () => {
 
     private fun wallet(w: String): String {
         val j = views.wallet(w, false)
-        val sb = StringBuilder("<p class=small><a href='/'>Undersigned</a></p><h1>${esc(if (j.isNull("skr_name")) short(w) else j.getString("skr_name"))}</h1><p class=meta><code>${esc(w)}</code></p><div class=card><div class=stats>")
+        val sb = StringBuilder("<h1>${esc(if (j.isNull("skr_name")) short(w) else j.getString("skr_name"))}</h1><p class=meta><code>${esc(w)}</code></p><div class=card><div class=stats>")
         if (j.isNull("weight") && j.optInt("reviews") == 0 && j.isNull("standing")) {
             sb.append("<div class=stat><b>Not seen yet</b><span>this wallet has signed nothing on the ledger, or the index has not read it yet</span></div></div></div>")
             return sb.toString()
@@ -501,10 +488,17 @@ $('go').onclick = async () => {
     fun page(title: String, body: String, status: Int = 200, head: String = "", lang: String = "en", description: String = "Reviews of Solana dApp Store apps, signed on-chain by Seeker owners. Facts, not verdicts."): Api.Response {
         val nonce = Base58.encode(ByteArray(16).also { java.security.SecureRandom().nextBytes(it) })
         val withNonce = body.replace("<script type=module>", "<script type=module nonce=\"$nonce\">")
-        val html = "<!doctype html><html lang=${I18n.htmlLang(lang)}><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>${esc(title)}</title><link rel=icon href='/icon.svg'><meta name=description content='${esc(description)}'><meta property='og:title' content='${esc(title)}'><meta property='og:description' content='${esc(description)}'><meta property='og:image' content='${Config.PUBLIC_URL}/icon.svg'><meta name='twitter:card' content='summary'><style nonce=\"$nonce\">$CSS</style>$head</head><body><main>$withNonce<footer class=small>Undersigned is an open review ledger on Solana. Reviews are the opinions of individual Seeker owners. <a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a> · <a href='/report'>Report content</a>.</footer></main></body></html>"
+        val html = "<!doctype html><html lang=${I18n.htmlLang(lang)}><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>${esc(title)}</title><link rel=icon href='/icon.svg'><meta name=description content='${esc(description)}'><meta property='og:title' content='${esc(title)}'><meta property='og:description' content='${esc(description)}'><meta property='og:image' content='${Config.PUBLIC_URL}/icon.svg'><meta name='twitter:card' content='summary'><style nonce=\"$nonce\">$CSS</style>$head</head><body>$HEADER<main>$withNonce</main>$FOOTER<div class=toasts id=toasts aria-live=polite></div></body></html>"
         val csp = "default-src 'none'; script-src 'nonce-$nonce' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; img-src 'self' data: https:; " +
             "connect-src 'self' https://cdn.jsdelivr.net ws://localhost:* wss://localhost:* ws://127.0.0.1:* wss://127.0.0.1:*; font-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
         return Api.Response(status, JSONObject(), mapOf("Cache-Control" to "public, max-age=60", "Content-Security-Policy" to csp, "Referrer-Policy" to "no-referrer"), html.toByteArray(), "text/html; charset=utf-8")
+    }
+
+    private fun asset(name: String): Api.Response? {
+        if (!Regex("^[a-z0-9-]+\\.(ttf|jpg|txt)$").matches(name)) return null
+        val bytes = Web::class.java.getResourceAsStream("/web/$name")?.use { it.readBytes() } ?: return null
+        val type = when (name.substringAfterLast('.')) { "ttf" -> "font/ttf"; "jpg" -> "image/jpeg"; else -> "text/plain; charset=utf-8" }
+        return Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=604800"), bytes, type)
     }
 
     private fun notFound() = page("Not found — Undersigned", "<h1>Not found</h1><p><a href='/'>Back to Undersigned</a></p>", 404)
@@ -518,28 +512,83 @@ $('go').onclick = async () => {
         fun short(w: String) = if (w.length > 10) w.take(4) + "…" + w.takeLast(4) else w
         fun day(t: Long) = java.time.Instant.ofEpochSecond(t).toString().take(10)
         /** Wallet helpers shared by the action pages: base58, base64, the direct Mobile Wallet Adapter import, and plain error text. */
-        const val JS_HELPERS = """const $ = (id) => document.getElementById(id); const st = (t) => $('status').textContent = t;
+        const val JS_HELPERS = """const $ = (id) => document.getElementById(id); const st = (t) => { const s = $('status'); if (s) s.textContent = t; };
 const IDENTITY = { name: 'Undersigned', uri: location.origin, icon: '/icon.svg' };
+// Android: the Mobile Wallet Adapter protocol directly (the Wallet Standard wrapper waits forever for a local-network
+// prompt Chrome never raises on localhost, 29 Sep 2026). Elsewhere: Wallet Standard (browser extensions).
 const ANDROID = /Android/i.test(navigator.userAgent) && !/Firefox\//.test(navigator.userAgent);
 const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 function bs58(bytes) { let n = 0n; for (const b of bytes) n = n * 256n + BigInt(b); let s = ''; while (n > 0n) { s = B58[Number(n % 58n)] + s; n /= 58n; } for (const b of bytes) { if (b !== 0) break; s = '1' + s; } return s; }
 const unb64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 async function mwa() { return (await import('https://cdn.jsdelivr.net/npm/@solana-mobile/mobile-wallet-adapter-protocol@2.3.0/+esm')).transact; }
-function explain(e) { const c = e && e.code; return c === 'ERROR_WALLET_NOT_FOUND' ? 'No wallet app opened. Install a Solana wallet that supports Mobile Wallet Adapter (the Seeker Wallet does) and try again.'
-  : c === 'ERROR_ASSOCIATION_CANCELLED' ? 'Connection cancelled or timed out. Tap the button again.' : (c ? c + ' — ' : '') + (e && e.message || e); }"""
-        const val CSS = ":root{--bg:#000;--card:#120e22;--line:#2a2145;--p:#9945ff;--pl:#b98cff;--g:#14f195;--t:#f2eeff;--t2:#b7aed1;--t3:#8e85a8;--w:#ffc46b}" +
-            "body{margin:0;background:var(--bg);color:var(--t);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}main{max-width:820px;margin:0 auto;padding:20px 16px 48px}" +
-            "h1{font-size:26px;margin:4px 0}h2{font-size:17px;margin:26px 0 8px}.sub,.meta{color:var(--t2)}.meta,.small{font-size:13px}.small{color:var(--t3)}a{color:var(--pl)}" +
-            ".card{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:10px 0;text-decoration:none;color:inherit}.card.warn{border-color:#5a4524}" +
-            ".check{display:flex;gap:10px;align-items:flex-start;margin-top:12px;cursor:pointer}.check input{width:20px;height:20px;flex:none;margin:2px 0 0}.check span{flex:1}" + ".row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0}.grow{flex:1 1 auto;min-width:0}.name{font-weight:700}.score{font-size:22px;font-weight:700;text-align:right}.score small{display:block;font-size:11px;color:var(--t3);font-weight:400}" +
-            ".grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:560px){.grid2{grid-template-columns:1fr}}.label{font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}.big{font-size:34px;font-weight:700}" +
-            ".bars{margin-top:8px}.bar{display:grid;grid-template-columns:28px 1fr 44px;gap:6px;align-items:center;font-size:12px;color:var(--t2)}.bar i{display:block;height:6px;border-radius:3px;background:var(--p);min-width:2px}" +
-            ".stats{display:flex;flex-wrap:wrap;gap:8px 22px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--t3)}" +
-            ".pill{font-size:11px;font-weight:700;border-radius:99px;padding:3px 9px;background:#1f1a33;color:var(--pl)}.pill.g{color:var(--g);background:#0f2a1f}.tag{font-size:12px;color:var(--t2);background:#17122a;border-radius:99px;padding:3px 9px}" +
-            ".rev{border-top:1px solid var(--line);padding:12px 0}.stars{color:var(--w);letter-spacing:1px}.txt{margin:6px 0}.reply{margin:8px 0 0 14px;padding-left:10px;border-left:2px solid var(--line);font-size:14px}.pub{color:var(--g)}" +
-            ".spark{width:100%;max-width:420px;height:auto;margin-top:6px}input,select,textarea{width:100%;box-sizing:border-box;background:#0e0b18;border:1px solid var(--line);border-radius:12px;color:var(--t);padding:12px;font-size:16px;margin:6px 0 12px}" +
-            "button{background:var(--p);color:#fff;border:0;border-radius:12px;padding:12px 18px;font-size:15px;font-weight:700;min-height:48px;cursor:pointer}button[disabled]{opacity:.5}" +
-            "pre.code{white-space:pre-wrap;word-break:break-all;background:#0e0b18;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;color:var(--t2)}code{font-size:12px;color:var(--t2)}" +
-            "a.link:hover{border-color:var(--p)}footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px}"
+function explain(e) { const c = e && e.code; const m = (e && e.message || String(e)).toLowerCase();
+  if (c === 'ERROR_WALLET_NOT_FOUND') return 'No wallet app opened. On a Seeker, open this page in Chrome; the Seeker Wallet supports it.';
+  if (c === 'ERROR_ASSOCIATION_CANCELLED' || c === 'CANCELLED' || m.includes('reject') || m.includes('declin') || m.includes('cancel')) return 'Cancelled in the wallet. Nothing was signed.';
+  if (m.includes('insufficient')) return 'Not enough SOL in this wallet for the network fee.';
+  if (c === 'NO_WALLET') return e.message;
+  return (c ? c + ' — ' : '') + (e && e.message || e); }
+// Notices: one line per step, kept short; links open in a new tab.
+function toast(html, kind = 'info', ms = 8000) { const box = $('toasts'); if (!box) return; const t = document.createElement('div'); t.className = 'toast ' + kind; t.innerHTML = html; box.appendChild(t); if (ms) setTimeout(() => t.remove(), ms); return t; }
+function busy(btn, on, label) { if (!btn) return; if (on) { btn.dataset.l = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class=spin></span>' + esc(label || 'Working…'); } else { btn.disabled = false; if (btn.dataset.l) btn.innerHTML = btn.dataset.l; } }
+function step(n) { document.querySelectorAll('.stepper li').forEach((li, i) => { li.className = i + 1 < n ? 'done' : (i + 1 === n ? 'on' : ''); }); }
+// A wallet picker instead of prompt(): each installed wallet with its own icon.
+function pickWallet(ws) { return new Promise((res, rej) => {
+  if (ws.length === 1) return res(ws[0]);
+  const m = document.createElement('div'); m.className = 'modal';
+  m.innerHTML = '<div class=box role=dialog aria-modal=true aria-label="Choose a wallet"><h2 style="margin-top:0">Choose a wallet</h2><div class=wl></div><button class=sec style="width:100%;margin-top:8px">Cancel</button></div>';
+  ws.forEach(w => { const b = document.createElement('button'); b.className = 'wallet'; b.innerHTML = (w.icon ? '<img alt="" src="' + esc(w.icon) + '">' : '') + '<span>' + esc(w.name) + '</span>';
+    b.onclick = () => { m.remove(); res(w); }; m.querySelector('.wl').appendChild(b); });
+  m.querySelector('button.sec').onclick = () => { m.remove(); rej(Object.assign(new Error('cancelled'), { code: 'CANCELLED' })); };
+  document.body.appendChild(m); }); }
+const W = { mode: null, wallet: null, account: null, address: null, label: null, authToken: null };
+async function connectWallet() {
+  if (ANDROID) {
+    const transact = await mwa();
+    const auth = await transact(async (w) => w.authorize({ chain: 'solana:mainnet', identity: IDENTITY }));
+    const a = auth.accounts && auth.accounts[0]; if (!a) throw new Error('The wallet returned no account.');
+    Object.assign(W, { mode: 'mwa', authToken: auth.auth_token, address: bs58(unb64(a.address)), label: a.label || 'Seeker Wallet' });
+  } else {
+    const { getWallets } = await import('https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm');
+    const ws = getWallets().get().filter(w => w.chains.some(c => c.startsWith('solana:')) && w.features['standard:connect'] && w.features['solana:signAndSendTransaction']);
+    if (!ws.length) throw Object.assign(new Error('No Solana wallet in this browser. Install Phantom, Solflare or Backpack, or open this page in Chrome on your Seeker.'), { code: 'NO_WALLET' });
+    const w = await pickWallet(ws); const r = await w.features['standard:connect'].connect(); const acc = r.accounts && r.accounts[0];
+    if (!acc) throw new Error('The wallet returned no account. Reload this page and try again.');
+    Object.assign(W, { mode: 'std', wallet: w, account: acc, address: acc.address, label: w.name });
+    if (w.features['standard:events']) w.features['standard:events'].on('change', (p) => { if (p.accounts) { W.account = p.accounts[0] || null; W.address = W.account && W.account.address; toast(W.account ? 'Wallet account changed to ' + esc(W.address.slice(0, 4) + '…' + W.address.slice(-4)) : 'The wallet disconnected.', 'warn'); } });
+  }
+  return W;
+}
+async function sendTx(b64tx) {
+  if (W.mode === 'mwa') { const transact = await mwa();
+    const res = await transact(async (w) => { await w.authorize({ chain: 'solana:mainnet', identity: IDENTITY, auth_token: W.authToken }); return w.signAndSendTransactions({ payloads: [b64tx] }); });
+    return bs58(unb64(res.signatures[0])); }
+  const [res] = await W.wallet.features['solana:signAndSendTransaction'].signAndSendTransaction({ account: W.account, transaction: unb64(b64tx), chain: 'solana:mainnet' });
+  return bs58(res.signature);
+}
+// Recorded = this server has read the record off the chain (it reads new blocks every minute or so).
+async function waitRecorded(id, ms = 600000) { const t0 = Date.now(); while (Date.now() - t0 < ms) { await new Promise(r => setTimeout(r, 10000));
+  try { if ((await fetch('/v1/records/' + encodeURIComponent(id))).ok) return true; } catch (e) {} } return false; }
+async function askNotify() { if (!('Notification' in window)) return false; if (Notification.permission === 'granted') return true; if (Notification.permission === 'denied') return false; return (await Notification.requestPermission()) === 'granted'; }
+function notifyLive(title, body, url) { try { if ('Notification' in window && Notification.permission === 'granted') { const n = new Notification(title, { body, icon: '/icon.svg' }); n.onclick = () => { window.focus(); if (url) location.href = url; }; } } catch (e) {} }
+// After a signature: sent → recorded, with a notice at each step and an optional browser notification.
+async function follow(sig, liveUrl, what) {
+  step(4);
+  const sent = toast('Signed and sent. <a target=_blank href="https://solscan.io/tx/' + sig + '">View on Solscan</a>. Waiting for it to be recorded… <button class=sec id=nfy style="min-height:36px;padding:6px 12px;margin-left:6px">Notify me</button>', 'info', 0);
+  const nb = sent.querySelector('#nfy'); if (nb) nb.onclick = async () => { nb.remove(); toast((await askNotify()) ? 'You\'ll get a browser notification when it\'s live.' : 'Notifications are blocked in this browser; this page will say so instead.', 'info'); };
+  st('Sent. Waiting for it to be recorded (usually within two minutes)…');
+  const ok = await waitRecorded(sig); sent.remove();
+  if (ok) { document.querySelectorAll('.stepper li').forEach(li => li.className = 'done');
+    toast(esc(what) + ' is live. <a href="' + esc(liveUrl) + '">See it</a>', 'ok', 0); st(what + ' is recorded and live.'); notifyLive('Undersigned', what + ' is live.', liveUrl); }
+  else { toast('Sent, but not read here yet. It is on Solana (<a target=_blank href="https://solscan.io/tx/' + sig + '">Solscan</a>) and will show once this site catches up.', 'warn', 0); st('Sent; this site has not read it yet.'); }
+}"""
+        /** The mark, inline (the same vector as /icon.svg and the app's launcher). */
+        private val MARK: String get() = ICON.replace("<svg ", "<svg aria-hidden=true ")
+        val HEADER: String get() = "<header class=top><div class=in><a class=brand href='/'>$MARK<span>Undersigned</span></a><nav class=nav aria-label=Main>" +
+            "<a href='/'>Apps</a><a href='/watch'>Store watch</a><a href='/publishers'>Publishers</a><a href='/v1/pricing'>API</a><a class=cta href='/review'>Write a review</a></nav></div></header>"
+        const val FOOTER = "<footer class=foot><div class=in><div class=small style='max-width:520px'>Undersigned is an open review ledger on Solana. Reviews are the opinions of individual Seeker owners, " +
+            "signed by their own wallets. Not affiliated with Solana Mobile.</div><nav class=small><a href='/review'>How to review</a><a href='/publishers'>For publishers</a><a href='/moderation'>Moderation</a>" +
+            "<a href='/report'>Report content</a><a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a><a href='/assets/OFL-1.1.txt'>Font licence</a></nav></div></footer>"
+        const val CSS = "@font-face{font-family:Manrope;src:url(/assets/manrope.ttf) format('truetype');font-weight:200 800;font-display:swap}:root{--bg:#000;--surface:#0e0b18;--card:#120e22;--sv:#17122a;--line:rgba(153,69,255,.22);--p:#9945ff;--pd:#6b2fc7;--pl:#b98cff;--g:#14f195;--t:#f2eeff;--t2:#b7aed1;--t3:#8c83a8;--w:#ffc46b;--n:#ff6b6b;--i:#6bb9ff}*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--t);font:15px/1.55 Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}a{color:var(--pl);text-underline-offset:3px}a:hover{color:#d4b8ff}.top{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.top .in{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:10px;color:var(--t);text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.3px}.brand svg{width:30px;height:30px;border-radius:8px}.nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}.nav a{color:var(--t2);text-decoration:none;font-weight:600;font-size:14px;padding:8px 10px;border-radius:10px;min-height:40px;display:inline-flex;align-items:center}.nav a:hover,.nav a[aria-current=page]{color:var(--t);background:var(--sv)}.nav a.cta{background:var(--p);color:#fff}.nav a.cta:hover{background:#8a3bf0;color:#fff}main{max-width:1000px;margin:0 auto;padding:22px 16px 56px}h1{font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.6px;margin:6px 0 8px}h2{font-size:19px;font-weight:800;letter-spacing:-.2px;margin:30px 0 10px}.sub{color:var(--t2);font-size:16px;max-width:720px}.meta{color:var(--t2)}.meta,.small{font-size:13px}.small{color:var(--t3)}.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:12px 0;text-decoration:none;color:inherit}a.card:hover,a.link:hover{border-color:var(--p);color:inherit}.card.warn{border-color:#5a4524}.hero{position:relative;border-radius:24px;overflow:hidden;margin:4px 0 18px;min-height:360px;display:flex;align-items:flex-end;background:#0e0b18 center/cover no-repeat}.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 40%,rgba(0,0,0,.92) 85%)}.hero .in{position:relative;padding:28px 26px}.hero h1{font-size:38px;max-width:640px}.hero .sub{color:#d9d2ee}.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn,button{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--p);color:#fff;border:0;border-radius:14px;padding:12px 20px;font:700 15px/1.2 Manrope,system-ui,sans-serif;min-height:52px;cursor:pointer;text-decoration:none}.btn:hover,button:hover{background:#8a3bf0;color:#fff}.btn.sec,button.sec{background:transparent;color:var(--pl);border:1.5px solid var(--line)}.btn.sec:hover,button.sec:hover{border-color:var(--p);background:rgba(153,69,255,.08)}button[disabled]{opacity:.45;cursor:not-allowed}button .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:700px){.steps3{grid-template-columns:1fr}}.steps3 .card{margin:0}.steps3 b{display:block;color:var(--pl);font-size:24px;font-weight:800}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0}.grow{flex:1;min-width:0}.check{display:flex;gap:10px;align-items:flex-start;margin-top:12px;cursor:pointer}.check input{width:20px;height:20px;flex:none;margin:2px 0 0;accent-color:var(--p)}.check span{flex:1}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:600px){.grid2{grid-template-columns:1fr}}.label{font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.big{font-size:40px;font-weight:800;letter-spacing:-1px}.bars{margin-top:8px}.bar{display:grid;grid-template-columns:28px 1fr 44px;gap:6px;align-items:center;font-size:12px;color:var(--t2)}.bar i{display:block;height:6px;border-radius:3px;background:var(--p);min-width:2px}.stats{display:flex;flex-wrap:wrap;gap:10px 26px}.stat b{display:block;font-size:24px;font-weight:800}.stat span{font-size:12px;color:var(--t3)}.pill{font-size:12px;font-weight:700;border-radius:99px;padding:4px 10px;background:#1f1a33;color:var(--pl);display:inline-block}.pill.g{color:var(--g);background:#0f2a1f}.tag{font-size:12px;color:var(--t2);background:var(--sv);border-radius:99px;padding:4px 10px;font-weight:600}.rev{border-top:1px solid var(--line);padding:14px 0}.stars{color:var(--w);letter-spacing:1px}.txt{margin:6px 0}.reply{margin:8px 0 0 14px;padding-left:10px;border-left:2px solid var(--line);font-size:14px}.pub{color:var(--g)}.name{font-weight:800}.score{font-size:24px;font-weight:800;text-align:right}.score small{display:block;font-size:12px;font-weight:600;color:var(--t3)}.badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,#9945ff,#6b2fc7);flex:none}.spark{width:100%;max-width:420px;height:auto;margin-top:6px}input,select,textarea{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;color:var(--t);padding:13px 14px;font:16px Manrope,system-ui,sans-serif;margin:6px 0 12px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p)}.chip{background:var(--sv);color:var(--t2);min-height:44px;padding:8px 14px;font-weight:600;border-radius:99px;font-size:14px}.chip:hover{background:#221a3d;color:var(--t)}.chip[aria-pressed=true]{background:var(--p);color:#fff}.stepper{display:flex;gap:6px;list-style:none;padding:0;margin:14px 0 6px;flex-wrap:wrap}.stepper li{flex:1;min-width:0;font-size:13px;font-weight:700;color:var(--t3);border-top:3px solid var(--sv);padding-top:8px}.stepper li.on{color:var(--t);border-color:var(--p)}.stepper li.done{color:var(--g);border-color:var(--g)}.how{background:linear-gradient(135deg,rgba(153,69,255,.10),rgba(20,241,149,.04));}.how ol{margin:6px 0 0;padding-left:20px}.how li{margin:4px 0}.toasts{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;flex-direction:column;gap:8px;max-width:min(420px,calc(100vw - 32px))}.toast{background:#17122a;border:1px solid var(--line);border-left:4px solid var(--p);border-radius:14px;padding:12px 14px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.6);animation:in .2s ease-out}.toast.ok{border-left-color:var(--g)}.toast.err{border-left-color:var(--n)}.toast.warn{border-left-color:var(--w)}@keyframes in{from{transform:translateY(8px);opacity:0}}.modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.7);display:grid;place-items:center;padding:16px}.modal .box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;width:min(420px,100%)}.wallet{display:flex;align-items:center;gap:12px;width:100%;background:var(--sv);color:var(--t);border-radius:14px;padding:10px 12px;margin:6px 0;min-height:56px;justify-content:flex-start;font-weight:700}.wallet img{width:32px;height:32px;border-radius:8px}.wallet:hover{background:#221a3d}pre.code{white-space:pre-wrap;word-break:break-all;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12px;color:var(--t2)}code{font-size:12.5px;color:var(--t2)}.foot{border-top:1px solid var(--line);margin-top:48px;padding:22px 16px 40px}.foot .in{max-width:1000px;margin:0 auto;display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}.foot nav{display:flex;gap:14px;flex-wrap:wrap}@media(max-width:600px){h1{font-size:27px}.hero h1{font-size:30px}.hero{min-height:420px}.hero::before{background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.6) 35%,rgba(0,0,0,.94) 75%)}.top .in{gap:8px;padding:8px 12px}.nav{margin-left:0;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{padding:6px 10px;white-space:nowrap;flex:none}.brand{font-size:17px}}"
     }
 }
