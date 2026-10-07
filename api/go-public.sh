@@ -7,15 +7,24 @@ cd "$(dirname "$0")"
 HOSTNAME="${UNDERSIGNED_HOSTNAME:-undersigned.provenby.dev}"
 CONTACT="${UNDERSIGNED_CONTACT:-aardappvark@proton.me}"
 CF="$HOME/.cloudflared"; CONF="$CF/undersigned.yml"; PLIST="$HOME/Library/LaunchAgents/com.undersigned.tunnel.plist"
+# Its OWN login file and settings: this Mac also runs other tunnels (tenderfeed), whose cert.pem and config.yml must never be
+# used or replaced (7 Oct 2026: the shared cert routed this name into tenderfeed.dev; that record was deleted).
+CERT="$CF/undersigned-cert.pem"
+cf() { cloudflared --config "$CONF" --origincert "$CERT" "$@"; }
 if [ "$1" = "--off" ]; then
   launchctl bootout "gui/$(id -u)/com.undersigned.tunnel" 2>/dev/null || true; rm -f "$PLIST"
   sed -i '' -E '/^(UNDERSIGNED_PUBLIC|TRUST_PROXY|PUBLIC_URL|UNDERSIGNED_CONTACT)=/d' .env.local
   sh install-local.sh; echo "Tunnel off; the API is local only again."; exit 0
 fi
-[ -f "$CF/cert.pem" ] || cloudflared tunnel login
-cloudflared tunnel list 2>/dev/null | grep -q ' undersigned ' || cloudflared tunnel create undersigned
-ID=$(cloudflared tunnel list 2>/dev/null | awk '$2=="undersigned"{print $1}')
-cloudflared tunnel route dns undersigned "$HOSTNAME" || true   # already routed is fine
+if [ ! -f "$CERT" ]; then
+  # cloudflared login always writes cert.pem: park the other project's file, log in (choose the domain of $HOSTNAME), restore.
+  [ -f "$CF/cert.pem" ] && mv "$CF/cert.pem" "$CF/cert.pem.parked"
+  cloudflared tunnel login || { [ -f "$CF/cert.pem.parked" ] && mv "$CF/cert.pem.parked" "$CF/cert.pem"; exit 1; }
+  mv "$CF/cert.pem" "$CERT"; [ -f "$CF/cert.pem.parked" ] && mv "$CF/cert.pem.parked" "$CF/cert.pem"
+fi
+[ -f "$CONF" ] || : > "$CONF"
+cf tunnel list 2>/dev/null | grep -q ' undersigned ' || cf tunnel create undersigned
+ID=$(cf tunnel list 2>/dev/null | awk '$2=="undersigned"{print $1}')
 cat > "$CONF" <<C
 tunnel: $ID
 credentials-file: $CF/$ID.json
@@ -24,6 +33,7 @@ ingress:
     service: http://127.0.0.1:8797
   - service: http_status:404
 C
+cf tunnel route dns --overwrite-dns "$ID" "$HOSTNAME"
 # The API in public mode: real prices only, client address from the last X-Forwarded-For hop, links on the public name.
 touch .env.local
 sed -i '' -E '/^(UNDERSIGNED_PUBLIC|TRUST_PROXY|PUBLIC_URL|UNDERSIGNED_CONTACT)=/d' .env.local

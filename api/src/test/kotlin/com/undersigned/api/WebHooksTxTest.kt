@@ -228,3 +228,15 @@ class GapFixesTest {
         assertTrue("data-tag='works' data-opp='crashes'" in html)
     }
 }
+
+/** The seeding page and builder are this Mac's only: a visitor through the tunnel (any non-loopback address) gets 404. */
+class SeedLocalOnlyTest {
+    @Test fun `only loopback reaches the seeding endpoints`() {
+        val f = Fixture()
+        assertEquals(404, f.api.handle("GET", "/seed", emptyMap(), "", null, "203.0.113.9").status)
+        assertEquals(404, f.api.handle("POST", "/v1/tx/seed", emptyMap(), "{}", null, "203.0.113.9").status)
+        assertEquals(200, f.api.handle("GET", "/seed", emptyMap(), "", null, "127.0.0.1").status)
+        // Behind the tunnel the address is the last X-Forwarded-For hop, which Cloudflare sets to the visitor.
+        assertEquals("203.0.113.9", Api.clientIp("127.0.0.1", "127.0.0.1, 203.0.113.9", trustProxy = true))
+    }
+}

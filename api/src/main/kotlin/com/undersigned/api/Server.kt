@@ -98,7 +98,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("POST", "/v1/tx/review", Tier.FREE, "Build an unsigned review transaction for a browser wallet: {account, package, rating, tags[1-3], text?}") { r -> reviewTx(r) }
         // Local only (never on a public host): the fleet's publisher claims and treasury listings in a few transactions, for the
         // treasury wallet to sign from this Mac's browser. The list is docs/FLEET_SEEDING.md (resources/fleet_seeding.json).
-        if (!Config.PUBLIC) route("POST", "/v1/tx/seed", Tier.FREE, "Local only: unsigned claim + treasury-listing transactions for the fleet: {account}") { r -> seedTx(r) }
+        route("POST", "/v1/tx/seed", Tier.FREE, "Local only: unsigned claim + treasury-listing transactions for the fleet: {account}") { r -> seedTx(r) }
         route("POST", "/v1/tx/record", Tier.FREE, "Build an unsigned helpful vote, reply or flag: {account, kind: up|reply|flag, target, text?, reason?}") { r -> recordTx(r) }
         // Solana Pay transaction request (a QR a phone wallet scans): GET names the requester, POST {account} returns the transaction.
         route("GET", "/v1/pay/review", Tier.FREE, "Solana Pay transaction request: label and icon") { ok(JSONObject().put("label", "Undersigned").put("icon", Config.PUBLIC_URL + "/icon.svg")) }
@@ -112,6 +112,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     fun handle(method: String, path: String, query: Map<String, String>, body: String, auth: String?, ip: String, acceptLanguage: String? = null): Response {
         if (method == "OPTIONS") return Response(204, JSONObject())
+        // The fleet seeding page and its builder answer this Mac only. Through the tunnel the address is the last
+        // X-Forwarded-For hop (the visitor's, appended by Cloudflare), so a public request never reads as loopback.
+        if ((path == "/seed" || path == "/v1/tx/seed") && !isLoopback(ip)) return notFound("no such endpoint; see /v1/openapi.json")
         // Human pages and badges: not the metered API. Their own, looser per-IP budget.
         if (method == "GET" && web != null && (!path.startsWith("/v1/") || path.startsWith("/v1/badge/"))) {
             limiter.take("web:$ip", Config.WEB_PER_MINUTE, Config.WEB_PER_DAY)?.let { return Response(429, JSONObject().put("error", "rate_limited"), mapOf("Retry-After" to "60"), "Too many requests; try again in a minute.".toByteArray(), "text/plain; charset=utf-8") }
@@ -296,6 +299,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
          * The client address. Behind a trusted proxy it is the LAST hop of X-Forwarded-For — the one the proxy itself
          * appended; the first hop is whatever the client wrote and would let anyone choose their own rate-limit bucket.
          */
+        fun isLoopback(ip: String) = ip == "127.0.0.1" || ip == "::1" || ip == "0:0:0:0:0:0:0:1"
+
         fun clientIp(remote: String, forwardedFor: String?, trustProxy: Boolean): String =
             if (trustProxy) forwardedFor?.split(',')?.lastOrNull()?.trim()?.takeIf { it.isNotEmpty() } ?: remote else remote
     }

@@ -31,7 +31,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/sitemap.xml" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"), sitemap().toByteArray(), "application/xml; charset=utf-8")
             path == "/watch" -> page("Store watch — Undersigned", watch())
             path == "/review" -> page("Write a signed review — Undersigned", review(query["package"], lang), lang = lang)
-            path == "/seed" && !Config.PUBLIC -> page("Seed the fleet — Undersigned", seed())
+            path == "/seed" -> page("Seed the fleet — Undersigned", seed())
             path == "/act" -> act(query["kind"].orEmpty(), query["target"].orEmpty(), lang)
             path == "/publishers" -> page("For publishers — Undersigned", publishers(query["package"]?.trim()))
             extra.containsKey(path) -> extra.getValue(path)(query)
