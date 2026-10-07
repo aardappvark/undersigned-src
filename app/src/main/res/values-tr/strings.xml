@@ -944,4 +944,5 @@
         <item quantity="one">%1$d yeni · %2$s eklendi</item>
         <item quantity="other">%1$d yeni · %2$s eklendi</item>
     </plurals>
+    <string name="icons_status">Bu telefonda %2$s dApp simgesinden %1$s tanesi</string>
 </resources>

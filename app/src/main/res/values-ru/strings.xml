@@ -965,4 +965,5 @@
         <item quantity="many">%1$d новых · добавлено %2$s</item>
         <item quantity="other">%1$d новых · добавлено %2$s</item>
     </plurals>
+    <string name="icons_status">Значки dApp на этом телефоне: %1$s из %2$s</string>
 </resources>

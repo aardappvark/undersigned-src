@@ -82,7 +82,10 @@ fun AlphaRail(keys: List<String>, names: Map<String, String>, listState: LazyLis
     fun indexAt(y: Float) = (y / railHeight[0] * anchors.size).toInt().coerceIn(anchors.indices)
     fun engage(i: Int) { active = i; if (isAlphaOrder) jumpTo(i) else { pending = anchors[i].first; onRequestAlphaOrder() } }
 
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
+    // Letters scale to the height there is (the rail ran off the bottom on a phone with a taller header, owner 7 Oct 2026).
+    androidx.compose.foundation.layout.BoxWithConstraints(modifier) {
+    val cell = ((maxHeight - 10.dp) / anchors.size).coerceIn(11.dp, 18.dp)
+    Row(verticalAlignment = Alignment.CenterVertically) {
         active?.let { i ->
             Text(anchors[i].first.toString(), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = RbColors.purpleLight, maxLines = 1,
                 modifier = Modifier.clip(RoundedCornerShape(12.dp)).background(RbColors.surface).border(1.dp, RbColors.glassBorder, RoundedCornerShape(12.dp)).padding(horizontal = 14.dp, vertical = 10.dp))
@@ -99,12 +102,13 @@ fun AlphaRail(keys: List<String>, names: Map<String, String>, listState: LazyLis
                     val on = i == active
                     // A fixed cell with the letter centred in it, so the highlight sits exactly on the letter (the oval was
                     // offset when the text's line height and the cell disagreed, owner 7 Oct 2026).
-                    Box(Modifier.size(18.dp).clip(CircleShape).background(if (on) RbColors.purple.copy(alpha = 0.45f) else Color.Transparent), contentAlignment = Alignment.Center) {
-                        Text(c.toString(), fontSize = 11.sp, lineHeight = 11.sp, fontWeight = FontWeight.Bold, color = if (on) RbColors.textPrimary else RbColors.purpleLight, textAlign = TextAlign.Center,
+                    Box(Modifier.size(cell).clip(CircleShape).background(if (on) RbColors.purple.copy(alpha = 0.45f) else Color.Transparent), contentAlignment = Alignment.Center) {
+                        Text(c.toString(), fontSize = (cell.value * 0.62f).sp, lineHeight = (cell.value * 0.62f).sp, fontWeight = FontWeight.Bold, color = if (on) RbColors.textPrimary else RbColors.purpleLight, textAlign = TextAlign.Center,
                             style = androidx.compose.ui.text.TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false), lineHeightStyle = androidx.compose.ui.text.style.LineHeightStyle(androidx.compose.ui.text.style.LineHeightStyle.Alignment.Center, androidx.compose.ui.text.style.LineHeightStyle.Trim.Both)))
                     }
                 }
             }
         }
     }
+}
 }

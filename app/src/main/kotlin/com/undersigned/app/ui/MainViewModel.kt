@@ -891,7 +891,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      */
     private var iconFill: kotlinx.coroutines.Job? = null
     fun fillIcons() { if (iconFill?.isActive == true) return
-        iconFill = viewModelScope.launch(Dispatchers.IO) { kotlinx.coroutines.delay(5_000); runCatching { iconCache.resolve(catalogue.value.map { it.packageName }, paceMs = 1_200L) } } }
+        iconFill = viewModelScope.launch(Dispatchers.IO) { kotlinx.coroutines.delay(5_000); runCatching { iconCache.resolve(catalogue.value.map { it.packageName }, paceMs = 2_500L) } } }
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback
     fun deviceFacts(pkg: String) = installedApps.factsWithDelta(pkg)

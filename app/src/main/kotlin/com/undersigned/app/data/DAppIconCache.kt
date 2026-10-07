@@ -36,15 +36,29 @@ class DAppIconCache(context: Context) {
 
     fun cached(pkg: String): String? = _state.value[pkg]?.takeIf { it.isNotEmpty() }
 
+    /** What the last lookups did, for Settings ("1,203 of 1,539 icons · last lookup: refused by the store"). */
+    @Volatile var lastError: String? = null; private set
+    /** After the store refuses (403/429) no lookup is sent until this time: asking again only extends the block. */
+    @Volatile private var pausedUntil = 0L
+    private val missingAt = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+
+    /** A package marked "no icon" is asked about again after this long: an old answer may have been wrong. */
+    private fun stale(pkg: String) = _state.value[pkg] == "" && System.currentTimeMillis() - missingAt.getLong("m:$pkg", 0L) > MISSING_RETRY_MS
+
     suspend fun resolve(packages: Collection<String>, paceMs: Long = 0L) {
-        val unknown = packages.distinct().filter { it !in _state.value }
+        val unknown = packages.distinct().filter { it !in _state.value || stale(it) }
         if (unknown.isEmpty()) return
         for ((i, batch) in unknown.chunked(BATCH).withIndex()) {
+            if (System.currentTimeMillis() < pausedUntil) return
             if (i > 0 && paceMs > 0) kotlinx.coroutines.delay(paceMs)   // the store's CDN blocks fast readers
             val resolved = fetch(batch) ?: continue
             mutex.withLock {
                 val merged = _state.value.toMutableMap()
-                batch.forEach { pkg -> if (pkg !in merged) merged[pkg] = resolved[pkg] ?: "" }
+                val now = System.currentTimeMillis(); val ed = missingAt.edit()
+                batch.forEach { pkg -> val uri = resolved[pkg]
+                    if (uri != null) merged[pkg] = uri
+                    else if (pkg !in merged || merged[pkg] == "") { merged[pkg] = ""; ed.putLong("m:$pkg", now) } }
+                ed.apply()
                 _state.value = merged; persist(merged)
             }
         }
@@ -58,9 +72,11 @@ class DAppIconCache(context: Context) {
             c.requestMethod = "POST"; c.connectTimeout = 10000; c.readTimeout = 15000; c.doOutput = true
             c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("Accept", "application/json")
             c.outputStream.use { it.write(body.toByteArray(Charsets.UTF_8)) }
-            if (c.responseCode !in 200..299) { Log.w(TAG, "HTTP ${c.responseCode}"); return@withContext null }
+            if (c.responseCode == 403 || c.responseCode == 429) { pausedUntil = System.currentTimeMillis() + 10 * 60_000L; lastError = "refused by the store (HTTP ${c.responseCode}), pausing 10 min"; return@withContext null }
+            if (c.responseCode !in 200..299) { lastError = "HTTP ${c.responseCode}"; return@withContext null }
             val root = JSONObject(c.inputStream.bufferedReader().use { it.readText() })
-            if (root.has("errors")) { Log.w(TAG, "GraphQL errors"); return@withContext null }
+            if (root.has("errors")) { lastError = "the store returned an error"; return@withContext null }
+            lastError = null
             val arr = root.optJSONObject("data")?.optJSONArray("dAppsByAndroidPackages") ?: return@withContext null
             buildMap {
                 for (i in 0 until arr.length()) {
@@ -70,7 +86,7 @@ class DAppIconCache(context: Context) {
                     put(pkg, uri)
                 }
             }
-        } catch (e: Exception) { Log.w(TAG, "icon fetch failed: ${e.message?.take(80)}"); null } finally { c.disconnect() }
+        } catch (e: Exception) { lastError = e.javaClass.simpleName + (e.message?.let { ": " + it.take(60) } ?: ""); null } finally { c.disconnect() }
     }
 
     private fun load(): Map<String, String> = runCatching {
@@ -88,6 +104,7 @@ class DAppIconCache(context: Context) {
         private const val PREFS = "undersigned_dapp_icons"
         private const val KEY = "icon_map_v1"
         private const val BATCH = 15
+        private const val MISSING_RETRY_MS = 3L * 86_400_000L
         private const val QUERY = "query DAppsByPackagesSummary(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { __typename androidPackage lastRelease(systemContext: \$systemContext) { icon { uri } } } }"
     }
 }

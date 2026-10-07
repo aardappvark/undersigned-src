@@ -947,4 +947,5 @@
         <item quantity="one">%1$d نئے · شامل کیے گئے %2$s</item>
         <item quantity="other">%1$d نئے · شامل کیے گئے %2$s</item>
     </plurals>
+    <string name="icons_status">اس فون پر %2$s میں سے %1$s dApp آئیکن</string>
 </resources>

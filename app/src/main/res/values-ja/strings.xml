@@ -920,4 +920,5 @@
     <plurals name="catalogue_new_added">
         <item quantity="other">新着 %1$d 件 · %2$s追加</item>
     </plurals>
+    <string name="icons_status">この端末の dApp アイコン：%2$s 件中 %1$s 件</string>
 </resources>

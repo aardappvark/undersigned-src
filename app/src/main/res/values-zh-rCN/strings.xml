@@ -928,4 +928,5 @@
     <plurals name="catalogue_new_added">
         <item quantity="other">新增 %1$d · %2$s添加</item>
     </plurals>
+    <string name="icons_status">此手机上的 dApp 图标：%1$s / %2$s</string>
 </resources>

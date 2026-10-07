@@ -948,4 +948,5 @@
         <item quantity="one">%1$d bago · idinagdag %2$s</item>
         <item quantity="other">%1$d bago · idinagdag %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s sa %2$s na icon ng dApp sa teleponong ito</string>
 </resources>

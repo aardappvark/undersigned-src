@@ -962,4 +962,5 @@
         <item quantity="few">%1$d noi · adăugate %2$s</item>
         <item quantity="other">%1$d de noi · adăugate %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s din %2$s pictograme dApp pe acest telefon</string>
 </resources>

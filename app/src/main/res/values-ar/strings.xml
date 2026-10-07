@@ -1015,4 +1015,5 @@
         <item quantity="many">%1$d جديد · أُضيف %2$s</item>
         <item quantity="other">%1$d جديد · أُضيف %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s من %2$s من أيقونات dApp على هذا الهاتف</string>
 </resources>

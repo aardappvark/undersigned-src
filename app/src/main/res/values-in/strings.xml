@@ -929,4 +929,5 @@
     <plurals name="catalogue_new_added">
         <item quantity="other">%1$d baru · ditambahkan %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s dari %2$s ikon dApp di ponsel ini</string>
 </resources>

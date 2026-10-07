@@ -929,4 +929,5 @@
     <plurals name="catalogue_new_added">
         <item quantity="other">%1$d mới · thêm %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s trên %2$s biểu tượng dApp trên điện thoại này</string>
 </resources>

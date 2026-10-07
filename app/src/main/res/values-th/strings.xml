@@ -913,4 +913,5 @@
     <plurals name="catalogue_new_added">
         <item quantity="other">ใหม่ %1$d · เพิ่ม %2$s</item>
     </plurals>
+    <string name="icons_status">ไอคอน dApp บนโทรศัพท์เครื่องนี้ %1$s จาก %2$s</string>
 </resources>

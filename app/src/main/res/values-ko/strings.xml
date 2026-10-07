@@ -921,4 +921,5 @@
     <plurals name="catalogue_new_added">
         <item quantity="other">신규 %1$d개 · %2$s 추가</item>
     </plurals>
+    <string name="icons_status">이 휴대폰의 dApp 아이콘: %2$s개 중 %1$s개</string>
 </resources>

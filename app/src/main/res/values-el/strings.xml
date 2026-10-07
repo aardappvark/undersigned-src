@@ -944,4 +944,5 @@
         <item quantity="one">%1$d νέο · προστέθηκε %2$s</item>
         <item quantity="other">%1$d νέα · προστέθηκαν %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s από %2$s εικονίδια dApp σε αυτό το τηλέφωνο</string>
 </resources>

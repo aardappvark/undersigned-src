@@ -940,4 +940,5 @@
         <item quantity="one">%1$d নতুন · যোগ হয়েছে %2$s</item>
         <item quantity="other">%1$d নতুন · যোগ হয়েছে %2$s</item>
     </plurals>
+    <string name="icons_status">এই ফোনে %2$s-এর মধ্যে %1$s dApp আইকন</string>
 </resources>

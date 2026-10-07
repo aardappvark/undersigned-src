@@ -324,6 +324,11 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 val n = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(catalogueNow.size)
                 Text(if (catAt > 0) stringResource(R.string.catalogue_line, n, df.format(java.util.Date(catAt))) else stringResource(R.string.catalogue_line_bundled, n), color = RbColors.textTertiary, fontSize = 11.sp)
                 SecondaryButton(stringResource(R.string.catalogue_update), enabled = !refreshingCat, onClick = { vm.refreshCatalogue() }, modifier = Modifier.padding(top = 6.dp))
+                // Icon status: how many of the list's icons are on the phone, and what the last lookup hit.
+                val iconMap by vm.iconCache.state.collectAsState()
+                val withIcon = remember(iconMap, catalogueNow) { catalogueNow.count { !iconMap[it.packageName].isNullOrEmpty() } }
+                Text(stringResource(R.string.icons_status, java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(withIcon), n) + (vm.iconCache.lastError?.let { " · $it" } ?: ""),
+                    color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 6.dp))
             }
 
             SectionTitle(stringResource(R.string.density_title))

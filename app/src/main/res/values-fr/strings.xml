@@ -973,4 +973,5 @@
         <item quantity="one">%1$d nouveau · ajouté %2$s</item>
         <item quantity="other">%1$d nouveaux · ajoutés %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s icônes de dApps sur %2$s sur ce téléphone</string>
 </resources>

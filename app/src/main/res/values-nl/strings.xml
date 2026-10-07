@@ -953,4 +953,5 @@
         <item quantity="one">%1$d nieuw · toegevoegd %2$s</item>
         <item quantity="other">%1$d nieuw · toegevoegd %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s van %2$s dApp-pictogrammen op deze telefoon</string>
 </resources>

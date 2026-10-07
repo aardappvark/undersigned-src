@@ -981,4 +981,5 @@
         <item quantity="many">%1$d нових · додано %2$s</item>
         <item quantity="other">%1$d нових · додано %2$s</item>
     </plurals>
+    <string name="icons_status">Значки dApp на цьому телефоні: %1$s з %2$s</string>
 </resources>

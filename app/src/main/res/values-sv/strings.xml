@@ -945,4 +945,5 @@
         <item quantity="one">%1$d ny · tillagd %2$s</item>
         <item quantity="other">%1$d nya · tillagda %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s av %2$s dApp-ikoner på den här telefonen</string>
 </resources>

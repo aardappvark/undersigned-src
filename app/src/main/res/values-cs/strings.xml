@@ -974,4 +974,5 @@
         <item quantity="many">%1$d nové · přidáno %2$s</item>
         <item quantity="other">%1$d nové · přidáno %2$s</item>
     </plurals>
+    <string name="icons_status">%1$s z %2$s ikon dApp v tomto telefonu</string>
 </resources>
