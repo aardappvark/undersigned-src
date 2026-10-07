@@ -913,4 +913,11 @@
         <item quantity="one">%1$d neu</item>
         <item quantity="other">%1$d neu</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Text von einem Moderator ausgeblendet: %1$s</string>
+    <string name="mod_hide">Text ausblenden (Moderator)</string>
+    <string name="mod_unhide">Text wieder einblenden (Moderator)</string>
+    <string name="mod_title">Diesen Text für alle ausblenden?</string>
+    <string name="mod_body">Nur der Text wird ausgeblendet: Bewertung und Tags zählen weiterhin, und der Eintrag bleibt on-chain. Dabei wird ein öffentlicher Moderationseintrag signiert, der den Grund nennt; Sie können das rückgängig machen.</string>
+    <string name="mod_sign">Signieren und ausblenden</string>
 </resources>

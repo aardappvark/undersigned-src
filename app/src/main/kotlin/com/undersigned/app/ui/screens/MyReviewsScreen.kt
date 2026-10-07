@@ -153,7 +153,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
                     if (r != null) {
                         Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(date(d.signed.blockTime) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp) }
                         if (vm.isSelfPublished(d.signed)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
-                        r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = 3, overflow = TextOverflow.Ellipsis) }
+                        d.signed?.let { vm.modHidden.collectAsState().value[it.signature] }?.let { com.undersigned.app.ui.components.ModHiddenText(it) } ?: r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = 3, overflow = TextOverflow.Ellipsis) }
                         TextButton(onClick = { onReview(d.pkg) }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.detail_update_review), color = RbColors.purpleLight, fontSize = 12.sp) }
                     } else {
                         Text(stringResource(R.string.my_reviews_not_signed), color = RbColors.textTertiary, fontSize = 12.sp)

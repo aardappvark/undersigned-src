@@ -896,4 +896,11 @@
         <item quantity="one">%1$d نیا</item>
         <item quantity="other">%1$d نئے</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">ماڈریٹر نے متن چھپایا: %1$s</string>
+    <string name="mod_hide">متن چھپائیں (ماڈریٹر)</string>
+    <string name="mod_unhide">متن دوبارہ دکھائیں (ماڈریٹر)</string>
+    <string name="mod_title">یہ متن سب کے لیے چھپائیں؟</string>
+    <string name="mod_body">صرف متن چھپایا جاتا ہے: درجہ بندی اور ٹیگز اب بھی شمار ہوتے ہیں، اور ریکارڈ چین پر رہتا ہے۔ یہ وجہ بتانے والے ایک عوامی ماڈریشن ریکارڈ پر دستخط کرتا ہے، اور آپ اسے واپس کر سکتے ہیں۔</string>
+    <string name="mod_sign">دستخط کریں اور چھپائیں</string>
 </resources>

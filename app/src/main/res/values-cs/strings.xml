@@ -911,4 +911,11 @@
         <item quantity="many">%1$d nové</item>
         <item quantity="other">%1$d nových</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Text skryl moderátor: %1$s</string>
+    <string name="mod_hide">Skrýt text (moderátor)</string>
+    <string name="mod_unhide">Znovu zobrazit text (moderátor)</string>
+    <string name="mod_title">Skrýt tento text pro všechny?</string>
+    <string name="mod_body">Skrývá se jen text: hodnocení a štítky se stále počítají a záznam zůstává na blockchainu. Tím se podepíše veřejný moderátorský záznam s uvedením důvodu a můžete to vrátit zpět.</string>
+    <string name="mod_sign">Podepsat a skrýt</string>
 </resources>

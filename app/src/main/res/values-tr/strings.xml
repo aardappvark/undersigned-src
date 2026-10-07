@@ -893,4 +893,11 @@
         <item quantity="one">%1$d yeni</item>
         <item quantity="other">%1$d yeni</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Metin bir moderatör tarafından gizlendi: %1$s</string>
+    <string name="mod_hide">Metni gizle (moderatör)</string>
+    <string name="mod_unhide">Metni yeniden göster (moderatör)</string>
+    <string name="mod_title">Bu metin herkes için gizlensin mi?</string>
+    <string name="mod_body">Yalnızca metin gizlenir: puan ve etiketler yine sayılır, kayıt zincirde kalır. Bu işlem, nedeni belirten herkese açık bir moderasyon kaydını imzalar ve geri alabilirsiniz.</string>
+    <string name="mod_sign">İmzala ve gizle</string>
 </resources>

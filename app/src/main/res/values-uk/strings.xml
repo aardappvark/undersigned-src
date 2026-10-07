@@ -918,4 +918,11 @@
         <item quantity="many">%1$d нових</item>
         <item quantity="other">%1$d нових</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Текст приховано модератором: %1$s</string>
+    <string name="mod_hide">Приховати текст (модератор)</string>
+    <string name="mod_unhide">Показати текст знову (модератор)</string>
+    <string name="mod_title">Приховати цей текст для всіх?</string>
+    <string name="mod_body">Приховується лише текст: оцінка й теги, як і раніше, враховуються, а запис залишається в блокчейні. Так підписується публічний запис модерації з указаною причиною, і ви можете це скасувати.</string>
+    <string name="mod_sign">Підписати й приховати</string>
 </resources>

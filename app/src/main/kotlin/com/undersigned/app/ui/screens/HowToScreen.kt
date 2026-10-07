@@ -16,6 +16,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,7 +32,7 @@ private data class Step(@DrawableRes val photo: Int, val title: Int, val sub: In
 
 /**
  * Four how-to steps after the intro: the intro says what Undersigned is, these say how to use it.
- * The photo fills the screen down to the button, as on the intro. Reachable any time from Settings.
+ * The step reads at the top; the photograph sits at the bottom, down into the button. Reachable any time from Settings.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -51,23 +52,29 @@ fun HowToScreen(onDone: () -> Unit) {
         HorizontalPager(state = pager, modifier = Modifier.fillMaxSize()) { i ->
             val s = steps[i]
             val scroll = rememberScrollState()
-            PhotoBackdrop(s.photo, Modifier.fillMaxSize(), fadeFrom = 0.16f) {
+            // Owner, 7 Oct 2026: the photograph sits at the BOTTOM, down into the button, and the step reads at the top over
+            // a dark band. (A centred, top-faded photo still looked "too high".)
+            BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
+                // The whole photograph, moved down a third of the screen: its subject lands just above the button.
+                androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(s.photo), contentDescription = null, contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                    alignment = Alignment.TopCenter, modifier = Modifier.fillMaxWidth().height(maxHeight).offset(y = maxHeight * PHOTO_DROP))
+                Box(Modifier.matchParentSize().background(androidx.compose.ui.graphics.Brush.verticalGradient(
+                    0f to androidx.compose.ui.graphics.Color.Black, (PHOTO_DROP + 0.04f) to androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.92f),
+                    (PHOTO_DROP + 0.18f) to androidx.compose.ui.graphics.Color.Transparent, 0.86f to androidx.compose.ui.graphics.Color.Transparent,
+                    1f to androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.65f))))
                 // Long steps scroll; as they do, the photograph darkens so the text stays readable over it.
                 Box(Modifier.matchParentSize().background(androidx.compose.ui.graphics.Color.Black.copy(alpha = (scroll.value / 300f).coerceIn(0f, 0.85f))))
-                BoxWithConstraints(Modifier.fillMaxSize()) {
-                    Column(Modifier.verticalScroll(scroll).heightIn(min = maxHeight).fillMaxWidth().systemBarsPadding().padding(start = 24.dp, end = 24.dp, top = 56.dp, bottom = 150.dp),
-                        verticalArrangement = Arrangement.Bottom) {
-                        Text("${i + 1}", color = RbColors.purpleLight, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, lineHeight = 40.sp)
-                        Text(stringResource(s.title), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
-                        Text(stringResource(s.sub), color = RbColors.textSecondary, fontSize = 14.sp, fontWeight = FontWeight.Medium)
-                        Spacer(Modifier.height(12.dp))
-                        Text(stringResource(s.body), color = RbColors.textPrimary, fontSize = 14.sp, lineHeight = 20.sp)
-                        Spacer(Modifier.height(14.dp))
-                        GlassCard(accent = if (i == 2) RbColors.warning else RbColors.glassBorder) {
-                            Text(stringResource(s.noteTitle), color = if (i == 2) RbColors.warning else RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                            Spacer(Modifier.height(4.dp))
-                            Text(stringResource(s.note), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
-                        }
+                Column(Modifier.fillMaxSize().verticalScroll(scroll).systemBarsPadding().padding(start = 24.dp, end = 24.dp, top = 56.dp, bottom = 150.dp)) {
+                    Text("${i + 1}", color = RbColors.purpleLight, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, lineHeight = 40.sp)
+                    Text(stringResource(s.title), color = RbColors.textPrimary, fontSize = 28.sp, lineHeight = 30.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp)
+                    Text(stringResource(s.sub), color = RbColors.textSecondary, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                    Spacer(Modifier.height(12.dp))
+                    Text(stringResource(s.body), color = RbColors.textPrimary, fontSize = 14.sp, lineHeight = 20.sp)
+                    Spacer(Modifier.height(14.dp))
+                    GlassCard(accent = if (i == 2) RbColors.warning else RbColors.glassBorder) {
+                        Text(stringResource(s.noteTitle), color = if (i == 2) RbColors.warning else RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                        Spacer(Modifier.height(4.dp))
+                        Text(stringResource(s.note), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
                     }
                 }
             }
@@ -86,3 +93,6 @@ fun HowToScreen(onDone: () -> Unit) {
         }
     }
 }
+
+/** How far down the photograph starts, as a share of the screen. */
+private const val PHOTO_DROP = 0.36f

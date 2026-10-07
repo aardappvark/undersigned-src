@@ -883,4 +883,11 @@
     <plurals name="catalogue_new">
         <item quantity="other">%1$d 个新增</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">文本已被审核员隐藏：%1$s</string>
+    <string name="mod_hide">隐藏文本(审核员)</string>
+    <string name="mod_unhide">重新显示文本(审核员)</string>
+    <string name="mod_title">对所有人隐藏此文本？</string>
+    <string name="mod_body">仅隐藏文本：评分和标签仍会计入，记录仍保留在链上。此操作会签署一条注明原因的公开审核记录，您可以撤销。</string>
+    <string name="mod_sign">签名并隐藏</string>
 </resources>

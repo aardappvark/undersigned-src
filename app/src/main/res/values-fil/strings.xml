@@ -897,4 +897,11 @@
         <item quantity="one">%1$d bago</item>
         <item quantity="other">%1$d bago</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Itinago ng moderator ang teksto: %1$s</string>
+    <string name="mod_hide">Itago ang teksto (moderator)</string>
+    <string name="mod_unhide">Ipakita ulit ang teksto (moderator)</string>
+    <string name="mod_title">Itago ang tekstong ito para sa lahat?</string>
+    <string name="mod_body">Ang teksto lang ang itatago: bibilangin pa rin ang marka at mga tag, at mananatili sa chain ang tala. Magsi-sign ito ng pampublikong tala ng moderation na nagsasaad ng dahilan, at maaari mo itong bawiin.</string>
+    <string name="mod_sign">I-sign at itago</string>
 </resources>

@@ -62,6 +62,8 @@ class State(
     val scores = Ranking.score(entries, verified, f).associateBy { it.packageName }
     val standings = Reputation.standing(entries, verified, f)
     val hidden = Reputation.hiddenByConsensus(entries, verified, f)
+    /** Text a moderator hides (protocol Moderation): the record, rating and tags stay. */
+    val modHidden: Map<String, ReviewMemo.ModReason> = com.undersigned.protocol.Moderation.textHidden(entries, verified)
     val flaggers = Reputation.currentFlaggers(entries)
     val helpful = Reputation.helpfulWeights(entries, f)
     val disputes = Reputation.disputes(entries)

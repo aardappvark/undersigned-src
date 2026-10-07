@@ -893,4 +893,11 @@
         <item quantity="one">%1$d νέο</item>
         <item quantity="other">%1$d νέα</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Το κείμενο αποκρύφθηκε από συντονιστή: %1$s</string>
+    <string name="mod_hide">Απόκρυψη κειμένου (συντονιστής)</string>
+    <string name="mod_unhide">Εμφάνιση κειμένου ξανά (συντονιστής)</string>
+    <string name="mod_title">Απόκρυψη αυτού του κειμένου για όλους;</string>
+    <string name="mod_body">Αποκρύπτεται μόνο το κείμενο: η βαθμολογία και οι ετικέτες εξακολουθούν να μετράνε και η εγγραφή παραμένει on-chain. Αυτό υπογράφει μια δημόσια εγγραφή συντονισμού που αναφέρει τον λόγο, και μπορείτε να το αναιρέσετε.</string>
+    <string name="mod_sign">Υπογραφή και απόκρυψη</string>
 </resources>

@@ -868,4 +868,11 @@
     <plurals name="catalogue_new">
         <item quantity="other">ใหม่ %1$d รายการ</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">ผู้ดูแลซ่อนข้อความ: %1$s</string>
+    <string name="mod_hide">ซ่อนข้อความ (ผู้ดูแล)</string>
+    <string name="mod_unhide">แสดงข้อความอีกครั้ง (ผู้ดูแล)</string>
+    <string name="mod_title">ซ่อนข้อความนี้สำหรับทุกคนหรือไม่</string>
+    <string name="mod_body">ซ่อนเฉพาะข้อความ: คะแนนและแท็กยังคงนับตามเดิม และบันทึกยังอยู่บนเชน การดำเนินการนี้ลงลายเซ็นในบันทึกการดูแลเนื้อหาสาธารณะที่ระบุเหตุผล และคุณสามารถเลิกทำได้</string>
+    <string name="mod_sign">ลงลายเซ็นและซ่อน</string>
 </resources>

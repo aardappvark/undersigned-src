@@ -875,4 +875,11 @@
     <plurals name="catalogue_new">
         <item quantity="other">新着 %1$d 件</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">モデレーターによりテキストが非表示になりました: %1$s</string>
+    <string name="mod_hide">テキストを非表示にする（モデレーター）</string>
+    <string name="mod_unhide">テキストを再表示する（モデレーター）</string>
+    <string name="mod_title">このテキストを全員に対して非表示にしますか？</string>
+    <string name="mod_body">非表示になるのはテキストのみです。評価とタグは引き続き集計され、記録はオンチェーンに残ります。理由を明記した公開のモデレーション記録に署名します。この操作は取り消せます。</string>
+    <string name="mod_sign">署名して非表示</string>
 </resources>

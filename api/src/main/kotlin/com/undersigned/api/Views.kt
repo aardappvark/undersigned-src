@@ -80,6 +80,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             is ReviewMemo.StoreNote -> o.put("package", m.packageName).put("store_review", m.reviewId).put("text", m.text)
             is ReviewMemo.Treasury -> o.put("package", m.packageName).put("code", m.code)
             is ReviewMemo.Untreasury -> o.put("package", m.packageName)
+            is ReviewMemo.Moderate -> o.put("target", m.recordId).put("reason", m.reason.wire)
+            is ReviewMemo.Unmoderate -> o.put("target", m.recordId)
             else -> {}
         }
         st.meta[e.signature.substringBefore(':')]?.let { o.put("fee_lamports", it.fee).put("seeker_wallet_shape", it.seekerShape) }
@@ -88,6 +90,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val hiddenWhy = st.operatorHidden[e.signature]
         if (hiddenWhy != null && o.has("text")) o.put("text", JSONObject.NULL)
         o.put("hidden_by_operator", hiddenWhy != null)
+        // A moderator's hide is on the ledger, so every reader applies it; the reason is public.
+        st.modHidden[e.signature]?.let { why -> if (o.has("text")) o.put("text", JSONObject.NULL); o.put("hidden_by_moderator", why.wire) }
         return o
     }
 
@@ -228,8 +232,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("flaggers", st.flaggers[e.signature]?.size ?: 0).put("hidden_by_consensus", e.signature in st.hidden)
                 .put("helpful_weight", r2(st.helpful[e.signature] ?: 0.0)).put("disputed", st.disputes.containsKey(e.signature))
                 .put("replies", JSONArray((byTarget[e.signature] ?: emptyList()).sortedBy { it.blockTime }.filter { it.signature !in st.hidden }.map { rp ->
-                    JSONObject().put("id", rp.signature).put("wallet", rp.signer).put("time", rp.blockTime).put("text", if (rp.signature in st.operatorHidden) JSONObject.NULL else (rp.memo as ReviewMemo.Reply).text)
-                        .put("hidden_by_operator", rp.signature in st.operatorHidden).put("publisher", rp.signer in vp) }))
+                    JSONObject().put("id", rp.signature).put("wallet", rp.signer).put("time", rp.blockTime).put("text", if (rp.signature in st.operatorHidden || rp.signature in st.modHidden) JSONObject.NULL else (rp.memo as ReviewMemo.Reply).text)
+                        .put("hidden_by_operator", rp.signature in st.operatorHidden).put("hidden_by_moderator", st.modHidden[rp.signature]?.wire ?: JSONObject.NULL).put("publisher", rp.signer in vp) }))
         }
         return JSONObject().put("package", pkg).put("total", all.size).put("reviews", JSONArray(list))
     }

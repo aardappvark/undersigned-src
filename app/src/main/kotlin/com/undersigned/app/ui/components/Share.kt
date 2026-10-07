@@ -23,10 +23,10 @@ object Share {
         send(ctx, lines.joinToString("\n"))
     }
 
-    fun review(ctx: Context, name: String, e: LedgerEntry) {
+    fun review(ctx: Context, name: String, e: LedgerEntry, hideText: Boolean = false) {
         val r = e.memo as? ReviewMemo.Review ?: return
         val tags = r.tags.joinToString(", ") { with(TagLabels) { ctx.label(it.wire) } }
-        val body = listOfNotNull("$name · ${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)} · $tags", r.text, ctx.getString(R.string.share_review_signed), "https://solscan.io/tx/${e.signature.substringBefore(':')}")
+        val body = listOfNotNull("$name · ${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)} · $tags", r.text.takeUnless { hideText }, ctx.getString(R.string.share_review_signed), "https://solscan.io/tx/${e.signature.substringBefore(':')}")
         send(ctx, body.joinToString("\n"))
     }
 

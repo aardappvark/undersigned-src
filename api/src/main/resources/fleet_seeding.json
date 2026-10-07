@@ -1,0 +1,198 @@
+[
+ {
+  "name": "AarDappvark Toolkit",
+  "package": "com.adappvark.toolkit",
+  "memo": "ART",
+  "code": "AZFbwj8hARyRpAVU2umxAQ2fqscS3CfwPYpYzYigTgQr",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "BountySeeker",
+  "package": "com.bountyseeker.app",
+  "memo": "BSR",
+  "code": "E4eFq1z8VzjM9t8kFEGzszVhoTvjy1pynU6d4WKCwMF5",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "CallSealSkr",
+  "package": "com.callsealskr.app",
+  "memo": "CER",
+  "code": "DWbAREJXaN2harfRCmzSNpeHweJytc7pxNoWTxqBKk93",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "ChotkiSol",
+  "package": "com.chotkisol.app",
+  "memo": "CKL",
+  "code": "3KsrAEVcK1tJXbhc7CoEZaKyMv79ET5mTSDf2dQ1m2yB",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "CitizenSol",
+  "package": "com.citizensol.app",
+  "memo": "CEL",
+  "code": "FfV1osZHopXJ1HR1xLCENDuk4g1AD4P8wgHJNSwpECNC",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Divine Quotes Sol",
+  "package": "com.divinequotes.sol",
+  "memo": "DUL",
+  "code": "GpQVKQaqFFyyykfKyubp6ArCFRU3XMCQaEWpxpJvpqmE",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "FarmSolDirect",
+  "package": "com.farmsoldirect.app",
+  "memo": "FLT",
+  "code": "5cRDXBwg2UcQFZ5bBU3M6Gmy5cpRmoJgxTSWyhyGQ3Xz",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "HealthSeeker",
+  "package": "com.healthseeker.app",
+  "memo": "HSR",
+  "code": "5EgiKm5rBPi8q28yG5ahW1NGEMJVsJamwwb4ZrcVB6th",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "JapaMalaSol",
+  "package": "com.japamalasol.app",
+  "memo": "JAL",
+  "code": "65rm7GU3UXyiTMQR3NcwaNNHvg31KCR3jCKaZwr6hxfo",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "RoaringTrades",
+  "package": "com.roaringtrades.game",
+  "memo": "RGS",
+  "code": "2mktAxwjhLPoLUmo9SWi2fxKUnThhLFAXeyLgR9WRK1M",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "ScreenRecSkr",
+  "package": "com.screenrecskr.app",
+  "memo": "SRR",
+  "code": "H6f5UwRwSfXpAVFzoBPg7ZnQcsNqEozsSjT9RMiqGLhE",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Scrolls for Sol Enoch",
+  "package": "com.scrollsforsol.enoch",
+  "memo": "SRH",
+  "code": "8GaCdUYyiHGDHz1Ubb5sgw2zak19nVcG4N2odX8jrAhQ",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "SeekerVerify",
+  "package": "com.seekerverify.app",
+  "memo": "SVY",
+  "code": "GpUhbtQPEEeH1QN2Z528KtZW9pZuiB3J6FGY2XPvGn3o",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "SignalFortSkr",
+  "package": "com.signalfortskr.app",
+  "memo": "SFR",
+  "code": "GPZA9JQFcXyMGrTQJ9hvgrVKCXkBNScG4fpyFHf7oTSA",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Sol Card Games",
+  "package": "com.solcards.app",
+  "memo": "SDS",
+  "code": "2MusFeWjEWQKf2kDHCeVoBFzsC9qes9LiSB1Wz2QDYBC",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Sol Clock",
+  "package": "com.solclock.app",
+  "memo": "SLK",
+  "code": "DZX8186EbVRWT7mPvhscwAsz2hdFUQkRrCW34smhMF8S",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Sol Mala",
+  "package": "com.solmala.app",
+  "memo": "SMA",
+  "code": "Ajrv25po33oy33BWfbEjRqxs415anRxACY87NLwV6hTT",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Sol Quotes",
+  "package": "com.solquotes.app",
+  "memo": "SUS",
+  "code": "4yEq4R6kuvvwzBYmsTF2GKmoJWWuWXB3ZA8sCfntnvUq",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Sol Rosary",
+  "package": "com.solrosary.app",
+  "memo": "SOY",
+  "code": "Gx11kWR6Jyp4JYEdsKdBJkyUKLiVbqhdkvYnxYXJNkWe",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Sol Weather",
+  "package": "com.solweather.app",
+  "memo": "SAR",
+  "code": "G3mJZfPUVSXSALHgMFbEr7mWPMbGfLavKj8yCC6gCeLy",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "SolHerd",
+  "package": "com.solherd.app",
+  "memo": "SHD",
+  "code": "E4unHnxs6Y22RM87MvmqEX8qC2wdYZfZwZLGFUCQw7sD",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "SolScripture",
+  "package": "com.solscripture.app",
+  "memo": "SIE",
+  "code": "D4M9qHsiprx1RNtXWKTo4TNgVscGrwxE4sanpEnRxJ71",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "SolSow",
+  "package": "com.solsow.app",
+  "memo": "SSW",
+  "code": "5FXZErVLUcuAhPTBsUHRoVwCibbXemx3iRiPKWABVvoS",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "TasbihSol",
+  "package": "com.tasbihsol.app",
+  "memo": "TIL",
+  "code": "CDfQkYG3xn3EMw7aMWgHirU8kDHWhLhLSVhqZTTPfpMm",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "Time and Weather Sol",
+  "package": "com.timeandweather.sol",
+  "memo": "TEL",
+  "code": "HLgTWioFsFjRRu5DtgPB5Kc2de9km1MUBzCMQCfZ1Uwh",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "VeilScreenSkr",
+  "package": "com.veilscreenskr.app",
+  "memo": "VRR",
+  "code": "D5cHesqz9vtTzExWzEGz7GD98Q4Gh44fahL4ZP2XNaDP",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "VeriCapture",
+  "package": "com.vericapture.app",
+  "memo": "VAE",
+  "code": "ERi9q1pLrorQLXcBmk3fZTEqByTZhsR5ftVDYq7kygg4",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ },
+ {
+  "name": "WalkDivine",
+  "package": "com.walkdivine.app",
+  "memo": "WIE",
+  "code": "CzicoVxYqHJRZrzQ7xw5XSg4KgRPyiKGdDuCHwKqthcy",
+  "website": "https://github.com/AardAppvark/ADappvarkToolkit"
+ }
+]

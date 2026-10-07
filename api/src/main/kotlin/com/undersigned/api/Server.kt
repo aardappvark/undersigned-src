@@ -96,6 +96,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/hooks", Tier.PAID, "Your webhooks") { r -> ok(JSONObject().put("hooks", JSONArray((hooks?.list(r.caller.key!!) ?: emptyList()).map { JSONObject().put("id", it.id).put("url", it.url).put("events", JSONArray(it.events.toList())).put("packages", JSONArray(it.packages.toList())) }))) }
         route("DELETE", "/v1/hooks/{id}", Tier.PAID, "Delete one of your webhooks") { r -> if (hooks?.delete(r.caller.key!!, r.params["id"]!!) == true) ok(JSONObject().put("deleted", r.params["id"])) else notFound("no such hook on this pass") }
         route("POST", "/v1/tx/review", Tier.FREE, "Build an unsigned review transaction for a browser wallet: {account, package, rating, tags[1-3], text?}") { r -> reviewTx(r) }
+        // Local only (never on a public host): the fleet's publisher claims and treasury listings in a few transactions, for the
+        // treasury wallet to sign from this Mac's browser. The list is docs/FLEET_SEEDING.md (resources/fleet_seeding.json).
+        if (!Config.PUBLIC) route("POST", "/v1/tx/seed", Tier.FREE, "Local only: unsigned claim + treasury-listing transactions for the fleet: {account}") { r -> seedTx(r) }
         route("POST", "/v1/tx/record", Tier.FREE, "Build an unsigned helpful vote, reply or flag: {account, kind: up|reply|flag, target, text?, reason?}") { r -> recordTx(r) }
         // Solana Pay transaction request (a QR a phone wallet scans): GET names the requester, POST {account} returns the transaction.
         route("GET", "/v1/pay/review", Tier.FREE, "Solana Pay transaction request: label and icon") { ok(JSONObject().put("label", "Undersigned").put("icon", Config.PUBLIC_URL + "/icon.svg")) }
@@ -180,6 +183,27 @@ class Api(private val views: Views, private val billing: Billing, private val in
             else -> error("kind must be up, reply or flag")
         } }.getOrElse { return Response(400, JSONObject().put("error", "invalid_record").put("message", it.message)) }
         return signable(account, signer, memo) { it.put("kind", b.optString("kind")) }
+    }
+
+    private fun seedTx(r: Req): Response {
+        val account = runCatching { JSONObject(r.body).optString("account") }.getOrDefault("")
+        val signer = runCatching { Base58.decode(account) }.getOrNull()?.takeIf { it.size == 32 } ?: return Response(400, JSONObject().put("error", "bad_account"))
+        val fleet = JSONArray(Api::class.java.getResourceAsStream("/fleet_seeding.json")!!.bufferedReader().use { it.readText() })
+        val mine = indexer.state.entries.filter { it.signer == account }
+        val claimed = mine.mapNotNull { (it.memo as? ReviewMemo.Claim)?.packageName }.toSet()
+        // A listing stands if this wallet's latest trs/trx for the package is a trs.
+        val listed = mine.filter { it.memo is ReviewMemo.Treasury || it.memo is ReviewMemo.Untreasury }.sortedBy { it.blockTime }
+            .associate { e -> ((e.memo as? ReviewMemo.Treasury)?.packageName ?: (e.memo as ReviewMemo.Untreasury).packageName) to (e.memo is ReviewMemo.Treasury) }.filterValues { it }.keys
+        val memos = ArrayList<String>(); val plan = JSONArray()
+        for (i in 0 until fleet.length()) { val a = fleet.getJSONObject(i); val p = a.getString("package")
+            if (p !in claimed) { memos.add(ReviewMemo.encode(ReviewMemo.Claim(p))); plan.put("claim $p") }
+            if (p !in listed) { memos.add(ReviewMemo.encode(ReviewMemo.Treasury(p, a.getString("code")))); plan.put("list $p") }
+        }
+        if (memos.isEmpty()) return ok(JSONObject().put("transactions", JSONArray()).put("records", 0).put("message", "Every fleet app is already claimed and listed by this wallet."))
+        if (sanctioned(account)) return Response(403, JSONObject().put("error", "refused"))
+        val bh = runCatching { Base58.decode(blockhash()) }.getOrNull()?.takeIf { it.size == 32 } ?: return Response(503, JSONObject().put("error", "rpc_unavailable"))
+        val txs = Tx.memoBatches(signer, memos, bh)
+        return ok(JSONObject().put("transactions", JSONArray(txs.map { java.util.Base64.getEncoder().encodeToString(it) })).put("records", memos.size).put("plan", plan))
     }
 
     /** Screens the wallet, takes a blockhash, builds the carrier and says whether the wallet is counted today (cache only). */

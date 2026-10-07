@@ -270,3 +270,19 @@ fun Context.errorText(e: Throwable?): String {
         else -> e!!.message!!
     }
 }
+
+/** The reader's words for a moderation reason (the same four as a report). */
+@Composable
+fun modReasonLabel(r: com.undersigned.protocol.ReviewMemo.ModReason): String = androidx.compose.ui.res.stringResource(when (r) {
+    com.undersigned.protocol.ReviewMemo.ModReason.ILLEGAL -> R.string.report_illegal
+    com.undersigned.protocol.ReviewMemo.ModReason.PERSONAL -> R.string.report_personal
+    com.undersigned.protocol.ReviewMemo.ModReason.ABUSE -> R.string.report_abuse
+    com.undersigned.protocol.ReviewMemo.ModReason.IMPERSONATION -> R.string.report_impersonation
+})
+
+/** In place of text a moderator hid: the reason, never the text (no "show anyway": the point is not to show it). */
+@Composable
+fun ModHiddenText(reason: com.undersigned.protocol.ReviewMemo.ModReason, fontSize: Int = 12) {
+    Text(androidx.compose.ui.res.stringResource(R.string.mod_hidden, modReasonLabel(reason)), color = RbColors.textTertiary, fontSize = fontSize.sp, lineHeight = (fontSize + 5).sp,
+        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic)
+}

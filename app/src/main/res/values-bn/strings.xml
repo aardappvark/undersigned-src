@@ -889,4 +889,11 @@
         <item quantity="one">%1$dটি নতুন</item>
         <item quantity="other">%1$dটি নতুন</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">মডারেটর টেক্সট লুকিয়েছেন: %1$s</string>
+    <string name="mod_hide">টেক্সট লুকান (মডারেটর)</string>
+    <string name="mod_unhide">টেক্সট আবার দেখান (মডারেটর)</string>
+    <string name="mod_title">সবার জন্য এই টেক্সট লুকাবেন?</string>
+    <string name="mod_body">শুধু টেক্সট লুকানো হবে: রেটিং ও ট্যাগ এখনও গণনায় থাকবে এবং রেকর্ডটি চেইনেই থাকবে। এটি কারণসহ একটি সর্বজনীন মডারেশন রেকর্ডে স্বাক্ষর করে, এবং আপনি এটি ফিরিয়ে নিতে পারবেন।</string>
+    <string name="mod_sign">স্বাক্ষর করে লুকান</string>
 </resources>

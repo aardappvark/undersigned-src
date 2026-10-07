@@ -893,4 +893,11 @@
         <item quantity="one">%1$d új</item>
         <item quantity="other">%1$d új</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">A szöveget egy moderátor elrejtette: %1$s</string>
+    <string name="mod_hide">Szöveg elrejtése (moderátor)</string>
+    <string name="mod_unhide">Szöveg újra megjelenítése (moderátor)</string>
+    <string name="mod_title">Elrejted ezt a szöveget mindenki elől?</string>
+    <string name="mod_body">Csak a szöveg lesz elrejtve: az értékelés és a címkék továbbra is számítanak, a bejegyzés pedig on-chain marad. Ez egy nyilvános moderációs bejegyzést ír alá, amely megnevezi az okot, és visszavonhatod.</string>
+    <string name="mod_sign">Aláírás és elrejtés</string>
 </resources>

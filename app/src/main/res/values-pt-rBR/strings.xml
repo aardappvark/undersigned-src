@@ -922,4 +922,11 @@
         <item quantity="one">%1$d novo</item>
         <item quantity="other">%1$d novos</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Texto ocultado por um moderador: %1$s</string>
+    <string name="mod_hide">Ocultar texto (moderador)</string>
+    <string name="mod_unhide">Mostrar o texto novamente (moderador)</string>
+    <string name="mod_title">Ocultar este texto para todos?</string>
+    <string name="mod_body">Só o texto é ocultado: a nota e as tags continuam valendo, e o registro permanece na cadeia. Isso assina um registro de moderação público que informa o motivo, e você pode desfazer.</string>
+    <string name="mod_sign">Assinar e ocultar</string>
 </resources>

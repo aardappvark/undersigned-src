@@ -26,10 +26,12 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path.startsWith("/wallet/") -> dec(path.removePrefix("/wallet/")).let { w -> if (runCatching { Base58.decode(w).size }.getOrNull() == 32) page("Wallet ${short(w)} — Undersigned", wallet(w)) else notFound() }
             path == "/icon.svg" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=86400"), ICON.toByteArray(), "image/svg+xml; charset=utf-8")
             path == "/report" -> page("Report content — Undersigned", report())
+            path == "/moderation" -> page("Moderation — Undersigned", moderation())
             path == "/robots.txt" -> Api.Response(200, JSONObject(), raw = "User-agent: *\nAllow: /\nDisallow: /v1/\nSitemap: ${Config.PUBLIC_URL}/sitemap.xml\n".toByteArray(), contentType = "text/plain; charset=utf-8")
             path == "/sitemap.xml" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"), sitemap().toByteArray(), "application/xml; charset=utf-8")
             path == "/watch" -> page("Store watch — Undersigned", watch())
             path == "/review" -> page("Write a signed review — Undersigned", review(query["package"], lang), lang = lang)
+            path == "/seed" && !Config.PUBLIC -> page("Seed the fleet — Undersigned", seed())
             path == "/act" -> act(query["kind"].orEmpty(), query["target"].orEmpty(), lang)
             path == "/publishers" -> page("For publishers — Undersigned", publishers(query["package"]?.trim()))
             extra.containsKey(path) -> extra.getValue(path)(query)
@@ -128,6 +130,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             sb.append("</div>")
             val tags = r.optJSONArray("tags"); if (tags != null && tags.length() > 0) sb.append("<div class=row>${(0 until tags.length()).joinToString("") { "<span class=tag>${esc(I18n.tag(lang, tags.getString(it)))}</span>" }}</div>")
             if (!r.isNull("text")) sb.append("<p class=txt>${esc(r.optString("text"))}</p>")
+            else if (!r.isNull("hidden_by_moderator") && r.has("hidden_by_moderator")) sb.append("<p class=meta><i>Text hidden by a moderator: ${esc(modReason(r.optString("hidden_by_moderator")))}</i> (<a href='/moderation'>policy</a>). Rating and tags still count.</p>")
             else if (r.optBoolean("hidden_by_operator")) sb.append("<p class=meta>Text not shown on this site (<a href='/report'>why</a>). The on-chain record is unchanged.</p>")
             val facts = ArrayList<String>()
             if (!r.isNull("install_age")) facts += "On their phone: ${I18n.use(lang, r.optString("install_age"))}"
@@ -138,7 +141,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             if (r.optBoolean("hidden_by_consensus")) facts += "Hidden by community consensus"
             sb.append("<div class=meta>${day(r.optLong("time"))} · v${r.opt("version")} · <a href='/wallet/${r.getString("signer")}'>${esc(who.optString("skr_name").takeIf { !who.isNull("skr_name") } ?: short(r.getString("signer")))}</a>${if (facts.isNotEmpty()) " · " + facts.joinToString(" · ") { esc(it) } else ""}</div>")
             val reps = r.optJSONArray("replies") ?: JSONArray()
-            for (k in 0 until reps.length()) { val p = reps.getJSONObject(k); sb.append("<div class=reply><span class=meta>${if (p.optBoolean("publisher")) "<b class=pub>Publisher</b> · " else ""}${short(p.getString("wallet"))} · ${day(p.optLong("time"))}</span><br>${if (p.optBoolean("hidden_by_operator")) "<span class=meta>Text not shown on this site.</span>" else esc(p.optString("text"))}</div>") }
+            for (k in 0 until reps.length()) { val p = reps.getJSONObject(k); sb.append("<div class=reply><span class=meta>${if (p.optBoolean("publisher")) "<b class=pub>Publisher</b> · " else ""}${short(p.getString("wallet"))} · ${day(p.optLong("time"))}</span><br>${if (!p.isNull("hidden_by_moderator") && p.has("hidden_by_moderator")) "<span class=meta><i>Text hidden by a moderator: ${esc(modReason(p.optString("hidden_by_moderator")))}</i></span>" else if (p.optBoolean("hidden_by_operator")) "<span class=meta>Text not shown on this site.</span>" else esc(p.optString("text"))}</div>") }
             sb.append("<div class=small><a href='/act?kind=up&amp;target=${r.getString("id")}'>Helpful</a> · <a href='/act?kind=reply&amp;target=${r.getString("id")}'>Reply</a> · <a href='/act?kind=flag&amp;target=${r.getString("id")}'>Flag</a></div>")
             sb.append("</div>")
         }
@@ -190,6 +193,40 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
      * Wallet Adapter in Chrome). The server never holds a key. Consent mirrors the app: the terms, and a second,
      * explicit consent before any text goes on-chain for good.
      */
+    /** Local only: the treasury wallet signs the fleet's claims and listings from this Mac's browser (docs/FLEET_SEEDING.md). */
+    private fun seed(): String = "<p class=small><a href='/'>Undersigned</a></p><h1>Seed the fleet</h1>" +
+        "<p>Connect the treasury wallet <code>DD4a…Wq2Q</code> (Phantom in this browser). This builds a publisher claim and a free treasury listing for each of the fleet's 28 apps, skipping any this wallet already signed, in as few transactions as fit, and asks the wallet to sign each one. Network fees only.</p>" +
+        "<div class=card><div class=row><button id=connect>Connect wallet</button><button id=sign disabled>Build and sign</button></div><p id=status class=meta></p><pre id=plan class=code hidden></pre></div>" +
+        "<script type=module>\nimport { getWallets } from 'https://cdn.jsdelivr.net/npm/@wallet-standard/app@1.1.0/+esm';\n$JS_HELPERS\n" + """
+let wallet = null, account = null;
+$('connect').onclick = async () => {
+  const ws = getWallets().get().filter(w => w.chains.some(c => c.startsWith('solana:')) && w.features['standard:connect'] && w.features['solana:signAndSendTransaction']);
+  if (!ws.length) { st('No Solana wallet found in this browser.'); return; }
+  wallet = ws.find(w => /phantom/i.test(w.name)) || ws[0];
+  try { const r = await wallet.features['standard:connect'].connect(); account = r.accounts && r.accounts[0]; }
+  catch (e) { st('Not connected: ' + explain(e)); return; }
+  if (!account) { st('The wallet returned no account.'); return; }
+  st('Connected: ' + account.address.slice(0, 4) + '…' + account.address.slice(-4) + (account.address.startsWith('DD4a') ? '' : ' (not the treasury wallet: these records would be its own claims and listings)'));
+  $('sign').disabled = false;
+};
+$('sign').onclick = async () => {
+  $('sign').disabled = true; st('Building…');
+  try {
+    const r = await fetch('/v1/tx/seed', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ account: account.address }) });
+    const j = await r.json(); if (!r.ok) { st(j.message || j.error); $('sign').disabled = false; return; }
+    if (!j.transactions.length) { st(j.message); return; }
+    $('plan').hidden = false; $('plan').textContent = j.plan.join('\n');
+    const sigs = [];
+    for (let i = 0; i < j.transactions.length; i++) {
+      st('Sign transaction ' + (i + 1) + ' of ' + j.transactions.length + ' in your wallet (' + j.records + ' records in all)…');
+      const [res] = await wallet.features['solana:signAndSendTransaction'].signAndSendTransaction({ account, transaction: unb64(j.transactions[i]), chain: 'solana:mainnet' });
+      sigs.push(bs58(res.signature));
+    }
+    $('status').innerHTML = 'Done: ' + sigs.map((s, i) => '<a target=_blank href="https://solscan.io/tx/' + s + '">transaction ' + (i + 1) + '</a>').join(' · ') + '. The index picks them up within a few minutes.';
+  } catch (e) { st('Stopped: ' + explain(e) + '. Press the button again: records already signed are skipped.'); $('sign').disabled = false; }
+};
+</script>"""
+
     private fun review(pkg: String?, lang: String): String {
         val app = pkg?.let { indexer.state.byPackage[it] }
         // The same groups and opposite pairs as the app's composer (protocol TagGroups).
@@ -286,13 +323,36 @@ $('sign').onclick = async () => {
     /** What this site can and cannot do about content, and who to write to. */
     private fun report(): String = """<p class=small><a href='/'>Undersigned</a></p><h1>Report content</h1>
 <p>Every review, reply and note shown here was signed by its author's wallet and recorded on Solana. Nobody can change or delete a record on-chain: not its author, not this site.</p>
-<p>What this site can do is stop showing a record's <b>text</b>. When it does, the record still appears with its rating, tags and date, marked "Text not shown on this site". The hide list is the operator's, applies to this site and its API only, and does not touch the Undersigned app, where readers hide by community flags and on their own device.</p>
+<p>What this site can do is stop showing a record's <b>text</b>. When it does, the record still appears with its rating, tags and date, marked "Text not shown on this site". The hide list is the operator's, applies to this site and its API only, and does not touch the Undersigned app. Separately, a moderator can hide a record's text everywhere, the app included, by signing a public record (<a href='/moderation'>how moderation works</a>).</p>
 <p>Write to us about text that is unlawful where you are, exposes private information, or targets a person: ${if (Config.CONTACT.startsWith("http")) "<a href='${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>" else "<a href='mailto:${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>"}. Say which record (its page link, or the transaction signature) and why. Disagreeing with a rating is not a reason; publishers can answer a review with a signed reply instead.</p>
 <p class=small>Wallet addresses and .skr names shown here are public on-chain data. See the privacy policy for what the server itself keeps.</p>"""
 
+    /** The moderation policy (docs/MODERATION.md), and every moderation record, newest first. */
+    private fun moderation(): String {
+        val st = indexer.state
+        val mods = st.entries.filter { it.memo is com.undersigned.protocol.ReviewMemo.Moderate || it.memo is com.undersigned.protocol.ReviewMemo.Unmoderate }.sortedByDescending { it.blockTime }
+        val list = if (mods.isEmpty()) "<p class=meta>No moderation records yet.</p>" else mods.take(100).joinToString("") { e ->
+            val m = e.memo
+            val target = (m as? com.undersigned.protocol.ReviewMemo.Moderate)?.recordId ?: (m as com.undersigned.protocol.ReviewMemo.Unmoderate).recordId
+            val what = if (m is com.undersigned.protocol.ReviewMemo.Moderate) "hid the text of" else "showed again the text of"
+            val why = (m as? com.undersigned.protocol.ReviewMemo.Moderate)?.let { " · " + esc(modReason(it.reason.wire)) } ?: ""
+            "<div class=rev><span class=meta>${day(e.blockTime)} · ${short(e.signer)}</span> $what <code>${esc(target.take(16))}…</code>$why</div>"
+        }
+        val contact = if (Config.CONTACT.startsWith("http")) "<a href='${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>" else "<a href='mailto:${esc(Config.CONTACT)}'>${esc(Config.CONTACT)}</a>"
+        val who = com.undersigned.protocol.Moderation.MODERATORS.joinToString(", ") { short(it) }
+        return "<p class=small><a href='/'>Undersigned</a></p><h1>Moderation</h1>" +
+            "<p>Moderation on Undersigned hides <b>text</b>, never a voice. A moderator can stop a review's or reply's words from being shown; its rating, tags and weight still count, and the record stays on Solana, where nobody can change or delete it.</p>" +
+            "<div class=card><div class=label>Who moderates</div><p>The wallets named in the app's and this site's source code (<code>Moderation.MODERATORS</code>). Today that is one wallet, the operator's: <code>${esc(who)}</code>. Adding or removing one is a new release, visible to anyone.</p></div>" +
+            "<div class=card><div class=label>The only four reasons</div><p>Illegal content · someone's personal data (names, addresses, phone numbers, keys or seed words) · abuse or harassment aimed at a person · impersonating a publisher.</p>" +
+            "<p class=meta>Not reasons: a low rating, a harsh or negative opinion, criticism of an app or its publisher, or a review someone disagrees with. Spam and off-topic records are for community flags, which any Seeker owner can sign.</p></div>" +
+            "<div class=card><div class=label>How it works</div><p>The moderator signs a public record naming the record and the reason. Every reader, the app and this site, then shows \"Text hidden by a moderator\" and the reason in place of the text. The same moderator can undo it with a second record; the later one counts. A moderator's record on a review of an app that moderator is the proven publisher of is ignored.</p></div>" +
+            "<div class=card><div class=label>If your text was hidden</div><p>Sign a dispute from the app (it is shown beside your record), or write to $contact with the record id. A moderator looks again within 7 days and says what was decided.</p></div>" +
+            "<h2>Every moderation record</h2>$list"
+    }
+
     private fun sitemap(): String {
         val st = indexer.state
-        val urls = listOf("/", "/watch", "/review", "/report") + st.scores.keys.sorted().map { "/app/${enc(it)}" }
+        val urls = listOf("/", "/watch", "/review", "/report", "/moderation") + st.scores.keys.sorted().map { "/app/${enc(it)}" }
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" + urls.joinToString("") { "<url><loc>${esc(Config.PUBLIC_URL + it)}</loc></url>" } + "</urlset>"
     }
 
@@ -407,6 +467,8 @@ $('go').onclick = async () => {
     }
 
     // ---- Pieces -------------------------------------------------------------------------------------------------------
+
+    private fun modReason(wire: String) = when (wire) { "illegal" -> "illegal content"; "personal" -> "someone's personal data"; "abuse" -> "abuse or harassment"; "impersonation" -> "impersonates a publisher"; else -> wire }
 
     private fun plural(n: Int, one: String, many: String) = "$n ${if (n == 1) one else many}"
 

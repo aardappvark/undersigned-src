@@ -894,4 +894,11 @@
         <item quantity="one">%1$d ny</item>
         <item quantity="other">%1$d nya</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Text dold av en moderator: %1$s</string>
+    <string name="mod_hide">Dölj text (moderator)</string>
+    <string name="mod_unhide">Visa texten igen (moderator)</string>
+    <string name="mod_title">Dölja den här texten för alla?</string>
+    <string name="mod_body">Bara texten döljs: betyget och taggarna räknas fortfarande, och posten stannar on-chain. Det här signerar en offentlig modereringspost som anger skälet, och du kan ångra det.</string>
+    <string name="mod_sign">Signera och dölj</string>
 </resources>

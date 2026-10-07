@@ -249,6 +249,10 @@ object UserPreferences {
         get() = prefs?.getStringSet("proven_notified", emptySet())?.toSet() ?: emptySet()
         set(v) { prefs?.edit()?.putStringSet("proven_notified", v)?.apply() }
     /** The weekly "not reviewed on this phone" reminder (opt-in, off by default). */
+    /** Where the next dApp-list refresh continues the store-search sweep (0..675). */
+    var catalogueSearchCursor: Int
+        get() = prefs?.getInt("catalogue_search_cursor", 0) ?: 0
+        set(v) { prefs?.edit()?.putInt("catalogue_search_cursor", v)?.apply() }
     /** Pro: refresh the dApp list in the background every Monday morning (on by default; acts only while Pro is active). */
     var catalogueAuto: Boolean
         get() = prefs?.getBoolean("catalogue_auto", true) ?: true

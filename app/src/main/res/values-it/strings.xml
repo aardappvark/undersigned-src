@@ -922,4 +922,11 @@
         <item quantity="one">%1$d nuova</item>
         <item quantity="other">%1$d nuove</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Testo nascosto da un moderatore: %1$s</string>
+    <string name="mod_hide">Nascondi testo (moderatore)</string>
+    <string name="mod_unhide">Mostra di nuovo il testo (moderatore)</string>
+    <string name="mod_title">Nascondere questo testo per tutti?</string>
+    <string name="mod_body">Viene nascosto solo il testo: la valutazione e i tag contano ancora e il record resta on-chain. Questo firma un record di moderazione pubblico che indica il motivo, e puoi annullarlo.</string>
+    <string name="mod_sign">Firma e nascondi</string>
 </resources>

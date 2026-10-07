@@ -16,6 +16,8 @@ object Tx {
     val MEMO_PROGRAM_ID: ByteArray = Base58.decode(Config.MEMO_PROGRAM)
     val REGISTRY: ByteArray = Base58.decode(Config.REGISTRY)
     const val MAX_TX_BYTES = 1232
+    /** Room left for a wallet that adds its own compute-budget or priority-fee instructions before it signs. */
+    const val BATCH_BYTES = 1100
 
     fun reviewTransaction(signer: ByteArray, memoText: String, blockhash: ByteArray): ByteArray {
         val tx = wrapAsTransaction(compileMessage(signer, blockhash, listOf(memoInstruction(memoText), systemTransfer(signer, signer, 0L, REGISTRY))))
@@ -33,6 +35,21 @@ object Tx {
     }
 
     fun memoInstruction(text: String) = Instruction(MEMO_PROGRAM_ID, emptyList(), text.toByteArray(Charsets.UTF_8))
+
+    /**
+     * Several memos in as few transactions as fit, each carrying the registry reference (so the index finds it). The order
+     * is kept, so a memo's record id is "<signature>:<index in its transaction>".
+     */
+    fun memoBatches(signer: ByteArray, memos: List<String>, blockhash: ByteArray, maxBytes: Int = BATCH_BYTES): List<ByteArray> {
+        val out = ArrayList<ByteArray>(); var cur = ArrayList<String>()
+        fun build(l: List<String>) = wrapAsTransaction(compileMessage(signer, blockhash, l.map { memoInstruction(it) } + systemTransfer(signer, signer, 0L, REGISTRY)))
+        for (m in memos) {
+            if (cur.isNotEmpty() && build(cur + m).size > maxBytes) { out.add(build(cur)); cur = ArrayList() }
+            cur.add(m); require(build(cur).size <= maxBytes) { "one memo is too large" }
+        }
+        if (cur.isNotEmpty()) out.add(build(cur))
+        return out
+    }
 
     /** Legacy (non-versioned) message layout. */
     fun compileMessage(feePayer: ByteArray, blockhash: ByteArray, instructions: List<Instruction>): ByteArray {

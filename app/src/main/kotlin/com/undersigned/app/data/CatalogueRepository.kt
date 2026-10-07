@@ -24,12 +24,16 @@ data class CatalogueApp(val packageName: String, val name: String, val updated: 
 class CatalogueRepository(private val context: Context) {
     private val file = File(context.filesDir, "catalogue.json")
 
+    /**
+     * The saved list merged with the list this version shipped with (saved entries win, being newer). It used to read the
+     * saved file alone, so a phone that had ever refreshed never saw apps a newer build shipped with (owner, 7 Oct 2026).
+     */
     fun load(): List<CatalogueApp> {
-        val text = runCatching { if (file.exists()) file.readText() else null }.getOrNull()
-            ?: runCatching { context.assets.open(AppConfig.Store.SNAPSHOT_ASSET).bufferedReader().use { it.readText() } }.getOrNull()
-            ?: return emptyList()
-        return parse(text)
+        val saved = runCatching { if (file.exists()) parse(file.readText()) else emptyList() }.getOrDefault(emptyList())
+        return (bundled() + saved).associateBy { it.packageName }.values.toList()
     }
+
+    private fun bundled(): List<CatalogueApp> = runCatching { parse(context.assets.open(AppConfig.Store.SNAPSHOT_ASSET).bufferedReader().use { it.readText() }) }.getOrDefault(emptyList())
 
     private fun parse(text: String): List<CatalogueApp> = runCatching {
         val arr = JSONArray(text)
@@ -55,8 +59,7 @@ class CatalogueRepository(private val context: Context) {
         try {
             // What this phone knew plus the list this version shipped with: an older replace-style refresh may have dropped
             // category-less apps from the saved list, and the shipped list still names them.
-            val bundled = runCatching { parse(context.assets.open(AppConfig.Store.SNAPSHOT_ASSET).bufferedReader().use { it.readText() }) }.getOrDefault(emptyList())
-            val known = (bundled + load()).associateBy { it.packageName }
+            val known = load().associateBy { it.packageName }
             val sc = JSONObject().put("locale", "en-US").put("platformSdk", 35).put("pixelDensity", 420).put("model", "Seeker")
             val cats = post("TopCategories", Q_CATEGORIES, JSONObject().put("systemContext", sc))
                 .getJSONObject("topCategories").getJSONArray("edges")
@@ -92,7 +95,11 @@ class CatalogueRepository(private val context: Context) {
             }
             if (out.size < 100) throw IllegalStateException("catalogue crawl returned only ${out.size} apps")   // truncated storefront → keep the old data
             onProgress("+")
-            val extra = ((known.keys - out.keys) + discover().filter { it !in out && it !in known }).filter { p -> EXCLUDED.none { p.startsWith(it) } }
+            // Store search finds listings that are in no category and not in the portal's Arweave records (Bonk App, Helium
+            // Mobile, Squads among them, 7 Oct). All 676 two-letter terms is ~20 minutes, so each refresh runs the next slice
+            // and the whole alphabet is covered every 13 refreshes; the shipped list carries a full sweep at each release.
+            val searched = searchSlice()
+            val extra = ((known.keys - out.keys) + (discover() + searched).filter { it !in out && it !in known }).filter { p -> EXCLUDED.none { p.startsWith(it) } }
             val live = live(extra)
             if (live == null) known.values.forEach { if (it.packageName !in out) out[it.packageName] = it }   // could not ask: keep what we had
             else extra.forEach { p -> live[p]?.let { l -> out[p] = CatalogueApp(p, l.name, l.updated.ifEmpty { known[p]?.updated ?: "" }, known[p]?.category) } }
@@ -118,6 +125,24 @@ class CatalogueRepository(private val context: Context) {
         }
         found
     }.getOrElse { Log.w(TAG, "discovery skipped: ${it.message?.take(80)}"); emptySet() }
+
+    private suspend fun searchSlice(): Set<String> = runCatching {
+        val terms = ('a'..'z').flatMap { a -> ('a'..'z').map { b -> "$a$b" } }
+        val start = UserPreferences.catalogueSearchCursor.coerceIn(0, terms.size - 1)
+        val sc = JSONObject().put("locale", "en-US").put("platformSdk", 35).put("pixelDensity", 420).put("model", "Seeker")
+        val found = HashSet<String>()
+        for (k in 0 until SEARCH_SLICE) {
+            val t = terms[(start + k) % terms.size]
+            if (k > 0) kotlinx.coroutines.delay(1500)
+            runCatching {
+                val r = post("Search", Q_SEARCH, JSONObject().put("systemContext", sc).put("searchText", t)).getJSONObject("search").optJSONObject("results")
+                val edges = r?.optJSONObject("dApps")?.optJSONArray("edges") ?: return@runCatching
+                for (i in 0 until edges.length()) edges.getJSONObject(i).getJSONObject("node").optString("androidPackage").takeIf { it.isNotEmpty() }?.let(found::add)
+            }
+        }
+        UserPreferences.catalogueSearchCursor = (start + SEARCH_SLICE) % terms.size
+        found
+    }.getOrDefault(emptySet())
 
     private class Live(val name: String, val updated: String)
 
@@ -168,6 +193,9 @@ class CatalogueRepository(private val context: Context) {
         val CURATED_SHELVES = setOf("Top Picks")
         private val EXCLUDED = listOf("com.google.", "com.android.", "com.mediatek.", "com.samsung.", "com.qualcomm.", "com.sec.", "com.friendly.", "org.chromium.")
         private const val Q_CATEGORIES = "query TopCategories(\$systemContext: SystemContext!) { topCategories(systemContext: \$systemContext, first: 20) { edges { node { id name } } } }"
+        private const val SEARCH_SLICE = 52
+        // `first` above 10 is rejected; omitted, the store returns the first 10 matches (Toolkit tools/discover_dapps.py).
+        private const val Q_SEARCH = "query Search(\$systemContext: SystemContext!, \$searchText: String!, \$after: String) { search { results(systemContext: \$systemContext, searchText: \$searchText, after: \$after) { __typename ... on DAppsUnit { dApps { edges { node { androidPackage } } pageInfo { hasNextPage endCursor } } } } } }"
         private const val Q_BATCH = "query DAppsByPackages(\$systemContext: SystemContext!, \$androidPackages: [String!]!) { dAppsByAndroidPackages(systemContext: \$systemContext, androidPackages: \$androidPackages) { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn } } }"
         private const val Q_CATEGORY_DAPPS = "query DAppsCategory(\$systemContext: SystemContext!, \$categoryId: ID!, \$first: Int, \$after: String) { dAppsCategory { dApps(systemContext: \$systemContext, categoryId: \$categoryId, first: \$first, after: \$after) { edges { node { androidPackage lastRelease(systemContext: \$systemContext) { displayName updatedOn installFile { size } } } } pageInfo { hasNextPage endCursor } } } }"
     }

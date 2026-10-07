@@ -905,4 +905,11 @@
         <item quantity="few">%1$d noi</item>
         <item quantity="other">%1$d de noi</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Text ascuns de un moderator: %1$s</string>
+    <string name="mod_hide">Ascunde textul (moderator)</string>
+    <string name="mod_unhide">Afișează din nou textul (moderator)</string>
+    <string name="mod_title">Ascunzi acest text pentru toți?</string>
+    <string name="mod_body">Se ascunde doar textul: evaluarea și etichetele se numără în continuare, iar înregistrarea rămâne pe blockchain. Aceasta semnează o înregistrare de moderare publică ce indică motivul, iar tu o poți anula.</string>
+    <string name="mod_sign">Semnează și ascunde</string>
 </resources>

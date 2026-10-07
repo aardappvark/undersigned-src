@@ -919,4 +919,11 @@
         <item quantity="one">%1$d new</item>
         <item quantity="other">%1$d new</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Text hidden by a moderator: %1$s</string>
+    <string name="mod_hide">Hide text (moderator)</string>
+    <string name="mod_unhide">Show text again (moderator)</string>
+    <string name="mod_title">Hide this text for everyone?</string>
+    <string name="mod_body">Only the text is hidden: the rating and tags still count, and the record stays on-chain. This signs a public moderation record that names the reason, and you can undo it.</string>
+    <string name="mod_sign">Sign and hide</string>
 </resources>

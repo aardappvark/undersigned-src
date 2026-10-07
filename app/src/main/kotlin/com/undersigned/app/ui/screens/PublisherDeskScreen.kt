@@ -82,7 +82,7 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                 val ageDays = ((System.currentTimeMillis() / 1000 - e.blockTime) / 86400L).toInt()
                 GlassCard {
                     Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text((domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: com.undersigned.app.solana.shortKey(e.signer, 4, 4)) + " · " + pluralStringResource(R.plurals.desk_days, ageDays, ageDays) + " · " + name(r.packageName), color = RbColors.textTertiary, fontSize = 11.sp) }
-                    r.text?.let { Spacer(Modifier.height(4.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
+                    vm.modHidden.collectAsState().value[e.signature]?.let { Spacer(Modifier.height(4.dp)); com.undersigned.app.ui.components.ModHiddenText(it) } ?: r.text?.let { Spacer(Modifier.height(4.dp)); Text(it, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
                     Row {
                         TextButton(onClick = { com.undersigned.app.ui.NavIntents.pendingReply.value = e.signature to ""; onOpen(r.packageName) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontSize = 12.sp) }
                         Spacer(Modifier.width(12.dp))

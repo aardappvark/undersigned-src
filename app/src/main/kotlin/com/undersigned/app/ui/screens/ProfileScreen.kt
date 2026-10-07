@@ -84,7 +84,7 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                 GlassCard(modifier = Modifier.clickable { onOpen(r.packageName) }) {
                     Text(appName(r.packageName), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                     Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp) }
-                    r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) }
+                    vm.modHidden.collectAsState().value[e.signature]?.let { com.undersigned.app.ui.components.ModHiddenText(it) } ?: r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) }
                 }
                 Spacer(Modifier.height(8.dp))
             }

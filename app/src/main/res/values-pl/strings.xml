@@ -919,4 +919,11 @@
         <item quantity="many">%1$d nowych</item>
         <item quantity="other">%1$d nowej</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Tekst ukryty przez moderatora: %1$s</string>
+    <string name="mod_hide">Ukryj tekst (moderator)</string>
+    <string name="mod_unhide">Pokaż tekst ponownie (moderator)</string>
+    <string name="mod_title">Ukryć ten tekst dla wszystkich?</string>
+    <string name="mod_body">Ukrywany jest tylko tekst: ocena i tagi nadal się liczą, a wpis pozostaje na blockchainie. Podpisujesz publiczny wpis moderacyjny z podanym powodem i możesz to cofnąć.</string>
+    <string name="mod_sign">Podpisz i ukryj</string>
 </resources>

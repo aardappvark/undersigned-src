@@ -101,6 +101,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val starred by vm.starred.collectAsState()
     val flagWeights by vm.flagWeights.collectAsState()
     val consensusHidden by vm.hiddenByConsensus.collectAsState()
+    val modHidden by vm.modHidden.collectAsState()
+    var modTarget by remember { mutableStateOf<String?>(null) }
     var revealed by remember { mutableStateOf<Set<String>>(emptySet()) }
     var flagTarget by remember { mutableStateOf<String?>(null) }
     var flagStage by remember { mutableStateOf<String?>(null) }
@@ -308,7 +310,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
                     // A note from a wallet that is not counted stays folded until asked for: anyone can sign text for one network
                     // fee, and an uncounted wallet's words should not sit on an app's page by default.
-                    r.text?.let { note ->
+                    modHidden[e.signature]?.let { reason -> Spacer(Modifier.height(6.dp)); ModHiddenText(reason, 13) }
+                    r.text?.takeIf { e.signature !in modHidden }?.let { note ->
                         var shown by remember(e.signature) { mutableStateOf(w > 0) }
                         Spacer(Modifier.height(6.dp))
                         if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
@@ -352,7 +355,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                 Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[rp.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(rp.signer, 4, 4))) + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                                 if (vm.isVerifiedPublisher(pkg, rp.signer)) Pill(stringResource(R.string.publisher_badge), RbColors.green)
                             }
-                            Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                            modHidden[rp.signature]?.let { ModHiddenText(it) } ?: Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                            if (vm.isModerator(wallet) && rp.signer != wallet) CardAction(stringResource(if (vm.myModeration(rp.signature)) R.string.mod_unhide else R.string.mod_hide), RbColors.textSecondary, enabled = simpleStage == null) {
+                                if (vm.myModeration(rp.signature)) sign(ReviewMemo.Unmoderate(rp.signature)) else { dialogError = null; modTarget = rp.signature } }
                             if (wallet != null && rp.signer != wallet) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp))  {
                                 flagWeights[rp.signature]?.let { fw -> OutlinePill(stringResource(R.string.flag_net, String.format(java.util.Locale.US, "%.1f", fw))) }
                                 val rpFlagged = vm.myFlag(rp.signature)
@@ -395,12 +400,17 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             IconButton(onClick = { menu = true }, modifier = Modifier.size(48.dp)) { Icon(Icons.Default.MoreHoriz, contentDescription = stringResource(R.string.more_actions), tint = RbColors.textTertiary) }
                             DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, modifier = Modifier.background(RbColors.surface)) {
                                 DropdownMenuItem(text = { Text(stringResource(if (e.signature in starred) R.string.unstar else R.string.star)) }, onClick = { menu = false; vm.toggleStar(e.signature) })
-                                DropdownMenuItem(text = { Text(stringResource(R.string.share)) }, onClick = { menu = false; com.undersigned.app.ui.components.Share.review(context, name, e) })
+                                DropdownMenuItem(text = { Text(stringResource(R.string.share)) }, onClick = { menu = false; com.undersigned.app.ui.components.Share.review(context, name, e, hideText = e.signature in modHidden) })
                                 if (e.signer != wallet) {
                                     // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
                                     if (wallet != null && !flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
                                         DropdownMenuItem(text = { Text(stringResource(R.string.clear)) }, onClick = { menu = false; sign(ReviewMemo.Clear(e.signature)) })
                                     DropdownMenuItem(text = { Text(stringResource(R.string.review_hide)) }, onClick = { menu = false; vm.hide(e.signature) })
+                                    // Moderators only: hide this review's text for everyone (rating and tags still count), or undo it.
+                                    if (vm.isModerator(wallet) && r.text != null) {
+                                        if (vm.myModeration(e.signature)) DropdownMenuItem(text = { Text(stringResource(R.string.mod_unhide)) }, onClick = { menu = false; sign(ReviewMemo.Unmoderate(e.signature)) })
+                                        else DropdownMenuItem(text = { Text(stringResource(R.string.mod_hide)) }, onClick = { menu = false; dialogError = null; modTarget = e.signature })
+                                    }
                                     DropdownMenuItem(text = { Text(stringResource(R.string.review_report)) }, onClick = { menu = false; report(e.signature) })
                                 }
                             }
@@ -711,7 +721,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             text = { Column(Modifier.verticalScroll(rememberScrollState())) {
                 Text(stringResource(R.string.report_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                 target?.let { t -> Spacer(Modifier.height(8.dp)); Text((domainNames[t.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(t.signer, 4, 4)) + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(t.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp)
-                    ((t.memo as? ReviewMemo.Review)?.text ?: (t.memo as? ReviewMemo.Reply)?.text)?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 3) } }
+                    ((t.memo as? ReviewMemo.Review)?.text ?: (t.memo as? ReviewMemo.Reply)?.text)?.takeIf { t.signature !in modHidden }?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 3) } }
                 Spacer(Modifier.height(8.dp))
                 Text(stringResource(R.string.report_why), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -859,6 +869,23 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 vm.publish(s, ReviewMemo.Flag(target, reason), onStage = { st -> flagStage = stageText(st) }) { r -> flagStage = null; r.fold({ flagTarget = null }, { dialogError = context.errorText(it) }) }
             }) { Text(stringResource(R.string.flag_sign), color = RbColors.purpleLight) } },
             dismissButton = { TextButton(enabled = flagStage == null, onClick = { flagTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
+
+    modTarget?.let { target ->
+        var reason by remember(target) { mutableStateOf(ReviewMemo.ModReason.ILLEGAL) }
+        AlertDialog(onDismissRequest = { if (simpleStage == null) modTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.mod_title), color = RbColors.textPrimary) },
+            text = { Column {
+                Text(stringResource(R.string.mod_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    ReviewMemo.ModReason.entries.forEach { mr -> TagChip(modReasonLabel(mr), selected = reason == mr) { if (simpleStage == null) reason = mr } }
+                }
+                simpleStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                actionMessage?.takeIf { !it.first }?.let { Text(it.second, color = RbColors.negative, fontSize = 12.sp) }
+            } },
+            confirmButton = { TextButton(enabled = simpleStage == null && sender != null, onClick = { sign(ReviewMemo.Moderate(target, reason)) { ok -> if (ok) modTarget = null } }) { Text(stringResource(R.string.mod_sign), color = RbColors.negative) } },
+            dismissButton = { TextButton(enabled = simpleStage == null, onClick = { modTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     pendingSimple?.let { (kind, target) ->

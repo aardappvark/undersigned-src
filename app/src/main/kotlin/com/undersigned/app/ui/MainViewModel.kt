@@ -103,6 +103,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val standings = MutableStateFlow<Map<String, SignerStanding>>(emptyMap())
     val flagWeights = MutableStateFlow<Map<String, Double>>(emptyMap())
     val hiddenByConsensus = MutableStateFlow<Set<String>>(emptySet())
+    /** Record id -> reason, for text a moderator hides (rating and tags still count). See protocol Moderation. */
+    val modHidden = MutableStateFlow<Map<String, ReviewMemo.ModReason>>(emptyMap())
+    fun isModerator(w: String?): Boolean = w != null && w in com.undersigned.protocol.Moderation.MODERATORS
+    /** This moderator's own current hide on [id] (so the menu offers "Show text again" instead). */
+    fun myModeration(id: String): Boolean { val w = wallet.value ?: return false
+        return entries.value.filter { it.signer == w && ((it.memo as? ReviewMemo.Moderate)?.recordId == id || (it.memo as? ReviewMemo.Unmoderate)?.recordId == id) }
+            .maxWithOrNull(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature })?.memo is ReviewMemo.Moderate }
     val helpfulWeights = MutableStateFlow<Map<String, Double>>(emptyMap())
     val currentFlaggers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
     val currentClearers = MutableStateFlow<Map<String, Set<String>>>(emptyMap())
@@ -190,6 +197,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         standings.value = Reputation.standing(list, vp, f)
         flagWeights.value = Reputation.flagWeights(list, vp, f)
         hiddenByConsensus.value = Reputation.hiddenByConsensus(list, vp, f)
+        modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, vp)
         currentFlaggers.value = Reputation.currentFlaggers(list)
         currentClearers.value = Reputation.currentClearers(list)
         helpfulWeights.value = Reputation.helpfulWeights(list, f)
@@ -241,7 +249,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         verifiedPublishers.value = expanded
         UserPreferences.saveVerifiedPublishers(expanded)
         storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, expanded)
-        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f) }
+        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f); modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, expanded) }
     }
     private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
         // Both counts over the SAME set: live (non-withdrawn) reviews. Counting signers over every review ever written
@@ -909,9 +917,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn" }
-        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; else -> "" }
-        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; else -> "" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate" }
+        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
+        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
         fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }

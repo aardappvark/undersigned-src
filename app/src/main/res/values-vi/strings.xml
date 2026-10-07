@@ -884,4 +884,11 @@
     <plurals name="catalogue_new">
         <item quantity="other">%1$d mới</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Người kiểm duyệt đã ẩn văn bản: %1$s</string>
+    <string name="mod_hide">Ẩn văn bản (người kiểm duyệt)</string>
+    <string name="mod_unhide">Hiển thị lại văn bản (người kiểm duyệt)</string>
+    <string name="mod_title">Ẩn văn bản này với mọi người?</string>
+    <string name="mod_body">Chỉ văn bản bị ẩn: xếp hạng và thẻ vẫn được tính, và bản ghi vẫn ở trên chuỗi. Thao tác này ký một bản ghi kiểm duyệt công khai nêu rõ lý do, và bạn có thể hoàn tác.</string>
+    <string name="mod_sign">Ký và ẩn</string>
 </resources>

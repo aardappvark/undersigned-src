@@ -884,4 +884,11 @@
     <plurals name="catalogue_new">
         <item quantity="other">%1$d baru</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Teks disembunyikan oleh moderator: %1$s</string>
+    <string name="mod_hide">Sembunyikan teks (moderator)</string>
+    <string name="mod_unhide">Tampilkan teks lagi (moderator)</string>
+    <string name="mod_title">Sembunyikan teks ini untuk semua orang?</string>
+    <string name="mod_body">Hanya teksnya yang disembunyikan: peringkat dan tag tetap dihitung, dan catatan tetap berada on-chain. Ini menandatangani catatan moderasi publik yang menyebutkan alasannya, dan Anda dapat membatalkannya.</string>
+    <string name="mod_sign">Tandatangani dan sembunyikan</string>
 </resources>

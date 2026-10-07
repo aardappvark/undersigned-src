@@ -940,4 +940,11 @@
         <item quantity="many">%1$d جديدًا</item>
         <item quantity="other">%1$d جديد</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">أخفى مشرف النص: %1$s</string>
+    <string name="mod_hide">إخفاء النص (مشرف)</string>
+    <string name="mod_unhide">إظهار النص مجددًا (مشرف)</string>
+    <string name="mod_title">إخفاء هذا النص للجميع؟</string>
+    <string name="mod_body">يُخفى النص فقط: يبقى التقييم والوسوم محتسبَين، ويبقى السجل على السلسلة. يوقّع هذا سجل إشراف عامًا يذكر السبب، ويمكنك التراجع عنه.</string>
+    <string name="mod_sign">توقيع وإخفاء</string>
 </resources>

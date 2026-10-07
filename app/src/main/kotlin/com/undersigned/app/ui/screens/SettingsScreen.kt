@@ -375,7 +375,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         val who = e?.let { domainNames[it.signer]?.takeIf { n -> n.isNotEmpty() } ?: shortKey(it.signer, 4, 4) } ?: shortKey(sig, 4, 4)
                         val app = (e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.packageName?.let { p -> catalogue.firstOrNull { it.packageName == p }?.name ?: p }
                         Text(listOfNotNull(who, app, e?.let { java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(it.blockTime * 1000)) }).joinToString(" · "), color = RbColors.textTertiary, fontSize = 11.sp)
-                        ((e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.text ?: (e?.memo as? com.undersigned.protocol.ReviewMemo.Reply)?.text)?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 2) }
+                        ((e?.memo as? com.undersigned.protocol.ReviewMemo.Review)?.text ?: (e?.memo as? com.undersigned.protocol.ReviewMemo.Reply)?.text)?.takeIf { sig !in vm.modHidden.value }?.let { Text("\u201C$it\u201D", color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 2) }
                         TextButton(onClick = { vm.unhide(sig) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.settings_unhide), color = RbColors.purpleLight, fontSize = 12.sp) }
                     }
                 }

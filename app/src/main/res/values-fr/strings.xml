@@ -922,4 +922,11 @@
         <item quantity="one">%1$d nouvelle</item>
         <item quantity="other">%1$d nouvelles</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Texte masqué par un modérateur : %1$s</string>
+    <string name="mod_hide">Masquer le texte (modérateur)</string>
+    <string name="mod_unhide">Réafficher le texte (modérateur)</string>
+    <string name="mod_title">Masquer ce texte pour tout le monde ?</string>
+    <string name="mod_body">Seul le texte est masqué : la note et les tags comptent toujours, et l\'enregistrement reste on-chain. Cela signe un enregistrement de modération public qui indique le motif, et vous pouvez l\'annuler.</string>
+    <string name="mod_sign">Signer et masquer</string>
 </resources>

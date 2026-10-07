@@ -896,4 +896,11 @@
         <item quantity="one">%1$d नया</item>
         <item quantity="other">%1$d नए</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">मॉडरेटर द्वारा टेक्स्ट छिपाया गया: %1$s</string>
+    <string name="mod_hide">टेक्स्ट छिपाएं (मॉडरेटर)</string>
+    <string name="mod_unhide">टेक्स्ट फिर से दिखाएं (मॉडरेटर)</string>
+    <string name="mod_title">यह टेक्स्ट सभी के लिए छिपाएं?</string>
+    <string name="mod_body">केवल टेक्स्ट छिपता है: रेटिंग और टैग अब भी गिने जाते हैं, और रिकॉर्ड chain पर बना रहता है। यह कारण बताने वाले एक सार्वजनिक मॉडरेशन रिकॉर्ड पर साइन करता है, और आप इसे पूर्ववत कर सकते हैं।</string>
+    <string name="mod_sign">साइन करें और छिपाएं</string>
 </resources>

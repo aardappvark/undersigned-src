@@ -18,7 +18,9 @@ rm -rf "$DEST/bin" "$DEST/lib"; cp -R build/install/api/bin build/install/api/li
 RPC=$(sed -n 's/^UNDERSIGNED_RPC=//p' .env.local 2>/dev/null | tail -1)
 # Test prices (loopback only; see Config.testPrice): carried over only while .env.local sets them.
 TEST=$(grep -E '^UNDERSIGNED_TEST_PASS_(SOL|SKR)=[0-9.]+$' .env.local 2>/dev/null || true)
-{ [ -n "$RPC" ] && printf 'UNDERSIGNED_RPC="%s"\n' "$RPC"; printf 'UNDERSIGNED_DB="%s"\nPORT=8797\nHOST=127.0.0.1\nJAVA_HOME="%s"\n' "$DEST/undersigned-api.db" "$JAVA_HOME"; [ -n "$TEST" ] && printf '%s\n' "$TEST"; } > "$DEST/env"
+# Public mode (set by go-public.sh): carried over while .env.local sets it. Still loopback: the tunnel is the only way in.
+PUB=$(grep -E '^(UNDERSIGNED_PUBLIC|TRUST_PROXY|PUBLIC_URL|UNDERSIGNED_CONTACT)=' .env.local 2>/dev/null || true)
+{ [ -n "$RPC" ] && printf 'UNDERSIGNED_RPC="%s"\n' "$RPC"; printf 'UNDERSIGNED_DB="%s"\nPORT=8797\nHOST=127.0.0.1\nJAVA_HOME="%s"\n' "$DEST/undersigned-api.db" "$JAVA_HOME"; [ -n "$TEST" ] && printf '%s\n' "$TEST"; [ -n "$PUB" ] && printf '%s\n' "$PUB"; } > "$DEST/env"
 chmod 600 "$DEST/env"
 # First install: carry over the database the local test run already built (snapshots, passes).
 [ -f "$DEST/undersigned-api.db" ] || { [ -f data/undersigned-api.db ] && cp data/undersigned-api.db "$DEST/"; } || true

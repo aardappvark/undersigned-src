@@ -902,4 +902,11 @@
         <item quantity="one">%1$d nieuw</item>
         <item quantity="other">%1$d nieuw</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Tekst verborgen door een moderator: %1$s</string>
+    <string name="mod_hide">Tekst verbergen (moderator)</string>
+    <string name="mod_unhide">Tekst weer tonen (moderator)</string>
+    <string name="mod_title">Deze tekst voor iedereen verbergen?</string>
+    <string name="mod_body">Alleen de tekst wordt verborgen: de beoordeling en tags tellen nog mee en het record blijft on-chain. Hiermee ondertekent u een openbaar moderatierecord waarin de reden staat; u kunt dit ongedaan maken.</string>
+    <string name="mod_sign">Ondertekenen en verbergen</string>
 </resources>

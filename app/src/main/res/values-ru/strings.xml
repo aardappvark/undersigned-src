@@ -902,4 +902,11 @@
         <item quantity="many">%1$d новых</item>
         <item quantity="other">%1$d новых</item>
     </plurals>
+    <!-- 7 Oct 2026 moderation -->
+    <string name="mod_hidden">Текст скрыт модератором: %1$s</string>
+    <string name="mod_hide">Скрыть текст (модератор)</string>
+    <string name="mod_unhide">Показать текст снова (модератор)</string>
+    <string name="mod_title">Скрыть этот текст для всех?</string>
+    <string name="mod_body">Скрывается только текст: оценка и теги по-прежнему учитываются, а запись остаётся в блокчейне. Так подписывается публичная запись модерации с указанием причины, и вы можете это отменить.</string>
+    <string name="mod_sign">Подписать и скрыть</string>
 </resources>
