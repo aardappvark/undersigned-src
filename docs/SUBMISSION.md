@@ -18,7 +18,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 |---|---|---|
 | Functional Android APK | **READY** — 1.0.0 (versionCode 10), 10.1 MB, signed v2+v3 with the fleet key, lint 0 errors, 174 tests | `app/build/outputs/apk/release/app-release.apk` (copy in `assets/submission/`). Attach it as a GitHub Release asset on the repo (`v1.0.0`) or upload in the form. |
 | GitHub repository | **READY after push** — 115 commits, 8 Sep → 8 Oct, all inside the window. 5 commits are local only (icons, snapshot). | https://github.com/aardappvark/Undersigned (private) |
-| Demo video (≤ 3 min) | **OWNER** — needs the Seed Vault double-tap on camera. Script: `docs/DEMO_SCRIPT.md` | Upload to YouTube (unlisted) or Drive; paste the link |
+| Demo video (≤ 3 min) | **READY** — `assets/video/undersigned-demo.mp4`, 2:29, 1920×1080 H.264 + AAC, 7.7 MB. Screen-recorded on the airdropper Seeker 8 Oct: list, A–Z rail, Toolkit page, a real review of Jupiter Mobile signed in the Seed Vault (tx 4Eqgb1ex…odmNXXL5), proofs, publisher section, store lens, device facts, import scan, the web page and Solscan. Narration: `assets/video/narration.txt`; rebuild with `build.py` + `mux.py` (the takes are in the session scratchpad, not the repo). | Upload to YouTube (unlisted) or Drive; paste the link |
 | Pitch deck | **READY** — 11 slides | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)

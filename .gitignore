@@ -11,3 +11,5 @@ api/.env.local
 api/data/
 Handoff 2.zip
 assets/submission/*.apk
+assets/video/*.mp4
+assets/video/takes/
