@@ -897,6 +897,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             runCatching { iconCache.seed(catalogue.value.mapNotNull { a -> a.iconUri?.let { a.packageName to it } }.toMap()) }
             kotlinx.coroutines.delay(5_000)
             runCatching { iconCache.resolve(catalogue.value.filter { it.iconUri == null }.map { it.packageName }, paceMs = 2_500L) } } }
+    init { viewModelScope.launch(Dispatchers.IO) { com.undersigned.app.data.BundledIcons.index(app) } }   // read once, off the main thread
     init { viewModelScope.launch(Dispatchers.IO) { catalogue.collect { list -> runCatching { iconCache.seed(list.mapNotNull { a -> a.iconUri?.let { a.packageName to it } }.toMap()) } } } }
 
     fun labelFor(pkg: String, fallback: String): String = installedApps.appLabel(pkg) ?: fallback

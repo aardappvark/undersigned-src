@@ -20,13 +20,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
+import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
+import com.undersigned.app.data.BundledIcons
 import com.undersigned.app.ui.theme.RbColors
 
 /**
- * The real dApp icon, three tiers in order (Toolkit `DAppIcon` pattern): the installed app's launcher
- * icon rasterised from PackageManager (adaptive icons need toBitmap), else the store's icon URI via
- * Coil, else a letter badge while loading / on error / when the store has no icon.
+ * The real dApp icon, in order (Toolkit `DAppIcon` pattern): the installed app's launcher icon rasterised from
+ * PackageManager (adaptive icons need toBitmap); else the icon shipped inside the app ([BundledIcons]), no network;
+ * else the store's icon URI via Coil, with the shipped icon (if an older one exists) or a letter badge standing in
+ * while it loads or when it fails.
  */
 @Composable
 fun DAppIcon(packageName: String, displayName: String, iconUrl: String?, modifier: Modifier = Modifier.size(44.dp)) {
@@ -35,11 +38,18 @@ fun DAppIcon(packageName: String, displayName: String, iconUrl: String?, modifie
         try { context.packageManager.getApplicationIcon(packageName).toBitmap(192, 192).asImageBitmap() }
         catch (_: PackageManager.NameNotFoundException) { null } catch (_: Exception) { null }
     }
+    val shipped = remember(packageName) { BundledIcons.source(context, packageName) != null }
+    val shape = modifier.clip(RoundedCornerShape(11.dp))
+    val standIn: @Composable () -> Unit = {
+        if (shipped) AsyncImage(model = BundledIcons.model(packageName), contentDescription = null, contentScale = ContentScale.Crop, modifier = shape)
+        else LetterBadge(displayName, modifier)
+    }
     when {
-        installed != null -> Image(bitmap = installed, contentDescription = null, contentScale = ContentScale.Crop, modifier = modifier.clip(RoundedCornerShape(11.dp)))
-        iconUrl != null -> SubcomposeAsyncImage(model = iconUrl, contentDescription = null, contentScale = ContentScale.Crop, modifier = modifier.clip(RoundedCornerShape(11.dp)),
-            loading = { LetterBadge(displayName, modifier) }, error = { LetterBadge(displayName, modifier) })
-        else -> LetterBadge(displayName, modifier)
+        installed != null -> Image(bitmap = installed, contentDescription = null, contentScale = ContentScale.Crop, modifier = shape)
+        shipped && BundledIcons.isCurrent(context, packageName, iconUrl) -> standIn()
+        iconUrl != null -> SubcomposeAsyncImage(model = iconUrl, contentDescription = null, contentScale = ContentScale.Crop, modifier = shape,
+            loading = { standIn() }, error = { standIn() })
+        else -> standIn()
     }
 }
 

@@ -113,13 +113,14 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
 
     LaunchedEffect(apps) { vm.resolveIcons(apps.take(60).map { it.packageName }); vm.fillIcons() }
     val listState = rememberLazyListState()
-    // Icons for what is on screen and the next 40 rows, as the list scrolls; their images are fetched ahead so they
-    // are already on the phone when the rows arrive.
+    // Icons for what is on screen and the next 40 rows, as the list scrolls. Most ship inside the app; only the ones that
+    // don't (new apps, a changed icon) are fetched ahead, at row size, so they are on the phone when the rows arrive.
     LaunchedEffect(listState, apps) {
         snapshotFlow { listState.firstVisibleItemIndex }.collect { first ->
             val ahead = apps.drop((first - 5).coerceAtLeast(0)).take(50).map { it.packageName }
-            vm.resolveIcons(ahead)
-            ahead.mapNotNull { icons[it]?.takeIf { u -> u.isNotEmpty() } }.forEach { u -> context.imageLoader.enqueue(coil.request.ImageRequest.Builder(context).data(u).build()) }
+            vm.resolveIcons(ahead.filterNot { com.undersigned.app.data.BundledIcons.source(context, it) != null })
+            ahead.filterNot { com.undersigned.app.data.BundledIcons.isCurrent(context, it, icons[it]) }.mapNotNull { icons[it]?.takeIf { u -> u.isNotEmpty() } }
+                .forEach { u -> context.imageLoader.enqueue(coil.request.ImageRequest.Builder(context).data(u).size(160).build()) }
         }
     }
     val firstKey = rows.firstOrNull()?.let { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }
