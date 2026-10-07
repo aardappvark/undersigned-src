@@ -922,4 +922,15 @@
         <item quantity="one">%1$d új dApp az áruházban ezen a héten</item>
         <item quantity="other">%1$d új dApp az áruházban ezen a héten</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Ki írja alá a listázást?</string>
+    <string name="pay_who_treasury">A kincstár tárcája</string>
+    <string name="pay_who_treasury_body">Írd alá abból a tárcából, amely a fizetéseket fogadja. A legegyszerűbb mód.</string>
+    <string name="pay_who_publisher">Az én kiadói tárcám, a kincstár nevében</string>
+    <string name="pay_who_publisher_body">A kincstár soha nem ír alá semmit. A tárcádnak már most az alkalmazás bizonyított kiadójának kell lennie, és a weboldal sorának meg kell neveznie a kincstárat. Ugyanaz a díj.</string>
+    <string name="pay_field_treasury_addr">Kincstár címe (a fizetéseket fogadó tárca)</string>
+    <string name="pay_publisher_ok">A tárcád ennek az alkalmazásnak a bizonyított kiadója.</string>
+    <string name="pay_publisher_needed">A tárcád még nem ennek az alkalmazásnak a bizonyított kiadója. Először bizonyítsd ezt az alkalmazás oldalán (Hogyan bizonyítható ez?), utána listázz.</string>
+    <string name="pay_signing_publisher">bizonyított kiadó</string>
+    <string name="pay_signing_not_publisher">nem a bizonyított kiadó</string>
 </resources>

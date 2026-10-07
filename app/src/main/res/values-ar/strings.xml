@@ -985,4 +985,15 @@
         <item quantity="many">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
         <item quantity="other">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">من يوقّع الإدراج؟</string>
+    <string name="pay_who_treasury">محفظة الخزينة</string>
+    <string name="pay_who_treasury_body">وقّع من المحفظة التي تستلم المدفوعات. أبسط طريقة.</string>
+    <string name="pay_who_publisher">محفظة الناشر الخاصة بي، نيابةً عن الخزينة</string>
+    <string name="pay_who_publisher_body">لا توقّع الخزينة أي شيء. يجب أن تكون محفظتك بالفعل الناشر المُثبَت لهذا التطبيق، ويجب أن يذكر سطر الموقع الخزينة. الرسوم نفسها.</string>
+    <string name="pay_field_treasury_addr">عنوان الخزينة (المحفظة التي تستلم المدفوعات)</string>
+    <string name="pay_publisher_ok">محفظتك هي الناشر المُثبَت لهذا التطبيق.</string>
+    <string name="pay_publisher_needed">محفظتك ليست الناشر المُثبَت لهذا التطبيق بعد. أثبِت ذلك أولاً في صفحة التطبيق (كيف يُثبَت هذا؟)، ثم أدرِج.</string>
+    <string name="pay_signing_publisher">ناشر مُثبَت</string>
+    <string name="pay_signing_not_publisher">ليس الناشر المُثبَت</string>
 </resources>

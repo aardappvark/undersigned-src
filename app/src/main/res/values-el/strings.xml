@@ -922,4 +922,15 @@
         <item quantity="one">%1$d νέο dApp στο κατάστημα αυτή την εβδομάδα</item>
         <item quantity="other">%1$d νέα dApps στο κατάστημα αυτή την εβδομάδα</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Ποιος υπογράφει την καταχώριση;</string>
+    <string name="pay_who_treasury">Το πορτοφόλι του θησαυροφυλακίου</string>
+    <string name="pay_who_treasury_body">Υπογράψτε από το πορτοφόλι που λαμβάνει τις πληρωμές. Ο πιο απλός τρόπος.</string>
+    <string name="pay_who_publisher">Το πορτοφόλι εκδότη μου, για το θησαυροφυλάκιο</string>
+    <string name="pay_who_publisher_body">Το θησαυροφυλάκιο δεν υπογράφει ποτέ τίποτα. Το πορτοφόλι σας πρέπει να είναι ήδη ο αποδεδειγμένος εκδότης αυτής της εφαρμογής και η γραμμή του ιστότοπου πρέπει να αναφέρει το θησαυροφυλάκιο. Ίδιο τέλος.</string>
+    <string name="pay_field_treasury_addr">Διεύθυνση θησαυροφυλακίου (το πορτοφόλι που λαμβάνει τις πληρωμές)</string>
+    <string name="pay_publisher_ok">Το πορτοφόλι σας είναι ο αποδεδειγμένος εκδότης αυτής της εφαρμογής.</string>
+    <string name="pay_publisher_needed">Το πορτοφόλι σας δεν είναι ακόμη ο αποδεδειγμένος εκδότης αυτής της εφαρμογής. Αποδείξτε το πρώτα στη σελίδα της εφαρμογής (Πώς αποδεικνύεται αυτό;) και μετά καταχωρίστε.</string>
+    <string name="pay_signing_publisher">αποδεδειγμένος εκδότης</string>
+    <string name="pay_signing_not_publisher">όχι ο αποδεδειγμένος εκδότης</string>
 </resources>

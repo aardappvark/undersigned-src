@@ -942,4 +942,15 @@
         <item quantity="one">%1$d neue dApp im Store diese Woche</item>
         <item quantity="other">%1$d neue dApps im Store diese Woche</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Wer signiert die Listung?</string>
+    <string name="pay_who_treasury">Die Treasury-Wallet</string>
+    <string name="pay_who_treasury_body">Signieren Sie mit der Wallet, die die Zahlungen empfängt. Der einfachste Weg.</string>
+    <string name="pay_who_publisher">Meine Herausgeber-Wallet, für die Treasury</string>
+    <string name="pay_who_publisher_body">Die Treasury signiert nie etwas. Ihre Wallet muss bereits der nachgewiesene Herausgeber dieser App sein, und die Zeile auf der Website muss die Treasury nennen. Gleiche Gebühr.</string>
+    <string name="pay_field_treasury_addr">Treasury-Adresse (die Wallet, die die Zahlungen empfängt)</string>
+    <string name="pay_publisher_ok">Ihre Wallet ist der nachgewiesene Herausgeber dieser App.</string>
+    <string name="pay_publisher_needed">Ihre Wallet ist noch nicht der nachgewiesene Herausgeber dieser App. Weisen Sie das zuerst auf der Seite der App nach (Wie wird das nachgewiesen?), und listen Sie dann.</string>
+    <string name="pay_signing_publisher">nachgewiesener Herausgeber</string>
+    <string name="pay_signing_not_publisher">nicht der nachgewiesene Herausgeber</string>
 </resources>

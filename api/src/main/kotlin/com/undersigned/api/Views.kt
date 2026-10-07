@@ -79,6 +79,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             is ReviewMemo.Time -> o.put("package", m.packageName).put("bucket", m.time.wire)
             is ReviewMemo.StoreNote -> o.put("package", m.packageName).put("store_review", m.reviewId).put("text", m.text)
             is ReviewMemo.Treasury -> o.put("package", m.packageName).put("code", m.code)
+            is ReviewMemo.TreasuryFor -> o.put("package", m.packageName).put("code", m.code).put("treasury", m.treasury)
             is ReviewMemo.Untreasury -> o.put("package", m.packageName)
             is ReviewMemo.Moderate -> o.put("target", m.recordId).put("reason", m.reason.wire)
             is ReviewMemo.Unmoderate -> o.put("target", m.recordId)
@@ -112,7 +113,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     private fun packageOf(m: ReviewMemo): String? = when (m) {
         is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName
-        is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> null
+        is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> null
     }
 
     // ---- Ledger-wide ----------------------------------------------------------------------------------------------

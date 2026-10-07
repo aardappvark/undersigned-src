@@ -951,4 +951,15 @@
         <item quantity="one">%1$d nuova dApp nello store questa settimana</item>
         <item quantity="other">%1$d nuove dApp nello store questa settimana</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Chi firma l\'inserimento in elenco?</string>
+    <string name="pay_who_treasury">Il portafoglio di tesoreria</string>
+    <string name="pay_who_treasury_body">Firma dal portafoglio che riceve i pagamenti. Il modo più semplice.</string>
+    <string name="pay_who_publisher">Il mio portafoglio editore, per conto della tesoreria</string>
+    <string name="pay_who_publisher_body">La tesoreria non firma mai nulla. Il tuo portafoglio deve essere già l\'editore dimostrato di questa app, e la riga del sito web deve nominare la tesoreria. Stesso costo.</string>
+    <string name="pay_field_treasury_addr">Indirizzo della tesoreria (il portafoglio che riceve i pagamenti)</string>
+    <string name="pay_publisher_ok">Il tuo portafoglio è l\'editore dimostrato di questa app.</string>
+    <string name="pay_publisher_needed">Il tuo portafoglio non è ancora l\'editore dimostrato di questa app. Dimostralo prima nella pagina dell\'app (Come si dimostra?), poi elenca.</string>
+    <string name="pay_signing_publisher">editore dimostrato</string>
+    <string name="pay_signing_not_publisher">non è l\'editore dimostrato</string>
 </resources>

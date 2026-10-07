@@ -893,4 +893,15 @@
     <plurals name="catalogue_notif_title">
         <item quantity="other">dApp ใหม่ %1$d รายการในสโตร์สัปดาห์นี้</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">ใครเป็นผู้ลงลายเซ็นในการลงรายการ?</string>
+    <string name="pay_who_treasury">กระเป๋าเงินคลัง</string>
+    <string name="pay_who_treasury_body">ลงลายเซ็นจากกระเป๋าเงินที่รับการชำระเงิน เป็นวิธีที่ง่ายที่สุด</string>
+    <string name="pay_who_publisher">กระเป๋าเงินผู้เผยแพร่ของฉัน แทนคลัง</string>
+    <string name="pay_who_publisher_body">คลังไม่ลงลายเซ็นใด ๆ ทั้งสิ้น กระเป๋าเงินของคุณต้องเป็นผู้เผยแพร่ที่พิสูจน์แล้วของแอปนี้อยู่แล้ว และบรรทัดบนเว็บไซต์ต้องระบุชื่อคลัง ค่าธรรมเนียมเท่าเดิม</string>
+    <string name="pay_field_treasury_addr">ที่อยู่คลัง (กระเป๋าเงินที่รับการชำระเงิน)</string>
+    <string name="pay_publisher_ok">กระเป๋าเงินของคุณเป็นผู้เผยแพร่ที่พิสูจน์แล้วของแอปนี้</string>
+    <string name="pay_publisher_needed">กระเป๋าเงินของคุณยังไม่ใช่ผู้เผยแพร่ที่พิสูจน์แล้วของแอปนี้ โปรดพิสูจน์ที่หน้าของแอปก่อน (สิ่งนี้พิสูจน์ได้อย่างไร) แล้วจึงลงรายการ</string>
+    <string name="pay_signing_publisher">ผู้เผยแพร่ที่พิสูจน์แล้ว</string>
+    <string name="pay_signing_not_publisher">ไม่ใช่ผู้เผยแพร่ที่พิสูจน์แล้ว</string>
 </resources>

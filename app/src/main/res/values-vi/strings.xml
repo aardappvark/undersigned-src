@@ -909,4 +909,15 @@
     <plurals name="catalogue_notif_title">
         <item quantity="other">%1$d dApp mới trong cửa hàng tuần này</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Ai ký niêm yết?</string>
+    <string name="pay_who_treasury">Ví quỹ</string>
+    <string name="pay_who_treasury_body">Hãy ký từ ví nhận các khoản thanh toán. Cách đơn giản nhất.</string>
+    <string name="pay_who_publisher">Ví nhà phát hành của tôi, thay cho quỹ</string>
+    <string name="pay_who_publisher_body">Quỹ không bao giờ ký bất cứ thứ gì. Ví của bạn phải là nhà phát hành đã được chứng minh của ứng dụng này, và dòng trên trang web phải nêu tên quỹ. Phí như nhau.</string>
+    <string name="pay_field_treasury_addr">Địa chỉ quỹ (ví nhận các khoản thanh toán)</string>
+    <string name="pay_publisher_ok">Ví của bạn là nhà phát hành đã được chứng minh của ứng dụng này.</string>
+    <string name="pay_publisher_needed">Ví của bạn chưa phải là nhà phát hành đã được chứng minh của ứng dụng này. Hãy chứng minh trước trên trang của ứng dụng (Điều này được chứng minh thế nào?), rồi niêm yết.</string>
+    <string name="pay_signing_publisher">nhà phát hành đã chứng minh</string>
+    <string name="pay_signing_not_publisher">không phải nhà phát hành đã chứng minh</string>
 </resources>

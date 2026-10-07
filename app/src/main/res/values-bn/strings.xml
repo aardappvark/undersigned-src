@@ -918,4 +918,15 @@
         <item quantity="one">এই সপ্তাহে স্টোরে %1$dটি নতুন dApp</item>
         <item quantity="other">এই সপ্তাহে স্টোরে %1$dটি নতুন dApp</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">তালিকাভুক্তিতে কে স্বাক্ষর করে?</string>
+    <string name="pay_who_treasury">ট্রেজারি ওয়ালেট</string>
+    <string name="pay_who_treasury_body">যে ওয়ালেট পেমেন্ট গ্রহণ করে, সেটি থেকে স্বাক্ষর করুন। সবচেয়ে সহজ উপায়।</string>
+    <string name="pay_who_publisher">ট্রেজারির পক্ষে আমার প্রকাশক ওয়ালেট</string>
+    <string name="pay_who_publisher_body">ট্রেজারি কখনও কিছুতে স্বাক্ষর করে না। আপনার ওয়ালেটকে আগে থেকেই এই অ্যাপের প্রমাণিত প্রকাশক হতে হবে, এবং ওয়েবসাইট লাইনে ট্রেজারির নাম থাকতে হবে। ফি একই।</string>
+    <string name="pay_field_treasury_addr">ট্রেজারির ঠিকানা (যে ওয়ালেট পেমেন্ট গ্রহণ করে)</string>
+    <string name="pay_publisher_ok">আপনার ওয়ালেট এই অ্যাপের প্রমাণিত প্রকাশক।</string>
+    <string name="pay_publisher_needed">আপনার ওয়ালেট এখনও এই অ্যাপের প্রমাণিত প্রকাশক নয়। আগে অ্যাপের পেজে এটি প্রমাণ করুন (এটি কীভাবে প্রমাণিত হয়?), তারপর তালিকাভুক্ত করুন।</string>
+    <string name="pay_signing_publisher">প্রমাণিত প্রকাশক</string>
+    <string name="pay_signing_not_publisher">প্রমাণিত প্রকাশক নয়</string>
 </resources>

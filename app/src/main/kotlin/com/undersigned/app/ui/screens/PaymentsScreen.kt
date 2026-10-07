@@ -2,6 +2,7 @@ package com.undersigned.app.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -79,6 +80,11 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     var code by remember { mutableStateOf("") }
     var pkg by remember { mutableStateOf("") }
     var listCode by remember { mutableStateOf("") }
+    // Who signs the listing (owner, 7 Oct 2026: some devs won't sign with their treasury wallet): the treasury itself,
+    // or the app's proven publisher naming the treasury (`trd`). Both pay the same fee; the website line names the treasury either way.
+    var byPublisher by remember { mutableStateOf(false) }
+    var treasuryAddr by remember { mutableStateOf("") }
+    fun listMemo(): ReviewMemo? = runCatching { (if (byPublisher) ReviewMemo.TreasuryFor(pkg, listCode, treasuryAddr) else ReviewMemo.Treasury(pkg, listCode)).also { ReviewMemo.encode(it) } }.getOrNull()
     var stage by remember { mutableStateOf<String?>(null) }
     var message by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
     val mine = remember(entries, wallet) { vm.myTreasuryClaims() }
@@ -91,7 +97,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             if (r.isSuccess) vm.loadBoard(force = true)
         }
     }
-    fun payList(rail: com.undersigned.app.solana.ProPaymentService.Rail, memo: ReviewMemo.Treasury) {
+    fun payList(rail: com.undersigned.app.solana.ProPaymentService.Rail, memo: ReviewMemo) {
         val s = sender ?: return
         message = null
         vm.payListing(s, rail, memo, onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
@@ -181,13 +187,29 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         StepDot(1, step); Text(stringResource(R.string.pay_step_line), color = if (step == 1) RbColors.textPrimary else RbColors.textSecondary, fontSize = 14.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 8.dp).weight(1f))
                         StepDot(2, step); Text(stringResource(R.string.pay_step_sign), color = if (step == 2) RbColors.textPrimary else RbColors.textSecondary, fontSize = 14.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 8.dp).weight(1f))
                     }
-                    val memo = runCatching { ReviewMemo.Treasury(pkg, listCode).also { ReviewMemo.encode(it) } }.getOrNull()
+                    val memo = listMemo()
+                    val listedTreasury = if (byPublisher) treasuryAddr else (wallet ?: "")
+                    val isPub = wallet != null && pkg.isNotEmpty() && vm.isVerifiedPublisher(pkg, wallet!!)
                     if (step == 1) {
+                        // Two ways to list, said plainly up front.
+                        Text(stringResource(R.string.pay_who_title), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
+                        listOf(false to (R.string.pay_who_treasury to R.string.pay_who_treasury_body), true to (R.string.pay_who_publisher to R.string.pay_who_publisher_body)).forEach { (pub, labels) ->
+                            val sel = byPublisher == pub
+                            Column(Modifier.padding(top = 8.dp).fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(if (sel) RbColors.purple.copy(alpha = 0.18f) else RbColors.surface)
+                                .selectable(selected = sel, role = androidx.compose.ui.semantics.Role.RadioButton) { byPublisher = pub }.padding(12.dp)) {
+                                Text(stringResource(labels.first), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                                Text(stringResource(labels.second), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                            }
+                        }
                         Field(pkg, { pkg = it.trim() }, stringResource(R.string.pay_field_package))
+                        if (byPublisher) {
+                            Field(treasuryAddr, { treasuryAddr = it.trim() }, stringResource(R.string.pay_field_treasury_addr))
+                            if (pkg.isNotEmpty()) Text(stringResource(if (isPub) R.string.pay_publisher_ok else R.string.pay_publisher_needed), color = if (isPub) RbColors.green else RbColors.warning, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
+                        }
                         Field(listCode, { listCode = it.trim() }, stringResource(R.string.pay_field_code))
                         if (memo == null && (pkg.isNotEmpty() || listCode.isNotEmpty())) Text(stringResource(R.string.pay_bad_input), color = RbColors.negative, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
                         Text(stringResource(R.string.pay_list_step1), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 19.sp, modifier = Modifier.padding(top = 16.dp))
-                        val line = "treasury: $wallet"
+                        val line = "treasury: $listedTreasury"
                         Row(Modifier.padding(top = 8.dp).fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(RbColors.surface).height(IntrinsicSize.Min)) {
                             SelectionContainer(Modifier.weight(1f)) { Text(line, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 19.sp, fontFamily = FontFamily.Monospace, modifier = Modifier.padding(14.dp)) }
                             Column(Modifier.width(56.dp).fillMaxHeight().clickable {
@@ -200,8 +222,8 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         }
                         if (memo != null && wallet != null) {
                             // Debounced: this read the website once per keystroke.
-                            LaunchedEffect(pkg, wallet) { kotlinx.coroutines.delay(700); vm.checkTreasuryLine(pkg, wallet!!) }
-                            LineStatus(lineCheck) { vm.checkTreasuryLine(pkg, wallet!!) }
+                            LaunchedEffect(pkg, listedTreasury) { kotlinx.coroutines.delay(700); vm.checkTreasuryLine(pkg, listedTreasury) }
+                            LineStatus(lineCheck) { vm.checkTreasuryLine(pkg, listedTreasury) }
                         }
                     } else {
                         if (lineCheck?.first == true) LineStatus(lineCheck) {}
@@ -211,8 +233,9 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                             val w = wallet ?: ""
                             KeyValueRow(stringResource(R.string.pay_field_package), pkg)
                             KeyValueRow(stringResource(R.string.pay_field_code), listCode)
-                            KeyValueRow(stringResource(R.string.pay_field_treasury), shortKey(w, 4, 4))
-                            KeyValueRow(stringResource(R.string.pay_label_signing), shortKey(w, 4, 4) + " · " + stringResource(R.string.pay_wallet_matches), RbColors.green)
+                            KeyValueRow(stringResource(R.string.pay_field_treasury), shortKey(listedTreasury, 4, 4))
+                            if (byPublisher) KeyValueRow(stringResource(R.string.pay_label_signing), shortKey(w, 4, 4) + " · " + stringResource(if (isPub) R.string.pay_signing_publisher else R.string.pay_signing_not_publisher), if (isPub) RbColors.green else RbColors.warning)
+                            else KeyValueRow(stringResource(R.string.pay_label_signing), shortKey(w, 4, 4) + " · " + stringResource(R.string.pay_wallet_matches), RbColors.green)
                         }
                         Text(stringResource(R.string.pay_listing_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 10.dp))
                         if (!vm.listingIsFree()) Text(stringResource(R.string.pay_list_fee, "${AppConfig.Payment.LIST_SOL} SOL", String.format(java.util.Locale.US, "%,.0f SKR", AppConfig.Payment.LIST_SKR), String.format(java.util.Locale.US, "%,.0f SKR", AppConfig.Payment.LIST_SKR_SGT)),
@@ -221,14 +244,15 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                 }
                 Column(Modifier.padding(20.dp)) {
-                    val memo = runCatching { ReviewMemo.Treasury(pkg, listCode).also { ReviewMemo.encode(it) } }.getOrNull()
+                    val memo = listMemo()
+                    val canList = memo != null && (!byPublisher || (wallet != null && vm.isVerifiedPublisher(pkg, wallet!!)))
                     if (step == 1) {
                         if (lineCheck?.first != true) Text(stringResource(R.string.pay_sign_early), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 8.dp))
-                        PrimaryButton(stringResource(R.string.pay_continue), enabled = memo != null, onClick = { step = 2 })
-                    } else if (vm.listingIsFree()) PrimaryButton(stage ?: stringResource(R.string.pay_sign), enabled = memo != null && stage == null && sender != null, loading = stage != null, onClick = { memo?.let { sign(it) } })
+                        PrimaryButton(stringResource(R.string.pay_continue), enabled = canList, onClick = { step = 2 })
+                    } else if (vm.listingIsFree()) PrimaryButton(stage ?: stringResource(R.string.pay_sign), enabled = canList && stage == null && sender != null, loading = stage != null, onClick = { memo?.let { sign(it) } })
                     else {
                         // Fee and record in one transaction: the wallet sheet shows the payment and signs the listing with it.
-                        val t = memo as? ReviewMemo.Treasury
+                        val t = memo.takeIf { canList }
                         PrimaryButton(stage ?: stringResource(R.string.pay_list_pay, "${AppConfig.Payment.LIST_SOL} SOL"), enabled = t != null && stage == null && sender != null, loading = stage != null,
                             onClick = { t?.let { payList(com.undersigned.app.solana.ProPaymentService.Rail.SOL, it) } })
                         Spacer(Modifier.height(8.dp))

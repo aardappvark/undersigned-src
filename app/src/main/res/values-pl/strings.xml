@@ -956,4 +956,15 @@
         <item quantity="many">%1$d nowych dApps w sklepie w tym tygodniu</item>
         <item quantity="other">%1$d nowej dApp w sklepie w tym tygodniu</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Kto podpisuje wystawienie?</string>
+    <string name="pay_who_treasury">Portfel skarbca</string>
+    <string name="pay_who_treasury_body">Podpisz z portfela, który odbiera płatności. Najprostsza droga.</string>
+    <string name="pay_who_publisher">Mój portfel wydawcy, w imieniu skarbca</string>
+    <string name="pay_who_publisher_body">Skarbiec nigdy niczego nie podpisuje. Twój portfel musi już być udowodnionym wydawcą tej aplikacji, a linia na stronie musi wymieniać skarbiec. Ta sama opłata.</string>
+    <string name="pay_field_treasury_addr">Adres skarbca (portfel, który odbiera płatności)</string>
+    <string name="pay_publisher_ok">Twój portfel jest udowodnionym wydawcą tej aplikacji.</string>
+    <string name="pay_publisher_needed">Twój portfel nie jest jeszcze udowodnionym wydawcą tej aplikacji. Najpierw udowodnij to na stronie aplikacji (Jak to jest udowadniane?), potem wystaw.</string>
+    <string name="pay_signing_publisher">udowodniony wydawca</string>
+    <string name="pay_signing_not_publisher">nie jest udowodnionym wydawcą</string>
 </resources>

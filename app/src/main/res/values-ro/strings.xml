@@ -938,4 +938,15 @@
         <item quantity="few">%1$d dApps noi în magazin săptămâna aceasta</item>
         <item quantity="other">%1$d de dApps noi în magazin săptămâna aceasta</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Cine semnează listarea?</string>
+    <string name="pay_who_treasury">Portofelul trezoreriei</string>
+    <string name="pay_who_treasury_body">Semnează din portofelul care primește plățile. Cea mai simplă variantă.</string>
+    <string name="pay_who_publisher">Portofelul meu de editor, pentru trezorerie</string>
+    <string name="pay_who_publisher_body">Trezoreria nu semnează niciodată nimic. Portofelul tău trebuie să fie deja editorul dovedit al acestei aplicații, iar rândul de pe site trebuie să numească trezoreria. Aceeași taxă.</string>
+    <string name="pay_field_treasury_addr">Adresa trezoreriei (portofelul care primește plățile)</string>
+    <string name="pay_publisher_ok">Portofelul tău este editorul dovedit al acestei aplicații.</string>
+    <string name="pay_publisher_needed">Portofelul tău nu este încă editorul dovedit al acestei aplicații. Dovedește mai întâi pe pagina aplicației (Cum se dovedește asta?), apoi listează.</string>
+    <string name="pay_signing_publisher">editor dovedit</string>
+    <string name="pay_signing_not_publisher">nu este editorul dovedit</string>
 </resources>

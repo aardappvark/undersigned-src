@@ -73,9 +73,9 @@ class State(
     val notes = StoreNotes.current(entries, verified)
     fun factsOf(w: String) = f(w)
     /** Paid listings only (see Payments.claims); the Undersigned treasury lists without paying. */
-    val claims: List<Payments.Claim> = Payments.claims(entries) { e ->
+    val claims: List<Payments.Claim> = Payments.claims(entries, paid = { e ->
         e.signer == Config.TREASURY || meta[e.signature.substringBefore(':')]?.let { it.lamports >= AppFloors.listFloorLamports || it.skr >= AppFloors.listFloorSkrRaw } == true
-    }
+    }, isPublisher = { w, pkg -> w in verified[pkg].orEmpty() })
     companion object { val EMPTY = State(emptyList(), emptyMap(), emptyMap(), emptyMap(), emptyMap(), emptyList(), emptyMap(), 0L) }
 }
 

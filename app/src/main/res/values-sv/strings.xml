@@ -923,4 +923,15 @@
         <item quantity="one">%1$d ny dApp i butiken den här veckan</item>
         <item quantity="other">%1$d nya dApps i butiken den här veckan</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Vem signerar listningen?</string>
+    <string name="pay_who_treasury">Treasury-plånboken</string>
+    <string name="pay_who_treasury_body">Signera från plånboken som tar emot betalningarna. Det enklaste sättet.</string>
+    <string name="pay_who_publisher">Min utgivarplånbok, för treasuryn</string>
+    <string name="pay_who_publisher_body">Treasuryn signerar aldrig något. Din plånbok måste redan vara appens bevisade utgivare, och raden på webbplatsen måste nämna treasuryn. Samma avgift.</string>
+    <string name="pay_field_treasury_addr">Treasury-adress (plånboken som tar emot betalningarna)</string>
+    <string name="pay_publisher_ok">Din plånbok är den bevisade utgivaren av den här appen.</string>
+    <string name="pay_publisher_needed">Din plånbok är inte den bevisade utgivaren av den här appen än. Bevisa det först på appens sida (Hur bevisas detta?) och lista sedan.</string>
+    <string name="pay_signing_publisher">bevisad utgivare</string>
+    <string name="pay_signing_not_publisher">inte den bevisade utgivaren</string>
 </resources>

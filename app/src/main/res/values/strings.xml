@@ -948,4 +948,15 @@
     </plurals>
     <string name="fp_catalogue">Every dApp in the store, with an Update button</string>
     <string name="fp_catalogue_weekly">Updates itself every Monday; new listings marked New</string>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Who signs the listing?</string>
+    <string name="pay_who_treasury">The treasury wallet</string>
+    <string name="pay_who_treasury_body">Sign from the wallet that receives the payments. The simplest way.</string>
+    <string name="pay_who_publisher">My publisher wallet, for the treasury</string>
+    <string name="pay_who_publisher_body">The treasury never signs anything. Your wallet must already be this app\'s proven publisher, and the website line must name the treasury. Same fee.</string>
+    <string name="pay_field_treasury_addr">Treasury address (the wallet that receives the payments)</string>
+    <string name="pay_publisher_ok">Your wallet is this app\'s proven publisher.</string>
+    <string name="pay_publisher_needed">Your wallet is not this app\'s proven publisher yet. Prove it on the app\'s page first (How is this proven?), then list.</string>
+    <string name="pay_signing_publisher">proven publisher</string>
+    <string name="pay_signing_not_publisher">not the proven publisher</string>
 </resources>

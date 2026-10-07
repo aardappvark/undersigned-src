@@ -481,11 +481,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun treasuryClaims(): List<com.undersigned.protocol.Payments.Claim> {
         val meta = txMeta.value
-        return com.undersigned.protocol.Payments.claims(entries.value) { e ->
+        val vp = verifiedPublishers.value
+        return com.undersigned.protocol.Payments.claims(entries.value, paid = { e ->
             // Our own treasury lists the fleet's dApps without paying itself (a self-transfer credits nothing).
             e.signer == com.undersigned.app.AppConfig.Payment.TREASURY ||
                 meta[e.signature.substringBefore(':')]?.let { com.undersigned.app.AppConfig.Payment.isPaidListing(it.paidLamports, it.paidSkr) } == true
-        }
+        }, isPublisher = { w, pkg -> w in vp[pkg].orEmpty() })
     }
     /** Whether listing from this wallet is free: only the Undersigned treasury itself. */
     fun listingIsFree(): Boolean = wallet.value == com.undersigned.app.AppConfig.Payment.TREASURY
@@ -493,7 +494,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun listSkrPrice(): Double = com.undersigned.app.AppConfig.Payment.listSkr(wallet.value?.let { facts.value[it]?.hasGenesisToken } == true)
 
     /** Pay the listing fee and sign the `trs` record in ONE transaction; inserted locally on confirmation so the listing shows at once. */
-    fun payListing(sender: ActivityResultSender, rail: com.undersigned.app.solana.ProPaymentService.Rail, memo: ReviewMemo.Treasury, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+    fun payListing(sender: ActivityResultSender, rail: com.undersigned.app.solana.ProPaymentService.Rail, memo: ReviewMemo, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
         val w = wallet.value ?: return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.pro_needs_wallet))))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
         val text = runCatching { ReviewMemo.encode(memo) }.getOrElse { return onResult(Result.failure(it)) }
@@ -509,7 +510,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             onResult(r.map { it.signature })
         }
     }
-    fun myTreasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = wallet.value?.let { w -> treasuryClaims().filter { it.treasury == w } } ?: emptyList()
+    /** Listings this wallet controls: as the treasury, or as the publisher who listed a treasury for its app. */
+    fun myTreasuryClaims(): List<com.undersigned.protocol.Payments.Claim> = wallet.value?.let { w -> treasuryClaims().filter { it.treasury == w || it.signedBy == w } } ?: emptyList()
     fun boardFor(pkg: String): BoardRow? = boardRows.value.firstOrNull { it.claim.packageName == pkg && it.confirmed && it.tally != null }
 
     // ---- Leaderboard -------------------------------------------------------------------------------------------
@@ -928,10 +930,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
-        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
+        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
         if (json) {

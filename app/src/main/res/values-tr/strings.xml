@@ -922,4 +922,15 @@
         <item quantity="one">Bu hafta mağazada %1$d yeni dApp</item>
         <item quantity="other">Bu hafta mağazada %1$d yeni dApp</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Listelemeyi kim imzalar?</string>
+    <string name="pay_who_treasury">Hazine cüzdanı</string>
+    <string name="pay_who_treasury_body">Ödemeleri alan cüzdandan imzalayın. En basit yol.</string>
+    <string name="pay_who_publisher">Hazine adına yayıncı cüzdanım</string>
+    <string name="pay_who_publisher_body">Hazine hiçbir şey imzalamaz. Cüzdanınız zaten bu uygulamanın kanıtlanmış yayıncısı olmalı ve web sitesi satırında hazine belirtilmelidir. Ücret aynıdır.</string>
+    <string name="pay_field_treasury_addr">Hazine adresi (ödemeleri alan cüzdan)</string>
+    <string name="pay_publisher_ok">Cüzdanınız bu uygulamanın kanıtlanmış yayıncısıdır.</string>
+    <string name="pay_publisher_needed">Cüzdanınız henüz bu uygulamanın kanıtlanmış yayıncısı değil. Önce bunu uygulamanın sayfasında kanıtlayın (Bu nasıl kanıtlanır?), sonra listeleyin.</string>
+    <string name="pay_signing_publisher">kanıtlanmış yayıncı</string>
+    <string name="pay_signing_not_publisher">kanıtlanmış yayıncı değil</string>
 </resources>

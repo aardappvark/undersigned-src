@@ -951,4 +951,15 @@
         <item quantity="one">%1$d novo dApp na loja esta semana</item>
         <item quantity="other">%1$d novos dApps na loja esta semana</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Quem assina a listagem?</string>
+    <string name="pay_who_treasury">A carteira de tesouraria</string>
+    <string name="pay_who_treasury_body">Assine com a carteira que recebe os pagamentos. O jeito mais simples.</string>
+    <string name="pay_who_publisher">Minha carteira de publicador, em nome da tesouraria</string>
+    <string name="pay_who_publisher_body">A tesouraria nunca assina nada. Sua carteira já precisa ser o publicador comprovado deste app, e a linha do site precisa citar a tesouraria. Mesma taxa.</string>
+    <string name="pay_field_treasury_addr">Endereço da tesouraria (a carteira que recebe os pagamentos)</string>
+    <string name="pay_publisher_ok">Sua carteira é o publicador comprovado deste app.</string>
+    <string name="pay_publisher_needed">Sua carteira ainda não é o publicador comprovado deste app. Comprove isso primeiro na página do app (Como isso é comprovado?) e depois liste.</string>
+    <string name="pay_signing_publisher">publicador comprovado</string>
+    <string name="pay_signing_not_publisher">não é o publicador comprovado</string>
 </resources>

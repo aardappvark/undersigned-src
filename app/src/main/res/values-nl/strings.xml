@@ -931,4 +931,15 @@
         <item quantity="one">%1$d nieuwe dApp in de store deze week</item>
         <item quantity="other">%1$d nieuwe dApps in de store deze week</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Wie ondertekent de vermelding?</string>
+    <string name="pay_who_treasury">De treasury-wallet</string>
+    <string name="pay_who_treasury_body">Onderteken met de wallet die de betalingen ontvangt. De eenvoudigste manier.</string>
+    <string name="pay_who_publisher">Mijn uitgeverswallet, namens de treasury</string>
+    <string name="pay_who_publisher_body">De treasury ondertekent nooit iets. Uw wallet moet al de bewezen uitgever van deze app zijn, en de regel op de website moet de treasury noemen. Dezelfde kosten.</string>
+    <string name="pay_field_treasury_addr">Treasury-adres (de wallet die de betalingen ontvangt)</string>
+    <string name="pay_publisher_ok">Uw wallet is de bewezen uitgever van deze app.</string>
+    <string name="pay_publisher_needed">Uw wallet is nog niet de bewezen uitgever van deze app. Bewijs dat eerst op de pagina van de app (Hoe wordt dit bewezen?) en vermeld daarna.</string>
+    <string name="pay_signing_publisher">bewezen uitgever</string>
+    <string name="pay_signing_not_publisher">niet de bewezen uitgever</string>
 </resources>

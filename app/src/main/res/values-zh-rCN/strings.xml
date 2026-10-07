@@ -908,4 +908,15 @@
     <plurals name="catalogue_notif_title">
         <item quantity="other">本周商店新增 %1$d 个 dApp</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">谁来为登记签名?</string>
+    <string name="pay_who_treasury">金库钱包</string>
+    <string name="pay_who_treasury_body">从接收付款的钱包签名。这是最简单的方式。</string>
+    <string name="pay_who_publisher">我的发布者钱包,代表金库</string>
+    <string name="pay_who_publisher_body">金库本身不签署任何内容。您的钱包必须已经是此应用的已证明发布者,且网站上的行必须写明该金库。费用相同。</string>
+    <string name="pay_field_treasury_addr">金库地址(接收付款的钱包)</string>
+    <string name="pay_publisher_ok">您的钱包是此应用的已证明发布者。</string>
+    <string name="pay_publisher_needed">您的钱包尚不是此应用的已证明发布者。请先在应用页面上证明(这是如何证明的?),然后再登记。</string>
+    <string name="pay_signing_publisher">已证明发布者</string>
+    <string name="pay_signing_not_publisher">不是已证明发布者</string>
 </resources>

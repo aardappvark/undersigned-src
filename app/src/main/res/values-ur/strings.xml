@@ -925,4 +925,15 @@
         <item quantity="one">اس ہفتے اسٹور میں %1$d نیا dApp</item>
         <item quantity="other">اس ہفتے اسٹور میں %1$d نئے dApps</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">اندراج پر دستخط کون کرتا ہے؟</string>
+    <string name="pay_who_treasury">خزانے کا والٹ</string>
+    <string name="pay_who_treasury_body">جس والٹ میں ادائیگیاں آتی ہیں، اسی سے دستخط کریں۔ سب سے آسان طریقہ۔</string>
+    <string name="pay_who_publisher">خزانے کے لیے میرا پبلشر والٹ</string>
+    <string name="pay_who_publisher_body">خزانہ کبھی کسی چیز پر دستخط نہیں کرتا۔ آپ کا والٹ پہلے ہی اس ایپ کا ثابت شدہ پبلشر ہونا چاہیے، اور ویب سائٹ لائن میں خزانے کا نام ہونا چاہیے۔ فیس وہی رہتی ہے۔</string>
+    <string name="pay_field_treasury_addr">خزانے کا پتہ (وہ والٹ جس میں ادائیگیاں آتی ہیں)</string>
+    <string name="pay_publisher_ok">آپ کا والٹ اس ایپ کا ثابت شدہ پبلشر ہے۔</string>
+    <string name="pay_publisher_needed">آپ کا والٹ ابھی اس ایپ کا ثابت شدہ پبلشر نہیں ہے۔ پہلے ایپ کے صفحے پر اسے ثابت کریں (یہ کیسے ثابت ہوتا ہے؟)، پھر فہرست میں شامل کریں۔</string>
+    <string name="pay_signing_publisher">ثابت شدہ پبلشر</string>
+    <string name="pay_signing_not_publisher">ثابت شدہ پبلشر نہیں</string>
 </resources>

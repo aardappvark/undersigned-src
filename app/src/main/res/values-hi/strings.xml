@@ -925,4 +925,15 @@
         <item quantity="one">इस सप्ताह स्टोर में %1$d नया dApp</item>
         <item quantity="other">इस सप्ताह स्टोर में %1$d नए dApps</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">सूचीबद्ध करने पर हस्ताक्षर कौन करेगा?</string>
+    <string name="pay_who_treasury">ट्रेज़री wallet</string>
+    <string name="pay_who_treasury_body">जिस wallet में भुगतान आते हैं, उसी से हस्ताक्षर करें। सबसे आसान तरीका।</string>
+    <string name="pay_who_publisher">ट्रेज़री के लिए मेरा प्रकाशक wallet</string>
+    <string name="pay_who_publisher_body">ट्रेज़री कभी कुछ हस्ताक्षर नहीं करती। आपका wallet पहले से इस ऐप का सिद्ध प्रकाशक होना चाहिए, और वेबसाइट लाइन में ट्रेज़री का नाम होना चाहिए। शुल्क वही रहता है।</string>
+    <string name="pay_field_treasury_addr">ट्रेज़री का पता (वह wallet जिसमें भुगतान आते हैं)</string>
+    <string name="pay_publisher_ok">आपका wallet इस ऐप का सिद्ध प्रकाशक है।</string>
+    <string name="pay_publisher_needed">आपका wallet अभी इस ऐप का सिद्ध प्रकाशक नहीं है। पहले ऐप के पेज पर इसे सिद्ध करें (यह कैसे सिद्ध होता है?), फिर सूचीबद्ध करें।</string>
+    <string name="pay_signing_publisher">सिद्ध प्रकाशक</string>
+    <string name="pay_signing_not_publisher">सिद्ध प्रकाशक नहीं</string>
 </resources>

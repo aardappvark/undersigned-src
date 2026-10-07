@@ -955,4 +955,15 @@
         <item quantity="many">%1$d нових dApps у магазині цього тижня</item>
         <item quantity="other">%1$d нових dApps у магазині цього тижня</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Хто підписує додавання до списку?</string>
+    <string name="pay_who_treasury">Гаманець скарбниці</string>
+    <string name="pay_who_treasury_body">Підпишіть із гаманця, який отримує платежі. Найпростіший спосіб.</string>
+    <string name="pay_who_publisher">Мій гаманець видавця, від імені скарбниці</string>
+    <string name="pay_who_publisher_body">Скарбниця нічого не підписує. Ваш гаманець уже має бути доведеним видавцем цього додатка, а рядок на сайті має називати скарбницю. Комісія та сама.</string>
+    <string name="pay_field_treasury_addr">Адреса скарбниці (гаманець, який отримує платежі)</string>
+    <string name="pay_publisher_ok">Ваш гаманець є доведеним видавцем цього додатка.</string>
+    <string name="pay_publisher_needed">Ваш гаманець поки не є доведеним видавцем цього додатка. Спершу доведіть це на сторінці додатка (Як це доводиться?), а потім додайте до списку.</string>
+    <string name="pay_signing_publisher">доведений видавець</string>
+    <string name="pay_signing_not_publisher">не є доведеним видавцем</string>
 </resources>

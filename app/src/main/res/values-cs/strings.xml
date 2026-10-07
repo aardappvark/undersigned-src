@@ -948,4 +948,15 @@
         <item quantity="many">%1$d nové dApps v obchodě tento týden</item>
         <item quantity="other">%1$d nových dApps v obchodě tento týden</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Kdo podepisuje uvedení na seznam?</string>
+    <string name="pay_who_treasury">Peněženka pokladny</string>
+    <string name="pay_who_treasury_body">Podepište z peněženky, která přijímá platby. Nejjednodušší cesta.</string>
+    <string name="pay_who_publisher">Moje vydavatelská peněženka, za pokladnu</string>
+    <string name="pay_who_publisher_body">Pokladna nikdy nic nepodepisuje. Vaše peněženka už musí být prokázaným vydavatelem této aplikace a řádek na webu musí pokladnu uvádět. Stejný poplatek.</string>
+    <string name="pay_field_treasury_addr">Adresa pokladny (peněženka, která přijímá platby)</string>
+    <string name="pay_publisher_ok">Vaše peněženka je prokázaným vydavatelem této aplikace.</string>
+    <string name="pay_publisher_needed">Vaše peněženka zatím není prokázaným vydavatelem této aplikace. Nejprve to prokažte na stránce aplikace (Jak se to prokazuje?), poté dApp uveďte na seznam.</string>
+    <string name="pay_signing_publisher">prokázaný vydavatel</string>
+    <string name="pay_signing_not_publisher">není prokázaný vydavatel</string>
 </resources>

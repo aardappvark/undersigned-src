@@ -909,4 +909,15 @@
     <plurals name="catalogue_notif_title">
         <item quantity="other">%1$d dApp baru di toko pekan ini</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Siapa yang menandatangani pendaftaran?</string>
+    <string name="pay_who_treasury">Dompet treasuri</string>
+    <string name="pay_who_treasury_body">Tandatangani dari dompet yang menerima pembayaran. Cara paling sederhana.</string>
+    <string name="pay_who_publisher">Dompet penerbit saya, untuk treasuri</string>
+    <string name="pay_who_publisher_body">Treasuri tidak pernah menandatangani apa pun. Dompet Anda harus sudah menjadi penerbit terbukti aplikasi ini, dan baris situs web harus menyebut treasuri. Biaya sama.</string>
+    <string name="pay_field_treasury_addr">Alamat treasuri (dompet yang menerima pembayaran)</string>
+    <string name="pay_publisher_ok">Dompet Anda adalah penerbit terbukti aplikasi ini.</string>
+    <string name="pay_publisher_needed">Dompet Anda belum menjadi penerbit terbukti aplikasi ini. Buktikan dulu di halaman aplikasi (Bagaimana ini dibuktikan?), lalu daftarkan.</string>
+    <string name="pay_signing_publisher">penerbit terbukti</string>
+    <string name="pay_signing_not_publisher">bukan penerbit terbukti</string>
 </resources>

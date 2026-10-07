@@ -926,4 +926,15 @@
         <item quantity="one">%1$d bagong dApp sa store ngayong linggo</item>
         <item quantity="other">%1$d bagong dApp sa store ngayong linggo</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Sino ang magsa-sign sa listing?</string>
+    <string name="pay_who_treasury">Ang treasury wallet</string>
+    <string name="pay_who_treasury_body">Mag-sign mula sa wallet na tumatanggap ng mga bayad. Ang pinakasimpleng paraan.</string>
+    <string name="pay_who_publisher">Ang publisher wallet ko, para sa treasury</string>
+    <string name="pay_who_publisher_body">Hindi kailanman magsa-sign ng anuman ang treasury. Dapat ay napatunayang publisher na ng app na ito ang wallet mo, at dapat nakasaad sa linya sa website ang treasury. Parehong fee.</string>
+    <string name="pay_field_treasury_addr">Address ng treasury (ang wallet na tumatanggap ng mga bayad)</string>
+    <string name="pay_publisher_ok">Ang wallet mo ay ang napatunayang publisher ng app na ito.</string>
+    <string name="pay_publisher_needed">Hindi pa napatunayang publisher ng app na ito ang wallet mo. Patunayan muna ito sa page ng app (Paano ito napapatunayan?), saka mag-list.</string>
+    <string name="pay_signing_publisher">napatunayang publisher</string>
+    <string name="pay_signing_not_publisher">hindi ang napatunayang publisher</string>
 </resources>

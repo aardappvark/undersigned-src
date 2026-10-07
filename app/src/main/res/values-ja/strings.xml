@@ -900,4 +900,15 @@
     <plurals name="catalogue_notif_title">
         <item quantity="other">今週ストアに新しい dApp が %1$d 件</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">登録に署名するのは誰ですか？</string>
+    <string name="pay_who_treasury">トレジャリーウォレット</string>
+    <string name="pay_who_treasury_body">支払いを受け取るウォレットから署名します。最も簡単な方法です。</string>
+    <string name="pay_who_publisher">トレジャリーのための、私のパブリッシャーウォレット</string>
+    <string name="pay_who_publisher_body">トレジャリーは何にも署名しません。お使いのウォレットがすでにこのアプリの証明済みパブリッシャーであり、ウェブサイトの行にトレジャリーが記載されている必要があります。手数料は同じです。</string>
+    <string name="pay_field_treasury_addr">トレジャリーのアドレス（支払いを受け取るウォレット）</string>
+    <string name="pay_publisher_ok">お使いのウォレットはこのアプリの証明済みパブリッシャーです。</string>
+    <string name="pay_publisher_needed">お使いのウォレットはまだこのアプリの証明済みパブリッシャーではありません。先にアプリのページで証明してください（これはどのように証明されますか？）。その後、登録します。</string>
+    <string name="pay_signing_publisher">証明済みパブリッシャー</string>
+    <string name="pay_signing_not_publisher">証明済みパブリッシャーではない</string>
 </resources>

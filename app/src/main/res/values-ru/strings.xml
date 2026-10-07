@@ -939,4 +939,15 @@
         <item quantity="many">%1$d новых dApps в магазине на этой неделе</item>
         <item quantity="other">%1$d новых dApps в магазине на этой неделе</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Кто подписывает добавление в список?</string>
+    <string name="pay_who_treasury">Кошелёк казначейства</string>
+    <string name="pay_who_treasury_body">Подпишите с кошелька, который получает платежи. Самый простой способ.</string>
+    <string name="pay_who_publisher">Мой кошелёк издателя, от имени казначейства</string>
+    <string name="pay_who_publisher_body">Казначейство ничего не подписывает. Ваш кошелёк уже должен быть доказанным издателем этого приложения, а строка на сайте должна называть казначейство. Комиссия та же.</string>
+    <string name="pay_field_treasury_addr">Адрес казначейства (кошелёк, который получает платежи)</string>
+    <string name="pay_publisher_ok">Ваш кошелёк является доказанным издателем этого приложения.</string>
+    <string name="pay_publisher_needed">Ваш кошелёк пока не является доказанным издателем этого приложения. Сначала докажите это на странице приложения (Как это доказывается?), затем добавьте в список.</string>
+    <string name="pay_signing_publisher">доказанный издатель</string>
+    <string name="pay_signing_not_publisher">не является доказанным издателем</string>
 </resources>

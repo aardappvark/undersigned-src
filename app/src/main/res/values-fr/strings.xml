@@ -951,4 +951,15 @@
         <item quantity="one">%1$d nouvelle dApp dans le store cette semaine</item>
         <item quantity="other">%1$d nouvelles dApps dans le store cette semaine</item>
     </plurals>
+    <!-- 7 Oct 2026 listing without the treasury signing -->
+    <string name="pay_who_title">Qui signe le référencement ?</string>
+    <string name="pay_who_treasury">Le wallet de trésorerie</string>
+    <string name="pay_who_treasury_body">Signez depuis le wallet qui reçoit les paiements. La méthode la plus simple.</string>
+    <string name="pay_who_publisher">Mon wallet d\'éditeur, pour la trésorerie</string>
+    <string name="pay_who_publisher_body">La trésorerie ne signe jamais rien. Votre wallet doit déjà être l\'éditeur prouvé de cette application, et la ligne du site web doit nommer la trésorerie. Mêmes frais.</string>
+    <string name="pay_field_treasury_addr">Adresse de la trésorerie (le wallet qui reçoit les paiements)</string>
+    <string name="pay_publisher_ok">Votre wallet est l\'éditeur prouvé de cette application.</string>
+    <string name="pay_publisher_needed">Votre wallet n\'est pas encore l\'éditeur prouvé de cette application. Prouvez-le d\'abord sur la page de l\'application (Comment est-ce prouvé ?), puis référencez.</string>
+    <string name="pay_signing_publisher">éditeur prouvé</string>
+    <string name="pay_signing_not_publisher">pas l\'éditeur prouvé</string>
 </resources>

@@ -8,6 +8,12 @@ package com.undersigned.protocol
  *    `/.well-known/undersigned.txt`, which nobody but the publisher can write.
  * Either side withdraws it: `SRL1|trx|<package>` from the treasury, or deleting the line.
  *
+ * Or, when the treasury wallet should not sign anything (owner, 7 Oct 2026: "some devs may be unwilling to sign with the
+ * treasury wallet"), the app's PROVEN publisher signs `SRL1|trd|<package>|<code>|<treasury>`, naming the treasury. The
+ * website line must still name that treasury, so nobody can attach a wallet the publisher does not list, and only a
+ * proven publisher's record counts, so nobody can redirect an app's payments. The same fee applies; `trx` from the same
+ * publisher withdraws it.
+ *
  * Only transfers that carry the declared mark count, so a treasury shared by many apps (the fleet's is) splits by app,
  * and grants and top-ups stay out. The mark is either a memo code (2–31 of A-Za-z0-9_-, the transfer's memo starts with
  * it) or a REFERENCE account (a base58 address the payment transaction includes, the Solana Pay pattern). The fleet's
@@ -17,7 +23,8 @@ package com.undersigned.protocol
  * received on-chain": off-chain income is invisible to this, and nothing here is a statement about profit.
  */
 object Payments {
-    data class Claim(val packageName: String, val treasury: String, val code: String, val since: Long, val signature: String) {
+    /** [signedBy]: the treasury itself, or the proven publisher who listed it for the treasury (`trd`). */
+    data class Claim(val packageName: String, val treasury: String, val code: String, val since: Long, val signature: String, val signedBy: String = treasury) {
         val byReference: Boolean get() = isReference(code)
     }
     /** One transfer in: [tokens] maps mint → raw units credited to the treasury's token accounts. */
@@ -37,12 +44,17 @@ object Payments {
      * entry's transaction carried it. So unlisting and listing again, or changing the code, costs nothing more, and a
      * `trs` nobody paid for lists nothing. The default treats every entry as paid (readers without transaction data).
      */
-    fun claims(entries: List<LedgerEntry>, paid: (LedgerEntry) -> Boolean = { true }): List<Claim> =
-        entries.filter { it.memo is ReviewMemo.Treasury || it.memo is ReviewMemo.Untreasury }
-            .groupBy { it.signer to ((it.memo as? ReviewMemo.Treasury)?.packageName ?: (it.memo as ReviewMemo.Untreasury).packageName) }
+    fun claims(entries: List<LedgerEntry>, paid: (LedgerEntry) -> Boolean = { true }, isPublisher: (wallet: String, pkg: String) -> Boolean = { _, _ -> false }): List<Claim> =
+        entries.filter { it.memo is ReviewMemo.Treasury || it.memo is ReviewMemo.Untreasury || it.memo is ReviewMemo.TreasuryFor }
+            .groupBy { it.signer to when (val m = it.memo) { is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; else -> (m as ReviewMemo.Untreasury).packageName } }
             .mapNotNull { (k, v) -> val latest = v.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature })
-                if (v.none { it.memo is ReviewMemo.Treasury && paid(it) }) return@mapNotNull null
-                (latest.memo as? ReviewMemo.Treasury)?.let { Claim(k.second, k.first, it.code, latest.blockTime, latest.signature) } }
+                if (v.none { (it.memo is ReviewMemo.Treasury || it.memo is ReviewMemo.TreasuryFor) && paid(it) }) return@mapNotNull null
+                when (val m = latest.memo) {
+                    is ReviewMemo.Treasury -> Claim(k.second, k.first, m.code, latest.blockTime, latest.signature)
+                    // Listed for a treasury: counts only while the signer is the app's proven publisher.
+                    is ReviewMemo.TreasuryFor -> if (isPublisher(k.first, k.second)) Claim(k.second, m.treasury, m.code, latest.blockTime, latest.signature, signedBy = k.first) else null
+                    else -> null
+                } }
 
     /** Every wallet address a well-known file names, on any line: the publisher's own wallets. */
     fun listedWallets(body: String): Set<String> =
