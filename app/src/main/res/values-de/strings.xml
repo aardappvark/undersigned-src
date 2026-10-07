@@ -906,9 +906,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · aus dieser Version der App</string>
     <string name="settings_catalogue_title">dApp-Liste</string>
     <string name="settings_catalogue_auto">Jeden Montagmorgen aktualisieren</string>
-    <string name="settings_catalogue_auto_body">Lädt jeden Montag um 7:00 Uhr die vollständige dApp Store-Liste im Hintergrund herunter, damit neue Apps schon da sind, wenn Sie Undersigned öffnen.</string>
+    <string name="settings_catalogue_auto_body">Pro: Die vollständige dApp Store-Liste aktualisiert sich jeden Montag zwischen 01:00 und 03:00 Uhr von selbst (jedes Handy zu seiner eigenen Zeit) oder beim ersten Öffnen von Undersigned in dieser Woche, falls das Handy aus war. Neue Einträge werden mit „Neu“ markiert, und Sie erhalten eine Benachrichtigung, die sie nennt.</string>
     <string name="pro_tool_catalogue_title">Die dApp-Liste, jeden Montag</string>
-    <string name="pro_tool_catalogue_body">Die vollständige dApp Store-Liste aktualisiert sich jeden Montagmorgen im Hintergrund selbst. Ohne Pro tippen Sie unter Browsen auf Aktualisieren.</string>
+    <string name="pro_tool_catalogue_body">Die dApp Store-Liste aktualisiert sich jeden Montagmorgen von selbst, und die neuen Einträge der Woche werden mit „Neu“ markiert und per Benachrichtigung gemeldet. Ohne Pro tippen Sie auf dApps aktualisieren.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d neu</item>
         <item quantity="other">%1$d neu</item>
@@ -920,4 +920,26 @@
     <string name="mod_title">Diesen Text für alle ausblenden?</string>
     <string name="mod_body">Nur der Text wird ausgeblendet: Bewertung und Tags zählen weiterhin, und der Eintrag bleibt on-chain. Dabei wird ein öffentlicher Moderationseintrag signiert, der den Grund nennt; Sie können das rückgängig machen.</string>
     <string name="mod_sign">Signieren und ausblenden</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Die Liste wurde vor wenigen Minuten abgerufen. Versuchen Sie es in %1$d Min. erneut.</string>
+    <string name="catalogue_age_today">heute</string>
+    <string name="catalogue_age_yesterday">gestern</string>
+    <string name="fp_catalogue">Jede dApp im Store, mit einer Aktualisieren-Taste</string>
+    <string name="fp_catalogue_weekly">Aktualisiert sich jeden Montag von selbst, neue Einträge sind mit „Neu“ markiert</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d Tag alt</item>
+        <item quantity="other">%1$d Tage alt</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d Woche alt</item>
+        <item quantity="other">%1$d Wochen alt</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Neu diese Woche · %1$d</item>
+        <item quantity="other">Neu diese Woche · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d neue dApp im Store diese Woche</item>
+        <item quantity="other">%1$d neue dApps im Store diese Woche</item>
+    </plurals>
 </resources>

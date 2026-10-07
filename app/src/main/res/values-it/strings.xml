@@ -915,9 +915,9 @@
     <string name="catalogue_line_bundled">%1$s dApp · da questa versione dell’app</string>
     <string name="settings_catalogue_title">Lista delle dApp</string>
     <string name="settings_catalogue_auto">Aggiorna ogni lunedì mattina</string>
-    <string name="settings_catalogue_auto_body">Scarica in background la lista completa del dApp Store ogni lunedì alle 7:00, così le nuove app sono già qui quando apri Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: la lista completa del dApp Store si aggiorna da sola ogni lunedì tra le 01:00 e le 03:00 (ogni telefono al suo orario), oppure la prima volta che apri Undersigned in quella settimana se il telefono era spento. Le nuove schede sono segnate come Nuova e ricevi una notifica che le nomina.</string>
     <string name="pro_tool_catalogue_title">La lista delle dApp, ogni lunedì</string>
-    <string name="pro_tool_catalogue_body">La lista completa del dApp Store si aggiorna da sola in background ogni lunedì mattina. Senza Pro, tocca Aggiorna in Naviga.</string>
+    <string name="pro_tool_catalogue_body">La lista del dApp Store si aggiorna da sola ogni lunedì mattina, e le novità della settimana sono segnate come Nuova con una notifica. Senza Pro, tocca Aggiorna le dApp.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d nuova</item>
         <item quantity="other">%1$d nuove</item>
@@ -929,4 +929,26 @@
     <string name="mod_title">Nascondere questo testo per tutti?</string>
     <string name="mod_body">Viene nascosto solo il testo: la valutazione e i tag contano ancora e il record resta on-chain. Questo firma un record di moderazione pubblico che indica il motivo, e puoi annullarlo.</string>
     <string name="mod_sign">Firma e nascondi</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">La lista è stata consultata pochi minuti fa. Riprova tra %1$d min.</string>
+    <string name="catalogue_age_today">oggi</string>
+    <string name="catalogue_age_yesterday">ieri</string>
+    <string name="fp_catalogue">Ogni dApp dello store, con un pulsante Aggiorna</string>
+    <string name="fp_catalogue_weekly">Si aggiorna da sola ogni lunedì, le nuove schede sono segnate come Nuova</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d giorno di età</item>
+        <item quantity="other">%1$d giorni di età</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d settimana di età</item>
+        <item quantity="other">%1$d settimane di età</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Nuove questa settimana · %1$d</item>
+        <item quantity="other">Nuove questa settimana · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d nuova dApp nello store questa settimana</item>
+        <item quantity="other">%1$d nuove dApp nello store questa settimana</item>
+    </plurals>
 </resources>

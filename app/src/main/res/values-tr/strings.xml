@@ -886,9 +886,9 @@
     <string name="catalogue_line_bundled">%1$s dApp · uygulamanın bu sürümünden</string>
     <string name="settings_catalogue_title">dApp listesi</string>
     <string name="settings_catalogue_auto">Her pazartesi sabahı güncelle</string>
-    <string name="settings_catalogue_auto_body">Her pazartesi saat 7:00’de dApp Store’un tam listesini arka planda indirir; böylece Undersigned’ı açtığınızda yeni uygulamalar burada olur.</string>
+    <string name="settings_catalogue_auto_body">Pro: dApp Store’un tam listesi her pazartesi 01:00 ile 03:00 arasında kendiliğinden güncellenir (her telefon kendi saatinde) ya da telefon kapalıysa o hafta Undersigned’ı ilk açtığınızda güncellenir. Yeni kayıtlar Yeni olarak işaretlenir ve onları adlarıyla belirten bir bildirim alırsınız.</string>
     <string name="pro_tool_catalogue_title">dApp listesi, her pazartesi</string>
-    <string name="pro_tool_catalogue_body">dApp Store’un tam listesi her pazartesi sabahı arka planda kendiliğinden güncellenir. Pro olmadan Göz at ekranında Güncelle’ye dokunun.</string>
+    <string name="pro_tool_catalogue_body">dApp Store’un listesi her pazartesi sabahı kendiliğinden güncellenir, haftanın yeni kayıtları Yeni olarak işaretlenir ve bildirim gelir. Pro olmadan dApp’leri güncelle’ye dokunun.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d yeni</item>
         <item quantity="other">%1$d yeni</item>
@@ -900,4 +900,26 @@
     <string name="mod_title">Bu metin herkes için gizlensin mi?</string>
     <string name="mod_body">Yalnızca metin gizlenir: puan ve etiketler yine sayılır, kayıt zincirde kalır. Bu işlem, nedeni belirten herkese açık bir moderasyon kaydını imzalar ve geri alabilirsiniz.</string>
     <string name="mod_sign">İmzala ve gizle</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Liste birkaç dakika önce alındı. %1$d dk sonra tekrar deneyin.</string>
+    <string name="catalogue_age_today">bugün</string>
+    <string name="catalogue_age_yesterday">dün</string>
+    <string name="fp_catalogue">Mağazadaki her dApp, Güncelle düğmesiyle</string>
+    <string name="fp_catalogue_weekly">Her pazartesi kendiliğinden güncellenir, yeni kayıtlar Yeni olarak işaretlenir</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d günlük</item>
+        <item quantity="other">%1$d günlük</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d haftalık</item>
+        <item quantity="other">%1$d haftalık</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Bu hafta yeni · %1$d</item>
+        <item quantity="other">Bu hafta yeni · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">Bu hafta mağazada %1$d yeni dApp</item>
+        <item quantity="other">Bu hafta mağazada %1$d yeni dApp</item>
+    </plurals>
 </resources>

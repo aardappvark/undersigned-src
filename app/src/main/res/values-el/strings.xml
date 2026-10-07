@@ -886,9 +886,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · από αυτή την έκδοση της εφαρμογής</string>
     <string name="settings_catalogue_title">Λίστα dApps</string>
     <string name="settings_catalogue_auto">Ενημέρωση κάθε Δευτέρα πρωί</string>
-    <string name="settings_catalogue_auto_body">Κατεβάζει στο παρασκήνιο την πλήρη λίστα του dApp Store κάθε Δευτέρα στις 7:00, ώστε οι νέες εφαρμογές να είναι εδώ όταν ανοίγετε το Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: Η πλήρης λίστα του dApp Store ενημερώνεται μόνη της κάθε Δευτέρα μεταξύ 01:00 και 03:00 (κάθε τηλέφωνο στη δική του ώρα) ή την πρώτη φορά που ανοίγετε το Undersigned εκείνη την εβδομάδα, αν το τηλέφωνο ήταν κλειστό. Οι νέες καταχωρίσεις επισημαίνονται ως Νέο και λαμβάνετε ειδοποίηση που τις αναφέρει με το όνομά τους.</string>
     <string name="pro_tool_catalogue_title">Η λίστα dApps, κάθε Δευτέρα</string>
-    <string name="pro_tool_catalogue_body">Η πλήρης λίστα του dApp Store ενημερώνεται μόνη της στο παρασκήνιο κάθε Δευτέρα πρωί. Χωρίς Pro, πατήστε Ενημέρωση στην Περιήγηση.</string>
+    <string name="pro_tool_catalogue_body">Η λίστα του dApp Store ενημερώνεται μόνη της κάθε Δευτέρα το πρωί και οι νέες καταχωρίσεις της εβδομάδας επισημαίνονται ως Νέο, με ειδοποίηση. Χωρίς Pro, πατήστε Ενημέρωση dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d νέο</item>
         <item quantity="other">%1$d νέα</item>
@@ -900,4 +900,26 @@
     <string name="mod_title">Απόκρυψη αυτού του κειμένου για όλους;</string>
     <string name="mod_body">Αποκρύπτεται μόνο το κείμενο: η βαθμολογία και οι ετικέτες εξακολουθούν να μετράνε και η εγγραφή παραμένει on-chain. Αυτό υπογράφει μια δημόσια εγγραφή συντονισμού που αναφέρει τον λόγο, και μπορείτε να το αναιρέσετε.</string>
     <string name="mod_sign">Υπογραφή και απόκρυψη</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Η λίστα ανακτήθηκε πριν από λίγα λεπτά. Δοκιμάστε ξανά σε %1$d λεπτά.</string>
+    <string name="catalogue_age_today">σήμερα</string>
+    <string name="catalogue_age_yesterday">χθες</string>
+    <string name="fp_catalogue">Κάθε dApp του καταστήματος, με κουμπί Ενημέρωσης</string>
+    <string name="fp_catalogue_weekly">Ενημερώνεται μόνη της κάθε Δευτέρα, οι νέες καταχωρίσεις επισημαίνονται ως Νέο</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d ημέρα παλιά</item>
+        <item quantity="other">%1$d ημέρες παλιά</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d εβδομάδα παλιά</item>
+        <item quantity="other">%1$d εβδομάδες παλιά</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Νέα αυτή την εβδομάδα · %1$d</item>
+        <item quantity="other">Νέα αυτή την εβδομάδα · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d νέο dApp στο κατάστημα αυτή την εβδομάδα</item>
+        <item quantity="other">%1$d νέα dApps στο κατάστημα αυτή την εβδομάδα</item>
+    </plurals>
 </resources>

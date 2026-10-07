@@ -887,9 +887,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · från den här versionen av appen</string>
     <string name="settings_catalogue_title">dApp-lista</string>
     <string name="settings_catalogue_auto">Uppdatera varje måndagsmorgon</string>
-    <string name="settings_catalogue_auto_body">Hämtar hela dApp Store-listan i bakgrunden varje måndag kl. 7:00, så att nya appar finns här när du öppnar Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: hela dApp Store-listan uppdaterar sig själv varje måndag mellan 01:00 och 03:00 (varje telefon vid sin egen tid), eller första gången du öppnar Undersigned den veckan om telefonen var avstängd. Nya poster markeras som Ny och du får en avisering som nämner dem.</string>
     <string name="pro_tool_catalogue_title">dApp-listan, varje måndag</string>
-    <string name="pro_tool_catalogue_body">Hela dApp Store-listan uppdaterar sig själv i bakgrunden varje måndagsmorgon. Utan Pro trycker du på Uppdatera under Bläddra.</string>
+    <string name="pro_tool_catalogue_body">dApp Store-listan uppdaterar sig själv varje måndagsmorgon, och veckans nya poster markeras som Ny med en avisering. Utan Pro trycker du på Uppdatera dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d ny</item>
         <item quantity="other">%1$d nya</item>
@@ -901,4 +901,26 @@
     <string name="mod_title">Dölja den här texten för alla?</string>
     <string name="mod_body">Bara texten döljs: betyget och taggarna räknas fortfarande, och posten stannar on-chain. Det här signerar en offentlig modereringspost som anger skälet, och du kan ångra det.</string>
     <string name="mod_sign">Signera och dölj</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Listan hämtades för några minuter sedan. Försök igen om %1$d min.</string>
+    <string name="catalogue_age_today">idag</string>
+    <string name="catalogue_age_yesterday">igår</string>
+    <string name="fp_catalogue">Varje dApp i butiken, med en Uppdatera-knapp</string>
+    <string name="fp_catalogue_weekly">Uppdaterar sig själv varje måndag, nya poster markeras som Ny</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d dag gammal</item>
+        <item quantity="other">%1$d dagar gammal</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d vecka gammal</item>
+        <item quantity="other">%1$d veckor gammal</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Nya den här veckan · %1$d</item>
+        <item quantity="other">Nya den här veckan · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d ny dApp i butiken den här veckan</item>
+        <item quantity="other">%1$d nya dApps i butiken den här veckan</item>
+    </plurals>
 </resources>

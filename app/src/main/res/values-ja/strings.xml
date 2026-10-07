@@ -869,9 +869,9 @@
     <string name="catalogue_line_bundled">dApp %1$s 件 · このバージョンのアプリより</string>
     <string name="settings_catalogue_title">dApp リスト</string>
     <string name="settings_catalogue_auto">毎週月曜の朝に更新</string>
-    <string name="settings_catalogue_auto_body">毎週月曜の 7:00 に dApp Store の全リストをバックグラウンドでダウンロードします。Undersigned を開いたときには新しいアプリが揃っています。</string>
+    <string name="settings_catalogue_auto_body">Pro: dApp Store の全リストは、毎週月曜の 01:00 から 03:00 の間に自動で更新されます（端末ごとに時刻は異なります）。端末の電源が切れていた場合は、その週に Undersigned を初めて開いたときに更新されます。新しい掲載には「新着」の印が付き、その名前を知らせる通知が届きます。</string>
     <string name="pro_tool_catalogue_title">dApp リストを毎週月曜に</string>
-    <string name="pro_tool_catalogue_body">dApp Store の全リストが、毎週月曜の朝にバックグラウンドで自動更新されます。Pro がない場合は、「閲覧」で「更新」をタップしてください。</string>
+    <string name="pro_tool_catalogue_body">dApp Store のリストは毎週月曜の朝に自動で更新され、その週の新しい掲載には「新着」の印と通知が付きます。Pro がない場合は「dApp を更新」をタップしてください。</string>
     <plurals name="catalogue_new">
         <item quantity="other">新着 %1$d 件</item>
     </plurals>
@@ -882,4 +882,22 @@
     <string name="mod_title">このテキストを全員に対して非表示にしますか？</string>
     <string name="mod_body">非表示になるのはテキストのみです。評価とタグは引き続き集計され、記録はオンチェーンに残ります。理由を明記した公開のモデレーション記録に署名します。この操作は取り消せます。</string>
     <string name="mod_sign">署名して非表示</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">リストは数分前に取得したばかりです。%1$d 分後にもう一度お試しください。</string>
+    <string name="catalogue_age_today">今日</string>
+    <string name="catalogue_age_yesterday">昨日</string>
+    <string name="fp_catalogue">ストアのすべての dApp を、更新ボタン付きで</string>
+    <string name="fp_catalogue_weekly">毎週月曜に自動更新、新しい掲載には「新着」の印</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="other">%1$d 日経過</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="other">%1$d 週間経過</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="other">今週の新着 · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="other">今週ストアに新しい dApp が %1$d 件</item>
+    </plurals>
 </resources>

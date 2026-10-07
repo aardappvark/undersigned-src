@@ -882,9 +882,9 @@
     <string name="catalogue_line_bundled">%1$sটি dApp · অ্যাপের এই সংস্করণ থেকে</string>
     <string name="settings_catalogue_title">dApp তালিকা</string>
     <string name="settings_catalogue_auto">প্রতি সোমবার সকালে আপডেট</string>
-    <string name="settings_catalogue_auto_body">প্রতি সোমবার সকাল ৭:০০টায় ব্যাকগ্রাউন্ডে dApp Store-এর পূর্ণ তালিকা ডাউনলোড করে, যাতে Undersigned খুললে নতুন অ্যাপগুলো এখানে থাকে।</string>
+    <string name="settings_catalogue_auto_body">Pro: dApp Store-এর পূর্ণ তালিকা প্রতি সোমবার 01:00 থেকে 03:00-এর মধ্যে নিজে থেকে আপডেট হয় (প্রতিটি ফোন নিজের সময়ে), অথবা ফোন বন্ধ থাকলে ওই সপ্তাহে প্রথমবার Undersigned খুললে। নতুন তালিকাভুক্তিতে “নতুন” চিহ্ন থাকে এবং সেগুলোর নাম জানিয়ে আপনি একটি নোটিফিকেশন পান।</string>
     <string name="pro_tool_catalogue_title">dApp তালিকা, প্রতি সোমবার</string>
-    <string name="pro_tool_catalogue_body">dApp Store-এর পূর্ণ তালিকা প্রতি সোমবার সকালে ব্যাকগ্রাউন্ডে নিজে থেকে আপডেট হয়। Pro ছাড়া ব্রাউজ-এ আপডেট ট্যাপ করুন।</string>
+    <string name="pro_tool_catalogue_body">dApp Store-এর তালিকা প্রতি সোমবার সকালে নিজে থেকে আপডেট হয়, আর সপ্তাহের নতুন তালিকাভুক্তিতে “নতুন” চিহ্ন ও একটি নোটিফিকেশন থাকে। Pro ছাড়া “dApp আপডেট করুন”-এ ট্যাপ করুন।</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$dটি নতুন</item>
         <item quantity="other">%1$dটি নতুন</item>
@@ -896,4 +896,26 @@
     <string name="mod_title">সবার জন্য এই টেক্সট লুকাবেন?</string>
     <string name="mod_body">শুধু টেক্সট লুকানো হবে: রেটিং ও ট্যাগ এখনও গণনায় থাকবে এবং রেকর্ডটি চেইনেই থাকবে। এটি কারণসহ একটি সর্বজনীন মডারেশন রেকর্ডে স্বাক্ষর করে, এবং আপনি এটি ফিরিয়ে নিতে পারবেন।</string>
     <string name="mod_sign">স্বাক্ষর করে লুকান</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">তালিকাটি কয়েক মিনিট আগে দেখা হয়েছে। %1$d মিনিট পরে আবার চেষ্টা করুন।</string>
+    <string name="catalogue_age_today">আজ</string>
+    <string name="catalogue_age_yesterday">গতকাল</string>
+    <string name="fp_catalogue">স্টোরের প্রতিটি dApp, আপডেট বোতামসহ</string>
+    <string name="fp_catalogue_weekly">প্রতি সোমবার নিজে থেকে আপডেট হয়; নতুন তালিকাভুক্তিতে “নতুন” চিহ্ন</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d দিন পুরোনো</item>
+        <item quantity="other">%1$d দিন পুরোনো</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d সপ্তাহ পুরোনো</item>
+        <item quantity="other">%1$d সপ্তাহ পুরোনো</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">এই সপ্তাহে নতুন · %1$d</item>
+        <item quantity="other">এই সপ্তাহে নতুন · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">এই সপ্তাহে স্টোরে %1$dটি নতুন dApp</item>
+        <item quantity="other">এই সপ্তাহে স্টোরে %1$dটি নতুন dApp</item>
+    </plurals>
 </resources>

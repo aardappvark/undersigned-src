@@ -14,7 +14,8 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 
-data class CatalogueApp(val packageName: String, val name: String, val updated: String, val category: String?)
+/** [addedIn]: the Monday (ISO date) of the weekly check that first listed it here; null for apps the build shipped with. */
+data class CatalogueApp(val packageName: String, val name: String, val updated: String, val category: String?, val addedIn: String? = null)
 
 /**
  * The store's public catalogue: a bundled snapshot for instant first paint, refreshed in the
@@ -40,7 +41,8 @@ class CatalogueRepository(private val context: Context) {
         (0 until arr.length()).mapNotNull { i ->
             val o = arr.optJSONObject(i) ?: return@mapNotNull null
             val p = o.optString("p").takeIf { it.isNotEmpty() } ?: return@mapNotNull null
-            CatalogueApp(p, o.optString("n", p), o.optString("u", ""), o.optString("c", null).takeIf { !it.isNullOrEmpty() && it != "null" })
+            CatalogueApp(p, o.optString("n", p), o.optString("u", ""), o.optString("c", null).takeIf { !it.isNullOrEmpty() && it != "null" },
+                if (o.has("a") && !o.isNull("a")) o.optString("a").takeIf { it.isNotEmpty() } else null)
         }
     }.getOrDefault(emptyList())
 
@@ -55,8 +57,17 @@ class CatalogueRepository(private val context: Context) {
      * packages from the portal records, then ask the store which of the extra ones are live. An app is dropped only when the
      * store answered and did not list it.
      */
-    suspend fun refresh(onProgress: (String) -> Unit = {}): List<CatalogueApp>? = withContext(Dispatchers.IO) {
-        try {
+    /** Thrown when the store refuses this network (403/429): stop at once and try much later (Toolkit, measured 21 Sep). */
+    class RateLimited(message: String) : Exception(message)
+
+    /** [batch] stamps apps this phone had never listed before (the week's Monday); they are the week's "New". */
+    suspend fun refresh(batch: String? = null, onProgress: (String) -> Unit = {}): List<CatalogueApp>? = withContext(Dispatchers.IO) {
+        refreshOrThrow(batch, onProgress).getOrElse { if (it is RateLimited) throw it; null }
+    }
+
+    /** The same, keeping the failure: the weekly check tells a refusal (retry later) from a bad answer. */
+    suspend fun refreshOrThrow(batch: String? = null, onProgress: (String) -> Unit = {}): Result<List<CatalogueApp>> = withContext(Dispatchers.IO) {
+        runCatching {
             // What this phone knew plus the list this version shipped with: an older replace-style refresh may have dropped
             // category-less apps from the saved list, and the shipped list still names them.
             val known = load().associateBy { it.packageName }
@@ -103,11 +114,13 @@ class CatalogueRepository(private val context: Context) {
             val live = live(extra)
             if (live == null) known.values.forEach { if (it.packageName !in out) out[it.packageName] = it }   // could not ask: keep what we had
             else extra.forEach { p -> live[p]?.let { l -> out[p] = CatalogueApp(p, l.name, l.updated.ifEmpty { known[p]?.updated ?: "" }, known[p]?.category) } }
-            val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category)) }
+            // What this phone already had keeps its stamp; what it never listed before is this week's New.
+            out.replaceAll { p, a -> a.copy(addedIn = known[p]?.addedIn ?: if (p in known) null else batch) }
+            val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category).put("a", it.addedIn ?: JSONObject.NULL)) }
             file.writeText(arr.toString())
             UserPreferences.catalogueRefreshedAt = System.currentTimeMillis()
             out.values.toList()
-        } catch (e: Exception) { Log.w(TAG, "catalogue refresh failed: ${e.message?.take(100)}"); null }
+        }.onFailure { Log.w(TAG, "catalogue refresh failed: ${it.message?.take(100)}") }
     }
 
     /** Packages the store's publisher portal has recorded on Arweave (public, read-only); empty if Arweave cannot be read. */
@@ -177,6 +190,7 @@ class CatalogueRepository(private val context: Context) {
             c.requestMethod = "POST"; c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("Accept", "application/json")
             c.connectTimeout = 10000; c.readTimeout = 20000; c.doOutput = true
             OutputStreamWriter(c.outputStream).use { it.write(body); it.flush() }
+            if (c.responseCode == 403 || c.responseCode == 429) throw RateLimited("HTTP ${c.responseCode}")
             if (c.responseCode != 200) throw IllegalStateException("HTTP ${c.responseCode}")
             val resp = JSONObject(BufferedReader(InputStreamReader(c.inputStream)).use { it.readText() })
             if (resp.has("errors")) throw IllegalStateException(resp.getJSONArray("errors").toString().take(120))

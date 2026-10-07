@@ -895,9 +895,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · uit deze versie van de app</string>
     <string name="settings_catalogue_title">dApp-lijst</string>
     <string name="settings_catalogue_auto">Elke maandagochtend bijwerken</string>
-    <string name="settings_catalogue_auto_body">Downloadt elke maandag om 7:00 uur op de achtergrond de volledige dApp Store-lijst, zodat nieuwe apps er al staan wanneer u Undersigned opent.</string>
+    <string name="settings_catalogue_auto_body">Pro: de volledige dApp Store-lijst werkt zichzelf elke maandag tussen 01:00 en 03:00 uur bij (elke telefoon op een eigen tijdstip), of de eerste keer dat u Undersigned die week opent als de telefoon uit stond. Nieuwe vermeldingen krijgen de markering Nieuw en u krijgt een melding waarin ze bij naam worden genoemd.</string>
     <string name="pro_tool_catalogue_title">De dApp-lijst, elke maandag</string>
-    <string name="pro_tool_catalogue_body">De volledige dApp Store-lijst werkt zichzelf elke maandagochtend op de achtergrond bij. Zonder Pro tikt u in Bladeren op Bijwerken.</string>
+    <string name="pro_tool_catalogue_body">De dApp Store-lijst werkt zichzelf elke maandagochtend bij, en de nieuwe vermeldingen van de week krijgen de markering Nieuw en een melding. Zonder Pro tikt u op dApps bijwerken.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d nieuw</item>
         <item quantity="other">%1$d nieuw</item>
@@ -909,4 +909,26 @@
     <string name="mod_title">Deze tekst voor iedereen verbergen?</string>
     <string name="mod_body">Alleen de tekst wordt verborgen: de beoordeling en tags tellen nog mee en het record blijft on-chain. Hiermee ondertekent u een openbaar moderatierecord waarin de reden staat; u kunt dit ongedaan maken.</string>
     <string name="mod_sign">Ondertekenen en verbergen</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">De lijst is een paar minuten geleden opgehaald. Probeer het over %1$d min opnieuw.</string>
+    <string name="catalogue_age_today">vandaag</string>
+    <string name="catalogue_age_yesterday">gisteren</string>
+    <string name="fp_catalogue">Elke dApp in de store, met een Bijwerken-knop</string>
+    <string name="fp_catalogue_weekly">Werkt zichzelf elke maandag bij, nieuwe vermeldingen krijgen de markering Nieuw</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d dag oud</item>
+        <item quantity="other">%1$d dagen oud</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d week oud</item>
+        <item quantity="other">%1$d weken oud</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Nieuw deze week · %1$d</item>
+        <item quantity="other">Nieuw deze week · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d nieuwe dApp in de store deze week</item>
+        <item quantity="other">%1$d nieuwe dApps in de store deze week</item>
+    </plurals>
 </resources>

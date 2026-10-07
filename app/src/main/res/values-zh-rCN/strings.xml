@@ -877,9 +877,9 @@
     <string name="catalogue_line_bundled">%1$s 个 dApp · 来自此版本的应用</string>
     <string name="settings_catalogue_title">dApp 列表</string>
     <string name="settings_catalogue_auto">每周一早晨更新</string>
-    <string name="settings_catalogue_auto_body">每周一 7:00 在后台下载 dApp Store 的完整列表,这样您打开 Undersigned 时,新应用已经在这里了。</string>
+    <string name="settings_catalogue_auto_body">Pro: dApp Store 的完整列表会在每周一 01:00 至 03:00 之间自动更新,每部手机各有自己的时间。如果手机当时关机,则在当周您首次打开 Undersigned 时更新。新条目会标为“新增”,并且您会收到一条列出其名称的通知。</string>
     <string name="pro_tool_catalogue_title">dApp 列表,每周一更新</string>
-    <string name="pro_tool_catalogue_body">dApp Store 的完整列表会在每周一早晨于后台自动更新。没有 Pro 时,请在“浏览”中点按“更新”。</string>
+    <string name="pro_tool_catalogue_body">dApp Store 的列表会在每周一早晨自动更新,当周的新条目会标为“新增”并附带通知。没有 Pro 时,请点按“更新 dApp”。</string>
     <plurals name="catalogue_new">
         <item quantity="other">%1$d 个新增</item>
     </plurals>
@@ -890,4 +890,22 @@
     <string name="mod_title">对所有人隐藏此文本？</string>
     <string name="mod_body">仅隐藏文本：评分和标签仍会计入，记录仍保留在链上。此操作会签署一条注明原因的公开审核记录，您可以撤销。</string>
     <string name="mod_sign">签名并隐藏</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">列表几分钟前刚获取过。请在 %1$d 分钟后再试。</string>
+    <string name="catalogue_age_today">今天</string>
+    <string name="catalogue_age_yesterday">昨天</string>
+    <string name="fp_catalogue">商店中的每个 dApp,附带“更新”按钮</string>
+    <string name="fp_catalogue_weekly">每周一自动更新,新条目标为“新增”</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="other">已有 %1$d 天</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="other">已有 %1$d 周</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="other">本周新增 · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="other">本周商店新增 %1$d 个 dApp</item>
+    </plurals>
 </resources>

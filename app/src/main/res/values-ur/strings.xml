@@ -889,9 +889,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · ایپ کے اس ورژن سے</string>
     <string name="settings_catalogue_title">dApp فہرست</string>
     <string name="settings_catalogue_auto">ہر پیر کی صبح اپ ڈیٹ کریں</string>
-    <string name="settings_catalogue_auto_body">ہر پیر کو صبح 7:00 بجے پس منظر میں dApp Store کی پوری فہرست ڈاؤن لوڈ کرتا ہے، تاکہ Undersigned کھولنے پر نئی ایپس یہاں موجود ہوں۔</string>
+    <string name="settings_catalogue_auto_body">Pro: dApp Store کی پوری فہرست ہر پیر کو 01:00 سے 03:00 کے درمیان خود بخود اپ ڈیٹ ہو جاتی ہے (ہر فون اپنے وقت پر)، یا اگر فون بند تھا تو اس ہفتے Undersigned پہلی بار کھولنے پر۔ نئی لسٹنگز پر “نیا” کا نشان لگتا ہے اور آپ کو ان کے نام بتانے والی اطلاع ملتی ہے۔</string>
     <string name="pro_tool_catalogue_title">dApp فہرست، ہر پیر</string>
-    <string name="pro_tool_catalogue_body">dApp Store کی پوری فہرست ہر پیر کی صبح پس منظر میں خود بخود اپ ڈیٹ ہو جاتی ہے۔ Pro کے بغیر براؤز میں اپ ڈیٹ پر ٹیپ کریں۔</string>
+    <string name="pro_tool_catalogue_body">dApp Store کی فہرست ہر پیر کی صبح خود بخود اپ ڈیٹ ہو جاتی ہے، اور ہفتے کی نئی لسٹنگز پر “نیا” کا نشان اور ایک اطلاع آتی ہے۔ Pro کے بغیر dApps اپ ڈیٹ کریں پر ٹیپ کریں۔</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d نیا</item>
         <item quantity="other">%1$d نئے</item>
@@ -903,4 +903,26 @@
     <string name="mod_title">یہ متن سب کے لیے چھپائیں؟</string>
     <string name="mod_body">صرف متن چھپایا جاتا ہے: درجہ بندی اور ٹیگز اب بھی شمار ہوتے ہیں، اور ریکارڈ چین پر رہتا ہے۔ یہ وجہ بتانے والے ایک عوامی ماڈریشن ریکارڈ پر دستخط کرتا ہے، اور آپ اسے واپس کر سکتے ہیں۔</string>
     <string name="mod_sign">دستخط کریں اور چھپائیں</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">فہرست چند منٹ پہلے حاصل کی گئی تھی۔ %1$d منٹ بعد دوبارہ کوشش کریں۔</string>
+    <string name="catalogue_age_today">آج</string>
+    <string name="catalogue_age_yesterday">گزشتہ کل</string>
+    <string name="fp_catalogue">اسٹور کا ہر dApp، اپ ڈیٹ بٹن کے ساتھ</string>
+    <string name="fp_catalogue_weekly">ہر پیر خود بخود اپ ڈیٹ، نئی لسٹنگز پر “نیا” کا نشان</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d دن پرانی</item>
+        <item quantity="other">%1$d دن پرانی</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d ہفتہ پرانی</item>
+        <item quantity="other">%1$d ہفتے پرانی</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">اس ہفتے نئے · %1$d</item>
+        <item quantity="other">اس ہفتے نئے · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">اس ہفتے اسٹور میں %1$d نیا dApp</item>
+        <item quantity="other">اس ہفتے اسٹور میں %1$d نئے dApps</item>
+    </plurals>
 </resources>

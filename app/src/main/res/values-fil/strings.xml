@@ -890,9 +890,9 @@
     <string name="catalogue_line_bundled">%1$s dApp · mula sa bersyong ito ng app</string>
     <string name="settings_catalogue_title">Listahan ng dApp</string>
     <string name="settings_catalogue_auto">I-update tuwing Lunes ng umaga</string>
-    <string name="settings_catalogue_auto_body">Dina-download sa background ang buong listahan ng dApp Store tuwing Lunes ng 7:00, para nandito na ang mga bagong app pagbukas mo ng Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: kusang nag-a-update ang buong listahan ng dApp Store tuwing Lunes sa pagitan ng 01:00 at 03:00 (bawat phone sa sarili nitong oras), o sa unang pagbukas mo ng Undersigned sa linggong iyon kung nakapatay ang phone. May markang Bago ang mga bagong listing at makakatanggap ka ng notification na pinangangalanan ang mga ito.</string>
     <string name="pro_tool_catalogue_title">Ang listahan ng dApp, tuwing Lunes</string>
-    <string name="pro_tool_catalogue_body">Kusang nag-a-update sa background ang buong listahan ng dApp Store tuwing Lunes ng umaga. Kung wala ang Pro, i-tap ang I-update sa Browse.</string>
+    <string name="pro_tool_catalogue_body">Kusang nag-a-update ang listahan ng dApp Store tuwing Lunes ng umaga, at may markang Bago ang mga bagong listing ng linggo kasama ng notification. Kung wala ang Pro, i-tap ang I-update ang mga dApp.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d bago</item>
         <item quantity="other">%1$d bago</item>
@@ -904,4 +904,26 @@
     <string name="mod_title">Itago ang tekstong ito para sa lahat?</string>
     <string name="mod_body">Ang teksto lang ang itatago: bibilangin pa rin ang marka at mga tag, at mananatili sa chain ang tala. Magsi-sign ito ng pampublikong tala ng moderation na nagsasaad ng dahilan, at maaari mo itong bawiin.</string>
     <string name="mod_sign">I-sign at itago</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Kakakuha lang ng listahan ilang minuto na ang nakalipas. Subukan ulit pagkalipas ng %1$d min.</string>
+    <string name="catalogue_age_today">ngayon</string>
+    <string name="catalogue_age_yesterday">kahapon</string>
+    <string name="fp_catalogue">Bawat dApp sa store, may button na I-update</string>
+    <string name="fp_catalogue_weekly">Kusang nag-a-update tuwing Lunes, may markang Bago ang mga bagong listing</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d araw na luma</item>
+        <item quantity="other">%1$d araw na luma</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d linggo na luma</item>
+        <item quantity="other">%1$d linggo na luma</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Bago ngayong linggo · %1$d</item>
+        <item quantity="other">Bago ngayong linggo · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d bagong dApp sa store ngayong linggo</item>
+        <item quantity="other">%1$d bagong dApp sa store ngayong linggo</item>
+    </plurals>
 </resources>

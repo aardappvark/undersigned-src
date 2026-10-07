@@ -249,6 +249,10 @@ object UserPreferences {
         get() = prefs?.getStringSet("proven_notified", emptySet())?.toSet() ?: emptySet()
         set(v) { prefs?.edit()?.putStringSet("proven_notified", v)?.apply() }
     /** The weekly "not reviewed on this phone" reminder (opt-in, off by default). */
+    /** Pro as last computed from the ledger, for background work that has no ledger (the weekly dApp check). */
+    var proActiveCached: Boolean
+        get() = prefs?.getBoolean("pro_active_cached", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("pro_active_cached", v)?.apply() }
     /** Where the next dApp-list refresh continues the store-search sweep (0..675). */
     var catalogueSearchCursor: Int
         get() = prefs?.getInt("catalogue_search_cursor", 0) ?: 0

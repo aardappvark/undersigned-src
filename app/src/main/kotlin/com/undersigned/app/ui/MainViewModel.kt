@@ -152,7 +152,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         // after install (24 Sep 2026).
         // No crawl on open any more (owner, 7 Oct 2026): the full list is a few hundred store requests. Browse offers an Update
         // button once the list is older than this week's Monday morning; Pro gets it in the background (CatalogueWorker).
-        viewModelScope.launch { pro.collect { p -> if (p?.active == true && com.undersigned.app.data.UserPreferences.catalogueAuto) com.undersigned.app.notify.CatalogueWorker.schedule(app) else if (p != null) com.undersigned.app.notify.CatalogueWorker.cancel(app) } }
+        // Pro books the Monday check (and a catch-up if this week's was missed); without Pro everything booked is cancelled.
+        viewModelScope.launch { pro.collect { p -> if (p != null || wallet.value == null) { com.undersigned.app.data.UserPreferences.proActiveCached = p?.active == true; com.undersigned.app.notify.CatalogueWorker.ensureScheduled(app) } } }
+        // A Monday check that ran in the background re-reads the list here.
+        viewModelScope.launch { com.undersigned.app.data.WeeklyCatalogue.updates.collect { if (it > 0) { catalogue.value = catalogueRepo.load(); catalogueRefreshedAt.value = com.undersigned.app.data.WeeklyCatalogue.lastOkMs(app) } } }
         // The governed attestation list decides whose voice counts, so it refreshes on its own coroutine.
         // Sequencing it after the catalogue crawl starved it: that crawl is hundreds of requests and the
         // refresh never ran within a session (measured 9 Sep 2026).
@@ -821,19 +824,27 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val catalogueProgress = MutableStateFlow<String?>(null)
     /** The last Update: how many dApps it added, or null if it failed. Cleared on the next one. */
     val catalogueResult = MutableStateFlow<Int?>(null)
+    /** Why the last Update did nothing or failed, in the reader's words; null after a good one. */
     val catalogueFailed = MutableStateFlow(false)
-    val catalogueRefreshedAt = MutableStateFlow(com.undersigned.app.data.UserPreferences.catalogueRefreshedAt)
+    val catalogueNote = MutableStateFlow<String?>(null)
+    val catalogueRefreshedAt = MutableStateFlow(com.undersigned.app.data.WeeklyCatalogue.lastOkMs(app))
+    /** The Update button (every tier): the same check the Monday job runs, with the Toolkit's 10-minute cool-down. */
     fun refreshCatalogue() {
         if (catalogueRefreshing.value) return
         viewModelScope.launch(Dispatchers.IO) {
-            catalogueRefreshing.value = true; catalogueFailed.value = false; catalogueResult.value = null
-            val before = catalogue.value.mapTo(HashSet()) { it.packageName }
-            val fresh = catalogueRepo.refresh { catalogueProgress.value = it }
-            if (fresh != null) {
-                catalogue.value = fresh; catalogueResult.value = fresh.count { it.packageName !in before }
-                catalogueRefreshedAt.value = com.undersigned.app.data.UserPreferences.catalogueRefreshedAt
-                runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog()
-            } else catalogueFailed.value = true
+            val app = getApplication<Application>()
+            catalogueRefreshing.value = true; catalogueFailed.value = false; catalogueResult.value = null; catalogueNote.value = null
+            when (val o = com.undersigned.app.data.WeeklyCatalogue.run(app, com.undersigned.app.data.WeeklyCatalogue.Mode.NOW) { catalogueProgress.value = it }) {
+                is com.undersigned.app.data.WeeklyCatalogue.Outcome.Ok -> {
+                    val fresh = catalogueRepo.load()
+                    catalogue.value = fresh; catalogueResult.value = o.added.size
+                    catalogueRefreshedAt.value = com.undersigned.app.data.WeeklyCatalogue.lastOkMs(app)
+                    runCatching { installedApps.refreshSnapshot(fresh.map { it.packageName }) }; changes.value = installedApps.changeLog()
+                }
+                is com.undersigned.app.data.WeeklyCatalogue.Outcome.Skipped -> catalogueNote.value = app.getString(com.undersigned.app.R.string.catalogue_cooldown,
+                    ((com.undersigned.app.data.WeeklyCatalogue.cooldownLeftMs(app) + 59_999) / 60_000).toInt().coerceAtLeast(1))
+                is com.undersigned.app.data.WeeklyCatalogue.Outcome.Failed -> { catalogueFailed.value = true; catalogueNote.value = o.reason }
+            }
             catalogueProgress.value = null; catalogueRefreshing.value = false
         }
     }

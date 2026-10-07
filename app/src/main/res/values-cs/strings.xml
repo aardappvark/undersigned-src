@@ -902,9 +902,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · z této verze aplikace</string>
     <string name="settings_catalogue_title">Seznam dApps</string>
     <string name="settings_catalogue_auto">Aktualizovat každé pondělí ráno</string>
-    <string name="settings_catalogue_auto_body">Každé pondělí v 7:00 stáhne na pozadí úplný seznam z dApp Store, takže nové aplikace tu jsou, když otevřete Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: úplný seznam z dApp Store se sám aktualizuje každé pondělí mezi 01:00 a 03:00 (každý telefon v jinou dobu), nebo při prvním otevření Undersigned v daném týdnu, pokud byl telefon vypnutý. Nové položky jsou označeny Nové a dostanete upozornění s jejich názvy.</string>
     <string name="pro_tool_catalogue_title">Seznam dApps, každé pondělí</string>
-    <string name="pro_tool_catalogue_body">Úplný seznam z dApp Store se každé pondělí ráno sám aktualizuje na pozadí. Bez Pro klepněte na Aktualizovat v části Procházet.</string>
+    <string name="pro_tool_catalogue_body">Seznam z dApp Store se každé pondělí ráno sám aktualizuje a nové položky týdne jsou označeny Nové a doprovázeny upozorněním. Bez Pro klepněte na Aktualizovat dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d nová</item>
         <item quantity="few">%1$d nové</item>
@@ -918,4 +918,34 @@
     <string name="mod_title">Skrýt tento text pro všechny?</string>
     <string name="mod_body">Skrývá se jen text: hodnocení a štítky se stále počítají a záznam zůstává na blockchainu. Tím se podepíše veřejný moderátorský záznam s uvedením důvodu a můžete to vrátit zpět.</string>
     <string name="mod_sign">Podepsat a skrýt</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Seznam byl načten před několika minutami. Zkuste to znovu za %1$d min.</string>
+    <string name="catalogue_age_today">dnes</string>
+    <string name="catalogue_age_yesterday">včera</string>
+    <string name="fp_catalogue">Každá dApp v obchodě s tlačítkem Aktualizovat</string>
+    <string name="fp_catalogue_weekly">Aktualizuje se sám každé pondělí, nové položky jsou označeny Nové</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d den starý</item>
+        <item quantity="few">%1$d dny starý</item>
+        <item quantity="many">%1$d dne starý</item>
+        <item quantity="other">%1$d dní starý</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d týden starý</item>
+        <item quantity="few">%1$d týdny starý</item>
+        <item quantity="many">%1$d týdne starý</item>
+        <item quantity="other">%1$d týdnů starý</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Nové tento týden · %1$d</item>
+        <item quantity="few">Nové tento týden · %1$d</item>
+        <item quantity="many">Nové tento týden · %1$d</item>
+        <item quantity="other">Nové tento týden · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d nová dApp v obchodě tento týden</item>
+        <item quantity="few">%1$d nové dApps v obchodě tento týden</item>
+        <item quantity="many">%1$d nové dApps v obchodě tento týden</item>
+        <item quantity="other">%1$d nových dApps v obchodě tento týden</item>
+    </plurals>
 </resources>

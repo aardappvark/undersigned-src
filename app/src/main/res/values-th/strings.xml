@@ -862,9 +862,9 @@
     <string name="catalogue_line_bundled">dApp %1$s รายการ · จากแอปเวอร์ชันนี้</string>
     <string name="settings_catalogue_title">รายการ dApp</string>
     <string name="settings_catalogue_auto">อัปเดตทุกเช้าวันจันทร์</string>
-    <string name="settings_catalogue_auto_body">ดาวน์โหลดรายการ dApp Store ฉบับเต็มในเบื้องหลังทุกวันจันทร์เวลา 7:00 น. เพื่อให้แอปใหม่พร้อมอยู่ที่นี่เมื่อคุณเปิด Undersigned</string>
+    <string name="settings_catalogue_auto_body">Pro: รายการ dApp Store ฉบับเต็มอัปเดตตัวเองทุกวันจันทร์ระหว่างเวลา 01:00 ถึง 03:00 น. (โทรศัพท์แต่ละเครื่องตามเวลาของตัวเอง) หรือเมื่อคุณเปิด Undersigned ครั้งแรกในสัปดาห์นั้น หากโทรศัพท์ปิดอยู่ รายการใหม่จะมีป้าย “ใหม่” และคุณจะได้รับการแจ้งเตือนที่ระบุชื่อรายการเหล่านั้น</string>
     <string name="pro_tool_catalogue_title">รายการ dApp ทุกวันจันทร์</string>
-    <string name="pro_tool_catalogue_body">รายการ dApp Store ฉบับเต็มอัปเดตตัวเองในเบื้องหลังทุกเช้าวันจันทร์ หากไม่มี Pro ให้แตะอัปเดตในหน้าเรียกดู</string>
+    <string name="pro_tool_catalogue_body">รายการ dApp Store อัปเดตตัวเองทุกเช้าวันจันทร์ และรายการใหม่ของสัปดาห์จะมีป้าย “ใหม่” พร้อมการแจ้งเตือน หากไม่มี Pro ให้แตะอัปเดต dApp</string>
     <plurals name="catalogue_new">
         <item quantity="other">ใหม่ %1$d รายการ</item>
     </plurals>
@@ -875,4 +875,22 @@
     <string name="mod_title">ซ่อนข้อความนี้สำหรับทุกคนหรือไม่</string>
     <string name="mod_body">ซ่อนเฉพาะข้อความ: คะแนนและแท็กยังคงนับตามเดิม และบันทึกยังอยู่บนเชน การดำเนินการนี้ลงลายเซ็นในบันทึกการดูแลเนื้อหาสาธารณะที่ระบุเหตุผล และคุณสามารถเลิกทำได้</string>
     <string name="mod_sign">ลงลายเซ็นและซ่อน</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">ดึงรายการเมื่อไม่กี่นาทีก่อน โปรดลองอีกครั้งใน %1$d นาที</string>
+    <string name="catalogue_age_today">วันนี้</string>
+    <string name="catalogue_age_yesterday">เมื่อวาน</string>
+    <string name="fp_catalogue">dApp ทุกรายการในสโตร์ พร้อมปุ่มอัปเดต</string>
+    <string name="fp_catalogue_weekly">อัปเดตตัวเองทุกวันจันทร์ รายการใหม่มีป้าย “ใหม่”</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="other">อายุ %1$d วัน</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="other">อายุ %1$d สัปดาห์</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="other">ใหม่สัปดาห์นี้ · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="other">dApp ใหม่ %1$d รายการในสโตร์สัปดาห์นี้</item>
+    </plurals>
 </resources>

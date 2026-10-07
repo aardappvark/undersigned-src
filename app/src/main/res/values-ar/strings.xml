@@ -929,9 +929,9 @@
     <string name="catalogue_line_bundled">%1$s من dApps · من هذا الإصدار من التطبيق</string>
     <string name="settings_catalogue_title">قائمة dApps</string>
     <string name="settings_catalogue_auto">التحديث صباح كل اثنين</string>
-    <string name="settings_catalogue_auto_body">ينزّل قائمة dApp Store الكاملة في الخلفية كل اثنين عند الساعة 7:00، فتجد التطبيقات الجديدة هنا عند فتح Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: تُحدَّث قائمة dApp Store الكاملة تلقائيًا كل اثنين بين 01:00 و03:00 (كل هاتف في وقته الخاص)، أو عند أول فتح لـ Undersigned في ذلك الأسبوع إذا كان الهاتف مطفأً. تُوسَم القوائم الجديدة بعلامة «جديد» ويصلك إشعار يذكرها بالاسم.</string>
     <string name="pro_tool_catalogue_title">قائمة dApps، كل اثنين</string>
-    <string name="pro_tool_catalogue_body">تُحدَّث قائمة dApp Store الكاملة تلقائيًا في الخلفية صباح كل اثنين. بدون Pro، اضغط تحديث في تصفح.</string>
+    <string name="pro_tool_catalogue_body">تُحدَّث قائمة dApp Store تلقائيًا صباح كل اثنين، وتُوسَم قوائم الأسبوع الجديدة بعلامة «جديد» مع إشعار. بدون Pro، اضغط تحديث dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="zero">%1$d جديد</item>
         <item quantity="one">%1$d جديد</item>
@@ -947,4 +947,42 @@
     <string name="mod_title">إخفاء هذا النص للجميع؟</string>
     <string name="mod_body">يُخفى النص فقط: يبقى التقييم والوسوم محتسبَين، ويبقى السجل على السلسلة. يوقّع هذا سجل إشراف عامًا يذكر السبب، ويمكنك التراجع عنه.</string>
     <string name="mod_sign">توقيع وإخفاء</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">جرى الاستعلام عن القائمة قبل دقائق قليلة. حاول مجددًا بعد %1$d د.</string>
+    <string name="catalogue_age_today">اليوم</string>
+    <string name="catalogue_age_yesterday">أمس</string>
+    <string name="fp_catalogue">كل dApp في المتجر، مع زر تحديث</string>
+    <string name="fp_catalogue_weekly">تُحدَّث تلقائيًا كل اثنين، وتحمل القوائم الجديدة علامة «جديد»</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="zero">عمرها %1$d يوم</item>
+        <item quantity="one">عمرها %1$d يوم</item>
+        <item quantity="two">عمرها %1$d يومان</item>
+        <item quantity="few">عمرها %1$d أيام</item>
+        <item quantity="many">عمرها %1$d يومًا</item>
+        <item quantity="other">عمرها %1$d يوم</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="zero">عمرها %1$d أسبوع</item>
+        <item quantity="one">عمرها %1$d أسبوع</item>
+        <item quantity="two">عمرها %1$d أسبوعان</item>
+        <item quantity="few">عمرها %1$d أسابيع</item>
+        <item quantity="many">عمرها %1$d أسبوعًا</item>
+        <item quantity="other">عمرها %1$d أسبوع</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="zero">جديد هذا الأسبوع · %1$d</item>
+        <item quantity="one">جديد هذا الأسبوع · %1$d</item>
+        <item quantity="two">جديد هذا الأسبوع · %1$d</item>
+        <item quantity="few">جديد هذا الأسبوع · %1$d</item>
+        <item quantity="many">جديد هذا الأسبوع · %1$d</item>
+        <item quantity="other">جديد هذا الأسبوع · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="zero">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
+        <item quantity="one">%1$d dApp جديد في المتجر هذا الأسبوع</item>
+        <item quantity="two">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
+        <item quantity="few">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
+        <item quantity="many">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
+        <item quantity="other">%1$d من dApps جديدة في المتجر هذا الأسبوع</item>
+    </plurals>
 </resources>

@@ -878,9 +878,9 @@
     <string name="catalogue_line_bundled">%1$s dApp · dari versi aplikasi ini</string>
     <string name="settings_catalogue_title">Daftar dApp</string>
     <string name="settings_catalogue_auto">Perbarui setiap Senin pagi</string>
-    <string name="settings_catalogue_auto_body">Mengunduh daftar lengkap dApp Store di latar belakang setiap Senin pukul 7:00, sehingga aplikasi baru sudah ada saat Anda membuka Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: daftar lengkap dApp Store diperbarui otomatis setiap Senin antara pukul 01:00 dan 03:00 (setiap ponsel pada waktunya sendiri), atau saat pertama kali Anda membuka Undersigned pada pekan itu jika ponsel sedang mati. Entri baru ditandai Baru dan Anda mendapat notifikasi yang menyebutkan namanya.</string>
     <string name="pro_tool_catalogue_title">Daftar dApp, setiap Senin</string>
-    <string name="pro_tool_catalogue_body">Daftar lengkap dApp Store diperbarui otomatis di latar belakang setiap Senin pagi. Tanpa Pro, ketuk Perbarui di Jelajahi.</string>
+    <string name="pro_tool_catalogue_body">Daftar dApp Store diperbarui otomatis setiap Senin pagi, dan entri baru pekan itu ditandai Baru disertai notifikasi. Tanpa Pro, ketuk Perbarui dApp.</string>
     <plurals name="catalogue_new">
         <item quantity="other">%1$d baru</item>
     </plurals>
@@ -891,4 +891,22 @@
     <string name="mod_title">Sembunyikan teks ini untuk semua orang?</string>
     <string name="mod_body">Hanya teksnya yang disembunyikan: peringkat dan tag tetap dihitung, dan catatan tetap berada on-chain. Ini menandatangani catatan moderasi publik yang menyebutkan alasannya, dan Anda dapat membatalkannya.</string>
     <string name="mod_sign">Tandatangani dan sembunyikan</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Daftar baru saja diambil beberapa menit lalu. Coba lagi dalam %1$d mnt.</string>
+    <string name="catalogue_age_today">hari ini</string>
+    <string name="catalogue_age_yesterday">kemarin</string>
+    <string name="fp_catalogue">Setiap dApp di toko, dengan tombol Perbarui</string>
+    <string name="fp_catalogue_weekly">Diperbarui otomatis setiap Senin, entri baru ditandai Baru</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="other">berusia %1$d hari</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="other">berusia %1$d pekan</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="other">Baru pekan ini · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="other">%1$d dApp baru di toko pekan ini</item>
+    </plurals>
 </resources>

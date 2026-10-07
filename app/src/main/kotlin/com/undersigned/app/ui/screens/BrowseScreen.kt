@@ -74,6 +74,11 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     var sort by rememberSaveable { mutableStateOf(Sort.SCORE) }
     // Filter by a tag reviewers applied: the thing the store has no way to query.
     var tagFilter by rememberSaveable { mutableStateOf<com.undersigned.protocol.ReviewMemo.Tag?>(null) }
+    // The week's New: apps the weekly check listed for the first time (owner, 7 Oct: ported from the Toolkit).
+    var newOnly by rememberSaveable { mutableStateOf(false) }
+    val newOnes = remember(catalogue) { com.undersigned.app.data.WeeklyCatalogue.newThisWeek(catalogue).mapTo(HashSet()) { it.packageName } }
+    val pendingScreen by com.undersigned.app.ui.NavIntents.pendingScreen.collectAsState()
+    LaunchedEffect(pendingScreen) { if (pendingScreen == "new") { com.undersigned.app.ui.NavIntents.pendingScreen.value = null; tabPicked = Tab.ALL; newOnly = true; query = ""; tagFilter = null } }
     val uncategorised = stringResource(R.string.category_none)
     val domainNames by vm.domainNames.collectAsState()
     val entriesForSigners by vm.entries.collectAsState()
@@ -83,11 +88,12 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     val context = androidx.compose.ui.platform.LocalContext.current
     fun searchSigners() { scope.launch { val w = vm.resolveWallet(query); if (w != null) onProfile(w) else signerNote = context.getString(R.string.search_signers_none) } }
 
-    val apps = remember(catalogue, installed, scores, query, tab, sort, tagFilter) {
+    val apps = remember(catalogue, installed, scores, query, tab, sort, tagFilter, newOnly, newOnes) {
         val q = query.trim().lowercase()
         catalogue.asSequence()
             .filter { when (tab) { Tab.INSTALLED -> it.packageName in installed; Tab.SIGNED -> scores[it.packageName] != null; Tab.ALL -> true } }
             .filter { t -> tagFilter == null || (scores[t.packageName]?.tagCounts?.get(tagFilter) ?: 0) > 0 }
+            .filter { !newOnly || it.packageName in newOnes }
             // Search matches name, package, category and the tags owners applied (design: Screens E).
             .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q) || (it.category?.lowercase()?.contains(q) == true) || (scores[it.packageName]?.tagCounts?.keys?.any { t -> context.tagLabel(t.wire).lowercase().contains(q) || t.wire.contains(q) } == true) }
             .sortedWith(when (sort) {
@@ -145,8 +151,10 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
         val catProgress by vm.catalogueProgress.collectAsState()
         val catResult by vm.catalogueResult.collectAsState()
         val catFailed by vm.catalogueFailed.collectAsState()
-        val lastWeeks = remember(catRefreshedAt) { com.undersigned.app.notify.CatalogueWorker.isLastWeeks(catRefreshedAt) }
-        if (refreshing || catFailed || catResult != null || lastWeeks) CatalogueBar(refreshing, catProgress, catResult, catFailed, catRefreshedAt, catalogue.size) { vm.refreshCatalogue() }
+        val lastWeeks = remember(catRefreshedAt) { com.undersigned.app.data.WeeklyCatalogue.isLastWeeks(catRefreshedAt) }
+        val catNote by vm.catalogueNote.collectAsState()
+        val proActive = vm.pro.collectAsState().value?.active == true
+        if (refreshing || catFailed || catResult != null || catNote != null || (lastWeeks && !proActive)) CatalogueBar(refreshing, catProgress, catResult, catFailed, catNote, catRefreshedAt, catalogue.size) { vm.refreshCatalogue() }
         OutlinedTextField(
             value = query, onValueChange = { query = it }, singleLine = true,
             placeholder = { Text(stringResource(R.string.browse_search_hint), color = RbColors.textTertiary) },
@@ -191,11 +199,12 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                 }
                 if (tab == Tab.ALL && !refreshing) item(key = "catalogue-line") {
                     val catAt by vm.catalogueRefreshedAt.collectAsState()
-                    androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        val n = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(catalogue.size)
-                        Text(if (catAt > 0) stringResource(R.string.catalogue_line, n, java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(catAt))) else stringResource(R.string.catalogue_line_bundled, n),
-                            color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.weight(1f))
-                        TextButton(onClick = { vm.refreshCatalogue() }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.catalogue_update), color = RbColors.purpleLight, fontSize = 12.sp) }
+                    Column(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp)) {
+                        androidx.compose.foundation.layout.Row(verticalAlignment = Alignment.CenterVertically) {
+                            CatalogueFreshness(catAt, catalogue.size, Modifier.weight(1f))
+                            TextButton(onClick = { vm.refreshCatalogue() }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.catalogue_update), color = RbColors.purpleLight, fontSize = 12.sp) }
+                        }
+                        if (newOnes.isNotEmpty()) TagChip(pluralStringResource(R.plurals.catalogue_new_chip, newOnes.size, newOnes.size), selected = newOnly) { newOnly = !newOnly }
                     }
                 }
                 items(rows, key = { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }) { r ->
@@ -214,9 +223,31 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     }
 }
 
+/**
+ * "1,539 dApps · updated Mon 6 Oct, 10:13 · 3 days old" (the Toolkit's CatalogueFreshness): the age turns amber once a
+ * Monday has been missed.
+ */
+@Composable
+private fun CatalogueFreshness(refreshedAt: Long, total: Int, modifier: Modifier = Modifier) {
+    val n = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(total)
+    if (refreshedAt <= 0) { Text(stringResource(R.string.catalogue_line_bundled, n), color = RbColors.textTertiary, fontSize = 12.sp, modifier = modifier); return }
+    val zone = java.time.ZoneId.systemDefault()
+    val at = java.time.Instant.ofEpochMilli(refreshedAt).atZone(zone)
+    val today = java.time.LocalDate.now(zone)
+    val days = java.time.temporal.ChronoUnit.DAYS.between(at.toLocalDate(), today)
+    val age = when { days <= 0L -> stringResource(R.string.catalogue_age_today); days == 1L -> stringResource(R.string.catalogue_age_yesterday)
+        days < 14L -> pluralStringResource(R.plurals.catalogue_age_days, days.toInt(), days.toInt()) else -> pluralStringResource(R.plurals.catalogue_age_weeks, (days / 7).toInt(), (days / 7).toInt()) }
+    val stamp = java.time.format.DateTimeFormatter.ofPattern("EEE d MMM, HH:mm", java.util.Locale.getDefault()).format(at)
+    val stale = com.undersigned.app.data.WeeklyCatalogue.isStale(at.toLocalDate(), today)
+    Text(androidx.compose.ui.text.buildAnnotatedString {
+        append(stringResource(R.string.catalogue_line, n, stamp)); append("  ·  ")
+        pushStyle(androidx.compose.ui.text.SpanStyle(color = if (stale) RbColors.warning else RbColors.green, fontWeight = FontWeight.SemiBold)); append(age); pop()
+    }, color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 16.sp, modifier = modifier)
+}
+
 /** The dApp list's state with its Update button: last week's list, updating, done (+N new) or failed. */
 @Composable
-private fun CatalogueBar(running: Boolean, progress: String?, added: Int?, failed: Boolean, refreshedAt: Long, total: Int, onUpdate: () -> Unit) {
+private fun CatalogueBar(running: Boolean, progress: String?, added: Int?, failed: Boolean, note: String?, refreshedAt: Long, total: Int, onUpdate: () -> Unit) {
     val count = java.text.NumberFormat.getIntegerInstance(java.util.Locale.US).format(total)
     val since = if (refreshedAt > 0) java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(refreshedAt)) else null
     GlassCard(Modifier.padding(horizontal = 16.dp, vertical = 4.dp), accent = if (failed) RbColors.negative else RbColors.glassBorder) {
@@ -224,7 +255,8 @@ private fun CatalogueBar(running: Boolean, progress: String?, added: Int?, faile
             Column(Modifier.weight(1f)) {
                 when {
                     running -> Text(stringResource(R.string.catalogue_updating, progress ?: ""), color = RbColors.purpleLight, fontSize = 13.sp)
-                    failed -> Text(stringResource(R.string.catalogue_failed), color = RbColors.negative, fontSize = 13.sp, lineHeight = 18.sp)
+                    failed -> Text(stringResource(R.string.catalogue_failed) + (note?.let { "\n$it" } ?: ""), color = RbColors.negative, fontSize = 13.sp, lineHeight = 18.sp)
+                    note != null -> Text(note, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
                     added != null -> Text(stringResource(R.string.catalogue_done, count) + " · " + pluralStringResource(R.plurals.catalogue_new, added, added), color = RbColors.green, fontSize = 13.sp)
                     else -> {
                         Text(stringResource(R.string.catalogue_week_title), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)

@@ -307,7 +307,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 val isPro = pro?.active == true
                 fun setAuto(on: Boolean) {
                     auto = on; UserPreferences.catalogueAuto = on
-                    if (on && isPro) com.undersigned.app.notify.CatalogueWorker.schedule(context) else com.undersigned.app.notify.CatalogueWorker.cancel(context)
+                    com.undersigned.app.notify.CatalogueWorker.ensureScheduled(context)
                 }
                 Row(Modifier.toggleable(value = auto && isPro, enabled = isPro, role = androidx.compose.ui.semantics.Role.Switch) { setAuto(it) }, verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {

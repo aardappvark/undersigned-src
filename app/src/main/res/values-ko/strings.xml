@@ -870,9 +870,9 @@
     <string name="catalogue_line_bundled">dApp %1$s개 · 이 버전의 앱 기준</string>
     <string name="settings_catalogue_title">dApp 목록</string>
     <string name="settings_catalogue_auto">매주 월요일 아침 업데이트</string>
-    <string name="settings_catalogue_auto_body">매주 월요일 7:00에 dApp Store 전체 목록을 백그라운드에서 내려받아, Undersigned를 열면 새 앱이 이미 와 있습니다.</string>
+    <string name="settings_catalogue_auto_body">Pro: dApp Store 전체 목록이 매주 월요일 01:00에서 03:00 사이에 저절로 업데이트됩니다(휴대폰마다 시각은 다릅니다). 휴대폰이 꺼져 있었다면 그 주에 Undersigned를 처음 열 때 업데이트됩니다. 새 항목에는 “신규” 표시가 붙고, 그 이름을 알려 주는 알림이 옵니다.</string>
     <string name="pro_tool_catalogue_title">dApp 목록, 매주 월요일</string>
-    <string name="pro_tool_catalogue_body">dApp Store 전체 목록이 매주 월요일 아침 백그라운드에서 저절로 업데이트됩니다. Pro가 없으면 둘러보기에서 업데이트를 탭하세요.</string>
+    <string name="pro_tool_catalogue_body">dApp Store 목록이 매주 월요일 아침에 저절로 업데이트되고, 그 주의 새 항목에는 “신규” 표시와 알림이 붙습니다. Pro가 없으면 dApp 업데이트를 탭하세요.</string>
     <plurals name="catalogue_new">
         <item quantity="other">신규 %1$d개</item>
     </plurals>
@@ -883,4 +883,22 @@
     <string name="mod_title">모든 사용자에게 이 텍스트를 숨길까요?</string>
     <string name="mod_body">텍스트만 숨겨집니다. 평점과 태그는 그대로 집계되며 기록은 온체인에 남습니다. 사유를 명시한 공개 운영 기록에 서명하며, 되돌릴 수 있습니다.</string>
     <string name="mod_sign">서명하고 숨기기</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">목록을 몇 분 전에 불러왔습니다. %1$d분 뒤에 다시 시도하세요.</string>
+    <string name="catalogue_age_today">오늘</string>
+    <string name="catalogue_age_yesterday">어제</string>
+    <string name="fp_catalogue">스토어의 모든 dApp, 업데이트 버튼 포함</string>
+    <string name="fp_catalogue_weekly">매주 월요일 저절로 업데이트, 새 항목은 “신규” 표시</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="other">%1$d일 경과</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="other">%1$d주 경과</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="other">이번 주 신규 · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="other">이번 주 스토어에 새 dApp %1$d개</item>
+    </plurals>
 </resources>

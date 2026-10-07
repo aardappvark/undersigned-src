@@ -910,9 +910,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · z tej wersji aplikacji</string>
     <string name="settings_catalogue_title">Lista dApps</string>
     <string name="settings_catalogue_auto">Aktualizuj w każdy poniedziałek rano</string>
-    <string name="settings_catalogue_auto_body">W każdy poniedziałek o 7:00 pobiera w tle pełną listę z dApp Store, aby nowe aplikacje były tu, gdy otworzysz Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: pełna lista z dApp Store sama aktualizuje się w każdy poniedziałek między 01:00 a 03:00 (każdy telefon o swojej porze) albo przy pierwszym otwarciu Undersigned w tym tygodniu, jeśli telefon był wyłączony. Nowe pozycje są oznaczone jako Nowe, a powiadomienie wymienia je z nazwy.</string>
     <string name="pro_tool_catalogue_title">Lista dApps w każdy poniedziałek</string>
-    <string name="pro_tool_catalogue_body">Pełna lista z dApp Store sama aktualizuje się w tle w każdy poniedziałek rano. Bez Pro stuknij Zaktualizuj w Przeglądaj.</string>
+    <string name="pro_tool_catalogue_body">Pełna lista z dApp Store sama aktualizuje się w każdy poniedziałek rano, a nowe pozycje tygodnia są oznaczone jako Nowe i zgłaszane powiadomieniem. Bez Pro stuknij Zaktualizuj dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d nowa</item>
         <item quantity="few">%1$d nowe</item>
@@ -926,4 +926,34 @@
     <string name="mod_title">Ukryć ten tekst dla wszystkich?</string>
     <string name="mod_body">Ukrywany jest tylko tekst: ocena i tagi nadal się liczą, a wpis pozostaje na blockchainie. Podpisujesz publiczny wpis moderacyjny z podanym powodem i możesz to cofnąć.</string>
     <string name="mod_sign">Podpisz i ukryj</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Listę pobrano kilka minut temu. Spróbuj ponownie za %1$d min.</string>
+    <string name="catalogue_age_today">dzisiaj</string>
+    <string name="catalogue_age_yesterday">wczoraj</string>
+    <string name="fp_catalogue">Każda dApp w sklepie, z przyciskiem Zaktualizuj</string>
+    <string name="fp_catalogue_weekly">Aktualizuje się sama w każdy poniedziałek, nowe pozycje są oznaczone jako Nowe</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">ma %1$d dzień</item>
+        <item quantity="few">ma %1$d dni</item>
+        <item quantity="many">ma %1$d dni</item>
+        <item quantity="other">ma %1$d dnia</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">ma %1$d tydzień</item>
+        <item quantity="few">ma %1$d tygodnie</item>
+        <item quantity="many">ma %1$d tygodni</item>
+        <item quantity="other">ma %1$d tygodnia</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Nowe w tym tygodniu · %1$d</item>
+        <item quantity="few">Nowe w tym tygodniu · %1$d</item>
+        <item quantity="many">Nowe w tym tygodniu · %1$d</item>
+        <item quantity="other">Nowe w tym tygodniu · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d nowa dApp w sklepie w tym tygodniu</item>
+        <item quantity="few">%1$d nowe dApps w sklepie w tym tygodniu</item>
+        <item quantity="many">%1$d nowych dApps w sklepie w tym tygodniu</item>
+        <item quantity="other">%1$d nowej dApp w sklepie w tym tygodniu</item>
+    </plurals>
 </resources>

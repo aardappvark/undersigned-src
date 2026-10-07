@@ -893,9 +893,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · из этой версии приложения</string>
     <string name="settings_catalogue_title">Список dApps</string>
     <string name="settings_catalogue_auto">Обновлять по понедельникам утром</string>
-    <string name="settings_catalogue_auto_body">Каждый понедельник в 7:00 в фоновом режиме загружает полный список dApp Store, чтобы новые приложения уже были здесь, когда вы откроете Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: полный список dApp Store сам обновляется каждый понедельник между 01:00 и 03:00 (каждый телефон в своё время) или при первом открытии Undersigned на этой неделе, если телефон был выключен. Новые записи отмечаются как «Новое», и вы получаете уведомление с их названиями.</string>
     <string name="pro_tool_catalogue_title">Список dApps, каждый понедельник</string>
-    <string name="pro_tool_catalogue_body">Полный список dApp Store сам обновляется в фоновом режиме каждый понедельник утром. Без Pro нажмите «Обновить» в разделе «Просмотр».</string>
+    <string name="pro_tool_catalogue_body">Список dApp Store сам обновляется каждый понедельник утром, а новые записи недели отмечаются как «Новое» и сопровождаются уведомлением. Без Pro нажмите «Обновить dApps».</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d новое</item>
         <item quantity="few">%1$d новых</item>
@@ -909,4 +909,34 @@
     <string name="mod_title">Скрыть этот текст для всех?</string>
     <string name="mod_body">Скрывается только текст: оценка и теги по-прежнему учитываются, а запись остаётся в блокчейне. Так подписывается публичная запись модерации с указанием причины, и вы можете это отменить.</string>
     <string name="mod_sign">Подписать и скрыть</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Список запрашивали несколько минут назад. Повторите попытку через %1$d мин.</string>
+    <string name="catalogue_age_today">сегодня</string>
+    <string name="catalogue_age_yesterday">вчера</string>
+    <string name="fp_catalogue">Каждое dApp в магазине, с кнопкой «Обновить»</string>
+    <string name="fp_catalogue_weekly">Обновляется само каждый понедельник, новые записи отмечены «Новое»</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">возраст %1$d день</item>
+        <item quantity="few">возраст %1$d дня</item>
+        <item quantity="many">возраст %1$d дней</item>
+        <item quantity="other">возраст %1$d дня</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">возраст %1$d неделя</item>
+        <item quantity="few">возраст %1$d недели</item>
+        <item quantity="many">возраст %1$d недель</item>
+        <item quantity="other">возраст %1$d недели</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Новые на этой неделе · %1$d</item>
+        <item quantity="few">Новые на этой неделе · %1$d</item>
+        <item quantity="many">Новые на этой неделе · %1$d</item>
+        <item quantity="other">Новые на этой неделе · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d новое dApp в магазине на этой неделе</item>
+        <item quantity="few">%1$d новых dApps в магазине на этой неделе</item>
+        <item quantity="many">%1$d новых dApps в магазине на этой неделе</item>
+        <item quantity="other">%1$d новых dApps в магазине на этой неделе</item>
+    </plurals>
 </resources>

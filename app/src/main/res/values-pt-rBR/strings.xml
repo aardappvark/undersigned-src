@@ -915,9 +915,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · desta versão do app</string>
     <string name="settings_catalogue_title">Lista de dApps</string>
     <string name="settings_catalogue_auto">Atualizar toda segunda-feira de manhã</string>
-    <string name="settings_catalogue_auto_body">Baixa a lista completa da dApp Store em segundo plano toda segunda-feira às 7:00, para que os apps novos já estejam aqui quando você abrir o Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: a lista completa da dApp Store se atualiza sozinha toda segunda-feira entre 01:00 e 03:00 (cada celular no seu próprio horário), ou na primeira vez que você abrir o Undersigned naquela semana, se o celular estava desligado. Os itens novos são marcados como Novo e você recebe uma notificação com os nomes deles.</string>
     <string name="pro_tool_catalogue_title">A lista de dApps, toda segunda-feira</string>
-    <string name="pro_tool_catalogue_body">A lista completa da dApp Store se atualiza sozinha em segundo plano toda segunda-feira de manhã. Sem Pro, toque em Atualizar em Navegar.</string>
+    <string name="pro_tool_catalogue_body">A lista da dApp Store se atualiza sozinha toda segunda-feira de manhã, e os itens novos da semana são marcados como Novo e vêm com uma notificação. Sem Pro, toque em Atualizar dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d novo</item>
         <item quantity="other">%1$d novos</item>
@@ -929,4 +929,26 @@
     <string name="mod_title">Ocultar este texto para todos?</string>
     <string name="mod_body">Só o texto é ocultado: a nota e as tags continuam valendo, e o registro permanece na cadeia. Isso assina um registro de moderação público que informa o motivo, e você pode desfazer.</string>
     <string name="mod_sign">Assinar e ocultar</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">A lista foi consultada há poucos minutos. Tente de novo em %1$d min.</string>
+    <string name="catalogue_age_today">hoje</string>
+    <string name="catalogue_age_yesterday">ontem</string>
+    <string name="fp_catalogue">Todos os dApps da loja, com um botão Atualizar</string>
+    <string name="fp_catalogue_weekly">Se atualiza sozinha toda segunda-feira, itens novos marcados como Novo</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">com %1$d dia</item>
+        <item quantity="other">com %1$d dias</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">com %1$d semana</item>
+        <item quantity="other">com %1$d semanas</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Novos esta semana · %1$d</item>
+        <item quantity="other">Novos esta semana · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d novo dApp na loja esta semana</item>
+        <item quantity="other">%1$d novos dApps na loja esta semana</item>
+    </plurals>
 </resources>

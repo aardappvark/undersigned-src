@@ -889,9 +889,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · ऐप के इस संस्करण से</string>
     <string name="settings_catalogue_title">dApp सूची</string>
     <string name="settings_catalogue_auto">हर सोमवार सुबह अपडेट करें</string>
-    <string name="settings_catalogue_auto_body">हर सोमवार सुबह 7:00 बजे बैकग्राउंड में पूरी dApp Store सूची डाउनलोड करता है, ताकि Undersigned खोलने पर नए ऐप्स यहां मिलें।</string>
+    <string name="settings_catalogue_auto_body">Pro: पूरी dApp Store सूची हर सोमवार 01:00 से 03:00 के बीच अपने आप अपडेट हो जाती है (हर फ़ोन अपने समय पर), या फ़ोन बंद होने पर उस सप्ताह Undersigned पहली बार खोलने पर। नई लिस्टिंग पर “नया” का निशान लगता है और उनके नाम बताने वाली सूचना आपको मिलती है।</string>
     <string name="pro_tool_catalogue_title">dApp सूची, हर सोमवार</string>
-    <string name="pro_tool_catalogue_body">पूरी dApp Store सूची हर सोमवार सुबह बैकग्राउंड में अपने आप अपडेट हो जाती है। Pro के बिना, ब्राउज़ में अपडेट पर टैप करें।</string>
+    <string name="pro_tool_catalogue_body">dApp Store सूची हर सोमवार सुबह अपने आप अपडेट हो जाती है, और सप्ताह की नई लिस्टिंग पर “नया” का निशान लगता है तथा एक सूचना आती है। Pro के बिना, dApps अपडेट करें पर टैप करें।</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d नया</item>
         <item quantity="other">%1$d नए</item>
@@ -903,4 +903,26 @@
     <string name="mod_title">यह टेक्स्ट सभी के लिए छिपाएं?</string>
     <string name="mod_body">केवल टेक्स्ट छिपता है: रेटिंग और टैग अब भी गिने जाते हैं, और रिकॉर्ड chain पर बना रहता है। यह कारण बताने वाले एक सार्वजनिक मॉडरेशन रिकॉर्ड पर साइन करता है, और आप इसे पूर्ववत कर सकते हैं।</string>
     <string name="mod_sign">साइन करें और छिपाएं</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">सूची कुछ मिनट पहले ही देखी गई थी। %1$d मिनट बाद फिर कोशिश करें।</string>
+    <string name="catalogue_age_today">आज</string>
+    <string name="catalogue_age_yesterday">बीता कल</string>
+    <string name="fp_catalogue">स्टोर का हर dApp, अपडेट बटन के साथ</string>
+    <string name="fp_catalogue_weekly">हर सोमवार अपने आप अपडेट, नई लिस्टिंग पर “नया” का निशान</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d दिन पुरानी</item>
+        <item quantity="other">%1$d दिन पुरानी</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d सप्ताह पुरानी</item>
+        <item quantity="other">%1$d सप्ताह पुरानी</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">इस सप्ताह नए · %1$d</item>
+        <item quantity="other">इस सप्ताह नए · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">इस सप्ताह स्टोर में %1$d नया dApp</item>
+        <item quantity="other">इस सप्ताह स्टोर में %1$d नए dApps</item>
+    </plurals>
 </resources>

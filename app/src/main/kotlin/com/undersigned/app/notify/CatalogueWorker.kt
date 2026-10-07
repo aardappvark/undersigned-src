@@ -1,51 +1,93 @@
 package com.undersigned.app.notify
 
 import android.content.Context
+import android.util.Log
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
-import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.undersigned.app.data.CatalogueRepository
+import androidx.work.workDataOf
+import com.undersigned.app.R
 import com.undersigned.app.data.UserPreferences
-import java.time.DayOfWeek
+import com.undersigned.app.data.WeeklyCatalogue
+import java.time.Duration
+import java.time.LocalDate
+import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.temporal.TemporalAdjusters
 import java.util.concurrent.TimeUnit
 
 /**
- * Pro: the whole dApp Store list, downloaded in the background every Monday morning (owner, 7 Oct 2026). Everyone else
- * gets the same refresh from the Update button, which Browse offers once the list is older than this week's Monday.
+ * Pro: runs [WeeklyCatalogue] every Monday from 01:00 plus this phone's offset (ported from the Toolkit's
+ * WeeklyCatalogueWorker). A chain of one-time jobs, not a 7-day periodic one: periodic work drifts, so "Monday 01:00" would
+ * become "Tuesday afternoon" within weeks. A running job books the FOLLOWING week, never its own. If the phone was off,
+ * [ensureScheduled] (every app start) queues a catch-up once this phone's start time has passed.
  */
 class CatalogueWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params) {
     override suspend fun doWork(): Result {
-        if (!UserPreferences.catalogueAuto) return Result.success()
-        return if (CatalogueRepository(applicationContext).refresh() != null) Result.success() else Result.retry()
+        val app = applicationContext
+        if (!allowed()) return Result.success()
+        val mode = if (tags.contains(TAG_CATCHUP)) WeeklyCatalogue.Mode.CATCH_UP else WeeklyCatalogue.Mode.SCHEDULED
+        val bookedFor = inputData.getString(KEY_WEEK)?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+        if (mode == WeeklyCatalogue.Mode.SCHEDULED) scheduleNext(app, notBefore = WeeklyCatalogue.followingWeek(bookedFor, LocalDate.now()))
+        return when (val o = WeeklyCatalogue.run(app, mode)) {
+            is WeeklyCatalogue.Outcome.Ok -> { notifyNew(app, o.added.map { it.packageName to it.name }); Result.success() }
+            is WeeklyCatalogue.Outcome.Skipped -> Result.success()
+            is WeeklyCatalogue.Outcome.Failed -> if (o.retryable && runAttemptCount < 4) Result.retry() else Result.failure()
+        }
     }
 
     companion object {
-        private const val UNIQUE = "catalogue-weekly"
-        /** Monday 07:00 on this phone's clock. */
-        private const val HOUR = 7
+        private const val TAG = "WeeklyCatalogue"
+        private const val TAG_CATCHUP = "catalogue_catchup"
+        private const val KEY_WEEK = "week"
+        private val ALL_TAG: String = CatalogueWorker::class.java.name
 
-        /** The most recent Monday 07:00 at or before now: a list refreshed before it is "last week's". */
-        fun weekStart(now: ZonedDateTime = ZonedDateTime.now()): ZonedDateTime {
-            val monday = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).withHour(HOUR).withMinute(0).withSecond(0).withNano(0)
-            return if (monday.isAfter(now)) monday.minusWeeks(1) else monday
+        /** The Settings switch is on (default on) AND Pro is active: the weekly update is a Pro perk. */
+        fun allowed(): Boolean = UserPreferences.catalogueAuto && UserPreferences.proActiveCached
+
+        private fun constraints() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+        fun scheduleNext(ctx: Context, notBefore: LocalDate? = null) {
+            val zone = ZoneId.systemDefault(); val now = ZonedDateTime.now(zone)
+            val next = WeeklyCatalogue.nextStart(now.toLocalDateTime(), WeeklyCatalogue.offsetMinutes(ctx), notBefore)
+            val req = OneTimeWorkRequestBuilder<CatalogueWorker>()
+                .setInputData(workDataOf(KEY_WEEK to WeeklyCatalogue.weekBatch(next.toLocalDate()).toString()))
+                .setInitialDelay(Duration.between(now, next.atZone(zone)).toMillis().coerceAtLeast(0L), TimeUnit.MILLISECONDS)
+                .setConstraints(constraints()).setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 60, TimeUnit.MINUTES).build()
+            WorkManager.getInstance(ctx).enqueueUniqueWork("catalogue_week_${next.toLocalDate()}", ExistingWorkPolicy.KEEP, req)
         }
 
-        fun isLastWeeks(refreshedAt: Long, now: ZonedDateTime = ZonedDateTime.now()): Boolean = refreshedAt < weekStart(now).toInstant().toEpochMilli()
-
-        fun schedule(ctx: Context) {
-            val now = ZonedDateTime.now()
-            val next = weekStart(now).plusWeeks(1)
-            val c = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            val req = PeriodicWorkRequestBuilder<CatalogueWorker>(7, TimeUnit.DAYS)
-                .setInitialDelay(java.time.Duration.between(now, next).toMillis(), TimeUnit.MILLISECONDS).setConstraints(c).build()
-            WorkManager.getInstance(ctx).enqueueUniquePeriodicWork(UNIQUE, ExistingPeriodicWorkPolicy.KEEP, req)
+        fun cancelAll(ctx: Context) {
+            WorkManager.getInstance(ctx).cancelAllWorkByTag(ALL_TAG)
+            WorkManager.getInstance(ctx).cancelUniqueWork("catalogue-weekly")   // the 6–7 Oct periodic job, if booked
         }
-        fun cancel(ctx: Context) { WorkManager.getInstance(ctx).cancelUniqueWork(UNIQUE) }
+
+        /** Every app start and Settings change: book next Monday, and catch up if this week's check hasn't run. */
+        fun ensureScheduled(ctx: Context) {
+            try {
+                WorkManager.getInstance(ctx).cancelUniqueWork("catalogue-weekly")   // the 6–7 Oct periodic job: replaced by this chain
+                if (!allowed()) { cancelAll(ctx); return }
+                scheduleNext(ctx)
+                if (!WeeklyCatalogue.doneThisWeek(ctx) && !WeeklyCatalogue.gaveUpThisWeek(ctx) &&
+                    WeeklyCatalogue.catchUpDue(java.time.LocalDateTime.now(), WeeklyCatalogue.offsetMinutes(ctx))) {
+                    val req = OneTimeWorkRequestBuilder<CatalogueWorker>().setConstraints(constraints())
+                        .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 60, TimeUnit.MINUTES).addTag(TAG_CATCHUP).build()
+                    WorkManager.getInstance(ctx).enqueueUniqueWork("catalogue_catchup_${WeeklyCatalogue.weekBatch(LocalDate.now())}", ExistingWorkPolicy.KEEP, req)
+                }
+            } catch (e: Exception) { Log.w(TAG, "could not schedule the weekly check", e) }
+        }
+
+        /** "3 new dApps this week: A, B, C" — one opens its page, several open Browse's New list. */
+        fun notifyNew(ctx: Context, added: List<Pair<String, String>>) {
+            if (added.isEmpty()) return
+            val names = added.take(4).joinToString(", ") { it.second } + if (added.size > 4) "…" else ""
+            val title = ctx.resources.getQuantityString(R.plurals.catalogue_notif_title, added.size, added.size)
+            if (added.size == 1) LedgerWatchWorker.notify(ctx, "catalogue:${LocalDate.now()}", title, names, added[0].first)
+            else LedgerWatchWorker.notify(ctx, "catalogue:${LocalDate.now()}", title, names, "new", extraKey = "screen")
+        }
     }
 }

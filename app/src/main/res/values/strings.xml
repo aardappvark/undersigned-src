@@ -912,9 +912,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · from this version of the app</string>
     <string name="settings_catalogue_title">dApp list</string>
     <string name="settings_catalogue_auto">Update every Monday morning</string>
-    <string name="settings_catalogue_auto_body">Downloads the full dApp Store list in the background each Monday at 7:00, so new apps are here when you open Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: the full dApp Store list updates itself every Monday between 01:00 and 03:00 (each phone at its own time), or the first time you open Undersigned that week if the phone was off. New listings are marked New and you get a notification naming them.</string>
     <string name="pro_tool_catalogue_title">The dApp list, every Monday</string>
-    <string name="pro_tool_catalogue_body">The full dApp Store list updates itself in the background each Monday morning. Without Pro, tap Update on Browse.</string>
+    <string name="pro_tool_catalogue_body">The dApp Store list updates itself every Monday morning, and the week\'s new listings are marked New with a notification. Without Pro, tap Update dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d new</item>
         <item quantity="other">%1$d new</item>
@@ -926,4 +926,26 @@
     <string name="mod_title">Hide this text for everyone?</string>
     <string name="mod_body">Only the text is hidden: the rating and tags still count, and the record stays on-chain. This signs a public moderation record that names the reason, and you can undo it.</string>
     <string name="mod_sign">Sign and hide</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">The list was checked a few minutes ago. Try again in %1$d min.</string>
+    <string name="catalogue_age_today">today</string>
+    <string name="catalogue_age_yesterday">yesterday</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d day old</item>
+        <item quantity="other">%1$d days old</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d week old</item>
+        <item quantity="other">%1$d weeks old</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">New this week · %1$d</item>
+        <item quantity="other">New this week · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d new dApp in the store this week</item>
+        <item quantity="other">%1$d new dApps in the store this week</item>
+    </plurals>
+    <string name="fp_catalogue">Every dApp in the store, with an Update button</string>
+    <string name="fp_catalogue_weekly">Updates itself every Monday; new listings marked New</string>
 </resources>

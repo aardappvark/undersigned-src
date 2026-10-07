@@ -897,9 +897,9 @@
     <string name="catalogue_line_bundled">%1$s dApps · din această versiune a aplicației</string>
     <string name="settings_catalogue_title">Lista dApps</string>
     <string name="settings_catalogue_auto">Actualizează în fiecare luni dimineața</string>
-    <string name="settings_catalogue_auto_body">Descarcă în fundal lista completă din dApp Store în fiecare luni la 7:00, ca aplicațiile noi să fie aici când deschizi Undersigned.</string>
+    <string name="settings_catalogue_auto_body">Pro: lista completă din dApp Store se actualizează singură în fiecare luni între 01:00 și 03:00 (fiecare telefon la ora lui), sau prima dată când deschizi Undersigned în acea săptămână, dacă telefonul a fost oprit. Intrările noi sunt marcate Nou și primești o notificare care le numește.</string>
     <string name="pro_tool_catalogue_title">Lista dApps, în fiecare luni</string>
-    <string name="pro_tool_catalogue_body">Lista completă din dApp Store se actualizează singură în fundal în fiecare luni dimineața. Fără Pro, atinge Actualizează în Răsfoiește.</string>
+    <string name="pro_tool_catalogue_body">Lista din dApp Store se actualizează singură în fiecare luni dimineața, iar intrările noi ale săptămânii sunt marcate Nou și însoțite de o notificare. Fără Pro, atinge Actualizează dApps.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d nou</item>
         <item quantity="few">%1$d noi</item>
@@ -912,4 +912,30 @@
     <string name="mod_title">Ascunzi acest text pentru toți?</string>
     <string name="mod_body">Se ascunde doar textul: evaluarea și etichetele se numără în continuare, iar înregistrarea rămâne pe blockchain. Aceasta semnează o înregistrare de moderare publică ce indică motivul, iar tu o poți anula.</string>
     <string name="mod_sign">Semnează și ascunde</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">Lista a fost consultată acum câteva minute. Încearcă din nou peste %1$d min.</string>
+    <string name="catalogue_age_today">astăzi</string>
+    <string name="catalogue_age_yesterday">ieri</string>
+    <string name="fp_catalogue">Fiecare dApp din magazin, cu buton Actualizează</string>
+    <string name="fp_catalogue_weekly">Se actualizează singură în fiecare luni, intrările noi sunt marcate Nou</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">vechime de %1$d zi</item>
+        <item quantity="few">vechime de %1$d zile</item>
+        <item quantity="other">vechime de %1$d de zile</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">vechime de %1$d săptămână</item>
+        <item quantity="few">vechime de %1$d săptămâni</item>
+        <item quantity="other">vechime de %1$d de săptămâni</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Noi săptămâna aceasta · %1$d</item>
+        <item quantity="few">Noi săptămâna aceasta · %1$d</item>
+        <item quantity="other">Noi săptămâna aceasta · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d dApp nou în magazin săptămâna aceasta</item>
+        <item quantity="few">%1$d dApps noi în magazin săptămâna aceasta</item>
+        <item quantity="other">%1$d de dApps noi în magazin săptămâna aceasta</item>
+    </plurals>
 </resources>

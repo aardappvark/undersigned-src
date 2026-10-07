@@ -95,6 +95,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
                 row(R.string.fp_read, "✓", "✓"); row(R.string.fp_sign, "✓", "✓"); row(R.string.fp_facts, "✓", "✓"); row(R.string.fp_claim, "✓", "✓")
                 row(R.string.fp_copy, "—", "✓"); row(R.string.fp_import, stringResource(R.string.fp_import_free), stringResource(R.string.fp_import_pro))
                 row(R.string.fp_desk, "—", "✓"); row(R.string.fp_export, "—", "✓"); row(R.string.fp_watch, stringResource(R.string.fp_watch_free), stringResource(R.string.fp_watch_pro))
+                row(R.string.fp_catalogue, "✓", "✓"); row(R.string.fp_catalogue_weekly, "—", "✓")
                 HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 4.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) { Text(stringResource(R.string.fp_weight), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1.6f)); Text(stringResource(R.string.fp_weight_both), color = RbColors.green, fontSize = 11.sp, modifier = Modifier.weight(1.6f)) }
             }

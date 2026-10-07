@@ -886,9 +886,9 @@
     <string name="catalogue_line_bundled">%1$s dApp · az alkalmazás ezen verziójából</string>
     <string name="settings_catalogue_title">dApp-lista</string>
     <string name="settings_catalogue_auto">Frissítés minden hétfő reggel</string>
-    <string name="settings_catalogue_auto_body">Minden hétfőn 7:00-kor a háttérben letölti a teljes dApp Store-listát, hogy az új alkalmazások már itt legyenek, amikor megnyitod az Undersigned-ot.</string>
+    <string name="settings_catalogue_auto_body">Pro: a teljes dApp Store-lista minden hétfőn 01:00 és 03:00 között magától frissül (minden telefon a saját idejében), vagy ha a telefon ki volt kapcsolva, az Undersigned első megnyitásakor azon a héten. Az új listázások Új jelölést kapnak, és értesítést kapsz, amely megnevezi őket.</string>
     <string name="pro_tool_catalogue_title">A dApp-lista, minden hétfőn</string>
-    <string name="pro_tool_catalogue_body">A teljes dApp Store-lista minden hétfő reggel magától frissül a háttérben. Pro nélkül koppints a Frissítés gombra a Böngészés fülön.</string>
+    <string name="pro_tool_catalogue_body">A dApp Store-lista minden hétfő reggel magától frissül, a hét új listázásai pedig Új jelölést és értesítést kapnak. Pro nélkül koppints a dApp-ok frissítése gombra.</string>
     <plurals name="catalogue_new">
         <item quantity="one">%1$d új</item>
         <item quantity="other">%1$d új</item>
@@ -900,4 +900,26 @@
     <string name="mod_title">Elrejted ezt a szöveget mindenki elől?</string>
     <string name="mod_body">Csak a szöveg lesz elrejtve: az értékelés és a címkék továbbra is számítanak, a bejegyzés pedig on-chain marad. Ez egy nyilvános moderációs bejegyzést ír alá, amely megnevezi az okot, és visszavonhatod.</string>
     <string name="mod_sign">Aláírás és elrejtés</string>
+    <!-- 7 Oct 2026 weekly check (ported from the Toolkit) -->
+    <string name="catalogue_cooldown">A listát néhány perce lekértük. Próbáld újra %1$d perc múlva.</string>
+    <string name="catalogue_age_today">ma</string>
+    <string name="catalogue_age_yesterday">tegnap</string>
+    <string name="fp_catalogue">Az áruház minden dApp-ja, Frissítés gombbal</string>
+    <string name="fp_catalogue_weekly">Hétfőnként magától frissül, az új listázások Új jelölést kapnak</string>
+    <plurals name="catalogue_age_days">
+        <item quantity="one">%1$d napos</item>
+        <item quantity="other">%1$d napos</item>
+    </plurals>
+    <plurals name="catalogue_age_weeks">
+        <item quantity="one">%1$d hetes</item>
+        <item quantity="other">%1$d hetes</item>
+    </plurals>
+    <plurals name="catalogue_new_chip">
+        <item quantity="one">Új ezen a héten · %1$d</item>
+        <item quantity="other">Új ezen a héten · %1$d</item>
+    </plurals>
+    <plurals name="catalogue_notif_title">
+        <item quantity="one">%1$d új dApp az áruházban ezen a héten</item>
+        <item quantity="other">%1$d új dApp az áruházban ezen a héten</item>
+    </plurals>
 </resources>
