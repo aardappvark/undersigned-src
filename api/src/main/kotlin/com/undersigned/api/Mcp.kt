@@ -7,14 +7,16 @@ import org.json.JSONObject
  * Model Context Protocol over Streamable HTTP, served by the API itself at `POST /mcp` (9 Oct 2026). An agent (Claude,
  * Cursor, any MCP client) adds the URL and can read the ledger: no package to install, nothing to publish.
  *
- * Stateless JSON-RPC: every POST carries one message (or a batch) and gets a JSON answer; there is no session and no
- * server-initiated stream, so `GET /mcp` answers 405 as the transport allows. The same metering as the REST API applies
- * (Server.kt routes `/mcp` as LIMITED): free per IP, a pass by `Authorization: Bearer`.
+ * Stateless JSON-RPC: every POST carries ONE message and gets a JSON answer; there is no session and no server-initiated
+ * stream, so `GET /mcp` answers 405 as the transport allows. Batches are refused: 2025-06-18 removed them, and one POST
+ * carrying many tool calls would have been metered once (found in review, 9 Oct 2026). The same metering as the REST API
+ * applies (Server.kt routes `/mcp` as LIMITED): free per IP, a pass by `Authorization: Bearer`. Tools, plus resources
+ * (the integrity policy, pricing, tag vocabulary) and prompts (audit one app, compare two).
  *
  * READ-ONLY on purpose. There is no tool that drafts, builds or submits a review, flag or vote: a review is a person's own
  * signed opinion from their phone, and an agent writing them is the fake-review case the integrity policy forbids.
  */
-class Mcp(private val views: Views) {
+class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JSONObject() }) {
     private class Tool(val name: String, val description: String, val schema: JSONObject, val paid: Boolean = false, val run: (JSONObject, Api.Caller) -> JSONObject)
 
     private fun obj(vararg props: Pair<String, JSONObject>, required: List<String> = emptyList()) =
@@ -35,8 +37,23 @@ class Mcp(private val views: Views) {
             views.app(pkg(a)) ?: throw NoSuchElementException("unknown package; search_apps finds the right one") },
         Tool("get_reviews", "Signed reviews of one app with every signal: attested device, weight, heading (organic, Pro, promoted, related, not counted), stake as read when the review appeared (shown, never weighed), install age, usage time, flags and replies.",
             obj("package" to str("Android package name"), "sort" to str("Order; stake sorts use the stake read when each review appeared and never change a score", listOf("newest", "helpful", "skr", "sol")),
-                "limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500), required = listOf("package"))) { a, c ->
-            views.reviews(pkg(a), rows(a, c), 0, a.optString("sort").ifEmpty { null }) },
+                "limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500), "offset" to int("Skip this many reviews (with a pass; free callers get the first page). The answer's total says how many there are", 0, 1_000_000),
+                required = listOf("package"))) { a, c ->
+            views.reviews(pkg(a), rows(a, c), if (c.paid) a.optInt("offset", 0).coerceAtLeast(0) else 0, a.optString("sort").ifEmpty { null }) },
+        Tool("get_record", "One ledger record by id (a transaction signature, or signature:n for the n-th record in a transaction), decoded, with what it credited and whether it was withdrawn.",
+            obj("id" to str("Record id"), required = listOf("id"))) { a, _ ->
+            views.recordById(a.optString("id").trim()) ?: throw NoSuchElementException("no such record") },
+        Tool("list_records", "Decoded ledger records, newest first. Filter by type (rev, rep, flg, clm, trs, pro, bst, mod...), package, signer, time; page with before (the answer's next).",
+            obj("type" to str("Record type wire, e.g. rev"), "package" to str("Android package name"), "signer" to str("Wallet address"),
+                "since" to JSONObject().put("type", "integer").put("description", "Epoch seconds"), "until" to JSONObject().put("type", "integer").put("description", "Epoch seconds"),
+                "before" to str("Record id to page from (the previous answer's next)"), "limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 1000))) { a, c ->
+            views.records(a.optString("type").ifEmpty { null }, a.optString("package").ifEmpty { null }, a.optString("signer").ifEmpty { null },
+                if (a.has("since")) a.optLong("since") else null, if (a.has("until")) a.optLong("until") else null, a.optString("before").ifEmpty { null },
+                if (c.paid) a.optInt("limit", 100).coerceIn(1, 1000) else a.optInt("limit", Config.FREE_ROWS).coerceIn(1, Config.FREE_ROWS)) },
+        Tool("payments_board", "Apps whose publishers confirmed a treasury, by payments received on-chain (USD on the day of each payment). Off-chain income is invisible; not a statement about profit.",
+            obj("limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
+            views.paymentsBoard(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
+        Tool("get_pricing", "What a pass costs and buys, the free limits, and the Solana Pay links to buy one. Use it to explain a 'needs an API pass' answer.", obj()) { _, _ -> pricing() },
         Tool("get_bursts", "Unusual bursts of signed reviews or store star ratings for one app, with daily counts. A burst is a fact about timing, not a verdict.",
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ -> views.bursts(pkg(a)) },
         Tool("get_wallet", "A wallet's public record on the ledger: attested device, stake as last read (shown, never weighed), standing (counts only), reviews, publisher claims, Pro licence.",
@@ -58,15 +75,13 @@ class Mcp(private val views: Views) {
     )
     private val byName = tools.associateBy { it.name }
 
-    /** One HTTP POST: a JSON-RPC message or a batch. Notifications alone answer 202 with no body. */
+    /** One HTTP POST: one JSON-RPC message. A notification answers 202 with no body. */
     fun handle(body: String, caller: Api.Caller): Api.Response {
         val parsed = runCatching { body.trim().let { if (it.startsWith("[")) JSONArray(it) else JSONObject(it) } }.getOrNull()
             ?: return Api.Response(400, error(null, -32700, "parse error: send a JSON-RPC 2.0 message"))
-        val messages = if (parsed is JSONArray) (0 until parsed.length()).mapNotNull { parsed.optJSONObject(it) } else listOf(parsed as JSONObject)
-        val answers = messages.mapNotNull { one(it, caller) }
-        if (answers.isEmpty()) return Api.Response(202, JSONObject(), raw = ByteArray(0))
-        return if (parsed is JSONArray) Api.Response(200, JSONObject(), raw = JSONArray(answers).toString().toByteArray())
-        else Api.Response(200, answers.single())
+        if (parsed is JSONArray) return Api.Response(400, error(null, -32600, "batches are not supported: send one JSON-RPC message per POST"))
+        val answer = one(parsed as JSONObject, caller) ?: return Api.Response(202, JSONObject(), raw = ByteArray(0))
+        return Api.Response(200, answer)
     }
 
     private fun one(m: JSONObject, caller: Api.Caller): JSONObject? {
@@ -78,7 +93,8 @@ class Mcp(private val views: Views) {
             "initialize" -> {
                 val asked = p.optString("protocolVersion")
                 result(id, JSONObject().put("protocolVersion", if (asked in VERSIONS) asked else VERSIONS.first())
-                    .put("capabilities", JSONObject().put("tools", JSONObject().put("listChanged", false)))
+                    .put("capabilities", JSONObject().put("tools", JSONObject().put("listChanged", false))
+                        .put("resources", JSONObject().put("listChanged", false).put("subscribe", false)).put("prompts", JSONObject().put("listChanged", false)))
                     .put("serverInfo", JSONObject().put("name", "undersigned").put("title", "Undersigned").put("version", "1.0.0"))
                     .put("instructions", INSTRUCTIONS))
             }
@@ -98,6 +114,31 @@ class Mcp(private val views: Views) {
                 catch (e: NoSuchElementException) { result(id, toolError(e.message ?: "not found")) }
                 catch (e: Exception) { log("mcp ${t.name}: ${e.message?.take(120)}"); result(id, toolError("internal error; try again")) }
             }
+            "resources/list" -> result(id, JSONObject().put("resources", JSONArray(RESOURCES.map { (uri, r) ->
+                JSONObject().put("uri", uri).put("name", r.first).put("description", r.second).put("mimeType", if (uri.endsWith("policy")) "text/markdown" else "application/json") })))
+            "resources/templates/list" -> result(id, JSONObject().put("resourceTemplates", JSONArray().put(JSONObject().put("uriTemplate", "undersigned://app/{package}")
+                .put("name", "app").put("description", "One app's signed score, store rating and publisher proof (the get_app tool as a resource)").put("mimeType", "application/json"))))
+            "resources/read" -> {
+                val uri = p.optString("uri")
+                val (mime, text) = when {
+                    uri == "undersigned://policy" -> "text/markdown" to POLICY
+                    uri == "undersigned://pricing" -> "application/json" to pricing().toString()
+                    uri == "undersigned://tags" -> "application/json" to views.tags().toString()
+                    uri.startsWith("undersigned://app/") -> "application/json" to (views.app(uri.removePrefix("undersigned://app/"))?.toString() ?: return error(id, -32002, "resource not found: $uri"))
+                    else -> return error(id, -32002, "resource not found: $uri")
+                }
+                result(id, JSONObject().put("contents", JSONArray().put(JSONObject().put("uri", uri).put("mimeType", mime).put("text", text))))
+            }
+            "prompts/list" -> result(id, JSONObject().put("prompts", JSONArray(PROMPTS.map { (name, pr) -> JSONObject().put("name", name).put("description", pr.first)
+                .put("arguments", JSONArray(pr.second.map { JSONObject().put("name", it).put("description", "Android package name, e.g. com.example.app").put("required", true) })) })))
+            "prompts/get" -> {
+                val name = p.optString("name"); val pr = PROMPTS[name] ?: return error(id, -32602, "unknown prompt: $name")
+                val args = p.optJSONObject("arguments") ?: JSONObject()
+                val missing = pr.second.filter { args.optString(it).isBlank() }
+                if (missing.isNotEmpty()) return error(id, -32602, "missing arguments: ${missing.joinToString()}")
+                val text = pr.third(pr.second.associateWith { args.optString(it).trim() })
+                result(id, JSONObject().put("description", pr.first).put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", JSONObject().put("type", "text").put("text", text)))))
+            }
             else -> error(id, -32601, "method not found: $method")
         }
     }
@@ -107,6 +148,30 @@ class Mcp(private val views: Views) {
     private fun toolError(msg: String) = JSONObject().put("content", JSONArray().put(JSONObject().put("type", "text").put("text", msg))).put("isError", true)
 
     companion object {
+        val RESOURCES = linkedMapOf(
+            "undersigned://policy" to ("Review integrity policy" to "How reviews are collected, checked, weighted, shown and moderated. Read before describing a score."),
+            "undersigned://pricing" to ("Pricing and limits" to "Free limits, what a pass costs and buys, and how to pay."),
+            "undersigned://tags" to ("Review tags" to "The fixed tag vocabulary with usage counts."),
+        )
+        val PROMPTS: Map<String, Triple<String, List<String>, (Map<String, String>) -> String>> = linkedMapOf(
+            "audit_app_reputation" to Triple("Audit one app's reputation from signed reviews, the store's rating, bursts and publisher proof.", listOf("package")) { a ->
+                "Audit the reputation of the Solana dApp Store app ${a["package"]}. Use get_app, get_reviews (sort newest, then helpful) and get_bursts. " +
+                    "Report: the signed score WITH its counted-review count; the store's own rating with its count; how they differ; each review heading " +
+                    "(organic, Pro members, promoted, related, not counted) and what it means; any bursts as timing facts; whether the publisher is proven and how. " +
+                    "Do not call the app or any review fake: bursts and similarity are facts, not verdicts. Stake is shown for transparency and never weighed." },
+            "compare_apps" to Triple("Compare two apps side by side on signed reviews and the store's rating.", listOf("package_a", "package_b")) { a ->
+                "Compare the Solana dApp Store apps ${a["package_a"]} and ${a["package_b"]}. Use get_app and get_reviews for each. Put the signed score and its " +
+                    "counted-review count next to the store's rating and its count for both, then the most-used tags and any bursts. Say plainly when a score rests on " +
+                    "few reviews. Bursts are facts, not verdicts." },
+        )
+        const val POLICY = "# Undersigned review integrity (summary)\n\n" +
+            "- A review is a memo transaction its author signs in their own wallet. Anyone can sign one; only wallets holding a Seeker Genesis Token are counted, one voice per device.\n" +
+            "- Weight = 1 per attested device x quality (0.5 base; +0.25 phone facts; +0.25 a note of six words or more; halved after a consensus hide). No payment and no token balance changes it.\n" +
+            "- Headings: organic; Pro members (pay Undersigned for Pro, same weight, own score); promoted (author paid to promote, same weight, own score, listed after organic, never first); related to Undersigned or the publisher (counted nowhere); not counted.\n" +
+            "- Stake (SKR, SOL) is shown beside each review as read when it appeared, for transparency, never weighed.\n" +
+            "- Publishers' own reviews and Undersigned's own wallets count nowhere. Moderation hides text only, for four reasons, publicly.\n" +
+            "- Bursts and copy-paste similarity are facts about timing and wording, not verdicts.\n\n" +
+            "Full policy: https://aardappvark.github.io/undersigned-legal/integrity.html"
         val VERSIONS = listOf("2025-06-18", "2025-03-26", "2024-11-05")
         const val INSTRUCTIONS = "Undersigned: reviews of Solana dApp Store apps, each signed on-chain by a Seeker owner's own wallet. " +
             "The signed score counts one voice per attested device (Seeker Genesis Token), weighted only by what each review carries; " +

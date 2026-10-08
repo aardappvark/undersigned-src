@@ -102,9 +102,9 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             // Search matches name, package, category and the tags owners applied (design: Screens E).
             .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q) || (it.category?.lowercase()?.contains(q) == true) || (scores[it.packageName]?.tagCounts?.keys?.any { t -> context.tagLabel(t.wire).lowercase().contains(q) || t.wire.contains(q) } == true) }
             .sortedWith(when (sort) {
-                Sort.SCORE -> compareByDescending<CatalogueApp> { scores[it.packageName]?.weightedRating ?: -1.0 }.thenByDescending { it.updated }
+                Sort.SCORE -> compareByDescending<CatalogueApp> { scores[it.packageName]?.takeIf { s -> s.countedReviews > 0 }?.weightedRating ?: -1.0 }.thenByDescending { it.updated }
                 Sort.NEW -> compareByDescending<CatalogueApp> { it.updated }.thenBy { it.name.lowercase() }
-                Sort.CATEGORY -> compareBy<CatalogueApp> { it.category ?: "￿" }.thenByDescending { scores[it.packageName]?.weightedRating ?: -1.0 }
+                Sort.CATEGORY -> compareBy<CatalogueApp> { it.category ?: "￿" }.thenByDescending { scores[it.packageName]?.takeIf { s -> s.countedReviews > 0 }?.weightedRating ?: -1.0 }
                 Sort.NAME -> compareBy { it.name.lowercase() }
             }).toList()
     }
@@ -254,8 +254,8 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                         is Row.App -> {
                             val app = r.app
                             val iconUrl = icons[app.packageName]?.takeIf { it.isNotEmpty() }
-                            if (dense) DenseRow(app, scores[app.packageName], app.packageName in installed && tab != Tab.INSTALLED, iconUrl) { onOpen(app.packageName) }
-                            else AppRow(app, scores[app.packageName], app.packageName in installed && tab != Tab.INSTALLED, sort != Sort.CATEGORY, iconUrl) { onOpen(app.packageName) }
+                            if (dense) DenseRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, iconUrl) { onOpen(app.packageName) }
+                            else AppRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, sort != Sort.CATEGORY, iconUrl) { onOpen(app.packageName) }
                         }
                     }
                 }
@@ -325,7 +325,7 @@ private fun CategoryHead(category: String, count: Int) {
 /** Balanced: two lines, 44 dp icon, chips with counts, the category as a pill in a right-hand column. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun AppRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, onClick: () -> Unit) {
+private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, onClick: () -> Unit) {
     Column(Modifier.fillMaxWidth().clickable { onClick() }.padding(horizontal = 20.dp, vertical = 10.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             DAppIcon(app.packageName, app.name, iconUrl)
@@ -352,14 +352,14 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, 
                 }
                 score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.label(), n) }
             }
-        } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textTertiary, fontSize = 12.sp)
+        } else Text(stringResource(if (uncounted) R.string.reviews_group_uncounted else R.string.row_no_reviews), color = RbColors.textTertiary, fontSize = 12.sp)
     }
     HorizontalDivider(color = RbColors.surfaceVariant, thickness = 1.dp)
 }
 
 /** Dense: one baseline, 32 dp icon, tags as dot-separated text, installed as a green dot, score in a fixed column. */
 @Composable
-private fun DenseRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean, iconUrl: String?, onClick: () -> Unit) {
+private fun DenseRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, iconUrl: String?, onClick: () -> Unit) {
     val context = androidx.compose.ui.platform.LocalContext.current
     Row(Modifier.fillMaxWidth().clickable { onClick() }.heightIn(min = 48.dp).padding(horizontal = 20.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         DAppIcon(app.packageName, app.name, iconUrl, modifier = Modifier.size(32.dp))
@@ -369,7 +369,7 @@ private fun DenseRow(app: CatalogueApp, score: AppScore?, showInstalled: Boolean
                 if (showInstalled) { val inst = stringResource(R.string.tab_installed); Box(Modifier.size(6.dp).clip(CircleShape).background(RbColors.green).semantics { contentDescription = inst }); Spacer(Modifier.width(6.dp)) }
                 Text(app.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
-            Text(score?.tagCounts?.entries?.sortedByDescending { it.value }?.take(3)?.joinToString(" · ") { context.tagLabel(it.key.wire) }?.ifEmpty { null } ?: stringResource(R.string.row_no_reviews),
+            Text(score?.tagCounts?.entries?.sortedByDescending { it.value }?.take(3)?.joinToString(" · ") { context.tagLabel(it.key.wire) }?.ifEmpty { null } ?: stringResource(if (uncounted) R.string.reviews_group_uncounted else R.string.row_no_reviews),
                 color = RbColors.textTertiary, fontSize = 10.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
         Spacer(Modifier.width(8.dp))

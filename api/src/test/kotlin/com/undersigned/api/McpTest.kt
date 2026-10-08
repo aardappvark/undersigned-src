@@ -51,8 +51,27 @@ class McpTest {
     @Test fun `protocol errors, batches and GET`() {
         assertEquals(-32601, rpc("nope").body.getJSONObject("error").getInt("code"))
         assertEquals(400, api.handle("POST", "/mcp", emptyMap(), "not json", null, "5.5.5.6").status)
+        // batches are refused: one POST is metered once, so it must carry one call
         val batch = api.handle("POST", "/mcp", emptyMap(), "[{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"ping\"},{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\"}]", null, "5.5.5.7")
-        assertEquals(2, JSONArray(String(batch.raw!!)).length())
+        assertEquals(400, batch.status); assertEquals(-32600, batch.body.getJSONObject("error").getInt("code"))
         assertEquals(405, api.handle("GET", "/mcp", emptyMap(), "", null, "5.5.5.8").status)
+    }
+
+    @Test fun `resources, prompts and the record tools work`() {
+        val res = rpc("resources/list").body.getJSONObject("result").getJSONArray("resources")
+        assertEquals(setOf("undersigned://policy", "undersigned://pricing", "undersigned://tags"), (0 until res.length()).map { res.getJSONObject(it).getString("uri") }.toSet())
+        val policy = rpc("resources/read", JSONObject().put("uri", "undersigned://policy")).body.getJSONObject("result").getJSONArray("contents").getJSONObject(0).getString("text")
+        assertTrue("never weighed" in policy && "\n" in policy)
+        assertEquals("com.a.b", JSONObject(rpc("resources/read", JSONObject().put("uri", "undersigned://app/com.a.b")).body.getJSONObject("result").getJSONArray("contents").getJSONObject(0).getString("text")).getString("package"))
+        assertEquals(-32002, rpc("resources/read", JSONObject().put("uri", "undersigned://nope")).body.getJSONObject("error").getInt("code"))
+        val prompts = rpc("prompts/list").body.getJSONObject("result").getJSONArray("prompts"); assertEquals(2, prompts.length())
+        val msg = rpc("prompts/get", JSONObject().put("name", "audit_app_reputation").put("arguments", JSONObject().put("package", "com.a.b"))).body.getJSONObject("result")
+            .getJSONArray("messages").getJSONObject(0).getJSONObject("content").getString("text")
+        assertTrue("com.a.b" in msg && "not verdicts" in msg)
+        assertEquals(-32602, rpc("prompts/get", JSONObject().put("name", "compare_apps").put("arguments", JSONObject().put("package_a", "x"))).body.getJSONObject("error").getInt("code"))
+        val recs = call("list_records", JSONObject().put("type", "rev")).getJSONObject("structuredContent").getJSONArray("records"); assertEquals(1, recs.length())
+        assertFalse(call("get_record", JSONObject().put("id", recs.getJSONObject(0).getString("id"))).getBoolean("isError"))
+        assertTrue(call("get_record", JSONObject().put("id", "nope")).getBoolean("isError"))
+        assertFalse(call("payments_board").getBoolean("isError")); assertFalse(call("get_pricing").getBoolean("isError"))
     }
 }

@@ -25,7 +25,7 @@ caller's own device is available (install age and usage time exist only as what 
 | Signed score: rank score (shrunk toward 3.0, for ordering), weighted mean (for display), counted reviews, star distribution, tag counts, latest version reviewed; beside it `pro_members` and `promoted` as their own scores with counts (never part of the signed score) and `operator_publishes`; each review carries `weight`, `weight_parts` (device, quality, pro_member, promoted), `counted`, and `related` (`operator`, `pro_from_publisher` or null; related reviews count in no score) | `GET /v1/apps/{pkg}` | F |
 | Signed reviews, each with: rating, tags, text, version, signer, attested device, weight, staked SKR and SOL now and as read when the review appeared (`stake_at_review`, shown, never weighed), `.skr` name, install age on their phone (`use`), usage time (`tim`), reward season, "paid for this app", similar-text finding, flags, helpful weight, dispute, hidden-by-consensus, withdrawn, replies (publisher badge), self-published exclusion | `GET /v1/apps/{pkg}/reviews` | F (first 20) / P (all) |
 | Scores per version (mean and count per versionCode) | `GET /v1/apps/{pkg}/versions` | P |
-| Review bursts: 5★/1★ clusters vs the app's median pace, window, count vs expected, multiple (×), attested share, same-text count, season overlap, 30-day daily sparkline | `GET /v1/apps/{pkg}/bursts` | P |
+| Review bursts: 5★/1★ clusters vs the app's median pace, window, count vs expected, multiple (×), attested share, same-text count, season overlap, 30-day daily sparkline | `GET /v1/apps/{pkg}/bursts` | F |
 | Install-age and usage-time distributions of reviewers (buckets d0…m3, t0…t4) | inside `/v1/apps/{pkg}` | F |
 | Publisher responsiveness: answered/total, reply-time bucket | inside `/v1/apps/{pkg}` | F |
 | Copy-paste findings: reviews whose text matches others (same app or across apps) | `GET /v1/apps/{pkg}/similar` | P |
@@ -37,7 +37,7 @@ caller's own device is available (install age and usage time exist only as what 
 | Store details: latest versionCode, signing-certificate fingerprint, publisher name, website, support email, "What's new" | inside `/v1/apps/{pkg}` | F |
 | Store rating and star counts, as of the last read | inside `/v1/apps/{pkg}` | F |
 | Store rating history: daily star-count snapshots the server has taken | `GET /v1/apps/{pkg}/store-ratings` | P |
-| Store-rating bursts: sudden jumps in 5★ or 1★ counts between snapshots | `GET /v1/apps/{pkg}/bursts` | P |
+| Store-rating bursts: sudden jumps in 5★ or 1★ counts between snapshots | `GET /v1/apps/{pkg}/bursts` | F |
 | Store watch: every app with a ratings burst in the last N days, strongest first | `GET /v1/watch?days=3` | P |
 | Changes feed: versionCode and certificate changes the server has seen (a changed certificate is the loudest signal a store can give) | `GET /v1/changes?since=` | P |
 | Store reviews are NOT resold: the store's own reviews stay the store's (see §5) | — | — |
@@ -121,12 +121,27 @@ fleet ledger tools see `UNS` and attribute them to Undersigned.
 
 ## 3. MCP
 
-The existing `mcp/` server (the publisher desk: inbox, replies handed to the Seeker, local ledger sync) gains the API's
-tools when `UNDERSIGNED_API_URL` is set (`mcp/api.js`): `api_search_apps`, `api_app`, `api_reviews`, `api_bursts`,
-`api_versions`, `api_store_ratings`, `api_app_payments`, `api_wallet`, `api_leaderboard`, `api_store_watch`,
-`api_changes`, `api_payments_board`, `api_records`, `api_record`, `api_stats`, `api_pricing`, `api_checkout`, `api_redeem_pass`,
-`api_pass`, `api_hook_create`, `api_hooks`, `api_hook_delete`, `api_badge`. `UNDERSIGNED_API_KEY` holds a pass key; a 402 comes back as plain instructions to buy one. The MCP never
-signs or pays: paying stays the wallet owner's own act.
+Two MCP servers, for two audiences (full setup in [DEVELOPERS.md](DEVELOPERS.md)):
+
+**Hosted, for anyone: `POST https://undersigned.provenby.dev/mcp`** (`api/.../Mcp.kt`, 9 Oct 2026). Stateless Streamable
+HTTP, one JSON-RPC message per POST (batches are refused, so every call is metered), protocol 2025-06-18 / 2025-03-26 /
+2024-11-05. It is read-only: no tool drafts, signs or submits a review, flag or vote.
+- **Tools, free:** `search_apps`, `get_app`, `get_reviews` (sort and, with a pass, offset), `get_bursts`, `get_wallet`, `get_record`,
+`list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags` and `get_pricing`.
+- **Tools, with a pass:** `store_watch`, `app_changes`, `version_scores`, `similar_reviews` and `store_rating_history`.
+- **Resources:** `undersigned://policy`, `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.
+- **Prompts:** `audit_app_reputation` and `compare_apps`.
+- **Discovery:** `/llms.txt` and `/.well-known/mcp/server-card.json`.
+
+**Local, for publishers: `mcp/` (Node, stdio).** Run it on your own machine with `node mcp/server.js`.
+- **Publisher desk:** `desk`, `inbox`, `profile`, `star`, `store_reviews`, `app_reviews`, `ledger_sync` and `watch_status` (live watch with macOS notifications).
+- **Hand-offs:** `reply_handoff` and `action_handoff`. Each returns an `undersigned://` link for the person to sign on their Seeker.
+- **`sign_reply`:** signs a publisher's own reply locally, only when the operator sets `UNDERSIGNED_KEYPAIR`. It never signs a review, flag or vote.
+- **API tools:** with `UNDERSIGNED_API_URL` set, it adds the API as tools (`mcp/api.js`): `api_search_apps`, `api_app`, `api_reviews`,
+`api_bursts`, `api_versions`, `api_store_ratings`, `api_app_payments`, `api_wallet`, `api_leaderboard`, `api_store_watch`,
+`api_changes`, `api_payments_board`, `api_records`, `api_record`, `api_stats`, `api_pricing`, `api_checkout`,
+`api_redeem_pass`, `api_pass`, `api_hook_create`, `api_hooks`, `api_hook_delete` and `api_badge`.
+- **Pass:** `UNDERSIGNED_API_KEY` holds a pass key. A 402 comes back as plain instructions to buy one. Paying stays the wallet owner's own act.
 
 ## 4. Running
 

@@ -27,6 +27,10 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             // The app's own font (OFL, licence beside it) and photographs, served from here: no third-party requests.
             path.startsWith("/assets/") -> asset(path.removePrefix("/assets/")) ?: notFound()
             path == "/icon.svg" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=86400"), ICON.toByteArray(), "image/svg+xml; charset=utf-8")
+            // Discovery for agents and directories (9 Oct 2026): a plain-text map of the API and MCP, and an MCP server card at
+            // both paths SEP-2127 has used while it settles.
+            path == "/llms.txt" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"), llmsTxt().toByteArray(), "text/plain; charset=utf-8")
+            path == "/.well-known/mcp/server-card.json" || path == "/.well-known/mcp/server-cards.json" -> Api.Response(200, serverCard(), mapOf("Cache-Control" to "public, max-age=3600"))
             path == "/report" -> page("Report content — Undersigned", report())
             path == "/moderation" -> page("Moderation — Undersigned", moderation())
             // This site is the website Undersigned's store listing names: its own publisher proof lives here.
@@ -408,6 +412,41 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
     }
 
     /** What this site can and cannot do about content, and who to write to. */
+    private fun serverCard(): JSONObject = JSONObject().put("name", "dev.provenby.undersigned/mcp").put("title", "Undersigned")
+        .put("description", "Reviews of Solana dApp Store apps, signed on-chain by Seeker owners, beside the store's own rating. Read-only.")
+        .put("version", "1.0.0").put("websiteUrl", "${Config.PUBLIC_URL}/api")
+        .put("remotes", JSONArray().put(JSONObject().put("type", "streamable-http").put("url", "${Config.PUBLIC_URL}/mcp")))
+        .put("authentication", JSONObject().put("required", false).put("schemes", JSONArray().put("bearer")).put("note", "Optional API pass for the pass-only tools; see ${Config.PUBLIC_URL}/v1/pricing"))
+        .put("capabilities", JSONObject().put("tools", true).put("resources", true).put("prompts", true))
+        .put("readOnly", true)
+
+    private fun llmsTxt(): String = """# Undersigned
+
+> Reviews of Solana dApp Store apps, each signed on-chain by a Seeker owner's own wallet, beside the store's own rating. One voice per attested device (Seeker Genesis Token); no payment and no token balance changes a score. Stake is shown per review, never weighed.
+
+## Use it
+- REST API, no key to start: ${Config.PUBLIC_URL}/v1/ (OpenAPI: ${Config.PUBLIC_URL}/v1/openapi.json)
+- MCP server (Streamable HTTP, read-only): ${Config.PUBLIC_URL}/mcp
+- Developer page: ${Config.PUBLIC_URL}/api
+- Pricing and limits: ${Config.PUBLIC_URL}/v1/pricing
+
+## Key endpoints
+- GET /v1/apps?q=&category=&sort=: search the catalogue with signed scores
+- GET /v1/apps/{package}: signed score and count, Pro members' and promoted scores apart, the store's rating, publisher proof
+- GET /v1/apps/{package}/reviews?sort=newest|helpful|skr|sol: every signal per review
+- GET /v1/apps/{package}/bursts: rating bursts (facts, not verdicts)
+- GET /v1/dataset.json: the whole ledger, free
+- GET /v1/records?type=&package=&signer=: decoded records
+
+## MCP tools
+search_apps, get_app, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing; with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
+
+## Rules for describing the data
+- Quote a score with its counted-review count.
+- Bursts and similarity are facts about timing and wording; do not call an app or a review fake.
+- Integrity policy: https://aardappvark.github.io/undersigned-legal/integrity.html
+"""
+
     private fun report(): String = """<h1>Report content</h1>
 <p>Every review, reply and note shown here was signed by its author's wallet and recorded on Solana. Nobody can change or delete a record on-chain: not its author, not this site.</p>
 <p>What this site can do is stop showing a record's <b>text</b>. When it does, the record still appears with its rating, tags and date, marked "Text not shown on this site". The hide list is the operator's, applies to this site and its API only, and does not touch the Undersigned app. Separately, a moderator can hide a record's text everywhere, the app included, by signing a public record (<a href='/moderation'>how moderation works</a>).</p>

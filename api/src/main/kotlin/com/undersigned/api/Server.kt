@@ -30,7 +30,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
     }
 
     private val routes = ArrayList<Route>()
-    private val mcp = Mcp(views)
+    private val mcp = Mcp(views) { pricing() }
     private fun route(method: String, path: String, tier: Tier, summary: String, handler: (Req) -> Response) {
         val names = Regex("\\{(\\w+)}").findAll(path).map { it.groupValues[1] }.toList()
         val rx = Regex("^" + path.replace(Regex("\\{\\w+}"), "([^/]+)") + "$")
@@ -272,6 +272,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         val p = JSONObject()
         for (rt in routes) {
             val path = paths[rt]!!
+            if (path == "/v1/tx/seed") continue   // loopback-only fleet seeding; answers 404 publicly
             val qp = QUERY[path]?.map { JSONObject().put("name", it).put("in", "query").put("required", false).put("schema", JSONObject().put("type", "string")) } ?: emptyList()
             val op = JSONObject().put("summary", rt.summary).put("x-tier", rt.tier.name.lowercase())
                 .put("parameters", JSONArray((pathNames[rt] ?: emptyList()).map { JSONObject().put("name", it).put("in", "path").put("required", true).put("schema", JSONObject().put("type", "string")) } + qp))

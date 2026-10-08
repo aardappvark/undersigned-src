@@ -93,16 +93,39 @@ The API is also a [Model Context Protocol](https://modelcontextprotocol.io) serv
 
 - **Claude (web or desktop)**: Settings → Connectors → add a custom connector with `https://undersigned.provenby.dev/mcp`.
 
-Tools, all read-only:
+Everything the server offers is read-only:
 
 | Free | With a pass |
 |---|---|
-| `search_apps`, `get_app`, `get_reviews` (`sort` by newest, helpful, staked SKR or SOL), `get_bursts`, `get_wallet`, `leaderboard`, `ledger_stats`, `review_tags` | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing` | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+
+Besides tools:
+
+- **Resources:** `undersigned://policy` (the integrity rules, for the model to read before describing a score), `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.
+- **Prompts:** `audit_app_reputation(package)` and `compare_apps(package_a, package_b)`. Both tell the model to quote counts and to treat bursts as facts, not verdicts.
+- **Discovery:** [`/llms.txt`](https://undersigned.provenby.dev/llms.txt) and [`/.well-known/mcp/server-card.json`](https://undersigned.provenby.dev/.well-known/mcp/server-card.json).
 
 How the server works:
+
 - **Read-only by design.** No tool drafts, signs or submits a review, flag or vote. A review is a person's own signed opinion from their phone.
-- **Transport.** It is stateless Streamable HTTP: JSON-RPC over `POST /mcp`, protocol versions `2025-06-18`, `2025-03-26` and `2024-11-05`.
-- **Metering.** It is metered like the REST API.
+- **Transport.** Stateless Streamable HTTP: one JSON-RPC message per `POST /mcp`. Batches are refused, so every call is metered. Protocol versions `2025-06-18`, `2025-03-26` and `2024-11-05` are supported.
+
+### Publishers: the local MCP server
+
+The repository also ships a local stdio server for publishers (`mcp/`, Node 18+). Run it on your own machine:
+
+```bash
+cd mcp && npm install
+UNDERSIGNED_API_URL=https://undersigned.provenby.dev node server.js
+```
+
+It gives your agent a publisher desk:
+
+- **Inbox and watch.** New reviews of your apps and replies to them, with live watch and macOS notifications.
+- **Profiles.** The store's reviews beside the signed ones.
+- **Reply and action hand-offs.** These return an `undersigned://` link that opens on your Seeker for you to sign. Nothing is signed for you.
+- **`sign_reply`.** Signs your own reply locally, and only if you set `UNDERSIGNED_KEYPAIR`.
+- **The API as tools.** All of it, including pass checkout and webhooks.
 
 Raw check:
 
