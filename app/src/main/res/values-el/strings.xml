@@ -52,7 +52,7 @@
     <string name="detail_update_review">Ενημέρωση της κριτικής μου</string>
     <string name="detail_revoke_review">Απόσυρση της κριτικής μου</string>
     <string name="detail_score_title">Υπογεγραμμένη βαθμολογία</string>
-    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), σταθμισμένος με το κλειδωμένο SKR (έως 3×) και με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση). Τίποτα πληρωμένο δεν μπαίνει· οι κριτικές μελών Pro και οι προβεβλημένες έχουν και δικές τους βαθμολογίες. Απόψεις ιδιοκτητών, όχι η βαθμολογία του καταστήματος.</string>
+    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), σταθμισμένος με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση) και με το κλειδωμένο SKR, ένα token που μπορεί να αγοράσει οποιοσδήποτε (έως 3×). Καμία πληρωμή στο Undersigned δεν μπαίνει· οι κριτικές μελών Pro έχουν και δική τους βαθμολογία. Τα πορτοφόλια του Undersigned δεν μετρούν ποτέ. Απόψεις ιδιοκτητών, όχι η βαθμολογία του καταστήματος.</string>
     <string name="detail_rank_score">Βαθμολογία κατάταξης %1$s — συρρικνώνεται προς το 3,0 έως ότου υπογράψουν περισσότεροι Seekers· χρησιμοποιείται μόνο για την ταξινόμηση της λίστας.</string>
     <string name="follow">Ακολούθηση</string>
     <string name="following">Ακολουθείτε</string>
@@ -397,9 +397,9 @@
     <string name="pro_tool_desk_title">Γραφείο εκδότη</string>
     <string name="pro_tool_desk_body">Η ουρά αναπάντητων και η ανταπόκριση σε κάθε dApp του οποίου είστε ο αποδεδειγμένος εκδότης, σε μία λίστα.</string>
     <string name="pro_tool_export_title">Εξαγωγή του ledger</string>
-    <string name="pro_tool_export_body">Οποιοδήποτε dApp, οποιοσδήποτε υπογράφων, ως CSV ή JSON. Τα δεδομένα είναι δημόσια· το Pro κάνει την ανάγνωση για εσάς.</string>
-    <string name="pro_tool_watch_title">Ωριαία παρακολούθηση πιστοποιητικού</string>
-    <string name="pro_tool_watch_body">Αλλαγές πιστοποιητικού και δικαιωμάτων ελέγχονται κάθε ώρα αντί κάθε έξι, πάντα στη συσκευή.</string>
+    <string name="pro_tool_export_body">Όλο το καθολικό όπως το κρατά αυτό το τηλέφωνο, σε CSV ή JSON. Τα δεδομένα είναι δημόσια· το Pro τα διαβάζει για εσάς.</string>
+    <string name="pro_tool_watch_title">Ειδοποιήσεις κάθε ώρα</string>
+    <string name="pro_tool_watch_body">Οι ειδοποιήσεις για τις εφαρμογές που ακολουθείτε ελέγχονται κάθε ώρα αντί για κάθε έξι, στη συσκευή.</string>
     <string name="pro_not_title">Τι δεν κάνει το Pro</string>
     <string name="pro_not_body">Δεν αλλάζει ποτέ την υπογεγραμμένη βαθμολογία, δεν κάνει ποτέ μια κριτική να μετρά περισσότερο και δεν βαραίνει ποτέ την κριτική άλλου: αναφορές, ψήφοι «χρήσιμο» και απόκρυψη χρησιμοποιούν μόνο τη συσκευή και το κλειδωμένο SKR. Δεν υπάρχει token, τίποτα για συλλογή ή κράτηση.</string>
     <string name="pro_free_keeps">Η ανάγνωση του καθολικού, η υπογραφή κριτικών, οι αναφορές, οι αμφισβητήσεις και τα στοιχεία συσκευής μένουν δωρεάν, για πάντα. Το Pro προσθέτει εργαλεία, σήμα Μέλος Pro και δική του σημειωμένη γραμμή βαθμολογίας.</string>
@@ -956,16 +956,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Μέλος Pro</string>
-    <string name="weight_boosted_pill">Προβεβλημένη · πληρωμένη</string>
     <string name="weight_counts">Βάρος %1$s · ποιότητα %2$s</string>
-    <string name="boost_button">Προβολή αυτής της κριτικής</string>
-    <string name="boost_title">Προβολή αυτής της κριτικής;</string>
-    <string name="boost_body">Η προβολή βάζει την κριτική πρώτη στη σελίδα της εφαρμογής, σημειωμένη Προβεβλημένη · πληρωμένη, και τη μετρά στη χωριστή βαθμολογία Προβεβλημένες. Η υπογεγραμμένη βαθμολογία και το βάρος της κριτικής δεν αλλάζουν. Ισχύει μόνο για αυτή την εκδοχή της κριτικής, και η πληρωμή είναι δημόσια εγγραφή.</string>
-    <string name="boost_pay">Πληρωμή %1$s</string>
-    <string name="boost_done">Προβλήθηκε. Υπογραφή %1$s</string>
-    <string name="boost_needs_pro">Η προβολή κριτικής απαιτεί ενεργή συνδρομή Pro.</string>
     <string name="pro_tool_weight_title">Η δική σας γραμμή βαθμολογίας</string>
-    <string name="pro_tool_weight_body">Οι μετρημένες κριτικές σας φέρουν σήμα Μέλος Pro και εμφανίζονται και σε χωριστή βαθμολογία μελών Pro, δίπλα στην υπογεγραμμένη. Προβάλετε μία για να φαίνεται πρώτη, σημειωμένη ως πληρωμένη. Η υπογεγραμμένη βαθμολογία δεν περιέχει ποτέ πληρωμές.</string>
+    <string name="pro_tool_weight_body">Οι μετρημένες κριτικές σας φέρουν σήμα Μέλος Pro και εμφανίζονται και σε χωριστή βαθμολογία μελών Pro, δίπλα στην υπογεγραμμένη. Η υπογεγραμμένη βαθμολογία δεν περιέχει ποτέ πληρωμές στο Undersigned.</string>
     <string name="member_score_title">Μέλη Pro</string>
     <string name="member_score_note">Μόνο κριτικές γραμμένες με ενεργό Pro, με το συνηθισμένο τους βάρος.</string>
 
@@ -989,6 +982,19 @@
     <string name="timeline_clear">Καθαρισμός</string>
     <string name="timeline_hint">Αγγίξτε ή σύρετε στο γράφημα για να διαβάσετε ένα διάστημα.</string>
     <string name="timeline_note">Η γκρι διακεκομμένη γραμμή είναι ο μέσος όρος των %1$d κριτικών καταστήματος που διαβάστηκαν από %2$s· η βαθμολογία του καταστήματος μετρά όλες τις κριτικές του.</string>
-    <string name="promoted_score_title">Προβεβλημένη · πληρωμένη</string>
-    <string name="promoted_score_note">Μόνο κριτικές των οποίων ο συντάκτης πλήρωσε για προβολή. Εμφανίζονται πρώτες σε αυτή τη σελίδα.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Διαχειριστής του Undersigned</string>
+    <string name="related_gifted_pill">Pro από τον εκδότη της εφαρμογής</string>
+    <string name="operator_publishes_note">Ο διαχειριστής του Undersigned εκδίδει αυτή την εφαρμογή. Οι κριτικές από τα δικά του πορτοφόλια εμφανίζονται, σημειωμένες, και δεν μετρούν ποτέ.</string>
+    <string name="integrity_link">Πώς συλλέγονται, ελέγχονται και μετρούν οι κριτικές</string>
+    <string name="reviews_group_organic">Ανεξάρτητες κριτικές</string>
+    <string name="reviews_group_organic_note">Ιδιοκτήτες Seeker που μετρούν, χωρίς σχέση με το Undersigned ή τον εκδότη αυτής της εφαρμογής.</string>
+    <string name="reviews_group_pro">Μέλη Pro</string>
+    <string name="reviews_group_pro_note">Συντάκτες που πληρώνουν το Undersigned για Pro: μετρούν με το ίδιο βάρος όπως όλοι και εμφανίζονται και σε δική τους βαθμολογία.</string>
+    <string name="reviews_group_related">Συνδεδεμένες με το Undersigned ή τον εκδότη</string>
+    <string name="reviews_group_related_note">Πορτοφόλια του Undersigned ή συντάκτης με Pro που χάρισε ο εκδότης αυτής της εφαρμογής. Εμφανίζονται, σημειωμένες, δεν μετρούν σε καμία βαθμολογία.</string>
+    <string name="reviews_group_uncounted">Δεν μετρούν</string>
+    <string name="reviews_group_uncounted_note">Χωρίς Seeker Genesis Token στο πορτοφόλι ή ο εκδότης που αξιολογεί τη δική του εφαρμογή.</string>
+    <string name="not_counted_warning">Αυτό το πορτοφόλι δεν έχει Seeker Genesis Token: ό,τι υπογράψετε καταγράφεται στο blockchain αλλά δεν μετρά.</string>
 </resources>

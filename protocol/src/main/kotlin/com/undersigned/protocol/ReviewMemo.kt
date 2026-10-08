@@ -74,8 +74,6 @@ sealed class ReviewMemo {
     data class Dispute(val recordId: String, val text: String) : ReviewMemo()
     /** A licence term in months. Ignored by every ranking and reputation rule; the app reads it beside the payment it rode in on. */
     data class Pro(val months: Int) : ReviewMemo()
-    /** `bst|<review id>`: a paid boost on the signer's own review, in the same transaction as its payment (see Weighting). */
-    data class Boost(val recordId: String) : ReviewMemo()
     /** A shared seat on the signer's Pro term, named by the pair hash; only the paying wallet's signature makes it real. */
     data class Share(val tag: String) : ReviewMemo()
     data class Unshare(val tag: String) : ReviewMemo()
@@ -168,7 +166,6 @@ sealed class ReviewMemo {
             is Time -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|tim|${m.packageName}|${m.time.wire}" }
             is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
             is Moderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|mod|${m.recordId}|${m.reason.wire}" }
-            is Boost -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|bst|${m.recordId}" }
             is Unmoderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|umd|${m.recordId}" }
             is TreasuryFor -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; require(Payments.isReference(m.treasury)) { "treasury address" }; "${Registry.PROTOCOL}|trd|${m.packageName}|${m.code}|${m.treasury}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
@@ -225,7 +222,6 @@ sealed class ReviewMemo {
                 "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
                 "mod" -> if (f.size == 4 && SIGNATURE.matches(f[2])) ModReason.fromWire(f[3])?.let { Moderate(f[2], it) } else null
                 "umd" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unmoderate(f[2]) else null
-                "bst" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Boost(f[2]) else null
                 "trd" -> if (f.size == 5 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3]) && Payments.isReference(f[4])) TreasuryFor(f[2], f[3], f[4]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null
                 "rep" -> {

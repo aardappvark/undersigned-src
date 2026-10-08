@@ -106,6 +106,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         val sb = StringBuilder()
         val sg = a.optJSONObject("signed"); val store = a.optJSONObject("store"); val sr = a.optJSONObject("store_rating")
         sb.append("<h1>${esc(a.optString("name", pkg))}</h1><p class=meta>${esc(a.optString("category", ""))} · ${esc(pkg)}</p>")
+        if (a.optBoolean("operator_publishes")) sb.append("<div class='card warn'><div class=meta>Undersigned's operator publishes this app. Reviews from its own wallets are shown, labelled, and never counted.</div></div>")
         sb.append("<div class=ctas><a class=btn href='/review?package=${enc(pkg)}'>Write a signed review</a><a class='btn sec' href='/app/${enc(pkg)}/feed.xml' title='New signed reviews of this app, in any feed reader'>Follow new reviews (RSS)</a></div>")
         // The two scores side by side, each labelled with where it comes from.
         sb.append("<div class='card grid2'><div><div class=label>Signed by Seeker owners</div>")
@@ -115,6 +116,10 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         if (sr != null && sr.optInt("count") > 0) sb.append("<div class=big>${sr.opt("average")}</div><div class=meta>${sr.optInt("count")} ratings, read ${esc(sr.optString("as_of"))}</div>${bars(sr.optJSONArray("stars"))}")
         else sb.append("<div class=big>–</div><div class=meta>Not read yet.</div>")
         sb.append("</div></div>")
+        // Pro members' reviews as their own labelled score, never blended into the signed one (compliance review, 9 Oct 2026).
+        a.optJSONObject("pro_members")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
+            sb.append("<div class=card><div class=label>Pro members</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} by reviewers who pay Undersigned for Pro, at the same weight as everyone. Shown apart; the signed score never includes payment to Undersigned.</span></div></div>")
+        }
         sg?.optJSONObject("tags")?.takeIf { it.length() > 0 }?.let { t -> sb.append("<div class=row>"); t.keys().asSequence().sortedByDescending { t.optInt(it) }.forEach { sb.append("<span class=tag>${esc(I18n.tag(lang, it))} · ${t.optInt(it)}</span>") }; sb.append("</div>") }
 
         // Bursts: timing facts with a daily sparkline, the burst window shaded AND labelled (never colour alone).
@@ -138,14 +143,23 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         sb.append("<h2>Signed reviews</h2>")
         val list = rv.getJSONArray("reviews")
         if (list.length() == 0) sb.append("<p class=meta>None yet. <a href='/review?package=${enc(pkg)}'>Write one</a> from a Seeker.</p>")
-        // Counted reviews first. Reviews from wallets without an attested device are folded away: anyone can sign text for
-        // one network fee, and an uncounted wallet's words should not sit on an app's public page by default.
-        val countedHtml = StringBuilder(); val uncountedHtml = StringBuilder(); var nUncounted = 0
+        // Under headings, as in the app (owner, 9 Oct 2026): organic, Pro members, related to Undersigned or the publisher (shown,
+        // labelled, counted nowhere), and not counted. The last is folded away: anyone can sign text for one network fee.
+        val groups = List(4) { StringBuilder() }; val counts = IntArray(4)
         for (i in 0 until list.length()) {
             val r = list.getJSONObject(i); val who = r.getJSONObject("reviewer")
-            @Suppress("NAME_SHADOWING") val sb = if (who.optBoolean("attested_device")) countedHtml else uncountedHtml.also { nUncounted++ }
+            val related = if (r.isNull("related")) null else r.optString("related")
+            val g = when { related != null -> 2; !r.optBoolean("counted") -> 3; who.optJSONObject("weight_parts")?.optBoolean("pro_member") == true -> 1; else -> 0 }
+            counts[g]++
+            @Suppress("NAME_SHADOWING") val sb = groups[g]
             sb.append("<div class=rev><div class=row><span class=stars aria-label='${r.optInt("rating")} of 5'>${"★".repeat(r.optInt("rating"))}${"☆".repeat(5 - r.optInt("rating"))}</span>")
-            if (who.optBoolean("attested_device")) sb.append("<span class='pill g'>Attested device · weight ${who.opt("weight")}</span>") else sb.append("<span class=pill>Not counted: no attested device</span>")
+            when {
+                related == "operator" -> sb.append("<span class=pill>Undersigned operator · not counted</span>")
+                related == "pro_from_publisher" -> sb.append("<span class=pill>Pro from this app's publisher · not counted</span>")
+                who.optBoolean("attested_device") -> sb.append("<span class='pill g'>Attested device · weight ${who.opt("weight")}</span>")
+                else -> sb.append("<span class=pill>Not counted: no attested device</span>")
+            }
+            if (g == 1) sb.append("<span class='pill g'>Pro member</span>")
             if (r.optBoolean("paid_for_app")) sb.append("<span class='pill g'>Paid for this app</span>")
             if (r.optBoolean("self_published")) sb.append("<span class=pill>The publisher's own review, not counted</span>")
             sb.append("</div>")
@@ -166,8 +180,14 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             sb.append("<div class=small><a href='/act?kind=up&amp;target=${r.getString("id")}'>Helpful</a> · <a href='/act?kind=reply&amp;target=${r.getString("id")}'>Reply</a> · <a href='/act?kind=flag&amp;target=${r.getString("id")}'>Flag</a></div>")
             sb.append("</div>")
         }
-        sb.append(countedHtml)
-        if (nUncounted > 0) sb.append("<details class=card><summary>${plural(nUncounted, "review", "reviews")} from wallets without an attested device (recorded, not counted)</summary>$uncountedHtml</details>")
+        val heads = listOf(
+            "Organic reviews" to "Counted Seeker owners with no tie to Undersigned or to this app's publisher.",
+            "Pro members" to "Reviewers who pay Undersigned for Pro: counted at the same weight as everyone, and also shown as their own score.",
+            "Related to Undersigned or the publisher" to "Undersigned's own wallets, or a reviewer holding Pro gifted by this app's publisher. Shown, labelled, counted in no score.",
+        )
+        for (g in 0..2) if (counts[g] > 0) sb.append("<h3>${heads[g].first} · ${counts[g]}</h3><p class=small>${heads[g].second}</p>").append(groups[g])
+        if (counts[3] > 0) sb.append("<details class=card><summary>Not counted · ${plural(counts[3], "review", "reviews")}: no attested device, or the publisher's own</summary>${groups[3]}</details>")
+        sb.append("<p class=small><a href='https://aardappvark.github.io/undersigned-legal/integrity.html'>How reviews are collected, checked and counted</a></p>")
         if (rv.optInt("total") > list.length()) sb.append("<p class=meta>Showing ${list.length()} of ${rv.optInt("total")}.</p>")
 
         // Publisher
@@ -377,7 +397,9 @@ ready();
             "<p class=meta>Not reasons: a low rating, a harsh or negative opinion, criticism of an app or its publisher, or a review someone disagrees with. Spam and off-topic records are for community flags, which any Seeker owner can sign.</p></div>" +
             "<div class=card><div class=label>How it works</div><p>The moderator signs a public record naming the record and the reason. Every reader, the app and this site, then shows \"Text hidden by a moderator\" and the reason in place of the text. The same moderator can undo it with a second record; the later one counts. A moderator's record on a review of an app that moderator is the proven publisher of is ignored.</p></div>" +
             "<div class=card><div class=label>If your text was hidden</div><p>Sign a dispute from the app (it is shown beside your record), or write to $contact with the record id. A moderator looks again within 7 days and says what was decided.</p></div>" +
-            "<h2>Every moderation record</h2>$list"
+            "<h2>Every moderation record</h2>$list" +
+            "<h2>Hidden on this site only</h2><p class=meta>Text this site does not serve, for the same four reasons. The record stays on Solana and in the open dataset; the app is not affected.</p>" +
+            st.operatorHidden.entries.sortedBy { it.key }.let { h -> if (h.isEmpty()) "<p class=meta>Nothing is hidden.</p>" else h.joinToString("") { (id, why) -> "<div class=rev><code>${esc(id.take(16))}…</code> · ${esc(modReason(why))}</div>" } }
     }
 
     private fun sitemap(): String {

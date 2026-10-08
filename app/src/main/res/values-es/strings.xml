@@ -52,7 +52,7 @@
     <string name="detail_update_review">Actualizar mi reseña</string>
     <string name="detail_revoke_review">Retirar mi reseña</string>
     <string name="detail_score_title">Puntuación firmada</string>
-    <string name="detail_score_sub">Media de reseñas de dispositivos certificados (hoy: titulares del Seeker Genesis Token), ponderada por el SKR en staking (hasta 3×) y por lo que aporta cada reseña (tiempo instalada, uso, una nota escrita). Nada pagado entra en ella; las reseñas de miembros Pro y las destacadas también se muestran como puntuaciones propias. Opiniones de propietarios, no la valoración de la tienda.</string>
+    <string name="detail_score_sub">Media de reseñas de dispositivos certificados (hoy: titulares del Seeker Genesis Token), ponderada por lo que aporta cada reseña (tiempo instalada, uso, una nota escrita) y por el SKR en staking, un token que cualquiera puede comprar (hasta 3×). Ningún pago a Undersigned entra en ella; las reseñas de miembros Pro también tienen su propia puntuación. Las billeteras de Undersigned nunca cuentan. Opiniones de propietarios, no la valoración de la tienda.</string>
     <string name="detail_rank_score">Puntuación de clasificación %1$s — se reduce hacia 3,0 hasta que firmen más Seekers; se usa solo para ordenar la lista.</string>
     <string name="follow">Seguir</string>
     <string name="following">Siguiendo</string>
@@ -399,9 +399,9 @@
     <string name="pro_tool_desk_title">Panel del editor</string>
     <string name="pro_tool_desk_body">La cola sin responder y la capacidad de respuesta de cada dApp de la que eres el editor demostrado, en una sola lista.</string>
     <string name="pro_tool_export_title">Exporta el ledger</string>
-    <string name="pro_tool_export_body">Cualquier dApp, cualquier firmante, como CSV o JSON. Los datos son públicos; Pro hace la lectura por ti.</string>
-    <string name="pro_tool_watch_title">Vigilancia horaria del certificado</string>
-    <string name="pro_tool_watch_body">Cambios de certificado y permisos comprobados cada hora en lugar de cada seis, siempre en el dispositivo.</string>
+    <string name="pro_tool_export_body">Todo el registro tal como lo tiene este teléfono, en CSV o JSON. Los datos son públicos; Pro los lee por ti.</string>
+    <string name="pro_tool_watch_title">Alertas cada hora</string>
+    <string name="pro_tool_watch_body">Las alertas de las apps que sigues se comprueban cada hora en vez de cada seis, en el dispositivo.</string>
     <string name="pro_not_title">Lo que Pro no hace</string>
     <string name="pro_not_body">Nunca cambia la puntuación firmada, nunca hace que una reseña cuente más y nunca pesa sobre la reseña de otra persona: denuncias, votos de útil y ocultación usan solo el dispositivo y el SKR en staking. No hay token, nada que coleccionar ni que conservar.</string>
     <string name="pro_free_keeps">Leer el registro, firmar reseñas, denunciar, disputar y los datos del dispositivo siguen siendo gratis, siempre. Pro añade herramientas, una marca Miembro Pro y su propia línea de puntuación, señalada.</string>
@@ -985,16 +985,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Miembro Pro</string>
-    <string name="weight_boosted_pill">Destacada · pagada</string>
     <string name="weight_counts">Peso %1$s · calidad %2$s</string>
-    <string name="boost_button">Destacar esta reseña</string>
-    <string name="boost_title">¿Destacar esta reseña?</string>
-    <string name="boost_body">Destacar pone esta reseña primero en la página de la app, marcada Destacada · pagada, y la cuenta en la puntuación aparte Destacadas. No cambia la puntuación firmada ni cuánto cuenta la reseña. Vale solo para esta versión de la reseña, y el pago es un registro público.</string>
-    <string name="boost_pay">Pagar %1$s</string>
-    <string name="boost_done">Destacada. Firma %1$s</string>
-    <string name="boost_needs_pro">Destacar una reseña requiere una membresía Pro activa.</string>
     <string name="pro_tool_weight_title">Tu propia línea de puntuación</string>
-    <string name="pro_tool_weight_body">Tus reseñas contadas llevan una marca Miembro Pro y aparecen también en una puntuación aparte de miembros Pro, junto a la firmada. Destaca una para mostrarla primero, marcada como pagada. La puntuación firmada nunca incluye pagos.</string>
+    <string name="pro_tool_weight_body">Tus reseñas contadas llevan una marca Miembro Pro y aparecen también en una puntuación aparte de miembros Pro, junto a la firmada. La puntuación firmada nunca incluye pagos a Undersigned.</string>
     <string name="member_score_title">Miembros Pro</string>
     <string name="member_score_note">Solo reseñas escritas con Pro activo, con su peso habitual.</string>
 
@@ -1018,6 +1011,19 @@
     <string name="timeline_clear">Borrar</string>
     <string name="timeline_hint">Toca o desliza por el gráfico para leer un periodo.</string>
     <string name="timeline_note">La línea gris discontinua promedia las %1$d reseñas de la tienda leídas desde el %2$s; la valoración de la tienda cuenta todas sus reseñas.</string>
-    <string name="promoted_score_title">Destacada · pagada</string>
-    <string name="promoted_score_note">Solo reseñas cuyo autor pagó por destacarlas. Se muestran primero en esta página.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Operador de Undersigned</string>
+    <string name="related_gifted_pill">Pro regalado por el editor de la app</string>
+    <string name="operator_publishes_note">El operador de Undersigned publica esta app. Las reseñas de sus propias billeteras se muestran, señaladas, y nunca cuentan.</string>
+    <string name="integrity_link">Cómo se recogen, comprueban y cuentan las reseñas</string>
+    <string name="reviews_group_organic">Reseñas independientes</string>
+    <string name="reviews_group_organic_note">Propietarios de Seeker contados, sin relación con Undersigned ni con el editor de esta app.</string>
+    <string name="reviews_group_pro">Miembros Pro</string>
+    <string name="reviews_group_pro_note">Autores que pagan a Undersigned por Pro: cuentan con el mismo peso que todos y también se muestran en su propia puntuación.</string>
+    <string name="reviews_group_related">Relacionadas con Undersigned o el editor</string>
+    <string name="reviews_group_related_note">Billeteras de Undersigned, o un autor con Pro regalado por el editor de esta app. Se muestran, señaladas, y no cuentan en ninguna puntuación.</string>
+    <string name="reviews_group_uncounted">No cuentan</string>
+    <string name="reviews_group_uncounted_note">La billetera no tiene Seeker Genesis Token, o es el editor reseñando su propia app.</string>
+    <string name="not_counted_warning">Esta billetera no tiene Seeker Genesis Token: lo que firmes queda en la cadena pero no cuenta.</string>
 </resources>

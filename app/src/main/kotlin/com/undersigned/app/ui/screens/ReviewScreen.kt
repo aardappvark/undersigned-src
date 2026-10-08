@@ -180,12 +180,11 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             done?.let {
                 Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_done, shortKey(it, 8, 8)), color = RbColors.green, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(8.dp))
-                val pro by vm.pro.collectAsState()
+                // Free for everyone (feature review, 9 Oct 2026): sending the review into the store's own box strengthens the store.
                 var storeHandoff by remember { mutableStateOf(false) }
-                if (pro?.active != true) ProLock(hint = stringResource(R.string.review_also_store), onPro = onPro)
-                else SecondaryButton(stringResource(R.string.review_also_store), onClick = { storeHandoff = true })
+                SecondaryButton(stringResource(R.string.review_also_store), onClick = { storeHandoff = true })
                 if (storeHandoff) com.undersigned.app.ui.components.StoreHandoffDialog(pkg, text) { storeHandoff = false }
-                if (pro?.active == true) Text(stringResource(R.string.review_also_store_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                Text(stringResource(R.string.review_also_store_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 Spacer(Modifier.height(8.dp)); SecondaryButton(stringResource(android.R.string.ok), onClick = onPublished)
             }
             Spacer(Modifier.height(32.dp))

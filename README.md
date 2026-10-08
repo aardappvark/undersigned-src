@@ -125,10 +125,11 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 2. **Registry PDA** — DONE 8 Sep: `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs` (seeds `review-ledger`,`v1`, bump 255); app re-derives at startup.
 3. **Free or Pro** — DONE 15 Sep: **reading, reviewing, replying, voting and flagging are free**, and so is the
    ranking every reader sees. Pro is an optional 12-month licence (0.0607 SOL or 651 SKR — 276 SKR until 28 Sep 2026, still honoured — fleet payment cluster,
-   memo `UNS`, treasury-credit ≥ floor = the licence) for the work *around* signing: copy reviews to the store,
-   import all store reviews in one approval, the publisher desk, CSV/JSON export, and an hourly instead of six-hourly
-   certificate watch. It is shareable with two other wallets. **Pro never weights an opinion, lifts a listing or marks
-   anyone trusted** — weight comes only from the attested device and staked SKR. It changes none of the legal
+   memo `UNS`, treasury-credit ≥ floor = the licence) for the work *around* signing: import all store reviews in one approval, the publisher desk, CSV/JSON export, and
+   hourly instead of six-hourly alerts for followed apps (copying a review to the store is free). It is shareable with two other wallets. **Pro never weights an opinion, lifts a listing or marks
+   anyone trusted** — weight comes only from the attested device and staked SKR. Pro members' reviews also get their
+   own labelled score; reviews are listed under Organic / Pro members / Related to Undersigned / Not counted, and the
+   operator's own wallets and publisher-gifted Pro seats count in no score ([integrity policy](https://aardappvark.github.io/undersigned-legal/integrity.html)). It changes none of the legal
    analysis (a software licence fee, as in every other fleet app). First licence paid on mainnet 15 Sep (276 SKR).
 4. **Package visibility** — `QUERY_ALL_PACKAGES` with a disclosure (the Toolkit precedent) or a generated
    `<queries>` list from the catalogue. The former is simpler and already store-approved in the fleet.

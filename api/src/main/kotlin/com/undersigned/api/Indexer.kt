@@ -36,11 +36,7 @@ object AppFloors {
     val proFloorSkrRaw get() = (LEGACY_PRO_SKR + PRO_SKR).minOf { Config.skrRaw(it) }
     val listFloorLamports get() = (LEGACY_LIST_SOL + LIST_SOL).minOf { Config.lamports(it) }
     val listFloorSkrRaw get() = (LEGACY_LIST_SKR + LIST_SKR + LIST_SKR_SGT).minOf { Config.skrRaw(it) }
-    /** A boost on one's own review (the app's BOOST_* pair, parity-tested). */
-    const val BOOST_SOL = 0.00607
-    const val BOOST_SKR = 65.0
-    val boostFloorLamports get() = Config.lamports(BOOST_SOL)
-    val boostFloorSkrRaw get() = Config.skrRaw(BOOST_SKR)
+
     const val TERM_MONTHS = 12
 }
 
@@ -63,18 +59,19 @@ class State(
 ) {
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
-    private val f = { w: String -> facts[w] ?: SignerFacts(false, 0.0) }
+    /** Raw facts, for display; [f] is what every score, flag, vote and hide reads (the operator's wallets count nowhere). */
+    private val raw = { w: String -> facts[w] ?: SignerFacts(false, 0.0) }
+    private val f = com.undersigned.protocol.Operator.gate(raw)
     /**
      * The app's reading of "paid" for the shared weighting: a `pro` row here is already a payment (see [Indexer.syncLedger]);
      * a `bst` row counts when its transaction credited the treasury with at least the boost price.
      */
     val paidRecord: (LedgerEntry) -> Boolean = { e -> when (e.memo) {
         is ReviewMemo.Pro -> true
-        is ReviewMemo.Boost -> meta[e.signature.substringBefore(':')]?.let { it.lamports >= AppFloors.boostFloorLamports || it.skr >= AppFloors.boostFloorSkrRaw } == true
         else -> false } }
     val weighting = com.undersigned.protocol.Weighting.Context(entries, Reputation.hiddenByConsensus(entries, verified, f), f, paidRecord, verified)
     val scores = Ranking.score(entries, verified, facts = f).associateBy { it.packageName }
-    /** Beside [scores], never blended into it: Pro members' reviews and promoted (paid) reviews as their own scores. */
+    /** Beside [scores], never blended into it: Pro members' reviews as their own score. */
     val segments = Ranking.segments(entries, verified, paidRecord, f)
     val standings = Reputation.standing(entries, verified, f)
     val hidden = Reputation.hiddenByConsensus(entries, verified, f)
@@ -87,7 +84,8 @@ class State(
     val usage = Usage.index(entries)
     val useTimes = Usage.time(entries)
     val notes = StoreNotes.current(entries, verified)
-    fun factsOf(w: String) = f(w)
+    fun factsOf(w: String) = raw(w)
+    fun countsFor(w: String) = f(w)
     /** Paid listings only (see Payments.claims); the Undersigned treasury lists without paying. */
     val claims: List<Payments.Claim> = Payments.claims(entries, paid = { e ->
         e.signer == Config.TREASURY || meta[e.signature.substringBefore(':')]?.let { it.lamports >= AppFloors.listFloorLamports || it.skr >= AppFloors.listFloorSkrRaw } == true

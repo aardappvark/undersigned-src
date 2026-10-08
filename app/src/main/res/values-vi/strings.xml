@@ -52,7 +52,7 @@
     <string name="detail_update_review">Cập nhật đánh giá của tôi</string>
     <string name="detail_revoke_review">Rút đánh giá của tôi</string>
     <string name="detail_score_title">Điểm đã ký</string>
-    <string name="detail_score_sub">Trung bình đánh giá từ thiết bị được chứng thực (hiện nay: người giữ Seeker Genesis Token), có trọng số theo SKR đã stake (tới 3×) và theo những gì mỗi đánh giá mang (thời gian cài, mức dùng, ghi chú viết). Không gì trả phí được tính vào; đánh giá của thành viên Pro và đánh giá được quảng bá cũng có điểm riêng. Ý kiến của từng chủ máy, không phải xếp hạng của cửa hàng.</string>
+    <string name="detail_score_sub">Trung bình đánh giá từ thiết bị được chứng thực (hiện nay: người giữ Seeker Genesis Token), có trọng số theo những gì mỗi đánh giá mang (thời gian cài, mức dùng, ghi chú viết) và theo SKR đã stake, một token ai cũng mua được (tới 3×). Không khoản thanh toán nào cho Undersigned được tính vào; đánh giá của thành viên Pro cũng có điểm riêng. Ví của Undersigned không bao giờ được tính. Ý kiến của từng chủ máy, không phải xếp hạng của cửa hàng.</string>
     <string name="detail_rank_score">Điểm xếp hạng %1$s — được co về gần 3.0 cho đến khi có thêm Seeker ký; chỉ dùng để sắp xếp danh sách.</string>
     <string name="follow">Theo dõi</string>
     <string name="following">Đang theo dõi</string>
@@ -394,9 +394,9 @@
     <string name="pro_tool_desk_title">Bàn làm việc nhà phát hành</string>
     <string name="pro_tool_desk_body">Hàng đợi chưa trả lời và mức độ phản hồi trên mọi dApp mà bạn là nhà phát hành đã chứng minh, trong một danh sách.</string>
     <string name="pro_tool_export_title">Xuất sổ cái</string>
-    <string name="pro_tool_export_body">Bất kỳ dApp nào, bất kỳ người ký nào, dưới dạng CSV hoặc JSON. Dữ liệu là công khai; Pro đọc giúp bạn.</string>
-    <string name="pro_tool_watch_title">Theo dõi chứng chỉ hàng giờ</string>
-    <string name="pro_tool_watch_body">Kiểm tra thay đổi chứng chỉ và quyền mỗi giờ thay vì mỗi sáu giờ, vẫn trên thiết bị.</string>
+    <string name="pro_tool_export_body">Toàn bộ sổ cái như điện thoại này lưu, dạng CSV hoặc JSON. Dữ liệu là công khai; Pro đọc giúp bạn.</string>
+    <string name="pro_tool_watch_title">Cảnh báo mỗi giờ</string>
+    <string name="pro_tool_watch_body">Cảnh báo cho các ứng dụng bạn theo dõi được kiểm tra mỗi giờ thay vì mỗi sáu giờ, trên thiết bị.</string>
     <string name="pro_not_title">Điều Pro không làm</string>
     <string name="pro_not_body">Không bao giờ thay đổi điểm đã ký, không bao giờ làm đánh giá nặng hơn và không bao giờ đè lên đánh giá của người khác: báo cáo, phiếu hữu ích và ẩn chỉ dùng thiết bị và SKR đã stake. Không có token, không có gì để sưu tầm hay giữ.</string>
     <string name="pro_free_keeps">Đọc sổ cái, ký đánh giá, báo cáo, khiếu nại và dữ kiện thiết bị vẫn miễn phí, mãi mãi. Pro thêm công cụ, dấu Thành viên Pro và dòng điểm riêng có ghi rõ.</string>
@@ -941,16 +941,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Thành viên Pro</string>
-    <string name="weight_boosted_pill">Được quảng bá · trả phí</string>
     <string name="weight_counts">Trọng số %1$s · chất lượng %2$s</string>
-    <string name="boost_button">Quảng bá đánh giá này</string>
-    <string name="boost_title">Quảng bá đánh giá này?</string>
-    <string name="boost_body">Quảng bá đưa đánh giá này lên đầu trang của ứng dụng, gắn nhãn Được quảng bá · trả phí, và tính nó trong điểm Được quảng bá riêng. Điểm đã ký và trọng số của đánh giá không đổi. Chỉ áp dụng cho phiên bản đánh giá này, và khoản thanh toán là bản ghi công khai.</string>
-    <string name="boost_pay">Trả %1$s</string>
-    <string name="boost_done">Đã quảng bá. Chữ ký %1$s</string>
-    <string name="boost_needs_pro">Quảng bá đánh giá cần gói Pro đang hoạt động.</string>
     <string name="pro_tool_weight_title">Dòng điểm của riêng bạn</string>
-    <string name="pro_tool_weight_body">Đánh giá được tính của bạn mang dấu Thành viên Pro và cũng nằm trong điểm riêng của thành viên Pro, bên cạnh điểm đã ký. Quảng bá một đánh giá để hiện đầu tiên, gắn nhãn trả phí. Điểm đã ký không bao giờ có khoản thanh toán.</string>
+    <string name="pro_tool_weight_body">Đánh giá được tính của bạn mang dấu Thành viên Pro và cũng nằm trong điểm riêng của thành viên Pro, bên cạnh điểm đã ký. Điểm đã ký không bao giờ có khoản thanh toán cho Undersigned.</string>
     <string name="member_score_title">Thành viên Pro</string>
     <string name="member_score_note">Chỉ đánh giá viết khi đang có Pro, với trọng số thông thường.</string>
 
@@ -974,6 +967,19 @@
     <string name="timeline_clear">Xóa</string>
     <string name="timeline_hint">Chạm hoặc trượt trên biểu đồ để đọc một khoảng thời gian.</string>
     <string name="timeline_note">Đường xám đứt nét là trung bình của %1$d đánh giá cửa hàng đã đọc từ %2$s; xếp hạng của chính cửa hàng tính mọi đánh giá của nó.</string>
-    <string name="promoted_score_title">Được quảng bá · trả phí</string>
-    <string name="promoted_score_note">Chỉ đánh giá mà tác giả đã trả phí để quảng bá. Hiện đầu tiên trên trang này.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Nhà vận hành Undersigned</string>
+    <string name="related_gifted_pill">Pro từ nhà phát hành ứng dụng</string>
+    <string name="operator_publishes_note">Nhà vận hành Undersigned phát hành ứng dụng này. Đánh giá từ ví của chính họ được hiển thị, có ghi chú, và không bao giờ được tính.</string>
+    <string name="integrity_link">Cách đánh giá được thu thập, kiểm tra và tính</string>
+    <string name="reviews_group_organic">Đánh giá độc lập</string>
+    <string name="reviews_group_organic_note">Chủ Seeker được tính, không liên quan đến Undersigned hay nhà phát hành ứng dụng này.</string>
+    <string name="reviews_group_pro">Thành viên Pro</string>
+    <string name="reviews_group_pro_note">Người đánh giá trả phí Pro cho Undersigned: được tính cùng trọng số như mọi người và cũng hiện thành điểm riêng.</string>
+    <string name="reviews_group_related">Liên quan đến Undersigned hoặc nhà phát hành</string>
+    <string name="reviews_group_related_note">Ví của Undersigned, hoặc người đánh giá có Pro do nhà phát hành ứng dụng này tặng. Hiển thị, có ghi chú, không tính vào điểm nào.</string>
+    <string name="reviews_group_uncounted">Không được tính</string>
+    <string name="reviews_group_uncounted_note">Ví không có Seeker Genesis Token, hoặc nhà phát hành tự đánh giá ứng dụng của mình.</string>
+    <string name="not_counted_warning">Ví này không có Seeker Genesis Token: những gì bạn ký được ghi trên chuỗi nhưng không được tính.</string>
 </resources>

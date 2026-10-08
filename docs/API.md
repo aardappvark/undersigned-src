@@ -22,7 +22,7 @@ caller's own device is available (install age and usage time exist only as what 
 ### B. A dApp, from signed reviews
 | Data | Endpoint | Tier |
 |---|---|---|
-| Signed score: rank score (shrunk toward 3.0, for ordering), weighted mean (for display), counted reviews, star distribution, tag counts, latest version reviewed; beside it `pro_members` and `promoted` as their own scores with counts (never part of the signed score); each review carries `weight` and `weight_parts` (device, quality, pro_member, promoted) | `GET /v1/apps/{pkg}` | F |
+| Signed score: rank score (shrunk toward 3.0, for ordering), weighted mean (for display), counted reviews, star distribution, tag counts, latest version reviewed; beside it `pro_members` as its own score with a count (never part of the signed score) and `operator_publishes`; each review carries `weight`, `weight_parts` (device, quality, pro_member), `counted`, and `related` (`operator`, `pro_from_publisher` or null; related reviews count in no score) | `GET /v1/apps/{pkg}` | F |
 | Signed reviews, each with: rating, tags, text, version, signer, attested device, weight, staked-SKR weight, `.skr` name, install age on their phone (`use`), usage time (`tim`), reward season, "paid for this app", similar-text finding, flags, helpful weight, dispute, hidden-by-consensus, withdrawn, replies (publisher badge), self-published exclusion | `GET /v1/apps/{pkg}/reviews` | F (first 20) / P (all) |
 | Scores per version (mean and count per versionCode) | `GET /v1/apps/{pkg}/versions` | P |
 | Review bursts: 5★/1★ clusters vs the app's median pace, window, count vs expected, multiple (×), attested share, same-text count, season overlap, 30-day daily sparkline | `GET /v1/apps/{pkg}/bursts` | P |

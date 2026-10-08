@@ -52,7 +52,7 @@
     <string name="detail_update_review">Perbarui ulasan saya</string>
     <string name="detail_revoke_review">Tarik ulasan saya</string>
     <string name="detail_score_title">Skor yang ditandatangani</string>
-    <string name="detail_score_sub">Rata-rata ulasan dari perangkat teratestasi (kini: pemegang Seeker Genesis Token), dibobot oleh SKR yang di-stake (hingga 3×) dan oleh yang dibawa tiap ulasan (lama terpasang, penggunaan, catatan tertulis). Tidak ada yang dibayar masuk ke dalamnya; ulasan anggota Pro dan yang dipromosikan juga punya skor sendiri. Pendapat pemilik perorangan, bukan rating toko.</string>
+    <string name="detail_score_sub">Rata-rata ulasan dari perangkat teratestasi (kini: pemegang Seeker Genesis Token), dibobot oleh yang dibawa tiap ulasan (lama terpasang, penggunaan, catatan tertulis) dan oleh SKR yang di-stake, token yang bisa dibeli siapa saja (hingga 3×). Tidak ada pembayaran ke Undersigned yang masuk ke dalamnya; ulasan anggota Pro juga punya skor sendiri. Dompet Undersigned sendiri tidak pernah dihitung. Pendapat pemilik perorangan, bukan rating toko.</string>
     <string name="detail_rank_score">Skor peringkat %1$s — disusutkan menuju 3,0 hingga lebih banyak Seeker menandatangani; hanya digunakan untuk mengurutkan daftar.</string>
     <string name="follow">Ikuti</string>
     <string name="following">Mengikuti</string>
@@ -394,9 +394,9 @@
     <string name="pro_tool_desk_title">Meja penerbit</string>
     <string name="pro_tool_desk_body">Antrean yang belum dijawab dan responsivitas di setiap dApp yang Anda terbukti sebagai penerbitnya, dalam satu daftar.</string>
     <string name="pro_tool_export_title">Ekspor buku besar</string>
-    <string name="pro_tool_export_body">dApp apa pun, penandatangan mana pun, sebagai CSV atau JSON. Data ini publik; Pro membacakannya untuk Anda.</string>
-    <string name="pro_tool_watch_title">Pengawasan sertifikat setiap jam</string>
-    <string name="pro_tool_watch_body">Perubahan sertifikat dan izin diperiksa setiap jam, bukan setiap enam jam, tetap di perangkat.</string>
+    <string name="pro_tool_export_body">Seluruh buku besar seperti yang disimpan ponsel ini, sebagai CSV atau JSON. Datanya publik; Pro membacakannya untuk Anda.</string>
+    <string name="pro_tool_watch_title">Peringatan tiap jam</string>
+    <string name="pro_tool_watch_body">Peringatan untuk aplikasi yang Anda ikuti diperiksa tiap jam, bukan tiap enam jam, di perangkat.</string>
     <string name="pro_not_title">Yang tidak dilakukan Pro</string>
     <string name="pro_not_body">Tidak pernah mengubah skor bertanda tangan, tidak pernah membuat ulasan lebih berbobot, dan tidak pernah membebani ulasan orang lain: laporan, suara membantu, dan penyembunyian hanya memakai perangkat dan SKR yang di-stake. Tidak ada token, tidak ada yang dikumpulkan atau disimpan.</string>
     <string name="pro_free_keeps">Membaca buku besar, menandatangani ulasan, laporan, sanggahan, dan fakta perangkat tetap gratis, selamanya. Pro menambah alat, tanda Anggota Pro, dan baris skornya sendiri yang ditandai.</string>
@@ -941,16 +941,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Anggota Pro</string>
-    <string name="weight_boosted_pill">Dipromosikan · berbayar</string>
     <string name="weight_counts">Bobot %1$s · kualitas %2$s</string>
-    <string name="boost_button">Promosikan ulasan ini</string>
-    <string name="boost_title">Promosikan ulasan ini?</string>
-    <string name="boost_body">Promosi menaruh ulasan ini paling atas di halaman aplikasi, bertanda Dipromosikan · berbayar, dan menghitungnya di skor terpisah Dipromosikan. Skor bertanda tangan dan bobot ulasan tidak berubah. Hanya berlaku untuk versi ulasan ini, dan pembayarannya adalah catatan publik.</string>
-    <string name="boost_pay">Bayar %1$s</string>
-    <string name="boost_done">Dipromosikan. Tanda tangan %1$s</string>
-    <string name="boost_needs_pro">Mempromosikan ulasan memerlukan keanggotaan Pro yang aktif.</string>
     <string name="pro_tool_weight_title">Baris skor Anda sendiri</string>
-    <string name="pro_tool_weight_body">Ulasan Anda yang dihitung bertanda Anggota Pro dan juga masuk skor terpisah anggota Pro, di samping skor bertanda tangan. Promosikan satu agar tampil pertama, bertanda berbayar. Skor bertanda tangan tidak pernah memuat pembayaran.</string>
+    <string name="pro_tool_weight_body">Ulasan Anda yang dihitung bertanda Anggota Pro dan juga masuk skor terpisah anggota Pro, di samping skor bertanda tangan. Skor bertanda tangan tidak pernah memuat pembayaran ke Undersigned.</string>
     <string name="member_score_title">Anggota Pro</string>
     <string name="member_score_note">Hanya ulasan yang ditulis saat Pro aktif, dengan bobot biasanya.</string>
 
@@ -974,6 +967,19 @@
     <string name="timeline_clear">Hapus</string>
     <string name="timeline_hint">Ketuk atau geser di grafik untuk membaca satu periode.</string>
     <string name="timeline_note">Garis abu-abu putus-putus merata-ratakan %1$d ulasan toko yang dibaca sejak %2$s; rating toko sendiri menghitung semua ulasannya.</string>
-    <string name="promoted_score_title">Dipromosikan · berbayar</string>
-    <string name="promoted_score_note">Hanya ulasan yang penulisnya membayar untuk dipromosikan. Tampil pertama di halaman ini.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Operator Undersigned</string>
+    <string name="related_gifted_pill">Pro dari penerbit aplikasi ini</string>
+    <string name="operator_publishes_note">Operator Undersigned menerbitkan aplikasi ini. Ulasan dari dompetnya sendiri ditampilkan, bertanda, dan tidak pernah dihitung.</string>
+    <string name="integrity_link">Cara ulasan dikumpulkan, diperiksa, dan dihitung</string>
+    <string name="reviews_group_organic">Ulasan independen</string>
+    <string name="reviews_group_organic_note">Pemilik Seeker yang dihitung, tanpa hubungan dengan Undersigned atau penerbit aplikasi ini.</string>
+    <string name="reviews_group_pro">Anggota Pro</string>
+    <string name="reviews_group_pro_note">Pengulas yang membayar Undersigned untuk Pro: dihitung dengan bobot yang sama seperti semua orang, dan juga ditampilkan sebagai skor sendiri.</string>
+    <string name="reviews_group_related">Terkait Undersigned atau penerbit</string>
+    <string name="reviews_group_related_note">Dompet Undersigned, atau pengulas dengan Pro hadiah dari penerbit aplikasi ini. Ditampilkan, bertanda, tidak dihitung di skor mana pun.</string>
+    <string name="reviews_group_uncounted">Tidak dihitung</string>
+    <string name="reviews_group_uncounted_note">Tidak ada Seeker Genesis Token di dompet, atau penerbit mengulas aplikasinya sendiri.</string>
+    <string name="not_counted_warning">Dompet ini tidak memiliki Seeker Genesis Token: yang Anda tandatangani tercatat di rantai tetapi tidak dihitung.</string>
 </resources>

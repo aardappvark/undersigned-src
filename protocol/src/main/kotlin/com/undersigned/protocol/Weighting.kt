@@ -4,29 +4,20 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * What one counted review weighs, and which separately labelled score it also appears in (owner, 9 Oct 2026: "count it as
- * paid or promoted ratings and keep it separate from organic ratings and pro ratings").
+ * What one counted review weighs, and whether it also appears in the separately labelled "Pro members" score.
  *
- * WEIGHT, the same in every score, and never touched by payment:
- *  - **device** ([Ranking.weight]): the Genesis Token gate and staked SKR, capped at 3×.
+ * WEIGHT, never touched by payment to Undersigned:
+ *  - **device** ([Ranking.weight]): the Genesis Token gate and staked SKR (a token anyone can buy), capped at 3×.
  *  - **quality**, earned, between [QUALITY_FLOOR] and 1.0: [QUALITY_BASE] for stars and tags alone; +[QUALITY_FACT] when the
  *    review carries what the phone saw (install age or usage time); +[QUALITY_TEXT] for a written note of [TEXT_WORDS]+
- *    words; halved for a wallet that has a review hidden by consensus. Low-value reviews sink by themselves.
+ *    words; halved for a wallet that has a review hidden by consensus.
  *
- * SEGMENTS, each its own score shown beside the signed score with its own count (the signed score includes every counted
- * review once, at the same weight, whatever the reviewer paid):
- *  - **Pro members**: reviews signed while the wallet held Pro.
- *  - **Promoted**: reviews their own author paid to promote (`bst`), Pro only; shown first in the list, labelled paid.
+ * PRO MEMBERS: reviews signed while the wallet held Pro appear, at the same weight, in their own labelled score with its
+ * own count beside the signed score. Paid promotion of reviews was removed (owner, 9 Oct 2026).
  *
- * Why segments and not a multiplier (compliance check, 9 Oct 2026): UK CMA guidance on the DMCC Act (CMA208, 4.7 and 5.1)
- * says incentivised reviews must be distinguished from others, and that review information must not be influenced by
- * payment for prominence; the ACCC's guide says promoted results must be distinguished from organic ones; EU law (UCPD
- * Art. 7(6), Annex I 23c) bars misrepresenting reviews. A paid multiplier blends payment into a number; a separate,
- * counted, labelled score does not.
- *
- * Traders cannot buy their way into either segment: a Pro seat granted by an app's verified publisher does not make the
- * holder a Pro reviewer of that publisher's apps, and a promotion signed by any verified publisher is not honoured. Flags,
- * votes and hiding use the device weight alone.
+ * GIFTED (compliance review, 9 Oct 2026): a reviewer holding a Pro seat granted by the reviewed app's verified publisher
+ * has received something of value from that trader; their review of that publisher's apps is labelled and counted in NO
+ * score. Operator wallets are excluded separately ([Operator]).
  */
 object Weighting {
     const val QUALITY_BASE = 0.5
@@ -35,9 +26,9 @@ object Weighting {
     const val QUALITY_FLOOR = 0.25
     const val TEXT_WORDS = 6
 
-    data class Parts(val device: Double, val quality: Double, val pro: Boolean, val promoted: Boolean) {
-        /** The review's weight in every score it appears in. Payment never enters it. */
-        val weight: Double get() = device * quality
+    data class Parts(val device: Double, val quality: Double, val pro: Boolean, val gifted: Boolean = false) {
+        /** The review's weight in every score it appears in; 0 when it is gifted (counted nowhere). */
+        val weight: Double get() = if (gifted) 0.0 else device * quality
     }
 
     fun words(text: String?): Int = text?.trim()?.split(Regex("\\s+"))?.count { it.any(Char::isLetterOrDigit) } ?: 0
@@ -77,7 +68,7 @@ object Weighting {
     }
 
     /**
-     * Everything the weights and segments need, read once per ledger. [paid] says whether a `pro` or `bst` record's
+     * Everything the weights and segments need, read once per ledger. [paid] says whether a `pro` record's
      * transaction credited the treasury with at least its floor; each reader supplies its own reading of the balances.
      */
     class Context(
@@ -91,25 +82,20 @@ object Weighting {
         private val phoneFacts: Set<Pair<String, String>> = entries.mapNotNull { e ->
             when (val m = e.memo) { is ReviewMemo.Use -> e.signer to m.packageName; is ReviewMemo.Time -> e.signer to m.packageName; else -> null }
         }.toSet()
-        private val anyPublisher: Set<String> = verifiedPublishers.values.flatten().toSet()
-        private val bySig = entries.associateBy { it.signature }
         private val proCache = HashMap<Triple<String, Long, String>, Boolean>()
         private fun pro(wallet: String, time: Long, pkg: String) = proCache.getOrPut(Triple(wallet, time, pkg)) {
             proAt(entries, wallet, time, paid, verifiedPublishers[pkg].orEmpty())
         }
 
-        /** Review ids with a valid promotion: paid, signed by the review's own wallet while it held Pro, never by a publisher. */
-        val promoted: Set<String> = entries.mapNotNull { e ->
-            val b = e.memo as? ReviewMemo.Boost ?: return@mapNotNull null
-            val review = bySig[b.recordId] ?: return@mapNotNull null
-            val r = review.memo as? ReviewMemo.Review ?: return@mapNotNull null
-            b.recordId.takeIf { review.signer == e.signer && e.signer !in anyPublisher && paid(e) && pro(e.signer, e.blockTime, r.packageName) }
-        }.toSet()
+        /** Holds, at [time], a Pro seat granted by one of [pkg]'s verified publishers: a gift from the reviewed trader. */
+        private fun gifted(wallet: String, time: Long, pkg: String): Boolean = verifiedPublishers[pkg].orEmpty().any { g ->
+            g != wallet && ProSharing.holdsSeat(g, wallet, ProSharing.recordsOf(entries, g).filter { it.time <= time })
+        }
 
         fun parts(e: LedgerEntry): Parts {
             val r = e.memo as ReviewMemo.Review
             return Parts(Ranking.weight(facts(e.signer)), quality(r, (e.signer to r.packageName) in phoneFacts, e.signer in penalised),
-                pro(e.signer, e.blockTime, r.packageName), e.signature in promoted)
+                pro(e.signer, e.blockTime, r.packageName), gifted(e.signer, e.blockTime, r.packageName))
         }
     }
 }

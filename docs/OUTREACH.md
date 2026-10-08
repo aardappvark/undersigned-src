@@ -13,7 +13,7 @@
 5. Built for @solanamobile's CLOCK IN by @RadiantsDAO. Not affiliated with Solana Mobile. Reviews are opinions of individual owners, not the store's ratings. APK + source: github.com/aardappvark/Undersigned
 
 ## Radiants Discord (#showcase)
-Undersigned — a signed-review layer beside the dApp Store. Reviews are memo txs signed on the Seeker; only Genesis-Token wallets count; staked SKR weights, capped. Store rating mirrored and credited; store reviewers checked for a Genesis Token; publisher claims verified against the store-listed website; per-version scores; device-verified certificate match; import your own store reviews with one signature. No server, no token, no fees. Live on mainnet since 8 Sep. Viewer: aardappvark.github.io/undersigned-viewer
+Undersigned — a signed-review layer beside the dApp Store. Reviews are memo txs signed on the Seeker; only Genesis-Token wallets count; staked SKR weights, capped. Store rating mirrored and credited; store reviewers checked for a Genesis Token; publisher claims verified against the store-listed website; per-version scores; device-verified certificate match; import your own store reviews in one wallet approval. No token; free to read and sign (an optional Pro licence sells tools, never weight). Live on mainnet since 8 Sep. Viewer: aardappvark.github.io/undersigned-viewer
 
 ## Email to Solana Mobile (developer relations)
 Subject: An open, sybil-resistant review ledger for the dApp Store — live, no ask

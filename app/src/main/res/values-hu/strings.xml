@@ -52,7 +52,7 @@
     <string name="detail_update_review">Értékelésem frissítése</string>
     <string name="detail_revoke_review">Értékelésem visszavonása</string>
     <string name="detail_score_title">Aláírt pontszám</string>
-    <string name="detail_score_sub">Hitelesített eszközök értékeléseinek átlaga (ma: a Seeker Genesis Token tulajdonosai), a stakelt SKR (legfeljebb 3×) és az értékelés tartalma (telepítési idő, használat, írott megjegyzés) szerint súlyozva. Semmi fizetett nem kerül bele; a Pro tagok és a kiemelt értékelések saját pontszámot is kapnak. Egyes tulajdonosok véleménye, nem az áruház értékelése.</string>
+    <string name="detail_score_sub">Hitelesített eszközök értékeléseinek átlaga (ma: a Seeker Genesis Token tulajdonosai), az értékelés tartalma (telepítési idő, használat, írott megjegyzés) és a stakelt SKR szerint súlyozva, amelyet bárki megvásárolhat (legfeljebb 3×). Undersignednek szóló fizetés nem kerül bele; a Pro tagok értékelései saját pontszámot is kapnak. Az Undersigned saját tárcái soha nem számítanak. Egyes tulajdonosok véleménye, nem az áruház értékelése.</string>
     <string name="detail_rank_score">Rangsorpontszám %1$s — 3,0 felé húzva, amíg több Seeker nem ír alá; csak a lista sorrendjének meghatározására szolgál.</string>
     <string name="follow">Követés</string>
     <string name="following">Követve</string>
@@ -397,9 +397,9 @@
     <string name="pro_tool_desk_title">Kiadói pult</string>
     <string name="pro_tool_desk_body">A megválaszolatlanok sora és a válaszkészség minden dAppnál, amelynek te vagy a bizonyított kiadója, egy listában.</string>
     <string name="pro_tool_export_title">Nyilvántartás exportálása</string>
-    <string name="pro_tool_export_body">Bármely dApp, bármely aláíró, CSV vagy JSON formátumban. Az adat nyilvános; a Pro olvassa ki helyetted.</string>
-    <string name="pro_tool_watch_title">Óránkénti tanúsítvány-figyelés</string>
-    <string name="pro_tool_watch_body">A tanúsítvány- és jogosultságváltozásokat óránként ellenőrizzük hatóránként helyett, továbbra is az eszközön.</string>
+    <string name="pro_tool_export_body">A teljes főkönyv, ahogy ez a telefon tárolja, CSV-ben vagy JSON-ban. Az adat nyilvános; a Pro elolvassa ön helyett.</string>
+    <string name="pro_tool_watch_title">Óránkénti értesítések</string>
+    <string name="pro_tool_watch_body">A követett alkalmazások értesítéseit óránként ellenőrizzük hatóránként helyett, az eszközön.</string>
     <string name="pro_not_title">Amit a Pro nem tesz</string>
     <string name="pro_not_body">Soha nem változtatja az aláírt pontszámot, soha nem növeli egy értékelés súlyát, és soha nem nyom mások értékelésén: a jelzések, hasznos-szavazatok és elrejtés csak az eszközt és a stakelt SKR-t használják. Nincs token, nincs mit gyűjteni vagy tartani.</string>
     <string name="pro_free_keeps">A főkönyv olvasása, értékelések aláírása, jelzések, viták és eszközadatok ingyenesek maradnak, örökre. A Pro eszközöket, Pro tag jelet és saját, jelölt pontszámsort ad.</string>
@@ -956,16 +956,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Pro tag</string>
-    <string name="weight_boosted_pill">Kiemelt · fizetett</string>
     <string name="weight_counts">Súly %1$s · minőség %2$s</string>
-    <string name="boost_button">Értékelés kiemelése</string>
-    <string name="boost_title">Kiemeli ezt az értékelést?</string>
-    <string name="boost_body">A kiemelés az alkalmazás oldalán az első helyre teszi ezt az értékelést, Kiemelt · fizetett jelöléssel, és beszámítja a külön Kiemelt pontszámba. Az aláírt pontszám és az értékelés súlya nem változik. Csak az értékelés ezen változatára vonatkozik, a fizetés pedig nyilvános bejegyzés.</string>
-    <string name="boost_pay">%1$s fizetése</string>
-    <string name="boost_done">Kiemelve. Aláírás %1$s</string>
-    <string name="boost_needs_pro">Az értékelés kiemeléséhez aktív Pro tagság kell.</string>
     <string name="pro_tool_weight_title">Saját pontszámsor</string>
-    <string name="pro_tool_weight_body">Számított értékelései Pro tag jelet kapnak, és az aláírt pontszám mellett egy külön Pro tagi pontszámban is megjelennek. Emeljen ki egyet, hogy elsőként látsszon, fizetettként jelölve. Az aláírt pontszám soha nem tartalmaz fizetést.</string>
+    <string name="pro_tool_weight_body">Számított értékelései Pro tag jelet kapnak, és az aláírt pontszám mellett egy külön Pro tagi pontszámban is megjelennek. Az aláírt pontszám soha nem tartalmaz Undersignednek szóló fizetést.</string>
     <string name="member_score_title">Pro tagok</string>
     <string name="member_score_note">Csak aktív Pro mellett írt értékelések, szokásos súlyukkal.</string>
 
@@ -989,6 +982,19 @@
     <string name="timeline_clear">Törlés</string>
     <string name="timeline_hint">Koppintson vagy húzza végig a diagramon egy időszak leolvasásához.</string>
     <string name="timeline_note">A szaggatott szürke vonal a %2$s óta olvasott %1$d áruházi értékelés átlaga; az áruház saját értékelése az összes értékelését számolja.</string>
-    <string name="promoted_score_title">Kiemelt · fizetett</string>
-    <string name="promoted_score_note">Csak olyan értékelések, amelyek szerzője fizetett a kiemelésért. Ezen az oldalon elsőként jelennek meg.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Undersigned üzemeltető</string>
+    <string name="related_gifted_pill">Pro az alkalmazás kiadójától</string>
+    <string name="operator_publishes_note">Az Undersigned üzemeltetője adja ki ezt az alkalmazást. Saját tárcáinak értékelései látszanak, jelölve, és soha nem számítanak.</string>
+    <string name="integrity_link">Hogyan gyűjtjük, ellenőrizzük és számoljuk az értékeléseket</string>
+    <string name="reviews_group_organic">Független értékelések</string>
+    <string name="reviews_group_organic_note">Számított Seeker-tulajdonosok, akiknek nincs kapcsolata az Undersigneddel vagy az alkalmazás kiadójával.</string>
+    <string name="reviews_group_pro">Pro tagok</string>
+    <string name="reviews_group_pro_note">Az Undersignednek Pro-ért fizető értékelők: ugyanakkora súllyal számítanak, mint mindenki, és saját pontszámot is kapnak.</string>
+    <string name="reviews_group_related">Az Undersigneddel vagy a kiadóval kapcsolatban</string>
+    <string name="reviews_group_related_note">Az Undersigned tárcái, vagy olyan értékelő, akinek a Pro-ját ennek az alkalmazásnak a kiadója ajándékozta. Látszanak, jelölve, semmilyen pontszámba nem számítanak.</string>
+    <string name="reviews_group_uncounted">Nem számít</string>
+    <string name="reviews_group_uncounted_note">Nincs Seeker Genesis Token a tárcában, vagy a kiadó értékeli a saját alkalmazását.</string>
+    <string name="not_counted_warning">Ennek a tárcának nincs Seeker Genesis Tokenje: amit aláír, a láncra kerül, de nem számít.</string>
 </resources>

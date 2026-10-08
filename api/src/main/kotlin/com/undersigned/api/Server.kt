@@ -62,15 +62,17 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/stats", Tier.FREE, "Ledger totals") { ok(views.stats()) }
         route("GET", "/v1/dataset.json", Tier.FREE, "The open dataset: every record, every app's signed score, every signer's public facts (rebuilt every few minutes)") { cachedDataset() }
         route("GET", "/v1/tags", Tier.FREE, "Review tag vocabulary with counts") { ok(views.tags()) }
-        route("GET", "/v1/records", Tier.PAID, "Every decoded record, newest first; filter by type, package, signer, since, until; page with before") { r ->
-            ok(views.records(r.query["type"], r.query["package"], r.query["signer"], r.query["since"]?.toLongOrNull(), r.query["until"]?.toLongOrNull(), r.query["before"], r.int("limit", 100, 1000)))
+        // LIMITED, not PAID (compliance review, 9 Oct 2026): every record is already free in /v1/dataset.json, so a pass buys
+        // filtering and larger pages, never access to the records themselves.
+        route("GET", "/v1/records", Tier.LIMITED, "Every decoded record, newest first; filter by type, package, signer, since, until; page with before") { r ->
+            ok(views.records(r.query["type"], r.query["package"], r.query["signer"], r.query["since"]?.toLongOrNull(), r.query["until"]?.toLongOrNull(), r.query["before"], rows(r, Config.FREE_ROWS, 1000)))
         }
         route("GET", "/v1/records/{id}", Tier.FREE, "One record by id (signature or signature:n)") { r -> views.recordById(r.params["id"]!!)?.let(::ok) ?: notFound("no such record") }
         route("GET", "/v1/apps", Tier.LIMITED, "Catalogue search: q, category, sort (name|signed|updated)") { r -> ok(views.apps(r.query["q"], r.query["category"], r.query["sort"], rows(r, Config.FREE_ROWS, 2000))) }
         route("GET", "/v1/apps/{pkg}", Tier.FREE, "One dApp: signed score, store details and rating, publisher, payments") { r -> views.app(r.params["pkg"]!!)?.let(::ok) ?: notFound("unknown package") }
         route("GET", "/v1/apps/{pkg}/reviews", Tier.LIMITED, "Signed reviews with every signal; limit, offset") { r -> ok(views.reviews(r.params["pkg"]!!, rows(r, Config.FREE_ROWS), if (r.caller.paid) r.int("offset", 0, 1_000_000) else 0)) }
         route("GET", "/v1/apps/{pkg}/versions", Tier.PAID, "Signed score per version") { r -> ok(views.versions(r.params["pkg"]!!)) }
-        route("GET", "/v1/apps/{pkg}/bursts", Tier.PAID, "Review and store-rating bursts with sparklines") { r -> ok(views.bursts(r.params["pkg"]!!)) }
+        route("GET", "/v1/apps/{pkg}/bursts", Tier.FREE, "Review and store-rating bursts with sparklines") { r -> ok(views.bursts(r.params["pkg"]!!)) }
         route("GET", "/v1/apps/{pkg}/similar", Tier.PAID, "Copy-paste findings among its reviews") { r -> ok(views.similar(r.params["pkg"]!!)) }
         route("GET", "/v1/apps/{pkg}/store-ratings", Tier.PAID, "Daily store star-count snapshots") { r -> ok(views.storeRatings(r.params["pkg"]!!)) }
         route("GET", "/v1/apps/{pkg}/payments", Tier.PAID, "Payments received, with a monthly series") { r -> views.appPayments(r.params["pkg"]!!)?.let(::ok) ?: notFound("not a confirmed listing") }
@@ -344,7 +346,10 @@ fun main(args: Array<String>) {
     if (args.isNotEmpty() && args[0] in setOf("hide", "unhide", "hidden")) {
         val ix = Indexer(Db(), Rpc(), Store())
         when (args[0]) {
-            "hide" -> { require(args.size >= 3) { "usage: api hide <record id> <reason>" }; ix.hide(args[1], args.drop(2).joinToString(" ")); println("hidden: ${args[1]}") }
+            // The same four reasons a moderator may give, and no others (compliance review, 9 Oct 2026); the list is public at /moderation.
+            "hide" -> { val why = args.getOrNull(2)?.let { com.undersigned.protocol.ReviewMemo.ModReason.fromWire(it) }
+                require(args.size == 3 && why != null) { "usage: api hide <record id> <${com.undersigned.protocol.ReviewMemo.ModReason.entries.joinToString("|") { it.wire }}>" }
+                ix.hide(args[1], why.wire); println("hidden: ${args[1]} (${why.wire})") }
             "unhide" -> println(if (ix.unhide(args[1])) "shown again: ${args[1]}" else "not on the list: ${args[1]}")
             else -> ix.operatorHidden().forEach { (id, why) -> println("$id\t$why") }
         }

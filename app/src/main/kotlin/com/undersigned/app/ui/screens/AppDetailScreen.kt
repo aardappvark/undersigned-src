@@ -46,6 +46,7 @@ import com.undersigned.app.ui.components.*
 import com.undersigned.app.ui.components.label
 import androidx.compose.foundation.layout.Box
 import com.undersigned.app.ui.theme.RbColors
+import com.undersigned.protocol.LedgerEntry
 import com.undersigned.protocol.ReviewMemo
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import java.text.DateFormat
@@ -59,7 +60,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
     val proScores by vm.proScores.collectAsState()
-    val promotedScores by vm.promotedScores.collectAsState()
     val entries by vm.entries.collectAsState()
     val hidden by vm.hidden.collectAsState()
     val wallet by vm.wallet.collectAsState()
@@ -174,17 +174,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
     val pro by vm.pro.collectAsState()
-    var boostFor by remember { mutableStateOf<String?>(null) }
-    var boostStage by remember { mutableStateOf<String?>(null) }
-    var boostMsg by remember { mutableStateOf<Pair<String, String>?>(null) }
-    val boostContext = androidx.compose.ui.platform.LocalContext.current
-    fun payBoost(rail: com.undersigned.app.solana.ProPaymentService.Rail, reviewId: String) {
-        val s = sender ?: return
-        vm.payBoost(s, rail, reviewId, onStage = { st -> boostStage = when (st) { ReviewTxService.Stage.Simulating -> boostContext.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> boostContext.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> boostContext.getString(R.string.review_confirming) } }) { r ->
-            boostStage = null
-            boostMsg = r.fold({ boostContext.getString(R.string.boost_done, shortKey(it, 6, 6)) to reviewId }, { boostContext.errorText(it) to reviewId })
-        }
-    }
     var copyMsg by remember { mutableStateOf<String?>(null) }
     var handoffText by remember { mutableStateOf<String?>(null) }
     var handoffOpen by remember { mutableStateOf(false) }
@@ -228,6 +217,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             PrimaryButton(if (mine != null) stringResource(R.string.detail_update_review) else stringResource(R.string.detail_write_review), onClick = onReview)
             if (mine != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_revoke_review), onClick = { dialogError = null; revokeDialog = true }) }
 
+            // The operator publishes apps in this store too; on its own apps the page says so first (compliance review, 9 Oct 2026).
+            if (com.undersigned.protocol.Operator.publishes(pkg, verified)) {
+                Spacer(Modifier.height(12.dp))
+                GlassCard(accent = RbColors.warning) { Text(stringResource(R.string.operator_publishes_note), color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
+            }
             SectionTitle(stringResource(R.string.detail_score_title))
             GlassCard {
                 // A score with nothing counted is not a 0.0: until a review counts there is no signed score to show.
@@ -239,7 +233,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     Spacer(Modifier.height(4.dp))
                     Text(stringResource(R.string.detail_rank_score, String.format(java.util.Locale.US, "%.2f", score.weightedRating)), color = RbColors.textTertiary, fontSize = 11.sp)
-                    // Pro members' and promoted reviews as their OWN scores, each with its count, never blended into the signed score
+                    // Pro members' reviews as their OWN score, with its count, never blended into the signed score
                     // (compliance check, 9 Oct 2026). A row shows only when the segment has a counted review.
                     @Composable fun segment(title: String, note: String, sc: com.undersigned.protocol.AppScore?, color: androidx.compose.ui.graphics.Color) {
                         if (sc == null) return
@@ -257,10 +251,13 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                     }
                     segment(stringResource(R.string.member_score_title), stringResource(R.string.member_score_note), proScores[pkg], RbColors.purpleLight)
-                    segment(stringResource(R.string.promoted_score_title), stringResource(R.string.promoted_score_note), promotedScores[pkg], RbColors.warning)
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                // The review-integrity policy: how reviews are collected, checked, ranked and moderated (CMA208 8.9, UCPD 7(6)).
+                val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
+                Text(stringResource(R.string.integrity_link), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uriHandler.openUri(com.undersigned.app.AppConfig.Identity.URI + "integrity.html") } }.padding(vertical = 14.dp))
             }
 
             // Reviews over time (owner, 8 Oct 2026): store reviews by Seeker owners and other wallets, signed reviews, and both
@@ -299,7 +296,26 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             // re-sort it, and the slot kept the old review's state. Measured 21 Sep 2026: a reply to 5XTu3S73 was
             // drawn under the publisher's review, and a swipe there would have opened a reply to the wrong record.
             var limit by rememberSaveable(pkg) { mutableStateOf(REVIEW_PAGE) }
-            shown.take(limit).forEach { (e, w) -> key(e.signature) {
+            // Under headings, so what each review is reads at a glance (owner, 9 Oct 2026): organic Seeker owners, Pro members,
+            // reviews related to Undersigned (its own wallets, or a Pro seat gifted by this app's publisher), and not counted.
+            fun group(e: LedgerEntry, w: com.undersigned.protocol.Weighting.Parts): Int = when {
+                com.undersigned.protocol.Operator.isOperator(e.signer) || w.gifted -> 2
+                w.device <= 0 || vm.isSelfPublished(e) -> 3
+                w.pro -> 1
+                else -> 0
+            }
+            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_pro, R.string.reviews_group_related, R.string.reviews_group_uncounted)
+            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_pro_note, R.string.reviews_group_related_note, R.string.reviews_group_uncounted_note)
+            var lastGroup = -1
+            shown.take(limit).sortedBy { (e, w) -> group(e, w) }.forEach { (e, w) -> key(e.signature) {
+                val g = group(e, w)
+                if (g != lastGroup) {
+                    lastGroup = g
+                    Spacer(Modifier.height(10.dp))
+                    Text(stringResource(groupTitles[g]), color = if (g == 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(groupNotes[g]), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    Spacer(Modifier.height(6.dp))
+                }
                 val r = e.memo as ReviewMemo.Review
                 if (e.signature in consensusHidden && e.signature !in revealed) {
                     GlassCard(accent = RbColors.surfaceVariant) {
@@ -335,7 +351,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
                         // Membership and paid promotion are always shown on the review itself.
                         if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
-                        if (w.device > 0 && w.promoted) TrustPill(stringResource(R.string.weight_boosted_pill), RbColors.warning)
+                        if (com.undersigned.protocol.Operator.isOperator(e.signer)) TrustPill(stringResource(R.string.related_operator_pill), RbColors.warning)
+                        if (w.gifted) TrustPill(stringResource(R.string.related_gifted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
                     }
@@ -378,24 +395,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     // Locked in place (design: Screens D): the copy-to-store tool where the user meets it, on their own review.
                     if (e.signer == wallet && myStore[pkg] == null) {
                         Spacer(Modifier.height(8.dp))
-                        if (pro?.active == true) { SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) } }
-                        else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
+                        // Free (feature review, 9 Oct 2026): this is the feature that strengthens the store's own reviews.
+                        SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) }
                     }
-                    // A boost on my own counted review: Pro members only, once per review, always labelled (see protocol Weighting).
-                    if (e.signer == wallet && w.device > 0 && !w.promoted) {
-                        Spacer(Modifier.height(8.dp))
-                        if (pro?.active == true) SecondaryButton(boostStage ?: stringResource(R.string.boost_button), enabled = boostStage == null && sender != null, onClick = { boostMsg = null; boostFor = e.signature })
-                        else ProLock(hint = stringResource(R.string.boost_button), onPro = onPro)
-                    }
-                    if (e.signer == wallet) boostMsg?.takeIf { boostFor == null && it.second == e.signature }?.let { Text(it.first, color = RbColors.green, fontSize = 11.sp) }
-                    if (boostFor == e.signature) androidx.compose.material3.AlertDialog(
-                        onDismissRequest = { boostFor = null },
-                        containerColor = RbColors.surface,
-                        title = { Text(stringResource(R.string.boost_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
-                        text = { Text(stringResource(R.string.boost_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
-                        confirmButton = { androidx.compose.material3.TextButton(onClick = { boostFor = null; payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SKR, e.signature) }) { Text(stringResource(R.string.boost_pay, String.format(java.util.Locale.US, "%,.0f SKR", com.undersigned.app.AppConfig.Payment.BOOST_SKR)), color = RbColors.purpleLight) } },
-                        dismissButton = { androidx.compose.material3.TextButton(onClick = { boostFor = null; payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SOL, e.signature) }) { Text(stringResource(R.string.boost_pay, "${com.undersigned.app.AppConfig.Payment.BOOST_SOL} SOL"), color = RbColors.textSecondary) } },
-                    )
                     Spacer(Modifier.height(6.dp))
                     val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }
                     replies.forEach { rp ->
@@ -848,6 +850,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
 
     if (proofSheet) ProofSheet { proofSheet = false }
 
+    // Warn before a signature that will not count (compliance review, 9 Oct 2026): shown only when the wallet is KNOWN to hold
+    // no Genesis Token; an unknown lookup says nothing rather than guess.
+    LaunchedEffect(wallet, replyTo, flagTarget) { if ((replyTo != null || flagTarget != null) && wallet != null) vm.resolveFacts(listOf(wallet!!)) }
+    val wontCount = wallet?.let { factsMap[it] }?.hasGenesisToken == false
+    @Composable fun NotCountedWarning() { if (wontCount) Text(stringResource(R.string.not_counted_warning), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(bottom = 6.dp)) }
+
     replyTo?.let { target ->
         val bytes = replyText.toByteArray(Charsets.UTF_8).size
         val ok = replyText.isNotBlank() && replyText.length <= ReviewMemo.MAX_TEXT_CHARS && bytes <= ReviewMemo.MAX_TEXT_BYTES && replyText.none { it == '|' || it == '\n' || it == '\r' }
@@ -856,6 +864,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             title = { Text(stringResource(R.string.reply_title), color = RbColors.textPrimary) },
             text = {
                 Column {
+                    NotCountedWarning()
                     if (fromLink) Text(stringResource(R.string.reply_from_link), color = RbColors.info, fontSize = 12.sp)
                     OutlinedTextField(value = replyText, onValueChange = { if (replyStage == null) replyText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = replyText.isNotEmpty() && !ok,
                         placeholder = { Text(stringResource(R.string.reply_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(),
@@ -923,6 +932,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
         AlertDialog(onDismissRequest = { if (flagStage == null) flagTarget = null }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.flag_title), color = RbColors.textPrimary) },
             text = { Column {
+                NotCountedWarning()
                 Text(stringResource(R.string.flag_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                 if (wallet != null && vm.isVerifiedPublisher(pkg, wallet!!)) Text(stringResource(R.string.publisher_flags_ignored), color = RbColors.textSecondary, fontSize = 12.sp)
                 Spacer(Modifier.height(8.dp))

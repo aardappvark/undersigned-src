@@ -16,7 +16,7 @@ Updated 8 Oct for the current build. Judges score "completion based on the demo 
 | 1:28 | Scroll to Publisher: Verified publisher badge | "Publishers claim an app by signing. It verifies only if the website the store lists publishes the wallet. Then their replies carry the badge." |
 | 1:42 | Store reviews with Genesis ✓ / no Genesis pills | "The same lens on the store's reviews: which reviewers hold a Genesis Token, which also signed here. That signal is open data Solana Mobile can use today." |
 | 1:55 | Device facts: certificate matches the store's ✓, permissions | "And what the phone can prove: the installed build matches the certificate the store lists." |
-| 2:08 | Settings → Import my dApp Store reviews → scan → one approval | "Your existing store reviews come across with one signature." |
+| 2:08 | Settings → Import my dApp Store reviews → scan → one approval | "Your existing store reviews come across in one wallet approval." |
 | 2:25 | Viewer in a browser, then Solscan of the transaction | "Everything you saw is public chain state at one address nobody controls. Here it is in a browser with no app, and here is the transaction." |
 | 2:45 | Back to Browse | "One Seeker, one voice. Written to Solana. Readable by anyone. Undersigned." |
 

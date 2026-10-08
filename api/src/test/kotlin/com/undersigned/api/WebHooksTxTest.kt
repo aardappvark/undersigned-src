@@ -145,7 +145,7 @@ class HooksTest {
 }
 
 class GapFixesTest {
-    private val STRANGER = "FFWDeEAh2kSLDUwd6fZzXtCadewYqehatSQKChr11jVF"
+    private val STRANGER = "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"   // not an operator wallet: those are listed as related, not folded
 
     @Test fun `the operator's hide list removes the text this site serves, never the record`() {
         val f = Fixture()
@@ -165,7 +165,7 @@ class GapFixesTest {
         f.db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 0, 0, ?)", STRANGER, System.currentTimeMillis()); f.indexer.rebuild()
         val html = String(f.get("/app/com.a.b").raw!!)
         val fold = html.indexOf("<details")
-        assertTrue(fold > 0 && "1 review from wallets without an attested device" in html)
+        assertTrue(fold > 0 && "Not counted · 1 review" in html && "Organic reviews · 1" in html)
         assertTrue(html.indexOf("uncounted words") > fold)                       // inside the fold
         assertTrue(html.indexOf("&amp; fine") in 1 until fold)                   // the counted review is above it
     }

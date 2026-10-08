@@ -201,7 +201,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         private const val PERIODIC = "ledger-watch"
         private val running = java.util.concurrent.atomic.AtomicBoolean(false)
 
-        /** Hours between runs: one on a wallet holding Pro (the hourly certificate watch), six otherwise. Read from the ledger cache, never from a flag. */
+        /** Hours between runs: one on a wallet holding Pro (hourly alerts), six otherwise. Read from the ledger cache, never from a flag. */
         fun intervalHours(ctx: Context): Long {
             val cache = com.undersigned.app.data.LedgerCache(ctx)
             val pro = runCatching { com.undersigned.app.solana.ProLicence.of(cache.load(), cache.loadMeta(), UserPreferences.walletAddress.value, UserPreferences.granters.value) }.getOrNull()

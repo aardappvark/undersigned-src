@@ -52,7 +52,7 @@
     <string name="detail_update_review">Atualizar minha avaliação</string>
     <string name="detail_revoke_review">Retirar minha avaliação</string>
     <string name="detail_score_title">Nota assinada</string>
-    <string name="detail_score_sub">Média das avaliações de dispositivos atestados (hoje: detentores do Seeker Genesis Token), ponderada pelo SKR em staking (até 3×) e pelo que cada avaliação traz (tempo instalado, uso, uma nota escrita). Nada pago entra nela; avaliações de membros Pro e em destaque também aparecem como notas próprias. Opiniões de donos, não a nota da loja.</string>
+    <string name="detail_score_sub">Média das avaliações de dispositivos atestados (hoje: detentores do Seeker Genesis Token), ponderada pelo que cada avaliação traz (tempo instalado, uso, uma nota escrita) e pelo SKR em staking, um token que qualquer um pode comprar (até 3×). Nenhum pagamento ao Undersigned entra nela; avaliações de membros Pro também têm nota própria. As carteiras do Undersigned nunca contam. Opiniões de donos, não a nota da loja.</string>
     <string name="detail_rank_score">Nota de ranking %1$s — aproximada de 3,0 até que mais Seekers assinem; usada só para ordenar a lista.</string>
     <string name="follow">Seguir</string>
     <string name="following">Seguindo</string>
@@ -399,9 +399,9 @@
     <string name="pro_tool_desk_title">Painel do publicador</string>
     <string name="pro_tool_desk_body">A fila sem resposta e a capacidade de resposta em cada dApp da qual você é o publicador comprovado, em uma única lista.</string>
     <string name="pro_tool_export_title">Exporte o registro</string>
-    <string name="pro_tool_export_body">Qualquer dApp, qualquer signatário, como CSV ou JSON. Os dados são públicos; o Pro faz a leitura por você.</string>
-    <string name="pro_tool_watch_title">Verificação horária do certificado</string>
-    <string name="pro_tool_watch_body">Mudanças de certificado e permissão verificadas a cada hora em vez de a cada seis, sempre no dispositivo.</string>
+    <string name="pro_tool_export_body">Todo o registro como este telefone o guarda, em CSV ou JSON. Os dados são públicos; o Pro faz a leitura por você.</string>
+    <string name="pro_tool_watch_title">Alertas a cada hora</string>
+    <string name="pro_tool_watch_body">Os alertas dos apps que você segue são verificados a cada hora em vez de a cada seis, no aparelho.</string>
     <string name="pro_not_title">O que o Pro não faz</string>
     <string name="pro_not_body">Nunca muda a nota assinada, nunca faz uma avaliação contar mais e nunca pesa na avaliação de outra pessoa: denúncias, votos de útil e ocultação usam só o dispositivo e o SKR em staking. Não há token, nada para colecionar nem para guardar.</string>
     <string name="pro_free_keeps">Ler o registro, assinar avaliações, denunciar, contestar e os dados do dispositivo continuam gratuitos, sempre. O Pro adiciona ferramentas, uma marca Membro Pro e sua própria linha de nota, sinalizada.</string>
@@ -985,16 +985,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Membro Pro</string>
-    <string name="weight_boosted_pill">Em destaque · pago</string>
     <string name="weight_counts">Peso %1$s · qualidade %2$s</string>
-    <string name="boost_button">Destacar esta avaliação</string>
-    <string name="boost_title">Destacar esta avaliação?</string>
-    <string name="boost_body">Destacar coloca esta avaliação em primeiro na página do app, marcada Em destaque · pago, e a conta na nota separada Em destaque. A nota assinada e o peso da avaliação não mudam. Vale só para esta versão da avaliação, e o pagamento é um registro público.</string>
-    <string name="boost_pay">Pagar %1$s</string>
-    <string name="boost_done">Em destaque. Assinatura %1$s</string>
-    <string name="boost_needs_pro">Destacar uma avaliação exige uma assinatura Pro ativa.</string>
     <string name="pro_tool_weight_title">Sua própria linha de nota</string>
-    <string name="pro_tool_weight_body">Suas avaliações contadas levam uma marca Membro Pro e aparecem também numa nota separada de membros Pro, ao lado da assinada. Destaque uma para mostrá-la primeiro, marcada como paga. A nota assinada nunca inclui pagamentos.</string>
+    <string name="pro_tool_weight_body">Suas avaliações contadas levam uma marca Membro Pro e aparecem também numa nota separada de membros Pro, ao lado da assinada. A nota assinada nunca inclui pagamentos ao Undersigned.</string>
     <string name="member_score_title">Membros Pro</string>
     <string name="member_score_note">Só avaliações escritas com Pro ativo, com seu peso normal.</string>
 
@@ -1018,6 +1011,19 @@
     <string name="timeline_clear">Limpar</string>
     <string name="timeline_hint">Toque ou deslize no gráfico para ler um período.</string>
     <string name="timeline_note">A linha cinza tracejada faz a média das %1$d avaliações da loja lidas desde %2$s; a nota da loja conta todas as avaliações dela.</string>
-    <string name="promoted_score_title">Em destaque · pago</string>
-    <string name="promoted_score_note">Só avaliações cujo autor pagou para destacar. Aparecem primeiro nesta página.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Operador do Undersigned</string>
+    <string name="related_gifted_pill">Pro presenteado pelo editor do app</string>
+    <string name="operator_publishes_note">O operador do Undersigned publica este app. Avaliações das carteiras dele aparecem, sinalizadas, e nunca contam.</string>
+    <string name="integrity_link">Como as avaliações são coletadas, verificadas e contadas</string>
+    <string name="reviews_group_organic">Avaliações independentes</string>
+    <string name="reviews_group_organic_note">Donos de Seeker contados, sem vínculo com o Undersigned nem com o editor deste app.</string>
+    <string name="reviews_group_pro">Membros Pro</string>
+    <string name="reviews_group_pro_note">Autores que pagam o Undersigned pelo Pro: contam com o mesmo peso de todos e também aparecem em nota própria.</string>
+    <string name="reviews_group_related">Ligadas ao Undersigned ou ao editor</string>
+    <string name="reviews_group_related_note">Carteiras do Undersigned, ou um autor com Pro presenteado pelo editor deste app. Aparecem, sinalizadas, e não contam em nenhuma nota.</string>
+    <string name="reviews_group_uncounted">Não contam</string>
+    <string name="reviews_group_uncounted_note">A carteira não tem Seeker Genesis Token, ou é o editor avaliando o próprio app.</string>
+    <string name="not_counted_warning">Esta carteira não tem Seeker Genesis Token: o que você assinar fica registrado na blockchain mas não conta.</string>
 </resources>

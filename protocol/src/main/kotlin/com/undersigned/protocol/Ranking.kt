@@ -15,7 +15,7 @@ data class LedgerEntry(
 data class SignerFacts(
     /** Holds an attested-device credential from the governed list (today: the Seeker Genesis Token, one per device) — the one-device-one-voice gate. Reviews from wallets without one are never counted. */
     val hasGenesisToken: Boolean,
-    /** Staked SKR in whole tokens, as read from the staking program (SeekerVerify `Season1RpcClient` shape). Weighting only; nothing is staked, moved or promoted by this app. */
+    /** Staked SKR in whole tokens, as read from the staking program (SeekerVerify `Season1RpcClient` shape). Weighting only; this app never stakes or moves anything. */
     val stakedSkr: Double,
     /** Which attestation matched (id from the list), e.g. "seeker-genesis". Null when none. */
     val attestation: String? = if (hasGenesisToken) "seeker-genesis" else null,
@@ -52,8 +52,8 @@ object Ranking {
     /**
      * Rules, in order: (1) revocations remove the review they name, whoever posted the revocation
      * — but only if the same wallet signed both; (2) one counted review per wallet per package,
-     * the newest wins; (3) wallets without a Genesis Token weigh zero; (4) each review weighs device × quality × paid
-     * (see [Weighting]), every factor capped. Everything here is deterministic given the chain, so any reader reaches the same
+     * the newest wins; (3) wallets without a Genesis Token weigh zero; (4) each review weighs device × quality, never payment;
+     * Undersigned's own wallets and publisher-gifted Pro seats weigh zero (see [Weighting], [Operator]). Everything here is deterministic given the chain, so any reader reaches the same
      * ranking — that is the point of putting it on-chain.
      */
     /** Signatures withdrawn by a revocation from the SAME wallet that signed the review. */
@@ -65,20 +65,22 @@ object Ranking {
     }
 
     /**
-     * The SIGNED score: every counted review once, at weight device × quality (see [Weighting]); payment never enters it.
+     * The SIGNED score: every counted review once, at weight device × quality (see [Weighting]); no payment to Undersigned
+     * enters it, and the operator's own wallets ([Operator]) and publisher-gifted reviews count in it nowhere.
      * [include] narrows the reviews counted, which is how the separately labelled segment scores are made ([segments]).
      */
     fun score(
         entries: List<LedgerEntry>,
         verifiedPublishers: Map<String, Set<String>> = emptyMap(),
-        /** Only needed when [include] asks about Pro or promotion. */
+        /** Only needed when [include] asks about Pro membership. */
         paid: (LedgerEntry) -> Boolean = { false },
         include: (LedgerEntry, Weighting.Parts) -> Boolean = { _, _ -> true },
         facts: (signer: String) -> SignerFacts,
     ): List<AppScore> {
+        val gated = Operator.gate(facts)   // the operator's own wallets count in no score
         val revoked = revoked(entries)
-        val hidden = Reputation.hiddenByConsensus(entries, verifiedPublishers, facts)
-        val ctx = Weighting.Context(entries, hidden, facts, paid, verifiedPublishers)
+        val hidden = Reputation.hiddenByConsensus(entries, verifiedPublishers, gated)
+        val ctx = Weighting.Context(entries, hidden, gated, paid, verifiedPublishers)
         val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
@@ -98,11 +100,10 @@ object Ranking {
             .sortedWith(compareByDescending<AppScore> { it.weightedRating }.thenByDescending { it.countedReviews })
     }
 
-    /** The two labelled segment scores shown beside the signed one, per app; an app absent from a map has no review in it. */
-    data class Segments(val pro: Map<String, AppScore>, val promoted: Map<String, AppScore>)
+    /** The labelled "Pro members" score shown beside the signed one, per app; an app absent has no Pro member's review. */
+    data class Segments(val pro: Map<String, AppScore>)
 
     fun segments(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>, paid: (LedgerEntry) -> Boolean, facts: (String) -> SignerFacts): Segments = Segments(
         score(entries, verifiedPublishers, paid, { _, w -> w.pro }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
-        score(entries, verifiedPublishers, paid, { _, w -> w.promoted }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
     )
 }

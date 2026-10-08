@@ -42,7 +42,7 @@
     <string name="detail_update_review">อัปเดตรีวิวของฉัน</string>
     <string name="detail_revoke_review">ถอนรีวิวของฉัน</string>
     <string name="detail_score_title">คะแนนที่ลงลายเซ็น</string>
-    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วย SKR ที่สเตก (สูงสุด 3×) และสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) ไม่มีสิ่งที่จ่ายเงินเข้ามา รีวิวของสมาชิก Pro และรีวิวที่โปรโมตแสดงเป็นคะแนนของตัวเองด้วย ความเห็นของเจ้าของแต่ละคน ไม่ใช่คะแนนของสโตร์</string>
+    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วยสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) และ SKR ที่สเตก ซึ่งเป็นโทเคนที่ใครก็ซื้อได้ (สูงสุด 3×) ไม่มีการชำระเงินให้ Undersigned เข้ามา รีวิวของสมาชิก Pro มีคะแนนของตัวเองด้วย กระเป๋าของ Undersigned ไม่ถูกนับเลย ความเห็นของเจ้าของแต่ละคน ไม่ใช่คะแนนของสโตร์</string>
     <string name="detail_rank_score">คะแนนอันดับ %1$s — ถูกดึงเข้าหา 3.0 จนกว่าจะมี Seeker ลงลายเซ็นเพิ่มขึ้น ใช้เพื่อจัดเรียงรายการเท่านั้น</string>
     <string name="follow">ติดตาม</string>
     <string name="following">กำลังติดตาม</string>
@@ -378,9 +378,9 @@
     <string name="pro_tool_desk_title">โต๊ะผู้เผยแพร่</string>
     <string name="pro_tool_desk_body">คิวที่ยังไม่ตอบกลับและความรวดเร็วในการตอบสนองของทุก dApp ที่คุณเป็นผู้เผยแพร่ที่พิสูจน์แล้ว ในรายการเดียว</string>
     <string name="pro_tool_export_title">ส่งออกบัญชีบันทึก</string>
-    <string name="pro_tool_export_body">dApp ใดก็ได้ ผู้ลงลายเซ็นคนใดก็ได้ ในรูปแบบ CSV หรือ JSON ข้อมูลเป็นสาธารณะ Pro ช่วยอ่านให้คุณ</string>
-    <string name="pro_tool_watch_title">การเฝ้าดูใบรับรองทุกชั่วโมง</string>
-    <string name="pro_tool_watch_body">ตรวจสอบการเปลี่ยนแปลงใบรับรองและสิทธิ์ทุกชั่วโมงแทนที่จะเป็นทุกหกชั่วโมง ยังคงอยู่บนอุปกรณ์</string>
+    <string name="pro_tool_export_body">บัญชีทั้งหมดตามที่โทรศัพท์นี้เก็บ เป็น CSV หรือ JSON ข้อมูลเป็นสาธารณะ Pro อ่านให้คุณ</string>
+    <string name="pro_tool_watch_title">แจ้งเตือนทุกชั่วโมง</string>
+    <string name="pro_tool_watch_body">การแจ้งเตือนของแอปที่คุณติดตามจะตรวจทุกชั่วโมงแทนทุกหกชั่วโมง บนอุปกรณ์</string>
     <string name="pro_not_title">สิ่งที่ Pro ไม่ทำ</string>
     <string name="pro_not_body">ไม่เปลี่ยนคะแนนที่ลงนาม ไม่ทำให้รีวิวมีน้ำหนักมากขึ้น และไม่ถ่วงรีวิวของคนอื่นเลย: การรายงาน โหวตว่ามีประโยชน์ และการซ่อนใช้เฉพาะอุปกรณ์และ SKR ที่สเตก ไม่มีโทเคน ไม่มีอะไรให้สะสมหรือถือ</string>
     <string name="pro_free_keeps">การอ่านบัญชี การลงนามรีวิว การรายงาน การโต้แย้ง และข้อมูลอุปกรณ์ยังคงฟรีตลอดไป Pro เพิ่มเครื่องมือ เครื่องหมายสมาชิก Pro และแถวคะแนนของตัวเองที่ระบุชัด</string>
@@ -925,16 +925,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">สมาชิก Pro</string>
-    <string name="weight_boosted_pill">โปรโมต · จ่ายเงิน</string>
     <string name="weight_counts">น้ำหนัก %1$s · คุณภาพ %2$s</string>
-    <string name="boost_button">โปรโมตรีวิวนี้</string>
-    <string name="boost_title">โปรโมตรีวิวนี้ไหม</string>
-    <string name="boost_body">การโปรโมตทำให้รีวิวนี้ขึ้นก่อนในหน้าของแอป พร้อมป้าย โปรโมต · จ่ายเงิน และนับในคะแนนโปรโมตแยกต่างหาก คะแนนที่ลงนามและน้ำหนักของรีวิวไม่เปลี่ยน ใช้กับรีวิวเวอร์ชันนี้เท่านั้น และการชำระเงินเป็นบันทึกสาธารณะ</string>
-    <string name="boost_pay">ชำระ %1$s</string>
-    <string name="boost_done">โปรโมตแล้ว ลายเซ็น %1$s</string>
-    <string name="boost_needs_pro">การโปรโมตรีวิวต้องมีสมาชิก Pro ที่ยังใช้งาน</string>
     <string name="pro_tool_weight_title">แถวคะแนนของคุณเอง</string>
-    <string name="pro_tool_weight_body">รีวิวที่ถูกนับของคุณมีเครื่องหมายสมาชิก Pro และอยู่ในคะแนนสมาชิก Pro แยกต่างหากข้างคะแนนที่ลงนามด้วย โปรโมตหนึ่งรายการให้แสดงก่อน พร้อมป้ายจ่ายเงิน คะแนนที่ลงนามไม่มีการชำระเงินเลย</string>
+    <string name="pro_tool_weight_body">รีวิวที่ถูกนับของคุณมีเครื่องหมายสมาชิก Pro และอยู่ในคะแนนสมาชิก Pro แยกต่างหากข้างคะแนนที่ลงนามด้วย คะแนนที่ลงนามไม่มีการชำระเงินให้ Undersigned</string>
     <string name="member_score_title">สมาชิก Pro</string>
     <string name="member_score_note">เฉพาะรีวิวที่เขียนขณะมี Pro ด้วยน้ำหนักปกติ</string>
 
@@ -958,6 +951,19 @@
     <string name="timeline_clear">ล้าง</string>
     <string name="timeline_hint">แตะหรือเลื่อนบนกราฟเพื่ออ่านช่วงเวลา</string>
     <string name="timeline_note">เส้นประสีเทาเป็นค่าเฉลี่ยของรีวิวสโตร์ %1$d รายการที่อ่านตั้งแต่ %2$s คะแนนของสโตร์เองนับรีวิวทั้งหมด</string>
-    <string name="promoted_score_title">โปรโมต · จ่ายเงิน</string>
-    <string name="promoted_score_note">เฉพาะรีวิวที่ผู้เขียนจ่ายเงินเพื่อโปรโมต แสดงก่อนในหน้านี้</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">ผู้ให้บริการ Undersigned</string>
+    <string name="related_gifted_pill">Pro จากผู้เผยแพร่แอปนี้</string>
+    <string name="operator_publishes_note">ผู้ให้บริการ Undersigned เผยแพร่แอปนี้ รีวิวจากกระเป๋าของตนเองแสดงพร้อมป้ายกำกับและไม่ถูกนับเลย</string>
+    <string name="integrity_link">วิธีเก็บ ตรวจ และนับรีวิว</string>
+    <string name="reviews_group_organic">รีวิวอิสระ</string>
+    <string name="reviews_group_organic_note">เจ้าของ Seeker ที่ถูกนับ ซึ่งไม่เกี่ยวข้องกับ Undersigned หรือผู้เผยแพร่แอปนี้</string>
+    <string name="reviews_group_pro">สมาชิก Pro</string>
+    <string name="reviews_group_pro_note">ผู้รีวิวที่จ่ายเงินให้ Undersigned สำหรับ Pro: นับด้วยน้ำหนักเท่ากับทุกคน และแสดงเป็นคะแนนของตัวเองด้วย</string>
+    <string name="reviews_group_related">เกี่ยวข้องกับ Undersigned หรือผู้เผยแพร่</string>
+    <string name="reviews_group_related_note">กระเป๋าของ Undersigned หรือผู้รีวิวที่ได้รับ Pro เป็นของขวัญจากผู้เผยแพร่แอปนี้ แสดงพร้อมป้ายกำกับ ไม่นับในคะแนนใด</string>
+    <string name="reviews_group_uncounted">ไม่ถูกนับ</string>
+    <string name="reviews_group_uncounted_note">กระเป๋าไม่มี Seeker Genesis Token หรือผู้เผยแพร่รีวิวแอปของตัวเอง</string>
+    <string name="not_counted_warning">กระเป๋านี้ไม่มี Seeker Genesis Token: สิ่งที่คุณลงนามจะถูกบันทึกบนเชนแต่ไม่ถูกนับ</string>
 </resources>

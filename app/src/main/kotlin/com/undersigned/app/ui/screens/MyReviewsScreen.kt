@@ -170,8 +170,7 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
                     } else if (scannedAt != null || scan != null) {
                         Text(stringResource(R.string.my_reviews_not_in_store), color = RbColors.textTertiary, fontSize = 12.sp)
                         if (r != null) {
-                            if (pro?.active == true) TextButton(onClick = { handoff = d.pkg to r.text }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.pro_copy_review), color = RbColors.purpleLight, fontSize = 12.sp) }
-                            else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
+                            TextButton(onClick = { handoff = d.pkg to r.text }, contentPadding = PaddingValues(horizontal = 0.dp)) { Text(stringResource(R.string.pro_copy_review), color = RbColors.purpleLight, fontSize = 12.sp) }
                         }
                     }
                 }

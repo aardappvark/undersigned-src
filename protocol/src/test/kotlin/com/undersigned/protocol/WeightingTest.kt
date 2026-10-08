@@ -5,13 +5,13 @@ import kotlin.math.abs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /**
- * Weight = device × quality, the same in every score and never touched by payment. Pro and promoted reviews appear, at that
- * same weight, in their own labelled segment scores beside the signed score (compliance check, 9 Oct 2026). Properties:
- * paying never changes the signed score; segments only hold what was really paid; traders cannot buy into them.
+ * Weight = device × quality, the same in every score and never touched by payment. Pro members' reviews appear, at that same
+ * weight, in their own labelled score beside the signed score (compliance check, 9 Oct 2026). Properties: paying never
+ * changes the signed score; the Pro segment only holds what was really paid; a seat gifted by the reviewed app's publisher
+ * counts in no score; Undersigned's own wallets count in no score.
  */
 class WeightingTest {
     private fun id(c: Char) = "1" + c.toString().repeat(86)
@@ -21,15 +21,8 @@ class WeightingTest {
     private fun rev(c: Char, who: String, t: Long, rating: Int, text: String? = null) = LedgerEntry(id(c), who, t, ReviewMemo.Review(pkg, rating, listOf(Tag.WORKS), 1, text))
     private fun use(c: Char, who: String, t: Long) = LedgerEntry(id(c), who, t, ReviewMemo.Use(pkg, UseBucket.WEEKS))
     private fun pro(c: Char, who: String, t: Long) = LedgerEntry(id(c), who, t, ReviewMemo.Pro(12))
-    private fun boost(c: Char, who: String, t: Long, target: String) = LedgerEntry(id(c), who, t, ReviewMemo.Boost(target))
     private fun close(a: Double, b: Double) = assertTrue(abs(a - b) < 1e-9, "$a != $b")
     private val YEAR = 365L * 86_400L
-
-    @Test fun `boost record round-trips and rejects a bad id`() {
-        val b = ReviewMemo.Boost("${id('A')}:1")
-        assertEquals(b, ReviewMemo.decode(ReviewMemo.encode(b)))
-        assertNull(ReviewMemo.decode("SRL1|bst|not-a-signature"))
-    }
 
     @Test fun `quality - bare review counts half, phone facts and a written note count fully, a hidden history halves it`() {
         val r = ReviewMemo.Review(pkg, 5, listOf(Tag.WORKS), 1, null)
@@ -47,7 +40,7 @@ class WeightingTest {
     }
 
     private val market = listOf(
-        pro('P', "member", 100), rev('A', "member", 200, 5, words6), use('U', "member", 200), boost('X', "member", 300, id('A')),
+        pro('P', "member", 100), rev('A', "member", 200, 5, words6), use('U', "member", 200),
         rev('B', "other", 200, 1, words6), use('V', "other", 200),
     )
 
@@ -57,12 +50,10 @@ class WeightingTest {
         close(3.0, unpaid.weightedMean); close(unpaid.weightedMean, paid.weightedMean); assertEquals(2, paid.countedReviews)
     }
 
-    @Test fun `segments hold exactly the Pro and promoted reviews, at their ordinary weight`() {
+    @Test fun `the Pro segment holds exactly the Pro members' reviews, at their ordinary weight`() {
         val s = Ranking.segments(market, emptyMap(), { true }, attested)
         assertEquals(1, s.pro.getValue(pkg).countedReviews); close(5.0, s.pro.getValue(pkg).weightedMean)
-        assertEquals(1, s.promoted.getValue(pkg).countedReviews)
-        val none = Ranking.segments(market, emptyMap(), { false }, attested)
-        assertTrue(none.pro.isEmpty() && none.promoted.isEmpty())
+        assertTrue(Ranking.segments(market, emptyMap(), { false }, attested).pro.isEmpty())
     }
 
     @Test fun `Pro counts only for reviews signed during the term`() {
@@ -70,31 +61,31 @@ class WeightingTest {
         assertTrue(Ranking.segments(late, emptyMap(), { true }, attested).pro.isEmpty())
     }
 
-    @Test fun `a promotion counts only when paid, by the review's own wallet, while it held Pro`() {
-        val r = rev('A', "member", 200, 5, words6)
-        fun promoted(extra: List<LedgerEntry>, paid: (LedgerEntry) -> Boolean = { true }) =
-            Weighting.Context(listOf(pro('P', "member", 100), r) + extra, emptySet(), attested, paid).parts(r).promoted
-        assertTrue(promoted(listOf(boost('X', "member", 300, r.signature))))
-        assertFalse(promoted(listOf(boost('X', "someone", 300, r.signature))))
-        assertFalse(promoted(listOf(boost('X', "member", 300, r.signature)), paid = { it.memo is ReviewMemo.Pro }))
-        assertFalse(promoted(listOf(boost('X', "member", 100 + YEAR + 10, r.signature))))
-        assertFalse(Weighting.Context(listOf(r, boost('X', "member", 300, r.signature)), emptySet(), attested, { true }).parts(r).promoted)
-    }
-
-    @Test fun `traders cannot buy into the segments`() {
+    @Test fun `a Pro seat gifted by the app's publisher is labelled and counted in no score`() {
         val publisher = "publisher"; val fan = "fan"
         val vp = mapOf(pkg to setOf(publisher))
-        // the app's publisher pays for Pro and seats a reviewer: that seat does not make a Pro reviewer of the publisher's app
         val grant = LedgerEntry(id('G'), publisher, 150, ReviewMemo.Share(ProSharing.tag(publisher, fan)))
         val r = rev('A', fan, 200, 5, words6)
-        val seeded = listOf(pro('P', publisher, 100), grant, r)
-        assertFalse(Weighting.Context(seeded, emptySet(), attested, { true }, vp).parts(r).pro)
-        assertTrue(Weighting.Context(seeded, emptySet(), attested, { true }).parts(r).pro)   // the same seat counts elsewhere
-        // a verified publisher of ANY app cannot promote a review, even its own
-        val other = mapOf("com.other.app" to setOf("member"))
-        val own = rev('B', "member", 200, 1, words6)
-        val all = listOf(pro('P', "member", 100), own, boost('X', "member", 300, own.signature))
-        assertFalse(Weighting.Context(all, emptySet(), attested, { true }, other).parts(own).promoted)
+        val seeded = listOf(pro('P', publisher, 100), grant, r, rev('B', "other", 200, 1, words6))
+        val parts = Weighting.Context(seeded, emptySet(), attested, { true }, vp).parts(r)
+        assertTrue(parts.gifted); assertFalse(parts.pro); close(0.0, parts.weight)
+        val score = Ranking.score(seeded, vp, { true }, facts = attested).single()
+        assertEquals(1, score.countedReviews); close(1.0, score.weightedMean)
+        assertTrue(Ranking.segments(seeded, vp, { true }, attested).pro.isEmpty())
+        // the same seat is an ordinary Pro seat for an app that publisher does not publish
+        val elsewhere = Weighting.Context(seeded, emptySet(), attested, { true }).parts(r)
+        assertTrue(elsewhere.pro); assertFalse(elsewhere.gifted)
+    }
+
+    @Test fun `Undersigned's own wallets are counted in no score, flag or vote`() {
+        val op = Operator.WALLETS.first()
+        val entries = listOf(rev('A', op, 200, 1, words6), use('U', op, 200), rev('B', "owner", 200, 5, words6))
+        val s = Ranking.score(entries, facts = attested).single()
+        assertEquals(1, s.countedReviews); close(5.0, s.weightedMean)
+        val target = rev('C', "owner", 10, 3, words6)
+        val flag = LedgerEntry(id('F'), op, 20, ReviewMemo.Flag(target.signature, ReviewMemo.FlagReason.SPAM))
+        assertTrue(Reputation.flagWeights(listOf(target, flag), emptyMap(), Operator.gate(attested)).values.all { it == 0.0 })
+        assertTrue(Operator.publishes(pkg, mapOf(pkg to setOf(op)))); assertFalse(Operator.publishes(pkg, mapOf(pkg to setOf("x"))))
     }
 
     @Test fun `a shared Pro seat counts, a grant signed after the review does not reach back`() {
@@ -117,10 +108,10 @@ class WeightingTest {
 
     @Test fun `an uncounted wallet stays out of every score whatever it pays`() {
         val r = rev('A', "nogenesis", 200, 5, words6)
-        val all = listOf(pro('P', "nogenesis", 100), r, boost('X', "nogenesis", 300, r.signature))
+        val all = listOf(pro('P', "nogenesis", 100), r)
         val none = { _: String -> SignerFacts(false, 0.0) }
         assertTrue(Ranking.score(all, facts = none).all { it.countedReviews == 0 })
         val s = Ranking.segments(all, emptyMap(), { true }, none)
-        assertTrue(s.pro.isEmpty() && s.promoted.isEmpty())
+        assertTrue(s.pro.isEmpty())
     }
 }

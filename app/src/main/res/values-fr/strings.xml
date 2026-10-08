@@ -52,7 +52,7 @@
     <string name="detail_update_review">Mettre à jour mon avis</string>
     <string name="detail_revoke_review">Retirer mon avis</string>
     <string name="detail_score_title">Score signé</string>
-    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), pondérée par le SKR staké (jusqu\'à 3×) et par ce que chaque avis apporte (durée d\'installation, usage, une note écrite). Rien de payé n\'y entre ; les avis des membres Pro et les avis mis en avant ont aussi leurs propres scores. Opinions de propriétaires, pas la note de la boutique.</string>
+    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), pondérée par ce que chaque avis apporte (durée d\'installation, usage, une note écrite) et par le SKR staké, un jeton que tout le monde peut acheter (jusqu\'à 3×). Aucun paiement à Undersigned n\'y entre ; les avis des membres Pro ont aussi leur propre score. Les portefeuilles d\'Undersigned ne sont jamais comptés. Opinions de propriétaires, pas la note de la boutique.</string>
     <string name="detail_rank_score">Score de classement %1$s — ramené vers 3,0 tant que peu de Seekers ont signé ; sert uniquement à trier la liste.</string>
     <string name="follow">Suivre</string>
     <string name="following">Suivi(e)</string>
@@ -399,9 +399,9 @@
     <string name="pro_tool_desk_title">Bureau de l\'éditeur</string>
     <string name="pro_tool_desk_body">La file sans réponse et la réactivité pour chaque dApp dont vous êtes l\'éditeur prouvé, dans une seule liste.</string>
     <string name="pro_tool_export_title">Exportez le registre</string>
-    <string name="pro_tool_export_body">N\'importe quel dApp, n\'importe quel signataire, en CSV ou JSON. Les données sont publiques ; Pro fait la lecture à votre place.</string>
-    <string name="pro_tool_watch_title">Surveillance horaire du certificat</string>
-    <string name="pro_tool_watch_body">Changements de certificat et de permissions vérifiés toutes les heures au lieu de toutes les six, toujours sur l\'appareil.</string>
+    <string name="pro_tool_export_body">Tout le registre tel que ce téléphone le détient, en CSV ou JSON. Les données sont publiques ; Pro les lit pour vous.</string>
+    <string name="pro_tool_watch_title">Alertes toutes les heures</string>
+    <string name="pro_tool_watch_body">Les alertes des apps que vous suivez sont vérifiées toutes les heures au lieu de toutes les six, sur l\'appareil.</string>
     <string name="pro_not_title">Ce que Pro ne fait pas</string>
     <string name="pro_not_body">Il ne change jamais le score signé, ne fait jamais compter un avis davantage et ne pèse jamais sur l\'avis de quelqu\'un d\'autre : signalements, votes « utile » et masquage n\'utilisent que l\'appareil et le SKR staké. Pas de jeton, rien à collectionner, rien à détenir.</string>
     <string name="pro_free_keeps">Lire le registre, signer des avis, signaler, contester et les faits de l\'appareil restent gratuits, pour toujours. Pro ajoute des outils, une marque Membre Pro et sa propre ligne de score, signalée.</string>
@@ -985,16 +985,9 @@
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
     <string name="weight_pro_pill">Membre Pro</string>
-    <string name="weight_boosted_pill">Mis en avant · payé</string>
     <string name="weight_counts">Poids %1$s · qualité %2$s</string>
-    <string name="boost_button">Mettre cet avis en avant</string>
-    <string name="boost_title">Mettre cet avis en avant ?</string>
-    <string name="boost_body">La mise en avant place cet avis en tête de la page de l\'app, marqué Mis en avant · payé, et le compte dans le score séparé Mis en avant. Le score signé et le poids de l\'avis ne changent pas. Elle ne vaut que pour cette version de l\'avis, et le paiement est un enregistrement public.</string>
-    <string name="boost_pay">Payer %1$s</string>
-    <string name="boost_done">Mis en avant. Signature %1$s</string>
-    <string name="boost_needs_pro">Mettre un avis en avant demande un abonnement Pro actif.</string>
     <string name="pro_tool_weight_title">Votre propre ligne de score</string>
-    <string name="pro_tool_weight_body">Vos avis comptés portent une marque Membre Pro et figurent aussi dans un score séparé des membres Pro, à côté du score signé. Mettez-en un en avant pour l\'afficher en premier, marqué payé. Le score signé n\'inclut jamais de paiement.</string>
+    <string name="pro_tool_weight_body">Vos avis comptés portent une marque Membre Pro et figurent aussi dans un score séparé des membres Pro, à côté du score signé. Le score signé n\'inclut jamais de paiement à Undersigned.</string>
     <string name="member_score_title">Membres Pro</string>
     <string name="member_score_note">Uniquement les avis écrits avec Pro actif, à leur poids habituel.</string>
 
@@ -1018,6 +1011,19 @@
     <string name="timeline_clear">Effacer</string>
     <string name="timeline_hint">Touchez ou glissez sur le graphique pour lire une période.</string>
     <string name="timeline_note">La ligne grise pointillée fait la moyenne des %1$d avis de la boutique lus depuis le %2$s ; la note de la boutique compte tous ses avis.</string>
-    <string name="promoted_score_title">Mis en avant · payé</string>
-    <string name="promoted_score_note">Uniquement les avis dont l\'auteur a payé la mise en avant. Affichés en premier sur cette page.</string>
+
+    <!-- Related wallets, review headings, integrity policy (9 Oct 2026) -->
+    <string name="related_operator_pill">Opérateur d\'Undersigned</string>
+    <string name="related_gifted_pill">Pro offert par l\'éditeur de l\'app</string>
+    <string name="operator_publishes_note">L\'opérateur d\'Undersigned publie cette app. Les avis de ses propres portefeuilles sont affichés, signalés et jamais comptés.</string>
+    <string name="integrity_link">Comment les avis sont collectés, vérifiés et comptés</string>
+    <string name="reviews_group_organic">Avis indépendants</string>
+    <string name="reviews_group_organic_note">Propriétaires Seeker comptés, sans lien avec Undersigned ni avec l\'éditeur de cette app.</string>
+    <string name="reviews_group_pro">Membres Pro</string>
+    <string name="reviews_group_pro_note">Auteurs qui paient Undersigned pour Pro : comptés au même poids que tous, et montrés aussi dans leur propre score.</string>
+    <string name="reviews_group_related">Liés à Undersigned ou à l\'éditeur</string>
+    <string name="reviews_group_related_note">Portefeuilles d\'Undersigned, ou auteur dont l\'abonnement Pro a été offert par l\'éditeur de cette app. Affichés, signalés, comptés dans aucun score.</string>
+    <string name="reviews_group_uncounted">Non comptés</string>
+    <string name="reviews_group_uncounted_note">Pas de Seeker Genesis Token dans le portefeuille, ou l\'éditeur qui note sa propre app.</string>
+    <string name="not_counted_warning">Ce portefeuille n\'a pas de Seeker Genesis Token : ce que vous signez est enregistré sur la chaîne mais pas compté.</string>
 </resources>

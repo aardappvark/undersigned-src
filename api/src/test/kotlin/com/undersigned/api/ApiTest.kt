@@ -37,7 +37,6 @@ class ApiConfigParityTest {
         fun list(name: String) = Regex("$name: List<Double> = (listOf\\(([0-9., ]*)\\)|emptyList\\(\\))").find(src)!!.groupValues[2].split(',').mapNotNull { it.trim().toDoubleOrNull() }
         assertEquals(list("LEGACY_LIST_SOL"), AppFloors.LEGACY_LIST_SOL); assertEquals(list("LEGACY_LIST_SKR"), AppFloors.LEGACY_LIST_SKR)
         assertEquals(num("LIST_SOL"), AppFloors.LIST_SOL); assertEquals(num("LIST_SKR"), AppFloors.LIST_SKR); assertEquals(num("LIST_SKR_SGT"), AppFloors.LIST_SKR_SGT)
-        assertEquals(num("BOOST_SOL"), AppFloors.BOOST_SOL); assertEquals(num("BOOST_SKR"), AppFloors.BOOST_SKR)
         assertEquals(str("TREASURY"), Config.TREASURY); assertEquals(str("PAYMENT_MEMO"), Config.PAYMENT_MEMO)
         // The pass is the fleet price, like the listing fee.
         assertEquals(AppFloors.LIST_SOL, Config.PASS_SOL); assertEquals(AppFloors.LIST_SKR, Config.PASS_SKR); assertEquals(AppFloors.LIST_SKR_SGT, Config.PASS_SKR_SGT)
@@ -166,13 +165,13 @@ class ViewsAndHttpTest {
         assertEquals(2, get("/v1/apps/com.a.b/reviews").body.getJSONArray("reviews").length())
         assertEquals(404, get("/v1/apps/com.nothing.here").status)
         // Paid endpoint without a pass: 402 with the price and a Solana Pay URL carrying the API reference.
-        val r = get("/v1/records")
+        val r = get("/v1/watch")
         assertEquals(402, r.status)
         assertTrue(r.body.getJSONObject("pricing").getJSONObject("solana_pay").getString("sol").contains("reference=${Config.API_REFERENCE}"))
         // With a pass: served and metered; a spent pass is refused, never served as free.
         db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_k', 'w', 1, ?, 0)", System.currentTimeMillis() / 1000 + 3600)
-        assertEquals(200, get("/v1/records", "Bearer us_k").status)
-        assertEquals(402, get("/v1/records", "Bearer us_k").status)
+        assertEquals(200, get("/v1/watch", "Bearer us_k").status)
+        assertEquals(402, get("/v1/watch", "Bearer us_k").status)
         assertEquals(402, get("/v1/apps/com.a.b/reviews", "Bearer us_k").status)
         assertEquals(402, get("/v1/stats", "Bearer us_made_up", ip = "7.7.7.7").status)             // unknown key: refused, not served free
         // /v1/keys/me and unknown keys spend the IP budget: 30 a minute, then 429.
@@ -184,7 +183,10 @@ class ViewsAndHttpTest {
         assertEquals(404, get("/v1/nope").status)
         val spec = get("/v1/openapi.json").body
         assertNotNull(spec.getJSONObject("paths").optJSONObject("/v1/apps/{pkg}/bursts"))
-        assertEquals("paid", spec.getJSONObject("paths").getJSONObject("/v1/records").getJSONObject("get").getString("x-tier"))
+        assertEquals("paid", spec.getJSONObject("paths").getJSONObject("/v1/watch").getJSONObject("get").getString("x-tier"))
+        // What the free dataset and the website already give away is never behind the pass.
+        assertEquals("limited", spec.getJSONObject("paths").getJSONObject("/v1/records").getJSONObject("get").getString("x-tier"))
+        assertEquals("free", spec.getJSONObject("paths").getJSONObject("/v1/apps/{pkg}/bursts").getJSONObject("get").getString("x-tier"))
     }
 
     @Test fun `redeem endpoint refuses bad input without touching the chain`() {

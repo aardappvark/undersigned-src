@@ -75,7 +75,6 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             is ReviewMemo.Clear -> o.put("target", m.recordId)
             is ReviewMemo.Dispute -> o.put("target", m.recordId).put("text", m.text)
             is ReviewMemo.Pro -> o.put("months", m.months)
-            is ReviewMemo.Boost -> o.put("target", m.recordId)
             is ReviewMemo.Use -> o.put("package", m.packageName).put("bucket", m.bucket.wire)
             is ReviewMemo.Time -> o.put("package", m.packageName).put("bucket", m.time.wire)
             is ReviewMemo.StoreNote -> o.put("package", m.packageName).put("store_review", m.reviewId).put("text", m.text)
@@ -136,7 +135,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     fun stats(): JSONObject {
         val st = s; val all = st.entries
         val live = all.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
-        val counted = live.filter { st.factsOf(it.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(it, st.verified) }
+        val counted = live.filter { st.countsFor(it.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(it, st.verified) }
         val signers = live.map { it.signer }.toSet()
         val byId = all.associateBy { it.signature }
         val replies = all.filter { it.memo is ReviewMemo.Reply }
@@ -186,16 +185,17 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val o = appRow(pkg)
         val sc = st.scores[pkg]
         val live = liveReviews(pkg, st)
-        val counted = live.filter { st.factsOf(it.signer).hasGenesisToken }
+        val counted = live.filter { st.countsFor(it.signer).hasGenesisToken && st.weighting.parts(it).weight > 0 }
         o.put("signed", JSONObject()
             .put("rank_score", sc?.weightedRating?.let(::r2) ?: JSONObject.NULL).put("mean", sc?.weightedMean?.let(::r2) ?: JSONObject.NULL)
             .put("counted_reviews", sc?.countedReviews ?: 0).put("live_reviews", live.size)
             .put("stars", JSONArray((1..5).map { star -> counted.count { (it.memo as ReviewMemo.Review).rating == star } }))
             .put("tags", JSONObject((sc?.tagCounts ?: emptyMap()).mapKeys { it.key.wire }))
             .put("latest_version_reviewed", sc?.latestVersionReviewed ?: JSONObject.NULL)
-            // Beside the signed score, never blended into it (protocol Weighting): Pro members' reviews and promoted (paid) reviews.
+            // Beside the signed score, never blended into it (protocol Weighting): Pro members' reviews as their own score.
             .put("pro_members", st.segments.pro[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
-            .put("promoted", st.segments.promoted[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
+            // The operator also publishes apps in this store; on its own apps the page says so (protocol Operator).
+            .put("operator_publishes", com.undersigned.protocol.Operator.publishes(pkg, st.verified))
             .put("install_age", JSONObject(live.mapNotNull { st.usage[it.signature]?.wire }.groupingBy { it }.eachCount()))
             .put("usage_time", JSONObject(live.mapNotNull { st.useTimes[it.signature]?.wire }.groupingBy { it }.eachCount())))
         st.details[pkg]?.let { d -> o.put("store", JSONObject().put("version", d.versionCode).put("certificate_sha256", d.certFingerprint ?: JSONObject.NULL)
@@ -226,9 +226,10 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro) })
                     )
-                .put("counted", f.hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
+                .put("counted", st.weighting.parts(e).weight > 0 && st.countsFor(e.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
+                .put("related", when { com.undersigned.protocol.Operator.isOperator(e.signer) -> "operator"; st.weighting.parts(e).gifted -> "pro_from_publisher"; else -> JSONObject.NULL })
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("install_age", st.usage[e.signature]?.wire ?: JSONObject.NULL).put("usage_time", st.useTimes[e.signature]?.wire ?: JSONObject.NULL)
                 .put("season", Seasons.at(e.blockTime)?.let { JSONObject().put("id", it.id).put("label", it.label) } ?: JSONObject.NULL)
@@ -244,7 +245,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     }
 
     fun versions(pkg: String): JSONObject { val st = s; return JSONObject().put("package", pkg).put("versions", JSONArray(
-        Reputation.byVersion(st.entries, pkg, st.verified) { st.factsOf(it) }.map { JSONObject().put("version", it.versionCode).put("mean", r2(it.mean)).put("count", it.count) })) }
+        Reputation.byVersion(st.entries, pkg, st.verified) { st.countsFor(it) }.map { JSONObject().put("version", it.versionCode).put("mean", r2(it.mean)).put("count", it.count) })) }
 
     fun similar(pkg: String): JSONObject { val st = s; return JSONObject().put("package", pkg).put("findings", JSONArray(liveReviews(pkg, st).mapNotNull { e ->
         st.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } })) }
