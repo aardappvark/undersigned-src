@@ -135,24 +135,24 @@ class ProtocolTest {
     // together. A wallet at the 3x staking cap clears HIDE_WEIGHT on its own; only MIN_FLAGGERS stops it. This is
     // the shape exercised on mainnet 21 Sep 2026 (3uzMbkkk…: vitalik.skr, 3.0x, flagging the publisher's review),
     // which on device showed a "3.0 flag weight" pill and left the review visible.
-    @Test fun `one max-weight wallet cannot hide a record alone, and a dispute needs three heads not just weight`() {
+    @Test fun `one heavily staked wallet cannot hide a record alone, and a dispute needs four counted flaggers`() {
         val r = "1" + "A".repeat(86)
         val review = LedgerEntry(r, "author", 10, ReviewMemo.Review("com.x", 5, listOf(ReviewMemo.Tag.WORKS), 1, null))
         val heavy = { _: String -> SignerFacts(true, 1_000_000.0) }
-        assertEquals(3.0, Ranking.weight(heavy("any")), 1e-9, "the fixture must actually sit at the cap")
         val whale = LedgerEntry("2" + "A".repeat(86), "whale", 20, ReviewMemo.Flag(r, ReviewMemo.FlagReason.OFF_TOPIC))
-        assertEquals(3.0, Reputation.flagWeights(listOf(review, whale), facts = heavy)[r]!!, 1e-9)
-        assertTrue(Reputation.flagWeights(listOf(review, whale), facts = heavy)[r]!! >= Reputation.HIDE_WEIGHT, "weight alone would hide it")
+        assertEquals(1.0, Reputation.flagWeights(listOf(review, whale), facts = heavy)[r]!!, 1e-9, "a stake buys no extra flag weight")
         assertTrue(Reputation.hiddenByConsensus(listOf(review, whale), facts = heavy).isEmpty(), "one wallet is not consensus")
 
         val second = LedgerEntry("3" + "A".repeat(86), "second", 21, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
         assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whale, second), facts = heavy))
 
-        // Disputed: weight 6.0 clears the doubled bar (4.0), but two heads are below DISPUTED_MIN_FLAGGERS.
+        // Disputed: the doubled bar (4.0) at one per device needs four counted flaggers, whatever they have staked.
         val dispute = LedgerEntry("4" + "A".repeat(86), "author", 30, ReviewMemo.Dispute(r, "Honest review."))
         assertTrue(Reputation.hiddenByConsensus(listOf(review, whale, second, dispute), facts = heavy).isEmpty(), "two heavy wallets cannot outvote a dispute")
         val third = LedgerEntry("5" + "A".repeat(86), "third", 31, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
-        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whale, second, dispute, third), facts = heavy))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whale, second, dispute, third), facts = heavy).isEmpty())
+        val fourth = LedgerEntry("7" + "A".repeat(86), "fourth", 32, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whale, second, dispute, third, fourth), facts = heavy))
 
         // A flagger who also marks it "looks genuine" cancels themselves out: net zero heads, net zero weight.
         val selfClear = LedgerEntry("6" + "A".repeat(86), "whale", 40, ReviewMemo.Clear(r))
@@ -228,15 +228,17 @@ class ProtocolTest {
         val review = LedgerEntry(r, "author", 10, ReviewMemo.Review("com.x", 2, listOf(ReviewMemo.Tag.CRASHES), 1, null))
         val whaleFlag = LedgerEntry("2" + "A".repeat(86), "whale", 20, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
         val facts = { w: String -> SignerFacts(true, if (w == "whale") 1_000_000.0 else 0.0) }
-        assertEquals(3.0, Reputation.flagWeights(listOf(review, whaleFlag), facts = facts)[r])   // weight is over the bar...
-        assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag), facts = facts).isEmpty(), "...but one wallet is not consensus")
+        assertEquals(1.0, Reputation.flagWeights(listOf(review, whaleFlag), facts = facts)[r])   // a stake buys no extra weight
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag), facts = facts).isEmpty(), "one wallet is not consensus")
         val second = LedgerEntry("3" + "A".repeat(86), "b", 21, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
         assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whaleFlag, second), facts = facts))
-        // after a dispute, two flaggers are not enough even at weight 4.0
+        // after a dispute the bar doubles to 4.0: at one per device that is four counted flaggers
         val dispute = LedgerEntry("4" + "A".repeat(86), "author", 30, ReviewMemo.Dispute(r, "honest review"))
         assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag, second, dispute), facts = facts).isEmpty())
         val third = LedgerEntry("5" + "A".repeat(86), "c", 31, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
-        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whaleFlag, second, dispute, third), facts = facts))
+        assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag, second, dispute, third), facts = facts).isEmpty())
+        val fourth = LedgerEntry("6" + "A".repeat(86), "d", 32, ReviewMemo.Flag(r, ReviewMemo.FlagReason.SPAM))
+        assertEquals(setOf(r), Reputation.hiddenByConsensus(listOf(review, whaleFlag, second, dispute, third, fourth), facts = facts))
         // an unattested flagger adds no person
         val unattested = { w: String -> SignerFacts(w != "b", 0.0) }
         assertTrue(Reputation.hiddenByConsensus(listOf(review, whaleFlag, second), facts = unattested).isEmpty())
@@ -274,11 +276,16 @@ class ProtocolTest {
     private fun rev(sig: String, signer: String, t: Long, pkg: String, rating: Int) =
         LedgerEntry(sig, signer, t, ReviewMemo.Review(pkg, rating, listOf(Tag.WORKS), 1, null))
 
-    @Test fun `no genesis token means zero weight, whale weight is capped`() {
+    @Test fun `no genesis token means zero weight, and staked SKR never changes the weight`() {
         assertEquals(0.0, Ranking.weight(SignerFacts(false, 1_000_000.0)))
         assertEquals(1.0, Ranking.weight(SignerFacts(true, 0.0)))
-        assertEquals(Ranking.MAX_WEIGHT, Ranking.weight(SignerFacts(true, 1_000_000.0)))
-        assertTrue(Ranking.weight(SignerFacts(true, 1_000.0)) in 1.6..1.8)
+        assertEquals(1.0, Ranking.weight(SignerFacts(true, 1_000.0)))
+        assertEquals(1.0, Ranking.weight(SignerFacts(true, 1_000_000.0)))
+        // the score is the same however much either reviewer has staked
+        val e = listOf(rev("1" + "A".repeat(86), "a", 1, "com.x", 5), rev("1" + "B".repeat(86), "b", 1, "com.x", 1))
+        val flat = Ranking.score(e, facts = { SignerFacts(true, 0.0) }).single().weightedMean
+        val whale = Ranking.score(e, facts = { w -> SignerFacts(true, if (w == "a") 10_000_000.0 else 0.0) }).single().weightedMean
+        assertEquals(flat, whale, 1e-12)
     }
 
     @Test fun `revocation only counts from the same wallet, newest review per wallet wins, sybils ignored`() {

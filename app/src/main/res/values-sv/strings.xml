@@ -42,7 +42,7 @@
     <string name="detail_update_review">Uppdatera min recension</string>
     <string name="detail_revoke_review">Dra tillbaka min recension</string>
     <string name="detail_score_title">Signerat betyg</string>
-    <string name="detail_score_sub">Medelvärde av recensioner från intygade enheter (i dag: innehavare av Seeker Genesis Token), viktat efter vad varje recension bär (installationstid, användning, en skriven anteckning) och efter SKR som plånboken har stakat (högst 3×). SKR handlas, så den här delen av vikten kan förvärvas; Undersigned rekommenderar varken köp eller staking. Ingen betalning till Undersigned ingår i betyget; Pro-medlemmars recensioner visas även som eget betyg. Undersigneds egna plånböcker räknas aldrig. Åsikter från ägare av intygade Seeker-enheter, inte butikens betyg.</string>
+    <string name="detail_score_sub">Medelvärde av recensioner från intygade enheter (i dag: innehavare av Seeker Genesis Token), en röst per enhet, viktat bara efter vad varje recension bär (installationstid, användning, en skriven anteckning). Ingen betalning och inget tokensaldo ingår. Varje recension visar för öppenhetens skull den SKR och SOL plånboken hade stakat när den lästes; hur mycket det betyder avgör du. Pro-medlemmars recensioner visas även som eget betyg. Undersigneds egna plånböcker räknas aldrig. Åsikter från ägare av intygade Seeker-enheter, inte butikens betyg.</string>
     <string name="detail_rank_score">Rankningspoäng %1$s — dras mot 3,0 tills fler Seekers signerar; används bara för att ordna listan.</string>
     <string name="follow">Följ</string>
     <string name="following">Följer</string>
@@ -179,8 +179,8 @@
     <string name="settings_standing">Din status</string>
     <string name="standing_sgt_yes">Attesterad enhet hittad (%1$s): dina recensioner räknas.</string>
     <string name="standing_sgt_no">Inget bevis för en attesterad enhet i den här plånboken (idag: Seeker Genesis Token): dina recensioner skulle inte räknas.</string>
-    <string name="standing_stake">Insatt SKR läst on-chain: %1$s (vikt %2$s×)</string>
-    <string name="standing_note">Vikter läses från kedjan: enheten och stakad SKR. Pro och betalningar till Undersigned ändrar dem aldrig.</string>
+    <string name="standing_stake">Stakat: %1$s SKR · %2$s SOL, läst på kedjan. Visas för öppenhetens skull; det ändrar aldrig vikten.</string>
+    <string name="standing_note">Vikter är en per intygad enhet, justerade bara efter vad varje recension bär. Stakes visas, vägs aldrig; Pro och betalningar till Undersigned ändrar dem aldrig.</string>
     <string name="settings_ledger">Liggare</string>
     <string name="settings_ledger_body">Registeradress %1$s. Varje recension går att hitta av vem som helst via den här adressen. Den här appen läser det direkt från kedjan, inte från någon server hos oss.</string>
     <string name="settings_refresh_ledger">Läs om liggaren</string>
@@ -205,7 +205,7 @@
     <string name="intro_next">Nästa</string>
     <string name="intro_replay">Spela upp introduktionen igen</string>
     <string name="intro1_title">En Seeker, en röst</string>
-    <string name="intro1_body">Undersigned är ett recensionslager bredvid dApp Store. Bara plånböcker med en Seeker Genesis Token räknas: en enhet, en röst. Ingen betalning till Undersigned ändrar det signerade betyget; stakad SKR kan höja en recensions vikt, högst 3×.</string>
+    <string name="intro1_body">Undersigned är ett recensionslager bredvid dApp Store. Bara plånböcker med en Seeker Genesis Token räknas: en enhet, en röst. Ingen betalning och inget tokensaldo ändrar hur mycket en recension räknas.</string>
     <string name="intro2_title">Signerat, inte skrivet</string>
     <string name="intro2_body">Varje recension är en liten transaktion du godkänner på telefonen med dubbeltryckningen. Din plånbok betalar bara den nätverksavgift den själv sätter. Undersigned innehar aldrig dina nycklar eller medel.</string>
     <string name="intro3_title">Vid sidan av butiken, inte istället för den</string>
@@ -384,7 +384,7 @@
     <string name="pro_tool_watch_title">Aviseringar varje timme</string>
     <string name="pro_tool_watch_body">Aviseringar för appar du följer kontrolleras varje timme i stället för var sjätte, på enheten.</string>
     <string name="pro_not_title">Vad Pro inte gör</string>
-    <string name="pro_not_body">Det ändrar aldrig det signerade betyget, får aldrig en recension att räknas mer och väger aldrig på någon annans recension: flaggor, hjälpsam-röster och döljning använder bara enheten och stakad SKR. Det finns ingen token, inget att samla och inget att hålla.</string>
+    <string name="pro_not_body">Det ändrar aldrig det signerade betyget, får aldrig en recension att räknas mer och väger aldrig på andras recensioner: flaggor, hjälpsam-röster och döljande räknas en per intygad enhet. Det finns ingen token, inget att samla och inget att hålla.</string>
     <string name="pro_free_keeps">Att läsa liggaren, signera recensioner, flaggor, invändningar och enhetsfakta förblir gratis, alltid. Pro lägger till verktyg, en Pro-medlem-märkning och en egen, märkt betygsrad.</string>
     <string name="pro_price_line">12 månader på den här plånboken · betala i endera, löptiden är densamma · nätverksavgift ovanpå, satt av din plånbok</string>
     <string name="pro_pay_in">Betala i</string>
@@ -458,7 +458,7 @@
     </plurals>
     <string name="pro_shared_none">Ingen beviljning från %1$s namnger den här plånboken ännu. Den sparas här och läses igen med liggaren.</string>
     <string name="pro_shared_forget">Glöm</string>
-    <string name="pro_standing_note">Pro är inte en del av detta. Vikt kommer endast från enheten och insatt SKR.</string>
+    <string name="pro_standing_note">Pro ingår inte här. Vikten är en per intygad enhet; stakad SKR och SOL visas, vägs aldrig.</string>
     <string name="free_pro_title">Gratis och Pro</string>
     <string name="fp_free">Gratis</string>
     <string name="fp_pro">Pro</string>
@@ -476,7 +476,7 @@
     <string name="fp_watch_free">var 6:e timme</string>
     <string name="fp_watch_pro">varje timme</string>
     <string name="fp_weight">Hur mycket din åsikt räknas</string>
-    <string name="fp_weight_both">detsamma — endast enhet och insatt SKR</string>
+    <string name="fp_weight_both">samma: en per intygad enhet</string>
     <string name="desk_title">Utgivarpanel</string>
     <plurals name="desk_across">
         <item quantity="one">Över din %1$d bevisade dApp</item>
@@ -1016,4 +1016,7 @@
     <string name="boost_declaration">Genom att betala bekräftar du att du inte får betalt av, är anställd av eller agerar för appens utgivare eller en konkurrent.</string>
     <string name="withdrawal_consent">Starta nu. Jag förstår att jag förlorar en eventuell 14-dagars ångerrätt när betalningen bekräftats på kedjan.</string>
     <string name="withdrawal_confirmed">Du begärde omedelbar leverans och bekräftade att en eventuell 14-dagars ångerrätt upphör. Ditt kvitto är transaktionen på kedjan %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Stakat vid läsning: %1$s SKR · %2$s SOL · %3$s. Visas för öppenhetens skull; det ändrar aldrig vikten.</string>
 </resources>

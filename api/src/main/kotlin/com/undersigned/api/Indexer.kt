@@ -61,6 +61,8 @@ class State(
     val proofHow: Map<Pair<String, String>, String> = emptyMap(),
     /** Record ids whose TEXT this site does not show (the operator's hide list): the record itself stays listed and on-chain. */
     val operatorHidden: Map<String, String> = emptyMap(),
+    /** Review id → the reviewer's stake as first read after the review appeared (shown, never weighed). */
+    val reviewStake: Map<String, com.undersigned.protocol.StakeView.Snapshot> = emptyMap(),
 ) {
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
@@ -165,19 +167,22 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         return entries to meta
     }
 
-    // ---- Signer facts: attested device (Seeker Genesis Token) and staked SKR, as the app weighs them ----------------
+    // ---- Signer facts: attested device (Seeker Genesis Token), and staked SKR and SOL shown (never weighed) --------
 
     /** What the cache holds for [wallet], however old, or null when it was never read. Never touches the chain. */
-    fun cachedFacts(wallet: String): SignerFacts? = db.query("SELECT sgt, staked FROM facts WHERE wallet = ?", wallet) { SignerFacts(it.getInt(1) == 1, it.getDouble(2)) }.firstOrNull()
+    fun cachedFacts(wallet: String): SignerFacts? = db.query("SELECT sgt, staked, sol FROM facts WHERE wallet = ?", wallet) { SignerFacts(it.getInt(1) == 1, it.getDouble(2), stakedSol = it.getObject(3) as? Double) }.firstOrNull()
 
     fun facts(wallet: String, force: Boolean = false): SignerFacts {
-        val row = db.query("SELECT sgt, staked, at FROM facts WHERE wallet = ?", wallet) { Triple(it.getInt(1) == 1, it.getDouble(2), it.getLong(3)) }.firstOrNull()
-        if (!force && row != null && System.currentTimeMillis() - row.third < Config.FACTS_TTL_MS) return SignerFacts(row.first, row.second)
+        val row = db.query("SELECT sgt, staked, at, sol FROM facts WHERE wallet = ?", wallet) { listOf(it.getInt(1) == 1, it.getDouble(2), it.getLong(3), it.getObject(4) as? Double) }.firstOrNull()
+        fun of(r: List<Any?>) = SignerFacts(r[0] as Boolean, r[1] as Double, stakedSol = r[3] as Double?)
+        if (!force && row != null && System.currentTimeMillis() - (row[2] as Long) < Config.FACTS_TTL_MS) return of(row)
         // A read that fails keeps what was known: an RPC outage must not turn every reviewer unattested until the next good round.
-        val sgt = runCatching { rpc.holdsSeekerGenesisToken(wallet) }.getOrElse { return row?.let { SignerFacts(it.first, it.second) } ?: SignerFacts(false, 0.0) }
+        val sgt = runCatching { rpc.holdsSeekerGenesisToken(wallet) }.getOrElse { return row?.let(::of) ?: SignerFacts(false, 0.0) }
         val staked = if (sgt) runCatching { stakedSkr(wallet) }.getOrDefault(0.0) else 0.0
-        db.exec("INSERT OR REPLACE INTO facts (wallet, sgt, staked, at) VALUES (?, ?, ?, ?)", wallet, if (sgt) 1 else 0, staked, System.currentTimeMillis())
-        return SignerFacts(sgt, staked)
+        // Staked SOL: shown beside reviews for transparency, never weighed; null when the node would not answer.
+        val sol = if (sgt) runCatching { com.undersigned.protocol.StakeView.solStaked(rpc.stakeAccounts(wallet)) }.getOrNull() else null
+        db.exec("INSERT OR REPLACE INTO facts (wallet, sgt, staked, at, sol) VALUES (?, ?, ?, ?, ?)", wallet, if (sgt) 1 else 0, staked, System.currentTimeMillis(), sol)
+        return SignerFacts(sgt, staked, stakedSol = sol)
     }
 
     /** Guardian-pool stake, valued at the current share price (the app's SignerFactsService layout). */
@@ -412,6 +417,15 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         val (entries, meta) = loadEntries()
         val signers = entries.map { it.signer }.distinct()
         val facts = signers.associateWith { facts(it) }
+        // Each review's stake as first read after it appeared (owner, 9 Oct 2026): shown beside it, never weighed.
+        val haveStake = db.query("SELECT id FROM review_stake") { it.getString(1) }.toHashSet()
+        entries.filter { it.memo is ReviewMemo.Review && it.signature !in haveStake }.forEach { e ->
+            val f = facts[e.signer]?.takeIf { it.hasGenesisToken } ?: return@forEach
+            // dated by when the facts were actually read from the chain, not by this rebuild (they may be cached for hours)
+            val readAt = db.query("SELECT at FROM facts WHERE wallet = ?", e.signer) { it.getLong(1) / 1000 }.firstOrNull() ?: return@forEach
+            db.exec("INSERT OR IGNORE INTO review_stake (id, skr, sol, read_at) VALUES (?, ?, ?, ?)", e.signature, f.stakedSkr, f.stakedSol, readAt)
+        }
+        val reviewStake = db.query("SELECT id, skr, sol, read_at FROM review_stake") { it.getString(1) to com.undersigned.protocol.StakeView.Snapshot(it.getDouble(2), it.getObject(3) as? Double, it.getLong(4)) }.toMap()
         signers.forEach { runCatching { names.resolve(it) } }   // cached a week; only new signers cost a lookup
         val details = loadDetails()
         val (verified, since, how) = verifyClaims(entries, details)
@@ -424,7 +438,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
             else -> null
         }
         val hides = operatorHidden().filterKeys { id -> pkgOfRecord(id)?.let { com.undersigned.protocol.Operator.publishes(it, verified) } != true }
-        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides)
+        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides, reviewStake)
         if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 

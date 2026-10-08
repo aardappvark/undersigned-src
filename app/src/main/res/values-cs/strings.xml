@@ -47,7 +47,7 @@
     <string name="detail_update_review">Aktualizovat mou recenzi</string>
     <string name="detail_revoke_review">Stáhnout mou recenzi</string>
     <string name="detail_score_title">Podepsané skóre</string>
-    <string name="detail_score_sub">Průměr recenzí z ověřených zařízení (dnes: držitelé Seeker Genesis Token), vážený tím, co každá recenze nese (doba instalace, používání, napsaná poznámka), a SKR, které peněženka stakuje (nejvýše 3×). SKR se obchoduje, takže tuto část váhy lze získat; Undersigned nákup ani staking nedoporučuje. Žádná platba Undersigned do skóre nevstupuje; recenze členů Pro mají i vlastní skóre. Peněženky Undersigned se nikdy nepočítají. Názory majitelů ověřených zařízení Seeker, ne hodnocení obchodu.</string>
+    <string name="detail_score_sub">Průměr recenzí z ověřených zařízení (dnes: držitelé Seeker Genesis Token), jeden hlas na zařízení, vážený jen tím, co recenze nese (doba instalace, používání, napsaná poznámka). Žádná platba ani zůstatek tokenů do něj nevstupuje. Každá recenze kvůli průhlednosti ukazuje SKR a SOL, které peněženka stakovala při načtení; jak moc na tom záleží, posoudíte sami. Recenze členů Pro mají i vlastní skóre. Peněženky Undersigned se nikdy nepočítají. Názory majitelů ověřených zařízení Seeker, ne hodnocení obchodu.</string>
     <string name="detail_rank_score">Skóre žebříčku %1$s — stahováno směrem k 3,0, dokud nepodepíše více zařízení Seeker; slouží pouze k řazení seznamu.</string>
     <string name="follow">Sledovat</string>
     <string name="following">Sledováno</string>
@@ -193,8 +193,8 @@
     <string name="settings_standing">Vaše postavení</string>
     <string name="standing_sgt_yes">Nalezeno ověřené zařízení (%1$s): vaše recenze se počítají.</string>
     <string name="standing_sgt_no">V této peněžence chybí pověření ověřeného zařízení (dnes: Seeker Genesis Token): vaše recenze by se nezapočítávaly.</string>
-    <string name="standing_stake">Zastakovaný SKR přečtený z blockchainu: %1$s (váha %2$s×)</string>
-    <string name="standing_note">Váhy se čtou z řetězce: zařízení a stakované SKR. Pro ani platby Undersigned je nikdy nemění.</string>
+    <string name="standing_stake">Stakováno: %1$s SKR · %2$s SOL, načteno z řetězce. Zobrazeno kvůli průhlednosti; váhu nikdy nemění.</string>
+    <string name="standing_note">Váhy jsou jedna na ověřené zařízení, upravené jen tím, co recenze nese. Stake se zobrazují, nikdy neváží; Pro ani platby Undersigned je nikdy nemění.</string>
     <string name="settings_ledger">Evidence</string>
     <string name="settings_ledger_body">Adresa registru %1$s. Každou recenzi může kdokoli najít prostřednictvím této adresy. Tato aplikace to čte přímo z blockchainu, ne z našeho serveru.</string>
     <string name="settings_refresh_ledger">Znovu načíst evidenci</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Další</string>
     <string name="intro_replay">Přehrát úvod znovu</string>
     <string name="intro1_title">Jeden Seeker, jeden hlas</string>
-    <string name="intro1_body">Undersigned je vrstva recenzí vedle dApp Store. Počítají se jen peněženky se Seeker Genesis Token: jedno zařízení, jeden hlas. Žádná platba Undersigned nemění podepsané skóre; stakované SKR může zvýšit váhu recenze, nejvýše na 3×.</string>
+    <string name="intro1_body">Undersigned je vrstva recenzí vedle dApp Store. Počítají se jen peněženky se Seeker Genesis Token: jedno zařízení, jeden hlas. Žádná platba ani zůstatek tokenů nemění, kolik recenze váží.</string>
     <string name="intro2_title">Podepsané, ne napsané</string>
     <string name="intro2_body">Každá recenze je malá transakce, kterou schválíte na telefonu dvojitým klepnutím. Vaše peněženka platí jen síťový poplatek, který si sama nastaví. Undersigned nikdy nedrží vaše klíče ani prostředky.</string>
     <string name="intro3_title">Vedle obchodu, ne místo něj</string>
@@ -402,7 +402,7 @@
     <string name="pro_tool_watch_title">Upozornění každou hodinu</string>
     <string name="pro_tool_watch_body">Upozornění na sledované aplikace se kontrolují každou hodinu místo každých šest, v zařízení.</string>
     <string name="pro_not_title">Co Pro nedělá</string>
-    <string name="pro_not_body">Nikdy nemění podepsané skóre, nikdy nezvýší váhu recenze a nikdy neváží na cizí recenzi: nahlášení, hlasy „užitečné“ a skrývání používají jen zařízení a stakované SKR. Žádný token, nic ke sbírání ani držení.</string>
+    <string name="pro_not_body">Nikdy nemění podepsané skóre, nikdy nezvýší váhu recenze a nikdy nepůsobí na cizí recenze: nahlášení, hlasy „užitečné“ a skrývání se počítají jedna na ověřené zařízení. Není žádný token, nic ke sbírání ani k držení.</string>
     <string name="pro_free_keeps">Čtení záznamů, podepisování recenzí, nahlášení, námitky a fakta zařízení zůstávají zdarma, navždy. Pro přidává nástroje, značku Člen Pro a vlastní, označenou řádku skóre.</string>
     <string name="pro_price_line">12 měsíců na této peněžence · plaťte v kterékoli, doba je stejná · navíc síťový poplatek nastavený vaší peněženkou</string>
     <string name="pro_pay_in">Platit v</string>
@@ -480,7 +480,7 @@
     </plurals>
     <string name="pro_shared_none">Žádné udělení od %1$s zatím nejmenuje tuto peněženku. Zůstává zde uloženo a znovu se přečte s evidencí.</string>
     <string name="pro_shared_forget">Zapomenout</string>
-    <string name="pro_standing_note">Pro do toho nezasahuje. Váha pochází pouze ze zařízení a zastakovaného SKR.</string>
+    <string name="pro_standing_note">Pro s tím nesouvisí. Váha je jedna na ověřené zařízení; stakované SKR a SOL se zobrazují, nikdy neváží.</string>
     <string name="free_pro_title">Free a Pro</string>
     <string name="fp_free">Free</string>
     <string name="fp_pro">Pro</string>
@@ -498,7 +498,7 @@
     <string name="fp_watch_free">každých 6 hodin</string>
     <string name="fp_watch_pro">každou hodinu</string>
     <string name="fp_weight">Kolik váží váš názor</string>
-    <string name="fp_weight_both">stejně — pouze zařízení a zastakovaný SKR</string>
+    <string name="fp_weight_both">stejně: jedna na ověřené zařízení</string>
     <string name="desk_title">Pult vydavatele</string>
     <plurals name="desk_across">
         <item quantity="one">Napříč vašimi %1$d prokázanými dApps</item>
@@ -1045,4 +1045,7 @@
     <string name="boost_declaration">Zaplacením potvrzujete, že vás neplatí, nezaměstnává ani za vás nejedná vydavatel této aplikace nebo konkurent.</string>
     <string name="withdrawal_consent">Začít hned. Rozumím, že ztrácím případné 14denní právo na odstoupení, jakmile je platba potvrzena na řetězci.</string>
     <string name="withdrawal_confirmed">Požádali jste o okamžité poskytnutí a potvrdili ztrátu případného 14denního práva na odstoupení. Vaším dokladem je transakce na řetězci %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Stakováno při načtení: %1$s SKR · %2$s SOL · %3$s. Zobrazeno kvůli průhlednosti; váhu nikdy nemění.</string>
 </resources>

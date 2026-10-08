@@ -42,7 +42,7 @@
     <string name="detail_update_review">อัปเดตรีวิวของฉัน</string>
     <string name="detail_revoke_review">ถอนรีวิวของฉัน</string>
     <string name="detail_score_title">คะแนนที่ลงลายเซ็น</string>
-    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วยสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) และ SKR ที่กระเป๋าสเตกไว้ (สูงสุด 3×) SKR มีการซื้อขาย ส่วนนี้ของน้ำหนักจึงหามาได้ Undersigned ไม่แนะนำให้ซื้อหรือสเตก ไม่มีการชำระเงินให้ Undersigned อยู่ในคะแนน รีวิวของสมาชิก Pro มีคะแนนของตัวเองด้วย กระเป๋าของ Undersigned ไม่ถูกนับเลย ความเห็นของเจ้าของอุปกรณ์ Seeker ที่รับรองแล้ว ไม่ใช่คะแนนของสโตร์</string>
+    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) หนึ่งเสียงต่ออุปกรณ์ ถ่วงน้ำหนักเฉพาะด้วยสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) ไม่มีการชำระเงินหรือยอดโทเคนเข้ามา เพื่อความโปร่งใส แต่ละรีวิวแสดง SKR และ SOL ที่กระเป๋าสเตกไว้ขณะอ่าน ส่วนสำคัญแค่ไหนคุณตัดสินเอง รีวิวของสมาชิก Pro มีคะแนนของตัวเองด้วย กระเป๋าของ Undersigned ไม่ถูกนับเลย ความเห็นของเจ้าของอุปกรณ์ Seeker ที่รับรองแล้ว ไม่ใช่คะแนนของสโตร์</string>
     <string name="detail_rank_score">คะแนนอันดับ %1$s — ถูกดึงเข้าหา 3.0 จนกว่าจะมี Seeker ลงลายเซ็นเพิ่มขึ้น ใช้เพื่อจัดเรียงรายการเท่านั้น</string>
     <string name="follow">ติดตาม</string>
     <string name="following">กำลังติดตาม</string>
@@ -178,8 +178,8 @@
     <string name="settings_standing">สถานะของคุณ</string>
     <string name="standing_sgt_yes">พบอุปกรณ์ที่ได้รับการรับรอง (%1$s): รีวิวของคุณถูกนับ</string>
     <string name="standing_sgt_no">ไม่มีข้อมูลรับรองอุปกรณ์ในกระเป๋าเงินนี้ (ปัจจุบันคือ Seeker Genesis Token): รีวิวของคุณจะไม่ถูกนับ</string>
-    <string name="standing_stake">SKR ที่สเตกไว้ อ่านจากเชน: %1$s (น้ำหนัก %2$s เท่า)</string>
-    <string name="standing_note">น้ำหนักอ่านจากเชน: อุปกรณ์และ SKR ที่สเตก Pro และการชำระเงินให้ Undersigned ไม่เคยเปลี่ยนน้ำหนัก</string>
+    <string name="standing_stake">สเตกไว้: %1$s SKR · %2$s SOL อ่านจากเชน แสดงเพื่อความโปร่งใส ไม่เปลี่ยนน้ำหนักเลย</string>
+    <string name="standing_note">น้ำหนักคือหนึ่งต่ออุปกรณ์ที่รับรองแล้ว ปรับเฉพาะด้วยสิ่งที่แต่ละรีวิวมี การสเตกแสดงให้เห็น ไม่ถูกถ่วงน้ำหนัก Pro และการชำระเงินให้ Undersigned ไม่เคยเปลี่ยนน้ำหนัก</string>
     <string name="settings_ledger">บัญชีบันทึก</string>
     <string name="settings_ledger_body">ที่อยู่รีจิสทรี %1$s ทุกรีวิวสามารถค้นพบได้โดยใครก็ตามผ่านที่อยู่นี้ แอปนี้อ่านข้อมูลนี้ตรงจากเชน ไม่ใช่จากเซิร์ฟเวอร์ของเรา</string>
     <string name="settings_refresh_ledger">อ่านบัญชีบันทึกใหม่</string>
@@ -203,7 +203,7 @@
     <string name="intro_next">ถัดไป</string>
     <string name="intro_replay">เล่นอินโทรซ้ำ</string>
     <string name="intro1_title">หนึ่ง Seeker หนึ่งเสียง</string>
-    <string name="intro1_body">Undersigned คือชั้นรีวิวข้าง dApp Store นับเฉพาะกระเป๋าที่ถือ Seeker Genesis Token: หนึ่งเครื่อง หนึ่งเสียง ไม่มีการชำระเงินให้ Undersigned ใดเปลี่ยนคะแนนที่ลงนาม ส่วน SKR ที่สเตกเพิ่มน้ำหนักรีวิวได้สูงสุด 3×</string>
+    <string name="intro1_body">Undersigned คือชั้นรีวิวข้าง dApp Store นับเฉพาะกระเป๋าที่ถือ Seeker Genesis Token: หนึ่งเครื่อง หนึ่งเสียง ไม่มีการชำระเงินหรือยอดโทเคนใดเปลี่ยนว่ารีวิวนับมากเพียงใด</string>
     <string name="intro2_title">ลงลายเซ็น ไม่ใช่พิมพ์</string>
     <string name="intro2_body">รีวิวทุกรายการคือธุรกรรมเล็ก ๆ ที่คุณอนุมัติบนโทรศัพท์ด้วยการแตะสองครั้ง กระเป๋าเงินของคุณจ่ายเฉพาะค่าธรรมเนียมเครือข่ายที่มันกำหนดเอง Undersigned ไม่เคยถือกุญแจหรือเงินทุนของคุณ</string>
     <string name="intro3_title">อยู่ข้างสโตร์ ไม่ใช่แทนที่</string>
@@ -382,7 +382,7 @@
     <string name="pro_tool_watch_title">แจ้งเตือนทุกชั่วโมง</string>
     <string name="pro_tool_watch_body">การแจ้งเตือนของแอปที่คุณติดตามจะตรวจทุกชั่วโมงแทนทุกหกชั่วโมง บนอุปกรณ์</string>
     <string name="pro_not_title">สิ่งที่ Pro ไม่ทำ</string>
-    <string name="pro_not_body">ไม่เปลี่ยนคะแนนที่ลงนาม ไม่ทำให้รีวิวมีน้ำหนักมากขึ้น และไม่ถ่วงรีวิวของคนอื่นเลย: การรายงาน โหวตว่ามีประโยชน์ และการซ่อนใช้เฉพาะอุปกรณ์และ SKR ที่สเตก ไม่มีโทเคน ไม่มีอะไรให้สะสมหรือถือ</string>
+    <string name="pro_not_body">ไม่เคยเปลี่ยนคะแนนที่ลงนาม ไม่ทำให้รีวิวนับมากขึ้น และไม่มีผลกับรีวิวของคนอื่น: การรายงาน โหวตว่ามีประโยชน์ และการซ่อน นับหนึ่งต่ออุปกรณ์ที่รับรองแล้ว ไม่มีโทเคน ไม่มีอะไรต้องสะสมหรือถือไว้</string>
     <string name="pro_free_keeps">การอ่านบัญชี การลงนามรีวิว การรายงาน การโต้แย้ง และข้อมูลอุปกรณ์ยังคงฟรีตลอดไป Pro เพิ่มเครื่องมือ เครื่องหมายสมาชิก Pro และแถวคะแนนของตัวเองที่ระบุชัด</string>
     <string name="pro_price_line">12 เดือนบนกระเป๋าเงินนี้ · จ่ายด้วยสกุลใดก็ได้ ระยะเวลาเท่ากัน · บวกค่าธรรมเนียมเครือข่ายที่กำหนดโดยกระเป๋าเงินของคุณ</string>
     <string name="pro_pay_in">จ่ายด้วย</string>
@@ -454,7 +454,7 @@
     </plurals>
     <string name="pro_shared_none">ยังไม่มีสิทธิ์จาก %1$s ที่ระบุกระเป๋าเงินนี้ ระบบจะเก็บไว้ที่นี่และอ่านใหม่อีกครั้งพร้อมบัญชีบันทึก</string>
     <string name="pro_shared_forget">ลืม</string>
-    <string name="pro_standing_note">Pro ไม่มีส่วนเกี่ยวข้องกับสิ่งนี้ น้ำหนักมาจากอุปกรณ์และ SKR ที่สเตกเท่านั้น</string>
+    <string name="pro_standing_note">Pro ไม่เกี่ยวข้อง น้ำหนักคือหนึ่งต่ออุปกรณ์ที่รับรองแล้ว SKR และ SOL ที่สเตกแสดงให้เห็น ไม่ถูกถ่วงน้ำหนัก</string>
     <string name="free_pro_title">ฟรี และ Pro</string>
     <string name="fp_free">ฟรี</string>
     <string name="fp_pro">Pro</string>
@@ -472,7 +472,7 @@
     <string name="fp_watch_free">ทุก 6 ชั่วโมง</string>
     <string name="fp_watch_pro">ทุกชั่วโมง</string>
     <string name="fp_weight">ความเห็นของคุณมีน้ำหนักเท่าใด</string>
-    <string name="fp_weight_both">เท่ากัน — จากอุปกรณ์และ SKR ที่สเตกเท่านั้น</string>
+    <string name="fp_weight_both">เท่ากัน: หนึ่งต่ออุปกรณ์ที่รับรองแล้ว</string>
     <string name="desk_title">โต๊ะผู้เผยแพร่</string>
     <plurals name="desk_across">
         <item quantity="other">ครอบคลุม dApp ที่พิสูจน์แล้ว %1$d รายการของคุณ</item>
@@ -984,4 +984,7 @@
     <string name="boost_declaration">เมื่อชำระเงิน คุณยืนยันว่าไม่ได้รับค่าจ้าง ไม่ได้เป็นลูกจ้าง และไม่ได้ทำการแทนผู้เผยแพร่แอปนี้หรือคู่แข่ง</string>
     <string name="withdrawal_consent">เริ่มเลย ฉันเข้าใจว่าจะเสียสิทธิ์ยกเลิกภายใน 14 วัน (ถ้ามี) ทันทีที่การชำระเงินได้รับการยืนยันบนเชน</string>
     <string name="withdrawal_confirmed">คุณขอให้ส่งมอบทันทีและรับทราบว่าเสียสิทธิ์ยกเลิกภายใน 14 วัน (ถ้ามี) ใบเสร็จของคุณคือธุรกรรมบนเชน %1$s</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">สเตกไว้ขณะอ่าน: %1$s SKR · %2$s SOL · %3$s แสดงเพื่อความโปร่งใส ไม่เปลี่ยนน้ำหนักเลย</string>
 </resources>

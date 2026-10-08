@@ -52,7 +52,7 @@
     <string name="detail_update_review">میرا جائزہ اپ ڈیٹ کریں</string>
     <string name="detail_revoke_review">میرا جائزہ واپس لیں</string>
     <string name="detail_score_title">دستخط شدہ اسکور</string>
-    <string name="detail_score_sub">تصدیق شدہ ڈیوائسز کے جائزوں کی اوسط (آج: Seeker Genesis Token رکھنے والے)، ہر جائزے کے ساتھ آنے والی چیزوں (انسٹال کا وقت، استعمال، لکھا نوٹ) اور والیٹ کے اسٹیک کردہ SKR (3× تک) سے وزن دار۔ SKR کی تجارت ہوتی ہے، اس لیے وزن کا یہ حصہ حاصل کیا جا سکتا ہے؛ Undersigned اسے خریدنے یا اسٹیک کرنے کا مشورہ نہیں دیتا۔ Undersigned کو کوئی ادائیگی اسکور میں شامل نہیں؛ Pro اراکین کے جائزے اپنے الگ اسکور میں بھی دکھائے جاتے ہیں۔ Undersigned کے والیٹس کبھی شمار نہیں ہوتے۔ تصدیق شدہ Seeker ڈیوائسز کے مالکان کی رائے، اسٹور کی ریٹنگ نہیں۔</string>
+    <string name="detail_score_sub">تصدیق شدہ ڈیوائسز کے جائزوں کی اوسط (آج: Seeker Genesis Token رکھنے والے)، فی ڈیوائس ایک آواز، صرف ہر جائزے کے ساتھ آنے والی چیزوں (انسٹال کا وقت، استعمال، لکھا نوٹ) سے وزن دار۔ کوئی ادائیگی یا ٹوکن بیلنس اس میں شامل نہیں۔ ہر جائزہ شفافیت کے لیے وہ SKR اور SOL دکھاتا ہے جو پڑھتے وقت اس کے والیٹ نے اسٹیک کیا تھا؛ اس کی اہمیت کا فیصلہ آپ کا ہے۔ Pro اراکین کے جائزے اپنے الگ اسکور میں بھی دکھائے جاتے ہیں۔ Undersigned کے والیٹس کبھی شمار نہیں ہوتے۔ تصدیق شدہ Seeker ڈیوائسز کے مالکان کی رائے، اسٹور کی ریٹنگ نہیں۔</string>
     <string name="detail_rank_score">رینک اسکور %1$s — جب تک مزید Seekers دستخط نہ کریں 3.0 کی طرف سکڑا رہتا ہے؛ صرف فہرست ترتیب دینے کے لیے استعمال ہوتا ہے۔</string>
     <string name="follow">فالو کریں</string>
     <string name="following">فالو کیا جا رہا ہے</string>
@@ -198,8 +198,8 @@
     <string name="settings_standing">آپ کی حیثیت</string>
     <string name="standing_sgt_yes">تصدیق شدہ آلہ ملا (%1$s): آپ کے جائزے شمار ہوتے ہیں۔</string>
     <string name="standing_sgt_no">اس والٹ میں کوئی تصدیق شدہ آلہ اسناد نہیں (آج: Seeker Genesis Token): آپ کے جائزے شمار نہیں ہوں گے۔</string>
-    <string name="standing_stake">چین پر پڑھا گیا اسٹیک شدہ SKR: %1$s (وزن %2$s×)</string>
-    <string name="standing_note">وزن چین سے پڑھے جاتے ہیں: ڈیوائس اور اسٹیک شدہ SKR۔ Pro اور Undersigned کو ادائیگیاں انہیں کبھی نہیں بدلتیں۔</string>
+    <string name="standing_stake">اسٹیک شدہ: %1$s SKR · %2$s SOL، چین سے پڑھا گیا۔ شفافیت کے لیے دکھایا جاتا ہے؛ وزن کبھی نہیں بدلتا۔</string>
+    <string name="standing_note">وزن فی تصدیق شدہ ڈیوائس ایک ہے، صرف جائزے کے ساتھ آنے والی چیزوں سے ایڈجسٹ۔ اسٹیک دکھائے جاتے ہیں، کبھی وزن نہیں دیا جاتا؛ Pro اور Undersigned کو ادائیگیاں انہیں کبھی نہیں بدلتیں۔</string>
     <string name="settings_ledger">لیجر</string>
     <string name="settings_ledger_body">رجسٹری پتہ %1$s۔ ہر جائزہ اس پتے کے ذریعے کسی کے بھی ذریعے قابلِ دریافت ہے۔ یہ ایپ اسے براہِ راست چین سے پڑھتی ہے، ہمارے کسی سرور سے نہیں۔</string>
     <string name="settings_refresh_ledger">لیجر دوبارہ پڑھیں</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">اگلا</string>
     <string name="intro_replay">تعارف دوبارہ دیکھیں</string>
     <string name="intro1_title">ایک Seeker، ایک آواز</string>
-    <string name="intro1_body">Undersigned ڈی ایپ اسٹور کے ساتھ جائزوں کی ایک پرت ہے۔ صرف Seeker Genesis Token والے والیٹس شمار ہوتے ہیں: ایک ڈیوائس، ایک آواز۔ Undersigned کو کوئی ادائیگی دستخط شدہ اسکور نہیں بدلتی؛ اسٹیک شدہ SKR جائزے کا وزن زیادہ سے زیادہ 3× تک بڑھا سکتا ہے۔</string>
+    <string name="intro1_body">Undersigned ڈی ایپ اسٹور کے ساتھ جائزوں کی ایک پرت ہے۔ صرف Seeker Genesis Token والے والیٹس شمار ہوتے ہیں: ایک ڈیوائس، ایک آواز۔ کوئی ادائیگی اور کوئی ٹوکن بیلنس جائزے کا وزن نہیں بدلتا۔</string>
     <string name="intro2_title">دستخط شدہ، ٹائپ شدہ نہیں</string>
     <string name="intro2_body">ہر جائزہ ایک چھوٹی ٹرانزیکشن ہے جسے آپ فون پر ڈبل ٹیپ سے منظور کرتے ہیں۔ آپ کا والٹ صرف وہ نیٹ ورک فیس ادا کرتا ہے جو وہ خود مقرر کرتا ہے۔ Undersigned کبھی آپ کی چابیاں یا فنڈز نہیں رکھتا۔</string>
     <string name="intro3_title">اسٹور کے ساتھ، اس کی جگہ نہیں</string>
@@ -403,7 +403,7 @@
     <string name="pro_tool_watch_title">ہر گھنٹے الرٹس</string>
     <string name="pro_tool_watch_body">آپ کی فالو کردہ ایپس کے الرٹس چھ کے بجائے ہر گھنٹے، ڈیوائس پر جانچے جاتے ہیں۔</string>
     <string name="pro_not_title">Pro کیا نہیں کرتا</string>
-    <string name="pro_not_body">یہ کبھی دستخط شدہ اسکور نہیں بدلتا، کبھی کسی جائزے کو زیادہ شمار نہیں کرواتا اور نہ کسی اور کے جائزے پر وزن ڈالتا ہے: رپورٹیں، مفید ووٹ اور چھپانا صرف ڈیوائس اور اسٹیک شدہ SKR استعمال کرتے ہیں۔ کوئی ٹوکن نہیں، جمع یا رکھنے کو کچھ نہیں۔</string>
+    <string name="pro_not_body">یہ کبھی دستخط شدہ اسکور نہیں بدلتا، کسی جائزے کو زیادہ شمار نہیں کرواتا اور دوسروں کے جائزوں پر اثر نہیں ڈالتا: فلیگ، مفید ووٹ اور چھپانا فی تصدیق شدہ ڈیوائس ایک شمار ہوتے ہیں۔ کوئی ٹوکن نہیں، جمع کرنے یا رکھنے کو کچھ نہیں۔</string>
     <string name="pro_free_keeps">لیجر پڑھنا، جائزوں پر دستخط، رپورٹیں، اعتراضات اور ڈیوائس حقائق ہمیشہ مفت رہیں گے۔ Pro اوزار، Pro رکن کا نشان اور اپنی الگ نشان زدہ اسکور لائن شامل کرتا ہے۔</string>
     <string name="pro_price_line">اس والٹ پر 12 ماہ · دونوں میں سے کسی میں ادائیگی کریں، میعاد یکساں ہے · اوپر سے نیٹ ورک فیس، آپ کے والٹ کی جانب سے مقرر</string>
     <string name="pro_pay_in">ادائیگی بذریعہ</string>
@@ -477,7 +477,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s کی جانب سے ابھی تک کوئی اجازت اس والٹ کا نام نہیں لیتی۔ یہ یہاں رکھا جاتا ہے اور لیجر کے ساتھ دوبارہ پڑھا جاتا ہے۔</string>
     <string name="pro_shared_forget">بھلا دیں</string>
-    <string name="pro_standing_note">Pro اس کا حصہ نہیں ہے۔ وزن صرف آلے اور اسٹیک شدہ SKR سے آتا ہے۔</string>
+    <string name="pro_standing_note">Pro اس کا حصہ نہیں۔ وزن فی تصدیق شدہ ڈیوائس ایک ہے؛ اسٹیک شدہ SKR اور SOL دکھائے جاتے ہیں، کبھی وزن نہیں دیا جاتا۔</string>
     <string name="free_pro_title">مفت اور Pro</string>
     <string name="fp_free">مفت</string>
     <string name="fp_pro">Pro</string>
@@ -495,7 +495,7 @@
     <string name="fp_watch_free">ہر 6 گھنٹے</string>
     <string name="fp_watch_pro">ہر گھنٹے</string>
     <string name="fp_weight">آپ کی رائے کتنی شمار ہوتی ہے</string>
-    <string name="fp_weight_both">یکساں — صرف آلہ اور اسٹیک شدہ SKR</string>
+    <string name="fp_weight_both">ایک جیسا: فی تصدیق شدہ ڈیوائس ایک</string>
     <string name="desk_title">پبلشر ڈیسک</string>
     <plurals name="desk_across">
         <item quantity="one">آپ کے %1$d ثابت شدہ dApp میں</item>
@@ -1018,4 +1018,7 @@
     <string name="boost_declaration">ادائیگی کر کے آپ تصدیق کرتے ہیں کہ آپ کو اس ایپ کا پبلشر یا کوئی حریف ادائیگی نہیں کرتا، ملازم نہیں رکھتا، اور آپ ان کی جانب سے کام نہیں کر رہے۔</string>
     <string name="withdrawal_consent">ابھی شروع کریں۔ میں سمجھتا/سمجھتی ہوں کہ ادائیگی چین پر تصدیق ہوتے ہی میں 14 دن کا کوئی بھی واپسی کا حق کھو دوں گا/گی۔</string>
     <string name="withdrawal_confirmed">آپ نے فوری فراہمی مانگی اور 14 دن کے کسی بھی واپسی کے حق کے ختم ہونے کو تسلیم کیا۔ آپ کی رسید چین پر ٹرانزیکشن %1$s ہے۔</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">پڑھتے وقت اسٹیک شدہ: %1$s SKR · %2$s SOL · %3$s۔ شفافیت کے لیے دکھایا جاتا ہے؛ وزن کبھی نہیں بدلتا۔</string>
 </resources>

@@ -52,7 +52,7 @@
     <string name="detail_update_review">Perbarui ulasan saya</string>
     <string name="detail_revoke_review">Tarik ulasan saya</string>
     <string name="detail_score_title">Skor yang ditandatangani</string>
-    <string name="detail_score_sub">Rata-rata ulasan dari perangkat teratestasi (kini: pemegang Seeker Genesis Token), dibobot oleh yang dibawa tiap ulasan (lama terpasang, penggunaan, catatan tertulis) dan oleh SKR yang di-stake dompet (hingga 3×). SKR diperdagangkan, jadi bagian bobot ini bisa diperoleh; Undersigned tidak menyarankan membeli atau men-stake-nya. Tidak ada pembayaran ke Undersigned yang masuk ke skor; ulasan anggota Pro juga punya skor sendiri. Dompet Undersigned tidak pernah dihitung. Pendapat pemilik perangkat Seeker teratestasi, bukan rating toko.</string>
+    <string name="detail_score_sub">Rata-rata ulasan dari perangkat teratestasi (kini: pemegang Seeker Genesis Token), satu suara per perangkat, dibobot hanya oleh yang dibawa tiap ulasan (lama terpasang, penggunaan, catatan tertulis). Tidak ada pembayaran atau saldo token yang masuk. Demi transparansi, tiap ulasan menampilkan SKR dan SOL yang di-stake dompetnya saat dibaca; seberapa penting itu, Anda yang menilai. Ulasan anggota Pro juga punya skor sendiri. Dompet Undersigned tidak pernah dihitung. Pendapat pemilik perangkat Seeker teratestasi, bukan rating toko.</string>
     <string name="detail_rank_score">Skor peringkat %1$s — disusutkan menuju 3,0 hingga lebih banyak Seeker menandatangani; hanya digunakan untuk mengurutkan daftar.</string>
     <string name="follow">Ikuti</string>
     <string name="following">Mengikuti</string>
@@ -194,8 +194,8 @@
     <string name="settings_standing">Status Anda</string>
     <string name="standing_sgt_yes">Perangkat terverifikasi ditemukan (%1$s): ulasan Anda dihitung.</string>
     <string name="standing_sgt_no">Tidak ada kredensial perangkat terverifikasi di dompet ini (saat ini: Seeker Genesis Token): ulasan Anda tidak akan dihitung.</string>
-    <string name="standing_stake">SKR yang di-stake terbaca on-chain: %1$s (bobot %2$s×)</string>
-    <string name="standing_note">Bobot dibaca dari rantai: perangkat dan SKR yang di-stake. Pro dan pembayaran ke Undersigned tidak pernah mengubahnya.</string>
+    <string name="standing_stake">Di-stake: %1$s SKR · %2$s SOL, dibaca di rantai. Ditampilkan demi transparansi; tidak pernah mengubah bobot.</string>
+    <string name="standing_note">Bobot adalah satu per perangkat teratestasi, disesuaikan hanya oleh yang dibawa tiap ulasan. Stake ditampilkan, tidak pernah dibobot; Pro dan pembayaran ke Undersigned tidak pernah mengubahnya.</string>
     <string name="settings_ledger">Buku besar</string>
     <string name="settings_ledger_body">Alamat registri %1$s. Setiap ulasan dapat ditemukan oleh siapa pun melalui alamat ini. Aplikasi ini membacanya langsung dari chain, bukan dari server milik kami.</string>
     <string name="settings_refresh_ledger">Baca ulang buku besar</string>
@@ -219,7 +219,7 @@
     <string name="intro_next">Berikutnya</string>
     <string name="intro_replay">Putar ulang perkenalan</string>
     <string name="intro1_title">Satu Seeker, satu suara</string>
-    <string name="intro1_body">Undersigned adalah lapisan ulasan di samping dApp Store. Hanya dompet yang memegang Seeker Genesis Token yang dihitung: satu perangkat, satu suara. Tidak ada pembayaran ke Undersigned yang mengubah skor bertanda tangan; SKR yang di-stake dapat menaikkan bobot ulasan, paling tinggi 3×.</string>
+    <string name="intro1_body">Undersigned adalah lapisan ulasan di samping dApp Store. Hanya dompet yang memegang Seeker Genesis Token yang dihitung: satu perangkat, satu suara. Tidak ada pembayaran atau saldo token yang mengubah bobot ulasan.</string>
     <string name="intro2_title">Ditandatangani, bukan diketik</string>
     <string name="intro2_body">Setiap ulasan adalah transaksi kecil yang Anda setujui di ponsel dengan double-tap. Dompet Anda hanya membayar biaya jaringan yang ditetapkannya sendiri. Undersigned tidak pernah menyimpan kunci atau dana Anda.</string>
     <string name="intro3_title">Di samping toko, bukan menggantikannya</string>
@@ -398,7 +398,7 @@
     <string name="pro_tool_watch_title">Peringatan tiap jam</string>
     <string name="pro_tool_watch_body">Peringatan untuk aplikasi yang Anda ikuti diperiksa tiap jam, bukan tiap enam jam, di perangkat.</string>
     <string name="pro_not_title">Yang tidak dilakukan Pro</string>
-    <string name="pro_not_body">Tidak pernah mengubah skor bertanda tangan, tidak pernah membuat ulasan lebih berbobot, dan tidak pernah membebani ulasan orang lain: laporan, suara membantu, dan penyembunyian hanya memakai perangkat dan SKR yang di-stake. Tidak ada token, tidak ada yang dikumpulkan atau disimpan.</string>
+    <string name="pro_not_body">Ini tidak pernah mengubah skor bertanda tangan, tidak membuat ulasan dihitung lebih dan tidak memengaruhi ulasan orang lain: tanda, suara membantu, dan penyembunyian dihitung satu per perangkat teratestasi. Tidak ada token, tidak ada yang perlu dikumpulkan atau disimpan.</string>
     <string name="pro_free_keeps">Membaca buku besar, menandatangani ulasan, laporan, sanggahan, dan fakta perangkat tetap gratis, selamanya. Pro menambah alat, tanda Anggota Pro, dan baris skornya sendiri yang ditandai.</string>
     <string name="pro_price_line">12 bulan pada dompet ini · bayar dengan salah satu, jangka waktunya sama · ditambah biaya jaringan, ditetapkan oleh dompet Anda</string>
     <string name="pro_pay_in">Bayar dengan</string>
@@ -470,7 +470,7 @@
     </plurals>
     <string name="pro_shared_none">Belum ada hibah dari %1$s yang menyebutkan dompet ini. Ini disimpan di sini dan dibaca ulang bersama buku besar.</string>
     <string name="pro_shared_forget">Lupakan</string>
-    <string name="pro_standing_note">Pro bukan bagian dari ini. Bobot berasal dari perangkat dan SKR yang di-stake saja.</string>
+    <string name="pro_standing_note">Pro tidak termasuk di sini. Bobot adalah satu per perangkat teratestasi; SKR dan SOL yang di-stake ditampilkan, tidak pernah dibobot.</string>
     <string name="free_pro_title">Gratis dan Pro</string>
     <string name="fp_free">Gratis</string>
     <string name="fp_pro">Pro</string>
@@ -488,7 +488,7 @@
     <string name="fp_watch_free">setiap 6 jam</string>
     <string name="fp_watch_pro">setiap jam</string>
     <string name="fp_weight">Seberapa besar opini Anda dihitung</string>
-    <string name="fp_weight_both">sama — hanya dari perangkat dan SKR yang di-stake</string>
+    <string name="fp_weight_both">sama: satu per perangkat teratestasi</string>
     <string name="desk_title">Meja penerbit</string>
     <plurals name="desk_across">
         <item quantity="other">Di seluruh %1$d dApp Anda yang terbukti</item>
@@ -1000,4 +1000,7 @@
     <string name="boost_declaration">Dengan membayar, Anda menegaskan tidak dibayar, dipekerjakan, atau bertindak atas nama penerbit aplikasi ini atau pesaingnya.</string>
     <string name="withdrawal_consent">Mulai sekarang. Saya paham saya kehilangan hak pembatalan 14 hari, jika ada, begitu pembayaran dikonfirmasi di rantai.</string>
     <string name="withdrawal_confirmed">Anda meminta penyediaan segera dan mengakui kehilangan hak pembatalan 14 hari, jika ada. Tanda terima Anda adalah transaksi di rantai %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Di-stake saat dibaca: %1$s SKR · %2$s SOL · %3$s. Ditampilkan demi transparansi; tidak pernah mengubah bobot.</string>
 </resources>

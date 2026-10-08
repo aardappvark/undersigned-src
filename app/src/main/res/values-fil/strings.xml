@@ -52,7 +52,7 @@
     <string name="detail_update_review">I-update ang aking review</string>
     <string name="detail_revoke_review">I-withdraw ang aking review</string>
     <string name="detail_score_title">Naka-sign na iskor</string>
-    <string name="detail_score_sub">Karaniwan ng mga review mula sa mga sertipikadong device (ngayon: may hawak ng Seeker Genesis Token), tinimbang ng dala ng bawat review (tagal ng install, paggamit, nakasulat na tala) at ng SKR na naka-stake ng wallet (hanggang 3×). Ipinagpapalit ang SKR, kaya makukuha ang bahaging ito ng bigat; hindi inirerekomenda ng Undersigned na bumili o mag-stake nito. Walang bayad sa Undersigned na pumapasok sa iskor; may sarili ring iskor ang mga review ng Pro member. Hindi kailanman binibilang ang mga wallet ng Undersigned. Opinyon ng mga may-ari ng sertipikadong Seeker device, hindi ang rating ng store.</string>
+    <string name="detail_score_sub">Karaniwan ng mga review mula sa mga sertipikadong device (ngayon: may hawak ng Seeker Genesis Token), isang boses bawat device, tinimbang lang ng dala ng bawat review (tagal ng install, paggamit, nakasulat na tala). Walang bayad o balanse ng token na pumapasok dito. Para sa transparency, ipinapakita ng bawat review ang SKR at SOL na naka-stake ng wallet nito nang basahin; ikaw ang huhusga kung gaano ito kahalaga. May sarili ring iskor ang mga review ng Pro member. Hindi kailanman binibilang ang mga wallet ng Undersigned. Opinyon ng mga may-ari ng sertipikadong Seeker device, hindi ang rating ng store.</string>
     <string name="detail_rank_score">Rank score %1$s — pinaliit patungo sa 3.0 hanggang mas maraming Seeker ang mag-sign; ginagamit lang para ayusin ang listahan.</string>
     <string name="follow">Sundan</string>
     <string name="following">Sinusundan</string>
@@ -198,8 +198,8 @@
     <string name="settings_standing">Ang iyong katayuan</string>
     <string name="standing_sgt_yes">May nahanap na attested device (%1$s): binibilang ang mga review mo.</string>
     <string name="standing_sgt_no">Walang attested-device credential sa wallet na ito (sa ngayon: ang Seeker Genesis Token): hindi mabibilang ang mga review mo.</string>
-    <string name="standing_stake">Naka-stake na SKR na nabasa sa chain: %1$s (timbang %2$s×)</string>
-    <string name="standing_note">Binabasa ang bigat mula sa chain: ang device at naka-stake na SKR. Hindi ito kailanman binabago ng Pro at ng mga bayad sa Undersigned.</string>
+    <string name="standing_stake">Naka-stake: %1$s SKR · %2$s SOL, binasa sa chain. Ipinapakita para sa transparency; hindi nito binabago ang bigat.</string>
+    <string name="standing_note">Ang bigat ay isa bawat sertipikadong device, inaayos lang ng dala ng bawat review. Ipinapakita ang mga stake, hindi tinitimbang; hindi ito binabago ng Pro at ng mga bayad sa Undersigned.</string>
     <string name="settings_ledger">Ang Ledger</string>
     <string name="settings_ledger_body">Registry address %1$s. Matutuklasan ng kahit sino ang bawat review sa pamamagitan ng address na ito. Direktang binabasa ito ng app na ito mula sa chain, hindi mula sa server namin.</string>
     <string name="settings_refresh_ledger">Basahing muli ang ledger</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">Susunod</string>
     <string name="intro_replay">I-replay ang intro</string>
     <string name="intro1_title">Isang Seeker, isang boses</string>
-    <string name="intro1_body">Ang Undersigned ay isang patong ng review sa tabi ng dApp Store. Binibilang lang ang mga wallet na may Seeker Genesis Token: isang device, isang boses. Walang bayad sa Undersigned na nagbabago sa pinirmahang iskor; puwedeng itaas ng naka-stake na SKR ang bigat ng review, hanggang 3×.</string>
+    <string name="intro1_body">Ang Undersigned ay isang patong ng review sa tabi ng dApp Store. Binibilang lang ang mga wallet na may Seeker Genesis Token: isang device, isang boses. Walang bayad o balanse ng token na nagbabago kung gaano kabigat ang isang review.</string>
     <string name="intro2_title">Naka-sign, hindi lang naka-type</string>
     <string name="intro2_body">Ang bawat review ay isang maliit na transaction na inaaprubahan mo sa telepono gamit ang double-tap. Babayaran lang ng wallet mo ang network fee na sarili nitong itinakda. Hindi kailanman hawak ng Undersigned ang mga key o pondo mo.</string>
     <string name="intro3_title">Sa tabi ng store, hindi kapalit nito</string>
@@ -403,7 +403,7 @@
     <string name="pro_tool_watch_title">Mga alerto bawat oras</string>
     <string name="pro_tool_watch_body">Sinusuri ang mga alerto ng mga app na sinusundan mo bawat oras imbes na bawat anim, sa device.</string>
     <string name="pro_not_title">Ang hindi ginagawa ng Pro</string>
-    <string name="pro_not_body">Hindi nito kailanman binabago ang pinirmahang iskor, hindi pinabibigat ang isang review, at hindi pumapabigat sa review ng iba: ang mga ulat, boto ng nakatulong at pagtatago ay gumagamit lang ng device at naka-stake na SKR. Walang token, walang kokolektahin o hahawakan.</string>
+    <string name="pro_not_body">Hindi nito binabago ang pinirmahang iskor, hindi nito pinabibigat ang isang review at hindi ito nakaaapekto sa review ng iba: ang flag, helpful na boto at pagtatago ay binibilang na isa bawat sertipikadong device. Walang token, walang kailangang kolektahin o hawakan.</string>
     <string name="pro_free_keeps">Ang pagbasa ng ledger, pagpirma ng review, mga ulat, pagtutol at datos ng device ay laging libre. Nagdadagdag ang Pro ng mga tool, markang Pro member at sarili nitong may-markang linya ng iskor.</string>
     <string name="pro_price_line">12 buwan sa wallet na ito · magbayad sa alinman, magkapareho ang termino · dagdag ang network fee sa taas, itinatakda ng wallet mo</string>
     <string name="pro_pay_in">Magbayad gamit ang</string>
@@ -477,7 +477,7 @@
     </plurals>
     <string name="pro_shared_none">Wala pang grant mula kay %1$s na nagpapangalan sa wallet na ito. Itinatago ito dito at babasahin muli kasama ng ledger.</string>
     <string name="pro_shared_forget">Kalimutan</string>
-    <string name="pro_standing_note">Wala dito ang Pro. Ang timbang ay mula sa device at naka-stake na SKR lang.</string>
+    <string name="pro_standing_note">Hindi kasama rito ang Pro. Ang bigat ay isa bawat sertipikadong device; ipinapakita ang naka-stake na SKR at SOL, hindi tinitimbang.</string>
     <string name="free_pro_title">Free at Pro</string>
     <string name="fp_free">Libre</string>
     <string name="fp_pro">Pro</string>
@@ -495,7 +495,7 @@
     <string name="fp_watch_free">bawat 6 na oras</string>
     <string name="fp_watch_pro">bawat oras</string>
     <string name="fp_weight">Gaano kabigat ang opinyon mo</string>
-    <string name="fp_weight_both">pareho — mula sa device at naka-stake na SKR lang</string>
+    <string name="fp_weight_both">pareho: isa bawat sertipikadong device</string>
     <string name="desk_title">Desk ng publisher</string>
     <plurals name="desk_across">
         <item quantity="one">Sa lahat ng %1$d na napatunayan mong dApp</item>
@@ -1019,4 +1019,7 @@
     <string name="boost_declaration">Sa pagbabayad, kinukumpirma mong hindi ka binabayaran, empleyado, o kumikilos para sa publisher ng app na ito o sa isang kakumpitensya.</string>
     <string name="withdrawal_consent">Simulan na. Naiintindihan kong mawawala ang anumang 14-araw na karapatang umatras kapag nakumpirma na sa chain ang bayad.</string>
     <string name="withdrawal_confirmed">Hiniling mo ang agarang pagbibigay at kinilalang mawawala ang anumang 14-araw na karapatang umatras. Ang resibo mo ay ang transaksyon sa chain na %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Naka-stake nang basahin: %1$s SKR · %2$s SOL · %3$s. Ipinapakita para sa transparency; hindi nito binabago ang bigat.</string>
 </resources>

@@ -47,7 +47,7 @@
     <string name="detail_update_review">レビューを更新</string>
     <string name="detail_revoke_review">レビューを取り下げる</string>
     <string name="detail_score_title">署名スコア</string>
-    <string name="detail_score_sub">認証済み端末によるレビューの平均（現在はSeeker Genesis Token保有者）。各レビューに含まれる情報（インストール期間、利用時間、書かれたメモ）と、ウォレットがステークしているSKR（最大3×）で重み付け。SKRは取引されているため、この部分の重みは入手可能です。UndersignedはSKRの購入やステークを勧めません。Undersignedへの支払いはスコアに含まれません。Proメンバーのレビューは専用のスコアでも表示されます。Undersigned自身のウォレットはカウントされません。認証済みSeeker端末の所有者の意見であり、ストアの評価ではありません。</string>
+    <string name="detail_score_sub">認証済み端末によるレビューの平均（現在はSeeker Genesis Token保有者）。1台につき1票で、各レビューに含まれる情報（インストール期間、利用時間、書かれたメモ）だけで重み付けします。支払いやトークン残高は一切含まれません。透明性のため、各レビューには読み取り時にそのウォレットがステークしていたSKRとSOLを表示します。それをどう受け止めるかはあなた次第です。Proメンバーのレビューは専用のスコアでも表示されます。Undersigned自身のウォレットはカウントされません。認証済みSeeker端末の所有者の意見であり、ストアの評価ではありません。</string>
     <string name="detail_rank_score">ランクスコア %1$s — より多くの Seeker が署名するまで3.0に近づくよう調整され、リストの並べ替えにのみ使用されます。</string>
     <string name="follow">フォロー</string>
     <string name="following">フォロー中</string>
@@ -186,8 +186,8 @@
     <string name="settings_standing">あなたの評価</string>
     <string name="standing_sgt_yes">証明済み端末が見つかりました（%1$s）：あなたのレビューはカウントされます。</string>
     <string name="standing_sgt_no">このウォレットには証明済みデバイスの資格情報がありません（現在は Seeker Genesis Token）：あなたのレビューはカウントされません。</string>
-    <string name="standing_stake">オンチェーンで確認されたステーク SKR：%1$s（重み%2$s倍）</string>
-    <string name="standing_note">重みはチェーンから読み取ります：端末とステーク中のSKR。Proや Undersignedへの支払いで変わることはありません。</string>
+    <string name="standing_stake">ステーク中：%1$s SKR · %2$s SOL（チェーンから読み取り）。透明性のための表示で、重みは変わりません。</string>
+    <string name="standing_note">重みは認証済み端末1台につき1で、各レビューに含まれる情報だけで調整されます。ステークは表示のみで重みには使いません。Proや Undersignedへの支払いで変わることはありません。</string>
     <string name="settings_ledger">台帳</string>
     <string name="settings_ledger_body">レジストリアドレス %1$s。すべてのレビューはこのアドレスを通じて誰でも見つけられます。このアプリはチェーンから直接読み取っており、私たちのサーバーからではありません。</string>
     <string name="settings_refresh_ledger">台帳を再読み込み</string>
@@ -211,7 +211,7 @@
     <string name="intro_next">次へ</string>
     <string name="intro_replay">イントロをもう一度見る</string>
     <string name="intro1_title">1台の Seeker、1つの声</string>
-    <string name="intro1_body">UndersignedはdApp Storeの横にあるレビューのレイヤーです。Seeker Genesis Tokenを持つウォレットだけがカウントされ、1台につき1票です。Undersignedへの支払いで署名済みスコアが変わることはありません。ステーク中のSKRはレビューの重みを最大3×まで上げられます。</string>
+    <string name="intro1_body">UndersignedはdApp Storeの横にあるレビューのレイヤーです。Seeker Genesis Tokenを持つウォレットだけがカウントされ、1台につき1票です。支払いやトークン残高でレビューの重みが変わることはありません。</string>
     <string name="intro2_title">署名するもの、入力するものではない</string>
     <string name="intro2_body">各レビューは、端末上でダブルタップして承認する小さなトランザクションです。ウォレットが支払うのは自身が設定するネットワーク手数料のみです。Undersigned が鍵や資金を保管することはありません。</string>
     <string name="intro3_title">ストアに代わるものではなく、その隣に</string>
@@ -390,7 +390,7 @@
     <string name="pro_tool_watch_title">1時間ごとの通知</string>
     <string name="pro_tool_watch_body">フォロー中のアプリの通知を6時間ごとではなく1時間ごとに端末で確認します。</string>
     <string name="pro_not_title">Proがしないこと</string>
-    <string name="pro_not_body">署名済みスコアを変えることも、レビューを重くすることも、他人のレビューに重みをかけることもありません。通報、「役に立った」、非表示は端末とステーク中のSKRだけを使います。トークンも、集めるものも、保有するものもありません。</string>
+    <string name="pro_not_body">署名済みスコアを変えることも、レビューの重みを増やすことも、他人のレビューに影響することもありません。報告、「役に立った」投票、非表示は認証済み端末1台につき1としてカウントされます。トークンも、集めたり保有したりするものもありません。</string>
     <string name="pro_free_keeps">台帳の閲覧、レビューの署名、通報、異議申し立て、端末の情報はずっと無料です。Proはツール、「Proメンバー」の印、明示された専用のスコア行を加えます。</string>
     <string name="pro_price_line">このウォレットで12か月 · どちらで支払っても期間は同じ · 別途、ウォレットが設定するネットワーク手数料</string>
     <string name="pro_pay_in">支払い方法</string>
@@ -462,7 +462,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s からこのウォレットへの共有許可はまだありません。ここに保存され、台帳とともに再度読み込まれます。</string>
     <string name="pro_shared_forget">削除</string>
-    <string name="pro_standing_note">Pro はここに関係しません。重みは端末とステークされた SKR のみから決まります。</string>
+    <string name="pro_standing_note">Proは関係ありません。重みは認証済み端末1台につき1で、ステーク中のSKRとSOLは表示のみで重みには使いません。</string>
     <string name="free_pro_title">無料版と Pro</string>
     <string name="fp_free">無料版</string>
     <string name="fp_pro">Pro</string>
@@ -480,7 +480,7 @@
     <string name="fp_watch_free">6時間ごと</string>
     <string name="fp_watch_pro">1時間ごと</string>
     <string name="fp_weight">意見がどれだけカウントされるか</string>
-    <string name="fp_weight_both">同じ — 端末とステークされた SKR のみ</string>
+    <string name="fp_weight_both">同じ：認証済み端末1台につき1</string>
     <string name="desk_title">パブリッシャーデスク</string>
     <plurals name="desk_across">
         <item quantity="other">証明済みの%1$d件の dApp すべてで</item>
@@ -991,4 +991,7 @@
     <string name="boost_declaration">支払うことで、このアプリの発行者や競合から報酬を受けておらず、雇用されておらず、その代理でもないことを確認します。</string>
     <string name="withdrawal_consent">今すぐ開始。支払いがチェーン上で確定すると、14日間の撤回権（ある場合）を失うことを理解しています。</string>
     <string name="withdrawal_confirmed">即時提供を求め、14日間の撤回権（ある場合）を失うことを確認しました。領収書はチェーン上のトランザクション%1$sです。</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">読み取り時のステーク：%1$s SKR · %2$s SOL · %3$s。透明性のための表示で、重みは変わりません。</string>
 </resources>

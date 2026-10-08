@@ -53,7 +53,7 @@
     <string name="howto4_note_title">Nothing is paid for any of this</string>
     <string name="howto4_note">Your standing is counts and a published formula; no payment to Undersigned moves it. Replay these steps any time from Settings.</string>
     <string name="intro1_title">One Seeker, one voice</string>
-    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. No payment to Undersigned changes the signed score; staked SKR can raise a review\'s weight, capped at 3×.</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. No payment and no token balance changes how much a review counts.</string>
     <string name="intro2_title">Signed, not typed</string>
     <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
     <string name="intro3_title">Beside the store, not instead of it</string>
@@ -138,7 +138,7 @@
     <string name="detail_update_review">Update my review</string>
     <string name="detail_revoke_review">Withdraw my review</string>
     <string name="detail_score_title">Signed score</string>
-    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by what each review carries (install time, usage, a written note) and by SKR the wallet has staked (capped at 3×). SKR is traded, so this part of the weight can be acquired; Undersigned does not recommend buying or staking it. No payment to Undersigned enters the score; Pro members\' reviews are also shown as their own score. Undersigned\'s own wallets are never counted. Opinions of owners of attested Seeker devices, not the store\'s rating.</string>
+    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), one voice per device, weighted only by what each review carries (install time, usage, a written note). No payment and no token balance enters it. Each review shows the SKR and SOL its wallet had staked when it was read, for transparency; how much that matters is yours to judge. Pro members\' reviews are also shown as their own score. Undersigned\'s own wallets are never counted. Opinions of owners of attested Seeker devices, not the store\'s rating.</string>
     <string name="detail_rank_score">Rank score %1$s — shrunk toward 3.0 until more Seekers sign; used only to order the list.</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
@@ -297,8 +297,8 @@
     <string name="settings_standing">Your standing</string>
     <string name="standing_sgt_yes">Attested device found (%1$s): your reviews count.</string>
     <string name="standing_sgt_no">No attested-device credential in this wallet (today: the Seeker Genesis Token): your reviews would not be counted.</string>
-    <string name="standing_stake">Staked SKR read on-chain: %1$s (weight %2$s×)</string>
-    <string name="standing_note">Weights are read from the chain: the device and staked SKR. Pro and payments to Undersigned never change them.</string>
+    <string name="standing_stake">Staked: %1$s SKR · %2$s SOL, read on-chain. Shown for transparency; it never changes the weight.</string>
+    <string name="standing_note">Weights are one per attested device, adjusted only by what each review carries. Stakes are shown, never weighed; Pro and payments to Undersigned never change them.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Registry address %1$s. Every review is discoverable by anyone through this address. This app reads it straight from the chain, not from a server of ours.</string>
     <string name="settings_refresh_ledger">Re-read the ledger</string>
@@ -337,7 +337,7 @@
     <string name="pro_tool_watch_title">Hourly alerts</string>
     <string name="pro_tool_watch_body">Alerts for the apps you follow are checked every hour instead of every six, on the device.</string>
     <string name="pro_not_title">What Pro does not do</string>
-    <string name="pro_not_body">It never changes the signed score, never makes a review count for more, and never weighs on anyone else\'s review: flags, helpful votes and hiding use the device and staked SKR only. There is no token, nothing to collect and nothing to hold.</string>
+    <string name="pro_not_body">It never changes the signed score, never makes a review count for more, and never weighs on anyone else\'s review: flags, helpful votes and hiding count one per attested device. There is no token, nothing to collect and nothing to hold.</string>
     <string name="pro_free_keeps">Reading the ledger, signing reviews, flags, disputes and device facts stay free and always will. Pro adds tools, a Pro member mark and its own labelled score line.</string>
     <string name="pro_price_line">12 months on this wallet · pay in either, the term is the same · network fee on top, set by your wallet</string>
     <string name="pro_pay_in">Pay in</string>
@@ -411,7 +411,7 @@
     </plurals>
     <string name="pro_shared_none">No grant from %1$s names this wallet yet. It is kept here and read again with the ledger.</string>
     <string name="pro_shared_forget">Forget</string>
-    <string name="pro_standing_note">Pro is not part of this. Weight comes from the device and staked SKR only.</string>
+    <string name="pro_standing_note">Pro is not part of this. Weight is one per attested device; staked SKR and SOL are shown, never weighed.</string>
     <string name="free_pro_title">Free and Pro</string>
     <string name="fp_free">Free</string>
     <string name="fp_pro">Pro</string>
@@ -429,7 +429,7 @@
     <string name="fp_watch_free">every 6 hours</string>
     <string name="fp_watch_pro">every hour</string>
     <string name="fp_weight">How much your opinion counts</string>
-    <string name="fp_weight_both">the same — device and staked SKR only</string>
+    <string name="fp_weight_both">the same: one per attested device</string>
     <string name="desk_title">Publisher desk</string>
     <plurals name="desk_across">
         <item quantity="one">Across your %1$d proven dApp</item>
@@ -1041,4 +1041,7 @@
     <string name="boost_declaration">By paying, you confirm you are not paid by, employed by or acting for this app\'s publisher or a competitor.</string>
     <string name="withdrawal_consent">Start now. I understand I lose any 14-day right to withdraw once the payment is confirmed on-chain.</string>
     <string name="withdrawal_confirmed">You asked for immediate supply and acknowledged losing any 14-day right to withdraw. Your receipt is the on-chain transaction %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Staked when read: %1$s SKR · %2$s SOL · %3$s. Shown for transparency; it never changes the weight.</string>
 </resources>

@@ -52,7 +52,7 @@
     <string name="detail_update_review">Meine Bewertung aktualisieren</string>
     <string name="detail_revoke_review">Meine Bewertung zurückziehen</string>
     <string name="detail_score_title">Signierte Bewertung</string>
-    <string name="detail_score_sub">Durchschnitt der Bewertungen von attestierten Geräten (heute: Inhaber eines Seeker Genesis Token), gewichtet nach dem, was jede Bewertung mitbringt (Installationsdauer, Nutzung, eine geschriebene Notiz), und nach SKR, das die Wallet gestakt hat (höchstens 3×). SKR wird gehandelt, dieser Teil des Gewichts lässt sich also erwerben; Undersigned empfiehlt weder Kauf noch Staking. Keine Zahlung an Undersigned fließt in die Wertung ein; Bewertungen von Pro-Mitgliedern erscheinen zusätzlich als eigene Wertung. Eigene Wallets von Undersigned werden nie gezählt. Meinungen von Besitzern attestierter Seeker-Geräte, nicht die Wertung des Stores.</string>
+    <string name="detail_score_sub">Durchschnitt der Bewertungen von attestierten Geräten (heute: Inhaber eines Seeker Genesis Token), eine Stimme pro Gerät, gewichtet nur nach dem, was jede Bewertung mitbringt (Installationsdauer, Nutzung, eine geschriebene Notiz). Keine Zahlung und kein Token-Guthaben fließt ein. Jede Bewertung zeigt zur Transparenz das SKR und SOL, das ihre Wallet beim Lesen gestakt hatte; wie viel das bedeutet, beurteilen Sie selbst. Bewertungen von Pro-Mitgliedern erscheinen zusätzlich als eigene Wertung. Eigene Wallets von Undersigned werden nie gezählt. Meinungen von Besitzern attestierter Seeker-Geräte, nicht die Wertung des Stores.</string>
     <string name="detail_rank_score">Rang-Wert %1$s — bis mehr Seeker signieren, in Richtung 3,0 verschoben; dient nur der Sortierung der Liste.</string>
     <string name="follow">Folgen</string>
     <string name="following">Gefolgt</string>
@@ -195,8 +195,8 @@
     <string name="settings_standing">Ihr Ansehen</string>
     <string name="standing_sgt_yes">Attestiertes Gerät gefunden (%1$s): Ihre Bewertungen zählen.</string>
     <string name="standing_sgt_no">Kein Nachweis für ein attestiertes Gerät in dieser Wallet (heute: der Seeker Genesis Token): Ihre Bewertungen würden nicht gezählt.</string>
-    <string name="standing_stake">Gestaktes SKR on-chain gelesen: %1$s (Gewichtung %2$s×)</string>
-    <string name="standing_note">Gewichte werden von der Chain gelesen: das Gerät und gestaktes SKR. Pro und Zahlungen an Undersigned ändern sie nie.</string>
+    <string name="standing_stake">Gestakt: %1$s SKR · %2$s SOL, on-chain gelesen. Zur Transparenz gezeigt; es ändert nie das Gewicht.</string>
+    <string name="standing_note">Gewichte sind eins pro attestiertem Gerät und hängen nur davon ab, was jede Bewertung mitbringt. Stakes werden gezeigt, nie gewichtet; Pro und Zahlungen an Undersigned ändern sie nie.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Registrierungsadresse %1$s. Jede Bewertung ist über diese Adresse für jeden auffindbar. Diese App liest sie direkt von der Chain, nicht von einem Server von uns.</string>
     <string name="settings_refresh_ledger">Ledger erneut lesen</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Weiter</string>
     <string name="intro_replay">Einführung wiederholen</string>
     <string name="intro1_title">Ein Seeker, eine Stimme</string>
-    <string name="intro1_body">Undersigned ist eine Bewertungsebene neben dem dApp Store. Nur Wallets mit einem Seeker Genesis Token werden gezählt, also ein Gerät, eine Stimme. Keine Zahlung an Undersigned ändert die signierte Wertung; gestaktes SKR kann das Gewicht einer Bewertung erhöhen, höchstens auf 3×.</string>
+    <string name="intro1_body">Undersigned ist eine Bewertungsebene neben dem dApp Store. Nur Wallets mit einem Seeker Genesis Token werden gezählt, also ein Gerät, eine Stimme. Keine Zahlung und kein Token-Guthaben ändert, wie viel eine Bewertung zählt.</string>
     <string name="intro2_title">Signiert, nicht getippt</string>
     <string name="intro2_body">Jede Bewertung ist eine kleine Transaktion, die Sie auf dem Telefon mit dem doppelten Tippen bestätigen. Ihre Wallet zahlt nur die von ihr selbst festgelegte Netzwerkgebühr. Undersigned verwahrt niemals Ihre Schlüssel oder Gelder.</string>
     <string name="intro3_title">Neben dem Store, nicht anstelle davon</string>
@@ -401,7 +401,7 @@
     <string name="pro_tool_watch_title">Stündliche Benachrichtigungen</string>
     <string name="pro_tool_watch_body">Benachrichtigungen zu den Apps, denen Sie folgen, werden stündlich statt alle sechs Stunden geprüft, auf dem Gerät.</string>
     <string name="pro_not_title">Was Pro nicht tut</string>
-    <string name="pro_not_body">Es ändert nie die signierte Wertung, lässt keine Bewertung mehr zählen und wiegt nie auf der Bewertung eines anderen: Meldungen, Hilfreich-Stimmen und Ausblenden nutzen nur das Gerät und gestaktes SKR. Es gibt kein Token, nichts zu sammeln und nichts zu halten.</string>
+    <string name="pro_not_body">Es ändert nie die signierte Wertung, lässt keine Bewertung mehr zählen und wirkt nie auf fremde Bewertungen: Meldungen, Hilfreich-Stimmen und Ausblenden zählen eins pro attestiertem Gerät. Es gibt kein Token, nichts zu sammeln und nichts zu halten.</string>
     <string name="pro_free_keeps">Das Ledger lesen, Bewertungen signieren, Meldungen, Einsprüche und Gerätefakten bleiben kostenlos, für immer. Pro fügt Werkzeuge hinzu, ein Pro-Mitglied-Zeichen und eine eigene, gekennzeichnete Wertungszeile.</string>
     <string name="pro_price_line">12 Monate auf dieser Wallet · Zahlung in beidem möglich, die Laufzeit ist gleich · Netzwerkgebühr obendrauf, von Ihrer Wallet festgelegt</string>
     <string name="pro_pay_in">Zahlen in</string>
@@ -475,7 +475,7 @@
     </plurals>
     <string name="pro_shared_none">Noch keine Gewährung von %1$s nennt diese Wallet. Sie wird hier gespeichert und mit dem Ledger erneut gelesen.</string>
     <string name="pro_shared_forget">Vergessen</string>
-    <string name="pro_standing_note">Pro ist hierbei nicht beteiligt. Gewichtung stammt ausschließlich vom Gerät und gestaktem SKR.</string>
+    <string name="pro_standing_note">Pro gehört nicht dazu. Gewicht ist eins pro attestiertem Gerät; gestaktes SKR und SOL werden gezeigt, nie gewichtet.</string>
     <string name="free_pro_title">Free und Pro</string>
     <string name="fp_free">Kostenlos</string>
     <string name="fp_pro">Pro</string>
@@ -493,7 +493,7 @@
     <string name="fp_watch_free">alle 6 Stunden</string>
     <string name="fp_watch_pro">stündlich</string>
     <string name="fp_weight">Wie stark Ihre Meinung zählt</string>
-    <string name="fp_weight_both">gleich — nur Gerät und gestaktes SKR</string>
+    <string name="fp_weight_both">gleich: eins pro attestiertem Gerät</string>
     <string name="desk_title">Herausgeber-Schreibtisch</string>
     <plurals name="desk_across">
         <item quantity="one">Über Ihre %1$d nachgewiesene dApp</item>
@@ -1035,4 +1035,7 @@
     <string name="boost_declaration">Mit der Zahlung bestätigen Sie, dass Sie nicht vom Herausgeber dieser App oder einem Wettbewerber bezahlt, angestellt oder beauftragt sind.</string>
     <string name="withdrawal_consent">Jetzt starten. Mir ist bewusst, dass ich ein etwaiges 14-tägiges Widerrufsrecht verliere, sobald die Zahlung on-chain bestätigt ist.</string>
     <string name="withdrawal_confirmed">Sie haben die sofortige Bereitstellung verlangt und bestätigt, dass ein etwaiges 14-tägiges Widerrufsrecht erlischt. Ihr Beleg ist die On-Chain-Transaktion %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Gestakt beim Lesen: %1$s SKR · %2$s SOL · %3$s. Zur Transparenz gezeigt; es ändert nie das Gewicht.</string>
 </resources>

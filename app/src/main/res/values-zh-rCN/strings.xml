@@ -52,7 +52,7 @@
     <string name="detail_update_review">更新我的评价</string>
     <string name="detail_revoke_review">撤回我的评价</string>
     <string name="detail_score_title">签名评分</string>
-    <string name="detail_score_sub">来自经认证设备的评价平均值（目前：Seeker Genesis Token 持有者），按每条评价附带的信息（安装时长、使用时长、书面备注）及该钱包质押的 SKR（最多 3×）加权。SKR 可以交易，因此这部分权重可以获得；Undersigned 不建议购买或质押它。付给 Undersigned 的款项不计入评分；Pro 会员的评价另有自己的评分。Undersigned 自有钱包从不计入。为经认证 Seeker 设备持有者的意见，而非商店评分。</string>
+    <string name="detail_score_sub">来自经认证设备的评价平均值（目前：Seeker Genesis Token 持有者），每台设备一票，只按每条评价附带的信息（安装时长、使用时长、书面备注）加权。不含任何付款或代币余额。为了透明，每条评价都会显示读取时其钱包质押的 SKR 和 SOL；这意味着什么由你判断。Pro 会员的评价另有自己的评分。Undersigned 自有钱包从不计入。为经认证 Seeker 设备持有者的意见，而非商店评分。</string>
     <string name="detail_rank_score">排名评分 %1$s——在更多 Seeker 签名之前会向 3.0 收缩;仅用于对列表排序。</string>
     <string name="follow">关注</string>
     <string name="following">已关注</string>
@@ -194,8 +194,8 @@
     <string name="settings_standing">您的信誉</string>
     <string name="standing_sgt_yes">已找到已认证设备(%1$s):您的评价会被计入。</string>
     <string name="standing_sgt_no">此钱包未持有已认证设备凭证(目前为 Seeker Genesis Token):您的评价不会被计入。</string>
-    <string name="standing_stake">链上读取的已质押 SKR:%1$s(权重 %2$s×)</string>
-    <string name="standing_note">权重从链上读取：设备和质押的 SKR。Pro 和付给 Undersigned 的款项从不改变它们。</string>
+    <string name="standing_stake">已质押：%1$s SKR · %2$s SOL，读自链上。仅为透明而显示，从不改变权重。</string>
+    <string name="standing_note">权重为每台经认证设备 1，只按每条评价附带的信息调整。质押只显示、不计权；Pro 和付给 Undersigned 的款项从不改变它们。</string>
     <string name="settings_ledger">账本</string>
     <string name="settings_ledger_body">注册表地址 %1$s。任何人都可以通过此地址查找到每一条评价。本应用直接从链上读取这些内容，而不是从我们的服务器读取。</string>
     <string name="settings_refresh_ledger">重新读取账本</string>
@@ -219,7 +219,7 @@
     <string name="intro_next">下一步</string>
     <string name="intro_replay">重新播放介绍</string>
     <string name="intro1_title">一台 Seeker,一个声音</string>
-    <string name="intro1_body">Undersigned 是 dApp Store 旁的一层评价。只有持有 Seeker Genesis Token 的钱包才被计入：一台设备，一票。付给 Undersigned 的任何款项都不会改变签名评分；质押的 SKR 可提高一条评价的权重，最多 3×。</string>
+    <string name="intro1_body">Undersigned 是 dApp Store 旁的一层评价。只有持有 Seeker Genesis Token 的钱包才被计入：一台设备，一票。任何付款或代币余额都不会改变一条评价的分量。</string>
     <string name="intro2_title">签名,而非打字</string>
     <string name="intro2_body">每条评价都是一笔在手机上通过双击确认的小额交易。您的钱包只会支付其自行设定的网络费用。Undersigned 绝不持有您的密钥或资金。</string>
     <string name="intro3_title">在商店旁边,而非取代它</string>
@@ -398,7 +398,7 @@
     <string name="pro_tool_watch_title">每小时提醒</string>
     <string name="pro_tool_watch_body">你关注的应用的提醒每小时在设备上检查一次，而不是每六小时。</string>
     <string name="pro_not_title">Pro 不做什么</string>
-    <string name="pro_not_body">它从不改变签名评分，从不让评价分量更重，也从不影响他人的评价：举报、“有用”投票和隐藏只看设备和质押的 SKR。没有代币，没有可收集或持有的东西。</string>
+    <string name="pro_not_body">它从不改变签名评分，不会让评价分量更重，也不影响他人的评价：举报、“有帮助”投票和隐藏都按每台经认证设备计 1。没有代币，没有需要收集或持有的东西。</string>
     <string name="pro_free_keeps">阅读账本、签署评价、举报、申诉和设备信息始终免费。Pro 增加工具、“Pro 会员”标记和一条标明的专属评分行。</string>
     <string name="pro_price_line">此钱包 12 个月 · 两种方式付款期限相同 · 另需网络费用,由您的钱包设定</string>
     <string name="pro_pay_in">付款方式</string>
@@ -470,7 +470,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s 尚未授权此钱包。此设置会保留在此处,并随账本一同重新读取。</string>
     <string name="pro_shared_forget">移除</string>
-    <string name="pro_standing_note">Pro 与此无关。权重仅来自设备认证和质押 SKR。</string>
+    <string name="pro_standing_note">Pro 与此无关。权重为每台经认证设备 1；质押的 SKR 和 SOL 只显示、不计权。</string>
     <string name="free_pro_title">免费版与 Pro</string>
     <string name="fp_free">免费版</string>
     <string name="fp_pro">Pro</string>
@@ -488,7 +488,7 @@
     <string name="fp_watch_free">每 6 小时一次</string>
     <string name="fp_watch_pro">每小时一次</string>
     <string name="fp_weight">您的意见有多重要</string>
-    <string name="fp_weight_both">相同——仅取决于设备认证和质押 SKR</string>
+    <string name="fp_weight_both">相同：每台经认证设备 1</string>
     <string name="desk_title">发布者工作台</string>
     <plurals name="desk_across">
         <item quantity="other">跨您已证明的 %1$d 个 dApp</item>
@@ -999,4 +999,7 @@
     <string name="boost_declaration">付款即表示你确认自己未受此应用发布者或其竞争对手付费、雇用，也未代表他们行事。</string>
     <string name="withdrawal_consent">现在开始。我明白付款在链上确认后，我将失去任何 14 天撤回权。</string>
     <string name="withdrawal_confirmed">你要求立即提供，并确认失去任何 14 天撤回权。你的收据是链上交易 %1$s。</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">读取时的质押：%1$s SKR · %2$s SOL · %3$s。仅为透明而显示，从不改变权重。</string>
 </resources>

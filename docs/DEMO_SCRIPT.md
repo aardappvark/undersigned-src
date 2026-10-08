@@ -8,7 +8,7 @@ Updated 8 Oct for the current build. Judges score "completion based on the demo 
 |---|---|---|
 | 0:00 | Store listing of the Toolkit: 3.8 from 279 | "279 reviews. Which of them came from a real Seeker? The store can't tell you. This can." |
 | 0:12 | Undersigned Browse, Installed tab, icons, ledger line | "Undersigned is a review layer beside the dApp Store. No server. Every review is a transaction the owner signs on the phone." |
-| 0:25 | Open the Toolkit page: Signed 5.0 · store 3.8 side by side | "The store's own rating is right here, credited. Under it, the signed score: only wallets holding a Genesis Token count, weighted by staked SKR, capped at three times." |
+| 0:25 | Open the Toolkit page: Signed 5.0 · store 3.8 side by side | "The store's own rating is right here, credited. Under it, the signed score: only wallets holding a Genesis Token count, one voice each; stake is shown beside each review, never weighed." |
 | 0:40 | Tap "Write a signed review", pick 4 stars, tags Works + Fast, type one line, tick the permanence consent, Sign and publish | "Rating, tags, an optional note that the owner accepts is permanent." |
 | 0:55 | Seed Vault "Double tap to confirm" — double-tap on camera | "Approved on the device. The wallet sets the network fee; the app takes nothing." |
 | 1:05 | Confirmation; review appears with Genesis ✓ and Seeker wallet pills | "Two proofs on the record: a Genesis Token, which is soulbound to a Seed Vault key, and the Seeker wallet's own transaction fingerprint." |

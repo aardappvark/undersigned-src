@@ -26,6 +26,10 @@ class Db(path: String = Config.DB_PATH) {
             s.execute("CREATE TABLE IF NOT EXISTS passes (key TEXT PRIMARY KEY, wallet TEXT NOT NULL, requests_left INTEGER NOT NULL, ends_at INTEGER NOT NULL, created INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS redeemed (sig TEXT PRIMARY KEY, key TEXT NOT NULL, wallet TEXT NOT NULL, rail TEXT NOT NULL, amount INTEGER NOT NULL, at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS apk_proofs (pkg TEXT NOT NULL, version INTEGER NOT NULL, cert TEXT NOT NULL, declared TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY (pkg, version))")
+            // Staked SOL, shown beside reviews for transparency (never weighed); added 9 Oct 2026 to an existing table.
+            runCatching { s.execute("ALTER TABLE facts ADD COLUMN sol REAL") }
+            // A review's stake as first read after it appeared: what readers show "at the time" (never weighed).
+            s.execute("CREATE TABLE IF NOT EXISTS review_stake (id TEXT PRIMARY KEY, skr REAL NOT NULL, sol REAL, read_at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS operator_hidden (id TEXT PRIMARY KEY, reason TEXT NOT NULL, at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS pay_rows (addr_key TEXT NOT NULL, sig TEXT NOT NULL, time INTEGER, memo TEXT, fetched INTEGER, payer TEXT, lamports INTEGER, tokens TEXT, PRIMARY KEY (addr_key, sig))")
         }

@@ -15,6 +15,7 @@ object UserPreferences {
     private const val KEY_ONBOARDING_SEEN = "onboarding_seen"
     private const val KEY_HIDDEN = "hidden_signatures"
     private const val KEY_FACTS = "signer_facts"
+    private const val KEY_REVIEW_STAKE = "review_stake"
     private const val KEY_MY_STORE = "my_store_reviews"   // {wallet, at, reviews:{pkg:{…}}} — the wallet's own store reviews, last scan
     private const val KEY_VERIFIED = "verified_publishers"   // package → wallets whose claim verified, last seen
     private const val KEY_CATALOGUE_REFRESH = "catalogue_refreshed_at"
@@ -111,11 +112,26 @@ object UserPreferences {
     fun cachedFacts(signer: String, stale: Boolean = false): SignerFacts? {
         val o = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}").optJSONObject(signer) }.getOrNull() ?: return null
         if (!stale && System.currentTimeMillis() - o.optLong("at", 0L) > FACTS_TTL_MS) return null
-        return SignerFacts(o.optBoolean("sgt", false), o.optDouble("skr", 0.0), o.optString("att", null)?.takeIf { it.isNotEmpty() && it != "null" } ?: if (o.optBoolean("sgt", false)) "seeker-genesis" else null)
+        return SignerFacts(o.optBoolean("sgt", false), o.optDouble("skr", 0.0), o.optString("att", null)?.takeIf { it.isNotEmpty() && it != "null" } ?: if (o.optBoolean("sgt", false)) "seeker-genesis" else null,
+            stakedSol = if (o.has("sol") && !o.isNull("sol")) o.optDouble("sol") else null)
+    }
+    /** When [signer]'s cached facts were read from the chain (epoch seconds), or null. */
+    fun factsReadAt(signer: String): Long? = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}").optJSONObject(signer)?.optLong("at", 0L)?.takeIf { it > 0 }?.div(1000) }.getOrNull()
+
+    /** Review id -> the reviewer's stake as first read after the review appeared: shown beside it, never weighed (9 Oct 2026). */
+    fun reviewStakes(): Map<String, com.undersigned.protocol.StakeView.Snapshot> = runCatching {
+        val o = JSONObject(prefs?.getString(KEY_REVIEW_STAKE, "{}") ?: "{}")
+        o.keys().asSequence().associateWith { k -> val v = o.getJSONObject(k); com.undersigned.protocol.StakeView.Snapshot(v.optDouble("skr"), if (v.isNull("sol")) null else v.optDouble("sol"), v.optLong("at")) }
+    }.getOrDefault(emptyMap())
+    fun saveReviewStakes(add: Map<String, com.undersigned.protocol.StakeView.Snapshot>) {
+        if (add.isEmpty()) return
+        val o = runCatching { JSONObject(prefs?.getString(KEY_REVIEW_STAKE, "{}") ?: "{}") }.getOrDefault(JSONObject())
+        add.forEach { (k, v) -> if (!o.has(k)) o.put(k, JSONObject().put("skr", v.skr).put("sol", v.sol ?: JSONObject.NULL).put("at", v.readAt)) }
+        prefs?.edit()?.putString(KEY_REVIEW_STAKE, o.toString())?.apply()
     }
     fun cacheFacts(signer: String, f: SignerFacts) {
         val all = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}") }.getOrDefault(JSONObject())
-        all.put(signer, JSONObject().put("sgt", f.hasGenesisToken).put("skr", f.stakedSkr).put("att", f.attestation ?: "").put("at", System.currentTimeMillis()))
+        all.put(signer, JSONObject().put("sgt", f.hasGenesisToken).put("skr", f.stakedSkr).put("att", f.attestation ?: "").put("sol", f.stakedSol ?: JSONObject.NULL).put("at", System.currentTimeMillis()))
         prefs?.edit()?.putString(KEY_FACTS, all.toString())?.apply()
     }
     /**

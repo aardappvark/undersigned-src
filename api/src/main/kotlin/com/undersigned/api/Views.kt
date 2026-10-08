@@ -229,7 +229,10 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("staked_sol", f.stakedSol?.let(::r2) ?: JSONObject.NULL)
+                    // Shown for transparency, never weighed: the stake as first read after this review appeared, and when.
+                    .put("stake_at_review", st.reviewStake[e.signature]?.let { k -> JSONObject().put("skr", r2(k.skr)).put("sol", k.sol?.let(::r2) ?: JSONObject.NULL).put("read_at", k.readAt) } ?: JSONObject.NULL)
+                    .put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
                     )
                 .put("counted", st.weighting.parts(e).weight > 0 && st.countsFor(e.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("related", when { com.undersigned.protocol.Operator.isOperator(e.signer) -> "operator"; st.weighting.parts(e).gifted -> "pro_from_publisher"; else -> JSONObject.NULL })

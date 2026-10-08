@@ -52,7 +52,7 @@
     <string name="detail_update_review">İncelememi güncelle</string>
     <string name="detail_revoke_review">İncelememi geri çek</string>
     <string name="detail_score_title">İmzalı puan</string>
-    <string name="detail_score_sub">Onaylı cihazlardan gelen değerlendirmelerin ortalaması (bugün: Seeker Genesis Token sahipleri), her değerlendirmenin taşıdıkları (kurulum süresi, kullanım, yazılı not) ve cüzdanın stake ettiği SKR (en fazla 3×) ile ağırlıklı. SKR alınıp satılır, yani ağırlığın bu kısmı edinilebilir; Undersigned SKR almayı ya da stake etmeyi önermez. Undersigned\'a yapılan hiçbir ödeme puana girmez; Pro üyelerin değerlendirmeleri ayrıca kendi puanlarıyla gösterilir. Undersigned\'ın cüzdanları asla sayılmaz. Onaylı Seeker cihaz sahiplerinin görüşleri, mağazanın puanı değil.</string>
+    <string name="detail_score_sub">Onaylı cihazlardan gelen değerlendirmelerin ortalaması (bugün: Seeker Genesis Token sahipleri), cihaz başına bir ses, yalnızca her değerlendirmenin taşıdıklarıyla (kurulum süresi, kullanım, yazılı not) ağırlıklı. Hiçbir ödeme ve token bakiyesi girmez. Her değerlendirme, şeffaflık için cüzdanın okunduğu anda stake ettiği SKR ve SOL\'u gösterir; bunun ne kadar önemli olduğuna siz karar verirsiniz. Pro üyelerin değerlendirmeleri ayrıca kendi puanlarıyla gösterilir. Undersigned\'ın cüzdanları asla sayılmaz. Onaylı Seeker cihaz sahiplerinin görüşleri, mağazanın puanı değil.</string>
     <string name="detail_rank_score">Sıralama puanı %1$s — daha fazla Seeker imzalayana kadar 3.0\'a doğru küçültülür; yalnızca listeyi sıralamak için kullanılır.</string>
     <string name="follow">Takip et</string>
     <string name="following">Takip ediliyor</string>
@@ -195,8 +195,8 @@
     <string name="settings_standing">Durumunuz</string>
     <string name="standing_sgt_yes">Kanıtlı cihaz bulundu (%1$s): incelemeleriniz sayılır.</string>
     <string name="standing_sgt_no">Bu cüzdanda kanıtlı-cihaz kimlik bilgisi yok (bugün: Seeker Genesis Token): incelemeleriniz sayılmaz.</string>
-    <string name="standing_stake">Zincirde okunan stake edilmiş SKR: %1$s (ağırlık %2$s×)</string>
-    <string name="standing_note">Ağırlıklar zincirden okunur: cihaz ve stake edilmiş SKR. Pro ve Undersigned\'a yapılan ödemeler bunları asla değiştirmez.</string>
+    <string name="standing_stake">Stake edilen: %1$s SKR · %2$s SOL, zincirden okundu. Şeffaflık için gösterilir; ağırlığı asla değiştirmez.</string>
+    <string name="standing_note">Ağırlıklar onaylı cihaz başına birdir, yalnızca her değerlendirmenin taşıdıklarıyla ayarlanır. Stake\'ler gösterilir, asla tartılmaz; Pro ve Undersigned\'a yapılan ödemeler bunları asla değiştirmez.</string>
     <string name="settings_ledger">Defter</string>
     <string name="settings_ledger_body">Kayıt adresi %1$s. Her inceleme bu adres üzerinden herkes tarafından bulunabilir. Bu uygulama bunu doğrudan zincirden okur, bize ait bir sunucudan değil.</string>
     <string name="settings_refresh_ledger">Defteri yeniden oku</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">İleri</string>
     <string name="intro_replay">Tanıtımı tekrar oynat</string>
     <string name="intro1_title">Bir Seeker, bir ses</string>
-    <string name="intro1_body">Undersigned, dApp Store\'un yanında bir değerlendirme katmanıdır. Yalnızca Seeker Genesis Token tutan cüzdanlar sayılır: bir cihaz, bir ses. Undersigned\'a yapılan hiçbir ödeme imzalı puanı değiştirmez; stake edilmiş SKR bir değerlendirmenin ağırlığını en fazla 3×\'e kadar artırabilir.</string>
+    <string name="intro1_body">Undersigned, dApp Store\'un yanında bir değerlendirme katmanıdır. Yalnızca Seeker Genesis Token tutan cüzdanlar sayılır: bir cihaz, bir ses. Hiçbir ödeme ve hiçbir token bakiyesi bir değerlendirmenin ne kadar sayıldığını değiştirmez.</string>
     <string name="intro2_title">Yazılmaz, imzalanır</string>
     <string name="intro2_body">Her inceleme, telefonda çift dokunuşla onayladığınız küçük bir işlemdir. Cüzdanınız yalnızca kendi belirlediği ağ ücretini öder. Undersigned anahtarlarınızı veya fonlarınızı asla tutmaz.</string>
     <string name="intro3_title">Mağazanın yanında, yerine değil</string>
@@ -401,7 +401,7 @@
     <string name="pro_tool_watch_title">Saatlik uyarılar</string>
     <string name="pro_tool_watch_body">Takip ettiğiniz uygulamaların uyarıları altı saat yerine her saat, cihazda kontrol edilir.</string>
     <string name="pro_not_title">Pro\'nun yapmadıkları</string>
-    <string name="pro_not_body">İmzalı puanı asla değiştirmez, bir değerlendirmeyi asla daha ağır saydırmaz ve başkasının değerlendirmesine asla ağırlık yapmaz: işaretlemeler, yararlı oyları ve gizleme yalnızca cihazı ve stake edilmiş SKR\'yi kullanır. Token yok, toplanacak ya da tutulacak bir şey yok.</string>
+    <string name="pro_not_body">İmzalı puanı asla değiştirmez, bir değerlendirmeyi daha fazla saydırmaz ve başkalarının değerlendirmelerini etkilemez: işaretlemeler, faydalı oyları ve gizleme onaylı cihaz başına bir sayılır. Token yok, toplanacak ya da tutulacak bir şey yok.</string>
     <string name="pro_free_keeps">Defteri okumak, değerlendirme imzalamak, işaretlemeler, itirazlar ve cihaz bilgileri her zaman ücretsiz kalır. Pro araçlar, Pro üye işareti ve kendine ait işaretli bir puan satırı ekler.</string>
     <string name="pro_price_line">Bu cüzdanda 12 ay · ikisinden biriyle ödeyin, süre aynı · üzerine ağ ücreti, cüzdanınız tarafından belirlenir</string>
     <string name="pro_pay_in">Ödeme birimi</string>
@@ -475,7 +475,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s tarafından henüz bu cüzdanı adlandıran bir hibe yok. Burada tutulur ve defterle birlikte tekrar okunur.</string>
     <string name="pro_shared_forget">Unut</string>
-    <string name="pro_standing_note">Pro bunun bir parçası değildir. Ağırlık yalnızca cihazdan ve stake edilmiş SKR\'den gelir.</string>
+    <string name="pro_standing_note">Pro bunun parçası değil. Ağırlık onaylı cihaz başına birdir; stake edilmiş SKR ve SOL gösterilir, asla tartılmaz.</string>
     <string name="free_pro_title">Ücretsiz ve Pro</string>
     <string name="fp_free">Ücretsiz</string>
     <string name="fp_pro">Pro</string>
@@ -493,7 +493,7 @@
     <string name="fp_watch_free">her 6 saatte bir</string>
     <string name="fp_watch_pro">her saat</string>
     <string name="fp_weight">Görüşünüz ne kadar sayılır</string>
-    <string name="fp_weight_both">aynı — yalnızca cihaz ve stake edilmiş SKR</string>
+    <string name="fp_weight_both">aynı: onaylı cihaz başına bir</string>
     <string name="desk_title">Yayıncı masası</string>
     <plurals name="desk_across">
         <item quantity="one">%1$d kanıtlanmış dApp\'iniz genelinde</item>
@@ -1015,4 +1015,7 @@
     <string name="boost_declaration">Ödeme yaparak bu uygulamanın yayıncısı veya bir rakip tarafından ücretlendirilmediğinizi, istihdam edilmediğinizi ve onlar adına hareket etmediğinizi onaylarsınız.</string>
     <string name="withdrawal_consent">Şimdi başlat. Ödeme zincirde onaylandığında olası 14 günlük cayma hakkımı kaybedeceğimi anlıyorum.</string>
     <string name="withdrawal_confirmed">Hemen sağlanmasını istediniz ve olası 14 günlük cayma hakkını kaybettiğinizi kabul ettiniz. Makbuzunuz zincirdeki %1$s işlemidir.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Okunduğunda stake edilen: %1$s SKR · %2$s SOL · %3$s. Şeffaflık için gösterilir; ağırlığı asla değiştirmez.</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.undersigned.protocol
 
-import kotlin.math.ln
-import kotlin.math.min
 
 /** One ledger entry after the chain has been read: the signer is the identity, never the payload. */
 data class LedgerEntry(
@@ -15,10 +13,12 @@ data class LedgerEntry(
 data class SignerFacts(
     /** Holds an attested-device credential from the governed list (today: the Seeker Genesis Token, one per device) — the one-device-one-voice gate. Reviews from wallets without one are never counted. */
     val hasGenesisToken: Boolean,
-    /** Staked SKR in whole tokens, as read from the staking program (SeekerVerify `Season1RpcClient` shape). Weighting only; this app never stakes or moves anything. */
+    /** Staked SKR in whole tokens, as read from the staking program (SeekerVerify `Season1RpcClient` shape). SHOWN for transparency, never weighed. */
     val stakedSkr: Double,
     /** Which attestation matched (id from the list), e.g. "seeker-genesis". Null when none. */
     val attestation: String? = if (hasGenesisToken) "seeker-genesis" else null,
+    /** Native SOL staked from this wallet ([StakeView.solStaked]); null when not read. SHOWN for transparency, never weighed. */
+    val stakedSol: Double? = null,
 )
 
 data class AppScore(
@@ -41,13 +41,16 @@ object Ranking {
         return entry.signer in verifiedPublishers[pkg].orEmpty()
     }
 
-    /** ln-damped: 0 SKR → 1.0, 1k → ~1.69, 100k → ~5.6 but CAPPED at [MAX_WEIGHT]. Whales cannot buy a listing. */
-    const val MAX_WEIGHT = 3.0
     /** Bayesian prior: every app starts as an average app with the strength of [PRIOR_WEIGHT] reviews. */
     const val PRIOR_MEAN = 3.0
     const val PRIOR_WEIGHT = 5.0
 
-    fun weight(f: SignerFacts): Double = if (!f.hasGenesisToken) 0.0 else min(MAX_WEIGHT, 1.0 + ln(1.0 + f.stakedSkr / 1_000.0))
+    /**
+     * One attested device, one voice: 1.0 with a Genesis Token, 0.0 without. Staked SKR does NOT change it (owner, 9 Oct 2026:
+     * "it doesn't increase the weighting but shows the staked amount … the viewer can make their own assumptions"). Readers
+     * show the stake beside each review for transparency only; no token balance and no payment moves a score.
+     */
+    fun weight(f: SignerFacts): Double = if (f.hasGenesisToken) 1.0 else 0.0
 
     /**
      * Rules, in order: (1) revocations remove the review they name, whoever posted the revocation

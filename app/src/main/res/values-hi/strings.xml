@@ -52,7 +52,7 @@
     <string name="detail_update_review">मेरी समीक्षा अपडेट करें</string>
     <string name="detail_revoke_review">मेरी समीक्षा वापस लें</string>
     <string name="detail_score_title">हस्ताक्षरित स्कोर</string>
-    <string name="detail_score_sub">प्रमाणित डिवाइसों की समीक्षाओं का औसत (आज: Seeker Genesis Token धारक), हर समीक्षा जो साथ लाती है (इंस्टॉल अवधि, उपयोग, लिखा नोट) और वॉलेट द्वारा स्टेक किए SKR (3× तक) से भारित। SKR का व्यापार होता है, इसलिए वज़न का यह हिस्सा हासिल किया जा सकता है; Undersigned इसे खरीदने या स्टेक करने की सलाह नहीं देता। Undersigned को कोई भुगतान स्कोर में शामिल नहीं; Pro सदस्यों की समीक्षाएँ अपने अलग स्कोर में भी दिखती हैं। Undersigned के वॉलेट कभी गिने नहीं जाते। प्रमाणित Seeker डिवाइस मालिकों की राय, स्टोर की रेटिंग नहीं।</string>
+    <string name="detail_score_sub">प्रमाणित डिवाइसों की समीक्षाओं का औसत (आज: Seeker Genesis Token धारक), प्रति डिवाइस एक आवाज़, केवल हर समीक्षा जो साथ लाती है (इंस्टॉल अवधि, उपयोग, लिखा नोट) उससे भारित। कोई भुगतान या टोकन बैलेंस इसमें शामिल नहीं। हर समीक्षा पारदर्शिता के लिए दिखाती है कि पढ़ते समय उसके वॉलेट ने कितना SKR और SOL स्टेक किया था; इसका महत्व आप तय करें। Pro सदस्यों की समीक्षाएँ अपने अलग स्कोर में भी दिखती हैं। Undersigned के वॉलेट कभी गिने नहीं जाते। प्रमाणित Seeker डिवाइस मालिकों की राय, स्टोर की रेटिंग नहीं।</string>
     <string name="detail_rank_score">रैंक स्कोर %1$s — जब तक अधिक Seekers साइन नहीं करते, 3.0 की ओर सिकोड़ा गया; केवल सूची क्रमबद्ध करने के लिए उपयोग होता है।</string>
     <string name="follow">फ़ॉलो करें</string>
     <string name="following">फ़ॉलो किया जा रहा है</string>
@@ -198,8 +198,8 @@
     <string name="settings_standing">आपकी स्थिति</string>
     <string name="standing_sgt_yes">प्रमाणित डिवाइस मिला (%1$s): आपकी समीक्षाएं गिनी जाती हैं।</string>
     <string name="standing_sgt_no">इस wallet में कोई प्रमाणित डिवाइस नहीं (आज: Seeker Genesis Token): आपकी समीक्षाएं नहीं गिनी जाएंगी।</string>
-    <string name="standing_stake">chain पर पढ़ा गया staked SKR: %1$s (भार %2$s×)</string>
-    <string name="standing_note">वज़न चेन से पढ़े जाते हैं: डिवाइस और स्टेक किया SKR। Pro और Undersigned को भुगतान इन्हें कभी नहीं बदलते।</string>
+    <string name="standing_stake">स्टेक किया: %1$s SKR · %2$s SOL, चेन से पढ़ा गया। पारदर्शिता के लिए दिखाया जाता है; वज़न कभी नहीं बदलता।</string>
+    <string name="standing_note">वज़न प्रति प्रमाणित डिवाइस एक है, केवल समीक्षा जो साथ लाती है उससे समायोजित। स्टेक दिखाए जाते हैं, कभी तौले नहीं जाते; Pro और Undersigned को भुगतान इन्हें कभी नहीं बदलते।</string>
     <string name="settings_ledger">लेजर</string>
     <string name="settings_ledger_body">रजिस्ट्री पता %1$s। हर समीक्षा इस पते के माध्यम से किसी के भी द्वारा खोजी जा सकती है। यह ऐप इसे सीधे chain से पढ़ता है, हमारे किसी सर्वर से नहीं।</string>
     <string name="settings_refresh_ledger">Ledger फिर से पढ़ें</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">अगला</string>
     <string name="intro_replay">परिचय फिर से चलाएं</string>
     <string name="intro1_title">एक Seeker, एक आवाज़</string>
-    <string name="intro1_body">Undersigned, dApp Store के साथ समीक्षाओं की एक परत है। केवल Seeker Genesis Token वाले वॉलेट गिने जाते हैं: एक डिवाइस, एक आवाज़। Undersigned को कोई भुगतान हस्ताक्षरित स्कोर नहीं बदलता; स्टेक किया SKR किसी समीक्षा का वज़न अधिकतम 3× तक बढ़ा सकता है।</string>
+    <string name="intro1_body">Undersigned, dApp Store के साथ समीक्षाओं की एक परत है। केवल Seeker Genesis Token वाले वॉलेट गिने जाते हैं: एक डिवाइस, एक आवाज़। कोई भुगतान और कोई टोकन बैलेंस यह नहीं बदलता कि समीक्षा कितनी गिनी जाती है।</string>
     <string name="intro2_title">हस्ताक्षरित, टाइप नहीं</string>
     <string name="intro2_body">हर समीक्षा एक छोटा लेनदेन है जिसे आप फ़ोन पर double-tap से स्वीकृत करते हैं। आपका wallet केवल वह नेटवर्क फीस चुकाता है जो वह खुद तय करता है। Undersigned कभी भी आपकी keys या धन नहीं रखता।</string>
     <string name="intro3_title">स्टोर के साथ, उसकी जगह नहीं</string>
@@ -403,7 +403,7 @@
     <string name="pro_tool_watch_title">हर घंटे अलर्ट</string>
     <string name="pro_tool_watch_body">आपके फ़ॉलो किए ऐप्स के अलर्ट छह के बजाय हर घंटे, डिवाइस पर जाँचे जाते हैं।</string>
     <string name="pro_not_title">Pro क्या नहीं करता</string>
-    <string name="pro_not_body">यह कभी हस्ताक्षरित स्कोर नहीं बदलता, कभी किसी समीक्षा को ज़्यादा नहीं गिनवाता और किसी और की समीक्षा पर भार नहीं डालता: रिपोर्ट, उपयोगी वोट और छिपाना केवल डिवाइस और स्टेक किए SKR का उपयोग करते हैं। कोई टोकन नहीं, जमा करने या रखने को कुछ नहीं।</string>
+    <string name="pro_not_body">यह कभी हस्ताक्षरित स्कोर नहीं बदलता, किसी समीक्षा को ज़्यादा नहीं गिनवाता और दूसरों की समीक्षाओं पर असर नहीं डालता: फ़्लैग, उपयोगी वोट और छिपाना प्रति प्रमाणित डिवाइस एक गिने जाते हैं। कोई टोकन नहीं, जमा करने या रखने को कुछ नहीं।</string>
     <string name="pro_free_keeps">लेजर पढ़ना, समीक्षाओं पर हस्ताक्षर, रिपोर्ट, आपत्तियाँ और डिवाइस तथ्य हमेशा मुफ़्त रहेंगे। Pro टूल, Pro सदस्य चिह्न और अपनी अलग चिह्नित स्कोर पंक्ति जोड़ता है।</string>
     <string name="pro_price_line">इस wallet पर 12 महीने · किसी में भी भुगतान करें, अवधि वही रहती है · ऊपर से नेटवर्क फीस, आपके wallet द्वारा तय</string>
     <string name="pro_pay_in">भुगतान करें</string>
@@ -477,7 +477,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s से अभी तक कोई ऐसा ग्रांट नहीं जो इस wallet का नाम ले। इसे यहां रखा गया है और Ledger के साथ फिर से पढ़ा जाएगा।</string>
     <string name="pro_shared_forget">भूल जाएं</string>
-    <string name="pro_standing_note">Pro इसका हिस्सा नहीं है। भार केवल डिवाइस और staked SKR से आता है।</string>
+    <string name="pro_standing_note">Pro इसका हिस्सा नहीं। वज़न प्रति प्रमाणित डिवाइस एक है; स्टेक किया SKR और SOL दिखाया जाता है, कभी तौला नहीं जाता।</string>
     <string name="free_pro_title">मुफ़्त और Pro</string>
     <string name="fp_free">मुफ़्त</string>
     <string name="fp_pro">Pro</string>
@@ -495,7 +495,7 @@
     <string name="fp_watch_free">हर 6 घंटे</string>
     <string name="fp_watch_pro">हर घंटे</string>
     <string name="fp_weight">आपकी राय कितनी गिनी जाती है</string>
-    <string name="fp_weight_both">समान — केवल डिवाइस और staked SKR</string>
+    <string name="fp_weight_both">वही: प्रति प्रमाणित डिवाइस एक</string>
     <string name="desk_title">प्रकाशक डेस्क</string>
     <plurals name="desk_across">
         <item quantity="one">आपके %1$d सिद्ध dApp में</item>
@@ -1018,4 +1018,7 @@
     <string name="boost_declaration">भुगतान करके आप पुष्टि करते हैं कि आपको इस ऐप का प्रकाशक या कोई प्रतिस्पर्धी भुगतान नहीं करता, नियुक्त नहीं करता, और आप उनकी ओर से काम नहीं कर रहे।</string>
     <string name="withdrawal_consent">अभी शुरू करें। मैं समझता/समझती हूँ कि भुगतान चेन पर पुष्ट होते ही मैं 14 दिन का कोई भी वापसी का अधिकार खो दूँगा/दूँगी।</string>
     <string name="withdrawal_confirmed">आपने तुरंत आपूर्ति माँगी और 14 दिन के किसी भी वापसी अधिकार के खोने को स्वीकार किया। आपकी रसीद चेन पर लेन-देन %1$s है।</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">पढ़ते समय स्टेक किया: %1$s SKR · %2$s SOL · %3$s। पारदर्शिता के लिए दिखाया जाता है; वज़न कभी नहीं बदलता।</string>
 </resources>

@@ -144,6 +144,16 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
         }
     }
 
+    /** (lamports, first 12 bytes) of every native stake account whose withdrawer is [wallet] (StakeView.solStaked). */
+    suspend fun getStakeAccounts(wallet: String): Result<List<Pair<Long, ByteArray>>> = rpc {
+        val filters = JSONArray().put(JSONObject().put("dataSize", com.undersigned.protocol.StakeView.STAKE_ACCOUNT_SIZE))
+            .put(JSONObject().put("memcmp", JSONObject().put("offset", com.undersigned.protocol.StakeView.WITHDRAWER_OFFSET).put("bytes", wallet)))
+        val arr = call("getProgramAccounts", JSONArray().put(com.undersigned.protocol.StakeView.STAKE_PROGRAM).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed")
+            .put("filters", filters).put("dataSlice", JSONObject().put("offset", 0).put("length", 12)))).optJSONArray("result") ?: throw RpcException("no result")
+        (0 until arr.length()).mapNotNull { i -> val a = arr.optJSONObject(i)?.optJSONObject("account") ?: return@mapNotNull null
+            a.optLong("lamports") to Base64.decode(a.optJSONArray("data")?.optString(0) ?: "", Base64.DEFAULT) }
+    }
+
     /** Simulates a fully serialized transaction (signature bytes may be zero). */
     suspend fun simulateTransaction(tx: ByteArray, replaceBlockhash: Boolean): Result<SimulationResult> = rpc {
         val cfg = JSONObject().put("encoding", "base64").put("sigVerify", false).put("replaceRecentBlockhash", replaceBlockhash).put("commitment", "confirmed")

@@ -47,7 +47,7 @@
     <string name="detail_update_review">Mijn recensie bijwerken</string>
     <string name="detail_revoke_review">Mijn recensie terugtrekken</string>
     <string name="detail_score_title">Ondertekende score</string>
-    <string name="detail_score_sub">Gemiddelde van beoordelingen van geattesteerde apparaten (nu: houders van een Seeker Genesis Token), gewogen naar wat elke beoordeling meebrengt (installatieduur, gebruik, een geschreven notitie) en naar SKR die de wallet heeft gestaket (tot 3×). SKR wordt verhandeld, dus dit deel van het gewicht is te verwerven; Undersigned raadt kopen of staken niet aan. Geen betaling aan Undersigned telt mee; beoordelingen van Pro-leden krijgen ook een eigen score. Wallets van Undersigned tellen nooit. Meningen van eigenaren van geattesteerde Seeker-apparaten, niet de score van de store.</string>
+    <string name="detail_score_sub">Gemiddelde van beoordelingen van geattesteerde apparaten (nu: houders van een Seeker Genesis Token), één stem per apparaat, gewogen alleen naar wat elke beoordeling meebrengt (installatieduur, gebruik, een geschreven notitie). Geen betaling en geen tokensaldo telt mee. Elke beoordeling toont voor transparantie de SKR en SOL die de wallet bij het lezen had gestaket; hoeveel dat zegt, beoordeelt u zelf. Beoordelingen van Pro-leden krijgen ook een eigen score. Wallets van Undersigned tellen nooit. Meningen van eigenaren van geattesteerde Seeker-apparaten, niet de score van de store.</string>
     <string name="detail_rank_score">Rangscore %1$s — genormaliseerd richting 3,0 totdat meer Seekers ondertekenen; wordt alleen gebruikt om de lijst te ordenen.</string>
     <string name="follow">Volgen</string>
     <string name="following">Volgend</string>
@@ -187,8 +187,8 @@
     <string name="settings_standing">Uw status</string>
     <string name="standing_sgt_yes">Geattesteerd apparaat gevonden (%1$s): uw recensies tellen mee.</string>
     <string name="standing_sgt_no">Geen bewijs van een geattesteerd apparaat in deze wallet (vandaag: de Seeker Genesis Token): uw recensies zouden niet worden meegeteld.</string>
-    <string name="standing_stake">Gestakete SKR gelezen on-chain: %1$s (gewicht %2$s×)</string>
-    <string name="standing_note">Gewichten worden van de chain gelezen: het apparaat en gestakete SKR. Pro en betalingen aan Undersigned veranderen ze nooit.</string>
+    <string name="standing_stake">Gestaket: %1$s SKR · %2$s SOL, on-chain gelezen. Getoond voor transparantie; het verandert het gewicht nooit.</string>
+    <string name="standing_note">Gewichten zijn één per geattesteerd apparaat, alleen bijgesteld door wat elke beoordeling meebrengt. Stakes worden getoond, nooit gewogen; Pro en betalingen aan Undersigned veranderen ze nooit.</string>
     <string name="settings_ledger">Grootboek</string>
     <string name="settings_ledger_body">Registeradres %1$s. Elke recensie is voor iedereen vindbaar via dit adres. Deze app leest ze rechtstreeks van de chain, niet van een server van ons.</string>
     <string name="settings_refresh_ledger">Grootboek opnieuw lezen</string>
@@ -213,7 +213,7 @@
     <string name="intro_next">Volgende</string>
     <string name="intro_replay">Introductie herhalen</string>
     <string name="intro1_title">Eén Seeker, één stem</string>
-    <string name="intro1_body">Undersigned is een beoordelingslaag naast de dApp Store. Alleen wallets met een Seeker Genesis Token tellen: één apparaat, één stem. Geen betaling aan Undersigned verandert de ondertekende score; gestakete SKR kan het gewicht van een beoordeling verhogen, tot 3×.</string>
+    <string name="intro1_body">Undersigned is een beoordelingslaag naast de dApp Store. Alleen wallets met een Seeker Genesis Token tellen: één apparaat, één stem. Geen betaling en geen tokensaldo verandert hoeveel een beoordeling telt.</string>
     <string name="intro2_title">Ondertekend, niet getypt</string>
     <string name="intro2_body">Elke recensie is een kleine transactie die u op de telefoon goedkeurt met de dubbele tik. Uw wallet betaalt alleen de netwerkkosten die hij zelf instelt. Undersigned bewaart nooit uw sleutels of tegoeden.</string>
     <string name="intro3_title">Naast de store, niet in plaats ervan</string>
@@ -392,7 +392,7 @@
     <string name="pro_tool_watch_title">Elk uur meldingen</string>
     <string name="pro_tool_watch_body">Meldingen voor de apps die u volgt worden elk uur gecontroleerd in plaats van elke zes, op het apparaat.</string>
     <string name="pro_not_title">Wat Pro niet doet</string>
-    <string name="pro_not_body">Het verandert nooit de ondertekende score, laat een beoordeling nooit zwaarder tellen en weegt nooit op de beoordeling van een ander: meldingen, nuttig-stemmen en verbergen gebruiken alleen het apparaat en gestakete SKR. Er is geen token, niets te verzamelen en niets te houden.</string>
+    <string name="pro_not_body">Het verandert nooit de ondertekende score, laat geen beoordeling zwaarder tellen en weegt nooit mee bij andermans beoordelingen: meldingen, nuttig-stemmen en verbergen tellen één per geattesteerd apparaat. Er is geen token, niets te verzamelen en niets aan te houden.</string>
     <string name="pro_free_keeps">Het grootboek lezen, beoordelingen ondertekenen, meldingen, bezwaren en apparaatfeiten blijven gratis, altijd. Pro voegt hulpmiddelen toe, een Pro-lid-teken en een eigen, aangegeven scoreregel.</string>
     <string name="pro_price_line">12 maanden op deze wallet · betaal in beide, de termijn is gelijk · netwerkkosten bovenop, bepaald door uw wallet</string>
     <string name="pro_pay_in">Betalen in</string>
@@ -466,7 +466,7 @@
     </plurals>
     <string name="pro_shared_none">Nog geen toekenning van %1$s noemt deze wallet. Dit wordt hier bewaard en opnieuw gelezen met het grootboek.</string>
     <string name="pro_shared_forget">Vergeten</string>
-    <string name="pro_standing_note">Pro maakt hier geen deel van uit. Gewicht komt alleen van het apparaat en de gestakete SKR.</string>
+    <string name="pro_standing_note">Pro hoort hier niet bij. Gewicht is één per geattesteerd apparaat; gestakete SKR en SOL worden getoond, nooit gewogen.</string>
     <string name="free_pro_title">Gratis en Pro</string>
     <string name="fp_free">Gratis</string>
     <string name="fp_pro">Pro</string>
@@ -484,7 +484,7 @@
     <string name="fp_watch_free">elke 6 uur</string>
     <string name="fp_watch_pro">elk uur</string>
     <string name="fp_weight">Hoeveel uw mening meetelt</string>
-    <string name="fp_weight_both">hetzelfde — alleen apparaat en gestakete SKR</string>
+    <string name="fp_weight_both">hetzelfde: één per geattesteerd apparaat</string>
     <string name="desk_title">Uitgeversdesk</string>
     <plurals name="desk_across">
         <item quantity="one">Voor al uw %1$d bewezen dApp</item>
@@ -1024,4 +1024,7 @@
     <string name="boost_declaration">Met betalen bevestigt u dat u niet betaald, in dienst of in opdracht bent van de uitgever van deze app of een concurrent.</string>
     <string name="withdrawal_consent">Nu starten. Ik begrijp dat ik elk herroepingsrecht van 14 dagen verlies zodra de betaling on-chain is bevestigd.</string>
     <string name="withdrawal_confirmed">U vroeg om directe levering en erkende dat u elk herroepingsrecht van 14 dagen verliest. Uw bewijs is de on-chain transactie %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Gestaket bij het lezen: %1$s SKR · %2$s SOL · %3$s. Getoond voor transparantie; het verandert het gewicht nooit.</string>
 </resources>

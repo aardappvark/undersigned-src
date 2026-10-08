@@ -37,7 +37,9 @@ class SignerFactsService(private val rpc: SolanaRpcClient = SolanaRpcClient(), p
         if (att is Lookup.Unknown) return null
         val id = (att as Lookup.Found).id
         val stake = if (id != null) (stakedSkr(signer) ?: return null) else 0.0
-        val f = SignerFacts(id != null, stake, id)
+        // Staked SOL is shown for transparency only (never weighed): a failed read leaves it unknown, it never blocks the facts.
+        val sol = if (id != null) rpc.getStakeAccounts(signer).getOrNull()?.let { com.undersigned.protocol.StakeView.solStaked(it) } else null
+        val f = SignerFacts(id != null, stake, id, stakedSol = sol)
         UserPreferences.cacheFacts(signer, f)
         return f
     }

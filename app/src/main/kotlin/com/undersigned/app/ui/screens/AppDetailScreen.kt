@@ -61,6 +61,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val scores by vm.scores.collectAsState()
     val proScores by vm.proScores.collectAsState()
     val promotedScores by vm.promotedScores.collectAsState()
+    val reviewStakes by vm.reviewStakes.collectAsState()
     var boostFor by remember { mutableStateOf<String?>(null) }
     var boostStage by remember { mutableStateOf<String?>(null) }
     var boostMsg by remember { mutableStateOf<Pair<String, String>?>(null) }
@@ -357,7 +358,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val paidReviewer = boardRow?.payers?.contains(e.signer) == true
                     val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w.device > 1.0) String.format(java.util.Locale.US, " %.1f×", w.device) else "", RbColors.green)
+                        if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified), RbColors.green)
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
                         // Membership and paid promotion are always shown on the review itself.
                         if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
@@ -368,6 +369,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
                     }
                     if (w.device > 0) Text(stringResource(R.string.weight_counts, String.format(java.util.Locale.US, "%.2f", w.weight), String.format(java.util.Locale.US, "%.2f", w.quality)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
+                    // The reviewer's stake as read at the time: transparency only, it never changes the weight (owner, 9 Oct 2026).
+                    reviewStakes[e.signature]?.let { k -> Text(stringResource(R.string.review_stake_at, String.format(java.util.Locale.US, "%,.0f", k.skr), k.sol?.let { String.format(java.util.Locale.US, "%,.2f", it) } ?: "–",
+                        java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(k.readAt * 1000))), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
                     val seekerSigned = txMeta[e.signature.substringBefore(':')]?.seekerWallet == true
                     val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]
                     if (seekerSigned || useAge != null || useSpent != null) {

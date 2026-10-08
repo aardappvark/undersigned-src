@@ -127,6 +127,21 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val proScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
     /** Reviews their own authors paid to promote, as their own labelled score (protocol Weighting). */
     val promotedScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
+    /**
+     * Review id -> the reviewer's staked SKR and SOL as first read after the review appeared, and when (owner, 9 Oct 2026).
+     * Shown for transparency only: it never changes a weight or a score. Dated by when the facts were read from the chain.
+     */
+    val reviewStakes = MutableStateFlow(UserPreferences.reviewStakes())
+    @Synchronized private fun snapshotStakes() {
+        val have = reviewStakes.value; val f = facts.value
+        val add = entries.value.filter { it.memo is ReviewMemo.Review && it.signature !in have }.mapNotNull { e ->
+            val x = f[e.signer]?.takeIf { it.hasGenesisToken } ?: return@mapNotNull null
+            val at = UserPreferences.factsReadAt(e.signer) ?: return@mapNotNull null
+            e.signature to com.undersigned.protocol.StakeView.Snapshot(x.stakedSkr, x.stakedSol, at)
+        }.toMap()
+        if (add.isEmpty()) return
+        UserPreferences.saveReviewStakes(add); reviewStakes.value = have + add
+    }
     private fun setSegments(list: List<LedgerEntry>, vp: Map<String, Set<String>>, f: (String) -> SignerFacts) {
         val s = Ranking.segments(list, vp, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), f)
         proScores.value = s.pro; promotedScores.value = s.promoted
@@ -214,6 +229,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             if (got != null) map[s] = got else unknown[s] = UserPreferences.cachedFacts(s, stale = true) ?: SignerFacts(false, 0.0)
         }
         facts.update { it + map }  // merge: store-reviewer lookups may have landed while this ran
+        snapshotStakes()
         if (unknown.isNotEmpty() && factsRetries < FACTS_RETRIES) { factsRetries++; viewModelScope.launch { kotlinx.coroutines.delay(FACTS_RETRY_MS * factsRetries); rank() } }
         else if (unknown.isEmpty()) factsRetries = 0
         // Every score, flag, vote and hide reads gated facts: the operator's own wallets count nowhere (protocol Operator).
@@ -339,7 +355,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             try {
                 factsGate.acquire()
                 val f = try { runCatching { factsService.factsOrNull(w) }.getOrNull() } finally { factsGate.release() }
-                if (f != null) facts.update { it + (w to f) }   // unknown: not remembered, so the next call asks again
+                if (f != null) { facts.update { it + (w to f) }; snapshotStakes() }   // unknown: not remembered, so the next call asks again
             } finally { factsInFlight.remove(w) }
         }
     }

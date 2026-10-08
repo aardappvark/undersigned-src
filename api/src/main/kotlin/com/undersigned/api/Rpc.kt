@@ -106,6 +106,16 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
         return (0 until arr.length()).mapNotNull { i -> arr.optJSONObject(i)?.optJSONObject("account")?.optJSONArray("data")?.optString(0)?.let { Base64.getDecoder().decode(it) } }
     }
 
+    /** (lamports, first 12 bytes) of every native stake account whose withdrawer is [wallet] (StakeView.solStaked). */
+    open fun stakeAccounts(wallet: String): List<Pair<Long, ByteArray>> {
+        val filters = JSONArray().put(JSONObject().put("dataSize", com.undersigned.protocol.StakeView.STAKE_ACCOUNT_SIZE))
+            .put(JSONObject().put("memcmp", JSONObject().put("offset", com.undersigned.protocol.StakeView.WITHDRAWER_OFFSET).put("bytes", wallet)))
+        val arr = call("getProgramAccounts", JSONArray().put(com.undersigned.protocol.StakeView.STAKE_PROGRAM).put(JSONObject().put("encoding", "base64").put("commitment", "confirmed")
+            .put("filters", filters).put("dataSlice", JSONObject().put("offset", 0).put("length", 12)))).optJSONArray("result") ?: error("no result")
+        return (0 until arr.length()).mapNotNull { i -> val a = arr.optJSONObject(i)?.optJSONObject("account") ?: return@mapNotNull null
+            a.optLong("lamports") to Base64.getDecoder().decode(a.optJSONArray("data")?.optString(0) ?: "") }
+    }
+
     open fun latestBlockhash(): String = call("getLatestBlockhash", JSONArray().put(JSONObject().put("commitment", "confirmed"))).getJSONObject("result").getJSONObject("value").getString("blockhash")
 
     /** Pubkeys of [program]'s accounts matching [filters] (getProgramAccounts, data sliced away). */

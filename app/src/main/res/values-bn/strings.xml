@@ -47,7 +47,7 @@
     <string name="detail_update_review">আমার পর্যালোচনা আপডেট করুন</string>
     <string name="detail_revoke_review">আমার পর্যালোচনা প্রত্যাহার করুন</string>
     <string name="detail_score_title">স্বাক্ষরিত স্কোর</string>
-    <string name="detail_score_sub">প্রত্যয়িত ডিভাইসের পর্যালোচনার গড় (আজ: Seeker Genesis Token ধারকরা), প্রতিটি পর্যালোচনা যা সাথে আনে (ইনস্টলের সময়, ব্যবহার, লেখা নোট) এবং ওয়ালেটের স্টেক করা SKR (3× পর্যন্ত) অনুযায়ী ভারযুক্ত। SKR লেনদেন হয়, তাই ওজনের এই অংশ অর্জন করা যায়; Undersigned এটি কেনা বা স্টেক করার পরামর্শ দেয় না। Undersigned-কে কোনো অর্থ স্কোরে ঢোকে না; Pro সদস্যদের পর্যালোচনা নিজস্ব স্কোরেও দেখানো হয়। Undersigned-এর ওয়ালেট কখনো গণনা হয় না। প্রত্যয়িত Seeker ডিভাইস মালিকদের মতামত, স্টোরের রেটিং নয়।</string>
+    <string name="detail_score_sub">প্রত্যয়িত ডিভাইসের পর্যালোচনার গড় (আজ: Seeker Genesis Token ধারকরা), প্রতি ডিভাইসে এক কণ্ঠ, শুধু প্রতিটি পর্যালোচনা যা সাথে আনে (ইনস্টলের সময়, ব্যবহার, লেখা নোট) সেই অনুযায়ী ভারযুক্ত। কোনো অর্থ বা টোকেন ব্যালান্স এতে ঢোকে না। স্বচ্ছতার জন্য প্রতিটি পর্যালোচনা দেখায় পড়ার সময় ওয়ালেট কত SKR ও SOL স্টেক করেছিল; এর গুরুত্ব আপনি বিচার করবেন। Pro সদস্যদের পর্যালোচনা নিজস্ব স্কোরেও দেখানো হয়। Undersigned-এর ওয়ালেট কখনো গণনা হয় না। প্রত্যয়িত Seeker ডিভাইস মালিকদের মতামত, স্টোরের রেটিং নয়।</string>
     <string name="detail_rank_score">র‍্যাঙ্ক স্কোর %1$s — আরও Seeker স্বাক্ষর না করা পর্যন্ত ৩.০-এর দিকে সংকুচিত হয়; শুধুমাত্র তালিকা সাজাতে ব্যবহৃত হয়।</string>
     <string name="follow">ফলো করুন</string>
     <string name="following">ফলো করা হচ্ছে</string>
@@ -190,8 +190,8 @@
     <string name="settings_standing">আপনার অবস্থান</string>
     <string name="standing_sgt_yes">প্রত্যয়িত ডিভাইস পাওয়া গেছে (%1$s): আপনার পর্যালোচনা গণনা করা হয়।</string>
     <string name="standing_sgt_no">এই ওয়ালেটে কোনো প্রত্যয়িত-ডিভাইস পরিচয়পত্র নেই (আজ: Seeker Genesis Token): আপনার পর্যালোচনা গণনা করা হবে না।</string>
-    <string name="standing_stake">চেইনে পঠিত স্টেক করা SKR: %1$s (ওজন %2$s×)</string>
-    <string name="standing_note">ওজন চেইন থেকে পড়া হয়: ডিভাইস ও স্টেক করা SKR। Pro এবং Undersigned-কে অর্থ কখনো এগুলো বদলায় না।</string>
+    <string name="standing_stake">স্টেক করা: %1$s SKR · %2$s SOL, চেইন থেকে পড়া। স্বচ্ছতার জন্য দেখানো; ওজন কখনো বদলায় না।</string>
+    <string name="standing_note">ওজন প্রতি প্রত্যয়িত ডিভাইসে এক, শুধু পর্যালোচনা যা সাথে আনে তাতে সমন্বিত। স্টেক দেখানো হয়, কখনো ওজন ধরা হয় না; Pro ও Undersigned-কে অর্থ কখনো এগুলো বদলায় না।</string>
     <string name="settings_ledger">লেজার</string>
     <string name="settings_ledger_body">রেজিস্ট্রি ঠিকানা %1$s। এই ঠিকানার মাধ্যমে যে কেউ প্রতিটি পর্যালোচনা খুঁজে পেতে পারে। এই অ্যাপ এটি সরাসরি চেইন থেকে পড়ে, আমাদের কোনো সার্ভার থেকে নয়।</string>
     <string name="settings_refresh_ledger">লেজার পুনরায় পড়ুন</string>
@@ -216,7 +216,7 @@
     <string name="intro_next">পরবর্তী</string>
     <string name="intro_replay">পরিচিতি আবার দেখুন</string>
     <string name="intro1_title">একটি Seeker, একটি কণ্ঠস্বর</string>
-    <string name="intro1_body">Undersigned হলো dApp Store-এর পাশে একটি পর্যালোচনা স্তর। শুধু Seeker Genesis Token থাকা ওয়ালেট গণনা হয়: এক ডিভাইস, এক কণ্ঠ। Undersigned-কে কোনো অর্থ স্বাক্ষরিত স্কোর বদলায় না; স্টেক করা SKR পর্যালোচনার ওজন সর্বোচ্চ 3× পর্যন্ত বাড়াতে পারে।</string>
+    <string name="intro1_body">Undersigned হলো dApp Store-এর পাশে একটি পর্যালোচনা স্তর। শুধু Seeker Genesis Token থাকা ওয়ালেট গণনা হয়: এক ডিভাইস, এক কণ্ঠ। কোনো অর্থ বা টোকেন ব্যালান্স একটি পর্যালোচনার গুরুত্ব বদলায় না।</string>
     <string name="intro2_title">স্বাক্ষরিত, টাইপ করা নয়</string>
     <string name="intro2_body">প্রতিটি পর্যালোচনা একটি ছোট লেনদেন যা আপনি ফোনে ডাবল-ট্যাপ দিয়ে অনুমোদন করেন। আপনার ওয়ালেট শুধু নিজে নির্ধারণ করা নেটওয়ার্ক ফি প্রদান করে। Undersigned কখনও আপনার কী বা তহবিল ধরে রাখে না।</string>
     <string name="intro3_title">স্টোরের পাশে, এর বদলে নয়</string>
@@ -395,7 +395,7 @@
     <string name="pro_tool_watch_title">প্রতি ঘণ্টায় সতর্কতা</string>
     <string name="pro_tool_watch_body">আপনার অনুসরণ করা অ্যাপের সতর্কতা ছয় ঘণ্টার বদলে প্রতি ঘণ্টায়, ডিভাইসে যাচাই হয়।</string>
     <string name="pro_not_title">Pro যা করে না</string>
-    <string name="pro_not_body">এটি কখনো স্বাক্ষরিত স্কোর বদলায় না, কখনো কোনো পর্যালোচনাকে বেশি গণনা করায় না এবং অন্যের পর্যালোচনার ওপর ভার দেয় না: রিপোর্ট, সহায়ক ভোট ও লুকানো শুধু ডিভাইস ও স্টেক করা SKR ব্যবহার করে। কোনো টোকেন নেই, জমানো বা রাখার কিছু নেই।</string>
+    <string name="pro_not_body">এটি কখনো স্বাক্ষরিত স্কোর বদলায় না, কোনো পর্যালোচনাকে বেশি গণনা করায় না এবং অন্যের পর্যালোচনায় প্রভাব ফেলে না: ফ্ল্যাগ, সহায়ক ভোট ও লুকানো প্রতি প্রত্যয়িত ডিভাইসে এক গণনা হয়। কোনো টোকেন নেই, সংগ্রহ বা ধরে রাখার কিছু নেই।</string>
     <string name="pro_free_keeps">লেজার পড়া, পর্যালোচনায় স্বাক্ষর, রিপোর্ট, আপত্তি ও ডিভাইসের তথ্য সবসময় বিনামূল্যে থাকবে। Pro টুল, Pro সদস্য চিহ্ন এবং নিজের চিহ্নিত স্কোর সারি যোগ করে।</string>
     <string name="pro_price_line">এই ওয়ালেটে ১২ মাস · যেকোনোটিতে পরিশোধ করুন, মেয়াদ একই · এর ওপর নেটওয়ার্ক ফি, আপনার ওয়ালেট নির্ধারণ করে</string>
     <string name="pro_pay_in">পরিশোধ করুন</string>
@@ -469,7 +469,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s থেকে এখনও এই ওয়ালেটের নামে কোনো অনুমোদন নেই। এটি এখানে রাখা আছে এবং লেজারের সাথে আবার পড়া হবে।</string>
     <string name="pro_shared_forget">ভুলে যান</string>
-    <string name="pro_standing_note">Pro এর অংশ নয়। ওজন শুধু ডিভাইস এবং স্টেক করা SKR থেকে আসে।</string>
+    <string name="pro_standing_note">Pro এর অংশ নয়। ওজন প্রতি প্রত্যয়িত ডিভাইসে এক; স্টেক করা SKR ও SOL দেখানো হয়, কখনো ওজন ধরা হয় না।</string>
     <string name="free_pro_title">ফ্রি ও Pro</string>
     <string name="fp_free">ফ্রি</string>
     <string name="fp_pro">Pro</string>
@@ -487,7 +487,7 @@
     <string name="fp_watch_free">প্রতি ৬ ঘণ্টায়</string>
     <string name="fp_watch_pro">প্রতি ঘণ্টায়</string>
     <string name="fp_weight">আপনার মতামত কতটা গণনা হয়</string>
-    <string name="fp_weight_both">একই — শুধু ডিভাইস ও স্টেক করা SKR</string>
+    <string name="fp_weight_both">একই: প্রতি প্রত্যয়িত ডিভাইসে এক</string>
     <string name="desk_title">প্রকাশক ডেস্ক</string>
     <plurals name="desk_across">
         <item quantity="one">আপনার %1$d টি প্রমাণিত dApp জুড়ে</item>
@@ -1011,4 +1011,7 @@
     <string name="boost_declaration">অর্থ দিয়ে আপনি নিশ্চিত করছেন যে এই অ্যাপের প্রকাশক বা কোনো প্রতিযোগী আপনাকে অর্থ দেয় না, নিয়োগ করেনি, এবং আপনি তাদের হয়ে কাজ করছেন না।</string>
     <string name="withdrawal_consent">এখনই শুরু করুন। আমি বুঝি, অর্থপ্রদান চেইনে নিশ্চিত হলেই আমি ১৪ দিনের যেকোনো প্রত্যাহারের অধিকার হারাব।</string>
     <string name="withdrawal_confirmed">আপনি তাৎক্ষণিক সরবরাহ চেয়েছেন এবং ১৪ দিনের যেকোনো প্রত্যাহারের অধিকার হারানো স্বীকার করেছেন। আপনার রসিদ চেইনের লেনদেন %1$s।</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">পড়ার সময় স্টেক করা: %1$s SKR · %2$s SOL · %3$s। স্বচ্ছতার জন্য দেখানো; ওজন কখনো বদলায় না।</string>
 </resources>

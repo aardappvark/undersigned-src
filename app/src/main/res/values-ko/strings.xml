@@ -47,7 +47,7 @@
     <string name="detail_update_review">내 리뷰 수정</string>
     <string name="detail_revoke_review">내 리뷰 철회</string>
     <string name="detail_score_title">서명 점수</string>
-    <string name="detail_score_sub">인증된 기기에서 온 리뷰의 평균(현재: Seeker Genesis Token 보유자). 각 리뷰에 담긴 정보(설치 기간, 사용 시간, 작성한 메모)와 지갑이 스테이킹한 SKR(최대 3×)로 가중합니다. SKR은 거래되므로 이 부분의 무게는 얻을 수 있습니다. Undersigned는 SKR 구매나 스테이킹을 권하지 않습니다. Undersigned에 대한 결제는 점수에 들어가지 않으며, Pro 멤버의 리뷰는 별도 점수로도 표시됩니다. Undersigned 자체 지갑은 절대 반영되지 않습니다. 인증된 Seeker 기기 소유자의 의견이며 스토어 평점이 아닙니다.</string>
+    <string name="detail_score_sub">인증된 기기에서 온 리뷰의 평균(현재: Seeker Genesis Token 보유자). 기기당 한 표이며, 각 리뷰에 담긴 정보(설치 기간, 사용 시간, 작성한 메모)로만 가중합니다. 결제나 토큰 잔액은 들어가지 않습니다. 투명성을 위해 각 리뷰에 읽은 시점에 그 지갑이 스테이킹한 SKR과 SOL을 표시합니다. 그 의미는 직접 판단하세요. Pro 멤버의 리뷰는 별도 점수로도 표시됩니다. Undersigned 자체 지갑은 절대 반영되지 않습니다. 인증된 Seeker 기기 소유자의 의견이며 스토어 평점이 아닙니다.</string>
     <string name="detail_rank_score">순위 점수 %1$s — 더 많은 Seeker가 서명할 때까지 3.0 쪽으로 조정되며, 목록 정렬에만 사용됩니다.</string>
     <string name="follow">팔로우</string>
     <string name="following">팔로잉</string>
@@ -186,8 +186,8 @@
     <string name="settings_standing">내 평판</string>
     <string name="standing_sgt_yes">인증된 기기가 확인되었습니다(%1$s). 내 리뷰가 집계됩니다.</string>
     <string name="standing_sgt_no">이 지갑에는 기기 인증 정보(현재는 Seeker Genesis Token)가 없습니다. 내 리뷰는 집계되지 않습니다.</string>
-    <string name="standing_stake">온체인에서 확인된 스테이킹 SKR: %1$s(가중치 %2$s배)</string>
-    <string name="standing_note">무게는 체인에서 읽습니다: 기기와 스테이킹한 SKR. Pro와 Undersigned에 대한 결제는 무게를 절대 바꾸지 않습니다.</string>
+    <string name="standing_stake">스테이킹: %1$s SKR · %2$s SOL, 체인에서 읽음. 투명성을 위한 표시이며 무게는 바뀌지 않습니다.</string>
+    <string name="standing_note">무게는 인증된 기기당 1이며, 각 리뷰에 담긴 정보로만 조정됩니다. 스테이킹은 표시만 하고 무게에 쓰지 않으며, Pro와 Undersigned에 대한 결제도 무게를 바꾸지 않습니다.</string>
     <string name="settings_ledger">원장</string>
     <string name="settings_ledger_body">레지스트리 주소 %1$s. 모든 리뷰는 이 주소를 통해 누구나 찾을 수 있습니다. 이 앱은 이를 체인에서 직접 읽으며, 저희 서버에서 읽지 않습니다.</string>
     <string name="settings_refresh_ledger">원장 다시 읽기</string>
@@ -211,7 +211,7 @@
     <string name="intro_next">다음</string>
     <string name="intro_replay">소개 다시 보기</string>
     <string name="intro1_title">한 대의 Seeker, 하나의 목소리</string>
-    <string name="intro1_body">Undersigned는 dApp Store 옆의 리뷰 레이어입니다. Seeker Genesis Token을 가진 지갑만 반영되므로 기기 하나에 한 표입니다. Undersigned에 대한 결제는 서명된 점수를 바꾸지 않으며, 스테이킹한 SKR은 리뷰의 무게를 최대 3×까지 올릴 수 있습니다.</string>
+    <string name="intro1_body">Undersigned는 dApp Store 옆의 리뷰 레이어입니다. Seeker Genesis Token을 가진 지갑만 반영되므로 기기 하나에 한 표입니다. 어떤 결제나 토큰 잔액도 리뷰의 무게를 바꾸지 않습니다.</string>
     <string name="intro2_title">입력이 아닌 서명</string>
     <string name="intro2_body">모든 리뷰는 휴대폰에서 더블 탭으로 승인하는 소액 트랜잭션입니다. 지갑은 스스로 설정한 네트워크 수수료만 지불합니다. Undersigned는 사용자의 키나 자금을 보관하지 않습니다.</string>
     <string name="intro3_title">스토어를 대신하지 않고, 그 옆에</string>
@@ -391,7 +391,7 @@
     <string name="pro_tool_watch_title">매시간 알림</string>
     <string name="pro_tool_watch_body">팔로우한 앱의 알림을 6시간이 아니라 매시간 기기에서 확인합니다.</string>
     <string name="pro_not_title">Pro가 하지 않는 것</string>
-    <string name="pro_not_body">서명된 점수를 바꾸지 않고, 리뷰의 무게를 높이지 않으며, 다른 사람의 리뷰에 무게를 싣지도 않습니다. 신고, 도움됨 투표, 숨김은 기기와 스테이킹한 SKR만 사용합니다. 토큰도, 모을 것도, 보유할 것도 없습니다.</string>
+    <string name="pro_not_body">서명된 점수를 바꾸지 않고, 리뷰를 더 무겁게 만들지 않으며, 다른 사람의 리뷰에도 영향을 주지 않습니다. 신고, 도움돼요 투표, 숨김은 인증된 기기당 1로 셉니다. 토큰도, 모으거나 보유할 것도 없습니다.</string>
     <string name="pro_free_keeps">원장 읽기, 리뷰 서명, 신고, 이의 제기, 기기 정보는 언제나 무료입니다. Pro는 도구, \'Pro 멤버\' 표시, 표시된 자체 점수 줄을 더합니다.</string>
     <string name="pro_price_line">이 지갑에서 12개월 · 둘 중 어느 쪽으로 결제해도 기간은 동일 · 지갑이 설정하는 네트워크 수수료 별도</string>
     <string name="pro_pay_in">결제 수단</string>
@@ -463,7 +463,7 @@
     </plurals>
     <string name="pro_shared_none">%1$s이(가) 이 지갑을 지정한 공유 내역이 아직 없습니다. 여기에 보관되며 원장과 함께 다시 확인됩니다.</string>
     <string name="pro_shared_forget">삭제</string>
-    <string name="pro_standing_note">Pro는 여기에 포함되지 않습니다. 가중치는 오직 기기와 스테이킹 SKR에서만 나옵니다.</string>
+    <string name="pro_standing_note">Pro는 여기에 해당하지 않습니다. 무게는 인증된 기기당 1이며, 스테이킹한 SKR과 SOL은 표시만 하고 무게에 쓰지 않습니다.</string>
     <string name="free_pro_title">무료와 Pro</string>
     <string name="fp_free">무료</string>
     <string name="fp_pro">Pro</string>
@@ -481,7 +481,7 @@
     <string name="fp_watch_free">6시간마다</string>
     <string name="fp_watch_pro">1시간마다</string>
     <string name="fp_weight">의견이 반영되는 정도</string>
-    <string name="fp_weight_both">동일함 — 기기와 스테이킹 SKR만 반영</string>
+    <string name="fp_weight_both">동일: 인증된 기기당 1</string>
     <string name="desk_title">퍼블리셔 데스크</string>
     <plurals name="desk_across">
         <item quantity="other">증명된 dApp %1$d개 전체</item>
@@ -992,4 +992,7 @@
     <string name="boost_declaration">결제하면 이 앱의 게시자나 경쟁사로부터 돈을 받거나 고용되었거나 그들을 대신해 행동하지 않음을 확인합니다.</string>
     <string name="withdrawal_consent">지금 시작. 결제가 체인에서 확정되면 14일 철회권(있는 경우)을 잃는다는 것을 이해합니다.</string>
     <string name="withdrawal_confirmed">즉시 제공을 요청했고 14일 철회권(있는 경우)을 잃는다는 것을 확인했습니다. 영수증은 체인상의 트랜잭션 %1$s입니다.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">읽은 시점의 스테이킹: %1$s SKR · %2$s SOL · %3$s. 투명성을 위한 표시이며 무게는 바뀌지 않습니다.</string>
 </resources>

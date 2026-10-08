@@ -4,7 +4,7 @@ One line: **the review layer the dApp Store cannot build for itself: one Seeker,
 
 ## To Solana Mobile (SKR track, and the partnership ask)
 
-- **It is the user-facing half of what SKR was designed for.** Solana Mobile's own SKR messaging lists dApp Store curation as a core utility. Undersigned is the first live implementation: staked SKR weights verified opinions, Genesis Tokens make each device one voice, and nothing is staked, moved or promoted by the app.
+- **It is the user-facing half of what SKR was designed for.** Solana Mobile's own SKR messaging lists dApp Store curation as a core utility. Undersigned is the first live implementation: Genesis Tokens make each device one voice, staked SKR and SOL are shown beside each review for transparency (never weighed), and nothing is staked or moved by the app.
 - **It reduces unnatural reviews on the store without touching the store.** Every counted review comes from a soulbound Genesis Token wallet, so a farm of accounts is a farm of Seekers. On top, each ledger entry shows the Seeker wallet's own transaction fingerprint (the Lighthouse guard it adds to everything it signs), so "signed on the device with the double-tap" is visible per review. The same check is applied to the store's public reviewers: readers can see which store reviews come from wallets with no Genesis Token at all. That signal is open data; Solana Mobile can consume it for free.
 - **Open, permanent, and theirs to read.** The ledger is public chain state at one fixed address nobody controls. The reader logic is deterministic and published; any Guardian tool, dashboard, or the store itself can rank from the same bytes. No API, no partnership needed to start; a partnership makes it better.
 - **It sends traffic to the store, not away from it.** Every app opens in the store; the store's own rating and reviews are shown beside the signed ones, credited; historical store reviews are imported by re-signing, which rewards people who already review in the store.
@@ -21,7 +21,7 @@ One line: **the review layer the dApp Store cannot build for itself: one Seeker,
 
 ## To Seeker owners
 
-- Your voice counts exactly once, weighted by what you have staked, and no one can delete it.
+- Your voice counts exactly once, the same as everyone's, and no one can delete it.
 - See what your phone can prove about an app: whether the installed build matches the certificate the store lists, whether permissions grew between versions, whether the signing key changed.
 - Follow apps, get told when they update and whether they still work, reply to reviews, and see who is who through `.skr` names.
 - Bring your existing store reviews across in one wallet approval. Free to read and sign; no payment to Undersigned changes a score.

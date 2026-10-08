@@ -213,7 +213,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         else -> {
                             val f = selfFacts!!
                             Text(if (f.hasGenesisToken) stringResource(R.string.standing_sgt_yes, com.undersigned.app.solana.AttestationList.label(context, f.attestation) ?: stringResource(R.string.review_weight_verified)) else stringResource(R.string.standing_sgt_no), color = if (f.hasGenesisToken) RbColors.green else RbColors.warning, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                            if (f.hasGenesisToken) { Spacer(Modifier.height(4.dp)); Text(stringResource(R.string.standing_stake, String.format(java.util.Locale.US, "%,.0f", f.stakedSkr), String.format(java.util.Locale.US, "%.2f", Ranking.weight(f))), color = RbColors.textSecondary, fontSize = 12.sp) }
+                            if (f.hasGenesisToken) { Spacer(Modifier.height(4.dp)); Text(stringResource(R.string.standing_stake, String.format(java.util.Locale.US, "%,.0f", f.stakedSkr), f.stakedSol?.let { String.format(java.util.Locale.US, "%,.2f", it) } ?: "–"), color = RbColors.textSecondary, fontSize = 12.sp) }
                         }
                     }
                     Spacer(Modifier.height(6.dp))

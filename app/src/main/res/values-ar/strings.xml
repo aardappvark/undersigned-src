@@ -47,7 +47,7 @@
     <string name="detail_update_review">تحديث مراجعتي</string>
     <string name="detail_revoke_review">سحب مراجعتي</string>
     <string name="detail_score_title">التقييم الموقّع</string>
-    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة) وبـSKR الذي رهنته المحفظة (حتى 3×). يُتداول SKR، لذا يمكن اكتساب هذا الجزء من الوزن؛ ولا يوصي Undersigned بشرائه أو رهنه. لا يدخل أي دفع لـUndersigned في التقييم؛ وتظهر مراجعات أعضاء Pro أيضًا بتقييم خاص بها. محافظ Undersigned لا تُحتسب أبدًا. آراء مالكي أجهزة Seeker موثّقة، لا تقييم المتجر.</string>
+    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، صوت واحد لكل جهاز، مرجّح فقط بما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة). لا يدخل فيه أي دفع ولا رصيد رموز. تعرض كل مراجعة، للشفافية، ما رهنته محفظتها من SKR وSOL عند القراءة؛ وتقدير أهمية ذلك متروك لك. وتظهر مراجعات أعضاء Pro أيضًا بتقييم خاص بها. محافظ Undersigned لا تُحتسب أبدًا. آراء مالكي أجهزة Seeker موثّقة، لا تقييم المتجر.</string>
     <string name="detail_rank_score">تقييم الترتيب %1$s — يُقلَّص نحو 3.0 حتى يوقّع مزيد من أجهزة Seeker؛ يُستخدم فقط لترتيب القائمة.</string>
     <string name="follow">متابعة</string>
     <string name="following">تتم المتابعة</string>
@@ -206,8 +206,8 @@
     <string name="settings_standing">مكانتك</string>
     <string name="standing_sgt_yes">تم العثور على جهاز مصادق (%1$s): مراجعاتك تُحتسب.</string>
     <string name="standing_sgt_no">لا توجد بيانات اعتماد جهاز مصادق في هذه المحفظة (اليوم: Seeker Genesis Token): لن تُحتسب مراجعاتك.</string>
-    <string name="standing_stake">حصة SKR المرهونة المقروءة على السلسلة: %1$s (الوزن %2$s×)</string>
-    <string name="standing_note">تُقرأ الأوزان من السلسلة: الجهاز وSKR المرهون. لا يغيّرها Pro ولا الدفع لـUndersigned أبدًا.</string>
+    <string name="standing_stake">مرهون: %1$s SKR · %2$s SOL، مقروء من السلسلة. يُعرض للشفافية؛ ولا يغيّر الوزن أبدًا.</string>
+    <string name="standing_note">الأوزان واحد لكل جهاز موثّق، تُعدَّل فقط بما تحمله كل مراجعة. تُعرض المبالغ المرهونة ولا تُوزن؛ ولا يغيّرها Pro ولا الدفع لـUndersigned أبدًا.</string>
     <string name="settings_ledger">السجل</string>
     <string name="settings_ledger_body">عنوان السجل %1$s. يمكن لأي شخص اكتشاف كل مراجعة من خلال هذا العنوان. يقرأ هذا التطبيق السجل مباشرةً من السلسلة، وليس من خادم تابع لنا.</string>
     <string name="settings_refresh_ledger">إعادة قراءة السجل</string>
@@ -236,7 +236,7 @@
     <string name="intro_next">التالي</string>
     <string name="intro_replay">إعادة عرض المقدمة</string>
     <string name="intro1_title">جهاز Seeker واحد، صوت واحد</string>
-    <string name="intro1_body">Undersigned طبقة مراجعات بجانب dApp Store. لا تُحتسب إلا المحافظ التي تحمل Seeker Genesis Token: جهاز واحد، صوت واحد. لا يغيّر أي دفع لـUndersigned التقييم الموقّع؛ ويمكن لـSKR المرهون رفع وزن المراجعة حتى 3× كحد أقصى.</string>
+    <string name="intro1_body">Undersigned طبقة مراجعات بجانب dApp Store. لا تُحتسب إلا المحافظ التي تحمل Seeker Genesis Token: جهاز واحد، صوت واحد. لا يغيّر أي دفع ولا أي رصيد رموز مقدار ما تُحتسب به المراجعة.</string>
     <string name="intro2_title">موقّعة، لا مكتوبة فقط</string>
     <string name="intro2_body">كل مراجعة معاملة صغيرة توافق عليها على الهاتف بالنقر المزدوج. تدفع محفظتك فقط رسوم الشبكة التي تحددها. Undersigned لا يحتفظ أبدًا بمفاتيحك أو أموالك.</string>
     <string name="intro3_title">إلى جانب المتجر، لا بديلاً عنه</string>
@@ -415,7 +415,7 @@
     <string name="pro_tool_watch_title">تنبيهات كل ساعة</string>
     <string name="pro_tool_watch_body">تُفحص تنبيهات التطبيقات التي تتابعها كل ساعة بدل كل ست ساعات، على الجهاز.</string>
     <string name="pro_not_title">ما لا يفعله Pro</string>
-    <string name="pro_not_body">لا يغيّر التقييم الموقّع أبدًا، ولا يجعل مراجعة تُحتسب أكثر، ولا يثقل على مراجعة غيرك: البلاغات وأصوات «مفيد» والإخفاء تستخدم الجهاز وSKR المرهون فقط. لا رمز، ولا شيء للجمع أو الاحتفاظ.</string>
+    <string name="pro_not_body">لا يغيّر التقييم الموقّع أبدًا، ولا يجعل مراجعة تُحتسب أكثر، ولا يؤثر في مراجعات الآخرين: البلاغات وأصوات «مفيد» والإخفاء تُحتسب واحدًا لكل جهاز موثّق. لا يوجد رمز، ولا شيء لتجمعه أو تحتفظ به.</string>
     <string name="pro_free_keeps">قراءة السجل وتوقيع المراجعات والبلاغات والاعتراضات وحقائق الجهاز تبقى مجانية دائمًا. يضيف Pro أدوات وعلامة «عضو Pro» وسطر تقييم خاصًا به موسومًا.</string>
     <string name="pro_price_line">12 شهرًا على هذه المحفظة · ادفع بأي منهما، المدة واحدة · رسوم الشبكة إضافية، تحددها محفظتك</string>
     <string name="pro_pay_in">الدفع بـ</string>
@@ -497,7 +497,7 @@
     </plurals>
     <string name="pro_shared_none">لا يوجد منح من %1$s يسمّي هذه المحفظة بعد. يُحفظ هنا ويُعاد قراءته مع السجل.</string>
     <string name="pro_shared_forget">نسيان</string>
-    <string name="pro_standing_note">Pro ليس جزءًا من هذا. الوزن يأتي من الجهاز وحصة SKR المرهونة فقط.</string>
+    <string name="pro_standing_note">Pro ليس جزءًا من هذا. الوزن واحد لكل جهاز موثّق؛ يُعرض SKR وSOL المرهونان ولا يُوزنان.</string>
     <string name="free_pro_title">Free وPro</string>
     <string name="fp_free">Free</string>
     <string name="fp_pro">Pro</string>
@@ -515,7 +515,7 @@
     <string name="fp_watch_free">كل 6 ساعات</string>
     <string name="fp_watch_pro">كل ساعة</string>
     <string name="fp_weight">مقدار احتساب رأيك</string>
-    <string name="fp_weight_both">نفسه — الجهاز وحصة SKR المرهونة فقط</string>
+    <string name="fp_weight_both">نفسه: واحد لكل جهاز موثّق</string>
     <string name="desk_title">مكتب الناشر</string>
     <plurals name="desk_across">
         <item quantity="zero">عبر %1$d من تطبيقاتك المُثبَتة</item>
@@ -1086,4 +1086,7 @@
     <string name="boost_declaration">بالدفع تؤكد أنك لا تتقاضى أجرًا من ناشر هذا التطبيق أو من منافس، ولست موظفًا لديهما ولا تتصرف نيابة عنهما.</string>
     <string name="withdrawal_consent">ابدأ الآن. أفهم أنني أفقد أي حق انسحاب لمدة 14 يومًا بمجرد تأكيد الدفع على السلسلة.</string>
     <string name="withdrawal_confirmed">طلبت التزويد الفوري وأقررت بفقدان أي حق انسحاب لمدة 14 يومًا. إيصالك هو المعاملة على السلسلة %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">مرهون عند القراءة: %1$s SKR · %2$s SOL · %3$s. يُعرض للشفافية؛ ولا يغيّر الوزن أبدًا.</string>
 </resources>

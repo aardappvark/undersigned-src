@@ -7,7 +7,7 @@ import kotlin.math.min
  * What one counted review weighs, and whether it also appears in the separately labelled "Pro members" score.
  *
  * WEIGHT, never touched by payment to Undersigned:
- *  - **device** ([Ranking.weight]): the Genesis Token gate and staked SKR (a token anyone can buy), capped at 3×.
+ *  - **device** ([Ranking.weight]): the Genesis Token gate, 1 per attested device. Staked SKR is shown, never weighed.
  *  - **quality**, earned, between [QUALITY_FLOOR] and 1.0: [QUALITY_BASE] for stars and tags alone; +[QUALITY_FACT] when the
  *    review carries what the phone saw (install age or usage time); +[QUALITY_TEXT] for a written note of [TEXT_WORDS]+
  *    words; halved for a wallet that has a review hidden by consensus.

@@ -52,7 +52,7 @@
     <string name="detail_update_review">Mettre à jour mon avis</string>
     <string name="detail_revoke_review">Retirer mon avis</string>
     <string name="detail_score_title">Score signé</string>
-    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), pondérée par ce que chaque avis apporte (durée d\'installation, usage, une note écrite) et par le SKR que le portefeuille a staké (jusqu\'à 3×). Le SKR s\'échange, donc cette part du poids peut s\'acquérir ; Undersigned ne recommande ni d\'en acheter ni d\'en staker. Aucun paiement à Undersigned n\'entre dans le score ; les avis des membres Pro ont aussi leur propre score. Les portefeuilles d\'Undersigned ne sont jamais comptés. Opinions de propriétaires d\'appareils Seeker attestés, pas la note de la boutique.</string>
+    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), une voix par appareil, pondérée seulement par ce que chaque avis apporte (durée d\'installation, usage, une note écrite). Aucun paiement ni solde de jeton n\'y entre. Chaque avis montre, par transparence, le SKR et le SOL que son portefeuille avait stakés lors de la lecture ; à vous d\'en juger l\'importance. Les avis des membres Pro ont aussi leur propre score. Les portefeuilles d\'Undersigned ne sont jamais comptés. Opinions de propriétaires d\'appareils Seeker attestés, pas la note de la boutique.</string>
     <string name="detail_rank_score">Score de classement %1$s — ramené vers 3,0 tant que peu de Seekers ont signé ; sert uniquement à trier la liste.</string>
     <string name="follow">Suivre</string>
     <string name="following">Suivi(e)</string>
@@ -197,8 +197,8 @@
     <string name="settings_standing">Votre statut</string>
     <string name="standing_sgt_yes">Appareil attesté trouvé (%1$s) : vos avis comptent.</string>
     <string name="standing_sgt_no">Aucune attestation d\'appareil dans ce wallet (aujourd\'hui : le Seeker Genesis Token) : vos avis ne seraient pas comptabilisés.</string>
-    <string name="standing_stake">SKR staké lu on-chain : %1$s (poids %2$s×)</string>
-    <string name="standing_note">Les poids sont lus sur la chaîne : l\'appareil et le SKR staké. Pro et les paiements à Undersigned ne les changent jamais.</string>
+    <string name="standing_stake">Staké : %1$s SKR · %2$s SOL, lu sur la chaîne. Affiché par transparence ; cela ne change jamais le poids.</string>
+    <string name="standing_note">Les poids valent un par appareil attesté, ajustés seulement par ce que chaque avis apporte. Les stakes sont affichés, jamais pondérés ; Pro et les paiements à Undersigned ne les changent jamais.</string>
     <string name="settings_ledger">Registre</string>
     <string name="settings_ledger_body">Adresse du registre %1$s. Chaque avis est repérable par n\'importe qui via cette adresse. Cette application les lit directement depuis la chain, et non depuis un serveur qui nous appartient.</string>
     <string name="settings_refresh_ledger">Relire le registre</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">Suivant</string>
     <string name="intro_replay">Revoir l\'introduction</string>
     <string name="intro1_title">Un Seeker, une voix</string>
-    <string name="intro1_body">Undersigned est une couche d\'avis à côté du dApp Store. Seuls les portefeuilles détenant un Seeker Genesis Token sont comptés : un appareil, une voix. Aucun paiement à Undersigned ne change le score signé ; le SKR staké peut augmenter le poids d\'un avis, jusqu\'à 3×.</string>
+    <string name="intro1_body">Undersigned est une couche d\'avis à côté du dApp Store. Seuls les portefeuilles détenant un Seeker Genesis Token sont comptés : un appareil, une voix. Aucun paiement ni aucun solde de jeton ne change le poids d\'un avis.</string>
     <string name="intro2_title">Signé, pas simplement saisi</string>
     <string name="intro2_body">Chaque avis est une petite transaction que vous approuvez sur le téléphone avec le double-tap. Votre wallet ne paie que les frais de réseau qu\'il fixe. Undersigned ne détient jamais vos clés ni vos fonds.</string>
     <string name="intro3_title">À côté du store, pas à sa place</string>
@@ -403,7 +403,7 @@
     <string name="pro_tool_watch_title">Alertes toutes les heures</string>
     <string name="pro_tool_watch_body">Les alertes des apps que vous suivez sont vérifiées toutes les heures au lieu de toutes les six, sur l\'appareil.</string>
     <string name="pro_not_title">Ce que Pro ne fait pas</string>
-    <string name="pro_not_body">Il ne change jamais le score signé, ne fait jamais compter un avis davantage et ne pèse jamais sur l\'avis de quelqu\'un d\'autre : signalements, votes « utile » et masquage n\'utilisent que l\'appareil et le SKR staké. Pas de jeton, rien à collectionner, rien à détenir.</string>
+    <string name="pro_not_body">Cela ne change jamais le score signé, ne fait jamais compter un avis davantage et ne pèse jamais sur les avis des autres : signalements, votes utiles et masquage comptent un par appareil attesté. Il n\'y a ni jeton, ni rien à collectionner ni à détenir.</string>
     <string name="pro_free_keeps">Lire le registre, signer des avis, signaler, contester et les faits de l\'appareil restent gratuits, pour toujours. Pro ajoute des outils, une marque Membre Pro et sa propre ligne de score, signalée.</string>
     <string name="pro_price_line">12 mois sur ce wallet · payez dans l\'un ou l\'autre, la durée est la même · frais de réseau en plus, fixés par votre wallet</string>
     <string name="pro_pay_in">Payer en</string>
@@ -479,7 +479,7 @@
     </plurals>
     <string name="pro_shared_none">Aucun octroi de %1$s ne nomme encore ce wallet. Il reste enregistré ici et relu avec le registre.</string>
     <string name="pro_shared_forget">Oublier</string>
-    <string name="pro_standing_note">Pro n\'entre pas en compte ici. Le poids vient uniquement de l\'appareil et du SKR staké.</string>
+    <string name="pro_standing_note">Pro n\'en fait pas partie. Le poids vaut un par appareil attesté ; le SKR et le SOL stakés sont affichés, jamais pondérés.</string>
     <string name="free_pro_title">Free et Pro</string>
     <string name="fp_free">Free</string>
     <string name="fp_pro">Pro</string>
@@ -497,7 +497,7 @@
     <string name="fp_watch_free">toutes les 6 heures</string>
     <string name="fp_watch_pro">toutes les heures</string>
     <string name="fp_weight">Combien votre avis compte</string>
-    <string name="fp_weight_both">le même — appareil et SKR staké uniquement</string>
+    <string name="fp_weight_both">le même : un par appareil attesté</string>
     <string name="desk_title">Bureau de l\'éditeur</string>
     <plurals name="desk_across">
         <item quantity="one">Sur vos %1$d dApp prouvée</item>
@@ -1044,4 +1044,7 @@
     <string name="boost_declaration">En payant, vous confirmez ne pas être payé ni employé par l\'éditeur de cette app ou un concurrent, ni agir pour eux.</string>
     <string name="withdrawal_consent">Commencer maintenant. Je comprends que je perds tout droit de rétractation de 14 jours dès que le paiement est confirmé sur la chaîne.</string>
     <string name="withdrawal_confirmed">Vous avez demandé une fourniture immédiate et reconnu perdre tout droit de rétractation de 14 jours. Votre reçu est la transaction sur la chaîne %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Staké à la lecture : %1$s SKR · %2$s SOL · %3$s. Affiché par transparence ; cela ne change jamais le poids.</string>
 </resources>

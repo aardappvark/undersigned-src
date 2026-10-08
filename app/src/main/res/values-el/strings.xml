@@ -52,7 +52,7 @@
     <string name="detail_update_review">Ενημέρωση της κριτικής μου</string>
     <string name="detail_revoke_review">Απόσυρση της κριτικής μου</string>
     <string name="detail_score_title">Υπογεγραμμένη βαθμολογία</string>
-    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), σταθμισμένος με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση) και με το SKR που έχει κλειδώσει το πορτοφόλι (έως 3×). Το SKR διαπραγματεύεται, οπότε αυτό το μέρος του βάρους αποκτάται· το Undersigned δεν προτείνει αγορά ή κλείδωμα. Καμία πληρωμή στο Undersigned δεν μπαίνει στη βαθμολογία· οι κριτικές μελών Pro έχουν και δική τους βαθμολογία. Τα πορτοφόλια του Undersigned δεν μετρούν ποτέ. Απόψεις κατόχων πιστοποιημένων συσκευών Seeker, όχι η βαθμολογία του καταστήματος.</string>
+    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), μία φωνή ανά συσκευή, σταθμισμένος μόνο με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση). Καμία πληρωμή και κανένα υπόλοιπο token δεν μπαίνει. Κάθε κριτική δείχνει, για διαφάνεια, το SKR και το SOL που είχε κλειδώσει το πορτοφόλι όταν διαβάστηκε· πόσο μετρά αυτό το κρίνετε εσείς. Οι κριτικές μελών Pro έχουν και δική τους βαθμολογία. Τα πορτοφόλια του Undersigned δεν μετρούν ποτέ. Απόψεις κατόχων πιστοποιημένων συσκευών Seeker, όχι η βαθμολογία του καταστήματος.</string>
     <string name="detail_rank_score">Βαθμολογία κατάταξης %1$s — συρρικνώνεται προς το 3,0 έως ότου υπογράψουν περισσότεροι Seekers· χρησιμοποιείται μόνο για την ταξινόμηση της λίστας.</string>
     <string name="follow">Ακολούθηση</string>
     <string name="following">Ακολουθείτε</string>
@@ -195,8 +195,8 @@
     <string name="settings_standing">Η θέση σας</string>
     <string name="standing_sgt_yes">Βρέθηκε πιστοποιημένη συσκευή (%1$s): οι κριτικές σας μετράνε.</string>
     <string name="standing_sgt_no">Δεν υπάρχει διαπιστευτήριο πιστοποιημένης συσκευής σε αυτό το πορτοφόλι (σήμερα: το Seeker Genesis Token): οι κριτικές σας δεν θα μετρούσαν.</string>
-    <string name="standing_stake">Staked SKR διαβασμένο on-chain: %1$s (βάρος %2$s×)</string>
-    <string name="standing_note">Τα βάρη διαβάζονται από το blockchain: η συσκευή και το κλειδωμένο SKR. Το Pro και οι πληρωμές στο Undersigned δεν τα αλλάζουν ποτέ.</string>
+    <string name="standing_stake">Κλειδωμένα: %1$s SKR · %2$s SOL, από το blockchain. Εμφανίζεται για διαφάνεια· δεν αλλάζει ποτέ το βάρος.</string>
+    <string name="standing_note">Τα βάρη είναι ένα ανά πιστοποιημένη συσκευή, προσαρμοσμένα μόνο με ό,τι φέρει κάθε κριτική. Τα stake εμφανίζονται, δεν σταθμίζονται ποτέ· το Pro και οι πληρωμές στο Undersigned δεν τα αλλάζουν ποτέ.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Διεύθυνση μητρώου %1$s. Κάθε κριτική είναι ανιχνεύσιμη από τον καθένα μέσω αυτής της διεύθυνσης. Αυτή η εφαρμογή τα διαβάζει απευθείας από την αλυσίδα, όχι από server δικό μας.</string>
     <string name="settings_refresh_ledger">Επανάγνωση του ledger</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Επόμενο</string>
     <string name="intro_replay">Επανάληψη εισαγωγής</string>
     <string name="intro1_title">Ένας Seeker, μία φωνή</string>
-    <string name="intro1_body">Το Undersigned είναι ένα επίπεδο κριτικών δίπλα στο dApp Store. Μετρούν μόνο πορτοφόλια με Seeker Genesis Token: μία συσκευή, μία φωνή. Καμία πληρωμή στο Undersigned δεν αλλάζει την υπογεγραμμένη βαθμολογία· το κλειδωμένο SKR μπορεί να αυξήσει το βάρος μιας κριτικής, έως 3×.</string>
+    <string name="intro1_body">Το Undersigned είναι ένα επίπεδο κριτικών δίπλα στο dApp Store. Μετρούν μόνο πορτοφόλια με Seeker Genesis Token: μία συσκευή, μία φωνή. Καμία πληρωμή και κανένα υπόλοιπο token δεν αλλάζει πόσο μετρά μια κριτική.</string>
     <string name="intro2_title">Υπογεγραμμένο, όχι πληκτρολογημένο</string>
     <string name="intro2_body">Κάθε κριτική είναι μια μικρή συναλλαγή που εγκρίνετε στο τηλέφωνο με το διπλό πάτημα. Το πορτοφόλι σας πληρώνει μόνο το τέλος δικτύου που ορίζει. Το Undersigned δεν κατέχει ποτέ τα κλειδιά ή τα κεφάλαιά σας.</string>
     <string name="intro3_title">Δίπλα στο κατάστημα, όχι αντί αυτού</string>
@@ -401,7 +401,7 @@
     <string name="pro_tool_watch_title">Ειδοποιήσεις κάθε ώρα</string>
     <string name="pro_tool_watch_body">Οι ειδοποιήσεις για τις εφαρμογές που ακολουθείτε ελέγχονται κάθε ώρα αντί για κάθε έξι, στη συσκευή.</string>
     <string name="pro_not_title">Τι δεν κάνει το Pro</string>
-    <string name="pro_not_body">Δεν αλλάζει ποτέ την υπογεγραμμένη βαθμολογία, δεν κάνει ποτέ μια κριτική να μετρά περισσότερο και δεν βαραίνει ποτέ την κριτική άλλου: αναφορές, ψήφοι «χρήσιμο» και απόκρυψη χρησιμοποιούν μόνο τη συσκευή και το κλειδωμένο SKR. Δεν υπάρχει token, τίποτα για συλλογή ή κράτηση.</string>
+    <string name="pro_not_body">Δεν αλλάζει ποτέ την υπογεγραμμένη βαθμολογία, δεν κάνει μια κριτική να μετρά περισσότερο και δεν επηρεάζει τις κριτικές άλλων: αναφορές, ψήφοι χρησιμότητας και απόκρυψη μετρούν ένα ανά πιστοποιημένη συσκευή. Δεν υπάρχει token, τίποτα για συλλογή ή διακράτηση.</string>
     <string name="pro_free_keeps">Η ανάγνωση του καθολικού, η υπογραφή κριτικών, οι αναφορές, οι αμφισβητήσεις και τα στοιχεία συσκευής μένουν δωρεάν, για πάντα. Το Pro προσθέτει εργαλεία, σήμα Μέλος Pro και δική του σημειωμένη γραμμή βαθμολογίας.</string>
     <string name="pro_price_line">12 μήνες σε αυτό το πορτοφόλι · πληρώστε σε όποιο από τα δύο, η διάρκεια είναι ίδια · τέλος δικτύου επιπλέον, ορίζεται από το πορτοφόλι σας</string>
     <string name="pro_pay_in">Πληρωμή σε</string>
@@ -475,7 +475,7 @@
     </plurals>
     <string name="pro_shared_none">Καμία παραχώρηση από %1$s δεν ονομάζει αυτό το πορτοφόλι ακόμα. Διατηρείται εδώ και διαβάζεται ξανά με το ledger.</string>
     <string name="pro_shared_forget">Διαγραφή</string>
-    <string name="pro_standing_note">Το Pro δεν είναι μέρος αυτού. Το βάρος προέρχεται μόνο από τη συσκευή και το staked SKR.</string>
+    <string name="pro_standing_note">Το Pro δεν παίζει ρόλο εδώ. Το βάρος είναι ένα ανά πιστοποιημένη συσκευή· το κλειδωμένο SKR και SOL εμφανίζονται, δεν σταθμίζονται ποτέ.</string>
     <string name="free_pro_title">Δωρεάν και Pro</string>
     <string name="fp_free">Δωρεάν</string>
     <string name="fp_pro">Pro</string>
@@ -493,7 +493,7 @@
     <string name="fp_watch_free">κάθε 6 ώρες</string>
     <string name="fp_watch_pro">κάθε ώρα</string>
     <string name="fp_weight">Πόσο μετράει η γνώμη σας</string>
-    <string name="fp_weight_both">το ίδιο — μόνο η συσκευή και το staked SKR</string>
+    <string name="fp_weight_both">το ίδιο: ένα ανά πιστοποιημένη συσκευή</string>
     <string name="desk_title">Γραφείο εκδότη</string>
     <plurals name="desk_across">
         <item quantity="one">Σε %1$d αποδεδειγμένο dApp σας</item>
@@ -1015,4 +1015,7 @@
     <string name="boost_declaration">Πληρώνοντας, επιβεβαιώνετε ότι δεν πληρώνεστε, δεν απασχολείστε και δεν ενεργείτε για τον εκδότη αυτής της εφαρμογής ή έναν ανταγωνιστή.</string>
     <string name="withdrawal_consent">Έναρξη τώρα. Κατανοώ ότι χάνω κάθε δικαίωμα υπαναχώρησης 14 ημερών μόλις η πληρωμή επιβεβαιωθεί στο blockchain.</string>
     <string name="withdrawal_confirmed">Ζητήσατε άμεση παροχή και αναγνωρίσατε την απώλεια κάθε δικαιώματος υπαναχώρησης 14 ημερών. Η απόδειξή σας είναι η συναλλαγή στο blockchain %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Κλειδωμένα κατά την ανάγνωση: %1$s SKR · %2$s SOL · %3$s. Εμφανίζεται για διαφάνεια· δεν αλλάζει ποτέ το βάρος.</string>
 </resources>

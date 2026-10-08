@@ -52,7 +52,7 @@
     <string name="detail_update_review">Zaktualizuj moją recenzję</string>
     <string name="detail_revoke_review">Wycofaj moją recenzję</string>
     <string name="detail_score_title">Podpisany wynik</string>
-    <string name="detail_score_sub">Średnia recenzji z poświadczonych urządzeń (dziś: posiadacze Seeker Genesis Token), ważona tym, co wnosi każda recenzja (czas instalacji, użycie, napisana notatka), i SKR, który portfel stakuje (maksymalnie 3×). SKR jest przedmiotem obrotu, więc tę część wagi można nabyć; Undersigned nie zaleca kupowania ani stakowania. Żadna płatność dla Undersigned nie wchodzi do oceny; recenzje członków Pro mają też własną ocenę. Portfele Undersigned nigdy się nie liczą. Opinie właścicieli poświadczonych urządzeń Seeker, nie ocena sklepu.</string>
+    <string name="detail_score_sub">Średnia recenzji z poświadczonych urządzeń (dziś: posiadacze Seeker Genesis Token), jeden głos na urządzenie, ważona tylko tym, co wnosi recenzja (czas instalacji, użycie, napisana notatka). Żadna płatność ani saldo tokenów do niej nie wchodzi. Każda recenzja pokazuje dla przejrzystości SKR i SOL stakowane przez portfel w chwili odczytu; ile to znaczy, oceniasz sam. Recenzje członków Pro mają też własną ocenę. Portfele Undersigned nigdy się nie liczą. Opinie właścicieli poświadczonych urządzeń Seeker, nie ocena sklepu.</string>
     <string name="detail_rank_score">Wynik rankingowy %1$s — zbliżany do 3.0, dopóki nie podpisze więcej Seekerów; służy tylko do porządkowania listy.</string>
     <string name="follow">Obserwuj</string>
     <string name="following">Obserwowane</string>
@@ -201,8 +201,8 @@
     <string name="settings_standing">Twoja pozycja</string>
     <string name="standing_sgt_yes">Znaleziono potwierdzone urządzenie (%1$s): Twoje recenzje się liczą.</string>
     <string name="standing_sgt_no">Ten portfel nie ma poświadczenia potwierdzonego urządzenia (obecnie: Seeker Genesis Token): Twoje recenzje nie byłyby liczone.</string>
-    <string name="standing_stake">Zastawiony SKR odczytany z łańcucha: %1$s (waga %2$s×)</string>
-    <string name="standing_note">Wagi są odczytywane z łańcucha: urządzenie i stakowany SKR. Pro i płatności dla Undersigned nigdy ich nie zmieniają.</string>
+    <string name="standing_stake">Stakowane: %1$s SKR · %2$s SOL, odczytane w łańcuchu. Pokazane dla przejrzystości; nigdy nie zmienia wagi.</string>
+    <string name="standing_note">Wagi to jeden na poświadczone urządzenie, korygowane tylko tym, co wnosi recenzja. Stake\'i są pokazywane, nigdy ważone; Pro i płatności dla Undersigned nigdy ich nie zmieniają.</string>
     <string name="settings_ledger">Rejestr</string>
     <string name="settings_ledger_body">Adres rejestru %1$s. Każda recenzja jest odnajdywalna przez każdego pod tym adresem. Ta aplikacja odczytuje go prosto z łańcucha, a nie z naszego serwera.</string>
     <string name="settings_refresh_ledger">Odczytaj rejestr ponownie</string>
@@ -229,7 +229,7 @@
     <string name="intro_next">Dalej</string>
     <string name="intro_replay">Odtwórz wprowadzenie ponownie</string>
     <string name="intro1_title">Jeden Seeker, jeden głos</string>
-    <string name="intro1_body">Undersigned to warstwa recenzji obok dApp Store. Liczą się tylko portfele z Seeker Genesis Token: jedno urządzenie, jeden głos. Żadna płatność dla Undersigned nie zmienia podpisanej oceny; stakowany SKR może podnieść wagę recenzji, maksymalnie do 3×.</string>
+    <string name="intro1_body">Undersigned to warstwa recenzji obok dApp Store. Liczą się tylko portfele z Seeker Genesis Token: jedno urządzenie, jeden głos. Żadna płatność ani saldo tokenów nie zmienia tego, ile liczy się recenzja.</string>
     <string name="intro2_title">Podpisane, nie wpisywane</string>
     <string name="intro2_body">Każda recenzja to niewielka transakcja, którą zatwierdzasz na telefonie podwójnym dotknięciem. Twój portfel płaci tylko opłatę sieciową, którą sam ustala. Undersigned nigdy nie przechowuje Twoich kluczy ani środków.</string>
     <string name="intro3_title">Obok sklepu, nie zamiast niego</string>
@@ -410,7 +410,7 @@
     <string name="pro_tool_watch_title">Powiadomienia co godzinę</string>
     <string name="pro_tool_watch_body">Powiadomienia o obserwowanych aplikacjach są sprawdzane co godzinę zamiast co sześć, na urządzeniu.</string>
     <string name="pro_not_title">Czego Pro nie robi</string>
-    <string name="pro_not_body">Nigdy nie zmienia podpisanej oceny, nigdy nie sprawia, że recenzja liczy się bardziej, i nigdy nie waży na cudzej recenzji: zgłoszenia, głosy „pomocne” i ukrywanie korzystają tylko z urządzenia i stakowanego SKR. Nie ma tokena, niczego do zbierania ani trzymania.</string>
+    <string name="pro_not_body">Nigdy nie zmienia podpisanej oceny, nie sprawia, że recenzja liczy się bardziej, i nie wpływa na cudze recenzje: zgłoszenia, głosy „pomocne” i ukrywanie liczą się jeden na poświadczone urządzenie. Nie ma tokena, niczego do zbierania ani trzymania.</string>
     <string name="pro_free_keeps">Czytanie rejestru, podpisywanie recenzji, zgłoszenia, sprzeciwy i fakty z urządzenia pozostają darmowe, zawsze. Pro dodaje narzędzia, znak Członek Pro i własną, oznaczoną linię oceny.</string>
     <string name="pro_price_line">12 miesięcy na tym portfelu · płać w dowolnej, okres jest taki sam · dodatkowo opłata sieciowa ustalona przez Twój portfel</string>
     <string name="pro_pay_in">Płać w</string>
@@ -488,7 +488,7 @@
     </plurals>
     <string name="pro_shared_none">Żadne udostępnienie od %1$s jeszcze nie wskazuje tego portfela. Pozostaje tutaj zapisane i jest odczytywane ponownie z rejestrem.</string>
     <string name="pro_shared_forget">Zapomnij</string>
-    <string name="pro_standing_note">Pro nie jest tego częścią. Waga pochodzi wyłącznie z urządzenia i zastawionego SKR.</string>
+    <string name="pro_standing_note">Pro nie ma tu znaczenia. Waga to jeden na poświadczone urządzenie; stakowane SKR i SOL są pokazywane, nigdy ważone.</string>
     <string name="free_pro_title">Free i Pro</string>
     <string name="fp_free">Free</string>
     <string name="fp_pro">Pro</string>
@@ -506,7 +506,7 @@
     <string name="fp_watch_free">co 6 godzin</string>
     <string name="fp_watch_pro">co godzinę</string>
     <string name="fp_weight">Ile znaczy Twoja opinia</string>
-    <string name="fp_weight_both">tak samo — tylko urządzenie i zastawiony SKR</string>
+    <string name="fp_weight_both">tak samo: jeden na poświadczone urządzenie</string>
     <string name="desk_title">Panel wydawcy</string>
     <plurals name="desk_across">
         <item quantity="one">We wszystkich %1$d udowodnionych dApps</item>
@@ -1053,4 +1053,7 @@
     <string name="boost_declaration">Płacąc, potwierdzasz, że nie otrzymujesz zapłaty od wydawcy tej aplikacji ani konkurenta, nie jesteś przez nich zatrudniony ani nie działasz w ich imieniu.</string>
     <string name="withdrawal_consent">Rozpocznij teraz. Rozumiem, że tracę ewentualne 14-dniowe prawo odstąpienia, gdy płatność zostanie potwierdzona w łańcuchu.</string>
     <string name="withdrawal_confirmed">Zażądałeś natychmiastowego dostarczenia i potwierdziłeś utratę ewentualnego 14-dniowego prawa odstąpienia. Twoim potwierdzeniem jest transakcja w łańcuchu %1$s.</string>
+
+    <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
+    <string name="review_stake_at">Stakowane przy odczycie: %1$s SKR · %2$s SOL · %3$s. Pokazane dla przejrzystości; nigdy nie zmienia wagi.</string>
 </resources>
