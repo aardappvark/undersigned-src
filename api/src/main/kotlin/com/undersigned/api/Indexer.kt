@@ -23,17 +23,17 @@ import java.nio.ByteOrder
  */
 object AppFloors {
     const val PRO_SOL = 0.0607
-    const val PRO_SKR = 651.0
+    const val PRO_SKR = 369.0
     /** Promoting one's own review (the app's BOOST_* pair, parity-tested). */
     const val BOOST_SOL = 0.00607
-    const val BOOST_SKR = 65.0
+    const val BOOST_SKR = 37.0
     val boostFloorLamports get() = Config.lamports(BOOST_SOL)
     val boostFloorSkrRaw get() = Config.skrRaw(BOOST_SKR)
     /** Earlier Pro prices stay floors (the 276 SKR licence of 15 Sep must still read). */
     val LEGACY_PRO_SKR: List<Double> = listOf(276.0)
     const val LIST_SOL = 0.0607
-    const val LIST_SKR = 651.0
-    const val LIST_SKR_SGT = 586.0
+    const val LIST_SKR = 369.0
+    const val LIST_SKR_SGT = 332.0
     /** Earlier listing prices stay floors, exactly as the app's LEGACY_LIST_* lists (parity-tested). */
     val LEGACY_LIST_SOL: List<Double> = emptyList()
     val LEGACY_LIST_SKR: List<Double> = emptyList()

@@ -52,9 +52,11 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
         route("GET", "/v1/openapi.json", Tier.FREE, "This API's description") { ok(openApi()) }
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
-        route("POST", "/v1/checkout", Tier.FREE, "Start a pass purchase: a secret, and Solana Pay URLs whose memo commits to it") {
+        route("POST", "/v1/checkout", Tier.FREE, "Start a purchase: a secret, and Solana Pay URLs whose memo commits to it. Body {\"calls\": N} for pay-per-call credits instead of a pass") { r ->
             val c = billing.checkout()
-            ok(JSONObject().put("secret", c.secret).put("memo", c.memo).put("solana_pay", payUrls(c.memo))
+            val calls = runCatching { JSONObject(r.body.ifBlank { "{}" }).optLong("calls", 0) }.getOrDefault(0L).coerceIn(0, 10_000_000)
+            ok(JSONObject().put("secret", c.secret).put("memo", c.memo).put("solana_pay", if (calls > 0) perCallUrls(c.memo, calls) else payUrls(c.memo))
+                .apply { if (calls > 0) put("calls", maxOf(calls, (Config.CREDITS_MIN_SOL / Config.PER_CALL_SOL).toLong())) }
                 .put("then", JSONObject().put("post", "/v1/keys").put("body", JSONObject().put("signature", "<payment transaction signature>").put("secret", c.secret)))
                 .put("keep_secret", "Anyone holding this secret can redeem the payment. It is not stored until you redeem.").put("test_prices", Config.testPrices))
         }
@@ -99,6 +101,10 @@ class Api(private val views: Views, private val billing: Billing, private val in
             } catch (e: Hooks.Invalid) { Response(400, JSONObject().put("error", "invalid").put("message", e.message)) }
         }
         route("GET", "/v1/hooks", Tier.PAID, "Your webhooks") { r -> ok(JSONObject().put("hooks", JSONArray((hooks?.list(r.caller.key!!) ?: emptyList()).map { JSONObject().put("id", it.id).put("url", it.url).put("events", JSONArray(it.events.toList())).put("packages", JSONArray(it.packages.toList())) }))) }
+        route("POST", "/v1/hooks/{id}/test", Tier.PAID, "Send a signed test ping to one of your webhooks now; returns the receiver's status") { r ->
+            hooks?.test(r.caller.key!!, r.params["id"]!!)?.let { st -> ok(JSONObject().put("hook", r.params["id"]).put("status", st).put("delivered", st in 200..299)) } ?: notFound("no such hook on this pass") }
+        route("GET", "/v1/hooks/{id}/deliveries", Tier.PAID, "The last 100 delivery attempts to one of your webhooks, with the receiver's status") { r ->
+            hooks?.deliveries(r.caller.key!!, r.params["id"]!!)?.let { ok(JSONObject().put("hook", r.params["id"]).put("deliveries", it)) } ?: notFound("no such hook on this pass") }
         route("DELETE", "/v1/hooks/{id}", Tier.PAID, "Delete one of your webhooks") { r -> if (hooks?.delete(r.caller.key!!, r.params["id"]!!) == true) ok(JSONObject().put("deleted", r.params["id"])) else notFound("no such hook on this pass") }
         route("POST", "/v1/tx/review", Tier.FREE, "Build an unsigned review transaction for a browser wallet: {account, package, rating, tags[1-3], text?}") { r -> reviewTx(r) }
         // Local only (never on a public host): the fleet's publisher claims and treasury listings in a few transactions, for the
@@ -149,7 +155,22 @@ class Api(private val views: Views, private val billing: Billing, private val in
         }
         if (rt.tier == Tier.PAID && !caller.paid) return paymentRequired("this endpoint needs a pass")
         val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to m.groupValues[i + 1] }.toMap()   // URI.path arrives decoded
-        return try { rt.handler(Req(params, query, body, caller)) }
+        // Rate-limit headers on every metered answer (9 Oct 2026): what is left, and when it resets.
+        fun withLimits(r: Response): Response {
+            val h = LinkedHashMap(r.headers)
+            if (caller.paid && caller.key != null) {
+                val left = billing.pass(caller.key)
+                h["X-RateLimit-Limit"] = Config.PASS_PER_MINUTE.toString()
+                limiter.remaining("key:${caller.key}", Config.PASS_PER_MINUTE, null).let { h["X-RateLimit-Remaining"] = it["minute_remaining"].toString(); h["X-RateLimit-Reset"] = it["minute_reset"].toString() }
+                left?.let { h["X-Pass-Requests-Left"] = it.requestsLeft.toString(); h["X-Pass-Ends-At"] = it.endsAt.toString() }
+            } else {
+                val l = limiter.remaining("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)
+                h["X-RateLimit-Limit"] = Config.FREE_PER_DAY.toString(); h["X-RateLimit-Remaining"] = l["day_remaining"].toString(); h["X-RateLimit-Reset"] = l["day_reset"].toString()
+                h["X-RateLimit-Minute-Limit"] = Config.FREE_PER_MINUTE.toString(); h["X-RateLimit-Minute-Remaining"] = l["minute_remaining"].toString()
+            }
+            return Response(r.status, r.body, h, r.raw, r.contentType)
+        }
+        return try { withLimits(rt.handler(Req(params, query, body, caller))) }
         catch (e: Billing.Refused) { Response(e.status, JSONObject().put("error", "refused").put("message", e.message)) }
         catch (e: Exception) { log("500 $path: ${e.message?.take(120)}"); Response(500, JSONObject().put("error", "internal")) }
     }
@@ -235,7 +256,18 @@ class Api(private val views: Views, private val billing: Billing, private val in
         return Response(200, d, mapOf("Cache-Control" to "public, max-age=600", "Content-Disposition" to "inline; filename=undersigned-dataset.json"))
     }
 
-    private fun paymentRequired(why: String) = Response(402, JSONObject().put("error", "payment_required").put("message", why).put("pricing", pricing()))
+    /**
+     * 402 with everything an agent needs to pay and retry without reading docs: the pricing, and `accepts`, the two ways to
+     * pay in the shape x402 uses (scheme, network, payTo, amounts), each paid with one on-chain transfer and redeemed once.
+     */
+    private fun paymentRequired(why: String) = Response(402, JSONObject().put("error", "payment_required").put("message", why).put("pricing", pricing())
+        .put("accepts", JSONArray()
+            .put(JSONObject().put("scheme", "undersigned-pass").put("network", "solana-mainnet").put("payTo", Config.TREASURY).put("reference", Config.API_REFERENCE)
+                .put("amount", JSONObject().put("sol", Config.passSol).put("skr", Config.passSkr)).put("buys", "${Config.PASS_REQUESTS} requests over ${Config.PASS_DAYS} days"))
+            .put(JSONObject().put("scheme", "undersigned-per-call").put("network", "solana-mainnet").put("payTo", Config.TREASURY).put("reference", Config.API_REFERENCE)
+                .put("perCall", JSONObject().put("sol", Config.PER_CALL_SOL).put("skr", Config.PER_CALL_SKR)).put("minimum", JSONObject().put("sol", Config.CREDITS_MIN_SOL).put("skr", Config.CREDITS_MIN_SKR))
+                .put("buys", "calls at the per-call rate, valid ${Config.CREDITS_DAYS} days")))
+        .put("how", "POST /v1/checkout (body {\"calls\": N} for per-call) -> pay a solana_pay URL from any wallet -> POST /v1/keys {signature, secret} -> retry with Authorization: Bearer <key>"))
 
     private fun redeem(r: Req): Response {
         val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return Response(400, JSONObject().put("error", "bad_json").put("message", "send {\"signature\": \"<payment tx>\", \"message_signature\": \"<wallet signature>\"}"))
@@ -257,7 +289,22 @@ class Api(private val views: Views, private val billing: Billing, private val in
             .put("solana_pay", payUrls(Config.PAYMENT_MEMO))
             .put("redeem", JSONObject().put("post", "/v1/keys").put("body", JSONObject().put("signature", "<payment transaction signature>").put("message_signature", "<the paying wallet's signature of the message>"))
                 .put("message", "Undersigned API key for <payment transaction signature>"))
-            .put("note", "Paying again adds ${Config.PASS_REQUESTS} requests and ${Config.PASS_DAYS} days. The payment is read from balances on-chain; only the paying wallet can redeem it.")
+            .put("pay_per_call", JSONObject().put("per_call", JSONObject().put("sol", Config.PER_CALL_SOL).put("skr", Config.PER_CALL_SKR))
+                .put("minimum", JSONObject().put("sol", Config.CREDITS_MIN_SOL).put("skr", Config.CREDITS_MIN_SKR)).put("days", Config.CREDITS_DAYS)
+                .put("how", "POST /v1/checkout with {\"calls\": N}, pay the URL it returns, redeem with POST /v1/keys. Any payment from the minimum up to just under the pass price buys calls; at the pass price or more it buys a pass."))
+            .put("note", "Paying again adds ${Config.PASS_REQUESTS} requests and ${Config.PASS_DAYS} days to a pass, or more calls to credits. The payment is read from balances on-chain; only the payer (or the checkout secret's holder) can redeem it.")
+    }
+
+    /** Solana Pay URLs for [calls] pay-per-call credits (at least the minimum top-up), with the pass reference and [memo]. */
+    fun perCallUrls(memo: String, calls: Long): JSONObject {
+        // Whole lamports and raw SKR units, never doubles: 1,000 x 0.00001 must read 0.01, not 0.010000001.
+        val lamports = maxOf(Config.lamports(Config.CREDITS_MIN_SOL), calls * Config.perCallLamports)
+        val skrRaw = maxOf(Config.skrRaw(Config.CREDITS_MIN_SKR), calls * Config.perCallSkrRaw)
+        val sol = java.math.BigDecimal.valueOf(lamports, 9).stripTrailingZeros().toPlainString()
+        val skr = java.math.BigDecimal.valueOf(skrRaw, 6).stripTrailingZeros().toPlainString()
+        fun url(amount: String, token: String?) = "solana:${Config.TREASURY}?amount=$amount" + (token?.let { "&spl-token=$it" } ?: "") +
+            "&reference=${Config.API_REFERENCE}&label=${enc("Undersigned")}&message=${enc("Undersigned API calls")}&memo=${enc(memo)}"
+        return JSONObject().put("sol", url(sol, null)).put("skr", url(skr, Config.SKR_MINT))
     }
 
     /** Solana Pay transfer requests for each rail, with the pass reference and [memo]. */
@@ -268,23 +315,48 @@ class Api(private val views: Views, private val billing: Billing, private val in
         return JSONObject().put("sol", url(amt(Config.passSol), null)).put("skr", url(amt(Config.passSkr), Config.SKR_MINT)).put("skr_with_seeker_genesis_token", url(amt(Config.passSkrSgt), Config.SKR_MINT))
     }
 
+    private fun ref(schema: String, d: String) = JSONObject().put("description", d)
+        .put("content", JSONObject().put("application/json", JSONObject().put("schema", JSONObject().put("\$ref", "#/components/schemas/$schema"))))
+
+    /** Each query parameter's real type: integers with bounds, and enums where the values are fixed. */
+    private fun paramSchema(path: String, name: String): JSONObject = when (name) {
+        "limit" -> JSONObject().put("type", "integer").put("minimum", 1).put("maximum", if (path == "/v1/records") 1000 else 500)
+        "offset" -> JSONObject().put("type", "integer").put("minimum", 0)
+        "days" -> JSONObject().put("type", "integer").put("minimum", 1).put("maximum", 30)
+        "since", "until" -> JSONObject().put("type", "integer").put("description", "Epoch seconds")
+        "full" -> JSONObject().put("type", "string").put("enum", JSONArray().put("1"))
+        "metric" -> JSONObject().put("type", "string").put("enum", JSONArray(Views.METRICS))
+        "sort" -> JSONObject().put("type", "string").put("enum", JSONArray(if (path.endsWith("/reviews")) listOf("newest", "helpful", "skr", "sol") else listOf("name", "signed", "updated")))
+        else -> JSONObject().put("type", "string")
+    }
+
     fun openApi(): JSONObject {
         val p = JSONObject()
         for (rt in routes) {
             val path = paths[rt]!!
             if (path == "/v1/tx/seed") continue   // loopback-only fleet seeding; answers 404 publicly
-            val qp = QUERY[path]?.map { JSONObject().put("name", it).put("in", "query").put("required", false).put("schema", JSONObject().put("type", "string")) } ?: emptyList()
+            val qp = QUERY[path]?.map { JSONObject().put("name", it).put("in", "query").put("required", false).put("schema", paramSchema(path, it)) } ?: emptyList()
             val op = JSONObject().put("summary", rt.summary).put("x-tier", rt.tier.name.lowercase())
                 .put("parameters", JSONArray((pathNames[rt] ?: emptyList()).map { JSONObject().put("name", it).put("in", "path").put("required", true).put("schema", JSONObject().put("type", "string")) } + qp))
-                .put("responses", JSONObject().put("200", JSONObject().put("description", "JSON"))
-                    .put("400", JSONObject().put("description", "{error, message}: a malformed request"))
-                    .put("429", JSONObject().put("description", "{error: rate_limited, message, pricing?} with Retry-After"))
-                    .apply { if (rt.tier != Tier.FREE) put("402", JSONObject().put("description", "{error: payment_required, message, pricing}: a pass is needed; pricing carries the price, Solana Pay URLs and how to redeem")) })
+                .put("responses", JSONObject().put("200", JSONObject().put("description", "JSON; X-RateLimit-Limit / -Remaining / -Reset headers say what is left")
+                        .put("content", JSONObject().put("application/json", JSONObject().put("schema", JSONObject().put("type", "object")))))
+                    .put("400", ref("Error", "A malformed request"))
+                    .put("404", ref("Error", "Not found"))
+                    .put("429", ref("Error", "Rate limited; Retry-After says when to try again"))
+                    .apply { if (rt.tier != Tier.FREE) put("402", ref("PaymentRequired", "A pass is needed; the body carries the price, Solana Pay URLs and how to redeem")) })
+                .apply { if (rt.tier != Tier.FREE) put("security", JSONArray().put(JSONObject().put("pass", JSONArray())).put(JSONObject())) }
             (p.optJSONObject(path) ?: JSONObject().also { p.put(path, it) }).put(rt.method.lowercase(), op)
         }
         return JSONObject().put("openapi", "3.0.3")
             .put("info", JSONObject().put("title", "Undersigned API").put("version", "1").put("description", "Signed Seeker reviews, dApp Store data and on-chain payments for Solana dApp Store apps. Read-only. See docs/API.md."))
-            .put("components", JSONObject().put("securitySchemes", JSONObject().put("pass", JSONObject().put("type", "http").put("scheme", "bearer"))))
+            .put("servers", JSONArray().put(JSONObject().put("url", Config.PUBLIC_URL).put("description", "Public API")))
+            .put("components", JSONObject().put("securitySchemes", JSONObject().put("pass", JSONObject().put("type", "http").put("scheme", "bearer").put("description", "An API pass key (us_…); see /v1/pricing")))
+                .put("schemas", JSONObject()
+                    .put("Error", JSONObject().put("type", "object").put("required", JSONArray().put("error"))
+                        .put("properties", JSONObject().put("error", JSONObject().put("type", "string")).put("message", JSONObject().put("type", "string"))))
+                    .put("PaymentRequired", JSONObject().put("type", "object").put("required", JSONArray().put("error").put("pricing"))
+                        .put("properties", JSONObject().put("error", JSONObject().put("type", "string").put("enum", JSONArray().put("payment_required")))
+                            .put("message", JSONObject().put("type", "string")).put("pricing", JSONObject().put("type", "object").put("description", "As GET /v1/pricing"))))))
             .put("paths", p)
     }
 

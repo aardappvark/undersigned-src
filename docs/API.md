@@ -97,7 +97,7 @@ Still later: x402 pay-per-call, fully translated pages (only the shared vocabula
 
 - **Free**: no key. 30 requests per minute and 1,000 per day per IP. Free-tier endpoints only; paid endpoints answer
   `402 Payment Required` with the price and how to pay.
-- **Pass**: the fleet's paid-tier price — **0.0607 SOL or 651 SKR (586 SKR with a Seeker Genesis Token)** — buys
+- **Pass**: the fleet's paid-tier price — **0.0607 SOL or 369 SKR (332 SKR with a Seeker Genesis Token)** — buys
   **100,000 requests over 30 days**, 600 per minute, every endpoint. Paying again adds 100,000 requests and extends the
   term by 30 days from the later of now and the current end. Numbers live in `api/.../Config.kt` (`PASS_*`).
 

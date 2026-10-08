@@ -126,21 +126,27 @@ class HooksTest {
         val f = Fixture()
         val now = System.currentTimeMillis() / 1000
         f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_a', 'w', 10, ?, 0)", now + 3600)
-        val sent = ArrayList<Triple<String, String, String>>()
-        val hooks = Hooks(f.db, f.billing) { url, body, sig -> sent += Triple(url, body, sig); 200 }
+        val sent = ArrayList<Triple<String, String, Map<String, String>>>()
+        val hooks = Hooks(f.db, f.billing) { url, body, hs -> sent += Triple(url, body, hs); 200 }
         val h = hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))
         val review = LedgerEntry(sigOf('n'), REVIEWER, now, ReviewMemo.Review("com.a.b", 5, listOf(ReviewMemo.Tag.FAST), 42, null))
         val other = LedgerEntry(sigOf('o'), REVIEWER, now, ReviewMemo.Review("com.x.y", 5, listOf(ReviewMemo.Tag.FAST), 42, null))
         hooks.dispatch(listOf(review, other), emptyList(), emptyList(), now); hooks.deliverDue(now)
         assertEquals(1, sent.size)
-        val (_, body, signature) = sent.single()
-        assertEquals(Hooks.sign(h.secret, body), signature)
+        val (_, body, hs) = sent.single()
+        assertEquals(Hooks.sign(h.secret, body), hs["X-Undersigned-Signature"])
+        // V2 binds the timestamp: HMAC of "<t>.<body>", so a captured delivery cannot be replayed later as new
+        val t = hs["X-Undersigned-Timestamp"]!!
+        assertEquals("t=$t,v1=" + Hooks.sign(h.secret, "$t.$body").removePrefix("sha256="), hs["X-Undersigned-Signature-V2"])
+        // a signed test ping, and the delivery log
+        assertEquals(200, hooks.test("us_a", h.id)); assertEquals(null, hooks.test("us_other", h.id))
+        assertTrue(hooks.deliveries("us_a", h.id)!!.length() >= 2)
         val ev = JSONObject(body).getJSONArray("events")
         assertEquals(1, ev.length()); assertEquals("com.a.b", ev.getJSONObject(0).getString("package"))
         // The pass ends: nothing more is sent.
         f.db.exec("UPDATE passes SET ends_at = ? WHERE key = 'us_a'", now - 1)
         hooks.dispatch(listOf(review), emptyList(), emptyList(), now); hooks.deliverDue(now)
-        assertEquals(1, sent.size)
+        assertEquals(2, sent.size)   // the event and the test ping; nothing after the pass ended
     }
 }
 

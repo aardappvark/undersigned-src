@@ -51,22 +51,44 @@ How the numbers are made:
 - Bursts and similarity are facts about timing and wording, not verdicts.
 - The rules are in the [Review Integrity Policy](https://aardappvark.github.io/undersigned-legal/integrity.html).
 
-## 3. Limits and the pass
+## 3. Limits, the pass, and pay per call
 
-| | Free | Pass |
-|---|---|---|
-| Requests | 30 a minute, 1,000 a day per IP | 100,000 over 30 days, 600 a minute |
-| List rows | 20 (leaderboard 10) | up to 500, with paging |
-| Endpoints | free and limited | all, including webhooks |
-| Price | free | 0.0607 SOL, or 651 SKR (586 SKR with a Seeker Genesis Token) |
+| | Free | Pass | Pay per call (agents) |
+|---|---|---|---|
+| Requests | 30 a minute, 1,000 a day per IP | 100,000 over 30 days, 600 a minute | as many calls as you paid for, valid a year, 600 a minute |
+| List rows | 20 (leaderboard 10) | up to 500, with paging | up to 500, with paging |
+| Endpoints | free and limited | all, including webhooks | all, including webhooks |
+| Price | free | 0.0607 SOL, or 369 SKR (332 SKR with a Seeker Genesis Token) | 0.00001 SOL or 0.06 SKR a call, from 0.001 SOL or 6 SKR |
 
-The live figures are always at [`/v1/pricing`](https://undersigned.provenby.dev/v1/pricing). To get a key:
+SKR prices are 10% below SOL at the rate on the day they were set. The live figures are always at
+[`/v1/pricing`](https://undersigned.provenby.dev/v1/pricing). Every metered answer carries:
+- `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`.
+- For keys, `X-Pass-Requests-Left` and `X-Pass-Ends-At`.
 
-1. **Pay.** `POST /v1/checkout` returns a secret and ready Solana Pay URLs. Pay one from any wallet. The payment goes straight to the treasury, carrying the pass reference and memo `UNS:<commitment>`.
-2. **Redeem.** `POST /v1/keys` with `{"signature": "<payment tx>", "secret": "<from checkout>"}`. Or send the paying wallet's signature of `Undersigned API key for <payment tx>` as `message_signature` instead of the secret.
-3. **Call.** Send `Authorization: Bearer <key>`. `GET /v1/keys/me` shows what is left. Paying again adds requests and days.
+To get a key:
 
-Payers are screened against sanctions lists. If the screen cannot run, the key is not issued until it can; redeem again in a minute.
+1. **Checkout.** `POST /v1/checkout` returns a secret and ready Solana Pay URLs. For per-call credits, send `{"calls": N}` instead. The payment carries the API reference and memo `UNS:<commitment>`.
+2. **Pay** one of the URLs from any wallet. The payment goes straight to the treasury.
+3. **Redeem.** `POST /v1/keys` with `{"signature": "<payment tx>", "secret": "<from checkout>"}`. What you get depends on the amount:
+   - the pass price or more buys a pass;
+   - less buys calls at the per-call rate;
+   - paying again tops up the same pass or credits.
+4. **Call** with `Authorization: Bearer <key>`. `GET /v1/keys/me` shows what is left.
+
+When a call needs a key, the 402 answer carries the pricing and an `accepts` list: both ways to pay, in the shape x402 uses. An agent can pay and retry without reading these docs.
+
+Payers are screened against sanctions lists. If the screen cannot run, no key is issued until it can.
+
+### Webhooks
+
+`POST /v1/hooks {url, packages[], events[]}` creates a webhook (https only). Each delivery carries:
+- **`X-Undersigned-Signature-V2: t=<unix>,v1=<hex HMAC-SHA256 of "<t>.<body>">`.** Reject a `t` more than 5 minutes old, so a captured delivery can't be replayed.
+- **`X-Undersigned-Signature: sha256=<hex HMAC of the body>`,** for receivers built earlier.
+
+Delivery:
+- **Retries.** A receiver that is down or fails is retried six times over about 24 hours.
+- **Duplicates.** Events carry ids, so drop repeats.
+- **Testing.** `POST /v1/hooks/{id}/test` sends a signed ping now. `GET /v1/hooks/{id}/deliveries` lists the last 100 attempts with the receiver's status.
 
 ## 4. AI agents (MCP)
 

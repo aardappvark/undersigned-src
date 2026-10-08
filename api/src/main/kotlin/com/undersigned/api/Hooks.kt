@@ -14,12 +14,15 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * Alerts for pass holders, pushed as webhooks: a signed review, a reply, a publisher's store note, a burst, a version
- * or certificate change on the apps a hook watches. Each POST carries `X-Undersigned-Signature: sha256=<hex HMAC of the
- * body with the hook's secret>`, so the receiver can check it came from here. A hook belongs to a pass and stops when
- * the pass ends. Events go to an outbox in the database and a worker delivers them (three tries, backing off), so a dead
- * receiver never holds up indexing and a restart mid-delivery loses nothing. Events carry ids so a receiver can drop repeats.
+ * or certificate change on the apps a hook watches. Each POST carries `X-Undersigned-Signature-V2: t=<unix seconds>,v1=<hex
+ * HMAC-SHA256 of "<t>.<body>" with the hook's secret>` (reject a t more than 5 minutes old: a replay), plus the original
+ * `X-Undersigned-Signature: sha256=<hex HMAC of the body>` for receivers built before 9 Oct 2026. A hook belongs to a pass
+ * and stops when the pass ends. Events go to an outbox and a worker delivers them: six tries over about 24 hours
+ * ([RETRY_DELAYS]; a receiver that is down, refuses or times out is tried again), so a dead receiver never holds up
+ * indexing and a restart mid-delivery loses nothing. Events carry ids so a receiver can drop repeats. Every attempt is
+ * logged for the hook's owner (`GET /v1/hooks/{id}/deliveries`); `POST /v1/hooks/{id}/test` sends a signed ping now.
  */
-class Hooks(private val db: Db, private val billing: Billing, private val post: (String, String, String) -> Int = ::httpPost) {
+class Hooks(private val db: Db, private val billing: Billing, private val post: (String, String, Map<String, String>) -> Int = ::httpPost) {
     data class Hook(val id: String, val key: String, val url: String, val secret: String, val events: Set<String>, val packages: Set<String>)
     class Invalid(message: String) : Exception(message)
 
@@ -79,7 +82,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         return queued
     }
 
-    /** Delivers everything due in the outbox: one POST per row, three tries with backoff, then a logged failure. Returns rows handled. */
+    /** Delivers everything due in the outbox: one POST per row, up to [RETRY_DELAYS].size + 1 tries, every attempt logged. Returns rows handled. */
     fun deliverDue(now: Long = System.currentTimeMillis() / 1000): Int {
         val due = db.query("SELECT o.id, o.hook, o.body, o.attempts, h.url, h.secret FROM hook_outbox o JOIN hooks h ON h.id = o.hook WHERE o.next_at <= ? ORDER BY o.id LIMIT 50", now) {
             listOf(it.getLong(1), it.getString(2), it.getString(3), it.getInt(4), it.getString(5), it.getString(6)) }
@@ -88,15 +91,33 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         for (r in due) {
             val id = r[0] as Long; val hook = r[1] as String; val body = r[2] as String; val attempts = r[3] as Int; val url = r[4] as String; val secret = r[5] as String
             // Checked again at delivery: a name that resolved publicly when the hook was made may not any more.
-            val status = if (runCatching { checkUrl(url) }.isFailure) -1 else runCatching { post(url, body, sign(secret, body)) }.getOrDefault(0)
+            // -1: the URL now points into a private network (never retried). 0: no answer (down, refused, timed out): retried.
+            val status = if (runCatching { checkUrl(url) }.isFailure) -1 else runCatching { post(url, body, headers(secret, body, now)) }.getOrDefault(0)
             val ids = runCatching { JSONObject(body).getJSONArray("events").let { a -> (0 until a.length()).joinToString(",") { a.getJSONObject(it).getString("id") } } }.getOrDefault("?").take(500)
-            if (status in 200..299 || attempts + 1 >= 3 || status == -1) {
-                db.exec("DELETE FROM hook_outbox WHERE id = ?", id)
-                db.exec("INSERT INTO hook_log (hook, event, status, at) VALUES (?, ?, ?, ?)", hook, ids, status, now)
-            } else db.exec("UPDATE hook_outbox SET attempts = ?, next_at = ? WHERE id = ?", attempts + 1, now + (30L shl attempts), id)
+            db.exec("INSERT INTO hook_log (hook, event, status, at) VALUES (?, ?, ?, ?)", hook, ids, status, now)
+            if (status in 200..299 || status == -1 || attempts >= RETRY_DELAYS.size) db.exec("DELETE FROM hook_outbox WHERE id = ?", id)
+            else db.exec("UPDATE hook_outbox SET attempts = ?, next_at = ? WHERE id = ?", attempts + 1, now + RETRY_DELAYS[attempts], id)
         }
         db.exec("DELETE FROM hook_log WHERE at < ?", now - 30L * 86_400)   // a month of history is enough
         return due.size
+    }
+
+    /** A signed ping to one of the caller's hooks, now, outside the outbox: the receiver's answer, or null when not theirs. */
+    fun test(key: String, id: String, now: Long = System.currentTimeMillis() / 1000): Int? {
+        val h = list(key).firstOrNull { it.id == id } ?: return null
+        val body = JSONObject().put("hook", h.id).put("sent_at", now).put("test", true)
+            .put("events", org.json.JSONArray().put(JSONObject().put("id", "test-$now").put("type", "ping"))).toString()
+        val status = if (runCatching { checkUrl(h.url) }.isFailure) -1 else runCatching { post(h.url, body, headers(h.secret, body, now)) }.getOrDefault(0)
+        db.exec("INSERT INTO hook_log (hook, event, status, at) VALUES (?, ?, ?, ?)", h.id, "test-$now", status, now)
+        return status
+    }
+
+    /** The last 100 delivery attempts to one of the caller's hooks, newest first; null when the hook is not theirs. */
+    fun deliveries(key: String, id: String): org.json.JSONArray? {
+        if (list(key).none { it.id == id }) return null
+        return org.json.JSONArray(db.query("SELECT event, status, at FROM hook_log WHERE hook = ? ORDER BY at DESC LIMIT 100", id) { rs ->
+            JSONObject().put("events", rs.getString(1)).put("status", rs.getInt(2)).put("at", rs.getLong(3))
+                .put("delivered", rs.getInt(2) in 200..299) })
     }
 
     /**
@@ -126,6 +147,15 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
     companion object {
         val EVENTS = setOf("review", "reply", "store_note", "flag", "claim", "burst", "version", "certificate")
 
+        /** Seconds before each retry: 1 min, 5 min, 30 min, 2 h, 6 h, 15 h (six tries over about 24 hours). */
+        val RETRY_DELAYS = longArrayOf(60, 300, 1_800, 7_200, 21_600, 54_000)
+
+        /** Both signatures: V2 binds the timestamp (replay-safe), the original stays for receivers built before it. */
+        fun headers(secret: String, body: String, t: Long): Map<String, String> = mapOf(
+            "X-Undersigned-Signature" to sign(secret, body),
+            "X-Undersigned-Timestamp" to t.toString(),
+            "X-Undersigned-Signature-V2" to "t=$t,v1=" + sign(secret, "$t.$body").removePrefix("sha256="))
+
         fun sign(secret: String, body: String): String = "sha256=" + Mac.getInstance("HmacSHA256").run { init(SecretKeySpec(secret.toByteArray(), "HmacSHA256")); doFinal(body.toByteArray()) }.joinToString("") { "%02x".format(it) }
 
         /**
@@ -151,11 +181,11 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
             return b.size == 16 && (b[0].toInt() and 0xfe) == 0xfc                                        // fc00::/7
         }
 
-        fun httpPost(url: String, body: String, signature: String): Int {
+        fun httpPost(url: String, body: String, headers: Map<String, String>): Int {
             val c = URI(url).toURL().openConnection() as HttpURLConnection
             try {
                 c.requestMethod = "POST"; c.instanceFollowRedirects = false; c.connectTimeout = 5000; c.readTimeout = 8000; c.doOutput = true
-                c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("User-Agent", "Undersigned-Hooks/1"); c.setRequestProperty("X-Undersigned-Signature", signature)
+                c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("User-Agent", "Undersigned-Hooks/2"); headers.forEach { (k, v) -> c.setRequestProperty(k, v) }
                 c.outputStream.use { it.write(body.toByteArray()) }
                 return c.responseCode
             } finally { c.disconnect() }

@@ -98,15 +98,15 @@ object AppConfig {
          * Raising either leg later REVOKES buyers unless the old amount goes into the LEGACY lists first.
          */
         const val PRO_SOL = 0.0607
-        /** 651 SKR from 28 Sep 2026 (owner: the fleet price). 276 was the price until then and stays a floor, so the licence bought at it on 15 Sep reads. */
-        const val PRO_SKR = 651.0
+        /** 369 SKR from 9 Oct 2026: 10% below the SOL leg at that day's rate (fleet rule; median of four feeds: SOL $110.68, SKR $0.01639). Lower than every earlier price (651, 276), so every licence already bought still reads: the floor is the lowest price ever charged. */
+        const val PRO_SKR = 369.0
         /**
          * Promoting one's own review, Pro members only (owner, 9 Oct 2026): a tenth of the Pro price. It never changes the
          * review's weight or the signed score; the review is listed in a separate, labelled section after organic reviews
          * (protocol Weighting). Parity-tested against the API's AppFloors.
          */
         const val BOOST_SOL = 0.00607
-        const val BOOST_SKR = 65.0
+        const val BOOST_SKR = 37.0
         val boostFloorLamports: Long get() = lamports(BOOST_SOL)
         val boostFloorSkrRaw: Long get() = skrRaw(BOOST_SKR)
         fun isPaidBoost(paidLamports: Long, paidSkr: Long): Boolean = paidLamports >= boostFloorLamports || paidSkr >= boostFloorSkrRaw
@@ -134,7 +134,7 @@ object AppConfig {
 
         /**
          * Listing a treasury on the Payments board: the fleet's standard paid-tier pair (owner, 28 Sep 2026 — "the same
-         * SKR SOL price as the rest of our dApps": 0.0607 SOL, 651 SKR, 586 SKR for Seeker Genesis Token holders). Paid
+         * SKR SOL price as the rest of our dApps": 0.0607 SOL, 369 SKR, 332 SKR for Seeker Genesis Token holders). Paid
          * once per (treasury, package), in the SAME transaction as the `trs` record, to [TREASURY] with the registry as
          * the reference and UNS as the first memo (so fleet ledger tools attribute it). A transaction carrying an SRL1
          * record is never read as a Pro licence (see LedgerReader), so the two cannot be confused.
@@ -142,8 +142,8 @@ object AppConfig {
          * amount into the LEGACY list first, or earlier listings stop counting.
          */
         const val LIST_SOL = 0.0607
-        const val LIST_SKR = 651.0
-        const val LIST_SKR_SGT = 586.0
+        const val LIST_SKR = 369.0
+        const val LIST_SKR_SGT = 332.0
         val LEGACY_LIST_SOL: List<Double> = emptyList()
         val LEGACY_LIST_SKR: List<Double> = emptyList()
         /** The reader's floor is the lowest price ever charged on each rail, SGT price included. */

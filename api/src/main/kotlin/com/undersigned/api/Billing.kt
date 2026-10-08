@@ -54,12 +54,31 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
         // Already redeemed: the same proof gets the SAME key back (a lost key is recoverable by the payer), never a second pass.
         if (already != null) return pass(already) ?: throw Refused(409, "this payment has already been redeemed")
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
-        val (rail, amount) = when {
+        val pass = when {
             tx.lamportsIn >= Config.passFloorLamports -> "SOL" to tx.lamportsIn
             skr >= Config.passFloorSkrRaw -> "SKR" to skr
             skr >= Config.passFloorSkrSgtRaw && holdsGenesis(tx.feePayer) -> "SKR" to skr
-            else -> throw Refused(402, "the payment credited the treasury ${tx.lamportsIn} lamports and $skr raw SKR, below the pass price")
+            else -> null
         }
+        // Below the pass price: pay per call, at the per-call rate, from the minimum top-up up.
+        if (pass == null) {
+            val calls = when {
+                tx.lamportsIn >= Config.lamports(Config.CREDITS_MIN_SOL) -> "SOL" to tx.lamportsIn / Config.perCallLamports
+                skr >= Config.skrRaw(Config.CREDITS_MIN_SKR) -> "SKR" to skr / Config.perCallSkrRaw
+                else -> throw Refused(402, "the payment credited the treasury ${tx.lamportsIn} lamports and $skr raw SKR, below the minimum top-up (${Config.CREDITS_MIN_SOL} SOL or ${Config.CREDITS_MIN_SKR} SKR)")
+            }
+            return db.tx {
+                val cur = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = 'credits' ORDER BY ends_at DESC LIMIT 1", tx.feePayer) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+                val p = if (cur != null) cur.copy(requestsLeft = maxOf(0, cur.requestsLeft) + calls.second, endsAt = now + Config.CREDITS_DAYS * 86_400).also {
+                    db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", it.requestsLeft, it.endsAt, it.key) }
+                else Pass(newKey(), tx.feePayer, calls.second, now + Config.CREDITS_DAYS * 86_400).also {
+                    db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created, kind) VALUES (?, ?, ?, ?, ?, 'credits')", it.key, it.wallet, it.requestsLeft, it.endsAt, now) }
+                try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, p.key, tx.feePayer, calls.first, if (calls.first == "SOL") tx.lamportsIn else skr, now) }
+                catch (e: java.sql.SQLException) { throw Refused(409, "this payment has already been redeemed") }
+                p
+            }
+        }
+        val (rail, amount) = pass
         return db.tx {
             val current = passOf(tx.feePayer, now)
             val pass = if (current != null) {
@@ -78,7 +97,7 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
 
     /** The wallet's live pass (requests left, not ended), if any. */
     fun passOf(wallet: String, now: Long = System.currentTimeMillis() / 1000): Pass? =
-        db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND ends_at > ? AND requests_left > 0 ORDER BY ends_at DESC LIMIT 1", wallet, now) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+        db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = 'pass' AND ends_at > ? AND requests_left > 0 ORDER BY ends_at DESC LIMIT 1", wallet, now) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
 
     fun pass(key: String): Pass? = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE key = ?", key) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
 
@@ -132,6 +151,20 @@ class RateLimiter(private val clock: () -> Long = { System.currentTimeMillis() }
     /** Windows that have passed are dropped, so a stream of new callers cannot grow the tables without bound. */
     fun sweep(now: Long = clock()) { minute.entries.removeIf { now - it.value.first >= 60_000 }; day.entries.removeIf { now - it.value.first >= 86_400_000 } }
     val size: Int get() = minute.size + day.size
+
+    /** What is left for [caller] in each window, and seconds until each resets, for the X-RateLimit-* headers. */
+    fun remaining(caller: String, perMinute: Int, perDay: Int?): Map<String, Long> {
+        val now = clock(); val out = LinkedHashMap<String, Long>()
+        val m = minute[caller]?.takeIf { now - it.first < 60_000 }
+        out["minute_remaining"] = (perMinute - (m?.second ?: 0)).coerceAtLeast(0).toLong()
+        out["minute_reset"] = m?.let { (60_000 - (now - it.first)) / 1000 } ?: 60
+        if (perDay != null) {
+            val d = day[caller]?.takeIf { now - it.first < 86_400_000 }
+            out["day_remaining"] = (perDay - (d?.second ?: 0)).coerceAtLeast(0).toLong()
+            out["day_reset"] = d?.let { (86_400_000 - (now - it.first)) / 1000 } ?: 86_400
+        }
+        return out
+    }
 
     /** Null when allowed, else the window that ran out ("minute" or "day"). */
     fun take(caller: String, perMinute: Int, perDay: Int?): String? {

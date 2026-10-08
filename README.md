@@ -86,7 +86,7 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 
 ## Built since (28 Sep – 5 Oct 2026)
 
-- **Listing fee and Pro at the fleet price** (0.0607 SOL / 651 SKR, 586 SKR with a Seeker Genesis Token); the 276 SKR
+- **Listing fee and Pro at the fleet price** (0.0607 SOL / 369 SKR, 332 SKR with a Seeker Genesis Token); the 276 SKR
   Pro licence of 15 Sep still reads (legacy floor).
 - **Publisher proof hardened**: the app's own signed build names the wallet (`undersigned.publisher` manifest line), read
   from the installed app, or on request from the build the store serves (shared reader in `:protocol`); website proof
@@ -126,7 +126,7 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 1. **Name** — DONE 8 Sep: Undersigned (web-screened clean; store/Play/IP Australia screen still owed).
 2. **Registry PDA** — DONE 8 Sep: `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs` (seeds `review-ledger`,`v1`, bump 255); app re-derives at startup.
 3. **Free or Pro** — DONE 15 Sep: **reading, reviewing, replying, voting and flagging are free**, and so is the
-   ranking every reader sees. Pro is an optional 12-month licence (0.0607 SOL or 651 SKR — 276 SKR until 28 Sep 2026, still honoured — fleet payment cluster,
+   ranking every reader sees. Pro is an optional 12-month licence (0.0607 SOL or 369 SKR — 276 SKR until 28 Sep 2026, still honoured — fleet payment cluster,
    memo `UNS`, treasury-credit ≥ floor = the licence) for the work *around* signing: import all store reviews in one approval, the publisher desk, CSV/JSON export, and
    hourly instead of six-hourly alerts for followed apps (copying a review to the store is free). It is shareable with two other wallets. **Pro never weights an opinion, lifts a listing or marks
    anyone trusted** — weight comes only from the attested device and staked SKR. Pro members' reviews also get their

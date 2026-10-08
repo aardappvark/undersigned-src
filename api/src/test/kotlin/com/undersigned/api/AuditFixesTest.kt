@@ -162,6 +162,22 @@ class OutboxTest {
         fail = false
         assertEquals(1, hooks.deliverDue(now + 60)); assertEquals(2, sent.size)                       // second try succeeds
         assertEquals(0, db.query("SELECT count(*) FROM hook_outbox") { it.getInt(1) }.first())
-        assertEquals(0, hooks.failures24h())
+        assertEquals(listOf(500, 200), db.query("SELECT status FROM hook_log ORDER BY at") { it.getInt(1) })   // every attempt is logged
+    }
+
+    @Test fun `a receiver that never answers is tried seven times over about a day, then dropped`() {
+        val db = tmpDb(); val billing = Billing(db, { null }, { false })
+        val now = 1_000_000L
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_a', 'w', 10, ?, 0)", now + 999_999)
+        var tries = 0
+        val hooks = Hooks(db, billing) { _, _, _ -> tries++; throw java.net.ConnectException("refused") }
+        hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))
+        hooks.dispatch(listOf(com.undersigned.protocol.LedgerEntry(sigOf('n'), PAYER, now, ReviewMemo.Review("com.a.b", 5, listOf(ReviewMemo.Tag.FAST), 42, null))), emptyList(), emptyList(), now)
+        var t = now
+        hooks.deliverDue(t)
+        for (d in Hooks.RETRY_DELAYS) { t += d; hooks.deliverDue(t) }
+        assertEquals(1 + Hooks.RETRY_DELAYS.size, tries)
+        assertTrue(t - now in 80_000L..90_000L, "about a day: ${t - now}")
+        assertEquals(0, db.query("SELECT count(*) FROM hook_outbox") { it.getInt(1) }.first())
     }
 }

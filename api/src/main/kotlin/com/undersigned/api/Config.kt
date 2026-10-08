@@ -40,11 +40,23 @@ object Config {
 
     // ---- The pass: the fleet's paid-tier price (owner, 28 Sep 2026) -------------------------------------------
     const val PASS_SOL = 0.0607
-    const val PASS_SKR = 651.0
-    const val PASS_SKR_SGT = 586.0
+    const val PASS_SKR = 369.0
+    const val PASS_SKR_SGT = 332.0
     val LEGACY_PASS_SOL: List<Double> = emptyList()
     val LEGACY_PASS_SKR: List<Double> = emptyList()
     const val PASS_REQUESTS = 100_000L
+    /**
+     * Pay per call for agents (owner, 9 Oct 2026: "keep pay per call for agents, they can pay if they use"): any payment
+     * from the minimum up to just under the pass price buys calls at this rate, valid a year, kept apart from passes.
+     * SKR is 10% below SOL at the 9 Oct 2026 rate (SOL $110.68, SKR $0.01639).
+     */
+    const val PER_CALL_SOL = 0.00001
+    const val PER_CALL_SKR = 0.06
+    const val CREDITS_MIN_SOL = 0.001
+    const val CREDITS_MIN_SKR = 6.0
+    const val CREDITS_DAYS = 365L
+    val perCallLamports: Long get() = lamports(PER_CALL_SOL)
+    val perCallSkrRaw: Long get() = skrRaw(PER_CALL_SKR)
     const val PASS_DAYS = 30L
     const val PASS_PER_MINUTE = 600
     const val FREE_PER_MINUTE = 30

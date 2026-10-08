@@ -77,19 +77,34 @@ class BillingTest {
 
         txs[sig('b')] = tx(sig('b')); assertEquals(403, assertFailsWith<Billing.Refused> { redeem(sig('b'), Wallet()) }.status)   // not the payer
         txs[sig('c')] = tx(sig('c'), ref = false); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('c')) }.status)  // no reference
-        txs[sig('d')] = tx(sig('d'), lamports = Config.passFloorLamports - 1); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('d')) }.status)
+        txs[sig('d')] = tx(sig('d'), lamports = Config.lamports(Config.CREDITS_MIN_SOL) - 1); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('d')) }.status)   // under the minimum top-up
         txs[sig('e')] = tx(sig('e'), ok = false); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('e')) }.status)
         txs[sig('f')] = tx(sig('f'), memo = "XYZ"); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('f')) }.status)
         assertEquals(404, assertFailsWith<Billing.Refused> { redeem(sig('g')) }.status)                      // not on-chain yet
 
-        // The SGT price counts only for a Genesis holder.
+        // The SGT price buys a pass only for a Genesis holder; anyone else gets that payment as pay-per-call credits.
+        txs[sig('i')] = tx(sig('i'), lamports = 0, skr = Config.passFloorSkrSgtRaw)
+        val credits = redeem(sig('i')); assertTrue(credits.key != p.key); assertEquals(Config.passFloorSkrSgtRaw / Config.perCallSkrRaw, credits.requestsLeft)
         txs[sig('h')] = tx(sig('h'), lamports = 0, skr = Config.passFloorSkrSgtRaw)
-        assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('h')) }.status)
         sgt = true
         val topped = redeem(sig('h'))
         assertEquals(p.key, topped.key)                                                                        // same pass, topped up
         assertEquals(2 * Config.PASS_REQUESTS, topped.requestsLeft)
         assertEquals(p.endsAt + Config.PASS_DAYS * 86_400, topped.endsAt)
+    }
+
+    @Test fun `pay per call - any amount from the minimum buys calls, kept apart from passes`() {
+        val txs = mutableMapOf<String, TxInfo>()
+        val b = Billing(tempDb(), { txs[it] }, { false })
+        fun redeem(s: String) = b.redeem(s, payer.sign(b.message(s).toByteArray()), now = 1_000_000)
+        txs[sig('a')] = tx(sig('a'), lamports = Config.lamports(0.005))                    // 0.005 SOL at 0.00001 a call
+        val c = redeem(sig('a')); assertEquals(500L, c.requestsLeft); assertEquals(1_000_000 + Config.CREDITS_DAYS * 86_400, c.endsAt)
+        txs[sig('b')] = tx(sig('b'), lamports = 0, skr = Config.skrRaw(6.0))                 // 6 SKR at 0.06 a call
+        val c2 = redeem(sig('b')); assertEquals(c.key, c2.key); assertEquals(600L, c2.requestsLeft)   // topped up, same key
+        txs[sig('c')] = tx(sig('c'))                                                         // a full pass: a separate key
+        val pass = redeem(sig('c')); assertTrue(pass.key != c.key); assertEquals(Config.PASS_REQUESTS, pass.requestsLeft)
+        assertEquals(1_000_000 + Config.PASS_DAYS * 86_400, pass.endsAt)                      // credits never stretch a pass
+        assertTrue(b.consume(c.key, 1_000_001)); assertEquals(599L, b.pass(c.key)!!.requestsLeft)
     }
 
     @Test fun `no pass for a listed payer, and none while the sanctions screen cannot run`() {

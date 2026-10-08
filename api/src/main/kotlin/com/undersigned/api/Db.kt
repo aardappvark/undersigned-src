@@ -28,6 +28,8 @@ class Db(path: String = Config.DB_PATH) {
             s.execute("CREATE TABLE IF NOT EXISTS apk_proofs (pkg TEXT NOT NULL, version INTEGER NOT NULL, cert TEXT NOT NULL, declared TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY (pkg, version))")
             // Staked SOL, shown beside reviews for transparency (never weighed); added 9 Oct 2026 to an existing table.
             runCatching { s.execute("ALTER TABLE facts ADD COLUMN sol REAL") }
+            // "pass" (30 days, 100k requests) or "credits" (pay per call, a year); added 9 Oct 2026.
+            runCatching { s.execute("ALTER TABLE passes ADD COLUMN kind TEXT NOT NULL DEFAULT 'pass'") }
             // A review's stake as first read after it appeared: what readers show "at the time" (never weighed).
             s.execute("CREATE TABLE IF NOT EXISTS review_stake (id TEXT PRIMARY KEY, skr REAL NOT NULL, sol REAL, read_at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS operator_hidden (id TEXT PRIMARY KEY, reason TEXT NOT NULL, at INTEGER NOT NULL)")

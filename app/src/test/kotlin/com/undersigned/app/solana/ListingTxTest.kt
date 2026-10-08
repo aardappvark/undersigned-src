@@ -20,7 +20,7 @@ class ListingTxTest {
 
     @Test fun `fleet price, and the reader floor accepts every price the app charges`() {
         assertEquals(60_700_000L, AppConfig.Payment.lamports(AppConfig.Payment.LIST_SOL))
-        assertEquals(651_000_000L, AppConfig.Payment.skrRaw(AppConfig.Payment.LIST_SKR))
+        assertEquals(369_000_000L, AppConfig.Payment.skrRaw(AppConfig.Payment.LIST_SKR))
         assertTrue(AppConfig.Payment.isPaidListing(AppConfig.Payment.lamports(AppConfig.Payment.LIST_SOL), 0))
         assertTrue(AppConfig.Payment.isPaidListing(0, AppConfig.Payment.skrRaw(AppConfig.Payment.listSkr(true))))
         assertTrue(AppConfig.Payment.isPaidListing(0, AppConfig.Payment.skrRaw(AppConfig.Payment.listSkr(false))))

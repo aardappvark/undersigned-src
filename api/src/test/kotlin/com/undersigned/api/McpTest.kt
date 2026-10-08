@@ -45,7 +45,7 @@ class McpTest {
         val reviews = call("get_reviews", JSONObject().put("package", "com.a.b").put("sort", "skr")).getJSONObject("structuredContent")
         assertEquals(1, reviews.getJSONArray("reviews").length())
         val unknown = call("get_app", JSONObject().put("package", "com.nope.x")); assertTrue(unknown.getBoolean("isError"))
-        val paid = call("store_watch"); assertTrue(paid.getBoolean("isError")); assertTrue("needs an API pass" in paid.getJSONArray("content").getJSONObject(0).getString("text"))
+        val paid = call("store_watch"); assertTrue(paid.getBoolean("isError")); assertTrue("needs a key" in paid.getJSONArray("content").getJSONObject(0).getString("text") && "per-call" in paid.getJSONArray("content").getJSONObject(0).getString("text"))
     }
 
     @Test fun `protocol errors, batches and GET`() {

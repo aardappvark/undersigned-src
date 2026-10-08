@@ -53,7 +53,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("payments_board", "Apps whose publishers confirmed a treasury, by payments received on-chain (USD on the day of each payment). Off-chain income is invisible; not a statement about profit.",
             obj("limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.paymentsBoard(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
-        Tool("get_pricing", "What a pass costs and buys, the free limits, and the Solana Pay links to buy one. Use it to explain a 'needs an API pass' answer.", obj()) { _, _ -> pricing() },
+        Tool("get_pricing", "What a pass and pay-per-call credits cost and buy, the free limits, and the Solana Pay links. Use it to explain a 'needs a key' answer.", obj()) { _, _ -> pricing() },
         Tool("get_bursts", "Unusual bursts of signed reviews or store star ratings for one app, with daily counts. A burst is a fact about timing, not a verdict.",
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ -> views.bursts(pkg(a)) },
         Tool("get_wallet", "A wallet's public record on the ledger: attested device, stake as last read (shown, never weighed), standing (counts only), reviews, publisher claims, Pro licence.",
@@ -105,7 +105,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             "tools/call" -> {
                 val t = byName[p.optString("name")] ?: return error(id, -32602, "unknown tool: ${p.optString("name")}")
                 val args = p.optJSONObject("arguments") ?: JSONObject()
-                if (t.paid && !caller.paid) return result(id, toolError("${t.name} needs an API pass. Send Authorization: Bearer <key>; get one at ${Config.PUBLIC_URL}/api (price and pay links: ${Config.PUBLIC_URL}/v1/pricing)."))
+                if (t.paid && !caller.paid) return result(id, toolError("${t.name} needs a key: a pass, or pay-per-call credits (${Config.PER_CALL_SOL} SOL or ${Config.PER_CALL_SKR} SKR a call, from ${Config.CREDITS_MIN_SOL} SOL). Call get_pricing for how to pay, then send Authorization: Bearer <key>. Details: ${Config.PUBLIC_URL}/api"))
                 try {
                     val out = t.run(args, caller)
                     result(id, JSONObject().put("content", JSONArray().put(JSONObject().put("type", "text").put("text", out.toString())))
