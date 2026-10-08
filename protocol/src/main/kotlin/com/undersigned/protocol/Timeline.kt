@@ -8,7 +8,7 @@ import kotlin.math.max
  * with a moving bar like we used in Reckoner"). Pure, so the chart draws exactly what is tested.
  *
  * Per period: how many store reviews were written by wallets holding a Genesis Token and by other wallets, how many signed
- * reviews were written, and, as of the END of the period, the signed score, the member-weighted score and the running
+ * reviews were written, and, as of the END of the period, the signed score, the Pro members' score and the running
  * average of the store reviews read. The store line is the average of the reviews this phone READ, never the store's own
  * rating (which counts all of them), and the chart says so.
  */
@@ -30,8 +30,8 @@ object Timeline {
         /** The signed score as of [end] (device × quality, nothing paid); null while no review counts. */
         val signedMean: Double?,
         val signedCounted: Int,
-        /** The member-weighted score as of [end]; null while no review counts. */
-        val memberMean: Double?,
+        /** The Pro members' score as of [end]; null while no Pro member's review counts. */
+        val proMean: Double?,
     ) {
         val storeTotal: Int get() = storeSeeker + storeOther
     }
@@ -69,14 +69,14 @@ object Timeline {
             val upTo = sortedStore.filter { it.time < end }
             val known = entries.filter { it.blockTime < end }
             val signed = Ranking.score(known, verifiedPublishers, facts = facts).firstOrNull { it.packageName == pkg }?.takeIf { it.countedReviews > 0 }
-            val member = Ranking.score(known, verifiedPublishers, paid, facts).firstOrNull { it.packageName == pkg }?.takeIf { it.countedReviews > 0 }
+            val pro = Ranking.score(known, verifiedPublishers, paid, { _, w -> w.pro }, facts).firstOrNull { it.packageName == pkg }?.takeIf { it.countedReviews > 0 }
             out += Bucket(
                 start = start, end = end,
                 storeSeeker = inBar.count { it.seekerOwner }, storeOther = inBar.count { !it.seekerOwner },
                 signed = reviews.count { it.blockTime in start until end && facts(it.signer).hasGenesisToken },
                 storeMean = upTo.takeIf { it.isNotEmpty() }?.map { it.rating }?.average(), storeRead = upTo.size,
                 signedMean = signed?.weightedMean, signedCounted = signed?.countedReviews ?: 0,
-                memberMean = member?.weightedMean,
+                proMean = pro?.weightedMean,
             )
             start = end
         }

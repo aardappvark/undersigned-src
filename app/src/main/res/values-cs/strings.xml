@@ -47,7 +47,7 @@
     <string name="detail_update_review">Aktualizovat mou recenzi</string>
     <string name="detail_revoke_review">Stáhnout mou recenzi</string>
     <string name="detail_score_title">Podepsané skóre</string>
-    <string name="detail_score_sub">Průměr recenzí z ověřených zařízení (dnes: držitelé Seeker Genesis Token), vážený stakovaným SKR (až 3×) a tím, co každá recenze nese (doba instalace, používání, napsaná poznámka). Nic placeného do něj nevstupuje. Názory jednotlivých majitelů, ne hodnocení obchodu.</string>
+    <string name="detail_score_sub">Průměr recenzí z ověřených zařízení (dnes: držitelé Seeker Genesis Token), vážený stakovaným SKR (až 3×) a tím, co každá recenze nese (doba instalace, používání, napsaná poznámka). Nic placeného do něj nevstupuje; recenze členů Pro a zvýrazněné recenze mají i vlastní skóre. Názory jednotlivých majitelů, ne hodnocení obchodu.</string>
     <string name="detail_rank_score">Skóre žebříčku %1$s — stahováno směrem k 3,0, dokud nepodepíše více zařízení Seeker; slouží pouze k řazení seznamu.</string>
     <string name="follow">Sledovat</string>
     <string name="following">Sledováno</string>
@@ -402,8 +402,8 @@
     <string name="pro_tool_watch_title">Hodinové sledování certifikátu</string>
     <string name="pro_tool_watch_body">Změny certifikátu a oprávnění kontrolovány každou hodinu místo každých šest, stále na zařízení.</string>
     <string name="pro_not_title">Co Pro nedělá</string>
-    <string name="pro_not_body">Nikdy nemění podepsané skóre a nikdy neváží na cizí recenzi: nahlášení, hlasy „užitečné“ a skrývání používají jen zařízení a stakované SKR. Jeho váha se ukazuje jen v samostatném skóre členů, vždy označená. Žádný token, nic ke sbírání ani držení.</string>
-    <string name="pro_free_keeps">Čtení záznamů, podepisování recenzí, nahlášení, námitky a fakta zařízení zůstávají zdarma, navždy. Pro přidává nástroje a označenou váhu v samostatném skóre členů.</string>
+    <string name="pro_not_body">Nikdy nemění podepsané skóre, nikdy nezvýší váhu recenze a nikdy neváží na cizí recenzi: nahlášení, hlasy „užitečné“ a skrývání používají jen zařízení a stakované SKR. Žádný token, nic ke sbírání ani držení.</string>
+    <string name="pro_free_keeps">Čtení záznamů, podepisování recenzí, nahlášení, námitky a fakta zařízení zůstávají zdarma, navždy. Pro přidává nástroje, značku Člen Pro a vlastní, označenou řádku skóre.</string>
     <string name="pro_price_line">12 měsíců na této peněžence · plaťte v kterékoli, doba je stejná · navíc síťový poplatek nastavený vaší peněženkou</string>
     <string name="pro_pay_in">Platit v</string>
     <string name="pro_rail_skr_note">čteno z blockchainu, nedrženo</string>
@@ -985,19 +985,19 @@
     <string name="badge_copied">Kód odznaku zkopírován. Vložte ho na svůj web nebo do README.</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1,25</string>
-    <string name="weight_boosted_pill">Posílená</string>
-    <string name="weight_counts">Počítá se %1$s× v podepsaném skóre · kvalita %2$s</string>
-    <string name="boost_button">Posílit tuto recenzi</string>
-    <string name="boost_title">Posílit tuto recenzi?</string>
-    <string name="boost_body">Posílení přidá ×1,2 k váze této recenze ve skóre členů, navíc k ×1,25 z Pro; dohromady nikdy víc než ×1,5. Podepsané skóre se nemění. Všichni recenzi uvidí označenou jako Posílená. Platí jen pro tuto verzi recenze a platba je veřejný záznam.</string>
+    <string name="weight_pro_pill">Člen Pro</string>
+    <string name="weight_boosted_pill">Zvýrazněná · placená</string>
+    <string name="weight_counts">Váha %1$s · kvalita %2$s</string>
+    <string name="boost_button">Zvýraznit tuto recenzi</string>
+    <string name="boost_title">Zvýraznit tuto recenzi?</string>
+    <string name="boost_body">Zvýraznění dá tuto recenzi na začátek stránky aplikace, označenou Zvýrazněná · placená, a započte ji do samostatného skóre Zvýrazněné. Podepsané skóre ani váha recenze se nemění. Platí jen pro tuto verzi recenze a platba je veřejný záznam.</string>
     <string name="boost_pay">Zaplatit %1$s</string>
-    <string name="boost_done">Posíleno. Podpis %1$s</string>
-    <string name="boost_needs_pro">Posílení recenze vyžaduje aktivní členství Pro.</string>
-    <string name="pro_tool_weight_title">Vaše váha ve skóre členů</string>
-    <string name="pro_tool_weight_body">Vedle každého podepsaného skóre je skóre členů. V něm vaše počítané recenze váží ×1,25 a nesou značku Pro; posilte jednu na ×1,5. Podepsané skóre nikdy nezahrnuje platby.</string>
-    <string name="member_score_title">S váhou členů</string>
-    <string name="member_score_note">Stejné recenze, členové Pro se počítají ×1,25 (×1,5 posílené). Porovnejte obě.</string>
+    <string name="boost_done">Zvýrazněno. Podpis %1$s</string>
+    <string name="boost_needs_pro">Zvýraznění recenze vyžaduje aktivní členství Pro.</string>
+    <string name="pro_tool_weight_title">Vaše vlastní řádka skóre</string>
+    <string name="pro_tool_weight_body">Vaše počítané recenze nesou značku Člen Pro a objevují se i v samostatném skóre členů Pro vedle podepsaného. Zvýrazněte jednu, aby se ukázala první, označená jako placená. Podepsané skóre nikdy nezahrnuje platby.</string>
+    <string name="member_score_title">Členové Pro</string>
+    <string name="member_score_note">Jen recenze napsané s aktivním Pro, s jejich obvyklou váhou.</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">Recenze v čase</string>
@@ -1019,4 +1019,6 @@
     <string name="timeline_clear">Zrušit</string>
     <string name="timeline_hint">Klepněte nebo táhněte po grafu a přečtěte období.</string>
     <string name="timeline_note">Přerušovaná šedá čára je průměr %1$d recenzí z obchodu přečtených od %2$s; vlastní hodnocení obchodu počítá všechny jeho recenze.</string>
+    <string name="promoted_score_title">Zvýrazněná · placená</string>
+    <string name="promoted_score_note">Jen recenze, jejichž autor zaplatil zvýraznění. Zobrazují se na této stránce první.</string>
 </resources>

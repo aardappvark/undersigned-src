@@ -45,13 +45,12 @@ class TimelineTest {
         assertEquals(2, b.sumOf { it.signed })
     }
 
-    @Test fun `the member line sits apart from the signed line only where Pro weight exists`() {
+    @Test fun `the Pro line follows Pro members' reviews only, and the signed line ignores payment`() {
         val entries = listOf(LedgerEntry(id('P'), "member", t0, ReviewMemo.Pro(12)), rev('A', "member", t0 + D, 5), rev('B', "other", t0 + D, 1))
         val b = Timeline.build(pkg, emptyList(), entries, emptyMap(), attested, { true }, t0, t0 + 3 * D).last()
         assertEquals(3.0, b.signedMean!!, 1e-9)
-        assertTrue(b.memberMean!! > b.signedMean!!)
-        val noPro = Timeline.build(pkg, emptyList(), entries, emptyMap(), attested, { false }, t0, t0 + 3 * D).last()
-        assertEquals(noPro.signedMean!!, noPro.memberMean!!, 1e-9)
+        assertEquals(5.0, b.proMean!!, 1e-9)
+        assertNull(Timeline.build(pkg, emptyList(), entries, emptyMap(), attested, { false }, t0, t0 + 3 * D).last().proMean)
     }
 
     @Test fun `uncounted wallets add no signed bar and no score`() {

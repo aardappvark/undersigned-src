@@ -52,7 +52,7 @@ enum class TimelineRange(val days: Int?, val label: Int) {
  *
  * Bars, stacked per period: store reviews from wallets holding a Genesis Token (green), store reviews from other or
  * not-yet-checked wallets (dim), and signed reviews (purple). Lines on a fixed 1–5 star scale, so no move looks bigger than
- * it was: the signed score (purple), the member-weighted score (dashed lavender, only where it differs) and the running
+ * it was: the signed score (purple), the Pro members' score (dashed lavender, when there is one) and the running
  * average of the store reviews read (dashed grey).
  */
 @OptIn(ExperimentalLayoutApi::class)
@@ -68,7 +68,7 @@ fun ReviewTimeline(buckets: List<Timeline.Bucket>, range: TimelineRange, onRange
             Text(stringResource(R.string.timeline_empty), color = RbColors.textTertiary, fontSize = 12.sp)
         } else {
             val maxCount = remember(buckets) { (buckets.maxOf { it.storeTotal + it.signed }).coerceAtLeast(1) }
-            val showMember = remember(buckets) { buckets.any { b -> b.memberMean != null && b.signedMean != null && kotlin.math.abs(b.memberMean!! - b.signedMean!!) > 0.005 } }
+            val showMember = remember(buckets) { buckets.any { it.proMean != null } }
             fun indexAt(x: Float, width: Int) = if (width <= 0) 0 else (x / (width.toFloat() / n)).toInt().coerceIn(0, n - 1)
             val chartDesc = stringResource(R.string.timeline_title)
             Box(
@@ -94,7 +94,7 @@ fun ReviewTimeline(buckets: List<Timeline.Bucket>, range: TimelineRange, onRange
                         values.forEachIndexed { i, v -> if (v == null) started = false else { val p = Offset(xMid(i), yStar(v)); if (!started) moveTo(p.x, p.y) else lineTo(p.x, p.y); started = true } }
                     }
                     val signed = line(buckets.map { it.signedMean })
-                    val member = if (showMember) line(buckets.map { it.memberMean }) else null
+                    val member = if (showMember) line(buckets.map { it.proMean }) else null
                     val store = line(buckets.map { it.storeMean })
                     // The area under the signed line, faint: the eye finds the signed score first.
                     val signedFill = Path().apply {
@@ -143,7 +143,7 @@ fun ReviewTimeline(buckets: List<Timeline.Bucket>, range: TimelineRange, onRange
                     drawLine(RbColors.purpleLight.copy(alpha = 0.8f), Offset(x, 0f), Offset(x, h), strokeWidth = 1.5f)
                     val b = buckets[s]
                     b.storeMean?.let { drawCircle(RbColors.textTertiary, radius = 4.5f, center = Offset(x, yStar(it))) }
-                    if (showMember) b.memberMean?.let { drawCircle(RbColors.purpleLight, radius = 4.5f, center = Offset(x, yStar(it))) }
+                    if (showMember) b.proMean?.let { drawCircle(RbColors.purpleLight, radius = 4.5f, center = Offset(x, yStar(it))) }
                     b.signedMean?.let { v -> val c = Offset(x, yStar(v)); drawCircle(RbColors.textPrimary, radius = 7f, center = c); drawCircle(RbColors.purple, radius = 5f, center = c) }
                 }
             }

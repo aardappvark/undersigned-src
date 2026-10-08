@@ -47,7 +47,7 @@
     <string name="detail_update_review">レビューを更新</string>
     <string name="detail_revoke_review">レビューを取り下げる</string>
     <string name="detail_score_title">署名スコア</string>
-    <string name="detail_score_sub">認証済み端末によるレビューの平均（現在はSeeker Genesis Token保有者）。ステーク中のSKR（最大3×）と、各レビューに含まれる情報（インストール期間、利用時間、書かれたメモ）で重み付け。支払いは一切含まれません。個々の所有者の意見であり、ストアの評価ではありません。</string>
+    <string name="detail_score_sub">認証済み端末によるレビューの平均（現在はSeeker Genesis Token保有者）。ステーク中のSKR（最大3×）と、各レビューに含まれる情報（インストール期間、利用時間、書かれたメモ）で重み付け。支払いは一切含まれません。Proメンバーのレビューとプロモーションされたレビューは別のスコアとしても表示されます。個々の所有者の意見であり、ストアの評価ではありません。</string>
     <string name="detail_rank_score">ランクスコア %1$s — より多くの Seeker が署名するまで3.0に近づくよう調整され、リストの並べ替えにのみ使用されます。</string>
     <string name="follow">フォロー</string>
     <string name="following">フォロー中</string>
@@ -390,8 +390,8 @@
     <string name="pro_tool_watch_title">1時間ごとの証明書ウォッチ</string>
     <string name="pro_tool_watch_body">証明書と権限の変更を、6時間ごとではなく1時間ごとに確認します。確認はこれまで通り端末上で行われます。</string>
     <string name="pro_not_title">Proがしないこと</string>
-    <string name="pro_not_body">署名済みスコアを変えることも、他人のレビューに重みをかけることもありません。通報、「役に立った」、非表示は端末とステーク中のSKRだけを使います。その重みは別のメンバースコアにだけ、常に明示して表れます。トークンも、集めるものも、保有するものもありません。</string>
-    <string name="pro_free_keeps">台帳の閲覧、レビューの署名、通報、異議申し立て、端末の情報はずっと無料です。Proはツールと、別のメンバースコアでの明示された重みを加えます。</string>
+    <string name="pro_not_body">署名済みスコアを変えることも、レビューを重くすることも、他人のレビューに重みをかけることもありません。通報、「役に立った」、非表示は端末とステーク中のSKRだけを使います。トークンも、集めるものも、保有するものもありません。</string>
+    <string name="pro_free_keeps">台帳の閲覧、レビューの署名、通報、異議申し立て、端末の情報はずっと無料です。Proはツール、「Proメンバー」の印、明示された専用のスコア行を加えます。</string>
     <string name="pro_price_line">このウォレットで12か月 · どちらで支払っても期間は同じ · 別途、ウォレットが設定するネットワーク手数料</string>
     <string name="pro_pay_in">支払い方法</string>
     <string name="pro_rail_skr_note">オンチェーンで読み取るのみで、保有はしません</string>
@@ -931,19 +931,19 @@
     <string name="badge_copied">バッジのコードをコピーしました。ウェブサイトやREADMEに貼り付けてください。</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1.25</string>
-    <string name="weight_boosted_pill">ブースト済み</string>
-    <string name="weight_counts">署名済みスコアで%1$s×として計算・品質 %2$s</string>
-    <string name="boost_button">このレビューをブースト</string>
-    <string name="boost_title">このレビューをブーストしますか？</string>
-    <string name="boost_body">ブーストは、メンバースコアにおけるこのレビューの重みを、Proの×1.25に加えて×1.2増やします。合わせても×1.5を超えません。署名済みスコアは変わりません。誰からも「ブースト済み」と表示されます。このバージョンのレビューにのみ適用され、支払いは公開記録です。</string>
+    <string name="weight_pro_pill">Proメンバー</string>
+    <string name="weight_boosted_pill">プロモーション・有料</string>
+    <string name="weight_counts">重み %1$s・品質 %2$s</string>
+    <string name="boost_button">このレビューをプロモーション</string>
+    <string name="boost_title">このレビューをプロモーションしますか？</string>
+    <string name="boost_body">プロモーションすると、このレビューはアプリのページの先頭に「プロモーション・有料」と表示され、別枠の「プロモーション」スコアに数えられます。署名済みスコアとレビューの重みは変わりません。このバージョンのレビューにのみ適用され、支払いは公開記録です。</string>
     <string name="boost_pay">%1$sを支払う</string>
-    <string name="boost_done">ブーストしました。署名 %1$s</string>
-    <string name="boost_needs_pro">レビューのブーストには有効なProメンバーシップが必要です。</string>
-    <string name="pro_tool_weight_title">メンバースコアでのあなたの重み</string>
-    <string name="pro_tool_weight_body">すべての署名済みスコアの横にメンバースコアがあります。そこではカウントされるあなたのレビューが×1.25の重みでProの印が付きます。1件をブーストすると×1.5です。署名済みスコアに支払いが入ることはありません。</string>
-    <string name="member_score_title">メンバーの重み付き</string>
-    <string name="member_score_note">同じレビューで、Proメンバーを×1.25（ブーストで×1.5）として計算。2つを比べてください。</string>
+    <string name="boost_done">プロモーションしました。署名 %1$s</string>
+    <string name="boost_needs_pro">レビューのプロモーションには有効なProメンバーシップが必要です。</string>
+    <string name="pro_tool_weight_title">あなた専用のスコア行</string>
+    <string name="pro_tool_weight_body">カウントされるあなたのレビューには「Proメンバー」の印が付き、署名済みスコアの横にあるProメンバー専用のスコアにも入ります。1件をプロモーションすると「有料」と表示されて先頭に出ます。署名済みスコアに支払いが入ることはありません。</string>
+    <string name="member_score_title">Proメンバー</string>
+    <string name="member_score_note">Pro有効中に書かれたレビューのみ、通常の重みで。</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">レビューの推移</string>
@@ -965,4 +965,6 @@
     <string name="timeline_clear">クリア</string>
     <string name="timeline_hint">グラフをタップまたはスライドして期間を読み取ります。</string>
     <string name="timeline_note">灰色の破線は%2$s以降に読み込んだ%1$d件のストアレビューの平均です。ストア自体の評価はすべてのレビューを数えます。</string>
+    <string name="promoted_score_title">プロモーション・有料</string>
+    <string name="promoted_score_note">作成者がプロモーション料金を払ったレビューのみ。このページの先頭に表示。</string>
 </resources>

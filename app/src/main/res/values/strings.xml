@@ -138,7 +138,7 @@
     <string name="detail_update_review">Update my review</string>
     <string name="detail_revoke_review">Withdraw my review</string>
     <string name="detail_score_title">Signed score</string>
-    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by staked SKR (up to 3×) and by what each review carries (install time, usage, a written note). Nothing paid enters it. Opinions of individual owners, not the store\'s rating.</string>
+    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by staked SKR (up to 3×) and by what each review carries (install time, usage, a written note). Nothing paid enters it; Pro members\' and promoted reviews are also shown as their own scores. Opinions of individual owners, not the store\'s rating.</string>
     <string name="detail_rank_score">Rank score %1$s — shrunk toward 3.0 until more Seekers sign; used only to order the list.</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
@@ -337,8 +337,8 @@
     <string name="pro_tool_watch_title">Hourly certificate watch</string>
     <string name="pro_tool_watch_body">Certificate and permission changes checked every hour instead of every six, still on the device.</string>
     <string name="pro_not_title">What Pro does not do</string>
-    <string name="pro_not_body">It never changes the signed score and never weighs on anyone else\'s review: flags, helpful votes and hiding use the device and staked SKR only. Its weight shows only in the separate member-weighted score, always marked. There is no token, nothing to collect and nothing to hold.</string>
-    <string name="pro_free_keeps">Reading the ledger, signing reviews, flags, disputes and device facts stay free and always will. Pro adds tools and a labelled weight in the separate member-weighted score.</string>
+    <string name="pro_not_body">It never changes the signed score, never makes a review count for more, and never weighs on anyone else\'s review: flags, helpful votes and hiding use the device and staked SKR only. There is no token, nothing to collect and nothing to hold.</string>
+    <string name="pro_free_keeps">Reading the ledger, signing reviews, flags, disputes and device facts stay free and always will. Pro adds tools, a Pro member mark and its own labelled score line.</string>
     <string name="pro_price_line">12 months on this wallet · pay in either, the term is the same · network fee on top, set by your wallet</string>
     <string name="pro_pay_in">Pay in</string>
     <string name="pro_rail_skr_note">read on-chain, not held</string>
@@ -981,19 +981,19 @@
     <string name="badge_copied">Badge code copied. Paste it into your website or README.</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1.25</string>
-    <string name="weight_boosted_pill">Boosted</string>
-    <string name="weight_counts">Counts %1$s× in the signed score · quality %2$s</string>
-    <string name="boost_button">Boost this review</string>
-    <string name="boost_title">Boost this review?</string>
-    <string name="boost_body">A boost adds ×1.2 to this review\'s weight in the member-weighted score, on top of Pro\'s ×1.25; together never past ×1.5. The signed score does not change. Everyone sees the review marked Boosted. It applies to this version of the review only, and the payment is a public record.</string>
+    <string name="weight_pro_pill">Pro member</string>
+    <string name="weight_boosted_pill">Promoted · paid</string>
+    <string name="weight_counts">Weight %1$s · quality %2$s</string>
+    <string name="boost_button">Promote this review</string>
+    <string name="boost_title">Promote this review?</string>
+    <string name="boost_body">Promoting puts this review first on the app\'s page, labelled Promoted · paid, and lists it in the separate Promoted score. It does not change the signed score or how much the review counts. It applies to this version of the review only, and the payment is a public record.</string>
     <string name="boost_pay">Pay %1$s</string>
-    <string name="boost_done">Boosted. Signature %1$s</string>
-    <string name="boost_needs_pro">Boosting a review needs an active Pro membership.</string>
-    <string name="pro_tool_weight_title">Your weight in the member score</string>
-    <string name="pro_tool_weight_body">Beside every signed score sits a member-weighted score. In it your counted reviews weigh ×1.25 and carry a Pro mark; boost one for ×1.5. The signed score never includes payment.</string>
-    <string name="member_score_title">With member weight</string>
-    <string name="member_score_note">The same reviews, with Pro members counting ×1.25 (×1.5 boosted). Compare the two.</string>
+    <string name="boost_done">Promoted. Signature %1$s</string>
+    <string name="boost_needs_pro">Promoting a review needs an active Pro membership.</string>
+    <string name="pro_tool_weight_title">Your own score line</string>
+    <string name="pro_tool_weight_body">Your counted reviews carry a Pro member mark and also appear in a separate Pro members\' score beside the signed score. Promote one to show it first, labelled paid. The signed score never includes payment.</string>
+    <string name="member_score_title">Pro members</string>
+    <string name="member_score_note">Only reviews written while holding Pro, at their ordinary weight.</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">Reviews over time</string>
@@ -1015,4 +1015,6 @@
     <string name="timeline_clear">Clear</string>
     <string name="timeline_hint">Tap or slide along the chart to read a period.</string>
     <string name="timeline_note">The dashed grey line averages the %1$d store reviews read since %2$s; the store\'s own rating counts all of its reviews.</string>
+    <string name="promoted_score_title">Promoted · paid</string>
+    <string name="promoted_score_note">Only reviews their authors paid to promote. Shown first on this page.</string>
 </resources>

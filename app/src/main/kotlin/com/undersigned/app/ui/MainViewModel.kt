@@ -123,8 +123,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val installed = MutableStateFlow<Set<String>>(emptySet())
     val entries = MutableStateFlow<List<LedgerEntry>>(emptyList())
     val scores = MutableStateFlow<Map<String, AppScore>>(emptyMap())
-    /** The member-weighted score per app (Pro ×1.25, boosted up to ×1.5), shown BESIDE the signed score, never instead of it. */
-    val memberScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
+    /** Separately labelled scores beside the signed one (compliance check, 9 Oct 2026): Pro members' reviews, and promoted (paid) reviews. */
+    val proScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
+    val promotedScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
+    private fun setSegments(list: List<LedgerEntry>, vp: Map<String, Set<String>>, f: (String) -> SignerFacts) {
+        val s = Ranking.segments(list, vp, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), f)
+        proScores.value = s.pro; promotedScores.value = s.promoted
+    }
     val facts = MutableStateFlow<Map<String, SignerFacts>>(emptyMap())
     val ledgerStatus = MutableStateFlow<LedgerStatus>(LedgerStatus.Idle)
     val selfFacts = MutableStateFlow<SignerFacts?>(null)
@@ -201,7 +206,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
         val vp = verifiedPublishers.value
         scores.value = Ranking.score(list, vp, facts = f).associateBy { it.packageName }
-        memberScores.value = Ranking.score(list, vp, paid = com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), facts = f).associateBy { it.packageName }
+        setSegments(list, vp, f)
         standings.value = Reputation.standing(list, vp, f)
         flagWeights.value = Reputation.flagWeights(list, vp, f)
         hiddenByConsensus.value = Reputation.hiddenByConsensus(list, vp, f)
@@ -257,7 +262,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         verifiedPublishers.value = expanded
         UserPreferences.saveVerifiedPublishers(expanded)
         storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, expanded)
-        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, facts = f).associateBy { it.packageName }; memberScores.value = Ranking.score(list, expanded, paid = com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), facts = f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f); modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, expanded) }
+        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, facts = f).associateBy { it.packageName }; setSegments(list, expanded, f); standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f); modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, expanded) }
     }
     private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
         // Both counts over the SAME set: live (non-withdrawn) reviews. Counting signers over every review ever written
@@ -764,10 +769,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val revoked = revokedSignatures(); val hid = hidden.value
         val all = entries.value
         val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }
-        val ctx = com.undersigned.protocol.Weighting.Context(all, hiddenByConsensus.value, f, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value))
+        val ctx = com.undersigned.protocol.Weighting.Context(all, hiddenByConsensus.value, f, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), verifiedPublishers.value)
+        // Promoted reviews come first and are labelled "Promoted · paid" on their face (ACCC: distinguish promoted from organic).
         return all.filter { it.memo is ReviewMemo.Review && (it.memo as ReviewMemo.Review).packageName == pkg && it.signature !in revoked && it.signature !in hid }
-            .sortedWith(compareByDescending<LedgerEntry> { helpfulWeights.value[it.signature] ?: 0.0 }.thenByDescending { it.blockTime })
             .map { it to ctx.parts(it) }
+            .sortedWith(compareByDescending<Pair<LedgerEntry, com.undersigned.protocol.Weighting.Parts>> { it.second.promoted && it.second.device > 0 }
+                .thenByDescending { helpfulWeights.value[it.first.signature] ?: 0.0 }.thenByDescending { it.first.blockTime })
     }
 
     /**

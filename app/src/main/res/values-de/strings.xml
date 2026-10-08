@@ -52,7 +52,7 @@
     <string name="detail_update_review">Meine Bewertung aktualisieren</string>
     <string name="detail_revoke_review">Meine Bewertung zurückziehen</string>
     <string name="detail_score_title">Signierte Bewertung</string>
-    <string name="detail_score_sub">Durchschnitt der Bewertungen von attestierten Geräten (heute: Inhaber eines Seeker Genesis Token), gewichtet nach gestaktem SKR (bis 3×) und nach dem, was jede Bewertung mitbringt (Installationsdauer, Nutzung, eine geschriebene Notiz). Nichts Bezahltes fließt ein. Meinungen einzelner Besitzer, nicht die Wertung des Stores.</string>
+    <string name="detail_score_sub">Durchschnitt der Bewertungen von attestierten Geräten (heute: Inhaber eines Seeker Genesis Token), gewichtet nach gestaktem SKR (bis 3×) und nach dem, was jede Bewertung mitbringt (Installationsdauer, Nutzung, eine geschriebene Notiz). Nichts Bezahltes fließt ein; Bewertungen von Pro-Mitgliedern und hervorgehobene Bewertungen erscheinen zusätzlich als eigene Wertungen. Meinungen einzelner Besitzer, nicht die Wertung des Stores.</string>
     <string name="detail_rank_score">Rang-Wert %1$s — bis mehr Seeker signieren, in Richtung 3,0 verschoben; dient nur der Sortierung der Liste.</string>
     <string name="follow">Folgen</string>
     <string name="following">Gefolgt</string>
@@ -401,8 +401,8 @@
     <string name="pro_tool_watch_title">Stündliche Zertifikatsüberwachung</string>
     <string name="pro_tool_watch_body">Zertifikats- und Berechtigungsänderungen werden stündlich statt alle sechs Stunden geprüft, weiterhin auf dem Gerät.</string>
     <string name="pro_not_title">Was Pro nicht tut</string>
-    <string name="pro_not_body">Es ändert nie die signierte Wertung und wiegt nie auf der Bewertung eines anderen: Meldungen, Hilfreich-Stimmen und Ausblenden nutzen nur das Gerät und gestaktes SKR. Sein Gewicht erscheint nur in der separaten Mitgliederwertung, immer gekennzeichnet. Es gibt kein Token, nichts zu sammeln und nichts zu halten.</string>
-    <string name="pro_free_keeps">Das Ledger lesen, Bewertungen signieren, Meldungen, Einsprüche und Gerätefakten bleiben kostenlos, für immer. Pro fügt Werkzeuge hinzu und ein gekennzeichnetes Gewicht in der separaten Mitgliederwertung.</string>
+    <string name="pro_not_body">Es ändert nie die signierte Wertung, lässt keine Bewertung mehr zählen und wiegt nie auf der Bewertung eines anderen: Meldungen, Hilfreich-Stimmen und Ausblenden nutzen nur das Gerät und gestaktes SKR. Es gibt kein Token, nichts zu sammeln und nichts zu halten.</string>
+    <string name="pro_free_keeps">Das Ledger lesen, Bewertungen signieren, Meldungen, Einsprüche und Gerätefakten bleiben kostenlos, für immer. Pro fügt Werkzeuge hinzu, ein Pro-Mitglied-Zeichen und eine eigene, gekennzeichnete Wertungszeile.</string>
     <string name="pro_price_line">12 Monate auf dieser Wallet · Zahlung in beidem möglich, die Laufzeit ist gleich · Netzwerkgebühr obendrauf, von Ihrer Wallet festgelegt</string>
     <string name="pro_pay_in">Zahlen in</string>
     <string name="pro_rail_skr_note">on-chain gelesen, nicht verwahrt</string>
@@ -975,19 +975,19 @@
     <string name="badge_copied">Badge-Code kopiert. Fügen Sie ihn auf Ihrer Website oder in der README ein.</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1,25</string>
-    <string name="weight_boosted_pill">Geboostet</string>
-    <string name="weight_counts">Zählt %1$s× in der signierten Wertung · Qualität %2$s</string>
-    <string name="boost_button">Diese Bewertung boosten</string>
-    <string name="boost_title">Diese Bewertung boosten?</string>
-    <string name="boost_body">Ein Boost erhöht das Gewicht dieser Bewertung in der Mitgliederwertung um ×1,2, zusätzlich zu Pros ×1,25; zusammen nie mehr als ×1,5. Die signierte Wertung ändert sich nicht. Alle sehen die Bewertung als Geboostet markiert. Er gilt nur für diese Fassung der Bewertung, und die Zahlung ist ein öffentlicher Eintrag.</string>
+    <string name="weight_pro_pill">Pro-Mitglied</string>
+    <string name="weight_boosted_pill">Hervorgehoben · bezahlt</string>
+    <string name="weight_counts">Gewicht %1$s · Qualität %2$s</string>
+    <string name="boost_button">Diese Bewertung hervorheben</string>
+    <string name="boost_title">Diese Bewertung hervorheben?</string>
+    <string name="boost_body">Hervorheben stellt diese Bewertung auf der Seite der App an den Anfang, gekennzeichnet als Hervorgehoben · bezahlt, und führt sie in der separaten Wertung Hervorgehoben. Die signierte Wertung und das Gewicht der Bewertung ändern sich nicht. Es gilt nur für diese Fassung der Bewertung, und die Zahlung ist ein öffentlicher Eintrag.</string>
     <string name="boost_pay">%1$s zahlen</string>
-    <string name="boost_done">Geboostet. Signatur %1$s</string>
-    <string name="boost_needs_pro">Zum Boosten einer Bewertung brauchen Sie eine aktive Pro-Mitgliedschaft.</string>
-    <string name="pro_tool_weight_title">Ihr Gewicht in der Mitgliederwertung</string>
-    <string name="pro_tool_weight_body">Neben jeder signierten Wertung steht eine Mitgliederwertung. Darin wiegen Ihre gezählten Bewertungen ×1,25 und tragen ein Pro-Zeichen; boosten Sie eine auf ×1,5. Die signierte Wertung enthält nie Bezahltes.</string>
-    <string name="member_score_title">Mit Mitgliedergewicht</string>
-    <string name="member_score_note">Dieselben Bewertungen, Pro-Mitglieder zählen ×1,25 (×1,5 geboostet). Vergleichen Sie beide.</string>
+    <string name="boost_done">Hervorgehoben. Signatur %1$s</string>
+    <string name="boost_needs_pro">Zum Hervorheben einer Bewertung brauchen Sie eine aktive Pro-Mitgliedschaft.</string>
+    <string name="pro_tool_weight_title">Ihre eigene Wertungszeile</string>
+    <string name="pro_tool_weight_body">Ihre gezählten Bewertungen tragen ein Pro-Mitglied-Zeichen und erscheinen auch in einer separaten Wertung der Pro-Mitglieder neben der signierten Wertung. Heben Sie eine hervor, damit sie zuerst erscheint, als bezahlt gekennzeichnet. Die signierte Wertung enthält nie Bezahltes.</string>
+    <string name="member_score_title">Pro-Mitglieder</string>
+    <string name="member_score_note">Nur Bewertungen, die mit aktivem Pro geschrieben wurden, mit ihrem gewöhnlichen Gewicht.</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">Bewertungen im Zeitverlauf</string>
@@ -1009,4 +1009,6 @@
     <string name="timeline_clear">Zurücksetzen</string>
     <string name="timeline_hint">Tippen oder entlang des Diagramms wischen, um einen Zeitraum zu lesen.</string>
     <string name="timeline_note">Die gestrichelte graue Linie mittelt die %1$d seit %2$s gelesenen Store-Bewertungen; die eigene Wertung des Stores zählt alle seine Bewertungen.</string>
+    <string name="promoted_score_title">Hervorgehoben · bezahlt</string>
+    <string name="promoted_score_note">Nur Bewertungen, deren Verfasser für die Hervorhebung bezahlt haben. Erscheinen auf dieser Seite zuerst.</string>
 </resources>

@@ -72,10 +72,10 @@ class State(
         is ReviewMemo.Pro -> true
         is ReviewMemo.Boost -> meta[e.signature.substringBefore(':')]?.let { it.lamports >= AppFloors.boostFloorLamports || it.skr >= AppFloors.boostFloorSkrRaw } == true
         else -> false } }
-    val weighting = com.undersigned.protocol.Weighting.Context(entries, Reputation.hiddenByConsensus(entries, verified, f), f, paidRecord)
+    val weighting = com.undersigned.protocol.Weighting.Context(entries, Reputation.hiddenByConsensus(entries, verified, f), f, paidRecord, verified)
     val scores = Ranking.score(entries, verified, facts = f).associateBy { it.packageName }
-    /** Beside [scores], never instead of it: Pro ×1.25, boosted up to ×1.5 (protocol Weighting). */
-    val memberScores = Ranking.score(entries, verified, paidRecord, f).associateBy { it.packageName }
+    /** Beside [scores], never blended into it: Pro members' reviews and promoted (paid) reviews as their own scores. */
+    val segments = Ranking.segments(entries, verified, paidRecord, f)
     val standings = Reputation.standing(entries, verified, f)
     val hidden = Reputation.hiddenByConsensus(entries, verified, f)
     /** Text a moderator hides (protocol Moderation): the record, rating and tags stay. */

@@ -58,7 +58,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
-    val memberScores by vm.memberScores.collectAsState()
+    val proScores by vm.proScores.collectAsState()
+    val promotedScores by vm.promotedScores.collectAsState()
     val entries by vm.entries.collectAsState()
     val hidden by vm.hidden.collectAsState()
     val wallet by vm.wallet.collectAsState()
@@ -238,18 +239,25 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     Spacer(Modifier.height(4.dp))
                     Text(stringResource(R.string.detail_rank_score, String.format(java.util.Locale.US, "%.2f", score.weightedRating)), color = RbColors.textTertiary, fontSize = 11.sp)
-                    // The member-weighted score, beside the signed one and never instead of it (owner, 8 Oct 2026): the same signed
-                    // reviews with Pro members counting ×1.25, ×1.5 boosted. Readers compare the two and decide for themselves.
-                    val member = memberScores[pkg]
-                    Spacer(Modifier.height(10.dp))
-                    Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(RbColors.surfaceVariant).padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Column(Modifier.weight(1f)) {
-                            Text(stringResource(R.string.member_score_title), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                            Text(stringResource(R.string.member_score_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    // Pro members' and promoted reviews as their OWN scores, each with its count, never blended into the signed score
+                    // (compliance check, 9 Oct 2026). A row shows only when the segment has a counted review.
+                    @Composable fun segment(title: String, note: String, sc: com.undersigned.protocol.AppScore?, color: androidx.compose.ui.graphics.Color) {
+                        if (sc == null) return
+                        Spacer(Modifier.height(8.dp))
+                        Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(RbColors.surfaceVariant).padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Column(Modifier.weight(1f)) {
+                                Text(title, color = color, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text(note, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                            }
+                            Spacer(Modifier.width(10.dp))
+                            Column(horizontalAlignment = Alignment.End) {
+                                Text(String.format(java.util.Locale.US, "%.1f", sc.weightedMean), color = color, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
+                                Text(stringResource(R.string.row_signed_count, sc.countedReviews), color = RbColors.textTertiary, fontSize = 11.sp)
+                            }
                         }
-                        Spacer(Modifier.width(10.dp))
-                        Text(member?.takeIf { it.countedReviews > 0 }?.let { String.format(java.util.Locale.US, "%.1f", it.weightedMean) } ?: "–", color = RbColors.purpleLight, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold)
                     }
+                    segment(stringResource(R.string.member_score_title), stringResource(R.string.member_score_note), proScores[pkg], RbColors.purpleLight)
+                    segment(stringResource(R.string.promoted_score_title), stringResource(R.string.promoted_score_note), promotedScores[pkg], RbColors.warning)
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -325,13 +333,13 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w.device > 1.0) String.format(java.util.Locale.US, " %.1f×", w.device) else "", RbColors.green)
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
-                        // Paid weight is always shown on the review it lifts (owner, 8 Oct 2026): never hidden inside the score.
+                        // Membership and paid promotion are always shown on the review itself.
                         if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
-                        if (w.device > 0 && w.boosted) TrustPill(stringResource(R.string.weight_boosted_pill), RbColors.warning)
+                        if (w.device > 0 && w.promoted) TrustPill(stringResource(R.string.weight_boosted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
                     }
-                    if (w.device > 0) Text(stringResource(R.string.weight_counts, String.format(java.util.Locale.US, "%.2f", w.signed), String.format(java.util.Locale.US, "%.2f", w.quality)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
+                    if (w.device > 0) Text(stringResource(R.string.weight_counts, String.format(java.util.Locale.US, "%.2f", w.weight), String.format(java.util.Locale.US, "%.2f", w.quality)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
                     val seekerSigned = txMeta[e.signature.substringBefore(':')]?.seekerWallet == true
                     val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]
                     if (seekerSigned || useAge != null || useSpent != null) {
@@ -350,7 +358,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     // fee, and an uncounted wallet's words should not sit on an app's page by default.
                     modHidden[e.signature]?.let { reason -> Spacer(Modifier.height(6.dp)); ModHiddenText(reason, 13) }
                     r.text?.takeIf { e.signature !in modHidden }?.let { note ->
-                        var shown by remember(e.signature) { mutableStateOf(w.device > 0) }
+                        // Keyed on whether the wallet counts too: the Genesis check often lands after the first draw, and a fold decided then stuck.
+                        var shown by remember(e.signature, w.device > 0) { mutableStateOf(w.device > 0) }
                         Spacer(Modifier.height(6.dp))
                         if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
                         else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
@@ -373,7 +382,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
                     }
                     // A boost on my own counted review: Pro members only, once per review, always labelled (see protocol Weighting).
-                    if (e.signer == wallet && w.device > 0 && !w.boosted) {
+                    if (e.signer == wallet && w.device > 0 && !w.promoted) {
                         Spacer(Modifier.height(8.dp))
                         if (pro?.active == true) SecondaryButton(boostStage ?: stringResource(R.string.boost_button), enabled = boostStage == null && sender != null, onClick = { boostMsg = null; boostFor = e.signature })
                         else ProLock(hint = stringResource(R.string.boost_button), onPro = onPro)

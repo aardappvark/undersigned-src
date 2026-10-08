@@ -52,7 +52,7 @@
     <string name="detail_update_review">Zaktualizuj moją recenzję</string>
     <string name="detail_revoke_review">Wycofaj moją recenzję</string>
     <string name="detail_score_title">Podpisany wynik</string>
-    <string name="detail_score_sub">Średnia recenzji z poświadczonych urządzeń (dziś: posiadacze Seeker Genesis Token), ważona stakowanym SKR (do 3×) i tym, co wnosi każda recenzja (czas instalacji, użycie, napisana notatka). Nic płatnego do niej nie wchodzi. Opinie pojedynczych właścicieli, nie ocena sklepu.</string>
+    <string name="detail_score_sub">Średnia recenzji z poświadczonych urządzeń (dziś: posiadacze Seeker Genesis Token), ważona stakowanym SKR (do 3×) i tym, co wnosi każda recenzja (czas instalacji, użycie, napisana notatka). Nic płatnego do niej nie wchodzi; recenzje członków Pro i wyróżnione mają też własne oceny. Opinie pojedynczych właścicieli, nie ocena sklepu.</string>
     <string name="detail_rank_score">Wynik rankingowy %1$s — zbliżany do 3.0, dopóki nie podpisze więcej Seekerów; służy tylko do porządkowania listy.</string>
     <string name="follow">Obserwuj</string>
     <string name="following">Obserwowane</string>
@@ -410,8 +410,8 @@
     <string name="pro_tool_watch_title">Godzinowe monitorowanie certyfikatu</string>
     <string name="pro_tool_watch_body">Zmiany certyfikatu i uprawnień sprawdzane co godzinę zamiast co sześć, nadal na urządzeniu.</string>
     <string name="pro_not_title">Czego Pro nie robi</string>
-    <string name="pro_not_body">Nigdy nie zmienia podpisanej oceny i nigdy nie waży na cudzej recenzji: zgłoszenia, głosy „pomocne” i ukrywanie korzystają tylko z urządzenia i stakowanego SKR. Jego waga widnieje tylko w osobnej ocenie członków, zawsze oznaczona. Nie ma tokena, niczego do zbierania ani trzymania.</string>
-    <string name="pro_free_keeps">Czytanie rejestru, podpisywanie recenzji, zgłoszenia, sprzeciwy i fakty z urządzenia pozostają darmowe, zawsze. Pro dodaje narzędzia i oznaczoną wagę w osobnej ocenie członków.</string>
+    <string name="pro_not_body">Nigdy nie zmienia podpisanej oceny, nigdy nie sprawia, że recenzja liczy się bardziej, i nigdy nie waży na cudzej recenzji: zgłoszenia, głosy „pomocne” i ukrywanie korzystają tylko z urządzenia i stakowanego SKR. Nie ma tokena, niczego do zbierania ani trzymania.</string>
+    <string name="pro_free_keeps">Czytanie rejestru, podpisywanie recenzji, zgłoszenia, sprzeciwy i fakty z urządzenia pozostają darmowe, zawsze. Pro dodaje narzędzia, znak Członek Pro i własną, oznaczoną linię oceny.</string>
     <string name="pro_price_line">12 miesięcy na tym portfelu · płać w dowolnej, okres jest taki sam · dodatkowo opłata sieciowa ustalona przez Twój portfel</string>
     <string name="pro_pay_in">Płać w</string>
     <string name="pro_rail_skr_note">odczytywane z blockchainu, nie przechowywane</string>
@@ -993,19 +993,19 @@
     <string name="badge_copied">Kod odznaki skopiowany. Wklej go na stronę lub do README.</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1,25</string>
-    <string name="weight_boosted_pill">Wzmocniona</string>
-    <string name="weight_counts">Liczy się %1$s× w podpisanej ocenie · jakość %2$s</string>
-    <string name="boost_button">Wzmocnij tę recenzję</string>
-    <string name="boost_title">Wzmocnić tę recenzję?</string>
-    <string name="boost_body">Wzmocnienie dodaje ×1,2 do wagi tej recenzji w ocenie członków, ponad ×1,25 z Pro; razem nigdy więcej niż ×1,5. Podpisana ocena się nie zmienia. Wszyscy widzą recenzję oznaczoną jako Wzmocniona. Dotyczy tylko tej wersji recenzji, a płatność jest publicznym zapisem.</string>
+    <string name="weight_pro_pill">Członek Pro</string>
+    <string name="weight_boosted_pill">Wyróżniona · płatna</string>
+    <string name="weight_counts">Waga %1$s · jakość %2$s</string>
+    <string name="boost_button">Wyróżnij tę recenzję</string>
+    <string name="boost_title">Wyróżnić tę recenzję?</string>
+    <string name="boost_body">Wyróżnienie stawia tę recenzję na początku strony aplikacji, z oznaczeniem Wyróżniona · płatna, i liczy ją w osobnej ocenie Wyróżnione. Podpisana ocena ani waga recenzji się nie zmieniają. Dotyczy tylko tej wersji recenzji, a płatność jest publicznym zapisem.</string>
     <string name="boost_pay">Zapłać %1$s</string>
-    <string name="boost_done">Wzmocniona. Podpis %1$s</string>
-    <string name="boost_needs_pro">Wzmocnienie recenzji wymaga aktywnego członkostwa Pro.</string>
-    <string name="pro_tool_weight_title">Twoja waga w ocenie członków</string>
-    <string name="pro_tool_weight_body">Obok każdej podpisanej oceny jest ocena członków. W niej Twoje liczone recenzje ważą ×1,25 i mają znak Pro; wzmocnij jedną do ×1,5. Podpisana ocena nigdy nie zawiera płatności.</string>
-    <string name="member_score_title">Z wagą członków</string>
-    <string name="member_score_note">Te same recenzje, członkowie Pro liczą się ×1,25 (×1,5 wzmocnione). Porównaj obie.</string>
+    <string name="boost_done">Wyróżniona. Podpis %1$s</string>
+    <string name="boost_needs_pro">Wyróżnienie recenzji wymaga aktywnego członkostwa Pro.</string>
+    <string name="pro_tool_weight_title">Twoja własna linia oceny</string>
+    <string name="pro_tool_weight_body">Twoje liczone recenzje mają znak Członek Pro i trafiają też do osobnej oceny członków Pro, obok podpisanej. Wyróżnij jedną, by pokazać ją jako pierwszą, oznaczoną jako płatną. Podpisana ocena nigdy nie zawiera płatności.</string>
+    <string name="member_score_title">Członkowie Pro</string>
+    <string name="member_score_note">Tylko recenzje napisane z aktywnym Pro, z ich zwykłą wagą.</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">Recenzje w czasie</string>
@@ -1027,4 +1027,6 @@
     <string name="timeline_clear">Wyczyść</string>
     <string name="timeline_hint">Dotknij lub przesuń po wykresie, by odczytać okres.</string>
     <string name="timeline_note">Przerywana szara linia to średnia z %1$d recenzji ze sklepu odczytanych od %2$s; własna ocena sklepu liczy wszystkie jego recenzje.</string>
+    <string name="promoted_score_title">Wyróżniona · płatna</string>
+    <string name="promoted_score_note">Tylko recenzje, których autor zapłacił za wyróżnienie. Pokazywane jako pierwsze na tej stronie.</string>
 </resources>

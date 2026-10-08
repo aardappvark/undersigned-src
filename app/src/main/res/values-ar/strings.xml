@@ -47,7 +47,7 @@
     <string name="detail_update_review">تحديث مراجعتي</string>
     <string name="detail_revoke_review">سحب مراجعتي</string>
     <string name="detail_score_title">التقييم الموقّع</string>
-    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بـSKR المرهون (حتى 3×) وبما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة). لا يدخل فيه شيء مدفوع. آراء مالكين أفراد، لا تقييم المتجر.</string>
+    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بـSKR المرهون (حتى 3×) وبما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة). لا يدخل فيه شيء مدفوع؛ وتظهر مراجعات أعضاء Pro والمروَّجة أيضًا بتقييمات خاصة بها. آراء مالكين أفراد، لا تقييم المتجر.</string>
     <string name="detail_rank_score">تقييم الترتيب %1$s — يُقلَّص نحو 3.0 حتى يوقّع مزيد من أجهزة Seeker؛ يُستخدم فقط لترتيب القائمة.</string>
     <string name="follow">متابعة</string>
     <string name="following">تتم المتابعة</string>
@@ -415,8 +415,8 @@
     <string name="pro_tool_watch_title">مراقبة الشهادة كل ساعة</string>
     <string name="pro_tool_watch_body">تُفحص تغييرات الشهادة والأذونات كل ساعة بدلاً من كل ست ساعات، على الجهاز دائمًا.</string>
     <string name="pro_not_title">ما لا يفعله Pro</string>
-    <string name="pro_not_body">لا يغيّر التقييم الموقّع أبدًا ولا يثقل على مراجعة غيرك: البلاغات وأصوات «مفيد» والإخفاء تستخدم الجهاز وSKR المرهون فقط. يظهر وزنه فقط في تقييم الأعضاء المنفصل، موسومًا دائمًا. لا رمز، ولا شيء للجمع أو الاحتفاظ.</string>
-    <string name="pro_free_keeps">قراءة السجل وتوقيع المراجعات والبلاغات والاعتراضات وحقائق الجهاز تبقى مجانية دائمًا. يضيف Pro أدوات ووزنًا موسومًا في تقييم الأعضاء المنفصل.</string>
+    <string name="pro_not_body">لا يغيّر التقييم الموقّع أبدًا، ولا يجعل مراجعة تُحتسب أكثر، ولا يثقل على مراجعة غيرك: البلاغات وأصوات «مفيد» والإخفاء تستخدم الجهاز وSKR المرهون فقط. لا رمز، ولا شيء للجمع أو الاحتفاظ.</string>
+    <string name="pro_free_keeps">قراءة السجل وتوقيع المراجعات والبلاغات والاعتراضات وحقائق الجهاز تبقى مجانية دائمًا. يضيف Pro أدوات وعلامة «عضو Pro» وسطر تقييم خاصًا به موسومًا.</string>
     <string name="pro_price_line">12 شهرًا على هذه المحفظة · ادفع بأي منهما، المدة واحدة · رسوم الشبكة إضافية، تحددها محفظتك</string>
     <string name="pro_pay_in">الدفع بـ</string>
     <string name="pro_rail_skr_note">تُقرأ على السلسلة، لا تُحتجز</string>
@@ -1026,19 +1026,19 @@
     <string name="badge_copied">تم نسخ كود الشارة. الصقه في موقعك أو ملف README.</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1.25</string>
-    <string name="weight_boosted_pill">معزَّزة</string>
-    <string name="weight_counts">تُحتسب %1$s× في التقييم الموقّع · الجودة %2$s</string>
-    <string name="boost_button">تعزيز هذه المراجعة</string>
-    <string name="boost_title">تعزيز هذه المراجعة؟</string>
-    <string name="boost_body">يضيف التعزيز ×1.2 إلى وزن هذه المراجعة في تقييم الأعضاء، فوق ×1.25 من Pro؛ ومعًا لا يتجاوزان ×1.5 أبدًا. لا يتغير التقييم الموقّع. يرى الجميع المراجعة موسومة «معزَّزة». يسري على هذه النسخة من المراجعة فقط، والدفع سجل عام.</string>
+    <string name="weight_pro_pill">عضو Pro</string>
+    <string name="weight_boosted_pill">مروَّجة · مدفوعة</string>
+    <string name="weight_counts">الوزن %1$s · الجودة %2$s</string>
+    <string name="boost_button">ترويج هذه المراجعة</string>
+    <string name="boost_title">ترويج هذه المراجعة؟</string>
+    <string name="boost_body">يضع الترويج هذه المراجعة أولًا في صفحة التطبيق، موسومة «مروَّجة · مدفوعة»، ويحتسبها في تقييم «المروَّجة» المنفصل. لا يتغير التقييم الموقّع ولا وزن المراجعة. يسري على هذه النسخة من المراجعة فقط، والدفع سجل عام.</string>
     <string name="boost_pay">ادفع %1$s</string>
-    <string name="boost_done">عُزِّزت. التوقيع %1$s</string>
-    <string name="boost_needs_pro">تعزيز مراجعة يتطلب عضوية Pro نشطة.</string>
-    <string name="pro_tool_weight_title">وزنك في تقييم الأعضاء</string>
-    <string name="pro_tool_weight_body">بجانب كل تقييم موقّع يوجد تقييم للأعضاء. فيه تزن مراجعاتك المحتسبة ×1.25 وتحمل علامة Pro؛ عزّز واحدة لتصل إلى ×1.5. لا يتضمن التقييم الموقّع أي دفع أبدًا.</string>
-    <string name="member_score_title">بوزن الأعضاء</string>
-    <string name="member_score_note">المراجعات نفسها، مع احتساب أعضاء Pro ×1.25 (×1.5 معزَّزة). قارن بين الاثنين.</string>
+    <string name="boost_done">رُوِّجت. التوقيع %1$s</string>
+    <string name="boost_needs_pro">ترويج مراجعة يتطلب عضوية Pro نشطة.</string>
+    <string name="pro_tool_weight_title">سطر تقييمك الخاص</string>
+    <string name="pro_tool_weight_body">تحمل مراجعاتك المحتسبة علامة «عضو Pro» وتظهر أيضًا في تقييم منفصل لأعضاء Pro بجانب التقييم الموقّع. روّج واحدة لتظهر أولًا، موسومة مدفوعة. لا يتضمن التقييم الموقّع أي دفع أبدًا.</string>
+    <string name="member_score_title">أعضاء Pro</string>
+    <string name="member_score_note">فقط المراجعات المكتوبة أثناء عضوية Pro، بوزنها المعتاد.</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">المراجعات عبر الزمن</string>
@@ -1060,4 +1060,6 @@
     <string name="timeline_clear">مسح</string>
     <string name="timeline_hint">المس المخطط أو اسحب عليه لقراءة فترة.</string>
     <string name="timeline_note">الخط الرمادي المتقطع هو متوسط %1$d من مراجعات المتجر المقروءة منذ %2$s؛ تقييم المتجر نفسه يحتسب كل مراجعاته.</string>
+    <string name="promoted_score_title">مروَّجة · مدفوعة</string>
+    <string name="promoted_score_note">فقط المراجعات التي دفع كاتبها لترويجها. تظهر أولًا في هذه الصفحة.</string>
 </resources>

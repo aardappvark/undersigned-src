@@ -52,7 +52,7 @@
     <string name="detail_update_review">Cập nhật đánh giá của tôi</string>
     <string name="detail_revoke_review">Rút đánh giá của tôi</string>
     <string name="detail_score_title">Điểm đã ký</string>
-    <string name="detail_score_sub">Trung bình đánh giá từ thiết bị được chứng thực (hiện nay: người giữ Seeker Genesis Token), có trọng số theo SKR đã stake (tới 3×) và theo những gì mỗi đánh giá mang (thời gian cài, mức dùng, ghi chú viết). Không gì trả phí được tính vào. Ý kiến của từng chủ máy, không phải xếp hạng của cửa hàng.</string>
+    <string name="detail_score_sub">Trung bình đánh giá từ thiết bị được chứng thực (hiện nay: người giữ Seeker Genesis Token), có trọng số theo SKR đã stake (tới 3×) và theo những gì mỗi đánh giá mang (thời gian cài, mức dùng, ghi chú viết). Không gì trả phí được tính vào; đánh giá của thành viên Pro và đánh giá được quảng bá cũng có điểm riêng. Ý kiến của từng chủ máy, không phải xếp hạng của cửa hàng.</string>
     <string name="detail_rank_score">Điểm xếp hạng %1$s — được co về gần 3.0 cho đến khi có thêm Seeker ký; chỉ dùng để sắp xếp danh sách.</string>
     <string name="follow">Theo dõi</string>
     <string name="following">Đang theo dõi</string>
@@ -398,8 +398,8 @@
     <string name="pro_tool_watch_title">Theo dõi chứng chỉ hàng giờ</string>
     <string name="pro_tool_watch_body">Kiểm tra thay đổi chứng chỉ và quyền mỗi giờ thay vì mỗi sáu giờ, vẫn trên thiết bị.</string>
     <string name="pro_not_title">Điều Pro không làm</string>
-    <string name="pro_not_body">Không bao giờ thay đổi điểm đã ký và không bao giờ đè lên đánh giá của người khác: báo cáo, phiếu hữu ích và ẩn chỉ dùng thiết bị và SKR đã stake. Trọng số của nó chỉ hiện trong điểm thành viên riêng, luôn được ghi rõ. Không có token, không có gì để sưu tầm hay giữ.</string>
-    <string name="pro_free_keeps">Đọc sổ cái, ký đánh giá, báo cáo, khiếu nại và dữ kiện thiết bị vẫn miễn phí, mãi mãi. Pro thêm công cụ và trọng số có ghi rõ trong điểm thành viên riêng.</string>
+    <string name="pro_not_body">Không bao giờ thay đổi điểm đã ký, không bao giờ làm đánh giá nặng hơn và không bao giờ đè lên đánh giá của người khác: báo cáo, phiếu hữu ích và ẩn chỉ dùng thiết bị và SKR đã stake. Không có token, không có gì để sưu tầm hay giữ.</string>
+    <string name="pro_free_keeps">Đọc sổ cái, ký đánh giá, báo cáo, khiếu nại và dữ kiện thiết bị vẫn miễn phí, mãi mãi. Pro thêm công cụ, dấu Thành viên Pro và dòng điểm riêng có ghi rõ.</string>
     <string name="pro_price_line">12 tháng trên ví này · trả bằng loại nào cũng được, thời hạn như nhau · cộng phí mạng, do ví của bạn đặt ra</string>
     <string name="pro_pay_in">Trả bằng</string>
     <string name="pro_rail_skr_note">đọc on-chain, không bị giữ</string>
@@ -940,19 +940,19 @@
     <string name="badge_copied">Đã sao chép mã huy hiệu. Dán vào trang web hoặc README của bạn.</string>
 
     <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
-    <string name="weight_pro_pill">Pro ×1,25</string>
-    <string name="weight_boosted_pill">Đã đẩy</string>
-    <string name="weight_counts">Tính %1$s× trong điểm đã ký · chất lượng %2$s</string>
-    <string name="boost_button">Đẩy đánh giá này</string>
-    <string name="boost_title">Đẩy đánh giá này?</string>
-    <string name="boost_body">Đẩy thêm ×1,2 vào trọng số của đánh giá này trong điểm thành viên, ngoài ×1,25 của Pro; cộng lại không bao giờ quá ×1,5. Điểm đã ký không thay đổi. Mọi người thấy đánh giá được đánh dấu Đã đẩy. Chỉ áp dụng cho phiên bản đánh giá này, và khoản thanh toán là bản ghi công khai.</string>
+    <string name="weight_pro_pill">Thành viên Pro</string>
+    <string name="weight_boosted_pill">Được quảng bá · trả phí</string>
+    <string name="weight_counts">Trọng số %1$s · chất lượng %2$s</string>
+    <string name="boost_button">Quảng bá đánh giá này</string>
+    <string name="boost_title">Quảng bá đánh giá này?</string>
+    <string name="boost_body">Quảng bá đưa đánh giá này lên đầu trang của ứng dụng, gắn nhãn Được quảng bá · trả phí, và tính nó trong điểm Được quảng bá riêng. Điểm đã ký và trọng số của đánh giá không đổi. Chỉ áp dụng cho phiên bản đánh giá này, và khoản thanh toán là bản ghi công khai.</string>
     <string name="boost_pay">Trả %1$s</string>
-    <string name="boost_done">Đã đẩy. Chữ ký %1$s</string>
-    <string name="boost_needs_pro">Đẩy đánh giá cần gói Pro đang hoạt động.</string>
-    <string name="pro_tool_weight_title">Trọng số của bạn trong điểm thành viên</string>
-    <string name="pro_tool_weight_body">Bên cạnh mỗi điểm đã ký là một điểm thành viên. Ở đó đánh giá được tính của bạn nặng ×1,25 và mang dấu Pro; đẩy một cái lên ×1,5. Điểm đã ký không bao giờ có khoản thanh toán.</string>
-    <string name="member_score_title">Có trọng số thành viên</string>
-    <string name="member_score_note">Cùng các đánh giá, thành viên Pro được tính ×1,25 (×1,5 khi đẩy). So sánh hai điểm.</string>
+    <string name="boost_done">Đã quảng bá. Chữ ký %1$s</string>
+    <string name="boost_needs_pro">Quảng bá đánh giá cần gói Pro đang hoạt động.</string>
+    <string name="pro_tool_weight_title">Dòng điểm của riêng bạn</string>
+    <string name="pro_tool_weight_body">Đánh giá được tính của bạn mang dấu Thành viên Pro và cũng nằm trong điểm riêng của thành viên Pro, bên cạnh điểm đã ký. Quảng bá một đánh giá để hiện đầu tiên, gắn nhãn trả phí. Điểm đã ký không bao giờ có khoản thanh toán.</string>
+    <string name="member_score_title">Thành viên Pro</string>
+    <string name="member_score_note">Chỉ đánh giá viết khi đang có Pro, với trọng số thông thường.</string>
 
     <!-- Reviews over time chart (8 Oct 2026) -->
     <string name="timeline_title">Đánh giá theo thời gian</string>
@@ -974,4 +974,6 @@
     <string name="timeline_clear">Xóa</string>
     <string name="timeline_hint">Chạm hoặc trượt trên biểu đồ để đọc một khoảng thời gian.</string>
     <string name="timeline_note">Đường xám đứt nét là trung bình của %1$d đánh giá cửa hàng đã đọc từ %2$s; xếp hạng của chính cửa hàng tính mọi đánh giá của nó.</string>
+    <string name="promoted_score_title">Được quảng bá · trả phí</string>
+    <string name="promoted_score_note">Chỉ đánh giá mà tác giả đã trả phí để quảng bá. Hiện đầu tiên trên trang này.</string>
 </resources>

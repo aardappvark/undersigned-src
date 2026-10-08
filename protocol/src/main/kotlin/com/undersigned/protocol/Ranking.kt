@@ -65,14 +65,20 @@ object Ranking {
     }
 
     /**
-     * With the default [paid] (nothing counts as paid) this is the SIGNED score: each counted review weighs device × quality.
-     * Passing the reader's real [paid] (whether a `pro` or `bst` record's transaction credited the treasury with at least its
-     * floor) gives the MEMBER-WEIGHTED score, shown beside it: device × quality × paid. See [Weighting].
+     * The SIGNED score: every counted review once, at weight device × quality (see [Weighting]); payment never enters it.
+     * [include] narrows the reviews counted, which is how the separately labelled segment scores are made ([segments]).
      */
-    fun score(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), paid: (LedgerEntry) -> Boolean = { false }, facts: (signer: String) -> SignerFacts): List<AppScore> {
+    fun score(
+        entries: List<LedgerEntry>,
+        verifiedPublishers: Map<String, Set<String>> = emptyMap(),
+        /** Only needed when [include] asks about Pro or promotion. */
+        paid: (LedgerEntry) -> Boolean = { false },
+        include: (LedgerEntry, Weighting.Parts) -> Boolean = { _, _ -> true },
+        facts: (signer: String) -> SignerFacts,
+    ): List<AppScore> {
         val revoked = revoked(entries)
         val hidden = Reputation.hiddenByConsensus(entries, verifiedPublishers, facts)
-        val ctx = Weighting.Context(entries, hidden, facts, paid)
+        val ctx = Weighting.Context(entries, hidden, facts, paid, verifiedPublishers)
         val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
@@ -81,7 +87,7 @@ object Ranking {
         return newestPerWalletPerApp
             .groupBy { (it.memo as ReviewMemo.Review).packageName }
             .map { (pkg, list) ->
-                val weighted = list.map { it to ctx.parts(it).total }.filter { it.second > 0.0 }
+                val weighted = list.map { it to ctx.parts(it) }.filter { (e, w) -> w.weight > 0.0 && include(e, w) }.map { (e, w) -> e to w.weight }
                 val wSum = weighted.sumOf { it.second }
                 val rSum = weighted.sumOf { (e, w) -> (e.memo as ReviewMemo.Review).rating * w }
                 val rating = (PRIOR_MEAN * PRIOR_WEIGHT + rSum) / (PRIOR_WEIGHT + wSum)
@@ -91,4 +97,12 @@ object Ranking {
             }
             .sortedWith(compareByDescending<AppScore> { it.weightedRating }.thenByDescending { it.countedReviews })
     }
+
+    /** The two labelled segment scores shown beside the signed one, per app; an app absent from a map has no review in it. */
+    data class Segments(val pro: Map<String, AppScore>, val promoted: Map<String, AppScore>)
+
+    fun segments(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>, paid: (LedgerEntry) -> Boolean, facts: (String) -> SignerFacts): Segments = Segments(
+        score(entries, verifiedPublishers, paid, { _, w -> w.pro }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
+        score(entries, verifiedPublishers, paid, { _, w -> w.promoted }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
+    )
 }

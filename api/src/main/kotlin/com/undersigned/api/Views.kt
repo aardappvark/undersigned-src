@@ -193,8 +193,9 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("stars", JSONArray((1..5).map { star -> counted.count { (it.memo as ReviewMemo.Review).rating == star } }))
             .put("tags", JSONObject((sc?.tagCounts ?: emptyMap()).mapKeys { it.key.wire }))
             .put("latest_version_reviewed", sc?.latestVersionReviewed ?: JSONObject.NULL)
-            // Beside the signed score, never instead of it: Pro members' reviews ×1.25, boosted up to ×1.5 (protocol Weighting).
-            .put("member_weighted", st.memberScores[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("rank_score", r2(m.weightedRating)) } ?: JSONObject.NULL)
+            // Beside the signed score, never blended into it (protocol Weighting): Pro members' reviews and promoted (paid) reviews.
+            .put("pro_members", st.segments.pro[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
+            .put("promoted", st.segments.promoted[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
             .put("install_age", JSONObject(live.mapNotNull { st.usage[it.signature]?.wire }.groupingBy { it }.eachCount()))
             .put("usage_time", JSONObject(live.mapNotNull { st.useTimes[it.signature]?.wire }.groupingBy { it }.eachCount())))
         st.details[pkg]?.let { d -> o.put("store", JSONObject().put("version", d.versionCode).put("certificate_sha256", d.certFingerprint ?: JSONObject.NULL)
@@ -225,7 +226,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).signed)).put("weight_member", r2(st.weighting.parts(e).total)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("paid", r2(w.paid)).put("pro", w.pro).put("boosted", w.boosted) })
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
                     )
                 .put("counted", f.hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
