@@ -19,7 +19,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 | Functional Android APK | **READY** — 1.0.0 (versionCode 10), 10.1 MB, signed v2+v3 with the fleet key, lint 0 errors, 174 tests | `app/build/outputs/apk/release/app-release.apk` (copy in `assets/submission/`). Attach it as a GitHub Release asset on the repo (`v1.0.0`) or upload in the form. |
 | GitHub repository | **READY after push** — 115 commits, 8 Sep → 8 Oct, all inside the window. 5 commits are local only (icons, snapshot). | https://github.com/aardappvark/Undersigned (private) |
 | Demo video (≤ 3 min) | **READY** — `assets/video/undersigned-demo.mp4`, 2:29, 1920×1080 H.264 + AAC, 7.7 MB. Screen-recorded on the airdropper Seeker 8 Oct: list, A–Z rail, Toolkit page, a real review of Jupiter Mobile signed in the Seed Vault (tx 4Eqgb1ex…odmNXXL5), proofs, publisher section, store lens, device facts, import scan, the web page and Solscan. Narration: `assets/video/narration.txt`; rebuild with `build.py` + `mux.py` (the takes are in the session scratchpad, not the repo). | Upload to YouTube (unlisted) or Drive; paste the link |
-| Pitch deck | **READY** — 12 slides (slide 10: how it copies into the real dApp Store) | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
+| Pitch deck | **READY** — 12 slides, a framed screenshot on every product slide (slide 10: a companion to the store, code offered to strengthen it) | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
 
@@ -54,6 +54,8 @@ What makes a review count is the device, not the account. A review is counted on
 Publishers prove an app is theirs by signing a claim that verifies against the website the store lists (`/.well-known/undersigned.txt`) or the manifest of the store's own build, then reply on-chain under their name. Publishers who do not want to sign with a treasury wallet can list a treasury from their proven publisher wallet instead. Twenty-nine apps carry proven claims today.
 
 What the phone can prove is shown as facts, never verdicts: whether the installed build matches the certificate the store lists, whether permissions grew between versions, how long the owner has actually used the app (opt-in). Integrity is handled in the open: flags, "looks genuine" clears, consensus hiding at a Genesis-weighted threshold, author disputes, and moderation that can hide text but never a voice.
+
+Undersigned is a companion to the dApp Store, not a rival to it. Every app opens in the store; the store's own rating and reviews are shown and credited on every page and never written to; a signed review can be copied into the store's own review box in one tap. The parts that would strengthen the store's reviews, the Genesis lens on store reviewers, the publisher proof file, the memo format and the ranking rules, are public, documented and tested, and are offered to Solana Mobile to adopt: first as a reader of the ledger, later as a drop-in. Until then the app stands beside the store, in the store, as an ordinary listed dApp.
 
 Everything is readable without the app: a public website and JSON API (https://undersigned.provenby.dev), a browser viewer that reads the chain directly, a dataset download, and an MCP server so AI agents can read reviews and hand the owner a transaction to sign. Twenty-eight languages. No token, no rewards, no server of ours between the owner and the chain.
 
