@@ -132,16 +132,24 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      * Shown for transparency only: it never changes a weight or a score. Dated by when the facts were read from the chain.
      */
     val reviewStakes = MutableStateFlow(UserPreferences.reviewStakes())
-    @Synchronized private fun snapshotStakes() {
+    private val stakeInFlight = java.util.Collections.synchronizedSet(HashSet<String>())
+    /** One stake read per wallet with a review not yet snapshotted, two at a time; a review's snapshot is never read again. */
+    private fun snapshotStakes() {
         val have = reviewStakes.value; val f = facts.value
-        val add = entries.value.filter { it.memo is ReviewMemo.Review && it.signature !in have }.mapNotNull { e ->
-            val x = f[e.signer]?.takeIf { it.hasGenesisToken } ?: return@mapNotNull null
-            val at = UserPreferences.factsReadAt(e.signer) ?: return@mapNotNull null
-            e.signature to com.undersigned.protocol.StakeView.Snapshot(x.stakedSkr, x.stakedSol, at)
-        }.toMap()
-        if (add.isEmpty()) return
-        UserPreferences.saveReviewStakes(add); reviewStakes.value = have + add
+        val todo = entries.value.filter { it.memo is ReviewMemo.Review && it.signature !in have && f[it.signer]?.hasGenesisToken == true }.groupBy { it.signer }
+        for ((w, reviews) in todo) {
+            if (!stakeInFlight.add(w)) continue
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    stakeGate.acquire()
+                    val k = try { runCatching { factsService.stakeNow(w) }.getOrNull() } finally { stakeGate.release() } ?: return@launch
+                    val add = reviews.filter { it.signature !in reviewStakes.value }.associate { it.signature to k }
+                    UserPreferences.saveReviewStakes(add); reviewStakes.update { it + add }
+                } finally { stakeInFlight.remove(w) }
+            }
+        }
     }
+    private val stakeGate = kotlinx.coroutines.sync.Semaphore(2)
     private fun setSegments(list: List<LedgerEntry>, vp: Map<String, Set<String>>, f: (String) -> SignerFacts) {
         val s = Ranking.segments(list, vp, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), f)
         proScores.value = s.pro; promotedScores.value = s.promoted
@@ -256,7 +264,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private fun loadSelfFacts(address: String) {
         viewModelScope.launch(Dispatchers.IO) {
             selfFactsLoading.value = true
-            selfFacts.value = runCatching { factsService.facts(address, force = true) }.getOrNull()
+            // The user's own stake is read here, once per load, for Settings (shown, never weighed).
+            selfFacts.value = runCatching { factsService.facts(address, force = true) }.getOrNull()?.let { f ->
+                if (!f.hasGenesisToken) f else runCatching { factsService.stakeNow(address) }.getOrNull()?.let { k -> f.copy(stakedSkr = k.skr, stakedSol = k.sol) } ?: f }
             selfFactsLoading.value = false
         }
     }

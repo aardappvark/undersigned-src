@@ -115,9 +115,6 @@ object UserPreferences {
         return SignerFacts(o.optBoolean("sgt", false), o.optDouble("skr", 0.0), o.optString("att", null)?.takeIf { it.isNotEmpty() && it != "null" } ?: if (o.optBoolean("sgt", false)) "seeker-genesis" else null,
             stakedSol = if (o.has("sol") && !o.isNull("sol")) o.optDouble("sol") else null)
     }
-    /** When [signer]'s cached facts were read from the chain (epoch seconds), or null. */
-    fun factsReadAt(signer: String): Long? = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}").optJSONObject(signer)?.optLong("at", 0L)?.takeIf { it > 0 }?.div(1000) }.getOrNull()
-
     /** Review id -> the reviewer's stake as first read after the review appeared: shown beside it, never weighed (9 Oct 2026). */
     fun reviewStakes(): Map<String, com.undersigned.protocol.StakeView.Snapshot> = runCatching {
         val o = JSONObject(prefs?.getString(KEY_REVIEW_STAKE, "{}") ?: "{}")

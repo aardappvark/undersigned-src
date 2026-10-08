@@ -1048,4 +1048,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Stakováno při načtení: %1$s SKR · %2$s SOL · %3$s. Zobrazeno kvůli průhlednosti; váhu nikdy nemění.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Nejvíc stakovaného SKR</string>
+    <string name="sort_sol">Nejvíc stakovaného SOL</string>
+    <string name="sort_stake_note">Řadí v rámci každé sekce. Stake je hodnota načtená při prvním objevení recenze, zobrazená kvůli průhlednosti; nikdy nemění skóre.</string>
 </resources>

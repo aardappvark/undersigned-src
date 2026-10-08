@@ -1003,4 +1003,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Di-stake saat dibaca: %1$s SKR · %2$s SOL · %3$s. Ditampilkan demi transparansi; tidak pernah mengubah bobot.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">SKR di-stake terbanyak</string>
+    <string name="sort_sol">SOL di-stake terbanyak</string>
+    <string name="sort_stake_note">Mengurutkan di dalam tiap bagian. Stake adalah nilai yang dibaca saat tiap ulasan muncul, ditampilkan demi transparansi, dan tidak pernah mengubah skor.</string>
 </resources>

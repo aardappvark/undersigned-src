@@ -994,4 +994,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">読み取り時のステーク：%1$s SKR · %2$s SOL · %3$s。透明性のための表示で、重みは変わりません。</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">SKRステークが多い順</string>
+    <string name="sort_sol">SOLステークが多い順</string>
+    <string name="sort_stake_note">各セクション内で並べ替えます。ステークは各レビューが最初に現れたときに読み取った値で、透明性のための表示です。スコアは変わりません。</string>
 </resources>

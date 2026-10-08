@@ -995,4 +995,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">읽은 시점의 스테이킹: %1$s SKR · %2$s SOL · %3$s. 투명성을 위한 표시이며 무게는 바뀌지 않습니다.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">SKR 스테이킹 많은 순</string>
+    <string name="sort_sol">SOL 스테이킹 많은 순</string>
+    <string name="sort_stake_note">각 섹션 안에서 정렬합니다. 스테이킹은 각 리뷰가 처음 나타났을 때 읽은 값으로, 투명성을 위한 표시이며 점수를 바꾸지 않습니다.</string>
 </resources>

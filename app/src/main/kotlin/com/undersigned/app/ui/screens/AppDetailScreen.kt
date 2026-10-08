@@ -285,14 +285,20 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             var sortBy by remember { mutableStateOf(0) } // 0 most helpful (default order) · 1 newest · 2 signer · 3 version
             if (reviews.size > 1) {
                 ChipRow(stringResource(R.string.show), listOf(0 to stringResource(R.string.show_everyone), 1 to stringResource(R.string.show_mine), 2 to stringResource(R.string.show_answered)), show, { show = it })
-                ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_helpful), 1 to stringResource(R.string.sort_newest), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_version)), sortBy, { sortBy = it })
+                ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_helpful), 1 to stringResource(R.string.sort_newest), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_version),
+                    4 to stringResource(R.string.sort_skr), 5 to stringResource(R.string.sort_sol)), sortBy, { sortBy = it })
+                // The reader's choice, never the default (legal note, 9 Oct 2026); sorts within each section, never changes a score.
+                if (sortBy >= 4) Text(stringResource(R.string.sort_stake_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }
-            val shown = remember(reviews, show, sortBy, entries, domainNames, verified) {
+            val shown = remember(reviews, show, sortBy, entries, domainNames, verified, reviewStakes) {
                 reviews.filter { (e, _) -> when (show) { 1 -> e.signer == wallet; 2 -> vm.repliesFor(e.signature).any { vm.isVerifiedPublisher(pkg, it.signer) }; else -> true } }
                     .let { l -> when (sortBy) {
                         1 -> l.sortedByDescending { it.first.blockTime }
                         2 -> l.sortedBy { domainNames[it.first.signer]?.takeIf { n -> n.isNotEmpty() } ?: it.first.signer }
                         3 -> l.sortedByDescending { (it.first.memo as ReviewMemo.Review).versionCode }
+                        // stake as read when each review first appeared; a review with no reading goes last
+                        4 -> l.sortedByDescending { reviewStakes[it.first.signature]?.skr ?: -1.0 }
+                        5 -> l.sortedByDescending { reviewStakes[it.first.signature]?.sol ?: -1.0 }
                         else -> l
                     } }
             }

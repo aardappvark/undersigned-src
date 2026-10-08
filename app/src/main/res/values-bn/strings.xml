@@ -1014,4 +1014,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">পড়ার সময় স্টেক করা: %1$s SKR · %2$s SOL · %3$s। স্বচ্ছতার জন্য দেখানো; ওজন কখনো বদলায় না।</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">সবচেয়ে বেশি স্টেক করা SKR</string>
+    <string name="sort_sol">সবচেয়ে বেশি স্টেক করা SOL</string>
+    <string name="sort_stake_note">প্রতিটি অংশের ভেতরে সাজায়। স্টেক হলো প্রতিটি পর্যালোচনা আসার সময় পড়া মান, স্বচ্ছতার জন্য দেখানো, এবং কখনো কোনো স্কোর বদলায় না।</string>
 </resources>

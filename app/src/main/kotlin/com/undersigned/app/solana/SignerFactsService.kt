@@ -36,10 +36,8 @@ class SignerFactsService(private val rpc: SolanaRpcClient = SolanaRpcClient(), p
         val att = attestationOf(signer)
         if (att is Lookup.Unknown) return null
         val id = (att as Lookup.Found).id
-        val stake = if (id != null) (stakedSkr(signer) ?: return null) else 0.0
-        // Staked SOL is shown for transparency only (never weighed): a failed read leaves it unknown, it never blocks the facts.
-        val sol = if (id != null) rpc.getStakeAccounts(signer).getOrNull()?.let { com.undersigned.protocol.StakeView.solStaked(it) } else null
-        val f = SignerFacts(id != null, stake, id, stakedSol = sol)
+        // Stake is not weighed (9 Oct 2026), so a facts read is the attestation only; stake is read once per review ([stakeNow]).
+        val f = SignerFacts(id != null, 0.0, id)
         UserPreferences.cacheFacts(signer, f)
         return f
     }
@@ -89,6 +87,13 @@ class SignerFactsService(private val rpc: SolanaRpcClient = SolanaRpcClient(), p
             Log.w(TAG, "SGT lookup failed on ${url.substringBefore("?")}: ${r.exceptionOrNull()?.message?.take(80)}")
         }
         null   // every endpoint refused: unknown, never "no" (see facts)
+    }
+
+    /** The wallet's staked SKR and SOL now, in one read, for a review's at-the-time snapshot; null when SKR could not be read. */
+    suspend fun stakeNow(address: String): com.undersigned.protocol.StakeView.Snapshot? {
+        val skr = stakedSkr(address) ?: return null
+        val sol = rpc.getStakeAccounts(address).getOrNull()?.let { com.undersigned.protocol.StakeView.solStaked(it) }
+        return com.undersigned.protocol.StakeView.Snapshot(skr, sol, System.currentTimeMillis() / 1000)
     }
 
     /** Sum of UserStake positions across guardian pools (SeekerVerify layout), valued at the current share price. PDA fallback. */

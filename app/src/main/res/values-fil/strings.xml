@@ -1022,4 +1022,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Naka-stake nang basahin: %1$s SKR · %2$s SOL · %3$s. Ipinapakita para sa transparency; hindi nito binabago ang bigat.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Pinakamaraming naka-stake na SKR</string>
+    <string name="sort_sol">Pinakamaraming naka-stake na SOL</string>
+    <string name="sort_stake_note">Inaayos sa loob ng bawat seksyon. Ang stake ay ang binasa nang unang lumabas ang bawat review, ipinapakita para sa transparency, at hindi kailanman nagbabago ng iskor.</string>
 </resources>

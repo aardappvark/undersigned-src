@@ -1047,4 +1047,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Em staking na leitura: %1$s SKR · %2$s SOL · %3$s. Mostrado por transparência; nunca muda o peso.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Mais SKR em staking</string>
+    <string name="sort_sol">Mais SOL em staking</string>
+    <string name="sort_stake_note">Ordena dentro de cada seção. O stake é o lido quando cada avaliação apareceu, mostrado por transparência, e nunca muda uma nota.</string>
 </resources>

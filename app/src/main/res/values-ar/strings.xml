@@ -1089,4 +1089,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">مرهون عند القراءة: %1$s SKR · %2$s SOL · %3$s. يُعرض للشفافية؛ ولا يغيّر الوزن أبدًا.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">الأكثر SKR مرهونًا</string>
+    <string name="sort_sol">الأكثر SOL مرهونًا</string>
+    <string name="sort_stake_note">يرتّب داخل كل قسم. المبلغ المرهون هو ما قُرئ عند ظهور كل مراجعة، يُعرض للشفافية ولا يغيّر أي تقييم أبدًا.</string>
 </resources>

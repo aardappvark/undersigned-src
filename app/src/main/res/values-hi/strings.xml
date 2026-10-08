@@ -1021,4 +1021,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">पढ़ते समय स्टेक किया: %1$s SKR · %2$s SOL · %3$s। पारदर्शिता के लिए दिखाया जाता है; वज़न कभी नहीं बदलता।</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">सबसे ज़्यादा स्टेक किया SKR</string>
+    <string name="sort_sol">सबसे ज़्यादा स्टेक किया SOL</string>
+    <string name="sort_stake_note">हर खंड के भीतर क्रम लगाता है। स्टेक वह है जो हर समीक्षा के आने पर पढ़ा गया, पारदर्शिता के लिए दिखाया जाता है, और कभी कोई स्कोर नहीं बदलता।</string>
 </resources>

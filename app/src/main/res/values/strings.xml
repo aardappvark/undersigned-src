@@ -1044,4 +1044,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Staked when read: %1$s SKR · %2$s SOL · %3$s. Shown for transparency; it never changes the weight.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Most SKR staked</string>
+    <string name="sort_sol">Most SOL staked</string>
+    <string name="sort_stake_note">Sorts within each section. Stake is as read when each review first appeared, shown for transparency, and never changes a score.</string>
 </resources>

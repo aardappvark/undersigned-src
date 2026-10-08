@@ -987,4 +987,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">สเตกไว้ขณะอ่าน: %1$s SKR · %2$s SOL · %3$s แสดงเพื่อความโปร่งใส ไม่เปลี่ยนน้ำหนักเลย</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">SKR ที่สเตกมากที่สุด</string>
+    <string name="sort_sol">SOL ที่สเตกมากที่สุด</string>
+    <string name="sort_stake_note">เรียงลำดับภายในแต่ละส่วน ยอดสเตกคือค่าที่อ่านเมื่อรีวิวปรากฏครั้งแรก แสดงเพื่อความโปร่งใส และไม่เปลี่ยนคะแนนใดเลย</string>
 </resources>

@@ -1003,4 +1003,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Đã stake khi đọc: %1$s SKR · %2$s SOL · %3$s. Hiển thị vì minh bạch; không bao giờ thay đổi trọng số.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Nhiều SKR stake nhất</string>
+    <string name="sort_sol">Nhiều SOL stake nhất</string>
+    <string name="sort_stake_note">Sắp xếp trong từng mục. Stake là giá trị đọc khi mỗi đánh giá xuất hiện, hiển thị vì minh bạch, và không bao giờ thay đổi điểm.</string>
 </resources>

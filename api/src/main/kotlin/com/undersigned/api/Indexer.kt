@@ -178,11 +178,17 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         if (!force && row != null && System.currentTimeMillis() - (row[2] as Long) < Config.FACTS_TTL_MS) return of(row)
         // A read that fails keeps what was known: an RPC outage must not turn every reviewer unattested until the next good round.
         val sgt = runCatching { rpc.holdsSeekerGenesisToken(wallet) }.getOrElse { return row?.let(::of) ?: SignerFacts(false, 0.0) }
-        val staked = if (sgt) runCatching { stakedSkr(wallet) }.getOrDefault(0.0) else 0.0
-        // Staked SOL: shown beside reviews for transparency, never weighed; null when the node would not answer.
-        val sol = if (sgt) runCatching { com.undersigned.protocol.StakeView.solStaked(rpc.stakeAccounts(wallet)) }.getOrNull() else null
-        db.exec("INSERT OR REPLACE INTO facts (wallet, sgt, staked, at, sol) VALUES (?, ?, ?, ?, ?)", wallet, if (sgt) 1 else 0, staked, System.currentTimeMillis(), sol)
-        return SignerFacts(sgt, staked, stakedSol = sol)
+        // Stake is no longer weighed (9 Oct 2026), so a refresh reads the Genesis Token only; stake is read ONCE per review,
+        // when it first appears ([stakeNow] in rebuild), and kept with it. No repeated stake scans.
+        db.exec("INSERT OR REPLACE INTO facts (wallet, sgt, staked, at, sol) VALUES (?, ?, 0, ?, NULL)", wallet, if (sgt) 1 else 0, System.currentTimeMillis())
+        return SignerFacts(sgt, 0.0)
+    }
+
+    /** The wallet's staked SKR and SOL now (one read), for a review's at-the-time snapshot; null when the chain would not answer. */
+    private fun stakeNow(wallet: String): com.undersigned.protocol.StakeView.Snapshot? {
+        val skr = runCatching { stakedSkr(wallet) }.getOrNull() ?: return null
+        val sol = runCatching { com.undersigned.protocol.StakeView.solStaked(rpc.stakeAccounts(wallet)) }.getOrNull()
+        return com.undersigned.protocol.StakeView.Snapshot(skr, sol, System.currentTimeMillis() / 1000)
     }
 
     /** Guardian-pool stake, valued at the current share price (the app's SignerFactsService layout). */
@@ -419,11 +425,11 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         val facts = signers.associateWith { facts(it) }
         // Each review's stake as first read after it appeared (owner, 9 Oct 2026): shown beside it, never weighed.
         val haveStake = db.query("SELECT id FROM review_stake") { it.getString(1) }.toHashSet()
-        entries.filter { it.memo is ReviewMemo.Review && it.signature !in haveStake }.forEach { e ->
-            val f = facts[e.signer]?.takeIf { it.hasGenesisToken } ?: return@forEach
-            // dated by when the facts were actually read from the chain, not by this rebuild (they may be cached for hours)
-            val readAt = db.query("SELECT at FROM facts WHERE wallet = ?", e.signer) { it.getLong(1) / 1000 }.firstOrNull() ?: return@forEach
-            db.exec("INSERT OR IGNORE INTO review_stake (id, skr, sol, read_at) VALUES (?, ?, ?, ?)", e.signature, f.stakedSkr, f.stakedSol, readAt)
+        // One stake read per wallet per rebuild, only for wallets with a review not yet snapshotted; never again for that review.
+        val readNow = HashMap<String, com.undersigned.protocol.StakeView.Snapshot?>()
+        entries.filter { it.memo is ReviewMemo.Review && it.signature !in haveStake && facts[it.signer]?.hasGenesisToken == true }.forEach { e ->
+            val k = readNow.getOrPut(e.signer) { stakeNow(e.signer) } ?: return@forEach   // unknown: try again next rebuild
+            db.exec("INSERT OR IGNORE INTO review_stake (id, skr, sol, read_at) VALUES (?, ?, ?, ?)", e.signature, k.skr, k.sol, k.readAt)
         }
         val reviewStake = db.query("SELECT id, skr, sol, read_at FROM review_stake") { it.getString(1) to com.undersigned.protocol.StakeView.Snapshot(it.getDouble(2), it.getObject(3) as? Double, it.getLong(4)) }.toMap()
         signers.forEach { runCatching { names.resolve(it) } }   // cached a week; only new signers cost a lookup

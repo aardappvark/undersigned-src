@@ -70,7 +70,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/records/{id}", Tier.FREE, "One record by id (signature or signature:n)") { r -> views.recordById(r.params["id"]!!)?.let(::ok) ?: notFound("no such record") }
         route("GET", "/v1/apps", Tier.LIMITED, "Catalogue search: q, category, sort (name|signed|updated)") { r -> ok(views.apps(r.query["q"], r.query["category"], r.query["sort"], rows(r, Config.FREE_ROWS, 2000))) }
         route("GET", "/v1/apps/{pkg}", Tier.FREE, "One dApp: signed score, store details and rating, publisher, payments") { r -> views.app(r.params["pkg"]!!)?.let(::ok) ?: notFound("unknown package") }
-        route("GET", "/v1/apps/{pkg}/reviews", Tier.LIMITED, "Signed reviews with every signal; limit, offset") { r -> ok(views.reviews(r.params["pkg"]!!, rows(r, Config.FREE_ROWS), if (r.caller.paid) r.int("offset", 0, 1_000_000) else 0)) }
+        route("GET", "/v1/apps/{pkg}/reviews", Tier.LIMITED, "Signed reviews with every signal; limit, offset, sort (newest|helpful|skr|sol: stake as read when each review appeared; never changes a score)") { r -> ok(views.reviews(r.params["pkg"]!!, rows(r, Config.FREE_ROWS), if (r.caller.paid) r.int("offset", 0, 1_000_000) else 0, r.query["sort"])) }
         route("GET", "/v1/apps/{pkg}/versions", Tier.PAID, "Signed score per version") { r -> ok(views.versions(r.params["pkg"]!!)) }
         route("GET", "/v1/apps/{pkg}/bursts", Tier.FREE, "Review and store-rating bursts with sparklines") { r -> ok(views.bursts(r.params["pkg"]!!)) }
         route("GET", "/v1/apps/{pkg}/similar", Tier.PAID, "Copy-paste findings among its reviews") { r -> ok(views.similar(r.params["pkg"]!!)) }
@@ -287,7 +287,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
     /** Query parameters per path, for the OpenAPI description. */
     private val QUERY = mapOf(
         "/v1/records" to listOf("type", "package", "signer", "since", "until", "before", "limit"), "/v1/apps" to listOf("q", "category", "sort", "limit"),
-        "/v1/apps/{pkg}/reviews" to listOf("limit", "offset"), "/v1/watch" to listOf("days"), "/v1/changes" to listOf("since"), "/v1/wallets/{address}" to listOf("full"),
+        "/v1/apps/{pkg}/reviews" to listOf("limit", "offset", "sort"), "/v1/watch" to listOf("days"), "/v1/changes" to listOf("since"), "/v1/wallets/{address}" to listOf("full"),
         "/v1/leaderboard" to listOf("metric", "category", "limit"), "/v1/payments" to listOf("limit"),
     )
 

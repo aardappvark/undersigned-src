@@ -24,7 +24,10 @@ class PromotedApiTest {
         rec('p', member, ReviewMemo.Pro(12), 1_700_000_000L)
         rec('a', member, ReviewMemo.Review("com.a.b", 5, listOf(ReviewMemo.Tag.WORKS), 42, "Fast and it just works on my Seeker"), 1_700_000_100L)
         rec('b', other, ReviewMemo.Review("com.a.b", 1, listOf(ReviewMemo.Tag.CRASHES), 42, "Crashes every time I open the wallet"), 1_700_000_100L)
-        db.exec("INSERT INTO facts (wallet, sgt, staked, at, sol) VALUES (?, 1, 50000, ?, 12.5)", member, 1_760_000_000_000L)
+        db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 1, 0, ?)", member, System.currentTimeMillis())
+        // the stake as read when the review appeared (the indexer reads it once per review; this fixture has no chain)
+        db.exec("INSERT INTO review_stake (id, skr, sol, read_at) VALUES (?, 50000, 12.5, 1760000000)", sig('a'))
+        db.exec("INSERT INTO review_stake (id, skr, sol, read_at) VALUES (?, 10, NULL, 1760000000)", sig('b'))
         db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 1, 0, ?)", other, System.currentTimeMillis())
         if (boost) {
             rec('x', member, ReviewMemo.Boost(sig('a')), 1_700_000_200L)
@@ -55,6 +58,10 @@ class PromotedApiTest {
         assertEquals(50000.0, k.getDouble("skr"), 1e-9); assertEquals(12.5, k.getDouble("sol"), 1e-9); assertEquals(1_760_000_000L, k.getLong("read_at"))
         assertEquals(1.0, mine.getJSONObject("weight_parts").getDouble("device"), 1e-9)   // a big stake, the same device weight
         assertTrue("Staked 50,000 SKR · 12.50 SOL · read" in String(web.handle("/app/com.a.b", emptyMap()).raw!!))
+        // sorting by stake: most first, unread SOL last; it reorders and never changes a score
+        val bySkr = v.reviews("com.a.b", 10, 0, "skr").getJSONArray("reviews"); assertEquals(member, bySkr.getJSONObject(0).getString("signer"))
+        val bySol = v.reviews("com.a.b", 10, 0, "sol").getJSONArray("reviews"); assertEquals(other, bySol.getJSONObject(1).getString("signer"))
+        assertTrue("<b>Most SKR staked</b>" in String(web.handle("/app/com.a.b", mapOf("sort" to "skr")).raw!!))
     }
 
     @Test fun `an unpaid promotion is honoured nowhere`() {

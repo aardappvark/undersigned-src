@@ -1039,4 +1039,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">В стейкинге на момент чтения: %1$s SKR · %2$s SOL · %3$s. Показано для прозрачности; на вес не влияет.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Больше всего SKR в стейкинге</string>
+    <string name="sort_sol">Больше всего SOL в стейкинге</string>
+    <string name="sort_stake_note">Сортирует внутри каждого раздела. Стейк — значение, прочитанное при появлении отзыва, показан для прозрачности и никогда не меняет оценку.</string>
 </resources>

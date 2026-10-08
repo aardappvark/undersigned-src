@@ -21,7 +21,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/" -> page("Undersigned — signed reviews from Seeker owners", home(query["q"]))
             path.startsWith("/v1/badge/") && path.endsWith(".svg") -> badge(dec(path.removePrefix("/v1/badge/").removeSuffix(".svg")))
             path.startsWith("/app/") && path.endsWith("/feed.xml") -> dec(path.removePrefix("/app/").removeSuffix("/feed.xml")).let { pkg -> views.app(pkg)?.let { feed(pkg, it) } ?: notFound() }
-            path.startsWith("/app/") -> dec(path.removePrefix("/app/")).let { pkg -> views.app(pkg)?.let { page("${it.optString("name", pkg)} — Undersigned", app(pkg, it, lang), lang = lang,
+            path.startsWith("/app/") -> dec(path.removePrefix("/app/")).let { pkg -> views.app(pkg)?.let { page("${it.optString("name", pkg)} — Undersigned", app(pkg, it, lang, query["sort"]), lang = lang,
                 description = "Signed reviews of ${it.optString("name", pkg)} from Seeker owners, beside the dApp Store's own rating.", head = "<link rel=alternate type='application/atom+xml' href='/app/${enc(pkg)}/feed.xml'>") } ?: notFound() }
             path.startsWith("/wallet/") -> dec(path.removePrefix("/wallet/")).let { w -> if (runCatching { Base58.decode(w).size }.getOrNull() == 32) page("Wallet ${short(w)} — Undersigned", wallet(w)) else notFound() }
             // The app's own font (OFL, licence beside it) and photographs, served from here: no third-party requests.
@@ -102,7 +102,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         return sb.toString()
     }
 
-    private fun app(pkg: String, a: JSONObject, lang: String): String {
+    private fun app(pkg: String, a: JSONObject, lang: String, sort: String? = null): String {
         val sb = StringBuilder()
         val sg = a.optJSONObject("signed"); val store = a.optJSONObject("store"); val sr = a.optJSONObject("store_rating")
         sb.append("<h1>${esc(a.optString("name", pkg))}</h1><p class=meta>${esc(a.optString("category", ""))} · ${esc(pkg)}</p>")
@@ -139,8 +139,12 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         bursts.append("<p class=small>A burst is a fact about timing, not a verdict about the reviews.</p>")
 
         // Reviews
-        val rv = views.reviews(pkg, 50, 0)
-        sb.append("<h2>Signed reviews</h2>")
+        // The reader's own choice of order, within each section; stake is as read when each review appeared (never a score).
+        val order = sort?.takeIf { it in setOf("helpful", "skr", "sol") } ?: "newest"
+        val rv = views.reviews(pkg, 50, 0, order)
+        sb.append("<h2 id=reviews>Signed reviews</h2>")
+        sb.append("<p class=small>Sort: " + listOf("newest" to "Newest", "helpful" to "Most helpful", "skr" to "Most SKR staked", "sol" to "Most SOL staked").joinToString(" · ") { (k, label) ->
+            if (k == order) "<b>$label</b>" else "<a href='/app/${enc(pkg)}?sort=$k#reviews'>$label</a>" } + ". Sorts within each section. Stake is as read when the review first appeared, shown for transparency, and never changes a score.</p>")
         val list = rv.getJSONArray("reviews")
         if (list.length() == 0) sb.append("<p class=meta>None yet. <a href='/review?package=${enc(pkg)}'>Write one</a> from a Seeker.</p>")
         // Under headings, as in the app (owner, 9 Oct 2026): organic, Pro members, related to Undersigned or the publisher (shown,

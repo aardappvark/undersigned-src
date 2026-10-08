@@ -1021,4 +1021,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">پڑھتے وقت اسٹیک شدہ: %1$s SKR · %2$s SOL · %3$s۔ شفافیت کے لیے دکھایا جاتا ہے؛ وزن کبھی نہیں بدلتا۔</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">سب سے زیادہ اسٹیک شدہ SKR</string>
+    <string name="sort_sol">سب سے زیادہ اسٹیک شدہ SOL</string>
+    <string name="sort_stake_note">ہر حصے کے اندر ترتیب دیتا ہے۔ اسٹیک وہ ہے جو ہر جائزہ ظاہر ہونے پر پڑھا گیا، شفافیت کے لیے دکھایا جاتا ہے، اور کبھی کوئی اسکور نہیں بدلتا۔</string>
 </resources>

@@ -1002,4 +1002,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">读取时的质押：%1$s SKR · %2$s SOL · %3$s。仅为透明而显示，从不改变权重。</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">质押 SKR 最多</string>
+    <string name="sort_sol">质押 SOL 最多</string>
+    <string name="sort_stake_note">在每个栏目内排序。质押为每条评价首次出现时读取的数值，仅为透明而显示，从不改变评分。</string>
 </resources>

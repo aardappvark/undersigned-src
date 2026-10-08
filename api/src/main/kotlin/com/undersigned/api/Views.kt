@@ -130,7 +130,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("apps", JSONArray(st.scores.values.sortedBy { it.packageName }.map { sc -> JSONObject().put("package", sc.packageName).put("name", st.byPackage[sc.packageName]?.name ?: JSONObject.NULL)
                 .put("rank_score", r2(sc.weightedRating)).put("mean", r2(sc.weightedMean)).put("counted_reviews", sc.countedReviews).put("tags", JSONObject(sc.tagCounts.mapKeys { it.key.wire })) }))
             .put("signers", JSONArray(st.entries.map { it.signer }.distinct().sorted().map { w -> val f = st.factsOf(w)
-                JSONObject().put("wallet", w).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(com.undersigned.protocol.Ranking.weight(f))) }))
+                JSONObject().put("wallet", w).put("attested_device", f.hasGenesisToken).put("staked_skr", latestStake(st, w)?.let { r2(it.skr) } ?: JSONObject.NULL).put("weight", r2(com.undersigned.protocol.Ranking.weight(f))) }))
     }
 
     fun stats(): JSONObject {
@@ -221,15 +221,27 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     private fun liveReviews(pkg: String, st: State = indexer.state): List<LedgerEntry> =
         st.entries.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in st.revoked }.groupBy { it.signer }.map { (_, l) -> l.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature }) }
 
-    fun reviews(pkg: String, limit: Int, offset: Int): JSONObject {
+    /** A wallet's stake as last read with one of its reviews (shown, never weighed); null when none was read. */
+    private fun latestStake(st: State, wallet: String): com.undersigned.protocol.StakeView.Snapshot? =
+        st.entries.filter { it.signer == wallet }.mapNotNull { st.reviewStake[it.signature] }.maxByOrNull { it.readAt }
+
+    /** [sort]: "newest" (default), "helpful", "skr" or "sol" (stake as read when each review appeared; unread last). Never changes a score. */
+    fun reviews(pkg: String, limit: Int, offset: Int, sort: String? = null): JSONObject {
         val st = s
-        val all = liveReviews(pkg, st).sortedByDescending { it.blockTime }
+        val byTime = liveReviews(pkg, st).sortedByDescending { it.blockTime }
+        fun stake(e: LedgerEntry, sol: Boolean) = st.reviewStake[e.signature]?.let { if (sol) it.sol else it.skr } ?: -1.0
+        val all = when (sort) {
+            "helpful" -> byTime.sortedByDescending { st.helpful[it.signature] ?: 0.0 }
+            "skr" -> byTime.sortedByDescending { stake(it, false) }
+            "sol" -> byTime.sortedByDescending { stake(it, true) }
+            else -> byTime
+        }
         val paid = boards.rows.firstOrNull { it.claim.packageName == pkg }?.payers.orEmpty()
         val byTarget = st.entries.filter { it.memo is ReviewMemo.Reply }.groupBy { (it.memo as ReviewMemo.Reply).reviewSignature }
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("staked_sol", f.stakedSol?.let(::r2) ?: JSONObject.NULL)
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", latestStake(st, e.signer)?.let { r2(it.skr) } ?: JSONObject.NULL).put("staked_sol", latestStake(st, e.signer)?.sol?.let(::r2) ?: JSONObject.NULL)
                     // Shown for transparency, never weighed: the stake as first read after this review appeared, and when.
                     .put("stake_at_review", st.reviewStake[e.signature]?.let { k -> JSONObject().put("skr", r2(k.skr)).put("sol", k.sol?.let(::r2) ?: JSONObject.NULL).put("read_at", k.readAt) } ?: JSONObject.NULL)
                     .put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
@@ -333,7 +345,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val mine = st.entries.filter { it.signer == addr }
         val reviews = mine.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
         val o = JSONObject().put("wallet", addr).put("skr_name", indexer.names.cached(addr)?.ifEmpty { null } ?: JSONObject.NULL).put("read", f != null)
-            .put("attested_device", f?.hasGenesisToken ?: JSONObject.NULL).put("staked_skr", f?.let { r2(it.stakedSkr) } ?: JSONObject.NULL).put("weight", f?.let { r2(com.undersigned.protocol.Ranking.weight(it)) } ?: JSONObject.NULL)
+            .put("attested_device", f?.hasGenesisToken ?: JSONObject.NULL).put("staked_skr", latestStake(st, addr)?.let { r2(it.skr) } ?: JSONObject.NULL).put("staked_sol", latestStake(st, addr)?.sol?.let(::r2) ?: JSONObject.NULL).put("weight", f?.let { r2(com.undersigned.protocol.Ranking.weight(it)) } ?: JSONObject.NULL)
             .put("standing", stand?.let { JSONObject().put("counted_reviews", it.countedReviews).put("withdrawn", it.withdrawn)
                 .put("flags_given", it.flagsGiven).put("flags_upheld", it.flagsUpheld).put("flags_received", it.flagsReceived).put("records_hidden", it.recordsHidden)
                 .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen) } ?: JSONObject.NULL)

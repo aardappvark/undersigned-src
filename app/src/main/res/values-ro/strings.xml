@@ -1036,4 +1036,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">În staking la citire: %1$s SKR · %2$s SOL · %3$s. Afișat pentru transparență; nu schimbă niciodată greutatea.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Cel mai mult SKR în staking</string>
+    <string name="sort_sol">Cel mai mult SOL în staking</string>
+    <string name="sort_stake_note">Sortează în fiecare secțiune. Stake-ul este cel citit la apariția fiecărei recenzii, afișat pentru transparență, și nu schimbă niciodată un scor.</string>
 </resources>

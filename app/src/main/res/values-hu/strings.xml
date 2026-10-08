@@ -1018,4 +1018,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Stakelve a leolvasáskor: %1$s SKR · %2$s SOL · %3$s. Az átláthatóság kedvéért mutatjuk; a súlyt soha nem változtatja.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Legtöbb stakelt SKR</string>
+    <string name="sort_sol">Legtöbb stakelt SOL</string>
+    <string name="sort_stake_note">Szakaszon belül rendez. A stake az értékelés első megjelenésekor leolvasott érték, az átláthatóság kedvéért mutatjuk, és soha nem változtat a pontszámon.</string>
 </resources>

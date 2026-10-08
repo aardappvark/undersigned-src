@@ -1056,4 +1056,9 @@
 
     <!-- Stake shown for transparency, never weighed (9 Oct 2026) -->
     <string name="review_stake_at">Stakowane przy odczycie: %1$s SKR · %2$s SOL · %3$s. Pokazane dla przejrzystości; nigdy nie zmienia wagi.</string>
+
+    <!-- Reader-chosen stake sorts (9 Oct 2026) -->
+    <string name="sort_skr">Najwięcej SKR w stakingu</string>
+    <string name="sort_sol">Najwięcej SOL w stakingu</string>
+    <string name="sort_stake_note">Sortuje w obrębie każdej sekcji. Stake to wartość odczytana, gdy recenzja się pojawiła, pokazana dla przejrzystości; nigdy nie zmienia oceny.</string>
 </resources>
