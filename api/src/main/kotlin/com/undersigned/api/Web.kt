@@ -159,11 +159,12 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
                 related == "operator" -> sb.append("<span class=pill>Undersigned operator · not counted</span>")
                 related == "pro_from_publisher" -> sb.append("<span class=pill>Pro from this app's publisher · not counted</span>")
                 who.optBoolean("attested_device") -> sb.append("<span class='pill g'>Attested device · weight ${who.opt("weight")}</span>")
-                    .also { who.optJSONObject("stake_at_review")?.let { k -> sb.append("<span class=pill title='Shown for transparency; it never changes the weight'>Staked ${"%,.0f".format(java.util.Locale.US, k.optDouble("skr"))} SKR${if (k.isNull("sol")) "" else " · ${"%,.2f".format(java.util.Locale.US, k.optDouble("sol"))} SOL"} · read ${day(k.optLong("read_at"))}</span>") } }
                 else -> sb.append("<span class=pill>Not counted: no attested device</span>")
             }
             if (parts?.optBoolean("pro_member") == true && g <= 2) sb.append("<span class='pill g'>Pro member</span>")
             if (g == 2) sb.append("<span class=pill>Promoted · paid</span>")
+            // Every review shows its wallet's stake as read at the time, whatever its heading: transparency, never weight.
+            who.optJSONObject("stake_at_review")?.let { k -> sb.append("<span class=pill>Staked ${"%,.0f".format(java.util.Locale.US, k.optDouble("skr"))} SKR · ${if (k.isNull("sol")) "SOL not read" else "%,.2f".format(java.util.Locale.US, k.optDouble("sol")) + " SOL"} · read ${day(k.optLong("read_at"))} (shown, never weighed)</span>") }
             if (r.optBoolean("paid_for_app")) sb.append("<span class='pill g'>Paid for this app</span>")
             if (r.optBoolean("self_published")) sb.append("<span class=pill>The publisher's own review, not counted</span>")
             sb.append("</div>")
