@@ -128,7 +128,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         return JSONObject().put("generated_at", st.builtAt / 1000).put("registry", Config.REGISTRY).put("licence", "Public on-chain data; use freely. Scores follow docs/SPEC.md.")
             .put("records", JSONArray(st.entries.map { record(it, st) }))
             .put("apps", JSONArray(st.scores.values.sortedBy { it.packageName }.map { sc -> JSONObject().put("package", sc.packageName).put("name", st.byPackage[sc.packageName]?.name ?: JSONObject.NULL)
-                .put("rank_score", r2(sc.weightedRating)).put("mean", r2(sc.weightedMean)).put("counted_reviews", sc.countedReviews).put("tags", JSONObject(sc.tagCounts.mapKeys { it.key.wire })) }))
+                .put("rank_score", if (sc.countedReviews > 0) r2(sc.weightedRating) else JSONObject.NULL).put("mean", if (sc.countedReviews > 0) r2(sc.weightedMean) else JSONObject.NULL).put("counted_reviews", sc.countedReviews).put("tags", JSONObject(sc.tagCounts.mapKeys { it.key.wire })) }))
             .put("signers", JSONArray(st.entries.map { it.signer }.distinct().sorted().map { w -> val f = st.factsOf(w)
                 JSONObject().put("wallet", w).put("attested_device", f.hasGenesisToken).put("staked_skr", latestStake(st, w)?.let { r2(it.skr) } ?: JSONObject.NULL).put("weight", r2(com.undersigned.protocol.Ranking.weight(f))) }))
     }
@@ -167,7 +167,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         if (!qq.isNullOrEmpty()) l = l.filter { it.name.lowercase().contains(qq) || it.packageName.lowercase().contains(qq) || it.category?.lowercase()?.contains(qq) == true }
         category?.let { c -> l = l.filter { it.category.equals(c, true) } }
         val sorted = when (sort) {
-            "signed" -> l.sortedByDescending { st.scores[it.packageName]?.weightedRating ?: -1.0 }
+            "signed" -> l.sortedByDescending { st.scores[it.packageName]?.takeIf { s -> s.countedReviews > 0 }?.weightedRating ?: -1.0 }
             "updated" -> l.sortedByDescending { it.updated }
             else -> l.sortedBy { it.name.lowercase() }
         }.toList()
@@ -177,7 +177,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     private fun appRow(pkg: String): JSONObject {
         val st = s; val c = st.byPackage[pkg]; val sc = st.scores[pkg]
         return JSONObject().put("package", pkg).put("name", c?.name ?: pkg).put("category", c?.category ?: JSONObject.NULL).put("updated", c?.updated ?: JSONObject.NULL)
-            .put("signed", if (sc == null) JSONObject.NULL else JSONObject().put("rank_score", r2(sc.weightedRating)).put("mean", r2(sc.weightedMean)).put("counted_reviews", sc.countedReviews))
+            .put("signed", if (sc == null) JSONObject.NULL else JSONObject().put("rank_score", if (sc.countedReviews > 0) r2(sc.weightedRating) else JSONObject.NULL).put("mean", if (sc.countedReviews > 0) r2(sc.weightedMean) else JSONObject.NULL).put("counted_reviews", sc.countedReviews))
     }
 
     fun app(pkg: String): JSONObject? {
@@ -188,7 +188,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val live = liveReviews(pkg, st)
         val counted = live.filter { st.countsFor(it.signer).hasGenesisToken && st.weighting.parts(it).weight > 0 }
         o.put("signed", JSONObject()
-            .put("rank_score", sc?.weightedRating?.let(::r2) ?: JSONObject.NULL).put("mean", sc?.weightedMean?.let(::r2) ?: JSONObject.NULL)
+            // Nothing counted means no score: null, never 0 (reads as zero stars) or the 3.0 ranking prior.
+            .put("rank_score", sc?.takeIf { it.countedReviews > 0 }?.weightedRating?.let(::r2) ?: JSONObject.NULL).put("mean", sc?.takeIf { it.countedReviews > 0 }?.weightedMean?.let(::r2) ?: JSONObject.NULL)
             .put("counted_reviews", sc?.countedReviews ?: 0).put("live_reviews", live.size)
             .put("stars", JSONArray((1..5).map { star -> counted.count { (it.memo as ReviewMemo.Review).rating == star } }))
             .put("tags", JSONObject((sc?.tagCounts ?: emptyMap()).mapKeys { it.key.wire }))

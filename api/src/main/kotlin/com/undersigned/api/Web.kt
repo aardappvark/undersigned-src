@@ -99,7 +99,10 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             shown++
             val name = a.getString("name")
             sb.append("<a class='card row link' href='/app/${enc(a.getString("package"))}'><span class=badge aria-hidden=true>${esc(name.trim().take(1).uppercase())}</span><span class=grow><span class=name>${esc(name)}</span><br><span class=meta>${esc(a.optString("category", ""))} · ${esc(a.getString("package"))}</span></span>")
-            sb.append(if (sg != null) "<span class=score>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}<small>${sg.optInt("counted_reviews")} signed</small></span>" else "<span class=meta>no signed reviews yet</span>").append("</a>")
+            sb.append(when {
+                sg != null && sg.optInt("counted_reviews") > 0 -> "<span class=score>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}<small>${sg.optInt("counted_reviews")} signed</small></span>"
+                sg != null -> "<span class=meta>signed, not counted</span>"
+                else -> "<span class=meta>no signed reviews yet</span>" }).append("</a>")
         }
         if (shown == 0) sb.append("<p class=meta>${if (q.isNullOrBlank()) "No signed reviews yet." else "No app matches. Try part of its name or its package."}</p>")
         sb.append("<div class='card how'><div class=label>More</div><p class=meta><a href='/watch'>Store watch</a>: a weekly report of unusual rating bursts. <a href='/publishers'>For publishers</a>: prove an app is yours and answer reviews. <a href='/v1/dataset.json'>Open dataset</a> and <a href='/api'>API</a>: every record, free to read within limits.</p></div>")
