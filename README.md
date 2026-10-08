@@ -10,6 +10,8 @@ ledger for other programs and for readers without a Seeker.
 CLOCK IN hackathon entry (8 Sep – 8 Oct 2026). See `docs/SPEC.md` (protocol), `docs/LEGAL_GATES.md`
 (compliance), and this file's "How it exists" section for the relationship to the store.
 
+**Developers:** the public API and the MCP server for AI agents are documented in [docs/DEVELOPERS.md](docs/DEVELOPERS.md).
+
 ## How it exists relative to the Solana dApp Store
 
 **It is not part of the store and does not modify it.** It is an ordinary third-party dApp, submitted

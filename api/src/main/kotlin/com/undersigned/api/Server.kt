@@ -30,6 +30,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
     }
 
     private val routes = ArrayList<Route>()
+    private val mcp = Mcp(views)
     private fun route(method: String, path: String, tier: Tier, summary: String, handler: (Req) -> Response) {
         val names = Regex("\\{(\\w+)}").findAll(path).map { it.groupValues[1] }.toList()
         val rx = Regex("^" + path.replace(Regex("\\{\\w+}"), "([^/]+)") + "$")
@@ -46,6 +47,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/health", Tier.FREE, "Indexer status: last syncs, last error, skipped transactions, hook failures") { ok(JSONObject().put("ok", true).put("indexed_at", indexer.state.builtAt / 1000).put("ledger_synced", indexer.lastLedgerSync / 1000).put("store_synced", indexer.lastStoreSync / 1000)
             .put("last_error", indexer.lastError ?: JSONObject.NULL).put("skipped_transactions", indexer.skippedTx).put("hook_failures_24h", hooks?.failures24h() ?: 0).put("limiter_entries", limiter.size).put("public", Config.PUBLIC).put("test_prices", Config.testPrices)
             .put("snapshot_days", indexer.snapshotDays().size).put("last_snapshot_day", indexer.snapshotDays().lastOrNull() ?: JSONObject.NULL).put("last_backup", indexer.lastBackup ?: JSONObject.NULL)) }
+        // MCP for agents (Mcp.kt): read-only tools over the same views, metered like any LIMITED route.
+        route("POST", "/mcp", Tier.LIMITED, "Model Context Protocol (Streamable HTTP, JSON-RPC): read-only tools for AI agents. Add this URL to Claude, Cursor or any MCP client") { r -> mcp.handle(r.body, r.caller) }
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
         route("GET", "/v1/openapi.json", Tier.FREE, "This API's description") { ok(openApi()) }
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
@@ -114,6 +117,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     fun handle(method: String, path: String, query: Map<String, String>, body: String, auth: String?, ip: String, acceptLanguage: String? = null): Response {
         if (method == "OPTIONS") return Response(204, JSONObject())
+        // Stateless MCP: no server-initiated stream, so the transport's GET answers 405 (Mcp.kt).
+        if (path == "/mcp" && method != "POST") return Response(405, JSONObject().put("error", "method_not_allowed").put("message", "MCP here is stateless: POST JSON-RPC to /mcp"), mapOf("Allow" to "POST"))
         // The fleet seeding page and its builder answer this Mac only. Through the tunnel the address is the last
         // X-Forwarded-For hop (the visitor's, appended by Cloudflare), so a public request never reads as loopback.
         if ((path == "/seed" || path == "/v1/tx/seed") && !isLoopback(ip)) return notFound("no such endpoint; see /v1/openapi.json")
@@ -328,7 +333,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val bytes = if (r.status == 204 || head) ByteArray(0) else r.raw ?: r.body.toString(if (query?.get("pretty") == "1") 2 else 0).toByteArray()
             ex.responseHeaders.add("Content-Type", r.contentType)
             ex.responseHeaders.add("Access-Control-Allow-Origin", "*")
-            ex.responseHeaders.add("Access-Control-Allow-Headers", "Authorization, Content-Type")
+            ex.responseHeaders.add("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, Mcp-Protocol-Version, Mcp-Session-Id")
             ex.responseHeaders.add("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
             r.headers.forEach { (k, v) -> ex.responseHeaders.add(k, v) }
             ex.responseHeaders.add("X-Content-Type-Options", "nosniff")

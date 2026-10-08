@@ -368,6 +368,31 @@ ready();
         sb.append("<div class='card how'><div class=label>Getting a key</div><ol><li><b>Pay</b> with the button above from a phone wallet, or scan the QR code on a computer. The payment carries the pass reference, so it is found on-chain.</li>" +
             "<li><b>Redeem</b>: <code>POST /v1/keys</code> with the payment's signature and the paying wallet's signature of the message <code>Undersigned API key for &lt;payment signature&gt;</code>. Only the wallet that paid can redeem it. Or start with <code>POST /v1/checkout</code> for a one-time secret instead of a message signature.</li>" +
             "<li><b>Call</b> with <code>Authorization: Bearer &lt;key&gt;</code>. <code>GET /v1/keys/me</code> shows what is left.</li></ol></div>")
+        // Quickstart and agents (9 Oct 2026): copy-paste calls, and the MCP endpoint served by this API (Mcp.kt).
+        val base = Config.PUBLIC_URL
+        sb.append("<h2>Quickstart</h2><div class=card><p class=meta>No key, no sign-up. Every answer is JSON; add <code>?pretty=1</code> to read it.</p>")
+        sb.append("<pre class=code>${esc("""curl "$base/v1/apps?q=wallet&limit=5"
+curl "$base/v1/apps/com.solflare.mobile"
+curl "$base/v1/apps/com.solflare.mobile/reviews?sort=newest"
+curl -H "Authorization: Bearer YOUR_KEY" "$base/v1/watch?days=7"""")}</pre>")
+        sb.append("<p class=meta>JavaScript</p><pre class=code>${esc("""const r = await fetch("$base/v1/apps/com.solflare.mobile");
+const app = await r.json();
+console.log(app.signed.mean, app.signed.counted_reviews, app.store_rating);""")}</pre>")
+        sb.append("<p class=meta>Python</p><pre class=code>${esc("""import requests
+app = requests.get("$base/v1/apps/com.solflare.mobile").json()
+print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
+        sb.append("<p class=small>Answers: 200 data · 402 needs a pass (the body carries the price and Solana Pay links) · 429 over the limit (Retry-After) · 404 unknown. Send a User-Agent header from scripts.</p></div>")
+        sb.append("<h2>Use it from an AI agent (MCP)</h2><div class=card><p>This API is also a Model Context Protocol server at <code>$base/mcp</code>. Add the URL to your agent; nothing to install. Its tools only read: search apps, get an app's scores, read its reviews, bursts and wallets. No tool writes, signs or submits a review.</p>")
+        sb.append("<p class=meta>Claude Code</p><pre class=code>${esc("""claude mcp add --transport http undersigned $base/mcp""")}</pre>")
+        sb.append("<p class=meta>Cursor and other clients (mcp.json)</p><pre class=code>${esc("""{
+  "mcpServers": {
+    "undersigned": {
+      "url": "$base/mcp",
+      "headers": { "Authorization": "Bearer YOUR_KEY" }
+    }
+  }
+}""")}</pre>")
+        sb.append("<p class=meta>Claude (web or desktop): Settings, Connectors, add a custom connector with the URL above. The header line is only needed for the tools marked as needing a pass.</p></div>")
         val docs = apiDocs?.invoke()?.optJSONObject("paths") ?: JSONObject()
         val rows = docs.keys().asSequence().flatMap { path -> docs.getJSONObject(path).let { m -> m.keys().asSequence().map { verb -> Triple(path, verb.uppercase(), m.getJSONObject(verb)) } } }.toList()
         for ((tier, title) in listOf("free" to "Free", "limited" to "Free within the limits above", "paid" to "With a pass")) {
