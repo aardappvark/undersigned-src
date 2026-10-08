@@ -197,13 +197,25 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    private var factsRetries = 0
+    private val FACTS_RETRIES = 4
+    private val FACTS_RETRY_MS = 20_000L
+
     /** Facts for every distinct signer (cached, one lookup each), then the deterministic ranking. */
-    private suspend fun rank() = withContext(Dispatchers.IO) {
+    private suspend fun rank(): Unit = withContext(Dispatchers.IO) {
         val list = entries.value
         val map = HashMap(facts.value)
-        for (s in list.map { it.signer }.distinct()) if (s !in map) map[s] = runCatching { factsService.facts(s) }.getOrElse { SignerFacts(false, 0.0) }
+        // A wallet whose facts could not be read this time (RPC 429s, no network) is ranked on its last known answer and NOT
+        // remembered for the session, so the retry below asks again (debug 9 Oct 2026: they read "not counted" for hours).
+        val unknown = HashMap<String, SignerFacts>()
+        for (s in list.map { it.signer }.distinct()) if (s !in map) {
+            val got = runCatching { factsService.factsOrNull(s) }.getOrNull()
+            if (got != null) map[s] = got else unknown[s] = UserPreferences.cachedFacts(s, stale = true) ?: SignerFacts(false, 0.0)
+        }
         facts.update { it + map }  // merge: store-reviewer lookups may have landed while this ran
-        val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
+        if (unknown.isNotEmpty() && factsRetries < FACTS_RETRIES) { factsRetries++; viewModelScope.launch { kotlinx.coroutines.delay(FACTS_RETRY_MS * factsRetries); rank() } }
+        else if (unknown.isEmpty()) factsRetries = 0
+        val f = { w: String -> map[w] ?: unknown[w] ?: SignerFacts(false, 0.0) }
         val vp = verifiedPublishers.value
         scores.value = Ranking.score(list, vp, facts = f).associateBy { it.packageName }
         setSegments(list, vp, f)
@@ -324,8 +336,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         for (w in todo) viewModelScope.launch(Dispatchers.IO) {
             try {
                 factsGate.acquire()
-                val f = try { runCatching { factsService.facts(w) }.getOrElse { SignerFacts(false, 0.0) } } finally { factsGate.release() }
-                facts.update { it + (w to f) }
+                val f = try { runCatching { factsService.factsOrNull(w) }.getOrNull() } finally { factsGate.release() }
+                if (f != null) facts.update { it + (w to f) }   // unknown: not remembered, so the next call asks again
             } finally { factsInFlight.remove(w) }
         }
     }

@@ -107,9 +107,10 @@ object UserPreferences {
     fun unhideAll() { prefs?.edit()?.remove(KEY_HIDDEN)?.apply(); _hidden.value = emptySet() }
 
     /** Signer facts cache: {signer: {sgt, skr, at}} — immutable-ish data with a TTL. */
-    fun cachedFacts(signer: String): SignerFacts? {
+    /** [stale]: also return an expired entry (the last answer actually read), for when a fresh lookup cannot be completed. */
+    fun cachedFacts(signer: String, stale: Boolean = false): SignerFacts? {
         val o = runCatching { JSONObject(prefs?.getString(KEY_FACTS, "{}") ?: "{}").optJSONObject(signer) }.getOrNull() ?: return null
-        if (System.currentTimeMillis() - o.optLong("at", 0L) > FACTS_TTL_MS) return null
+        if (!stale && System.currentTimeMillis() - o.optLong("at", 0L) > FACTS_TTL_MS) return null
         return SignerFacts(o.optBoolean("sgt", false), o.optDouble("skr", 0.0), o.optString("att", null)?.takeIf { it.isNotEmpty() && it != "null" } ?: if (o.optBoolean("sgt", false)) "seeker-genesis" else null)
     }
     fun cacheFacts(signer: String, f: SignerFacts) {
