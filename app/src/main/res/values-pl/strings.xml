@@ -1061,4 +1061,15 @@
     <string name="sort_skr">Najwięcej SKR w stakingu</string>
     <string name="sort_sol">Najwięcej SOL w stakingu</string>
     <string name="sort_stake_note">Sortuje w obrębie każdej sekcji. Stake to wartość odczytana, gdy recenzja się pojawiła, pokazana dla przejrzystości; nigdy nie zmienia oceny.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Proponowane tłumaczenie</string>
+    <string name="translate_label">Proponowane tłumaczenie przez AI. Tekst powyżej to słowa autora.</string>
+    <string name="translate_failed">Nie udało się teraz zaproponować tłumaczenia.</string>
+    <string name="pro_tool_translate_title">Proponowane tłumaczenia</string>
+    <string name="pro_tool_translate_body">Czytaj każdą recenzję, podpisaną lub ze sklepu, w swoim języku jednym dotknięciem i pisz odpowiedzi po swojemu, a zostaną przełożone na język recenzenta. Przetłumaczone przez AI i oznaczone; słowa autora pozostają widoczne.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Przetłumacz na język recenzenta</string>
+    <string name="reply_translate_note">Twój szkic: %1$s. Podpisujesz przetłumaczoną odpowiedź jako własne słowa, więc ją sprawdź.</string>
 </resources>

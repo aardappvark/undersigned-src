@@ -992,4 +992,15 @@
     <string name="sort_skr">SKR ที่สเตกมากที่สุด</string>
     <string name="sort_sol">SOL ที่สเตกมากที่สุด</string>
     <string name="sort_stake_note">เรียงลำดับภายในแต่ละส่วน ยอดสเตกคือค่าที่อ่านเมื่อรีวิวปรากฏครั้งแรก แสดงเพื่อความโปร่งใส และไม่เปลี่ยนคะแนนใดเลย</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">คำแปลที่แนะนำ</string>
+    <string name="translate_label">คำแปลที่ AI แนะนำ ข้อความด้านบนคือถ้อยคำของผู้เขียนเอง</string>
+    <string name="translate_failed">ยังแนะนำคำแปลไม่ได้ในตอนนี้</string>
+    <string name="pro_tool_translate_title">คำแปลที่แนะนำ</string>
+    <string name="pro_tool_translate_body">อ่านรีวิวใดก็ได้ ทั้งที่ลงนามหรือจากสโตร์ ในภาษาของคุณด้วยการแตะครั้งเดียว และเขียนคำตอบในภาษาของคุณเพื่อแปลเป็นภาษาของผู้รีวิว แปลโดย AI พร้อมป้ายกำกับ ถ้อยคำของผู้เขียนยังแสดงอยู่</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">แปลเป็นภาษาของผู้รีวิว</string>
+    <string name="reply_translate_note">ร่างของคุณ: %1$s คุณลงนามคำตอบที่แปลแล้วในฐานะถ้อยคำของคุณเอง จึงควรตรวจทาน</string>
 </resources>

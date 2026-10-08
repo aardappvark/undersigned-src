@@ -1041,4 +1041,15 @@
     <string name="sort_skr">Cel mai mult SKR în staking</string>
     <string name="sort_sol">Cel mai mult SOL în staking</string>
     <string name="sort_stake_note">Sortează în fiecare secțiune. Stake-ul este cel citit la apariția fiecărei recenzii, afișat pentru transparență, și nu schimbă niciodată un scor.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Traducere sugerată</string>
+    <string name="translate_label">Traducere sugerată de IA. Textul de mai sus sunt cuvintele autorului.</string>
+    <string name="translate_failed">Nu s-a putut sugera o traducere acum.</string>
+    <string name="pro_tool_translate_title">Traduceri sugerate</string>
+    <string name="pro_tool_translate_body">Citește orice recenzie, semnată sau din magazin, în limba ta cu o atingere și scrie răspunsuri în limba ta, puse în limba autorului. Tradus de IA și marcat; cuvintele autorului rămân afișate.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Tradu în limba autorului recenziei</string>
+    <string name="reply_translate_note">Ciorna ta: %1$s. Semnezi răspunsul tradus ca fiind cuvintele tale, așa că verifică-l.</string>
 </resources>

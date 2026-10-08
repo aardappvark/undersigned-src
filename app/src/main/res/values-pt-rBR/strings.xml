@@ -1052,4 +1052,15 @@
     <string name="sort_skr">Mais SKR em staking</string>
     <string name="sort_sol">Mais SOL em staking</string>
     <string name="sort_stake_note">Ordena dentro de cada seção. O stake é o lido quando cada avaliação apareceu, mostrado por transparência, e nunca muda uma nota.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Tradução sugerida</string>
+    <string name="translate_label">Tradução sugerida por IA. O texto acima são as palavras do autor.</string>
+    <string name="translate_failed">Não foi possível sugerir uma tradução agora.</string>
+    <string name="pro_tool_translate_title">Traduções sugeridas</string>
+    <string name="pro_tool_translate_body">Leia qualquer avaliação, assinada ou da loja, no seu idioma com um toque, e escreva respostas no seu para levá-las ao idioma do autor. Traduzido por IA e sinalizado; as palavras do autor continuam visíveis.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Traduzir para o idioma do autor</string>
+    <string name="reply_translate_note">Seu rascunho: %1$s. Você assina a resposta traduzida como suas próprias palavras, então confira.</string>
 </resources>

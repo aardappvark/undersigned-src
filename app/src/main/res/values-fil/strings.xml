@@ -1027,4 +1027,15 @@
     <string name="sort_skr">Pinakamaraming naka-stake na SKR</string>
     <string name="sort_sol">Pinakamaraming naka-stake na SOL</string>
     <string name="sort_stake_note">Inaayos sa loob ng bawat seksyon. Ang stake ay ang binasa nang unang lumabas ang bawat review, ipinapakita para sa transparency, at hindi kailanman nagbabago ng iskor.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Iminumungkahing salin</string>
+    <string name="translate_label">Salin na iminungkahi ng AI. Ang teksto sa itaas ay sariling salita ng may-akda.</string>
+    <string name="translate_failed">Hindi makapagmungkahi ng salin ngayon.</string>
+    <string name="pro_tool_translate_title">Mga iminumungkahing salin</string>
+    <string name="pro_tool_translate_body">Basahin ang anumang review, pinirmahan man o mula sa store, sa wika mo sa isang tap, at sumulat ng sagot sa wika mo na ililipat sa wika ng nag-review. Isinalin ng AI at may marka; nananatiling nakikita ang sariling salita ng may-akda.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Isalin sa wika ng nag-review</string>
+    <string name="reply_translate_note">Ang draft mo: %1$s. Pinipirmahan mo ang isinaling sagot bilang sarili mong salita, kaya suriin ito.</string>
 </resources>

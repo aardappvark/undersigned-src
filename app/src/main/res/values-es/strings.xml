@@ -1052,4 +1052,15 @@
     <string name="sort_skr">Más SKR en staking</string>
     <string name="sort_sol">Más SOL en staking</string>
     <string name="sort_stake_note">Ordena dentro de cada sección. El stake es el leído cuando apareció cada reseña, se muestra por transparencia y nunca cambia una puntuación.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Traducción sugerida</string>
+    <string name="translate_label">Traducción sugerida por IA. El texto de arriba son las palabras del autor.</string>
+    <string name="translate_failed">No se pudo sugerir una traducción ahora mismo.</string>
+    <string name="pro_tool_translate_title">Traducciones sugeridas</string>
+    <string name="pro_tool_translate_body">Lee cualquier reseña, firmada o de la tienda, en tu idioma con un toque, y escribe respuestas en el tuyo para pasarlas al del autor. Traducido por IA y señalado; las palabras del autor siguen visibles.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Traducir al idioma del autor de la reseña</string>
+    <string name="reply_translate_note">Tu borrador: %1$s. Firmas la respuesta traducida como tus propias palabras, así que revísala.</string>
 </resources>

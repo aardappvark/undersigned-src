@@ -1000,4 +1000,15 @@
     <string name="sort_skr">SKR 스테이킹 많은 순</string>
     <string name="sort_sol">SOL 스테이킹 많은 순</string>
     <string name="sort_stake_note">각 섹션 안에서 정렬합니다. 스테이킹은 각 리뷰가 처음 나타났을 때 읽은 값으로, 투명성을 위한 표시이며 점수를 바꾸지 않습니다.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">번역 제안</string>
+    <string name="translate_label">AI가 제안한 번역입니다. 위의 글은 작성자 본인의 말입니다.</string>
+    <string name="translate_failed">지금은 번역을 제안할 수 없습니다.</string>
+    <string name="pro_tool_translate_title">번역 제안</string>
+    <string name="pro_tool_translate_body">서명된 리뷰든 스토어 리뷰든 한 번 탭으로 내 언어로 읽고, 답글은 내 언어로 써서 리뷰어의 언어로 옮길 수 있습니다. AI가 번역하고 표시하며, 작성자 본인의 말도 그대로 보입니다.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">리뷰어의 언어로 번역</string>
+    <string name="reply_translate_note">내 초안: %1$s. 번역된 답글은 내 말로 서명되므로 확인하세요.</string>
 </resources>

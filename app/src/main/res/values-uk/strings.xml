@@ -1060,4 +1060,15 @@
     <string name="sort_skr">Найбільше SKR у стейкінгу</string>
     <string name="sort_sol">Найбільше SOL у стейкінгу</string>
     <string name="sort_stake_note">Сортує всередині кожного розділу. Стейк — значення, прочитане під час появи відгуку, показано для прозорості, і він ніколи не змінює оцінку.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Запропонований переклад</string>
+    <string name="translate_label">Переклад запропоновано ШІ. Текст вище — власні слова автора.</string>
+    <string name="translate_failed">Зараз не вдалося запропонувати переклад.</string>
+    <string name="pro_tool_translate_title">Запропоновані переклади</string>
+    <string name="pro_tool_translate_body">Читайте будь-який відгук, підписаний чи з магазину, своєю мовою одним дотиком і пишіть відповіді своєю, а вони перекладаються мовою автора. Перекладено ШІ та позначено; слова автора залишаються видимими.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Перекласти мовою автора відгуку</string>
+    <string name="reply_translate_note">Ваша чернетка: %1$s. Ви підписуєте перекладену відповідь як власні слова, тож перевірте її.</string>
 </resources>

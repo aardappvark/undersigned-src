@@ -35,7 +35,8 @@ class McpTest {
         val tools = rpc("tools/list").body.getJSONObject("result").getJSONArray("tools")
         val names = (0 until tools.length()).map { tools.getJSONObject(it).getString("name") }
         assertTrue("get_reviews" in names && "search_apps" in names && "get_app" in names)
-        assertTrue(names.none { "review" in it && it != "get_reviews" && it != "similar_reviews" && it != "review_tags" })   // no write tool
+        val writes = listOf("write", "submit", "sign", "post", "create", "flag", "vote", "publish", "send", "draft", "reply", "hide")
+        assertTrue(names.none { n -> writes.any { n.startsWith(it) || n.contains("_$it") } }, "a tool name suggests writing: $names")   // no write tool
         assertTrue((0 until tools.length()).all { tools.getJSONObject(it).getJSONObject("annotations").getBoolean("readOnlyHint") })
     }
 

@@ -1024,4 +1024,15 @@
     <string name="sort_skr">Mest SKR stakat</string>
     <string name="sort_sol">Mest SOL stakat</string>
     <string name="sort_stake_note">Sorterar inom varje avsnitt. Staken är den som lästes när varje recension dök upp, visas för öppenhetens skull och ändrar aldrig ett betyg.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Föreslagen översättning</string>
+    <string name="translate_label">Föreslagen översättning av AI. Texten ovan är författarens egna ord.</string>
+    <string name="translate_failed">Ingen föreslagen översättning kunde göras just nu.</string>
+    <string name="pro_tool_translate_title">Föreslagna översättningar</string>
+    <string name="pro_tool_translate_body">Läs vilken recension som helst, signerad eller från butiken, på ditt språk med ett tryck, och skriv svar på ditt språk som förs över till recensentens. Översatt av AI och märkt; författarens egna ord visas kvar.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Översätt till recensentens språk</string>
+    <string name="reply_translate_note">Ditt utkast: %1$s. Du signerar det översatta svaret som dina egna ord, så kontrollera det.</string>
 </resources>

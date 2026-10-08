@@ -1023,4 +1023,15 @@
     <string name="sort_skr">Legtöbb stakelt SKR</string>
     <string name="sort_sol">Legtöbb stakelt SOL</string>
     <string name="sort_stake_note">Szakaszon belül rendez. A stake az értékelés első megjelenésekor leolvasott érték, az átláthatóság kedvéért mutatjuk, és soha nem változtat a pontszámon.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Javasolt fordítás</string>
+    <string name="translate_label">MI által javasolt fordítás. A fenti szöveg a szerző saját szavai.</string>
+    <string name="translate_failed">Most nem sikerült fordítást javasolni.</string>
+    <string name="pro_tool_translate_title">Javasolt fordítások</string>
+    <string name="pro_tool_translate_body">Bármely értékelést, aláírtat vagy áruházit, egy koppintással a saját nyelvén olvashat, és a válaszait saját nyelvén írhatja, az értékelő nyelvére fordítva. MI fordítja, jelölve; a szerző saját szavai is látszanak.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Fordítás az értékelő nyelvére</string>
+    <string name="reply_translate_note">A piszkozata: %1$s. A lefordított választ saját szavaiként írja alá, ezért ellenőrizze.</string>
 </resources>

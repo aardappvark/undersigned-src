@@ -1094,4 +1094,15 @@
     <string name="sort_skr">الأكثر SKR مرهونًا</string>
     <string name="sort_sol">الأكثر SOL مرهونًا</string>
     <string name="sort_stake_note">يرتّب داخل كل قسم. المبلغ المرهون هو ما قُرئ عند ظهور كل مراجعة، يُعرض للشفافية ولا يغيّر أي تقييم أبدًا.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">ترجمة مقترحة</string>
+    <string name="translate_label">ترجمة يقترحها الذكاء الاصطناعي. النص أعلاه هو كلمات الكاتب نفسه.</string>
+    <string name="translate_failed">تعذّر اقتراح ترجمة الآن.</string>
+    <string name="pro_tool_translate_title">ترجمات مقترحة</string>
+    <string name="pro_tool_translate_body">اقرأ أي مراجعة، موقّعة أو من المتجر، بلغتك بلمسة واحدة، واكتب ردودك بلغتك لتُنقل إلى لغة الكاتب. يترجمها الذكاء الاصطناعي مع وسمها؛ وتبقى كلمات الكاتب ظاهرة.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">ترجمة إلى لغة كاتب المراجعة</string>
+    <string name="reply_translate_note">مسودتك: %1$s. أنت توقّع الرد المترجَم على أنه كلماتك، فراجعه.</string>
 </resources>

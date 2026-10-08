@@ -1053,4 +1053,15 @@
     <string name="sort_skr">Nejvíc stakovaného SKR</string>
     <string name="sort_sol">Nejvíc stakovaného SOL</string>
     <string name="sort_stake_note">Řadí v rámci každé sekce. Stake je hodnota načtená při prvním objevení recenze, zobrazená kvůli průhlednosti; nikdy nemění skóre.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Navržený překlad</string>
+    <string name="translate_label">Navržený překlad od AI. Text výše jsou vlastní slova autora.</string>
+    <string name="translate_failed">Navržený překlad teď nešlo vytvořit.</string>
+    <string name="pro_tool_translate_title">Navržené překlady</string>
+    <string name="pro_tool_translate_body">Čtěte každou recenzi, podepsanou i z obchodu, ve svém jazyce jedním klepnutím a pište odpovědi svým jazykem, které se převedou do jazyka recenzenta. Přeloženo AI a označeno; slova autora zůstávají vidět.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Přeložit do jazyka recenzenta</string>
+    <string name="reply_translate_note">Váš koncept: %1$s. Přeloženou odpověď podepisujete jako vlastní slova, tak ji zkontrolujte.</string>
 </resources>

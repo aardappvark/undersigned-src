@@ -1007,4 +1007,15 @@
     <string name="sort_skr">质押 SKR 最多</string>
     <string name="sort_sol">质押 SOL 最多</string>
     <string name="sort_stake_note">在每个栏目内排序。质押为每条评价首次出现时读取的数值，仅为透明而显示，从不改变评分。</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">建议译文</string>
+    <string name="translate_label">由 AI 建议的译文。上方文字是作者本人的话。</string>
+    <string name="translate_failed">暂时无法提供建议译文。</string>
+    <string name="pro_tool_translate_title">建议译文</string>
+    <string name="pro_tool_translate_body">轻点一下即可用你的语言阅读任何评价（签名的或商店的），也可用你的语言写回复，并译成评价者的语言。由 AI 翻译并标注；作者本人的原话仍会显示。</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">翻译成评价者的语言</string>
+    <string name="reply_translate_note">你的草稿：%1$s。你会以自己的名义签署翻译后的回复，请先核对。</string>
 </resources>

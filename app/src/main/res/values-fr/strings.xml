@@ -1052,4 +1052,15 @@
     <string name="sort_skr">Le plus de SKR staké</string>
     <string name="sort_sol">Le plus de SOL staké</string>
     <string name="sort_stake_note">Trie à l\'intérieur de chaque section. Le stake est celui lu à la première apparition de chaque avis, affiché par transparence, et ne change jamais un score.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Traduction suggérée</string>
+    <string name="translate_label">Traduction suggérée par une IA. Le texte ci-dessus est celui de l\'auteur.</string>
+    <string name="translate_failed">Impossible de proposer une traduction pour le moment.</string>
+    <string name="pro_tool_translate_title">Traductions suggérées</string>
+    <string name="pro_tool_translate_body">Lisez tout avis, signé ou de la boutique, dans votre langue d\'un geste, et rédigez vos réponses dans la vôtre pour qu\'elles soient mises dans celle de l\'auteur. Traduit par une IA et signalé ; les mots de l\'auteur restent affichés.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Traduire dans la langue de l\'auteur de l\'avis</string>
+    <string name="reply_translate_note">Votre brouillon : %1$s. Vous signez la réponse traduite comme vos propres mots : vérifiez-la.</string>
 </resources>

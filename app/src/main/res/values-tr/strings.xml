@@ -1023,4 +1023,15 @@
     <string name="sort_skr">En çok stake edilen SKR</string>
     <string name="sort_sol">En çok stake edilen SOL</string>
     <string name="sort_stake_note">Her bölümün içinde sıralar. Stake, her değerlendirme ilk göründüğünde okunan değerdir; şeffaflık için gösterilir ve bir puanı asla değiştirmez.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Önerilen çeviri</string>
+    <string name="translate_label">Yapay zekânın önerdiği çeviri. Yukarıdaki metin yazarın kendi sözleridir.</string>
+    <string name="translate_failed">Şu anda çeviri önerilemedi.</string>
+    <string name="pro_tool_translate_title">Önerilen çeviriler</string>
+    <string name="pro_tool_translate_body">İmzalı ya da mağazadan her değerlendirmeyi tek dokunuşla kendi dilinizde okuyun, yanıtlarınızı kendi dilinizde yazıp değerlendirenin diline aktarın. Yapay zekâyla çevrilir ve işaretlenir; yazarın kendi sözleri görünür kalır.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Değerlendirenin diline çevir</string>
+    <string name="reply_translate_note">Taslağınız: %1$s. Çevrilmiş yanıtı kendi sözleriniz olarak imzalarsınız, bu yüzden kontrol edin.</string>
 </resources>

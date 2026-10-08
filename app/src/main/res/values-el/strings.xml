@@ -1023,4 +1023,15 @@
     <string name="sort_skr">Περισσότερο κλειδωμένο SKR</string>
     <string name="sort_sol">Περισσότερο κλειδωμένο SOL</string>
     <string name="sort_stake_note">Ταξινομεί μέσα σε κάθε ενότητα. Το stake είναι όπως διαβάστηκε όταν εμφανίστηκε κάθε κριτική, εμφανίζεται για διαφάνεια και δεν αλλάζει ποτέ βαθμολογία.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Προτεινόμενη μετάφραση</string>
+    <string name="translate_label">Μετάφραση που προτείνει η ΤΝ. Το κείμενο πάνω είναι τα λόγια του συντάκτη.</string>
+    <string name="translate_failed">Δεν ήταν δυνατή μια προτεινόμενη μετάφραση τώρα.</string>
+    <string name="pro_tool_translate_title">Προτεινόμενες μεταφράσεις</string>
+    <string name="pro_tool_translate_body">Διαβάστε κάθε κριτική, υπογεγραμμένη ή από το κατάστημα, στη γλώσσα σας με ένα πάτημα, και γράψτε απαντήσεις στη δική σας για να μεταφερθούν στη γλώσσα του συντάκτη. Μεταφρασμένο από ΤΝ και σημειωμένο· τα λόγια του συντάκτη παραμένουν ορατά.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Μετάφραση στη γλώσσα του συντάκτη</string>
+    <string name="reply_translate_note">Το προσχέδιό σας: %1$s. Υπογράφετε τη μεταφρασμένη απάντηση ως δικά σας λόγια, οπότε ελέγξτε τη.</string>
 </resources>

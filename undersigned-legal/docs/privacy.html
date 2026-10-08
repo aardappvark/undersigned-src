@@ -280,9 +280,13 @@ necessary to provide the service you asked for, so it does not require separate 
 no cookies, uses no advertising identifier, no device fingerprinting and no third-party analytics SDK,
 and does not read information stored on your device for any purpose other than running the App.</p>
 
+<h3>Suggested translations and other AI suggestions</h3>
+<p>When a Pro member taps <strong>Suggested translation</strong>, the App sends Undersigned's server the review's or reply's record id, your App language and your wallet address (to check Pro on the public ledger). As with any web request, your IP address reaches the server. Nothing else is sent, and nothing is stored about you beyond ordinary server logs.</p>
+<p>To make a suggested translation, a suggested summary of an app's reviews, a suggested note about an app update, or an answer from the developer docs helper, the server sends the relevant <em>public</em> text (review and reply text already public on the Solana blockchain, store release notes, our published docs, or a developer's question) to Anthropic, which runs the Claude model, and stores the answer so the same text is not sent again. Your wallet address and IP address are not sent to Anthropic. Every such output is labelled a suggestion made by AI, and none of it changes a review, a weight or a score.</p>
+
 <h3>Transfers outside the EEA</h3>
 <p>We are established in Australia, which is not the subject of an adequacy decision under Article 45.
-In practice nothing is transferred to us: the App sends us no data. The RPC providers, the dApp Store's
+The App sends us data only when a Pro member asks for a suggested translation (the record id, the App language and the wallet address, above). Public text sent to make AI suggestions goes to Anthropic, established in the United States, which processes it for us under its commercial terms; it carries no wallet address or IP address. The RPC providers, the dApp Store's
 public feed, and the sanctions-screening service the App contacts directly (section 5) are independent
 controllers of the requests they receive; Helius Labs, Solana Mobile Inc. and TRM Labs are established
 outside the EEA and their own privacy policies describe the safeguards they apply. The requests carry a

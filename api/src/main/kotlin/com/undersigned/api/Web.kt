@@ -127,6 +127,13 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         a.optJSONObject("signed")?.optJSONObject("pro_members")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
             sb.append("<div class=card><div class=label>Pro members</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} by reviewers who pay Undersigned for Pro, at the same weight as everyone. Shown apart; the signed score never includes payment to Undersigned.</span></div></div>")
         }
+        // A suggested summary of the counted reviews (Ai.kt), labelled, with each point's count; only when there are enough.
+        views.summary(pkg)?.let { sm -> val pts = sm.optJSONArray("points") ?: JSONArray()
+            if (pts.length() > 0) {
+                sb.append("<div class=card><div class=label>Suggested summary</div><ul>")
+                for (i in 0 until pts.length()) { val pt = pts.getJSONObject(i); sb.append("<li>${esc(pt.optString("text"))} <span class=meta>(${plural(pt.optInt("count"), "review", "reviews")})</span></li>") }
+                sb.append("</ul><p class=small>${esc(sm.optString("label"))}</p></div>")
+            } }
         sg?.optJSONObject("tags")?.takeIf { it.length() > 0 }?.let { t -> sb.append("<div class=row>"); t.keys().asSequence().sortedByDescending { t.optInt(it) }.forEach { sb.append("<span class=tag>${esc(I18n.tag(lang, it))} · ${t.optInt(it)}</span>") }; sb.append("</div>") }
 
         // Bursts: timing facts with a daily sparkline, the burst window shaded AND labelled (never colour alone).
@@ -391,6 +398,11 @@ console.log(app.signed.mean, app.signed.counted_reviews, app.store_rating);""")}
 app = requests.get("$base/v1/apps/com.solflare.mobile").json()
 print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
         sb.append("<p class=small>Answers: 200 data · 402 needs a pass (the body carries the price and Solana Pay links) · 429 over the limit (Retry-After) · 404 unknown. Send a User-Agent header from scripts.</p></div>")
+        sb.append("<h2>Ask the docs</h2><div class=card><p class=meta>Ask how to do something with this API or MCP. Answered by AI from the published docs only; check the docs it points to.</p>" +
+            "<form id=ask><input id=q maxlength=500 placeholder='How do I get the reviews of one app sorted by newest?' aria-label='Your question' style='width:100%'><button class=btn style='margin-top:8px'>Ask</button></form><p id=ans class=meta></p></div>" +
+            "<script>document.getElementById('ask').onsubmit=async e=>{e.preventDefault();const a=document.getElementById('ans');a.textContent='…';" +
+            "try{const r=await fetch('/v1/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:document.getElementById('q').value})});" +
+            "const j=await r.json();a.textContent=j.answer?(j.answer+'\\n\\n'+j.label):(j.message||'No answer right now.')}catch(x){a.textContent='No answer right now.'}};</script>")
         sb.append("<h2>Use it from an AI agent (MCP)</h2><div class=card><p>This API is also a Model Context Protocol server at <code>$base/mcp</code>. Add the URL to your agent; nothing to install. Its tools only read: search apps, get an app's scores, read its reviews, bursts and wallets. No tool writes, signs or submits a review.</p>")
         sb.append("<p class=meta>Claude Code</p><pre class=code>${esc("""claude mcp add --transport http undersigned $base/mcp""")}</pre>")
         sb.append("<p class=meta>Cursor and other clients (mcp.json)</p><pre class=code>${esc("""{
@@ -425,6 +437,9 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
         .put("capabilities", JSONObject().put("tools", true).put("resources", true).put("prompts", true))
         .put("readOnly", true)
 
+    /** The plain-text docs, also what the docs helper (POST /v1/ask) answers from. */
+    fun llmsText(): String = llmsTxt()
+
     private fun llmsTxt(): String = """# Undersigned
 
 > Reviews of Solana dApp Store apps, each signed on-chain by a Seeker owner's own wallet, beside the store's own rating. One voice per attested device (Seeker Genesis Token); no payment and no token balance changes a score. Stake is shown per review, never weighed.
@@ -442,9 +457,12 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
 - GET /v1/apps/{package}/bursts: rating bursts (facts, not verdicts)
 - GET /v1/dataset.json: the whole ledger, free
 - GET /v1/records?type=&package=&signer=: decoded records
+- GET /v1/apps/{package}/summary: suggested summary by AI of counted reviews (labelled)
+- GET /v1/records/{id}/translation?lang=: suggested translation by AI (Pro wallet or key)
+- POST /v1/ask: docs helper
 
 ## MCP tools
-search_apps, get_app, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing; with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
+search_apps, get_app, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
 
 ## Rules for describing the data
 - Quote a score with its counted-review count.

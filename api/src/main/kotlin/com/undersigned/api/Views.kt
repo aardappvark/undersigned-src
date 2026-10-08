@@ -53,7 +53,7 @@ class Boards(private val indexer: Indexer, private val board: Board, private val
     }
 }
 
-class Views(private val indexer: Indexer, private val boards: Boards, private val db: Db) {
+class Views(private val indexer: Indexer, private val boards: Boards, private val db: Db, val ai: Ai? = null) {
     /** The state a request started with, passed down: a rebuild in the middle of a request must not mix two ledgers. */
     private val s get() = indexer.state
 
@@ -267,7 +267,30 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         Reputation.byVersion(st.entries, pkg, st.verified) { st.countsFor(it) }.map { JSONObject().put("version", it.versionCode).put("mean", r2(it.mean)).put("count", it.count) })) }
 
     fun similar(pkg: String): JSONObject { val st = s; return JSONObject().put("package", pkg).put("findings", JSONArray(liveReviews(pkg, st).mapNotNull { e ->
-        st.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } })) }
+        st.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } }))
+        // Beyond exact copies: groups an AI suggests say the same thing in near-identical words. A suggestion, never a finding.
+        .put("suggested_paraphrase_groups", ai?.paraphrases(pkg, liveReviews(pkg, st).mapNotNull { e -> visibleText(e, st)?.let { e.signature to it } }) ?: JSONArray())
+        .put("suggested_label", "Suggested by AI: reviews in a group use near-identical words. A fact about wording, not a verdict about anyone.") }
+
+    fun recordEntry(id: String): LedgerEntry? = s.entries.firstOrNull { it.signature == id }
+
+    /** A record's public text, or null when there is none to show (no note, withdrawn, or hidden by a moderator or this site). */
+    fun visibleText(e: LedgerEntry, st: State = s): String? {
+        if (e.signature in st.revoked || st.modHidden.containsKey(e.signature) || st.operatorHidden.containsKey(e.signature)) return null
+        return when (val m = e.memo) { is ReviewMemo.Review -> m.text; is ReviewMemo.Reply -> m.text; else -> null }?.takeIf { it.isNotBlank() }
+    }
+
+    /** Whether [wallet] holds Pro right now (its own term, or a seat a payer shared), read from the ledger. */
+    fun holdsPro(wallet: String, now: Long = System.currentTimeMillis() / 1000): Boolean =
+        com.undersigned.protocol.Weighting.proAt(s.entries, wallet, now, s.paidRecord)
+
+    /** A suggested summary of the app's COUNTED reviews with text (Ai.summary), or null when there are too few. */
+    fun summary(pkg: String): JSONObject? {
+        val st = s
+        val counted = liveReviews(pkg, st).filter { e -> st.weighting.parts(e).weight > 0 && st.countsFor(e.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified) }
+        val rows = counted.mapNotNull { e -> visibleText(e, st)?.let { Triple(e.signature, (e.memo as ReviewMemo.Review).rating, it) } }
+        return ai?.summary(pkg, rows)?.put("package", pkg)
+    }
 
     // ---- Bursts ------------------------------------------------------------------------------------------------------
 
@@ -332,9 +355,16 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("note", "Store watch needs ${ReviewBursts.MIN_SNAPSHOT_DAYS + 1} days of daily snapshots before it can show anything.")
     }
 
-    fun changes(since: Long?): JSONObject = JSONObject().put("changes", JSONArray(
-        db.query("SELECT pkg, at, kind, old, new FROM changes WHERE at >= ? ORDER BY at DESC LIMIT 500", since ?: 0L) { rs ->
-            JSONObject().put("package", rs.getString(1)).put("time", rs.getLong(2)).put("kind", rs.getString(3)).put("old", rs.getString(4)).put("new", rs.getString(5)) }))
+    fun changes(since: Long?): JSONObject {
+        val rows = db.query("SELECT pkg, at, kind, old, new FROM changes WHERE at >= ? ORDER BY at DESC LIMIT 500", since ?: 0L) { rs ->
+            JSONObject().put("package", rs.getString(1)).put("time", rs.getLong(2)).put("kind", rs.getString(3)).put("old", rs.getString(4)).put("new", rs.getString(5)) }
+        // A plain-language note for the newest changes (cached; at most a few new ones written per request), labelled a suggestion.
+        rows.take(Config.AI_NOTES_PER_REQUEST).forEach { o -> changeNote(o)?.let { o.put("suggested_note", it) } }
+        return JSONObject().put("changes", JSONArray(rows)).put("suggested_note_label", "Suggested note, written by AI from the store's release notes and the changes seen.")
+    }
+
+    fun changeNote(o: JSONObject): String? = ai?.changeNote(o.getString("package"), o.getString("kind"), o.optString("old").ifEmpty { null }, o.optString("new").ifEmpty { null },
+        indexer.state.details[o.getString("package")]?.newInVersion)
 
     // ---- Wallets -----------------------------------------------------------------------------------------------------
 

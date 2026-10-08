@@ -1049,4 +1049,15 @@
     <string name="sort_skr">Most SKR staked</string>
     <string name="sort_sol">Most SOL staked</string>
     <string name="sort_stake_note">Sorts within each section. Stake is as read when each review first appeared, shown for transparency, and never changes a score.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Suggested translation</string>
+    <string name="translate_label">Suggested translation by AI. The words above are the author\'s own.</string>
+    <string name="translate_failed">A suggested translation could not be made right now.</string>
+    <string name="pro_tool_translate_title">Suggested translations</string>
+    <string name="pro_tool_translate_body">Read any review, signed or from the store, in your language with one tap, and write replies in yours to be put into the reviewer\'s. Translated by AI and labelled; the author\'s own words stay shown.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Translate into the reviewer\'s language</string>
+    <string name="reply_translate_note">Your draft: %1$s. You sign the translated reply as your own words, so check it.</string>
 </resources>

@@ -1044,4 +1044,15 @@
     <string name="sort_skr">Больше всего SKR в стейкинге</string>
     <string name="sort_sol">Больше всего SOL в стейкинге</string>
     <string name="sort_stake_note">Сортирует внутри каждого раздела. Стейк — значение, прочитанное при появлении отзыва, показан для прозрачности и никогда не меняет оценку.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Предложенный перевод</string>
+    <string name="translate_label">Перевод предложен ИИ. Текст выше — собственные слова автора.</string>
+    <string name="translate_failed">Сейчас не удалось предложить перевод.</string>
+    <string name="pro_tool_translate_title">Предложенные переводы</string>
+    <string name="pro_tool_translate_body">Читайте любой отзыв, подписанный или из магазина, на своём языке одним касанием и пишите ответы на своём, а они переводятся на язык автора. Переведено ИИ и помечено; слова автора остаются на виду.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Перевести на язык автора отзыва</string>
+    <string name="reply_translate_note">Ваш черновик: %1$s. Вы подписываете переведённый ответ как свои слова, поэтому проверьте его.</string>
 </resources>

@@ -53,6 +53,19 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("payments_board", "Apps whose publishers confirmed a treasury, by payments received on-chain (USD on the day of each payment). Off-chain income is invisible; not a statement about profit.",
             obj("limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.paymentsBoard(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
+        Tool("translate_review", "A suggested translation, by AI, of one review's or reply's text into a language. For Pro members (pass wallet) or a pass / credits key. The original stays the author's words.",
+            obj("id" to str("Record id of the review or reply"), "lang" to str("Target language code", Config.AI_LANGS.sorted()), "wallet" to str("A wallet holding Pro (not needed with a key)"),
+                required = listOf("id", "lang"))) { a, c ->
+            val ai = views.ai?.takeIf { it.enabled } ?: throw IllegalArgumentException("translations are not available right now")
+            if (!c.paid && !views.holdsPro(a.optString("wallet").trim())) throw IllegalArgumentException("translations need Pro (pass a wallet holding Pro) or a pass / credits key; see get_pricing")
+            val e = views.recordEntry(a.optString("id").trim()) ?: throw NoSuchElementException("no such record")
+            val text = views.visibleText(e) ?: throw NoSuchElementException("this record has no text to translate")
+            val lang = a.optString("lang").takeIf { it in Config.AI_LANGS } ?: throw IllegalArgumentException("unsupported lang")
+            JSONObject().put("id", e.signature).put("lang", lang).put("text", ai.translate(e.signature, text, lang) ?: throw IllegalArgumentException("no translation right now"))
+                .put("label", "Suggested translation, by AI. The original is the author's own words.") },
+        Tool("app_summary", "A suggested summary, by AI, of an app's counted reviews: the points mentioned most, each with its count and review ids. Null when there are too few.",
+            obj("package" to str("Android package name"), required = listOf("package"))) { a, _ ->
+            views.summary(pkg(a)) ?: JSONObject().put("summary", JSONObject.NULL).put("message", "needs at least ${Config.AI_SUMMARY_MIN} counted reviews with text") },
         Tool("get_pricing", "What a pass and pay-per-call credits cost and buy, the free limits, and the Solana Pay links. Use it to explain a 'needs a key' answer.", obj()) { _, _ -> pricing() },
         Tool("get_bursts", "Unusual bursts of signed reviews or store star ratings for one app, with daily counts. A burst is a fact about timing, not a verdict.",
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ -> views.bursts(pkg(a)) },

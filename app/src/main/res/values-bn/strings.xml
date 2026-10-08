@@ -1019,4 +1019,15 @@
     <string name="sort_skr">সবচেয়ে বেশি স্টেক করা SKR</string>
     <string name="sort_sol">সবচেয়ে বেশি স্টেক করা SOL</string>
     <string name="sort_stake_note">প্রতিটি অংশের ভেতরে সাজায়। স্টেক হলো প্রতিটি পর্যালোচনা আসার সময় পড়া মান, স্বচ্ছতার জন্য দেখানো, এবং কখনো কোনো স্কোর বদলায় না।</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">প্রস্তাবিত অনুবাদ</string>
+    <string name="translate_label">AI-এর প্রস্তাবিত অনুবাদ। ওপরের লেখা লেখকের নিজের কথা।</string>
+    <string name="translate_failed">এখন অনুবাদ প্রস্তাব করা গেল না।</string>
+    <string name="pro_tool_translate_title">প্রস্তাবিত অনুবাদ</string>
+    <string name="pro_tool_translate_body">যেকোনো পর্যালোচনা, স্বাক্ষরিত বা স্টোরের, এক ট্যাপে নিজের ভাষায় পড়ুন, আর উত্তর নিজের ভাষায় লিখুন যা পর্যালোচকের ভাষায় নেওয়া হবে। AI দিয়ে অনূদিত ও চিহ্নিত; লেখকের নিজের কথা দেখা যায়।</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">পর্যালোচকের ভাষায় অনুবাদ করুন</string>
+    <string name="reply_translate_note">আপনার খসড়া: %1$s। আপনি অনূদিত উত্তরটি নিজের কথা হিসেবে স্বাক্ষর করেন, তাই যাচাই করুন।</string>
 </resources>

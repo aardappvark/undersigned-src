@@ -1043,4 +1043,15 @@
     <string name="sort_skr">Meiste SKR gestakt</string>
     <string name="sort_sol">Meiste SOL gestakt</string>
     <string name="sort_stake_note">Sortiert innerhalb jedes Abschnitts. Der Stake ist der beim ersten Erscheinen jeder Bewertung gelesene Wert, zur Transparenz gezeigt, und ändert nie eine Wertung.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Übersetzungsvorschlag</string>
+    <string name="translate_label">Übersetzungsvorschlag von einer KI. Der Text oben sind die eigenen Worte des Autors.</string>
+    <string name="translate_failed">Gerade konnte kein Übersetzungsvorschlag erstellt werden.</string>
+    <string name="pro_tool_translate_title">Übersetzungsvorschläge</string>
+    <string name="pro_tool_translate_body">Jede Bewertung, signiert oder aus dem Store, mit einem Tipp in Ihrer Sprache lesen und Antworten in Ihrer Sprache schreiben, die in die des Bewerters übertragen werden. Von einer KI übersetzt und gekennzeichnet; die eigenen Worte des Autors bleiben sichtbar.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">In die Sprache des Bewerters übersetzen</string>
+    <string name="reply_translate_note">Ihr Entwurf: %1$s. Sie signieren die übersetzte Antwort als Ihre eigenen Worte, prüfen Sie sie also.</string>
 </resources>

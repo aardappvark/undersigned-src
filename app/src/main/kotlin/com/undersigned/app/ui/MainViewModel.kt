@@ -554,6 +554,63 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    // ---- Suggested translations (Pro) -------------------------------------------------------------------------
+
+    /** The app's language as the API's translation codes: pt-BR -> pt, in/id -> id, zh-Hans/zh-CN -> zh-CN, zh-TW -> zh-TW. */
+    private fun translationLang(): String {
+        val l = getApplication<Application>().resources.configuration.locales[0]
+        return when (l.language) {
+            "zh" -> if (l.country == "TW" || l.script == "Hant") "zh-TW" else "zh-CN"
+            "in", "id" -> "id"
+            "fil", "tl" -> "fil"
+            else -> l.language
+        }
+    }
+
+    /**
+     * A suggested translation of a review's or reply's public text into the app's language, by AI, from our API (Pro: the API
+     * reads the wallet's Pro on-chain). Only the record id, the language and the wallet address are sent; the answer is labelled.
+     */
+    suspend fun suggestedTranslation(recordId: String): Result<String> = withContext(Dispatchers.IO) {
+        runCatching {
+            val w = wallet.value ?: error("Sign in with your wallet first")
+            val url = "${com.undersigned.app.AppConfig.Site.URL}/v1/records/${java.net.URLEncoder.encode(recordId, "UTF-8")}/translation?lang=${translationLang()}&wallet=$w"
+            val c = java.net.URL(url).openConnection() as java.net.HttpURLConnection
+            try {
+                c.connectTimeout = 10_000; c.readTimeout = 60_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                val ok = c.responseCode == 200
+                val body = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+                if (!ok) error(runCatching { org.json.JSONObject(body).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
+                org.json.JSONObject(body).getString("text")
+            } finally { c.disconnect() }
+        }
+    }
+
+    private suspend fun postJson(path: String, body: org.json.JSONObject): org.json.JSONObject = withContext(Dispatchers.IO) {
+        val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}$path").openConnection() as java.net.HttpURLConnection
+        try {
+            c.requestMethod = "POST"; c.doOutput = true; c.connectTimeout = 10_000; c.readTimeout = 90_000
+            c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+            c.outputStream.use { it.write(body.toString().toByteArray()) }
+            val ok = c.responseCode == 200
+            val text = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+            if (!ok) error(runCatching { org.json.JSONObject(text).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
+            org.json.JSONObject(text)
+        } finally { c.disconnect() }
+    }
+
+    /** A store review's text, suggested in the app's language (Pro). */
+    suspend fun suggestedStoreTranslation(text: String): Result<String> = runCatching {
+        val w = wallet.value ?: error("Sign in with your wallet first")
+        postJson("/v1/translate", org.json.JSONObject().put("text", text.take(1000)).put("lang", translationLang()).put("wallet", w)).getString("text")
+    }
+
+    /** A reply drafted in any language, put into the language of the review it answers (Pro). The writer checks it and signs it. */
+    suspend fun suggestedReplyTranslation(reply: String, reviewId: String): Result<String> = runCatching {
+        val w = wallet.value ?: error("Sign in with your wallet first")
+        postJson("/v1/translate/reply", org.json.JSONObject().put("reply", reply).put("review_id", reviewId).put("wallet", w)).getString("reply")
+    }
+
     // ---- Payment board -------------------------------------------------------------------------------------
 
     private val board = com.undersigned.app.ledger.PaymentBoard(app)

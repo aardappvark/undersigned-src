@@ -49,6 +49,52 @@ class Api(private val views: Views, private val billing: Billing, private val in
             .put("snapshot_days", indexer.snapshotDays().size).put("last_snapshot_day", indexer.snapshotDays().lastOrNull() ?: JSONObject.NULL).put("last_backup", indexer.lastBackup ?: JSONObject.NULL)) }
         // MCP for agents (Mcp.kt): read-only tools over the same views, metered like any LIMITED route.
         route("POST", "/mcp", Tier.LIMITED, "Model Context Protocol (Streamable HTTP, JSON-RPC): read-only tools for AI agents. Add this URL to Claude, Cursor or any MCP client") { r -> mcp.handle(r.body, r.caller) }
+        // Reading aids (Ai.kt), each labelled a suggestion. A translation is for Pro members (a wallet holding Pro on-chain)
+        // and for pass or credits holders; others are told how to upgrade. The summary and the docs helper are free.
+        route("GET", "/v1/records/{id}/translation", Tier.LIMITED, "Suggested translation of a review's or reply's text into lang (Pro wallet via ?wallet=, or a pass / credits key)") { r ->
+            val ai = views.ai?.takeIf { it.enabled } ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "translations are not available right now"))
+            val lang = r.query["lang"]?.takeIf { it in Config.AI_LANGS } ?: return@route Response(400, JSONObject().put("error", "bad_lang").put("message", "lang must be one of ${Config.AI_LANGS.sorted().joinToString(",")}"))
+            val wallet = r.query["wallet"]?.trim()
+            if (!r.caller.paid && (wallet == null || !views.holdsPro(wallet))) return@route Response(402, JSONObject().put("error", "pro_required")
+                .put("message", "Suggested translations are a Pro feature: hold Pro in the wallet you pass as ?wallet=, or use an API pass or pay-per-call credits.").put("pricing", pricing()))
+            val e = indexer.state.entries.firstOrNull { it.signature == r.params["id"] } ?: return@route notFound("no such record")
+            val text = views.visibleText(e) ?: return@route notFound("this record has no text to translate")
+            val out = ai.translate(e.signature, text, lang) ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "the translation could not be made right now; try again"))
+            ok(JSONObject().put("id", e.signature).put("lang", lang).put("text", out).put("label", "Suggested translation, by AI. The original is the author's own words.").put("model", Config.AI_MODEL))
+        }
+        // Pro: a store review's text into your language, and a reply you drafted into the language of the review it answers.
+        fun proOrKey(r: Req, wallet: String?): Response? = if (r.caller.paid || (wallet != null && views.holdsPro(wallet))) null
+            else Response(402, JSONObject().put("error", "pro_required").put("message", "This is a Pro feature: hold Pro in the wallet you send, or use an API pass or pay-per-call credits.").put("pricing", pricing()))
+        route("POST", "/v1/translate", Tier.LIMITED, "Suggested translation, by AI, of a store review's text (up to 1,000 characters) into lang. Body {text, lang, wallet}. Pro or a key") { r ->
+            val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return@route Response(400, JSONObject().put("error", "bad_json"))
+            proOrKey(r, b.optString("wallet").ifBlank { null })?.let { return@route it }
+            val text = b.optString("text").trim().takeIf { it.length in 1..1000 } ?: return@route Response(400, JSONObject().put("error", "bad_text").put("message", "text: 1 to 1,000 characters"))
+            val lang = b.optString("lang").takeIf { it in Config.AI_LANGS } ?: return@route Response(400, JSONObject().put("error", "bad_lang"))
+            val out = views.ai?.takeIf { it.enabled }?.translateText(text, lang) ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no translation right now; try again"))
+            ok(JSONObject().put("lang", lang).put("text", out).put("label", "Suggested translation, by AI. The original is the author's own words."))
+        }
+        route("POST", "/v1/translate/reply", Tier.LIMITED, "Your reply draft, put by AI into the language of the review it answers. Body {reply, review_id or review_text, wallet}. Pro or a key; you check it and sign it as your own words") { r ->
+            val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return@route Response(400, JSONObject().put("error", "bad_json"))
+            proOrKey(r, b.optString("wallet").ifBlank { null })?.let { return@route it }
+            val reply = b.optString("reply").trim().takeIf { it.length in 1..500 } ?: return@route Response(400, JSONObject().put("error", "bad_reply").put("message", "reply: 1 to 500 characters"))
+            val review = b.optString("review_id").ifBlank { null }?.let { id -> views.recordEntry(id)?.let { views.visibleText(it) } } ?: b.optString("review_text").trim().takeIf { it.length in 1..1000 }
+                ?: return@route Response(400, JSONObject().put("error", "bad_review").put("message", "send review_id (a signed review with text) or review_text"))
+            val out = views.ai?.takeIf { it.enabled }?.translateReply(reply, review) ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no translation right now; try again"))
+            ok(JSONObject().put("reply", out).put("label", "Suggested translation, by AI. Check it: you sign the reply as your own words."))
+        }
+        route("GET", "/v1/apps/{pkg}/summary", Tier.FREE, "Suggested summary, by AI, of an app's counted reviews: the points most mentioned, each with its count and review ids") { r ->
+            if (indexer.state.byPackage[r.params["pkg"]!!] == null) return@route notFound("unknown package")
+            views.summary(r.params["pkg"]!!)?.let(::ok) ?: ok(JSONObject().put("package", r.params["pkg"]).put("summary", JSONObject.NULL)
+                .put("message", "No summary: it needs at least ${Config.AI_SUMMARY_MIN} counted reviews with text."))
+        }
+        route("POST", "/v1/ask", Tier.FREE, "Docs helper: ask how to use this API or MCP; answered by AI from the published docs only") { r ->
+            val q = runCatching { JSONObject(r.body).optString("question") }.getOrNull()?.trim()?.takeIf { it.length in 3..500 }
+                ?: return@route Response(400, JSONObject().put("error", "bad_question").put("message", "send {\"question\": \"...\"} (3 to 500 characters)"))
+            val ai = views.ai?.takeIf { it.enabled } ?: return@route Response(503, JSONObject().put("error", "unavailable"))
+            val answer = ai.ask(q, web?.llmsText().orEmpty() + "\n\nEndpoints:\n" + routes.joinToString("\n") { "${it.method} ${paths[it]} (${it.tier.name.lowercase()}): ${it.summary}" })
+                ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no answer right now; see ${Config.PUBLIC_URL}/api"))
+            ok(JSONObject().put("answer", answer).put("label", "Suggested answer, by AI, from the published docs. Check the docs: ${Config.PUBLIC_URL}/api"))
+        }
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
         route("GET", "/v1/openapi.json", Tier.FREE, "This API's description") { ok(openApi()) }
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
@@ -127,7 +173,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
         if (path == "/mcp" && method != "POST") return Response(405, JSONObject().put("error", "method_not_allowed").put("message", "MCP here is stateless: POST JSON-RPC to /mcp"), mapOf("Allow" to "POST"))
         // The fleet seeding page and its builder answer this Mac only. Through the tunnel the address is the last
         // X-Forwarded-For hop (the visitor's, appended by Cloudflare), so a public request never reads as loopback.
-        if ((path == "/seed" || path == "/v1/tx/seed") && !isLoopback(ip)) return notFound("no such endpoint; see /v1/openapi.json")
+        if ((path == "/seed" || path == "/v1/tx/seed" || path == "/v1/admin/triage") && !isLoopback(ip)) return notFound("no such endpoint; see /v1/openapi.json")
+        if (path == "/v1/admin/triage" && method == "GET") return Response(200, triage())
         // Human pages and badges: not the metered API. Their own, looser per-IP budget.
         if (method == "GET" && web != null && (!path.startsWith("/v1/") || path.startsWith("/v1/badge/"))) {
             limiter.take("web:$ip", Config.WEB_PER_MINUTE, Config.WEB_PER_DAY)?.let { return Response(429, JSONObject().put("error", "rate_limited"), mapOf("Retry-After" to "60"), "Too many requests; try again in a minute.".toByteArray(), "text/plain; charset=utf-8") }
@@ -173,6 +220,19 @@ class Api(private val views: Views, private val billing: Billing, private val in
         return try { withLimits(rt.handler(Req(params, query, body, caller))) }
         catch (e: Billing.Refused) { Response(e.status, JSONObject().put("error", "refused").put("message", e.message)) }
         catch (e: Exception) { log("500 $path: ${e.message?.take(120)}"); Response(500, JSONObject().put("error", "internal")) }
+    }
+
+    /**
+     * For the operator, on this machine only: every record currently flagged, with the AI's suggested reason (one of the four,
+     * or none) and the words it rests on. A suggestion: the moderator reads the text, decides, and signs `mod` themselves.
+     */
+    fun triage(): JSONObject {
+        val st = indexer.state; val ai = views.ai
+        val flagged = st.flaggers.filterValues { it.isNotEmpty() }.keys.mapNotNull { id -> st.entries.firstOrNull { it.signature == id } }
+        return JSONObject().put("label", "Suggested by AI for the moderator. Low ratings, harsh opinions and criticism are never reasons.")
+            .put("items", JSONArray(flagged.map { e -> val text = views.visibleText(e)
+                JSONObject().put("id", e.signature).put("flaggers", st.flaggers[e.signature]?.size ?: 0).put("text", text ?: JSONObject.NULL)
+                    .put("suggestion", text?.let { ai?.triage(e.signature, it) } ?: JSONObject.NULL) }))
     }
 
     /**
@@ -440,7 +500,7 @@ fun main(args: Array<String>) {
     val rpc = Rpc()
     val indexer = Indexer(db, rpc)
     val boards = Boards(indexer, Board(db, rpc), Prices(db))
-    val views = Views(indexer, boards, db)
+    val views = Views(indexer, boards, db, Ai(db, local = Ai::ollama).also { log("ai: " + if (it.enabled) "on (${Config.AI_MODEL}, cap ${Config.AI_DAILY_CALLS} calls a day)" else "off (no ANTHROPIC_API_KEY)") })
     val billing = Billing(db, { sig -> runCatching { rpc.tx(sig, Config.TREASURY) }.getOrNull() }, { w -> indexer.facts(w).hasGenesisToken }, Screening::screenForPayment)
     val hooks = Hooks(db, billing)
     indexer.onRebuilt = { fresh -> hooks.tick(indexer, fresh) }

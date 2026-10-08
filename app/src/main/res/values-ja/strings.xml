@@ -999,4 +999,15 @@
     <string name="sort_skr">SKRステークが多い順</string>
     <string name="sort_sol">SOLステークが多い順</string>
     <string name="sort_stake_note">各セクション内で並べ替えます。ステークは各レビューが最初に現れたときに読み取った値で、透明性のための表示です。スコアは変わりません。</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">翻訳の提案</string>
+    <string name="translate_label">AIによる翻訳の提案です。上の文章は投稿者自身の言葉です。</string>
+    <string name="translate_failed">今は翻訳を提案できませんでした。</string>
+    <string name="pro_tool_translate_title">翻訳の提案</string>
+    <string name="pro_tool_translate_body">署名済みでもストアのものでも、どのレビューもワンタップであなたの言語で読めます。返信はあなたの言語で書けば、レビュアーの言語に訳されます。AIが翻訳し表示。投稿者自身の言葉もそのまま表示されます。</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">レビュアーの言語に翻訳</string>
+    <string name="reply_translate_note">下書き：%1$s。翻訳された返信はあなた自身の言葉として署名されるので、確認してください。</string>
 </resources>

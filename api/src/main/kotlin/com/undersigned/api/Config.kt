@@ -69,6 +69,24 @@ object Config {
     /** Who to write to about content shown on the pages (an address or a URL). Shown in every page footer and on /report. */
     val CONTACT: String = System.getenv("UNDERSIGNED_CONTACT") ?: "https://aardappvark.github.io/undersigned-legal/"
     /** Where this server is reached from outside, for links in pages and badge embed snippets. */
+    /** Claude for the reading aids (Ai.kt): the key from the environment or the owner's private file; absent = features off. */
+    val ANTHROPIC_KEY: String? = System.getenv("ANTHROPIC_API_KEY")?.takeIf { it.isNotBlank() } ?: runCatching {
+        java.io.File(System.getProperty("user.home"), ".config/undersigned/anthropic.env").readLines().firstOrNull { it.startsWith("ANTHROPIC_API_KEY=") }?.substringAfter('=')?.trim()?.takeIf { it.isNotEmpty() } }.getOrNull()
+    const val AI_MODEL = "claude-haiku-5-5"
+    /**
+     * Translations try the local model first (owner, 9 Oct 2026: "better with ollama first"): free, about 8 s each on this
+     * Mac (gemma4, measured), then Claude when it is busy or down. The Ollama server is shared with other work: never kill it.
+     */
+    val OLLAMA_URL: String = System.getenv("UNDERSIGNED_OLLAMA") ?: "http://127.0.0.1:11434"
+    const val OLLAMA_MODEL = "gemma4:latest"
+    /** A ceiling on model calls a day across everything, so no caller can run up the bill; answers are cached. */
+    const val AI_DAILY_CALLS = 2_000
+    /** A suggested summary needs at least this many counted reviews with text. */
+    const val AI_SUMMARY_MIN = 3
+    /** New change notes written per /v1/changes request at most (older ones come from the cache or stay without). */
+    const val AI_NOTES_PER_REQUEST = 10
+    /** Languages a suggested translation can target: the app's 28. */
+    val AI_LANGS = setOf("en", "de", "fr", "es", "it", "pt", "nl", "sv", "pl", "cs", "hu", "ro", "ru", "uk", "el", "tr", "ar", "ur", "hi", "bn", "id", "vi", "th", "ja", "ko", "zh-CN", "zh-TW", "fil")
     val PUBLIC_URL: String = (System.getenv("PUBLIC_URL") ?: "http://127.0.0.1:${System.getenv("PORT")?.toIntOrNull() ?: 8797}").trimEnd('/')
     const val FREE_TOP = 10
 

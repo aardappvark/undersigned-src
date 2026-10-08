@@ -1008,4 +1008,15 @@
     <string name="sort_skr">Nhiều SKR stake nhất</string>
     <string name="sort_sol">Nhiều SOL stake nhất</string>
     <string name="sort_stake_note">Sắp xếp trong từng mục. Stake là giá trị đọc khi mỗi đánh giá xuất hiện, hiển thị vì minh bạch, và không bao giờ thay đổi điểm.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Bản dịch gợi ý</string>
+    <string name="translate_label">Bản dịch do AI gợi ý. Đoạn văn phía trên là lời của chính tác giả.</string>
+    <string name="translate_failed">Hiện chưa thể gợi ý bản dịch.</string>
+    <string name="pro_tool_translate_title">Bản dịch gợi ý</string>
+    <string name="pro_tool_translate_body">Đọc mọi đánh giá, đã ký hay từ cửa hàng, bằng ngôn ngữ của bạn chỉ với một chạm, và viết trả lời bằng ngôn ngữ của bạn để chuyển sang ngôn ngữ người đánh giá. Dịch bằng AI và có ghi chú; lời của tác giả vẫn hiển thị.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Dịch sang ngôn ngữ của người đánh giá</string>
+    <string name="reply_translate_note">Bản nháp của bạn: %1$s. Bạn ký câu trả lời đã dịch như lời của chính mình, nên hãy kiểm tra.</string>
 </resources>

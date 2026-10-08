@@ -1032,4 +1032,15 @@
     <string name="sort_skr">Meeste SKR gestaket</string>
     <string name="sort_sol">Meeste SOL gestaket</string>
     <string name="sort_stake_note">Sorteert binnen elke sectie. De stake is zoals gelezen toen elke beoordeling verscheen, getoond voor transparantie, en verandert nooit een score.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Vertaalsuggestie</string>
+    <string name="translate_label">Vertaalsuggestie door AI. De tekst hierboven zijn de eigen woorden van de schrijver.</string>
+    <string name="translate_failed">Er kon nu geen vertaalsuggestie worden gemaakt.</string>
+    <string name="pro_tool_translate_title">Vertaalsuggesties</string>
+    <string name="pro_tool_translate_body">Lees elke beoordeling, ondertekend of uit de store, met één tik in uw taal, en schrijf reacties in uw taal om ze naar die van de schrijver te zetten. Door AI vertaald en gemarkeerd; de woorden van de schrijver blijven zichtbaar.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Vertalen naar de taal van de schrijver</string>
+    <string name="reply_translate_note">Uw concept: %1$s. U ondertekent de vertaalde reactie als uw eigen woorden, controleer haar dus.</string>
 </resources>

@@ -51,6 +51,20 @@ How the numbers are made:
 - Bursts and similarity are facts about timing and wording, not verdicts.
 - The rules are in the [Review Integrity Policy](https://aardappvark.github.io/undersigned-legal/integrity.html).
 
+### AI suggestions (labelled)
+
+Each of these is made by AI (Claude Haiku), cached, and labelled a suggestion. None changes a review, weight, order or score.
+
+| Endpoint | What it gives | Access |
+|---|---|---|
+| `GET /v1/records/{id}/translation?lang=` | Suggested translation of a review's or reply's text | Pro wallet (`&wallet=`), or a pass or credits key |
+| `GET /v1/apps/{pkg}/summary` | Suggested summary: the points mentioned most in counted reviews, each with its count and review ids (needs 3 or more) | free |
+| `GET /v1/apps/{pkg}/similar` | Adds `suggested_paraphrase_groups`: reviews using near-identical words | pass |
+| `GET /v1/changes` | Adds a `suggested_note` per change, in plain words | pass |
+| `POST /v1/ask {question}` | Docs helper: answers from the published docs only | free |
+
+Hidden text is never translated. Spend is capped per day.
+
 ## 3. Limits, the pass, and pay per call
 
 | | Free | Pass | Pay per call (agents) |
@@ -119,7 +133,7 @@ Everything the server offers is read-only:
 
 | Free | With a pass |
 |---|---|
-| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing` | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `translate_review` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
 
 Besides tools:
 

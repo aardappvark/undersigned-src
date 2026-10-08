@@ -1008,4 +1008,15 @@
     <string name="sort_skr">SKR di-stake terbanyak</string>
     <string name="sort_sol">SOL di-stake terbanyak</string>
     <string name="sort_stake_note">Mengurutkan di dalam tiap bagian. Stake adalah nilai yang dibaca saat tiap ulasan muncul, ditampilkan demi transparansi, dan tidak pernah mengubah skor.</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">Terjemahan yang disarankan</string>
+    <string name="translate_label">Terjemahan disarankan oleh AI. Teks di atas adalah kata-kata penulis sendiri.</string>
+    <string name="translate_failed">Terjemahan belum bisa disarankan sekarang.</string>
+    <string name="pro_tool_translate_title">Terjemahan yang disarankan</string>
+    <string name="pro_tool_translate_body">Baca ulasan apa pun, bertanda tangan atau dari toko, dalam bahasa Anda dengan sekali ketuk, dan tulis balasan dalam bahasa Anda untuk dialihkan ke bahasa pengulas. Diterjemahkan AI dan diberi label; kata-kata penulis tetap ditampilkan.</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">Terjemahkan ke bahasa pengulas</string>
+    <string name="reply_translate_note">Draf Anda: %1$s. Anda menandatangani balasan terjemahan sebagai kata-kata Anda sendiri, jadi periksalah.</string>
 </resources>

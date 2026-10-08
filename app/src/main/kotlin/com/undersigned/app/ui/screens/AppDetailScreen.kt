@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
@@ -62,6 +63,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val proScores by vm.proScores.collectAsState()
     val promotedScores by vm.promotedScores.collectAsState()
     val reviewStakes by vm.reviewStakes.collectAsState()
+    val translations = remember { androidx.compose.runtime.mutableStateMapOf<String, String>() }
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    var translating by remember { mutableStateOf<String?>(null) }
+    var translateError by remember { mutableStateOf<Pair<String, String>?>(null) }
     var boostFor by remember { mutableStateOf<String?>(null) }
     var boostStage by remember { mutableStateOf<String?>(null) }
     var boostMsg by remember { mutableStateOf<Pair<String, String>?>(null) }
@@ -401,6 +406,22 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Spacer(Modifier.height(6.dp))
                         if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
                         else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
+                        // A suggested translation, Pro (owner, 9 Oct 2026): labelled as AI, the author's own words stay above it.
+                        if (shown) {
+                            translations[e.signature]?.let { t ->
+                                Spacer(Modifier.height(4.dp))
+                                Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                                Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                            } ?: run {
+                                if (pro?.active == true) Text(if (translating == e.signature) "…" else stringResource(R.string.translate_button), color = RbColors.purpleLight, fontSize = 12.sp,
+                                    modifier = Modifier.heightIn(min = 48.dp).clickable(enabled = translating == null) {
+                                        translating = e.signature; translateError = null
+                                        scope.launch { vm.suggestedTranslation(e.signature).fold({ translations[e.signature] = it }, { translateError = e.signature to (it.message ?: "") }); translating = null }
+                                    }.padding(vertical = 14.dp))
+                                else ProLock(hint = stringResource(R.string.translate_button), onPro = onPro)
+                                translateError?.takeIf { it.first == e.signature }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
+                            }
+                        }
                     }
                     // Tier 3, context: season, then similar wording (amber: that one is unusual). Text, not pills.
                     val seasonText = vm.seasonAt(e.blockTime)?.let { stringResource(R.string.season_pill, it.label) }
@@ -696,6 +717,19 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             var full by remember(r.id) { mutableStateOf(false) }
                             Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = if (full) Int.MAX_VALUE else 4, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
                             if (t.length > 220) ShowMore(full) { full = !full }
+                            // Pro: the store review in the app's language, labelled as a suggestion; the words above stay.
+                            translations["store:${r.id}"]?.let { tr ->
+                                Text(tr, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, modifier = Modifier.padding(top = 4.dp))
+                                Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                            } ?: run {
+                                if (pro?.active == true) Text(if (translating == "store:${r.id}") "…" else stringResource(R.string.translate_button), color = RbColors.purpleLight, fontSize = 12.sp,
+                                    modifier = Modifier.heightIn(min = 48.dp).clickable(enabled = translating == null) {
+                                        translating = "store:${r.id}"; translateError = null
+                                        scope.launch { vm.suggestedStoreTranslation(t).fold({ translations["store:${r.id}"] = it }, { translateError = "store:${r.id}" to (it.message ?: "") }); translating = null }
+                                    }.padding(vertical = 14.dp))
+                                else ProLock(hint = stringResource(R.string.translate_button), onPro = onPro)
+                                translateError?.takeIf { it.first == "store:${r.id}" }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
+                            }
                         }
                         // The store's own reply: flat, blue, "from the dApp Store".
                         r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->
@@ -928,6 +962,17 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     OutlinedTextField(value = replyText, onValueChange = { if (replyStage == null) replyText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, minLines = 2, maxLines = 4, isError = replyText.isNotEmpty() && !ok,
                         placeholder = { Text(stringResource(R.string.reply_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                    // Pro: write the reply in your own language and put it into the reviewer's (owner, 9 Oct 2026). You read it and sign it.
+                    var replyOriginal by remember(target) { mutableStateOf<String?>(null) }
+                    var replyTranslating by remember(target) { mutableStateOf(false) }
+                    if (pro?.active == true) {
+                        if (replyText.isNotBlank() && replyStage == null) Text(if (replyTranslating) "…" else stringResource(R.string.reply_translate_button), color = RbColors.purpleLight, fontSize = 12.sp,
+                            modifier = Modifier.heightIn(min = 48.dp).clickable(enabled = !replyTranslating) {
+                                replyTranslating = true; replyError = null; val draft = replyText
+                                scope.launch { vm.suggestedReplyTranslation(draft, target).fold({ replyOriginal = draft; replyText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, { replyError = context.getString(R.string.translate_failed) }); replyTranslating = false }
+                            }.padding(vertical = 14.dp))
+                    } else ProLock(hint = stringResource(R.string.reply_translate_button), onPro = onPro)
+                    replyOriginal?.let { o -> Text(stringResource(R.string.reply_translate_note, o), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
                     Text(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - replyText.length, ReviewMemo.MAX_TEXT_BYTES - bytes), color = RbColors.textTertiary, fontSize = 11.sp)
                     Spacer(Modifier.height(8.dp))
                     PermanenceNote(stringResource(R.string.permanent_title), stringResource(R.string.review_consent_body)) {

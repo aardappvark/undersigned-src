@@ -1026,4 +1026,15 @@
     <string name="sort_skr">सबसे ज़्यादा स्टेक किया SKR</string>
     <string name="sort_sol">सबसे ज़्यादा स्टेक किया SOL</string>
     <string name="sort_stake_note">हर खंड के भीतर क्रम लगाता है। स्टेक वह है जो हर समीक्षा के आने पर पढ़ा गया, पारदर्शिता के लिए दिखाया जाता है, और कभी कोई स्कोर नहीं बदलता।</string>
+
+    <!-- Suggested translations, Pro (9 Oct 2026) -->
+    <string name="translate_button">सुझाया गया अनुवाद</string>
+    <string name="translate_label">AI द्वारा सुझाया गया अनुवाद। ऊपर का पाठ लेखक के अपने शब्द हैं।</string>
+    <string name="translate_failed">अभी अनुवाद सुझाया नहीं जा सका।</string>
+    <string name="pro_tool_translate_title">सुझाए गए अनुवाद</string>
+    <string name="pro_tool_translate_body">कोई भी समीक्षा, हस्ताक्षरित या स्टोर की, एक टैप में अपनी भाषा में पढ़ें, और जवाब अपनी भाषा में लिखें जो समीक्षक की भाषा में बदले जाएँ। AI से अनुवादित और चिह्नित; लेखक के अपने शब्द दिखते रहते हैं।</string>
+
+    <!-- Reply translation, Pro (9 Oct 2026) -->
+    <string name="reply_translate_button">समीक्षक की भाषा में अनुवाद करें</string>
+    <string name="reply_translate_note">आपका मसौदा: %1$s। आप अनूदित जवाब को अपने शब्दों के रूप में हस्ताक्षरित करते हैं, इसलिए जाँच लें।</string>
 </resources>
