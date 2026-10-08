@@ -35,6 +35,13 @@ class ModerationTest {
         assertEquals(2, Moderation.textHidden(e, mapOf("com.y" to setOf(mod)), setOf(mod)).size)
     }
 
+    @Test fun `an operator wallet cannot hide reviews of any app the operator publishes, whichever wallet proved it`() {
+        val opMod = Operator.WALLETS.first(); val otherOp = Operator.WALLETS.last()
+        val e = listOf(review, reply, hide('C', 3, id('A'), by = opMod), hide('D', 3, id('B'), by = opMod))
+        assertTrue(Moderation.textHidden(e, mapOf("com.x" to setOf(otherOp)), setOf(opMod)).isEmpty())   // proved by ANOTHER operator wallet
+        assertEquals(2, Moderation.textHidden(e, mapOf("com.x" to setOf("someone")), setOf(opMod)).size) // someone else's app: allowed
+    }
+
     @Test fun `the rating still counts when the text is hidden`() {
         val e = listOf(review, hide('C', 3, id('A')))
         val score = Ranking.score(e, emptyMap()) { SignerFacts(true, 0.0) }.single()

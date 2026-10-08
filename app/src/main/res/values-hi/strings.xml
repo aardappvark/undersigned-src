@@ -52,7 +52,7 @@
     <string name="detail_update_review">मेरी समीक्षा अपडेट करें</string>
     <string name="detail_revoke_review">मेरी समीक्षा वापस लें</string>
     <string name="detail_score_title">हस्ताक्षरित स्कोर</string>
-    <string name="detail_score_sub">प्रमाणित डिवाइसों की समीक्षाओं का औसत (आज: Seeker Genesis Token धारक), हर समीक्षा जो साथ लाती है (इंस्टॉल अवधि, उपयोग, लिखा नोट) और स्टेक किए SKR से भारित, जिसे कोई भी खरीद सकता है (3× तक)। Undersigned को कोई भुगतान इसमें शामिल नहीं; Pro सदस्यों की समीक्षाएँ अपने अलग स्कोर में भी दिखती हैं। Undersigned के अपने वॉलेट कभी गिने नहीं जाते। व्यक्तिगत मालिकों की राय, स्टोर की रेटिंग नहीं।</string>
+    <string name="detail_score_sub">प्रमाणित डिवाइसों की समीक्षाओं का औसत (आज: Seeker Genesis Token धारक), हर समीक्षा जो साथ लाती है (इंस्टॉल अवधि, उपयोग, लिखा नोट) और वॉलेट द्वारा स्टेक किए SKR (3× तक) से भारित। SKR का व्यापार होता है, इसलिए वज़न का यह हिस्सा हासिल किया जा सकता है; Undersigned इसे खरीदने या स्टेक करने की सलाह नहीं देता। Undersigned को कोई भुगतान स्कोर में शामिल नहीं; Pro सदस्यों की समीक्षाएँ अपने अलग स्कोर में भी दिखती हैं। Undersigned के वॉलेट कभी गिने नहीं जाते। प्रमाणित Seeker डिवाइस मालिकों की राय, स्टोर की रेटिंग नहीं।</string>
     <string name="detail_rank_score">रैंक स्कोर %1$s — जब तक अधिक Seekers साइन नहीं करते, 3.0 की ओर सिकोड़ा गया; केवल सूची क्रमबद्ध करने के लिए उपयोग होता है।</string>
     <string name="follow">फ़ॉलो करें</string>
     <string name="following">फ़ॉलो किया जा रहा है</string>
@@ -91,7 +91,7 @@
     <string name="standing_line">गिनती: %1$d · वापस ली गईं: %2$d · प्राप्त जवाब: %3$d · दिए गए जवाब: %4$d</string>
     <string name="standing_agreement">अन्य साइनर्स के साथ टैग सहमति: %1$s</string>
     <string name="standing_since">%1$s से साइन कर रहे हैं</string>
-    <string name="standing_note2">केवल गिनती। कोई स्कोर नहीं, खरीदने के लिए कुछ भी नहीं।</string>
+    <string name="standing_note2">केवल गिनतियाँ। कोई स्कोर नहीं, और कोई भुगतान इन्हें नहीं बदलता।</string>
     <string name="store_reviewer_genesis">Seeker स्वामी</string>
     <string name="store_reviewer_nogenesis">कोई प्रमाणित डिवाइस नहीं मिला</string>
     <string name="store_reviewer_signed_here">यहां भी साइन किया</string>
@@ -199,7 +199,7 @@
     <string name="standing_sgt_yes">प्रमाणित डिवाइस मिला (%1$s): आपकी समीक्षाएं गिनी जाती हैं।</string>
     <string name="standing_sgt_no">इस wallet में कोई प्रमाणित डिवाइस नहीं (आज: Seeker Genesis Token): आपकी समीक्षाएं नहीं गिनी जाएंगी।</string>
     <string name="standing_stake">chain पर पढ़ा गया staked SKR: %1$s (भार %2$s×)</string>
-    <string name="standing_note">भार chain से पढ़े जाते हैं। Undersigned कभी भी आपसे stake करने, खरीदने या कुछ भी रखने के लिए नहीं कहता।</string>
+    <string name="standing_note">वज़न चेन से पढ़े जाते हैं: डिवाइस और स्टेक किया SKR। Pro और Undersigned को भुगतान इन्हें कभी नहीं बदलते।</string>
     <string name="settings_ledger">लेजर</string>
     <string name="settings_ledger_body">रजिस्ट्री पता %1$s। हर समीक्षा इस पते के माध्यम से किसी के भी द्वारा खोजी जा सकती है। यह ऐप इसे सीधे chain से पढ़ता है, हमारे किसी सर्वर से नहीं।</string>
     <string name="settings_refresh_ledger">Ledger फिर से पढ़ें</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">अगला</string>
     <string name="intro_replay">परिचय फिर से चलाएं</string>
     <string name="intro1_title">एक Seeker, एक आवाज़</string>
-    <string name="intro1_body">Undersigned, dApp Store के बगल में एक समीक्षा परत है। केवल Seeker Genesis Token वाले वॉलेट गिने जाते हैं: एक डिवाइस, एक आवाज़। खरीदी जा सकने वाली कोई चीज़ हस्ताक्षरित स्कोर नहीं बदलती।</string>
+    <string name="intro1_body">Undersigned, dApp Store के साथ समीक्षाओं की एक परत है। केवल Seeker Genesis Token वाले वॉलेट गिने जाते हैं: एक डिवाइस, एक आवाज़। Undersigned को कोई भुगतान हस्ताक्षरित स्कोर नहीं बदलता; स्टेक किया SKR किसी समीक्षा का वज़न अधिकतम 3× तक बढ़ा सकता है।</string>
     <string name="intro2_title">हस्ताक्षरित, टाइप नहीं</string>
     <string name="intro2_body">हर समीक्षा एक छोटा लेनदेन है जिसे आप फ़ोन पर double-tap से स्वीकृत करते हैं। आपका wallet केवल वह नेटवर्क फीस चुकाता है जो वह खुद तय करता है। Undersigned कभी भी आपकी keys या धन नहीं रखता।</string>
     <string name="intro3_title">स्टोर के साथ, उसकी जगह नहीं</string>
@@ -319,7 +319,7 @@
     <string name="howto4_sub">हर निर्णय भी एक हस्ताक्षर है</string>
     <string name="howto4_body">उपयोगी — समीक्षाओं को क्रम देता है। प्रति wallet एक वोट, समीक्षा की तरह भारित।\nफ़्लैग — संदिग्ध स्पैम, दुर्व्यवहार, विषय से हटकर या भ्रामक। सर्वसम्मति पर, पाठक रिकॉर्ड छिपा देते हैं।\nअसली लगता है — उन फ़्लैग को संतुलित करता है जिन्हें आप गलत मानते हैं।\nविवाद — अगर आपका अपना रिकॉर्ड छिपा है, तो एक हस्ताक्षरित जवाब उसे छिपा रखने के लिए ज़रूरी भार बढ़ा देता है।</string>
     <string name="howto4_note_title">इनमें से किसी के लिए कुछ भी भुगतान नहीं किया जाता</string>
-    <string name="howto4_note">आपकी स्थिति गिनती और एक प्रकाशित सूत्र है — कुछ भी खरीदकर आप इसे नहीं बदल सकते। इन चरणों को कभी भी Settings से फिर से चला सकते हैं।</string>
+    <string name="howto4_note">आपकी साख गिनतियाँ और एक प्रकाशित सूत्र है; Undersigned को कोई भुगतान इसे नहीं बदलता। ये चरण कभी भी सेटिंग्स से दोबारा देखें।</string>
     <string name="empty_search_title">उस नाम का कोई dApp नहीं</string>
     <string name="empty_search_body">स्टोर सूची में \"%1$s\" से कुछ भी मेल नहीं खाता।</string>
     <string name="reread_catalogue">सूची फिर से पढ़ें</string>
@@ -1013,4 +1013,9 @@
     <string name="promoted_score_note">केवल वे समीक्षाएँ जिनके लेखकों ने प्रमोशन के लिए भुगतान किया, सामान्य वज़न पर। स्वतंत्र समीक्षाओं से अलग सूचीबद्ध।</string>
     <string name="reviews_group_promoted">प्रमोट की गई समीक्षाएँ · सशुल्क</string>
     <string name="reviews_group_promoted_note">वे समीक्षाएँ जिनके अपने लेखकों ने प्रमोशन के लिए Undersigned को भुगतान किया। सबके बराबर वज़न पर एक बार गिनी जाती हैं और स्वतंत्र समीक्षाओं से अलग रखी जाती हैं।</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">भुगतान करके आप पुष्टि करते हैं कि आपको इस ऐप का प्रकाशक या कोई प्रतिस्पर्धी भुगतान नहीं करता, नियुक्त नहीं करता, और आप उनकी ओर से काम नहीं कर रहे।</string>
+    <string name="withdrawal_consent">अभी शुरू करें। मैं समझता/समझती हूँ कि भुगतान चेन पर पुष्ट होते ही मैं 14 दिन का कोई भी वापसी का अधिकार खो दूँगा/दूँगी।</string>
+    <string name="withdrawal_confirmed">आपने तुरंत आपूर्ति माँगी और 14 दिन के किसी भी वापसी अधिकार के खोने को स्वीकार किया। आपकी रसीद चेन पर लेन-देन %1$s है।</string>
 </resources>

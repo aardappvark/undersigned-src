@@ -363,7 +363,7 @@ fun main(args: Array<String>) {
     val indexer = Indexer(db, rpc)
     val boards = Boards(indexer, Board(db, rpc), Prices(db))
     val views = Views(indexer, boards, db)
-    val billing = Billing(db, { sig -> runCatching { rpc.tx(sig, Config.TREASURY) }.getOrNull() }, { w -> indexer.facts(w).hasGenesisToken })
+    val billing = Billing(db, { sig -> runCatching { rpc.tx(sig, Config.TREASURY) }.getOrNull() }, { w -> indexer.facts(w).hasGenesisToken }, Screening::screenForPayment)
     val hooks = Hooks(db, billing)
     indexer.onRebuilt = { fresh -> hooks.tick(indexer, fresh) }
     if (Config.INDEX) hooks.startWorker()

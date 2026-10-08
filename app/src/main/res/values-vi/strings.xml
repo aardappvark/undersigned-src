@@ -52,7 +52,7 @@
     <string name="detail_update_review">Cập nhật đánh giá của tôi</string>
     <string name="detail_revoke_review">Rút đánh giá của tôi</string>
     <string name="detail_score_title">Điểm đã ký</string>
-    <string name="detail_score_sub">Trung bình đánh giá từ thiết bị được chứng thực (hiện nay: người giữ Seeker Genesis Token), có trọng số theo những gì mỗi đánh giá mang (thời gian cài, mức dùng, ghi chú viết) và theo SKR đã stake, một token ai cũng mua được (tới 3×). Không khoản thanh toán nào cho Undersigned được tính vào; đánh giá của thành viên Pro cũng có điểm riêng. Ví của Undersigned không bao giờ được tính. Ý kiến của từng chủ máy, không phải xếp hạng của cửa hàng.</string>
+    <string name="detail_score_sub">Trung bình đánh giá từ thiết bị được chứng thực (hiện nay: người giữ Seeker Genesis Token), có trọng số theo những gì mỗi đánh giá mang (thời gian cài, mức dùng, ghi chú viết) và theo SKR ví đã stake (tối đa 3×). SKR được giao dịch nên phần trọng số này có thể có được; Undersigned không khuyến nghị mua hay stake SKR. Không khoản thanh toán nào cho Undersigned được tính vào điểm; đánh giá của thành viên Pro cũng có điểm riêng. Ví của Undersigned không bao giờ được tính. Ý kiến của chủ thiết bị Seeker được chứng thực, không phải xếp hạng của cửa hàng.</string>
     <string name="detail_rank_score">Điểm xếp hạng %1$s — được co về gần 3.0 cho đến khi có thêm Seeker ký; chỉ dùng để sắp xếp danh sách.</string>
     <string name="follow">Theo dõi</string>
     <string name="following">Đang theo dõi</string>
@@ -90,7 +90,7 @@
     <string name="standing_line">Đã tính: %1$d · Đã rút: %2$d · Câu trả lời nhận được: %3$d · Câu trả lời đã gửi: %4$d</string>
     <string name="standing_agreement">Mức đồng thuận thẻ với những người ký khác: %1$s</string>
     <string name="standing_since">Đã ký từ %1$s</string>
-    <string name="standing_note2">Chỉ đếm số lượng. Không có điểm số, không có gì để mua.</string>
+    <string name="standing_note2">Chỉ là số đếm. Không có điểm, và không khoản thanh toán nào thay đổi chúng.</string>
     <string name="store_reviewer_genesis">Chủ sở hữu Seeker</string>
     <string name="store_reviewer_nogenesis">không tìm thấy thiết bị được xác nhận</string>
     <string name="store_reviewer_signed_here">cũng đã ký tại đây</string>
@@ -195,7 +195,7 @@
     <string name="standing_sgt_yes">Đã tìm thấy thiết bị được xác nhận (%1$s): đánh giá của bạn được tính.</string>
     <string name="standing_sgt_no">Ví này không có thông tin xác nhận thiết bị (hiện tại: Seeker Genesis Token): đánh giá của bạn sẽ không được tính.</string>
     <string name="standing_stake">SKR đã stake đọc được trên chuỗi: %1$s (trọng số %2$s×)</string>
-    <string name="standing_note">Trọng số được đọc từ chuỗi. Undersigned không bao giờ yêu cầu bạn stake, mua hay giữ bất cứ thứ gì.</string>
+    <string name="standing_note">Trọng số được đọc từ chuỗi: thiết bị và SKR đã stake. Pro và các khoản thanh toán cho Undersigned không bao giờ thay đổi chúng.</string>
     <string name="settings_ledger">Sổ cái</string>
     <string name="settings_ledger_body">Địa chỉ đăng ký %1$s. Mọi đánh giá đều có thể được tìm thấy bởi bất kỳ ai thông qua địa chỉ này. Ứng dụng này đọc trực tiếp từ chuỗi, không phải từ máy chủ của chúng tôi.</string>
     <string name="settings_refresh_ledger">Đọc lại sổ cái</string>
@@ -219,7 +219,7 @@
     <string name="intro_next">Tiếp theo</string>
     <string name="intro_replay">Xem lại phần giới thiệu</string>
     <string name="intro1_title">Một Seeker, một tiếng nói</string>
-    <string name="intro1_body">Undersigned là một lớp đánh giá bên cạnh dApp Store. Chỉ ví giữ Seeker Genesis Token mới được tính: một thiết bị, một tiếng nói. Không gì mua được có thể thay đổi điểm đã ký.</string>
+    <string name="intro1_body">Undersigned là lớp đánh giá bên cạnh dApp Store. Chỉ ví giữ Seeker Genesis Token mới được tính: một thiết bị, một tiếng nói. Không khoản thanh toán nào cho Undersigned thay đổi điểm đã ký; SKR đã stake có thể tăng trọng số đánh giá, tối đa 3×.</string>
     <string name="intro2_title">Đã ký, không chỉ gõ chữ</string>
     <string name="intro2_body">Mỗi đánh giá là một giao dịch nhỏ mà bạn phê duyệt trên điện thoại bằng thao tác chạm đúp. Ví của bạn chỉ trả phí mạng do chính nó đặt ra. Undersigned không bao giờ giữ khóa hoặc tiền của bạn.</string>
     <string name="intro3_title">Bên cạnh cửa hàng, không thay thế nó</string>
@@ -314,7 +314,7 @@
     <string name="howto4_sub">Mỗi đánh giá cũng là một chữ ký</string>
     <string name="howto4_body">Hữu ích — sắp xếp đánh giá. Một phiếu mỗi ví, có trọng số như một đánh giá.\nGắn cờ — nghi ngờ spam, lạm dụng, lạc đề hoặc gây hiểu lầm. Khi đạt đồng thuận, người đọc sẽ ẩn bản ghi đó.\nCó vẻ thật — bù trừ cho các cờ mà bạn cho là sai.\nPhản đối — nếu bản ghi của chính bạn bị ẩn, một phản hồi đã ký sẽ tăng trọng số cần thiết để tiếp tục ẩn nó.</string>
     <string name="howto4_note_title">Không có gì trong số này phải trả tiền</string>
-    <string name="howto4_note">Uy tín của bạn là số lượng và một công thức được công bố — không có gì bạn mua được có thể thay đổi nó. Xem lại các bước này bất cứ lúc nào từ Cài đặt.</string>
+    <string name="howto4_note">Uy tín của bạn là các con số đếm và một công thức công khai; không khoản thanh toán nào cho Undersigned thay đổi nó. Xem lại các bước này bất cứ lúc nào trong Cài đặt.</string>
     <string name="empty_search_title">Không có dApp nào tên đó</string>
     <string name="empty_search_body">Không có gì trong danh mục cửa hàng khớp với \"%1$s\".</string>
     <string name="reread_catalogue">Đọc lại danh mục</string>
@@ -995,4 +995,9 @@
     <string name="promoted_score_note">Chỉ những đánh giá mà tác giả đã trả phí để quảng bá, với trọng số thường. Liệt kê riêng với đánh giá độc lập.</string>
     <string name="reviews_group_promoted">Đánh giá được quảng bá · trả phí</string>
     <string name="reviews_group_promoted_note">Đánh giá mà chính tác giả đã trả Undersigned để quảng bá. Được tính một lần cùng trọng số như mọi người và tách riêng khỏi đánh giá độc lập.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Khi thanh toán, bạn xác nhận mình không được nhà phát hành ứng dụng này hay đối thủ trả tiền, thuê hoặc hành động thay mặt họ.</string>
+    <string name="withdrawal_consent">Bắt đầu ngay. Tôi hiểu mình mất mọi quyền hủy trong 14 ngày khi khoản thanh toán được xác nhận trên chuỗi.</string>
+    <string name="withdrawal_confirmed">Bạn đã yêu cầu cung cấp ngay và xác nhận mất mọi quyền hủy trong 14 ngày. Biên nhận của bạn là giao dịch trên chuỗi %1$s.</string>
 </resources>

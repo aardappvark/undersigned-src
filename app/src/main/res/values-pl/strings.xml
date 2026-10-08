@@ -52,7 +52,7 @@
     <string name="detail_update_review">Zaktualizuj moją recenzję</string>
     <string name="detail_revoke_review">Wycofaj moją recenzję</string>
     <string name="detail_score_title">Podpisany wynik</string>
-    <string name="detail_score_sub">Średnia recenzji z poświadczonych urządzeń (dziś: posiadacze Seeker Genesis Token), ważona tym, co wnosi każda recenzja (czas instalacji, użycie, napisana notatka), i stakowanym SKR, tokenem, który każdy może kupić (do 3×). Żadna płatność dla Undersigned do niej nie wchodzi; recenzje członków Pro mają też własną ocenę. Portfele Undersigned nigdy się nie liczą. Opinie pojedynczych właścicieli, nie ocena sklepu.</string>
+    <string name="detail_score_sub">Średnia recenzji z poświadczonych urządzeń (dziś: posiadacze Seeker Genesis Token), ważona tym, co wnosi każda recenzja (czas instalacji, użycie, napisana notatka), i SKR, który portfel stakuje (maksymalnie 3×). SKR jest przedmiotem obrotu, więc tę część wagi można nabyć; Undersigned nie zaleca kupowania ani stakowania. Żadna płatność dla Undersigned nie wchodzi do oceny; recenzje członków Pro mają też własną ocenę. Portfele Undersigned nigdy się nie liczą. Opinie właścicieli poświadczonych urządzeń Seeker, nie ocena sklepu.</string>
     <string name="detail_rank_score">Wynik rankingowy %1$s — zbliżany do 3.0, dopóki nie podpisze więcej Seekerów; służy tylko do porządkowania listy.</string>
     <string name="follow">Obserwuj</string>
     <string name="following">Obserwowane</string>
@@ -88,7 +88,7 @@
     <string name="standing_line">Policzone: %1$d · Wycofane: %2$d · Otrzymane odpowiedzi: %3$d · Wysłane odpowiedzi: %4$d</string>
     <string name="standing_agreement">Zgodność tagów z innymi sygnatariuszami: %1$s</string>
     <string name="standing_since">Podpisuje od %1$s</string>
-    <string name="standing_note2">Tylko liczby. Brak wyniku, nic do kupienia.</string>
+    <string name="standing_note2">Tylko liczby. Bez oceny, i żadna płatność ich nie zmienia.</string>
     <string name="store_reviewer_genesis">Właściciel Seekera</string>
     <string name="store_reviewer_nogenesis">nie znaleziono potwierdzonego urządzenia</string>
     <string name="store_reviewer_signed_here">podpisano też tutaj</string>
@@ -202,7 +202,7 @@
     <string name="standing_sgt_yes">Znaleziono potwierdzone urządzenie (%1$s): Twoje recenzje się liczą.</string>
     <string name="standing_sgt_no">Ten portfel nie ma poświadczenia potwierdzonego urządzenia (obecnie: Seeker Genesis Token): Twoje recenzje nie byłyby liczone.</string>
     <string name="standing_stake">Zastawiony SKR odczytany z łańcucha: %1$s (waga %2$s×)</string>
-    <string name="standing_note">Wagi są odczytywane z łańcucha. Undersigned nigdy nie prosi o zastawianie, kupowanie ani posiadanie czegokolwiek.</string>
+    <string name="standing_note">Wagi są odczytywane z łańcucha: urządzenie i stakowany SKR. Pro i płatności dla Undersigned nigdy ich nie zmieniają.</string>
     <string name="settings_ledger">Rejestr</string>
     <string name="settings_ledger_body">Adres rejestru %1$s. Każda recenzja jest odnajdywalna przez każdego pod tym adresem. Ta aplikacja odczytuje go prosto z łańcucha, a nie z naszego serwera.</string>
     <string name="settings_refresh_ledger">Odczytaj rejestr ponownie</string>
@@ -229,7 +229,7 @@
     <string name="intro_next">Dalej</string>
     <string name="intro_replay">Odtwórz wprowadzenie ponownie</string>
     <string name="intro1_title">Jeden Seeker, jeden głos</string>
-    <string name="intro1_body">Undersigned to warstwa recenzji obok dApp Store. Liczą się tylko portfele z Seeker Genesis Token: jedno urządzenie, jeden głos. Nic, co można kupić, nie zmienia podpisanej oceny.</string>
+    <string name="intro1_body">Undersigned to warstwa recenzji obok dApp Store. Liczą się tylko portfele z Seeker Genesis Token: jedno urządzenie, jeden głos. Żadna płatność dla Undersigned nie zmienia podpisanej oceny; stakowany SKR może podnieść wagę recenzji, maksymalnie do 3×.</string>
     <string name="intro2_title">Podpisane, nie wpisywane</string>
     <string name="intro2_body">Każda recenzja to niewielka transakcja, którą zatwierdzasz na telefonie podwójnym dotknięciem. Twój portfel płaci tylko opłatę sieciową, którą sam ustala. Undersigned nigdy nie przechowuje Twoich kluczy ani środków.</string>
     <string name="intro3_title">Obok sklepu, nie zamiast niego</string>
@@ -326,7 +326,7 @@
     <string name="howto4_sub">Każda ocena to też podpis</string>
     <string name="howto4_body">Pomocne — porządkuje recenzje. Jeden głos na portfel, ważony jak recenzja.\nOznacz — podejrzenie spamu, nadużycia, nie na temat lub wprowadzające w błąd. Po osiągnięciu konsensusu czytelnicy ukrywają wpis.\nWygląda autentycznie — równoważy oznaczenia, które uważasz za błędne.\nZakwestionuj — jeśli Twój własny wpis jest ukryty, jedna podpisana odpowiedź podnosi wagę potrzebną do utrzymania go ukrytym.</string>
     <string name="howto4_note_title">Za nic z tego się nie płaci</string>
-    <string name="howto4_note">Twoja pozycja to liczby i opublikowany wzór — nic, co możesz kupić, jej nie zmieni. Te kroki możesz odtworzyć w dowolnym momencie w Ustawieniach.</string>
+    <string name="howto4_note">Twoja reputacja to liczby i opublikowany wzór; żadna płatność dla Undersigned jej nie zmienia. Powtórz te kroki w dowolnej chwili w Ustawieniach.</string>
     <string name="empty_search_title">Brak dApp o tej nazwie</string>
     <string name="empty_search_body">Nic w katalogu sklepu nie pasuje do \"%1$s\".</string>
     <string name="reread_catalogue">Odczytaj katalog ponownie</string>
@@ -1048,4 +1048,9 @@
     <string name="promoted_score_note">Tylko recenzje, których autorzy zapłacili za promowanie, ze zwykłą wagą. Wymienione osobno od niezależnych.</string>
     <string name="reviews_group_promoted">Promowane recenzje · płatne</string>
     <string name="reviews_group_promoted_note">Recenzje, których autorzy zapłacili Undersigned za promowanie. Liczone raz z tą samą wagą co wszystkie i oddzielone od niezależnych.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Płacąc, potwierdzasz, że nie otrzymujesz zapłaty od wydawcy tej aplikacji ani konkurenta, nie jesteś przez nich zatrudniony ani nie działasz w ich imieniu.</string>
+    <string name="withdrawal_consent">Rozpocznij teraz. Rozumiem, że tracę ewentualne 14-dniowe prawo odstąpienia, gdy płatność zostanie potwierdzona w łańcuchu.</string>
+    <string name="withdrawal_confirmed">Zażądałeś natychmiastowego dostarczenia i potwierdziłeś utratę ewentualnego 14-dniowego prawa odstąpienia. Twoim potwierdzeniem jest transakcja w łańcuchu %1$s.</string>
 </resources>

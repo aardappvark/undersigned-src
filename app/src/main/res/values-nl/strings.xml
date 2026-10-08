@@ -47,7 +47,7 @@
     <string name="detail_update_review">Mijn recensie bijwerken</string>
     <string name="detail_revoke_review">Mijn recensie terugtrekken</string>
     <string name="detail_score_title">Ondertekende score</string>
-    <string name="detail_score_sub">Gemiddelde van beoordelingen van geattesteerde apparaten (nu: houders van een Seeker Genesis Token), gewogen naar wat elke beoordeling meebrengt (installatieduur, gebruik, een geschreven notitie) en naar gestakete SKR, een token dat iedereen kan kopen (tot 3×). Geen betaling aan Undersigned telt mee; beoordelingen van Pro-leden krijgen ook een eigen score. Wallets van Undersigned tellen nooit. Meningen van eigenaren, niet de score van de store.</string>
+    <string name="detail_score_sub">Gemiddelde van beoordelingen van geattesteerde apparaten (nu: houders van een Seeker Genesis Token), gewogen naar wat elke beoordeling meebrengt (installatieduur, gebruik, een geschreven notitie) en naar SKR die de wallet heeft gestaket (tot 3×). SKR wordt verhandeld, dus dit deel van het gewicht is te verwerven; Undersigned raadt kopen of staken niet aan. Geen betaling aan Undersigned telt mee; beoordelingen van Pro-leden krijgen ook een eigen score. Wallets van Undersigned tellen nooit. Meningen van eigenaren van geattesteerde Seeker-apparaten, niet de score van de store.</string>
     <string name="detail_rank_score">Rangscore %1$s — genormaliseerd richting 3,0 totdat meer Seekers ondertekenen; wordt alleen gebruikt om de lijst te ordenen.</string>
     <string name="follow">Volgen</string>
     <string name="following">Volgend</string>
@@ -86,7 +86,7 @@
     <string name="standing_line">Meegeteld: %1$d · Teruggetrokken: %2$d · Reacties ontvangen: %3$d · Reacties gegeven: %4$d</string>
     <string name="standing_agreement">Overeenstemming in tags met andere ondertekenaars: %1$s</string>
     <string name="standing_since">Ondertekent sinds %1$s</string>
-    <string name="standing_note2">Alleen tellingen. Geen score, niets om te kopen.</string>
+    <string name="standing_note2">Alleen tellingen. Geen score, en geen betaling verandert ze.</string>
     <string name="store_reviewer_genesis">Seeker-eigenaar</string>
     <string name="store_reviewer_nogenesis">geen geattesteerd apparaat gevonden</string>
     <string name="store_reviewer_signed_here">hier ook ondertekend</string>
@@ -188,7 +188,7 @@
     <string name="standing_sgt_yes">Geattesteerd apparaat gevonden (%1$s): uw recensies tellen mee.</string>
     <string name="standing_sgt_no">Geen bewijs van een geattesteerd apparaat in deze wallet (vandaag: de Seeker Genesis Token): uw recensies zouden niet worden meegeteld.</string>
     <string name="standing_stake">Gestakete SKR gelezen on-chain: %1$s (gewicht %2$s×)</string>
-    <string name="standing_note">Gewichten worden van de chain gelezen. Undersigned vraagt u nooit iets te staken, kopen of aan te houden.</string>
+    <string name="standing_note">Gewichten worden van de chain gelezen: het apparaat en gestakete SKR. Pro en betalingen aan Undersigned veranderen ze nooit.</string>
     <string name="settings_ledger">Grootboek</string>
     <string name="settings_ledger_body">Registeradres %1$s. Elke recensie is voor iedereen vindbaar via dit adres. Deze app leest ze rechtstreeks van de chain, niet van een server van ons.</string>
     <string name="settings_refresh_ledger">Grootboek opnieuw lezen</string>
@@ -213,7 +213,7 @@
     <string name="intro_next">Volgende</string>
     <string name="intro_replay">Introductie herhalen</string>
     <string name="intro1_title">Eén Seeker, één stem</string>
-    <string name="intro1_body">Undersigned is een beoordelingslaag naast de dApp Store. Alleen wallets met een Seeker Genesis Token tellen: één apparaat, één stem. Niets wat u kunt kopen verandert de ondertekende score.</string>
+    <string name="intro1_body">Undersigned is een beoordelingslaag naast de dApp Store. Alleen wallets met een Seeker Genesis Token tellen: één apparaat, één stem. Geen betaling aan Undersigned verandert de ondertekende score; gestakete SKR kan het gewicht van een beoordeling verhogen, tot 3×.</string>
     <string name="intro2_title">Ondertekend, niet getypt</string>
     <string name="intro2_body">Elke recensie is een kleine transactie die u op de telefoon goedkeurt met de dubbele tik. Uw wallet betaalt alleen de netwerkkosten die hij zelf instelt. Undersigned bewaart nooit uw sleutels of tegoeden.</string>
     <string name="intro3_title">Naast de store, niet in plaats ervan</string>
@@ -308,7 +308,7 @@
     <string name="howto4_sub">Elk oordeel is ook een handtekening</string>
     <string name="howto4_body">Nuttig — ordent recensies. Eén stem per wallet, gewogen als een recensie.\nMarkeren — vermoedelijke spam, misbruik, niet ter zake of misleidend. Bij consensus verbergen lezers het record.\nLijkt echt — compenseert markeringen die u onterecht vindt.\nBezwaar — als uw eigen record verborgen is, verhoogt één ondertekende reactie het gewicht dat nodig is om het verborgen te houden.</string>
     <string name="howto4_note_title">Voor niets hiervan wordt betaald</string>
-    <string name="howto4_note">Uw status bestaat uit tellingen en een gepubliceerde formule — niets wat u kunt kopen verandert dat. Herhaal deze stappen op elk moment vanuit Instellingen.</string>
+    <string name="howto4_note">Uw reputatie bestaat uit tellingen en een gepubliceerde formule; geen betaling aan Undersigned verandert die. Herhaal deze stappen altijd via Instellingen.</string>
     <string name="empty_search_title">Geen dApp met die naam</string>
     <string name="empty_search_body">Niets in de storecatalogus komt overeen met \"%1$s\".</string>
     <string name="reread_catalogue">Catalogus opnieuw lezen</string>
@@ -1019,4 +1019,9 @@
     <string name="promoted_score_note">Alleen beoordelingen waarvan de schrijver betaalde om ze te promoten, met hun gewone gewicht. Apart van de onafhankelijke beoordelingen.</string>
     <string name="reviews_group_promoted">Gepromote beoordelingen · betaald</string>
     <string name="reviews_group_promoted_note">Beoordelingen waarvan de eigen schrijver Undersigned betaalde om ze te promoten. Eén keer geteld met hetzelfde gewicht als iedereen, en apart van de onafhankelijke beoordelingen.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Met betalen bevestigt u dat u niet betaald, in dienst of in opdracht bent van de uitgever van deze app of een concurrent.</string>
+    <string name="withdrawal_consent">Nu starten. Ik begrijp dat ik elk herroepingsrecht van 14 dagen verlies zodra de betaling on-chain is bevestigd.</string>
+    <string name="withdrawal_confirmed">U vroeg om directe levering en erkende dat u elk herroepingsrecht van 14 dagen verliest. Uw bewijs is de on-chain transactie %1$s.</string>
 </resources>

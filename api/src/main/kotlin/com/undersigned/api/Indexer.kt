@@ -415,7 +415,16 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         signers.forEach { runCatching { names.resolve(it) } }   // cached a week; only new signers cost a lookup
         val details = loadDetails()
         val (verified, since, how) = verifyClaims(entries, details)
-        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, operatorHidden())
+        // Recusal (compliance review, 9 Oct 2026): the operator's site-only hide list never applies to an app the operator publishes.
+        val byId = entries.associateBy { it.signature }
+        fun pkgOfRecord(id: String): String? = when (val m = byId[id]?.memo) {
+            is ReviewMemo.Review -> m.packageName
+            is ReviewMemo.Reply -> (byId[m.reviewSignature]?.memo as? ReviewMemo.Review)?.packageName
+            is ReviewMemo.StoreNote -> m.packageName
+            else -> null
+        }
+        val hides = operatorHidden().filterKeys { id -> pkgOfRecord(id)?.let { com.undersigned.protocol.Operator.publishes(it, verified) } != true }
+        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides)
         if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 

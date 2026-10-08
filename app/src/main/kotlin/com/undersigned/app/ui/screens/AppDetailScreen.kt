@@ -255,7 +255,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                     }
                     segment(stringResource(R.string.member_score_title), stringResource(R.string.member_score_note), proScores[pkg], RbColors.purpleLight)
-                    segment(stringResource(R.string.promoted_score_title), stringResource(R.string.promoted_score_note), promotedScores[pkg], RbColors.warning)
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -322,6 +321,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Spacer(Modifier.height(10.dp))
                     Text(stringResource(groupTitles[g]), color = if (g >= 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(groupNotes[g]), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    // The Promoted score lives here, with its own section, never in the headline card (legal review, 9 Oct 2026).
+                    if (g == 2) promotedScores[pkg]?.let { sc -> Text(stringResource(R.string.promoted_score_title) + String.format(java.util.Locale.US, " · %.1f · ", sc.weightedMean) + stringResource(R.string.row_signed_count, sc.countedReviews),
+                        color = RbColors.warning, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 2.dp)) }
                     Spacer(Modifier.height(6.dp))
                 }
                 val r = e.memo as ReviewMemo.Review
@@ -416,19 +418,34 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     if (e.signer == wallet) boostMsg?.takeIf { boostFor == null && it.second == e.signature }?.let { Text(it.first, color = RbColors.green, fontSize = 11.sp) }
                     if (boostFor == e.signature) {
+                        // Legal review, 9 Oct 2026: a declaration against proxy promotion (CMA208 5.1(b)), express consent to
+                        // immediate supply with the withdrawal acknowledgement (CRD 16(m), UK CCR reg 37), and a Cancel.
+                        var declared by remember { mutableStateOf(false) }
                         fun payBoost(rail: com.undersigned.app.solana.ProPaymentService.Rail) {
                             val s = sender ?: return
                             boostFor = null
                             vm.payBoost(s, rail, e.signature, onStage = { st -> boostStage = stageText(st) }) { r ->
                                 boostStage = null
-                                boostMsg = r.fold({ context.getString(R.string.boost_done, shortKey(it, 6, 6)) to e.signature }, { context.errorText(it) to e.signature })
+                                boostMsg = r.fold({ context.getString(R.string.boost_done, shortKey(it, 6, 6)) + "\n" + context.getString(R.string.withdrawal_confirmed, it) to e.signature }, { context.errorText(it) to e.signature })
                             }
                         }
                         AlertDialog(onDismissRequest = { boostFor = null }, containerColor = RbColors.surface,
                             title = { Text(stringResource(R.string.boost_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
-                            text = { Text(stringResource(R.string.boost_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
-                            confirmButton = { TextButton(onClick = { payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SKR) }) { Text(stringResource(R.string.boost_pay, String.format(java.util.Locale.US, "%,.0f SKR", com.undersigned.app.AppConfig.Payment.BOOST_SKR)), color = RbColors.purpleLight) } },
-                            dismissButton = { TextButton(onClick = { payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SOL) }) { Text(stringResource(R.string.boost_pay, "${com.undersigned.app.AppConfig.Payment.BOOST_SOL} SOL"), color = RbColors.textSecondary) } })
+                            text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+                                Text(stringResource(R.string.boost_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                                Spacer(Modifier.height(8.dp))
+                                Text(stringResource(R.string.boost_declaration), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
+                                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable { declared = !declared }, verticalAlignment = Alignment.CenterVertically) {
+                                    Checkbox(checked = declared, onCheckedChange = { declared = it }, colors = CheckboxDefaults.colors(checkedColor = RbColors.warning))
+                                    Text(stringResource(R.string.withdrawal_consent), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
+                                }
+                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    TextButton(enabled = declared, onClick = { payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SKR) }) { Text(stringResource(R.string.boost_pay, String.format(java.util.Locale.US, "%,.0f SKR", com.undersigned.app.AppConfig.Payment.BOOST_SKR)), color = if (declared) RbColors.purpleLight else RbColors.textDim) }
+                                    TextButton(enabled = declared, onClick = { payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SOL) }) { Text(stringResource(R.string.boost_pay, "${com.undersigned.app.AppConfig.Payment.BOOST_SOL} SOL"), color = if (declared) RbColors.purpleLight else RbColors.textDim) }
+                                }
+                            } },
+                            confirmButton = {},
+                            dismissButton = { TextButton(onClick = { boostFor = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
                     }
                     Spacer(Modifier.height(6.dp))
                     val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }

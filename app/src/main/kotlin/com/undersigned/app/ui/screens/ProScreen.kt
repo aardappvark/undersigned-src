@@ -44,6 +44,8 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
     val pro by vm.pro.collectAsState()
     var rail by remember { mutableStateOf(ProPaymentService.Rail.SKR) }
     var consent by remember { mutableStateOf(false) }
+    // Express consent to immediate supply and the withdrawal acknowledgement (CRD 16(m), UK CCR reg 37; legal review 9 Oct 2026).
+    var withdrawalAck by remember { mutableStateOf(false) }
     var stage by remember { mutableStateOf<String?>(null) }
     var message by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
     val df = remember { DateFormat.getDateInstance(DateFormat.MEDIUM) }
@@ -131,15 +133,19 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
                     Checkbox(checked = consent, onCheckedChange = { consent = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.warning))
                     Text(stringResource(R.string.pro_consent), color = RbColors.textPrimary, fontSize = 12.sp)
                 }
+                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(enabled = stage == null) { withdrawalAck = !withdrawalAck }, verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = withdrawalAck, onCheckedChange = { withdrawalAck = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.warning))
+                    Text(stringResource(R.string.withdrawal_consent), color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 16.sp)
+                }
             }
             Spacer(Modifier.height(14.dp))
             if (wallet == null) GlassCard { Text(stringResource(R.string.pro_needs_wallet), color = RbColors.textSecondary, fontSize = 13.sp) }
-            PrimaryButton(stage ?: (if (pro?.active == true) stringResource(R.string.pro_renew) else stringResource(R.string.pro_sign_pay)), enabled = consent && wallet != null && sender != null && stage == null, loading = stage != null, onClick = {
+            PrimaryButton(stage ?: (if (pro?.active == true) stringResource(R.string.pro_renew) else stringResource(R.string.pro_sign_pay)), enabled = consent && withdrawalAck && wallet != null && sender != null && stage == null, loading = stage != null, onClick = {
                 val s = sender ?: return@PrimaryButton
                 message = null
                 vm.payPro(s, rail, onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { r ->
                     stage = null
-                    message = r.fold(onSuccess = { sig -> true to context.getString(R.string.pro_success, vm.pro.value?.let { df.format(Date(it.expiresAt * 1000)) } ?: "", shortKey(sig, 6, 6)) }, onFailure = { e -> false to (e.message ?: context.getString(R.string.action_failed)) })
+                    message = r.fold(onSuccess = { sig -> true to (context.getString(R.string.pro_success, vm.pro.value?.let { df.format(Date(it.expiresAt * 1000)) } ?: "", shortKey(sig, 6, 6)) + "\n" + context.getString(R.string.withdrawal_confirmed, sig)) }, onFailure = { e -> false to (e.message ?: context.getString(R.string.action_failed)) })
                 }
             })
             message?.let { (ok, m) -> Spacer(Modifier.height(8.dp)); Text(m, color = if (ok) RbColors.green else RbColors.negative, fontSize = 13.sp, lineHeight = 18.sp) }

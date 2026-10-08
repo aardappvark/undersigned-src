@@ -47,7 +47,7 @@
     <string name="detail_update_review">Aktualizovat mou recenzi</string>
     <string name="detail_revoke_review">Stáhnout mou recenzi</string>
     <string name="detail_score_title">Podepsané skóre</string>
-    <string name="detail_score_sub">Průměr recenzí z ověřených zařízení (dnes: držitelé Seeker Genesis Token), vážený tím, co každá recenze nese (doba instalace, používání, napsaná poznámka), a stakovaným SKR, tokenem, který si může koupit kdokoli (až 3×). Žádná platba Undersigned do něj nevstupuje; recenze členů Pro mají i vlastní skóre. Peněženky Undersigned se nikdy nepočítají. Názory jednotlivých majitelů, ne hodnocení obchodu.</string>
+    <string name="detail_score_sub">Průměr recenzí z ověřených zařízení (dnes: držitelé Seeker Genesis Token), vážený tím, co každá recenze nese (doba instalace, používání, napsaná poznámka), a SKR, které peněženka stakuje (nejvýše 3×). SKR se obchoduje, takže tuto část váhy lze získat; Undersigned nákup ani staking nedoporučuje. Žádná platba Undersigned do skóre nevstupuje; recenze členů Pro mají i vlastní skóre. Peněženky Undersigned se nikdy nepočítají. Názory majitelů ověřených zařízení Seeker, ne hodnocení obchodu.</string>
     <string name="detail_rank_score">Skóre žebříčku %1$s — stahováno směrem k 3,0, dokud nepodepíše více zařízení Seeker; slouží pouze k řazení seznamu.</string>
     <string name="follow">Sledovat</string>
     <string name="following">Sledováno</string>
@@ -83,7 +83,7 @@
     <string name="standing_line">Započítáno: %1$d · Staženo: %2$d · Přijaté odpovědi: %3$d · Odeslané odpovědi: %4$d</string>
     <string name="standing_agreement">Shoda štítků s ostatními signatáři: %1$s</string>
     <string name="standing_since">Podepisuje od %1$s</string>
-    <string name="standing_note2">Pouze počty. Žádné skóre, nic ke koupi.</string>
+    <string name="standing_note2">Jen počty. Žádné skóre a žádná platba je nemění.</string>
     <string name="store_reviewer_genesis">Majitel Seekeru</string>
     <string name="store_reviewer_nogenesis">nenalezeno žádné ověřené zařízení</string>
     <string name="store_reviewer_signed_here">podepsal(a) i zde</string>
@@ -194,7 +194,7 @@
     <string name="standing_sgt_yes">Nalezeno ověřené zařízení (%1$s): vaše recenze se počítají.</string>
     <string name="standing_sgt_no">V této peněžence chybí pověření ověřeného zařízení (dnes: Seeker Genesis Token): vaše recenze by se nezapočítávaly.</string>
     <string name="standing_stake">Zastakovaný SKR přečtený z blockchainu: %1$s (váha %2$s×)</string>
-    <string name="standing_note">Váhy se čtou z blockchainu. Undersigned vás nikdy nežádá, abyste cokoli stakovali, kupovali nebo drželi.</string>
+    <string name="standing_note">Váhy se čtou z řetězce: zařízení a stakované SKR. Pro ani platby Undersigned je nikdy nemění.</string>
     <string name="settings_ledger">Evidence</string>
     <string name="settings_ledger_body">Adresa registru %1$s. Každou recenzi může kdokoli najít prostřednictvím této adresy. Tato aplikace to čte přímo z blockchainu, ne z našeho serveru.</string>
     <string name="settings_refresh_ledger">Znovu načíst evidenci</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Další</string>
     <string name="intro_replay">Přehrát úvod znovu</string>
     <string name="intro1_title">Jeden Seeker, jeden hlas</string>
-    <string name="intro1_body">Undersigned je vrstva recenzí vedle dApp Store. Počítají se jen peněženky se Seeker Genesis Token: jedno zařízení, jeden hlas. Nic, co si lze koupit, nemění podepsané skóre.</string>
+    <string name="intro1_body">Undersigned je vrstva recenzí vedle dApp Store. Počítají se jen peněženky se Seeker Genesis Token: jedno zařízení, jeden hlas. Žádná platba Undersigned nemění podepsané skóre; stakované SKR může zvýšit váhu recenze, nejvýše na 3×.</string>
     <string name="intro2_title">Podepsané, ne napsané</string>
     <string name="intro2_body">Každá recenze je malá transakce, kterou schválíte na telefonu dvojitým klepnutím. Vaše peněženka platí jen síťový poplatek, který si sama nastaví. Undersigned nikdy nedrží vaše klíče ani prostředky.</string>
     <string name="intro3_title">Vedle obchodu, ne místo něj</string>
@@ -318,7 +318,7 @@
     <string name="howto4_sub">I každé posouzení je podpisem</string>
     <string name="howto4_body">Užitečné — řadí recenze. Jeden hlas na peněženku, vážený jako recenze.\nOznačit — podezření na spam, zneužití, mimo téma nebo zavádějící. Při shodě čtenáři záznam skryjí.\nVypadá jako pravé — vyrovnává označení, o kterých si myslíte, že jsou mylná.\nRozporovat — pokud je skryt váš vlastní záznam, jedna podepsaná odpověď zvýší váhu potřebnou k jeho udržení skrytého.</string>
     <string name="howto4_note_title">Za nic z toho se neplatí</string>
-    <string name="howto4_note">Vaše postavení je dané počty a zveřejněným vzorcem — nic, co si koupíte, ho nezmění. Tyto kroky si můžete kdykoli přehrát v Nastavení.</string>
+    <string name="howto4_note">Vaše pověst jsou počty a zveřejněný vzorec; žádná platba Undersigned ji nezmění. Kroky si můžete kdykoli zopakovat v Nastavení.</string>
     <string name="empty_search_title">Žádná dApp s tímto názvem</string>
     <string name="empty_search_body">V katalogu obchodu nic neodpovídá \"%1$s\".</string>
     <string name="reread_catalogue">Znovu načíst katalog</string>
@@ -1040,4 +1040,9 @@
     <string name="promoted_score_note">Jen recenze, za jejichž propagaci zaplatili sami autoři, s obvyklou vahou. Uvedeny odděleně od nezávislých.</string>
     <string name="reviews_group_promoted">Propagované recenze · placené</string>
     <string name="reviews_group_promoted_note">Recenze, za jejichž propagaci zaplatili Undersigned sami autoři. Počítají se jednou se stejnou vahou jako všechny a drží se odděleně od nezávislých.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Zaplacením potvrzujete, že vás neplatí, nezaměstnává ani za vás nejedná vydavatel této aplikace nebo konkurent.</string>
+    <string name="withdrawal_consent">Začít hned. Rozumím, že ztrácím případné 14denní právo na odstoupení, jakmile je platba potvrzena na řetězci.</string>
+    <string name="withdrawal_confirmed">Požádali jste o okamžité poskytnutí a potvrdili ztrátu případného 14denního práva na odstoupení. Vaším dokladem je transakce na řetězci %1$s.</string>
 </resources>

@@ -47,7 +47,7 @@
     <string name="detail_update_review">تحديث مراجعتي</string>
     <string name="detail_revoke_review">سحب مراجعتي</string>
     <string name="detail_score_title">التقييم الموقّع</string>
-    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة) وبـSKR المرهون، وهو رمز يمكن لأي أحد شراؤه (حتى 3×). لا يدخل فيه أي دفع لـUndersigned؛ وتظهر مراجعات أعضاء Pro أيضًا بتقييم خاص بها. محافظ Undersigned لا تُحتسب أبدًا. آراء مالكين أفراد، لا تقييم المتجر.</string>
+    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة) وبـSKR الذي رهنته المحفظة (حتى 3×). يُتداول SKR، لذا يمكن اكتساب هذا الجزء من الوزن؛ ولا يوصي Undersigned بشرائه أو رهنه. لا يدخل أي دفع لـUndersigned في التقييم؛ وتظهر مراجعات أعضاء Pro أيضًا بتقييم خاص بها. محافظ Undersigned لا تُحتسب أبدًا. آراء مالكي أجهزة Seeker موثّقة، لا تقييم المتجر.</string>
     <string name="detail_rank_score">تقييم الترتيب %1$s — يُقلَّص نحو 3.0 حتى يوقّع مزيد من أجهزة Seeker؛ يُستخدم فقط لترتيب القائمة.</string>
     <string name="follow">متابعة</string>
     <string name="following">تتم المتابعة</string>
@@ -90,7 +90,7 @@
     <string name="standing_line">محتسبة: %1$d · مسحوبة: %2$d · الردود المستلمة: %3$d · الردود المُقدَّمة: %4$d</string>
     <string name="standing_agreement">اتفاق الوسم مع الموقّعين الآخرين: %1$s</string>
     <string name="standing_since">يوقّع منذ %1$s</string>
-    <string name="standing_note2">عدّ فقط. لا تقييم، لا شيء لشرائه.</string>
+    <string name="standing_note2">أعداد فقط. لا تقييم، ولا يغيّرها أي دفع.</string>
     <string name="store_reviewer_genesis">مالك Seeker</string>
     <string name="store_reviewer_nogenesis">لم يُعثر على جهاز مصادق</string>
     <string name="store_reviewer_signed_here">وقّع هنا أيضًا</string>
@@ -207,7 +207,7 @@
     <string name="standing_sgt_yes">تم العثور على جهاز مصادق (%1$s): مراجعاتك تُحتسب.</string>
     <string name="standing_sgt_no">لا توجد بيانات اعتماد جهاز مصادق في هذه المحفظة (اليوم: Seeker Genesis Token): لن تُحتسب مراجعاتك.</string>
     <string name="standing_stake">حصة SKR المرهونة المقروءة على السلسلة: %1$s (الوزن %2$s×)</string>
-    <string name="standing_note">تُقرأ الأوزان من السلسلة. لا يطلب منك Undersigned أبدًا رهن أو شراء أو امتلاك أي شيء.</string>
+    <string name="standing_note">تُقرأ الأوزان من السلسلة: الجهاز وSKR المرهون. لا يغيّرها Pro ولا الدفع لـUndersigned أبدًا.</string>
     <string name="settings_ledger">السجل</string>
     <string name="settings_ledger_body">عنوان السجل %1$s. يمكن لأي شخص اكتشاف كل مراجعة من خلال هذا العنوان. يقرأ هذا التطبيق السجل مباشرةً من السلسلة، وليس من خادم تابع لنا.</string>
     <string name="settings_refresh_ledger">إعادة قراءة السجل</string>
@@ -236,7 +236,7 @@
     <string name="intro_next">التالي</string>
     <string name="intro_replay">إعادة عرض المقدمة</string>
     <string name="intro1_title">جهاز Seeker واحد، صوت واحد</string>
-    <string name="intro1_body">Undersigned طبقة مراجعات بجانب dApp Store. لا تُحتسب إلا المحافظ التي تحمل Seeker Genesis Token: جهاز واحد، صوت واحد. لا شيء يُشترى يغيّر التقييم الموقّع.</string>
+    <string name="intro1_body">Undersigned طبقة مراجعات بجانب dApp Store. لا تُحتسب إلا المحافظ التي تحمل Seeker Genesis Token: جهاز واحد، صوت واحد. لا يغيّر أي دفع لـUndersigned التقييم الموقّع؛ ويمكن لـSKR المرهون رفع وزن المراجعة حتى 3× كحد أقصى.</string>
     <string name="intro2_title">موقّعة، لا مكتوبة فقط</string>
     <string name="intro2_body">كل مراجعة معاملة صغيرة توافق عليها على الهاتف بالنقر المزدوج. تدفع محفظتك فقط رسوم الشبكة التي تحددها. Undersigned لا يحتفظ أبدًا بمفاتيحك أو أموالك.</string>
     <string name="intro3_title">إلى جانب المتجر، لا بديلاً عنه</string>
@@ -331,7 +331,7 @@
     <string name="howto4_sub">كل حكم هو توقيع أيضًا</string>
     <string name="howto4_body">مفيد — يرتّب المراجعات. صوت واحد لكل محفظة، مرجّح مثل المراجعة.\nإشارة — spam مشتبه به، إساءة، خارج الموضوع أو مضلِّل. عند الإجماع، يخفي القرّاء السجل.\nيبدو أصليًا — يعادل الإشارات التي تظنها خاطئة.\nاعتراض — إذا أُخفي سجلك، رد موقَّع واحد يرفع الوزن اللازم لإبقائه مخفيًا.</string>
     <string name="howto4_note_title">لا شيء من هذا يُدفع مقابله</string>
-    <string name="howto4_note">مكانتك هي أعداد وصيغة منشورة — لا شيء يمكنك شراؤه يحرّكها. أعد عرض هذه الخطوات في أي وقت من الإعدادات.</string>
+    <string name="howto4_note">سمعتك أعداد وصيغة منشورة؛ لا يغيّرها أي دفع لـUndersigned. أعد هذه الخطوات متى شئت من الإعدادات.</string>
     <string name="empty_search_title">لا يوجد تطبيق بهذا الاسم</string>
     <string name="empty_search_body">لا شيء في كتالوج المتجر يطابق \"%1$s\".</string>
     <string name="reread_catalogue">إعادة قراءة الكتالوج</string>
@@ -1081,4 +1081,9 @@
     <string name="promoted_score_note">فقط المراجعات التي دفع مؤلفوها لترويجها، بوزنها المعتاد. معروضة بعيدًا عن المراجعات المستقلة.</string>
     <string name="reviews_group_promoted">مراجعات مروَّجة · مدفوعة</string>
     <string name="reviews_group_promoted_note">مراجعات دفع مؤلفوها أنفسهم لـUndersigned لترويجها. تُحتسب مرة واحدة بالوزن نفسه مثل الجميع، وتبقى منفصلة عن المراجعات المستقلة.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">بالدفع تؤكد أنك لا تتقاضى أجرًا من ناشر هذا التطبيق أو من منافس، ولست موظفًا لديهما ولا تتصرف نيابة عنهما.</string>
+    <string name="withdrawal_consent">ابدأ الآن. أفهم أنني أفقد أي حق انسحاب لمدة 14 يومًا بمجرد تأكيد الدفع على السلسلة.</string>
+    <string name="withdrawal_confirmed">طلبت التزويد الفوري وأقررت بفقدان أي حق انسحاب لمدة 14 يومًا. إيصالك هو المعاملة على السلسلة %1$s.</string>
 </resources>

@@ -52,7 +52,7 @@
     <string name="detail_update_review">Оновити мій відгук</string>
     <string name="detail_revoke_review">Вилучити мій відгук</string>
     <string name="detail_score_title">Підписаний рейтинг</string>
-    <string name="detail_score_sub">Середнє відгуків із підтверджених пристроїв (сьогодні: власники Seeker Genesis Token), зважене за тим, що несе відгук (час встановлення, використання, написана нотатка), і за застейканим SKR — токеном, який може купити будь-хто (до 3×). Жодні платежі Undersigned до неї не входять; відгуки учасників Pro також показані окремою оцінкою. Гаманці Undersigned ніколи не враховуються. Думки власників, а не оцінка магазину.</string>
+    <string name="detail_score_sub">Середнє відгуків із підтверджених пристроїв (сьогодні: власники Seeker Genesis Token), зважене за тим, що несе відгук (час встановлення, використання, написана нотатка), і за SKR, застейканим гаманцем (не більше 3×). SKR торгується, тож цю частину ваги можна набути; Undersigned не радить купувати чи стейкати його. Жодні платежі Undersigned до оцінки не входять; відгуки учасників Pro також показані окремою оцінкою. Гаманці Undersigned ніколи не враховуються. Думки власників підтверджених пристроїв Seeker, а не оцінка магазину.</string>
     <string name="detail_rank_score">Рейтинговий бал %1$s — зменшується до 3.0, доки не підпишеться більше Seeker\'ів; використовується лише для впорядкування списку.</string>
     <string name="follow">Стежити</string>
     <string name="following">Стежите</string>
@@ -88,7 +88,7 @@
     <string name="standing_line">Зараховано: %1$d · Вилучено: %2$d · Отримано відповідей: %3$d · Надано відповідей: %4$d</string>
     <string name="standing_agreement">Збіг тегів з іншими підписантами: %1$s</string>
     <string name="standing_since">Підписує з %1$s</string>
-    <string name="standing_note2">Лише підрахунок. Без балів, нічого купувати не потрібно.</string>
+    <string name="standing_note2">Лише підрахунки. Без оцінки, і жоден платіж їх не змінює.</string>
     <string name="store_reviewer_genesis">Власник Seeker</string>
     <string name="store_reviewer_nogenesis">підтвердженого пристрою не знайдено</string>
     <string name="store_reviewer_signed_here">також підписав(ла) тут</string>
@@ -202,7 +202,7 @@
     <string name="standing_sgt_yes">Знайдено підтверджений пристрій (%1$s): ваші відгуки враховуються.</string>
     <string name="standing_sgt_no">У цьому гаманці немає облікових даних підтвердженого пристрою (сьогодні: Seeker Genesis Token): ваші відгуки не враховуватимуться.</string>
     <string name="standing_stake">Застейканий SKR, зчитаний у блокчейні: %1$s (вага %2$s×)</string>
-    <string name="standing_note">Ваги зчитуються з блокчейну. Undersigned ніколи не просить вас стейкати, купувати чи володіти чимось.</string>
+    <string name="standing_note">Ваги читаються з блокчейну: пристрій і застейканий SKR. Pro і платежі Undersigned ніколи їх не змінюють.</string>
     <string name="settings_ledger">Реєстр</string>
     <string name="settings_ledger_body">Адреса реєстру %1$s. Кожен відгук можна знайти через цю адресу. Цей додаток зчитує їх безпосередньо з блокчейну, а не з нашого сервера.</string>
     <string name="settings_refresh_ledger">Перечитати реєстр</string>
@@ -229,7 +229,7 @@
     <string name="intro_next">Далі</string>
     <string name="intro_replay">Повторити вступ</string>
     <string name="intro1_title">Один Seeker, один голос</string>
-    <string name="intro1_body">Undersigned — шар відгуків поруч із dApp Store. Враховуються лише гаманці з Seeker Genesis Token: один пристрій — один голос. Ніщо куплене не змінює підписану оцінку.</string>
+    <string name="intro1_body">Undersigned — шар відгуків поруч із dApp Store. Враховуються лише гаманці з Seeker Genesis Token: один пристрій — один голос. Жоден платіж Undersigned не змінює підписану оцінку; застейканий SKR може підвищити вагу відгуку, не більше ніж до 3×.</string>
     <string name="intro2_title">Підписано, а не надруковано</string>
     <string name="intro2_body">Кожен відгук — це невелика транзакція, яку ви підтверджуєте на телефоні подвійним дотиком. Ваш гаманець сплачує лише комісію мережі, яку встановлює сам. Undersigned ніколи не зберігає ваші ключі чи кошти.</string>
     <string name="intro3_title">Поруч із магазином, а не замість нього</string>
@@ -326,7 +326,7 @@
     <string name="howto4_sub">Кожна оцінка — теж підпис</string>
     <string name="howto4_body">Корисно — впорядковує відгуки. Один голос на гаманець, зважений як відгук.\nПозначити — підозра на спам, зловживання, не по темі або оманливе. За консенсусом читачі приховують запис.\nВиглядає справжнім — компенсує позначки, які ви вважаєте помилковими.\nОскаржити — якщо ваш власний запис приховано, одна підписана відповідь підвищує вагу, потрібну для його приховування.</string>
     <string name="howto4_note_title">За все це нічого не сплачується</string>
-    <string name="howto4_note">Ваш статус — це підрахунки й опублікована формула — ніщо з того, що можна купити, на нього не впливає. Ці кроки можна повторити будь-коли в Налаштуваннях.</string>
+    <string name="howto4_note">Ваша репутація — це підрахунки й опублікована формула; жоден платіж Undersigned її не змінює. Повторіть ці кроки будь-коли в Налаштуваннях.</string>
     <string name="empty_search_title">Немає dApp з такою назвою</string>
     <string name="empty_search_body">У каталозі магазину нічого не відповідає \"%1$s\".</string>
     <string name="reread_catalogue">Перечитати каталог</string>
@@ -1047,4 +1047,9 @@
     <string name="promoted_score_note">Лише відгуки, просування яких оплатили їхні автори, зі звичайною вагою. Показані окремо від незалежних.</string>
     <string name="reviews_group_promoted">Просувані відгуки · платно</string>
     <string name="reviews_group_promoted_note">Відгуки, просування яких їхні автори оплатили Undersigned. Враховуються один раз з тією ж вагою, що й усі, і показані окремо від незалежних.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Оплачуючи, ви підтверджуєте, що вам не платить, вас не наймає і ви не дієте від імені видавця цього застосунку чи конкурента.</string>
+    <string name="withdrawal_consent">Почати зараз. Я розумію, що втрачаю можливе 14-денне право на відмову, щойно платіж підтвердиться в блокчейні.</string>
+    <string name="withdrawal_confirmed">Ви попросили негайне надання і підтвердили втрату можливого 14-денного права на відмову. Ваша квитанція — транзакція в блокчейні %1$s.</string>
 </resources>

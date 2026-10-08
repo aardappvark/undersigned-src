@@ -47,7 +47,7 @@
     <string name="detail_update_review">আমার পর্যালোচনা আপডেট করুন</string>
     <string name="detail_revoke_review">আমার পর্যালোচনা প্রত্যাহার করুন</string>
     <string name="detail_score_title">স্বাক্ষরিত স্কোর</string>
-    <string name="detail_score_sub">প্রত্যয়িত ডিভাইসের পর্যালোচনার গড় (আজ: Seeker Genesis Token ধারকরা), প্রতিটি পর্যালোচনা যা সাথে আনে (ইনস্টলের সময়, ব্যবহার, লেখা নোট) এবং স্টেক করা SKR অনুযায়ী ভারযুক্ত, যা যে কেউ কিনতে পারে (৩× পর্যন্ত)। Undersigned-কে দেওয়া কোনো অর্থ এতে ঢোকে না; Pro সদস্যদের পর্যালোচনা নিজস্ব স্কোরেও দেখানো হয়। Undersigned-এর নিজস্ব ওয়ালেট কখনো গণনা হয় না। একক মালিকদের মতামত, স্টোরের রেটিং নয়।</string>
+    <string name="detail_score_sub">প্রত্যয়িত ডিভাইসের পর্যালোচনার গড় (আজ: Seeker Genesis Token ধারকরা), প্রতিটি পর্যালোচনা যা সাথে আনে (ইনস্টলের সময়, ব্যবহার, লেখা নোট) এবং ওয়ালেটের স্টেক করা SKR (3× পর্যন্ত) অনুযায়ী ভারযুক্ত। SKR লেনদেন হয়, তাই ওজনের এই অংশ অর্জন করা যায়; Undersigned এটি কেনা বা স্টেক করার পরামর্শ দেয় না। Undersigned-কে কোনো অর্থ স্কোরে ঢোকে না; Pro সদস্যদের পর্যালোচনা নিজস্ব স্কোরেও দেখানো হয়। Undersigned-এর ওয়ালেট কখনো গণনা হয় না। প্রত্যয়িত Seeker ডিভাইস মালিকদের মতামত, স্টোরের রেটিং নয়।</string>
     <string name="detail_rank_score">র‍্যাঙ্ক স্কোর %1$s — আরও Seeker স্বাক্ষর না করা পর্যন্ত ৩.০-এর দিকে সংকুচিত হয়; শুধুমাত্র তালিকা সাজাতে ব্যবহৃত হয়।</string>
     <string name="follow">ফলো করুন</string>
     <string name="following">ফলো করা হচ্ছে</string>
@@ -86,7 +86,7 @@
     <string name="standing_line">গণনা করা হয়েছে: %1$d · প্রত্যাহার করা হয়েছে: %2$d · প্রাপ্ত উত্তর: %3$d · প্রদত্ত উত্তর: %4$d</string>
     <string name="standing_agreement">অন্যান্য স্বাক্ষরকারীদের সাথে ট্যাগ সম্মতি: %1$s</string>
     <string name="standing_since">%1$s থেকে স্বাক্ষর করছেন</string>
-    <string name="standing_note2">শুধুমাত্র গণনা। কোনো স্কোর নেই, কেনার মতো কিছু নেই।</string>
+    <string name="standing_note2">শুধু গণনা। কোনো স্কোর নেই, এবং কোনো অর্থ এগুলো বদলায় না।</string>
     <string name="store_reviewer_genesis">Seeker মালিক</string>
     <string name="store_reviewer_nogenesis">কোনো প্রত্যয়িত ডিভাইস পাওয়া যায়নি</string>
     <string name="store_reviewer_signed_here">এখানেও স্বাক্ষর করেছেন</string>
@@ -191,7 +191,7 @@
     <string name="standing_sgt_yes">প্রত্যয়িত ডিভাইস পাওয়া গেছে (%1$s): আপনার পর্যালোচনা গণনা করা হয়।</string>
     <string name="standing_sgt_no">এই ওয়ালেটে কোনো প্রত্যয়িত-ডিভাইস পরিচয়পত্র নেই (আজ: Seeker Genesis Token): আপনার পর্যালোচনা গণনা করা হবে না।</string>
     <string name="standing_stake">চেইনে পঠিত স্টেক করা SKR: %1$s (ওজন %2$s×)</string>
-    <string name="standing_note">ওজন চেইন থেকে পড়া হয়। Undersigned আপনাকে কখনও স্টেক, ক্রয় বা কিছু ধারণ করতে বলে না।</string>
+    <string name="standing_note">ওজন চেইন থেকে পড়া হয়: ডিভাইস ও স্টেক করা SKR। Pro এবং Undersigned-কে অর্থ কখনো এগুলো বদলায় না।</string>
     <string name="settings_ledger">লেজার</string>
     <string name="settings_ledger_body">রেজিস্ট্রি ঠিকানা %1$s। এই ঠিকানার মাধ্যমে যে কেউ প্রতিটি পর্যালোচনা খুঁজে পেতে পারে। এই অ্যাপ এটি সরাসরি চেইন থেকে পড়ে, আমাদের কোনো সার্ভার থেকে নয়।</string>
     <string name="settings_refresh_ledger">লেজার পুনরায় পড়ুন</string>
@@ -216,7 +216,7 @@
     <string name="intro_next">পরবর্তী</string>
     <string name="intro_replay">পরিচিতি আবার দেখুন</string>
     <string name="intro1_title">একটি Seeker, একটি কণ্ঠস্বর</string>
-    <string name="intro1_body">Undersigned হলো dApp Store-এর পাশে একটি পর্যালোচনা স্তর। শুধু Seeker Genesis Token থাকা ওয়ালেট গণনা হয়: এক ডিভাইস, এক কণ্ঠ। কেনা যায় এমন কিছুই স্বাক্ষরিত স্কোর বদলায় না।</string>
+    <string name="intro1_body">Undersigned হলো dApp Store-এর পাশে একটি পর্যালোচনা স্তর। শুধু Seeker Genesis Token থাকা ওয়ালেট গণনা হয়: এক ডিভাইস, এক কণ্ঠ। Undersigned-কে কোনো অর্থ স্বাক্ষরিত স্কোর বদলায় না; স্টেক করা SKR পর্যালোচনার ওজন সর্বোচ্চ 3× পর্যন্ত বাড়াতে পারে।</string>
     <string name="intro2_title">স্বাক্ষরিত, টাইপ করা নয়</string>
     <string name="intro2_body">প্রতিটি পর্যালোচনা একটি ছোট লেনদেন যা আপনি ফোনে ডাবল-ট্যাপ দিয়ে অনুমোদন করেন। আপনার ওয়ালেট শুধু নিজে নির্ধারণ করা নেটওয়ার্ক ফি প্রদান করে। Undersigned কখনও আপনার কী বা তহবিল ধরে রাখে না।</string>
     <string name="intro3_title">স্টোরের পাশে, এর বদলে নয়</string>
@@ -311,7 +311,7 @@
     <string name="howto4_sub">প্রতিটি মূল্যায়নও একটি স্বাক্ষর</string>
     <string name="howto4_body">সহায়ক — পর্যালোচনা সাজায়। প্রতি ওয়ালেটে একটি ভোট, পর্যালোচনার মতোই ওজনযুক্ত।\nফ্ল্যাগ — সন্দেহভাজন স্প্যাম, অপব্যবহার, বিষয়ের বাইরে বা বিভ্রান্তিকর। ঐকমত্যে পৌঁছালে পাঠকরা রেকর্ডটি লুকিয়ে ফেলে।\nখাঁটি মনে হচ্ছে — যে ফ্ল্যাগ ভুল মনে করেন তা প্রশমিত করে।\nআপত্তি — আপনার নিজের রেকর্ড লুকানো হলে, একটি স্বাক্ষরিত উত্তর এটি লুকিয়ে রাখতে প্রয়োজনীয় ওজন বাড়িয়ে দেয়।</string>
     <string name="howto4_note_title">এর কোনোটির জন্যই কিছু দিতে হয় না</string>
-    <string name="howto4_note">আপনার অবস্থান হলো গণনা এবং একটি প্রকাশিত সূত্র — কেনা যায় এমন কিছুই এটি নড়ায় না। সেটিংস থেকে যেকোনো সময় এই ধাপগুলো আবার দেখুন।</string>
+    <string name="howto4_note">আপনার সুনাম হলো গণনা ও একটি প্রকাশিত সূত্র; Undersigned-কে কোনো অর্থ এটি বদলায় না। সেটিংস থেকে যেকোনো সময় এই ধাপগুলো আবার দেখুন।</string>
     <string name="empty_search_title">সেই নামে কোনো dApp নেই</string>
     <string name="empty_search_body">স্টোর ক্যাটালগে \"%1$s\"-এর সাথে কিছুই মেলে না।</string>
     <string name="reread_catalogue">ক্যাটালগ আবার পড়ুন</string>
@@ -1006,4 +1006,9 @@
     <string name="promoted_score_note">শুধু সেই পর্যালোচনা যাদের লেখক প্রচারের জন্য অর্থ দিয়েছেন, স্বাভাবিক ওজনে। স্বাধীন পর্যালোচনা থেকে আলাদা তালিকাভুক্ত।</string>
     <string name="reviews_group_promoted">প্রচারিত পর্যালোচনা · অর্থপ্রদত্ত</string>
     <string name="reviews_group_promoted_note">যে পর্যালোচনার লেখকরা নিজেরাই প্রচারের জন্য Undersigned-কে অর্থ দিয়েছেন। সবার সমান ওজনে একবার গণনা হয় এবং স্বাধীন পর্যালোচনা থেকে আলাদা রাখা হয়।</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">অর্থ দিয়ে আপনি নিশ্চিত করছেন যে এই অ্যাপের প্রকাশক বা কোনো প্রতিযোগী আপনাকে অর্থ দেয় না, নিয়োগ করেনি, এবং আপনি তাদের হয়ে কাজ করছেন না।</string>
+    <string name="withdrawal_consent">এখনই শুরু করুন। আমি বুঝি, অর্থপ্রদান চেইনে নিশ্চিত হলেই আমি ১৪ দিনের যেকোনো প্রত্যাহারের অধিকার হারাব।</string>
+    <string name="withdrawal_confirmed">আপনি তাৎক্ষণিক সরবরাহ চেয়েছেন এবং ১৪ দিনের যেকোনো প্রত্যাহারের অধিকার হারানো স্বীকার করেছেন। আপনার রসিদ চেইনের লেনদেন %1$s।</string>
 </resources>

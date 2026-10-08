@@ -52,7 +52,7 @@
     <string name="detail_update_review">Értékelésem frissítése</string>
     <string name="detail_revoke_review">Értékelésem visszavonása</string>
     <string name="detail_score_title">Aláírt pontszám</string>
-    <string name="detail_score_sub">Hitelesített eszközök értékeléseinek átlaga (ma: a Seeker Genesis Token tulajdonosai), az értékelés tartalma (telepítési idő, használat, írott megjegyzés) és a stakelt SKR szerint súlyozva, amelyet bárki megvásárolhat (legfeljebb 3×). Undersignednek szóló fizetés nem kerül bele; a Pro tagok értékelései saját pontszámot is kapnak. Az Undersigned saját tárcái soha nem számítanak. Egyes tulajdonosok véleménye, nem az áruház értékelése.</string>
+    <string name="detail_score_sub">Hitelesített eszközök értékeléseinek átlaga (ma: a Seeker Genesis Token tulajdonosai), az értékelés tartalma (telepítési idő, használat, írott megjegyzés) és a tárca által stakelt SKR szerint súlyozva (legfeljebb 3×). Az SKR-rel kereskednek, így a súly e része megszerezhető; az Undersigned nem javasolja a vásárlását vagy stakelését. Undersignednek szóló fizetés nem kerül a pontszámba; a Pro tagok értékelései saját pontszámot is kapnak. Az Undersigned tárcái soha nem számítanak. Hitelesített Seeker-eszközök tulajdonosainak véleménye, nem az áruház értékelése.</string>
     <string name="detail_rank_score">Rangsorpontszám %1$s — 3,0 felé húzva, amíg több Seeker nem ír alá; csak a lista sorrendjének meghatározására szolgál.</string>
     <string name="follow">Követés</string>
     <string name="following">Követve</string>
@@ -88,7 +88,7 @@
     <string name="standing_line">Beszámítva: %1$d · Visszavonva: %2$d · Kapott válaszok: %3$d · Adott válaszok: %4$d</string>
     <string name="standing_agreement">Egyezés a címkékben más aláírókkal: %1$s</string>
     <string name="standing_since">Aláír %1$s óta</string>
-    <string name="standing_note2">Csak számlálás. Nincs pontszám, nincs mit vásárolni.</string>
+    <string name="standing_note2">Csak számok. Nincs pontszám, és fizetés nem változtat rajtuk.</string>
     <string name="store_reviewer_genesis">Seeker-tulajdonos</string>
     <string name="store_reviewer_nogenesis">nincs hitelesített eszköz</string>
     <string name="store_reviewer_signed_here">itt is aláírt</string>
@@ -196,7 +196,7 @@
     <string name="standing_sgt_yes">Hitelesített eszköz található (%1$s): az értékeléseid számítanak.</string>
     <string name="standing_sgt_no">Ebben a tárcában nincs hitelesített eszköz igazolás (ma: a Seeker Genesis Token): az értékeléseid nem számítanának bele.</string>
     <string name="standing_stake">Láncon olvasott staked SKR: %1$s (súly %2$s×)</string>
-    <string name="standing_note">A súlyokat a láncról olvassuk. Az Undersigned soha nem kéri, hogy staked-elj, vásárolj vagy bármit is tarts.</string>
+    <string name="standing_note">A súlyokat a láncról olvassuk: az eszköz és a stakelt SKR. A Pro és az Undersignednek szóló fizetés soha nem változtat rajtuk.</string>
     <string name="settings_ledger">Nyilvántartás</string>
     <string name="settings_ledger_body">Nyilvántartási cím: %1$s. Ezen a címen keresztül bárki megtalálhat minden értékelést. Az alkalmazás közvetlenül a láncról olvassa, nem a mi szerverünkről.</string>
     <string name="settings_refresh_ledger">Nyilvántartás újraolvasása</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Következő</string>
     <string name="intro_replay">Bevezető újranézése</string>
     <string name="intro1_title">Egy Seeker, egy hang</string>
-    <string name="intro1_body">Az Undersigned értékelési réteg a dApp Store mellett. Csak Seeker Genesis Tokennel rendelkező tárcák számítanak: egy eszköz, egy hang. Semmi megvásárolható nem változtatja az aláírt pontszámot.</string>
+    <string name="intro1_body">Az Undersigned egy értékelési réteg a dApp Store mellett. Csak Seeker Genesis Tokent tartó tárcák számítanak: egy eszköz, egy hang. Az Undersignednek szóló fizetés nem változtat az aláírt pontszámon; a stakelt SKR növelheti egy értékelés súlyát, legfeljebb 3×-ig.</string>
     <string name="intro2_title">Aláírva, nem begépelve</string>
     <string name="intro2_body">Minden értékelés egy kis tranzakció, amelyet a telefonon dupla koppintással hagysz jóvá. A tárcád csak az általa megállapított hálózati díjat fizeti. Az Undersigned sohasem tárolja a kulcsaidat vagy pénzeszközeidet.</string>
     <string name="intro3_title">Az áruház mellett, nem helyette</string>
@@ -317,7 +317,7 @@
     <string name="howto4_sub">Minden ítélet is egy aláírás</string>
     <string name="howto4_body">Hasznos — rendezi az értékeléseket. Egy szavazat tárcánként, az értékelésekhez hasonlóan súlyozva.\nJelölés — feltételezett spam, zaklatás, nem idevágó vagy megtévesztő. Közmegegyezésnél az olvasók elrejtik a bejegyzést.\nValódinak tűnik — ellensúlyozza a szerinted téves jelöléseket.\nVitatás — ha a saját bejegyzésed elrejtésre kerül, egy aláírt válasz megemeli az elrejtve tartáshoz szükséges súlyt.</string>
     <string name="howto4_note_title">Ezek egyikéért sem fizetnek semmit</string>
-    <string name="howto4_note">A státuszod számlálásokból és egy nyilvános képletből áll — semmi, amit megvehetsz, nem mozdítja el. Ezeket a lépéseket bármikor újra megnézheted a Beállításokból.</string>
+    <string name="howto4_note">A megítélése számokból és egy közzétett képletből áll; Undersignednek szóló fizetés nem változtat rajta. A lépéseket bármikor újra megnézheti a Beállításokban.</string>
     <string name="empty_search_title">Nincs ilyen nevű dApp</string>
     <string name="empty_search_body">Semmi az áruház katalógusában nem egyezik ezzel: \"%1$s\".</string>
     <string name="reread_catalogue">Katalógus újraolvasása</string>
@@ -1010,4 +1010,9 @@
     <string name="promoted_score_note">Csak olyan értékelések, amelyek kiemeléséért a szerzőjük fizetett, szokásos súllyal. A független értékelésektől külön.</string>
     <string name="reviews_group_promoted">Kiemelt értékelések · fizetett</string>
     <string name="reviews_group_promoted_note">Olyan értékelések, amelyek kiemeléséért a szerzőjük fizetett az Undersignednek. Egyszer, ugyanakkora súllyal számítanak, mint mindenki, és külön állnak a független értékelésektől.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">A fizetéssel megerősíti, hogy az alkalmazás kiadója vagy egy versenytárs nem fizeti, nem alkalmazza, és nem az ő nevükben jár el.</string>
+    <string name="withdrawal_consent">Indítás most. Tudomásul veszem, hogy az esetleges 14 napos elállási jogomat elvesztem, amint a fizetés megerősítést nyer a láncon.</string>
+    <string name="withdrawal_confirmed">Azonnali teljesítést kért, és tudomásul vette az esetleges 14 napos elállási jog elvesztését. A bizonylata a láncon lévő %1$s tranzakció.</string>
 </resources>

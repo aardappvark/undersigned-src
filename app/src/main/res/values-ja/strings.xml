@@ -47,7 +47,7 @@
     <string name="detail_update_review">レビューを更新</string>
     <string name="detail_revoke_review">レビューを取り下げる</string>
     <string name="detail_score_title">署名スコア</string>
-    <string name="detail_score_sub">認証済み端末によるレビューの平均（現在はSeeker Genesis Token保有者）。各レビューに含まれる情報（インストール期間、利用時間、書かれたメモ）と、誰でも買えるトークンであるステーク中のSKR（最大3×）で重み付け。Undersignedへの支払いは一切含まれません。Proメンバーのレビューは専用のスコアでも表示されます。Undersigned自身のウォレットはカウントされません。個々の所有者の意見であり、ストアの評価ではありません。</string>
+    <string name="detail_score_sub">認証済み端末によるレビューの平均（現在はSeeker Genesis Token保有者）。各レビューに含まれる情報（インストール期間、利用時間、書かれたメモ）と、ウォレットがステークしているSKR（最大3×）で重み付け。SKRは取引されているため、この部分の重みは入手可能です。UndersignedはSKRの購入やステークを勧めません。Undersignedへの支払いはスコアに含まれません。Proメンバーのレビューは専用のスコアでも表示されます。Undersigned自身のウォレットはカウントされません。認証済みSeeker端末の所有者の意見であり、ストアの評価ではありません。</string>
     <string name="detail_rank_score">ランクスコア %1$s — より多くの Seeker が署名するまで3.0に近づくよう調整され、リストの並べ替えにのみ使用されます。</string>
     <string name="follow">フォロー</string>
     <string name="following">フォロー中</string>
@@ -85,7 +85,7 @@
     <string name="standing_line">カウント:%1$d件・取り下げ:%2$d件・受信した返信:%3$d件・送信した返信:%4$d件</string>
     <string name="standing_agreement">他の署名者とのタグの一致度：%1$s</string>
     <string name="standing_since">署名開始日：%1$s</string>
-    <string name="standing_note2">カウントのみです。スコアも購入対象も一切ありません。</string>
+    <string name="standing_note2">件数のみ。スコアはなく、支払いで変わることもありません。</string>
     <string name="store_reviewer_genesis">Seeker の所有者</string>
     <string name="store_reviewer_nogenesis">証明済み端末が見つかりません</string>
     <string name="store_reviewer_signed_here">こちらでも署名済み</string>
@@ -187,7 +187,7 @@
     <string name="standing_sgt_yes">証明済み端末が見つかりました（%1$s）：あなたのレビューはカウントされます。</string>
     <string name="standing_sgt_no">このウォレットには証明済みデバイスの資格情報がありません（現在は Seeker Genesis Token）：あなたのレビューはカウントされません。</string>
     <string name="standing_stake">オンチェーンで確認されたステーク SKR：%1$s（重み%2$s倍）</string>
-    <string name="standing_note">重みはチェーンから読み取られます。Undersigned はステーク、購入、保有を一切求めません。</string>
+    <string name="standing_note">重みはチェーンから読み取ります：端末とステーク中のSKR。Proや Undersignedへの支払いで変わることはありません。</string>
     <string name="settings_ledger">台帳</string>
     <string name="settings_ledger_body">レジストリアドレス %1$s。すべてのレビューはこのアドレスを通じて誰でも見つけられます。このアプリはチェーンから直接読み取っており、私たちのサーバーからではありません。</string>
     <string name="settings_refresh_ledger">台帳を再読み込み</string>
@@ -211,7 +211,7 @@
     <string name="intro_next">次へ</string>
     <string name="intro_replay">イントロをもう一度見る</string>
     <string name="intro1_title">1台の Seeker、1つの声</string>
-    <string name="intro1_body">UndersignedはdApp Storeの横にあるレビューの層です。Seeker Genesis Tokenを持つウォレットだけがカウントされます。1台につき1票です。お金で買えるものは署名済みスコアを変えません。</string>
+    <string name="intro1_body">UndersignedはdApp Storeの横にあるレビューのレイヤーです。Seeker Genesis Tokenを持つウォレットだけがカウントされ、1台につき1票です。Undersignedへの支払いで署名済みスコアが変わることはありません。ステーク中のSKRはレビューの重みを最大3×まで上げられます。</string>
     <string name="intro2_title">署名するもの、入力するものではない</string>
     <string name="intro2_body">各レビューは、端末上でダブルタップして承認する小さなトランザクションです。ウォレットが支払うのは自身が設定するネットワーク手数料のみです。Undersigned が鍵や資金を保管することはありません。</string>
     <string name="intro3_title">ストアに代わるものではなく、その隣に</string>
@@ -306,7 +306,7 @@
     <string name="howto4_sub">すべての判断も署名の一つです</string>
     <string name="howto4_body">参考になった — レビューの並び順を決めます。1ウォレットにつき1票、レビューと同じ重み付けです。\nフラグ — 疑わしいスパム、嫌がらせ、話題外れ、または誤解を招く内容。合意に達すると、読者にはその記録が非表示になります。\n本物だと思う — 誤りだと思うフラグを相殺します。\n異議 — 自分の記録が非表示になった場合、1件の署名付き返信で、非表示を維持するために必要な重みが引き上げられます。</string>
     <string name="howto4_note_title">これらはすべて無料です</string>
-    <string name="howto4_note">あなたの評価はカウント数と公開された計算式のみで決まります — お金で動かせるものは何もありません。この手順は設定からいつでも再生できます。</string>
+    <string name="howto4_note">あなたの評判は件数と公開された計算式です。Undersignedへの支払いで変わることはありません。この手順は設定からいつでも見直せます。</string>
     <string name="empty_search_title">その名前の dApp はありません</string>
     <string name="empty_search_body">ストアカタログに「%1$s」に一致するものはありません。</string>
     <string name="reread_catalogue">カタログを再読み込み</string>
@@ -986,4 +986,9 @@
     <string name="promoted_score_note">作者自身がプロモート料金を支払ったレビューのみ（通常の重み）。独立したレビューとは別に表示されます。</string>
     <string name="reviews_group_promoted">プロモートされたレビュー · 有料</string>
     <string name="reviews_group_promoted_note">作者自身がUndersignedにプロモート料金を支払ったレビュー。他の人と同じ重みで1回カウントされ、独立したレビューとは分けて表示されます。</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">支払うことで、このアプリの発行者や競合から報酬を受けておらず、雇用されておらず、その代理でもないことを確認します。</string>
+    <string name="withdrawal_consent">今すぐ開始。支払いがチェーン上で確定すると、14日間の撤回権（ある場合）を失うことを理解しています。</string>
+    <string name="withdrawal_confirmed">即時提供を求め、14日間の撤回権（ある場合）を失うことを確認しました。領収書はチェーン上のトランザクション%1$sです。</string>
 </resources>

@@ -6,7 +6,8 @@ package com.undersigned.protocol
  * A wallet on [MODERATORS] signs `mod|<record id>|<reason>`; readers then show the reason instead of that review's or
  * reply's text. The rating, tags and weight still count, the record stays on-chain, and `umd|<record id>` from the same
  * moderator undoes it (the later of the two wins). A moderator's record on a review of an app that moderator is the
- * proven publisher of is ignored, as a publisher's flags on their own app are. Community flags (Reputation) are separate.
+ * proven publisher of is ignored, as a publisher's flags on their own app are, and an operator wallet's record is ignored on
+ * every app the operator publishes. Community flags (Reputation) are separate.
  */
 object Moderation {
     /** Who may hide text. Ships with the app and the server; changing it is a release, visible in the source. */
@@ -35,6 +36,9 @@ object Moderation {
             val m = e.memo as? ReviewMemo.Moderate ?: return@forEach
             val pkg = pkgOf(key.second)
             if (pkg != null && key.first in verifiedPublishers[pkg].orEmpty()) return@forEach
+            // Recusal (compliance review, 9 Oct 2026): an operator wallet never moderates an app the operator publishes, whichever
+            // operator wallet proved it (FTC 16 CFR 465.7; the operator sells apps reviewed here).
+            if (pkg != null && Operator.isOperator(key.first) && Operator.publishes(pkg, verifiedPublishers)) return@forEach
             out.putIfAbsent(key.second, m.reason)
         }
         return out

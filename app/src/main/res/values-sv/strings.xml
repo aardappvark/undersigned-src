@@ -42,7 +42,7 @@
     <string name="detail_update_review">Uppdatera min recension</string>
     <string name="detail_revoke_review">Dra tillbaka min recension</string>
     <string name="detail_score_title">Signerat betyg</string>
-    <string name="detail_score_sub">Medelvärde av recensioner från intygade enheter (i dag: innehavare av Seeker Genesis Token), viktat efter vad varje recension bär (installationstid, användning, en skriven anteckning) och efter stakad SKR, en token som vem som helst kan köpa (upp till 3×). Ingen betalning till Undersigned ingår; Pro-medlemmars recensioner visas även som eget betyg. Undersigneds egna plånböcker räknas aldrig. Enskilda ägares åsikter, inte butikens betyg.</string>
+    <string name="detail_score_sub">Medelvärde av recensioner från intygade enheter (i dag: innehavare av Seeker Genesis Token), viktat efter vad varje recension bär (installationstid, användning, en skriven anteckning) och efter SKR som plånboken har stakat (högst 3×). SKR handlas, så den här delen av vikten kan förvärvas; Undersigned rekommenderar varken köp eller staking. Ingen betalning till Undersigned ingår i betyget; Pro-medlemmars recensioner visas även som eget betyg. Undersigneds egna plånböcker räknas aldrig. Åsikter från ägare av intygade Seeker-enheter, inte butikens betyg.</string>
     <string name="detail_rank_score">Rankningspoäng %1$s — dras mot 3,0 tills fler Seekers signerar; används bara för att ordna listan.</string>
     <string name="follow">Följ</string>
     <string name="following">Följer</string>
@@ -81,7 +81,7 @@
     <string name="standing_line">Räknade: %1$d · Tillbakadragna: %2$d · Svar mottagna: %3$d · Svar givna: %4$d</string>
     <string name="standing_agreement">Taggöverensstämmelse med andra signerare: %1$s</string>
     <string name="standing_since">Har signerat sedan %1$s</string>
-    <string name="standing_note2">Endast räkning. Inget betyg, inget att köpa.</string>
+    <string name="standing_note2">Bara räkningar. Inget betyg, och ingen betalning ändrar dem.</string>
     <string name="store_reviewer_genesis">Seeker-ägare</string>
     <string name="store_reviewer_nogenesis">ingen attesterad enhet hittad</string>
     <string name="store_reviewer_signed_here">signerade även här</string>
@@ -180,7 +180,7 @@
     <string name="standing_sgt_yes">Attesterad enhet hittad (%1$s): dina recensioner räknas.</string>
     <string name="standing_sgt_no">Inget bevis för en attesterad enhet i den här plånboken (idag: Seeker Genesis Token): dina recensioner skulle inte räknas.</string>
     <string name="standing_stake">Insatt SKR läst on-chain: %1$s (vikt %2$s×)</string>
-    <string name="standing_note">Vikter läses från kedjan. Undersigned ber dig aldrig satsa, köpa eller inneha något.</string>
+    <string name="standing_note">Vikter läses från kedjan: enheten och stakad SKR. Pro och betalningar till Undersigned ändrar dem aldrig.</string>
     <string name="settings_ledger">Liggare</string>
     <string name="settings_ledger_body">Registeradress %1$s. Varje recension går att hitta av vem som helst via den här adressen. Den här appen läser det direkt från kedjan, inte från någon server hos oss.</string>
     <string name="settings_refresh_ledger">Läs om liggaren</string>
@@ -205,7 +205,7 @@
     <string name="intro_next">Nästa</string>
     <string name="intro_replay">Spela upp introduktionen igen</string>
     <string name="intro1_title">En Seeker, en röst</string>
-    <string name="intro1_body">Undersigned är ett recensionslager bredvid dApp Store. Bara plånböcker med en Seeker Genesis Token räknas: en enhet, en röst. Inget du kan köpa ändrar det signerade betyget.</string>
+    <string name="intro1_body">Undersigned är ett recensionslager bredvid dApp Store. Bara plånböcker med en Seeker Genesis Token räknas: en enhet, en röst. Ingen betalning till Undersigned ändrar det signerade betyget; stakad SKR kan höja en recensions vikt, högst 3×.</string>
     <string name="intro2_title">Signerat, inte skrivet</string>
     <string name="intro2_body">Varje recension är en liten transaktion du godkänner på telefonen med dubbeltryckningen. Din plånbok betalar bara den nätverksavgift den själv sätter. Undersigned innehar aldrig dina nycklar eller medel.</string>
     <string name="intro3_title">Vid sidan av butiken, inte istället för den</string>
@@ -300,7 +300,7 @@
     <string name="howto4_sub">Varje bedömning är också en signatur</string>
     <string name="howto4_body">Hjälpsam — ordnar recensioner. En röst per plånbok, viktad som en recension.\nFlagga — misstänkt skräppost, missbruk, off topic eller vilseledande. Vid konsensus döljer läsare posten.\nVerkar äkta — motverkar flaggor du tycker är fel.\nBestrid — om din egen post döljs höjer ett signerat svar den vikt som krävs för att hålla den dold.</string>
     <string name="howto4_note_title">Inget av detta betalas för</string>
-    <string name="howto4_note">Din status är räkningar och en publicerad formel — inget du kan köpa flyttar den. Spela upp de här stegen igen när som helst från Inställningar.</string>
+    <string name="howto4_note">Ditt anseende är räkningar och en publicerad formel; ingen betalning till Undersigned ändrar det. Gå igenom stegen igen när som helst i Inställningar.</string>
     <string name="empty_search_title">Ingen dApp med det namnet</string>
     <string name="empty_search_body">Inget i butikskatalogen matchar \"%1$s\".</string>
     <string name="reread_catalogue">Läs om katalogen</string>
@@ -1011,4 +1011,9 @@
     <string name="promoted_score_note">Bara recensioner vars egna författare betalat för att marknadsföra dem, med vanlig vikt. Listas skilt från de oberoende recensionerna.</string>
     <string name="reviews_group_promoted">Marknadsförda recensioner · betalda</string>
     <string name="reviews_group_promoted_note">Recensioner vars egna författare betalat Undersigned för att marknadsföra dem. Räknas en gång med samma vikt som alla och hålls skilda från de oberoende recensionerna.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Genom att betala bekräftar du att du inte får betalt av, är anställd av eller agerar för appens utgivare eller en konkurrent.</string>
+    <string name="withdrawal_consent">Starta nu. Jag förstår att jag förlorar en eventuell 14-dagars ångerrätt när betalningen bekräftats på kedjan.</string>
+    <string name="withdrawal_confirmed">Du begärde omedelbar leverans och bekräftade att en eventuell 14-dagars ångerrätt upphör. Ditt kvitto är transaktionen på kedjan %1$s.</string>
 </resources>

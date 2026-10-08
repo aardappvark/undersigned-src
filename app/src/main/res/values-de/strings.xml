@@ -52,7 +52,7 @@
     <string name="detail_update_review">Meine Bewertung aktualisieren</string>
     <string name="detail_revoke_review">Meine Bewertung zurückziehen</string>
     <string name="detail_score_title">Signierte Bewertung</string>
-    <string name="detail_score_sub">Durchschnitt der Bewertungen von attestierten Geräten (heute: Inhaber eines Seeker Genesis Token), gewichtet nach dem, was jede Bewertung mitbringt (Installationsdauer, Nutzung, eine geschriebene Notiz), und nach gestaktem SKR, einem Token, das jeder kaufen kann (bis 3×). Keine Zahlung an Undersigned fließt ein; Bewertungen von Pro-Mitgliedern erscheinen zusätzlich als eigene Wertung. Eigene Wallets von Undersigned werden nie gezählt. Meinungen einzelner Besitzer, nicht die Wertung des Stores.</string>
+    <string name="detail_score_sub">Durchschnitt der Bewertungen von attestierten Geräten (heute: Inhaber eines Seeker Genesis Token), gewichtet nach dem, was jede Bewertung mitbringt (Installationsdauer, Nutzung, eine geschriebene Notiz), und nach SKR, das die Wallet gestakt hat (höchstens 3×). SKR wird gehandelt, dieser Teil des Gewichts lässt sich also erwerben; Undersigned empfiehlt weder Kauf noch Staking. Keine Zahlung an Undersigned fließt in die Wertung ein; Bewertungen von Pro-Mitgliedern erscheinen zusätzlich als eigene Wertung. Eigene Wallets von Undersigned werden nie gezählt. Meinungen von Besitzern attestierter Seeker-Geräte, nicht die Wertung des Stores.</string>
     <string name="detail_rank_score">Rang-Wert %1$s — bis mehr Seeker signieren, in Richtung 3,0 verschoben; dient nur der Sortierung der Liste.</string>
     <string name="follow">Folgen</string>
     <string name="following">Gefolgt</string>
@@ -91,7 +91,7 @@
     <string name="standing_line">Gezählt: %1$d · Zurückgezogen: %2$d · Antworten erhalten: %3$d · Antworten gegeben: %4$d</string>
     <string name="standing_agreement">Übereinstimmung der Tags mit anderen Signierenden: %1$s</string>
     <string name="standing_since">Signiert seit %1$s</string>
-    <string name="standing_note2">Nur Zählungen. Keine Bewertung, nichts zu kaufen.</string>
+    <string name="standing_note2">Nur Zählungen. Keine Wertung, und keine Zahlung ändert sie.</string>
     <string name="store_reviewer_genesis">Seeker-Besitzer</string>
     <string name="store_reviewer_nogenesis">kein attestiertes Gerät gefunden</string>
     <string name="store_reviewer_signed_here">hat auch hier signiert</string>
@@ -196,7 +196,7 @@
     <string name="standing_sgt_yes">Attestiertes Gerät gefunden (%1$s): Ihre Bewertungen zählen.</string>
     <string name="standing_sgt_no">Kein Nachweis für ein attestiertes Gerät in dieser Wallet (heute: der Seeker Genesis Token): Ihre Bewertungen würden nicht gezählt.</string>
     <string name="standing_stake">Gestaktes SKR on-chain gelesen: %1$s (Gewichtung %2$s×)</string>
-    <string name="standing_note">Gewichtungen werden von der Chain gelesen. Undersigned fordert Sie nie auf, etwas zu staken, zu kaufen oder zu halten.</string>
+    <string name="standing_note">Gewichte werden von der Chain gelesen: das Gerät und gestaktes SKR. Pro und Zahlungen an Undersigned ändern sie nie.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Registrierungsadresse %1$s. Jede Bewertung ist über diese Adresse für jeden auffindbar. Diese App liest sie direkt von der Chain, nicht von einem Server von uns.</string>
     <string name="settings_refresh_ledger">Ledger erneut lesen</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Weiter</string>
     <string name="intro_replay">Einführung wiederholen</string>
     <string name="intro1_title">Ein Seeker, eine Stimme</string>
-    <string name="intro1_body">Undersigned ist eine Bewertungsebene neben dem dApp Store. Gezählt werden nur Wallets mit einem Seeker Genesis Token, also ist ein Gerät eine Stimme. Nichts, was Sie kaufen können, ändert die signierte Wertung.</string>
+    <string name="intro1_body">Undersigned ist eine Bewertungsebene neben dem dApp Store. Nur Wallets mit einem Seeker Genesis Token werden gezählt, also ein Gerät, eine Stimme. Keine Zahlung an Undersigned ändert die signierte Wertung; gestaktes SKR kann das Gewicht einer Bewertung erhöhen, höchstens auf 3×.</string>
     <string name="intro2_title">Signiert, nicht getippt</string>
     <string name="intro2_body">Jede Bewertung ist eine kleine Transaktion, die Sie auf dem Telefon mit dem doppelten Tippen bestätigen. Ihre Wallet zahlt nur die von ihr selbst festgelegte Netzwerkgebühr. Undersigned verwahrt niemals Ihre Schlüssel oder Gelder.</string>
     <string name="intro3_title">Neben dem Store, nicht anstelle davon</string>
@@ -316,7 +316,7 @@
     <string name="howto4_sub">Auch jedes Urteil ist eine Signatur</string>
     <string name="howto4_body">Hilfreich — ordnet Bewertungen. Eine Stimme pro Wallet, gewichtet wie eine Bewertung.\nFlag — vermutlicher Spam, Missbrauch, Themenfremdes oder Irreführendes. Bei Konsens blenden Leser den Eintrag aus.\nWirkt echt — gleicht Flags aus, die Sie für falsch halten.\nEinspruch — wird Ihr eigener Eintrag ausgeblendet, erhöht eine signierte Antwort das nötige Gewicht, um ihn ausgeblendet zu halten.</string>
     <string name="howto4_note_title">Für all das wird nichts bezahlt</string>
-    <string name="howto4_note">Ihr Ansehen besteht aus Zählungen und einer veröffentlichten Formel — nichts, was Sie kaufen können, verändert es. Wiederholen Sie diese Schritte jederzeit über die Einstellungen.</string>
+    <string name="howto4_note">Ihr Ansehen besteht aus Zählungen und einer veröffentlichten Formel; keine Zahlung an Undersigned verändert es. Diese Schritte jederzeit in den Einstellungen wiederholen.</string>
     <string name="empty_search_title">Keine dApp mit diesem Namen</string>
     <string name="empty_search_body">Nichts im Store-Katalog entspricht \"%1$s\".</string>
     <string name="reread_catalogue">Katalog erneut lesen</string>
@@ -1030,4 +1030,9 @@
     <string name="promoted_score_note">Nur Bewertungen, deren Autoren für die Bewerbung bezahlt haben, mit üblichem Gewicht. Getrennt von den unabhängigen Bewertungen.</string>
     <string name="reviews_group_promoted">Beworbene Bewertungen · bezahlt</string>
     <string name="reviews_group_promoted_note">Bewertungen, deren eigene Autoren Undersigned für die Bewerbung bezahlt haben. Einmal mit demselben Gewicht gezählt wie alle und getrennt von den unabhängigen Bewertungen.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Mit der Zahlung bestätigen Sie, dass Sie nicht vom Herausgeber dieser App oder einem Wettbewerber bezahlt, angestellt oder beauftragt sind.</string>
+    <string name="withdrawal_consent">Jetzt starten. Mir ist bewusst, dass ich ein etwaiges 14-tägiges Widerrufsrecht verliere, sobald die Zahlung on-chain bestätigt ist.</string>
+    <string name="withdrawal_confirmed">Sie haben die sofortige Bereitstellung verlangt und bestätigt, dass ein etwaiges 14-tägiges Widerrufsrecht erlischt. Ihr Beleg ist die On-Chain-Transaktion %1$s.</string>
 </resources>

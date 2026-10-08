@@ -74,7 +74,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         val sb = StringBuilder()
         if (q.isNullOrBlank()) {
             sb.append("<section class=hero style=\"background-image:url('/assets/photo-fingertip.jpg')\"><div class=in><div class=label style='color:#d9d2ee'>For the Solana dApp Store</div>" +
-                "<h1>Signed reviews from Seeker owners</h1><p class=sub>Every review here is signed on-chain by its author's own wallet. Only wallets holding a Seeker Genesis Token are counted: one phone, one voice, nothing to buy.</p>" +
+                "<h1>Signed reviews from Seeker owners</h1><p class=sub>Every review here is signed on-chain by its author's own wallet. Only wallets holding a Seeker Genesis Token are counted: one phone, one voice. No payment to Undersigned changes a score.</p>" +
                 "<div class=ctas><a class=btn href='/review'>Write a signed review</a><a class='btn sec' href='#apps'>Browse apps</a></div></div></section>")
             sb.append("<div class=card><div class=stats>")
             listOf("reviews_counted" to "counted reviews", "attested_signers" to "Seeker owners reviewing", "apps_reviewed" to "apps reviewed", "publisher_replies" to "publisher replies", "catalogue_apps" to "apps in the store")
@@ -119,9 +119,6 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         // Pro members' reviews as their own labelled score, never blended into the signed one (compliance review, 9 Oct 2026).
         a.optJSONObject("signed")?.optJSONObject("pro_members")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
             sb.append("<div class=card><div class=label>Pro members</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} by reviewers who pay Undersigned for Pro, at the same weight as everyone. Shown apart; the signed score never includes payment to Undersigned.</span></div></div>")
-        }
-        sg?.optJSONObject("promoted")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
-            sb.append("<div class='card warn'><div class=label>Promoted · paid</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} their own authors paid to promote, at their ordinary weight. Listed apart from organic reviews.</span></div></div>")
         }
         sg?.optJSONObject("tags")?.takeIf { it.length() > 0 }?.let { t -> sb.append("<div class=row>"); t.keys().asSequence().sortedByDescending { t.optInt(it) }.forEach { sb.append("<span class=tag>${esc(I18n.tag(lang, it))} · ${t.optInt(it)}</span>") }; sb.append("</div>") }
 
@@ -192,7 +189,9 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             "Promoted reviews · paid" to "Reviews their own authors paid Undersigned to promote. Counted once at the same weight as everyone, and kept apart from organic reviews.",
             "Related to Undersigned or the publisher" to "Undersigned's own wallets, or a reviewer holding Pro gifted by this app's publisher. Shown, labelled, counted in no score.",
         )
-        for (g in 0..3) if (counts[g] > 0) sb.append(if (g == 2) "<div class='card warn'>" else "").append("<h3>${heads[g].first} · ${counts[g]}</h3><p class=small>${heads[g].second}</p>").append(groups[g]).append(if (g == 2) "</div>" else "")
+        // The Promoted score sits in its own shaded section after organic reviews, never in the headline card (legal review, 9 Oct 2026).
+        val promotedLine = sg?.optJSONObject("promoted")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m -> "<p class=meta><b>Promoted score ${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> from ${plural(m.optInt("counted_reviews"), "review", "reviews")}, at their ordinary weight.</p>" } ?: ""
+        for (g in 0..3) if (counts[g] > 0) sb.append(if (g == 2) "<div class='card warn'>" else "").append("<h3>${heads[g].first} · ${counts[g]}</h3><p class=small>${heads[g].second}</p>").append(if (g == 2) promotedLine else "").append(groups[g]).append(if (g == 2) "</div>" else "")
         if (counts[4] > 0) sb.append("<details class=card><summary>Not counted · ${plural(counts[4], "review", "reviews")}: no attested device, or the publisher's own</summary>${groups[4]}</details>")
         sb.append("<p class=small><a href='https://aardappvark.github.io/undersigned-legal/integrity.html'>How reviews are collected, checked and counted</a></p>")
         if (rv.optInt("total") > list.length()) sb.append("<p class=meta>Showing ${list.length()} of ${rv.optInt("total")}.</p>")

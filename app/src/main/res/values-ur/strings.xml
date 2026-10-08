@@ -52,7 +52,7 @@
     <string name="detail_update_review">میرا جائزہ اپ ڈیٹ کریں</string>
     <string name="detail_revoke_review">میرا جائزہ واپس لیں</string>
     <string name="detail_score_title">دستخط شدہ اسکور</string>
-    <string name="detail_score_sub">تصدیق شدہ ڈیوائسز کے جائزوں کی اوسط (آج: Seeker Genesis Token رکھنے والے)، ہر جائزے کے ساتھ آنے والی چیزوں (انسٹال کا وقت، استعمال، لکھا نوٹ) اور اسٹیک شدہ SKR سے وزن دار، جو کوئی بھی خرید سکتا ہے (3× تک)۔ Undersigned کو کوئی ادائیگی اس میں شامل نہیں؛ Pro اراکین کے جائزے اپنے الگ اسکور میں بھی دکھائے جاتے ہیں۔ Undersigned کے اپنے والیٹس کبھی شمار نہیں ہوتے۔ انفرادی مالکان کی رائے، اسٹور کی ریٹنگ نہیں۔</string>
+    <string name="detail_score_sub">تصدیق شدہ ڈیوائسز کے جائزوں کی اوسط (آج: Seeker Genesis Token رکھنے والے)، ہر جائزے کے ساتھ آنے والی چیزوں (انسٹال کا وقت، استعمال، لکھا نوٹ) اور والیٹ کے اسٹیک کردہ SKR (3× تک) سے وزن دار۔ SKR کی تجارت ہوتی ہے، اس لیے وزن کا یہ حصہ حاصل کیا جا سکتا ہے؛ Undersigned اسے خریدنے یا اسٹیک کرنے کا مشورہ نہیں دیتا۔ Undersigned کو کوئی ادائیگی اسکور میں شامل نہیں؛ Pro اراکین کے جائزے اپنے الگ اسکور میں بھی دکھائے جاتے ہیں۔ Undersigned کے والیٹس کبھی شمار نہیں ہوتے۔ تصدیق شدہ Seeker ڈیوائسز کے مالکان کی رائے، اسٹور کی ریٹنگ نہیں۔</string>
     <string name="detail_rank_score">رینک اسکور %1$s — جب تک مزید Seekers دستخط نہ کریں 3.0 کی طرف سکڑا رہتا ہے؛ صرف فہرست ترتیب دینے کے لیے استعمال ہوتا ہے۔</string>
     <string name="follow">فالو کریں</string>
     <string name="following">فالو کیا جا رہا ہے</string>
@@ -91,7 +91,7 @@
     <string name="standing_line">شمار شدہ: %1$d · واپس لیے گئے: %2$d · موصولہ جوابات: %3$d · دیے گئے جوابات: %4$d</string>
     <string name="standing_agreement">دیگر دستخط کنندگان کے ساتھ ٹیگ مطابقت: %1$s</string>
     <string name="standing_since">%1$s سے دستخط کر رہے ہیں</string>
-    <string name="standing_note2">صرف شمار۔ کوئی اسکور نہیں، خریدنے کے لیے کچھ نہیں۔</string>
+    <string name="standing_note2">صرف گنتیاں۔ کوئی اسکور نہیں، اور کوئی ادائیگی انہیں نہیں بدلتی۔</string>
     <string name="store_reviewer_genesis">Seeker کا مالک</string>
     <string name="store_reviewer_nogenesis">کوئی تصدیق شدہ آلہ نہیں ملا</string>
     <string name="store_reviewer_signed_here">یہاں بھی دستخط کیے</string>
@@ -199,7 +199,7 @@
     <string name="standing_sgt_yes">تصدیق شدہ آلہ ملا (%1$s): آپ کے جائزے شمار ہوتے ہیں۔</string>
     <string name="standing_sgt_no">اس والٹ میں کوئی تصدیق شدہ آلہ اسناد نہیں (آج: Seeker Genesis Token): آپ کے جائزے شمار نہیں ہوں گے۔</string>
     <string name="standing_stake">چین پر پڑھا گیا اسٹیک شدہ SKR: %1$s (وزن %2$s×)</string>
-    <string name="standing_note">وزن چین سے پڑھے جاتے ہیں۔ Undersigned کبھی آپ سے اسٹیک کرنے، خریدنے یا کچھ رکھنے کے لیے نہیں کہتا۔</string>
+    <string name="standing_note">وزن چین سے پڑھے جاتے ہیں: ڈیوائس اور اسٹیک شدہ SKR۔ Pro اور Undersigned کو ادائیگیاں انہیں کبھی نہیں بدلتیں۔</string>
     <string name="settings_ledger">لیجر</string>
     <string name="settings_ledger_body">رجسٹری پتہ %1$s۔ ہر جائزہ اس پتے کے ذریعے کسی کے بھی ذریعے قابلِ دریافت ہے۔ یہ ایپ اسے براہِ راست چین سے پڑھتی ہے، ہمارے کسی سرور سے نہیں۔</string>
     <string name="settings_refresh_ledger">لیجر دوبارہ پڑھیں</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">اگلا</string>
     <string name="intro_replay">تعارف دوبارہ دیکھیں</string>
     <string name="intro1_title">ایک Seeker، ایک آواز</string>
-    <string name="intro1_body">Undersigned، dApp Store کے ساتھ ایک جائزہ پرت ہے۔ صرف Seeker Genesis Token والے والیٹ شمار ہوتے ہیں: ایک ڈیوائس، ایک آواز۔ خریدی جا سکنے والی کوئی چیز دستخط شدہ اسکور نہیں بدلتی۔</string>
+    <string name="intro1_body">Undersigned ڈی ایپ اسٹور کے ساتھ جائزوں کی ایک پرت ہے۔ صرف Seeker Genesis Token والے والیٹس شمار ہوتے ہیں: ایک ڈیوائس، ایک آواز۔ Undersigned کو کوئی ادائیگی دستخط شدہ اسکور نہیں بدلتی؛ اسٹیک شدہ SKR جائزے کا وزن زیادہ سے زیادہ 3× تک بڑھا سکتا ہے۔</string>
     <string name="intro2_title">دستخط شدہ، ٹائپ شدہ نہیں</string>
     <string name="intro2_body">ہر جائزہ ایک چھوٹی ٹرانزیکشن ہے جسے آپ فون پر ڈبل ٹیپ سے منظور کرتے ہیں۔ آپ کا والٹ صرف وہ نیٹ ورک فیس ادا کرتا ہے جو وہ خود مقرر کرتا ہے۔ Undersigned کبھی آپ کی چابیاں یا فنڈز نہیں رکھتا۔</string>
     <string name="intro3_title">اسٹور کے ساتھ، اس کی جگہ نہیں</string>
@@ -319,7 +319,7 @@
     <string name="howto4_sub">ہر فیصلہ بھی ایک دستخط ہے</string>
     <string name="howto4_body">مددگار — جائزوں کو ترتیب دیتا ہے۔ ہر والٹ کا ایک ووٹ، جائزے کی طرح وزن دار۔\nنشان زد کریں — مشتبہ اسپیم، بدسلوکی، موضوع سے ہٹ کر یا گمراہ کن۔ اتفاق رائے پر، قارئین ریکارڈ چھپا دیتے ہیں۔\nحقیقی معلوم ہوتا ہے — ان نشان زدگیوں کو متوازن کرتا ہے جنہیں آپ غلط سمجھتے ہیں۔\nاعتراض — اگر آپ کا اپنا ریکارڈ چھپا دیا گیا ہو تو ایک دستخط شدہ جواب اسے چھپا رکھنے کے لیے درکار وزن بڑھا دیتا ہے۔</string>
     <string name="howto4_note_title">اس میں سے کسی چیز کے لیے کچھ ادا نہیں کیا جاتا</string>
-    <string name="howto4_note">آپ کی حیثیت شمار اور ایک شائع شدہ فارمولے پر مبنی ہے — کچھ بھی خرید کر اسے نہیں بدلا جا سکتا۔ ترتیبات سے کسی بھی وقت یہ مراحل دوبارہ دیکھیں۔</string>
+    <string name="howto4_note">آپ کی ساکھ گنتیاں اور ایک شائع شدہ فارمولا ہے؛ Undersigned کو کوئی ادائیگی اسے نہیں بدلتی۔ یہ مراحل کسی بھی وقت سیٹنگز سے دوبارہ دیکھیں۔</string>
     <string name="empty_search_title">اس نام کا کوئی dApp نہیں</string>
     <string name="empty_search_body">اسٹور کیٹلاگ میں کچھ بھی \"%1$s\" سے مماثل نہیں۔</string>
     <string name="reread_catalogue">کیٹلاگ دوبارہ پڑھیں</string>
@@ -1013,4 +1013,9 @@
     <string name="promoted_score_note">صرف وہ جائزے جن کے مصنفین نے پروموشن کی ادائیگی کی، معمول کے وزن پر۔ آزاد جائزوں سے الگ درج۔</string>
     <string name="reviews_group_promoted">پروموٹ کیے گئے جائزے · ادا شدہ</string>
     <string name="reviews_group_promoted_note">وہ جائزے جن کے اپنے مصنفین نے پروموشن کے لیے Undersigned کو ادائیگی کی۔ سب کے برابر وزن پر ایک بار شمار، اور آزاد جائزوں سے الگ رکھے جاتے ہیں۔</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">ادائیگی کر کے آپ تصدیق کرتے ہیں کہ آپ کو اس ایپ کا پبلشر یا کوئی حریف ادائیگی نہیں کرتا، ملازم نہیں رکھتا، اور آپ ان کی جانب سے کام نہیں کر رہے۔</string>
+    <string name="withdrawal_consent">ابھی شروع کریں۔ میں سمجھتا/سمجھتی ہوں کہ ادائیگی چین پر تصدیق ہوتے ہی میں 14 دن کا کوئی بھی واپسی کا حق کھو دوں گا/گی۔</string>
+    <string name="withdrawal_confirmed">آپ نے فوری فراہمی مانگی اور 14 دن کے کسی بھی واپسی کے حق کے ختم ہونے کو تسلیم کیا۔ آپ کی رسید چین پر ٹرانزیکشن %1$s ہے۔</string>
 </resources>

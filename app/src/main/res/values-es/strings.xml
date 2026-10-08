@@ -52,7 +52,7 @@
     <string name="detail_update_review">Actualizar mi reseña</string>
     <string name="detail_revoke_review">Retirar mi reseña</string>
     <string name="detail_score_title">Puntuación firmada</string>
-    <string name="detail_score_sub">Media de reseñas de dispositivos certificados (hoy: titulares del Seeker Genesis Token), ponderada por lo que aporta cada reseña (tiempo instalada, uso, una nota escrita) y por el SKR en staking, un token que cualquiera puede comprar (hasta 3×). Ningún pago a Undersigned entra en ella; las reseñas de miembros Pro también tienen su propia puntuación. Las billeteras de Undersigned nunca cuentan. Opiniones de propietarios, no la valoración de la tienda.</string>
+    <string name="detail_score_sub">Media de reseñas de dispositivos certificados (hoy: titulares del Seeker Genesis Token), ponderada por lo que aporta cada reseña (tiempo instalada, uso, una nota escrita) y por el SKR que la billetera tiene en staking (hasta 3×). El SKR se negocia, así que esta parte del peso se puede adquirir; Undersigned no recomienda comprarlo ni ponerlo en staking. Ningún pago a Undersigned entra en la puntuación; las reseñas de miembros Pro también tienen su propia puntuación. Las billeteras de Undersigned nunca cuentan. Opiniones de dueños de dispositivos Seeker certificados, no la valoración de la tienda.</string>
     <string name="detail_rank_score">Puntuación de clasificación %1$s — se reduce hacia 3,0 hasta que firmen más Seekers; se usa solo para ordenar la lista.</string>
     <string name="follow">Seguir</string>
     <string name="following">Siguiendo</string>
@@ -91,7 +91,7 @@
     <string name="standing_line">Contabilizadas: %1$d · Retiradas: %2$d · Respuestas recibidas: %3$d · Respuestas dadas: %4$d</string>
     <string name="standing_agreement">Coincidencia de etiquetas con otros firmantes: %1$s</string>
     <string name="standing_since">Firmando desde %1$s</string>
-    <string name="standing_note2">Solo recuentos. Sin puntuación, nada que comprar.</string>
+    <string name="standing_note2">Solo recuentos. Sin puntuación, y ningún pago los cambia.</string>
     <string name="store_reviewer_genesis">Propietario de Seeker</string>
     <string name="store_reviewer_nogenesis">sin dispositivo atestiguado</string>
     <string name="store_reviewer_signed_here">también firmó aquí</string>
@@ -198,7 +198,7 @@
     <string name="standing_sgt_yes">Dispositivo atestiguado encontrado (%1$s): tus reseñas cuentan.</string>
     <string name="standing_sgt_no">Esta wallet no tiene credencial de dispositivo atestiguado (hoy: el Seeker Genesis Token): tus reseñas no se contabilizarían.</string>
     <string name="standing_stake">SKR en staking leído on-chain: %1$s (peso %2$s×)</string>
-    <string name="standing_note">Los pesos se leen de la cadena. Undersigned nunca te pide que hagas staking, compres ni poseas nada.</string>
+    <string name="standing_note">Los pesos se leen de la cadena: el dispositivo y el SKR en staking. Pro y los pagos a Undersigned nunca los cambian.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Dirección del registro %1$s. Cualquiera puede descubrir cada reseña a través de esta dirección. Esta app lo lee directamente de la cadena, no de un servidor nuestro.</string>
     <string name="settings_refresh_ledger">Volver a leer el ledger</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">Siguiente</string>
     <string name="intro_replay">Repetir la introducción</string>
     <string name="intro1_title">Un Seeker, una voz</string>
-    <string name="intro1_body">Undersigned es una capa de reseñas junto a la dApp Store. Solo cuentan las billeteras con un Seeker Genesis Token: un dispositivo, una voz. Nada que se pueda comprar cambia la puntuación firmada.</string>
+    <string name="intro1_body">Undersigned es una capa de reseñas junto a la dApp Store. Solo cuentan las billeteras con un Seeker Genesis Token: un dispositivo, una voz. Ningún pago a Undersigned cambia la puntuación firmada; el SKR en staking puede subir el peso de una reseña, hasta 3×.</string>
     <string name="intro2_title">Firmadas, no escritas</string>
     <string name="intro2_body">Cada reseña es una pequeña transacción que apruebas en el teléfono con la doble pulsación. Tu wallet solo paga la comisión de red que ella misma fija. Undersigned nunca custodia tus claves ni tus fondos.</string>
     <string name="intro3_title">Junto a la tienda, no en su lugar</string>
@@ -319,7 +319,7 @@
     <string name="howto4_sub">Cada juicio también es una firma</string>
     <string name="howto4_body">Útil — ordena las reseñas. Un voto por wallet, con el mismo peso que una reseña.\nMarcar — presunto spam, abuso, fuera de tema o engañoso. Al alcanzar consenso, los lectores ocultan el registro.\nParece legítima — compensa las marcas que crees incorrectas.\nImpugnar — si tu propio registro queda oculto, una respuesta firmada eleva el peso de marcas necesario para mantenerlo oculto.</string>
     <string name="howto4_note_title">Nada de esto se paga</string>
-    <string name="howto4_note">Tu reputación son recuentos y una fórmula publicada — nada que puedas comprar la mueve. Repite estos pasos cuando quieras desde Ajustes.</string>
+    <string name="howto4_note">Tu reputación son recuentos y una fórmula publicada; ningún pago a Undersigned la mueve. Repite estos pasos cuando quieras desde Ajustes.</string>
     <string name="empty_search_title">Ningún dApp con ese nombre</string>
     <string name="empty_search_body">Nada en el catálogo de la tienda coincide con \"%1$s\".</string>
     <string name="reread_catalogue">Volver a leer el catálogo</string>
@@ -1039,4 +1039,9 @@
     <string name="promoted_score_note">Solo reseñas cuyos autores pagaron para promocionarlas, con su peso habitual. Listadas aparte de las independientes.</string>
     <string name="reviews_group_promoted">Reseñas promocionadas · pagadas</string>
     <string name="reviews_group_promoted_note">Reseñas cuyos propios autores pagaron a Undersigned para promocionarlas. Cuentan una vez con el mismo peso que todas y se muestran aparte de las independientes.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Al pagar, confirmas que no te paga, emplea ni actúas en nombre del editor de esta app ni de un competidor.</string>
+    <string name="withdrawal_consent">Empezar ahora. Entiendo que pierdo cualquier derecho de desistimiento de 14 días cuando el pago se confirme en la cadena.</string>
+    <string name="withdrawal_confirmed">Pediste el suministro inmediato y reconociste perder cualquier derecho de desistimiento de 14 días. Tu recibo es la transacción en la cadena %1$s.</string>
 </resources>

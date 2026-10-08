@@ -52,7 +52,7 @@
     <string name="detail_update_review">Mettre à jour mon avis</string>
     <string name="detail_revoke_review">Retirer mon avis</string>
     <string name="detail_score_title">Score signé</string>
-    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), pondérée par ce que chaque avis apporte (durée d\'installation, usage, une note écrite) et par le SKR staké, un jeton que tout le monde peut acheter (jusqu\'à 3×). Aucun paiement à Undersigned n\'y entre ; les avis des membres Pro ont aussi leur propre score. Les portefeuilles d\'Undersigned ne sont jamais comptés. Opinions de propriétaires, pas la note de la boutique.</string>
+    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), pondérée par ce que chaque avis apporte (durée d\'installation, usage, une note écrite) et par le SKR que le portefeuille a staké (jusqu\'à 3×). Le SKR s\'échange, donc cette part du poids peut s\'acquérir ; Undersigned ne recommande ni d\'en acheter ni d\'en staker. Aucun paiement à Undersigned n\'entre dans le score ; les avis des membres Pro ont aussi leur propre score. Les portefeuilles d\'Undersigned ne sont jamais comptés. Opinions de propriétaires d\'appareils Seeker attestés, pas la note de la boutique.</string>
     <string name="detail_rank_score">Score de classement %1$s — ramené vers 3,0 tant que peu de Seekers ont signé ; sert uniquement à trier la liste.</string>
     <string name="follow">Suivre</string>
     <string name="following">Suivi(e)</string>
@@ -91,7 +91,7 @@
     <string name="standing_line">Comptabilisés : %1$d · Retirés : %2$d · Réponses reçues : %3$d · Réponses données : %4$d</string>
     <string name="standing_agreement">Accord des tags avec les autres signataires : %1$s</string>
     <string name="standing_since">Signe depuis le %1$s</string>
-    <string name="standing_note2">Uniquement des chiffres. Pas de score, rien à acheter.</string>
+    <string name="standing_note2">Des comptes seulement. Pas de score, et aucun paiement ne les change.</string>
     <string name="store_reviewer_genesis">Propriétaire de Seeker</string>
     <string name="store_reviewer_nogenesis">aucun appareil attesté trouvé</string>
     <string name="store_reviewer_signed_here">a aussi signé ici</string>
@@ -198,7 +198,7 @@
     <string name="standing_sgt_yes">Appareil attesté trouvé (%1$s) : vos avis comptent.</string>
     <string name="standing_sgt_no">Aucune attestation d\'appareil dans ce wallet (aujourd\'hui : le Seeker Genesis Token) : vos avis ne seraient pas comptabilisés.</string>
     <string name="standing_stake">SKR staké lu on-chain : %1$s (poids %2$s×)</string>
-    <string name="standing_note">Les poids sont lus depuis la chain. Undersigned ne vous demande jamais de staker, acheter ou détenir quoi que ce soit.</string>
+    <string name="standing_note">Les poids sont lus sur la chaîne : l\'appareil et le SKR staké. Pro et les paiements à Undersigned ne les changent jamais.</string>
     <string name="settings_ledger">Registre</string>
     <string name="settings_ledger_body">Adresse du registre %1$s. Chaque avis est repérable par n\'importe qui via cette adresse. Cette application les lit directement depuis la chain, et non depuis un serveur qui nous appartient.</string>
     <string name="settings_refresh_ledger">Relire le registre</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">Suivant</string>
     <string name="intro_replay">Revoir l\'introduction</string>
     <string name="intro1_title">Un Seeker, une voix</string>
-    <string name="intro1_body">Undersigned est une couche d\'avis à côté du dApp Store. Seuls les portefeuilles détenant un Seeker Genesis Token sont comptés : un appareil, une voix. Rien de ce qui s\'achète ne change le score signé.</string>
+    <string name="intro1_body">Undersigned est une couche d\'avis à côté du dApp Store. Seuls les portefeuilles détenant un Seeker Genesis Token sont comptés : un appareil, une voix. Aucun paiement à Undersigned ne change le score signé ; le SKR staké peut augmenter le poids d\'un avis, jusqu\'à 3×.</string>
     <string name="intro2_title">Signé, pas simplement saisi</string>
     <string name="intro2_body">Chaque avis est une petite transaction que vous approuvez sur le téléphone avec le double-tap. Votre wallet ne paie que les frais de réseau qu\'il fixe. Undersigned ne détient jamais vos clés ni vos fonds.</string>
     <string name="intro3_title">À côté du store, pas à sa place</string>
@@ -319,7 +319,7 @@
     <string name="howto4_sub">Chaque jugement est aussi une signature</string>
     <string name="howto4_body">Utile — trie les avis. Un vote par wallet, pondéré comme un avis.\nFlag — spam présumé, abus, hors sujet ou trompeur. Au consensus, les lecteurs masquent l\'enregistrement.\nParaît authentique — compense les flags que vous jugez erronés.\nContester — si votre propre enregistrement est masqué, une réponse signée augmente le poids de flags nécessaire pour le garder masqué.</string>
     <string name="howto4_note_title">Rien de tout cela n\'est payant</string>
-    <string name="howto4_note">Votre statut est fait de chiffres et d\'une formule publiée — rien que vous puissiez acheter ne le fait bouger. Revoyez ces étapes à tout moment depuis les Paramètres.</string>
+    <string name="howto4_note">Votre réputation, ce sont des comptes et une formule publiée ; aucun paiement à Undersigned ne la change. Revoyez ces étapes à tout moment dans les Réglages.</string>
     <string name="empty_search_title">Aucun dApp portant ce nom</string>
     <string name="empty_search_body">Rien dans le catalogue du store ne correspond à \"%1$s\".</string>
     <string name="reread_catalogue">Relire le catalogue</string>
@@ -1039,4 +1039,9 @@
     <string name="promoted_score_note">Seulement les avis dont l\'auteur a payé la promotion, à leur poids habituel. Listés à part des avis indépendants.</string>
     <string name="reviews_group_promoted">Avis promus · payant</string>
     <string name="reviews_group_promoted_note">Avis dont l\'auteur a payé Undersigned pour les promouvoir. Comptés une fois au même poids que tous, et tenus à part des avis indépendants.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">En payant, vous confirmez ne pas être payé ni employé par l\'éditeur de cette app ou un concurrent, ni agir pour eux.</string>
+    <string name="withdrawal_consent">Commencer maintenant. Je comprends que je perds tout droit de rétractation de 14 jours dès que le paiement est confirmé sur la chaîne.</string>
+    <string name="withdrawal_confirmed">Vous avez demandé une fourniture immédiate et reconnu perdre tout droit de rétractation de 14 jours. Votre reçu est la transaction sur la chaîne %1$s.</string>
 </resources>

@@ -12,7 +12,9 @@ import java.util.concurrent.ConcurrentHashMap
  * redeemed from one on-chain payment, and only by the wallet that paid: a copied transaction signature is useless without
  * the payer's signature over it. Each transaction redeems once.
  */
-class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private val holdsGenesis: (String) -> Boolean) {
+class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private val holdsGenesis: (String) -> Boolean,
+              /** The payer's sanctions screen: true listed, false clear, null could not run (refused: fail closed, 9 Oct 2026). */
+              private val screen: (String) -> Boolean? = { false }) {
 
     data class Pass(val key: String, val wallet: String, val requestsLeft: Long, val endsAt: Long)
     class Refused(val status: Int, message: String) : Exception(message)
@@ -43,6 +45,11 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
             !secret.isNullOrBlank() -> if ("${Config.PAYMENT_MEMO}:${commitment(secret.trim())}" !in memos) throw Refused(403, "the secret does not match this payment's memo")
             !messageSignature.isNullOrBlank() -> if (!verifySignature(tx.feePayer, message(txSignature), messageSignature)) throw Refused(403, "the message signature is not the paying wallet's (sign \"${message(txSignature)}\" with ${tx.feePayer})")
             else -> throw Refused(400, "send the checkout secret, or the paying wallet's signature of \"${message(txSignature)}\"")
+        }
+        when (screen(tx.feePayer)) {
+            true -> throw Refused(403, "this wallet address appears on a sanctions list; no pass can be issued")
+            null -> throw Refused(503, "the sanctions check could not be completed just now; redeem again in a minute")
+            false -> {}
         }
         // Already redeemed: the same proof gets the SAME key back (a lost key is recoverable by the payer), never a second pass.
         if (already != null) return pass(already) ?: throw Refused(409, "this payment has already been redeemed")

@@ -52,7 +52,7 @@
     <string name="detail_update_review">Perbarui ulasan saya</string>
     <string name="detail_revoke_review">Tarik ulasan saya</string>
     <string name="detail_score_title">Skor yang ditandatangani</string>
-    <string name="detail_score_sub">Rata-rata ulasan dari perangkat teratestasi (kini: pemegang Seeker Genesis Token), dibobot oleh yang dibawa tiap ulasan (lama terpasang, penggunaan, catatan tertulis) dan oleh SKR yang di-stake, token yang bisa dibeli siapa saja (hingga 3×). Tidak ada pembayaran ke Undersigned yang masuk ke dalamnya; ulasan anggota Pro juga punya skor sendiri. Dompet Undersigned sendiri tidak pernah dihitung. Pendapat pemilik perorangan, bukan rating toko.</string>
+    <string name="detail_score_sub">Rata-rata ulasan dari perangkat teratestasi (kini: pemegang Seeker Genesis Token), dibobot oleh yang dibawa tiap ulasan (lama terpasang, penggunaan, catatan tertulis) dan oleh SKR yang di-stake dompet (hingga 3×). SKR diperdagangkan, jadi bagian bobot ini bisa diperoleh; Undersigned tidak menyarankan membeli atau men-stake-nya. Tidak ada pembayaran ke Undersigned yang masuk ke skor; ulasan anggota Pro juga punya skor sendiri. Dompet Undersigned tidak pernah dihitung. Pendapat pemilik perangkat Seeker teratestasi, bukan rating toko.</string>
     <string name="detail_rank_score">Skor peringkat %1$s — disusutkan menuju 3,0 hingga lebih banyak Seeker menandatangani; hanya digunakan untuk mengurutkan daftar.</string>
     <string name="follow">Ikuti</string>
     <string name="following">Mengikuti</string>
@@ -90,7 +90,7 @@
     <string name="standing_line">Dihitung: %1$d · Ditarik: %2$d · Balasan diterima: %3$d · Balasan diberikan: %4$d</string>
     <string name="standing_agreement">Kesesuaian tag dengan penandatangan lain: %1$s</string>
     <string name="standing_since">Menandatangani sejak %1$s</string>
-    <string name="standing_note2">Hanya hitungan. Tidak ada skor, tidak ada yang perlu dibeli.</string>
+    <string name="standing_note2">Hanya hitungan. Tanpa skor, dan tidak ada pembayaran yang mengubahnya.</string>
     <string name="store_reviewer_genesis">Pemilik Seeker</string>
     <string name="store_reviewer_nogenesis">tidak ditemukan perangkat terverifikasi</string>
     <string name="store_reviewer_signed_here">juga menandatangani di sini</string>
@@ -195,7 +195,7 @@
     <string name="standing_sgt_yes">Perangkat terverifikasi ditemukan (%1$s): ulasan Anda dihitung.</string>
     <string name="standing_sgt_no">Tidak ada kredensial perangkat terverifikasi di dompet ini (saat ini: Seeker Genesis Token): ulasan Anda tidak akan dihitung.</string>
     <string name="standing_stake">SKR yang di-stake terbaca on-chain: %1$s (bobot %2$s×)</string>
-    <string name="standing_note">Bobot dibaca dari chain. Undersigned tidak pernah meminta Anda untuk melakukan stake, membeli, atau menyimpan apa pun.</string>
+    <string name="standing_note">Bobot dibaca dari rantai: perangkat dan SKR yang di-stake. Pro dan pembayaran ke Undersigned tidak pernah mengubahnya.</string>
     <string name="settings_ledger">Buku besar</string>
     <string name="settings_ledger_body">Alamat registri %1$s. Setiap ulasan dapat ditemukan oleh siapa pun melalui alamat ini. Aplikasi ini membacanya langsung dari chain, bukan dari server milik kami.</string>
     <string name="settings_refresh_ledger">Baca ulang buku besar</string>
@@ -219,7 +219,7 @@
     <string name="intro_next">Berikutnya</string>
     <string name="intro_replay">Putar ulang perkenalan</string>
     <string name="intro1_title">Satu Seeker, satu suara</string>
-    <string name="intro1_body">Undersigned adalah lapisan ulasan di samping dApp Store. Hanya dompet dengan Seeker Genesis Token yang dihitung: satu perangkat, satu suara. Tidak ada yang bisa dibeli yang mengubah skor bertanda tangan.</string>
+    <string name="intro1_body">Undersigned adalah lapisan ulasan di samping dApp Store. Hanya dompet yang memegang Seeker Genesis Token yang dihitung: satu perangkat, satu suara. Tidak ada pembayaran ke Undersigned yang mengubah skor bertanda tangan; SKR yang di-stake dapat menaikkan bobot ulasan, paling tinggi 3×.</string>
     <string name="intro2_title">Ditandatangani, bukan diketik</string>
     <string name="intro2_body">Setiap ulasan adalah transaksi kecil yang Anda setujui di ponsel dengan double-tap. Dompet Anda hanya membayar biaya jaringan yang ditetapkannya sendiri. Undersigned tidak pernah menyimpan kunci atau dana Anda.</string>
     <string name="intro3_title">Di samping toko, bukan menggantikannya</string>
@@ -314,7 +314,7 @@
     <string name="howto4_sub">Setiap penilaian juga sebuah tanda tangan</string>
     <string name="howto4_body">Bermanfaat — mengurutkan ulasan. Satu suara per dompet, berbobot seperti ulasan.\nTandai — dicurigai spam, penyalahgunaan, di luar topik atau menyesatkan. Saat mencapai konsensus, pembaca menyembunyikan catatan itu.\nTampak asli — mengimbangi tanda yang menurut Anda salah.\nSanggah — jika catatan Anda sendiri disembunyikan, satu balasan yang ditandatangani menaikkan bobot yang diperlukan untuk tetap menyembunyikannya.</string>
     <string name="howto4_note_title">Tidak ada yang dibayar untuk semua ini</string>
-    <string name="howto4_note">Reputasi Anda adalah hitungan dan rumus yang dipublikasikan — tidak ada yang bisa Anda beli untuk mengubahnya. Putar ulang langkah-langkah ini kapan saja dari Pengaturan.</string>
+    <string name="howto4_note">Reputasi Anda adalah hitungan dan rumus yang dipublikasikan; tidak ada pembayaran ke Undersigned yang mengubahnya. Ulangi langkah ini kapan saja dari Setelan.</string>
     <string name="empty_search_title">Tidak ada dApp dengan nama itu</string>
     <string name="empty_search_body">Tidak ada yang cocok dengan \"%1$s\" di katalog toko.</string>
     <string name="reread_catalogue">Baca ulang katalog</string>
@@ -995,4 +995,9 @@
     <string name="promoted_score_note">Hanya ulasan yang penulisnya membayar untuk mempromosikannya, dengan bobot biasa. Dicantumkan terpisah dari ulasan independen.</string>
     <string name="reviews_group_promoted">Ulasan dipromosikan · berbayar</string>
     <string name="reviews_group_promoted_note">Ulasan yang penulisnya sendiri membayar Undersigned untuk mempromosikannya. Dihitung sekali dengan bobot yang sama seperti semua orang, dan dipisahkan dari ulasan independen.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Dengan membayar, Anda menegaskan tidak dibayar, dipekerjakan, atau bertindak atas nama penerbit aplikasi ini atau pesaingnya.</string>
+    <string name="withdrawal_consent">Mulai sekarang. Saya paham saya kehilangan hak pembatalan 14 hari, jika ada, begitu pembayaran dikonfirmasi di rantai.</string>
+    <string name="withdrawal_confirmed">Anda meminta penyediaan segera dan mengakui kehilangan hak pembatalan 14 hari, jika ada. Tanda terima Anda adalah transaksi di rantai %1$s.</string>
 </resources>

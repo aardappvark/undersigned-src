@@ -33,7 +33,12 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
                     sol: Double = AppConfig.Payment.PRO_SOL, skr: Double = AppConfig.Payment.PRO_SKR, record: String? = null): Result<Receipt> {
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
         if (runCatching { GeoBlocker(context).isBlocked() }.getOrDefault(false)) return Result.failure(Exception("Nothing was charged. Payment is not available in this region because of sanctions and legal restrictions."))
-        if (WalletScreening.isSanctioned(signerAddress)) return Result.failure(Exception("Nothing was charged. This wallet address appears on a sanctions list and cannot be used with this app."))
+        // Payments fail CLOSED (compliance review, 9 Oct 2026): if the sanctions screen cannot run, nothing is charged.
+        when (WalletScreening.screenForPayment(signerAddress)) {
+            null -> return Result.failure(Exception("Nothing was charged. The sanctions check could not be completed just now; try again in a minute."))
+            true -> return Result.failure(Exception("Nothing was charged. This wallet address appears on a sanctions list and cannot be used with this app."))
+            false -> {}
+        }
         val lamports = AppConfig.Payment.lamports(sol)
         val skrRaw = AppConfig.Payment.skrRaw(skr)
 

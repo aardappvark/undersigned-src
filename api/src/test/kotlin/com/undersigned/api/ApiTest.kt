@@ -92,6 +92,19 @@ class BillingTest {
         assertEquals(p.endsAt + Config.PASS_DAYS * 86_400, topped.endsAt)
     }
 
+    @Test fun `no pass for a listed payer, and none while the sanctions screen cannot run`() {
+        val txs = mutableMapOf<String, TxInfo>()
+        var answer: Boolean? = true
+        val b = Billing(tempDb(), { txs[it] }, { false }, { answer })
+        fun redeem(s: String) = b.redeem(s, payer.sign(b.message(s).toByteArray()), now = 1_000_000)
+        txs[sig('a')] = tx(sig('a'))
+        assertEquals(403, assertFailsWith<Billing.Refused> { redeem(sig('a')) }.status)   // listed
+        answer = null
+        assertEquals(503, assertFailsWith<Billing.Refused> { redeem(sig('a')) }.status)   // screen unavailable: fail closed
+        answer = false
+        assertEquals(Config.PASS_REQUESTS, redeem(sig('a')).requestsLeft)                 // clear: issued
+    }
+
     @Test fun `checkout secret redeems its own payment and nothing else`() {
         val txs = mutableMapOf<String, TxInfo>()
         val b = Billing(tempDb(), { txs[it] }, { false })

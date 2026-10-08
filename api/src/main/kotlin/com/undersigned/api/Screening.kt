@@ -14,6 +14,14 @@ object Screening {
     )
     private val cache = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, Boolean>>()
 
+    /** For payments: null when TRM could not answer (the caller refuses; fail closed). */
+    fun screenForPayment(address: String): Boolean? {
+        if (address in SANCTIONED) return true
+        cache[address]?.takeIf { System.currentTimeMillis() - it.first < 24 * 3600_000L }?.let { return it.second }
+        isSanctioned(address)
+        return cache[address]?.second
+    }
+
     fun isSanctioned(address: String): Boolean {
         if (address in SANCTIONED) return true
         cache[address]?.takeIf { System.currentTimeMillis() - it.first < 24 * 3600_000L }?.let { return it.second }

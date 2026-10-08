@@ -52,7 +52,7 @@
     <string name="detail_update_review">I-update ang aking review</string>
     <string name="detail_revoke_review">I-withdraw ang aking review</string>
     <string name="detail_score_title">Naka-sign na iskor</string>
-    <string name="detail_score_sub">Karaniwan ng mga review mula sa mga sertipikadong device (ngayon: may hawak ng Seeker Genesis Token), tinimbang ng dala ng bawat review (tagal ng install, paggamit, nakasulat na tala) at ng naka-stake na SKR, isang token na mabibili ng sinuman (hanggang 3×). Walang bayad sa Undersigned na pumapasok dito; may sarili ring iskor ang mga review ng Pro member. Hindi kailanman binibilang ang mga wallet ng Undersigned. Opinyon ng mga indibidwal na may-ari, hindi ang rating ng store.</string>
+    <string name="detail_score_sub">Karaniwan ng mga review mula sa mga sertipikadong device (ngayon: may hawak ng Seeker Genesis Token), tinimbang ng dala ng bawat review (tagal ng install, paggamit, nakasulat na tala) at ng SKR na naka-stake ng wallet (hanggang 3×). Ipinagpapalit ang SKR, kaya makukuha ang bahaging ito ng bigat; hindi inirerekomenda ng Undersigned na bumili o mag-stake nito. Walang bayad sa Undersigned na pumapasok sa iskor; may sarili ring iskor ang mga review ng Pro member. Hindi kailanman binibilang ang mga wallet ng Undersigned. Opinyon ng mga may-ari ng sertipikadong Seeker device, hindi ang rating ng store.</string>
     <string name="detail_rank_score">Rank score %1$s — pinaliit patungo sa 3.0 hanggang mas maraming Seeker ang mag-sign; ginagamit lang para ayusin ang listahan.</string>
     <string name="follow">Sundan</string>
     <string name="following">Sinusundan</string>
@@ -91,7 +91,7 @@
     <string name="standing_line">Binilang: %1$d · Na-withdraw: %2$d · Sagot na natanggap: %3$d · Ibinigay: %4$d</string>
     <string name="standing_agreement">Pagkakasundo ng tag sa ibang signer: %1$s</string>
     <string name="standing_since">Nag-sisign mula noong %1$s</string>
-    <string name="standing_note2">Bilang lang. Walang iskor, walang bibilhin.</string>
+    <string name="standing_note2">Mga bilang lang. Walang iskor, at walang bayad na nagbabago sa mga ito.</string>
     <string name="store_reviewer_genesis">May-ari ng Seeker</string>
     <string name="store_reviewer_nogenesis">walang nahanap na na-verify na device</string>
     <string name="store_reviewer_signed_here">nag-sign din dito</string>
@@ -199,7 +199,7 @@
     <string name="standing_sgt_yes">May nahanap na attested device (%1$s): binibilang ang mga review mo.</string>
     <string name="standing_sgt_no">Walang attested-device credential sa wallet na ito (sa ngayon: ang Seeker Genesis Token): hindi mabibilang ang mga review mo.</string>
     <string name="standing_stake">Naka-stake na SKR na nabasa sa chain: %1$s (timbang %2$s×)</string>
-    <string name="standing_note">Binabasa ang mga timbang mula sa chain. Hindi kailanman hihiling ang Undersigned na mag-stake, bumili, o maghawak ka ng kahit ano.</string>
+    <string name="standing_note">Binabasa ang bigat mula sa chain: ang device at naka-stake na SKR. Hindi ito kailanman binabago ng Pro at ng mga bayad sa Undersigned.</string>
     <string name="settings_ledger">Ang Ledger</string>
     <string name="settings_ledger_body">Registry address %1$s. Matutuklasan ng kahit sino ang bawat review sa pamamagitan ng address na ito. Direktang binabasa ito ng app na ito mula sa chain, hindi mula sa server namin.</string>
     <string name="settings_refresh_ledger">Basahing muli ang ledger</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">Susunod</string>
     <string name="intro_replay">I-replay ang intro</string>
     <string name="intro1_title">Isang Seeker, isang boses</string>
-    <string name="intro1_body">Ang Undersigned ay isang patong ng review sa tabi ng dApp Store. Wallet lang na may Seeker Genesis Token ang binibilang: isang device, isang boses. Walang mabibili na nagbabago sa pinirmahang iskor.</string>
+    <string name="intro1_body">Ang Undersigned ay isang patong ng review sa tabi ng dApp Store. Binibilang lang ang mga wallet na may Seeker Genesis Token: isang device, isang boses. Walang bayad sa Undersigned na nagbabago sa pinirmahang iskor; puwedeng itaas ng naka-stake na SKR ang bigat ng review, hanggang 3×.</string>
     <string name="intro2_title">Naka-sign, hindi lang naka-type</string>
     <string name="intro2_body">Ang bawat review ay isang maliit na transaction na inaaprubahan mo sa telepono gamit ang double-tap. Babayaran lang ng wallet mo ang network fee na sarili nitong itinakda. Hindi kailanman hawak ng Undersigned ang mga key o pondo mo.</string>
     <string name="intro3_title">Sa tabi ng store, hindi kapalit nito</string>
@@ -319,7 +319,7 @@
     <string name="howto4_sub">Isang signature rin ang bawat paghatol</string>
     <string name="howto4_body">Helpful — inaayos ang mga review. Isang boto bawat wallet, may timbang tulad ng review.\nFlag — pinaghihinalaang spam, abuso, wala sa paksa o nakaliligaw. Sa consensus, itatago ito ng mga reader.\nMukhang tunay — nagbabawas sa mga flag na sa palagay mo ay mali.\nDispute — kung nakatago ang sarili mong record, isang naka-sign na sagot ang nagtataas ng timbang na kailangan para manatili itong nakatago.</string>
     <string name="howto4_note_title">Walang binabayaran dito</string>
-    <string name="howto4_note">Ang katayuan mo ay bilang at isang pampublikong formula — walang mabibili na makakapagbago nito. I-replay ang mga hakbang na ito anumang oras mula sa Settings.</string>
+    <string name="howto4_note">Ang reputasyon mo ay mga bilang at isang nakalathalang pormula; walang bayad sa Undersigned na nagbabago nito. Ulitin ang mga hakbang na ito anumang oras sa Settings.</string>
     <string name="empty_search_title">Walang dApp na ganoon ang pangalan</string>
     <string name="empty_search_body">Walang tumutugma sa \"%1$s\" sa katalogo ng store.</string>
     <string name="reread_catalogue">Basahing muli ang katalogo</string>
@@ -1014,4 +1014,9 @@
     <string name="promoted_score_note">Mga review lang na binayaran ng mismong may-akda para i-promote, sa karaniwang bigat. Hiwalay sa mga independiyenteng review.</string>
     <string name="reviews_group_promoted">Mga na-promote na review · may bayad</string>
     <string name="reviews_group_promoted_note">Mga review na binayaran ng mismong may-akda sa Undersigned para i-promote. Binibilang nang isang beses sa parehong bigat ng lahat, at hiwalay sa mga independiyenteng review.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Sa pagbabayad, kinukumpirma mong hindi ka binabayaran, empleyado, o kumikilos para sa publisher ng app na ito o sa isang kakumpitensya.</string>
+    <string name="withdrawal_consent">Simulan na. Naiintindihan kong mawawala ang anumang 14-araw na karapatang umatras kapag nakumpirma na sa chain ang bayad.</string>
+    <string name="withdrawal_confirmed">Hiniling mo ang agarang pagbibigay at kinilalang mawawala ang anumang 14-araw na karapatang umatras. Ang resibo mo ay ang transaksyon sa chain na %1$s.</string>
 </resources>

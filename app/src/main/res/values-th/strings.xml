@@ -42,7 +42,7 @@
     <string name="detail_update_review">อัปเดตรีวิวของฉัน</string>
     <string name="detail_revoke_review">ถอนรีวิวของฉัน</string>
     <string name="detail_score_title">คะแนนที่ลงลายเซ็น</string>
-    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วยสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) และ SKR ที่สเตก ซึ่งเป็นโทเคนที่ใครก็ซื้อได้ (สูงสุด 3×) ไม่มีการชำระเงินให้ Undersigned เข้ามา รีวิวของสมาชิก Pro มีคะแนนของตัวเองด้วย กระเป๋าของ Undersigned ไม่ถูกนับเลย ความเห็นของเจ้าของแต่ละคน ไม่ใช่คะแนนของสโตร์</string>
+    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วยสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) และ SKR ที่กระเป๋าสเตกไว้ (สูงสุด 3×) SKR มีการซื้อขาย ส่วนนี้ของน้ำหนักจึงหามาได้ Undersigned ไม่แนะนำให้ซื้อหรือสเตก ไม่มีการชำระเงินให้ Undersigned อยู่ในคะแนน รีวิวของสมาชิก Pro มีคะแนนของตัวเองด้วย กระเป๋าของ Undersigned ไม่ถูกนับเลย ความเห็นของเจ้าของอุปกรณ์ Seeker ที่รับรองแล้ว ไม่ใช่คะแนนของสโตร์</string>
     <string name="detail_rank_score">คะแนนอันดับ %1$s — ถูกดึงเข้าหา 3.0 จนกว่าจะมี Seeker ลงลายเซ็นเพิ่มขึ้น ใช้เพื่อจัดเรียงรายการเท่านั้น</string>
     <string name="follow">ติดตาม</string>
     <string name="following">กำลังติดตาม</string>
@@ -80,7 +80,7 @@
     <string name="standing_line">นับแล้ว: %1$d · ถอนแล้ว: %2$d · ได้รับการตอบกลับ: %3$d · ให้ไปแล้ว: %4$d</string>
     <string name="standing_agreement">ความสอดคล้องของแท็กกับผู้ลงลายเซ็นรายอื่น: %1$s</string>
     <string name="standing_since">ลงลายเซ็นมาตั้งแต่ %1$s</string>
-    <string name="standing_note2">นับจำนวนเท่านั้น ไม่มีคะแนน ไม่มีอะไรให้ซื้อ</string>
+    <string name="standing_note2">นับจำนวนเท่านั้น ไม่มีคะแนน และไม่มีการชำระเงินใดเปลี่ยนได้</string>
     <string name="store_reviewer_genesis">เจ้าของ Seeker</string>
     <string name="store_reviewer_nogenesis">ไม่พบอุปกรณ์ที่ได้รับการรับรอง</string>
     <string name="store_reviewer_signed_here">ลงลายเซ็นที่นี่ด้วย</string>
@@ -179,7 +179,7 @@
     <string name="standing_sgt_yes">พบอุปกรณ์ที่ได้รับการรับรอง (%1$s): รีวิวของคุณถูกนับ</string>
     <string name="standing_sgt_no">ไม่มีข้อมูลรับรองอุปกรณ์ในกระเป๋าเงินนี้ (ปัจจุบันคือ Seeker Genesis Token): รีวิวของคุณจะไม่ถูกนับ</string>
     <string name="standing_stake">SKR ที่สเตกไว้ อ่านจากเชน: %1$s (น้ำหนัก %2$s เท่า)</string>
-    <string name="standing_note">น้ำหนักถูกอ่านจากเชน Undersigned ไม่เคยขอให้คุณสเตก ซื้อ หรือถือครองสิ่งใด</string>
+    <string name="standing_note">น้ำหนักอ่านจากเชน: อุปกรณ์และ SKR ที่สเตก Pro และการชำระเงินให้ Undersigned ไม่เคยเปลี่ยนน้ำหนัก</string>
     <string name="settings_ledger">บัญชีบันทึก</string>
     <string name="settings_ledger_body">ที่อยู่รีจิสทรี %1$s ทุกรีวิวสามารถค้นพบได้โดยใครก็ตามผ่านที่อยู่นี้ แอปนี้อ่านข้อมูลนี้ตรงจากเชน ไม่ใช่จากเซิร์ฟเวอร์ของเรา</string>
     <string name="settings_refresh_ledger">อ่านบัญชีบันทึกใหม่</string>
@@ -203,7 +203,7 @@
     <string name="intro_next">ถัดไป</string>
     <string name="intro_replay">เล่นอินโทรซ้ำ</string>
     <string name="intro1_title">หนึ่ง Seeker หนึ่งเสียง</string>
-    <string name="intro1_body">Undersigned คือชั้นรีวิวข้าง dApp Store นับเฉพาะกระเป๋าที่มี Seeker Genesis Token: หนึ่งอุปกรณ์ หนึ่งเสียง ไม่มีสิ่งใดที่ซื้อได้เปลี่ยนคะแนนที่ลงนาม</string>
+    <string name="intro1_body">Undersigned คือชั้นรีวิวข้าง dApp Store นับเฉพาะกระเป๋าที่ถือ Seeker Genesis Token: หนึ่งเครื่อง หนึ่งเสียง ไม่มีการชำระเงินให้ Undersigned ใดเปลี่ยนคะแนนที่ลงนาม ส่วน SKR ที่สเตกเพิ่มน้ำหนักรีวิวได้สูงสุด 3×</string>
     <string name="intro2_title">ลงลายเซ็น ไม่ใช่พิมพ์</string>
     <string name="intro2_body">รีวิวทุกรายการคือธุรกรรมเล็ก ๆ ที่คุณอนุมัติบนโทรศัพท์ด้วยการแตะสองครั้ง กระเป๋าเงินของคุณจ่ายเฉพาะค่าธรรมเนียมเครือข่ายที่มันกำหนดเอง Undersigned ไม่เคยถือกุญแจหรือเงินทุนของคุณ</string>
     <string name="intro3_title">อยู่ข้างสโตร์ ไม่ใช่แทนที่</string>
@@ -298,7 +298,7 @@
     <string name="howto4_sub">การตัดสินทุกครั้งก็เป็นลายเซ็นเช่นกัน</string>
     <string name="howto4_body">มีประโยชน์ — จัดเรียงรีวิว หนึ่งเสียงต่อกระเป๋าเงิน มีน้ำหนักเหมือนรีวิว\nปักธง — สงสัยว่าเป็นสแปม การละเมิด นอกประเด็น หรือทำให้เข้าใจผิด เมื่อถึงฉันทามติ ผู้อ่านจะซ่อนบันทึกนั้น\nดูเหมือนของจริง — หักล้างการปักธงที่คุณคิดว่าผิด\nโต้แย้ง — หากบันทึกของคุณเองถูกซ่อน การตอบกลับที่ลงลายเซ็นหนึ่งครั้งจะเพิ่มน้ำหนักที่ต้องใช้เพื่อให้ยังคงถูกซ่อนอยู่</string>
     <string name="howto4_note_title">ไม่มีสิ่งใดในนี้ที่ต้องจ่ายเงิน</string>
-    <string name="howto4_note">สถานะของคุณคือจำนวนนับและสูตรที่เผยแพร่ไว้ — ไม่มีสิ่งใดที่คุณซื้อได้จะเปลี่ยนมัน เล่นขั้นตอนเหล่านี้ซ้ำได้ทุกเมื่อจากการตั้งค่า</string>
+    <string name="howto4_note">ชื่อเสียงของคุณคือจำนวนนับและสูตรที่เผยแพร่ ไม่มีการชำระเงินให้ Undersigned ใดเปลี่ยนได้ ดูขั้นตอนเหล่านี้ซ้ำได้ทุกเมื่อจากการตั้งค่า</string>
     <string name="empty_search_title">ไม่มี dApp ชื่อนี้</string>
     <string name="empty_search_body">ไม่มีสิ่งใดในแคตตาล็อกของสโตร์ที่ตรงกับ \"%1$s\"</string>
     <string name="reread_catalogue">อ่านแคตตาล็อกใหม่</string>
@@ -979,4 +979,9 @@
     <string name="promoted_score_note">เฉพาะรีวิวที่ผู้เขียนจ่ายเงินเพื่อโปรโมต ด้วยน้ำหนักปกติ แสดงแยกจากรีวิวอิสระ</string>
     <string name="reviews_group_promoted">รีวิวที่โปรโมต · ชำระเงิน</string>
     <string name="reviews_group_promoted_note">รีวิวที่ผู้เขียนเองจ่ายเงินให้ Undersigned เพื่อโปรโมต นับครั้งเดียวด้วยน้ำหนักเท่ากับทุกคน และแยกจากรีวิวอิสระ</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">เมื่อชำระเงิน คุณยืนยันว่าไม่ได้รับค่าจ้าง ไม่ได้เป็นลูกจ้าง และไม่ได้ทำการแทนผู้เผยแพร่แอปนี้หรือคู่แข่ง</string>
+    <string name="withdrawal_consent">เริ่มเลย ฉันเข้าใจว่าจะเสียสิทธิ์ยกเลิกภายใน 14 วัน (ถ้ามี) ทันทีที่การชำระเงินได้รับการยืนยันบนเชน</string>
+    <string name="withdrawal_confirmed">คุณขอให้ส่งมอบทันทีและรับทราบว่าเสียสิทธิ์ยกเลิกภายใน 14 วัน (ถ้ามี) ใบเสร็จของคุณคือธุรกรรมบนเชน %1$s</string>
 </resources>

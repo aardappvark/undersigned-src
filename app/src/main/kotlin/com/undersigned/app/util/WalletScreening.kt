@@ -27,10 +27,17 @@ object WalletScreening {
     suspend fun isSanctioned(address: String): Boolean {
         if (!AppConfig.Features.WALLET_SCREENING_ENABLED) return false
         if (address in SANCTIONED_WALLET_ADDRESSES) return true
+        return trmLabs(address) == true
+    }
+
+    /** The answer for a PAYMENT: null when TRM could not be asked. Payments to the treasury refuse on null (fail closed). */
+    suspend fun screenForPayment(address: String): Boolean? {
+        if (!AppConfig.Features.WALLET_SCREENING_ENABLED) return false
+        if (address in SANCTIONED_WALLET_ADDRESSES) return true
         return trmLabs(address)
     }
 
-    private suspend fun trmLabs(address: String): Boolean = withContext(Dispatchers.IO) {
+    private suspend fun trmLabs(address: String): Boolean? = withContext(Dispatchers.IO) {
         try {
             val c = URL("https://api.trmlabs.com/public/v1/sanctions/screening").openConnection() as HttpURLConnection
             c.requestMethod = "POST"; c.doOutput = true
@@ -43,9 +50,9 @@ object WalletScreening {
             val hit = if (code in 200..299) {
                 val body = c.inputStream.bufferedReader().use { it.readText() }
                 body.contains("\"isSanctioned\":true") || body.contains("\"isSanctioned\": true")
-            } else { Log.w(TAG, "TRM Labs returned $code"); false }
+            } else { Log.w(TAG, "TRM Labs returned $code"); null }
             c.disconnect(); hit
-        } catch (e: Exception) { Log.w(TAG, "TRM Labs unavailable: ${e.message?.take(60)}"); false }
+        } catch (e: Exception) { Log.w(TAG, "TRM Labs unavailable: ${e.message?.take(60)}"); null }
     }
 
     private const val TAG = "WalletScreening"

@@ -51,9 +51,9 @@
     <string name="howto4_sub">Every judgement is a signature too</string>
     <string name="howto4_body">Helpful — orders reviews. One vote per wallet, weighted like a review.\nFlag — suspected spam, abuse, off topic or misleading. At consensus, readers hide the record.\nLooks genuine — offsets flags you think are wrong.\nDispute — if your own record is hidden, one signed reply raises the weight needed to keep it hidden.</string>
     <string name="howto4_note_title">Nothing is paid for any of this</string>
-    <string name="howto4_note">Your standing is counts and a published formula — nothing you can buy moves it. Replay these steps any time from Settings.</string>
+    <string name="howto4_note">Your standing is counts and a published formula; no payment to Undersigned moves it. Replay these steps any time from Settings.</string>
     <string name="intro1_title">One Seeker, one voice</string>
-    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing you can buy changes the signed score.</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. No payment to Undersigned changes the signed score; staked SKR can raise a review\'s weight, capped at 3×.</string>
     <string name="intro2_title">Signed, not typed</string>
     <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
     <string name="intro3_title">Beside the store, not instead of it</string>
@@ -138,7 +138,7 @@
     <string name="detail_update_review">Update my review</string>
     <string name="detail_revoke_review">Withdraw my review</string>
     <string name="detail_score_title">Signed score</string>
-    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by what each review carries (install time, usage, a written note) and by staked SKR, a token anyone can buy (up to 3×). No payment to Undersigned enters it; Pro members\' reviews are also shown as their own score. Undersigned\'s own wallets are never counted. Opinions of individual owners, not the store\'s rating.</string>
+    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by what each review carries (install time, usage, a written note) and by SKR the wallet has staked (capped at 3×). SKR is traded, so this part of the weight can be acquired; Undersigned does not recommend buying or staking it. No payment to Undersigned enters the score; Pro members\' reviews are also shown as their own score. Undersigned\'s own wallets are never counted. Opinions of owners of attested Seeker devices, not the store\'s rating.</string>
     <string name="detail_rank_score">Rank score %1$s — shrunk toward 3.0 until more Seekers sign; used only to order the list.</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
@@ -179,7 +179,7 @@
     <string name="standing_line">Counted: %1$d · Withdrawn: %2$d · Replies received: %3$d · Replies given: %4$d</string>
     <string name="standing_agreement">Tag agreement with other signers: %1$s</string>
     <string name="standing_since">Signing since %1$s</string>
-    <string name="standing_note2">Counts only. No score, nothing to buy.</string>
+    <string name="standing_note2">Counts only. No score, and no payment changes it.</string>
     <string name="store_reviewer_genesis">Seeker owner</string>
     <string name="store_reviewer_nogenesis">no attested device found</string>
     <string name="store_reviewer_signed_here">also signed here</string>
@@ -298,7 +298,7 @@
     <string name="standing_sgt_yes">Attested device found (%1$s): your reviews count.</string>
     <string name="standing_sgt_no">No attested-device credential in this wallet (today: the Seeker Genesis Token): your reviews would not be counted.</string>
     <string name="standing_stake">Staked SKR read on-chain: %1$s (weight %2$s×)</string>
-    <string name="standing_note">Weights are read from the chain. Nothing you can buy changes them, Pro included.</string>
+    <string name="standing_note">Weights are read from the chain: the device and staked SKR. Pro and payments to Undersigned never change them.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Registry address %1$s. Every review is discoverable by anyone through this address. This app reads it straight from the chain, not from a server of ours.</string>
     <string name="settings_refresh_ledger">Re-read the ledger</string>
@@ -1036,4 +1036,9 @@
     <string name="promoted_score_note">Only reviews their own authors paid to promote, at their ordinary weight. Listed apart from organic reviews.</string>
     <string name="reviews_group_promoted">Promoted reviews · paid</string>
     <string name="reviews_group_promoted_note">Reviews their own authors paid Undersigned to promote. Counted once at the same weight as everyone, and kept apart from organic reviews.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">By paying, you confirm you are not paid by, employed by or acting for this app\'s publisher or a competitor.</string>
+    <string name="withdrawal_consent">Start now. I understand I lose any 14-day right to withdraw once the payment is confirmed on-chain.</string>
+    <string name="withdrawal_confirmed">You asked for immediate supply and acknowledged losing any 14-day right to withdraw. Your receipt is the on-chain transaction %1$s.</string>
 </resources>

@@ -52,7 +52,7 @@
     <string name="detail_update_review">Ενημέρωση της κριτικής μου</string>
     <string name="detail_revoke_review">Απόσυρση της κριτικής μου</string>
     <string name="detail_score_title">Υπογεγραμμένη βαθμολογία</string>
-    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), σταθμισμένος με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση) και με το κλειδωμένο SKR, ένα token που μπορεί να αγοράσει οποιοσδήποτε (έως 3×). Καμία πληρωμή στο Undersigned δεν μπαίνει· οι κριτικές μελών Pro έχουν και δική τους βαθμολογία. Τα πορτοφόλια του Undersigned δεν μετρούν ποτέ. Απόψεις ιδιοκτητών, όχι η βαθμολογία του καταστήματος.</string>
+    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), σταθμισμένος με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση) και με το SKR που έχει κλειδώσει το πορτοφόλι (έως 3×). Το SKR διαπραγματεύεται, οπότε αυτό το μέρος του βάρους αποκτάται· το Undersigned δεν προτείνει αγορά ή κλείδωμα. Καμία πληρωμή στο Undersigned δεν μπαίνει στη βαθμολογία· οι κριτικές μελών Pro έχουν και δική τους βαθμολογία. Τα πορτοφόλια του Undersigned δεν μετρούν ποτέ. Απόψεις κατόχων πιστοποιημένων συσκευών Seeker, όχι η βαθμολογία του καταστήματος.</string>
     <string name="detail_rank_score">Βαθμολογία κατάταξης %1$s — συρρικνώνεται προς το 3,0 έως ότου υπογράψουν περισσότεροι Seekers· χρησιμοποιείται μόνο για την ταξινόμηση της λίστας.</string>
     <string name="follow">Ακολούθηση</string>
     <string name="following">Ακολουθείτε</string>
@@ -88,7 +88,7 @@
     <string name="standing_line">Μετρήθηκαν: %1$d · Αποσύρθηκαν: %2$d · Απαντήσεις που ελήφθησαν: %3$d · Απαντήσεις που δόθηκαν: %4$d</string>
     <string name="standing_agreement">Συμφωνία ετικετών με άλλους υπογράφοντες: %1$s</string>
     <string name="standing_since">Υπογράφει από %1$s</string>
-    <string name="standing_note2">Μόνο μετρήσεις. Καμία βαθμολογία, τίποτα προς αγορά.</string>
+    <string name="standing_note2">Μόνο μετρήσεις. Καμία βαθμολογία, και καμία πληρωμή δεν τις αλλάζει.</string>
     <string name="store_reviewer_genesis">Κάτοχος Seeker</string>
     <string name="store_reviewer_nogenesis">δεν βρέθηκε πιστοποιημένη συσκευή</string>
     <string name="store_reviewer_signed_here">υπέγραψε επίσης εδώ</string>
@@ -196,7 +196,7 @@
     <string name="standing_sgt_yes">Βρέθηκε πιστοποιημένη συσκευή (%1$s): οι κριτικές σας μετράνε.</string>
     <string name="standing_sgt_no">Δεν υπάρχει διαπιστευτήριο πιστοποιημένης συσκευής σε αυτό το πορτοφόλι (σήμερα: το Seeker Genesis Token): οι κριτικές σας δεν θα μετρούσαν.</string>
     <string name="standing_stake">Staked SKR διαβασμένο on-chain: %1$s (βάρος %2$s×)</string>
-    <string name="standing_note">Τα βάρη διαβάζονται από την αλυσίδα. Το Undersigned δεν σας ζητά ποτέ να κάνετε stake, να αγοράσετε ή να κατέχετε οτιδήποτε.</string>
+    <string name="standing_note">Τα βάρη διαβάζονται από το blockchain: η συσκευή και το κλειδωμένο SKR. Το Pro και οι πληρωμές στο Undersigned δεν τα αλλάζουν ποτέ.</string>
     <string name="settings_ledger">Ledger</string>
     <string name="settings_ledger_body">Διεύθυνση μητρώου %1$s. Κάθε κριτική είναι ανιχνεύσιμη από τον καθένα μέσω αυτής της διεύθυνσης. Αυτή η εφαρμογή τα διαβάζει απευθείας από την αλυσίδα, όχι από server δικό μας.</string>
     <string name="settings_refresh_ledger">Επανάγνωση του ledger</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Επόμενο</string>
     <string name="intro_replay">Επανάληψη εισαγωγής</string>
     <string name="intro1_title">Ένας Seeker, μία φωνή</string>
-    <string name="intro1_body">Το Undersigned είναι ένα επίπεδο κριτικών δίπλα στο dApp Store. Μετρούν μόνο πορτοφόλια με Seeker Genesis Token: μία συσκευή, μία φωνή. Τίποτα που αγοράζεται δεν αλλάζει την υπογεγραμμένη βαθμολογία.</string>
+    <string name="intro1_body">Το Undersigned είναι ένα επίπεδο κριτικών δίπλα στο dApp Store. Μετρούν μόνο πορτοφόλια με Seeker Genesis Token: μία συσκευή, μία φωνή. Καμία πληρωμή στο Undersigned δεν αλλάζει την υπογεγραμμένη βαθμολογία· το κλειδωμένο SKR μπορεί να αυξήσει το βάρος μιας κριτικής, έως 3×.</string>
     <string name="intro2_title">Υπογεγραμμένο, όχι πληκτρολογημένο</string>
     <string name="intro2_body">Κάθε κριτική είναι μια μικρή συναλλαγή που εγκρίνετε στο τηλέφωνο με το διπλό πάτημα. Το πορτοφόλι σας πληρώνει μόνο το τέλος δικτύου που ορίζει. Το Undersigned δεν κατέχει ποτέ τα κλειδιά ή τα κεφάλαιά σας.</string>
     <string name="intro3_title">Δίπλα στο κατάστημα, όχι αντί αυτού</string>
@@ -317,7 +317,7 @@
     <string name="howto4_sub">Κάθε κρίση είναι κι αυτή μια υπογραφή</string>
     <string name="howto4_body">Χρήσιμη — ταξινομεί τις κριτικές. Μία ψήφος ανά πορτοφόλι, σταθμισμένη όπως μια κριτική.\nΕπισήμανση — πιθανό spam, κακοποίηση, εκτός θέματος ή παραπλανητικό. Με συναίνεση, οι αναγνώστες κρύβουν την εγγραφή.\nΦαίνεται γνήσια — αντισταθμίζει επισημάνσεις που θεωρείτε λάθος.\nΈνσταση — αν η δική σας εγγραφή κρυφτεί, μία υπογεγραμμένη απάντηση αυξάνει το βάρος που χρειάζεται για να παραμείνει κρυμμένη.</string>
     <string name="howto4_note_title">Τίποτα δεν πληρώνεται για κανένα από αυτά</string>
-    <string name="howto4_note">Η θέση σας είναι μετρήσεις και ένας δημοσιευμένος τύπος — τίποτα που μπορείτε να αγοράσετε δεν τη μετακινεί. Επαναλάβετε αυτά τα βήματα όποτε θέλετε από τις Ρυθμίσεις.</string>
+    <string name="howto4_note">Η φήμη σας είναι μετρήσεις και ένας δημοσιευμένος τύπος· καμία πληρωμή στο Undersigned δεν την αλλάζει. Επαναλάβετε αυτά τα βήματα όποτε θέλετε από τις Ρυθμίσεις.</string>
     <string name="empty_search_title">Κανένα dApp με αυτό το όνομα</string>
     <string name="empty_search_body">Τίποτα στον κατάλογο του καταστήματος δεν ταιριάζει με \"%1$s\".</string>
     <string name="reread_catalogue">Επανάγνωση του καταλόγου</string>
@@ -1010,4 +1010,9 @@
     <string name="promoted_score_note">Μόνο κριτικές που οι συντάκτες τους πλήρωσαν για να προωθηθούν, με το συνηθισμένο βάρος. Χωριστά από τις ανεξάρτητες.</string>
     <string name="reviews_group_promoted">Προωθημένες κριτικές · επί πληρωμή</string>
     <string name="reviews_group_promoted_note">Κριτικές που οι ίδιοι οι συντάκτες τους πλήρωσαν το Undersigned για να προωθηθούν. Μετρούν μία φορά με το ίδιο βάρος όπως όλες και μένουν χωριστά από τις ανεξάρτητες.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Πληρώνοντας, επιβεβαιώνετε ότι δεν πληρώνεστε, δεν απασχολείστε και δεν ενεργείτε για τον εκδότη αυτής της εφαρμογής ή έναν ανταγωνιστή.</string>
+    <string name="withdrawal_consent">Έναρξη τώρα. Κατανοώ ότι χάνω κάθε δικαίωμα υπαναχώρησης 14 ημερών μόλις η πληρωμή επιβεβαιωθεί στο blockchain.</string>
+    <string name="withdrawal_confirmed">Ζητήσατε άμεση παροχή και αναγνωρίσατε την απώλεια κάθε δικαιώματος υπαναχώρησης 14 ημερών. Η απόδειξή σας είναι η συναλλαγή στο blockchain %1$s.</string>
 </resources>

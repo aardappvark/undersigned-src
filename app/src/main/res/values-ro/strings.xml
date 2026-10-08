@@ -52,7 +52,7 @@
     <string name="detail_update_review">Actualizează-mi recenzia</string>
     <string name="detail_revoke_review">Retrage-mi recenzia</string>
     <string name="detail_score_title">Scor semnat</string>
-    <string name="detail_score_sub">Media recenziilor de pe dispozitive atestate (azi: deținătorii Seeker Genesis Token), ponderată de ce aduce fiecare recenzie (timp de instalare, utilizare, o notă scrisă) și de SKR în staking, un token pe care oricine îl poate cumpăra (până la 3×). Nicio plată către Undersigned nu intră în ea; recenziile membrilor Pro au și scor propriu. Portofelele Undersigned nu se numără niciodată. Opinii ale proprietarilor, nu nota magazinului.</string>
+    <string name="detail_score_sub">Media recenziilor de pe dispozitive atestate (azi: deținătorii Seeker Genesis Token), ponderată de ce aduce fiecare recenzie (timp de instalare, utilizare, o notă scrisă) și de SKR-ul pe care portofelul îl are în staking (până la 3×). SKR se tranzacționează, deci această parte a greutății se poate dobândi; Undersigned nu recomandă cumpărarea sau staking-ul. Nicio plată către Undersigned nu intră în scor; recenziile membrilor Pro au și scor propriu. Portofelele Undersigned nu se numără niciodată. Opinii ale proprietarilor de dispozitive Seeker atestate, nu nota magazinului.</string>
     <string name="detail_rank_score">Scor de clasament %1$s — atras spre 3.0 până când mai multe Seekere semnează; folosit doar pentru ordonarea listei.</string>
     <string name="follow">Urmărește</string>
     <string name="following">Urmărit</string>
@@ -88,7 +88,7 @@
     <string name="standing_line">Numărate: %1$d · Retrase: %2$d · Răspunsuri primite: %3$d · Răspunsuri oferite: %4$d</string>
     <string name="standing_agreement">Concordanța etichetelor cu alți semnatari: %1$s</string>
     <string name="standing_since">Semnează din %1$s</string>
-    <string name="standing_note2">Doar numărători. Fără scor, nimic de cumpărat.</string>
+    <string name="standing_note2">Doar numărători. Fără scor, și nicio plată nu le schimbă.</string>
     <string name="store_reviewer_genesis">Proprietar Seeker</string>
     <string name="store_reviewer_nogenesis">niciun dispozitiv atestat găsit</string>
     <string name="store_reviewer_signed_here">a semnat și aici</string>
@@ -199,7 +199,7 @@
     <string name="standing_sgt_yes">Dispozitiv atestat găsit (%1$s): recenziile tale contează.</string>
     <string name="standing_sgt_no">Niciun act de atestare a dispozitivului în acest portofel (astăzi: Seeker Genesis Token): recenziile tale nu ar fi numărate.</string>
     <string name="standing_stake">SKR stake-uit citit din blockchain: %1$s (pondere %2$s×)</string>
-    <string name="standing_note">Ponderile sunt citite din blockchain. Undersigned nu-ți cere niciodată să faci stake, să cumperi sau să deții ceva.</string>
+    <string name="standing_note">Greutățile se citesc de pe lanț: dispozitivul și SKR-ul în staking. Pro și plățile către Undersigned nu le schimbă niciodată.</string>
     <string name="settings_ledger">Registru</string>
     <string name="settings_ledger_body">Adresa registrului %1$s. Fiecare recenzie poate fi găsită de oricine prin această adresă. Această aplicație le citește direct din blockchain, nu de pe un server al nostru.</string>
     <string name="settings_refresh_ledger">Recitește registrul</string>
@@ -225,7 +225,7 @@
     <string name="intro_next">Următorul</string>
     <string name="intro_replay">Rulează din nou introducerea</string>
     <string name="intro1_title">Un Seeker, o voce</string>
-    <string name="intro1_body">Undersigned este un strat de recenzii lângă dApp Store. Contează doar portofelele cu un Seeker Genesis Token: un dispozitiv, o voce. Nimic din ce se poate cumpăra nu schimbă scorul semnat.</string>
+    <string name="intro1_body">Undersigned este un strat de recenzii lângă dApp Store. Contează doar portofelele cu un Seeker Genesis Token: un dispozitiv, o voce. Nicio plată către Undersigned nu schimbă scorul semnat; SKR-ul în staking poate crește greutatea unei recenzii, până la 3×.</string>
     <string name="intro2_title">Semnat, nu tastat</string>
     <string name="intro2_body">Fiecare recenzie este o tranzacție mică pe care o aprobi pe telefon prin dubla atingere. Portofelul tău plătește doar comisionul de rețea pe care îl stabilește el. Undersigned nu deține niciodată cheile sau fondurile tale.</string>
     <string name="intro3_title">Alături de magazin, nu în locul lui</string>
@@ -321,7 +321,7 @@
     <string name="howto4_sub">Fiecare judecată este tot o semnătură</string>
     <string name="howto4_body">Utilă — ordonează recenziile. Un vot pe portofel, ponderat ca o recenzie.\nSemnalare — suspectat de spam, abuz, în afara subiectului sau înșelător. La consens, cititorii ascund înregistrarea.\nPare autentică — compensează semnalările pe care le crezi greșite.\nContestație — dacă propria ta înregistrare este ascunsă, un răspuns semnat crește ponderea necesară pentru a o menține ascunsă.</string>
     <string name="howto4_note_title">Nimic nu se plătește pentru niciunul dintre acestea</string>
-    <string name="howto4_note">Reputația ta este alcătuită din numărători și o formulă publicată — nimic ce poți cumpăra nu o schimbă. Poți relua acești pași oricând din Setări.</string>
+    <string name="howto4_note">Reputația ta înseamnă numărători și o formulă publicată; nicio plată către Undersigned nu o schimbă. Reia acești pași oricând din Setări.</string>
     <string name="empty_search_title">Niciun dApp cu acest nume</string>
     <string name="empty_search_body">Nimic din catalogul magazinului nu se potrivește cu \"%1$s\".</string>
     <string name="reread_catalogue">Recitește catalogul</string>
@@ -1028,4 +1028,9 @@
     <string name="promoted_score_note">Doar recenzii ale căror autori au plătit promovarea, cu greutatea obișnuită. Listate separat de cele independente.</string>
     <string name="reviews_group_promoted">Recenzii promovate · plătite</string>
     <string name="reviews_group_promoted_note">Recenzii ale căror autori au plătit Undersigned pentru promovare. Numărate o dată cu aceeași greutate ca toate și ținute separat de cele independente.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Plătind, confirmi că nu ești plătit, angajat sau mandatat de editorul acestei aplicații sau de un concurent.</string>
+    <string name="withdrawal_consent">Începe acum. Înțeleg că pierd orice drept de retragere de 14 zile odată ce plata este confirmată pe lanț.</string>
+    <string name="withdrawal_confirmed">Ai cerut furnizarea imediată și ai recunoscut pierderea oricărui drept de retragere de 14 zile. Chitanța ta este tranzacția de pe lanț %1$s.</string>
 </resources>

@@ -42,7 +42,7 @@
     <string name="detail_update_review">Обновить мой отзыв</string>
     <string name="detail_revoke_review">Отозвать мой отзыв</string>
     <string name="detail_score_title">Подписанная оценка</string>
-    <string name="detail_score_sub">Среднее отзывов с подтверждённых устройств (сегодня: владельцы Seeker Genesis Token), взвешенное по тому, что несёт отзыв (срок установки, использование, написанная заметка), и по застейканному SKR — токену, который может купить любой (до 3×). Никакие платежи Undersigned в неё не входят; отзывы участников Pro также показаны отдельной оценкой. Кошельки Undersigned никогда не учитываются. Мнения владельцев, а не оценка магазина.</string>
+    <string name="detail_score_sub">Среднее отзывов с подтверждённых устройств (сегодня: владельцы Seeker Genesis Token), взвешенное по тому, что несёт отзыв (срок установки, использование, написанная заметка), и по SKR, застейканному кошельком (не более 3×). SKR торгуется, поэтому эту часть веса можно приобрести; Undersigned не рекомендует покупать или стейкать его. Никакие платежи Undersigned в оценку не входят; отзывы участников Pro также показаны отдельной оценкой. Кошельки Undersigned никогда не учитываются. Мнения владельцев подтверждённых устройств Seeker, а не оценка магазина.</string>
     <string name="detail_rank_score">Рейтинговый балл %1$s — стягивается к 3,0, пока не подпишется больше Seeker; используется только для сортировки списка.</string>
     <string name="follow">Подписаться</string>
     <string name="following">Вы подписаны</string>
@@ -78,7 +78,7 @@
     <string name="standing_line">Учтено: %1$d · Отозвано: %2$d · Получено ответов: %3$d · Дано ответов: %4$d</string>
     <string name="standing_agreement">Совпадение тегов с другими подписантами: %1$s</string>
     <string name="standing_since">Подписывает с %1$s</string>
-    <string name="standing_note2">Только подсчёт. Никаких оценок, нечего покупать.</string>
+    <string name="standing_note2">Только подсчёты. Без оценки, и никакой платёж их не меняет.</string>
     <string name="store_reviewer_genesis">Владелец Seeker</string>
     <string name="store_reviewer_nogenesis">подтверждённое устройство не найдено</string>
     <string name="store_reviewer_signed_here">также подписал(а) здесь</string>
@@ -186,7 +186,7 @@
     <string name="standing_sgt_yes">Найдено подтверждённое устройство (%1$s): ваши отзывы учитываются.</string>
     <string name="standing_sgt_no">В этом кошельке нет учётных данных подтверждённого устройства (сегодня: Seeker Genesis Token): ваши отзывы не будут учитываться.</string>
     <string name="standing_stake">Застейканные SKR, считано из блокчейна: %1$s (вес %2$s×)</string>
-    <string name="standing_note">Веса считываются из блокчейна. Undersigned никогда не просит вас застейкать, купить или держать что-либо.</string>
+    <string name="standing_note">Веса читаются из блокчейна: устройство и застейканный SKR. Pro и платежи Undersigned никогда их не меняют.</string>
     <string name="settings_ledger">Реестр</string>
     <string name="settings_ledger_body">Адрес реестра %1$s. Каждый отзыв доступен для чтения кому угодно по этому адресу. Это приложение считывает их прямо из блокчейна, а не с нашего сервера.</string>
     <string name="settings_refresh_ledger">Перечитать реестр</string>
@@ -213,7 +213,7 @@
     <string name="intro_next">Далее</string>
     <string name="intro_replay">Повторить вступление</string>
     <string name="intro1_title">Один Seeker, один голос</string>
-    <string name="intro1_body">Undersigned — слой отзывов рядом с dApp Store. Учитываются только кошельки с Seeker Genesis Token: одно устройство — один голос. Ничто купленное не меняет подписанную оценку.</string>
+    <string name="intro1_body">Undersigned — слой отзывов рядом с dApp Store. Учитываются только кошельки с Seeker Genesis Token: одно устройство — один голос. Никакой платёж Undersigned не меняет подписанную оценку; застейканный SKR может повысить вес отзыва, не более чем до 3×.</string>
     <string name="intro2_title">Подписано, а не напечатано</string>
     <string name="intro2_body">Каждый отзыв — это небольшая транзакция, которую вы подтверждаете на телефоне двойным касанием. Ваш кошелёк платит только комиссию сети, которую сам устанавливает. Undersigned никогда не хранит ваши ключи или средства.</string>
     <string name="intro3_title">Рядом с магазином, а не вместо него</string>
@@ -310,7 +310,7 @@
     <string name="howto4_sub">Каждая оценка — тоже подпись</string>
     <string name="howto4_body">Полезно — упорядочивает отзывы. Один голос на кошелёк, взвешенный как отзыв.\nОтметить — подозрение на спам, злоупотребление, не по теме или вводит в заблуждение. При консенсусе читатели скрывают запись.\nВыглядит подлинным — компенсирует отметки, которые вы считаете ошибочными.\nОспорить — если ваша собственная запись скрыта, один подписанный ответ повышает вес, нужный для сохранения её скрытой.</string>
     <string name="howto4_note_title">За всё это ничего не платится</string>
-    <string name="howto4_note">Ваш статус — это подсчёты и опубликованная формула — ничто из того, что можно купить, на него не влияет. Эти шаги можно повторить в любое время в Настройках.</string>
+    <string name="howto4_note">Ваша репутация — это подсчёты и опубликованная формула; никакой платёж Undersigned её не меняет. Повторите эти шаги в любое время в Настройках.</string>
     <string name="empty_search_title">Нет dApp с таким названием</string>
     <string name="empty_search_body">В каталоге магазина ничего не соответствует \"%1$s\".</string>
     <string name="reread_catalogue">Перечитать каталог</string>
@@ -1031,4 +1031,9 @@
     <string name="promoted_score_note">Только отзывы, продвижение которых оплатили их авторы, с обычным весом. Показаны отдельно от независимых.</string>
     <string name="reviews_group_promoted">Продвигаемые отзывы · платно</string>
     <string name="reviews_group_promoted_note">Отзывы, продвижение которых их авторы оплатили Undersigned. Учитываются один раз с тем же весом, что и все, и показаны отдельно от независимых.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Оплачивая, вы подтверждаете, что вам не платит, вас не нанимает и вы не действуете от имени издателя этого приложения или конкурента.</string>
+    <string name="withdrawal_consent">Начать сейчас. Я понимаю, что теряю возможное 14-дневное право на отказ, как только платёж подтвердится в блокчейне.</string>
+    <string name="withdrawal_confirmed">Вы запросили немедленное предоставление и подтвердили утрату возможного 14-дневного права на отказ. Ваша квитанция — транзакция в блокчейне %1$s.</string>
 </resources>

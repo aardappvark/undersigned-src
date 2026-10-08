@@ -24,7 +24,7 @@ One line: **the review layer the dApp Store cannot build for itself: one Seeker,
 - Your voice counts exactly once, weighted by what you have staked, and no one can delete it.
 - See what your phone can prove about an app: whether the installed build matches the certificate the store lists, whether permissions grew between versions, whether the signing key changed.
 - Follow apps, get told when they update and whether they still work, reply to reviews, and see who is who through `.skr` names.
-- Bring your existing store reviews across in one wallet approval. Nothing to buy, nothing to stake, nothing to earn.
+- Bring your existing store reviews across in one wallet approval. Free to read and sign; no payment to Undersigned changes a score.
 
 ## Objections and answers
 

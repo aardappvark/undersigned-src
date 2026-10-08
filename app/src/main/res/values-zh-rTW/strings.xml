@@ -52,7 +52,7 @@
     <string name="detail_update_review">更新我的評價</string>
     <string name="detail_revoke_review">撤回我的評價</string>
     <string name="detail_score_title">簽署評分</string>
-    <string name="detail_score_sub">來自經認證裝置的評價平均值（目前：Seeker Genesis Token 持有者），依每則評價附帶的資訊（安裝時長、使用時長、書面備註）及質押的 SKR（任何人都能購買的代幣，最多 3×）加權。不含任何付給 Undersigned 的款項；Pro 會員的評價另有自己的評分。Undersigned 自有錢包從不計入。為個人持有者的意見，而非商店評分。</string>
+    <string name="detail_score_sub">來自經認證裝置的評價平均值（目前：Seeker Genesis Token 持有者），依每則評價附帶的資訊（安裝時長、使用時長、書面備註）及該錢包質押的 SKR（最多 3×）加權。SKR 可以交易，因此這部分權重可以取得；Undersigned 不建議購買或質押它。付給 Undersigned 的款項不計入評分；Pro 會員的評價另有自己的評分。Undersigned 自有錢包從不計入。為經認證 Seeker 裝置持有者的意見，而非商店評分。</string>
     <string name="detail_rank_score">排名評分 %1$s——在更多 Seeker 簽署之前會向 3.0 收斂;僅用於為列表排序。</string>
     <string name="follow">追蹤</string>
     <string name="following">已追蹤</string>
@@ -90,7 +90,7 @@
     <string name="standing_line">計入:%1$d · 已撤回:%2$d · 收到的回覆:%3$d · 發出的回覆:%4$d</string>
     <string name="standing_agreement">與其他簽署者的標籤一致度:%1$s</string>
     <string name="standing_since">簽署起始於 %1$s</string>
-    <string name="standing_note2">僅為計數。沒有評分,沒有任何東西可購買。</string>
+    <string name="standing_note2">只有計數。沒有評分，任何付款也不會改變它們。</string>
     <string name="store_reviewer_genesis">Seeker 持有者</string>
     <string name="store_reviewer_nogenesis">未找到已驗證裝置</string>
     <string name="store_reviewer_signed_here">也在此處簽署</string>
@@ -195,7 +195,7 @@
     <string name="standing_sgt_yes">已找到已驗證裝置(%1$s):您的評價會被計入。</string>
     <string name="standing_sgt_no">此錢包未持有裝置驗證憑證(目前為 Seeker Genesis Token):您的評價不會被計入。</string>
     <string name="standing_stake">鏈上讀取的已質押 SKR:%1$s(權重 %2$s×)</string>
-    <string name="standing_note">權重資訊讀取自鏈上。Undersigned 絕不會要求您質押、購買或持有任何東西。</string>
+    <string name="standing_note">權重從鏈上讀取：裝置和質押的 SKR。Pro 和付給 Undersigned 的款項從不改變它們。</string>
     <string name="settings_ledger">帳本</string>
     <string name="settings_ledger_body">註冊表地址 %1$s。任何人都可以透過此地址查到每一則評價。本應用程式直接從鏈上讀取這些內容，而不是從我們的伺服器讀取。</string>
     <string name="settings_refresh_ledger">重新讀取帳本</string>
@@ -219,7 +219,7 @@
     <string name="intro_next">下一步</string>
     <string name="intro_replay">重播介紹</string>
     <string name="intro1_title">一台 Seeker,一個聲音</string>
-    <string name="intro1_body">Undersigned 是 dApp Store 旁的評價層。只有持有 Seeker Genesis Token 的錢包會被計入：一台裝置，一個聲音。任何可購買的東西都不會改變簽署評分。</string>
+    <string name="intro1_body">Undersigned 是 dApp Store 旁的一層評價。只有持有 Seeker Genesis Token 的錢包才會計入：一台裝置，一票。付給 Undersigned 的任何款項都不會改變簽署評分；質押的 SKR 可提高一則評價的權重，最多 3×。</string>
     <string name="intro2_title">簽署,不是打字</string>
     <string name="intro2_body">每則評價都是一筆您在手機上以雙擊核准的小額交易。您的錢包只會支付自己設定的網路費用。Undersigned 絕不會持有您的金鑰或資金。</string>
     <string name="intro3_title">在商店之外,而非取代商店</string>
@@ -314,7 +314,7 @@
     <string name="howto4_sub">每個判斷也都是一次簽署</string>
     <string name="howto4_body">有幫助——用於排序評價。每個錢包一票,權重與評價相同。\n標記——疑似垃圾內容、濫用、離題或誤導性內容。達成共識後,讀者端會隱藏該記錄。\n看起來無異——抵銷您認為錯誤的標記。\n異議——若您自己的記錄被隱藏,一則簽署回覆會提高維持隱藏所需的權重。</string>
     <string name="howto4_note_title">這一切都不需要付費</string>
-    <string name="howto4_note">您的信譽只是計數與公開的公式——沒有任何東西是能用錢改變的。您可以隨時在設定中重播這些步驟。</string>
+    <string name="howto4_note">你的信譽由計數和公開的公式構成；付給 Undersigned 的任何款項都不會改變它。隨時可在設定中重看這些步驟。</string>
     <string name="empty_search_title">沒有這個名稱的 dApp</string>
     <string name="empty_search_body">商店目錄中沒有符合 \"%1$s\" 的項目。</string>
     <string name="reread_catalogue">重新讀取目錄</string>
@@ -994,4 +994,9 @@
     <string name="promoted_score_note">僅限作者本人付費推廣的評價，依一般權重。與獨立評價分開列出。</string>
     <string name="reviews_group_promoted">推廣評價 · 付費</string>
     <string name="reviews_group_promoted_note">作者本人付費給 Undersigned 推廣的評價。與所有人同等權重計入一次，並與獨立評價分開顯示。</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">付款即表示你確認自己未受此應用程式發行者或其競爭對手付費、僱用，也未代表他們行事。</string>
+    <string name="withdrawal_consent">現在開始。我明白付款在鏈上確認後，我將失去任何 14 天撤回權。</string>
+    <string name="withdrawal_confirmed">你要求立即提供，並確認失去任何 14 天撤回權。你的收據是鏈上交易 %1$s。</string>
 </resources>

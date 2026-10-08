@@ -12,7 +12,7 @@ Updated 8 Oct for the current build. Judges score "completion based on the demo 
 | 0:40 | Tap "Write a signed review", pick 4 stars, tags Works + Fast, type one line, tick the permanence consent, Sign and publish | "Rating, tags, an optional note that the owner accepts is permanent." |
 | 0:55 | Seed Vault "Double tap to confirm" — double-tap on camera | "Approved on the device. The wallet sets the network fee; the app takes nothing." |
 | 1:05 | Confirmation; review appears with Genesis ✓ and Seeker wallet pills | "Two proofs on the record: a Genesis Token, which is soulbound to a Seed Vault key, and the Seeker wallet's own transaction fingerprint." |
-| 1:20 | Tap "1 signed" → standing dialog | "Signer standing is counts only. No score, no reward, nothing to buy." |
+| 1:20 | Tap "1 signed" → standing dialog | "Signer standing is counts only. No score, and no payment changes it." |
 | 1:28 | Scroll to Publisher: Verified publisher badge | "Publishers claim an app by signing. It verifies only if the website the store lists publishes the wallet. Then their replies carry the badge." |
 | 1:42 | Store reviews with Genesis ✓ / no Genesis pills | "The same lens on the store's reviews: which reviewers hold a Genesis Token, which also signed here. That signal is open data Solana Mobile can use today." |
 | 1:55 | Device facts: certificate matches the store's ✓, permissions | "And what the phone can prove: the installed build matches the certificate the store lists." |

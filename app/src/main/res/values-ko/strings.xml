@@ -47,7 +47,7 @@
     <string name="detail_update_review">내 리뷰 수정</string>
     <string name="detail_revoke_review">내 리뷰 철회</string>
     <string name="detail_score_title">서명 점수</string>
-    <string name="detail_score_sub">인증된 기기에서 온 리뷰의 평균(현재: Seeker Genesis Token 보유자). 각 리뷰에 담긴 정보(설치 기간, 사용 시간, 작성한 메모)와 누구나 살 수 있는 토큰인 스테이킹한 SKR(최대 3×)로 가중합니다. Undersigned에 대한 결제는 들어가지 않으며, Pro 멤버의 리뷰는 별도 점수로도 표시됩니다. Undersigned 자체 지갑은 절대 반영되지 않습니다. 개별 소유자의 의견이며 스토어 평점이 아닙니다.</string>
+    <string name="detail_score_sub">인증된 기기에서 온 리뷰의 평균(현재: Seeker Genesis Token 보유자). 각 리뷰에 담긴 정보(설치 기간, 사용 시간, 작성한 메모)와 지갑이 스테이킹한 SKR(최대 3×)로 가중합니다. SKR은 거래되므로 이 부분의 무게는 얻을 수 있습니다. Undersigned는 SKR 구매나 스테이킹을 권하지 않습니다. Undersigned에 대한 결제는 점수에 들어가지 않으며, Pro 멤버의 리뷰는 별도 점수로도 표시됩니다. Undersigned 자체 지갑은 절대 반영되지 않습니다. 인증된 Seeker 기기 소유자의 의견이며 스토어 평점이 아닙니다.</string>
     <string name="detail_rank_score">순위 점수 %1$s — 더 많은 Seeker가 서명할 때까지 3.0 쪽으로 조정되며, 목록 정렬에만 사용됩니다.</string>
     <string name="follow">팔로우</string>
     <string name="following">팔로잉</string>
@@ -85,7 +85,7 @@
     <string name="standing_line">집계됨: %1$d건 · 철회됨: %2$d건 · 받은 답글: %3$d건 · 남긴 답글: %4$d건</string>
     <string name="standing_agreement">다른 서명자와의 태그 일치도: %1$s</string>
     <string name="standing_since">서명 시작일: %1$s</string>
-    <string name="standing_note2">단순 집계일 뿐입니다. 점수도, 구매할 것도 없습니다.</string>
+    <string name="standing_note2">개수만 표시합니다. 점수는 없으며 결제로 바뀌지 않습니다.</string>
     <string name="store_reviewer_genesis">Seeker 소유자</string>
     <string name="store_reviewer_nogenesis">인증된 기기를 찾을 수 없음</string>
     <string name="store_reviewer_signed_here">여기서도 서명함</string>
@@ -187,7 +187,7 @@
     <string name="standing_sgt_yes">인증된 기기가 확인되었습니다(%1$s). 내 리뷰가 집계됩니다.</string>
     <string name="standing_sgt_no">이 지갑에는 기기 인증 정보(현재는 Seeker Genesis Token)가 없습니다. 내 리뷰는 집계되지 않습니다.</string>
     <string name="standing_stake">온체인에서 확인된 스테이킹 SKR: %1$s(가중치 %2$s배)</string>
-    <string name="standing_note">가중치는 체인에서 읽어옵니다. Undersigned는 스테이킹, 구매, 보유를 요구하지 않습니다.</string>
+    <string name="standing_note">무게는 체인에서 읽습니다: 기기와 스테이킹한 SKR. Pro와 Undersigned에 대한 결제는 무게를 절대 바꾸지 않습니다.</string>
     <string name="settings_ledger">원장</string>
     <string name="settings_ledger_body">레지스트리 주소 %1$s. 모든 리뷰는 이 주소를 통해 누구나 찾을 수 있습니다. 이 앱은 이를 체인에서 직접 읽으며, 저희 서버에서 읽지 않습니다.</string>
     <string name="settings_refresh_ledger">원장 다시 읽기</string>
@@ -211,7 +211,7 @@
     <string name="intro_next">다음</string>
     <string name="intro_replay">소개 다시 보기</string>
     <string name="intro1_title">한 대의 Seeker, 하나의 목소리</string>
-    <string name="intro1_body">Undersigned는 dApp Store 옆의 리뷰 계층입니다. Seeker Genesis Token을 가진 지갑만 반영됩니다. 기기 하나에 목소리 하나입니다. 돈으로 살 수 있는 것은 서명된 점수를 바꾸지 못합니다.</string>
+    <string name="intro1_body">Undersigned는 dApp Store 옆의 리뷰 레이어입니다. Seeker Genesis Token을 가진 지갑만 반영되므로 기기 하나에 한 표입니다. Undersigned에 대한 결제는 서명된 점수를 바꾸지 않으며, 스테이킹한 SKR은 리뷰의 무게를 최대 3×까지 올릴 수 있습니다.</string>
     <string name="intro2_title">입력이 아닌 서명</string>
     <string name="intro2_body">모든 리뷰는 휴대폰에서 더블 탭으로 승인하는 소액 트랜잭션입니다. 지갑은 스스로 설정한 네트워크 수수료만 지불합니다. Undersigned는 사용자의 키나 자금을 보관하지 않습니다.</string>
     <string name="intro3_title">스토어를 대신하지 않고, 그 옆에</string>
@@ -307,7 +307,7 @@
     <string name="howto4_sub">모든 판단도 서명입니다</string>
     <string name="howto4_body">유용해요 — 리뷰 정렬에 반영됩니다. 지갑당 한 번 투표하며, 리뷰와 동일한 가중치가 적용됩니다.\n플래그 — 스팸으로 의심되거나 남용, 주제와 무관하거나 오해 소지가 있는 경우입니다. 합의에 도달하면 독자에게 기록이 숨겨집니다.\n정상으로 보임 — 잘못되었다고 생각하는 플래그를 상쇄합니다.\n이의 제기 — 내 기록이 숨겨졌다면, 서명된 답변 한 번으로 숨김을 유지하는 데 필요한 가중치를 높일 수 있습니다.</string>
     <string name="howto4_note_title">이 중 어떤 것도 대가가 지급되지 않습니다</string>
-    <string name="howto4_note">평판은 집계 수치와 공개된 계산식으로 정해지며, 무엇을 구매해도 바뀌지 않습니다. 이 단계는 설정에서 언제든 다시 볼 수 있습니다.</string>
+    <string name="howto4_note">평판은 개수와 공개된 공식으로 이루어지며, Undersigned에 대한 결제로 바뀌지 않습니다. 설정에서 언제든 이 단계를 다시 볼 수 있습니다.</string>
     <string name="empty_search_title">해당 이름의 dApp이 없습니다</string>
     <string name="empty_search_body">스토어 카탈로그에 \"%1$s\"와(과) 일치하는 항목이 없습니다.</string>
     <string name="reread_catalogue">카탈로그 다시 읽기</string>
@@ -987,4 +987,9 @@
     <string name="promoted_score_note">작성자가 직접 프로모션 비용을 낸 리뷰만, 평소 무게로. 독립 리뷰와 따로 표시됩니다.</string>
     <string name="reviews_group_promoted">프로모션된 리뷰 · 유료</string>
     <string name="reviews_group_promoted_note">작성자가 직접 Undersigned에 프로모션 비용을 낸 리뷰. 모두와 같은 무게로 한 번 반영되며 독립 리뷰와 분리됩니다.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">결제하면 이 앱의 게시자나 경쟁사로부터 돈을 받거나 고용되었거나 그들을 대신해 행동하지 않음을 확인합니다.</string>
+    <string name="withdrawal_consent">지금 시작. 결제가 체인에서 확정되면 14일 철회권(있는 경우)을 잃는다는 것을 이해합니다.</string>
+    <string name="withdrawal_confirmed">즉시 제공을 요청했고 14일 철회권(있는 경우)을 잃는다는 것을 확인했습니다. 영수증은 체인상의 트랜잭션 %1$s입니다.</string>
 </resources>

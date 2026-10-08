@@ -52,7 +52,7 @@
     <string name="detail_update_review">İncelememi güncelle</string>
     <string name="detail_revoke_review">İncelememi geri çek</string>
     <string name="detail_score_title">İmzalı puan</string>
-    <string name="detail_score_sub">Onaylı cihazlardan gelen değerlendirmelerin ortalaması (bugün: Seeker Genesis Token sahipleri), her değerlendirmenin taşıdıkları (kurulum süresi, kullanım, yazılı not) ve herkesin satın alabileceği bir token olan stake edilmiş SKR (3×\'e kadar) ile ağırlıklı. Undersigned\'a yapılan hiçbir ödeme girmez; Pro üyelerin değerlendirmeleri ayrıca kendi puanlarıyla gösterilir. Undersigned\'ın cüzdanları asla sayılmaz. Tek tek sahiplerin görüşleri, mağazanın puanı değil.</string>
+    <string name="detail_score_sub">Onaylı cihazlardan gelen değerlendirmelerin ortalaması (bugün: Seeker Genesis Token sahipleri), her değerlendirmenin taşıdıkları (kurulum süresi, kullanım, yazılı not) ve cüzdanın stake ettiği SKR (en fazla 3×) ile ağırlıklı. SKR alınıp satılır, yani ağırlığın bu kısmı edinilebilir; Undersigned SKR almayı ya da stake etmeyi önermez. Undersigned\'a yapılan hiçbir ödeme puana girmez; Pro üyelerin değerlendirmeleri ayrıca kendi puanlarıyla gösterilir. Undersigned\'ın cüzdanları asla sayılmaz. Onaylı Seeker cihaz sahiplerinin görüşleri, mağazanın puanı değil.</string>
     <string name="detail_rank_score">Sıralama puanı %1$s — daha fazla Seeker imzalayana kadar 3.0\'a doğru küçültülür; yalnızca listeyi sıralamak için kullanılır.</string>
     <string name="follow">Takip et</string>
     <string name="following">Takip ediliyor</string>
@@ -88,7 +88,7 @@
     <string name="standing_line">Sayılan: %1$d · Geri çekilen: %2$d · Alınan yanıt: %3$d · Verilen yanıt: %4$d</string>
     <string name="standing_agreement">Diğer imzalayanlarla etiket uyumu: %1$s</string>
     <string name="standing_since">%1$s tarihinden beri imzalıyor</string>
-    <string name="standing_note2">Yalnızca sayım. Puan yok, satın alınacak bir şey yok.</string>
+    <string name="standing_note2">Yalnızca sayımlar. Puan yok ve hiçbir ödeme bunları değiştirmez.</string>
     <string name="store_reviewer_genesis">Seeker sahibi</string>
     <string name="store_reviewer_nogenesis">kanıtlı cihaz bulunamadı</string>
     <string name="store_reviewer_signed_here">burada da imzaladı</string>
@@ -196,7 +196,7 @@
     <string name="standing_sgt_yes">Kanıtlı cihaz bulundu (%1$s): incelemeleriniz sayılır.</string>
     <string name="standing_sgt_no">Bu cüzdanda kanıtlı-cihaz kimlik bilgisi yok (bugün: Seeker Genesis Token): incelemeleriniz sayılmaz.</string>
     <string name="standing_stake">Zincirde okunan stake edilmiş SKR: %1$s (ağırlık %2$s×)</string>
-    <string name="standing_note">Ağırlıklar zincirden okunur. Undersigned sizden hiçbir zaman stake etmenizi, satın almanızı veya bir şeye sahip olmanızı istemez.</string>
+    <string name="standing_note">Ağırlıklar zincirden okunur: cihaz ve stake edilmiş SKR. Pro ve Undersigned\'a yapılan ödemeler bunları asla değiştirmez.</string>
     <string name="settings_ledger">Defter</string>
     <string name="settings_ledger_body">Kayıt adresi %1$s. Her inceleme bu adres üzerinden herkes tarafından bulunabilir. Bu uygulama bunu doğrudan zincirden okur, bize ait bir sunucudan değil.</string>
     <string name="settings_refresh_ledger">Defteri yeniden oku</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">İleri</string>
     <string name="intro_replay">Tanıtımı tekrar oynat</string>
     <string name="intro1_title">Bir Seeker, bir ses</string>
-    <string name="intro1_body">Undersigned, dApp Store\'un yanında bir değerlendirme katmanıdır. Yalnızca Seeker Genesis Token tutan cüzdanlar sayılır: bir cihaz, bir ses. Satın alınabilecek hiçbir şey imzalı puanı değiştirmez.</string>
+    <string name="intro1_body">Undersigned, dApp Store\'un yanında bir değerlendirme katmanıdır. Yalnızca Seeker Genesis Token tutan cüzdanlar sayılır: bir cihaz, bir ses. Undersigned\'a yapılan hiçbir ödeme imzalı puanı değiştirmez; stake edilmiş SKR bir değerlendirmenin ağırlığını en fazla 3×\'e kadar artırabilir.</string>
     <string name="intro2_title">Yazılmaz, imzalanır</string>
     <string name="intro2_body">Her inceleme, telefonda çift dokunuşla onayladığınız küçük bir işlemdir. Cüzdanınız yalnızca kendi belirlediği ağ ücretini öder. Undersigned anahtarlarınızı veya fonlarınızı asla tutmaz.</string>
     <string name="intro3_title">Mağazanın yanında, yerine değil</string>
@@ -317,7 +317,7 @@
     <string name="howto4_sub">Her yargı da bir imzadır</string>
     <string name="howto4_body">Yararlı — incelemeleri sıralar. Cüzdan başına bir oy, inceleme gibi ağırlıklandırılır.\nİşaretle — şüpheli spam, taciz, konu dışı veya yanıltıcı. Uzlaşıya ulaşıldığında okuyucular kaydı gizler.\nGerçek görünüyor — yanlış olduğunu düşündüğünüz işaretlemeleri dengeler.\nİtiraz — kendi kaydınız gizlenirse, imzalı bir yanıt gizli tutmak için gereken ağırlığı artırır.</string>
     <string name="howto4_note_title">Bunların hiçbiri için ödeme yapılmaz</string>
-    <string name="howto4_note">Durumunuz sayımlar ve yayınlanmış bir formülden oluşur — satın alabileceğiniz hiçbir şey onu değiştirmez. Bu adımları istediğiniz zaman Ayarlar\'dan tekrar oynatabilirsiniz.</string>
+    <string name="howto4_note">İtibarınız sayımlardan ve yayımlanmış bir formülden oluşur; Undersigned\'a yapılan hiçbir ödeme onu değiştirmez. Bu adımları istediğiniz zaman Ayarlar\'dan tekrarlayın.</string>
     <string name="empty_search_title">Bu adda bir dApp yok</string>
     <string name="empty_search_body">Mağaza kataloğunda \"%1$s\" ile eşleşen bir şey yok.</string>
     <string name="reread_catalogue">Kataloğu yeniden oku</string>
@@ -1010,4 +1010,9 @@
     <string name="promoted_score_note">Yalnızca yazarlarının öne çıkarmak için ödeme yaptığı değerlendirmeler, olağan ağırlıkta. Bağımsız değerlendirmelerden ayrı listelenir.</string>
     <string name="reviews_group_promoted">Öne çıkarılan değerlendirmeler · ücretli</string>
     <string name="reviews_group_promoted_note">Yazarlarının öne çıkarmak için Undersigned\'a ödeme yaptığı değerlendirmeler. Herkesle aynı ağırlıkta bir kez sayılır ve bağımsız değerlendirmelerden ayrı tutulur.</string>
+
+    <!-- Legal review, 9 Oct 2026: purchase consent and promotion declaration -->
+    <string name="boost_declaration">Ödeme yaparak bu uygulamanın yayıncısı veya bir rakip tarafından ücretlendirilmediğinizi, istihdam edilmediğinizi ve onlar adına hareket etmediğinizi onaylarsınız.</string>
+    <string name="withdrawal_consent">Şimdi başlat. Ödeme zincirde onaylandığında olası 14 günlük cayma hakkımı kaybedeceğimi anlıyorum.</string>
+    <string name="withdrawal_confirmed">Hemen sağlanmasını istediniz ve olası 14 günlük cayma hakkını kaybettiğinizi kabul ettiniz. Makbuzunuz zincirdeki %1$s işlemidir.</string>
 </resources>
