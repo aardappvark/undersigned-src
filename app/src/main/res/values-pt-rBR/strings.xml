@@ -1026,4 +1026,17 @@
     <string name="reviews_group_uncounted">Não contam</string>
     <string name="reviews_group_uncounted_note">A carteira não tem Seeker Genesis Token, ou é o editor avaliando o próprio app.</string>
     <string name="not_counted_warning">Esta carteira não tem Seeker Genesis Token: o que você assinar fica registrado na blockchain mas não conta.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Em destaque · pago</string>
+    <string name="boost_button">Destacar esta avaliação</string>
+    <string name="boost_title">Destacar esta avaliação?</string>
+    <string name="boost_pay">Pagar %1$s</string>
+    <string name="boost_done">Em destaque. Assinatura %1$s</string>
+    <string name="boost_needs_pro">Destacar uma avaliação exige uma assinatura Pro ativa.</string>
+    <string name="promoted_score_title">Em destaque · pago</string>
+    <string name="boost_body">Promover coloca esta avaliação na seção “Avaliações promovidas” da página do app, depois das independentes e marcada Promovida · paga, e na nota Promovidas separada. Não muda a nota assinada nem quanto a avaliação conta. Vale só para esta versão da avaliação, e o pagamento é público.</string>
+    <string name="promoted_score_note">Só avaliações cujos autores pagaram para promovê-las, com o peso de sempre. Listadas à parte das independentes.</string>
+    <string name="reviews_group_promoted">Avaliações promovidas · pagas</string>
+    <string name="reviews_group_promoted_note">Avaliações cujos próprios autores pagaram ao Undersigned para promovê-las. Contam uma vez com o mesmo peso de todas e ficam à parte das independentes.</string>
 </resources>

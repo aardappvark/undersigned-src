@@ -1027,4 +1027,17 @@
     <string name="reviews_group_uncounted">Nepočítané</string>
     <string name="reviews_group_uncounted_note">Peněženka bez Seeker Genesis Token, nebo vydavatel hodnotící vlastní aplikaci.</string>
     <string name="not_counted_warning">Tato peněženka nemá Seeker Genesis Token: co podepíšete, se zapíše na řetězec, ale nepočítá se.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Zvýrazněná · placená</string>
+    <string name="boost_button">Zvýraznit tuto recenzi</string>
+    <string name="boost_title">Zvýraznit tuto recenzi?</string>
+    <string name="boost_pay">Zaplatit %1$s</string>
+    <string name="boost_done">Zvýrazněno. Podpis %1$s</string>
+    <string name="boost_needs_pro">Zvýraznění recenze vyžaduje aktivní členství Pro.</string>
+    <string name="promoted_score_title">Zvýrazněná · placená</string>
+    <string name="boost_body">Propagace zařadí tuto recenzi do sekce „Propagované recenze“ na stránce aplikace, za nezávislé recenze a s označením Propagováno · placeno, a do samostatného skóre Propagované. Nemění podepsané skóre ani váhu recenze. Platí jen pro tuto verzi recenze a platba je veřejná.</string>
+    <string name="promoted_score_note">Jen recenze, za jejichž propagaci zaplatili sami autoři, s obvyklou vahou. Uvedeny odděleně od nezávislých.</string>
+    <string name="reviews_group_promoted">Propagované recenze · placené</string>
+    <string name="reviews_group_promoted_note">Recenze, za jejichž propagaci zaplatili Undersigned sami autoři. Počítají se jednou se stejnou vahou jako všechny a drží se odděleně od nezávislých.</string>
 </resources>

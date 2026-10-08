@@ -1006,4 +1006,17 @@
     <string name="reviews_group_uncounted">Niet geteld</string>
     <string name="reviews_group_uncounted_note">Geen Seeker Genesis Token in de wallet, of de uitgever die zijn eigen app beoordeelt.</string>
     <string name="not_counted_warning">Deze wallet heeft geen Seeker Genesis Token: wat u ondertekent staat on-chain maar telt niet mee.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Uitgelicht · betaald</string>
+    <string name="boost_button">Deze beoordeling uitlichten</string>
+    <string name="boost_title">Deze beoordeling uitlichten?</string>
+    <string name="boost_pay">%1$s betalen</string>
+    <string name="boost_done">Uitgelicht. Handtekening %1$s</string>
+    <string name="boost_needs_pro">Een beoordeling uitlichten vraagt een actief Pro-lidmaatschap.</string>
+    <string name="promoted_score_title">Uitgelicht · betaald</string>
+    <string name="boost_body">Promoten zet deze beoordeling in de sectie ‘Gepromote beoordelingen’ van de app-pagina, na de onafhankelijke beoordelingen en gemarkeerd als Gepromoot · betaald, en in de aparte score Gepromoot. De ondertekende score en het gewicht van de beoordeling veranderen niet. Het geldt alleen voor deze versie van de beoordeling, en de betaling is openbaar.</string>
+    <string name="promoted_score_note">Alleen beoordelingen waarvan de schrijver betaalde om ze te promoten, met hun gewone gewicht. Apart van de onafhankelijke beoordelingen.</string>
+    <string name="reviews_group_promoted">Gepromote beoordelingen · betaald</string>
+    <string name="reviews_group_promoted_note">Beoordelingen waarvan de eigen schrijver Undersigned betaalde om ze te promoten. Eén keer geteld met hetzelfde gewicht als iedereen, en apart van de onafhankelijke beoordelingen.</string>
 </resources>

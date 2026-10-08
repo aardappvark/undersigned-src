@@ -1026,4 +1026,17 @@
     <string name="reviews_group_uncounted">No cuentan</string>
     <string name="reviews_group_uncounted_note">La billetera no tiene Seeker Genesis Token, o es el editor reseñando su propia app.</string>
     <string name="not_counted_warning">Esta billetera no tiene Seeker Genesis Token: lo que firmes queda en la cadena pero no cuenta.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Destacada · pagada</string>
+    <string name="boost_button">Destacar esta reseña</string>
+    <string name="boost_title">¿Destacar esta reseña?</string>
+    <string name="boost_pay">Pagar %1$s</string>
+    <string name="boost_done">Destacada. Firma %1$s</string>
+    <string name="boost_needs_pro">Destacar una reseña requiere una membresía Pro activa.</string>
+    <string name="promoted_score_title">Destacada · pagada</string>
+    <string name="boost_body">Promocionar pone esta reseña en la sección «Reseñas promocionadas» de la página de la app, después de las independientes y marcada Promocionada · pagada, y en la puntuación Promocionadas aparte. No cambia la puntuación firmada ni cuánto cuenta la reseña. Vale solo para esta versión de la reseña, y el pago es público.</string>
+    <string name="promoted_score_note">Solo reseñas cuyos autores pagaron para promocionarlas, con su peso habitual. Listadas aparte de las independientes.</string>
+    <string name="reviews_group_promoted">Reseñas promocionadas · pagadas</string>
+    <string name="reviews_group_promoted_note">Reseñas cuyos propios autores pagaron a Undersigned para promocionarlas. Cuentan una vez con el mismo peso que todas y se muestran aparte de las independientes.</string>
 </resources>

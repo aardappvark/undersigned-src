@@ -1034,4 +1034,17 @@
     <string name="reviews_group_uncounted">Не враховуються</string>
     <string name="reviews_group_uncounted_note">У гаманці немає Seeker Genesis Token, або видавець оцінює власний застосунок.</string>
     <string name="not_counted_warning">У цьому гаманці немає Seeker Genesis Token: те, що ви підпишете, потрапить у блокчейн, але не буде враховано.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Просувається · платно</string>
+    <string name="boost_button">Просунути цей відгук</string>
+    <string name="boost_title">Просунути цей відгук?</string>
+    <string name="boost_pay">Сплатити %1$s</string>
+    <string name="boost_done">Просувається. Підпис %1$s</string>
+    <string name="boost_needs_pro">Щоб просунути відгук, потрібна активна підписка Pro.</string>
+    <string name="promoted_score_title">Просувається · платно</string>
+    <string name="boost_body">Просування розміщує цей відгук у розділі «Просувані відгуки» на сторінці застосунку — після незалежних, з позначкою «Просувається · платно», — і в окремій оцінці «Просувані». Підписана оцінка та вага відгуку не змінюються. Діє лише для цієї версії відгуку, а платіж публічний.</string>
+    <string name="promoted_score_note">Лише відгуки, просування яких оплатили їхні автори, зі звичайною вагою. Показані окремо від незалежних.</string>
+    <string name="reviews_group_promoted">Просувані відгуки · платно</string>
+    <string name="reviews_group_promoted_note">Відгуки, просування яких їхні автори оплатили Undersigned. Враховуються один раз з тією ж вагою, що й усі, і показані окремо від незалежних.</string>
 </resources>

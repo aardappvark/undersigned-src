@@ -1026,4 +1026,17 @@
     <string name="reviews_group_uncounted">Non conteggiate</string>
     <string name="reviews_group_uncounted_note">Nessun Seeker Genesis Token nel wallet, oppure l\'editore che recensisce la propria app.</string>
     <string name="not_counted_warning">Questo wallet non ha un Seeker Genesis Token: ciò che firmi viene registrato sulla chain ma non conteggiato.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">In evidenza · a pagamento</string>
+    <string name="boost_button">Metti in evidenza questa recensione</string>
+    <string name="boost_title">Mettere in evidenza questa recensione?</string>
+    <string name="boost_pay">Paga %1$s</string>
+    <string name="boost_done">In evidenza. Firma %1$s</string>
+    <string name="boost_needs_pro">Per mettere in evidenza una recensione serve un abbonamento Pro attivo.</string>
+    <string name="promoted_score_title">In evidenza · a pagamento</string>
+    <string name="boost_body">La promozione mette questa recensione nella sezione «Recensioni promosse» della pagina dell\'app, dopo quelle indipendenti e segnata Promossa · a pagamento, e nel punteggio Promosse separato. Non cambia il punteggio firmato né il peso della recensione. Vale solo per questa versione della recensione, e il pagamento è pubblico.</string>
+    <string name="promoted_score_note">Solo recensioni i cui autori hanno pagato la promozione, al loro peso abituale. Elencate a parte dalle indipendenti.</string>
+    <string name="reviews_group_promoted">Recensioni promosse · a pagamento</string>
+    <string name="reviews_group_promoted_note">Recensioni i cui autori hanno pagato Undersigned per promuoverle. Contano una volta con lo stesso peso di tutte e restano separate da quelle indipendenti.</string>
 </resources>

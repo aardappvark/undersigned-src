@@ -1000,4 +1000,17 @@
     <string name="reviews_group_uncounted">गिनी नहीं जातीं</string>
     <string name="reviews_group_uncounted_note">वॉलेट में Seeker Genesis Token नहीं, या प्रकाशक अपने ही ऐप की समीक्षा कर रहा है।</string>
     <string name="not_counted_warning">इस वॉलेट में Seeker Genesis Token नहीं है: जो आप हस्ताक्षर करेंगे वह चेन पर दर्ज होगा पर गिना नहीं जाएगा।</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">प्रमोटेड · सशुल्क</string>
+    <string name="boost_button">इस समीक्षा को प्रमोट करें</string>
+    <string name="boost_title">इस समीक्षा को प्रमोट करें?</string>
+    <string name="boost_pay">%1$s भुगतान करें</string>
+    <string name="boost_done">प्रमोट हुई। हस्ताक्षर %1$s</string>
+    <string name="boost_needs_pro">समीक्षा प्रमोट करने के लिए सक्रिय Pro सदस्यता चाहिए।</string>
+    <string name="promoted_score_title">प्रमोटेड · सशुल्क</string>
+    <string name="boost_body">प्रमोट करने पर यह समीक्षा ऐप के पेज पर “प्रमोट की गई समीक्षाएँ” खंड में, स्वतंत्र समीक्षाओं के बाद और “प्रमोटेड · सशुल्क” चिह्न के साथ, तथा अलग “प्रमोटेड” स्कोर में दिखती है। इससे हस्ताक्षरित स्कोर या समीक्षा का वज़न नहीं बदलता। यह समीक्षा के केवल इसी संस्करण पर लागू होता है, और भुगतान सार्वजनिक रिकॉर्ड है।</string>
+    <string name="promoted_score_note">केवल वे समीक्षाएँ जिनके लेखकों ने प्रमोशन के लिए भुगतान किया, सामान्य वज़न पर। स्वतंत्र समीक्षाओं से अलग सूचीबद्ध।</string>
+    <string name="reviews_group_promoted">प्रमोट की गई समीक्षाएँ · सशुल्क</string>
+    <string name="reviews_group_promoted_note">वे समीक्षाएँ जिनके अपने लेखकों ने प्रमोशन के लिए Undersigned को भुगतान किया। सबके बराबर वज़न पर एक बार गिनी जाती हैं और स्वतंत्र समीक्षाओं से अलग रखी जाती हैं।</string>
 </resources>

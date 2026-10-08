@@ -1018,4 +1018,17 @@
     <string name="reviews_group_uncounted">Не учитываются</string>
     <string name="reviews_group_uncounted_note">В кошельке нет Seeker Genesis Token, или издатель оценивает своё приложение.</string>
     <string name="not_counted_warning">В этом кошельке нет Seeker Genesis Token: то, что вы подпишете, попадёт в блокчейн, но не будет учтено.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Продвигается · платно</string>
+    <string name="boost_button">Продвинуть этот отзыв</string>
+    <string name="boost_title">Продвинуть этот отзыв?</string>
+    <string name="boost_pay">Оплатить %1$s</string>
+    <string name="boost_done">Продвигается. Подпись %1$s</string>
+    <string name="boost_needs_pro">Чтобы продвинуть отзыв, нужна активная подписка Pro.</string>
+    <string name="promoted_score_title">Продвигается · платно</string>
+    <string name="boost_body">Продвижение помещает этот отзыв в раздел «Продвигаемые отзывы» на странице приложения — после независимых, с пометкой «Продвигается · платно», — и в отдельную оценку «Продвигаемые». Подписанная оценка и вес отзыва не меняются. Действует только для этой версии отзыва, а платёж публичен.</string>
+    <string name="promoted_score_note">Только отзывы, продвижение которых оплатили их авторы, с обычным весом. Показаны отдельно от независимых.</string>
+    <string name="reviews_group_promoted">Продвигаемые отзывы · платно</string>
+    <string name="reviews_group_promoted_note">Отзывы, продвижение которых их авторы оплатили Undersigned. Учитываются один раз с тем же весом, что и все, и показаны отдельно от независимых.</string>
 </resources>

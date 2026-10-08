@@ -997,4 +997,17 @@
     <string name="reviews_group_uncounted">Nem számít</string>
     <string name="reviews_group_uncounted_note">Nincs Seeker Genesis Token a tárcában, vagy a kiadó értékeli a saját alkalmazását.</string>
     <string name="not_counted_warning">Ennek a tárcának nincs Seeker Genesis Tokenje: amit aláír, a láncra kerül, de nem számít.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Kiemelt · fizetett</string>
+    <string name="boost_button">Értékelés kiemelése</string>
+    <string name="boost_title">Kiemeli ezt az értékelést?</string>
+    <string name="boost_pay">%1$s fizetése</string>
+    <string name="boost_done">Kiemelve. Aláírás %1$s</string>
+    <string name="boost_needs_pro">Az értékelés kiemeléséhez aktív Pro tagság kell.</string>
+    <string name="promoted_score_title">Kiemelt · fizetett</string>
+    <string name="boost_body">A kiemelés az alkalmazás oldalán a „Kiemelt értékelések” részbe teszi ezt az értékelést, a független értékelések után, Kiemelt · fizetett jelöléssel, valamint a külön Kiemelt pontszámba. Nem változtat az aláírt pontszámon és az értékelés súlyán. Csak az értékelés ezen változatára vonatkozik, és a fizetés nyilvános.</string>
+    <string name="promoted_score_note">Csak olyan értékelések, amelyek kiemeléséért a szerzőjük fizetett, szokásos súllyal. A független értékelésektől külön.</string>
+    <string name="reviews_group_promoted">Kiemelt értékelések · fizetett</string>
+    <string name="reviews_group_promoted_note">Olyan értékelések, amelyek kiemeléséért a szerzőjük fizetett az Undersignednek. Egyszer, ugyanakkora súllyal számítanak, mint mindenki, és külön állnak a független értékelésektől.</string>
 </resources>

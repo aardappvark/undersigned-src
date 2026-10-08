@@ -973,4 +973,17 @@
     <string name="reviews_group_uncounted">カウント対象外</string>
     <string name="reviews_group_uncounted_note">ウォレットにSeeker Genesis Tokenがない、または発行者が自分のアプリをレビュー。</string>
     <string name="not_counted_warning">このウォレットにはSeeker Genesis Tokenがありません：署名した内容はチェーンに記録されますが、カウントされません。</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">プロモーション・有料</string>
+    <string name="boost_button">このレビューをプロモーション</string>
+    <string name="boost_title">このレビューをプロモーションしますか？</string>
+    <string name="boost_pay">%1$sを支払う</string>
+    <string name="boost_done">プロモーションしました。署名 %1$s</string>
+    <string name="boost_needs_pro">レビューのプロモーションには有効なProメンバーシップが必要です。</string>
+    <string name="promoted_score_title">プロモーション・有料</string>
+    <string name="boost_body">プロモートすると、このレビューはアプリのページの「プロモートされたレビュー」欄（独立したレビューの後、「プロモート · 有料」と表示）と、別枠の「プロモート」スコアに入ります。署名済みスコアやレビューの重みは変わりません。このバージョンのレビューにのみ適用され、支払いは公開記録です。</string>
+    <string name="promoted_score_note">作者自身がプロモート料金を支払ったレビューのみ（通常の重み）。独立したレビューとは別に表示されます。</string>
+    <string name="reviews_group_promoted">プロモートされたレビュー · 有料</string>
+    <string name="reviews_group_promoted_note">作者自身がUndersignedにプロモート料金を支払ったレビュー。他の人と同じ重みで1回カウントされ、独立したレビューとは分けて表示されます。</string>
 </resources>

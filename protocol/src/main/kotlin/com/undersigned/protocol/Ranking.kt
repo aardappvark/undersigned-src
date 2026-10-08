@@ -72,7 +72,7 @@ object Ranking {
     fun score(
         entries: List<LedgerEntry>,
         verifiedPublishers: Map<String, Set<String>> = emptyMap(),
-        /** Only needed when [include] asks about Pro membership. */
+        /** Only needed when [include] asks about Pro membership or promotion. */
         paid: (LedgerEntry) -> Boolean = { false },
         include: (LedgerEntry, Weighting.Parts) -> Boolean = { _, _ -> true },
         facts: (signer: String) -> SignerFacts,
@@ -101,9 +101,11 @@ object Ranking {
     }
 
     /** The labelled "Pro members" score shown beside the signed one, per app; an app absent has no Pro member's review. */
-    data class Segments(val pro: Map<String, AppScore>)
+    /** The labelled scores shown beside the signed one, per app; an app absent from a map has no counted review in it. */
+    data class Segments(val pro: Map<String, AppScore>, val promoted: Map<String, AppScore> = emptyMap())
 
     fun segments(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>, paid: (LedgerEntry) -> Boolean, facts: (String) -> SignerFacts): Segments = Segments(
         score(entries, verifiedPublishers, paid, { _, w -> w.pro }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
+        score(entries, verifiedPublishers, paid, { _, w -> w.promoted }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
     )
 }

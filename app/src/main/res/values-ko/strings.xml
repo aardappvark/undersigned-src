@@ -974,4 +974,17 @@
     <string name="reviews_group_uncounted">반영되지 않음</string>
     <string name="reviews_group_uncounted_note">지갑에 Seeker Genesis Token이 없거나, 게시자가 자기 앱을 리뷰한 경우.</string>
     <string name="not_counted_warning">이 지갑에는 Seeker Genesis Token이 없습니다: 서명한 내용은 체인에 기록되지만 반영되지 않습니다.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">홍보됨 · 유료</string>
+    <string name="boost_button">이 리뷰 홍보하기</string>
+    <string name="boost_title">이 리뷰를 홍보할까요?</string>
+    <string name="boost_pay">%1$s 결제</string>
+    <string name="boost_done">홍보되었습니다. 서명 %1$s</string>
+    <string name="boost_needs_pro">리뷰를 홍보하려면 활성 Pro 멤버십이 필요합니다.</string>
+    <string name="promoted_score_title">홍보됨 · 유료</string>
+    <string name="boost_body">프로모션하면 이 리뷰가 앱 페이지의 \'프로모션된 리뷰\' 섹션(독립 리뷰 다음, \'프로모션 · 유료\' 표시)과 별도의 \'프로모션\' 점수에 들어갑니다. 서명된 점수나 리뷰의 무게는 바뀌지 않습니다. 이 리뷰 버전에만 적용되며, 결제는 공개 기록입니다.</string>
+    <string name="promoted_score_note">작성자가 직접 프로모션 비용을 낸 리뷰만, 평소 무게로. 독립 리뷰와 따로 표시됩니다.</string>
+    <string name="reviews_group_promoted">프로모션된 리뷰 · 유료</string>
+    <string name="reviews_group_promoted_note">작성자가 직접 Undersigned에 프로모션 비용을 낸 리뷰. 모두와 같은 무게로 한 번 반영되며 독립 리뷰와 분리됩니다.</string>
 </resources>

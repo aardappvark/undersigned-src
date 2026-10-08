@@ -998,4 +998,17 @@
     <string name="reviews_group_uncounted">Räknas inte</string>
     <string name="reviews_group_uncounted_note">Ingen Seeker Genesis Token i plånboken, eller utgivaren som recenserar sin egen app.</string>
     <string name="not_counted_warning">Den här plånboken har ingen Seeker Genesis Token: det du signerar sparas på kedjan men räknas inte.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Framhävd · betald</string>
+    <string name="boost_button">Framhäv den här recensionen</string>
+    <string name="boost_title">Framhäva den här recensionen?</string>
+    <string name="boost_pay">Betala %1$s</string>
+    <string name="boost_done">Framhävd. Signatur %1$s</string>
+    <string name="boost_needs_pro">Att framhäva en recension kräver ett aktivt Pro-medlemskap.</string>
+    <string name="promoted_score_title">Framhävd · betald</string>
+    <string name="boost_body">Att marknadsföra lägger recensionen i avsnittet ”Marknadsförda recensioner” på appens sida, efter de oberoende recensionerna och märkt Marknadsförd · betald, och i det separata betyget Marknadsförda. Det signerade betyget och recensionens vikt ändras inte. Det gäller bara den här versionen av recensionen, och betalningen är offentlig.</string>
+    <string name="promoted_score_note">Bara recensioner vars egna författare betalat för att marknadsföra dem, med vanlig vikt. Listas skilt från de oberoende recensionerna.</string>
+    <string name="reviews_group_promoted">Marknadsförda recensioner · betalda</string>
+    <string name="reviews_group_promoted_note">Recensioner vars egna författare betalat Undersigned för att marknadsföra dem. Räknas en gång med samma vikt som alla och hålls skilda från de oberoende recensionerna.</string>
 </resources>

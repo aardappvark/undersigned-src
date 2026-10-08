@@ -125,9 +125,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val scores = MutableStateFlow<Map<String, AppScore>>(emptyMap())
     /** Separately labelled scores beside the signed one (compliance check, 9 Oct 2026): Pro members' reviews. */
     val proScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
+    /** Reviews their own authors paid to promote, as their own labelled score (protocol Weighting). */
+    val promotedScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
     private fun setSegments(list: List<LedgerEntry>, vp: Map<String, Set<String>>, f: (String) -> SignerFacts) {
         val s = Ranking.segments(list, vp, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), f)
-        proScores.value = s.pro
+        proScores.value = s.pro; promotedScores.value = s.promoted
     }
     val facts = MutableStateFlow<Map<String, SignerFacts>>(emptyMap())
     val ledgerStatus = MutableStateFlow<LedgerStatus>(LedgerStatus.Idle)
@@ -500,6 +502,29 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 launch(Dispatchers.IO) { rank() }
             }
             onResult(r.map { it.first().first })
+        }
+    }
+
+    /**
+     * Promote one of MY reviews (Pro only): pay the promotion price and sign `bst|<review id>` in ONE transaction, like a
+     * listing fee. The record is the transaction's second memo (UNS first), so its id is sig:1.
+     */
+    fun payBoost(sender: ActivityResultSender, rail: com.undersigned.app.solana.ProPaymentService.Rail, reviewId: String, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.pro_needs_wallet))))
+        if (pro.value?.active != true) return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.boost_needs_pro))))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        val memo = ReviewMemo.Boost(reviewId)
+        val text = runCatching { ReviewMemo.encode(memo) }.getOrElse { return onResult(Result.failure(it)) }
+        viewModelScope.launch {
+            val r = proService.pay(getApplication(), adapter, sender, w, rail, onStage, sol = com.undersigned.app.AppConfig.Payment.BOOST_SOL, skr = com.undersigned.app.AppConfig.Payment.BOOST_SKR, record = text)
+            r.onSuccess { rc ->
+                entries.value = (listOf(LedgerEntry(ReviewMemo.recordId(rc.signature, 1), w, System.currentTimeMillis() / 1000, memo)) + entries.value).distinctBy { it.signature }
+                txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, rc.paidLamports, rc.paidSkr))
+                ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
+                launch(Dispatchers.IO) { rank() }
+                Log.i("MainViewModel", "paid promotion ${rc.signature} (${rc.rail}) on $reviewId")
+            }
+            onResult(r.map { it.signature })
         }
     }
 
@@ -1002,8 +1027,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
-        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
+        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Boost -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
         fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }

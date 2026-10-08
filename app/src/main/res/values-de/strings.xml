@@ -1017,4 +1017,17 @@
     <string name="reviews_group_uncounted">Nicht gezählt</string>
     <string name="reviews_group_uncounted_note">Kein Seeker Genesis Token in der Wallet, oder der Herausgeber bewertet seine eigene App.</string>
     <string name="not_counted_warning">Diese Wallet hat kein Seeker Genesis Token: Was Sie signieren, wird on-chain gespeichert, aber nicht gezählt.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Hervorgehoben · bezahlt</string>
+    <string name="boost_button">Diese Bewertung hervorheben</string>
+    <string name="boost_title">Diese Bewertung hervorheben?</string>
+    <string name="boost_pay">%1$s zahlen</string>
+    <string name="boost_done">Hervorgehoben. Signatur %1$s</string>
+    <string name="boost_needs_pro">Zum Hervorheben einer Bewertung brauchen Sie eine aktive Pro-Mitgliedschaft.</string>
+    <string name="promoted_score_title">Hervorgehoben · bezahlt</string>
+    <string name="boost_body">Beworben erscheint diese Bewertung im Bereich „Beworbene Bewertungen“ der App-Seite, nach den unabhängigen Bewertungen und gekennzeichnet als Beworben · bezahlt, sowie in der separaten Wertung „Beworben“. Die signierte Wertung und das Gewicht der Bewertung ändern sich nicht. Es gilt nur für diese Fassung der Bewertung, und die Zahlung ist öffentlich.</string>
+    <string name="promoted_score_note">Nur Bewertungen, deren Autoren für die Bewerbung bezahlt haben, mit üblichem Gewicht. Getrennt von den unabhängigen Bewertungen.</string>
+    <string name="reviews_group_promoted">Beworbene Bewertungen · bezahlt</string>
+    <string name="reviews_group_promoted_note">Bewertungen, deren eigene Autoren Undersigned für die Bewerbung bezahlt haben. Einmal mit demselben Gewicht gezählt wie alle und getrennt von den unabhängigen Bewertungen.</string>
 </resources>

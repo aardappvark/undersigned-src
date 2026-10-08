@@ -128,7 +128,7 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
    memo `UNS`, treasury-credit ≥ floor = the licence) for the work *around* signing: import all store reviews in one approval, the publisher desk, CSV/JSON export, and
    hourly instead of six-hourly alerts for followed apps (copying a review to the store is free). It is shareable with two other wallets. **Pro never weights an opinion, lifts a listing or marks
    anyone trusted** — weight comes only from the attested device and staked SKR. Pro members' reviews also get their
-   own labelled score; reviews are listed under Organic / Pro members / Related to Undersigned / Not counted, and the
+   own labelled score; reviews are listed under Organic / Pro members / Promoted (paid, after organic, never first) / Related to Undersigned / Not counted, and the
    operator's own wallets and publisher-gifted Pro seats count in no score ([integrity policy](https://aardappvark.github.io/undersigned-legal/integrity.html)). It changes none of the legal
    analysis (a software licence fee, as in every other fleet app). First licence paid on mainnet 15 Sep (276 SKR).
 4. **Package visibility** — `QUERY_ALL_PACKAGES` with a disclosure (the Toolkit precedent) or a generated

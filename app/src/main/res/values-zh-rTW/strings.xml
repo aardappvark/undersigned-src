@@ -981,4 +981,17 @@
     <string name="reviews_group_uncounted">未計入</string>
     <string name="reviews_group_uncounted_note">錢包中沒有 Seeker Genesis Token，或發行者評價自己的應用程式。</string>
     <string name="not_counted_warning">此錢包沒有 Seeker Genesis Token：你簽署的內容會記錄在鏈上，但不會計入。</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">推廣 · 付費</string>
+    <string name="boost_button">推廣此評價</string>
+    <string name="boost_title">推廣此評價？</string>
+    <string name="boost_pay">支付 %1$s</string>
+    <string name="boost_done">已推廣。簽章 %1$s</string>
+    <string name="boost_needs_pro">推廣評價需要有效的 Pro 會員。</string>
+    <string name="promoted_score_title">推廣 · 付費</string>
+    <string name="boost_body">推廣會把這則評價放進應用程式頁面的「推廣評價」區塊（位於獨立評價之後，標示「推廣 · 付費」），並計入單獨的「推廣」評分。它不會改變簽署評分，也不改變這則評價的權重。僅適用於此版本的評價，付款是公開紀錄。</string>
+    <string name="promoted_score_note">僅限作者本人付費推廣的評價，依一般權重。與獨立評價分開列出。</string>
+    <string name="reviews_group_promoted">推廣評價 · 付費</string>
+    <string name="reviews_group_promoted_note">作者本人付費給 Undersigned 推廣的評價。與所有人同等權重計入一次，並與獨立評價分開顯示。</string>
 </resources>

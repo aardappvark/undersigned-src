@@ -60,6 +60,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
     val proScores by vm.proScores.collectAsState()
+    val promotedScores by vm.promotedScores.collectAsState()
+    var boostFor by remember { mutableStateOf<String?>(null) }
+    var boostStage by remember { mutableStateOf<String?>(null) }
+    var boostMsg by remember { mutableStateOf<Pair<String, String>?>(null) }
     val entries by vm.entries.collectAsState()
     val hidden by vm.hidden.collectAsState()
     val wallet by vm.wallet.collectAsState()
@@ -251,6 +255,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                     }
                     segment(stringResource(R.string.member_score_title), stringResource(R.string.member_score_note), proScores[pkg], RbColors.purpleLight)
+                    segment(stringResource(R.string.promoted_score_title), stringResource(R.string.promoted_score_note), promotedScores[pkg], RbColors.warning)
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -298,21 +303,24 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             var limit by rememberSaveable(pkg) { mutableStateOf(REVIEW_PAGE) }
             // Under headings, so what each review is reads at a glance (owner, 9 Oct 2026): organic Seeker owners, Pro members,
             // reviews related to Undersigned (its own wallets, or a Pro seat gifted by this app's publisher), and not counted.
+            // Promoted reviews (owner, 9 Oct 2026) get their own section AFTER organic and Pro members, never first: prominence must
+            // not follow payment (docs/COMPLIANCE_REVIEWS.md, UK DMCC 13(5)(i)(ii)). A promoted Pro review shows there, with both marks.
             fun group(e: LedgerEntry, w: com.undersigned.protocol.Weighting.Parts): Int = when {
-                com.undersigned.protocol.Operator.isOperator(e.signer) || w.gifted -> 2
-                w.device <= 0 || vm.isSelfPublished(e) -> 3
+                com.undersigned.protocol.Operator.isOperator(e.signer) || w.gifted -> 3
+                w.device <= 0 || vm.isSelfPublished(e) -> 4
+                w.promoted -> 2
                 w.pro -> 1
                 else -> 0
             }
-            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_pro, R.string.reviews_group_related, R.string.reviews_group_uncounted)
-            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_pro_note, R.string.reviews_group_related_note, R.string.reviews_group_uncounted_note)
+            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_pro, R.string.reviews_group_promoted, R.string.reviews_group_related, R.string.reviews_group_uncounted)
+            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_pro_note, R.string.reviews_group_promoted_note, R.string.reviews_group_related_note, R.string.reviews_group_uncounted_note)
             var lastGroup = -1
             shown.take(limit).sortedBy { (e, w) -> group(e, w) }.forEach { (e, w) -> key(e.signature) {
                 val g = group(e, w)
                 if (g != lastGroup) {
                     lastGroup = g
                     Spacer(Modifier.height(10.dp))
-                    Text(stringResource(groupTitles[g]), color = if (g == 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(groupTitles[g]), color = if (g >= 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(groupNotes[g]), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                     Spacer(Modifier.height(6.dp))
                 }
@@ -351,6 +359,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
                         // Membership and paid promotion are always shown on the review itself.
                         if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
+                        if (w.device > 0 && w.promoted) TrustPill(stringResource(R.string.weight_boosted_pill), RbColors.warning)
                         if (com.undersigned.protocol.Operator.isOperator(e.signer)) TrustPill(stringResource(R.string.related_operator_pill), RbColors.warning)
                         if (w.gifted) TrustPill(stringResource(R.string.related_gifted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
@@ -397,6 +406,29 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         Spacer(Modifier.height(8.dp))
                         // Free (feature review, 9 Oct 2026): this is the feature that strengthens the store's own reviews.
                         SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) }
+                    }
+                    // Promote my own counted review: Pro members only, once per review, never on an app the operator publishes,
+                    // always labelled (protocol Weighting decides whether it is honoured).
+                    if (e.signer == wallet && w.device > 0 && !w.promoted && !com.undersigned.protocol.Operator.publishes(pkg, verified)) {
+                        Spacer(Modifier.height(8.dp))
+                        if (pro?.active == true) SecondaryButton(boostStage ?: stringResource(R.string.boost_button), enabled = boostStage == null && sender != null, onClick = { boostMsg = null; boostFor = e.signature })
+                        else ProLock(hint = stringResource(R.string.boost_button), onPro = onPro)
+                    }
+                    if (e.signer == wallet) boostMsg?.takeIf { boostFor == null && it.second == e.signature }?.let { Text(it.first, color = RbColors.green, fontSize = 11.sp) }
+                    if (boostFor == e.signature) {
+                        fun payBoost(rail: com.undersigned.app.solana.ProPaymentService.Rail) {
+                            val s = sender ?: return
+                            boostFor = null
+                            vm.payBoost(s, rail, e.signature, onStage = { st -> boostStage = stageText(st) }) { r ->
+                                boostStage = null
+                                boostMsg = r.fold({ context.getString(R.string.boost_done, shortKey(it, 6, 6)) to e.signature }, { context.errorText(it) to e.signature })
+                            }
+                        }
+                        AlertDialog(onDismissRequest = { boostFor = null }, containerColor = RbColors.surface,
+                            title = { Text(stringResource(R.string.boost_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
+                            text = { Text(stringResource(R.string.boost_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
+                            confirmButton = { TextButton(onClick = { payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SKR) }) { Text(stringResource(R.string.boost_pay, String.format(java.util.Locale.US, "%,.0f SKR", com.undersigned.app.AppConfig.Payment.BOOST_SKR)), color = RbColors.purpleLight) } },
+                            dismissButton = { TextButton(onClick = { payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SOL) }) { Text(stringResource(R.string.boost_pay, "${com.undersigned.app.AppConfig.Payment.BOOST_SOL} SOL"), color = RbColors.textSecondary) } })
                     }
                     Spacer(Modifier.height(6.dp))
                     val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }

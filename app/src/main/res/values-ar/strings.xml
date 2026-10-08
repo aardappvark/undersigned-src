@@ -1068,4 +1068,17 @@
     <string name="reviews_group_uncounted">غير محتسبة</string>
     <string name="reviews_group_uncounted_note">لا يوجد Seeker Genesis Token في المحفظة، أو الناشر يراجع تطبيقه.</string>
     <string name="not_counted_warning">لا تحمل هذه المحفظة Seeker Genesis Token: ما توقّعه يُسجَّل على السلسلة لكنه لا يُحتسب.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">مروَّجة · مدفوعة</string>
+    <string name="boost_button">ترويج هذه المراجعة</string>
+    <string name="boost_title">ترويج هذه المراجعة؟</string>
+    <string name="boost_pay">ادفع %1$s</string>
+    <string name="boost_done">رُوِّجت. التوقيع %1$s</string>
+    <string name="boost_needs_pro">ترويج مراجعة يتطلب عضوية Pro نشطة.</string>
+    <string name="promoted_score_title">مروَّجة · مدفوعة</string>
+    <string name="boost_body">الترويج يضع هذه المراجعة في قسم «مراجعات مروَّجة» في صفحة التطبيق، بعد المراجعات المستقلة وموسومة «مروَّجة · مدفوعة»، وفي تقييم «المروَّجة» المنفصل. لا يغيّر التقييم الموقّع ولا وزن المراجعة. ينطبق على هذه النسخة من المراجعة فقط، والدفع سجل عام.</string>
+    <string name="promoted_score_note">فقط المراجعات التي دفع مؤلفوها لترويجها، بوزنها المعتاد. معروضة بعيدًا عن المراجعات المستقلة.</string>
+    <string name="reviews_group_promoted">مراجعات مروَّجة · مدفوعة</string>
+    <string name="reviews_group_promoted_note">مراجعات دفع مؤلفوها أنفسهم لـUndersigned لترويجها. تُحتسب مرة واحدة بالوزن نفسه مثل الجميع، وتبقى منفصلة عن المراجعات المستقلة.</string>
 </resources>

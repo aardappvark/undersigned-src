@@ -982,4 +982,17 @@
     <string name="reviews_group_uncounted">Không được tính</string>
     <string name="reviews_group_uncounted_note">Ví không có Seeker Genesis Token, hoặc nhà phát hành tự đánh giá ứng dụng của mình.</string>
     <string name="not_counted_warning">Ví này không có Seeker Genesis Token: những gì bạn ký được ghi trên chuỗi nhưng không được tính.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Được quảng bá · trả phí</string>
+    <string name="boost_button">Quảng bá đánh giá này</string>
+    <string name="boost_title">Quảng bá đánh giá này?</string>
+    <string name="boost_pay">Trả %1$s</string>
+    <string name="boost_done">Đã quảng bá. Chữ ký %1$s</string>
+    <string name="boost_needs_pro">Quảng bá đánh giá cần gói Pro đang hoạt động.</string>
+    <string name="promoted_score_title">Được quảng bá · trả phí</string>
+    <string name="boost_body">Quảng bá đưa đánh giá này vào mục “Đánh giá được quảng bá” trên trang ứng dụng, sau các đánh giá độc lập và gắn nhãn Được quảng bá · trả phí, cùng điểm Được quảng bá riêng. Không thay đổi điểm đã ký hay trọng số của đánh giá. Chỉ áp dụng cho phiên bản đánh giá này, và khoản thanh toán là công khai.</string>
+    <string name="promoted_score_note">Chỉ những đánh giá mà tác giả đã trả phí để quảng bá, với trọng số thường. Liệt kê riêng với đánh giá độc lập.</string>
+    <string name="reviews_group_promoted">Đánh giá được quảng bá · trả phí</string>
+    <string name="reviews_group_promoted_note">Đánh giá mà chính tác giả đã trả Undersigned để quảng bá. Được tính một lần cùng trọng số như mọi người và tách riêng khỏi đánh giá độc lập.</string>
 </resources>

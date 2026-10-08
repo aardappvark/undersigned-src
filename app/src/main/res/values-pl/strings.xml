@@ -1035,4 +1035,17 @@
     <string name="reviews_group_uncounted">Nieliczone</string>
     <string name="reviews_group_uncounted_note">Portfel bez Seeker Genesis Token albo wydawca oceniający własną aplikację.</string>
     <string name="not_counted_warning">Ten portfel nie ma Seeker Genesis Token: to, co podpiszesz, trafia do łańcucha, ale się nie liczy.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Wyróżniona · płatna</string>
+    <string name="boost_button">Wyróżnij tę recenzję</string>
+    <string name="boost_title">Wyróżnić tę recenzję?</string>
+    <string name="boost_pay">Zapłać %1$s</string>
+    <string name="boost_done">Wyróżniona. Podpis %1$s</string>
+    <string name="boost_needs_pro">Wyróżnienie recenzji wymaga aktywnego członkostwa Pro.</string>
+    <string name="promoted_score_title">Wyróżniona · płatna</string>
+    <string name="boost_body">Promowanie umieszcza tę recenzję w sekcji „Promowane recenzje” na stronie aplikacji, po recenzjach niezależnych, oznaczoną Promowana · płatna, oraz w osobnej ocenie Promowane. Nie zmienia podpisanej oceny ani wagi recenzji. Dotyczy tylko tej wersji recenzji, a płatność jest publiczna.</string>
+    <string name="promoted_score_note">Tylko recenzje, których autorzy zapłacili za promowanie, ze zwykłą wagą. Wymienione osobno od niezależnych.</string>
+    <string name="reviews_group_promoted">Promowane recenzje · płatne</string>
+    <string name="reviews_group_promoted_note">Recenzje, których autorzy zapłacili Undersigned za promowanie. Liczone raz z tą samą wagą co wszystkie i oddzielone od niezależnych.</string>
 </resources>

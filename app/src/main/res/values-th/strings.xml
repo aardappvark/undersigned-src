@@ -966,4 +966,17 @@
     <string name="reviews_group_uncounted">ไม่ถูกนับ</string>
     <string name="reviews_group_uncounted_note">กระเป๋าไม่มี Seeker Genesis Token หรือผู้เผยแพร่รีวิวแอปของตัวเอง</string>
     <string name="not_counted_warning">กระเป๋านี้ไม่มี Seeker Genesis Token: สิ่งที่คุณลงนามจะถูกบันทึกบนเชนแต่ไม่ถูกนับ</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">โปรโมต · จ่ายเงิน</string>
+    <string name="boost_button">โปรโมตรีวิวนี้</string>
+    <string name="boost_title">โปรโมตรีวิวนี้ไหม</string>
+    <string name="boost_pay">ชำระ %1$s</string>
+    <string name="boost_done">โปรโมตแล้ว ลายเซ็น %1$s</string>
+    <string name="boost_needs_pro">การโปรโมตรีวิวต้องมีสมาชิก Pro ที่ยังใช้งาน</string>
+    <string name="promoted_score_title">โปรโมต · จ่ายเงิน</string>
+    <string name="boost_body">การโปรโมตจะนำรีวิวนี้ไปไว้ในส่วน “รีวิวที่โปรโมต” ของหน้าแอป ต่อจากรีวิวอิสระ พร้อมป้าย โปรโมต · ชำระเงิน และในคะแนน “โปรโมต” ที่แยกต่างหาก ไม่เปลี่ยนคะแนนที่ลงนามหรือน้ำหนักของรีวิว ใช้กับรีวิวเวอร์ชันนี้เท่านั้น และการชำระเงินเป็นบันทึกสาธารณะ</string>
+    <string name="promoted_score_note">เฉพาะรีวิวที่ผู้เขียนจ่ายเงินเพื่อโปรโมต ด้วยน้ำหนักปกติ แสดงแยกจากรีวิวอิสระ</string>
+    <string name="reviews_group_promoted">รีวิวที่โปรโมต · ชำระเงิน</string>
+    <string name="reviews_group_promoted_note">รีวิวที่ผู้เขียนเองจ่ายเงินให้ Undersigned เพื่อโปรโมต นับครั้งเดียวด้วยน้ำหนักเท่ากับทุกคน และแยกจากรีวิวอิสระ</string>
 </resources>

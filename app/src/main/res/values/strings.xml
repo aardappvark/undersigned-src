@@ -1023,4 +1023,17 @@
     <string name="reviews_group_uncounted">Not counted</string>
     <string name="reviews_group_uncounted_note">No Seeker Genesis Token on the wallet, or the publisher reviewing its own app.</string>
     <string name="not_counted_warning">This wallet holds no Seeker Genesis Token: what you sign is recorded on-chain but not counted.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Promoted · paid</string>
+    <string name="boost_button">Promote this review</string>
+    <string name="boost_title">Promote this review?</string>
+    <string name="boost_pay">Pay %1$s</string>
+    <string name="boost_done">Promoted. Signature %1$s</string>
+    <string name="boost_needs_pro">Promoting a review needs an active Pro membership.</string>
+    <string name="promoted_score_title">Promoted · paid</string>
+    <string name="boost_body">Promoting lists this review in the Promoted reviews section of the app\'s page, after the organic reviews and labelled Promoted · paid, and in the separate Promoted score. It does not change the signed score or how much the review counts. It applies to this version of the review only, and the payment is a public record.</string>
+    <string name="promoted_score_note">Only reviews their own authors paid to promote, at their ordinary weight. Listed apart from organic reviews.</string>
+    <string name="reviews_group_promoted">Promoted reviews · paid</string>
+    <string name="reviews_group_promoted_note">Reviews their own authors paid Undersigned to promote. Counted once at the same weight as everyone, and kept apart from organic reviews.</string>
 </resources>

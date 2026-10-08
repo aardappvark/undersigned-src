@@ -1015,4 +1015,17 @@
     <string name="reviews_group_uncounted">Nenumărate</string>
     <string name="reviews_group_uncounted_note">Portofel fără Seeker Genesis Token sau editorul care își evaluează propria aplicație.</string>
     <string name="not_counted_warning">Acest portofel nu are Seeker Genesis Token: ce semnezi se înregistrează pe lanț, dar nu se numără.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Promovată · plătită</string>
+    <string name="boost_button">Promovează această recenzie</string>
+    <string name="boost_title">Promovezi această recenzie?</string>
+    <string name="boost_pay">Plătește %1$s</string>
+    <string name="boost_done">Promovată. Semnătura %1$s</string>
+    <string name="boost_needs_pro">Promovarea unei recenzii cere un abonament Pro activ.</string>
+    <string name="promoted_score_title">Promovată · plătită</string>
+    <string name="boost_body">Promovarea pune această recenzie în secțiunea „Recenzii promovate” a paginii aplicației, după recenziile independente și marcată Promovată · plătită, și în scorul separat Promovate. Nu schimbă scorul semnat și nici greutatea recenziei. Se aplică doar acestei versiuni a recenziei, iar plata este publică.</string>
+    <string name="promoted_score_note">Doar recenzii ale căror autori au plătit promovarea, cu greutatea obișnuită. Listate separat de cele independente.</string>
+    <string name="reviews_group_promoted">Recenzii promovate · plătite</string>
+    <string name="reviews_group_promoted_note">Recenzii ale căror autori au plătit Undersigned pentru promovare. Numărate o dată cu aceeași greutate ca toate și ținute separat de cele independente.</string>
 </resources>

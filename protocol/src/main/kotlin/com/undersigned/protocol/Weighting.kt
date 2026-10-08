@@ -13,7 +13,15 @@ import kotlin.math.min
  *    words; halved for a wallet that has a review hidden by consensus.
  *
  * PRO MEMBERS: reviews signed while the wallet held Pro appear, at the same weight, in their own labelled score with its
- * own count beside the signed score. Paid promotion of reviews was removed (owner, 9 Oct 2026).
+ * own count beside the signed score.
+ *
+ * PROMOTED (owner, 9 Oct 2026: "a promoted review which is separate to organic reviews"): the review's own author paid to
+ * promote it (`bst`). It counts once, at the same weight, in the signed score, and is listed in its own section labelled
+ * as paid, set apart from organic reviews and placed AFTER them, never first (UK DMCC 13(5)(i)(ii) / CMA208 5.1(b):
+ * prominence must not follow payment; ACCC: promoted results shaded apart from organic ones; docs/COMPLIANCE_REVIEWS.md).
+ * Honoured only when paid, signed by the review's own wallet while it held Pro, and never by a verified publisher of any
+ * app, an Undersigned operator wallet, or a holder of a Pro seat gifted by the app's publisher; never on an app the
+ * operator publishes (FTC 16 CFR 255.2(d): the operator would be promoting reviews of its own products).
  *
  * GIFTED (compliance review, 9 Oct 2026): a reviewer holding a Pro seat granted by the reviewed app's verified publisher
  * has received something of value from that trader; their review of that publisher's apps is labelled and counted in NO
@@ -26,7 +34,7 @@ object Weighting {
     const val QUALITY_FLOOR = 0.25
     const val TEXT_WORDS = 6
 
-    data class Parts(val device: Double, val quality: Double, val pro: Boolean, val gifted: Boolean = false) {
+    data class Parts(val device: Double, val quality: Double, val pro: Boolean, val gifted: Boolean = false, val promoted: Boolean = false) {
         /** The review's weight in every score it appears in; 0 when it is gifted (counted nowhere). */
         val weight: Double get() = if (gifted) 0.0 else device * quality
     }
@@ -68,7 +76,7 @@ object Weighting {
     }
 
     /**
-     * Everything the weights and segments need, read once per ledger. [paid] says whether a `pro` record's
+     * Everything the weights and segments need, read once per ledger. [paid] says whether a `pro` or `bst` record's
      * transaction credited the treasury with at least its floor; each reader supplies its own reading of the balances.
      */
     class Context(
@@ -92,10 +100,25 @@ object Weighting {
             g != wallet && ProSharing.holdsSeat(g, wallet, ProSharing.recordsOf(entries, g).filter { it.time <= time })
         }
 
+        private val anyPublisher: Set<String> = verifiedPublishers.values.flatten().toSet()
+        private val bySig = entries.associateBy { it.signature }
+
+        /** Review ids with a valid promotion (see the header): every control is checked at the promotion's own time. */
+        val promoted: Set<String> = entries.mapNotNull { e ->
+            val b = e.memo as? ReviewMemo.Boost ?: return@mapNotNull null
+            val review = bySig[b.recordId] ?: return@mapNotNull null
+            val r = review.memo as? ReviewMemo.Review ?: return@mapNotNull null
+            b.recordId.takeIf {
+                review.signer == e.signer && e.signer !in anyPublisher && !Operator.isOperator(e.signer) && paid(e) &&
+                    !Operator.publishes(r.packageName, verifiedPublishers) &&
+                    pro(e.signer, e.blockTime, r.packageName) && !gifted(e.signer, e.blockTime, r.packageName)
+            }
+        }.toSet()
+
         fun parts(e: LedgerEntry): Parts {
             val r = e.memo as ReviewMemo.Review
             return Parts(Ranking.weight(facts(e.signer)), quality(r, (e.signer to r.packageName) in phoneFacts, e.signer in penalised),
-                pro(e.signer, e.blockTime, r.packageName), gifted(e.signer, e.blockTime, r.packageName))
+                pro(e.signer, e.blockTime, r.packageName), gifted(e.signer, e.blockTime, r.packageName), e.signature in promoted)
         }
     }
 }

@@ -1000,4 +1000,17 @@
     <string name="reviews_group_uncounted">شمار نہیں</string>
     <string name="reviews_group_uncounted_note">والیٹ میں Seeker Genesis Token نہیں، یا پبلشر اپنی ایپ کا جائزہ لے رہا ہے۔</string>
     <string name="not_counted_warning">اس والیٹ میں Seeker Genesis Token نہیں: جو آپ دستخط کریں گے وہ چین پر درج ہوگا مگر شمار نہیں ہوگا۔</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">پروموٹ شدہ · ادا شدہ</string>
+    <string name="boost_button">اس جائزے کو پروموٹ کریں</string>
+    <string name="boost_title">اس جائزے کو پروموٹ کریں؟</string>
+    <string name="boost_pay">%1$s ادا کریں</string>
+    <string name="boost_done">پروموٹ ہو گیا۔ دستخط %1$s</string>
+    <string name="boost_needs_pro">جائزہ پروموٹ کرنے کے لیے فعال Pro رکنیت ضروری ہے۔</string>
+    <string name="promoted_score_title">پروموٹ شدہ · ادا شدہ</string>
+    <string name="boost_body">پروموٹ کرنے سے یہ جائزہ ایپ کے صفحے پر “پروموٹ کیے گئے جائزے” حصے میں آ جاتا ہے، آزاد جائزوں کے بعد اور “پروموٹڈ · ادا شدہ” نشان کے ساتھ، اور الگ “پروموٹڈ” اسکور میں۔ اس سے دستخط شدہ اسکور یا جائزے کا وزن نہیں بدلتا۔ یہ صرف جائزے کے اسی ورژن پر لاگو ہوتا ہے، اور ادائیگی عوامی ریکارڈ ہے۔</string>
+    <string name="promoted_score_note">صرف وہ جائزے جن کے مصنفین نے پروموشن کی ادائیگی کی، معمول کے وزن پر۔ آزاد جائزوں سے الگ درج۔</string>
+    <string name="reviews_group_promoted">پروموٹ کیے گئے جائزے · ادا شدہ</string>
+    <string name="reviews_group_promoted_note">وہ جائزے جن کے اپنے مصنفین نے پروموشن کے لیے Undersigned کو ادائیگی کی۔ سب کے برابر وزن پر ایک بار شمار، اور آزاد جائزوں سے الگ رکھے جاتے ہیں۔</string>
 </resources>

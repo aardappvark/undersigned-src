@@ -29,7 +29,7 @@ Undersigned's own site; if the reviewer reads the publisher field, the answer is
 ### Long description
 Undersigned is a review layer beside the dApp Store where every review is signed on-chain by a Seeker owner's own wallet.
 
-One Seeker, one voice: only wallets holding a Seeker Genesis Token are counted, so a review farm needs a real Seeker for every voice, and no payment to Undersigned changes the signed score. Staked SKR, a token anyone can buy, can raise a reviewer's weight up to 3×. Pro members' reviews are also shown as their own labelled score, never blended in, and Undersigned's own wallets are labelled and never counted.
+One Seeker, one voice: only wallets holding a Seeker Genesis Token are counted, so a review farm needs a real Seeker for every voice, and no payment to Undersigned changes the signed score. Staked SKR, a token anyone can buy, can raise a reviewer's weight up to 3×. Pro members' reviews, and reviews their authors paid to promote, are also shown as their own labelled scores, never blended in; promoted reviews are listed after organic ones, never first, and Undersigned's own wallets are labelled and never counted.
 
 - Every dApp in the store, with its signed score beside the store's own rating, and the store's reviews read alongside.
 - Write a review in seconds: stars, one to three tags, an optional note. Your wallet signs it with the double-tap; you pay only the Solana network fee.

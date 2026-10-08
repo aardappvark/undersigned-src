@@ -100,6 +100,16 @@ object AppConfig {
         const val PRO_SOL = 0.0607
         /** 651 SKR from 28 Sep 2026 (owner: the fleet price). 276 was the price until then and stays a floor, so the licence bought at it on 15 Sep reads. */
         const val PRO_SKR = 651.0
+        /**
+         * Promoting one's own review, Pro members only (owner, 9 Oct 2026): a tenth of the Pro price. It never changes the
+         * review's weight or the signed score; the review is listed in a separate, labelled section after organic reviews
+         * (protocol Weighting). Parity-tested against the API's AppFloors.
+         */
+        const val BOOST_SOL = 0.00607
+        const val BOOST_SKR = 65.0
+        val boostFloorLamports: Long get() = lamports(BOOST_SOL)
+        val boostFloorSkrRaw: Long get() = skrRaw(BOOST_SKR)
+        fun isPaidBoost(paidLamports: Long, paidSkr: Long): Boolean = paidLamports >= boostFloorLamports || paidSkr >= boostFloorSkrRaw
         val LEGACY_PRO_SOL: List<Double> = emptyList()
         val LEGACY_PRO_SKR: List<Double> = listOf(276.0)
         const val TERM_MONTHS = 12

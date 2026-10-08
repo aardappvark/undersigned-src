@@ -120,6 +120,9 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         a.optJSONObject("signed")?.optJSONObject("pro_members")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
             sb.append("<div class=card><div class=label>Pro members</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} by reviewers who pay Undersigned for Pro, at the same weight as everyone. Shown apart; the signed score never includes payment to Undersigned.</span></div></div>")
         }
+        sg?.optJSONObject("promoted")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
+            sb.append("<div class='card warn'><div class=label>Promoted · paid</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} their own authors paid to promote, at their ordinary weight. Listed apart from organic reviews.</span></div></div>")
+        }
         sg?.optJSONObject("tags")?.takeIf { it.length() > 0 }?.let { t -> sb.append("<div class=row>"); t.keys().asSequence().sortedByDescending { t.optInt(it) }.forEach { sb.append("<span class=tag>${esc(I18n.tag(lang, it))} · ${t.optInt(it)}</span>") }; sb.append("</div>") }
 
         // Bursts: timing facts with a daily sparkline, the burst window shaded AND labelled (never colour alone).
@@ -145,11 +148,13 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         if (list.length() == 0) sb.append("<p class=meta>None yet. <a href='/review?package=${enc(pkg)}'>Write one</a> from a Seeker.</p>")
         // Under headings, as in the app (owner, 9 Oct 2026): organic, Pro members, related to Undersigned or the publisher (shown,
         // labelled, counted nowhere), and not counted. The last is folded away: anyone can sign text for one network fee.
-        val groups = List(4) { StringBuilder() }; val counts = IntArray(4)
+        val groups = List(5) { StringBuilder() }; val counts = IntArray(5)
         for (i in 0 until list.length()) {
             val r = list.getJSONObject(i); val who = r.getJSONObject("reviewer")
             val related = if (r.isNull("related")) null else r.optString("related")
-            val g = when { related != null -> 2; !r.optBoolean("counted") -> 3; who.optJSONObject("weight_parts")?.optBoolean("pro_member") == true -> 1; else -> 0 }
+            // Promoted reviews get their own section after organic and Pro members, never first (protocol Weighting).
+            val parts = who.optJSONObject("weight_parts")
+            val g = when { related != null -> 3; !r.optBoolean("counted") -> 4; parts?.optBoolean("promoted") == true -> 2; parts?.optBoolean("pro_member") == true -> 1; else -> 0 }
             counts[g]++
             @Suppress("NAME_SHADOWING") val sb = groups[g]
             sb.append("<div class=rev><div class=row><span class=stars aria-label='${r.optInt("rating")} of 5'>${"★".repeat(r.optInt("rating"))}${"☆".repeat(5 - r.optInt("rating"))}</span>")
@@ -159,7 +164,8 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
                 who.optBoolean("attested_device") -> sb.append("<span class='pill g'>Attested device · weight ${who.opt("weight")}</span>")
                 else -> sb.append("<span class=pill>Not counted: no attested device</span>")
             }
-            if (g == 1) sb.append("<span class='pill g'>Pro member</span>")
+            if (parts?.optBoolean("pro_member") == true && g <= 2) sb.append("<span class='pill g'>Pro member</span>")
+            if (g == 2) sb.append("<span class=pill>Promoted · paid</span>")
             if (r.optBoolean("paid_for_app")) sb.append("<span class='pill g'>Paid for this app</span>")
             if (r.optBoolean("self_published")) sb.append("<span class=pill>The publisher's own review, not counted</span>")
             sb.append("</div>")
@@ -183,10 +189,11 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         val heads = listOf(
             "Organic reviews" to "Counted Seeker owners with no tie to Undersigned or to this app's publisher.",
             "Pro members" to "Reviewers who pay Undersigned for Pro: counted at the same weight as everyone, and also shown as their own score.",
+            "Promoted reviews · paid" to "Reviews their own authors paid Undersigned to promote. Counted once at the same weight as everyone, and kept apart from organic reviews.",
             "Related to Undersigned or the publisher" to "Undersigned's own wallets, or a reviewer holding Pro gifted by this app's publisher. Shown, labelled, counted in no score.",
         )
-        for (g in 0..2) if (counts[g] > 0) sb.append("<h3>${heads[g].first} · ${counts[g]}</h3><p class=small>${heads[g].second}</p>").append(groups[g])
-        if (counts[3] > 0) sb.append("<details class=card><summary>Not counted · ${plural(counts[3], "review", "reviews")}: no attested device, or the publisher's own</summary>${groups[3]}</details>")
+        for (g in 0..3) if (counts[g] > 0) sb.append(if (g == 2) "<div class='card warn'>" else "").append("<h3>${heads[g].first} · ${counts[g]}</h3><p class=small>${heads[g].second}</p>").append(groups[g]).append(if (g == 2) "</div>" else "")
+        if (counts[4] > 0) sb.append("<details class=card><summary>Not counted · ${plural(counts[4], "review", "reviews")}: no attested device, or the publisher's own</summary>${groups[4]}</details>")
         sb.append("<p class=small><a href='https://aardappvark.github.io/undersigned-legal/integrity.html'>How reviews are collected, checked and counted</a></p>")
         if (rv.optInt("total") > list.length()) sb.append("<p class=meta>Showing ${list.length()} of ${rv.optInt("total")}.</p>")
 

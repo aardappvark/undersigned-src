@@ -982,4 +982,17 @@
     <string name="reviews_group_uncounted">Tidak dihitung</string>
     <string name="reviews_group_uncounted_note">Tidak ada Seeker Genesis Token di dompet, atau penerbit mengulas aplikasinya sendiri.</string>
     <string name="not_counted_warning">Dompet ini tidak memiliki Seeker Genesis Token: yang Anda tandatangani tercatat di rantai tetapi tidak dihitung.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Dipromosikan · berbayar</string>
+    <string name="boost_button">Promosikan ulasan ini</string>
+    <string name="boost_title">Promosikan ulasan ini?</string>
+    <string name="boost_pay">Bayar %1$s</string>
+    <string name="boost_done">Dipromosikan. Tanda tangan %1$s</string>
+    <string name="boost_needs_pro">Mempromosikan ulasan memerlukan keanggotaan Pro yang aktif.</string>
+    <string name="promoted_score_title">Dipromosikan · berbayar</string>
+    <string name="boost_body">Mempromosikan menaruh ulasan ini di bagian “Ulasan dipromosikan” pada halaman aplikasi, setelah ulasan independen dan bertanda Dipromosikan · berbayar, serta di skor Dipromosikan yang terpisah. Ini tidak mengubah skor bertanda tangan atau bobot ulasan. Berlaku hanya untuk versi ulasan ini, dan pembayarannya tercatat publik.</string>
+    <string name="promoted_score_note">Hanya ulasan yang penulisnya membayar untuk mempromosikannya, dengan bobot biasa. Dicantumkan terpisah dari ulasan independen.</string>
+    <string name="reviews_group_promoted">Ulasan dipromosikan · berbayar</string>
+    <string name="reviews_group_promoted_note">Ulasan yang penulisnya sendiri membayar Undersigned untuk mempromosikannya. Dihitung sekali dengan bobot yang sama seperti semua orang, dan dipisahkan dari ulasan independen.</string>
 </resources>

@@ -1026,4 +1026,17 @@
     <string name="reviews_group_uncounted">Non comptés</string>
     <string name="reviews_group_uncounted_note">Pas de Seeker Genesis Token dans le portefeuille, ou l\'éditeur qui note sa propre app.</string>
     <string name="not_counted_warning">Ce portefeuille n\'a pas de Seeker Genesis Token : ce que vous signez est enregistré sur la chaîne mais pas compté.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Mis en avant · payé</string>
+    <string name="boost_button">Mettre cet avis en avant</string>
+    <string name="boost_title">Mettre cet avis en avant ?</string>
+    <string name="boost_pay">Payer %1$s</string>
+    <string name="boost_done">Mis en avant. Signature %1$s</string>
+    <string name="boost_needs_pro">Mettre un avis en avant demande un abonnement Pro actif.</string>
+    <string name="promoted_score_title">Mis en avant · payé</string>
+    <string name="boost_body">La promotion place cet avis dans la section « Avis promus » de la page de l\'app, après les avis indépendants et marqué Promu · payant, ainsi que dans le score Promus séparé. Elle ne change ni le score signé ni le poids de l\'avis. Elle vaut pour cette version de l\'avis seulement, et le paiement est public.</string>
+    <string name="promoted_score_note">Seulement les avis dont l\'auteur a payé la promotion, à leur poids habituel. Listés à part des avis indépendants.</string>
+    <string name="reviews_group_promoted">Avis promus · payant</string>
+    <string name="reviews_group_promoted_note">Avis dont l\'auteur a payé Undersigned pour les promouvoir. Comptés une fois au même poids que tous, et tenus à part des avis indépendants.</string>
 </resources>

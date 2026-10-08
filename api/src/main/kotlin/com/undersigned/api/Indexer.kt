@@ -24,6 +24,11 @@ import java.nio.ByteOrder
 object AppFloors {
     const val PRO_SOL = 0.0607
     const val PRO_SKR = 651.0
+    /** Promoting one's own review (the app's BOOST_* pair, parity-tested). */
+    const val BOOST_SOL = 0.00607
+    const val BOOST_SKR = 65.0
+    val boostFloorLamports get() = Config.lamports(BOOST_SOL)
+    val boostFloorSkrRaw get() = Config.skrRaw(BOOST_SKR)
     /** Earlier Pro prices stay floors (the 276 SKR licence of 15 Sep must still read). */
     val LEGACY_PRO_SKR: List<Double> = listOf(276.0)
     const val LIST_SOL = 0.0607
@@ -68,10 +73,11 @@ class State(
      */
     val paidRecord: (LedgerEntry) -> Boolean = { e -> when (e.memo) {
         is ReviewMemo.Pro -> true
+        is ReviewMemo.Boost -> meta[e.signature.substringBefore(':')]?.let { it.lamports >= AppFloors.boostFloorLamports || it.skr >= AppFloors.boostFloorSkrRaw } == true
         else -> false } }
     val weighting = com.undersigned.protocol.Weighting.Context(entries, Reputation.hiddenByConsensus(entries, verified, f), f, paidRecord, verified)
     val scores = Ranking.score(entries, verified, facts = f).associateBy { it.packageName }
-    /** Beside [scores], never blended into it: Pro members' reviews as their own score. */
+    /** Beside [scores], never blended into it: Pro members' reviews and promoted reviews as their own scores. */
     val segments = Ranking.segments(entries, verified, paidRecord, f)
     val standings = Reputation.standing(entries, verified, f)
     val hidden = Reputation.hiddenByConsensus(entries, verified, f)

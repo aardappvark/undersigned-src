@@ -981,4 +981,17 @@
     <string name="reviews_group_uncounted">未计入</string>
     <string name="reviews_group_uncounted_note">钱包中没有 Seeker Genesis Token，或发布者评价自己的应用。</string>
     <string name="not_counted_warning">此钱包没有 Seeker Genesis Token：你签署的内容会记录在链上，但不会计入。</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">推广 · 付费</string>
+    <string name="boost_button">推广此评价</string>
+    <string name="boost_title">推广此评价？</string>
+    <string name="boost_pay">支付 %1$s</string>
+    <string name="boost_done">已推广。签名 %1$s</string>
+    <string name="boost_needs_pro">推广评价需要有效的 Pro 会员。</string>
+    <string name="promoted_score_title">推广 · 付费</string>
+    <string name="boost_body">推广会把这条评价放进应用页面的“推广评价”栏目（位于独立评价之后，标注“推广 · 付费”），并计入单独的“推广”评分。它不会改变签名评分，也不改变这条评价的权重。仅适用于此版本的评价，付款是公开记录。</string>
+    <string name="promoted_score_note">仅限作者本人付费推广的评价，按常规权重。与独立评价分开列出。</string>
+    <string name="reviews_group_promoted">推广评价 · 付费</string>
+    <string name="reviews_group_promoted_note">作者本人付费给 Undersigned 推广的评价。与所有人同等权重计入一次，并与独立评价分开显示。</string>
 </resources>

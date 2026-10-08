@@ -1001,4 +1001,17 @@
     <string name="reviews_group_uncounted">Hindi binibilang</string>
     <string name="reviews_group_uncounted_note">Walang Seeker Genesis Token ang wallet, o ang publisher ay nagre-review ng sarili nitong app.</string>
     <string name="not_counted_warning">Walang Seeker Genesis Token ang wallet na ito: ang pipirmahan mo ay itatala sa chain pero hindi bibilangin.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Pino-promote · bayad</string>
+    <string name="boost_button">I-promote ang review na ito</string>
+    <string name="boost_title">I-promote ang review na ito?</string>
+    <string name="boost_pay">Bayaran ang %1$s</string>
+    <string name="boost_done">Na-promote. Pirma %1$s</string>
+    <string name="boost_needs_pro">Kailangan ng aktibong Pro membership para mag-promote ng review.</string>
+    <string name="promoted_score_title">Pino-promote · bayad</string>
+    <string name="boost_body">Ang pag-promote ay naglalagay ng review na ito sa seksyong “Mga na-promote na review” ng pahina ng app, pagkatapos ng mga independiyenteng review at may markang Na-promote · may bayad, at sa hiwalay na iskor na Na-promote. Hindi nito binabago ang pinirmahang iskor o ang bigat ng review. Para lang ito sa bersyong ito ng review, at pampubliko ang bayad.</string>
+    <string name="promoted_score_note">Mga review lang na binayaran ng mismong may-akda para i-promote, sa karaniwang bigat. Hiwalay sa mga independiyenteng review.</string>
+    <string name="reviews_group_promoted">Mga na-promote na review · may bayad</string>
+    <string name="reviews_group_promoted_note">Mga review na binayaran ng mismong may-akda sa Undersigned para i-promote. Binibilang nang isang beses sa parehong bigat ng lahat, at hiwalay sa mga independiyenteng review.</string>
 </resources>

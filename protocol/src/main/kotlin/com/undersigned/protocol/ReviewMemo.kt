@@ -74,6 +74,8 @@ sealed class ReviewMemo {
     data class Dispute(val recordId: String, val text: String) : ReviewMemo()
     /** A licence term in months. Ignored by every ranking and reputation rule; the app reads it beside the payment it rode in on. */
     data class Pro(val months: Int) : ReviewMemo()
+    /** `bst|<review id>`: the review's own author pays to promote it, in the same transaction as the payment (see Weighting). */
+    data class Boost(val recordId: String) : ReviewMemo()
     /** A shared seat on the signer's Pro term, named by the pair hash; only the paying wallet's signature makes it real. */
     data class Share(val tag: String) : ReviewMemo()
     data class Unshare(val tag: String) : ReviewMemo()
@@ -154,6 +156,7 @@ sealed class ReviewMemo {
             // LedgerCache serialises every entry through this codec, so it crashed the app on launch for the one
             // wallet that owns a licence (20 Sep 2026).
             is Pro -> { require(m.months in 1..MAX_PRO_MONTHS) { "months" }; "${Registry.PROTOCOL}|pro|${m.months}" }
+            is Boost -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|bst|${m.recordId}" }
             is Share -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shr|${m.tag}" }
             is Unshare -> { require(TAG32.matches(m.tag)) { "tag" }; "${Registry.PROTOCOL}|shx|${m.tag}" }
             is Use -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|use|${m.packageName}|${m.bucket.wire}" }
@@ -209,6 +212,7 @@ sealed class ReviewMemo {
                 }
                 "flg" -> if (f.size == 4 && SIGNATURE.matches(f[2])) FlagReason.fromWire(f[3])?.let { Flag(f[2], it) } else null
                 "clm" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Claim(f[2]) else null
+                "bst" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Boost(f[2]) else null
                 "pro" -> if (f.size == 3) f[2].toIntOrNull()?.takeIf { it in 1..MAX_PRO_MONTHS }?.let { Pro(it) } else null
                 "shr" -> if (f.size == 3 && TAG32.matches(f[2])) Share(f[2]) else null
                 "shx" -> if (f.size == 3 && TAG32.matches(f[2])) Unshare(f[2]) else null

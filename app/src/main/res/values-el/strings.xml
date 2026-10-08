@@ -997,4 +997,17 @@
     <string name="reviews_group_uncounted">Δεν μετρούν</string>
     <string name="reviews_group_uncounted_note">Χωρίς Seeker Genesis Token στο πορτοφόλι ή ο εκδότης που αξιολογεί τη δική του εφαρμογή.</string>
     <string name="not_counted_warning">Αυτό το πορτοφόλι δεν έχει Seeker Genesis Token: ό,τι υπογράψετε καταγράφεται στο blockchain αλλά δεν μετρά.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Προβεβλημένη · πληρωμένη</string>
+    <string name="boost_button">Προβολή αυτής της κριτικής</string>
+    <string name="boost_title">Προβολή αυτής της κριτικής;</string>
+    <string name="boost_pay">Πληρωμή %1$s</string>
+    <string name="boost_done">Προβλήθηκε. Υπογραφή %1$s</string>
+    <string name="boost_needs_pro">Η προβολή κριτικής απαιτεί ενεργή συνδρομή Pro.</string>
+    <string name="promoted_score_title">Προβεβλημένη · πληρωμένη</string>
+    <string name="boost_body">Η προώθηση βάζει αυτή την κριτική στην ενότητα «Προωθημένες κριτικές» της σελίδας της εφαρμογής, μετά τις ανεξάρτητες και με την ένδειξη Προωθημένη · επί πληρωμή, και στη χωριστή βαθμολογία Προωθημένες. Δεν αλλάζει την υπογεγραμμένη βαθμολογία ούτε το βάρος της κριτικής. Ισχύει μόνο για αυτή την εκδοχή της κριτικής, και η πληρωμή είναι δημόσια.</string>
+    <string name="promoted_score_note">Μόνο κριτικές που οι συντάκτες τους πλήρωσαν για να προωθηθούν, με το συνηθισμένο βάρος. Χωριστά από τις ανεξάρτητες.</string>
+    <string name="reviews_group_promoted">Προωθημένες κριτικές · επί πληρωμή</string>
+    <string name="reviews_group_promoted_note">Κριτικές που οι ίδιοι οι συντάκτες τους πλήρωσαν το Undersigned για να προωθηθούν. Μετρούν μία φορά με το ίδιο βάρος όπως όλες και μένουν χωριστά από τις ανεξάρτητες.</string>
 </resources>

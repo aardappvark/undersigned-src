@@ -31,6 +31,7 @@ class ApiConfigParityTest {
         fun num(name: String) = Regex("const val $name = ([0-9.]+)").find(src)!!.groupValues[1].toDouble()
         fun str(name: String) = Regex("const val $name = \"([^\"]+)\"").find(src)!!.groupValues[1]
         assertEquals(num("PRO_SOL"), AppFloors.PRO_SOL); assertEquals(num("PRO_SKR"), AppFloors.PRO_SKR)
+        assertEquals(num("BOOST_SOL"), AppFloors.BOOST_SOL); assertEquals(num("BOOST_SKR"), AppFloors.BOOST_SKR)
         val legacy = Regex("LEGACY_PRO_SKR: List<Double> = listOf\\(([0-9., ]*)\\)").find(src)!!.groupValues[1].split(',').map { it.trim().toDouble() }
         assertEquals(legacy, AppFloors.LEGACY_PRO_SKR)
         assertEquals(276_000_000L, AppFloors.proFloorSkrRaw)   // the lowest price ever charged

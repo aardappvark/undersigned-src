@@ -80,6 +80,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             is ReviewMemo.StoreNote -> o.put("package", m.packageName).put("store_review", m.reviewId).put("text", m.text)
             is ReviewMemo.Treasury -> o.put("package", m.packageName).put("code", m.code)
             is ReviewMemo.TreasuryFor -> o.put("package", m.packageName).put("code", m.code).put("treasury", m.treasury)
+            is ReviewMemo.Boost -> o.put("target", m.recordId)
             is ReviewMemo.Untreasury -> o.put("package", m.packageName)
             is ReviewMemo.Moderate -> o.put("target", m.recordId).put("reason", m.reason.wire)
             is ReviewMemo.Unmoderate -> o.put("target", m.recordId)
@@ -194,6 +195,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("latest_version_reviewed", sc?.latestVersionReviewed ?: JSONObject.NULL)
             // Beside the signed score, never blended into it (protocol Weighting): Pro members' reviews as their own score.
             .put("pro_members", st.segments.pro[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
+            // Reviews their own authors paid to promote: own score, listed after organic reviews (protocol Weighting).
+            .put("promoted", st.segments.promoted[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
             // The operator also publishes apps in this store; on its own apps the page says so (protocol Operator).
             .put("operator_publishes", com.undersigned.protocol.Operator.publishes(pkg, st.verified))
             .put("install_age", JSONObject(live.mapNotNull { st.usage[it.signature]?.wire }.groupingBy { it }.eachCount()))
@@ -226,7 +229,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro) })
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", r2(f.stakedSkr)).put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
                     )
                 .put("counted", st.weighting.parts(e).weight > 0 && st.countsFor(e.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("related", when { com.undersigned.protocol.Operator.isOperator(e.signer) -> "operator"; st.weighting.parts(e).gifted -> "pro_from_publisher"; else -> JSONObject.NULL })

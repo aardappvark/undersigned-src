@@ -993,4 +993,17 @@
     <string name="reviews_group_uncounted">গণনা হয় না</string>
     <string name="reviews_group_uncounted_note">ওয়ালেটে Seeker Genesis Token নেই, অথবা প্রকাশক নিজের অ্যাপের পর্যালোচনা করছে।</string>
     <string name="not_counted_warning">এই ওয়ালেটে Seeker Genesis Token নেই: আপনি যা স্বাক্ষর করবেন তা চেইনে থাকবে কিন্তু গণনা হবে না।</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">প্রচারিত · অর্থপ্রদত্ত</string>
+    <string name="boost_button">এই পর্যালোচনা প্রচার করুন</string>
+    <string name="boost_title">এই পর্যালোচনা প্রচার করবেন?</string>
+    <string name="boost_pay">%1$s পরিশোধ করুন</string>
+    <string name="boost_done">প্রচারিত হয়েছে। স্বাক্ষর %1$s</string>
+    <string name="boost_needs_pro">পর্যালোচনা প্রচার করতে সক্রিয় Pro সদস্যপদ দরকার।</string>
+    <string name="promoted_score_title">প্রচারিত · অর্থপ্রদত্ত</string>
+    <string name="boost_body">প্রচার করলে এই পর্যালোচনা অ্যাপের পাতায় “প্রচারিত পর্যালোচনা” অংশে, স্বাধীন পর্যালোচনার পরে এবং “প্রচারিত · অর্থপ্রদত্ত” চিহ্নসহ, আর আলাদা “প্রচারিত” স্কোরে দেখায়। এতে স্বাক্ষরিত স্কোর বা পর্যালোচনার ওজন বদলায় না। এটি শুধু পর্যালোচনার এই সংস্করণে প্রযোজ্য, এবং অর্থপ্রদান প্রকাশ্য রেকর্ড।</string>
+    <string name="promoted_score_note">শুধু সেই পর্যালোচনা যাদের লেখক প্রচারের জন্য অর্থ দিয়েছেন, স্বাভাবিক ওজনে। স্বাধীন পর্যালোচনা থেকে আলাদা তালিকাভুক্ত।</string>
+    <string name="reviews_group_promoted">প্রচারিত পর্যালোচনা · অর্থপ্রদত্ত</string>
+    <string name="reviews_group_promoted_note">যে পর্যালোচনার লেখকরা নিজেরাই প্রচারের জন্য Undersigned-কে অর্থ দিয়েছেন। সবার সমান ওজনে একবার গণনা হয় এবং স্বাধীন পর্যালোচনা থেকে আলাদা রাখা হয়।</string>
 </resources>

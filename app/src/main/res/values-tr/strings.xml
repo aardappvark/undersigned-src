@@ -997,4 +997,17 @@
     <string name="reviews_group_uncounted">Sayılmıyor</string>
     <string name="reviews_group_uncounted_note">Cüzdanda Seeker Genesis Token yok ya da yayıncı kendi uygulamasını değerlendiriyor.</string>
     <string name="not_counted_warning">Bu cüzdanda Seeker Genesis Token yok: imzaladığınız zincire kaydedilir ama sayılmaz.</string>
+
+    <!-- Promoted reviews, listed apart from organic reviews and after them (9 Oct 2026) -->
+    <string name="weight_boosted_pill">Öne çıkarıldı · ücretli</string>
+    <string name="boost_button">Bu değerlendirmeyi öne çıkar</string>
+    <string name="boost_title">Bu değerlendirme öne çıkarılsın mı?</string>
+    <string name="boost_pay">%1$s öde</string>
+    <string name="boost_done">Öne çıkarıldı. İmza %1$s</string>
+    <string name="boost_needs_pro">Bir değerlendirmeyi öne çıkarmak için etkin bir Pro üyeliği gerekir.</string>
+    <string name="promoted_score_title">Öne çıkarıldı · ücretli</string>
+    <string name="boost_body">Öne çıkarmak bu değerlendirmeyi uygulama sayfasındaki “Öne çıkarılan değerlendirmeler” bölümüne, bağımsız değerlendirmelerden sonra ve Öne çıkarıldı · ücretli etiketiyle koyar; ayrıca ayrı Öne çıkarılanlar puanına ekler. İmzalı puanı ve değerlendirmenin ağırlığını değiştirmez. Yalnızca değerlendirmenin bu sürümü için geçerlidir ve ödeme herkese açıktır.</string>
+    <string name="promoted_score_note">Yalnızca yazarlarının öne çıkarmak için ödeme yaptığı değerlendirmeler, olağan ağırlıkta. Bağımsız değerlendirmelerden ayrı listelenir.</string>
+    <string name="reviews_group_promoted">Öne çıkarılan değerlendirmeler · ücretli</string>
+    <string name="reviews_group_promoted_note">Yazarlarının öne çıkarmak için Undersigned\'a ödeme yaptığı değerlendirmeler. Herkesle aynı ağırlıkta bir kez sayılır ve bağımsız değerlendirmelerden ayrı tutulur.</string>
 </resources>
