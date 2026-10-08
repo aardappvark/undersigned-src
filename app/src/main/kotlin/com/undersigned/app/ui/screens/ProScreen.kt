@@ -70,7 +70,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
                     TextButton(onClick = { open(AppConfig.Api.EXPLORER_TX + p.signature) }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_view_licence), color = RbColors.purpleLight, fontSize = 12.sp) }
                 }
             }
-            listOf(R.string.pro_tool_copy_title to R.string.pro_tool_copy_body, R.string.pro_tool_import_title to R.string.pro_tool_import_body, R.string.pro_tool_desk_title to R.string.pro_tool_desk_body,
+            listOf(R.string.pro_tool_weight_title to R.string.pro_tool_weight_body, R.string.pro_tool_copy_title to R.string.pro_tool_copy_body, R.string.pro_tool_import_title to R.string.pro_tool_import_body, R.string.pro_tool_desk_title to R.string.pro_tool_desk_body,
                 R.string.pro_tool_export_title to R.string.pro_tool_export_body, R.string.pro_tool_watch_title to R.string.pro_tool_watch_body, R.string.pro_tool_catalogue_title to R.string.pro_tool_catalogue_body).forEach { (t, b) ->
                 Column(Modifier.padding(top = 14.dp)) {
                     Text(stringResource(t), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)

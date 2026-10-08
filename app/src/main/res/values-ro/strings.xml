@@ -52,7 +52,7 @@
     <string name="detail_update_review">Actualizează-mi recenzia</string>
     <string name="detail_revoke_review">Retrage-mi recenzia</string>
     <string name="detail_score_title">Scor semnat</string>
-    <string name="detail_score_sub">Media recenziilor de la dispozitive atestate (astăzi: deținătorii de Seeker Genesis Token), ponderată cu SKR stake-uit (plafonat la 3×). Opiniile unor proprietari individuali, nu evaluarea magazinului.</string>
+    <string name="detail_score_sub">Media recenziilor de pe dispozitive atestate (azi: deținătorii Seeker Genesis Token), ponderată de SKR în staking (până la 3×) și de ce aduce fiecare recenzie (timp de instalare, utilizare, o notă scrisă). Nimic plătit nu intră în ea. Opinii ale proprietarilor, nu nota magazinului.</string>
     <string name="detail_rank_score">Scor de clasament %1$s — atras spre 3.0 până când mai multe Seekere semnează; folosit doar pentru ordonarea listei.</string>
     <string name="follow">Urmărește</string>
     <string name="following">Urmărit</string>
@@ -225,7 +225,7 @@
     <string name="intro_next">Următorul</string>
     <string name="intro_replay">Rulează din nou introducerea</string>
     <string name="intro1_title">Un Seeker, o voce</string>
-    <string name="intro1_body">Undersigned este un strat de recenzii alături de dApp Store. Sunt luate în calcul doar portofelele care dețin un Seeker Genesis Token, deci un dispozitiv înseamnă o voce. Nimic ce poți cumpăra nu o face să conteze mai mult.</string>
+    <string name="intro1_body">Undersigned este un strat de recenzii lângă dApp Store. Contează doar portofelele cu un Seeker Genesis Token: un dispozitiv, o voce. Nimic din ce se poate cumpăra nu schimbă scorul semnat.</string>
     <string name="intro2_title">Semnat, nu tastat</string>
     <string name="intro2_body">Fiecare recenzie este o tranzacție mică pe care o aprobi pe telefon prin dubla atingere. Portofelul tău plătește doar comisionul de rețea pe care îl stabilește el. Undersigned nu deține niciodată cheile sau fondurile tale.</string>
     <string name="intro3_title">Alături de magazin, nu în locul lui</string>
@@ -404,14 +404,14 @@
     <string name="pro_tool_export_body">Orice dApp, orice semnatar, ca CSV sau JSON. Datele sunt publice; Pro citește pentru tine.</string>
     <string name="pro_tool_watch_title">Monitorizare orară a certificatului</string>
     <string name="pro_tool_watch_body">Modificările certificatului și permisiunilor sunt verificate la fiecare oră în loc de la fiecare șase, tot pe dispozitiv.</string>
-    <string name="pro_not_title">Ce nu este Pro</string>
-    <string name="pro_not_body">Nu îți ponderează opinia, nu te urcă într-o listă și nu te marchează ca fiind de încredere. Ponderea vine din dispozitivul atestat și din SKR stake-uit citit on-chain, și din nimic altceva. Nu există token, nimic de colectat și nimic de deținut.</string>
-    <string name="pro_free_keeps">Citirea registrului, semnarea recenziilor, semnalărilor, contestațiilor și datelor dispozitivului rămân gratuite și vor rămâne mereu așa. Pro adaugă unelte; nu schimbă nimic în modul în care este numărată o recenzie.</string>
+    <string name="pro_not_title">Ce nu face Pro</string>
+    <string name="pro_not_body">Nu schimbă niciodată scorul semnat și nu apasă niciodată pe recenzia altcuiva: semnalările, voturile utile și ascunderea folosesc doar dispozitivul și SKR în staking. Greutatea sa apare doar în scorul separat al membrilor, mereu marcată. Nu există token, nimic de colecționat sau de păstrat.</string>
+    <string name="pro_free_keeps">Citirea registrului, semnarea recenziilor, semnalările, contestațiile și faptele dispozitivului rămân gratuite, mereu. Pro adaugă unelte și o greutate marcată în scorul separat al membrilor.</string>
     <string name="pro_price_line">12 luni pe acest portofel · plătești în oricare din cele două, durata e aceeași · comision de rețea în plus, stabilit de portofelul tău</string>
     <string name="pro_pay_in">Plătește în</string>
     <string name="pro_rail_skr_note">citit on-chain, nu deținut</string>
     <string name="pro_rail_sol_note">aceleași douăsprezece luni</string>
-    <string name="pro_skr_weight_note">Plata în SKR nu-ți schimbă ponderea — SKR stake-uit este citit on-chain, iar cheltuirea nu este stake.</string>
+    <string name="pro_skr_weight_note">Plata în SKR sau SOL dă același Pro; a cheltui SKR nu înseamnă a-l pune în staking.</string>
     <string name="pro_paying_title">Ce plătești</string>
     <string name="pro_line_licence">Pro, 12 luni</string>
     <string name="pro_line_fee">Comision de rețea, stabilit de portofelul tău</string>
@@ -971,4 +971,40 @@
     <string name="nudge_setting_body">Cel mult o dată pe zi: o notificare care numește o aplicație din magazin aflată aici de o săptămână sau folosită o oră și fără o evaluare de la dvs. Fiecare aplicație este propusă o singură dată. Dezactivat până îl porniți.</string>
     <string name="badge_copy">Copiați insigna pentru site-ul dvs.</string>
     <string name="badge_copied">Codul insignei a fost copiat. Lipiți-l pe site sau în README.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1,25</string>
+    <string name="weight_boosted_pill">Promovată</string>
+    <string name="weight_counts">Contează %1$s× în scorul semnat · calitate %2$s</string>
+    <string name="boost_button">Promovează această recenzie</string>
+    <string name="boost_title">Promovezi această recenzie?</string>
+    <string name="boost_body">O promovare adaugă ×1,2 la greutatea acestei recenzii în scorul membrilor, peste ×1,25 de la Pro; împreună niciodată peste ×1,5. Scorul semnat nu se schimbă. Toți văd recenzia marcată Promovată. Se aplică doar acestei versiuni a recenziei, iar plata este o înregistrare publică.</string>
+    <string name="boost_pay">Plătește %1$s</string>
+    <string name="boost_done">Promovată. Semnătura %1$s</string>
+    <string name="boost_needs_pro">Promovarea unei recenzii cere un abonament Pro activ.</string>
+    <string name="pro_tool_weight_title">Greutatea ta în scorul membrilor</string>
+    <string name="pro_tool_weight_body">Lângă fiecare scor semnat stă un scor al membrilor. În el recenziile tale numărate cântăresc ×1,25 și poartă un semn Pro; promovează una la ×1,5. Scorul semnat nu include niciodată plăți.</string>
+    <string name="member_score_title">Cu greutatea membrilor</string>
+    <string name="member_score_note">Aceleași recenzii, membrii Pro contând ×1,25 (×1,5 promovată). Compară-le.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">Recenzii în timp</string>
+    <string name="timeline_range_30">30 de zile</string>
+    <string name="timeline_range_90">90 de zile</string>
+    <string name="timeline_range_1y">1 an</string>
+    <string name="timeline_range_all">Tot</string>
+    <string name="timeline_empty">Încă prea puține recenzii în această perioadă pentru o linie.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">Magazin %1$d (proprietari Seeker %2$d) · semnate %3$d</string>
+    <string name="timeline_store_at">magazin citit %1$s</string>
+    <string name="timeline_legend_signed">Scor semnat</string>
+    <string name="timeline_legend_store">Recenzii din magazin citite</string>
+    <string name="timeline_bars_seeker">Magazin, proprietari Seeker</string>
+    <string name="timeline_bars_other">Magazin, alte portofele</string>
+    <string name="timeline_bars_signed">Recenzii semnate</string>
+    <string name="timeline_prev">◀ Mai devreme</string>
+    <string name="timeline_next">Mai târziu ▶</string>
+    <string name="timeline_clear">Șterge</string>
+    <string name="timeline_hint">Atinge sau glisează pe grafic pentru a citi o perioadă.</string>
+    <string name="timeline_note">Linia gri punctată face media celor %1$d recenzii din magazin citite din %2$s; nota magazinului numără toate recenziile sale.</string>
 </resources>

@@ -47,7 +47,7 @@
     <string name="detail_update_review">تحديث مراجعتي</string>
     <string name="detail_revoke_review">سحب مراجعتي</string>
     <string name="detail_score_title">التقييم الموقّع</string>
-    <string name="detail_score_sub">متوسط المراجعات من الأجهزة المصادقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بحصة SKR المرهونة (بحد أقصى ×3). آراء مالكين أفراد، وليست تقييم المتجر.</string>
+    <string name="detail_score_sub">متوسط مراجعات الأجهزة الموثّقة (اليوم: حاملو Seeker Genesis Token)، مرجّح بـSKR المرهون (حتى 3×) وبما تحمله كل مراجعة (مدة التثبيت، الاستخدام، ملاحظة مكتوبة). لا يدخل فيه شيء مدفوع. آراء مالكين أفراد، لا تقييم المتجر.</string>
     <string name="detail_rank_score">تقييم الترتيب %1$s — يُقلَّص نحو 3.0 حتى يوقّع مزيد من أجهزة Seeker؛ يُستخدم فقط لترتيب القائمة.</string>
     <string name="follow">متابعة</string>
     <string name="following">تتم المتابعة</string>
@@ -236,7 +236,7 @@
     <string name="intro_next">التالي</string>
     <string name="intro_replay">إعادة عرض المقدمة</string>
     <string name="intro1_title">جهاز Seeker واحد، صوت واحد</string>
-    <string name="intro1_body">Undersigned طبقة مراجعات إلى جانب dApp Store. تُحتسب فقط المحافظ التي تحمل Seeker Genesis Token، لذا يمثّل كل جهاز صوتًا واحدًا. لا شيء يمكنك شراؤه يزيد من احتسابه.</string>
+    <string name="intro1_body">Undersigned طبقة مراجعات بجانب dApp Store. لا تُحتسب إلا المحافظ التي تحمل Seeker Genesis Token: جهاز واحد، صوت واحد. لا شيء يُشترى يغيّر التقييم الموقّع.</string>
     <string name="intro2_title">موقّعة، لا مكتوبة فقط</string>
     <string name="intro2_body">كل مراجعة معاملة صغيرة توافق عليها على الهاتف بالنقر المزدوج. تدفع محفظتك فقط رسوم الشبكة التي تحددها. Undersigned لا يحتفظ أبدًا بمفاتيحك أو أموالك.</string>
     <string name="intro3_title">إلى جانب المتجر، لا بديلاً عنه</string>
@@ -414,14 +414,14 @@
     <string name="pro_tool_export_body">أي تطبيق، أي موقِّع، كملف CSV أو JSON. البيانات عامة؛ Pro يقرأها نيابة عنك.</string>
     <string name="pro_tool_watch_title">مراقبة الشهادة كل ساعة</string>
     <string name="pro_tool_watch_body">تُفحص تغييرات الشهادة والأذونات كل ساعة بدلاً من كل ست ساعات، على الجهاز دائمًا.</string>
-    <string name="pro_not_title">ما ليس عليه Pro</string>
-    <string name="pro_not_body">لا يرجّح رأيك، ولا يرفعك في أي قائمة، ولا يمنحك علامة ثقة. الوزن يأتي من الجهاز المصادق وحصة SKR المرهونة المقروءة على السلسلة، ولا شيء غير ذلك. لا يوجد رمز، ولا شيء يُجمع ولا شيء يُحتفظ به.</string>
-    <string name="pro_free_keeps">قراءة السجل، وتوقيع المراجعات والإشارات والاعتراضات وحقائق الجهاز تبقى مجانية دائمًا. Pro يضيف أدوات؛ لا يغيّر شيئًا في كيفية احتساب أي مراجعة.</string>
+    <string name="pro_not_title">ما لا يفعله Pro</string>
+    <string name="pro_not_body">لا يغيّر التقييم الموقّع أبدًا ولا يثقل على مراجعة غيرك: البلاغات وأصوات «مفيد» والإخفاء تستخدم الجهاز وSKR المرهون فقط. يظهر وزنه فقط في تقييم الأعضاء المنفصل، موسومًا دائمًا. لا رمز، ولا شيء للجمع أو الاحتفاظ.</string>
+    <string name="pro_free_keeps">قراءة السجل وتوقيع المراجعات والبلاغات والاعتراضات وحقائق الجهاز تبقى مجانية دائمًا. يضيف Pro أدوات ووزنًا موسومًا في تقييم الأعضاء المنفصل.</string>
     <string name="pro_price_line">12 شهرًا على هذه المحفظة · ادفع بأي منهما، المدة واحدة · رسوم الشبكة إضافية، تحددها محفظتك</string>
     <string name="pro_pay_in">الدفع بـ</string>
     <string name="pro_rail_skr_note">تُقرأ على السلسلة، لا تُحتجز</string>
     <string name="pro_rail_sol_note">نفس الاثني عشر شهرًا</string>
-    <string name="pro_skr_weight_note">الدفع بـ SKR لا يغيّر وزنك — تُقرأ حصة SKR المرهونة على السلسلة، والإنفاق ليس رهنًا.</string>
+    <string name="pro_skr_weight_note">الدفع بـSKR أو SOL يمنح Pro نفسه؛ إنفاق SKR ليس رهنًا له.</string>
     <string name="pro_paying_title">ما الذي تدفعه</string>
     <string name="pro_line_licence">Pro، 12 شهرًا</string>
     <string name="pro_line_fee">رسوم الشبكة، تحددها محفظتك</string>
@@ -1024,4 +1024,40 @@
     <string name="nudge_setting_body">مرة واحدة يومياً على الأكثر: إشعار يذكر تطبيقاً واحداً من المتجر موجوداً هنا منذ أسبوع أو استُخدم لساعة وليس له مراجعة منك. يُسأل عن كل تطبيق مرة واحدة. متوقف ما لم تفعّله.</string>
     <string name="badge_copy">انسخ الشارة لموقعك</string>
     <string name="badge_copied">تم نسخ كود الشارة. الصقه في موقعك أو ملف README.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1.25</string>
+    <string name="weight_boosted_pill">معزَّزة</string>
+    <string name="weight_counts">تُحتسب %1$s× في التقييم الموقّع · الجودة %2$s</string>
+    <string name="boost_button">تعزيز هذه المراجعة</string>
+    <string name="boost_title">تعزيز هذه المراجعة؟</string>
+    <string name="boost_body">يضيف التعزيز ×1.2 إلى وزن هذه المراجعة في تقييم الأعضاء، فوق ×1.25 من Pro؛ ومعًا لا يتجاوزان ×1.5 أبدًا. لا يتغير التقييم الموقّع. يرى الجميع المراجعة موسومة «معزَّزة». يسري على هذه النسخة من المراجعة فقط، والدفع سجل عام.</string>
+    <string name="boost_pay">ادفع %1$s</string>
+    <string name="boost_done">عُزِّزت. التوقيع %1$s</string>
+    <string name="boost_needs_pro">تعزيز مراجعة يتطلب عضوية Pro نشطة.</string>
+    <string name="pro_tool_weight_title">وزنك في تقييم الأعضاء</string>
+    <string name="pro_tool_weight_body">بجانب كل تقييم موقّع يوجد تقييم للأعضاء. فيه تزن مراجعاتك المحتسبة ×1.25 وتحمل علامة Pro؛ عزّز واحدة لتصل إلى ×1.5. لا يتضمن التقييم الموقّع أي دفع أبدًا.</string>
+    <string name="member_score_title">بوزن الأعضاء</string>
+    <string name="member_score_note">المراجعات نفسها، مع احتساب أعضاء Pro ×1.25 (×1.5 معزَّزة). قارن بين الاثنين.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">المراجعات عبر الزمن</string>
+    <string name="timeline_range_30">30 يومًا</string>
+    <string name="timeline_range_90">90 يومًا</string>
+    <string name="timeline_range_1y">سنة</string>
+    <string name="timeline_range_all">الكل</string>
+    <string name="timeline_empty">لا توجد بعد مراجعات كافية في هذه المدة لرسم خط.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">المتجر %1$d (مالكو Seeker %2$d) · موقّعة %3$d</string>
+    <string name="timeline_store_at">المتجر المقروء %1$s</string>
+    <string name="timeline_legend_signed">التقييم الموقّع</string>
+    <string name="timeline_legend_store">مراجعات المتجر المقروءة</string>
+    <string name="timeline_bars_seeker">المتجر، مالكو Seeker</string>
+    <string name="timeline_bars_other">المتجر، محافظ أخرى</string>
+    <string name="timeline_bars_signed">مراجعات موقّعة</string>
+    <string name="timeline_prev">◀ أبكر</string>
+    <string name="timeline_next">لاحقًا ▶</string>
+    <string name="timeline_clear">مسح</string>
+    <string name="timeline_hint">المس المخطط أو اسحب عليه لقراءة فترة.</string>
+    <string name="timeline_note">الخط الرمادي المتقطع هو متوسط %1$d من مراجعات المتجر المقروءة منذ %2$s؛ تقييم المتجر نفسه يحتسب كل مراجعاته.</string>
 </resources>

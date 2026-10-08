@@ -213,7 +213,7 @@ class ProtocolTest {
         val vp = mapOf("com.x" to setOf("pub"))
         val without = Ranking.score(entries, facts = facts).single()
         assertEquals(2, without.countedReviews); assertEquals(4.0, without.weightedMean, 1e-9)
-        val with = Ranking.score(entries, vp, facts).single()
+        val with = Ranking.score(entries, vp, facts = facts).single()
         assertEquals(1, with.countedReviews, "the publisher's own review is excluded")
         assertEquals(3.0, with.weightedMean, 1e-9)
         assertEquals(0, Reputation.standing(entries, vp, facts)["pub"]!!.countedReviews)
@@ -293,8 +293,8 @@ class ProtocolTest {
         val facts = { s: String -> SignerFacts(hasGenesisToken = s != "sybil", stakedSkr = 0.0) }
         val score = Ranking.score(entries, facts = facts).single()
         assertEquals(2, score.countedReviews)
-        // prior 3.0×5 + (2 + 5) = 22 / 7
-        assertEquals(22.0 / 7.0, score.weightedRating, 1e-9)
+        // bare reviews (stars and tags only) weigh 0.5 each (Weighting.quality): (3.0×5 + (2 + 5)×0.5) / (5 + 1)
+        assertEquals((15.0 + 3.5) / 6.0, score.weightedRating, 1e-9)
         // now B revokes their own review
         val withRvk = entries + LedgerEntry("6" + "A".repeat(86), "walletB", 500, ReviewMemo.Revocation(s3))
         assertEquals(1, Ranking.score(withRvk, facts = facts).single().countedReviews)

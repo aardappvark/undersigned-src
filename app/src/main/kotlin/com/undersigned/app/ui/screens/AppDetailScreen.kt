@@ -58,6 +58,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
+    val memberScores by vm.memberScores.collectAsState()
     val entries by vm.entries.collectAsState()
     val hidden by vm.hidden.collectAsState()
     val wallet by vm.wallet.collectAsState()
@@ -172,6 +173,17 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
     val pro by vm.pro.collectAsState()
+    var boostFor by remember { mutableStateOf<String?>(null) }
+    var boostStage by remember { mutableStateOf<String?>(null) }
+    var boostMsg by remember { mutableStateOf<Pair<String, String>?>(null) }
+    val boostContext = androidx.compose.ui.platform.LocalContext.current
+    fun payBoost(rail: com.undersigned.app.solana.ProPaymentService.Rail, reviewId: String) {
+        val s = sender ?: return
+        vm.payBoost(s, rail, reviewId, onStage = { st -> boostStage = when (st) { ReviewTxService.Stage.Simulating -> boostContext.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> boostContext.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> boostContext.getString(R.string.review_confirming) } }) { r ->
+            boostStage = null
+            boostMsg = r.fold({ boostContext.getString(R.string.boost_done, shortKey(it, 6, 6)) to reviewId }, { boostContext.errorText(it) to reviewId })
+        }
+    }
     var copyMsg by remember { mutableStateOf<String?>(null) }
     var handoffText by remember { mutableStateOf<String?>(null) }
     var handoffOpen by remember { mutableStateOf(false) }
@@ -217,7 +229,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
 
             SectionTitle(stringResource(R.string.detail_score_title))
             GlassCard {
-                if (score != null) {
+                // A score with nothing counted is not a 0.0: until a review counts there is no signed score to show.
+                if (score != null && score.countedReviews > 0) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(String.format(java.util.Locale.US, "%.1f", score.weightedMean), color = RbColors.textPrimary, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold)
                         Spacer(Modifier.width(12.dp))
@@ -225,10 +238,31 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     Spacer(Modifier.height(4.dp))
                     Text(stringResource(R.string.detail_rank_score, String.format(java.util.Locale.US, "%.2f", score.weightedRating)), color = RbColors.textTertiary, fontSize = 11.sp)
+                    // The member-weighted score, beside the signed one and never instead of it (owner, 8 Oct 2026): the same signed
+                    // reviews with Pro members counting ×1.25, ×1.5 boosted. Readers compare the two and decide for themselves.
+                    val member = memberScores[pkg]
+                    Spacer(Modifier.height(10.dp))
+                    Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(RbColors.surfaceVariant).padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text(stringResource(R.string.member_score_title), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.member_score_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                        }
+                        Spacer(Modifier.width(10.dp))
+                        Text(member?.takeIf { it.countedReviews > 0 }?.let { String.format(java.util.Locale.US, "%.1f", it.weightedMean) } ?: "–", color = RbColors.purpleLight, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold)
+                    }
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }
+
+            // Reviews over time (owner, 8 Oct 2026): store reviews by Seeker owners and other wallets, signed reviews, and both
+            // scores as they stood, with Reckoner's moving bar. Built off the main thread; redrawn only when its inputs change.
+            var timelineRange by remember { mutableStateOf(TimelineRange.ALL) }
+            val timeline by androidx.compose.runtime.produceState<Pair<List<com.undersigned.protocol.Timeline.Bucket>, Long?>>(emptyList<com.undersigned.protocol.Timeline.Bucket>() to null, pkg, timelineRange, entries, storeHistory[pkg], factsMap.size, txMeta.size) {
+                value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { vm.timeline(pkg, timelineRange.days) }
+            }
+            SectionTitle(stringResource(R.string.timeline_title))
+            GlassCard { ReviewTimeline(timeline.first, timelineRange, { timelineRange = it }, timeline.second) }
 
             // Signed reviews are what this app is for, so they come straight after the score; the store's own rating,
             // bursts and device facts follow (UI review 6 Oct 2026: they sat about ten swipes down, under store reviews).
@@ -276,7 +310,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
                 val swipe = rememberSwipeToDismissBoxState(confirmValueChange = { v -> if (v == SwipeToDismissBoxValue.StartToEnd && wallet != null) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }; false })
                 SwipeToDismissBox(state = swipe, enableDismissFromEndToStart = false, backgroundContent = { Box(Modifier.fillMaxSize().padding(start = 16.dp), contentAlignment = Alignment.CenterStart) { Text(stringResource(R.string.reply), color = RbColors.purpleLight, fontWeight = FontWeight.Bold) } }) {
-                GlassCard(accent = if (w > 0) RbColors.glassBorder else RbColors.surfaceVariant) {
+                GlassCard(accent = if (w.device > 0) RbColors.glassBorder else RbColors.surfaceVariant) {
                     // Design review 28 Sep 2026 (handoff 2, F4): author row, then three tiers — trust pills, the phone's report as
                     // one line, context as quiet text — instead of up to ten equal pills.
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -289,11 +323,15 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val paidReviewer = boardRow?.payers?.contains(e.signer) == true
                     val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        if (w > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w > 1.0) String.format(java.util.Locale.US, " %.1f×", w) else "", RbColors.green)
+                        if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w.device > 1.0) String.format(java.util.Locale.US, " %.1f×", w.device) else "", RbColors.green)
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
+                        // Paid weight is always shown on the review it lifts (owner, 8 Oct 2026): never hidden inside the score.
+                        if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
+                        if (w.device > 0 && w.boosted) TrustPill(stringResource(R.string.weight_boosted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
                     }
+                    if (w.device > 0) Text(stringResource(R.string.weight_counts, String.format(java.util.Locale.US, "%.2f", w.signed), String.format(java.util.Locale.US, "%.2f", w.quality)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
                     val seekerSigned = txMeta[e.signature.substringBefore(':')]?.seekerWallet == true
                     val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]
                     if (seekerSigned || useAge != null || useSpent != null) {
@@ -312,7 +350,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     // fee, and an uncounted wallet's words should not sit on an app's page by default.
                     modHidden[e.signature]?.let { reason -> Spacer(Modifier.height(6.dp)); ModHiddenText(reason, 13) }
                     r.text?.takeIf { e.signature !in modHidden }?.let { note ->
-                        var shown by remember(e.signature) { mutableStateOf(w > 0) }
+                        var shown by remember(e.signature) { mutableStateOf(w.device > 0) }
                         Spacer(Modifier.height(6.dp))
                         if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
                         else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
@@ -334,6 +372,21 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         if (pro?.active == true) { SecondaryButton(stringResource(R.string.pro_copy_review), onClick = { copyToStore(r.text) }); copyMsg?.let { Text(it, color = RbColors.green, fontSize = 11.sp) } }
                         else ProLock(hint = stringResource(R.string.pro_copy_review), onPro = onPro)
                     }
+                    // A boost on my own counted review: Pro members only, once per review, always labelled (see protocol Weighting).
+                    if (e.signer == wallet && w.device > 0 && !w.boosted) {
+                        Spacer(Modifier.height(8.dp))
+                        if (pro?.active == true) SecondaryButton(boostStage ?: stringResource(R.string.boost_button), enabled = boostStage == null && sender != null, onClick = { boostMsg = null; boostFor = e.signature })
+                        else ProLock(hint = stringResource(R.string.boost_button), onPro = onPro)
+                    }
+                    if (e.signer == wallet) boostMsg?.takeIf { boostFor == null && it.second == e.signature }?.let { Text(it.first, color = RbColors.green, fontSize = 11.sp) }
+                    if (boostFor == e.signature) androidx.compose.material3.AlertDialog(
+                        onDismissRequest = { boostFor = null },
+                        containerColor = RbColors.surface,
+                        title = { Text(stringResource(R.string.boost_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
+                        text = { Text(stringResource(R.string.boost_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
+                        confirmButton = { androidx.compose.material3.TextButton(onClick = { boostFor = null; payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SKR, e.signature) }) { Text(stringResource(R.string.boost_pay, String.format(java.util.Locale.US, "%,.0f SKR", com.undersigned.app.AppConfig.Payment.BOOST_SKR)), color = RbColors.purpleLight) } },
+                        dismissButton = { androidx.compose.material3.TextButton(onClick = { boostFor = null; payBoost(com.undersigned.app.solana.ProPaymentService.Rail.SOL, e.signature) }) { Text(stringResource(R.string.boost_pay, "${com.undersigned.app.AppConfig.Payment.BOOST_SOL} SOL"), color = RbColors.textSecondary) } },
+                    )
                     Spacer(Modifier.height(6.dp))
                     val replies = remember(entries, hidden, e.signature) { vm.repliesFor(e.signature) }
                     replies.forEach { rp ->

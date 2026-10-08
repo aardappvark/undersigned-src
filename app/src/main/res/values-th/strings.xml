@@ -42,7 +42,7 @@
     <string name="detail_update_review">อัปเดตรีวิวของฉัน</string>
     <string name="detail_revoke_review">ถอนรีวิวของฉัน</string>
     <string name="detail_score_title">คะแนนที่ลงลายเซ็น</string>
-    <string name="detail_score_sub">ค่าเฉลี่ยของรีวิวจากอุปกรณ์ที่ได้รับการรับรอง (ปัจจุบันคือผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วย SKR ที่สเตก (สูงสุด 3 เท่า) เป็นความเห็นของเจ้าของแต่ละราย ไม่ใช่คะแนนของสโตร์</string>
+    <string name="detail_score_sub">ค่าเฉลี่ยรีวิวจากอุปกรณ์ที่รับรองแล้ว (วันนี้: ผู้ถือ Seeker Genesis Token) ถ่วงน้ำหนักด้วย SKR ที่สเตก (สูงสุด 3×) และสิ่งที่แต่ละรีวิวมี (เวลาติดตั้ง การใช้งาน โน้ตที่เขียน) ไม่มีสิ่งที่จ่ายเงินเข้ามา ความเห็นของเจ้าของแต่ละคน ไม่ใช่คะแนนของสโตร์</string>
     <string name="detail_rank_score">คะแนนอันดับ %1$s — ถูกดึงเข้าหา 3.0 จนกว่าจะมี Seeker ลงลายเซ็นเพิ่มขึ้น ใช้เพื่อจัดเรียงรายการเท่านั้น</string>
     <string name="follow">ติดตาม</string>
     <string name="following">กำลังติดตาม</string>
@@ -203,7 +203,7 @@
     <string name="intro_next">ถัดไป</string>
     <string name="intro_replay">เล่นอินโทรซ้ำ</string>
     <string name="intro1_title">หนึ่ง Seeker หนึ่งเสียง</string>
-    <string name="intro1_body">Undersigned เป็นชั้นรีวิวที่อยู่ข้าง dApp Store เฉพาะกระเป๋าเงินที่ถือ Seeker Genesis Token เท่านั้นที่ถูกนับ ดังนั้นหนึ่งอุปกรณ์คือหนึ่งเสียง ไม่มีสิ่งใดที่คุณซื้อได้จะทำให้มันนับมากขึ้น</string>
+    <string name="intro1_body">Undersigned คือชั้นรีวิวข้าง dApp Store นับเฉพาะกระเป๋าที่มี Seeker Genesis Token: หนึ่งอุปกรณ์ หนึ่งเสียง ไม่มีสิ่งใดที่ซื้อได้เปลี่ยนคะแนนที่ลงนาม</string>
     <string name="intro2_title">ลงลายเซ็น ไม่ใช่พิมพ์</string>
     <string name="intro2_body">รีวิวทุกรายการคือธุรกรรมเล็ก ๆ ที่คุณอนุมัติบนโทรศัพท์ด้วยการแตะสองครั้ง กระเป๋าเงินของคุณจ่ายเฉพาะค่าธรรมเนียมเครือข่ายที่มันกำหนดเอง Undersigned ไม่เคยถือกุญแจหรือเงินทุนของคุณ</string>
     <string name="intro3_title">อยู่ข้างสโตร์ ไม่ใช่แทนที่</string>
@@ -381,14 +381,14 @@
     <string name="pro_tool_export_body">dApp ใดก็ได้ ผู้ลงลายเซ็นคนใดก็ได้ ในรูปแบบ CSV หรือ JSON ข้อมูลเป็นสาธารณะ Pro ช่วยอ่านให้คุณ</string>
     <string name="pro_tool_watch_title">การเฝ้าดูใบรับรองทุกชั่วโมง</string>
     <string name="pro_tool_watch_body">ตรวจสอบการเปลี่ยนแปลงใบรับรองและสิทธิ์ทุกชั่วโมงแทนที่จะเป็นทุกหกชั่วโมง ยังคงอยู่บนอุปกรณ์</string>
-    <string name="pro_not_title">สิ่งที่ Pro ไม่ใช่</string>
-    <string name="pro_not_body">มันไม่ได้เพิ่มน้ำหนักให้ความเห็นของคุณ ไม่ได้เลื่อนคุณขึ้นในรายการ หรือทำเครื่องหมายว่าคุณน่าเชื่อถือ น้ำหนักมาจากอุปกรณ์ที่ได้รับการรับรองและ SKR ที่สเตกซึ่งอ่านได้บนเชนเท่านั้น ไม่มีโทเคน ไม่มีสิ่งใดให้สะสม และไม่มีสิ่งใดให้ถือครอง</string>
-    <string name="pro_free_keeps">การอ่านบัญชีบันทึก การลงลายเซ็นรีวิว การปักธง การโต้แย้ง และข้อมูลอุปกรณ์ยังคงฟรีและจะเป็นเช่นนั้นเสมอ Pro เพิ่มเครื่องมือเท่านั้น ไม่เปลี่ยนแปลงวิธีการนับรีวิวใด ๆ</string>
+    <string name="pro_not_title">สิ่งที่ Pro ไม่ทำ</string>
+    <string name="pro_not_body">ไม่เปลี่ยนคะแนนที่ลงนามและไม่ถ่วงรีวิวของคนอื่นเลย: การรายงาน โหวตว่ามีประโยชน์ และการซ่อนใช้เฉพาะอุปกรณ์และ SKR ที่สเตก น้ำหนักของมันแสดงเฉพาะในคะแนนสมาชิกแยกต่างหาก และระบุชัดเสมอ ไม่มีโทเคน ไม่มีอะไรให้สะสมหรือถือ</string>
+    <string name="pro_free_keeps">การอ่านบัญชี การลงนามรีวิว การรายงาน การโต้แย้ง และข้อมูลอุปกรณ์ยังคงฟรีตลอดไป Pro เพิ่มเครื่องมือและน้ำหนักที่ระบุชัดในคะแนนสมาชิกแยกต่างหาก</string>
     <string name="pro_price_line">12 เดือนบนกระเป๋าเงินนี้ · จ่ายด้วยสกุลใดก็ได้ ระยะเวลาเท่ากัน · บวกค่าธรรมเนียมเครือข่ายที่กำหนดโดยกระเป๋าเงินของคุณ</string>
     <string name="pro_pay_in">จ่ายด้วย</string>
     <string name="pro_rail_skr_note">อ่านบนเชน ไม่ได้ถือครอง</string>
     <string name="pro_rail_sol_note">สิบสองเดือนเท่ากัน</string>
-    <string name="pro_skr_weight_note">การจ่ายด้วย SKR ไม่เปลี่ยนน้ำหนักของคุณ — SKR ที่สเตกจะถูกอ่านบนเชน และการใช้จ่ายไม่ใช่การสเตก</string>
+    <string name="pro_skr_weight_note">จ่ายด้วย SKR หรือ SOL ได้ Pro เหมือนกัน การใช้ SKR ไม่ใช่การสเตก</string>
     <string name="pro_paying_title">สิ่งที่คุณกำลังจ่าย</string>
     <string name="pro_line_licence">Pro 12 เดือน</string>
     <string name="pro_line_fee">ค่าธรรมเนียมเครือข่าย กำหนดโดยกระเป๋าเงินของคุณ</string>
@@ -922,4 +922,40 @@
     <string name="nudge_setting_body">ไม่เกินวันละครั้ง: การแจ้งเตือนที่ระบุชื่อแอปจากสโตร์หนึ่งแอปซึ่งอยู่ที่นี่มาหนึ่งสัปดาห์หรือใช้งานมาหนึ่งชั่วโมงและยังไม่มีรีวิวจากคุณ แต่ละแอปจะถูกถามเพียงครั้งเดียว ปิดอยู่จนกว่าคุณจะเปิด</string>
     <string name="badge_copy">คัดลอกตราสำหรับเว็บไซต์ของคุณ</string>
     <string name="badge_copied">คัดลอกโค้ดตราแล้ว วางลงในเว็บไซต์หรือ README ของคุณ</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1.25</string>
+    <string name="weight_boosted_pill">บูสต์แล้ว</string>
+    <string name="weight_counts">นับ %1$s× ในคะแนนที่ลงนาม · คุณภาพ %2$s</string>
+    <string name="boost_button">บูสต์รีวิวนี้</string>
+    <string name="boost_title">บูสต์รีวิวนี้ไหม</string>
+    <string name="boost_body">การบูสต์เพิ่ม ×1.2 ให้น้ำหนักของรีวิวนี้ในคะแนนสมาชิก นอกเหนือจาก ×1.25 ของ Pro รวมกันไม่เกิน ×1.5 คะแนนที่ลงนามไม่เปลี่ยน ทุกคนเห็นรีวิวถูกทำเครื่องหมายบูสต์แล้ว ใช้กับรีวิวเวอร์ชันนี้เท่านั้น และการชำระเงินเป็นบันทึกสาธารณะ</string>
+    <string name="boost_pay">ชำระ %1$s</string>
+    <string name="boost_done">บูสต์แล้ว ลายเซ็น %1$s</string>
+    <string name="boost_needs_pro">การบูสต์รีวิวต้องมีสมาชิก Pro ที่ยังใช้งาน</string>
+    <string name="pro_tool_weight_title">น้ำหนักของคุณในคะแนนสมาชิก</string>
+    <string name="pro_tool_weight_body">ข้างคะแนนที่ลงนามทุกอันมีคะแนนสมาชิก ในนั้นรีวิวที่ถูกนับของคุณมีน้ำหนัก ×1.25 และมีเครื่องหมาย Pro บูสต์หนึ่งรายการเป็น ×1.5 คะแนนที่ลงนามไม่มีการชำระเงินเลย</string>
+    <string name="member_score_title">รวมน้ำหนักสมาชิก</string>
+    <string name="member_score_note">รีวิวชุดเดียวกัน สมาชิก Pro นับ ×1.25 (บูสต์ ×1.5) เปรียบเทียบทั้งสอง</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">รีวิวตามช่วงเวลา</string>
+    <string name="timeline_range_30">30 วัน</string>
+    <string name="timeline_range_90">90 วัน</string>
+    <string name="timeline_range_1y">1 ปี</string>
+    <string name="timeline_range_all">ทั้งหมด</string>
+    <string name="timeline_empty">ช่วงนี้ยังมีรีวิวไม่พอจะวาดเส้น</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">สโตร์ %1$d (เจ้าของ Seeker %2$d) · ลงนาม %3$d</string>
+    <string name="timeline_store_at">สโตร์ที่อ่าน %1$s</string>
+    <string name="timeline_legend_signed">คะแนนที่ลงนาม</string>
+    <string name="timeline_legend_store">รีวิวสโตร์ที่อ่าน</string>
+    <string name="timeline_bars_seeker">สโตร์ เจ้าของ Seeker</string>
+    <string name="timeline_bars_other">สโตร์ กระเป๋าอื่น</string>
+    <string name="timeline_bars_signed">รีวิวที่ลงนาม</string>
+    <string name="timeline_prev">◀ ก่อนหน้า</string>
+    <string name="timeline_next">ถัดไป ▶</string>
+    <string name="timeline_clear">ล้าง</string>
+    <string name="timeline_hint">แตะหรือเลื่อนบนกราฟเพื่ออ่านช่วงเวลา</string>
+    <string name="timeline_note">เส้นประสีเทาเป็นค่าเฉลี่ยของรีวิวสโตร์ %1$d รายการที่อ่านตั้งแต่ %2$s คะแนนของสโตร์เองนับรีวิวทั้งหมด</string>
 </resources>

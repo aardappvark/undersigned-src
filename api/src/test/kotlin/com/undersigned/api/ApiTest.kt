@@ -37,6 +37,7 @@ class ApiConfigParityTest {
         fun list(name: String) = Regex("$name: List<Double> = (listOf\\(([0-9., ]*)\\)|emptyList\\(\\))").find(src)!!.groupValues[2].split(',').mapNotNull { it.trim().toDoubleOrNull() }
         assertEquals(list("LEGACY_LIST_SOL"), AppFloors.LEGACY_LIST_SOL); assertEquals(list("LEGACY_LIST_SKR"), AppFloors.LEGACY_LIST_SKR)
         assertEquals(num("LIST_SOL"), AppFloors.LIST_SOL); assertEquals(num("LIST_SKR"), AppFloors.LIST_SKR); assertEquals(num("LIST_SKR_SGT"), AppFloors.LIST_SKR_SGT)
+        assertEquals(num("BOOST_SOL"), AppFloors.BOOST_SOL); assertEquals(num("BOOST_SKR"), AppFloors.BOOST_SKR)
         assertEquals(str("TREASURY"), Config.TREASURY); assertEquals(str("PAYMENT_MEMO"), Config.PAYMENT_MEMO)
         // The pass is the fleet price, like the listing fee.
         assertEquals(AppFloors.LIST_SOL, Config.PASS_SOL); assertEquals(AppFloors.LIST_SKR, Config.PASS_SKR); assertEquals(AppFloors.LIST_SKR_SGT, Config.PASS_SKR_SGT)

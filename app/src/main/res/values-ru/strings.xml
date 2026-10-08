@@ -42,7 +42,7 @@
     <string name="detail_update_review">Обновить мой отзыв</string>
     <string name="detail_revoke_review">Отозвать мой отзыв</string>
     <string name="detail_score_title">Подписанная оценка</string>
-    <string name="detail_score_sub">Среднее по отзывам с подтверждённых устройств (сегодня: держатели Seeker Genesis Token), взвешенное застейканным SKR (максимум 3×). Мнения отдельных владельцев, а не рейтинг магазина.</string>
+    <string name="detail_score_sub">Среднее отзывов с подтверждённых устройств (сегодня: владельцы Seeker Genesis Token), взвешенное по застейканному SKR (до 3×) и по тому, что несёт отзыв (срок установки, использование, написанная заметка). Ничего оплаченного в неё не входит. Мнения владельцев, а не оценка магазина.</string>
     <string name="detail_rank_score">Рейтинговый балл %1$s — стягивается к 3,0, пока не подпишется больше Seeker; используется только для сортировки списка.</string>
     <string name="follow">Подписаться</string>
     <string name="following">Вы подписаны</string>
@@ -213,7 +213,7 @@
     <string name="intro_next">Далее</string>
     <string name="intro_replay">Повторить вступление</string>
     <string name="intro1_title">Один Seeker, один голос</string>
-    <string name="intro1_body">Undersigned — это слой отзывов рядом с dApp Store. Учитываются только кошельки, владеющие Seeker Genesis Token, поэтому одно устройство — один голос. Ничто из того, что можно купить, не увеличит его вес.</string>
+    <string name="intro1_body">Undersigned — слой отзывов рядом с dApp Store. Учитываются только кошельки с Seeker Genesis Token: одно устройство — один голос. Ничто купленное не меняет подписанную оценку.</string>
     <string name="intro2_title">Подписано, а не напечатано</string>
     <string name="intro2_body">Каждый отзыв — это небольшая транзакция, которую вы подтверждаете на телефоне двойным касанием. Ваш кошелёк платит только комиссию сети, которую сам устанавливает. Undersigned никогда не хранит ваши ключи или средства.</string>
     <string name="intro3_title">Рядом с магазином, а не вместо него</string>
@@ -393,14 +393,14 @@
     <string name="pro_tool_export_body">Любую dApp, любого подписанта, в формате CSV или JSON. Данные публичны; Pro читает их за вас.</string>
     <string name="pro_tool_watch_title">Ежечасное наблюдение за сертификатом</string>
     <string name="pro_tool_watch_body">Изменения сертификата и разрешений проверяются каждый час вместо каждых шести, по-прежнему на устройстве.</string>
-    <string name="pro_not_title">Чем Pro не является</string>
-    <string name="pro_not_body">Он не увеличивает вес вашего мнения, не поднимает вас в списке и не отмечает вас как заслуживающего доверия. Вес определяется подтверждённым устройством и застейканным SKR, считанным из блокчейна, и больше ничем. Токена нет, нечего собирать и нечего держать.</string>
-    <string name="pro_free_keeps">Чтение реестра, подписание отзывов, отметок, споров и фактов об устройстве остаются бесплатными и всегда будут такими. Pro добавляет инструменты; это никак не меняет то, как считается любой отзыв.</string>
+    <string name="pro_not_title">Чего Pro не делает</string>
+    <string name="pro_not_body">Он никогда не меняет подписанную оценку и не давит на чужой отзыв: жалобы, голоса «полезно» и скрытие используют только устройство и застейканный SKR. Его вес виден только в отдельной оценке участников, всегда с пометкой. Нет токена, нечего собирать и держать.</string>
+    <string name="pro_free_keeps">Чтение реестра, подпись отзывов, жалобы, возражения и данные устройства остаются бесплатными, всегда. Pro добавляет инструменты и отмеченный вес в отдельной оценке участников.</string>
     <string name="pro_price_line">12 месяцев на этом кошельке · платите в любой из них, срок одинаковый · сверху комиссия сети, устанавливаемая вашим кошельком</string>
     <string name="pro_pay_in">Платить в</string>
     <string name="pro_rail_skr_note">считывается из блокчейна, не хранится</string>
     <string name="pro_rail_sol_note">те же двенадцать месяцев</string>
-    <string name="pro_skr_weight_note">Оплата в SKR не меняет ваш вес — застейканный SKR считывается из блокчейна, а трата — это не стейкинг.</string>
+    <string name="pro_skr_weight_note">Оплата в SKR или SOL даёт тот же Pro; потратить SKR — не значит застейкать.</string>
     <string name="pro_paying_title">За что вы платите</string>
     <string name="pro_line_licence">Pro, 12 месяцев</string>
     <string name="pro_line_fee">Комиссия сети, устанавливается вашим кошельком</string>
@@ -974,4 +974,40 @@
     <string name="nudge_setting_body">Не чаще раза в день: уведомление об одном приложении из магазина, которое здесь уже неделю или использовалось час и не имеет вашего отзыва. О каждом приложении спрашиваем один раз. Выключено, пока вы не включите.</string>
     <string name="badge_copy">Скопировать значок для вашего сайта</string>
     <string name="badge_copied">Код значка скопирован. Вставьте его на сайт или в README.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1,25</string>
+    <string name="weight_boosted_pill">Усилен</string>
+    <string name="weight_counts">Учитывается %1$s× в подписанной оценке · качество %2$s</string>
+    <string name="boost_button">Усилить этот отзыв</string>
+    <string name="boost_title">Усилить этот отзыв?</string>
+    <string name="boost_body">Усиление добавляет ×1,2 к весу этого отзыва в оценке участников сверх ×1,25 от Pro; вместе никогда больше ×1,5. Подписанная оценка не меняется. Все видят отзыв с пометкой «Усилен». Это действует только для этой версии отзыва, а оплата — публичная запись.</string>
+    <string name="boost_pay">Оплатить %1$s</string>
+    <string name="boost_done">Усилен. Подпись %1$s</string>
+    <string name="boost_needs_pro">Чтобы усилить отзыв, нужна активная подписка Pro.</string>
+    <string name="pro_tool_weight_title">Ваш вес в оценке участников</string>
+    <string name="pro_tool_weight_body">Рядом с каждой подписанной оценкой стоит оценка участников. В ней ваши учитываемые отзывы весят ×1,25 и несут отметку Pro; усильте один до ×1,5. Подписанная оценка никогда не включает оплату.</string>
+    <string name="member_score_title">С весом участников</string>
+    <string name="member_score_note">Те же отзывы, участники Pro учитываются ×1,25 (×1,5 с усилением). Сравните обе.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">Отзывы во времени</string>
+    <string name="timeline_range_30">30 дней</string>
+    <string name="timeline_range_90">90 дней</string>
+    <string name="timeline_range_1y">1 год</string>
+    <string name="timeline_range_all">Все</string>
+    <string name="timeline_empty">За этот период пока мало отзывов, чтобы провести линию.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">Магазин %1$d (владельцы Seeker %2$d) · подписанные %3$d</string>
+    <string name="timeline_store_at">магазин прочитан %1$s</string>
+    <string name="timeline_legend_signed">Подписанная оценка</string>
+    <string name="timeline_legend_store">Прочитанные отзывы магазина</string>
+    <string name="timeline_bars_seeker">Магазин, владельцы Seeker</string>
+    <string name="timeline_bars_other">Магазин, другие кошельки</string>
+    <string name="timeline_bars_signed">Подписанные отзывы</string>
+    <string name="timeline_prev">◀ Раньше</string>
+    <string name="timeline_next">Позже ▶</string>
+    <string name="timeline_clear">Сбросить</string>
+    <string name="timeline_hint">Коснитесь или проведите по графику, чтобы прочитать период.</string>
+    <string name="timeline_note">Серая пунктирная линия — среднее %1$d отзывов магазина, прочитанных с %2$s; собственная оценка магазина учитывает все его отзывы.</string>
 </resources>

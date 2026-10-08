@@ -36,6 +36,11 @@ object AppFloors {
     val proFloorSkrRaw get() = (LEGACY_PRO_SKR + PRO_SKR).minOf { Config.skrRaw(it) }
     val listFloorLamports get() = (LEGACY_LIST_SOL + LIST_SOL).minOf { Config.lamports(it) }
     val listFloorSkrRaw get() = (LEGACY_LIST_SKR + LIST_SKR + LIST_SKR_SGT).minOf { Config.skrRaw(it) }
+    /** A boost on one's own review (the app's BOOST_* pair, parity-tested). */
+    const val BOOST_SOL = 0.00607
+    const val BOOST_SKR = 65.0
+    val boostFloorLamports get() = Config.lamports(BOOST_SOL)
+    val boostFloorSkrRaw get() = Config.skrRaw(BOOST_SKR)
     const val TERM_MONTHS = 12
 }
 
@@ -59,7 +64,18 @@ class State(
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
     private val f = { w: String -> facts[w] ?: SignerFacts(false, 0.0) }
-    val scores = Ranking.score(entries, verified, f).associateBy { it.packageName }
+    /**
+     * The app's reading of "paid" for the shared weighting: a `pro` row here is already a payment (see [Indexer.syncLedger]);
+     * a `bst` row counts when its transaction credited the treasury with at least the boost price.
+     */
+    val paidRecord: (LedgerEntry) -> Boolean = { e -> when (e.memo) {
+        is ReviewMemo.Pro -> true
+        is ReviewMemo.Boost -> meta[e.signature.substringBefore(':')]?.let { it.lamports >= AppFloors.boostFloorLamports || it.skr >= AppFloors.boostFloorSkrRaw } == true
+        else -> false } }
+    val weighting = com.undersigned.protocol.Weighting.Context(entries, Reputation.hiddenByConsensus(entries, verified, f), f, paidRecord)
+    val scores = Ranking.score(entries, verified, facts = f).associateBy { it.packageName }
+    /** Beside [scores], never instead of it: Pro ×1.25, boosted up to ×1.5 (protocol Weighting). */
+    val memberScores = Ranking.score(entries, verified, paidRecord, f).associateBy { it.packageName }
     val standings = Reputation.standing(entries, verified, f)
     val hidden = Reputation.hiddenByConsensus(entries, verified, f)
     /** Text a moderator hides (protocol Moderation): the record, rating and tags stay. */

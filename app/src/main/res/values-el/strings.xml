@@ -52,7 +52,7 @@
     <string name="detail_update_review">Ενημέρωση της κριτικής μου</string>
     <string name="detail_revoke_review">Απόσυρση της κριτικής μου</string>
     <string name="detail_score_title">Υπογεγραμμένη βαθμολογία</string>
-    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κατόχους Seeker Genesis Token), σταθμισμένος με το staked SKR (όριο 3×). Απόψεις μεμονωμένων κατόχων, όχι η βαθμολογία του καταστήματος.</string>
+    <string name="detail_score_sub">Μέσος όρος κριτικών από πιστοποιημένες συσκευές (σήμερα: κάτοχοι Seeker Genesis Token), σταθμισμένος με το κλειδωμένο SKR (έως 3×) και με ό,τι φέρει κάθε κριτική (χρόνος εγκατάστασης, χρήση, γραπτή σημείωση). Τίποτα πληρωμένο δεν μπαίνει. Απόψεις ιδιοκτητών, όχι η βαθμολογία του καταστήματος.</string>
     <string name="detail_rank_score">Βαθμολογία κατάταξης %1$s — συρρικνώνεται προς το 3,0 έως ότου υπογράψουν περισσότεροι Seekers· χρησιμοποιείται μόνο για την ταξινόμηση της λίστας.</string>
     <string name="follow">Ακολούθηση</string>
     <string name="following">Ακολουθείτε</string>
@@ -221,7 +221,7 @@
     <string name="intro_next">Επόμενο</string>
     <string name="intro_replay">Επανάληψη εισαγωγής</string>
     <string name="intro1_title">Ένας Seeker, μία φωνή</string>
-    <string name="intro1_body">Το Undersigned είναι ένα επίπεδο κριτικών δίπλα στο dApp Store. Μετράνε μόνο τα πορτοφόλια που κατέχουν Seeker Genesis Token, έτσι μία συσκευή ισοδυναμεί με μία φωνή. Τίποτα που μπορείτε να αγοράσετε δεν την κάνει να μετράει περισσότερο.</string>
+    <string name="intro1_body">Το Undersigned είναι ένα επίπεδο κριτικών δίπλα στο dApp Store. Μετρούν μόνο πορτοφόλια με Seeker Genesis Token: μία συσκευή, μία φωνή. Τίποτα που αγοράζεται δεν αλλάζει την υπογεγραμμένη βαθμολογία.</string>
     <string name="intro2_title">Υπογεγραμμένο, όχι πληκτρολογημένο</string>
     <string name="intro2_body">Κάθε κριτική είναι μια μικρή συναλλαγή που εγκρίνετε στο τηλέφωνο με το διπλό πάτημα. Το πορτοφόλι σας πληρώνει μόνο το τέλος δικτύου που ορίζει. Το Undersigned δεν κατέχει ποτέ τα κλειδιά ή τα κεφάλαιά σας.</string>
     <string name="intro3_title">Δίπλα στο κατάστημα, όχι αντί αυτού</string>
@@ -400,14 +400,14 @@
     <string name="pro_tool_export_body">Οποιοδήποτε dApp, οποιοσδήποτε υπογράφων, ως CSV ή JSON. Τα δεδομένα είναι δημόσια· το Pro κάνει την ανάγνωση για εσάς.</string>
     <string name="pro_tool_watch_title">Ωριαία παρακολούθηση πιστοποιητικού</string>
     <string name="pro_tool_watch_body">Αλλαγές πιστοποιητικού και δικαιωμάτων ελέγχονται κάθε ώρα αντί κάθε έξι, πάντα στη συσκευή.</string>
-    <string name="pro_not_title">Τι δεν είναι το Pro</string>
-    <string name="pro_not_body">Δεν σταθμίζει τη γνώμη σας, δεν σας ανεβάζει σε μια λίστα και δεν σας σημαδεύει ως αξιόπιστο. Το βάρος προέρχεται από την πιστοποιημένη συσκευή και το staked SKR που διαβάζεται on-chain, και από τίποτα άλλο. Δεν υπάρχει token, τίποτα να συλλέξετε και τίποτα να κρατήσετε.</string>
-    <string name="pro_free_keeps">Η ανάγνωση του ledger, η υπογραφή κριτικών, επισημάνσεων, ενστάσεων και στοιχείων συσκευής παραμένουν δωρεάν και θα παραμείνουν πάντα. Το Pro προσθέτει εργαλεία· δεν αλλάζει τίποτα στο πώς μετράει κάθε κριτική.</string>
+    <string name="pro_not_title">Τι δεν κάνει το Pro</string>
+    <string name="pro_not_body">Δεν αλλάζει ποτέ την υπογεγραμμένη βαθμολογία ούτε βαραίνει την κριτική άλλου: αναφορές, ψήφοι «χρήσιμο» και απόκρυψη χρησιμοποιούν μόνο τη συσκευή και το κλειδωμένο SKR. Το βάρος του φαίνεται μόνο στη χωριστή βαθμολογία μελών, πάντα σημειωμένο. Δεν υπάρχει token, τίποτα για συλλογή ή κράτηση.</string>
+    <string name="pro_free_keeps">Η ανάγνωση του καθολικού, η υπογραφή κριτικών, οι αναφορές, οι αμφισβητήσεις και τα στοιχεία συσκευής μένουν δωρεάν, για πάντα. Το Pro προσθέτει εργαλεία και ένα σημειωμένο βάρος στη χωριστή βαθμολογία μελών.</string>
     <string name="pro_price_line">12 μήνες σε αυτό το πορτοφόλι · πληρώστε σε όποιο από τα δύο, η διάρκεια είναι ίδια · τέλος δικτύου επιπλέον, ορίζεται από το πορτοφόλι σας</string>
     <string name="pro_pay_in">Πληρωμή σε</string>
     <string name="pro_rail_skr_note">διαβάζεται on-chain, δεν κρατείται</string>
     <string name="pro_rail_sol_note">ίδιοι δώδεκα μήνες</string>
-    <string name="pro_skr_weight_note">Η πληρωμή σε SKR δεν αλλάζει το βάρος σας — το staked SKR διαβάζεται on-chain και το να ξοδεύετε δεν είναι στοίχημα (stake).</string>
+    <string name="pro_skr_weight_note">Πληρωμή σε SKR ή SOL δίνει το ίδιο Pro· η δαπάνη SKR δεν είναι κλείδωμα.</string>
     <string name="pro_paying_title">Τι πληρώνετε</string>
     <string name="pro_line_licence">Pro, 12 μήνες</string>
     <string name="pro_line_fee">Τέλος δικτύου, ορίζεται από το πορτοφόλι σας</string>
@@ -953,4 +953,40 @@
     <string name="nudge_setting_body">Το πολύ μία φορά την ημέρα: μια ειδοποίηση που ονομάζει μία εφαρμογή από το κατάστημα που είναι εδώ μία εβδομάδα ή χρησιμοποιήθηκε μία ώρα και δεν έχει αξιολόγηση από εσάς. Για κάθε εφαρμογή ρωτάμε μία φορά. Απενεργοποιημένο αν δεν το ενεργοποιήσετε.</string>
     <string name="badge_copy">Αντιγραφή σήματος για τον ιστότοπό σας</string>
     <string name="badge_copied">Ο κώδικας του σήματος αντιγράφηκε. Επικολλήστε τον στον ιστότοπο ή στο README σας.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1,25</string>
+    <string name="weight_boosted_pill">Ενισχυμένη</string>
+    <string name="weight_counts">Μετρά %1$s× στην υπογεγραμμένη βαθμολογία · ποιότητα %2$s</string>
+    <string name="boost_button">Ενίσχυση αυτής της κριτικής</string>
+    <string name="boost_title">Ενίσχυση αυτής της κριτικής;</string>
+    <string name="boost_body">Η ενίσχυση προσθέτει ×1,2 στο βάρος της κριτικής στη βαθμολογία μελών, πάνω από το ×1,25 του Pro· μαζί ποτέ πάνω από ×1,5. Η υπογεγραμμένη βαθμολογία δεν αλλάζει. Όλοι βλέπουν την κριτική σημειωμένη ως Ενισχυμένη. Ισχύει μόνο για αυτή την εκδοχή της κριτικής, και η πληρωμή είναι δημόσια εγγραφή.</string>
+    <string name="boost_pay">Πληρωμή %1$s</string>
+    <string name="boost_done">Ενισχύθηκε. Υπογραφή %1$s</string>
+    <string name="boost_needs_pro">Η ενίσχυση κριτικής απαιτεί ενεργή συνδρομή Pro.</string>
+    <string name="pro_tool_weight_title">Το βάρος σας στη βαθμολογία μελών</string>
+    <string name="pro_tool_weight_body">Δίπλα σε κάθε υπογεγραμμένη βαθμολογία υπάρχει μια βαθμολογία μελών. Εκεί οι μετρημένες κριτικές σας ζυγίζουν ×1,25 και φέρουν σήμα Pro· ενισχύστε μία για ×1,5. Η υπογεγραμμένη βαθμολογία δεν περιέχει ποτέ πληρωμές.</string>
+    <string name="member_score_title">Με βάρος μελών</string>
+    <string name="member_score_note">Οι ίδιες κριτικές, με τα μέλη Pro να μετρούν ×1,25 (×1,5 ενισχυμένες). Συγκρίνετε τις δύο.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">Κριτικές στον χρόνο</string>
+    <string name="timeline_range_30">30 ημέρες</string>
+    <string name="timeline_range_90">90 ημέρες</string>
+    <string name="timeline_range_1y">1 έτος</string>
+    <string name="timeline_range_all">Όλα</string>
+    <string name="timeline_empty">Δεν υπάρχουν ακόμη αρκετές κριτικές σε αυτό το διάστημα για γραμμή.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">Κατάστημα %1$d (ιδιοκτήτες Seeker %2$d) · υπογεγραμμένες %3$d</string>
+    <string name="timeline_store_at">κατάστημα διαβάστηκε %1$s</string>
+    <string name="timeline_legend_signed">Υπογεγραμμένη βαθμολογία</string>
+    <string name="timeline_legend_store">Κριτικές καταστήματος που διαβάστηκαν</string>
+    <string name="timeline_bars_seeker">Κατάστημα, ιδιοκτήτες Seeker</string>
+    <string name="timeline_bars_other">Κατάστημα, άλλα πορτοφόλια</string>
+    <string name="timeline_bars_signed">Υπογεγραμμένες κριτικές</string>
+    <string name="timeline_prev">◀ Νωρίτερα</string>
+    <string name="timeline_next">Αργότερα ▶</string>
+    <string name="timeline_clear">Καθαρισμός</string>
+    <string name="timeline_hint">Αγγίξτε ή σύρετε στο γράφημα για να διαβάσετε ένα διάστημα.</string>
+    <string name="timeline_note">Η γκρι διακεκομμένη γραμμή είναι ο μέσος όρος των %1$d κριτικών καταστήματος που διαβάστηκαν από %2$s· η βαθμολογία του καταστήματος μετρά όλες τις κριτικές του.</string>
 </resources>

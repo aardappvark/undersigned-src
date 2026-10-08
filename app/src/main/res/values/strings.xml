@@ -53,7 +53,7 @@
     <string name="howto4_note_title">Nothing is paid for any of this</string>
     <string name="howto4_note">Your standing is counts and a published formula — nothing you can buy moves it. Replay these steps any time from Settings.</string>
     <string name="intro1_title">One Seeker, one voice</string>
-    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing you can buy makes it count for more.</string>
+    <string name="intro1_body">Undersigned is a review layer beside the dApp Store. Only wallets holding a Seeker Genesis Token are counted, so one device is one voice. Nothing you can buy changes the signed score.</string>
     <string name="intro2_title">Signed, not typed</string>
     <string name="intro2_body">Every review is a small transaction you approve on the phone with the double-tap. Your wallet pays only the network fee it sets. Undersigned never holds your keys or funds.</string>
     <string name="intro3_title">Beside the store, not instead of it</string>
@@ -138,7 +138,7 @@
     <string name="detail_update_review">Update my review</string>
     <string name="detail_revoke_review">Withdraw my review</string>
     <string name="detail_score_title">Signed score</string>
-    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by staked SKR (capped at 3×). Opinions of individual owners, not the store\'s rating.</string>
+    <string name="detail_score_sub">Average of reviews from attested devices (today: Seeker Genesis Token holders), weighted by staked SKR (up to 3×) and by what each review carries (install time, usage, a written note). Nothing paid enters it. Opinions of individual owners, not the store\'s rating.</string>
     <string name="detail_rank_score">Rank score %1$s — shrunk toward 3.0 until more Seekers sign; used only to order the list.</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
@@ -336,14 +336,14 @@
     <string name="pro_tool_export_body">Any dApp, any signer, as CSV or JSON. The data is public; Pro does the reading for you.</string>
     <string name="pro_tool_watch_title">Hourly certificate watch</string>
     <string name="pro_tool_watch_body">Certificate and permission changes checked every hour instead of every six, still on the device.</string>
-    <string name="pro_not_title">What Pro is not</string>
-    <string name="pro_not_body">It does not weight your opinion, move you up a list, or mark you as trusted. Weight comes from the attested device and staked SKR read on-chain, and from nothing else. There is no token, nothing to collect and nothing to hold.</string>
-    <string name="pro_free_keeps">Reading the ledger, signing reviews, flags, disputes and device facts stay free and always will. Pro adds tools; it changes nothing about how any review is counted.</string>
+    <string name="pro_not_title">What Pro does not do</string>
+    <string name="pro_not_body">It never changes the signed score and never weighs on anyone else\'s review: flags, helpful votes and hiding use the device and staked SKR only. Its weight shows only in the separate member-weighted score, always marked. There is no token, nothing to collect and nothing to hold.</string>
+    <string name="pro_free_keeps">Reading the ledger, signing reviews, flags, disputes and device facts stay free and always will. Pro adds tools and a labelled weight in the separate member-weighted score.</string>
     <string name="pro_price_line">12 months on this wallet · pay in either, the term is the same · network fee on top, set by your wallet</string>
     <string name="pro_pay_in">Pay in</string>
     <string name="pro_rail_skr_note">read on-chain, not held</string>
     <string name="pro_rail_sol_note">same twelve months</string>
-    <string name="pro_skr_weight_note">Paying in SKR does not change your weight — staked SKR is read on-chain and spending is not staking.</string>
+    <string name="pro_skr_weight_note">Paying in SKR or SOL gives the same Pro; spending SKR is not staking it.</string>
     <string name="pro_paying_title">What you are paying</string>
     <string name="pro_line_licence">Pro, 12 months</string>
     <string name="pro_line_fee">Network fee, set by your wallet</string>
@@ -979,4 +979,40 @@
     <string name="nudge_setting_body">At most one a day: a notification naming one app from the store that has been here a week or used for an hour and has no review from you. Each app is asked about once. Off unless you turn it on.</string>
     <string name="badge_copy">Copy the badge for your website</string>
     <string name="badge_copied">Badge code copied. Paste it into your website or README.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1.25</string>
+    <string name="weight_boosted_pill">Boosted</string>
+    <string name="weight_counts">Counts %1$s× in the signed score · quality %2$s</string>
+    <string name="boost_button">Boost this review</string>
+    <string name="boost_title">Boost this review?</string>
+    <string name="boost_body">A boost adds ×1.2 to this review\'s weight in the member-weighted score, on top of Pro\'s ×1.25; together never past ×1.5. The signed score does not change. Everyone sees the review marked Boosted. It applies to this version of the review only, and the payment is a public record.</string>
+    <string name="boost_pay">Pay %1$s</string>
+    <string name="boost_done">Boosted. Signature %1$s</string>
+    <string name="boost_needs_pro">Boosting a review needs an active Pro membership.</string>
+    <string name="pro_tool_weight_title">Your weight in the member score</string>
+    <string name="pro_tool_weight_body">Beside every signed score sits a member-weighted score. In it your counted reviews weigh ×1.25 and carry a Pro mark; boost one for ×1.5. The signed score never includes payment.</string>
+    <string name="member_score_title">With member weight</string>
+    <string name="member_score_note">The same reviews, with Pro members counting ×1.25 (×1.5 boosted). Compare the two.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">Reviews over time</string>
+    <string name="timeline_range_30">30 days</string>
+    <string name="timeline_range_90">90 days</string>
+    <string name="timeline_range_1y">1 year</string>
+    <string name="timeline_range_all">All</string>
+    <string name="timeline_empty">Not enough reviews in this range to draw a line yet.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">Store %1$d (Seeker owners %2$d) · signed %3$d</string>
+    <string name="timeline_store_at">store read %1$s</string>
+    <string name="timeline_legend_signed">Signed score</string>
+    <string name="timeline_legend_store">Store reviews read</string>
+    <string name="timeline_bars_seeker">Store, Seeker owners</string>
+    <string name="timeline_bars_other">Store, other wallets</string>
+    <string name="timeline_bars_signed">Signed reviews</string>
+    <string name="timeline_prev">◀ Earlier</string>
+    <string name="timeline_next">Later ▶</string>
+    <string name="timeline_clear">Clear</string>
+    <string name="timeline_hint">Tap or slide along the chart to read a period.</string>
+    <string name="timeline_note">The dashed grey line averages the %1$d store reviews read since %2$s; the store\'s own rating counts all of its reviews.</string>
 </resources>

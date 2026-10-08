@@ -52,7 +52,7 @@
     <string name="detail_update_review">Mettre à jour mon avis</string>
     <string name="detail_revoke_review">Retirer mon avis</string>
     <string name="detail_score_title">Score signé</string>
-    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs d\'un Seeker Genesis Token), pondérée par le SKR staké (plafonné à 3×). Opinions de propriétaires individuels, pas la note du store.</string>
+    <string name="detail_score_sub">Moyenne des avis d\'appareils attestés (aujourd\'hui : détenteurs du Seeker Genesis Token), pondérée par le SKR staké (jusqu\'à 3×) et par ce que chaque avis apporte (durée d\'installation, usage, une note écrite). Rien de payé n\'y entre. Opinions de propriétaires, pas la note de la boutique.</string>
     <string name="detail_rank_score">Score de classement %1$s — ramené vers 3,0 tant que peu de Seekers ont signé ; sert uniquement à trier la liste.</string>
     <string name="follow">Suivre</string>
     <string name="following">Suivi(e)</string>
@@ -224,7 +224,7 @@
     <string name="intro_next">Suivant</string>
     <string name="intro_replay">Revoir l\'introduction</string>
     <string name="intro1_title">Un Seeker, une voix</string>
-    <string name="intro1_body">Undersigned est une couche d\'avis à côté du dApp Store. Seuls les wallets détenant un Seeker Genesis Token sont comptabilisés, donc un appareil équivaut à une voix. Rien que vous puissiez acheter ne le fait compter plus.</string>
+    <string name="intro1_body">Undersigned est une couche d\'avis à côté du dApp Store. Seuls les portefeuilles détenant un Seeker Genesis Token sont comptés : un appareil, une voix. Rien de ce qui s\'achète ne change le score signé.</string>
     <string name="intro2_title">Signé, pas simplement saisi</string>
     <string name="intro2_body">Chaque avis est une petite transaction que vous approuvez sur le téléphone avec le double-tap. Votre wallet ne paie que les frais de réseau qu\'il fixe. Undersigned ne détient jamais vos clés ni vos fonds.</string>
     <string name="intro3_title">À côté du store, pas à sa place</string>
@@ -402,14 +402,14 @@
     <string name="pro_tool_export_body">N\'importe quel dApp, n\'importe quel signataire, en CSV ou JSON. Les données sont publiques ; Pro fait la lecture à votre place.</string>
     <string name="pro_tool_watch_title">Surveillance horaire du certificat</string>
     <string name="pro_tool_watch_body">Changements de certificat et de permissions vérifiés toutes les heures au lieu de toutes les six, toujours sur l\'appareil.</string>
-    <string name="pro_not_title">Ce que Pro n\'est pas</string>
-    <string name="pro_not_body">Cela ne pondère pas votre avis, ne vous fait pas remonter dans une liste, et ne vous marque pas comme fiable. Le poids vient de l\'appareil attesté et du SKR staké lu on-chain, et de rien d\'autre. Il n\'y a pas de token, rien à collectionner et rien à détenir.</string>
-    <string name="pro_free_keeps">Lire le registre, signer des avis, des signalements, des contestations et les informations d\'appareil restent gratuits et le resteront toujours. Pro ajoute des outils ; cela ne change rien à la façon dont un avis est comptabilisé.</string>
+    <string name="pro_not_title">Ce que Pro ne fait pas</string>
+    <string name="pro_not_body">Il ne change jamais le score signé et ne pèse jamais sur l\'avis de quelqu\'un d\'autre : signalements, votes « utile » et masquage n\'utilisent que l\'appareil et le SKR staké. Son poids n\'apparaît que dans le score membres, séparé et toujours signalé. Pas de jeton, rien à collectionner, rien à détenir.</string>
+    <string name="pro_free_keeps">Lire le registre, signer des avis, signaler, contester et les faits de l\'appareil restent gratuits, pour toujours. Pro ajoute des outils et un poids signalé dans le score membres, séparé.</string>
     <string name="pro_price_line">12 mois sur ce wallet · payez dans l\'un ou l\'autre, la durée est la même · frais de réseau en plus, fixés par votre wallet</string>
     <string name="pro_pay_in">Payer en</string>
     <string name="pro_rail_skr_note">lu on-chain, non détenu</string>
     <string name="pro_rail_sol_note">les mêmes douze mois</string>
-    <string name="pro_skr_weight_note">Payer en SKR ne change pas votre poids — le SKR staké est lu on-chain et dépenser n\'est pas staker.</string>
+    <string name="pro_skr_weight_note">Payer en SKR ou en SOL donne le même Pro ; dépenser du SKR n\'est pas le staker.</string>
     <string name="pro_paying_title">Ce que vous payez</string>
     <string name="pro_line_licence">Pro, 12 mois</string>
     <string name="pro_line_fee">Frais de réseau, fixés par votre wallet</string>
@@ -982,4 +982,40 @@
     <string name="nudge_setting_body">Au plus une fois par jour : une notification nommant une app de la boutique présente ici depuis une semaine ou utilisée une heure, sans avis de votre part. Chaque app n\'est proposée qu\'une fois. Désactivé tant que vous ne l\'activez pas.</string>
     <string name="badge_copy">Copier le badge pour votre site</string>
     <string name="badge_copied">Code du badge copié. Collez-le sur votre site ou dans votre README.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1,25</string>
+    <string name="weight_boosted_pill">Boosté</string>
+    <string name="weight_counts">Compte %1$s× dans le score signé · qualité %2$s</string>
+    <string name="boost_button">Booster cet avis</string>
+    <string name="boost_title">Booster cet avis ?</string>
+    <string name="boost_body">Un boost ajoute ×1,2 au poids de cet avis dans le score membres, en plus du ×1,25 de Pro ; ensemble, jamais plus de ×1,5. Le score signé ne change pas. Tout le monde voit l\'avis marqué Boosté. Il ne vaut que pour cette version de l\'avis, et le paiement est un enregistrement public.</string>
+    <string name="boost_pay">Payer %1$s</string>
+    <string name="boost_done">Boosté. Signature %1$s</string>
+    <string name="boost_needs_pro">Booster un avis demande un abonnement Pro actif.</string>
+    <string name="pro_tool_weight_title">Votre poids dans le score membres</string>
+    <string name="pro_tool_weight_body">À côté de chaque score signé figure un score membres. Vos avis comptés y pèsent ×1,25 et portent une marque Pro ; boostez-en un pour ×1,5. Le score signé n\'inclut jamais de paiement.</string>
+    <string name="member_score_title">Avec le poids membres</string>
+    <string name="member_score_note">Les mêmes avis, les membres Pro comptant ×1,25 (×1,5 boosté). Comparez les deux.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">Avis dans le temps</string>
+    <string name="timeline_range_30">30 jours</string>
+    <string name="timeline_range_90">90 jours</string>
+    <string name="timeline_range_1y">1 an</string>
+    <string name="timeline_range_all">Tout</string>
+    <string name="timeline_empty">Pas encore assez d\'avis sur cette période pour tracer une ligne.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">Boutique %1$d (propriétaires Seeker %2$d) · signés %3$d</string>
+    <string name="timeline_store_at">boutique lue %1$s</string>
+    <string name="timeline_legend_signed">Score signé</string>
+    <string name="timeline_legend_store">Avis de la boutique lus</string>
+    <string name="timeline_bars_seeker">Boutique, propriétaires Seeker</string>
+    <string name="timeline_bars_other">Boutique, autres portefeuilles</string>
+    <string name="timeline_bars_signed">Avis signés</string>
+    <string name="timeline_prev">◀ Plus tôt</string>
+    <string name="timeline_next">Plus tard ▶</string>
+    <string name="timeline_clear">Effacer</string>
+    <string name="timeline_hint">Touchez ou glissez sur le graphique pour lire une période.</string>
+    <string name="timeline_note">La ligne grise pointillée fait la moyenne des %1$d avis de la boutique lus depuis le %2$s ; la note de la boutique compte tous ses avis.</string>
 </resources>

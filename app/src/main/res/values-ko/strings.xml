@@ -47,7 +47,7 @@
     <string name="detail_update_review">내 리뷰 수정</string>
     <string name="detail_revoke_review">내 리뷰 철회</string>
     <string name="detail_score_title">서명 점수</string>
-    <string name="detail_score_sub">인증된 기기(현재는 Seeker Genesis Token 보유자)의 리뷰 평균이며, 스테이킹된 SKR로 가중치를 적용합니다(최대 3배). 개별 소유자의 의견일 뿐, 스토어의 평점이 아닙니다.</string>
+    <string name="detail_score_sub">인증된 기기에서 온 리뷰의 평균(현재: Seeker Genesis Token 보유자). 스테이킹한 SKR(최대 3×)과 각 리뷰에 담긴 정보(설치 기간, 사용 시간, 작성한 메모)로 가중합니다. 결제된 것은 들어가지 않습니다. 개별 소유자의 의견이며 스토어 평점이 아닙니다.</string>
     <string name="detail_rank_score">순위 점수 %1$s — 더 많은 Seeker가 서명할 때까지 3.0 쪽으로 조정되며, 목록 정렬에만 사용됩니다.</string>
     <string name="follow">팔로우</string>
     <string name="following">팔로잉</string>
@@ -211,7 +211,7 @@
     <string name="intro_next">다음</string>
     <string name="intro_replay">소개 다시 보기</string>
     <string name="intro1_title">한 대의 Seeker, 하나의 목소리</string>
-    <string name="intro1_body">Undersigned는 dApp Store 옆에 있는 리뷰 계층입니다. Seeker Genesis Token을 보유한 지갑만 집계되므로, 한 기기는 하나의 목소리가 됩니다. 무엇을 구매하더라도 가중치가 더 커지지 않습니다.</string>
+    <string name="intro1_body">Undersigned는 dApp Store 옆의 리뷰 계층입니다. Seeker Genesis Token을 가진 지갑만 반영됩니다. 기기 하나에 목소리 하나입니다. 돈으로 살 수 있는 것은 서명된 점수를 바꾸지 못합니다.</string>
     <string name="intro2_title">입력이 아닌 서명</string>
     <string name="intro2_body">모든 리뷰는 휴대폰에서 더블 탭으로 승인하는 소액 트랜잭션입니다. 지갑은 스스로 설정한 네트워크 수수료만 지불합니다. Undersigned는 사용자의 키나 자금을 보관하지 않습니다.</string>
     <string name="intro3_title">스토어를 대신하지 않고, 그 옆에</string>
@@ -390,14 +390,14 @@
     <string name="pro_tool_export_body">모든 dApp, 모든 서명자를 CSV 또는 JSON으로 내보냅니다. 데이터는 공개되어 있으며, Pro가 대신 읽어 드립니다.</string>
     <string name="pro_tool_watch_title">1시간 간격 인증서 감시</string>
     <string name="pro_tool_watch_body">인증서와 권한 변경 사항을 6시간이 아닌 1시간마다 확인하며, 확인은 여전히 기기에서 이루어집니다.</string>
-    <string name="pro_not_title">Pro가 아닌 것</string>
-    <string name="pro_not_body">Pro는 의견의 가중치를 높이거나 목록에서 순위를 올리거나 신뢰할 수 있다고 표시하지 않습니다. 가중치는 오직 인증된 기기와 온체인에서 읽은 스테이킹 SKR에서만 나옵니다. 토큰도 없고, 모을 것도, 보유할 것도 없습니다.</string>
-    <string name="pro_free_keeps">원장 읽기, 리뷰·플래그·이의 제기 서명, 기기 정보 확인은 항상 무료로 유지됩니다. Pro는 도구를 추가할 뿐, 리뷰 집계 방식은 전혀 바꾸지 않습니다.</string>
+    <string name="pro_not_title">Pro가 하지 않는 것</string>
+    <string name="pro_not_body">서명된 점수를 바꾸지 않고, 다른 사람의 리뷰에 무게를 싣지도 않습니다. 신고, 도움됨 투표, 숨김은 기기와 스테이킹한 SKR만 사용합니다. 그 무게는 별도의 멤버 점수에만, 항상 표시되어 나타납니다. 토큰도, 모을 것도, 보유할 것도 없습니다.</string>
+    <string name="pro_free_keeps">원장 읽기, 리뷰 서명, 신고, 이의 제기, 기기 정보는 언제나 무료입니다. Pro는 도구와 별도 멤버 점수에서의 표시된 무게를 더합니다.</string>
     <string name="pro_price_line">이 지갑에서 12개월 · 둘 중 어느 쪽으로 결제해도 기간은 동일 · 지갑이 설정하는 네트워크 수수료 별도</string>
     <string name="pro_pay_in">결제 수단</string>
     <string name="pro_rail_skr_note">온체인에서 읽을 뿐 보유하지 않음</string>
     <string name="pro_rail_sol_note">동일하게 12개월</string>
-    <string name="pro_skr_weight_note">SKR로 결제해도 가중치는 바뀌지 않습니다 — 스테이킹된 SKR은 온체인에서 읽으며, 지출은 스테이킹이 아닙니다.</string>
+    <string name="pro_skr_weight_note">SKR이나 SOL로 결제해도 같은 Pro입니다. SKR을 쓰는 것은 스테이킹이 아닙니다.</string>
     <string name="pro_paying_title">결제 내역</string>
     <string name="pro_line_licence">Pro, 12개월</string>
     <string name="pro_line_fee">네트워크 수수료(지갑이 설정)</string>
@@ -930,4 +930,40 @@
     <string name="nudge_setting_body">하루 최대 한 번: 이곳에 일주일 있었거나 한 시간 사용되었고 아직 리뷰하지 않은 스토어 앱 하나를 알려 주는 알림입니다. 각 앱은 한 번만 묻습니다. 켜지 않으면 꺼져 있습니다.</string>
     <string name="badge_copy">웹사이트용 배지 복사</string>
     <string name="badge_copied">배지 코드가 복사되었습니다. 웹사이트나 README에 붙여 넣으세요.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1.25</string>
+    <string name="weight_boosted_pill">부스트됨</string>
+    <string name="weight_counts">서명된 점수에 %1$s×로 반영 · 품질 %2$s</string>
+    <string name="boost_button">이 리뷰 부스트</string>
+    <string name="boost_title">이 리뷰를 부스트할까요?</string>
+    <string name="boost_body">부스트는 멤버 점수에서 이 리뷰의 가중치를 Pro의 ×1.25에 더해 ×1.2 높입니다. 합쳐도 ×1.5를 넘지 않습니다. 서명된 점수는 바뀌지 않습니다. 모두에게 리뷰가 \'부스트됨\'으로 표시됩니다. 이 버전의 리뷰에만 적용되며, 결제는 공개 기록입니다.</string>
+    <string name="boost_pay">%1$s 결제</string>
+    <string name="boost_done">부스트되었습니다. 서명 %1$s</string>
+    <string name="boost_needs_pro">리뷰를 부스트하려면 활성 Pro 멤버십이 필요합니다.</string>
+    <string name="pro_tool_weight_title">멤버 점수에서 내 무게</string>
+    <string name="pro_tool_weight_body">모든 서명된 점수 옆에 멤버 점수가 있습니다. 그 안에서 반영되는 내 리뷰는 ×1.25의 무게와 Pro 표시를 가집니다. 하나를 부스트하면 ×1.5입니다. 서명된 점수에는 결제가 절대 들어가지 않습니다.</string>
+    <string name="member_score_title">멤버 가중치 포함</string>
+    <string name="member_score_note">같은 리뷰에 Pro 멤버를 ×1.25(부스트 ×1.5)로 계산합니다. 둘을 비교해 보세요.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">기간별 리뷰</string>
+    <string name="timeline_range_30">30일</string>
+    <string name="timeline_range_90">90일</string>
+    <string name="timeline_range_1y">1년</string>
+    <string name="timeline_range_all">전체</string>
+    <string name="timeline_empty">이 기간에는 아직 선을 그을 만큼 리뷰가 없습니다.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">스토어 %1$d (Seeker 소유자 %2$d) · 서명됨 %3$d</string>
+    <string name="timeline_store_at">읽은 스토어 %1$s</string>
+    <string name="timeline_legend_signed">서명된 점수</string>
+    <string name="timeline_legend_store">읽은 스토어 리뷰</string>
+    <string name="timeline_bars_seeker">스토어, Seeker 소유자</string>
+    <string name="timeline_bars_other">스토어, 다른 지갑</string>
+    <string name="timeline_bars_signed">서명된 리뷰</string>
+    <string name="timeline_prev">◀ 이전</string>
+    <string name="timeline_next">다음 ▶</string>
+    <string name="timeline_clear">지우기</string>
+    <string name="timeline_hint">차트를 탭하거나 밀어서 기간을 확인하세요.</string>
+    <string name="timeline_note">회색 점선은 %2$s 이후 읽은 스토어 리뷰 %1$d개의 평균입니다. 스토어 자체 평점은 모든 리뷰를 셉니다.</string>
 </resources>

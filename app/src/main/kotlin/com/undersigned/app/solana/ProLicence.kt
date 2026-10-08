@@ -54,5 +54,15 @@ object ProLicence {
         return ProStatus(expiry > now, expiry, last.e.blockTime, last.e.signature, last.rail, last.label)
     }
 
+    /** Whether a `pro` or `bst` record's transaction paid its floor, for the shared weighting (protocol Weighting). */
+    fun paidRecord(meta: Map<String, TxMeta>): (LedgerEntry) -> Boolean = { e ->
+        val m = meta[e.signature.substringBefore(':')]
+        m != null && when (e.memo) {
+            is ReviewMemo.Pro -> m.paidLamports >= AppConfig.Payment.floorLamports || m.paidSkr >= AppConfig.Payment.floorSkrRaw
+            is ReviewMemo.Boost -> AppConfig.Payment.isPaidBoost(m.paidLamports, m.paidSkr)
+            else -> false
+        }
+    }
+
     private fun trim(v: Double): String = java.math.BigDecimal(v).setScale(4, java.math.RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
 }

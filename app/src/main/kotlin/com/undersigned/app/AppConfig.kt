@@ -140,6 +140,15 @@ object AppConfig {
         val listFloorLamports: Long get() = (LEGACY_LIST_SOL + LIST_SOL).minOf { lamports(it) }
         val listFloorSkrRaw: Long get() = (LEGACY_LIST_SKR + LIST_SKR + LIST_SKR_SGT).minOf { skrRaw(it) }
         fun isPaidListing(paidLamports: Long, paidSkr: Long): Boolean = paidLamports >= listFloorLamports || paidSkr >= listFloorSkrRaw
+        /**
+         * A boost on one's own review, Pro members only (owner, 8 Oct 2026): a tenth of the Pro price. It adds ×1.2 to that
+         * review's weight on top of Pro's ×1.25, the two capped at ×1.5 (protocol Weighting); shown as "Boosted" on the review.
+         */
+        const val BOOST_SOL = 0.00607
+        const val BOOST_SKR = 65.0
+        val boostFloorLamports: Long get() = lamports(BOOST_SOL)
+        val boostFloorSkrRaw: Long get() = skrRaw(BOOST_SKR)
+        fun isPaidBoost(paidLamports: Long, paidSkr: Long): Boolean = paidLamports >= boostFloorLamports || paidSkr >= boostFloorSkrRaw
         fun listSkr(holdsGenesisToken: Boolean): Double = if (holdsGenesisToken) LIST_SKR_SGT else LIST_SKR
     }
 

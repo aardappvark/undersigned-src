@@ -52,7 +52,7 @@
     <string name="detail_update_review">更新我的评价</string>
     <string name="detail_revoke_review">撤回我的评价</string>
     <string name="detail_score_title">签名评分</string>
-    <string name="detail_score_sub">来自已认证设备(目前为持有 Seeker Genesis Token 的钱包)的评价平均值,按质押 SKR 加权(上限 3×)。为各个用户的个人意见,并非商店评分。</string>
+    <string name="detail_score_sub">来自经认证设备的评价平均值（目前：Seeker Genesis Token 持有者），按质押的 SKR（最多 3×）及每条评价附带的信息（安装时长、使用时长、书面备注）加权。不含任何付费因素。为个人持有者的意见，而非商店评分。</string>
     <string name="detail_rank_score">排名评分 %1$s——在更多 Seeker 签名之前会向 3.0 收缩;仅用于对列表排序。</string>
     <string name="follow">关注</string>
     <string name="following">已关注</string>
@@ -219,7 +219,7 @@
     <string name="intro_next">下一步</string>
     <string name="intro_replay">重新播放介绍</string>
     <string name="intro1_title">一台 Seeker,一个声音</string>
-    <string name="intro1_body">Undersigned 是 dApp Store 之外的一层评价体系。只有持有 Seeker Genesis Token 的钱包才会被计入,因此一台设备对应一个声音。没有任何可购买的东西能让您的声音更重。</string>
+    <string name="intro1_body">Undersigned 是 dApp Store 旁的评价层。只有持有 Seeker Genesis Token 的钱包会被计入：一台设备，一个声音。任何可购买的东西都不会改变签名评分。</string>
     <string name="intro2_title">签名,而非打字</string>
     <string name="intro2_body">每条评价都是一笔在手机上通过双击确认的小额交易。您的钱包只会支付其自行设定的网络费用。Undersigned 绝不持有您的密钥或资金。</string>
     <string name="intro3_title">在商店旁边,而非取代它</string>
@@ -397,14 +397,14 @@
     <string name="pro_tool_export_body">任意 dApp、任意签名者,均可导出为 CSV 或 JSON。数据本身是公开的;Pro 只是替您完成读取工作。</string>
     <string name="pro_tool_watch_title">每小时证书监测</string>
     <string name="pro_tool_watch_body">证书和权限变化每小时检查一次,而非每 6 小时一次,检查仍在设备本地完成。</string>
-    <string name="pro_not_title">Pro 不是什么</string>
-    <string name="pro_not_body">它不会增加您意见的权重,不会让您在列表中排名靠前,也不会为您标注可信标签。权重只来自已认证设备和链上读取的质押 SKR,别无其他。没有代币,没有可收集的东西,也没有需要持有的东西。</string>
-    <string name="pro_free_keeps">阅读账本、签名评价、标记、申诉以及查看设备信息将始终免费。Pro 只是新增工具;它不会改变任何评价的计入方式。</string>
+    <string name="pro_not_title">Pro 不做什么</string>
+    <string name="pro_not_body">它从不改变签名评分，也从不影响他人的评价：举报、“有用”投票和隐藏只看设备和质押的 SKR。它的权重只出现在单独的会员评分中，并始终标明。没有代币，没有可收集或持有的东西。</string>
+    <string name="pro_free_keeps">阅读账本、签署评价、举报、申诉和设备信息始终免费。Pro 增加工具，并在单独的会员评分中加入标明的权重。</string>
     <string name="pro_price_line">此钱包 12 个月 · 两种方式付款期限相同 · 另需网络费用,由您的钱包设定</string>
     <string name="pro_pay_in">付款方式</string>
     <string name="pro_rail_skr_note">链上读取,非持有</string>
     <string name="pro_rail_sol_note">同样为十二个月</string>
-    <string name="pro_skr_weight_note">使用 SKR 付款不会改变您的权重——质押 SKR 是从链上读取的,消费并非质押。</string>
+    <string name="pro_skr_weight_note">用 SKR 或 SOL 支付得到的 Pro 相同；花费 SKR 不等于质押。</string>
     <string name="pro_paying_title">您将支付的内容</string>
     <string name="pro_line_licence">Pro,12 个月</string>
     <string name="pro_line_fee">网络费用,由您的钱包设定</string>
@@ -937,4 +937,40 @@
     <string name="nudge_setting_body">每天最多一次：通知提到商店中的一个应用，它在这里已满一周或已使用一小时，且没有你的评价。每个应用只询问一次。除非你开启，否则关闭。</string>
     <string name="badge_copy">复制网站用徽章</string>
     <string name="badge_copied">徽章代码已复制。请粘贴到你的网站或 README 中。</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1.25</string>
+    <string name="weight_boosted_pill">已加权</string>
+    <string name="weight_counts">在签名评分中计 %1$s× · 质量 %2$s</string>
+    <string name="boost_button">为此评价加权</string>
+    <string name="boost_title">为此评价加权？</string>
+    <string name="boost_body">加权会在 Pro 的 ×1.25 之上，再为此评价在会员评分中的权重增加 ×1.2；两者合计绝不超过 ×1.5。签名评分不会改变。所有人都会看到该评价标有“已加权”。仅适用于此版本的评价，付款是公开记录。</string>
+    <string name="boost_pay">支付 %1$s</string>
+    <string name="boost_done">已加权。签名 %1$s</string>
+    <string name="boost_needs_pro">为评价加权需要有效的 Pro 会员。</string>
+    <string name="pro_tool_weight_title">你在会员评分中的权重</string>
+    <string name="pro_tool_weight_body">每个签名评分旁都有一个会员评分。其中你被计入的评价权重为 ×1.25 并带有 Pro 标记；为其中一条加权可达 ×1.5。签名评分从不包含付费。</string>
+    <string name="member_score_title">含会员权重</string>
+    <string name="member_score_note">同样的评价，Pro 会员计 ×1.25（加权后 ×1.5）。对比两者。</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">评价随时间变化</string>
+    <string name="timeline_range_30">30 天</string>
+    <string name="timeline_range_90">90 天</string>
+    <string name="timeline_range_1y">1 年</string>
+    <string name="timeline_range_all">全部</string>
+    <string name="timeline_empty">此时段的评价还不足以画出一条线。</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">商店 %1$d（Seeker 持有者 %2$d）· 已签名 %3$d</string>
+    <string name="timeline_store_at">已读商店 %1$s</string>
+    <string name="timeline_legend_signed">签名评分</string>
+    <string name="timeline_legend_store">已读取的商店评价</string>
+    <string name="timeline_bars_seeker">商店，Seeker 持有者</string>
+    <string name="timeline_bars_other">商店，其他钱包</string>
+    <string name="timeline_bars_signed">签名评价</string>
+    <string name="timeline_prev">◀ 更早</string>
+    <string name="timeline_next">更晚 ▶</string>
+    <string name="timeline_clear">清除</string>
+    <string name="timeline_hint">点按或在图表上滑动以查看某一时段。</string>
+    <string name="timeline_note">灰色虚线是自 %2$s 起读取的 %1$d 条商店评价的平均值；商店自己的评分计入其全部评价。</string>
 </resources>

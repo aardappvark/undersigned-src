@@ -123,6 +123,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val installed = MutableStateFlow<Set<String>>(emptySet())
     val entries = MutableStateFlow<List<LedgerEntry>>(emptyList())
     val scores = MutableStateFlow<Map<String, AppScore>>(emptyMap())
+    /** The member-weighted score per app (Pro ×1.25, boosted up to ×1.5), shown BESIDE the signed score, never instead of it. */
+    val memberScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
     val facts = MutableStateFlow<Map<String, SignerFacts>>(emptyMap())
     val ledgerStatus = MutableStateFlow<LedgerStatus>(LedgerStatus.Idle)
     val selfFacts = MutableStateFlow<SignerFacts?>(null)
@@ -198,7 +200,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         facts.update { it + map }  // merge: store-reviewer lookups may have landed while this ran
         val f = { w: String -> map[w] ?: SignerFacts(false, 0.0) }
         val vp = verifiedPublishers.value
-        scores.value = Ranking.score(list, vp, f).associateBy { it.packageName }
+        scores.value = Ranking.score(list, vp, facts = f).associateBy { it.packageName }
+        memberScores.value = Ranking.score(list, vp, paid = com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), facts = f).associateBy { it.packageName }
         standings.value = Reputation.standing(list, vp, f)
         flagWeights.value = Reputation.flagWeights(list, vp, f)
         hiddenByConsensus.value = Reputation.hiddenByConsensus(list, vp, f)
@@ -254,7 +257,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         verifiedPublishers.value = expanded
         UserPreferences.saveVerifiedPublishers(expanded)
         storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, expanded)
-        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f); modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, expanded) }
+        if (changed) { val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, facts = f).associateBy { it.packageName }; memberScores.value = Ranking.score(list, expanded, paid = com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), facts = f).associateBy { it.packageName }; standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f); modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, expanded) }
     }
     private fun syncedStatus(list: List<LedgerEntry>): LedgerStatus.Synced {
         // Both counts over the SAME set: live (non-withdrawn) reviews. Counting signers over every review ever written
@@ -348,6 +351,25 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** Up to [HISTORY_PAGES] pages of each opened app's store reviews, newest first, for the burst check. */
     val storeHistory = MutableStateFlow<Map<String, com.undersigned.app.data.ReviewsRead>>(emptyMap())
     fun storePoints(pkg: String) = storeHistory.value[pkg]?.items?.mapNotNull { r -> runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { com.undersigned.protocol.ReviewBursts.Point(it, r.rating, r.text) } }
+    /**
+     * The app page's reviews-over-time chart: the store reviews read (split by whether the reviewer's wallet holds a Genesis
+     * Token), the signed reviews, and both scores as they stood at the end of each period. Returns the buckets and the time
+     * of the oldest store review read, which the chart's note names. Pure work; call it off the main thread.
+     */
+    fun timeline(pkg: String, days: Int?): Pair<List<com.undersigned.protocol.Timeline.Bucket>, Long?> {
+        val T = com.undersigned.protocol.Timeline
+        val known = facts.value
+        val store = storeHistory.value[pkg]?.items.orEmpty().mapNotNull { r ->
+            runCatching { java.time.Instant.parse(r.createdAt).epochSecond }.getOrNull()?.let { t -> com.undersigned.protocol.Timeline.StorePoint(t, r.rating, r.walletAddress?.let { w -> known[w]?.hasGenesisToken } == true) }
+        }
+        val all = entries.value
+        val now = System.currentTimeMillis() / 1000
+        val start = if (days == null) (T.earliest(pkg, store, all) ?: (now - 30 * T.DAY)) else now - days * T.DAY
+        val from = start / T.DAY * T.DAY
+        val buckets = T.build(pkg, store, all, verifiedPublishers.value, { w -> known[w] ?: SignerFacts(false, 0.0) }, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), from, now)
+        return buckets to store.minOfOrNull { it.time }
+    }
+
     fun storeBursts(pkg: String): com.undersigned.protocol.ReviewBursts.Findings? = storePoints(pkg)?.let { com.undersigned.protocol.ReviewBursts.find(it) }
     /** Signed reviews: the newest per wallet, withdrawn ones out, so an edit is not a second review. */
     fun ledgerPoints(pkg: String): List<com.undersigned.protocol.ReviewBursts.Point> {
@@ -738,11 +760,37 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun revokedSignatures(): Set<String> = Ranking.revoked(entries.value)
 
     /** Live (not revoked, not locally hidden) reviews for a package, newest first, with each signer's weight. Consensus-hidden ones are returned too; the UI collapses them. */
-    fun reviewsFor(pkg: String): List<Pair<LedgerEntry, Double>> {
+    fun reviewsFor(pkg: String): List<Pair<LedgerEntry, com.undersigned.protocol.Weighting.Parts>> {
         val revoked = revokedSignatures(); val hid = hidden.value
-        return entries.value.filter { it.memo is ReviewMemo.Review && (it.memo as ReviewMemo.Review).packageName == pkg && it.signature !in revoked && it.signature !in hid }
+        val all = entries.value
+        val f = { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }
+        val ctx = com.undersigned.protocol.Weighting.Context(all, hiddenByConsensus.value, f, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value))
+        return all.filter { it.memo is ReviewMemo.Review && (it.memo as ReviewMemo.Review).packageName == pkg && it.signature !in revoked && it.signature !in hid }
             .sortedWith(compareByDescending<LedgerEntry> { helpfulWeights.value[it.signature] ?: 0.0 }.thenByDescending { it.blockTime })
-            .map { it to Ranking.weight(facts.value[it.signer] ?: SignerFacts(false, 0.0)) }
+            .map { it to ctx.parts(it) }
+    }
+
+    /**
+     * Boost one of MY reviews (Pro only): pay the boost price and sign `bst|<review id>` in ONE transaction, exactly like a
+     * listing fee. The record is the transaction's second memo (UNS first), so its id is sig:1.
+     */
+    fun payBoost(sender: ActivityResultSender, rail: com.undersigned.app.solana.ProPaymentService.Rail, reviewId: String, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        val w = wallet.value ?: return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.pro_needs_wallet))))
+        if (pro.value?.active != true) return onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.boost_needs_pro))))
+        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
+        val memo = ReviewMemo.Boost(reviewId)
+        val text = runCatching { ReviewMemo.encode(memo) }.getOrElse { return onResult(Result.failure(it)) }
+        viewModelScope.launch {
+            val r = proService.pay(getApplication(), adapter, sender, w, rail, onStage, sol = com.undersigned.app.AppConfig.Payment.BOOST_SOL, skr = com.undersigned.app.AppConfig.Payment.BOOST_SKR, record = text)
+            r.onSuccess { rc ->
+                entries.value = (listOf(LedgerEntry(ReviewMemo.recordId(rc.signature, 1), w, System.currentTimeMillis() / 1000, memo)) + entries.value).distinctBy { it.signature }
+                txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, rc.paidLamports, rc.paidSkr))
+                ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
+                launch(Dispatchers.IO) { rank() }
+                Log.i("MainViewModel", "paid boost ${rc.signature} (${rc.rail}) on $reviewId")
+            }
+            onResult(r.map { it.signature })
+        }
     }
     fun toggleStar(id: String) = UserPreferences.toggleStar(id)
     /** Whether MY wallet's latest up/unvote on [id] is an upvote. Facts are forced to weight 1 so an unattested wallet still sees its own vote state. */
@@ -959,7 +1007,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "boost"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
         fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }

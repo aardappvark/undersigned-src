@@ -47,7 +47,7 @@
     <string name="detail_update_review">Mijn recensie bijwerken</string>
     <string name="detail_revoke_review">Mijn recensie terugtrekken</string>
     <string name="detail_score_title">Ondertekende score</string>
-    <string name="detail_score_sub">Gemiddelde van recensies van geattesteerde apparaten (vandaag: houders van de Seeker Genesis Token), gewogen naar gestakete SKR (begrensd op 3×). Meningen van individuele eigenaren, niet de beoordeling van de store.</string>
+    <string name="detail_score_sub">Gemiddelde van beoordelingen van geattesteerde apparaten (nu: houders van een Seeker Genesis Token), gewogen naar gestakete SKR (tot 3×) en naar wat elke beoordeling meebrengt (installatieduur, gebruik, een geschreven notitie). Niets betaalds telt mee. Meningen van eigenaren, niet de score van de store.</string>
     <string name="detail_rank_score">Rangscore %1$s — genormaliseerd richting 3,0 totdat meer Seekers ondertekenen; wordt alleen gebruikt om de lijst te ordenen.</string>
     <string name="follow">Volgen</string>
     <string name="following">Volgend</string>
@@ -213,7 +213,7 @@
     <string name="intro_next">Volgende</string>
     <string name="intro_replay">Introductie herhalen</string>
     <string name="intro1_title">Eén Seeker, één stem</string>
-    <string name="intro1_body">Undersigned is een recensielaag naast de dApp Store. Alleen wallets met een Seeker Genesis Token worden meegeteld, zodat één apparaat één stem is. Niets wat u kunt kopen laat het zwaarder meetellen.</string>
+    <string name="intro1_body">Undersigned is een beoordelingslaag naast de dApp Store. Alleen wallets met een Seeker Genesis Token tellen: één apparaat, één stem. Niets wat u kunt kopen verandert de ondertekende score.</string>
     <string name="intro2_title">Ondertekend, niet getypt</string>
     <string name="intro2_body">Elke recensie is een kleine transactie die u op de telefoon goedkeurt met de dubbele tik. Uw wallet betaalt alleen de netwerkkosten die hij zelf instelt. Undersigned bewaart nooit uw sleutels of tegoeden.</string>
     <string name="intro3_title">Naast de store, niet in plaats ervan</string>
@@ -391,14 +391,14 @@
     <string name="pro_tool_export_body">Elke dApp, elke ondertekenaar, als CSV of JSON. De gegevens zijn openbaar; Pro doet het lezen voor u.</string>
     <string name="pro_tool_watch_title">Uurlijkse certificaatbewaking</string>
     <string name="pro_tool_watch_body">Certificaat- en machtigingswijzigingen elk uur gecontroleerd in plaats van elke zes uur, nog steeds op het apparaat.</string>
-    <string name="pro_not_title">Wat Pro niet is</string>
-    <string name="pro_not_body">Het weegt uw mening niet zwaarder, verplaatst u niet hoger op een lijst en markeert u niet als vertrouwd. Gewicht komt van het geattesteerde apparaat en de on-chain gelezen gestakete SKR, en nergens anders vandaan. Er is geen token, niets te verzamelen en niets om te bezitten.</string>
-    <string name="pro_free_keeps">Het grootboek lezen, recensies ondertekenen, markeringen, bezwaren en apparaatgegevens blijven gratis, altijd. Pro voegt hulpmiddelen toe; het verandert niets aan hoe een recensie wordt geteld.</string>
+    <string name="pro_not_title">Wat Pro niet doet</string>
+    <string name="pro_not_body">Het verandert nooit de ondertekende score en weegt nooit op de beoordeling van een ander: meldingen, nuttig-stemmen en verbergen gebruiken alleen het apparaat en gestakete SKR. Het gewicht staat alleen in de aparte ledenscore, altijd aangegeven. Er is geen token, niets te verzamelen en niets te houden.</string>
+    <string name="pro_free_keeps">Het grootboek lezen, beoordelingen ondertekenen, meldingen, bezwaren en apparaatfeiten blijven gratis, altijd. Pro voegt hulpmiddelen toe en een aangegeven gewicht in de aparte ledenscore.</string>
     <string name="pro_price_line">12 maanden op deze wallet · betaal in beide, de termijn is gelijk · netwerkkosten bovenop, bepaald door uw wallet</string>
     <string name="pro_pay_in">Betalen in</string>
     <string name="pro_rail_skr_note">on-chain gelezen, niet aangehouden</string>
     <string name="pro_rail_sol_note">dezelfde twaalf maanden</string>
-    <string name="pro_skr_weight_note">Betalen in SKR verandert uw gewicht niet — gestakete SKR wordt on-chain gelezen en uitgeven is geen staken.</string>
+    <string name="pro_skr_weight_note">Betalen in SKR of SOL geeft hetzelfde Pro; SKR uitgeven is het niet staken.</string>
     <string name="pro_paying_title">Wat u betaalt</string>
     <string name="pro_line_licence">Pro, 12 maanden</string>
     <string name="pro_line_fee">Netwerkkosten, bepaald door uw wallet</string>
@@ -962,4 +962,40 @@
     <string name="nudge_setting_body">Hooguit één per dag: een melding met één app uit de store die hier een week staat of een uur is gebruikt en geen beoordeling van u heeft. Elke app wordt één keer gevraagd. Uit tenzij u het inschakelt.</string>
     <string name="badge_copy">Badge voor uw website kopiëren</string>
     <string name="badge_copied">Badgecode gekopieerd. Plak hem op uw website of in de README.</string>
+
+    <!-- Review weight: quality, Pro and boost (8 Oct 2026) -->
+    <string name="weight_pro_pill">Pro ×1,25</string>
+    <string name="weight_boosted_pill">Geboost</string>
+    <string name="weight_counts">Telt %1$s× in de ondertekende score · kwaliteit %2$s</string>
+    <string name="boost_button">Deze beoordeling boosten</string>
+    <string name="boost_title">Deze beoordeling boosten?</string>
+    <string name="boost_body">Een boost geeft deze beoordeling ×1,2 meer gewicht in de ledenscore, bovenop Pro\'s ×1,25; samen nooit meer dan ×1,5. De ondertekende score verandert niet. Iedereen ziet de beoordeling gemarkeerd als Geboost. Het geldt alleen voor deze versie van de beoordeling, en de betaling is een openbaar record.</string>
+    <string name="boost_pay">%1$s betalen</string>
+    <string name="boost_done">Geboost. Handtekening %1$s</string>
+    <string name="boost_needs_pro">Een beoordeling boosten vraagt een actief Pro-lidmaatschap.</string>
+    <string name="pro_tool_weight_title">Uw gewicht in de ledenscore</string>
+    <string name="pro_tool_weight_body">Naast elke ondertekende score staat een ledenscore. Daarin wegen uw getelde beoordelingen ×1,25 en dragen een Pro-teken; boost er één naar ×1,5. De ondertekende score bevat nooit betalingen.</string>
+    <string name="member_score_title">Met ledengewicht</string>
+    <string name="member_score_note">Dezelfde beoordelingen, Pro-leden tellen ×1,25 (×1,5 geboost). Vergelijk de twee.</string>
+
+    <!-- Reviews over time chart (8 Oct 2026) -->
+    <string name="timeline_title">Beoordelingen door de tijd</string>
+    <string name="timeline_range_30">30 dagen</string>
+    <string name="timeline_range_90">90 dagen</string>
+    <string name="timeline_range_1y">1 jaar</string>
+    <string name="timeline_range_all">Alles</string>
+    <string name="timeline_empty">Nog te weinig beoordelingen in deze periode voor een lijn.</string>
+    <string name="timeline_period">%1$s – %2$s</string>
+    <string name="timeline_counts">Store %1$d (Seeker-eigenaren %2$d) · ondertekend %3$d</string>
+    <string name="timeline_store_at">store gelezen %1$s</string>
+    <string name="timeline_legend_signed">Ondertekende score</string>
+    <string name="timeline_legend_store">Gelezen store-beoordelingen</string>
+    <string name="timeline_bars_seeker">Store, Seeker-eigenaren</string>
+    <string name="timeline_bars_other">Store, andere wallets</string>
+    <string name="timeline_bars_signed">Ondertekende beoordelingen</string>
+    <string name="timeline_prev">◀ Eerder</string>
+    <string name="timeline_next">Later ▶</string>
+    <string name="timeline_clear">Wissen</string>
+    <string name="timeline_hint">Tik of veeg over de grafiek om een periode te lezen.</string>
+    <string name="timeline_note">De gestippelde grijze lijn is het gemiddelde van de %1$d store-beoordelingen gelezen sinds %2$s; de eigen score van de store telt al zijn beoordelingen.</string>
 </resources>

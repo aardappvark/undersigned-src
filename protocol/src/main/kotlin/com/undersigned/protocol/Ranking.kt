@@ -52,8 +52,8 @@ object Ranking {
     /**
      * Rules, in order: (1) revocations remove the review they name, whoever posted the revocation
      * — but only if the same wallet signed both; (2) one counted review per wallet per package,
-     * the newest wins; (3) wallets without a Genesis Token weigh zero; (4) weights are damped and
-     * capped. Everything here is deterministic given the chain, so any reader reaches the same
+     * the newest wins; (3) wallets without a Genesis Token weigh zero; (4) each review weighs device × quality × paid
+     * (see [Weighting]), every factor capped. Everything here is deterministic given the chain, so any reader reaches the same
      * ranking — that is the point of putting it on-chain.
      */
     /** Signatures withdrawn by a revocation from the SAME wallet that signed the review. */
@@ -64,9 +64,15 @@ object Ranking {
         }.toSet()
     }
 
-    fun score(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (signer: String) -> SignerFacts): List<AppScore> {
+    /**
+     * With the default [paid] (nothing counts as paid) this is the SIGNED score: each counted review weighs device × quality.
+     * Passing the reader's real [paid] (whether a `pro` or `bst` record's transaction credited the treasury with at least its
+     * floor) gives the MEMBER-WEIGHTED score, shown beside it: device × quality × paid. See [Weighting].
+     */
+    fun score(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), paid: (LedgerEntry) -> Boolean = { false }, facts: (signer: String) -> SignerFacts): List<AppScore> {
         val revoked = revoked(entries)
         val hidden = Reputation.hiddenByConsensus(entries, verifiedPublishers, facts)
+        val ctx = Weighting.Context(entries, hidden, facts, paid)
         val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
@@ -75,7 +81,7 @@ object Ranking {
         return newestPerWalletPerApp
             .groupBy { (it.memo as ReviewMemo.Review).packageName }
             .map { (pkg, list) ->
-                val weighted = list.map { it to weight(facts(it.signer)) }.filter { it.second > 0.0 }
+                val weighted = list.map { it to ctx.parts(it).total }.filter { it.second > 0.0 }
                 val wSum = weighted.sumOf { it.second }
                 val rSum = weighted.sumOf { (e, w) -> (e.memo as ReviewMemo.Review).rating * w }
                 val rating = (PRIOR_MEAN * PRIOR_WEIGHT + rSum) / (PRIOR_WEIGHT + wSum)
