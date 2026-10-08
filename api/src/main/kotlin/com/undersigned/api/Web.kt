@@ -106,7 +106,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         val sb = StringBuilder()
         val sg = a.optJSONObject("signed"); val store = a.optJSONObject("store"); val sr = a.optJSONObject("store_rating")
         sb.append("<h1>${esc(a.optString("name", pkg))}</h1><p class=meta>${esc(a.optString("category", ""))} · ${esc(pkg)}</p>")
-        if (a.optBoolean("operator_publishes")) sb.append("<div class='card warn'><div class=meta>Undersigned's operator publishes this app. Reviews from its own wallets are shown, labelled, and never counted.</div></div>")
+        if (a.optJSONObject("signed")?.optBoolean("operator_publishes") == true) sb.append("<div class='card warn'><div class=meta>Undersigned's operator publishes this app. Reviews from its own wallets are shown, labelled, and never counted.</div></div>")
         sb.append("<div class=ctas><a class=btn href='/review?package=${enc(pkg)}'>Write a signed review</a><a class='btn sec' href='/app/${enc(pkg)}/feed.xml' title='New signed reviews of this app, in any feed reader'>Follow new reviews (RSS)</a></div>")
         // The two scores side by side, each labelled with where it comes from.
         sb.append("<div class='card grid2'><div><div class=label>Signed by Seeker owners</div>")
@@ -117,7 +117,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         else sb.append("<div class=big>–</div><div class=meta>Not read yet.</div>")
         sb.append("</div></div>")
         // Pro members' reviews as their own labelled score, never blended into the signed one (compliance review, 9 Oct 2026).
-        a.optJSONObject("pro_members")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
+        a.optJSONObject("signed")?.optJSONObject("pro_members")?.takeIf { it.optInt("counted_reviews") > 0 }?.let { m ->
             sb.append("<div class=card><div class=label>Pro members</div><div><b>${"%.1f".format(java.util.Locale.US, m.optDouble("mean"))}</b> <span class=meta>from ${plural(m.optInt("counted_reviews"), "review", "reviews")} by reviewers who pay Undersigned for Pro, at the same weight as everyone. Shown apart; the signed score never includes payment to Undersigned.</span></div></div>")
         }
         sg?.optJSONObject("tags")?.takeIf { it.length() > 0 }?.let { t -> sb.append("<div class=row>"); t.keys().asSequence().sortedByDescending { t.optInt(it) }.forEach { sb.append("<span class=tag>${esc(I18n.tag(lang, it))} · ${t.optInt(it)}</span>") }; sb.append("</div>") }
