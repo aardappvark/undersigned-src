@@ -1017,4 +1017,27 @@
     <string name="reviews_group_uncounted">Nicht gezählt</string>
     <string name="reviews_group_uncounted_note">Kein Seeker Genesis Token in der Wallet, oder der Herausgeber bewertet seine eigene App.</string>
     <string name="not_counted_warning">Diese Wallet hat kein Seeker Genesis Token: Was Sie signieren, wird on-chain gespeichert, aber nicht gezählt.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Trinkgeld für den Entwickler</string>
+    <string name="tips_totals">%1$d Trinkgelder von %2$d Wallets</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR on-chain erhalten</string>
+    <string name="tips_none">Noch keine Trinkgelder.</string>
+    <string name="tips_note">Ein Trinkgeld geht direkt von Ihrer Wallet an die nachgewiesene Wallet des Entwicklers. Undersigned behält nichts, und ein Trinkgeld ändert nie das Gewicht einer Bewertung.</string>
+    <string name="tips_button">Trinkgeld geben</string>
+    <string name="tips_unclaimed">Noch hat niemand nachgewiesen, diese App zu veröffentlichen, daher sind keine Trinkgelder möglich. Entwickler: Beanspruchen Sie die App hier, dann können Seeker-Besitzer Ihnen direkt Trinkgeld geben.</string>
+    <string name="tip_title">Trinkgeld für den Entwickler</string>
+    <string name="tip_body">Direkt von Ihrer Wallet an %1$s, die als Herausgeber dieser App nachgewiesene Wallet. Undersigned behält nichts; Sie zahlen nur die Netzwerkgebühr. Ein Trinkgeld ist ein Geschenk und kann nicht erstattet werden.</string>
+    <string name="tip_skr_rent">Hatte der Entwickler nie SKR, zahlt Ihre Wallet zusätzlich etwa 0,002 SOL, um sein SKR-Konto zu eröffnen.</string>
+    <string name="tip_send">%1$s senden</string>
+    <string name="tip_review_hint">Ihre Bewertung dieser App erscheint unter „Trinkgeld gegeben“. Sie behält ihr übliches Gewicht.</string>
+    <string name="tip_with_review">Trinkgeld für den Entwickler hinzufügen</string>
+    <string name="tip_with_review_note">In derselben Transaktion wie Ihre Bewertung, direkt an %1$s, die als Herausgeber nachgewiesene Wallet. Undersigned behält nichts, und das Trinkgeld ändert nie das Gewicht Ihrer Bewertung.</string>
+    <string name="tip_sent">Trinkgeld gesendet.</string>
+    <string name="tipped_pill">Trinkgeld gegeben</string>
+    <string name="reviews_group_tipped">Trinkgeld gegeben</string>
+    <string name="reviews_group_tipped_note">Seeker-Besitzer, die dem Entwickler dieser App on-chain Trinkgeld gegeben haben. Mit demselben Gewicht gezählt wie alle und zusätzlich als eigene Wertung gezeigt.</string>
+    <string name="tipped_score_title">Trinkgeld gegeben</string>
+    <string name="tipped_score_note">Bewertungen von Wallets, die dem Entwickler Trinkgeld gegeben haben, mit ihrem üblichen Gewicht. Separat gezeigt; ein Trinkgeld erhöht nie das Gewicht einer Bewertung.</string>
+    <string name="claim_tips_hint">Sobald Sie nachweisen, diese App zu veröffentlichen, können Seeker-Besitzer Ihnen direkt Trinkgeld in SOL oder SKR an diese Wallet geben. Undersigned behält nichts.</string>
 </resources>

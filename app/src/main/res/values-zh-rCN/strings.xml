@@ -981,4 +981,27 @@
     <string name="reviews_group_uncounted">未计入</string>
     <string name="reviews_group_uncounted_note">钱包中没有 Seeker Genesis Token，或发布者评价自己的应用。</string>
     <string name="not_counted_warning">此钱包没有 Seeker Genesis Token：你签署的内容会记录在链上，但不会计入。</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">给开发者的打赏</string>
+    <string name="tips_totals">来自 %2$d 个钱包的 %1$d 笔打赏</string>
+    <string name="tips_amounts">链上已收到 %1$s SOL · %2$s SKR</string>
+    <string name="tips_none">还没有打赏。</string>
+    <string name="tips_note">打赏从你的钱包直接转到开发者已证明的钱包。Undersigned 不抽取任何费用，打赏也绝不会改变评价的权重。</string>
+    <string name="tips_button">打赏开发者</string>
+    <string name="tips_unclaimed">还没有人证明自己发布了此应用，因此无法接收打赏。开发者：在这里认领应用，Seeker 持有者即可直接打赏你。</string>
+    <string name="tip_title">打赏开发者</string>
+    <string name="tip_body">从你的钱包直接发送到 %1$s，即已证明发布此应用的钱包。Undersigned 不抽取任何费用；你只需支付网络费。打赏是赠与，不可退款。</string>
+    <string name="tip_skr_rent">如果开发者从未持有 SKR，你的钱包还需支付约 0.002 SOL 为其开立 SKR 账户。</string>
+    <string name="tip_send">发送 %1$s</string>
+    <string name="tip_review_hint">你对此应用的评价将显示在“已打赏”下，权重不变。</string>
+    <string name="tip_with_review">给开发者加一笔打赏</string>
+    <string name="tip_with_review_note">与你的评价在同一笔交易中，直接发送到已证明的发布者钱包 %1$s。Undersigned 不抽取任何费用，打赏也绝不会改变你评价的权重。</string>
+    <string name="tip_sent">打赏已发送。</string>
+    <string name="tipped_pill">已打赏</string>
+    <string name="reviews_group_tipped">打赏过开发者</string>
+    <string name="reviews_group_tipped_note">在链上打赏过此应用开发者的 Seeker 持有者。与所有人同等权重计入，并另有自己的评分。</string>
+    <string name="tipped_score_title">已打赏</string>
+    <string name="tipped_score_note">打赏过开发者的钱包的评价，按常规权重。单独显示；打赏绝不会提高评价的权重。</string>
+    <string name="claim_tips_hint">一旦你证明自己发布了此应用，Seeker 持有者就可以用 SOL 或 SKR 直接打赏到这个钱包。Undersigned 不抽取任何费用。</string>
 </resources>

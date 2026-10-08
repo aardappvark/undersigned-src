@@ -1000,4 +1000,27 @@
     <string name="reviews_group_uncounted">شمار نہیں</string>
     <string name="reviews_group_uncounted_note">والیٹ میں Seeker Genesis Token نہیں، یا پبلشر اپنی ایپ کا جائزہ لے رہا ہے۔</string>
     <string name="not_counted_warning">اس والیٹ میں Seeker Genesis Token نہیں: جو آپ دستخط کریں گے وہ چین پر درج ہوگا مگر شمار نہیں ہوگا۔</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">ڈیولپر کے لیے ٹِپ</string>
+    <string name="tips_totals">%2$d والیٹس سے %1$d ٹِپس</string>
+    <string name="tips_amounts">چین پر %1$s SOL · %2$s SKR موصول</string>
+    <string name="tips_none">ابھی کوئی ٹِپ نہیں۔</string>
+    <string name="tips_note">ٹِپ سیدھی آپ کے والیٹ سے ڈیولپر کے تصدیق شدہ والیٹ میں جاتی ہے۔ Undersigned کچھ نہیں لیتا، اور ٹِپ کبھی کسی جائزے کا وزن نہیں بدلتی۔</string>
+    <string name="tips_button">ٹِپ دیں</string>
+    <string name="tips_unclaimed">ابھی کسی نے ثابت نہیں کیا کہ وہ یہ ایپ شائع کرتا ہے، اس لیے یہ ٹِپس نہیں لے سکتی۔ ڈیولپرز: یہاں ایپ کا دعویٰ کریں تاکہ Seeker مالکان آپ کو براہ راست ٹِپ دے سکیں۔</string>
+    <string name="tip_title">ڈیولپر کے لیے ٹِپ</string>
+    <string name="tip_body">آپ کے والیٹ سے سیدھی %1$s کو، جو اس ایپ کا ثابت شدہ پبلشر والیٹ ہے۔ Undersigned کچھ نہیں لیتا؛ آپ صرف نیٹ ورک فیس دیتے ہیں۔ ٹِپ تحفہ ہے، واپس نہیں ہوتی۔</string>
+    <string name="tip_skr_rent">اگر ڈیولپر کے پاس کبھی SKR نہیں رہا تو آپ کا والیٹ ان کا SKR اکاؤنٹ کھولنے کے لیے تقریباً 0.002 SOL بھی دیتا ہے۔</string>
+    <string name="tip_send">%1$s بھیجیں</string>
+    <string name="tip_review_hint">اس ایپ پر آپ کا جائزہ “ٹِپ دی” کے تحت دکھے گا۔ اس کا معمول کا وزن برقرار رہتا ہے۔</string>
+    <string name="tip_with_review">ڈیولپر کے لیے ٹِپ شامل کریں</string>
+    <string name="tip_with_review_note">آپ کے جائزے والی اسی ٹرانزیکشن میں، سیدھی %1$s کو، ثابت شدہ پبلشر والیٹ۔ Undersigned کچھ نہیں لیتا، اور ٹِپ کبھی آپ کے جائزے کا وزن نہیں بدلتی۔</string>
+    <string name="tip_sent">ٹِپ بھیج دی گئی۔</string>
+    <string name="tipped_pill">ٹِپ دی</string>
+    <string name="reviews_group_tipped">ڈیولپر کو ٹِپ دی</string>
+    <string name="reviews_group_tipped_note">وہ Seeker مالکان جنہوں نے اس ایپ کے ڈیولپر کو چین پر ٹِپ دی۔ سب کے برابر وزن پر شمار، اور اپنے الگ اسکور میں بھی۔</string>
+    <string name="tipped_score_title">ٹِپ دی</string>
+    <string name="tipped_score_note">ڈیولپر کو ٹِپ دینے والے والیٹس کے جائزے، معمول کے وزن پر۔ الگ دکھائے جاتے ہیں؛ ٹِپ کبھی جائزے کا وزن نہیں بڑھاتی۔</string>
+    <string name="claim_tips_hint">جب آپ ثابت کر دیں کہ آپ یہ ایپ شائع کرتے ہیں، تو Seeker مالکان آپ کو SOL یا SKR میں سیدھا اسی والیٹ میں ٹِپ دے سکتے ہیں۔ Undersigned کچھ نہیں لیتا۔</string>
 </resources>

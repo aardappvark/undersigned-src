@@ -997,4 +997,27 @@
     <string name="reviews_group_uncounted">Sayılmıyor</string>
     <string name="reviews_group_uncounted_note">Cüzdanda Seeker Genesis Token yok ya da yayıncı kendi uygulamasını değerlendiriyor.</string>
     <string name="not_counted_warning">Bu cüzdanda Seeker Genesis Token yok: imzaladığınız zincire kaydedilir ama sayılmaz.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Geliştiriciye bahşiş</string>
+    <string name="tips_totals">%2$d cüzdandan %1$d bahşiş</string>
+    <string name="tips_amounts">Zincirde %1$s SOL · %2$s SKR alındı</string>
+    <string name="tips_none">Henüz bahşiş yok.</string>
+    <string name="tips_note">Bahşiş doğrudan cüzdanınızdan geliştiricinin kanıtlanmış cüzdanına gider. Undersigned hiçbir pay almaz ve bahşiş bir değerlendirmenin ağırlığını asla değiştirmez.</string>
+    <string name="tips_button">Bahşiş ver</string>
+    <string name="tips_unclaimed">Bu uygulamayı yayımladığını henüz kimse kanıtlamadı, bu yüzden bahşiş alamaz. Geliştiriciler: uygulamayı burada sahiplenin, Seeker sahipleri size doğrudan bahşiş verebilsin.</string>
+    <string name="tip_title">Geliştiriciye bahşiş</string>
+    <string name="tip_body">Cüzdanınızdan doğrudan %1$s adresine, bu uygulamanın kanıtlanmış yayıncı cüzdanına gönderilir. Undersigned hiçbir pay almaz; yalnızca ağ ücretini ödersiniz. Bahşiş bir hediyedir, iade edilmez.</string>
+    <string name="tip_skr_rent">Geliştirici hiç SKR tutmadıysa cüzdanınız SKR hesabını açmak için ayrıca yaklaşık 0,002 SOL öder.</string>
+    <string name="tip_send">%1$s gönder</string>
+    <string name="tip_review_hint">Bu uygulamaya yaptığınız değerlendirme “Bahşiş verdi” altında görünür. Olağan ağırlığını korur.</string>
+    <string name="tip_with_review">Geliştiriciye bahşiş ekle</string>
+    <string name="tip_with_review_note">Değerlendirmenizle aynı işlemde, doğrudan %1$s adresine, kanıtlanmış yayıncı cüzdanına gönderilir. Undersigned hiçbir pay almaz ve bahşiş değerlendirmenizin ağırlığını asla değiştirmez.</string>
+    <string name="tip_sent">Bahşiş gönderildi.</string>
+    <string name="tipped_pill">Bahşiş verdi</string>
+    <string name="reviews_group_tipped">Geliştiriciye bahşiş verenler</string>
+    <string name="reviews_group_tipped_note">Bu uygulamanın geliştiricisine zincirde bahşiş veren Seeker sahipleri. Herkesle aynı ağırlıkta sayılır ve ayrıca kendi puanlarıyla gösterilir.</string>
+    <string name="tipped_score_title">Bahşiş verenler</string>
+    <string name="tipped_score_note">Geliştiriciye bahşiş veren cüzdanların değerlendirmeleri, olağan ağırlıkta. Ayrı gösterilir; bahşiş bir değerlendirmenin ağırlığını asla artırmaz.</string>
+    <string name="claim_tips_hint">Bu uygulamayı yayımladığınızı kanıtladığınızda Seeker sahipleri size SOL veya SKR olarak doğrudan bu cüzdana bahşiş verebilir. Undersigned hiçbir pay almaz.</string>
 </resources>

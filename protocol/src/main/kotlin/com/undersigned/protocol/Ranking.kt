@@ -101,9 +101,13 @@ object Ranking {
     }
 
     /** The labelled "Pro members" score shown beside the signed one, per app; an app absent has no Pro member's review. */
-    data class Segments(val pro: Map<String, AppScore>)
+    /** Separately labelled scores, never blended into the signed one: Pro members, and wallets that tipped the developer ([Tips]). */
+    data class Segments(val pro: Map<String, AppScore>, val tipped: Map<String, AppScore> = emptyMap())
 
-    fun segments(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>, paid: (LedgerEntry) -> Boolean, facts: (String) -> SignerFacts): Segments = Segments(
+    fun segments(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>, paid: (LedgerEntry) -> Boolean, facts: (String) -> SignerFacts,
+                 tippers: Map<String, Set<String>> = emptyMap()): Segments = Segments(
         score(entries, verifiedPublishers, paid, { _, w -> w.pro }, facts).filter { it.countedReviews > 0 }.associateBy { it.packageName },
+        if (tippers.isEmpty()) emptyMap() else score(entries, verifiedPublishers, paid, { e, _ -> e.signer in tippers[(e.memo as ReviewMemo.Review).packageName].orEmpty() }, facts)
+            .filter { it.countedReviews > 0 }.associateBy { it.packageName },
     )
 }

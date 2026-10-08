@@ -1035,4 +1035,27 @@
     <string name="reviews_group_uncounted">Nieliczone</string>
     <string name="reviews_group_uncounted_note">Portfel bez Seeker Genesis Token albo wydawca oceniający własną aplikację.</string>
     <string name="not_counted_warning">Ten portfel nie ma Seeker Genesis Token: to, co podpiszesz, trafia do łańcucha, ale się nie liczy.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Napiwki dla dewelopera</string>
+    <string name="tips_totals">%1$d napiwków od %2$d portfeli</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR otrzymane w łańcuchu</string>
+    <string name="tips_none">Jeszcze bez napiwków.</string>
+    <string name="tips_note">Napiwek trafia prosto z Twojego portfela do potwierdzonego portfela dewelopera. Undersigned nic nie bierze, a napiwek nigdy nie zmienia wagi recenzji.</string>
+    <string name="tips_button">Daj napiwek</string>
+    <string name="tips_unclaimed">Nikt jeszcze nie potwierdził, że wydaje tę aplikację, więc nie może przyjmować napiwków. Deweloperzy: zgłoście aplikację tutaj, a właściciele Seeker będą mogli dawać wam napiwki bezpośrednio.</string>
+    <string name="tip_title">Napiwek dla dewelopera</string>
+    <string name="tip_body">Wysyłany z Twojego portfela prosto do %1$s, portfela potwierdzonego jako wydawca tej aplikacji. Undersigned nic nie bierze; płacisz tylko opłatę sieciową. Napiwek to prezent i nie podlega zwrotowi.</string>
+    <string name="tip_skr_rent">Jeśli deweloper nigdy nie miał SKR, Twój portfel zapłaci też około 0,002 SOL za otwarcie jego konta SKR.</string>
+    <string name="tip_send">Wyślij %1$s</string>
+    <string name="tip_review_hint">Twoja recenzja tej aplikacji pojawi się w sekcji „Dali napiwek”. Zachowuje zwykłą wagę.</string>
+    <string name="tip_with_review">Dodaj napiwek dla dewelopera</string>
+    <string name="tip_with_review_note">Wysyłany w tej samej transakcji co recenzja, prosto do %1$s, potwierdzonego portfela wydawcy. Undersigned nic nie bierze, a napiwek nigdy nie zmienia wagi Twojej recenzji.</string>
+    <string name="tip_sent">Napiwek wysłany.</string>
+    <string name="tipped_pill">Dał napiwek</string>
+    <string name="reviews_group_tipped">Dali napiwek deweloperowi</string>
+    <string name="reviews_group_tipped_note">Właściciele Seeker, którzy dali deweloperowi tej aplikacji napiwek w łańcuchu. Liczeni z tą samą wagą co wszyscy i pokazywani też we własnej ocenie.</string>
+    <string name="tipped_score_title">Dali napiwek</string>
+    <string name="tipped_score_note">Recenzje z portfeli, które dały deweloperowi napiwek, ze zwykłą wagą. Pokazywane osobno; napiwek nigdy nie podnosi wagi recenzji.</string>
+    <string name="claim_tips_hint">Gdy potwierdzisz, że wydajesz tę aplikację, właściciele Seeker mogą dawać Ci napiwki w SOL lub SKR prosto na ten portfel. Undersigned nic nie bierze.</string>
 </resources>

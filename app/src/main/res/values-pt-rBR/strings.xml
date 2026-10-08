@@ -1026,4 +1026,27 @@
     <string name="reviews_group_uncounted">Não contam</string>
     <string name="reviews_group_uncounted_note">A carteira não tem Seeker Genesis Token, ou é o editor avaliando o próprio app.</string>
     <string name="not_counted_warning">Esta carteira não tem Seeker Genesis Token: o que você assinar fica registrado na blockchain mas não conta.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Gorjetas ao desenvolvedor</string>
+    <string name="tips_totals">%1$d gorjetas de %2$d carteiras</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR recebidos na blockchain</string>
+    <string name="tips_none">Ainda sem gorjetas.</string>
+    <string name="tips_note">Uma gorjeta vai direto da sua carteira para a carteira comprovada do desenvolvedor. O Undersigned não fica com nada, e uma gorjeta nunca muda o peso de uma avaliação.</string>
+    <string name="tips_button">Dar gorjeta</string>
+    <string name="tips_unclaimed">Ninguém comprovou ainda que publica este app, então ele não pode receber gorjetas. Desenvolvedores: reivindiquem o app aqui e os donos de Seeker poderão dar gorjeta diretamente.</string>
+    <string name="tip_title">Gorjeta ao desenvolvedor</string>
+    <string name="tip_body">Enviada da sua carteira direto para %1$s, a carteira comprovada como editora deste app. O Undersigned não fica com nada; você paga só a taxa da rede. Gorjeta é um presente: não tem reembolso.</string>
+    <string name="tip_skr_rent">Se o desenvolvedor nunca teve SKR, sua carteira também paga cerca de 0,002 SOL para abrir a conta SKR dele.</string>
+    <string name="tip_send">Enviar %1$s</string>
+    <string name="tip_review_hint">Sua avaliação deste app vai aparecer em “Deram gorjeta”. Ela mantém o peso de sempre.</string>
+    <string name="tip_with_review">Adicionar gorjeta para o desenvolvedor</string>
+    <string name="tip_with_review_note">Enviada na mesma transação da sua avaliação, direto para %1$s, a carteira comprovada como editora. O Undersigned não fica com nada, e a gorjeta nunca muda o peso da sua avaliação.</string>
+    <string name="tip_sent">Gorjeta enviada.</string>
+    <string name="tipped_pill">Deu gorjeta</string>
+    <string name="reviews_group_tipped">Deram gorjeta ao desenvolvedor</string>
+    <string name="reviews_group_tipped_note">Donos de Seeker que deram gorjeta na blockchain ao desenvolvedor deste app. Contam com o mesmo peso de todos e também aparecem em nota própria.</string>
+    <string name="tipped_score_title">Deram gorjeta</string>
+    <string name="tipped_score_note">Avaliações de carteiras que deram gorjeta ao desenvolvedor, com o peso de sempre. Mostradas à parte; gorjeta nunca aumenta o peso de uma avaliação.</string>
+    <string name="claim_tips_hint">Depois que você comprovar que publica este app, donos de Seeker podem lhe dar gorjeta em SOL ou SKR direto nesta carteira. O Undersigned não fica com nada.</string>
 </resources>

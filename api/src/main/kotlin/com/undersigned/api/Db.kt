@@ -26,6 +26,8 @@ class Db(path: String = Config.DB_PATH) {
             s.execute("CREATE TABLE IF NOT EXISTS passes (key TEXT PRIMARY KEY, wallet TEXT NOT NULL, requests_left INTEGER NOT NULL, ends_at INTEGER NOT NULL, created INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS redeemed (sig TEXT PRIMARY KEY, key TEXT NOT NULL, wallet TEXT NOT NULL, rail TEXT NOT NULL, amount INTEGER NOT NULL, at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS apk_proofs (pkg TEXT NOT NULL, version INTEGER NOT NULL, cert TEXT NOT NULL, declared TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY (pkg, version))")
+            // What a tip transaction credited the developer wallet its `tip` record names (Tips), from balances.
+            s.execute("CREATE TABLE IF NOT EXISTS tipcredit (sig TEXT PRIMARY KEY, recipient TEXT NOT NULL, lamports INTEGER NOT NULL, skr INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS operator_hidden (id TEXT PRIMARY KEY, reason TEXT NOT NULL, at INTEGER NOT NULL)")
             s.execute("CREATE TABLE IF NOT EXISTS pay_rows (addr_key TEXT NOT NULL, sig TEXT NOT NULL, time INTEGER, memo TEXT, fetched INTEGER, payer TEXT, lamports INTEGER, tokens TEXT, PRIMARY KEY (addr_key, sig))")
         }

@@ -1023,4 +1023,27 @@
     <string name="reviews_group_uncounted">Not counted</string>
     <string name="reviews_group_uncounted_note">No Seeker Genesis Token on the wallet, or the publisher reviewing its own app.</string>
     <string name="not_counted_warning">This wallet holds no Seeker Genesis Token: what you sign is recorded on-chain but not counted.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Tips to the developer</string>
+    <string name="tips_totals">%1$d tips from %2$d wallets</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR received on-chain</string>
+    <string name="tips_none">No tips yet.</string>
+    <string name="tips_note">A tip goes straight from your wallet to the developer\'s proven wallet. Undersigned takes nothing, and a tip never changes how much a review weighs.</string>
+    <string name="tips_button">Tip the developer</string>
+    <string name="tips_unclaimed">Nobody has proven they publish this app yet, so it cannot take tips. Developers: claim the app here and Seeker owners can tip you directly.</string>
+    <string name="tip_title">Tip the developer</string>
+    <string name="tip_body">Sent from your wallet straight to %1$s, the wallet proven to publish this app. Undersigned takes nothing; you pay only the network fee. A tip is a gift: it cannot be refunded.</string>
+    <string name="tip_skr_rent">If the developer has never held SKR, your wallet also pays about 0.002 SOL to open their SKR account.</string>
+    <string name="tip_send">Send %1$s</string>
+    <string name="tip_review_hint">Your review of this app will show under “Tipped the developer”. It keeps its usual weight.</string>
+    <string name="tip_with_review">Add a tip for the developer</string>
+    <string name="tip_with_review_note">Sent in the same transaction as your review, straight to %1$s, the wallet proven to publish this app. Undersigned takes nothing, and the tip never changes how much your review weighs.</string>
+    <string name="tip_sent">Tip sent.</string>
+    <string name="tipped_pill">Tipped the developer</string>
+    <string name="reviews_group_tipped">Tipped the developer</string>
+    <string name="reviews_group_tipped_note">Seeker owners who sent this app\'s developer a tip on-chain. Counted at the same weight as everyone, and also shown as their own score.</string>
+    <string name="tipped_score_title">Tipped the developer</string>
+    <string name="tipped_score_note">Reviews from wallets that tipped this app\'s developer, at their ordinary weight. Shown apart; a tip never raises a review\'s weight.</string>
+    <string name="claim_tips_hint">Once you prove you publish this app, Seeker owners can tip you directly in SOL or SKR, straight to this wallet. Undersigned takes nothing.</string>
 </resources>

@@ -45,7 +45,7 @@ class LedgerReader(private val rpc: SolanaRpcClient = SolanaRpcClient(), private
                     onProgress(Progress(fresh.size + i, fresh.size + candidates.size))
                     if (newest == null && row.signature in haveTx && meta.containsKey(row.signature)) continue   // already held
                     val tx = rpc.getLedgerTx(row.signature).getOrNull() ?: run { skipped++; null } ?: continue
-                    meta[row.signature] = com.undersigned.app.solana.TxMeta(tx.fee, tx.seekerWallet, tx.paidLamports, tx.paidSkr)
+                    meta[row.signature] = com.undersigned.app.solana.TxMeta(tx.fee, tx.seekerWallet, tx.paidLamports, tx.paidSkr, tx.tipLamports, tx.tipSkr)
                     var records = 0
                     tx.memos.forEachIndexed { idx, raw ->
                         val memo = ReviewMemo.decode(raw) ?: return@forEachIndexed

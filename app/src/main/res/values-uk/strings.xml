@@ -1034,4 +1034,27 @@
     <string name="reviews_group_uncounted">Не враховуються</string>
     <string name="reviews_group_uncounted_note">У гаманці немає Seeker Genesis Token, або видавець оцінює власний застосунок.</string>
     <string name="not_counted_warning">У цьому гаманці немає Seeker Genesis Token: те, що ви підпишете, потрапить у блокчейн, але не буде враховано.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Чайові розробнику</string>
+    <string name="tips_totals">%1$d чайових від %2$d гаманців</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR отримано в блокчейні</string>
+    <string name="tips_none">Чайових поки немає.</string>
+    <string name="tips_note">Чайові йдуть прямо з вашого гаманця на підтверджений гаманець розробника. Undersigned нічого не бере, і чайові ніколи не змінюють вагу відгуку.</string>
+    <string name="tips_button">Залишити чайові</string>
+    <string name="tips_unclaimed">Ніхто ще не підтвердив, що випускає цей застосунок, тож він не приймає чайові. Розробники: заявіть права на застосунок тут, і власники Seeker зможуть залишати вам чайові напряму.</string>
+    <string name="tip_title">Чайові розробнику</string>
+    <string name="tip_body">Надсилаються з вашого гаманця прямо на %1$s — гаманець, підтверджений як видавець застосунку. Undersigned нічого не бере; ви платите лише мережеву комісію. Чайові — це подарунок, вони не повертаються.</string>
+    <string name="tip_skr_rent">Якщо розробник ніколи не мав SKR, ваш гаманець також сплатить близько 0,002 SOL за відкриття його рахунку SKR.</string>
+    <string name="tip_send">Надіслати %1$s</string>
+    <string name="tip_review_hint">Ваш відгук про цей застосунок з\'явиться в розділі «Залишили чайові». Він зберігає звичайну вагу.</string>
+    <string name="tip_with_review">Додати чайові розробнику</string>
+    <string name="tip_with_review_note">Надсилаються в тій самій транзакції, що й відгук, прямо на %1$s — підтверджений гаманець видавця. Undersigned нічого не бере, і чайові ніколи не змінюють вагу вашого відгуку.</string>
+    <string name="tip_sent">Чайові надіслано.</string>
+    <string name="tipped_pill">Залишив чайові</string>
+    <string name="reviews_group_tipped">Залишили чайові розробнику</string>
+    <string name="reviews_group_tipped_note">Власники Seeker, які залишили розробнику цього застосунку чайові в блокчейні. Враховуються з тією ж вагою, що й усі, і показані окремою оцінкою.</string>
+    <string name="tipped_score_title">Залишили чайові</string>
+    <string name="tipped_score_note">Відгуки з гаманців, що залишили розробнику чайові, зі звичайною вагою. Показані окремо; чайові ніколи не підвищують вагу відгуку.</string>
+    <string name="claim_tips_hint">Щойно ви підтвердите, що випускаєте цей застосунок, власники Seeker зможуть надсилати вам чайові в SOL або SKR прямо на цей гаманець. Undersigned нічого не бере.</string>
 </resources>

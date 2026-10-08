@@ -1026,4 +1026,27 @@
     <string name="reviews_group_uncounted">Non comptés</string>
     <string name="reviews_group_uncounted_note">Pas de Seeker Genesis Token dans le portefeuille, ou l\'éditeur qui note sa propre app.</string>
     <string name="not_counted_warning">Ce portefeuille n\'a pas de Seeker Genesis Token : ce que vous signez est enregistré sur la chaîne mais pas compté.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Pourboires au développeur</string>
+    <string name="tips_totals">%1$d pourboires de %2$d portefeuilles</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR reçus sur la chaîne</string>
+    <string name="tips_none">Pas encore de pourboire.</string>
+    <string name="tips_note">Un pourboire va directement de votre portefeuille au portefeuille prouvé du développeur. Undersigned ne prend rien, et un pourboire ne change jamais le poids d\'un avis.</string>
+    <string name="tips_button">Donner un pourboire</string>
+    <string name="tips_unclaimed">Personne n\'a encore prouvé publier cette app, elle ne peut donc pas recevoir de pourboires. Développeurs : revendiquez l\'app ici et les propriétaires Seeker pourront vous donner un pourboire directement.</string>
+    <string name="tip_title">Pourboire au développeur</string>
+    <string name="tip_body">Envoyé de votre portefeuille directement à %1$s, le portefeuille prouvé comme éditeur de cette app. Undersigned ne prend rien ; vous ne payez que les frais du réseau. Un pourboire est un don : il n\'est pas remboursable.</string>
+    <string name="tip_skr_rent">Si le développeur n\'a jamais détenu de SKR, votre portefeuille paie aussi environ 0,002 SOL pour ouvrir son compte SKR.</string>
+    <string name="tip_send">Envoyer %1$s</string>
+    <string name="tip_review_hint">Votre avis sur cette app apparaîtra sous « Pourboire donné ». Il garde son poids habituel.</string>
+    <string name="tip_with_review">Ajouter un pourboire pour le développeur</string>
+    <string name="tip_with_review_note">Envoyé dans la même transaction que votre avis, directement à %1$s, le portefeuille prouvé comme éditeur. Undersigned ne prend rien, et le pourboire ne change jamais le poids de votre avis.</string>
+    <string name="tip_sent">Pourboire envoyé.</string>
+    <string name="tipped_pill">Pourboire donné</string>
+    <string name="reviews_group_tipped">Pourboire donné</string>
+    <string name="reviews_group_tipped_note">Propriétaires Seeker qui ont donné un pourboire au développeur sur la chaîne. Comptés au même poids que tous, et montrés aussi dans leur propre score.</string>
+    <string name="tipped_score_title">Pourboire donné</string>
+    <string name="tipped_score_note">Avis de portefeuilles ayant donné un pourboire au développeur, à leur poids habituel. Montrés à part ; un pourboire n\'augmente jamais le poids d\'un avis.</string>
+    <string name="claim_tips_hint">Dès que vous prouvez publier cette app, les propriétaires Seeker peuvent vous donner un pourboire en SOL ou SKR, directement sur ce portefeuille. Undersigned ne prend rien.</string>
 </resources>

@@ -30,8 +30,13 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
 
     /** [sol]/[skr] default to the Pro price; a paid listing passes its own price and its `trs` [record] (see AppConfig.Payment.LIST_SOL). */
     suspend fun pay(context: Context, adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, rail: Rail, onStage: (ReviewTxService.Stage) -> Unit,
-                    sol: Double = AppConfig.Payment.PRO_SOL, skr: Double = AppConfig.Payment.PRO_SKR, record: String? = null): Result<Receipt> {
+                    sol: Double = AppConfig.Payment.PRO_SOL, skr: Double = AppConfig.Payment.PRO_SKR, record: String? = null,
+                    tipTo: String? = null, tipMemos: List<String> = emptyList()): Result<Receipt> {
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
+        // A tip ([tipTo] set) goes to the developer's proven wallet with [tipMemos] instead of the treasury and the fleet code.
+        val to = tipTo ?: AppConfig.Payment.TREASURY
+        val toKey = Base58.decode(to); require(toKey.size == 32)
+        if (tipTo != null && WalletScreening.isSanctioned(tipTo)) return Result.failure(Exception("Nothing was sent. The developer's wallet appears on a sanctions list, so this app cannot take tips here."))
         if (runCatching { GeoBlocker(context).isBlocked() }.getOrDefault(false)) return Result.failure(Exception("Nothing was charged. Payment is not available in this region because of sanctions and legal restrictions."))
         if (WalletScreening.isSanctioned(signerAddress)) return Result.failure(Exception("Nothing was charged. This wallet address appears on a sanctions list and cannot be used with this app."))
         val lamports = AppConfig.Payment.lamports(sol)
@@ -49,11 +54,16 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         }
         // Default to "ATA present" when the lookup FAILS: the treasury already holds an SKR account, and a wrong
         // "absent" would only add an idempotent create (harmless), while the wrong "present" costs nothing either.
-        val treasuryHasAta = if (rail == Rail.SKR) rpc.getTokenBalanceRaw(AppConfig.Payment.TREASURY, AppConfig.Payment.SKR_MINT).fold({ it >= 0L }, { true }) else true
-        fun build(bh: ByteArray): ByteArray = when (rail) {
-            Rail.SOL -> TxBuilder.proSolTransaction(signer, lamports, bh, record)
-            Rail.SKR -> TxBuilder.proSkrTransaction(signer, skrRaw, bh, createTreasuryAta = !treasuryHasAta, record = record)
+        // For a tip the developer may never have held SKR: a failed lookup still says "present", but a real "absent" adds
+        // the idempotent create, whose rent (about 0.002 SOL) the tipper's wallet pays; the tip sheet says so.
+        val treasuryHasAta = if (rail == Rail.SKR) rpc.getTokenBalanceRaw(to, AppConfig.Payment.SKR_MINT).fold({ it >= 0L }, { true }) else true
+        fun build(bh: ByteArray): ByteArray = when {
+            tipTo != null && rail == Rail.SOL -> TxBuilder.tipSolTransaction(signer, toKey, lamports, bh, tipMemos)
+            tipTo != null -> TxBuilder.tipSkrTransaction(signer, toKey, skrRaw, bh, createAta = !treasuryHasAta, memos = tipMemos)
+            rail == Rail.SOL -> TxBuilder.proSolTransaction(signer, lamports, bh, record)
+            else -> TxBuilder.proSkrTransaction(signer, skrRaw, bh, createTreasuryAta = !treasuryHasAta, record = record)
         }
+        if (build(TxBuilder.ZERO_BLOCKHASH).size > AppConfig.Solana.MAX_TX_BYTES) return Result.failure(Exception("Nothing was sent. The review is too long to travel with a tip; shorten the note, or send the tip on its own."))
         // Gate: never open the signature sheet on a payment the cluster would reject.
         val sim = rpc.simulateTransaction(build(TxBuilder.ZERO_BLOCKHASH), replaceBlockhash = true)
             .getOrElse { return Result.failure(Exception("Nothing was charged. Could not reach Solana to check the payment: ${it.message?.take(80)}")) }
@@ -99,7 +109,7 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
         Log.w(TAG, "simulation refused: $err ${logs.takeLast(3)}")
         val all = err + logs.joinToString(" ")
         return "Nothing was charged. " + when {
-            all.contains("insufficient lamports", true) || all.contains("InsufficientFunds", true) || all.contains("insufficient funds", true) -> "Not enough in your wallet to cover the licence and the network fee."
+            all.contains("insufficient lamports", true) || all.contains("InsufficientFunds", true) || all.contains("insufficient funds", true) -> "Not enough in your wallet to cover the payment and the network fee."
             all.contains("AccountNotFound", true) || all.contains("could not find account", true) -> "Your wallet does not hold this token yet."
             all.contains("BlockhashNotFound", true) -> "That took too long and the network moved on. Try again."
             else -> "The network rejected this payment before signing, so nothing was sent."

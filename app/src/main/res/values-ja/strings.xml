@@ -973,4 +973,27 @@
     <string name="reviews_group_uncounted">カウント対象外</string>
     <string name="reviews_group_uncounted_note">ウォレットにSeeker Genesis Tokenがない、または発行者が自分のアプリをレビュー。</string>
     <string name="not_counted_warning">このウォレットにはSeeker Genesis Tokenがありません：署名した内容はチェーンに記録されますが、カウントされません。</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">開発者へのチップ</string>
+    <string name="tips_totals">%2$d個のウォレットから%1$d件のチップ</string>
+    <string name="tips_amounts">チェーン上で%1$s SOL · %2$s SKRを受領</string>
+    <string name="tips_none">まだチップはありません。</string>
+    <string name="tips_note">チップはあなたのウォレットから、証明済みの開発者ウォレットへ直接届きます。Undersignedは何も受け取らず、チップでレビューの重みが変わることはありません。</string>
+    <string name="tips_button">チップを送る</string>
+    <string name="tips_unclaimed">このアプリの発行者であることをまだ誰も証明していないため、チップを受け取れません。開発者の方へ：ここでアプリを申請すると、Seeker所有者から直接チップを受け取れます。</string>
+    <string name="tip_title">開発者へのチップ</string>
+    <string name="tip_body">あなたのウォレットから、このアプリの発行者として証明済みのウォレット%1$sへ直接送られます。Undersignedは何も受け取らず、支払うのはネットワーク手数料だけです。チップは贈り物で、返金はできません。</string>
+    <string name="tip_skr_rent">開発者がSKRを持ったことがない場合、SKRアカウントを開くため約0.002 SOLもあなたのウォレットが支払います。</string>
+    <string name="tip_send">%1$sを送る</string>
+    <string name="tip_review_hint">このアプリへのあなたのレビューは「チップを送った人」に表示されます。重みは通常どおりです。</string>
+    <string name="tip_with_review">開発者へのチップを追加</string>
+    <string name="tip_with_review_note">レビューと同じトランザクションで、証明済みの発行者ウォレット%1$sへ直接送られます。Undersignedは何も受け取らず、チップでレビューの重みが変わることはありません。</string>
+    <string name="tip_sent">チップを送りました。</string>
+    <string name="tipped_pill">チップ送付済み</string>
+    <string name="reviews_group_tipped">開発者にチップを送った人</string>
+    <string name="reviews_group_tipped_note">このアプリの開発者にチェーン上でチップを送ったSeeker所有者。他の人と同じ重みでカウントされ、専用のスコアにも表示されます。</string>
+    <string name="tipped_score_title">チップを送った人</string>
+    <string name="tipped_score_note">開発者にチップを送ったウォレットのレビュー（通常の重み）。別に表示され、チップでレビューの重みが上がることはありません。</string>
+    <string name="claim_tips_hint">このアプリの発行者であることを証明すると、Seeker所有者がこのウォレットへSOLまたはSKRで直接チップを送れるようになります。Undersignedは何も受け取りません。</string>
 </resources>

@@ -1026,4 +1026,27 @@
     <string name="reviews_group_uncounted">Non conteggiate</string>
     <string name="reviews_group_uncounted_note">Nessun Seeker Genesis Token nel wallet, oppure l\'editore che recensisce la propria app.</string>
     <string name="not_counted_warning">Questo wallet non ha un Seeker Genesis Token: ciò che firmi viene registrato sulla chain ma non conteggiato.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Mance allo sviluppatore</string>
+    <string name="tips_totals">%1$d mance da %2$d wallet</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR ricevuti sulla chain</string>
+    <string name="tips_none">Ancora nessuna mancia.</string>
+    <string name="tips_note">Una mancia va direttamente dal tuo wallet al wallet provato dello sviluppatore. Undersigned non trattiene nulla, e una mancia non cambia mai il peso di una recensione.</string>
+    <string name="tips_button">Lascia una mancia</string>
+    <string name="tips_unclaimed">Nessuno ha ancora provato di pubblicare questa app, quindi non può ricevere mance. Sviluppatori: rivendicate l\'app qui e i proprietari Seeker potranno darvi una mancia direttamente.</string>
+    <string name="tip_title">Mancia allo sviluppatore</string>
+    <string name="tip_body">Inviata dal tuo wallet direttamente a %1$s, il wallet provato come editore di questa app. Undersigned non trattiene nulla; paghi solo la commissione di rete. Una mancia è un regalo: non è rimborsabile.</string>
+    <string name="tip_skr_rent">Se lo sviluppatore non ha mai avuto SKR, il tuo wallet paga anche circa 0,002 SOL per aprire il suo conto SKR.</string>
+    <string name="tip_send">Invia %1$s</string>
+    <string name="tip_review_hint">La tua recensione di questa app apparirà sotto «Hanno lasciato una mancia». Mantiene il suo peso abituale.</string>
+    <string name="tip_with_review">Aggiungi una mancia per lo sviluppatore</string>
+    <string name="tip_with_review_note">Inviata nella stessa transazione della recensione, direttamente a %1$s, il wallet provato come editore. Undersigned non trattiene nulla, e la mancia non cambia mai il peso della tua recensione.</string>
+    <string name="tip_sent">Mancia inviata.</string>
+    <string name="tipped_pill">Ha lasciato una mancia</string>
+    <string name="reviews_group_tipped">Hanno lasciato una mancia</string>
+    <string name="reviews_group_tipped_note">Proprietari Seeker che hanno dato una mancia sulla chain allo sviluppatore di questa app. Contano con lo stesso peso di tutti e hanno anche un punteggio proprio.</string>
+    <string name="tipped_score_title">Hanno lasciato una mancia</string>
+    <string name="tipped_score_note">Recensioni da wallet che hanno dato una mancia allo sviluppatore, al loro peso abituale. Mostrate a parte; una mancia non alza mai il peso di una recensione.</string>
+    <string name="claim_tips_hint">Appena provi di pubblicare questa app, i proprietari Seeker possono darti una mancia in SOL o SKR direttamente su questo wallet. Undersigned non trattiene nulla.</string>
 </resources>

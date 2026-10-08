@@ -974,4 +974,27 @@
     <string name="reviews_group_uncounted">반영되지 않음</string>
     <string name="reviews_group_uncounted_note">지갑에 Seeker Genesis Token이 없거나, 게시자가 자기 앱을 리뷰한 경우.</string>
     <string name="not_counted_warning">이 지갑에는 Seeker Genesis Token이 없습니다: 서명한 내용은 체인에 기록되지만 반영되지 않습니다.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">개발자에게 팁</string>
+    <string name="tips_totals">%2$d개 지갑에서 팁 %1$d건</string>
+    <string name="tips_amounts">체인에서 %1$s SOL · %2$s SKR 받음</string>
+    <string name="tips_none">아직 팁이 없습니다.</string>
+    <string name="tips_note">팁은 내 지갑에서 개발자의 증명된 지갑으로 바로 갑니다. Undersigned는 아무것도 받지 않으며, 팁은 리뷰의 무게를 절대 바꾸지 않습니다.</string>
+    <string name="tips_button">팁 보내기</string>
+    <string name="tips_unclaimed">아직 아무도 이 앱의 게시자임을 증명하지 않아 팁을 받을 수 없습니다. 개발자라면 여기서 앱을 등록하세요. Seeker 소유자가 직접 팁을 보낼 수 있습니다.</string>
+    <string name="tip_title">개발자에게 팁</string>
+    <string name="tip_body">내 지갑에서 이 앱의 게시자로 증명된 지갑 %1$s(으)로 바로 보냅니다. Undersigned는 아무것도 받지 않고, 네트워크 수수료만 냅니다. 팁은 선물이며 환불되지 않습니다.</string>
+    <string name="tip_skr_rent">개발자가 SKR을 가진 적이 없으면 SKR 계정을 여는 데 약 0.002 SOL을 내 지갑이 추가로 냅니다.</string>
+    <string name="tip_send">%1$s 보내기</string>
+    <string name="tip_review_hint">이 앱에 대한 내 리뷰는 \'팁을 보낸 사람\'에 표시됩니다. 무게는 평소와 같습니다.</string>
+    <string name="tip_with_review">개발자에게 팁 추가</string>
+    <string name="tip_with_review_note">리뷰와 같은 트랜잭션으로 증명된 게시자 지갑 %1$s(으)로 바로 보냅니다. Undersigned는 아무것도 받지 않으며, 팁은 내 리뷰의 무게를 절대 바꾸지 않습니다.</string>
+    <string name="tip_sent">팁을 보냈습니다.</string>
+    <string name="tipped_pill">팁 보냄</string>
+    <string name="reviews_group_tipped">개발자에게 팁을 보낸 사람</string>
+    <string name="reviews_group_tipped_note">이 앱 개발자에게 체인에서 팁을 보낸 Seeker 소유자. 모두와 같은 무게로 반영되며 별도 점수로도 표시됩니다.</string>
+    <string name="tipped_score_title">팁을 보낸 사람</string>
+    <string name="tipped_score_note">개발자에게 팁을 보낸 지갑의 리뷰(평소 무게). 따로 표시되며, 팁은 리뷰의 무게를 절대 올리지 않습니다.</string>
+    <string name="claim_tips_hint">이 앱의 게시자임을 증명하면 Seeker 소유자가 이 지갑으로 SOL 또는 SKR 팁을 바로 보낼 수 있습니다. Undersigned는 아무것도 받지 않습니다.</string>
 </resources>

@@ -1015,4 +1015,27 @@
     <string name="reviews_group_uncounted">Nenumărate</string>
     <string name="reviews_group_uncounted_note">Portofel fără Seeker Genesis Token sau editorul care își evaluează propria aplicație.</string>
     <string name="not_counted_warning">Acest portofel nu are Seeker Genesis Token: ce semnezi se înregistrează pe lanț, dar nu se numără.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Bacșișuri pentru dezvoltator</string>
+    <string name="tips_totals">%1$d bacșișuri de la %2$d portofele</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR primiți pe lanț</string>
+    <string name="tips_none">Încă niciun bacșiș.</string>
+    <string name="tips_note">Un bacșiș merge direct din portofelul tău în portofelul dovedit al dezvoltatorului. Undersigned nu păstrează nimic, iar bacșișul nu schimbă niciodată greutatea unei recenzii.</string>
+    <string name="tips_button">Dă bacșiș</string>
+    <string name="tips_unclaimed">Nimeni nu a dovedit încă că publică această aplicație, deci nu poate primi bacșișuri. Dezvoltatori: revendicați aplicația aici și proprietarii Seeker vă pot da bacșiș direct.</string>
+    <string name="tip_title">Bacșiș pentru dezvoltator</string>
+    <string name="tip_body">Trimis din portofelul tău direct la %1$s, portofelul dovedit ca editor al aplicației. Undersigned nu păstrează nimic; plătești doar taxa de rețea. Bacșișul e un cadou și nu se rambursează.</string>
+    <string name="tip_skr_rent">Dacă dezvoltatorul n-a avut niciodată SKR, portofelul tău plătește și circa 0,002 SOL pentru a-i deschide contul SKR.</string>
+    <string name="tip_send">Trimite %1$s</string>
+    <string name="tip_review_hint">Recenzia ta pentru această aplicație va apărea la „Au dat bacșiș”. Își păstrează greutatea obișnuită.</string>
+    <string name="tip_with_review">Adaugă un bacșiș pentru dezvoltator</string>
+    <string name="tip_with_review_note">Trimis în aceeași tranzacție cu recenzia, direct la %1$s, portofelul dovedit al editorului. Undersigned nu păstrează nimic, iar bacșișul nu schimbă niciodată greutatea recenziei tale.</string>
+    <string name="tip_sent">Bacșiș trimis.</string>
+    <string name="tipped_pill">A dat bacșiș</string>
+    <string name="reviews_group_tipped">Au dat bacșiș dezvoltatorului</string>
+    <string name="reviews_group_tipped_note">Proprietari Seeker care au dat bacșiș pe lanț dezvoltatorului acestei aplicații. Numărați cu aceeași greutate ca toți și afișați și în scorul lor propriu.</string>
+    <string name="tipped_score_title">Au dat bacșiș</string>
+    <string name="tipped_score_note">Recenzii din portofele care au dat bacșiș dezvoltatorului, cu greutatea obișnuită. Afișate separat; bacșișul nu crește niciodată greutatea unei recenzii.</string>
+    <string name="claim_tips_hint">După ce dovedești că publici această aplicație, proprietarii Seeker îți pot da bacșiș în SOL sau SKR direct în acest portofel. Undersigned nu păstrează nimic.</string>
 </resources>

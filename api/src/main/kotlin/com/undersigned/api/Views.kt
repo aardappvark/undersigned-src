@@ -80,6 +80,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             is ReviewMemo.StoreNote -> o.put("package", m.packageName).put("store_review", m.reviewId).put("text", m.text)
             is ReviewMemo.Treasury -> o.put("package", m.packageName).put("code", m.code)
             is ReviewMemo.TreasuryFor -> o.put("package", m.packageName).put("code", m.code).put("treasury", m.treasury)
+            is ReviewMemo.Tip -> o.put("package", m.packageName).put("recipient", m.recipient).put("credited", st.tipCredit[e.signature.substringBefore(':')]?.let { c -> JSONObject().put("lamports", c.lamports).put("skr_raw", c.skrRaw) } ?: JSONObject.NULL)
             is ReviewMemo.Untreasury -> o.put("package", m.packageName)
             is ReviewMemo.Moderate -> o.put("target", m.recordId).put("reason", m.reason.wire)
             is ReviewMemo.Unmoderate -> o.put("target", m.recordId)
@@ -113,7 +114,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     private fun packageOf(m: ReviewMemo): String? = when (m) {
         is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName
-        is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> null
+        is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; is ReviewMemo.Tip -> m.packageName; else -> null
     }
 
     // ---- Ledger-wide ----------------------------------------------------------------------------------------------
@@ -196,6 +197,11 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("pro_members", st.segments.pro[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
             // The operator also publishes apps in this store; on its own apps the page says so (protocol Operator).
             .put("operator_publishes", com.undersigned.protocol.Operator.publishes(pkg, st.verified))
+            // Tips go straight to the proven publisher wallet (protocol Tips); tippers' reviews also as their own score.
+            .put("tipped", st.segments.tipped[pkg]?.let { m -> JSONObject().put("mean", r2(m.weightedMean)).put("counted_reviews", m.countedReviews) } ?: JSONObject.NULL)
+            .put("tips", JSONObject().put("tip_to", com.undersigned.protocol.Tips.recipient(st.entries, st.verified, pkg) ?: JSONObject.NULL)
+                .put("tips", st.tipTotals[pkg]?.tips ?: 0).put("tippers", st.tipTotals[pkg]?.tippers ?: 0)
+                .put("lamports", st.tipTotals[pkg]?.lamports ?: 0L).put("skr_raw", st.tipTotals[pkg]?.skrRaw ?: 0L))
             .put("install_age", JSONObject(live.mapNotNull { st.usage[it.signature]?.wire }.groupingBy { it }.eachCount()))
             .put("usage_time", JSONObject(live.mapNotNull { st.useTimes[it.signature]?.wire }.groupingBy { it }.eachCount())))
         st.details[pkg]?.let { d -> o.put("store", JSONObject().put("version", d.versionCode).put("certificate_sha256", d.certFingerprint ?: JSONObject.NULL)
@@ -234,6 +240,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("install_age", st.usage[e.signature]?.wire ?: JSONObject.NULL).put("usage_time", st.useTimes[e.signature]?.wire ?: JSONObject.NULL)
                 .put("season", Seasons.at(e.blockTime)?.let { JSONObject().put("id", it.id).put("label", it.label) } ?: JSONObject.NULL)
                 .put("paid_for_app", e.signer in paid)
+                .put("tipped_developer", e.signer in st.tippers[pkg].orEmpty())
                 .put("similar", st.similarity[e.signature]?.let { JSONObject().put("to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } ?: JSONObject.NULL)
                 .put("flaggers", st.flaggers[e.signature]?.size ?: 0).put("hidden_by_consensus", e.signature in st.hidden)
                 .put("helpful_weight", r2(st.helpful[e.signature] ?: 0.0)).put("disputed", st.disputes.containsKey(e.signature))

@@ -982,4 +982,27 @@
     <string name="reviews_group_uncounted">Không được tính</string>
     <string name="reviews_group_uncounted_note">Ví không có Seeker Genesis Token, hoặc nhà phát hành tự đánh giá ứng dụng của mình.</string>
     <string name="not_counted_warning">Ví này không có Seeker Genesis Token: những gì bạn ký được ghi trên chuỗi nhưng không được tính.</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">Tiền tip cho nhà phát triển</string>
+    <string name="tips_totals">%1$d lượt tip từ %2$d ví</string>
+    <string name="tips_amounts">%1$s SOL · %2$s SKR đã nhận trên chuỗi</string>
+    <string name="tips_none">Chưa có tip.</string>
+    <string name="tips_note">Tip đi thẳng từ ví của bạn đến ví đã chứng minh của nhà phát triển. Undersigned không giữ gì, và tip không bao giờ thay đổi trọng số của đánh giá.</string>
+    <string name="tips_button">Tip nhà phát triển</string>
+    <string name="tips_unclaimed">Chưa ai chứng minh mình phát hành ứng dụng này nên nó chưa nhận tip được. Nhà phát triển: hãy nhận ứng dụng tại đây để chủ Seeker có thể tip trực tiếp cho bạn.</string>
+    <string name="tip_title">Tip cho nhà phát triển</string>
+    <string name="tip_body">Gửi từ ví của bạn thẳng đến %1$s, ví đã được chứng minh là nhà phát hành ứng dụng này. Undersigned không giữ gì; bạn chỉ trả phí mạng. Tip là quà tặng, không hoàn lại.</string>
+    <string name="tip_skr_rent">Nếu nhà phát triển chưa từng giữ SKR, ví của bạn trả thêm khoảng 0,002 SOL để mở tài khoản SKR cho họ.</string>
+    <string name="tip_send">Gửi %1$s</string>
+    <string name="tip_review_hint">Đánh giá của bạn về ứng dụng này sẽ nằm trong mục “Đã tip”. Trọng số vẫn như thường.</string>
+    <string name="tip_with_review">Thêm tip cho nhà phát triển</string>
+    <string name="tip_with_review_note">Gửi trong cùng giao dịch với đánh giá, thẳng đến %1$s, ví nhà phát hành đã chứng minh. Undersigned không giữ gì, và tip không bao giờ thay đổi trọng số đánh giá của bạn.</string>
+    <string name="tip_sent">Đã gửi tip.</string>
+    <string name="tipped_pill">Đã tip</string>
+    <string name="reviews_group_tipped">Đã tip nhà phát triển</string>
+    <string name="reviews_group_tipped_note">Chủ Seeker đã tip trên chuỗi cho nhà phát triển ứng dụng này. Được tính cùng trọng số như mọi người và cũng hiện thành điểm riêng.</string>
+    <string name="tipped_score_title">Đã tip</string>
+    <string name="tipped_score_note">Đánh giá từ ví đã tip nhà phát triển, với trọng số thường. Hiển thị riêng; tip không bao giờ tăng trọng số đánh giá.</string>
+    <string name="claim_tips_hint">Khi bạn chứng minh mình phát hành ứng dụng này, chủ Seeker có thể tip bạn bằng SOL hoặc SKR thẳng vào ví này. Undersigned không giữ gì.</string>
 </resources>

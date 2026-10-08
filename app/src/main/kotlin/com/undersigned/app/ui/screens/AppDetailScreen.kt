@@ -60,6 +60,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
     val proScores by vm.proScores.collectAsState()
+    val tippedScores by vm.tippedScores.collectAsState()
+    val tipList by vm.tips.collectAsState()
+    var tipOpen by remember { mutableStateOf(false) }
     val entries by vm.entries.collectAsState()
     val hidden by vm.hidden.collectAsState()
     val wallet by vm.wallet.collectAsState()
@@ -251,6 +254,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                     }
                     segment(stringResource(R.string.member_score_title), stringResource(R.string.member_score_note), proScores[pkg], RbColors.purpleLight)
+                    segment(stringResource(R.string.tipped_score_title), stringResource(R.string.tipped_score_note), tippedScores[pkg], RbColors.green)
                 } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
                 Spacer(Modifier.height(6.dp))
                 Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -258,6 +262,26 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
                 Text(stringResource(R.string.integrity_link), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uriHandler.openUri(com.undersigned.app.AppConfig.Identity.URI + "integrity.html") } }.padding(vertical = 14.dp))
+            }
+
+            // Tips go straight to the app's proven publisher wallet (owner, 9 Oct 2026); an unproven app shows why it cannot
+            // take one, which is the developer's reason to claim it. Undersigned takes nothing.
+            val tipTo = vm.tipRecipient(pkg)
+            SectionTitle(stringResource(R.string.tips_title))
+            GlassCard {
+                if (tipTo == null) Text(stringResource(R.string.tips_unclaimed), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                else {
+                    val mineTips = tipList.filter { it.packageName == pkg }
+                    if (mineTips.isEmpty()) Text(stringResource(R.string.tips_none), color = RbColors.textSecondary, fontSize = 13.sp)
+                    else {
+                        Text(stringResource(R.string.tips_totals, mineTips.size, mineTips.map { it.tipper }.toSet().size), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                        fun amt(v: Double) = java.math.BigDecimal(v).setScale(4, java.math.RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
+                        Text(stringResource(R.string.tips_amounts, amt(mineTips.sumOf { it.lamports } / 1e9), amt(mineTips.sumOf { it.skrRaw } / 1e6)), color = RbColors.textSecondary, fontSize = 12.sp)
+                    }
+                    Spacer(Modifier.height(4.dp))
+                    Text(stringResource(R.string.tips_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    if (wallet != null && wallet != tipTo && sender != null) { Spacer(Modifier.height(8.dp)); SecondaryButton(stringResource(R.string.tips_button), onClick = { dialogError = null; tipOpen = true }) }
+                }
             }
 
             // Reviews over time (owner, 8 Oct 2026): store reviews by Seeker owners and other wallets, signed reviews, and both
@@ -298,21 +322,24 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             var limit by rememberSaveable(pkg) { mutableStateOf(REVIEW_PAGE) }
             // Under headings, so what each review is reads at a glance (owner, 9 Oct 2026): organic Seeker owners, Pro members,
             // reviews related to Undersigned (its own wallets, or a Pro seat gifted by this app's publisher), and not counted.
+            // Tipped the developer (owner, 9 Oct 2026) sits before Pro: a tie to THIS app's developer matters more to a reader
+            // than a licence from Undersigned. A review in both shows here with the Pro pill.
             fun group(e: LedgerEntry, w: com.undersigned.protocol.Weighting.Parts): Int = when {
-                com.undersigned.protocol.Operator.isOperator(e.signer) || w.gifted -> 2
-                w.device <= 0 || vm.isSelfPublished(e) -> 3
-                w.pro -> 1
+                com.undersigned.protocol.Operator.isOperator(e.signer) || w.gifted -> 3
+                w.device <= 0 || vm.isSelfPublished(e) -> 4
+                vm.tippedBy(pkg, e.signer) -> 1
+                w.pro -> 2
                 else -> 0
             }
-            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_pro, R.string.reviews_group_related, R.string.reviews_group_uncounted)
-            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_pro_note, R.string.reviews_group_related_note, R.string.reviews_group_uncounted_note)
+            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_tipped, R.string.reviews_group_pro, R.string.reviews_group_related, R.string.reviews_group_uncounted)
+            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_tipped_note, R.string.reviews_group_pro_note, R.string.reviews_group_related_note, R.string.reviews_group_uncounted_note)
             var lastGroup = -1
             shown.take(limit).sortedBy { (e, w) -> group(e, w) }.forEach { (e, w) -> key(e.signature) {
                 val g = group(e, w)
                 if (g != lastGroup) {
                     lastGroup = g
                     Spacer(Modifier.height(10.dp))
-                    Text(stringResource(groupTitles[g]), color = if (g == 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(groupTitles[g]), color = if (g == 3) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     Text(stringResource(groupNotes[g]), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                     Spacer(Modifier.height(6.dp))
                 }
@@ -349,11 +376,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified) + if (w.device > 1.0) String.format(java.util.Locale.US, " %.1f×", w.device) else "", RbColors.green)
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
-                        // Membership and paid promotion are always shown on the review itself.
+                        // Membership and tips are always shown on the review itself.
                         if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
                         if (com.undersigned.protocol.Operator.isOperator(e.signer)) TrustPill(stringResource(R.string.related_operator_pill), RbColors.warning)
                         if (w.gifted) TrustPill(stringResource(R.string.related_gifted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
+                        if (vm.tippedBy(pkg, e.signer)) TrustPill(stringResource(R.string.tipped_pill), RbColors.green)
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
                     }
                     if (w.device > 0) Text(stringResource(R.string.weight_counts, String.format(java.util.Locale.US, "%.2f", w.weight), String.format(java.util.Locale.US, "%.2f", w.quality)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
@@ -826,12 +854,46 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             confirmButton = { TextButton(onClick = { standingFor = null }) { Text(stringResource(android.R.string.ok), color = RbColors.purpleLight) } })
     }
 
+    if (tipOpen) {
+        val tipTo = vm.tipRecipient(pkg)
+        var rail by remember { mutableStateOf(com.undersigned.app.solana.ProPaymentService.Rail.SOL) }
+        val presets = if (rail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) listOf(0.01, 0.05, 0.1) else listOf(10.0, 50.0, 100.0)
+        var amount by remember(rail) { mutableStateOf(presets[0]) }
+        var tipStage by remember { mutableStateOf<String?>(null) }
+        fun label(v: Double) = java.math.BigDecimal(v).stripTrailingZeros().toPlainString() + if (rail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) " SOL" else " SKR"
+        AlertDialog(onDismissRequest = { if (tipStage == null) tipOpen = false }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.tip_title), color = RbColors.textPrimary) },
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.tip_body, tipTo?.let { shortKey(it, 4, 4) } ?: "–"), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    com.undersigned.app.solana.ProPaymentService.Rail.entries.forEach { r -> TagChip(r.name, selected = rail == r) { if (tipStage == null) rail = r } }
+                }
+                Spacer(Modifier.height(6.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    presets.forEach { v -> TagChip(label(v), selected = amount == v) { if (tipStage == null) amount = v } }
+                }
+                if (rail == com.undersigned.app.solana.ProPaymentService.Rail.SKR) Text(stringResource(R.string.tip_skr_rent), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp))
+                if (vm.myReview(pkg) != null) Text(stringResource(R.string.tip_review_hint), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp))
+                tipStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
+                dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp) }
+            } },
+            confirmButton = { TextButton(enabled = tipStage == null && sender != null && tipTo != null, onClick = {
+                val s = sender ?: return@TextButton
+                dialogError = null
+                vm.tip(s, pkg, rail, amount, null, onStage = { st -> tipStage = stageText(st) }) { r -> tipStage = null; r.fold({ tipOpen = false; android.widget.Toast.makeText(context, context.getString(R.string.tip_sent), android.widget.Toast.LENGTH_SHORT).show() }, { dialogError = context.errorText(it) }) }
+            }) { Text(stringResource(R.string.tip_send, label(amount)), color = RbColors.green) } },
+            dismissButton = { TextButton(enabled = tipStage == null, onClick = { tipOpen = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
+
     if (claimDialog) {
         val d = details[pkg]; val site = d?.website ?: ""
         val wk = com.undersigned.app.ledger.PublisherVerifier.wellKnownUrl(site)
         AlertDialog(onDismissRequest = { if (claimStage == null) claimDialog = false }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.publisher_claim_title), color = RbColors.textPrimary) },
             text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.claim_tips_hint), color = RbColors.green, fontSize = 12.sp, lineHeight = 17.sp)
+                Spacer(Modifier.height(8.dp))
                 // Route 1, strongest: name the wallet inside the app's own signed build.
                 Text(stringResource(R.string.claim_route_build_title), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                 Text(stringResource(R.string.claim_route_build_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)

@@ -993,4 +993,27 @@
     <string name="reviews_group_uncounted">গণনা হয় না</string>
     <string name="reviews_group_uncounted_note">ওয়ালেটে Seeker Genesis Token নেই, অথবা প্রকাশক নিজের অ্যাপের পর্যালোচনা করছে।</string>
     <string name="not_counted_warning">এই ওয়ালেটে Seeker Genesis Token নেই: আপনি যা স্বাক্ষর করবেন তা চেইনে থাকবে কিন্তু গণনা হবে না।</string>
+
+    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
+    <string name="tips_title">ডেভেলপারের জন্য টিপ</string>
+    <string name="tips_totals">%2$d ওয়ালেট থেকে %1$d টিপ</string>
+    <string name="tips_amounts">চেইনে %1$s SOL · %2$s SKR প্রাপ্ত</string>
+    <string name="tips_none">এখনো কোনো টিপ নেই।</string>
+    <string name="tips_note">টিপ সরাসরি আপনার ওয়ালেট থেকে ডেভেলপারের প্রমাণিত ওয়ালেটে যায়। Undersigned কিছুই নেয় না, আর টিপ কখনো কোনো পর্যালোচনার ওজন বদলায় না।</string>
+    <string name="tips_button">টিপ দিন</string>
+    <string name="tips_unclaimed">এখনো কেউ প্রমাণ করেনি যে এই অ্যাপ সে প্রকাশ করে, তাই এটি টিপ নিতে পারে না। ডেভেলপাররা: এখানে অ্যাপ দাবি করুন, তাহলে Seeker মালিকরা সরাসরি আপনাকে টিপ দিতে পারবেন।</string>
+    <string name="tip_title">ডেভেলপারের জন্য টিপ</string>
+    <string name="tip_body">আপনার ওয়ালেট থেকে সরাসরি %1$s-এ, এই অ্যাপের প্রমাণিত প্রকাশক ওয়ালেট। Undersigned কিছুই নেয় না; আপনি শুধু নেটওয়ার্ক ফি দেন। টিপ একটি উপহার, ফেরত হয় না।</string>
+    <string name="tip_skr_rent">ডেভেলপারের কাছে কখনো SKR না থাকলে, তাদের SKR অ্যাকাউন্ট খুলতে আপনার ওয়ালেট আরও প্রায় 0.002 SOL দেয়।</string>
+    <string name="tip_send">%1$s পাঠান</string>
+    <string name="tip_review_hint">এই অ্যাপে আপনার পর্যালোচনা “টিপ দিয়েছেন”-এর নিচে দেখাবে। এর স্বাভাবিক ওজন থাকে।</string>
+    <string name="tip_with_review">ডেভেলপারের জন্য টিপ যোগ করুন</string>
+    <string name="tip_with_review_note">আপনার পর্যালোচনার একই লেনদেনে, সরাসরি %1$s-এ, প্রমাণিত প্রকাশক ওয়ালেট। Undersigned কিছুই নেয় না, আর টিপ কখনো আপনার পর্যালোচনার ওজন বদলায় না।</string>
+    <string name="tip_sent">টিপ পাঠানো হয়েছে।</string>
+    <string name="tipped_pill">টিপ দিয়েছেন</string>
+    <string name="reviews_group_tipped">ডেভেলপারকে টিপ দিয়েছেন</string>
+    <string name="reviews_group_tipped_note">যে Seeker মালিকরা এই অ্যাপের ডেভেলপারকে চেইনে টিপ দিয়েছেন। সবার সমান ওজনে গণনা হয় এবং নিজস্ব স্কোরেও দেখানো হয়।</string>
+    <string name="tipped_score_title">টিপ দিয়েছেন</string>
+    <string name="tipped_score_note">ডেভেলপারকে টিপ দেওয়া ওয়ালেটের পর্যালোচনা, স্বাভাবিক ওজনে। আলাদা দেখানো হয়; টিপ কখনো পর্যালোচনার ওজন বাড়ায় না।</string>
+    <string name="claim_tips_hint">আপনি এই অ্যাপ প্রকাশ করেন তা প্রমাণ করলে Seeker মালিকরা SOL বা SKR-এ সরাসরি এই ওয়ালেটে আপনাকে টিপ দিতে পারবেন। Undersigned কিছুই নেয় না।</string>
 </resources>
