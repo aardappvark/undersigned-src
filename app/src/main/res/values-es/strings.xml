@@ -1026,27 +1026,4 @@
     <string name="reviews_group_uncounted">No cuentan</string>
     <string name="reviews_group_uncounted_note">La billetera no tiene Seeker Genesis Token, o es el editor reseñando su propia app.</string>
     <string name="not_counted_warning">Esta billetera no tiene Seeker Genesis Token: lo que firmes queda en la cadena pero no cuenta.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Propinas al desarrollador</string>
-    <string name="tips_totals">%1$d propinas de %2$d billeteras</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR recibidos en la cadena</string>
-    <string name="tips_none">Aún no hay propinas.</string>
-    <string name="tips_note">Una propina va directa de tu billetera a la billetera probada del desarrollador. Undersigned no se queda nada, y una propina nunca cambia el peso de una reseña.</string>
-    <string name="tips_button">Dar propina</string>
-    <string name="tips_unclaimed">Nadie ha probado aún que publica esta app, así que no puede recibir propinas. Desarrolladores: reclamad la app aquí y los dueños de Seeker podrán daros propina directamente.</string>
-    <string name="tip_title">Propina al desarrollador</string>
-    <string name="tip_body">Enviada desde tu billetera directamente a %1$s, la billetera probada como editora de esta app. Undersigned no se queda nada; solo pagas la comisión de red. Una propina es un regalo: no se reembolsa.</string>
-    <string name="tip_skr_rent">Si el desarrollador nunca tuvo SKR, tu billetera paga además unos 0,002 SOL para abrir su cuenta SKR.</string>
-    <string name="tip_send">Enviar %1$s</string>
-    <string name="tip_review_hint">Tu reseña de esta app aparecerá en «Dieron propina». Mantiene su peso habitual.</string>
-    <string name="tip_with_review">Añadir una propina para el desarrollador</string>
-    <string name="tip_with_review_note">Enviada en la misma transacción que tu reseña, directa a %1$s, la billetera probada como editora. Undersigned no se queda nada, y la propina nunca cambia el peso de tu reseña.</string>
-    <string name="tip_sent">Propina enviada.</string>
-    <string name="tipped_pill">Dio propina</string>
-    <string name="reviews_group_tipped">Dieron propina al desarrollador</string>
-    <string name="reviews_group_tipped_note">Dueños de Seeker que dieron propina en la cadena al desarrollador de esta app. Cuentan con el mismo peso que todos y también se muestran en su propia puntuación.</string>
-    <string name="tipped_score_title">Dieron propina</string>
-    <string name="tipped_score_note">Reseñas de billeteras que dieron propina al desarrollador, con su peso habitual. Se muestran aparte; una propina nunca sube el peso de una reseña.</string>
-    <string name="claim_tips_hint">Cuando pruebes que publicas esta app, los dueños de Seeker podrán darte propina en SOL o SKR directamente a esta billetera. Undersigned no se queda nada.</string>
 </resources>

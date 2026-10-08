@@ -997,27 +997,4 @@
     <string name="reviews_group_uncounted">Δεν μετρούν</string>
     <string name="reviews_group_uncounted_note">Χωρίς Seeker Genesis Token στο πορτοφόλι ή ο εκδότης που αξιολογεί τη δική του εφαρμογή.</string>
     <string name="not_counted_warning">Αυτό το πορτοφόλι δεν έχει Seeker Genesis Token: ό,τι υπογράψετε καταγράφεται στο blockchain αλλά δεν μετρά.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Φιλοδωρήματα στον προγραμματιστή</string>
-    <string name="tips_totals">%1$d φιλοδωρήματα από %2$d πορτοφόλια</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR ελήφθησαν στο blockchain</string>
-    <string name="tips_none">Κανένα φιλοδώρημα ακόμη.</string>
-    <string name="tips_note">Ένα φιλοδώρημα πηγαίνει απευθείας από το πορτοφόλι σας στο αποδεδειγμένο πορτοφόλι του προγραμματιστή. Το Undersigned δεν κρατά τίποτα, και ένα φιλοδώρημα δεν αλλάζει ποτέ το βάρος μιας κριτικής.</string>
-    <string name="tips_button">Δώστε φιλοδώρημα</string>
-    <string name="tips_unclaimed">Κανείς δεν έχει αποδείξει ακόμη ότι εκδίδει αυτή την εφαρμογή, οπότε δεν δέχεται φιλοδωρήματα. Προγραμματιστές: διεκδικήστε την εφαρμογή εδώ και οι κάτοχοι Seeker θα μπορούν να σας δίνουν φιλοδώρημα απευθείας.</string>
-    <string name="tip_title">Φιλοδώρημα στον προγραμματιστή</string>
-    <string name="tip_body">Στέλνεται από το πορτοφόλι σας απευθείας στο %1$s, το πορτοφόλι που αποδεδειγμένα εκδίδει την εφαρμογή. Το Undersigned δεν κρατά τίποτα· πληρώνετε μόνο το τέλος δικτύου. Το φιλοδώρημα είναι δώρο και δεν επιστρέφεται.</string>
-    <string name="tip_skr_rent">Αν ο προγραμματιστής δεν είχε ποτέ SKR, το πορτοφόλι σας πληρώνει επίσης περίπου 0,002 SOL για να ανοίξει τον λογαριασμό SKR του.</string>
-    <string name="tip_send">Αποστολή %1$s</string>
-    <string name="tip_review_hint">Η κριτική σας για αυτή την εφαρμογή θα εμφανίζεται στο «Έδωσαν φιλοδώρημα». Διατηρεί το συνηθισμένο βάρος της.</string>
-    <string name="tip_with_review">Προσθήκη φιλοδωρήματος για τον προγραμματιστή</string>
-    <string name="tip_with_review_note">Στέλνεται στην ίδια συναλλαγή με την κριτική σας, απευθείας στο %1$s, το αποδεδειγμένο πορτοφόλι του εκδότη. Το Undersigned δεν κρατά τίποτα, και το φιλοδώρημα δεν αλλάζει ποτέ το βάρος της κριτικής σας.</string>
-    <string name="tip_sent">Το φιλοδώρημα στάλθηκε.</string>
-    <string name="tipped_pill">Έδωσε φιλοδώρημα</string>
-    <string name="reviews_group_tipped">Έδωσαν φιλοδώρημα στον προγραμματιστή</string>
-    <string name="reviews_group_tipped_note">Κάτοχοι Seeker που έδωσαν φιλοδώρημα στο blockchain στον προγραμματιστή αυτής της εφαρμογής. Μετρούν με το ίδιο βάρος όπως όλοι και εμφανίζονται και σε δική τους βαθμολογία.</string>
-    <string name="tipped_score_title">Έδωσαν φιλοδώρημα</string>
-    <string name="tipped_score_note">Κριτικές από πορτοφόλια που έδωσαν φιλοδώρημα στον προγραμματιστή, με το συνηθισμένο βάρος. Εμφανίζονται χωριστά· ένα φιλοδώρημα δεν αυξάνει ποτέ το βάρος μιας κριτικής.</string>
-    <string name="claim_tips_hint">Μόλις αποδείξετε ότι εκδίδετε αυτή την εφαρμογή, οι κάτοχοι Seeker μπορούν να σας δίνουν φιλοδώρημα σε SOL ή SKR απευθείας σε αυτό το πορτοφόλι. Το Undersigned δεν κρατά τίποτα.</string>
 </resources>

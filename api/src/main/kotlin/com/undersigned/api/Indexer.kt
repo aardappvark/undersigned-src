@@ -56,8 +56,6 @@ class State(
     val proofHow: Map<Pair<String, String>, String> = emptyMap(),
     /** Record ids whose TEXT this site does not show (the operator's hide list): the record itself stays listed and on-chain. */
     val operatorHidden: Map<String, String> = emptyMap(),
-    /** Transaction signature → what it credited its tip's recipient (lamports, raw SKR). */
-    val tipCredit: Map<String, com.undersigned.protocol.Tips.Credit> = emptyMap(),
 ) {
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
@@ -65,19 +63,16 @@ class State(
     private val raw = { w: String -> facts[w] ?: SignerFacts(false, 0.0) }
     private val f = com.undersigned.protocol.Operator.gate(raw)
     /**
-     * The app's reading of "paid" for the shared weighting: a `pro` row here is already a payment (see [Indexer.syncLedger]).
+     * The app's reading of "paid" for the shared weighting: a `pro` row here is already a payment (see [Indexer.syncLedger]);
+     * a `bst` row counts when its transaction credited the treasury with at least the boost price.
      */
     val paidRecord: (LedgerEntry) -> Boolean = { e -> when (e.memo) {
         is ReviewMemo.Pro -> true
         else -> false } }
     val weighting = com.undersigned.protocol.Weighting.Context(entries, Reputation.hiddenByConsensus(entries, verified, f), f, paidRecord, verified)
     val scores = Ranking.score(entries, verified, facts = f).associateBy { it.packageName }
-    /** Every tip that counts: to a proven publisher, credited on-chain, not from the publisher or an operator wallet. */
-    val tips: List<com.undersigned.protocol.Tips.Tip> = com.undersigned.protocol.Tips.tips(entries, verified) { e -> tipCredit[e.signature.substringBefore(':')] }
-    val tippers: Map<String, Set<String>> = com.undersigned.protocol.Tips.tippers(tips)
-    val tipTotals: Map<String, com.undersigned.protocol.Tips.Totals> = com.undersigned.protocol.Tips.totals(tips)
-    /** Beside [scores], never blended into it: Pro members' reviews, and reviews by wallets that tipped the developer. */
-    val segments = Ranking.segments(entries, verified, paidRecord, f, tippers)
+    /** Beside [scores], never blended into it: Pro members' reviews as their own score. */
+    val segments = Ranking.segments(entries, verified, paidRecord, f)
     val standings = Reputation.standing(entries, verified, f)
     val hidden = Reputation.hiddenByConsensus(entries, verified, f)
     /** Text a moderator hides (protocol Moderation): the record, rating and tags stay. */
@@ -134,10 +129,6 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
                 val time = if (tx.blockTime > 0) tx.blockTime else row.blockTime
                 db.tx {
                     db.exec("INSERT OR REPLACE INTO txmeta (sig, fee, seeker, lamports, skr) VALUES (?, ?, ?, ?, ?)", row.signature, tx.fee, if (tx.seekerShape) 1 else 0, tx.lamportsIn, skr)
-                    // A tip credits the developer, not the treasury: read that transaction's credit to the recipient it names.
-                    tx.memos.firstNotNullOfOrNull { ReviewMemo.decode(it) as? ReviewMemo.Tip }?.let { t ->
-                        retry { rpc.tx(row.signature, t.recipient) }?.let { c ->
-                            db.exec("INSERT OR REPLACE INTO tipcredit (sig, recipient, lamports, skr) VALUES (?, ?, ?, ?)", row.signature, t.recipient, c.lamportsIn, c.tokensIn[Config.SKR_MINT] ?: 0L) } }
                     var records = 0
                     tx.memos.forEachIndexed { idx, raw ->
                         val memo = ReviewMemo.decode(raw) ?: return@forEachIndexed
@@ -418,8 +409,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         signers.forEach { runCatching { names.resolve(it) } }   // cached a week; only new signers cost a lookup
         val details = loadDetails()
         val (verified, since, how) = verifyClaims(entries, details)
-        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, operatorHidden(),
-            db.query("SELECT sig, lamports, skr FROM tipcredit") { it.getString(1) to com.undersigned.protocol.Tips.Credit(it.getLong(2), it.getLong(3)) }.toMap())
+        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, operatorHidden())
         if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 

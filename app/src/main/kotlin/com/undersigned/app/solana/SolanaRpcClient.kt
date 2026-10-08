@@ -82,20 +82,7 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
             }
             paidSkr = (treasurySkr(meta.optJSONArray("postTokenBalances")) - treasurySkr(meta.optJSONArray("preTokenBalances"))).coerceAtLeast(0L)
         }
-        // A tip's credit to the developer wallet its record names, read the same way: balances, never the memo.
-        var tipLamports = 0L; var tipSkr = 0L
-        val tipTo = memos.firstNotNullOfOrNull { (com.undersigned.protocol.ReviewMemo.decode(it) as? com.undersigned.protocol.ReviewMemo.Tip)?.recipient }
-        if (meta != null && tipTo != null) {
-            val keyList = (0 until keys.length()).map { i -> keys.optJSONObject(i)?.optString("pubkey") ?: keys.optString(i) }
-            val r = keyList.indexOf(tipTo)
-            if (r >= 0) tipLamports = ((meta.optJSONArray("postBalances")?.optLong(r, 0L) ?: 0L) - (meta.optJSONArray("preBalances")?.optLong(r, 0L) ?: 0L)).coerceAtLeast(0L)
-            fun skrOf(arr: JSONArray?): Long { var sum = 0L; arr ?: return 0L
-                for (i in 0 until arr.length()) { val o = arr.optJSONObject(i) ?: continue
-                    if (o.optString("owner") == tipTo && o.optString("mint") == AppConfig.Payment.SKR_MINT) sum += o.optJSONObject("uiTokenAmount")?.optString("amount", "0")?.toLongOrNull() ?: 0L }
-                return sum }
-            tipSkr = (skrOf(meta.optJSONArray("postTokenBalances")) - skrOf(meta.optJSONArray("preTokenBalances"))).coerceAtLeast(0L)
-        }
-        LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget, paidLamports, paidSkr, tipLamports, tipSkr)
+        LedgerTx(first, tx.optLong("blockTime", 0L), memos, meta?.optLong("fee", 0L) ?: 0L, lighthouse && computeBudget, paidLamports, paidSkr)
     }
 
     /**

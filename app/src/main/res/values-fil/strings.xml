@@ -1001,27 +1001,4 @@
     <string name="reviews_group_uncounted">Hindi binibilang</string>
     <string name="reviews_group_uncounted_note">Walang Seeker Genesis Token ang wallet, o ang publisher ay nagre-review ng sarili nitong app.</string>
     <string name="not_counted_warning">Walang Seeker Genesis Token ang wallet na ito: ang pipirmahan mo ay itatala sa chain pero hindi bibilangin.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Tip sa developer</string>
-    <string name="tips_totals">%1$d tip mula sa %2$d wallet</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR natanggap sa chain</string>
-    <string name="tips_none">Wala pang tip.</string>
-    <string name="tips_note">Diretso ang tip mula sa wallet mo papunta sa napatunayang wallet ng developer. Walang kinukuha ang Undersigned, at hindi kailanman binabago ng tip ang bigat ng review.</string>
-    <string name="tips_button">Mag-tip</string>
-    <string name="tips_unclaimed">Wala pang nakapagpatunay na sila ang nag-publish ng app na ito, kaya hindi pa ito makakatanggap ng tip. Mga developer: i-claim ang app dito para makapag-tip sa inyo nang direkta ang mga may-ari ng Seeker.</string>
-    <string name="tip_title">Tip sa developer</string>
-    <string name="tip_body">Ipinapadala mula sa wallet mo diretso sa %1$s, ang wallet na napatunayang nag-publish ng app na ito. Walang kinukuha ang Undersigned; network fee lang ang babayaran mo. Regalo ang tip at hindi ito maibabalik.</string>
-    <string name="tip_skr_rent">Kung hindi pa nagkaroon ng SKR ang developer, magbabayad din ang wallet mo ng mga 0.002 SOL para buksan ang SKR account nila.</string>
-    <string name="tip_send">Ipadala ang %1$s</string>
-    <string name="tip_review_hint">Lalabas ang review mo sa app na ito sa ilalim ng “Nag-tip sa developer”. Pareho pa rin ang bigat nito.</string>
-    <string name="tip_with_review">Magdagdag ng tip para sa developer</string>
-    <string name="tip_with_review_note">Ipinapadala sa parehong transaksyon ng review mo, diretso sa %1$s, ang napatunayang wallet ng publisher. Walang kinukuha ang Undersigned, at hindi kailanman binabago ng tip ang bigat ng review mo.</string>
-    <string name="tip_sent">Naipadala ang tip.</string>
-    <string name="tipped_pill">Nag-tip</string>
-    <string name="reviews_group_tipped">Nag-tip sa developer</string>
-    <string name="reviews_group_tipped_note">Mga may-ari ng Seeker na nag-tip sa chain sa developer ng app na ito. Binibilang sa parehong bigat ng lahat, at ipinapakita rin sa sarili nilang iskor.</string>
-    <string name="tipped_score_title">Nag-tip</string>
-    <string name="tipped_score_note">Mga review mula sa wallet na nag-tip sa developer, sa karaniwang bigat. Hiwalay na ipinapakita; hindi kailanman tinataasan ng tip ang bigat ng review.</string>
-    <string name="claim_tips_hint">Kapag napatunayan mong ikaw ang nag-publish ng app na ito, makakapag-tip sa iyo ang mga may-ari ng Seeker sa SOL o SKR diretso sa wallet na ito. Walang kinukuha ang Undersigned.</string>
 </resources>

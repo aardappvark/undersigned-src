@@ -982,27 +982,4 @@
     <string name="reviews_group_uncounted">Tidak dihitung</string>
     <string name="reviews_group_uncounted_note">Tidak ada Seeker Genesis Token di dompet, atau penerbit mengulas aplikasinya sendiri.</string>
     <string name="not_counted_warning">Dompet ini tidak memiliki Seeker Genesis Token: yang Anda tandatangani tercatat di rantai tetapi tidak dihitung.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Tip untuk pengembang</string>
-    <string name="tips_totals">%1$d tip dari %2$d dompet</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR diterima di rantai</string>
-    <string name="tips_none">Belum ada tip.</string>
-    <string name="tips_note">Tip langsung dari dompet Anda ke dompet pengembang yang terbukti. Undersigned tidak mengambil apa pun, dan tip tidak pernah mengubah bobot ulasan.</string>
-    <string name="tips_button">Beri tip</string>
-    <string name="tips_unclaimed">Belum ada yang membuktikan menerbitkan aplikasi ini, jadi belum bisa menerima tip. Pengembang: klaim aplikasinya di sini agar pemilik Seeker bisa memberi Anda tip langsung.</string>
-    <string name="tip_title">Tip untuk pengembang</string>
-    <string name="tip_body">Dikirim dari dompet Anda langsung ke %1$s, dompet yang terbukti menerbitkan aplikasi ini. Undersigned tidak mengambil apa pun; Anda hanya membayar biaya jaringan. Tip adalah hadiah dan tidak bisa dikembalikan.</string>
-    <string name="tip_skr_rent">Jika pengembang belum pernah memegang SKR, dompet Anda juga membayar sekitar 0,002 SOL untuk membuka akun SKR mereka.</string>
-    <string name="tip_send">Kirim %1$s</string>
-    <string name="tip_review_hint">Ulasan Anda untuk aplikasi ini akan tampil di bawah “Memberi tip”. Bobotnya tetap seperti biasa.</string>
-    <string name="tip_with_review">Tambahkan tip untuk pengembang</string>
-    <string name="tip_with_review_note">Dikirim dalam transaksi yang sama dengan ulasan Anda, langsung ke %1$s, dompet penerbit yang terbukti. Undersigned tidak mengambil apa pun, dan tip tidak pernah mengubah bobot ulasan Anda.</string>
-    <string name="tip_sent">Tip terkirim.</string>
-    <string name="tipped_pill">Memberi tip</string>
-    <string name="reviews_group_tipped">Memberi tip ke pengembang</string>
-    <string name="reviews_group_tipped_note">Pemilik Seeker yang memberi tip di rantai kepada pengembang aplikasi ini. Dihitung dengan bobot yang sama seperti semua orang, dan juga ditampilkan sebagai skor sendiri.</string>
-    <string name="tipped_score_title">Memberi tip</string>
-    <string name="tipped_score_note">Ulasan dari dompet yang memberi tip ke pengembang, dengan bobot biasa. Ditampilkan terpisah; tip tidak pernah menaikkan bobot ulasan.</string>
-    <string name="claim_tips_hint">Setelah Anda membuktikan menerbitkan aplikasi ini, pemilik Seeker bisa memberi Anda tip dalam SOL atau SKR langsung ke dompet ini. Undersigned tidak mengambil apa pun.</string>
 </resources>

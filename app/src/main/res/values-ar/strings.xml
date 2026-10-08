@@ -1068,27 +1068,4 @@
     <string name="reviews_group_uncounted">غير محتسبة</string>
     <string name="reviews_group_uncounted_note">لا يوجد Seeker Genesis Token في المحفظة، أو الناشر يراجع تطبيقه.</string>
     <string name="not_counted_warning">لا تحمل هذه المحفظة Seeker Genesis Token: ما توقّعه يُسجَّل على السلسلة لكنه لا يُحتسب.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">إكراميات للمطوّر</string>
-    <string name="tips_totals">%1$d إكرامية من %2$d محفظة</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR استُلمت على السلسلة</string>
-    <string name="tips_none">لا إكراميات بعد.</string>
-    <string name="tips_note">تذهب الإكرامية مباشرة من محفظتك إلى محفظة المطوّر المثبتة. لا يأخذ Undersigned شيئًا، ولا تغيّر الإكرامية وزن أي مراجعة أبدًا.</string>
-    <string name="tips_button">قدّم إكرامية</string>
-    <string name="tips_unclaimed">لم يثبت أحد بعد أنه ينشر هذا التطبيق، لذا لا يمكنه تلقي إكراميات. أيها المطوّرون: اطلبوا التطبيق هنا ليتمكن مالكو Seeker من إعطائكم إكراميات مباشرة.</string>
-    <string name="tip_title">إكرامية للمطوّر</string>
-    <string name="tip_body">تُرسل من محفظتك مباشرة إلى %1$s، المحفظة المثبت أنها تنشر هذا التطبيق. لا يأخذ Undersigned شيئًا؛ تدفع رسوم الشبكة فقط. الإكرامية هدية ولا تُسترد.</string>
-    <string name="tip_skr_rent">إن لم يملك المطوّر SKR من قبل، تدفع محفظتك أيضًا نحو 0.002 SOL لفتح حساب SKR له.</string>
-    <string name="tip_send">أرسل %1$s</string>
-    <string name="tip_review_hint">ستظهر مراجعتك لهذا التطبيق تحت «قدّموا إكرامية». وتحتفظ بوزنها المعتاد.</string>
-    <string name="tip_with_review">أضف إكرامية للمطوّر</string>
-    <string name="tip_with_review_note">تُرسل في المعاملة نفسها مع مراجعتك، مباشرة إلى %1$s، محفظة الناشر المثبتة. لا يأخذ Undersigned شيئًا، ولا تغيّر الإكرامية وزن مراجعتك أبدًا.</string>
-    <string name="tip_sent">أُرسلت الإكرامية.</string>
-    <string name="tipped_pill">قدّم إكرامية</string>
-    <string name="reviews_group_tipped">قدّموا إكرامية للمطوّر</string>
-    <string name="reviews_group_tipped_note">مالكو Seeker الذين أعطوا مطوّر هذا التطبيق إكرامية على السلسلة. يُحتسبون بالوزن نفسه مثل الجميع ويظهرون أيضًا بتقييم خاص بهم.</string>
-    <string name="tipped_score_title">قدّموا إكرامية</string>
-    <string name="tipped_score_note">مراجعات من محافظ أعطت المطوّر إكرامية، بوزنها المعتاد. تظهر منفصلة؛ الإكرامية لا ترفع وزن أي مراجعة أبدًا.</string>
-    <string name="claim_tips_hint">بمجرد أن تثبت أنك تنشر هذا التطبيق، يمكن لمالكي Seeker إعطاؤك إكرامية بـSOL أو SKR مباشرة إلى هذه المحفظة. لا يأخذ Undersigned شيئًا.</string>
 </resources>

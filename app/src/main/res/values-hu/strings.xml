@@ -997,27 +997,4 @@
     <string name="reviews_group_uncounted">Nem számít</string>
     <string name="reviews_group_uncounted_note">Nincs Seeker Genesis Token a tárcában, vagy a kiadó értékeli a saját alkalmazását.</string>
     <string name="not_counted_warning">Ennek a tárcának nincs Seeker Genesis Tokenje: amit aláír, a láncra kerül, de nem számít.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Borravaló a fejlesztőnek</string>
-    <string name="tips_totals">%1$d borravaló %2$d tárcától</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR érkezett a láncon</string>
-    <string name="tips_none">Még nincs borravaló.</string>
-    <string name="tips_note">A borravaló közvetlenül az ön tárcájából a fejlesztő igazolt tárcájába megy. Az Undersigned semmit nem tart meg, és a borravaló soha nem változtat egy értékelés súlyán.</string>
-    <string name="tips_button">Borravaló küldése</string>
-    <string name="tips_unclaimed">Még senki nem igazolta, hogy ő adja ki ezt az alkalmazást, így nem fogadhat borravalót. Fejlesztők: igényeljék itt az alkalmazást, és a Seeker-tulajdonosok közvetlenül küldhetnek borravalót.</string>
-    <string name="tip_title">Borravaló a fejlesztőnek</string>
-    <string name="tip_body">Az ön tárcájából közvetlenül ide: %1$s, az alkalmazás igazolt kiadói tárcája. Az Undersigned semmit nem tart meg; csak a hálózati díjat fizeti. A borravaló ajándék, nem téríthető vissza.</string>
-    <string name="tip_skr_rent">Ha a fejlesztőnek még sosem volt SKR-je, a tárcája kb. 0,002 SOL-t is fizet az SKR-számlája megnyitásáért.</string>
-    <string name="tip_send">%1$s küldése</string>
-    <string name="tip_review_hint">Az alkalmazásról írt értékelése a „Borravalót adtak” alatt jelenik meg. Megtartja szokásos súlyát.</string>
-    <string name="tip_with_review">Borravaló hozzáadása a fejlesztőnek</string>
-    <string name="tip_with_review_note">Az értékelésével azonos tranzakcióban, közvetlenül ide: %1$s, az igazolt kiadói tárca. Az Undersigned semmit nem tart meg, és a borravaló soha nem változtat az értékelése súlyán.</string>
-    <string name="tip_sent">Borravaló elküldve.</string>
-    <string name="tipped_pill">Borravalót adott</string>
-    <string name="reviews_group_tipped">Borravalót adtak a fejlesztőnek</string>
-    <string name="reviews_group_tipped_note">Seeker-tulajdonosok, akik a láncon borravalót küldtek az alkalmazás fejlesztőjének. Ugyanakkora súllyal számítanak, mint mindenki, és saját pontszámot is kapnak.</string>
-    <string name="tipped_score_title">Borravalót adtak</string>
-    <string name="tipped_score_note">A fejlesztőnek borravalót küldő tárcák értékelései, szokásos súllyal. Külön mutatva; a borravaló soha nem növeli egy értékelés súlyát.</string>
-    <string name="claim_tips_hint">Ha igazolja, hogy ön adja ki ezt az alkalmazást, a Seeker-tulajdonosok közvetlenül erre a tárcára küldhetnek borravalót SOL-ban vagy SKR-ben. Az Undersigned semmit nem tart meg.</string>
 </resources>

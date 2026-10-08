@@ -966,27 +966,4 @@
     <string name="reviews_group_uncounted">ไม่ถูกนับ</string>
     <string name="reviews_group_uncounted_note">กระเป๋าไม่มี Seeker Genesis Token หรือผู้เผยแพร่รีวิวแอปของตัวเอง</string>
     <string name="not_counted_warning">กระเป๋านี้ไม่มี Seeker Genesis Token: สิ่งที่คุณลงนามจะถูกบันทึกบนเชนแต่ไม่ถูกนับ</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">ทิปให้นักพัฒนา</string>
-    <string name="tips_totals">%1$d ทิปจาก %2$d กระเป๋า</string>
-    <string name="tips_amounts">ได้รับ %1$s SOL · %2$s SKR บนเชน</string>
-    <string name="tips_none">ยังไม่มีทิป</string>
-    <string name="tips_note">ทิปส่งตรงจากกระเป๋าของคุณไปยังกระเป๋าที่พิสูจน์แล้วของนักพัฒนา Undersigned ไม่หักอะไร และทิปไม่เคยเปลี่ยนน้ำหนักของรีวิว</string>
-    <string name="tips_button">ให้ทิป</string>
-    <string name="tips_unclaimed">ยังไม่มีใครพิสูจน์ว่าเป็นผู้เผยแพร่แอปนี้ จึงยังรับทิปไม่ได้ นักพัฒนา: อ้างสิทธิ์แอปที่นี่เพื่อให้เจ้าของ Seeker ทิปให้คุณได้โดยตรง</string>
-    <string name="tip_title">ทิปให้นักพัฒนา</string>
-    <string name="tip_body">ส่งจากกระเป๋าของคุณตรงไปยัง %1$s กระเป๋าที่พิสูจน์แล้วว่าเผยแพร่แอปนี้ Undersigned ไม่หักอะไร คุณจ่ายแค่ค่าธรรมเนียมเครือข่าย ทิปเป็นของขวัญและขอคืนไม่ได้</string>
-    <string name="tip_skr_rent">หากนักพัฒนาไม่เคยมี SKR กระเป๋าของคุณจะจ่ายเพิ่มราว 0.002 SOL เพื่อเปิดบัญชี SKR ให้เขา</string>
-    <string name="tip_send">ส่ง %1$s</string>
-    <string name="tip_review_hint">รีวิวแอปนี้ของคุณจะแสดงใต้ “ให้ทิปแล้ว” โดยคงน้ำหนักตามปกติ</string>
-    <string name="tip_with_review">เพิ่มทิปให้นักพัฒนา</string>
-    <string name="tip_with_review_note">ส่งในธุรกรรมเดียวกับรีวิวของคุณ ตรงไปยัง %1$s กระเป๋าผู้เผยแพร่ที่พิสูจน์แล้ว Undersigned ไม่หักอะไร และทิปไม่เคยเปลี่ยนน้ำหนักรีวิวของคุณ</string>
-    <string name="tip_sent">ส่งทิปแล้ว</string>
-    <string name="tipped_pill">ให้ทิปแล้ว</string>
-    <string name="reviews_group_tipped">ให้ทิปนักพัฒนาแล้ว</string>
-    <string name="reviews_group_tipped_note">เจ้าของ Seeker ที่ให้ทิปนักพัฒนาแอปนี้บนเชน นับด้วยน้ำหนักเท่ากับทุกคน และแสดงเป็นคะแนนของตัวเองด้วย</string>
-    <string name="tipped_score_title">ให้ทิปแล้ว</string>
-    <string name="tipped_score_note">รีวิวจากกระเป๋าที่ให้ทิปนักพัฒนา ด้วยน้ำหนักปกติ แสดงแยกต่างหาก ทิปไม่เคยเพิ่มน้ำหนักรีวิว</string>
-    <string name="claim_tips_hint">เมื่อคุณพิสูจน์ว่าเป็นผู้เผยแพร่แอปนี้ เจ้าของ Seeker จะทิปให้คุณเป็น SOL หรือ SKR ตรงเข้ากระเป๋านี้ได้ Undersigned ไม่หักอะไร</string>
 </resources>

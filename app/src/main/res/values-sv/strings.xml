@@ -998,27 +998,4 @@
     <string name="reviews_group_uncounted">Räknas inte</string>
     <string name="reviews_group_uncounted_note">Ingen Seeker Genesis Token i plånboken, eller utgivaren som recenserar sin egen app.</string>
     <string name="not_counted_warning">Den här plånboken har ingen Seeker Genesis Token: det du signerar sparas på kedjan men räknas inte.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Dricks till utvecklaren</string>
-    <string name="tips_totals">%1$d dricks från %2$d plånböcker</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR mottaget på kedjan</string>
-    <string name="tips_none">Ingen dricks än.</string>
-    <string name="tips_note">Dricks går direkt från din plånbok till utvecklarens bevisade plånbok. Undersigned tar ingenting, och dricks ändrar aldrig vikten på en recension.</string>
-    <string name="tips_button">Ge dricks</string>
-    <string name="tips_unclaimed">Ingen har ännu bevisat att de ger ut appen, så den kan inte ta emot dricks. Utvecklare: gör anspråk på appen här så kan Seeker-ägare ge er dricks direkt.</string>
-    <string name="tip_title">Dricks till utvecklaren</string>
-    <string name="tip_body">Skickas från din plånbok direkt till %1$s, plånboken som bevisat ger ut appen. Undersigned tar ingenting; du betalar bara nätverksavgiften. Dricks är en gåva och återbetalas inte.</string>
-    <string name="tip_skr_rent">Om utvecklaren aldrig haft SKR betalar din plånbok också cirka 0,002 SOL för att öppna deras SKR-konto.</string>
-    <string name="tip_send">Skicka %1$s</string>
-    <string name="tip_review_hint">Din recension av appen visas under ”Gav dricks”. Den behåller sin vanliga vikt.</string>
-    <string name="tip_with_review">Lägg till dricks till utvecklaren</string>
-    <string name="tip_with_review_note">Skickas i samma transaktion som din recension, direkt till %1$s, den bevisade utgivarplånboken. Undersigned tar ingenting, och dricksen ändrar aldrig din recensions vikt.</string>
-    <string name="tip_sent">Dricks skickad.</string>
-    <string name="tipped_pill">Gav dricks</string>
-    <string name="reviews_group_tipped">Gav utvecklaren dricks</string>
-    <string name="reviews_group_tipped_note">Seeker-ägare som gett appens utvecklare dricks på kedjan. Räknas med samma vikt som alla och visas även som eget betyg.</string>
-    <string name="tipped_score_title">Gav dricks</string>
-    <string name="tipped_score_note">Recensioner från plånböcker som gett utvecklaren dricks, med vanlig vikt. Visas separat; dricks höjer aldrig en recensions vikt.</string>
-    <string name="claim_tips_hint">När du bevisat att du ger ut appen kan Seeker-ägare ge dig dricks i SOL eller SKR direkt till den här plånboken. Undersigned tar ingenting.</string>
 </resources>

@@ -1018,27 +1018,4 @@
     <string name="reviews_group_uncounted">Не учитываются</string>
     <string name="reviews_group_uncounted_note">В кошельке нет Seeker Genesis Token, или издатель оценивает своё приложение.</string>
     <string name="not_counted_warning">В этом кошельке нет Seeker Genesis Token: то, что вы подпишете, попадёт в блокчейн, но не будет учтено.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Чаевые разработчику</string>
-    <string name="tips_totals">%1$d чаевых от %2$d кошельков</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR получено в блокчейне</string>
-    <string name="tips_none">Чаевых пока нет.</string>
-    <string name="tips_note">Чаевые идут прямо из вашего кошелька на подтверждённый кошелёк разработчика. Undersigned ничего не берёт, и чаевые никогда не меняют вес отзыва.</string>
-    <string name="tips_button">Оставить чаевые</string>
-    <string name="tips_unclaimed">Никто ещё не подтвердил, что выпускает это приложение, поэтому оно не принимает чаевые. Разработчики: заявите права на приложение здесь, и владельцы Seeker смогут оставлять вам чаевые напрямую.</string>
-    <string name="tip_title">Чаевые разработчику</string>
-    <string name="tip_body">Отправляются из вашего кошелька прямо на %1$s — кошелёк, подтверждённый как издатель приложения. Undersigned ничего не берёт; вы платите только сетевую комиссию. Чаевые — это подарок, они не возвращаются.</string>
-    <string name="tip_skr_rent">Если у разработчика никогда не было SKR, ваш кошелёк также заплатит около 0,002 SOL за открытие его счёта SKR.</string>
-    <string name="tip_send">Отправить %1$s</string>
-    <string name="tip_review_hint">Ваш отзыв об этом приложении появится в разделе «Оставили чаевые». Он сохраняет обычный вес.</string>
-    <string name="tip_with_review">Добавить чаевые разработчику</string>
-    <string name="tip_with_review_note">Отправляются в той же транзакции, что и отзыв, прямо на %1$s — подтверждённый кошелёк издателя. Undersigned ничего не берёт, и чаевые никогда не меняют вес вашего отзыва.</string>
-    <string name="tip_sent">Чаевые отправлены.</string>
-    <string name="tipped_pill">Оставил чаевые</string>
-    <string name="reviews_group_tipped">Оставили чаевые разработчику</string>
-    <string name="reviews_group_tipped_note">Владельцы Seeker, оставившие разработчику этого приложения чаевые в блокчейне. Учитываются с тем же весом, что и все, и показаны отдельной оценкой.</string>
-    <string name="tipped_score_title">Оставили чаевые</string>
-    <string name="tipped_score_note">Отзывы с кошельков, оставивших разработчику чаевые, с обычным весом. Показаны отдельно; чаевые никогда не повышают вес отзыва.</string>
-    <string name="claim_tips_hint">Как только вы подтвердите, что выпускаете это приложение, владельцы Seeker смогут отправлять вам чаевые в SOL или SKR прямо на этот кошелёк. Undersigned ничего не берёт.</string>
 </resources>

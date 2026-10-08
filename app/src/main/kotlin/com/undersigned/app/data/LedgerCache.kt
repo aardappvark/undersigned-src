@@ -31,9 +31,9 @@ class LedgerCache(context: Context) {
 
     fun loadMeta(): Map<String, TxMeta> = runCatching {
         if (!metaFile.exists()) return emptyMap()
-        val o = JSONObject(metaFile.readText()); o.keys().asSequence().associateWith { k -> val m = o.getJSONObject(k); TxMeta(m.optLong("f"), m.optBoolean("s"), m.optLong("p"), m.optLong("k"), m.optLong("tl"), m.optLong("ts")) }
+        val o = JSONObject(metaFile.readText()); o.keys().asSequence().associateWith { k -> val m = o.getJSONObject(k); TxMeta(m.optLong("f"), m.optBoolean("s"), m.optLong("p"), m.optLong("k")) }
     }.getOrDefault(emptyMap())
-    fun saveMeta(meta: Map<String, TxMeta>) { runCatching { val o = JSONObject(); meta.forEach { (k, v) -> o.put(k, JSONObject().put("f", v.fee).put("s", v.seekerWallet).put("p", v.paidLamports).put("k", v.paidSkr).put("tl", v.tipLamports).put("ts", v.tipSkr)) }; metaFile.writeText(o.toString()) } }
+    fun saveMeta(meta: Map<String, TxMeta>) { runCatching { val o = JSONObject(); meta.forEach { (k, v) -> o.put(k, JSONObject().put("f", v.fee).put("s", v.seekerWallet).put("p", v.paidLamports).put("k", v.paidSkr)) }; metaFile.writeText(o.toString()) } }
 
     fun load(): List<LedgerEntry> = runCatching {
         if (!file.exists()) return emptyList()

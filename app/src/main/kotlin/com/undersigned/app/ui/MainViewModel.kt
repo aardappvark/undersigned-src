@@ -125,17 +125,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val scores = MutableStateFlow<Map<String, AppScore>>(emptyMap())
     /** Separately labelled scores beside the signed one (compliance check, 9 Oct 2026): Pro members' reviews. */
     val proScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
-    /** Reviews by wallets that tipped the developer, as their own labelled score (Tips); never part of the signed score. */
-    val tippedScores = MutableStateFlow<Map<String, com.undersigned.protocol.AppScore>>(emptyMap())
-    /** Every tip that counts (to a proven publisher, credited on-chain), newest first. */
-    val tips = MutableStateFlow<List<com.undersigned.protocol.Tips.Tip>>(emptyList())
     private fun setSegments(list: List<LedgerEntry>, vp: Map<String, Set<String>>, f: (String) -> SignerFacts) {
-        val meta = txMeta.value
-        val t = com.undersigned.protocol.Tips.tips(list, vp) { e -> meta[e.signature.substringBefore(':')]?.let { com.undersigned.protocol.Tips.Credit(it.tipLamports, it.tipSkr) } }
-        tips.value = t
-        val s = Ranking.segments(list, vp, com.undersigned.app.solana.ProLicence.paidRecord(meta), f, com.undersigned.protocol.Tips.tippers(t))
+        val s = Ranking.segments(list, vp, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), f)
         proScores.value = s.pro
-        tippedScores.value = s.tipped
     }
     val facts = MutableStateFlow<Map<String, SignerFacts>>(emptyMap())
     val ledgerStatus = MutableStateFlow<LedgerStatus>(LedgerStatus.Idle)
@@ -508,47 +500,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 launch(Dispatchers.IO) { rank() }
             }
             onResult(r.map { it.first().first })
-        }
-    }
-
-    // ---- Tips -------------------------------------------------------------------------------------------------
-
-    /**
-     * Where a tip for [pkg] goes: the app's PROVEN publisher wallet (owner, 9 Oct 2026: "paid directly to the signed off
-     * wallet"). With several, the one whose claim is newest. Null when nobody has proven the app: no tip button then.
-     */
-    fun tipRecipient(pkg: String): String? = com.undersigned.protocol.Tips.recipient(entries.value, verifiedPublishers.value, pkg)
-    fun tippedBy(pkg: String, wallet: String) = tips.value.any { it.packageName == pkg && it.tipper == wallet }
-
-    /**
-     * Sends a tip straight to the developer's proven wallet, optionally with the tipper's review (and its phone facts) in
-     * the SAME transaction. Undersigned takes nothing; the transaction carries no fleet code.
-     */
-    fun tip(sender: ActivityResultSender, pkg: String, rail: com.undersigned.app.solana.ProPaymentService.Rail, amount: Double, review: ReviewMemo.Review?,
-            use: com.undersigned.protocol.UseBucket? = null, time: com.undersigned.protocol.UseTime? = null,
-            onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
-        val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
-        val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
-        val to = tipRecipient(pkg) ?: return onResult(Result.failure(Exception("Nobody has proven they publish this app yet, so it cannot take tips.")))
-        if (to == w) return onResult(Result.failure(Exception("This is your own app.")))
-        val records = listOf<ReviewMemo>(ReviewMemo.Tip(pkg, to)) + listOfNotNull(review) +
-            if (review != null) listOfNotNull(use?.let { ReviewMemo.Use(pkg, it) }, time?.let { ReviewMemo.Time(pkg, it) }) else emptyList()
-        val texts = runCatching { com.undersigned.app.solana.TxBuilder.fitTipMemos(com.undersigned.app.util.Base58.decode(w), com.undersigned.app.util.Base58.decode(to),
-            rail == com.undersigned.app.solana.ProPaymentService.Rail.SKR, records.map { ReviewMemo.encode(it) }) }.getOrElse { return onResult(Result.failure(it)) }
-        viewModelScope.launch {
-            val sol = if (rail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) amount else 0.0
-            val skr = if (rail == com.undersigned.app.solana.ProPaymentService.Rail.SKR) amount else 0.0
-            val r = proService.pay(getApplication(), adapter, sender, w, rail, onStage, sol = sol, skr = skr, tipTo = to, tipMemos = texts)
-            r.onSuccess { rc ->
-                if (review != null) UserPreferences.follow(pkg)
-                val now = System.currentTimeMillis() / 1000
-                val fresh = texts.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(rc.signature, i), w, now, it) } }
-                entries.value = (fresh + entries.value).distinctBy { it.signature }
-                txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, 0L, 0L, rc.paidLamports, rc.paidSkr))
-                ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
-                launch(Dispatchers.IO) { rank() }
-            }
-            onResult(r.map { it.signature })
         }
     }
 
@@ -1051,10 +1002,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Tip -> "tip"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
-        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Tip -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
+        fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
         if (json) {

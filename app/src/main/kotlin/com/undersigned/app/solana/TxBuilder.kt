@@ -102,39 +102,6 @@ object TxBuilder {
         return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
     }
 
-    /**
-     * A tip (Tips): SOL straight to the developer's proven wallet, the registry as the reference, then the memos in order:
-     * the `SRL1|tip` record FIRST (the RPC's one-memo summary must show the protocol tag, or readers skip the transaction),
-     * then any review records signed with it. No fleet code: a tip is not a payment to Undersigned.
-     */
-    fun tipSolTransaction(signer: ByteArray, to: ByteArray, lamports: Long, blockhash: ByteArray, memos: List<String>): ByteArray {
-        require(lamports > 0 && memos.isNotEmpty())
-        return wrapAsTransaction(compileMessage(signer, blockhash, listOf(systemTransfer(signer, to, lamports, REGISTRY)) + memos.map { memoInstruction(it) }))
-    }
-
-    /** SKR tip, same order: (CreateIdempotent developer ATA) · TransferChecked with the registry as reference · memos. */
-    fun tipSkrTransaction(signer: ByteArray, to: ByteArray, amountRaw: Long, blockhash: ByteArray, createAta: Boolean, memos: List<String>): ByteArray {
-        require(amountRaw > 0 && memos.isNotEmpty())
-        val destAta = associatedTokenAddress(to, SKR_MINT)
-        val ixs = ArrayList<Instruction>()
-        if (createAta) ixs.add(createAtaIdempotent(signer, destAta, to, SKR_MINT))
-        ixs.add(transferChecked(associatedTokenAddress(signer, SKR_MINT), SKR_MINT, destAta, signer, amountRaw, AppConfig.Payment.SKR_DECIMALS, REGISTRY))
-        memos.forEach { ixs.add(memoInstruction(it)) }
-        return wrapAsTransaction(compileMessage(signer, blockhash, ixs))
-    }
-
-    /**
-     * The tip's memos trimmed to fit with the same headroom reviews keep for the Seeker Wallet's own instructions
-     * (MAX_TX_BYTES - 120): phone facts go first, from the end; the tip record and the review itself are never dropped.
-     * Sized for the worst case of each rail (SKR with the developer's account created).
-     */
-    fun fitTipMemos(signer: ByteArray, to: ByteArray, skr: Boolean, memos: List<String>): List<String> {
-        fun size(m: List<String>) = if (skr) tipSkrTransaction(signer, to, 1L, ZERO_BLOCKHASH, createAta = true, memos = m).size else tipSolTransaction(signer, to, 1L, ZERO_BLOCKHASH, m).size
-        var m = memos
-        while (m.size > 2 && size(m) > AppConfig.Solana.MAX_TX_BYTES - 120) m = m.dropLast(1)
-        return m
-    }
-
     fun associatedTokenAddress(owner: ByteArray, mint: ByteArray): ByteArray = Pda.find(listOf(owner, TOKEN_PROGRAM_ID, mint), ATA_PROGRAM_ID)
 
     /** ATA discriminator 1 = CreateIdempotent: a plain Create fails with IllegalOwner if the account already exists. */

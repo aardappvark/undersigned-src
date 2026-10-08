@@ -1027,27 +1027,4 @@
     <string name="reviews_group_uncounted">Nepočítané</string>
     <string name="reviews_group_uncounted_note">Peněženka bez Seeker Genesis Token, nebo vydavatel hodnotící vlastní aplikaci.</string>
     <string name="not_counted_warning">Tato peněženka nemá Seeker Genesis Token: co podepíšete, se zapíše na řetězec, ale nepočítá se.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Spropitné vývojáři</string>
-    <string name="tips_totals">%1$d spropitných od %2$d peněženek</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR přijato na řetězci</string>
-    <string name="tips_none">Zatím žádné spropitné.</string>
-    <string name="tips_note">Spropitné jde přímo z vaší peněženky do ověřené peněženky vývojáře. Undersigned si nic nebere a spropitné nikdy nemění váhu recenze.</string>
-    <string name="tips_button">Dát spropitné</string>
-    <string name="tips_unclaimed">Nikdo zatím neprokázal, že tuto aplikaci vydává, proto nemůže přijímat spropitné. Vývojáři: přihlaste se tu k aplikaci a majitelé Seeker vám budou moci dát spropitné přímo.</string>
-    <string name="tip_title">Spropitné vývojáři</string>
-    <string name="tip_body">Odesláno z vaší peněženky přímo na %1$s, peněženku prokázanou jako vydavatel této aplikace. Undersigned si nic nebere; platíte jen síťový poplatek. Spropitné je dar a nevrací se.</string>
-    <string name="tip_skr_rent">Pokud vývojář nikdy neměl SKR, vaše peněženka zaplatí ještě asi 0,002 SOL za otevření jeho účtu SKR.</string>
-    <string name="tip_send">Odeslat %1$s</string>
-    <string name="tip_review_hint">Vaše recenze této aplikace se zobrazí v části „Dali spropitné“. Zachová si obvyklou váhu.</string>
-    <string name="tip_with_review">Přidat spropitné vývojáři</string>
-    <string name="tip_with_review_note">Odesláno ve stejné transakci jako recenze, přímo na %1$s, prokázanou peněženku vydavatele. Undersigned si nic nebere a spropitné nikdy nemění váhu vaší recenze.</string>
-    <string name="tip_sent">Spropitné odesláno.</string>
-    <string name="tipped_pill">Dal spropitné</string>
-    <string name="reviews_group_tipped">Dali vývojáři spropitné</string>
-    <string name="reviews_group_tipped_note">Majitelé Seeker, kteří vývojáři této aplikace dali spropitné na řetězci. Počítají se se stejnou vahou jako všichni a mají i vlastní skóre.</string>
-    <string name="tipped_score_title">Dali spropitné</string>
-    <string name="tipped_score_note">Recenze z peněženek, které vývojáři daly spropitné, s obvyklou vahou. Zobrazeny zvlášť; spropitné nikdy nezvyšuje váhu recenze.</string>
-    <string name="claim_tips_hint">Jakmile prokážete, že tuto aplikaci vydáváte, mohou vám majitelé Seeker posílat spropitné v SOL nebo SKR přímo na tuto peněženku. Undersigned si nic nebere.</string>
 </resources>

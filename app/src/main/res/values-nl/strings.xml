@@ -1006,27 +1006,4 @@
     <string name="reviews_group_uncounted">Niet geteld</string>
     <string name="reviews_group_uncounted_note">Geen Seeker Genesis Token in de wallet, of de uitgever die zijn eigen app beoordeelt.</string>
     <string name="not_counted_warning">Deze wallet heeft geen Seeker Genesis Token: wat u ondertekent staat on-chain maar telt niet mee.</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">Fooien voor de ontwikkelaar</string>
-    <string name="tips_totals">%1$d fooien van %2$d wallets</string>
-    <string name="tips_amounts">%1$s SOL · %2$s SKR on-chain ontvangen</string>
-    <string name="tips_none">Nog geen fooien.</string>
-    <string name="tips_note">Een fooi gaat rechtstreeks van uw wallet naar de bewezen wallet van de ontwikkelaar. Undersigned houdt niets in, en een fooi verandert nooit het gewicht van een beoordeling.</string>
-    <string name="tips_button">Fooi geven</string>
-    <string name="tips_unclaimed">Niemand heeft nog bewezen deze app uit te geven, dus fooien zijn niet mogelijk. Ontwikkelaars: claim de app hier en Seeker-eigenaren kunnen u direct een fooi geven.</string>
-    <string name="tip_title">Fooi voor de ontwikkelaar</string>
-    <string name="tip_body">Rechtstreeks van uw wallet naar %1$s, de wallet die bewezen deze app uitgeeft. Undersigned houdt niets in; u betaalt alleen de netwerkkosten. Een fooi is een gift en wordt niet terugbetaald.</string>
-    <string name="tip_skr_rent">Had de ontwikkelaar nooit SKR, dan betaalt uw wallet ook ongeveer 0,002 SOL om zijn SKR-rekening te openen.</string>
-    <string name="tip_send">%1$s sturen</string>
-    <string name="tip_review_hint">Uw beoordeling van deze app staat onder ‘Gaven een fooi’. Ze houdt haar gewone gewicht.</string>
-    <string name="tip_with_review">Fooi voor de ontwikkelaar toevoegen</string>
-    <string name="tip_with_review_note">In dezelfde transactie als uw beoordeling, rechtstreeks naar %1$s, de bewezen uitgevers-wallet. Undersigned houdt niets in, en de fooi verandert nooit het gewicht van uw beoordeling.</string>
-    <string name="tip_sent">Fooi verstuurd.</string>
-    <string name="tipped_pill">Gaf een fooi</string>
-    <string name="reviews_group_tipped">Gaven de ontwikkelaar een fooi</string>
-    <string name="reviews_group_tipped_note">Seeker-eigenaren die de ontwikkelaar van deze app on-chain een fooi gaven. Geteld met hetzelfde gewicht als iedereen en ook getoond als eigen score.</string>
-    <string name="tipped_score_title">Gaven een fooi</string>
-    <string name="tipped_score_note">Beoordelingen van wallets die de ontwikkelaar een fooi gaven, met hun gewone gewicht. Apart getoond; een fooi verhoogt nooit het gewicht van een beoordeling.</string>
-    <string name="claim_tips_hint">Zodra u bewijst dat u deze app uitgeeft, kunnen Seeker-eigenaren u direct een fooi in SOL of SKR naar deze wallet sturen. Undersigned houdt niets in.</string>
 </resources>

@@ -53,11 +53,6 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     var tags by rememberSaveable(pkg, stateSaver = TagListSaver) { mutableStateOf(existing?.tags ?: emptyList()) }
     var text by rememberSaveable(pkg) { mutableStateOf(existing?.text ?: "") }
     var consent by rememberSaveable(pkg) { mutableStateOf(false) }
-    // An optional tip for the developer, sent in the same transaction as the review (owner, 9 Oct 2026). Off by default;
-    // offered only when the app has a proven publisher wallet to receive it.
-    var tipOn by rememberSaveable(pkg) { mutableStateOf(false) }
-    var tipRail by remember { mutableStateOf(com.undersigned.app.solana.ProPaymentService.Rail.SOL) }
-    var tipAmount by remember(tipRail) { mutableStateOf(if (tipRail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) 0.01 else 10.0) }
     var confirmLeave by remember { mutableStateOf(false) }
     var stage by remember { mutableStateOf<String?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -169,26 +164,6 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     }
                 }
             }
-            vm.tipRecipient(pkg)?.takeIf { it != vm.wallet.value }?.let { tipTo ->
-                Spacer(Modifier.height(10.dp))
-                GlassCard {
-                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(enabled = stage == null) { tipOn = !tipOn }, verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = tipOn, onCheckedChange = { tipOn = it }, enabled = stage == null, colors = CheckboxDefaults.colors(checkedColor = RbColors.green))
-                        Text(stringResource(R.string.tip_with_review), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                    }
-                    Text(stringResource(R.string.tip_with_review_note, shortKey(tipTo, 4, 4)), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
-                    if (tipOn) {
-                        fun label(v: Double) = java.math.BigDecimal(v).stripTrailingZeros().toPlainString() + if (tipRail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) " SOL" else " SKR"
-                        Spacer(Modifier.height(6.dp))
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                            com.undersigned.app.solana.ProPaymentService.Rail.entries.forEach { r -> TagChip(r.name, selected = tipRail == r) { if (stage == null) tipRail = r } }
-                            (if (tipRail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) listOf(0.01, 0.05, 0.1) else listOf(10.0, 50.0, 100.0))
-                                .forEach { v -> TagChip(label(v), selected = tipAmount == v) { if (stage == null) tipAmount = v } }
-                        }
-                        if (tipRail == com.undersigned.app.solana.ProPaymentService.Rail.SKR) Text(stringResource(R.string.tip_skr_rent), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp))
-                    }
-                }
-            }
             Spacer(Modifier.height(14.dp))
             gate?.let { GlassCard { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) }; Spacer(Modifier.height(10.dp)) }
             Text(stringResource(R.string.review_fee_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -197,13 +172,6 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 val s = sender ?: return@PrimaryButton
                 error = null
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, text.trim().takeIf { it.isNotEmpty() })
-                val onStage: (ReviewTxService.Stage) -> Unit = { st ->
-                    stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming); else -> null }
-                }
-                if (tipOn && vm.tipRecipient(pkg) != null) {
-                    vm.tip(s, pkg, tipRail, tipAmount, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = onStage) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
-                    return@PrimaryButton
-                }
                 vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }

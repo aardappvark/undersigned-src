@@ -1000,27 +1000,4 @@
     <string name="reviews_group_uncounted">गिनी नहीं जातीं</string>
     <string name="reviews_group_uncounted_note">वॉलेट में Seeker Genesis Token नहीं, या प्रकाशक अपने ही ऐप की समीक्षा कर रहा है।</string>
     <string name="not_counted_warning">इस वॉलेट में Seeker Genesis Token नहीं है: जो आप हस्ताक्षर करेंगे वह चेन पर दर्ज होगा पर गिना नहीं जाएगा।</string>
-
-    <!-- Tips to the developer's proven wallet (9 Oct 2026) -->
-    <string name="tips_title">डेवलपर के लिए टिप</string>
-    <string name="tips_totals">%2$d वॉलेट से %1$d टिप</string>
-    <string name="tips_amounts">चेन पर %1$s SOL · %2$s SKR प्राप्त</string>
-    <string name="tips_none">अभी कोई टिप नहीं।</string>
-    <string name="tips_note">टिप सीधे आपके वॉलेट से डेवलपर के प्रमाणित वॉलेट में जाती है। Undersigned कुछ नहीं लेता, और टिप कभी किसी समीक्षा का वज़न नहीं बदलती।</string>
-    <string name="tips_button">टिप दें</string>
-    <string name="tips_unclaimed">अभी किसी ने साबित नहीं किया कि वह यह ऐप प्रकाशित करता है, इसलिए यह टिप नहीं ले सकता। डेवलपर: यहाँ ऐप का दावा करें, ताकि Seeker मालिक आपको सीधे टिप दे सकें।</string>
-    <string name="tip_title">डेवलपर के लिए टिप</string>
-    <string name="tip_body">आपके वॉलेट से सीधे %1$s को, जो इस ऐप का प्रमाणित प्रकाशक वॉलेट है। Undersigned कुछ नहीं लेता; आप केवल नेटवर्क शुल्क देते हैं। टिप एक उपहार है, वापस नहीं होती।</string>
-    <string name="tip_skr_rent">अगर डेवलपर के पास कभी SKR नहीं रहा, तो आपका वॉलेट उनका SKR खाता खोलने के लिए लगभग 0.002 SOL भी देता है।</string>
-    <string name="tip_send">%1$s भेजें</string>
-    <string name="tip_review_hint">इस ऐप की आपकी समीक्षा “टिप दी” के अंतर्गत दिखेगी। उसका सामान्य वज़न बना रहता है।</string>
-    <string name="tip_with_review">डेवलपर के लिए टिप जोड़ें</string>
-    <string name="tip_with_review_note">आपकी समीक्षा वाले उसी लेन-देन में, सीधे %1$s को, प्रमाणित प्रकाशक वॉलेट। Undersigned कुछ नहीं लेता, और टिप कभी आपकी समीक्षा का वज़न नहीं बदलती।</string>
-    <string name="tip_sent">टिप भेज दी गई।</string>
-    <string name="tipped_pill">टिप दी</string>
-    <string name="reviews_group_tipped">डेवलपर को टिप दी</string>
-    <string name="reviews_group_tipped_note">Seeker मालिक जिन्होंने इस ऐप के डेवलपर को चेन पर टिप दी। सबके बराबर वज़न पर गिने जाते हैं और अपने अलग स्कोर में भी दिखते हैं।</string>
-    <string name="tipped_score_title">टिप दी</string>
-    <string name="tipped_score_note">डेवलपर को टिप देने वाले वॉलेट की समीक्षाएँ, सामान्य वज़न पर। अलग दिखाई जाती हैं; टिप कभी समीक्षा का वज़न नहीं बढ़ाती।</string>
-    <string name="claim_tips_hint">जब आप साबित कर दें कि आप यह ऐप प्रकाशित करते हैं, तो Seeker मालिक आपको SOL या SKR में सीधे इसी वॉलेट में टिप दे सकते हैं। Undersigned कुछ नहीं लेता।</string>
 </resources>
