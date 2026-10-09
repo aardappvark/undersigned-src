@@ -1083,4 +1083,9 @@
     <string name="desk_kit_badge">Sao chép huy hiệu cho %1$s</string>
     <string name="desk_kit_mcp">Sao chép lệnh MCP cho Claude và các tác tử khác</string>
     <string name="desk_kit_api">API, webhook và tài liệu</string>
+    <string name="import_all">Ký cả %1$d trong một lần duyệt</string>
+    <string name="import_prompt_title">Bạn đã đánh giá ứng dụng trên dApp Store?</string>
+    <string name="import_prompt_body">Tìm các đánh giá dApp Store của bạn và ký tại đây trong một lần duyệt. Mỗi đánh giá trở thành đánh giá có chữ ký từ Seeker này, kèm những gì điện thoại có thể cho biết về ứng dụng.</string>
+    <string name="import_prompt_find">Tìm đánh giá của tôi</string>
+    <string name="import_prompt_later">Để sau</string>
 </resources>

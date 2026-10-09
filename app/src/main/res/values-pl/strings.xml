@@ -1136,4 +1136,9 @@
     <string name="desk_kit_badge">Skopiuj odznakę dla %1$s</string>
     <string name="desk_kit_mcp">Skopiuj polecenie MCP dla Claude i innych agentów</string>
     <string name="desk_kit_api">API, webhooki i dokumentacja</string>
+    <string name="import_all">Podpisz wszystkie %1$d jednym zatwierdzeniem</string>
+    <string name="import_prompt_title">Oceniałeś aplikacje w dApp Store?</string>
+    <string name="import_prompt_body">Znajdź swoje recenzje z dApp Store i podpisz je tutaj jednym zatwierdzeniem. Każda stanie się podpisaną recenzją z tego Seekera, z tym, co telefon może pokazać o aplikacji.</string>
+    <string name="import_prompt_find">Znajdź moje recenzje</string>
+    <string name="import_prompt_later">Nie teraz</string>
 </resources>

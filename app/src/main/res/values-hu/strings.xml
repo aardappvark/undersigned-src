@@ -1098,4 +1098,9 @@
     <string name="desk_kit_badge">%1$s jelvényének másolása</string>
     <string name="desk_kit_mcp">MCP-parancs másolása Claude-hoz és más ügynökökhöz</string>
     <string name="desk_kit_api">API, webhookok és dokumentáció</string>
+    <string name="import_all">Mind a(z) %1$d aláírása egy jóváhagyással</string>
+    <string name="import_prompt_title">Értékeltél alkalmazásokat a dApp Store-ban?</string>
+    <string name="import_prompt_body">Keresd meg a dApp Store-értékeléseidet, és írd alá őket itt egyetlen jóváhagyással. Mindegyik aláírt értékelés lesz erről a Seekerről, azzal, amit a telefon az alkalmazásról mutatni tud.</string>
+    <string name="import_prompt_find">Értékeléseim keresése</string>
+    <string name="import_prompt_later">Most nem</string>
 </resources>

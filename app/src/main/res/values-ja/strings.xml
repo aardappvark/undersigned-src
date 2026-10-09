@@ -1074,4 +1074,9 @@
     <string name="desk_kit_badge">%1$s のバッジをコピー</string>
     <string name="desk_kit_mcp">Claude などのエージェント用 MCP コマンドをコピー</string>
     <string name="desk_kit_api">API・Webhook・ドキュメント</string>
+    <string name="import_all">%1$d 件すべてを1回の承認で署名</string>
+    <string name="import_prompt_title">dApp Store でアプリを評価しましたか？</string>
+    <string name="import_prompt_body">dApp Store のレビューを見つけて、ここで1回の承認で署名しましょう。それぞれがこの Seeker からの署名付きレビューになり、端末がそのアプリについて示せる情報も添えられます。</string>
+    <string name="import_prompt_find">自分のレビューを探す</string>
+    <string name="import_prompt_later">今はしない</string>
 </resources>

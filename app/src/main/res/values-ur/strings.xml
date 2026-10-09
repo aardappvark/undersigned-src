@@ -1101,4 +1101,9 @@
     <string name="desk_kit_badge">%1$s کا بیج کاپی کریں</string>
     <string name="desk_kit_mcp">Claude اور دیگر ایجنٹس کے لیے MCP کمانڈ کاپی کریں</string>
     <string name="desk_kit_api">API، ویب ہکس اور دستاویزات</string>
+    <string name="import_all">تمام %1$d ایک منظوری میں دستخط کریں</string>
+    <string name="import_prompt_title">کیا آپ نے dApp Store میں ایپس کو ریٹ کیا ہے؟</string>
+    <string name="import_prompt_body">اپنے dApp Store جائزے تلاش کریں اور یہاں ایک منظوری میں دستخط کریں۔ ہر ایک اس Seeker سے دستخط شدہ جائزہ بن جاتا ہے، اس کے ساتھ جو فون ایپ کے بارے میں دکھا سکتا ہے۔</string>
+    <string name="import_prompt_find">میرے جائزے تلاش کریں</string>
+    <string name="import_prompt_later">ابھی نہیں</string>
 </resources>

@@ -1169,4 +1169,9 @@
     <string name="desk_kit_badge">نسخ شارة %1$s</string>
     <string name="desk_kit_mcp">نسخ أمر MCP لـ Claude ووكلاء آخرين</string>
     <string name="desk_kit_api">الواجهة البرمجية والويب هوك والوثائق</string>
+    <string name="import_all">وقّع الـ%1$d كلها بموافقة واحدة</string>
+    <string name="import_prompt_title">هل قيّمت تطبيقات في dApp Store؟</string>
+    <string name="import_prompt_body">اعثر على مراجعاتك في dApp Store ووقّعها هنا بموافقة واحدة. تصبح كل واحدة مراجعة موقّعة من هذا الـSeeker، مع ما يستطيع الهاتف إظهاره عن التطبيق.</string>
+    <string name="import_prompt_find">اعثر على مراجعاتي</string>
+    <string name="import_prompt_later">ليس الآن</string>
 </resources>

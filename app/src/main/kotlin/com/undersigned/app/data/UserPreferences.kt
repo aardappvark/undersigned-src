@@ -267,6 +267,11 @@ object UserPreferences {
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
     /** The one-time "hear when the scan is done" sheet (design F8) has been shown. */
+    /** The Browse card offering to find the owner's dApp Store reviews was dismissed (or used). */
+    var importPromptDone: Boolean
+        get() = prefs?.getBoolean("import_prompt_done", false) ?: true
+        set(v) { prefs?.edit()?.putBoolean("import_prompt_done", v)?.apply() }
+
     var scanRationaleShown: Boolean
         get() = prefs?.getBoolean("scan_rationale_shown", false) ?: false
         set(v) { prefs?.edit()?.putBoolean("scan_rationale_shown", v)?.apply() }

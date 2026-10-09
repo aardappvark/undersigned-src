@@ -84,15 +84,16 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
         onSkip = { rationale = false; com.undersigned.app.data.UserPreferences.scanRationaleShown = true; vm.scanMyStoreReviews() },
         onDismiss = { rationale = false })
     fun date(sec: Long) = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(sec * 1000))
-    fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) {
+    fun importMany(list: List<Pair<String, com.undersigned.app.data.StoreReview>>) {
         val s = sender ?: return
         message = null
-        vm.requestImport(s, listOf(pkg to r), onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res ->
+        vm.requestImport(s, list, onStage = { st -> stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) } }) { res ->
             stage = null
             messageOk = res.isSuccess
             message = res.fold({ context.resources.getQuantityString(R.plurals.import_done, it, it) }, { context.errorText(it) })
         }
     }
+    fun importOne(pkg: String, r: com.undersigned.app.data.StoreReview) = importMany(listOf(pkg to r))
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -130,6 +131,10 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
                 if (scan == null) TextButton(onClick = { startScan() }) { Text(stringResource(R.string.import_scan), color = RbColors.purpleLight, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             }
             scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+            // Every store review not yet signed, in one wallet approval (import review, 10 Oct 2026).
+            val importable = all.filter { it.signed == null && it.store != null }
+            if (importable.size >= 2 && scan == null) com.undersigned.app.ui.components.PrimaryButton(stringResource(R.string.import_all, importable.size),
+                onClick = { importMany(importable.map { it.pkg to it.store!! }) }, enabled = stage == null && sender != null, modifier = Modifier.padding(top = 6.dp))
             scanResult?.let { (failed, total) -> if (scan == null && failed > 0) Text(stringResource(R.string.import_incomplete, failed, total), color = RbColors.warning, fontSize = 11.sp) }
             (stage ?: message)?.let { Text(it, color = if (stage != null) RbColors.purpleLight else if (messageOk) RbColors.green else RbColors.negative, fontSize = 12.sp) }
         }

@@ -159,6 +159,23 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             }
             IconButton(onClick = onSettings, modifier = Modifier.tourTarget("b_settings")) { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings), tint = RbColors.textSecondary) }
         }
+        // Once, after sign-in: most owners have already rated apps in the dApp Store; bring those over in one approval
+        // (import review, 10 Oct 2026: the import sat in Settings and My reviews, and nobody found it).
+        val signedIn by vm.wallet.collectAsState()
+        val scannedAt by vm.myStoreScannedAt.collectAsState()
+        var importPrompt by remember { mutableStateOf(!com.undersigned.app.data.UserPreferences.importPromptDone) }
+        if (importPrompt && signedIn != null && scannedAt == null) Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+            .background(RbColors.surfaceVariant, RoundedCornerShape(14.dp)).padding(14.dp)) {
+            Text(stringResource(R.string.import_prompt_title), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.import_prompt_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 4.dp))
+            Row {
+                TextButton(onClick = { com.undersigned.app.data.UserPreferences.importPromptDone = true; importPrompt = false; vm.scanMyStoreReviews(); onMyReviews() }, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                    Text(stringResource(R.string.import_prompt_find), color = RbColors.purpleLight, fontWeight = FontWeight.Bold) }
+                Spacer(Modifier.width(16.dp))
+                TextButton(onClick = { com.undersigned.app.data.UserPreferences.importPromptDone = true; importPrompt = false }, contentPadding = PaddingValues(horizontal = 0.dp)) {
+                    Text(stringResource(R.string.import_prompt_later), color = RbColors.textTertiary) }
+            }
+        }
         androidx.compose.animation.AnimatedVisibility(visible = headerShown || query.isNotEmpty(), enter = androidx.compose.animation.expandVertically() + androidx.compose.animation.fadeIn(),
             exit = androidx.compose.animation.shrinkVertically() + androidx.compose.animation.fadeOut()) { Column {
         Row(Modifier.padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {

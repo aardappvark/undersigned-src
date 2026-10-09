@@ -1099,4 +1099,9 @@
     <string name="desk_kit_badge">Kopiera märket för %1$s</string>
     <string name="desk_kit_mcp">Kopiera MCP-kommandot för Claude och andra agenter</string>
     <string name="desk_kit_api">API, webhooks och dokumentation</string>
+    <string name="import_all">Signera alla %1$d i ett godkännande</string>
+    <string name="import_prompt_title">Har du betygsatt appar i dApp Store?</string>
+    <string name="import_prompt_body">Hitta dina recensioner från dApp Store och signera dem här i ett enda godkännande. Var och en blir en signerad recension från den här Seekern, med vad telefonen kan visa om appen.</string>
+    <string name="import_prompt_find">Hitta mina recensioner</string>
+    <string name="import_prompt_later">Inte nu</string>
 </resources>

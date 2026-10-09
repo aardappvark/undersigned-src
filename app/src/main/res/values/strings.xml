@@ -1124,4 +1124,9 @@
     <string name="desk_kit_badge">Copy the badge for %1$s</string>
     <string name="desk_kit_mcp">Copy the MCP command for Claude and other agents</string>
     <string name="desk_kit_api">API, webhooks and docs</string>
+    <string name="import_all">Sign all %1$d in one approval</string>
+    <string name="import_prompt_title">Rated apps in the dApp Store?</string>
+    <string name="import_prompt_body">Find your dApp Store reviews and sign them here in one approval. Each becomes a signed review from this Seeker, with what the phone can show about the app.</string>
+    <string name="import_prompt_find">Find my reviews</string>
+    <string name="import_prompt_later">Not now</string>
 </resources>

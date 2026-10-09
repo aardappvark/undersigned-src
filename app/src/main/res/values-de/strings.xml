@@ -1118,4 +1118,9 @@
     <string name="desk_kit_badge">Badge für %1$s kopieren</string>
     <string name="desk_kit_mcp">MCP-Befehl für Claude und andere Agenten kopieren</string>
     <string name="desk_kit_api">API, Webhooks und Doku</string>
+    <string name="import_all">Alle %1$d mit einer Bestätigung signieren</string>
+    <string name="import_prompt_title">Apps im dApp Store bewertet?</string>
+    <string name="import_prompt_body">Finde deine dApp-Store-Bewertungen und signiere sie hier mit einer Bestätigung. Jede wird zu einer signierten Bewertung von diesem Seeker, mit dem, was das Telefon über die App zeigen kann.</string>
+    <string name="import_prompt_find">Meine Bewertungen finden</string>
+    <string name="import_prompt_later">Nicht jetzt</string>
 </resources>

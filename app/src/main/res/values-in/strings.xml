@@ -1083,4 +1083,9 @@
     <string name="desk_kit_badge">Salin lencana untuk %1$s</string>
     <string name="desk_kit_mcp">Salin perintah MCP untuk Claude dan agen lain</string>
     <string name="desk_kit_api">API, webhook, dan dokumentasi</string>
+    <string name="import_all">Tanda tangani semua %1$d dalam satu persetujuan</string>
+    <string name="import_prompt_title">Pernah menilai aplikasi di dApp Store?</string>
+    <string name="import_prompt_body">Temukan ulasan dApp Store-mu dan tanda tangani di sini dalam satu persetujuan. Masing-masing menjadi ulasan bertanda tangan dari Seeker ini, beserta apa yang bisa ditunjukkan ponsel tentang aplikasinya.</string>
+    <string name="import_prompt_find">Temukan ulasanku</string>
+    <string name="import_prompt_later">Nanti</string>
 </resources>

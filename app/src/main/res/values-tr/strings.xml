@@ -1098,4 +1098,9 @@
     <string name="desk_kit_badge">%1$s rozetini kopyala</string>
     <string name="desk_kit_mcp">Claude ve diğer ajanlar için MCP komutunu kopyala</string>
     <string name="desk_kit_api">API, webhook\'lar ve belgeler</string>
+    <string name="import_all">%1$d incelemenin tümünü tek onayla imzala</string>
+    <string name="import_prompt_title">dApp Store\'da uygulama puanladınız mı?</string>
+    <string name="import_prompt_body">dApp Store incelemelerinizi bulun ve burada tek onayla imzalayın. Her biri, telefonun uygulama hakkında gösterebildikleriyle birlikte bu Seeker\'dan imzalı bir inceleme olur.</string>
+    <string name="import_prompt_find">İncelemelerimi bul</string>
+    <string name="import_prompt_later">Şimdi değil</string>
 </resources>

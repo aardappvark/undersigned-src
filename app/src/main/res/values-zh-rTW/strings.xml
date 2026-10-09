@@ -1082,4 +1082,9 @@
     <string name="desk_kit_badge">複製 %1$s 的徽章</string>
     <string name="desk_kit_mcp">複製供 Claude 等代理使用的 MCP 指令</string>
     <string name="desk_kit_api">API、Webhook 與文件</string>
+    <string name="import_all">一次授權簽署全部 %1$d 則</string>
+    <string name="import_prompt_title">在 dApp Store 評過應用程式嗎？</string>
+    <string name="import_prompt_body">找到你在 dApp Store 的評論，在這裡一次授權全部簽署。每則都會成為來自這台 Seeker 的簽署評論，並附上手機能提供的該應用程式資訊。</string>
+    <string name="import_prompt_find">尋找我的評論</string>
+    <string name="import_prompt_later">稍後再說</string>
 </resources>

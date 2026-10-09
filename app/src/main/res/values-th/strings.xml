@@ -1067,4 +1067,9 @@
     <string name="desk_kit_badge">คัดลอกตราสำหรับ %1$s</string>
     <string name="desk_kit_mcp">คัดลอกคำสั่ง MCP สำหรับ Claude และเอเจนต์อื่น</string>
     <string name="desk_kit_api">API, webhook และเอกสาร</string>
+    <string name="import_all">ลงนามทั้ง %1$d รายการในการอนุมัติครั้งเดียว</string>
+    <string name="import_prompt_title">เคยให้คะแนนแอปใน dApp Store ไหม</string>
+    <string name="import_prompt_body">ค้นหารีวิวของคุณใน dApp Store แล้วลงนามที่นี่ในการอนุมัติครั้งเดียว แต่ละรายการจะเป็นรีวิวที่ลงนามจาก Seeker เครื่องนี้ พร้อมสิ่งที่โทรศัพท์แสดงได้เกี่ยวกับแอป</string>
+    <string name="import_prompt_find">ค้นหารีวิวของฉัน</string>
+    <string name="import_prompt_later">ไว้ทีหลัง</string>
 </resources>

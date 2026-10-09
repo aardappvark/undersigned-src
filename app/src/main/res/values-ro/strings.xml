@@ -1116,4 +1116,9 @@
     <string name="desk_kit_badge">Copiază insigna pentru %1$s</string>
     <string name="desk_kit_mcp">Copiază comanda MCP pentru Claude și alți agenți</string>
     <string name="desk_kit_api">API, webhook-uri și documentație</string>
+    <string name="import_all">Semnează toate cele %1$d cu o singură aprobare</string>
+    <string name="import_prompt_title">Ai evaluat aplicații în dApp Store?</string>
+    <string name="import_prompt_body">Găsește-ți recenziile din dApp Store și semnează-le aici cu o singură aprobare. Fiecare devine o recenzie semnată de pe acest Seeker, cu ce poate arăta telefonul despre aplicație.</string>
+    <string name="import_prompt_find">Găsește-mi recenziile</string>
+    <string name="import_prompt_later">Nu acum</string>
 </resources>

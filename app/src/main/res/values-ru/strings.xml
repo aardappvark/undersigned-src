@@ -1119,4 +1119,9 @@
     <string name="desk_kit_badge">Скопировать значок для %1$s</string>
     <string name="desk_kit_mcp">Скопировать команду MCP для Claude и других агентов</string>
     <string name="desk_kit_api">API, вебхуки и документация</string>
+    <string name="import_all">Подписать все %1$d одним подтверждением</string>
+    <string name="import_prompt_title">Оценивали приложения в dApp Store?</string>
+    <string name="import_prompt_body">Найдите свои отзывы из dApp Store и подпишите их здесь одним подтверждением. Каждый станет подписанным отзывом с этого Seeker вместе с тем, что телефон знает о приложении.</string>
+    <string name="import_prompt_find">Найти мои отзывы</string>
+    <string name="import_prompt_later">Не сейчас</string>
 </resources>

@@ -1102,4 +1102,9 @@
     <string name="desk_kit_badge">Kopyahin ang badge para sa %1$s</string>
     <string name="desk_kit_mcp">Kopyahin ang MCP command para sa Claude at iba pang agent</string>
     <string name="desk_kit_api">API, webhooks at docs</string>
+    <string name="import_all">Pirmahan lahat ng %1$d sa iisang pag-apruba</string>
+    <string name="import_prompt_title">Nag-rate ka ba ng mga app sa dApp Store?</string>
+    <string name="import_prompt_body">Hanapin ang mga review mo sa dApp Store at pirmahan dito sa iisang pag-apruba. Bawat isa ay nagiging pirmadong review mula sa Seeker na ito, kasama ang kayang ipakita ng telepono tungkol sa app.</string>
+    <string name="import_prompt_find">Hanapin ang mga review ko</string>
+    <string name="import_prompt_later">Hindi ngayon</string>
 </resources>

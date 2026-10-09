@@ -1127,4 +1127,9 @@
     <string name="desk_kit_badge">Copiar o selo de %1$s</string>
     <string name="desk_kit_mcp">Copiar o comando MCP para o Claude e outros agentes</string>
     <string name="desk_kit_api">API, webhooks e documentação</string>
+    <string name="import_all">Assinar as %1$d com uma só aprovação</string>
+    <string name="import_prompt_title">Avaliou apps na dApp Store?</string>
+    <string name="import_prompt_body">Encontre suas avaliações da dApp Store e assine-as aqui com uma só aprovação. Cada uma vira uma avaliação assinada deste Seeker, com o que o celular pode mostrar sobre o app.</string>
+    <string name="import_prompt_find">Encontrar minhas avaliações</string>
+    <string name="import_prompt_later">Agora não</string>
 </resources>

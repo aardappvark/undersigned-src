@@ -1075,4 +1075,9 @@
     <string name="desk_kit_badge">%1$s 배지 복사</string>
     <string name="desk_kit_mcp">Claude 및 다른 에이전트용 MCP 명령 복사</string>
     <string name="desk_kit_api">API, 웹훅, 문서</string>
+    <string name="import_all">%1$d개 모두 한 번의 승인으로 서명</string>
+    <string name="import_prompt_title">dApp Store에서 앱을 평가한 적이 있나요?</string>
+    <string name="import_prompt_body">dApp Store 리뷰를 찾아 여기서 한 번의 승인으로 서명하세요. 각각 이 Seeker에서 서명한 리뷰가 되며, 휴대폰이 앱에 대해 보여 줄 수 있는 정보가 함께 담깁니다.</string>
+    <string name="import_prompt_find">내 리뷰 찾기</string>
+    <string name="import_prompt_later">나중에</string>
 </resources>

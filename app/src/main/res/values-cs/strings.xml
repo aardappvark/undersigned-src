@@ -1128,4 +1128,9 @@
     <string name="desk_kit_badge">Kopírovat odznak pro %1$s</string>
     <string name="desk_kit_mcp">Kopírovat příkaz MCP pro Claude a další agenty</string>
     <string name="desk_kit_api">API, webhooky a dokumentace</string>
+    <string name="import_all">Podepsat všech %1$d jedním schválením</string>
+    <string name="import_prompt_title">Hodnotili jste aplikace v dApp Store?</string>
+    <string name="import_prompt_body">Najděte své recenze z dApp Store a podepište je zde jedním schválením. Každá se stane podepsanou recenzí z tohoto Seekeru s tím, co telefon o aplikaci ukáže.</string>
+    <string name="import_prompt_find">Najít mé recenze</string>
+    <string name="import_prompt_later">Teď ne</string>
 </resources>

@@ -1107,4 +1107,9 @@
     <string name="desk_kit_badge">Badge voor %1$s kopiëren</string>
     <string name="desk_kit_mcp">MCP-opdracht voor Claude en andere agents kopiëren</string>
     <string name="desk_kit_api">API, webhooks en documentatie</string>
+    <string name="import_all">Alle %1$d in één goedkeuring ondertekenen</string>
+    <string name="import_prompt_title">Apps beoordeeld in de dApp Store?</string>
+    <string name="import_prompt_body">Vind je dApp Store-reviews en onderteken ze hier in één goedkeuring. Elke wordt een ondertekende review van deze Seeker, met wat de telefoon over de app kan laten zien.</string>
+    <string name="import_prompt_find">Mijn reviews vinden</string>
+    <string name="import_prompt_later">Niet nu</string>
 </resources>

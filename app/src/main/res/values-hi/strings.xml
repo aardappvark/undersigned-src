@@ -1101,4 +1101,9 @@
     <string name="desk_kit_badge">%1$s का बैज कॉपी करें</string>
     <string name="desk_kit_mcp">Claude और अन्य एजेंट के लिए MCP कमांड कॉपी करें</string>
     <string name="desk_kit_api">API, वेबहुक और दस्तावेज़</string>
+    <string name="import_all">सभी %1$d को एक मंज़ूरी में हस्ताक्षर करें</string>
+    <string name="import_prompt_title">dApp Store में ऐप को रेटिंग दी है?</string>
+    <string name="import_prompt_body">अपनी dApp Store समीक्षाएँ खोजें और यहाँ एक मंज़ूरी में हस्ताक्षर करें। हर एक इस Seeker से हस्ताक्षरित समीक्षा बनती है, साथ में वह जो फ़ोन ऐप के बारे में दिखा सकता है।</string>
+    <string name="import_prompt_find">मेरी समीक्षाएँ खोजें</string>
+    <string name="import_prompt_later">अभी नहीं</string>
 </resources>

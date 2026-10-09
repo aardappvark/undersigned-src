@@ -1098,4 +1098,9 @@
     <string name="desk_kit_badge">Αντιγραφή σήματος για %1$s</string>
     <string name="desk_kit_mcp">Αντιγραφή εντολής MCP για το Claude και άλλους πράκτορες</string>
     <string name="desk_kit_api">API, webhooks και τεκμηρίωση</string>
+    <string name="import_all">Υπογραφή και των %1$d με μία έγκριση</string>
+    <string name="import_prompt_title">Έχεις βαθμολογήσει εφαρμογές στο dApp Store;</string>
+    <string name="import_prompt_body">Βρες τις κριτικές σου στο dApp Store και υπέγραψέ τες εδώ με μία έγκριση. Η καθεμία γίνεται υπογεγραμμένη κριτική από αυτό το Seeker, με ό,τι μπορεί να δείξει το τηλέφωνο για την εφαρμογή.</string>
+    <string name="import_prompt_find">Βρες τις κριτικές μου</string>
+    <string name="import_prompt_later">Όχι τώρα</string>
 </resources>
