@@ -10,7 +10,8 @@ object Changelog {
     val ENTRIES = listOf(
         Entry("2026-10-10", "AI allowance per caller", listOf(
             "Fresh AI answers per UTC day: 200 per pass key, 50 per Pro wallet, 20 per IP; per-call keys pay one extra call per fresh answer. Cached answers are free. Over it: 429 ai_allowance with Retry-After.",
-            "GET /v1/health reports today's AI calls, tokens and cost.")),
+            "GET /v1/health reports today's AI calls, tokens and cost.",
+            "Callers without a key share one budget of 300 fresh AI answers a day; cached answers stay free.")),
         Entry("2026-10-09", "Developer tools", listOf(
             "MCP: get_apps (several apps at once) and scoring_help (questions answered from the integrity policy).",
             "Local MCP (mcp/, 0.2.0): every API route as a tool (42), on by default against the public API; api_verify_webhook checks a delivery locally; npm test checks coverage against the live spec.",

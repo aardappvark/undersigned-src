@@ -16,6 +16,8 @@ import java.util.concurrent.Executors
  */
 class Api(private val views: Views, private val billing: Billing, private val indexer: Indexer, private val limiter: RateLimiter = RateLimiter(), private val hooks: Hooks? = null,
           private val blockhash: () -> String = { Rpc().latestBlockhash() }, private val sanctioned: (String) -> Boolean = Screening::isSanctioned) {
+    /** Cost against revenue per day (Economics.kt), for the operator on this machine; set by main. */
+    @Volatile var economics: Economics? = null
     /** Human pages and badges (Web.kt); set after construction because pages call back into [handle]'s views. */
     var web: Web? = null
 
@@ -64,7 +66,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         }
         // Pro: a store review's text into your language, and a reply you drafted into the language of the review it answers.
         fun proOrKey(r: Req, wallet: String?): Response? = if (r.caller.paid) null
-            else if (wallet != null && views.holdsPro(wallet)) { Ai.who.set(Ai.Caller("wallet:$wallet", Config.AI_PER_PRO_WALLET_DAY)); null }
+            else if (wallet != null && views.holdsPro(wallet)) { Ai.who.set(Ai.Caller("wallet:$wallet", Config.AI_PER_PRO_WALLET_DAY, "pro")); null }
             else Response(402, JSONObject().put("error", "pro_required").put("message", "This is a Pro feature: hold Pro in the wallet you send, or use an API pass or pay-per-call credits.").put("pricing", pricing()))
         route("POST", "/v1/translate", Tier.LIMITED, "Suggested translation, by AI, of a store review's text (up to 1,000 characters) into lang. Body {text, lang, wallet}. Pro or a key") { r ->
             val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return@route Response(400, JSONObject().put("error", "bad_json"))
@@ -195,7 +197,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
         if (path == "/mcp" && method != "POST") return Response(405, JSONObject().put("error", "method_not_allowed").put("message", "MCP here is stateless: POST JSON-RPC to /mcp"), mapOf("Allow" to "POST"))
         // The fleet seeding page and its builder answer this Mac only. Through the tunnel the address is the last
         // X-Forwarded-For hop (the visitor's, appended by Cloudflare), so a public request never reads as loopback.
-        if ((path == "/seed" || path == "/v1/tx/seed" || path == "/v1/admin/triage") && !isLoopback(ip)) return notFound("no such endpoint; see /v1/openapi.json")
+        if ((path == "/seed" || path == "/v1/tx/seed" || path == "/v1/admin/triage" || path == "/v1/admin/economics") && !isLoopback(ip)) return notFound("no such endpoint; see /v1/openapi.json")
+        if (path == "/v1/admin/economics" && method == "GET") return Response(200, (economics ?: return notFound("economics is off")).report(query["days"]?.toIntOrNull()?.coerceIn(7, 365) ?: 30))
         if (path == "/v1/admin/triage" && method == "GET") return Response(200, triage())
         // Human pages and badges: not the metered API. Their own, looser per-IP budget.
         if (method == "GET" && web != null && (!path.startsWith("/v1/") || path.startsWith("/v1/badge/"))) {
@@ -226,9 +229,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
         // Who any fresh AI answer in this request is for (Ai.complete checks and counts it; proOrKey upgrades a Pro wallet).
         // A known key counts against its own allowance on every route, free ones included (a pass calling /v1/help is still that pass).
         Ai.who.set(when {
-            known && key != null && billing.kind(key) == "credits" -> Ai.Caller("key:$key", Int.MAX_VALUE) { billing.consume(key) }
-            known && key != null -> Ai.Caller("key:$key", Config.AI_PER_PASS_DAY)
-            else -> Ai.Caller("ip:$ip", Config.AI_PER_IP_DAY)
+            known && key != null && billing.kind(key) == "credits" -> Ai.Caller("key:$key", Int.MAX_VALUE, "credits") { billing.consume(key) }
+            known && key != null -> Ai.Caller("key:$key", Config.AI_PER_PASS_DAY, "pass")
+            else -> Ai.Caller("ip:$ip", Config.AI_PER_IP_DAY, "anon")
         })
         val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to m.groupValues[i + 1] }.toMap()   // URI.path arrives decoded
         // Rate-limit headers on every metered answer (9 Oct 2026): what is left, and when it resets.
@@ -561,6 +564,7 @@ fun main(args: Array<String>) {
     if (Config.INDEX) hooks.startWorker()
     hooks.weeklyDigest = { views.digest() }
     val api = Api(views, billing, indexer, hooks = hooks)
+    api.economics = Prices(db).let { p -> Economics(db) { p.history() } }
     api.web = Web(views, indexer).also { w -> w.apiInfo = { api.pricing() }; w.apiDocs = { api.openApi() } }
     runCatching { indexer.rebuild() }   // serve what the database already holds at once
     if (Config.INDEX) {

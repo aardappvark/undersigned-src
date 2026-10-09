@@ -65,7 +65,7 @@ Each of these is made by AI (Claude Haiku), cached, and labelled a suggestion. N
 | `POST /v1/help {question, lang}` | How scoring works: answers from the Review Integrity Policy only, in the reader's language. The app's "Ask how scoring works" button | free |
 | `GET /v1/digest` | This week on the store: store-wide rating bursts and app updates in plain words, with the counts it was written from. Also sent once a week as the `digest` webhook event and as a Pro notification in the app | Pro wallet (`?wallet=`), or a pass or credits key |
 
-Hidden text is never translated. Each caller has a daily allowance of fresh AI answers (UTC day): 200 per pass key, 50 per Pro wallet, 20 per IP without a key; per-call keys have no daily limit and pay one extra call for each fresh answer. Cached answers are always free. Past the allowance the answer is `429` with `error: ai_allowance` and a `Retry-After` to midnight UTC.
+Hidden text is never translated. Each caller has a daily allowance of fresh AI answers (UTC day): 200 per pass key, 50 per Pro wallet, 20 per IP without a key (and 300 a day shared by everyone without a key); per-call keys have no daily limit and pay one extra call for each fresh answer. Cached answers are always free. Past the allowance the answer is `429` with `error: ai_allowance` and a `Retry-After` to midnight UTC.
 
 ## 3. Limits, the pass, and pay per call
 

@@ -130,6 +130,11 @@ object Config {
     const val AI_PER_PASS_DAY = 200
     const val AI_PER_PRO_WALLET_DAY = 50
     const val AI_PER_IP_DAY = 20
+    /** Fresh AI answers per UTC day shared by EVERY caller without a key (about $0.12 at the measured $0.0004 each). */
+    const val AI_ANON_POOL_DAY = 300
+    /** Economics alerts (loopback /v1/admin/economics, the watchdog): a day's AI cost over this, or 7 days of cost over revenue plus the floor. */
+    const val ECON_DAY_ALERT_USD = 0.50
+    const val ECON_WEEK_FLOOR_USD = 1.00
     /** Claude Haiku 5.5 list prices, USD per million tokens (prompts up to 100K tokens), for the measured cost in /v1/health. */
     const val AI_PRICE_IN = 0.10
     const val AI_PRICE_OUT = 0.50

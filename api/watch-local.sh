@@ -2,7 +2,7 @@
 # Looks at the local API's health every 10 minutes (LaunchAgent com.undersigned.api.watch, installed by
 # install-local.sh) and posts a macOS notification when something needs the owner: the server is down, the indexer
 # reports an error, a store snapshot day was missed, or webhook deliveries failed. One notification per distinct
-# message per 6 hours.
+# message per 6 hours. Also: the AI cost alerts from /v1/admin/economics (10 Oct 2026).
 DIR="$HOME/Library/Application Support/UndersignedAPI"
 H=$(curl -s -m 10 http://127.0.0.1:8817/v1/health) || H=""
 if [ -z "$H" ]; then MSG="The Undersigned API is not answering on this Mac."
@@ -18,6 +18,11 @@ if j.get("skipped_transactions", 0) > 0: out.append("%d ledger transaction(s) co
 if j.get("hook_failures_24h", 0) > 0: out.append("%d webhook delivery failure(s) in 24 h." % j["hook_failures_24h"])
 print(" ".join(out))
 ' 2>/dev/null)
+  # Cost against revenue (Economics.kt): a costly day, or a week of AI cost above revenue plus a floor.
+  E=$(curl -s -m 10 "http://127.0.0.1:8817/v1/admin/economics?days=7") || E=""
+  EMSG=$(printf '%s' "$E" | /usr/bin/python3 -c 'import json,sys; print(" ".join(json.load(sys.stdin).get("alerts", [])))' 2>/dev/null)
+  [ -n "$EMSG" ] && MSG="$MSG $EMSG"
+  MSG=$(printf '%s' "$MSG" | sed 's/^ *//')
 fi
 [ -z "$MSG" ] && { rm -f "$DIR/watch.state"; exit 0; }
 NOW=$(date +%s); LAST=""; AT=0

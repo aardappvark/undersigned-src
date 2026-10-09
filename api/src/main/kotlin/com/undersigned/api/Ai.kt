@@ -24,6 +24,8 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
         runCatching { db.exec("ALTER TABLE ai_usage ADD COLUMN in_tok INTEGER NOT NULL DEFAULT 0") }
         runCatching { db.exec("ALTER TABLE ai_usage ADD COLUMN out_tok INTEGER NOT NULL DEFAULT 0") }
         db.exec("CREATE TABLE IF NOT EXISTS ai_caller (day TEXT NOT NULL, id TEXT NOT NULL, calls INTEGER NOT NULL, PRIMARY KEY (day, id))")
+        // Fresh answers and tokens per day by who they were for (anon, pro, pass, credits, system): the economics ledger.
+        db.exec("CREATE TABLE IF NOT EXISTS ai_segment (day TEXT NOT NULL, segment TEXT NOT NULL, calls INTEGER NOT NULL DEFAULT 0, in_tok INTEGER NOT NULL DEFAULT 0, out_tok INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, segment))")
     }
     val enabled: Boolean get() = call != null || !key.isNullOrBlank()
 
@@ -36,8 +38,10 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
      * day's shared cap). Cached answers and the local model never reach [complete], so they never count. [debit] charges
      * per-call credits for the answer; background work (the weekly digest, hooks) has no caller and only the global cap.
      */
-    data class Caller(val id: String, val limit: Int, val debit: (() -> Boolean)? = null)
+    data class Caller(val id: String, val limit: Int, val segment: String = "anon", val debit: (() -> Boolean)? = null)
     class AllowanceUsed(val caller: Caller, message: String) : RuntimeException(message)
+
+    fun segmentCalls(segment: String, day: String = today()): Int = db.query("SELECT calls FROM ai_segment WHERE day = ? AND segment = ?", day, segment) { it.getInt(1) }.firstOrNull() ?: 0
 
     fun usedToday(id: String): Int = db.query("SELECT calls FROM ai_caller WHERE day = ? AND id = ?", today(), id) { it.getInt(1) }.firstOrNull() ?: 0
 
@@ -49,12 +53,16 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
 
     private fun complete(system: String, user: String, maxTokens: Int): String? {
         if (!enabled || callsToday() >= Config.AI_DAILY_CALLS) return null
+        val segment = who.get()?.segment ?: "system"
         who.get()?.let { c ->
+            // Callers without a key share one budget a day, however many IPs they come from (economics, 10 Oct 2026).
+            if (c.segment == "anon" && segmentCalls("anon") >= Config.AI_ANON_POOL_DAY) throw AllowanceUsed(c, "today's free AI answers (${Config.AI_ANON_POOL_DAY} across everyone without a key) are used. Answers already made are still served; a key or Pro wallet has its own allowance. It resets at 00:00 UTC.")
             if (usedToday(c.id) >= c.limit) throw AllowanceUsed(c, "today's AI allowance for this caller is used (${c.limit} fresh answers a day; cached answers stay free). It resets at 00:00 UTC; per-call credits have no daily limit.")
             c.debit?.let { if (!it()) throw AllowanceUsed(c, "no calls left on this key for an AI answer (each fresh one uses one extra call)") }
             db.exec("INSERT INTO ai_caller (day, id, calls) VALUES (?, ?, 1) ON CONFLICT(day, id) DO UPDATE SET calls = calls + 1", today(), c.id)
         }
         db.exec("INSERT INTO ai_usage (day, calls) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET calls = calls + 1", today())
+        db.exec("INSERT INTO ai_segment (day, segment, calls) VALUES (?, ?, 1) ON CONFLICT(day, segment) DO UPDATE SET calls = calls + 1", today(), segment)
         call?.let { return it(system, user, maxTokens) }
         return runCatching {
             val c = URI("https://api.anthropic.com/v1/messages").toURL().openConnection() as HttpURLConnection
@@ -67,7 +75,11 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
                 c.outputStream.use { it.write(body.toString().toByteArray()) }
                 if (c.responseCode != 200) { log("ai: HTTP ${c.responseCode}"); return@runCatching null }
                 val r = JSONObject(c.inputStream.bufferedReader().use { it.readText() })
-                r.optJSONObject("usage")?.let { u -> db.exec("UPDATE ai_usage SET in_tok = in_tok + ?, out_tok = out_tok + ? WHERE day = ?", u.optLong("input_tokens") + u.optLong("cache_read_input_tokens") + u.optLong("cache_creation_input_tokens"), u.optLong("output_tokens"), today()) }
+                r.optJSONObject("usage")?.let { u ->
+                    val inTok = u.optLong("input_tokens") + u.optLong("cache_read_input_tokens") + u.optLong("cache_creation_input_tokens"); val outTok = u.optLong("output_tokens")
+                    db.exec("UPDATE ai_usage SET in_tok = in_tok + ?, out_tok = out_tok + ? WHERE day = ?", inTok, outTok, today())
+                    db.exec("UPDATE ai_segment SET in_tok = in_tok + ?, out_tok = out_tok + ? WHERE day = ? AND segment = ?", inTok, outTok, today(), segment)
+                }
                 val a = r.optJSONArray("content") ?: return@runCatching null
                 (0 until a.length()).mapNotNull { a.optJSONObject(it)?.takeIf { b -> b.optString("type") == "text" }?.optString("text") }.joinToString("").trim().ifEmpty { null }
             } finally { c.disconnect() }
