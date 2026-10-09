@@ -1019,4 +1019,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Terjemahkan ke bahasa pengulas</string>
     <string name="reply_translate_note">Draf Anda: %1$s. Anda menandatangani balasan terjemahan sebagai kata-kata Anda sendiri, jadi periksalah.</string>
+    <string name="help_button">Tanyakan cara kerja skor</string>
+    <string name="help_title">Cara kerja skor</string>
+    <string name="help_hint">Ajukan pertanyaan, mis. bagaimana ulasan diberi bobot?</string>
+    <string name="help_ask">Tanya</string>
+    <string name="help_close">Tutup</string>
+    <string name="help_label">Jawaban yang disarankan, oleh AI, dari kebijakan integritas ulasan</string>
+    <string name="help_failed">Belum ada jawaban sekarang. Kebijakan integritas memuat semua aturannya.</string>
+    <string name="digest_title">Minggu ini di toko</string>
+    <string name="digest_label">Ringkasan yang disarankan, oleh AI, dari lonjakan dan pembaruan yang terlihat. Fakta, bukan vonis.</string>
+    <string name="digest_locked">Ringkasan mingguan dengan bahasa sederhana tentang lonjakan rating dan pembaruan aplikasi di seluruh toko.</string>
+    <string name="digest_notify_title">Minggu ini di toko</string>
+    <string name="digest_unavailable">Ringkasan minggu ini belum siap.</string>
+    <string name="pro_tool_digest_title">Ringkasan toko mingguan</string>
+    <string name="pro_tool_digest_body">Setiap minggu, lonjakan rating dan pembaruan aplikasi di seluruh toko dengan kata-kata sederhana, sebagai notifikasi dan di bagian atas Perubahan. Ditulis oleh AI dari fakta yang terlihat dan diberi label.</string>
 </resources>

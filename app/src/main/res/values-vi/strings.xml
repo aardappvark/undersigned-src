@@ -1019,4 +1019,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Dịch sang ngôn ngữ của người đánh giá</string>
     <string name="reply_translate_note">Bản nháp của bạn: %1$s. Bạn ký câu trả lời đã dịch như lời của chính mình, nên hãy kiểm tra.</string>
+    <string name="help_button">Hỏi cách tính điểm</string>
+    <string name="help_title">Cách tính điểm</string>
+    <string name="help_hint">Đặt câu hỏi, vd. đánh giá được tính trọng số thế nào?</string>
+    <string name="help_ask">Hỏi</string>
+    <string name="help_close">Đóng</string>
+    <string name="help_label">Câu trả lời gợi ý, bởi AI, từ chính sách liêm chính đánh giá</string>
+    <string name="help_failed">Hiện chưa có câu trả lời. Chính sách liêm chính có đầy đủ quy tắc.</string>
+    <string name="digest_title">Tuần này trên cửa hàng</string>
+    <string name="digest_label">Tóm tắt gợi ý, bởi AI, từ các đợt tăng vọt và bản cập nhật đã thấy. Sự kiện, không phải phán quyết.</string>
+    <string name="digest_locked">Bản tóm tắt hằng tuần bằng ngôn ngữ dễ hiểu về các đợt tăng vọt xếp hạng và bản cập nhật ứng dụng trên toàn cửa hàng.</string>
+    <string name="digest_notify_title">Tuần này trên cửa hàng</string>
+    <string name="digest_unavailable">Bản tóm tắt tuần này chưa sẵn sàng.</string>
+    <string name="pro_tool_digest_title">Tóm tắt cửa hàng hằng tuần</string>
+    <string name="pro_tool_digest_body">Mỗi tuần, các đợt tăng vọt xếp hạng và bản cập nhật ứng dụng trên toàn cửa hàng bằng lời dễ hiểu, dưới dạng thông báo và ở đầu mục Thay đổi. Do AI viết từ các sự kiện đã thấy và có gắn nhãn.</string>
 </resources>

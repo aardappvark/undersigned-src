@@ -1055,4 +1055,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Перевести на язык автора отзыва</string>
     <string name="reply_translate_note">Ваш черновик: %1$s. Вы подписываете переведённый ответ как свои слова, поэтому проверьте его.</string>
+    <string name="help_button">Спросить, как работает оценка</string>
+    <string name="help_title">Как работает оценка</string>
+    <string name="help_hint">Задайте вопрос, напр. как взвешиваются отзывы?</string>
+    <string name="help_ask">Спросить</string>
+    <string name="help_close">Закрыть</string>
+    <string name="help_label">Предложенный ответ, от ИИ, по политике достоверности отзывов</string>
+    <string name="help_failed">Сейчас ответа нет. Все правила — в политике достоверности.</string>
+    <string name="digest_title">На этой неделе в магазине</string>
+    <string name="digest_label">Предложенная сводка, от ИИ, по замеченным всплескам и обновлениям. Факты, а не вердикты.</string>
+    <string name="digest_locked">Еженедельная сводка простым языком о всплесках оценок и обновлениях приложений во всём магазине.</string>
+    <string name="digest_notify_title">На этой неделе в магазине</string>
+    <string name="digest_unavailable">Сводка этой недели ещё не готова.</string>
+    <string name="pro_tool_digest_title">Еженедельная сводка магазина</string>
+    <string name="pro_tool_digest_body">Каждую неделю всплески оценок и обновления приложений во всём магазине простыми словами, уведомлением и вверху раздела «Изменения». Написано ИИ по замеченным фактам и помечено.</string>
 </resources>

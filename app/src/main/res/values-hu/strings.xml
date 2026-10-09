@@ -1034,4 +1034,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Fordítás az értékelő nyelvére</string>
     <string name="reply_translate_note">A piszkozata: %1$s. A lefordított választ saját szavaiként írja alá, ezért ellenőrizze.</string>
+    <string name="help_button">Kérdezd meg, hogyan működik a pontszám</string>
+    <string name="help_title">Így működik a pontszám</string>
+    <string name="help_hint">Tegyél fel kérdést, pl. hogyan súlyozzák az értékeléseket?</string>
+    <string name="help_ask">Kérdezés</string>
+    <string name="help_close">Bezárás</string>
+    <string name="help_label">Javasolt válasz, MI által, az értékelési integritási szabályzat alapján</string>
+    <string name="help_failed">Most nincs válasz. Az integritási szabályzat tartalmazza az összes szabályt.</string>
+    <string name="digest_title">Ezen a héten a boltban</string>
+    <string name="digest_label">Javasolt összefoglaló, MI által, a látott hullámokból és frissítésekből. Tények, nem ítéletek.</string>
+    <string name="digest_locked">Heti, közérthető összefoglaló a bolt egészét érintő értékelési hullámokról és alkalmazásfrissítésekről.</string>
+    <string name="digest_notify_title">Ezen a héten a boltban</string>
+    <string name="digest_unavailable">Az e heti összefoglaló még nem készült el.</string>
+    <string name="pro_tool_digest_title">Heti bolti összefoglaló</string>
+    <string name="pro_tool_digest_body">Minden héten a bolt egészét érintő értékelési hullámok és alkalmazásfrissítések egyszerű szavakkal, értesítésként és a Változások tetején. MI írta a látott tényekből, és ezt jelöljük.</string>
 </resources>

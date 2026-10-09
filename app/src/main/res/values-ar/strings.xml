@@ -1105,4 +1105,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">ترجمة إلى لغة كاتب المراجعة</string>
     <string name="reply_translate_note">مسودتك: %1$s. أنت توقّع الرد المترجَم على أنه كلماتك، فراجعه.</string>
+    <string name="help_button">اسأل كيف يعمل التقييم</string>
+    <string name="help_title">كيف يعمل التقييم</string>
+    <string name="help_hint">اطرح سؤالًا، مثل: كيف تُوزن المراجعات؟</string>
+    <string name="help_ask">اسأل</string>
+    <string name="help_close">إغلاق</string>
+    <string name="help_label">إجابة مقترحة، بالذكاء الاصطناعي، من سياسة نزاهة المراجعات</string>
+    <string name="help_failed">لا توجد إجابة الآن. سياسة النزاهة تتضمن كل القواعد.</string>
+    <string name="digest_title">هذا الأسبوع في المتجر</string>
+    <string name="digest_label">ملخص مقترح، بالذكاء الاصطناعي، من موجات التقييم والتحديثات المرصودة. وقائع لا أحكام.</string>
+    <string name="digest_locked">ملخص أسبوعي بلغة بسيطة لموجات التقييم وتحديثات التطبيقات في المتجر كله.</string>
+    <string name="digest_notify_title">هذا الأسبوع في المتجر</string>
+    <string name="digest_unavailable">ملخص هذا الأسبوع ليس جاهزًا بعد.</string>
+    <string name="pro_tool_digest_title">ملخص المتجر الأسبوعي</string>
+    <string name="pro_tool_digest_body">كل أسبوع، موجات التقييم وتحديثات التطبيقات في المتجر كله بكلمات بسيطة، كإشعار وفي أعلى التغييرات. يكتبه الذكاء الاصطناعي من الوقائع المرصودة ويُوسم بذلك.</string>
 </resources>

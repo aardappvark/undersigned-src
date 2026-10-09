@@ -51,7 +51,10 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
     /** A translation through the local model first, then Claude; the answer is cleaned of echoes and labels. */
     /** Which model made the answer being cached (the local one or Claude), recorded in ai_cache.model. */
     private val lastModel = ThreadLocal<String>()
-    private fun translateWith(system: String, user: String, source: String, maxTokens: Int): String? {
+    private fun translateWith(system: String, user: String, source: String, maxTokens: Int, claudeFirst: Boolean = false): String? {
+        // A reply is signed and permanent, so it goes to the stronger model first (the local one slipped on Hungarian
+        // grammar in a live check, 9 Oct 2026); reading aids go local first, for free.
+        if (claudeFirst) { lastModel.set(Config.AI_MODEL); complete(system, user, maxTokens)?.let { clean(it, source) }?.takeIf { it.isNotBlank() }?.let { return it } }
         local?.let { runCatching { it(system, user) }.getOrNull() }?.let { clean(it, source) }?.takeIf { it.isNotBlank() }?.let { lastModel.set(Config.OLLAMA_MODEL); return it }
         lastModel.set(Config.AI_MODEL)
         return complete(system, user, maxTokens)?.let { clean(it, source) }?.takeIf { it.isNotBlank() }
@@ -102,7 +105,7 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
         translateWith("You translate a reply to an app review into the SAME language the review is written in. Keep the reply's " +
             "meaning and tone exactly; do not add, soften or promise anything. Keep app names and numbers as written. If the review " +
             "is in the reply's language, return the reply unchanged. Output ONLY the translated reply.",
-            "Review (only to tell its language):\n$review\n\nReply to translate:\n$reply", reply, 400)
+            "Review (only to tell its language):\n$review\n\nReply to translate:\n$reply", reply, 400, claudeFirst = true)
     }
 
     /**
@@ -123,7 +126,7 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
         complete("You write two short, neutral sentences describing what changed in an Android app update, for a change log. State facts " +
             "only: version numbers, a signing-certificate change, and what the publisher's release notes say. No advice, no judgement, " +
             "never say safe, unsafe, suspicious or scam. If the signing certificate changed, say so plainly as a fact.",
-            "App: $pkg\nChange: $kind\nBefore: ${old ?: "-"}\nAfter: ${new ?: "-"}\nPublisher's release notes: ${whatsNew?.take(1500) ?: "(none)"}", 200)
+            "App: $pkg\nChange: ${if (kind == "release") "new release (the store listing's updated date moved)" else kind}\nBefore: ${old ?: "-"}\nAfter: ${new ?: "-"}\nPublisher's release notes: ${whatsNew?.take(1500) ?: "(none)"}", 200)
     }
 
     /**
@@ -161,6 +164,33 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
         } ?: return JSONArray()
         val g = JSONObject(out).optJSONArray("groups") ?: return JSONArray()
         return JSONArray((0 until g.length()).mapNotNull { i -> g.optJSONArray(i)?.let { a -> (0 until a.length()).map { a.optString(it) }.filter { it in ids }.distinct() }?.takeIf { it.size >= 2 }?.let { JSONArray(it) } })
+    }
+
+    /**
+     * In-app help: answers a reader's question about how reviews are collected, checked, weighted and shown, from the
+     * integrity policy ONLY, in their language. Labelled a suggestion; it points to the policy for anything not covered.
+     */
+    fun help(question: String, policy: String, lang: String): String? = cached("help", "$lang|${sha(question.trim().lowercase())}") {
+        val system = "You answer questions from people reading Undersigned, a review app for the Solana dApp Store, using ONLY the policy below. " +
+            "Answer in ${languageName(lang)}, in under 120 words, plainly. If the policy does not answer it, say so and point to the full policy. " +
+            "Never give financial advice, never say an app or review is good, bad, safe or fake, and never suggest buying or staking any token.\n\nPOLICY:\n$policy"
+        local?.let { runCatching { it(system, question.take(400)) }.getOrNull() }?.trim()?.takeIf { it.length > 20 }?.also { lastModel.set(Config.OLLAMA_MODEL) }
+            ?: complete(system, question.take(400), 350).also { lastModel.set(Config.AI_MODEL) }
+    }
+
+    /**
+     * The weekly digest: store-wide rating bursts and app updates of the last seven days, in neutral plain words, every
+     * item a fact with its app named. Never a verdict, never advice. Generated once a week and kept.
+     */
+    fun digest(weekKey: String, facts: String): String? = cached("digest", weekKey) {
+        if (facts.isBlank()) return@cached "No store-wide rating bursts or app updates were seen this week."
+        val system = "You write a short weekly digest of facts about the Solana dApp Store for app users and publishers. Use ONLY the facts " +
+            "given. Two short sections: 'Rating bursts' and 'App updates'. One line per item, naming the app. State facts (counts, dates, " +
+            "versions, a new release date, a signing-certificate change); a burst is a fact about timing, never a verdict. With more " +
+            "than 15 updates, list the 15 most recent and give the total. A signing-certificate change is always listed. No advice, " +
+            "never say safe, unsafe, suspicious, scam or fake. Under 300 words. Plain text, no markdown headings beyond the two section names."
+        complete(system, facts.take(12000), 800).also { lastModel.set(Config.AI_MODEL) }
+            ?: local?.let { runCatching { it(system, facts.take(12000)) }.getOrNull() }?.also { lastModel.set(Config.OLLAMA_MODEL) }
     }
 
     companion object {

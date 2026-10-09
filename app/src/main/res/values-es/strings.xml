@@ -1063,4 +1063,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Traducir al idioma del autor de la reseña</string>
     <string name="reply_translate_note">Tu borrador: %1$s. Firmas la respuesta traducida como tus propias palabras, así que revísala.</string>
+    <string name="help_button">Preguntar cómo funciona la puntuación</string>
+    <string name="help_title">Cómo funciona la puntuación</string>
+    <string name="help_hint">Haz una pregunta, p. ej. ¿cómo se ponderan las reseñas?</string>
+    <string name="help_ask">Preguntar</string>
+    <string name="help_close">Cerrar</string>
+    <string name="help_label">Respuesta sugerida, por IA, a partir de la política de integridad de reseñas</string>
+    <string name="help_failed">Ahora no hay respuesta. La política de integridad tiene todas las reglas.</string>
+    <string name="digest_title">Esta semana en la tienda</string>
+    <string name="digest_label">Resumen sugerido, por IA, a partir de las ráfagas y actualizaciones vistas. Hechos, no veredictos.</string>
+    <string name="digest_locked">Un resumen semanal en lenguaje sencillo de las ráfagas de valoraciones y las actualizaciones de apps de toda la tienda.</string>
+    <string name="digest_notify_title">Esta semana en la tienda</string>
+    <string name="digest_unavailable">El resumen de esta semana aún no está listo.</string>
+    <string name="pro_tool_digest_title">Resumen semanal de la tienda</string>
+    <string name="pro_tool_digest_body">Cada semana, las ráfagas de valoraciones y las actualizaciones de apps de toda la tienda en palabras sencillas, como notificación y arriba en Cambios. Escrito por IA a partir de los hechos vistos y etiquetado.</string>
 </resources>

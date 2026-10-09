@@ -1054,4 +1054,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">In die Sprache des Bewerters übersetzen</string>
     <string name="reply_translate_note">Ihr Entwurf: %1$s. Sie signieren die übersetzte Antwort als Ihre eigenen Worte, prüfen Sie sie also.</string>
+    <string name="help_button">Fragen, wie die Wertung funktioniert</string>
+    <string name="help_title">So funktioniert die Wertung</string>
+    <string name="help_hint">Stelle eine Frage, z. B. wie werden Bewertungen gewichtet?</string>
+    <string name="help_ask">Fragen</string>
+    <string name="help_close">Schließen</string>
+    <string name="help_label">Vorgeschlagene Antwort, per KI, aus der Richtlinie zur Bewertungsintegrität</string>
+    <string name="help_failed">Gerade keine Antwort. Die Integritätsrichtlinie enthält alle Regeln.</string>
+    <string name="digest_title">Diese Woche im Store</string>
+    <string name="digest_label">Vorgeschlagene Zusammenfassung, per KI, aus den gesehenen Häufungen und Updates. Fakten, keine Urteile.</string>
+    <string name="digest_locked">Eine wöchentliche Zusammenfassung in einfachen Worten zu Bewertungshäufungen und App-Updates im ganzen Store.</string>
+    <string name="digest_notify_title">Diese Woche im Store</string>
+    <string name="digest_unavailable">Die Zusammenfassung dieser Woche ist noch nicht fertig.</string>
+    <string name="pro_tool_digest_title">Wöchentliche Store-Zusammenfassung</string>
+    <string name="pro_tool_digest_body">Jede Woche Bewertungshäufungen und App-Updates im ganzen Store in einfachen Worten, als Mitteilung und oben unter Änderungen. Von KI aus den gesehenen Fakten geschrieben und gekennzeichnet.</string>
 </resources>

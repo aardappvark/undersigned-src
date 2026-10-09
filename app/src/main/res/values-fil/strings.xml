@@ -1038,4 +1038,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Isalin sa wika ng nag-review</string>
     <string name="reply_translate_note">Ang draft mo: %1$s. Pinipirmahan mo ang isinaling sagot bilang sarili mong salita, kaya suriin ito.</string>
+    <string name="help_button">Itanong kung paano gumagana ang score</string>
+    <string name="help_title">Paano gumagana ang score</string>
+    <string name="help_hint">Magtanong, hal. paano tinitimbang ang mga review?</string>
+    <string name="help_ask">Itanong</string>
+    <string name="help_close">Isara</string>
+    <string name="help_label">Iminungkahing sagot, ng AI, mula sa patakaran sa integridad ng review</string>
+    <string name="help_failed">Walang sagot ngayon. Nasa patakaran sa integridad ang lahat ng tuntunin.</string>
+    <string name="digest_title">Ngayong linggo sa store</string>
+    <string name="digest_label">Iminungkahing buod, ng AI, mula sa mga nakitang biglang dami at update. Mga katotohanan, hindi hatol.</string>
+    <string name="digest_locked">Lingguhang buod sa simpleng wika ng biglang dami ng rating at mga update ng app sa buong store.</string>
+    <string name="digest_notify_title">Ngayong linggo sa store</string>
+    <string name="digest_unavailable">Hindi pa handa ang buod ngayong linggo.</string>
+    <string name="pro_tool_digest_title">Lingguhang buod ng store</string>
+    <string name="pro_tool_digest_body">Bawat linggo, ang biglang dami ng rating at mga update ng app sa buong store sa simpleng salita, bilang notification at sa itaas ng Mga Pagbabago. Isinulat ng AI mula sa mga nakitang katotohanan at may label.</string>
 </resources>

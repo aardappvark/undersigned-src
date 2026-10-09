@@ -1052,4 +1052,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Tradu în limba autorului recenziei</string>
     <string name="reply_translate_note">Ciorna ta: %1$s. Semnezi răspunsul tradus ca fiind cuvintele tale, așa că verifică-l.</string>
+    <string name="help_button">Întreabă cum funcționează scorul</string>
+    <string name="help_title">Cum funcționează scorul</string>
+    <string name="help_hint">Pune o întrebare, ex. cum sunt ponderate recenziile?</string>
+    <string name="help_ask">Întreabă</string>
+    <string name="help_close">Închide</string>
+    <string name="help_label">Răspuns sugerat, de AI, din politica de integritate a recenziilor</string>
+    <string name="help_failed">Niciun răspuns acum. Politica de integritate conține toate regulile.</string>
+    <string name="digest_title">Săptămâna aceasta în magazin</string>
+    <string name="digest_label">Rezumat sugerat, de AI, din valurile și actualizările observate. Fapte, nu verdicte.</string>
+    <string name="digest_locked">Un rezumat săptămânal, pe înțeles, al valurilor de note și al actualizărilor de aplicații din tot magazinul.</string>
+    <string name="digest_notify_title">Săptămâna aceasta în magazin</string>
+    <string name="digest_unavailable">Rezumatul acestei săptămâni nu este gata încă.</string>
+    <string name="pro_tool_digest_title">Rezumat săptămânal al magazinului</string>
+    <string name="pro_tool_digest_body">În fiecare săptămână, valurile de note și actualizările de aplicații din tot magazinul în cuvinte simple, ca notificare și în partea de sus a Modificărilor. Scris de AI din faptele observate și etichetat.</string>
 </resources>

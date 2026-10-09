@@ -14,12 +14,12 @@ data class StoreDetails(val versionCode: Long, val certFingerprint: String?, val
  * app's CatalogueRepository and StoreReviewsClient). Every request waits [Config.STORE_PACE_MS] after the previous one:
  * the store's CDN blocks a whole network for minutes after a burst (measured Sep 2026). Nothing is written to the store.
  */
-class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
+open class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
     private val sc = JSONObject().put("locale", "en-US").put("platformSdk", 35).put("pixelDensity", 420).put("model", "Seeker")
     private var lastAt = 0L
 
     /** Full crawl by category, 20 per page. Null on failure or a truncated storefront (fewer than 100 apps). */
-    fun catalogue(): List<CatalogueApp>? = runCatching {
+    open fun catalogue(): List<CatalogueApp>? = runCatching {
         val cats = post("TopCategories", Q_CATEGORIES, JSONObject().put("systemContext", sc)).getJSONObject("topCategories").getJSONArray("edges")
         val out = LinkedHashMap<String, CatalogueApp>()
         for (c in 0 until cats.length()) {
@@ -49,7 +49,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
     }.onFailure { log("catalogue failed: ${it.message?.take(100)}") }.getOrNull()
 
     /** Packages the store's publisher portal recorded on Arweave: finds listings that sit in no category. Empty on failure. */
-    fun discover(): Set<String> = runCatching {
+    open fun discover(): Set<String> = runCatching {
         val found = HashSet<String>(); var after: String? = null
         for (page in 0 until 80) {
             val cursor = after?.let { ", after: \"$it\"" } ?: ""
@@ -70,7 +70,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
     }.onFailure { log("discovery skipped: ${it.message?.take(80)}") }.getOrDefault(emptySet())
 
     /** Which of up to 20 packages the store lists now, with name and last update; null on failure. */
-    fun live(pkgs: List<String>): Map<String, CatalogueApp>? {
+    open fun live(pkgs: List<String>): Map<String, CatalogueApp>? {
         require(pkgs.size <= Config.STORE_BATCH)
         return runCatching {
             val arr = post("DAppsByPackagesLive", Q_LIVE, JSONObject().put("systemContext", sc).put("androidPackages", JSONArray(pkgs))).getJSONArray("dAppsByAndroidPackages")
@@ -79,7 +79,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
         }.onFailure { log("live check failed: ${it.message?.take(80)}") }.getOrNull()
     }
 
-    fun details(pkg: String): StoreDetails? = runCatching {
+    open fun details(pkg: String): StoreDetails? = runCatching {
         val rel = post("DAppByPackageSummary", Q_DETAILS, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
             .optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return null
         val ad = rel.optJSONObject("androidDetails"); val pd = rel.optJSONObject("publisherDetails")
@@ -88,7 +88,7 @@ class Store(private val paceMs: Long = Config.STORE_PACE_MS) {
     }.onFailure { log("details $pkg failed: ${it.message?.take(80)}") }.getOrNull()
 
     /** Star counts (1★..5★) for up to 20 packages; larger batches come back silently partial. Null on failure. */
-    fun ratings(pkgs: List<String>): Map<String, List<Int>>? {
+    open fun ratings(pkgs: List<String>): Map<String, List<Int>>? {
         require(pkgs.size <= Config.STORE_BATCH)
         return runCatching {
             val arr = post("DAppsByPackagesSummary", Q_BATCH, JSONObject().put("systemContext", sc).put("androidPackages", JSONArray(pkgs))).getJSONArray("dAppsByAndroidPackages")

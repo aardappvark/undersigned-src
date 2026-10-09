@@ -25,6 +25,7 @@ object UserPreferences {
     private const val KEY_STARRED = "starred_records"
     private const val KEY_ALERTS = "alerts_enabled"
     private const val KEY_LAST_NOTIFIED = "last_notified_signature"
+    private const val KEY_DIGEST_WEEK = "digest_week"
     private const val KEY_DOMAINS = "skr_domains_v2"   // v1 cached "no name" from the broken derivation
     private const val KEY_CLAIMS = "publisher_claims"
     private const val KEY_DIVERGENCE = "divergence_marks"
@@ -89,6 +90,11 @@ object UserPreferences {
     var lastNotifiedSignature: String?
         get() = prefs?.getString(KEY_LAST_NOTIFIED, null)
         set(v) { prefs?.edit()?.putString(KEY_LAST_NOTIFIED, v)?.apply() }
+
+    /** The ISO week whose store digest was last posted as a notification (Pro), so each week's is posted once. */
+    var digestWeek: String?
+        get() = prefs?.getString(KEY_DIGEST_WEEK, null)
+        set(v) { prefs?.edit()?.putString(KEY_DIGEST_WEEK, v)?.apply() }
 
     fun setWallet(address: String?) { prefs?.edit()?.putString(KEY_WALLET, address)?.apply(); _walletAddress.value = address; if (address == null) authToken = null }
 

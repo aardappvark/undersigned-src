@@ -1072,4 +1072,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Przetłumacz na język recenzenta</string>
     <string name="reply_translate_note">Twój szkic: %1$s. Podpisujesz przetłumaczoną odpowiedź jako własne słowa, więc ją sprawdź.</string>
+    <string name="help_button">Zapytaj, jak działa ocena</string>
+    <string name="help_title">Jak działa ocena</string>
+    <string name="help_hint">Zadaj pytanie, np. jak ważone są recenzje?</string>
+    <string name="help_ask">Zapytaj</string>
+    <string name="help_close">Zamknij</string>
+    <string name="help_label">Sugerowana odpowiedź, przez AI, na podstawie zasad rzetelności recenzji</string>
+    <string name="help_failed">Brak odpowiedzi w tej chwili. Zasady rzetelności zawierają wszystkie reguły.</string>
+    <string name="digest_title">W tym tygodniu w sklepie</string>
+    <string name="digest_label">Sugerowane podsumowanie, przez AI, z zaobserwowanych skoków i aktualizacji. Fakty, nie werdykty.</string>
+    <string name="digest_locked">Cotygodniowe podsumowanie prostym językiem skoków ocen i aktualizacji aplikacji w całym sklepie.</string>
+    <string name="digest_notify_title">W tym tygodniu w sklepie</string>
+    <string name="digest_unavailable">Podsumowanie tego tygodnia nie jest jeszcze gotowe.</string>
+    <string name="pro_tool_digest_title">Cotygodniowe podsumowanie sklepu</string>
+    <string name="pro_tool_digest_body">Co tydzień skoki ocen i aktualizacje aplikacji w całym sklepie prostymi słowami, jako powiadomienie i na górze Zmian. Napisane przez AI z zaobserwowanych faktów i oznaczone.</string>
 </resources>

@@ -33,10 +33,10 @@ From scripts, send a `User-Agent` header (`requests`, `fetch`, axios, Go and cur
 
 | Free, no key | Free within limits (20 rows) | With a pass |
 |---|---|---|
-| `/v1/apps/{pkg}`: signed score and count, Pro members' and promoted scores shown apart, the store's own rating, publisher proof, payments | `/v1/apps`: catalogue search | `/v1/watch`: store-wide rating bursts |
-| `/v1/apps/{pkg}/bursts`: review and rating bursts | `/v1/apps/{pkg}/reviews`: every signal per review, `sort=newest\|helpful\|skr\|sol` | `/v1/changes`: version and certificate changes |
+| `/v1/apps/{pkg}`: signed score and count, Pro members' and promoted scores shown apart, the store's own rating, publisher proof, payments | `/v1/apps`: catalogue search; `?packages=a,b,c` reads many apps in one call (20 free, 100 with a key) | `/v1/watch`: store-wide rating bursts |
+| `/v1/apps/{pkg}/bursts`: review and rating bursts | `/v1/apps/{pkg}/reviews`: every signal per review, `sort=newest\|helpful\|skr\|sol` | `/v1/changes`: new releases across the whole store, version and certificate changes |
 | `/v1/dataset.json`: the whole ledger with scores | `/v1/records`: decoded records, filterable | `/v1/apps/{pkg}/versions`, `/similar`, `/store-ratings`, `/payments` |
-| `/v1/records/{id}`, `/v1/stats`, `/v1/tags`, `/v1/health` | `/v1/wallets/{address}`, `/v1/leaderboard`, `/v1/payments` | `/v1/hooks`: signed webhooks (review, reply, store_note, flag, claim, burst, version, certificate) |
+| `/v1/records/{id}`, `/v1/stats`, `/v1/tags`, `/v1/health` | `/v1/wallets/{address}`, `/v1/leaderboard`, `/v1/payments` | `/v1/hooks`: signed webhooks (review, reply, store_note, flag, claim, burst, release, version, certificate, digest) |
 
 Answers:
 - **200**: the data.
@@ -62,6 +62,8 @@ Each of these is made by AI (Claude Haiku), cached, and labelled a suggestion. N
 | `GET /v1/apps/{pkg}/similar` | Adds `suggested_paraphrase_groups`: reviews using near-identical words | pass |
 | `GET /v1/changes` | Adds a `suggested_note` per change, in plain words | pass |
 | `POST /v1/ask {question}` | Docs helper: answers from the published docs only | free |
+| `POST /v1/help {question, lang}` | How scoring works: answers from the Review Integrity Policy only, in the reader's language. The app's "Ask how scoring works" button | free |
+| `GET /v1/digest` | This week on the store: store-wide rating bursts and app updates in plain words, with the counts it was written from. Also sent once a week as the `digest` webhook event and as a Pro notification in the app | Pro wallet (`?wallet=`), or a pass or credits key |
 
 Hidden text is never translated. Spend is capped per day.
 
@@ -133,12 +135,13 @@ Everything the server offers is read-only:
 
 | Free | With a pass |
 |---|---|
-| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `translate_review` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `translate_review` and `weekly_digest` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
 
 Besides tools:
 
 - **Resources:** `undersigned://policy` (the integrity rules, for the model to read before describing a score), `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.
 - **Prompts:** `audit_app_reputation(package)` and `compare_apps(package_a, package_b)`. Both tell the model to quote counts and to treat bursts as facts, not verdicts.
+- **What changed:** [`/v1/changelog`](https://undersigned.provenby.dev/v1/changelog) (and the page [`/changelog`](https://undersigned.provenby.dev/changelog)); uptime at [`/status`](https://undersigned.provenby.dev/status).
 - **Discovery:** [`/llms.txt`](https://undersigned.provenby.dev/llms.txt) and [`/.well-known/mcp/server-card.json`](https://undersigned.provenby.dev/.well-known/mcp/server-card.json).
 
 How the server works:

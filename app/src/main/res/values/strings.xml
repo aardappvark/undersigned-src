@@ -1060,4 +1060,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Translate into the reviewer\'s language</string>
     <string name="reply_translate_note">Your draft: %1$s. You sign the translated reply as your own words, so check it.</string>
+    <string name="help_button">Ask how scoring works</string>
+    <string name="help_title">How scoring works</string>
+    <string name="help_hint">Ask a question, e.g. how are reviews weighted?</string>
+    <string name="help_ask">Ask</string>
+    <string name="help_close">Close</string>
+    <string name="help_label">Suggested answer, by AI, from the review integrity policy</string>
+    <string name="help_failed">No answer right now. The integrity policy has the full rules.</string>
+    <string name="digest_title">This week on the store</string>
+    <string name="digest_label">Suggested digest, by AI, from the bursts and updates seen. Facts, not verdicts.</string>
+    <string name="digest_locked">A weekly plain-language digest of store-wide rating bursts and app updates.</string>
+    <string name="digest_notify_title">This week on the store</string>
+    <string name="digest_unavailable">This week\'s digest isn\'t ready yet.</string>
+    <string name="pro_tool_digest_title">Weekly store digest</string>
+    <string name="pro_tool_digest_body">Each week, store-wide rating bursts and app updates in plain words, as a notification and at the top of Changes. Written by AI from the facts seen and labelled.</string>
 </resources>

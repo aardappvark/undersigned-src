@@ -1064,4 +1064,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Přeložit do jazyka recenzenta</string>
     <string name="reply_translate_note">Váš koncept: %1$s. Přeloženou odpověď podepisujete jako vlastní slova, tak ji zkontrolujte.</string>
+    <string name="help_button">Zeptat se, jak funguje hodnocení</string>
+    <string name="help_title">Jak funguje hodnocení</string>
+    <string name="help_hint">Položte otázku, např. jak se váží recenze?</string>
+    <string name="help_ask">Zeptat se</string>
+    <string name="help_close">Zavřít</string>
+    <string name="help_label">Navržená odpověď, od AI, ze zásad integrity recenzí</string>
+    <string name="help_failed">Teď bez odpovědi. Zásady integrity obsahují všechna pravidla.</string>
+    <string name="digest_title">Tento týden v obchodě</string>
+    <string name="digest_label">Navržený přehled, od AI, z pozorovaných nárůstů a aktualizací. Fakta, ne verdikty.</string>
+    <string name="digest_locked">Týdenní přehled jednoduchou řečí o nárůstech hodnocení a aktualizacích aplikací v celém obchodě.</string>
+    <string name="digest_notify_title">Tento týden v obchodě</string>
+    <string name="digest_unavailable">Přehled tohoto týdne ještě není hotový.</string>
+    <string name="pro_tool_digest_title">Týdenní přehled obchodu</string>
+    <string name="pro_tool_digest_body">Každý týden nárůsty hodnocení a aktualizace aplikací v celém obchodě jednoduchými slovy, jako oznámení a nahoře v Změnách. Napsáno AI z pozorovaných faktů a označeno.</string>
 </resources>

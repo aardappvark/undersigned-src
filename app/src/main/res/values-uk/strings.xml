@@ -1071,4 +1071,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Перекласти мовою автора відгуку</string>
     <string name="reply_translate_note">Ваша чернетка: %1$s. Ви підписуєте перекладену відповідь як власні слова, тож перевірте її.</string>
+    <string name="help_button">Запитати, як працює оцінка</string>
+    <string name="help_title">Як працює оцінка</string>
+    <string name="help_hint">Поставте запитання, напр. як зважуються відгуки?</string>
+    <string name="help_ask">Запитати</string>
+    <string name="help_close">Закрити</string>
+    <string name="help_label">Запропонована відповідь, від ШІ, за політикою доброчесності відгуків</string>
+    <string name="help_failed">Зараз відповіді немає. Усі правила — в політиці доброчесності.</string>
+    <string name="digest_title">Цього тижня в магазині</string>
+    <string name="digest_label">Запропонований огляд, від ШІ, за поміченими сплесками й оновленнями. Факти, а не вердикти.</string>
+    <string name="digest_locked">Щотижневий огляд простою мовою про сплески оцінок і оновлення застосунків у всьому магазині.</string>
+    <string name="digest_notify_title">Цього тижня в магазині</string>
+    <string name="digest_unavailable">Огляд цього тижня ще не готовий.</string>
+    <string name="pro_tool_digest_title">Щотижневий огляд магазину</string>
+    <string name="pro_tool_digest_body">Щотижня сплески оцінок і оновлення застосунків у всьому магазині простими словами, сповіщенням і вгорі розділу «Зміни». Написано ШІ за поміченими фактами й позначено.</string>
 </resources>

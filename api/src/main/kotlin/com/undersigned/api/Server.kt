@@ -82,6 +82,17 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val out = views.ai?.takeIf { it.enabled }?.translateReply(reply, review) ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no translation right now; try again"))
             ok(JSONObject().put("reply", out).put("label", "Suggested translation, by AI. Check it: you sign the reply as your own words."))
         }
+        route("POST", "/v1/help", Tier.FREE, "In-app help: a question about how reviews are collected, checked, weighted and shown, answered by AI from the integrity policy only. Body {question, lang}") { r ->
+            val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return@route Response(400, JSONObject().put("error", "bad_json"))
+            val q = b.optString("question").trim().takeIf { it.length in 3..400 } ?: return@route Response(400, JSONObject().put("error", "bad_question").put("message", "question: 3 to 400 characters"))
+            val lang = b.optString("lang").takeIf { it in Config.AI_LANGS } ?: "en"
+            val ans = views.ai?.takeIf { it.enabled }?.help(q, Mcp.POLICY.replace("\\n", "\n"), lang) ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no answer right now; read the policy: https://aardappvark.github.io/undersigned-legal/integrity.html"))
+            ok(JSONObject().put("answer", ans).put("lang", lang).put("label", "Suggested answer, by AI, from the review integrity policy.").put("policy", "https://aardappvark.github.io/undersigned-legal/integrity.html"))
+        }
+        route("GET", "/v1/digest", Tier.LIMITED, "This week's digest: store-wide rating bursts and app updates in plain words, by AI from the facts seen (Pro wallet via ?wallet=, or a pass / credits key)") { r ->
+            proOrKey(r, r.query["wallet"]?.trim())?.let { return@route it }
+            views.digest()?.let(::ok) ?: Response(503, JSONObject().put("error", "unavailable").put("message", "the digest is not available right now"))
+        }
         route("GET", "/v1/apps/{pkg}/summary", Tier.FREE, "Suggested summary, by AI, of an app's counted reviews: the points most mentioned, each with its count and review ids") { r ->
             if (indexer.state.byPackage[r.params["pkg"]!!] == null) return@route notFound("unknown package")
             views.summary(r.params["pkg"]!!)?.let(::ok) ?: ok(JSONObject().put("package", r.params["pkg"]).put("summary", JSONObject.NULL)
@@ -95,6 +106,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
                 ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no answer right now; see ${Config.PUBLIC_URL}/api"))
             ok(JSONObject().put("answer", answer).put("label", "Suggested answer, by AI, from the published docs. Check the docs: ${Config.PUBLIC_URL}/api"))
         }
+        route("GET", "/v1/changelog", Tier.FREE, "What changed in the API and MCP, newest first") { ok(Changelog.json()) }
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
         route("GET", "/v1/openapi.json", Tier.FREE, "This API's description") { ok(openApi()) }
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
@@ -119,7 +131,12 @@ class Api(private val views: Views, private val billing: Billing, private val in
             ok(views.records(r.query["type"], r.query["package"], r.query["signer"], r.query["since"]?.toLongOrNull(), r.query["until"]?.toLongOrNull(), r.query["before"], rows(r, Config.FREE_ROWS, 1000)))
         }
         route("GET", "/v1/records/{id}", Tier.FREE, "One record by id (signature or signature:n)") { r -> views.recordById(r.params["id"]!!)?.let(::ok) ?: notFound("no such record") }
-        route("GET", "/v1/apps", Tier.LIMITED, "Catalogue search: q, category, sort (name|signed|updated)") { r -> ok(views.apps(r.query["q"], r.query["category"], r.query["sort"], rows(r, Config.FREE_ROWS, 2000))) }
+        route("GET", "/v1/apps", Tier.LIMITED, "Catalogue search: q, category, sort (name|signed|updated); or packages=a,b,c for several apps at once") { r ->
+            r.query["packages"]?.let { list ->
+                val pkgs = list.split(',').map { it.trim() }.filter { it.isNotEmpty() }.distinct().take(if (r.caller.paid) 100 else Config.FREE_ROWS)
+                return@route ok(JSONObject().put("apps", JSONArray(pkgs.mapNotNull { views.app(it) })).put("unknown", JSONArray(pkgs.filter { views.app(it) == null })))
+            }
+            ok(views.apps(r.query["q"], r.query["category"], r.query["sort"], rows(r, Config.FREE_ROWS, 2000))) }
         route("GET", "/v1/apps/{pkg}", Tier.FREE, "One dApp: signed score, store details and rating, publisher, payments") { r -> views.app(r.params["pkg"]!!)?.let(::ok) ?: notFound("unknown package") }
         route("GET", "/v1/apps/{pkg}/reviews", Tier.LIMITED, "Signed reviews with every signal; limit, offset, sort (newest|helpful|skr|sol: stake as read when each review appeared; never changes a score)") { r -> ok(views.reviews(r.params["pkg"]!!, rows(r, Config.FREE_ROWS), if (r.caller.paid) r.int("offset", 0, 1_000_000) else 0, r.query["sort"])) }
         route("GET", "/v1/apps/{pkg}/versions", Tier.PAID, "Signed score per version") { r -> ok(views.versions(r.params["pkg"]!!)) }
@@ -128,7 +145,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/apps/{pkg}/store-ratings", Tier.PAID, "Daily store star-count snapshots") { r -> ok(views.storeRatings(r.params["pkg"]!!)) }
         route("GET", "/v1/apps/{pkg}/payments", Tier.PAID, "Payments received, with a monthly series") { r -> views.appPayments(r.params["pkg"]!!)?.let(::ok) ?: notFound("not a confirmed listing") }
         route("GET", "/v1/watch", Tier.PAID, "Store-wide rating bursts in the last N days (days=3)") { r -> ok(views.watch(r.int("days", 3, 30).coerceAtLeast(1))) }
-        route("GET", "/v1/changes", Tier.PAID, "Version and certificate changes seen; since=epoch seconds") { r -> ok(views.changes(r.query["since"]?.toLongOrNull())) }
+        route("GET", "/v1/changes", Tier.PAID, "Changes seen across the store: new releases (any listing's updated date moved), version codes and signing certificates; since=epoch seconds") { r -> ok(views.changes(r.query["since"]?.toLongOrNull())) }
         route("GET", "/v1/wallets/{address}", Tier.LIMITED, "A wallet: attested device, stake weight, standing, reviews; full=1 with a pass lists its records") { r ->
             val a = r.params["address"]!!
             if (runCatching { Base58.decode(a).size }.getOrNull() != 32) return@route Response(400, JSONObject().put("error", "bad_address"))
@@ -375,6 +392,28 @@ class Api(private val views: Views, private val billing: Billing, private val in
         return JSONObject().put("sol", url(amt(Config.passSol), null)).put("skr", url(amt(Config.passSkr), Config.SKR_MINT)).put("skr_with_seeker_genesis_token", url(amt(Config.passSkrSgt), Config.SKR_MINT))
     }
 
+    /** A sample call per main route, whose live answer gives the response schema (types inferred, nothing hand-written to drift). */
+    private val SAMPLES = mapOf("/v1/apps" to "/v1/apps?limit=1", "/v1/apps/{pkg}" to "/v1/apps/com.solflare.mobile", "/v1/apps/{pkg}/reviews" to "/v1/apps/com.solflare.mobile/reviews?limit=1",
+        "/v1/apps/{pkg}/bursts" to "/v1/apps/com.solflare.mobile/bursts", "/v1/stats" to "/v1/stats", "/v1/pricing" to "/v1/pricing", "/v1/records" to "/v1/records?limit=1",
+        "/v1/tags" to "/v1/tags", "/v1/health" to "/v1/health", "/v1/leaderboard" to "/v1/leaderboard?metric=store_rating&limit=1", "/v1/payments" to "/v1/payments?limit=1")
+    private val schemaCache = java.util.concurrent.ConcurrentHashMap<String, JSONObject>()
+    private fun sampleSchema(method: String, sample: String): JSONObject? = if (method != "GET") null else schemaCache.getOrPut(sample) {
+        val u = java.net.URI("http://x$sample"); val q = u.rawQuery?.split('&')?.associate { it.substringBefore('=') to it.substringAfter('=') } ?: emptyMap()
+        val r = runCatching { handle("GET", u.path, q, "", null, "127.0.0.1") }.getOrNull()
+        if (r == null || r.status != 200) return null
+        inferSchema(r.body)
+    }
+    /** JSON Schema from a value: objects with their properties, arrays from their first item, nulls as nullable. */
+    private fun inferSchema(v: Any?): JSONObject = when (v) {
+        is JSONObject -> JSONObject().put("type", "object").put("properties", JSONObject().apply { v.keys().forEach { k -> put(k, inferSchema(v.opt(k))) } })
+        is JSONArray -> JSONObject().put("type", "array").put("items", if (v.length() > 0) inferSchema(v.opt(0)) else JSONObject())
+        is Boolean -> JSONObject().put("type", "boolean")
+        is Int, is Long -> JSONObject().put("type", "integer")
+        is Number -> JSONObject().put("type", "number")
+        is String -> JSONObject().put("type", "string")
+        else -> JSONObject().put("nullable", true)
+    }
+
     private fun ref(schema: String, d: String) = JSONObject().put("description", d)
         .put("content", JSONObject().put("application/json", JSONObject().put("schema", JSONObject().put("\$ref", "#/components/schemas/$schema"))))
 
@@ -399,7 +438,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val op = JSONObject().put("summary", rt.summary).put("x-tier", rt.tier.name.lowercase())
                 .put("parameters", JSONArray((pathNames[rt] ?: emptyList()).map { JSONObject().put("name", it).put("in", "path").put("required", true).put("schema", JSONObject().put("type", "string")) } + qp))
                 .put("responses", JSONObject().put("200", JSONObject().put("description", "JSON; X-RateLimit-Limit / -Remaining / -Reset headers say what is left")
-                        .put("content", JSONObject().put("application/json", JSONObject().put("schema", JSONObject().put("type", "object")))))
+                        .put("content", JSONObject().put("application/json", JSONObject().put("schema", SAMPLES[path]?.let { sampleSchema(rt.method, it) } ?: JSONObject().put("type", "object")))))
                     .put("400", ref("Error", "A malformed request"))
                     .put("404", ref("Error", "Not found"))
                     .put("429", ref("Error", "Rate limited; Retry-After says when to try again"))
@@ -424,7 +463,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
 
     /** Query parameters per path, for the OpenAPI description. */
     private val QUERY = mapOf(
-        "/v1/records" to listOf("type", "package", "signer", "since", "until", "before", "limit"), "/v1/apps" to listOf("q", "category", "sort", "limit"),
+        "/v1/records" to listOf("type", "package", "signer", "since", "until", "before", "limit"), "/v1/apps" to listOf("q", "category", "sort", "limit", "packages"),
         "/v1/apps/{pkg}/reviews" to listOf("limit", "offset", "sort"), "/v1/watch" to listOf("days"), "/v1/changes" to listOf("since"), "/v1/wallets/{address}" to listOf("full"),
         "/v1/leaderboard" to listOf("metric", "category", "limit"), "/v1/payments" to listOf("limit"),
     )
@@ -505,6 +544,7 @@ fun main(args: Array<String>) {
     val hooks = Hooks(db, billing)
     indexer.onRebuilt = { fresh -> hooks.tick(indexer, fresh) }
     if (Config.INDEX) hooks.startWorker()
+    hooks.weeklyDigest = { views.digest() }
     val api = Api(views, billing, indexer, hooks = hooks)
     api.web = Web(views, indexer).also { w -> w.apiInfo = { api.pricing() }; w.apiDocs = { api.openApi() } }
     runCatching { indexer.rebuild() }   // serve what the database already holds at once

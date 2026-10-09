@@ -334,6 +334,9 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         log("store sync: $have known, ${shipped.size} shipped${if (force) ", forced" else ""}")
         // Union, never replace (7 Oct 2026): listings in no category are invisible to the crawl. Keep what was known,
         // discover more from the portal's Arweave records, and drop an app only when the store answered without it.
+        // Every listing's "updated" date before this crawl: a later date after it is a new release, store-wide (9 Oct 2026:
+        // version codes are read only for apps the ledger mentions, 29 of ~1,480, so the weekly digest saw almost no updates).
+        val updatedBefore = loadCatalogue().associate { it.packageName to it.updated }
         store.catalogue()?.let { crawl ->
             val out = LinkedHashMap<String, CatalogueApp>(); crawl.forEach { out[it.packageName] = it }
             // The app's shipped list counts as known: its apps are checked live below like any other, and kept if the store is silent.
@@ -347,11 +350,18 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
             if (!answered) known.values.forEach { if (it.packageName !in out) out[it.packageName] = it }
             val arr = JSONArray(); out.values.forEach { arr.put(JSONObject().put("p", it.packageName).put("n", it.name).put("u", it.updated).put("c", it.category)) }
             db.put("catalogue", arr.toString())
+            val at = now / 1000
+            db.tx { out.values.forEach { app -> val old = updatedBefore[app.packageName]
+                if (!old.isNullOrBlank() && app.updated.isNotBlank() && app.updated > old)
+                    db.exec("INSERT INTO changes (pkg, at, kind, old, new) VALUES (?, ?, 'release', ?, ?)", app.packageName, at, old, app.updated) } }
         }
         val cat = loadCatalogue()
         val day = java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString()
+        var asked = 0; var answered = 0
         for (chunk in cat.map { it.packageName }.chunked(Config.STORE_BATCH)) {
+            asked++
             val r = store.ratings(chunk) ?: continue
+            answered++
             db.tx { r.forEach { (pkg, s) -> db.exec("INSERT OR REPLACE INTO ratings (pkg, day, s1, s2, s3, s4, s5) VALUES (?, ?, ?, ?, ?, ?, ?)", pkg, day, s[0], s[1], s[2], s[3], s[4]) } }
         }
         val (entries, _) = loadEntries()
@@ -361,7 +371,11 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
             upsertDetails(pkg, d, now)
             if (entries.any { (it.memo as? ReviewMemo.Claim)?.packageName == pkg }) { readStoreBuild(pkg, d); Thread.sleep(Config.STORE_PACE_MS) }
         }
-        db.put("store_synced", now.toString())
+        // A crawl whose star counts mostly failed (8 Oct 2026: a DNS blip failed every request, yet the day was marked done
+        // and its snapshot lost) is tried again within the hour rather than tomorrow.
+        val ratingsOk = asked == 0 || answered * 2 >= asked
+        if (!ratingsOk) log("store sync: ratings answered $answered of $asked batches; retrying within the hour")
+        db.put("store_synced", (if (ratingsOk) now else now - Config.CATALOGUE_EVERY_MS + 3_600_000L).toString())
         lastStoreSync = now
     }
 

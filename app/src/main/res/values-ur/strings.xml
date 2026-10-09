@@ -1037,4 +1037,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">جائزہ نگار کی زبان میں ترجمہ</string>
     <string name="reply_translate_note">آپ کا مسودہ: %1$s۔ آپ ترجمہ شدہ جواب کو اپنے الفاظ کے طور پر دستخط کرتے ہیں، اس لیے جانچ لیں۔</string>
+    <string name="help_button">پوچھیں کہ اسکورنگ کیسے کام کرتی ہے</string>
+    <string name="help_title">اسکورنگ کیسے کام کرتی ہے</string>
+    <string name="help_hint">سوال پوچھیں، مثلاً جائزوں کا وزن کیسے ہوتا ہے؟</string>
+    <string name="help_ask">پوچھیں</string>
+    <string name="help_close">بند کریں</string>
+    <string name="help_label">تجویز کردہ جواب، AI سے، جائزوں کی دیانت داری کی پالیسی سے</string>
+    <string name="help_failed">ابھی کوئی جواب نہیں۔ دیانت داری کی پالیسی میں تمام قواعد ہیں۔</string>
+    <string name="digest_title">اس ہفتے اسٹور میں</string>
+    <string name="digest_label">تجویز کردہ خلاصہ، AI سے، دیکھی گئی لہروں اور اپ ڈیٹس سے۔ حقائق، فیصلے نہیں۔</string>
+    <string name="digest_locked">پورے اسٹور میں ریٹنگ کی لہروں اور ایپ اپ ڈیٹس کا سادہ زبان میں ہفتہ وار خلاصہ۔</string>
+    <string name="digest_notify_title">اس ہفتے اسٹور میں</string>
+    <string name="digest_unavailable">اس ہفتے کا خلاصہ ابھی تیار نہیں۔</string>
+    <string name="pro_tool_digest_title">ہفتہ وار اسٹور خلاصہ</string>
+    <string name="pro_tool_digest_body">ہر ہفتے پورے اسٹور میں ریٹنگ کی لہریں اور ایپ اپ ڈیٹس سادہ الفاظ میں، اطلاع کے طور پر اور تبدیلیوں کے اوپر۔ AI دیکھے گئے حقائق سے لکھتا ہے اور اس پر لیبل ہوتا ہے۔</string>
 </resources>

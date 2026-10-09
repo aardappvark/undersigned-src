@@ -124,8 +124,31 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
      * One round after the indexer rebuilt: [newRecords] from it, store changes since the last round, and rating bursts not
      * sent before (their ids are remembered, so a burst that keeps growing is announced once). Nothing runs when no hook exists.
      */
+    /** Set by the server: this week's digest (Views.digest), sent once a week to hooks that asked for "digest". */
+    var weeklyDigest: (() -> JSONObject?)? = null
+
+    /** Queues this week's digest for every hook subscribed to "digest", once per ISO week, from Monday. */
+    private fun views_weekKey(d: java.time.ZonedDateTime) = "%d-W%02d".format(d.get(java.time.temporal.IsoFields.WEEK_BASED_YEAR), d.get(java.time.temporal.IsoFields.WEEK_OF_WEEK_BASED_YEAR))
+
+    fun digestTick(now: Long = System.currentTimeMillis() / 1000) {
+        val d = java.time.Instant.ofEpochSecond(now).atZone(java.time.ZoneOffset.UTC)
+        // Once per ISO week, at the first round of the week (normally just after midnight UTC on Monday).
+        if (db.get("hooks_digest_week") == views_weekKey(d)) return
+        val dg = weeklyDigest?.invoke() ?: return
+        if (db.get("hooks_digest_week") == dg.getString("week")) return
+        val targets = db.query("SELECT id, key, events FROM hooks") { listOf(it.getString(1), it.getString(2), it.getString(3)) }
+            .filter { "digest" in it[2].split(',') && billing.pass(it[1])?.let { p -> p.endsAt > now } == true }
+        targets.forEach { t ->
+            val body = JSONObject().put("hook", t[0]).put("sent_at", now)
+                .put("events", org.json.JSONArray().put(JSONObject(dg.toString()).put("id", "digest-${dg.getString("week")}").put("type", "digest"))).toString()
+            db.exec("INSERT INTO hook_outbox (hook, body, attempts, next_at, created) VALUES (?, ?, 0, ?, ?)", t[0], body, now, now)
+        }
+        db.put("hooks_digest_week", dg.getString("week"))
+    }
+
     fun tick(indexer: Indexer, newRecords: List<LedgerEntry>) {
         val now = System.currentTimeMillis() / 1000
+        runCatching { digestTick(now) }.onFailure { log("hooks digest: ${it.message?.take(80)}") }
         if (count() == 0) { db.put("hooks_last", now.toString()); return }
         val last = db.get("hooks_last")?.toLongOrNull() ?: now
         val changes = db.query("SELECT pkg, at, kind, old, new FROM changes WHERE at > ?", last) { rs ->
@@ -145,7 +168,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
     }
 
     companion object {
-        val EVENTS = setOf("review", "reply", "store_note", "flag", "claim", "burst", "version", "certificate")
+        val EVENTS = setOf("review", "reply", "store_note", "flag", "claim", "burst", "version", "release", "certificate", "digest")
 
         /** Seconds before each retry: 1 min, 5 min, 30 min, 2 h, 6 h, 15 h (six tries over about 24 hours). */
         val RETRY_DELAYS = longArrayOf(60, 300, 1_800, 7_200, 21_600, 54_000)

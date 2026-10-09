@@ -1034,4 +1034,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Değerlendirenin diline çevir</string>
     <string name="reply_translate_note">Taslağınız: %1$s. Çevrilmiş yanıtı kendi sözleriniz olarak imzalarsınız, bu yüzden kontrol edin.</string>
+    <string name="help_button">Puanlamanın nasıl çalıştığını sor</string>
+    <string name="help_title">Puanlama nasıl çalışır</string>
+    <string name="help_hint">Bir soru sorun, örn. incelemeler nasıl ağırlıklandırılır?</string>
+    <string name="help_ask">Sor</string>
+    <string name="help_close">Kapat</string>
+    <string name="help_label">Önerilen yanıt, yapay zekâ ile, inceleme bütünlüğü politikasından</string>
+    <string name="help_failed">Şu an yanıt yok. Bütünlük politikasında tüm kurallar var.</string>
+    <string name="digest_title">Bu hafta mağazada</string>
+    <string name="digest_label">Önerilen özet, yapay zekâ ile, görülen ani artışlardan ve güncellemelerden. Olgular, hüküm değil.</string>
+    <string name="digest_locked">Mağaza genelindeki puan artışları ve uygulama güncellemelerinin sade dille haftalık özeti.</string>
+    <string name="digest_notify_title">Bu hafta mağazada</string>
+    <string name="digest_unavailable">Bu haftanın özeti henüz hazır değil.</string>
+    <string name="pro_tool_digest_title">Haftalık mağaza özeti</string>
+    <string name="pro_tool_digest_body">Her hafta mağaza genelindeki puan artışları ve uygulama güncellemeleri sade sözlerle, bildirim olarak ve Değişiklikler\'in en üstünde. Yapay zekâ tarafından görülen olgulardan yazılır ve etiketlenir.</string>
 </resources>

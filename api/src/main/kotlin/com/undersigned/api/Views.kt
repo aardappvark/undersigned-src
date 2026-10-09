@@ -274,6 +274,43 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     fun recordEntry(id: String): LedgerEntry? = s.entries.firstOrNull { it.signature == id }
 
+    /** ISO week key ("2026-W41") of [now]: one digest per week. */
+    fun weekKey(now: Long = System.currentTimeMillis() / 1000): String {
+        val d = java.time.Instant.ofEpochSecond(now).atZone(java.time.ZoneOffset.UTC).toLocalDate()
+        return "%d-W%02d".format(d.get(java.time.temporal.IsoFields.WEEK_BASED_YEAR), d.get(java.time.temporal.IsoFields.WEEK_OF_WEEK_BASED_YEAR))
+    }
+
+    /** The last seven days as plain fact lines: store-wide rating bursts and app version / certificate changes. */
+    fun digestFacts(now: Long = System.currentTimeMillis() / 1000): Pair<String, Pair<Int, Int>> {
+        val st = s; val from = now - 7 * ReviewBursts.DAY
+        fun name(p: String) = st.byPackage[p]?.name ?: p
+        fun day(t: Long) = java.time.Instant.ofEpochSecond(t).toString().take(10)
+        val bursts = indexer.watchHits().filter { it.burst.end >= from }.sortedByDescending { it.burst.intensity }.take(25)
+        val changes = db.query("SELECT pkg, at, kind, old, new FROM changes WHERE at >= ? ORDER BY at DESC LIMIT 200", from) { rs -> listOf(rs.getString(1), rs.getLong(2).toString(), rs.getString(3), rs.getString(4) ?: "", rs.getString(5) ?: "") }
+        val lines = ArrayList<String>()
+        bursts.forEach { h -> val b = h.burst
+            lines += "BURST ${name(h.pkg)} (${h.pkg}): ${b.count} ${if (b.kind.name.lowercase() == "high") "5-star" else "1-star"} store ratings ${day(b.start)} to ${day(b.end)}, about ${"%.1f".format(java.util.Locale.US, b.expected)} usual, ${"%.1f".format(java.util.Locale.US, BurstSpark.multiple(b))}x" }
+        // A release date and a version code for the same app say the same thing once.
+        val versioned = changes.filter { it[2] != "release" }.map { it[0] }.toSet()
+        changes.filter { it[2] != "release" || it[0] !in versioned }.forEach { c -> lines += "UPDATE ${name(c[0])} (${c[0]}) on ${day(c[1].toLong())}: ${c[2]} ${c[3]} -> ${c[4]}" }
+        return lines.joinToString("\n") to (bursts.size to (lines.size - bursts.size))
+    }
+
+    /**
+     * This week's digest of the seven days to the start of today (UTC); null when the AI is off. Written once per distinct
+     * set of facts and kept: the window moves a day at a time and the store is crawled daily, so a week costs a handful of
+     * calls, and a digest written before the week's facts arrived is never left standing.
+     */
+    fun digest(now: Long = System.currentTimeMillis() / 1000): JSONObject? {
+        val ai = ai?.takeIf { it.enabled } ?: return null
+        val to = now - now % ReviewBursts.DAY
+        val (facts, counts) = digestFacts(to); val week = weekKey(now)
+        val text = ai.digest("$week:" + Integer.toHexString(facts.hashCode()), facts) ?: return null
+        return JSONObject().put("week", week).put("from", to - 7 * ReviewBursts.DAY).put("to", to).put("text", text)
+            .put("bursts", counts.first).put("updates", counts.second)
+            .put("label", "Suggested weekly digest, written by AI from the store-wide bursts and app updates seen. Facts, not verdicts.")
+    }
+
     /** A record's public text, or null when there is none to show (no note, withdrawn, or hidden by a moderator or this site). */
     fun visibleText(e: LedgerEntry, st: State = s): String? {
         if (e.signature in st.revoked || st.modHidden.containsKey(e.signature) || st.operatorHidden.containsKey(e.signature)) return null
@@ -364,7 +401,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     }
 
     fun changeNote(o: JSONObject): String? = ai?.changeNote(o.getString("package"), o.getString("kind"), o.optString("old").ifEmpty { null }, o.optString("new").ifEmpty { null },
-        indexer.state.details[o.getString("package")]?.newInVersion)
+        // A release is a moved listing date; the notes held may describe another build, so none are offered for it.
+        indexer.state.details[o.getString("package")]?.newInVersion?.takeIf { o.getString("kind") != "release" })
 
     // ---- Wallets -----------------------------------------------------------------------------------------------------
 

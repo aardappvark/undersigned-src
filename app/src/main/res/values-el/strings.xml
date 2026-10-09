@@ -1034,4 +1034,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Μετάφραση στη γλώσσα του συντάκτη</string>
     <string name="reply_translate_note">Το προσχέδιό σας: %1$s. Υπογράφετε τη μεταφρασμένη απάντηση ως δικά σας λόγια, οπότε ελέγξτε τη.</string>
+    <string name="help_button">Ρώτα πώς λειτουργεί η βαθμολογία</string>
+    <string name="help_title">Πώς λειτουργεί η βαθμολογία</string>
+    <string name="help_hint">Κάνε μια ερώτηση, π.χ. πώς σταθμίζονται οι κριτικές;</string>
+    <string name="help_ask">Ερώτηση</string>
+    <string name="help_close">Κλείσιμο</string>
+    <string name="help_label">Προτεινόμενη απάντηση, από AI, βάσει της πολιτικής ακεραιότητας κριτικών</string>
+    <string name="help_failed">Καμία απάντηση τώρα. Η πολιτική ακεραιότητας έχει όλους τους κανόνες.</string>
+    <string name="digest_title">Αυτή την εβδομάδα στο κατάστημα</string>
+    <string name="digest_label">Προτεινόμενη σύνοψη, από AI, από τις εξάρσεις και τις ενημερώσεις που είδαμε. Γεγονότα, όχι ετυμηγορίες.</string>
+    <string name="digest_locked">Μια εβδομαδιαία σύνοψη σε απλή γλώσσα για εξάρσεις βαθμολογιών και ενημερώσεις εφαρμογών σε όλο το κατάστημα.</string>
+    <string name="digest_notify_title">Αυτή την εβδομάδα στο κατάστημα</string>
+    <string name="digest_unavailable">Η σύνοψη αυτής της εβδομάδας δεν είναι έτοιμη ακόμη.</string>
+    <string name="pro_tool_digest_title">Εβδομαδιαία σύνοψη καταστήματος</string>
+    <string name="pro_tool_digest_body">Κάθε εβδομάδα, εξάρσεις βαθμολογιών και ενημερώσεις εφαρμογών σε όλο το κατάστημα με απλά λόγια, ως ειδοποίηση και στην κορυφή των Αλλαγών. Γραμμένη από AI από τα γεγονότα που είδαμε και επισημασμένη.</string>
 </resources>

@@ -268,6 +268,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
                 Text(stringResource(R.string.integrity_link), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uriHandler.openUri(com.undersigned.app.AppConfig.Identity.URI + "integrity.html") } }.padding(vertical = 14.dp))
+                com.undersigned.app.ui.components.HelpAsk(vm)
             }
 
             // Reviews over time (owner, 8 Oct 2026): store reviews by Seeker owners and other wallets, signed reviews, and both

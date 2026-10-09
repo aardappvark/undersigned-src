@@ -1063,4 +1063,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Traduzir para o idioma do autor</string>
     <string name="reply_translate_note">Seu rascunho: %1$s. Você assina a resposta traduzida como suas próprias palavras, então confira.</string>
+    <string name="help_button">Perguntar como a nota funciona</string>
+    <string name="help_title">Como a nota funciona</string>
+    <string name="help_hint">Faça uma pergunta, ex.: como as avaliações são ponderadas?</string>
+    <string name="help_ask">Perguntar</string>
+    <string name="help_close">Fechar</string>
+    <string name="help_label">Resposta sugerida, por IA, com base na política de integridade das avaliações</string>
+    <string name="help_failed">Sem resposta agora. A política de integridade tem todas as regras.</string>
+    <string name="digest_title">Esta semana na loja</string>
+    <string name="digest_label">Resumo sugerido, por IA, a partir dos picos e atualizações vistos. Fatos, não veredictos.</string>
+    <string name="digest_locked">Um resumo semanal em linguagem simples dos picos de notas e das atualizações de apps em toda a loja.</string>
+    <string name="digest_notify_title">Esta semana na loja</string>
+    <string name="digest_unavailable">O resumo desta semana ainda não está pronto.</string>
+    <string name="pro_tool_digest_title">Resumo semanal da loja</string>
+    <string name="pro_tool_digest_body">Toda semana, picos de notas e atualizações de apps em toda a loja em palavras simples, como notificação e no topo de Mudanças. Escrito por IA a partir dos fatos vistos e identificado.</string>
 </resources>

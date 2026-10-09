@@ -1063,4 +1063,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Traduci nella lingua dell\'autore</string>
     <string name="reply_translate_note">La tua bozza: %1$s. Firmi la risposta tradotta come parole tue, quindi controllala.</string>
+    <string name="help_button">Chiedi come funziona il punteggio</string>
+    <string name="help_title">Come funziona il punteggio</string>
+    <string name="help_hint">Fai una domanda, es. come vengono pesate le recensioni?</string>
+    <string name="help_ask">Chiedi</string>
+    <string name="help_close">Chiudi</string>
+    <string name="help_label">Risposta suggerita, dall\'IA, in base alla policy di integrità delle recensioni</string>
+    <string name="help_failed">Nessuna risposta al momento. La policy di integrità contiene tutte le regole.</string>
+    <string name="digest_title">Questa settimana nello store</string>
+    <string name="digest_label">Riepilogo suggerito, dall\'IA, dai picchi e dagli aggiornamenti osservati. Fatti, non verdetti.</string>
+    <string name="digest_locked">Un riepilogo settimanale in parole semplici dei picchi di valutazioni e degli aggiornamenti delle app in tutto lo store.</string>
+    <string name="digest_notify_title">Questa settimana nello store</string>
+    <string name="digest_unavailable">Il riepilogo di questa settimana non è ancora pronto.</string>
+    <string name="pro_tool_digest_title">Riepilogo settimanale dello store</string>
+    <string name="pro_tool_digest_body">Ogni settimana, picchi di valutazioni e aggiornamenti delle app in tutto lo store in parole semplici, come notifica e in cima a Modifiche. Scritto dall\'IA dai fatti osservati ed etichettato.</string>
 </resources>

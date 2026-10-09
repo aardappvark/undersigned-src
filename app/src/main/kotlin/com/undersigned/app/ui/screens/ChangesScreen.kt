@@ -28,7 +28,7 @@ import java.text.DateFormat
 import java.util.Date
 
 @Composable
-fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit = onOpen) {
+fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit = onOpen, onPro: () -> Unit = {}) {
     val changes by vm.changes.collectAsState()
     val catalogue by vm.catalogue.collectAsState()
     val icons by vm.iconCache.state.collectAsState()
@@ -41,8 +41,10 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
         }
         Text(stringResource(R.string.changes_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp))
         Spacer(Modifier.height(8.dp))
-        if (real.isEmpty()) Box(Modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(stringResource(R.string.changes_empty), color = RbColors.textSecondary, fontSize = 14.sp) }
-        else LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
+        LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
+            // This week on the store (Pro): store-wide bursts and updates in plain words, by AI, labelled a suggestion.
+            item(key = "digest") { com.undersigned.app.ui.components.DigestCard(vm, onPro); Spacer(Modifier.height(8.dp)) }
+            if (real.isEmpty()) item(key = "empty") { Text(stringResource(R.string.changes_empty), color = RbColors.textSecondary, fontSize = 14.sp, modifier = Modifier.fillMaxWidth().padding(32.dp)) }
             items(real, key = { it.packageName + it.at }) { c ->
                 val name = catalogue.firstOrNull { it.packageName == c.packageName }?.name ?: c.packageName
                 GlassCard(modifier = Modifier.clickable { onOpen(c.packageName) }, accent = if (c.signerChanged) RbColors.negative else RbColors.glassBorder) {

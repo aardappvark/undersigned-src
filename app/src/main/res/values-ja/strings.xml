@@ -1010,4 +1010,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">レビュアーの言語に翻訳</string>
     <string name="reply_translate_note">下書き：%1$s。翻訳された返信はあなた自身の言葉として署名されるので、確認してください。</string>
+    <string name="help_button">スコアの仕組みを質問</string>
+    <string name="help_title">スコアの仕組み</string>
+    <string name="help_hint">質問を入力（例：レビューの重みはどう決まる？）</string>
+    <string name="help_ask">質問する</string>
+    <string name="help_close">閉じる</string>
+    <string name="help_label">AIによる回答案（レビュー整合性ポリシーに基づく）</string>
+    <string name="help_failed">今は回答できません。すべてのルールは整合性ポリシーにあります。</string>
+    <string name="digest_title">今週のストア</string>
+    <string name="digest_label">AIによる要約案（確認された急増と更新から）。事実であり、判定ではありません。</string>
+    <string name="digest_locked">ストア全体の評価の急増とアプリ更新を、わかりやすい言葉でまとめた週次ダイジェスト。</string>
+    <string name="digest_notify_title">今週のストア</string>
+    <string name="digest_unavailable">今週のダイジェストはまだ準備できていません。</string>
+    <string name="pro_tool_digest_title">週次ストアダイジェスト</string>
+    <string name="pro_tool_digest_body">毎週、ストア全体の評価の急増とアプリ更新をわかりやすい言葉で、通知と「変更」の一番上でお届けします。確認された事実からAIが作成し、その旨を表示します。</string>
 </resources>

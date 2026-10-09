@@ -1018,4 +1018,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">翻譯成評價者的語言</string>
     <string name="reply_translate_note">你的草稿：%1$s。你會以自己的名義簽署翻譯後的回覆，請先核對。</string>
+    <string name="help_button">詢問評分如何計算</string>
+    <string name="help_title">評分如何計算</string>
+    <string name="help_hint">提出問題，例如：評論的權重如何決定？</string>
+    <string name="help_ask">提問</string>
+    <string name="help_close">關閉</string>
+    <string name="help_label">建議回答，由 AI 根據評論誠信政策產生</string>
+    <string name="help_failed">暫時無法回答。完整規則請見誠信政策。</string>
+    <string name="digest_title">本週商店動態</string>
+    <string name="digest_label">建議摘要，由 AI 根據觀察到的集中評分與更新產生。是事實，不是結論。</string>
+    <string name="digest_locked">每週以淺白語言彙整全商店的集中評分與應用程式更新。</string>
+    <string name="digest_notify_title">本週商店動態</string>
+    <string name="digest_unavailable">本週摘要尚未準備好。</string>
+    <string name="pro_tool_digest_title">每週商店摘要</string>
+    <string name="pro_tool_digest_body">每週以淺白語言彙整全商店的集中評分與應用程式更新，以通知形式並置於「變更」頂端。由 AI 根據觀察到的事實撰寫並加以標示。</string>
 </resources>

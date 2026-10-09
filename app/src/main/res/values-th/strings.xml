@@ -1003,4 +1003,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">แปลเป็นภาษาของผู้รีวิว</string>
     <string name="reply_translate_note">ร่างของคุณ: %1$s คุณลงนามคำตอบที่แปลแล้วในฐานะถ้อยคำของคุณเอง จึงควรตรวจทาน</string>
+    <string name="help_button">ถามว่าการให้คะแนนทำงานอย่างไร</string>
+    <string name="help_title">การให้คะแนนทำงานอย่างไร</string>
+    <string name="help_hint">ถามคำถาม เช่น รีวิวถ่วงน้ำหนักอย่างไร</string>
+    <string name="help_ask">ถาม</string>
+    <string name="help_close">ปิด</string>
+    <string name="help_label">คำตอบที่แนะนำ โดย AI จากนโยบายความถูกต้องของรีวิว</string>
+    <string name="help_failed">ยังไม่มีคำตอบตอนนี้ นโยบายความถูกต้องมีกฎทั้งหมด</string>
+    <string name="digest_title">สัปดาห์นี้ในสโตร์</string>
+    <string name="digest_label">สรุปที่แนะนำ โดย AI จากช่วงพุ่งสูงและอัปเดตที่พบ เป็นข้อเท็จจริง ไม่ใช่คำตัดสิน</string>
+    <string name="digest_locked">สรุปรายสัปดาห์ด้วยภาษาง่าย ๆ เรื่องช่วงคะแนนพุ่งสูงและอัปเดตแอปทั่วทั้งสโตร์</string>
+    <string name="digest_notify_title">สัปดาห์นี้ในสโตร์</string>
+    <string name="digest_unavailable">สรุปของสัปดาห์นี้ยังไม่พร้อม</string>
+    <string name="pro_tool_digest_title">สรุปสโตร์รายสัปดาห์</string>
+    <string name="pro_tool_digest_body">ทุกสัปดาห์ ช่วงคะแนนพุ่งสูงและอัปเดตแอปทั่วทั้งสโตร์ด้วยคำง่าย ๆ เป็นการแจ้งเตือนและอยู่บนสุดของการเปลี่ยนแปลง เขียนโดย AI จากข้อเท็จจริงที่พบและมีป้ายกำกับ</string>
 </resources>

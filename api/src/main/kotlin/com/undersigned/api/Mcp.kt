@@ -66,6 +66,10 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("app_summary", "A suggested summary, by AI, of an app's counted reviews: the points mentioned most, each with its count and review ids. Null when there are too few.",
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ ->
             views.summary(pkg(a)) ?: JSONObject().put("summary", JSONObject.NULL).put("message", "needs at least ${Config.AI_SUMMARY_MIN} counted reviews with text") },
+        Tool("weekly_digest", "This week's digest, by AI from the facts seen: store-wide rating bursts and app updates in plain words. For a Pro wallet or a pass / credits key.",
+            obj("wallet" to str("A wallet holding Pro (not needed with a key)"))) { a, c ->
+            if (!c.paid && !views.holdsPro(a.optString("wallet").trim())) throw IllegalArgumentException("the weekly digest needs Pro (pass a wallet holding Pro) or a pass / credits key; see get_pricing")
+            views.digest() ?: throw IllegalArgumentException("the digest is not available right now") },
         Tool("get_pricing", "What a pass and pay-per-call credits cost and buy, the free limits, and the Solana Pay links. Use it to explain a 'needs a key' answer.", obj()) { _, _ -> pricing() },
         Tool("get_bursts", "Unusual bursts of signed reviews or store star ratings for one app, with daily counts. A burst is a fact about timing, not a verdict.",
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ -> views.bursts(pkg(a)) },
@@ -79,7 +83,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("review_tags", "The fixed review tag vocabulary with how often each tag is used.", obj()) { _, _ -> views.tags() },
         Tool("store_watch", "Store-wide rating bursts in the last N days. Needs a pass.", obj("days" to int("Days to look back", 1, 30)), paid = true) { a, _ ->
             views.watch(a.optInt("days", 3).coerceIn(1, 30)) },
-        Tool("app_changes", "Version and signing-certificate changes seen across the store since a time. Needs a pass.",
+        Tool("app_changes", "Changes seen across the store since a time: new releases (kind release, any listing), version codes and signing certificates. Needs a pass.",
             obj("since" to JSONObject().put("type", "integer").put("description", "Epoch seconds")), paid = true) { a, _ ->
             views.changes(if (a.has("since")) a.optLong("since") else null) },
         Tool("version_scores", "One app's signed score per app version. Needs a pass.", obj("package" to str("Android package name"), required = listOf("package")), paid = true) { a, _ -> views.versions(pkg(a)) },

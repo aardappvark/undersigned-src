@@ -1063,4 +1063,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Traduire dans la langue de l\'auteur de l\'avis</string>
     <string name="reply_translate_note">Votre brouillon : %1$s. Vous signez la réponse traduite comme vos propres mots : vérifiez-la.</string>
+    <string name="help_button">Demander comment fonctionne la note</string>
+    <string name="help_title">Comment fonctionne la note</string>
+    <string name="help_hint">Posez une question, p. ex. comment les avis sont-ils pondérés ?</string>
+    <string name="help_ask">Demander</string>
+    <string name="help_close">Fermer</string>
+    <string name="help_label">Réponse suggérée, par IA, d\'après la politique d\'intégrité des avis</string>
+    <string name="help_failed">Pas de réponse pour le moment. La politique d\'intégrité contient toutes les règles.</string>
+    <string name="digest_title">Cette semaine sur le store</string>
+    <string name="digest_label">Résumé suggéré, par IA, d\'après les pics et mises à jour observés. Des faits, pas des verdicts.</string>
+    <string name="digest_locked">Un résumé hebdomadaire en langage simple des pics de notes et des mises à jour d\'apps sur tout le store.</string>
+    <string name="digest_notify_title">Cette semaine sur le store</string>
+    <string name="digest_unavailable">Le résumé de cette semaine n\'est pas encore prêt.</string>
+    <string name="pro_tool_digest_title">Résumé hebdomadaire du store</string>
+    <string name="pro_tool_digest_body">Chaque semaine, les pics de notes et les mises à jour d\'apps de tout le store en mots simples, en notification et en haut de Changements. Rédigé par IA d\'après les faits observés et signalé comme tel.</string>
 </resources>

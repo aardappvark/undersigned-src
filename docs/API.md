@@ -73,7 +73,7 @@ caller's own device is available (install age and usage time exist only as what 
 | **Review from a browser**: the server builds the unsigned carrier transaction (same bytes as the app; store's current version recorded), the reader's own wallet signs through the Wallet Standard (extensions, in-wallet browsers, the Seeker's wallet via Mobile Wallet Adapter in Chrome). Terms and a second consent before text; sanctions screen as in the app | `/review`, `POST /v1/tx/review` | F |
 | **`.skr` names** for reviewers and wallets (the app's lookup and its three gates; cached a week, refusals never cached) | inside reviews and `/v1/wallets/{address}` | F |
 | **Publisher proof from the store's own build**: for each claimed app the server downloads the build the store serves, reads `undersigned.publisher` from its manifest and the signing certificate from its v2/v3 signature block; a claim is proven when the build names the wallet and its certificate is the one the store lists | `proof: "store_build"` in `/v1/apps/{pkg}` | F |
-| **Webhooks** for pass holders: review, reply, store_note, flag, claim, burst, version, certificate on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks (http://localhost is allowed only on a private loopback server); delivered by a worker from an outbox, three tries; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
+| **Webhooks** for pass holders: review, reply, store_note, flag, claim, burst, release (any app's listing date moved), version, certificate, digest on up to 50 watched apps; each POST signed `X-Undersigned-Signature: sha256=<HMAC>`; https only and never into private networks (http://localhost is allowed only on a private loopback server); delivered by a worker from an outbox, three tries; stop when the pass ends | `POST/GET /v1/hooks`, `DELETE /v1/hooks/{id}` | P |
 | **Checkout without message signing**: a secret whose commitment rides in the payment memo (`UNS:<hash>`); whoever holds the secret redeems | `POST /v1/checkout`, then `POST /v1/keys {signature, secret}` | F |
 
 Added 5 Oct 2026:
@@ -128,10 +128,16 @@ HTTP, one JSON-RPC message per POST (batches are refused, so every call is meter
 2024-11-05. It is read-only: no tool drafts, signs or submits a review, flag or vote.
 - **Tools, free:** `search_apps`, `get_app`, `get_reviews` (sort and, with a pass, offset), `get_bursts`, `get_wallet`, `get_record`,
 `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags` and `get_pricing`.
+- **AI tools, labelled suggestions:** `app_summary` (free), `translate_review` and `weekly_digest` (Pro wallet or a key).
 - **Tools, with a pass:** `store_watch`, `app_changes`, `version_scores`, `similar_reviews` and `store_rating_history`.
 - **Resources:** `undersigned://policy`, `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.
 - **Prompts:** `audit_app_reputation` and `compare_apps`.
 - **Discovery:** `/llms.txt` and `/.well-known/mcp/server-card.json`.
+
+**AI help and the weekly digest (HTTP).** `POST /v1/help {question, lang}` answers how scoring works from the integrity policy
+only (free, labelled). `GET /v1/digest` is this ISO week's store-wide bursts and app updates in plain words with the counts
+behind them (Pro wallet or key); it is also sent once a week as the `digest` webhook event, and the app posts it as a Pro
+notification. `GET /v1/apps?packages=a,b,c` reads many apps in one call (20 free, 100 with a key). `GET /v1/changelog` lists API/MCP changes.
 
 **Local, for publishers: `mcp/` (Node, stdio).** Run it on your own machine with `node mcp/server.js`.
 - **Publisher desk:** `desk`, `inbox`, `profile`, `star`, `store_reviews`, `app_reviews`, `ledger_sync` and `watch_status` (live watch with macOS notifications).

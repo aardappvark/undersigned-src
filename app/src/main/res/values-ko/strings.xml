@@ -1011,4 +1011,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">리뷰어의 언어로 번역</string>
     <string name="reply_translate_note">내 초안: %1$s. 번역된 답글은 내 말로 서명되므로 확인하세요.</string>
+    <string name="help_button">점수 산정 방식 묻기</string>
+    <string name="help_title">점수 산정 방식</string>
+    <string name="help_hint">질문하세요. 예: 리뷰 가중치는 어떻게 정해지나요?</string>
+    <string name="help_ask">묻기</string>
+    <string name="help_close">닫기</string>
+    <string name="help_label">AI 제안 답변, 리뷰 무결성 정책 기반</string>
+    <string name="help_failed">지금은 답변할 수 없습니다. 무결성 정책에 모든 규칙이 있습니다.</string>
+    <string name="digest_title">이번 주 스토어</string>
+    <string name="digest_label">AI 제안 요약, 관측된 급증과 업데이트 기반. 판정이 아닌 사실입니다.</string>
+    <string name="digest_locked">스토어 전체의 평점 급증과 앱 업데이트를 쉬운 말로 정리한 주간 요약.</string>
+    <string name="digest_notify_title">이번 주 스토어</string>
+    <string name="digest_unavailable">이번 주 요약이 아직 준비되지 않았습니다.</string>
+    <string name="pro_tool_digest_title">주간 스토어 요약</string>
+    <string name="pro_tool_digest_body">매주 스토어 전체의 평점 급증과 앱 업데이트를 쉬운 말로, 알림과 변경 사항 맨 위에서 보여 줍니다. 관측된 사실로 AI가 작성하며 표시됩니다.</string>
 </resources>

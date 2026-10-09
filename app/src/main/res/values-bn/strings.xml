@@ -1030,4 +1030,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">পর্যালোচকের ভাষায় অনুবাদ করুন</string>
     <string name="reply_translate_note">আপনার খসড়া: %1$s। আপনি অনূদিত উত্তরটি নিজের কথা হিসেবে স্বাক্ষর করেন, তাই যাচাই করুন।</string>
+    <string name="help_button">জিজ্ঞাসা করুন স্কোরিং কীভাবে কাজ করে</string>
+    <string name="help_title">স্কোরিং কীভাবে কাজ করে</string>
+    <string name="help_hint">একটি প্রশ্ন করুন, যেমন রিভিউ কীভাবে ওজন পায়?</string>
+    <string name="help_ask">জিজ্ঞাসা</string>
+    <string name="help_close">বন্ধ করুন</string>
+    <string name="help_label">প্রস্তাবিত উত্তর, AI দ্বারা, রিভিউ সততা নীতি থেকে</string>
+    <string name="help_failed">এখন কোনো উত্তর নেই। সততা নীতিতে সব নিয়ম আছে।</string>
+    <string name="digest_title">এই সপ্তাহে স্টোরে</string>
+    <string name="digest_label">প্রস্তাবিত সারাংশ, AI দ্বারা, দেখা ঢেউ ও আপডেট থেকে। তথ্য, রায় নয়।</string>
+    <string name="digest_locked">পুরো স্টোরের রেটিং ঢেউ ও অ্যাপ আপডেটের সহজ ভাষায় সাপ্তাহিক সারাংশ।</string>
+    <string name="digest_notify_title">এই সপ্তাহে স্টোরে</string>
+    <string name="digest_unavailable">এই সপ্তাহের সারাংশ এখনো তৈরি হয়নি।</string>
+    <string name="pro_tool_digest_title">সাপ্তাহিক স্টোর সারাংশ</string>
+    <string name="pro_tool_digest_body">প্রতি সপ্তাহে পুরো স্টোরের রেটিং ঢেউ ও অ্যাপ আপডেট সহজ কথায়, নোটিফিকেশন হিসেবে ও পরিবর্তনের শীর্ষে। দেখা তথ্য থেকে AI লেখে এবং চিহ্নিত থাকে।</string>
 </resources>

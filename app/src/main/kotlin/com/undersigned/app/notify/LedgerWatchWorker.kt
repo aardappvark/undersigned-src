@@ -72,6 +72,24 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         val follows = UserPreferences.follows.value
         val me = UserPreferences.walletAddress.value
         Log.i(TAG, "following ${follows.size}, wallet ${if (me == null) "none" else "connected"}")
+        // (0) Pro: once per ISO week, this week's store-wide digest (bursts and updates in plain words, by AI, labelled).
+        // The week is marked only when the digest arrived, so a run without one tries again next hour.
+        runCatching {
+            val w = me ?: return@runCatching
+            val pro = com.undersigned.app.solana.ProLicence.of(after, cache.loadMeta(), w, UserPreferences.granters.value)
+            val week = isoWeek()
+            if (pro?.active == true && UserPreferences.digestWeek != week) {
+                val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}/v1/digest?wallet=$w").openConnection() as java.net.HttpURLConnection
+                val text = try {
+                    c.connectTimeout = 10_000; c.readTimeout = 90_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                    if (c.responseCode == 200) org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() }).optString("text").trim() else ""
+                } finally { c.disconnect() }
+                if (text.isNotEmpty()) {
+                    UserPreferences.digestWeek = week
+                    if (notify(ctx, "digest:$week", ctx.getString(R.string.digest_notify_title), ctx.getString(R.string.digest_label) + "\n" + text, "changes", "screen")) posted++
+                }
+            }
+        }.onFailure { Log.w(TAG, "digest skipped: ${it.message?.take(80)}") }
         // (a) Installed apps that updated: ask followers / previous reviewers for a fresh signed review.
         runCatching {
             val reviewedByMe = after.filter { it.signer == me && it.memo is ReviewMemo.Review }.map { (it.memo as ReviewMemo.Review).packageName }.toSet()
@@ -183,6 +201,12 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
          * same record never posts twice; see the note in [runOnce] for the regression this replaced.
          */
         fun alertId(key: String): Int = key.hashCode()
+
+        /** The ISO week, as the API keys its digest ("2026-W41", UTC). */
+        fun isoWeek(now: Instant = Instant.now()): String {
+            val d = now.atZone(java.time.ZoneOffset.UTC).toLocalDate()
+            return "%d-W%02d".format(java.util.Locale.US, d.get(java.time.temporal.IsoFields.WEEK_BASED_YEAR), d.get(java.time.temporal.IsoFields.WEEK_OF_WEEK_BASED_YEAR))
+        }
 
         /** Posts one alert. [extraKey]/[extraValue] say where a tap lands: "pkg" → an app page, "screen" → a screen. */
         fun notify(ctx: Context, key: String, title: String, body: String, extraValue: String, extraKey: String = EXTRA_PKG): Boolean {

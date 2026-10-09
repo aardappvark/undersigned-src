@@ -611,6 +611,26 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         postJson("/v1/translate/reply", org.json.JSONObject().put("reply", reply).put("review_id", reviewId).put("wallet", w)).getString("reply")
     }
 
+    /** In-app help: a question about how scoring works, answered by AI from the integrity policy only (free; labelled). */
+    suspend fun askHelp(question: String): Result<String> = runCatching {
+        postJson("/v1/help", org.json.JSONObject().put("question", question.trim().take(400)).put("lang", translationLang())).getString("answer")
+    }
+
+    /** This week's store-wide digest (bursts and updates in plain words, by AI) for a Pro wallet; null text when none yet. */
+    suspend fun weeklyDigest(): Result<org.json.JSONObject> = withContext(Dispatchers.IO) {
+        runCatching {
+            val w = wallet.value ?: error("Sign in with your wallet first")
+            val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}/v1/digest?wallet=$w").openConnection() as java.net.HttpURLConnection
+            try {
+                c.connectTimeout = 10_000; c.readTimeout = 90_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                val ok = c.responseCode == 200
+                val body = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+                if (!ok) error(runCatching { org.json.JSONObject(body).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
+                org.json.JSONObject(body)
+            } finally { c.disconnect() }
+        }
+    }
+
     // ---- Payment board -------------------------------------------------------------------------------------
 
     private val board = com.undersigned.app.ledger.PaymentBoard(app)

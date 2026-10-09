@@ -1037,4 +1037,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">समीक्षक की भाषा में अनुवाद करें</string>
     <string name="reply_translate_note">आपका मसौदा: %1$s। आप अनूदित जवाब को अपने शब्दों के रूप में हस्ताक्षरित करते हैं, इसलिए जाँच लें।</string>
+    <string name="help_button">पूछें कि स्कोरिंग कैसे काम करती है</string>
+    <string name="help_title">स्कोरिंग कैसे काम करती है</string>
+    <string name="help_hint">सवाल पूछें, जैसे समीक्षाओं का भार कैसे तय होता है?</string>
+    <string name="help_ask">पूछें</string>
+    <string name="help_close">बंद करें</string>
+    <string name="help_label">सुझाया गया उत्तर, AI द्वारा, समीक्षा अखंडता नीति से</string>
+    <string name="help_failed">अभी कोई उत्तर नहीं। अखंडता नीति में सभी नियम हैं।</string>
+    <string name="digest_title">इस हफ़्ते स्टोर में</string>
+    <string name="digest_label">सुझाया गया सारांश, AI द्वारा, देखी गई लहरों और अपडेट से। तथ्य, फ़ैसले नहीं।</string>
+    <string name="digest_locked">पूरे स्टोर में रेटिंग की लहरों और ऐप अपडेट का सरल भाषा में साप्ताहिक सारांश।</string>
+    <string name="digest_notify_title">इस हफ़्ते स्टोर में</string>
+    <string name="digest_unavailable">इस हफ़्ते का सारांश अभी तैयार नहीं है।</string>
+    <string name="pro_tool_digest_title">साप्ताहिक स्टोर सारांश</string>
+    <string name="pro_tool_digest_body">हर हफ़्ते पूरे स्टोर की रेटिंग लहरें और ऐप अपडेट सरल शब्दों में, सूचना के रूप में और बदलावों में सबसे ऊपर। देखे गए तथ्यों से AI द्वारा लिखा और चिह्नित।</string>
 </resources>

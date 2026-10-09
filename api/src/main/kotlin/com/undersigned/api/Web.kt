@@ -29,6 +29,9 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/icon.svg" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=86400"), ICON.toByteArray(), "image/svg+xml; charset=utf-8")
             // Discovery for agents and directories (9 Oct 2026): a plain-text map of the API and MCP, and an MCP server card at
             // both paths SEP-2127 has used while it settles.
+            path == "/changelog" -> page("Changelog — Undersigned", "<h1>Changelog</h1><p class=sub>What changed in the API and MCP. Also as JSON: <a href='/v1/changelog'>/v1/changelog</a>.</p>" +
+                Changelog.ENTRIES.joinToString("") { e -> "<div class=card><div class=label>${esc(e.date)}</div><h3>${esc(e.title)}</h3><ul>${e.items.joinToString("") { "<li>${esc(it)}</li>" }}</ul></div>" })
+            path == "/status" -> page("Status — Undersigned", status())
             path == "/llms.txt" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"), llmsTxt().toByteArray(), "text/plain; charset=utf-8")
             path == "/.well-known/mcp/server-card.json" || path == "/.well-known/mcp/server-cards.json" -> Api.Response(200, serverCard(), mapOf("Cache-Control" to "public, max-age=3600"))
             path == "/report" -> page("Report content — Undersigned", report())
@@ -429,6 +432,18 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
     }
 
     /** What this site can and cannot do about content, and who to write to. */
+    /** Live status from the indexer's own clocks: when the ledger and the store were last read, and whether the AI aids are on. */
+    private fun status(): String {
+        val now = System.currentTimeMillis()
+        fun ago(t: Long) = if (t <= 0) "not yet" else ((now - t) / 60_000).let { m -> if (m < 1) "under a minute ago" else if (m < 120) "$m minutes ago" else "${m / 60} hours ago" }
+        fun ok(t: Long, maxMin: Long) = t > 0 && now - t < maxMin * 60_000
+        val ledger = indexer.lastLedgerSync; val store = indexer.lastStoreSync; val ai = views.ai?.enabled == true
+        val rows = listOf(Triple("Ledger (Solana)", ok(ledger, 30), "read ${ago(ledger)}"), Triple("dApp Store mirror", ok(store, 26 * 60), "read ${ago(store)}"),
+            Triple("API and MCP", true, "answering"), Triple("AI reading aids", ai, if (ai) "on; ${views.ai?.callsToday() ?: 0} model calls today" else "off"))
+        return "<h1>Status</h1><p class=sub>Read from the server's own clocks when this page loaded. Raw: <a href='/v1/health'>/v1/health</a>.</p><div class=card>" +
+            rows.joinToString("") { (name, good, what) -> "<div class=rev><b>${if (good) "Working" else "Check"}</b> · ${esc(name)} <span class=meta>· ${esc(what)}</span></div>" } + "</div>"
+    }
+
     private fun serverCard(): JSONObject = JSONObject().put("name", "dev.provenby.undersigned/mcp").put("title", "Undersigned")
         .put("description", "Reviews of Solana dApp Store apps, signed on-chain by Seeker owners, beside the store's own rating. Read-only.")
         .put("version", "1.0.0").put("websiteUrl", "${Config.PUBLIC_URL}/api")
@@ -451,7 +466,7 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
 - Pricing and limits: ${Config.PUBLIC_URL}/v1/pricing
 
 ## Key endpoints
-- GET /v1/apps?q=&category=&sort=: search the catalogue with signed scores
+- GET /v1/apps?q=&category=&sort=: search the catalogue with signed scores; ?packages=a,b,c reads many apps in one call (20 free, 100 with a key)
 - GET /v1/apps/{package}: signed score and count, Pro members' and promoted scores apart, the store's rating, publisher proof
 - GET /v1/apps/{package}/reviews?sort=newest|helpful|skr|sol: every signal per review
 - GET /v1/apps/{package}/bursts: rating bursts (facts, not verdicts)
@@ -460,9 +475,12 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
 - GET /v1/apps/{package}/summary: suggested summary by AI of counted reviews (labelled)
 - GET /v1/records/{id}/translation?lang=: suggested translation by AI (Pro wallet or key)
 - POST /v1/ask: docs helper
+- POST /v1/help {question, lang}: how scoring works, answered by AI from the integrity policy only (labelled, free)
+- GET /v1/digest: this week's store-wide bursts and app updates in plain words, by AI (labelled; Pro wallet or key; also a weekly `digest` webhook)
+- GET /v1/changelog: what changed in the API and MCP
 
 ## MCP tools
-search_apps, get_app, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
+search_apps, get_app, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key), weekly_digest (AI, Pro wallet or key); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
 
 ## Rules for describing the data
 - Quote a score with its counted-review count.

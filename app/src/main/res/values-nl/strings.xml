@@ -1043,4 +1043,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Vertalen naar de taal van de schrijver</string>
     <string name="reply_translate_note">Uw concept: %1$s. U ondertekent de vertaalde reactie als uw eigen woorden, controleer haar dus.</string>
+    <string name="help_button">Vraag hoe de score werkt</string>
+    <string name="help_title">Zo werkt de score</string>
+    <string name="help_hint">Stel een vraag, bijv. hoe worden reviews gewogen?</string>
+    <string name="help_ask">Vragen</string>
+    <string name="help_close">Sluiten</string>
+    <string name="help_label">Voorgesteld antwoord, door AI, uit het integriteitsbeleid voor reviews</string>
+    <string name="help_failed">Nu geen antwoord. Het integriteitsbeleid bevat alle regels.</string>
+    <string name="digest_title">Deze week in de store</string>
+    <string name="digest_label">Voorgestelde samenvatting, door AI, uit de geziene pieken en updates. Feiten, geen oordelen.</string>
+    <string name="digest_locked">Een wekelijkse samenvatting in gewone taal van beoordelingspieken en app-updates in de hele store.</string>
+    <string name="digest_notify_title">Deze week in de store</string>
+    <string name="digest_unavailable">De samenvatting van deze week is nog niet klaar.</string>
+    <string name="pro_tool_digest_title">Wekelijkse store-samenvatting</string>
+    <string name="pro_tool_digest_body">Elke week beoordelingspieken en app-updates in de hele store in gewone woorden, als melding en bovenaan Wijzigingen. Door AI geschreven uit de geziene feiten en zo gelabeld.</string>
 </resources>

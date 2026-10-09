@@ -1035,4 +1035,18 @@
     <!-- Reply translation, Pro (9 Oct 2026) -->
     <string name="reply_translate_button">Översätt till recensentens språk</string>
     <string name="reply_translate_note">Ditt utkast: %1$s. Du signerar det översatta svaret som dina egna ord, så kontrollera det.</string>
+    <string name="help_button">Fråga hur poängen fungerar</string>
+    <string name="help_title">Så fungerar poängen</string>
+    <string name="help_hint">Ställ en fråga, t.ex. hur viktas recensioner?</string>
+    <string name="help_ask">Fråga</string>
+    <string name="help_close">Stäng</string>
+    <string name="help_label">Föreslaget svar, av AI, från policyn för recensionsintegritet</string>
+    <string name="help_failed">Inget svar just nu. Integritetspolicyn har alla regler.</string>
+    <string name="digest_title">Den här veckan i butiken</string>
+    <string name="digest_label">Föreslagen sammanfattning, av AI, från sedda toppar och uppdateringar. Fakta, inte domar.</string>
+    <string name="digest_locked">En veckosammanfattning på enkel svenska av betygstoppar och appuppdateringar i hela butiken.</string>
+    <string name="digest_notify_title">Den här veckan i butiken</string>
+    <string name="digest_unavailable">Veckans sammanfattning är inte klar än.</string>
+    <string name="pro_tool_digest_title">Veckosammanfattning av butiken</string>
+    <string name="pro_tool_digest_body">Varje vecka betygstoppar och appuppdateringar i hela butiken med enkla ord, som avisering och överst i Ändringar. Skriven av AI från sedda fakta och märkt.</string>
 </resources>
