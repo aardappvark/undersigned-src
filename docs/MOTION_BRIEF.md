@@ -19,7 +19,7 @@ Animated parts of the CLOCK IN video: the store today, the core loop, why it is 
 | 3 | 0:18–0:27 | 69 ★★★★★ in eight days, during a gold-for-5★ campaign | "In March, one app offered in-game gold for five-star reviews. Sixty-nine arrived in eight days. Nothing on the listing says so." |
 | 4 | 0:27–0:36 | Example: ★★ "crashes" → developer "fixed in 185" → the stars stay | "And when a developer fixes the problem, the two stars stay. Nothing ties the fix to the review." |
 | 5 | 0:36–0:50 | Write → Sign → Counted → Read anywhere (line icons); a Seeker phone with the real Seed Vault double-tap screen (`w_doubletap2.png`) slides in at Sign | "Undersigned makes a review a transaction. Write it, sign it with the Seed Vault, and it counts once for each Seeker. Anyone can read it, anywhere." |
-| 6 | 0:50–1:01 | 100 phones → $40,000 | "A fake voice now costs a phone. A hundred fake reviews cost forty thousand dollars in Seekers, in public." |
+| 6 | 0:50–1:01 | What one fake review costs: about $2 bought for an Android app (bar) against $450–500, one more Seeker, to add one counted review here | "A fake review for an Android app sells for about two dollars. A counted review here needs its own Seeker: four hundred and fifty dollars or more." |
 | 7 | 1:01–1:15 | Example: ★★ → publisher signs "fixed" → follow-up ★★★★★, +3; on the right, "In the app": the real reviews screen (`tk_reviews.png`) with its "Mark fixed" action ringed | "When the developer fixes it, they sign that it's fixed. The reviewer is told, and can follow up. Everyone sees both sets of stars, and which developers listen." |
 | 8 | 1:15–1:30 | Side by side, row by row | "Side by side with the store: one phone, one voice; fixes followed up; real usage; bursts shown as facts; and an open record anyone can recompute." |
 | 9 | 1:30–1:44 | $843 a year · 127 licences · $194,031 at 10% | "About eight hundred dollars a year to run; break-even at a hundred and twenty-seven Pro licences. One Seeker in ten on Pro, plus publisher and data plans: over a hundred and ninety thousand dollars a year." |
@@ -60,7 +60,8 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
 | dApps in the store | 1,543 | store public catalogue, 9 Oct 2026 |
 | Star ratings | 478,289 (1,475 rated dApps) | Undersigned's snapshot of the store feed, 9 Oct 2026 |
 | Campaign burst | 69 five-star reviews, 17–24 Mar 2026, during an in-game-gold-for-5★ offer | store reviews of one dApp (not named), read from the store feed; Undersigned burst detector |
-| Sybil cost | US$400+ per Seeker; 100 × $400 = $40,000 | owner's figure for the device price |
+| Price of one fake review | Android: US$1.73–2.14 on average, across 34 paid review providers (iOS US$3.41–4.24) | Martens & Maalej, [Towards Understanding and Detecting Fake Reviews in App Stores](https://arxiv.org/abs/1904.12607), 2019, §4 |
+| Price of one more counted review here | one more Genesis Token = one more Seeker: US$450 early pre-order, US$500 retail (about 210–290× the Android price) | [Decrypt review](https://decrypt.co/336582/solana-seeker-review-more-measured-crypto-phone); one counted review per app per Genesis Token. It prices out made-up reviewers, not a real owner being paid |
 | Running cost | US$843 a year | `docs/FINANCIAL_CASE.md` §4 |
 | Break-even | 127 Pro licences a year (0.06% of 200,000) | same |
 | On screen: 10% case | US$194,031 a year (10% of 200,000 on Pro; 20% of 1,543 dApps on the monthly publisher plan; 10 data plans a month; API passes, promotion, agent calls) | `docs/FINANCIAL_CASE.md` §5, "Owner target" (assumption, labelled "a target, not yet a record") |
@@ -95,8 +96,9 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
    slides in; the two stars stay; headline 'Nothing ties the fix to the review.' Label 'Example'."
 5. "14 seconds: four cards in a row connected by lines, lit in turn: Write, Sign (Seed Vault double-tap), Counted (one
    Seeker Genesis Token, one voice), Read anywhere (app, web, API, Solscan)."
-6. "11 seconds: 100 phone outlines appear in a grid while a counter runs from $0 to $40,000; caption 'A fake voice
-   costs a phone.'"
+6. "11 seconds: what one fake review costs. Two bars to scale: about $2 for a fake review bought for an Android app
+   (34 providers, 2019 study) and $450–500 for one more counted review here (one more Seeker); then 'About 210 to 290 times
+   the price; it prices out made-up reviewers, not a real owner being paid.'"
 7. "14 seconds: three cards appear left to right: a 2-star review (v184), a green publisher card 'Fixed in version 185',
    a 5-star follow-up (v185); then pills 'Change +3★', 'The reviewer is notified'. Label 'Example'."
 8. "15 seconds: a comparison table, rows revealed one at a time, columns 'dApp Store reviews' and 'Undersigned', using

@@ -49,8 +49,11 @@ about US$64,000 in year one; the owner's target (10–20% on Pro) US$194,000–3
 - *"It competes with the store."* It reads the store's public feed, credits it on every card, deep-links every install, and never writes to it. It is a trust layer beside the store, not a store.
 - *"Reviews on-chain are permanent; what about bad actors?"* Tags first, prose second and double-consented; same-wallet withdrawal; per-device hide and report; a publisher reply is one signature away. And a bad actor needs a Seeker per fake voice.
 - *"Why would Solana Mobile trust it?"* They do not have to. They can re-run the ranking from the chain.
-- *"What stops one person buying many voices?"* Each voice needs its own Seeker Genesis Token, and a Seeker costs
-  US$400 or more. A farm of 100 favourable reviews costs over US$40,000 in phones, and every one of them is public.
+- *"What stops one person buying many voices?"* Price. A fake review for an Android app sells for US$1.73–2.14 on
+  average across 34 paid review providers (Martens & Maalej, 2019). One more counted review of an app here needs one
+  more Seeker Genesis Token, so one more Seeker: US$450 at early pre-order, US$500 retail, about 210–290 times as much.
+  That prices out made-up reviewers; it does not stop a real owner being paid to review, which is why bursts and
+  campaigns are shown as facts.
 - *"Why give it away?"* Reviews are only worth something if everyone reads the same ones. The most useful outcome is
   the store adopting the format; a rival review silo would split the signal.
 - *"Who moderates, and why would they?"* Spam and off-topic records are handled by any Seeker owner's flag, weighted

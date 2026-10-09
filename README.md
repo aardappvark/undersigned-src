@@ -4,7 +4,7 @@
 
 A Seeker dApp that puts a sybil-resistant review layer beside the Solana dApp Store. A review is a memo transaction the
 owner signs in their own wallet with the Seed Vault double-tap. It counts only when the signing wallet holds a Seeker
-Genesis Token, so a review farm needs a farm of phones, at US$400 or more each. Ranking is deterministic from the chain;
+Genesis Token, so a review farm needs a farm of phones, at US$450–500 each (early pre-order and retail price). Ranking is deterministic from the chain;
 anyone can recompute it. No token, no prizes, nothing staked or moved by the app.
 
 CLOCK IN hackathon entry (Solana Mobile). First commit 8 Sep 2026; submissions close Mon 12 Oct 2026, 11:59 UTC.

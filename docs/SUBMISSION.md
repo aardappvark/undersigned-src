@@ -44,7 +44,7 @@ Field names are my best guess at Align's form `[unverified: the form is behind t
 **Category:** Mobile (single category). Also entering the **SKR Integration prize** (see below).
 
 **Short description (about 300 characters):**
-Undersigned is a review layer beside the Solana dApp Store. Every review is a transaction the owner signs on their Seeker; only wallets holding a Genesis Token count, so a review farm needs a farm of phones at US$400+ each. Publishers prove their apps, reply on-chain and say when a problem is fixed. Anyone can read and recompute it.
+Undersigned is a review layer beside the Solana dApp Store. Every review is a transaction the owner signs on their Seeker; only wallets holding a Genesis Token count, so a review farm needs a farm of phones at US$450–500 each. Publishers prove their apps, reply on-chain and say when a problem is fixed. Anyone can read and recompute it.
 
 **Full description:**
 
@@ -54,7 +54,7 @@ The dApp Store shows a star rating, but nothing tells you which of those stars c
 
 **Sign.** Mobile Wallet Adapter hands the transaction to the Seeker Wallet and the owner double-taps; the key never leaves the Seed Vault. The record is a memo transaction carrying one fixed reference address.
 
-**Counted.** A review counts only when the signing wallet holds a Seeker Genesis Token, which is soulbound to the device. One Seeker is one voice, and a Seeker costs US$400 or more, so a farm of fake voices is a farm of phones. A review's weight grows with what it carries (the phone's own facts, a written note), never with money: staked SKR and SOL are shown beside each review for readers to judge and never weighed, and no payment to Undersigned adds weight to anything.
+**Counted.** A review counts only when the signing wallet holds a Seeker Genesis Token, which is soulbound to the device. One Seeker is one voice, and a Seeker sold for US$450 at early pre-order and US$500 retail, so a farm of fake voices is a farm of phones. A review's weight grows with what it carries (the phone's own facts, a written note), never with money: staked SKR and SOL are shown beside each review for readers to judge and never weighed, and no payment to Undersigned adds weight to anything.
 
 **Read anywhere.** The app, a public website and JSON API (https://undersigned.provenby.dev), an MCP server for AI agents, a browser viewer that reads the chain with no server, and Solscan all read the same records. The ranking rules are a pure Kotlin module with unit tests; anyone can recompute every score.
 
