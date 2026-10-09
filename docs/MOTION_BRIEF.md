@@ -20,7 +20,7 @@ Animated parts of the CLOCK IN video: the store today, the core loop, why it is 
 | 6 | 0:50–1:01 | 100 phones → $40,000 | "A fake voice now costs a phone. A hundred fake reviews cost forty thousand dollars in Seekers, in public." |
 | 7 | 1:01–1:15 | Example: ★★ → publisher signs "fixed" → follow-up ★★★★★, +3 | "When the developer fixes it, they sign that it's fixed. The reviewer is told, and can follow up. Everyone sees both sets of stars, and which developers listen." |
 | 8 | 1:15–1:30 | Side by side, row by row | "Side by side with the store: one phone, one voice; fixes followed up; real usage; bursts shown as facts; and an open record anyone can recompute." |
-| 9 | 1:30–1:44 | $843 a year · 127 licences · $53,110 base case | "It costs about eight hundred dollars a year to run, and breaks even at a hundred and twenty-seven Pro licences. It's paid for by tools, never by reviews." |
+| 9 | 1:30–1:44 | $843 a year · 127 licences · $171,683 at 10% | "It costs about eight hundred dollars a year to run and breaks even at a hundred and twenty-seven Pro licences. If one Seeker in ten takes Pro, that's over a hundred and seventy thousand dollars a year, paid for by tools, never by reviews." |
 | 10 | 1:44–1:52 | Logo, tagline, not affiliated | "Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone." |
 
 Suggested cut for a 3-minute video: scenes 1, 3 and 4 (0:27) before the device footage; scene 5 as the bridge into the
@@ -36,8 +36,8 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
 | Sybil cost | US$400+ per Seeker; 100 × $400 = $40,000 | owner's figure for the device price |
 | Running cost | US$843 a year | `docs/FINANCIAL_CASE.md` §4 |
 | Break-even | 127 Pro licences a year (0.06% of 200,000) | same |
-| Base case | US$53,110 a year (3% of 200,000 take Pro, plus publishers, API) | same, §5 (assumption, labelled) |
-| Target | about US$172,000 a year at 10% | owner's target, labelled as such |
+| On screen: 10% case | US$171,683 a year (10% of 200,000 take Pro; 50% of publishers; API and agents) | `docs/FINANCIAL_CASE.md` §5, "Owner target" (assumption, labelled "a target, not yet a record") |
+| Base case (not on screen) | US$53,110 a year at 3% | same |
 | Pro price | 0.0607 SOL or 369 SKR a year | `AppConfig.kt` |
 | Devices shipped | 200,000 | Solana Mobile, March 2026 (company figure) |
 
@@ -73,6 +73,6 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
    a 5-star follow-up (v185); then pills 'Change +3★', 'The reviewer is notified'. Label 'Example'."
 8. "15 seconds: a comparison table, rows revealed one at a time, columns 'dApp Store reviews' and 'Undersigned', using
    the rows in the data sheet; publisher replies ticked on both sides."
-9. "14 seconds: three cards count up: $843 a year to run; 127 Pro licences to break even; $53,110 base case; footnote
-   with sources."
+9. "14 seconds: three cards count up: $843 a year to run; 127 Pro licences to break even; $171,683 a year if 10% of
+   200,000 Seekers take Pro; footnote with sources and 'a target, not yet a record'."
 10. "8 seconds: the app icon, 'Undersigned', the line 'One Seeker, one voice. Written to Solana. Readable by anyone.'"
