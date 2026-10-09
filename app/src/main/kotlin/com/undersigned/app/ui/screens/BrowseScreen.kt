@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.tourTarget
 import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.horizontalScroll
@@ -149,14 +150,14 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = (28f * minOf(fs, 1.15f) / fs).sp, lineHeight = (30f * minOf(fs, 1.15f) / fs).sp, maxLines = 1, softWrap = false, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp, modifier = Modifier.weight(1f))
             val entriesAll by vm.entries.collectAsState()
             val inboxCount = remember(entriesAll) { vm.unanswered().size + vm.repliesToMe().size }
-            IconButton(onClick = onMyReviews) { Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.my_reviews_title), tint = RbColors.textSecondary) }
-            IconButton(onClick = onInbox) {
+            IconButton(onClick = onMyReviews, modifier = Modifier.tourTarget("b_reviews")) { Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.my_reviews_title), tint = RbColors.textSecondary) }
+            IconButton(onClick = onInbox, modifier = Modifier.tourTarget("b_inbox")) {
                 BadgedBox(badge = { if (inboxCount > 0) Badge(containerColor = RbColors.purple) { Text("$inboxCount") } }) { Icon(Icons.Default.Inbox, contentDescription = if (inboxCount > 0) pluralStringResource(R.plurals.inbox_a11y, inboxCount, inboxCount) else stringResource(R.string.inbox), tint = RbColors.textSecondary) }
             }
             IconButton(onClick = onChanges) {
                 BadgedBox(badge = { if (changes.any { !it.firstSeen }) Badge(containerColor = RbColors.warning) }) { Icon(Icons.Default.Update, contentDescription = stringResource(if (changes.any { !it.firstSeen }) R.string.changes_new_a11y else R.string.changes_title), tint = RbColors.textSecondary) }
             }
-            IconButton(onClick = onSettings) { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings), tint = RbColors.textSecondary) }
+            IconButton(onClick = onSettings, modifier = Modifier.tourTarget("b_settings")) { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings), tint = RbColors.textSecondary) }
         }
         androidx.compose.animation.AnimatedVisibility(visible = headerShown || query.isNotEmpty(), enter = androidx.compose.animation.expandVertically() + androidx.compose.animation.fadeIn(),
             exit = androidx.compose.animation.shrinkVertically() + androidx.compose.animation.fadeOut()) { Column {
@@ -187,10 +188,10 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             value = query, onValueChange = { query = it }, singleLine = true,
             placeholder = { Text(stringResource(R.string.browse_search_hint), color = RbColors.textTertiary) },
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = RbColors.textTertiary) },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), shape = RoundedCornerShape(14.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp).tourTarget("b_search"), shape = RoundedCornerShape(14.dp),
             colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight),
         )
-        TabRow(selectedTabIndex = tab.ordinal, containerColor = RbColors.background, contentColor = RbColors.purpleLight) {
+        TabRow(selectedTabIndex = tab.ordinal, containerColor = RbColors.background, contentColor = RbColors.purpleLight, modifier = Modifier.tourTarget("b_tabs")) {
             Tab(selected = tab == Tab.INSTALLED, onClick = { tabPicked = Tab.INSTALLED }, text = { Text(stringResource(R.string.tab_installed) + " · $installedCount", fontSize = 13.sp) })
             Tab(selected = tab == Tab.SIGNED, onClick = { tabPicked = Tab.SIGNED }, text = { Text(stringResource(R.string.tab_signed) + " · ${scores.size}", fontSize = 13.sp) })
             Tab(selected = tab == Tab.ALL, onClick = { tabPicked = Tab.ALL }, text = { Text(stringResource(R.string.tab_all), fontSize = 13.sp) })
@@ -218,7 +219,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
               val railNames = remember(rows) { rows.filterIsInstance<Row.App>().associate { it.app.packageName to it.app.name } }
               val showRail = railNames.size > 30
               Box(Modifier.fillMaxSize()) {
-              LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(bottom = 24.dp, end = if (showRail) 26.dp else 0.dp)) {
+              LazyColumn(Modifier.fillMaxSize().tourTarget("b_list"), state = listState, contentPadding = PaddingValues(bottom = 24.dp, end = if (showRail) 26.dp else 0.dp)) {
                 // Signers whose name or address matches the query, above the dApps (design: Screens E "Search signers").
                 if (signerRows.isNotEmpty()) {
                     item(key = "signers-head") { CategoryHead(stringResource(R.string.signers_heading), signerRows.size) }

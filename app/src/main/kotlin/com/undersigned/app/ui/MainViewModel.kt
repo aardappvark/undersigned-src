@@ -611,6 +611,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         postJson("/v1/translate/reply", org.json.JSONObject().put("reply", reply).put("review_id", reviewId).put("wallet", w)).getString("reply")
     }
 
+    /** The app page the first-use tour opens: the one with the most counted signed reviews, else the first listed. */
+    fun tourSamplePackage(): String? = scores.value.maxByOrNull { it.value.countedReviews }?.key ?: catalogue.value.firstOrNull()?.packageName
+
     /** In-app help: a question about how scoring works, answered by AI from the integrity policy only (free; labelled). */
     suspend fun askHelp(question: String): Result<String> = runCatching {
         postJson("/v1/help", org.json.JSONObject().put("question", question.trim().take(400)).put("lang", translationLang())).getString("answer")

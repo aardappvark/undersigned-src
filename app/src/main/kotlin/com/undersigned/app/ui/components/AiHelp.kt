@@ -24,10 +24,10 @@ import kotlinx.coroutines.launch
  * suggestion, with the policy one tap away. Free for everyone: it explains the rules, it never changes a score.
  */
 @Composable
-fun HelpAsk(vm: MainViewModel) {
+fun HelpAsk(vm: MainViewModel, modifier: Modifier = Modifier) {
     var open by remember { mutableStateOf(false) }
     Text(stringResource(R.string.help_button), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
-        modifier = Modifier.heightIn(min = 48.dp).clickable { open = true }.padding(vertical = 14.dp))
+        modifier = modifier.heightIn(min = 48.dp).clickable { open = true }.padding(vertical = 14.dp))
     if (!open) return
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -66,9 +66,9 @@ fun HelpAsk(vm: MainViewModel) {
 
 /** This week on the store: the AI digest of store-wide bursts and updates, for Pro; others meet the lock where the card would be. */
 @Composable
-fun DigestCard(vm: MainViewModel, onPro: () -> Unit) {
+fun DigestCard(vm: MainViewModel, onPro: () -> Unit, modifier: Modifier = Modifier) {
     val pro by vm.pro.collectAsState()
-    GlassCard {
+    GlassCard(modifier = modifier) {
         Text(stringResource(R.string.digest_title), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(6.dp))
         if (pro?.active != true) { com.undersigned.app.ui.screens.ProLock(stringResource(R.string.digest_locked), onPro); return@GlassCard }
@@ -78,7 +78,13 @@ fun DigestCard(vm: MainViewModel, onPro: () -> Unit) {
             else -> d.fold({ j ->
                 Text(stringResource(R.string.digest_label), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(4.dp))
-                Text(j.optString("text"), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                // A busy week lists twenty-odd updates; the card opens at its first lines (seen on a Seeker, 9 Oct 2026).
+                var more by remember { mutableStateOf(false) }
+                val text = j.optString("text")
+                Text(text, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = if (more) Int.MAX_VALUE else 8, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                if (text.count { it == '\n' } >= 8) TextButton(onClick = { more = !more }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(if (more) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 12.sp)
+                }
             }, { Text(stringResource(R.string.digest_unavailable), color = RbColors.textSecondary, fontSize = 12.sp) })
         }
     }

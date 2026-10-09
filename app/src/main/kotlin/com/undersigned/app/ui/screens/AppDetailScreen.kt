@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.tourTarget
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -224,7 +225,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             SecondaryButton(stringResource(R.string.detail_open_store), onClick = { openStore() })
             if (launchIntent != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_open_app), onClick = { openApp() }) }
             Spacer(Modifier.height(8.dp))
-            PrimaryButton(if (mine != null) stringResource(R.string.detail_update_review) else stringResource(R.string.detail_write_review), onClick = onReview)
+            PrimaryButton(if (mine != null) stringResource(R.string.detail_update_review) else stringResource(R.string.detail_write_review), onClick = onReview, modifier = Modifier.tourTarget("d_review"))
             if (mine != null) { Spacer(Modifier.height(6.dp)); SecondaryButton(stringResource(R.string.detail_revoke_review), onClick = { dialogError = null; revokeDialog = true }) }
 
             // The operator publishes apps in this store too; on its own apps the page says so first (compliance review, 9 Oct 2026).
@@ -233,7 +234,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 GlassCard(accent = RbColors.warning) { Text(stringResource(R.string.operator_publishes_note), color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }
             }
             SectionTitle(stringResource(R.string.detail_score_title))
-            GlassCard {
+            GlassCard(modifier = Modifier.tourTarget("d_score")) {
                 // A score with nothing counted is not a 0.0: until a review counts there is no signed score to show.
                 if (score != null && score.countedReviews > 0) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -268,7 +269,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
                 Text(stringResource(R.string.integrity_link), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uriHandler.openUri(com.undersigned.app.AppConfig.Identity.URI + "integrity.html") } }.padding(vertical = 14.dp))
-                com.undersigned.app.ui.components.HelpAsk(vm)
+                com.undersigned.app.ui.components.HelpAsk(vm, Modifier.tourTarget("d_help"))
             }
 
             // Reviews over time (owner, 8 Oct 2026): store reviews by Seeker owners and other wallets, signed reviews, and both

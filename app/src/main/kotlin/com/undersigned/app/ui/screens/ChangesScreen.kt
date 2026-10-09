@@ -1,5 +1,6 @@
 package com.undersigned.app.ui.screens
 
+import com.undersigned.app.ui.components.tourTarget
 import com.undersigned.app.ui.components.BackButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -43,7 +44,7 @@ fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Uni
         Spacer(Modifier.height(8.dp))
         LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp)) {
             // This week on the store (Pro): store-wide bursts and updates in plain words, by AI, labelled a suggestion.
-            item(key = "digest") { com.undersigned.app.ui.components.DigestCard(vm, onPro); Spacer(Modifier.height(8.dp)) }
+            item(key = "digest") { com.undersigned.app.ui.components.DigestCard(vm, onPro, Modifier.tourTarget("c_digest")); Spacer(Modifier.height(8.dp)) }
             if (real.isEmpty()) item(key = "empty") { Text(stringResource(R.string.changes_empty), color = RbColors.textSecondary, fontSize = 14.sp, modifier = Modifier.fillMaxWidth().padding(32.dp)) }
             items(real, key = { it.packageName + it.at }) { c ->
                 val name = catalogue.firstOrNull { it.packageName == c.packageName }?.name ?: c.packageName

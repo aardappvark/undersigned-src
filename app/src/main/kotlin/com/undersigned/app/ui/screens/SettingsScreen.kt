@@ -48,7 +48,7 @@ import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onIntro: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}, onLeaderboard: () -> Unit = {}) {
+fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onHowTo: () -> Unit = {}, onIntro: () -> Unit = {}, onTour: () -> Unit = {}, onPro: () -> Unit = {}, onDesk: () -> Unit = {}, onStats: () -> Unit = {}, onPayments: () -> Unit = {}, onWatch: () -> Unit = {}, onLeaderboard: () -> Unit = {}) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val wallet by vm.wallet.collectAsState()
@@ -431,6 +431,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             }
             Spacer(Modifier.height(12.dp))
             SecondaryButton(stringResource(R.string.intro_replay), onClick = onIntro)
+            Spacer(Modifier.height(8.dp))
+            SecondaryButton(stringResource(R.string.tour_replay), onClick = onTour)
             Spacer(Modifier.height(8.dp))
             SecondaryButton(stringResource(R.string.howto_open), onClick = onHowTo)
             Spacer(Modifier.height(20.dp))
