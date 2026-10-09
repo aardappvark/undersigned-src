@@ -1,6 +1,7 @@
 #!/bin/sh
 # Moves the public API from this Mac to a Hetzner Cloud server (Ubuntu 24.04), keeping the same URL:
-#   sh api/deploy-hetzner.sh <server-ip>            first time, and to redeploy a new build
+#   sh api/deploy-hetzner.sh <server-ip> [--fresh-db]  first time, and to redeploy a new build (the server's live
+#                                                       database is kept; --fresh-db replaces it with this Mac's)
 # What it does, in order:
 #   1. builds the API here; snapshots the live database with sqlite3 .backup (consistent while the Mac API runs);
 #   2. on the server (as root, over this Mac's SSH key): Java 21, sqlite3, cloudflared, a system user `undersigned`;
@@ -35,16 +36,18 @@ chmod 600 "$STAGE"/*.key "$STAGE/env" "$STAGE/tunnel.json" "$STAGE/anthropic.env
 
 $SSH 'set -e
   export DEBIAN_FRONTEND=noninteractive
-  command -v java >/dev/null || { apt-get update -q; apt-get install -yq openjdk-21-jre-headless sqlite3 curl; }
+  command -v java >/dev/null || { apt-get update -q; apt-get install -yq openjdk-21-jre-headless sqlite3 curl || apt-get install -yq default-jre-headless sqlite3 curl; }
   command -v cloudflared >/dev/null || { curl -fsSL -o /tmp/cf.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i /tmp/cf.deb; }
   id undersigned >/dev/null 2>&1 || useradd --system --home /opt/undersigned --shell /usr/sbin/nologin undersigned
   mkdir -p /opt/undersigned /etc/cloudflared /opt/undersigned/.config/undersigned
   systemctl stop undersigned-api 2>/dev/null || true'
-tar -C "$STAGE" -cf - bin lib env relayer.key relayer.pub anthropic.env tunnel.json tunnel.yml $( [ "$2" = "--keep-db" ] || echo undersigned-api.db ) 2>/dev/null | $SSH 'set -e
+[ "$2" = "--fresh-db" ] && touch "$STAGE/FRESH"
+COPYFILE_DISABLE=1 tar -C "$STAGE" -cf - bin lib env relayer.key relayer.pub anthropic.env tunnel.json tunnel.yml undersigned-api.db $( [ -f "$STAGE/FRESH" ] && echo FRESH ) 2>/dev/null | $SSH 'set -e
   cd /tmp && rm -rf us-stage && mkdir us-stage && tar -C us-stage -xf -
   rm -rf /opt/undersigned/bin /opt/undersigned/lib && cp -R us-stage/bin us-stage/lib /opt/undersigned/
   cp us-stage/env /opt/undersigned/env
-  [ -f us-stage/undersigned-api.db ] && cp us-stage/undersigned-api.db /opt/undersigned/
+  # Once the server has a database it is the live one: never overwritten unless --fresh-db.
+  [ -f us-stage/undersigned-api.db ] && { [ ! -f /opt/undersigned/undersigned-api.db ] || [ -f us-stage/FRESH ]; } && cp us-stage/undersigned-api.db /opt/undersigned/
   [ -f us-stage/relayer.key ] && cp us-stage/relayer.key us-stage/relayer.pub /opt/undersigned/
   [ -f us-stage/anthropic.env ] && cp us-stage/anthropic.env /opt/undersigned/.config/undersigned/anthropic.env
   cp us-stage/tunnel.json /etc/cloudflared/undersigned.json && cp us-stage/tunnel.yml /etc/cloudflared/undersigned.yml

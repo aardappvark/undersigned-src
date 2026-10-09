@@ -34,7 +34,7 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         const val PER_KEY_TX_DAY = 3 * (1 + com.undersigned.protocol.LongText.MAX_PARTS)
         const val PER_IP_TX_DAY = 60
         const val GLOBAL_TX_DAY = 300
-        const val FEE_LAMPORTS = 5_000L
+        const val FEE_LAMPORTS = 10_000L   // two signatures (relayer + app key) at 5,000 each; measured on mainnet 9 Oct 2026
         private val ALLOWED = setOf(ReviewMemo.Review::class, ReviewMemo.Quick::class, ReviewMemo.Use::class, ReviewMemo.Time::class, ReviewMemo.Activity::class,
             ReviewMemo.LongTextHead::class, ReviewMemo.TextPart::class, ReviewMemo.FollowUp::class)
 
