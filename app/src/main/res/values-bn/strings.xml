@@ -1072,4 +1072,9 @@
     <string name="tour_s10_b">আপনার রিভিউয়ের উত্তর এবং, আপনি অ্যাপ প্রকাশ করলে, আপনার অ্যাপের যেসব রিভিউয়ের উত্তর দরকার।</string>
     <string name="tour_s11_t">সেটিংস ও Pro</string>
     <string name="tour_s11_b">আপনার ওয়ালেট, অ্যালার্ট, Pro ও পেমেন্ট বোর্ড। সেটিংস থেকে যেকোনো সময় এই ট্যুর আবার দেখুন।</string>
+    <string name="pay_trend_title">সময়ের সাথে পেমেন্ট</string>
+    <string name="pay_trend_note">প্রতিটি নিশ্চিত তালিকার প্রতি মাসে পাওয়া USD, বোর্ডের মতো মূল্যায়িত: বড় পাঁচটি আলাদা, বাকিগুলো একসাথে।</string>
+    <string name="pay_trend_monthly">মাসিক</string>
+    <string name="pay_trend_running">চলমান মোট</string>
+    <string name="pay_trend_others">অন্যান্য</string>
 </resources>

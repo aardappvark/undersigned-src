@@ -1061,4 +1061,9 @@
     <string name="tour_s10_b">Phản hồi cho đánh giá của bạn và, nếu bạn phát hành ứng dụng, các đánh giá ứng dụng cần trả lời.</string>
     <string name="tour_s11_t">Cài đặt và Pro</string>
     <string name="tour_s11_b">Ví, cảnh báo, Pro và bảng thanh toán. Xem lại hướng dẫn này trong Cài đặt bất cứ lúc nào.</string>
+    <string name="pay_trend_title">Thanh toán theo thời gian</string>
+    <string name="pay_trend_note">USD nhận được mỗi tháng của từng niêm yết đã xác nhận, định giá như trên bảng: năm mục lớn nhất riêng, phần còn lại gộp chung.</string>
+    <string name="pay_trend_monthly">Hằng tháng</string>
+    <string name="pay_trend_running">Lũy kế</string>
+    <string name="pay_trend_others">Khác</string>
 </resources>

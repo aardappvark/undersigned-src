@@ -1076,4 +1076,9 @@
     <string name="tour_s10_b">Απαντήσεις στις κριτικές σου και, αν δημοσιεύεις εφαρμογές, κριτικές των εφαρμογών σου που χρειάζονται απάντηση.</string>
     <string name="tour_s11_t">Ρυθμίσεις και Pro</string>
     <string name="tour_s11_b">Το πορτοφόλι σου, ειδοποιήσεις, Pro και ο πίνακας πληρωμών. Επανέλαβε την περιήγηση από τις Ρυθμίσεις όποτε θέλεις.</string>
+    <string name="pay_trend_title">Πληρωμές στον χρόνο</string>
+    <string name="pay_trend_note">USD ανά μήνα για κάθε επιβεβαιωμένη καταχώριση, αποτιμημένα όπως στον πίνακα: οι πέντε μεγαλύτερες χωριστά, οι υπόλοιπες μαζί.</string>
+    <string name="pay_trend_monthly">Μηνιαία</string>
+    <string name="pay_trend_running">Σωρευτικό σύνολο</string>
+    <string name="pay_trend_others">Άλλες</string>
 </resources>

@@ -1113,4 +1113,9 @@
     <string name="tour_s10_b">Відповіді на ваші відгуки та, якщо ви публікуєте застосунки, відгуки про ваші застосунки, що чекають відповіді.</string>
     <string name="tour_s11_t">Налаштування і Pro</string>
     <string name="tour_s11_b">Гаманець, сповіщення, Pro і таблиця платежів. Тур можна пройти знову в Налаштуваннях будь-коли.</string>
+    <string name="pay_trend_title">Платежі в часі</string>
+    <string name="pay_trend_note">USD, отримані щомісяця кожним підтвердженим записом, в оцінці як у таблиці: п’ять найбільших окремо, решта разом.</string>
+    <string name="pay_trend_monthly">Щомісяця</string>
+    <string name="pay_trend_running">Наростаючий підсумок</string>
+    <string name="pay_trend_others">Інші</string>
 </resources>

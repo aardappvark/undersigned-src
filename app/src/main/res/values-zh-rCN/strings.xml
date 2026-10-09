@@ -1060,4 +1060,9 @@
     <string name="tour_s10_b">对你评价的回复；如果你发布应用，还有等待你回复的应用评价。</string>
     <string name="tour_s11_t">设置与 Pro</string>
     <string name="tour_s11_b">你的钱包、提醒、Pro 和付款榜。随时可在设置中重新观看本导览。</string>
+    <string name="pay_trend_title">付款趋势</string>
+    <string name="pay_trend_note">每个已确认上架项目每月收到的美元，按付款榜的方式估值：前五名单独显示，其余合并。</string>
+    <string name="pay_trend_monthly">按月</string>
+    <string name="pay_trend_running">累计</string>
+    <string name="pay_trend_others">其他</string>
 </resources>

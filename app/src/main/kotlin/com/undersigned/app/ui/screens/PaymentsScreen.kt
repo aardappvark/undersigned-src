@@ -130,6 +130,8 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     if (boardError) { Text(stringResource(R.string.load_failed), color = RbColors.negative, fontSize = 13.sp); SecondaryButton(stringResource(R.string.retry), onClick = { vm.loadBoard(force = true) }, modifier = Modifier.padding(top = 8.dp)) }
                     else Text(stringResource(R.string.pay_empty), color = RbColors.textSecondary, fontSize = 13.sp)
                 }
+                // Payments over time across the board (owner, 9 Oct 2026): each listing's months, top five apart, the rest together.
+                if (listed.any { it.monthUsd.isNotEmpty() }) { PaymentsOverTime(listed); Spacer(Modifier.height(12.dp)) }
                 if (listed.isNotEmpty()) GlassCard {
                     listed.forEachIndexed { i, row ->
                         if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
@@ -420,5 +422,73 @@ fun TallyView(row: MainViewModel.BoardRow, quotes: Map<String, Prices.Quote>) {
         Spacer(Modifier.height(12.dp))
         val f = df.format(Date(t.first!! * 1000)); val l = df.format(Date(t.last!! * 1000))
         KeyValueGrid(listOf(stringResource(R.string.pay_label_first) to f, stringResource(R.string.pay_label_latest) to l), columns = 2, description = stringResource(R.string.pay_range, f, l), valueSize = 13)
+    }
+}
+
+
+private val TREND_COLORS = listOf(RbColors.purple, RbColors.green, RbColors.warning, androidx.compose.ui.graphics.Color(0xFF4FC3F7), androidx.compose.ui.graphics.Color(0xFFFF8AB3))
+
+/**
+ * USD received each month by every confirmed listing, as the board values it: the five largest as their own lines, the
+ * rest as one "Others" line, over the last twelve months that saw a payment. Monthly or as a running total.
+ */
+@Composable
+private fun PaymentsOverTime(listed: List<MainViewModel.BoardRow>) {
+    var running by remember { mutableStateOf(false) }
+    val months = remember(listed) { listed.flatMap { it.monthUsd.keys }.distinct().sorted().takeLast(12) }
+    val ranked = remember(listed) { listed.sortedByDescending { it.usd ?: 0.0 } }
+    val top = ranked.take(5)
+    val rest = ranked.drop(5)
+    val others = stringResource(R.string.pay_trend_others)
+    val series: List<Triple<String, androidx.compose.ui.graphics.Color, List<Double>>> = remember(listed, running, months) {
+        fun line(rows: List<MainViewModel.BoardRow>): List<Double> {
+            val m = months.map { k -> rows.sumOf { it.monthUsd[k] ?: 0.0 } }
+            return if (running) m.runningFold(0.0) { a, b -> a + b }.drop(1) else m
+        }
+        top.mapIndexed { i, r -> Triple(r.name, TREND_COLORS[i], line(listOf(r))) } +
+            (if (rest.isNotEmpty()) listOf(Triple(others, RbColors.textTertiary, line(rest))) else emptyList())
+    }
+    val max = series.maxOfOrNull { it.third.maxOrNull() ?: 0.0 }?.takeIf { it > 0 } ?: return
+    fun label(k: String) = java.time.YearMonth.parse(k).month.getDisplayName(java.time.format.TextStyle.SHORT, Locale.getDefault()) + " " + k.take(4)
+    GlassCard {
+        Text(stringResource(R.string.pay_trend_title), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.pay_trend_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+        Row(Modifier.padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FilterChip(selected = !running, onClick = { running = false }, label = { Text(stringResource(R.string.pay_trend_monthly), fontSize = 12.sp) })
+            FilterChip(selected = running, onClick = { running = true }, label = { Text(stringResource(R.string.pay_trend_running), fontSize = 12.sp) })
+        }
+        val a11y = series.joinToString("; ") { (n, _, v) -> n + ": " + months.indices.joinToString(", ") { i -> label(months[i]) + " " + usd(v[i]) } }
+        Row(Modifier.fillMaxWidth()) {
+            Column(Modifier.height(150.dp), verticalArrangement = Arrangement.SpaceBetween) {
+                Text(usd(max).substringBefore('.'), color = RbColors.textTertiary, fontSize = 9.sp)
+                Text("$0", color = RbColors.textTertiary, fontSize = 9.sp)
+            }
+            Spacer(Modifier.width(6.dp))
+            val grid = RbColors.surfaceVariant
+            androidx.compose.foundation.Canvas(Modifier.weight(1f).height(150.dp).semantics { contentDescription = a11y }) {
+                val n = months.size
+                val dx = if (n > 1) size.width / (n - 1) else 0f
+                fun y(v: Double) = (size.height * (1 - v / max)).toFloat()
+                for (g in 0..3) { val gy = size.height * g / 3; drawLine(grid, androidx.compose.ui.geometry.Offset(0f, gy), androidx.compose.ui.geometry.Offset(size.width, gy), 1.dp.toPx()) }
+                series.asReversed().forEach { (_, c, v) ->
+                    val pts = v.mapIndexed { i, x -> androidx.compose.ui.geometry.Offset(if (n > 1) i * dx else size.width / 2, y(x)) }
+                    for (i in 1 until pts.size) drawLine(c, pts[i - 1], pts[i], 2.5.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round)
+                    pts.forEach { drawCircle(c, 3.dp.toPx(), it) }
+                }
+            }
+        }
+        Row(Modifier.fillMaxWidth().padding(start = 30.dp, top = 2.dp)) {
+            Text(label(months.first()), color = RbColors.textTertiary, fontSize = 9.sp, modifier = Modifier.weight(1f))
+            if (months.size > 1) Text(label(months.last()), color = RbColors.textTertiary, fontSize = 9.sp)
+        }
+        Spacer(Modifier.height(8.dp))
+        series.forEach { (n, c, v) ->
+            Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.size(10.dp).background(c, androidx.compose.foundation.shape.CircleShape))
+                Spacer(Modifier.width(8.dp))
+                Text(n, color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                Text(usd(if (running) v.lastOrNull() ?: 0.0 else v.sum()), color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+            }
+        }
     }
 }

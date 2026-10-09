@@ -1106,4 +1106,9 @@
     <string name="tour_s10_b">Odpovědi na vaše recenze a, pokud vydáváte aplikace, recenze vašich aplikací, které čekají na odpověď.</string>
     <string name="tour_s11_t">Nastavení a Pro</string>
     <string name="tour_s11_b">Vaše peněženka, upozornění, Pro a přehled plateb. Průvodce můžete kdykoli zopakovat v Nastavení.</string>
+    <string name="pay_trend_title">Platby v čase</string>
+    <string name="pay_trend_note">USD přijaté každý měsíc každým potvrzeným záznamem, oceněné jako v přehledu: pět největších zvlášť, zbytek dohromady.</string>
+    <string name="pay_trend_monthly">Měsíčně</string>
+    <string name="pay_trend_running">Průběžný součet</string>
+    <string name="pay_trend_others">Ostatní</string>
 </resources>

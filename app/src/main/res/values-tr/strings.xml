@@ -1076,4 +1076,9 @@
     <string name="tour_s10_b">İncelemelerinize gelen yanıtlar ve uygulama yayınlıyorsanız yanıt bekleyen uygulama incelemeleriniz.</string>
     <string name="tour_s11_t">Ayarlar ve Pro</string>
     <string name="tour_s11_b">Cüzdanınız, bildirimler, Pro ve ödemeler tablosu. Bu turu istediğiniz zaman Ayarlar\'dan yeniden izleyin.</string>
+    <string name="pay_trend_title">Zaman içinde ödemeler</string>
+    <string name="pay_trend_note">Onaylı her kaydın aylık aldığı USD, tablodaki gibi değerlenmiş: en büyük beşi ayrı, kalanı birlikte.</string>
+    <string name="pay_trend_monthly">Aylık</string>
+    <string name="pay_trend_running">Kümülatif toplam</string>
+    <string name="pay_trend_others">Diğerleri</string>
 </resources>

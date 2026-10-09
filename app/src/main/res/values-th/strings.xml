@@ -1045,4 +1045,9 @@
     <string name="tour_s10_b">คำตอบต่อรีวิวของคุณ และหากคุณเผยแพร่แอป รีวิวแอปของคุณที่รอการตอบ</string>
     <string name="tour_s11_t">การตั้งค่าและ Pro</string>
     <string name="tour_s11_b">วอลเล็ต การแจ้งเตือน Pro และกระดานการชำระเงิน ดูทัวร์นี้อีกครั้งได้จากการตั้งค่าทุกเมื่อ</string>
+    <string name="pay_trend_title">การชำระเงินตามเวลา</string>
+    <string name="pay_trend_note">USD ที่แต่ละรายการที่ยืนยันแล้วได้รับในแต่ละเดือน คิดมูลค่าตามกระดาน: ห้ารายการใหญ่สุดแยกกัน ที่เหลือรวมกัน</string>
+    <string name="pay_trend_monthly">รายเดือน</string>
+    <string name="pay_trend_running">ยอดสะสม</string>
+    <string name="pay_trend_others">อื่น ๆ</string>
 </resources>

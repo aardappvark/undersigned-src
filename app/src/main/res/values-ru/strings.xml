@@ -1097,4 +1097,9 @@
     <string name="tour_s10_b">Ответы на ваши отзывы и, если вы публикуете приложения, отзывы о ваших приложениях, ждущие ответа.</string>
     <string name="tour_s11_t">Настройки и Pro</string>
     <string name="tour_s11_b">Кошелёк, оповещения, Pro и таблица платежей. Тур можно пройти снова в Настройках в любое время.</string>
+    <string name="pay_trend_title">Платежи во времени</string>
+    <string name="pay_trend_note">USD, полученные за каждый месяц каждой подтверждённой записью, в оценке как в таблице: пять крупнейших отдельно, остальные вместе.</string>
+    <string name="pay_trend_monthly">По месяцам</string>
+    <string name="pay_trend_running">Нарастающий итог</string>
+    <string name="pay_trend_others">Другие</string>
 </resources>

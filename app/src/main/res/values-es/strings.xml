@@ -1105,4 +1105,9 @@
     <string name="tour_s10_b">Respuestas a tus reseñas y, si publicas apps, reseñas de tus apps que necesitan respuesta.</string>
     <string name="tour_s11_t">Ajustes y Pro</string>
     <string name="tour_s11_b">Tu wallet, avisos, Pro y el tablero de pagos. Repite este recorrido desde Ajustes cuando quieras.</string>
+    <string name="pay_trend_title">Pagos en el tiempo</string>
+    <string name="pay_trend_note">USD recibidos cada mes por cada listado confirmado, valorados como en el tablero: los cinco mayores aparte, el resto juntos.</string>
+    <string name="pay_trend_monthly">Mensual</string>
+    <string name="pay_trend_running">Total acumulado</string>
+    <string name="pay_trend_others">Otros</string>
 </resources>

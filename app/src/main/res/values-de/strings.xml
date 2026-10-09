@@ -1096,4 +1096,9 @@
     <string name="tour_s10_b">Antworten auf deine Bewertungen und, wenn du Apps veröffentlichst, Bewertungen deiner Apps, die eine Antwort brauchen.</string>
     <string name="tour_s11_t">Einstellungen und Pro</string>
     <string name="tour_s11_b">Deine Wallet, Mitteilungen, Pro und die Zahlungstabelle. Die Tour lässt sich jederzeit in den Einstellungen wiederholen.</string>
+    <string name="pay_trend_title">Zahlungen im Zeitverlauf</string>
+    <string name="pay_trend_note">USD pro Monat für jeden bestätigten Eintrag, bewertet wie in der Tabelle: die fünf größten einzeln, der Rest zusammen.</string>
+    <string name="pay_trend_monthly">Monatlich</string>
+    <string name="pay_trend_running">Laufende Summe</string>
+    <string name="pay_trend_others">Andere</string>
 </resources>

@@ -1147,4 +1147,9 @@
     <string name="tour_s10_b">الردود على مراجعاتك، وإن كنت تنشر تطبيقات، مراجعات تطبيقاتك التي تحتاج إلى رد.</string>
     <string name="tour_s11_t">الإعدادات وPro</string>
     <string name="tour_s11_b">محفظتك والتنبيهات وPro ولوحة المدفوعات. أعد هذه الجولة من الإعدادات متى شئت.</string>
+    <string name="pay_trend_title">المدفوعات عبر الزمن</string>
+    <string name="pay_trend_note">الدولارات المستلمة شهريًا لكل إدراج مؤكَّد، مقيّمة كما في اللوحة: الخمسة الأكبر منفصلة والبقية معًا.</string>
+    <string name="pay_trend_monthly">شهريًا</string>
+    <string name="pay_trend_running">المجموع التراكمي</string>
+    <string name="pay_trend_others">أخرى</string>
 </resources>

@@ -1077,4 +1077,9 @@
     <string name="tour_s10_b">Svar på dina recensioner och, om du publicerar appar, recensioner av dina appar som behöver svar.</string>
     <string name="tour_s11_t">Inställningar och Pro</string>
     <string name="tour_s11_b">Din plånbok, aviseringar, Pro och betalningstavlan. Spela upp guiden igen från Inställningar när du vill.</string>
+    <string name="pay_trend_title">Betalningar över tid</string>
+    <string name="pay_trend_note">USD per månad för varje bekräftad listning, värderat som på tavlan: de fem största var för sig, resten tillsammans.</string>
+    <string name="pay_trend_monthly">Per månad</string>
+    <string name="pay_trend_running">Löpande summa</string>
+    <string name="pay_trend_others">Övriga</string>
 </resources>

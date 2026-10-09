@@ -1102,4 +1102,9 @@
     <string name="tour_s10_b">Replies to your reviews and, if you publish apps, reviews of your apps that need an answer.</string>
     <string name="tour_s11_t">Settings and Pro</string>
     <string name="tour_s11_b">Your wallet, alerts, Pro and the payments board. Replay this tour from Settings any time.</string>
+    <string name="pay_trend_title">Payments over time</string>
+    <string name="pay_trend_note">USD received each month by every confirmed listing, valued as on the board: the five largest apart, the rest together.</string>
+    <string name="pay_trend_monthly">Monthly</string>
+    <string name="pay_trend_running">Running total</string>
+    <string name="pay_trend_others">Others</string>
 </resources>

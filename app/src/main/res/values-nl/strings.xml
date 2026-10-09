@@ -1085,4 +1085,9 @@
     <string name="tour_s10_b">Reacties op je reviews en, als je apps publiceert, reviews van je apps die een antwoord nodig hebben.</string>
     <string name="tour_s11_t">Instellingen en Pro</string>
     <string name="tour_s11_b">Je wallet, meldingen, Pro en het betalingsoverzicht. Herhaal deze rondleiding wanneer je wilt via Instellingen.</string>
+    <string name="pay_trend_title">Betalingen in de tijd</string>
+    <string name="pay_trend_note">USD per maand voor elke bevestigde vermelding, gewaardeerd zoals op het overzicht: de vijf grootste apart, de rest samen.</string>
+    <string name="pay_trend_monthly">Per maand</string>
+    <string name="pay_trend_running">Lopend totaal</string>
+    <string name="pay_trend_others">Overige</string>
 </resources>

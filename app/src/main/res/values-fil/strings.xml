@@ -1080,4 +1080,9 @@
     <string name="tour_s10_b">Mga sagot sa review mo at, kung naglalathala ka ng app, mga review ng app mo na kailangang sagutin.</string>
     <string name="tour_s11_t">Settings at Pro</string>
     <string name="tour_s11_b">Ang wallet mo, alerto, Pro at ang payments board. Ulitin ang tour na ito mula sa Settings kahit kailan.</string>
+    <string name="pay_trend_title">Mga bayad sa paglipas ng panahon</string>
+    <string name="pay_trend_note">USD na natanggap bawat buwan ng bawat kumpirmadong listing, tinasa gaya sa board: ang limang pinakamalaki nang hiwalay, ang iba nang magkakasama.</string>
+    <string name="pay_trend_monthly">Buwanan</string>
+    <string name="pay_trend_running">Kabuuang tumatakbo</string>
+    <string name="pay_trend_others">Iba pa</string>
 </resources>

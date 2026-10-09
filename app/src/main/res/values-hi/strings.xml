@@ -1079,4 +1079,9 @@
     <string name="tour_s10_b">आपकी समीक्षाओं के जवाब और, अगर आप ऐप प्रकाशित करते हैं, आपके ऐप की वे समीक्षाएँ जिन्हें जवाब चाहिए।</string>
     <string name="tour_s11_t">सेटिंग्स और Pro</string>
     <string name="tour_s11_b">आपका वॉलेट, अलर्ट, Pro और भुगतान बोर्ड। यह टूर सेटिंग्स से कभी भी दोबारा देखें।</string>
+    <string name="pay_trend_title">समय के साथ भुगतान</string>
+    <string name="pay_trend_note">हर पुष्ट लिस्टिंग को हर महीने मिले USD, बोर्ड की तरह मूल्यांकित: सबसे बड़ी पाँच अलग, बाकी एक साथ।</string>
+    <string name="pay_trend_monthly">मासिक</string>
+    <string name="pay_trend_running">चालू योग</string>
+    <string name="pay_trend_others">अन्य</string>
 </resources>

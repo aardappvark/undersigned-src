@@ -1076,4 +1076,9 @@
     <string name="tour_s10_b">Válaszok az értékeléseidre, és ha alkalmazásokat adsz ki, az alkalmazásaid válaszra váró értékelései.</string>
     <string name="tour_s11_t">Beállítások és Pro</string>
     <string name="tour_s11_b">A tárcád, értesítések, Pro és a fizetési tábla. A bemutatót bármikor újra megnézheted a Beállításokban.</string>
+    <string name="pay_trend_title">Fizetések időben</string>
+    <string name="pay_trend_note">Minden megerősített tétel havi USD-bevétele, a táblán szereplő értékeléssel: az öt legnagyobb külön, a többi együtt.</string>
+    <string name="pay_trend_monthly">Havonta</string>
+    <string name="pay_trend_running">Halmozott összeg</string>
+    <string name="pay_trend_others">Egyéb</string>
 </resources>

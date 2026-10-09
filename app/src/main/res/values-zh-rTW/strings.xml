@@ -1060,4 +1060,9 @@
     <string name="tour_s10_b">對你評論的回覆；如果你發布應用程式，還有等待你回覆的評論。</string>
     <string name="tour_s11_t">設定與 Pro</string>
     <string name="tour_s11_b">你的錢包、提醒、Pro 和付款榜。隨時可在設定中重新觀看本導覽。</string>
+    <string name="pay_trend_title">付款趨勢</string>
+    <string name="pay_trend_note">每個已確認上架項目每月收到的美元，依付款榜的方式估值：前五名單獨顯示，其餘合併。</string>
+    <string name="pay_trend_monthly">按月</string>
+    <string name="pay_trend_running">累計</string>
+    <string name="pay_trend_others">其他</string>
 </resources>

@@ -1079,4 +1079,9 @@
     <string name="tour_s10_b">آپ کے جائزوں کے جوابات اور، اگر آپ ایپس شائع کرتے ہیں، آپ کی ایپس کے وہ جائزے جنہیں جواب درکار ہے۔</string>
     <string name="tour_s11_t">ترتیبات اور Pro</string>
     <string name="tour_s11_b">آپ کا والیٹ، الرٹس، Pro اور ادائیگیوں کا بورڈ۔ یہ ٹور ترتیبات سے جب چاہیں دوبارہ دیکھیں۔</string>
+    <string name="pay_trend_title">وقت کے ساتھ ادائیگیاں</string>
+    <string name="pay_trend_note">ہر تصدیق شدہ لسٹنگ کو ہر ماہ ملنے والے USD، بورڈ کی طرح قدر کے ساتھ: سب سے بڑی پانچ الگ، باقی اکٹھی۔</string>
+    <string name="pay_trend_monthly">ماہانہ</string>
+    <string name="pay_trend_running">مجموعی کل</string>
+    <string name="pay_trend_others">دیگر</string>
 </resources>

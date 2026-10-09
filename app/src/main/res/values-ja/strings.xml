@@ -1052,4 +1052,9 @@
     <string name="tour_s10_b">あなたのレビューへの返信と、アプリを公開している場合は返信が必要なレビュー。</string>
     <string name="tour_s11_t">設定と Pro</string>
     <string name="tour_s11_b">ウォレット、通知、Pro、支払いボード。このツアーは設定からいつでも見直せます。</string>
+    <string name="pay_trend_title">支払いの推移</string>
+    <string name="pay_trend_note">確認済みの各掲載が毎月受け取った USD（ボードと同じ評価）。上位5件は個別に、残りはまとめて表示。</string>
+    <string name="pay_trend_monthly">月別</string>
+    <string name="pay_trend_running">累計</string>
+    <string name="pay_trend_others">その他</string>
 </resources>

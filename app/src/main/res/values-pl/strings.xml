@@ -1114,4 +1114,9 @@
     <string name="tour_s10_b">Odpowiedzi na Twoje recenzje oraz, jeśli publikujesz aplikacje, recenzje Twoich aplikacji czekające na odpowiedź.</string>
     <string name="tour_s11_t">Ustawienia i Pro</string>
     <string name="tour_s11_b">Twój portfel, alerty, Pro i tablica płatności. Przewodnik możesz powtórzyć w Ustawieniach w każdej chwili.</string>
+    <string name="pay_trend_title">Płatności w czasie</string>
+    <string name="pay_trend_note">USD otrzymane w każdym miesiącu przez każdy potwierdzony wpis, wycenione jak na tablicy: pięć największych osobno, reszta razem.</string>
+    <string name="pay_trend_monthly">Miesięcznie</string>
+    <string name="pay_trend_running">Suma narastająca</string>
+    <string name="pay_trend_others">Pozostałe</string>
 </resources>
