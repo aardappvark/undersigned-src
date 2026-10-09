@@ -58,8 +58,7 @@ does not parse exactly; there is no partial acceptance and no "unknown field" to
 - **One voice:** the signer must hold a Seeker Genesis Token (`seeker-verify` 1.1.0 read path, as HydroSol /
   Sol Mala). No token → weight 0 → the review is stored on-chain like any other but never counted.
 - **Weight:** 1 per attested device (9 Oct 2026; was `min(3, 1 + ln(1 + stakedSKR/1000))`). Staked SKR and SOL are read and SHOWN, never weighed — staked SKR read the way SeekerVerify's
-  `Season1RpcClient` reads it (getProgramAccounts, dataSize 64, memcmp claimant @8). Capped so a whale
-  is at most 3 ordinary Seekers. The app stakes nothing, unstakes nothing, and never tells anyone to.
+  `Season1RpcClient` reads it (getProgramAccounts, dataSize 64, memcmp claimant @8). The app stakes nothing, unstakes nothing, and never tells anyone to.
 - **Dedup:** newest counted review per wallet per package wins. Bayesian prior 3.0 with strength 5.
 
 ## 3a. Attested devices — the governed list

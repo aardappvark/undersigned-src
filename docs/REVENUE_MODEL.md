@@ -9,8 +9,8 @@ US$124,000. The money is modest beside the store; the point is that **the layer 
 so stewardship costs Solana Mobile nothing, and what is left can go back to the Seeker community.
 
 **What is measured and what is assumed.** Device count, dApp count, store ratings, the rate of new ratings, prices and
-costs are measured (sources below). Every adoption rate is an assumption: Undersigned's own conversion so far is one
-Pro licence, so there is no observed rate yet. Freemium software commonly converts low single-digit percentages of
+costs are measured (sources below). Every adoption rate is an assumption: Undersigned's only Pro licence so far was paid
+by the operator as a test, so there is no observed rate at all. Freemium software commonly converts low single-digit percentages of
 users [unverified: general industry figure]; the low case is 1%. Reproduce or change any number with
 `python3 tools/revenue_model.py`.
 

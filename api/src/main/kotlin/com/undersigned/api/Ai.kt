@@ -89,24 +89,41 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
     /** A translation through the local model first, then Claude; the answer is cleaned of echoes and labels. */
     /** Which model made the answer being cached (the local one or Claude), recorded in ai_cache.model. */
     private val lastModel = ThreadLocal<String>()
-    private fun translateWith(system: String, user: String, source: String, maxTokens: Int, claudeFirst: Boolean = false): String? {
+    private fun translateWith(system: String, user: String, source: String, maxTokens: Int, claudeFirst: Boolean = false, lang: String? = null): String? {
         // A reply is signed and permanent, so it goes to the stronger model first (the local one slipped on Hungarian
         // grammar in a live check, 9 Oct 2026); reading aids go local first, for free.
-        if (claudeFirst) { lastModel.set(Config.AI_MODEL); complete(system, user, maxTokens)?.let { clean(it, source) }?.takeIf { it.isNotBlank() }?.let { return it } }
-        local?.let { runCatching { it(system, user) }.getOrNull() }?.let { clean(it, source) }?.takeIf { it.isNotBlank() }?.let { lastModel.set(Config.OLLAMA_MODEL); return it }
+        if (claudeFirst) { lastModel.set(Config.AI_MODEL); complete(system, user, maxTokens)?.let { clean(it, source, lang) }?.takeIf { it.isNotBlank() }?.let { return it } }
+        local?.let { runCatching { it(system, user) }.getOrNull() }?.let { clean(it, source, lang) }?.takeIf { it.isNotBlank() }?.let { lastModel.set(Config.OLLAMA_MODEL); return it }
         lastModel.set(Config.AI_MODEL)
-        return complete(system, user, maxTokens)?.let { clean(it, source) }?.takeIf { it.isNotBlank() }
+        return complete(system, user, maxTokens)?.let { clean(it, source, lang) }?.takeIf { it.isNotBlank() }
     }
 
     /** Models sometimes repeat the source or add "Japanese translation:"; keep only the translation (found live, 9 Oct 2026). */
-    fun clean(out: String, source: String): String {
+    fun clean(out: String, source: String, lang: String? = null): String {
         var lines = out.trim().lines().map { it.trim() }
+        // A model that "corrects itself" mid-answer ("Wait, I need to correct that…"): keep only what follows the last such line.
+        val aside = Regex("^(wait|actually|correction|note|sorry|oops|let me (correct|fix|redo))\\b.*", RegexOption.IGNORE_CASE)
+        lines.indexOfLast { aside.matches(it) }.let { if (it >= 0) lines = lines.drop(it + 1) }
         val label = Regex("^(\\*\\*)?[\\p{L} ()-]{0,40}(translation|traducción|traduction|Übersetzung|翻訳|翻译|번역|перевод)[^:：]{0,20}[:：](\\*\\*)?$", RegexOption.IGNORE_CASE)
         val idx = lines.indexOfLast { label.matches(it) }
         if (idx >= 0) lines = lines.drop(idx + 1)
         lines = lines.filterNot { it.equals(source.trim(), ignoreCase = true) }
+        // Into a language with its own script, a line of three or more Latin words and none of that script is the model
+        // talking (or an English paraphrase), not the translation (live check, 10 Oct 2026: Japanese came back English first).
+        SCRIPTS[lang?.substringBefore('-')]?.let { script ->
+            val english = Regex("[A-Za-z]{2,}(\\W+[A-Za-z]{2,}){2,}")
+            if (lines.any { script.containsMatchIn(it) }) lines = lines.filterNot { !script.containsMatchIn(it) && english.containsMatchIn(it) }
+        }
         return lines.joinToString("\n").trim().removeSurrounding("\"").trim()
     }
+
+    /** True when [out] is plausibly in [lang]: for a language with its own script, at least one character of it. */
+    fun inLanguage(out: String, lang: String): Boolean = SCRIPTS[lang.substringBefore('-')]?.containsMatchIn(out) ?: true
+
+    private val SCRIPTS: Map<String, Regex> = mapOf(
+        "ja" to Regex("[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]"), "zh" to Regex("\\p{IsHan}"), "ko" to Regex("\\p{IsHangul}"),
+        "ru" to Regex("\\p{IsCyrillic}"), "uk" to Regex("\\p{IsCyrillic}"), "el" to Regex("\\p{IsGreek}"), "ar" to Regex("\\p{IsArabic}"),
+        "hi" to Regex("\\p{IsDevanagari}"), "bn" to Regex("\\p{IsBengali}"), "th" to Regex("\\p{IsThai}"))
 
     private fun cached(kind: String, k: String, compute: () -> String?): String? {
         db.query("SELECT out FROM ai_cache WHERE kind = ? AND k = ?", kind, k) { it.getString(1) }.firstOrNull()?.let { return it }
@@ -127,12 +144,12 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
 
     /** A suggested translation of one public text into [lang]: faithful, nothing added, softened or strengthened. */
     fun translate(recordId: String, text: String, lang: String): String? = cached("translate2", "$recordId|$lang|${sha(text)}") {
-        translateWith(TRANSLATE_SYSTEM, "Target language: ${languageName(lang)}.\n\nText:\n$text", text, 600)
+        translateWith(TRANSLATE_SYSTEM, "Target language: ${languageName(lang)}.\n\nText:\n$text", text, 600, lang = lang)?.takeIf { inLanguage(it, lang) }
     }
 
     /** Any short text (a store review, Pro) into [lang]: the same rules, cached by the text itself. */
     fun translateText(text: String, lang: String): String? = cached("translate_text", "$lang|${sha(text)}") {
-        translateWith(TRANSLATE_SYSTEM, "Target language: ${languageName(lang)}.\n\nText:\n$text", text, 700)
+        translateWith(TRANSLATE_SYSTEM, "Target language: ${languageName(lang)}.\n\nText:\n$text", text, 700, lang = lang)?.takeIf { inLanguage(it, lang) }
     }
 
     /**

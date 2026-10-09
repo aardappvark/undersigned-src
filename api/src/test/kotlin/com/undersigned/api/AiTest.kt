@@ -76,6 +76,17 @@ class AiTest {
         assertEquals("Szia", ai.clean("\"Szia\"", "Hello")); assertEquals("Bonjour", ai.clean("**French translation:**\nBonjour", "Hello"))
     }
 
+    @Test fun `a model correcting itself mid-answer leaves only the translation, and English is never served as Japanese`() {
+        val ai = Ai(tmpDb(), call = { _, _, _ -> null })
+        // The live answer of 10 Oct 2026, verbatim.
+        val live = "Quick reviews test, end-to-end relay.\n\nWait, I need to correct that: the output must be the Japanese translation only.\n\nクイックレビューのテスト、エンドツーエンドのリレー。"
+        assertEquals("クイックレビューのテスト、エンドツーエンドのリレー。", ai.clean(live, "Test of quick reviews, relay end to end.", "ja"))
+        assertEquals("クイックレビューのテスト。", ai.clean("Quick reviews test, end to end.\nクイックレビューのテスト。", "x", "ja"))
+        assertEquals("Jupiter スワップは速い。", ai.clean("Jupiter スワップは速い。", "x", "ja"))   // app names inside the script line stay
+        assertEquals(false, ai.inLanguage("Quick reviews test, end-to-end relay.", "ja")); assertEquals(true, ai.inLanguage("Hola", "es"))
+        assertEquals("Hola amigo", ai.clean("Hola amigo", "Hello friend", "es"))             // Latin targets untouched
+    }
+
     @Test fun `store-review and reply translation are Pro or key only`() {
         val db = tmpDb()
         val member = "7cVfgArCheMR6Cs4t6vz5rfnqd56vZq4ndaBrY5xkxXy"

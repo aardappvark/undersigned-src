@@ -98,7 +98,7 @@ object AppConfig {
          * Raising either leg later REVOKES buyers unless the old amount goes into the LEGACY lists first.
          */
         const val PRO_SOL = 0.0607
-        /** 369 SKR from 9 Oct 2026: 10% below the SOL leg at that day's rate (fleet rule; median of four feeds: SOL $110.68, SKR $0.01639). Lower than every earlier price (651, 276), so every licence already bought still reads: the floor is the lowest price ever charged. */
+        /** 369 SKR from 9 Oct 2026: 10% below the SOL leg at that day's rate (fleet rule; median of four feeds: SOL $110.68, SKR $0.01639). Higher than the 276 SKR of 15–28 Sep, so 276 stays in [LEGACY_PRO_SKR] and every licence already bought still reads: the floor is the lowest price ever charged. */
         const val PRO_SKR = 369.0
         /**
          * Promoting one's own review, Pro members only (owner, 9 Oct 2026): a tenth of the Pro price. It never changes the

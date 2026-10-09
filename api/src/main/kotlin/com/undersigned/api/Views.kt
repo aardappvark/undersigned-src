@@ -143,8 +143,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val pub = replies.count { r -> val p = (byId[(r.memo as ReviewMemo.Reply).reviewSignature]?.memo as? ReviewMemo.Review)?.packageName; p != null && st.verified[p]?.contains(r.signer) == true }
         val dated = all.filter { it.memo !is ReviewMemo.Pro }
         return JSONObject().put("records", all.size).put("reviews_live", live.size).put("reviews_counted", counted.size).put("signers", signers.size)
-            .put("attested_signers", signers.count { st.factsOf(it).hasGenesisToken }).put("apps_reviewed", live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size)
-            .put("apps_scored", st.scores.size).put("replies", replies.size).put("publisher_replies", pub)
+            .put("attested_signers", signers.count { st.factsOf(it).hasGenesisToken && it !in com.undersigned.protocol.Operator.WALLETS }).put("apps_reviewed", live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size)
+            .put("apps_scored", st.scores.values.count { it.countedReviews > 0 }).put("replies", replies.size).put("publisher_replies", pub)
             .put("claims", all.count { it.memo is ReviewMemo.Claim }).put("claims_verified", st.verified.values.sumOf { it.size })
             .put("flags", all.count { it.memo is ReviewMemo.Flag }).put("clears", all.count { it.memo is ReviewMemo.Clear }).put("disputes", all.count { it.memo is ReviewMemo.Dispute })
             .put("hidden_by_consensus", st.hidden.size).put("withdrawn", st.revoked.size).put("licences", all.count { it.memo is ReviewMemo.Pro })

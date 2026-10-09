@@ -88,7 +88,7 @@ verify, it is not a safety verdict.**
 
 - Release **1.1.0** (versionCode 11). 157 commits on 18 days; about 18,800 lines of Kotlin plus 3,400 lines of tests;
   251 Kotlin tests and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
-- Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR. **0 counted reviews
+- Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
   scores fill as Seeker owners sign.
 - Legal pack live: https://aardappvark.github.io/undersigned-legal/ (terms, privacy, EULA, integrity policy).
@@ -115,9 +115,9 @@ Build and test everything:
    ranking every reader sees. Pro is an optional 12-month licence (0.0607 SOL or 369 SKR — 276 SKR until 28 Sep 2026, still honoured — fleet payment cluster,
    memo `UNS`, treasury-credit ≥ floor = the licence) for the work *around* signing: import all store reviews in one approval, the publisher desk, CSV/JSON export, and
    hourly instead of six-hourly alerts for followed apps (copying a review to the store is free). It is shareable with two other wallets. **Pro never weights an opinion, lifts a listing or marks
-   anyone trusted** — weight comes only from the attested device and staked SKR. Pro members' reviews also get their
+   anyone trusted** — weight comes only from the attested device and what the review carries; staked SKR is shown, never weighed. Pro members' reviews also get their
    own labelled score; reviews are listed under Organic / Pro members / Promoted (paid, after organic, never first) / Related to Undersigned / Not counted, and the
    operator's own wallets and publisher-gifted Pro seats count in no score ([integrity policy](https://aardappvark.github.io/undersigned-legal/integrity.html)). It changes none of the legal
-   analysis (a software licence fee, as in every other fleet app). First licence paid on mainnet 15 Sep (276 SKR).
+   analysis (a software licence fee, as in every other fleet app). First licence paid on mainnet 15 Sep (276 SKR, from the operator's own wallet: an end-to-end test).
 4. **Package visibility** — `QUERY_ALL_PACKAGES` with a disclosure (the Toolkit precedent) or a generated
    `<queries>` list from the catalogue. The former is simpler and already store-approved in the fleet.

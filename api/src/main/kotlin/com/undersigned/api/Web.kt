@@ -84,7 +84,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
                 "<h1>Signed reviews from Seeker owners</h1><p class=sub>Every review here is signed on-chain by its author's own wallet. Only wallets holding a Seeker Genesis Token are counted: one phone, one voice. No payment to Undersigned changes a score.</p>" +
                 "<div class=ctas><a class=btn href='/review'>Write a signed review</a><a class='btn sec' href='#apps'>Browse apps</a></div></div></section>")
             sb.append("<div class=card><div class=stats>")
-            listOf("reviews_counted" to "counted reviews", "attested_signers" to "Seeker owners reviewing", "apps_reviewed" to "apps reviewed", "publisher_replies" to "publisher replies", "catalogue_apps" to "apps in the store")
+            listOf("reviews_counted" to "counted reviews", "attested_signers" to "independent Seeker owners reviewing", "apps_reviewed" to "apps reviewed", "publisher_replies" to "publisher replies", "catalogue_apps" to "apps in the store")
                 .forEach { (k, l) -> sb.append("<div class=stat><b>${"%,d".format(java.util.Locale.US, s.optLong(k))}</b><span>$l</span></div>") }
             sb.append("</div></div>")
             // Early days, said plainly (judge review, 10 Oct 2026): an empty score is the rules working, not the site failing.
