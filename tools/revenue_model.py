@@ -8,6 +8,9 @@ ASSUMPTION, stated in the table. Run: python3 tools/revenue_model.py  (prints th
 GENESIS_TOKENS = 121_161        # Seeker Genesis Token group size, read on-chain (GT22s89n…, tokenGroup.size), 10 Oct
 GENESIS_18_SEP = 120_915        # same read, 18 Sep: +246 in 22 days
 DEVICES_SHIPPED = 200_000       # Solana Mobile's own claim, March 2026 ("200K+ devices"); not independently confirmed
+APPS = 1_543                    # dApps in the store catalogue, 9 Oct
+STORE_RATINGS = 478_289         # star ratings across 1,475 rated dApps, store snapshot 9 Oct
+RATINGS_PER_DAY = (452_062 - 450_210) / 9   # same ~1,450 apps, 28 Sep -> 7 Oct snapshots
 SOL_USD = 109.57                # 9 Oct, price history held by the server
 # ---- Undersigned's prices (api Config.kt, Indexer.kt) ------------------------------------------------------------
 UNIT_SOL = 0.0607               # Pro (12 months), publisher treasury listing, API pass (30 days)
