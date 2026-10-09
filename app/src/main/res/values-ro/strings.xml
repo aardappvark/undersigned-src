@@ -1174,4 +1174,11 @@
     <string name="notif_helpful_body">Cineva a marcat recenzia ta semnată ca utilă.</string>
     <string name="notif_pub_reply_title">%1$s: un autor de recenzii a răspuns</string>
     <string name="review_long_note">Peste 140 de caractere: primele cuvinte apar ca previzualizare, iar textul complet merge on-chain în încă %1$d părți, toate în aceeași aprobare (o mică taxă de rețea pentru fiecare).</string>
+    <string name="quick_post">Publică ca recenzie rapidă (fără portofel)</string>
+    <string name="quick_note">Semnată cu o cheie de pe acest telefon în loc de portofelul tău, iar taxa de rețea este plătită pentru tine. Anonimă: apare în propria secțiune Recenzii rapide, cu propriile stele, niciodată în scorul semnat. Publică și permanentă, ca orice recenzie.</string>
+    <string name="quick_paused">Recenziile rapide sunt oprite pentru azi. Semnează cu portofelul sau încearcă din nou după 00:00 UTC.</string>
+    <string name="reviews_group_quick">Recenzii rapide</string>
+    <string name="reviews_group_quick_note">Semnate cu o cheie de pe telefonul autorului, nu cu un portofel, așa că oricine poate publica una. Anonime și nenumărate în niciun scor; afișate cu propriile stele.</string>
+    <string name="quick_score_line">Recenzii rapide: %1$s★ · %2$d</string>
+    <string name="sort_quick">Stele rapide</string>
 </resources>

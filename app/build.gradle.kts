@@ -88,6 +88,8 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.1")
     // dApp icons from the store's icon URIs (Toolkit pattern)
     implementation("io.coil-kt:coil-compose:2.7.0")
+    // Ed25519 for the phone's quick-review app key (lightweight API only; R8 keeps what is used).
+    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
     // Seeker Genesis Token check (fleet library, read-only)
     implementation("com.github.aardappvark:seeker-verify:1.1.0")
     testImplementation("org.json:json:20240303")   // the real org.json: Android's is a stub in JVM tests

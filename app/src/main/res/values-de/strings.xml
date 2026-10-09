@@ -1176,4 +1176,11 @@
     <string name="notif_helpful_body">Jemand hat Ihre signierte Bewertung als hilfreich markiert.</string>
     <string name="notif_pub_reply_title">%1$s: Ein Rezensent hat geantwortet</string>
     <string name="review_long_note">Über 140 Zeichen: Die ersten Worte erscheinen als Vorschau, der ganze Text geht in %1$d weiteren Teilen on-chain, alle mit derselben einen Bestätigung (je Teil eine kleine Netzwerkgebühr).</string>
+    <string name="quick_post">Als Schnellbewertung posten (ohne Wallet)</string>
+    <string name="quick_note">Mit einem Schlüssel auf diesem Telefon statt mit Ihrer Wallet signiert, und die Netzwerkgebühr wird für Sie übernommen. Anonym: Sie erscheint in einem eigenen Bereich für Schnellbewertungen mit eigenen Sternen, nie in der signierten Wertung. Öffentlich und dauerhaft, wie jede Bewertung.</string>
+    <string name="quick_paused">Schnellbewertungen sind für heute pausiert. Signieren Sie stattdessen mit Ihrer Wallet oder versuchen Sie es nach 00:00 UTC erneut.</string>
+    <string name="reviews_group_quick">Schnellbewertungen</string>
+    <string name="reviews_group_quick_note">Mit einem Schlüssel auf dem Telefon des Rezensenten signiert, nicht mit einer Wallet, daher kann jeder eine posten. Anonym und in keiner Wertung gezählt; mit eigenen Sternen angezeigt.</string>
+    <string name="quick_score_line">Schnellbewertungen: %1$s★ · %2$d</string>
+    <string name="sort_quick">Schnell-Sterne</string>
 </resources>

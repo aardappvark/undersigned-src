@@ -15,7 +15,7 @@ import org.json.JSONObject
  *  - App revenue: Pro, promotion and listing payments credited to the treasury, from the ledger.
  *  USD is on the day of each payment where a price is held, else the latest price held.
  */
-class Economics(private val db: Db, private val history: () -> Map<String, Map<String, Double>>) {
+class Economics(private val db: Db, private val history: () -> Map<String, Map<String, Double>>, private val relayFees: (String) -> Long = { 0L }) {
     private val day = { t: Long -> java.time.Instant.ofEpochSecond(t).toString().take(10) }
     private fun r4(v: Double) = Math.round(v * 10_000) / 10_000.0
 
@@ -42,21 +42,23 @@ class Economics(private val db: Db, private val history: () -> Map<String, Map<S
             val segJson = JSONObject(); var c = 0.0
             segs.forEach { (s, v) -> val u = (v.second * Config.AI_PRICE_IN + v.third * Config.AI_PRICE_OUT) / 1e6; c += u
                 segJson.put(s, JSONObject().put("answers", v.first).put("input_tokens", v.second).put("output_tokens", v.third).put("usd", r4(u))) }
-            JSONObject().put("day", d).put("ai_cost_usd", r4(c)).put("ai_by_caller", segJson)
+            // Quick reviews' network fees, paid by the relayer.
+            val relay = relayFees(d).let { usd(d, it, 0, h) }; c += relay
+            JSONObject().put("day", d).put("ai_cost_usd", r4(c - relay)).put("relay_fees_usd", r4(relay)).put("cost_usd", r4(c)).put("ai_by_caller", segJson)
                 .put("api_revenue_usd", r4(api[d] ?: 0.0)).put("app_revenue_usd", r4(app[d] ?: 0.0))
                 .put("margin_usd", r4((api[d] ?: 0.0) + (app[d] ?: 0.0) - c))
         }
         fun window(n: Int): JSONObject {
             val w = rows.takeLast(n)
-            val c = w.sumOf { it.getDouble("ai_cost_usd") }; val ra = w.sumOf { it.getDouble("api_revenue_usd") }; val rp = w.sumOf { it.getDouble("app_revenue_usd") }
-            return JSONObject().put("days", n).put("ai_cost_usd", r4(c)).put("api_revenue_usd", r4(ra)).put("app_revenue_usd", r4(rp)).put("margin_usd", r4(ra + rp - c))
+            val c = w.sumOf { it.getDouble("cost_usd") }; val ra = w.sumOf { it.getDouble("api_revenue_usd") }; val rp = w.sumOf { it.getDouble("app_revenue_usd") }
+            return JSONObject().put("days", n).put("ai_cost_usd", r4(w.sumOf { it.getDouble("ai_cost_usd") })).put("relay_fees_usd", r4(w.sumOf { it.getDouble("relay_fees_usd") })).put("cost_usd", r4(c)).put("api_revenue_usd", r4(ra)).put("app_revenue_usd", r4(rp)).put("margin_usd", r4(ra + rp - c))
                 .put("answers", w.sumOf { r -> r.getJSONObject("ai_by_caller").let { o -> o.keys().asSequence().sumOf { o.getJSONObject(it).getInt("answers") } } })
         }
         val week = window(7); val todayRow = rows.last()
         val alerts = ArrayList<String>()
-        if (todayRow.getDouble("ai_cost_usd") > Config.ECON_DAY_ALERT_USD) alerts += "AI cost today is $${todayRow.getDouble("ai_cost_usd")} (alert above $${Config.ECON_DAY_ALERT_USD})."
-        if (week.getDouble("ai_cost_usd") > week.getDouble("api_revenue_usd") + week.getDouble("app_revenue_usd") + Config.ECON_WEEK_FLOOR_USD)
-            alerts += "AI cost over 7 days ($${week.getDouble("ai_cost_usd")}) is more than revenue ($${r4(week.getDouble("api_revenue_usd") + week.getDouble("app_revenue_usd"))}) plus $${Config.ECON_WEEK_FLOOR_USD}."
+        if (todayRow.getDouble("cost_usd") > Config.ECON_DAY_ALERT_USD) alerts += "Cost today (AI and quick-review fees) is $${todayRow.getDouble("cost_usd")} (alert above $${Config.ECON_DAY_ALERT_USD})."
+        if (week.getDouble("cost_usd") > week.getDouble("api_revenue_usd") + week.getDouble("app_revenue_usd") + Config.ECON_WEEK_FLOOR_USD)
+            alerts += "Cost over 7 days ($${week.getDouble("cost_usd")}) is more than revenue ($${r4(week.getDouble("api_revenue_usd") + week.getDouble("app_revenue_usd"))}) plus $${Config.ECON_WEEK_FLOOR_USD}."
         val anonToday = todayRow.getJSONObject("ai_by_caller").optJSONObject("anon")?.getInt("answers") ?: 0
         return JSONObject().put("today", todayRow).put("last_7_days", week).put("last_30_days", window(minOf(30, days)))
             .put("anon_pool_today", JSONObject().put("used", anonToday).put("of", Config.AI_ANON_POOL_DAY))

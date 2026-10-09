@@ -1185,4 +1185,11 @@
     <string name="notif_helpful_body">Alguém marcou sua avaliação assinada como útil.</string>
     <string name="notif_pub_reply_title">%1$s: um avaliador respondeu</string>
     <string name="review_long_note">Mais de 140 caracteres: as primeiras palavras aparecem como prévia e o texto completo vai on-chain em mais %1$d partes, tudo na mesma aprovação (uma pequena taxa de rede por parte).</string>
+    <string name="quick_post">Publicar como avaliação rápida (sem carteira)</string>
+    <string name="quick_note">Assinada por uma chave deste telefone em vez da sua carteira, e a taxa de rede é coberta para você. Anônima: aparece na própria seção de Avaliações rápidas, com suas próprias estrelas, nunca na nota assinada. Pública e permanente, como qualquer avaliação.</string>
+    <string name="quick_paused">As avaliações rápidas estão pausadas por hoje. Assine com sua carteira ou tente de novo depois das 00:00 UTC.</string>
+    <string name="reviews_group_quick">Avaliações rápidas</string>
+    <string name="reviews_group_quick_note">Assinadas por uma chave no telefone do avaliador, não por uma carteira, então qualquer pessoa pode publicar uma. Anônimas e não contam em nenhuma nota; exibidas com suas próprias estrelas.</string>
+    <string name="quick_score_line">Avaliações rápidas: %1$s★ · %2$d</string>
+    <string name="sort_quick">Estrelas rápidas</string>
 </resources>

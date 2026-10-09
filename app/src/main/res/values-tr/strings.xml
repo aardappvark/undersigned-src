@@ -1156,4 +1156,11 @@
     <string name="notif_helpful_body">Biri imzalı incelemenizi yararlı olarak işaretledi.</string>
     <string name="notif_pub_reply_title">%1$s: bir inceleyen yanıt verdi</string>
     <string name="review_long_note">140 karakterden uzun: ilk kelimeler önizleme olarak görünür, metnin tamamı %1$d parça daha halinde zincire yazılır, hepsi aynı tek onayla (her biri için küçük bir ağ ücreti).</string>
+    <string name="quick_post">Hızlı inceleme olarak yayınla (cüzdansız)</string>
+    <string name="quick_note">Cüzdanınız yerine bu telefondaki bir anahtarla imzalanır ve ağ ücreti sizin yerinize ödenir. Anonimdir: kendi Hızlı incelemeler bölümünde, kendi yıldızlarıyla görünür, imzalı puana asla girmez. Her inceleme gibi herkese açık ve kalıcıdır.</string>
+    <string name="quick_paused">Hızlı incelemeler bugün için duraklatıldı. Bunun yerine cüzdanınızla imzalayın veya 00:00 UTC sonrasında tekrar deneyin.</string>
+    <string name="reviews_group_quick">Hızlı incelemeler</string>
+    <string name="reviews_group_quick_note">İnceleyenin telefonundaki bir anahtarla imzalanır, cüzdanla değil; bu yüzden herkes bir tane gönderebilir. Anonimdir ve hiçbir puana sayılmaz; kendi yıldızlarıyla gösterilir.</string>
+    <string name="quick_score_line">Hızlı incelemeler: %1$s★ · %2$d</string>
+    <string name="sort_quick">Hızlı yıldızlar</string>
 </resources>

@@ -261,6 +261,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         fixes.value = com.undersigned.protocol.Threads.fixes(list, verifiedPublishers.value)
         rounds.value = com.undersigned.protocol.Threads.rounds(list, verifiedPublishers.value)
         longTexts.value = com.undersigned.protocol.LongText.assemble(list)
+        quickIds.value = com.undersigned.protocol.QuickReviews.ids(list)
+        quickScores.value = com.undersigned.protocol.QuickReviews.scores(list)
         recomputePro()
         verifyClaims(list)
     }
@@ -503,6 +505,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     fun reinstalls(pkg: String): Int = installedApps.presence(pkg)?.second ?: 0
     val useTimes = MutableStateFlow<Map<String, com.undersigned.protocol.UseTime>>(emptyMap())
+    /** Quick reviews (app key, fee paid by the relayer): their ids, and per app their own average. Counted in no score. */
+    val quickIds = MutableStateFlow<Set<String>>(emptySet())
+    val quickScores = MutableStateFlow<Map<String, com.undersigned.protocol.QuickReviews.Score>>(emptyMap())
     /** Review id → its full long text, where every piece is on the ledger and checks out (protocol LongText). */
     val longTexts = MutableStateFlow<Map<String, String>>(emptyMap())
     /** A review's text as readers should see it: the full long text when assembled, else the review's own (preview) text. */
@@ -950,6 +955,51 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         importRequest.value = ImportRequest(sender, chosen, onStage, onResult)
     }
 
+    /**
+     * A quick review (owner, 10 Oct 2026): signed by this phone's app key, fee paid by the relayer, anonymous, counted in no
+     * score. The same records as a signed review (facts, follow-up link, long text) plus the quick marker; each transaction
+     * goes to the API, which checks it and adds the relayer's signature.
+     */
+    fun publishQuick(memo: ReviewMemo.Review, extras: List<ReviewMemo>, longText: String?, onResult: (Result<String>) -> Unit) {
+        val ctx = getApplication<Application>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val r = runCatching {
+                fun http(path: String, body: org.json.JSONObject? = null): org.json.JSONObject {
+                    val c = java.net.URL(com.undersigned.app.AppConfig.Site.URL + path).openConnection() as java.net.HttpURLConnection
+                    try {
+                        c.connectTimeout = 10_000; c.readTimeout = 30_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                        if (body != null) { c.requestMethod = "POST"; c.doOutput = true; c.setRequestProperty("Content-Type", "application/json"); c.outputStream.use { it.write(body.toString().toByteArray()) } }
+                        val ok = c.responseCode == 200
+                        val t = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+                        if (!ok) error(runCatching { org.json.JSONObject(t).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
+                        return org.json.JSONObject(t)
+                    } finally { c.disconnect() }
+                }
+                val info = http("/v1/relay/info")
+                if (info.optBoolean("paused")) error(ctx.getString(com.undersigned.app.R.string.quick_paused))
+                val relayer = com.undersigned.app.util.Base58.decode(info.getString("fee_payer"))
+                val appKey = com.undersigned.app.device.QuickKey.publicKey(ctx)
+                val long = longText?.let { com.undersigned.protocol.LongText.records(it, java.util.UUID.randomUUID().toString().replace("-", "").take(16)) }
+                val head = (listOf<ReviewMemo>(memo, ReviewMemo.Quick) + listOfNotNull(long?.first) + extras).map { ReviewMemo.encode(it) }
+                val groups = com.undersigned.app.solana.TxBuilder.quickChunks(listOf(head) + (long?.second?.map { listOf(ReviewMemo.encode(it)) } ?: emptyList()))
+                if (groups.firstOrNull()?.firstOrNull() != head.first()) error("review too large")
+                val sigs = groups.map { g ->
+                    val blockhash = com.undersigned.app.util.Base58.decode(http("/v1/relay/info").getString("blockhash"))
+                    val msg = com.undersigned.app.solana.TxBuilder.quickMessage(relayer, appKey, g, blockhash)
+                    val tx = com.undersigned.app.solana.TxBuilder.quickTransaction(msg, com.undersigned.app.device.QuickKey.sign(ctx, msg))
+                    http("/v1/relay/review", org.json.JSONObject().put("tx", android.util.Base64.encodeToString(tx, android.util.Base64.NO_WRAP))).getString("signature") to g
+                }
+                val author = com.undersigned.app.util.Base58.encode(appKey); val now = System.currentTimeMillis() / 1000
+                val fresh = sigs.flatMap { (sig, g) -> g.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), author, now, it) } } }
+                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                ledgerCache.save(entries.value)
+                launch { rank() }
+                sigs.first().first
+            }
+            withContext(Dispatchers.Main) { onResult(r) }
+        }
+    }
+
     /** A store review's text exactly as an import signs it: one line, no '|', at most 140 characters and 280 bytes. */
     /** A store review's text exactly as an import signs it: the whole text (up to 2,000 characters, long text on-chain). */
     fun importText(r: StoreReview): String? = r.text?.let { com.undersigned.protocol.LongText.clean(it) }?.ifEmpty { null }
@@ -1226,7 +1276,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.LongTextHead -> "long-text"; is ReviewMemo.TextPart -> "text-part"; is ReviewMemo.Fixed -> "fixed"; is ReviewMemo.FollowUp -> "follow-up"; is ReviewMemo.Activity -> "activity"; is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
+        fun kind(m: ReviewMemo) = when (m) { ReviewMemo.Quick -> "quick"; is ReviewMemo.LongTextHead -> "long-text"; is ReviewMemo.TextPart -> "text-part"; is ReviewMemo.Fixed -> "fixed"; is ReviewMemo.FollowUp -> "follow-up"; is ReviewMemo.Activity -> "activity"; is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Fixed -> m.reviewSignature; is ReviewMemo.FollowUp -> m.originalSignature; is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Boost -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.Activity -> "m${m.monthsActive} ${m.recency.wire} i${m.reinstalls}"; is ReviewMemo.Fixed -> "v${m.versionCode}" + (m.text?.let { " $it" } ?: ""); is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
         fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.Activity -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }

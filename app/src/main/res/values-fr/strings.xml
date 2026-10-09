@@ -1185,4 +1185,11 @@
     <string name="notif_helpful_body">Quelqu\'un a marqué votre avis signé comme utile.</string>
     <string name="notif_pub_reply_title">%1$s : un auteur d\'avis a répondu</string>
     <string name="review_long_note">Plus de 140 caractères : les premiers mots servent d\'aperçu et le texte complet va on-chain en %1$d parties de plus, avec la même validation (de petits frais de réseau pour chacune).</string>
+    <string name="quick_post">Publier comme avis rapide (sans wallet)</string>
+    <string name="quick_note">Signé par une clé de ce téléphone au lieu de votre wallet, et les frais de réseau sont payés pour vous. Anonyme : il apparaît dans sa propre section Avis rapides, avec ses propres étoiles, jamais dans la note signée. Public et permanent, comme tout avis.</string>
+    <string name="quick_paused">Les avis rapides sont en pause pour aujourd\'hui. Signez plutôt avec votre wallet, ou réessayez après 00:00 UTC.</string>
+    <string name="reviews_group_quick">Avis rapides</string>
+    <string name="reviews_group_quick_note">Signé par une clé du téléphone de l\'auteur, et non par un wallet, donc tout le monde peut en publier un. Anonyme et compté dans aucune note ; affiché avec ses propres étoiles.</string>
+    <string name="quick_score_line">Avis rapides : %1$s★ · %2$d</string>
+    <string name="sort_quick">Étoiles rapides</string>
 </resources>

@@ -324,22 +324,26 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             // reviews related to Undersigned (its own wallets, or a Pro seat gifted by this app's publisher), and not counted.
             // Promoted reviews (owner, 9 Oct 2026) get their own section AFTER organic and Pro members, never first: prominence must
             // not follow payment (docs/COMPLIANCE_REVIEWS.md, UK DMCC 13(5)(i)(ii)). A promoted Pro review shows there, with both marks.
+            // Quick reviews (owner, 10 Oct 2026): anonymous, app-key signed, their own section and average, never counted.
+            val quickIds by vm.quickIds.collectAsState(); val quickScores by vm.quickScores.collectAsState()
             fun group(e: LedgerEntry, w: com.undersigned.protocol.Weighting.Parts): Int = when {
+                e.signature in quickIds -> 4
                 com.undersigned.protocol.Operator.isOperator(e.signer) || w.gifted -> 3
-                w.device <= 0 || vm.isSelfPublished(e) -> 4
+                w.device <= 0 || vm.isSelfPublished(e) -> 5
                 w.promoted -> 2
                 w.pro -> 1
                 else -> 0
             }
-            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_pro, R.string.reviews_group_promoted, R.string.reviews_group_related, R.string.reviews_group_uncounted)
-            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_pro_note, R.string.reviews_group_promoted_note, R.string.reviews_group_related_note, R.string.reviews_group_uncounted_note)
+            val groupTitles = listOf(R.string.reviews_group_organic, R.string.reviews_group_pro, R.string.reviews_group_promoted, R.string.reviews_group_related, R.string.reviews_group_quick, R.string.reviews_group_uncounted)
+            val groupNotes = listOf(R.string.reviews_group_organic_note, R.string.reviews_group_pro_note, R.string.reviews_group_promoted_note, R.string.reviews_group_related_note, R.string.reviews_group_quick_note, R.string.reviews_group_uncounted_note)
             var lastGroup = -1
             shown.take(limit).sortedBy { (e, w) -> group(e, w) }.forEach { (e, w) -> key(e.signature) {
                 val g = group(e, w)
                 if (g != lastGroup) {
                     lastGroup = g
                     Spacer(Modifier.height(10.dp))
-                    Text(stringResource(groupTitles[g]), color = if (g >= 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(groupTitles[g]), color = if (g == 4) RbColors.info else if (g >= 2) RbColors.warning else RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                    if (g == 4) quickScores[pkg]?.let { q -> Text(stringResource(R.string.quick_score_line, String.format(java.util.Locale.US, "%.1f", q.mean), q.count), color = RbColors.info, fontSize = 12.sp, fontWeight = FontWeight.SemiBold) }
                     Text(stringResource(groupNotes[g]), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                     // The Promoted score lives here, with its own section, never in the headline card (legal review, 9 Oct 2026).
                     if (g == 2) promotedScores[pkg]?.let { sc -> Text(stringResource(R.string.promoted_score_title) + String.format(java.util.Locale.US, " · %.1f · ", sc.weightedMean) + stringResource(R.string.row_signed_count, sc.countedReviews),

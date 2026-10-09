@@ -1141,4 +1141,11 @@
     <string name="notif_helpful_body">Ai đó đã đánh dấu đánh giá đã ký của bạn là hữu ích.</string>
     <string name="notif_pub_reply_title">%1$s: một người đánh giá đã trả lời</string>
     <string name="review_long_note">Hơn 140 ký tự: những từ đầu hiện làm bản xem trước và toàn văn được ghi on-chain thêm %1$d phần, tất cả trong cùng một lần duyệt (mỗi phần một khoản phí mạng nhỏ).</string>
+    <string name="quick_post">Đăng dưới dạng đánh giá nhanh (không cần ví)</string>
+    <string name="quick_note">Được ký bằng khóa trên điện thoại này thay vì ví của bạn, và phí mạng được trả giúp bạn. Ẩn danh: hiện ở mục Đánh giá nhanh riêng, với số sao riêng, không bao giờ nằm trong mức đánh giá đã ký. Công khai và vĩnh viễn, như mọi đánh giá.</string>
+    <string name="quick_paused">Đánh giá nhanh tạm dừng trong hôm nay. Hãy ký bằng ví của bạn, hoặc thử lại sau 00:00 UTC.</string>
+    <string name="reviews_group_quick">Đánh giá nhanh</string>
+    <string name="reviews_group_quick_note">Được ký bằng khóa trên điện thoại của người đánh giá, không phải ví, nên ai cũng có thể đăng. Ẩn danh và không tính vào mức đánh giá nào; hiển thị với số sao riêng.</string>
+    <string name="quick_score_line">Đánh giá nhanh: %1$s★ · %2$d</string>
+    <string name="sort_quick">Sao nhanh</string>
 </resources>

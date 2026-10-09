@@ -50,7 +50,9 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
         val msg = tx.optJSONObject("transaction")?.optJSONObject("message") ?: return null
         val keysArr = msg.optJSONArray("accountKeys") ?: return null
         val keys = (0 until keysArr.length()).map { i -> keysArr.optJSONObject(i)?.optString("pubkey") ?: keysArr.optString(i) }
-        val payer = keys.firstOrNull()?.takeIf { it.isNotEmpty() } ?: return null
+        // A relayed quick review is authored by its second signer, not the relayer that paid (protocol Registry.author).
+        val signers = (0 until keysArr.length()).mapNotNull { i -> keysArr.optJSONObject(i)?.takeIf { it.optBoolean("signer") }?.optString("pubkey") }
+        val payer = (com.undersigned.protocol.Registry.author(signers) ?: keys.firstOrNull())?.takeIf { it.isNotEmpty() } ?: return null
         val memos = ArrayList<String>(); var lighthouse = false; var computeBudget = false
         val ixs = msg.optJSONArray("instructions") ?: JSONArray()
         for (i in 0 until ixs.length()) {
@@ -124,6 +126,10 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
             .put("dataSlice", JSONObject().put("offset", 0).put("length", 0)))).optJSONArray("result") ?: JSONArray()
         return (0 until arr.length()).mapNotNull { arr.optJSONObject(it)?.optString("pubkey")?.takeIf { k -> k.isNotEmpty() } }
     }
+
+    /** Submits a signed transaction (base64); returns its signature. */
+    open fun sendTransaction(base64: String): String =
+        call("sendTransaction", JSONArray().put(base64).put(JSONObject().put("encoding", "base64").put("preflightCommitment", "confirmed"))).getString("result")
 
     /** Owner, executable flag and balance of each account (null: no account), up to 100 per call, with no account data. */
     data class Brief(val owner: String, val executable: Boolean, val lamports: Long)

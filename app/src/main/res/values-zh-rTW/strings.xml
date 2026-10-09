@@ -1140,4 +1140,11 @@
     <string name="notif_helpful_body">有人將您已簽署的評價標記為有幫助。</string>
     <string name="notif_pub_reply_title">%1$s:評價者已回覆</string>
     <string name="review_long_note">超過 140 個字元：開頭部分作為預覽，全文另分 %1$d 段寫上鏈，全部在同一次授權中完成（每段收取少量網路費）。</string>
+    <string name="quick_post">以快速評價發布(無需錢包)</string>
+    <string name="quick_note">由這支手機上的金鑰簽署,而非您的錢包,網路費用已為您支付。匿名:顯示在獨立的快速評價區,使用自己的星級,不計入已簽署評分。與所有評價一樣公開且永久。</string>
+    <string name="quick_paused">今天的快速評價已暫停。請改用錢包簽署,或在 00:00 UTC 之後重試。</string>
+    <string name="reviews_group_quick">快速評價</string>
+    <string name="reviews_group_quick_note">由評價者手機上的金鑰簽署,而非錢包,因此任何人都可以發布。匿名,不計入任何評分;以自己的星級顯示。</string>
+    <string name="quick_score_line">快速評價:%1$s★ · %2$d</string>
+    <string name="sort_quick">快速星級</string>
 </resources>

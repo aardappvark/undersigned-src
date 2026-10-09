@@ -1185,4 +1185,11 @@
     <string name="notif_helpful_body">Qualcuno ha segnato come utile la tua recensione firmata.</string>
     <string name="notif_pub_reply_title">%1$s: un recensore ha risposto</string>
     <string name="review_long_note">Oltre 140 caratteri: le prime parole appaiono come anteprima e il testo completo va on-chain in altre %1$d parti, tutte con la stessa approvazione (una piccola commissione di rete per ciascuna).</string>
+    <string name="quick_post">Pubblica come recensione rapida (senza wallet)</string>
+    <string name="quick_note">Firmata con una chiave di questo telefono invece che con il tuo wallet, e la commissione di rete è pagata per te. Anonima: appare nella sua sezione Recensioni rapide, con le sue stelle, mai nel punteggio firmato. Pubblica e permanente, come ogni recensione.</string>
+    <string name="quick_paused">Le recensioni rapide sono in pausa per oggi. Firma con il tuo wallet oppure riprova dopo le 00:00 UTC.</string>
+    <string name="reviews_group_quick">Recensioni rapide</string>
+    <string name="reviews_group_quick_note">Firmate con una chiave sul telefono del recensore, non con un wallet, quindi chiunque può pubblicarne una. Anonime e non contate in nessun punteggio; mostrate con le loro stelle.</string>
+    <string name="quick_score_line">Recensioni rapide: %1$s★ · %2$d</string>
+    <string name="sort_quick">Stelle rapide</string>
 </resources>

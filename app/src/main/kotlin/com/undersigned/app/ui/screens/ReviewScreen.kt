@@ -196,6 +196,20 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
             })
+            // Quick review (owner, 10 Oct 2026): no wallet, no Seed Vault; this phone's app key signs, the fee is paid for it.
+            // Its own section and stars, never in the signed score; public and permanent like any review.
+            if (followUpOf == null) {
+                Spacer(Modifier.height(8.dp))
+                val quickOk = rating in 1..5 && tags.isNotEmpty() && textOk && (text.isEmpty() || consent) && stage == null && done == null
+                com.undersigned.app.ui.components.SecondaryButton(stringResource(R.string.quick_post), enabled = quickOk, onClick = {
+                    error = null; stage = context.getString(R.string.review_signing)
+                    val full = com.undersigned.protocol.LongText.clean(text)
+                    val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, full.takeIf { it.isNotEmpty() }?.let { com.undersigned.protocol.LongText.preview(it) })
+                    val extras = listOfNotNull<ReviewMemo>(installAge?.takeIf { addAge }?.let { ReviewMemo.Use(pkg, it) }, useTime?.takeIf { addTime }?.let { ReviewMemo.Time(pkg, it) }, activity?.takeIf { addActivity })
+                    vm.publishQuick(memo, extras, full.takeIf { com.undersigned.protocol.LongText.needsParts(it) }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
+                })
+                Text(stringResource(R.string.quick_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
+            }
             error?.let { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_failed, it), color = RbColors.negative, fontSize = 12.sp) }
             done?.let {
                 Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_done, shortKey(it, 8, 8)), color = RbColors.green, fontSize = 13.sp, fontWeight = FontWeight.Bold)

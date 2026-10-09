@@ -1160,4 +1160,11 @@
     <string name="notif_helpful_body">May nagmarka na nakatulong ang nilagdaan mong review.</string>
     <string name="notif_pub_reply_title">%1$s: sumagot ang isang reviewer</string>
     <string name="review_long_note">Lampas 140 na character: ang unang mga salita ang preview at ang buong teksto ay mapupunta on-chain sa %1$d pang bahagi, lahat sa iisang pag-apruba (maliit na network fee bawat isa).</string>
+    <string name="quick_post">I-post bilang quick review (walang wallet)</string>
+    <string name="quick_note">Nilagdaan ng key sa teleponong ito sa halip na ng iyong wallet, at binabayaran para sa iyo ang network fee. Anonymous: lalabas ito sa sarili nitong seksyon na Quick reviews, may sariling mga bituin, at hindi kailanman kasama sa nilagdaang score. Pampubliko at permanente, tulad ng anumang review.</string>
+    <string name="quick_paused">Naka-pause ang mga quick review para ngayong araw. Lumagda gamit ang iyong wallet, o subukan ulit pagkatapos ng 00:00 UTC.</string>
+    <string name="reviews_group_quick">Mga quick review</string>
+    <string name="reviews_group_quick_note">Nilagdaan ng key sa telepono ng reviewer, hindi ng wallet, kaya kahit sino ay puwedeng mag-post. Anonymous at hindi binibilang sa anumang score; ipinapakita na may sariling mga bituin.</string>
+    <string name="quick_score_line">Mga quick review: %1$s★ · %2$d</string>
+    <string name="sort_quick">Quick na bituin</string>
 </resources>

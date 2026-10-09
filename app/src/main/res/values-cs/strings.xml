@@ -1186,4 +1186,11 @@
     <string name="notif_helpful_body">Někdo označil vaši podepsanou recenzi za užitečnou.</string>
     <string name="notif_pub_reply_title">%1$s: recenzent odpověděl</string>
     <string name="review_long_note">Přes 140 znaků: první slova se zobrazí jako náhled a celý text jde on-chain v dalších %1$d částech, vše v jednom schválení (za každou malý síťový poplatek).</string>
+    <string name="quick_post">Odeslat jako rychlou recenzi (bez peněženky)</string>
+    <string name="quick_note">Podepsáno klíčem v tomto telefonu místo vaší peněženky a síťový poplatek je zaplacen za vás. Anonymní: zobrazí se ve vlastní sekci Rychlé recenze, s vlastními hvězdami, nikdy v podepsaném skóre. Veřejné a trvalé, jako každá recenze.</string>
+    <string name="quick_paused">Rychlé recenze jsou pro dnešek pozastaveny. Podepište raději peněženkou, nebo to zkuste znovu po 00:00 UTC.</string>
+    <string name="reviews_group_quick">Rychlé recenze</string>
+    <string name="reviews_group_quick_note">Podepsáno klíčem v telefonu recenzenta, ne peněženkou, takže ji může přidat kdokoli. Anonymní a nezapočítané do žádného skóre; zobrazené s vlastními hvězdami.</string>
+    <string name="quick_score_line">Rychlé recenze: %1$s★ · %2$d</string>
+    <string name="sort_quick">Rychlé hvězdy</string>
 </resources>

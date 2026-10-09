@@ -50,7 +50,9 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
         if (meta != null && meta.opt("err") != null && meta.opt("err") != JSONObject.NULL) return@rpc null
         val msg = tx.optJSONObject("transaction")?.optJSONObject("message") ?: return@rpc null
         val keys = msg.optJSONArray("accountKeys") ?: return@rpc null
-        val first = keys.optJSONObject(0)?.optString("pubkey") ?: keys.optString(0)
+        val signers = (0 until keys.length()).mapNotNull { i -> keys.optJSONObject(i)?.takeIf { it.optBoolean("signer") }?.optString("pubkey") }
+        // A relayed quick review is authored by its second signer, not the relayer that paid (protocol Registry.author).
+        val first = com.undersigned.protocol.Registry.author(signers) ?: keys.optJSONObject(0)?.optString("pubkey") ?: keys.optString(0)
         if (first.isNullOrEmpty()) return@rpc null
         val memos = ArrayList<String>(); var lighthouse = false; var computeBudget = false
         val ixs = msg.optJSONArray("instructions") ?: JSONArray()

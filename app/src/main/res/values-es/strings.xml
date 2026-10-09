@@ -1185,4 +1185,11 @@
     <string name="notif_helpful_body">Alguien marcó tu reseña firmada como útil.</string>
     <string name="notif_pub_reply_title">%1$s: un autor de reseñas respondió</string>
     <string name="review_long_note">Más de 140 caracteres: las primeras palabras se ven como vista previa y el texto completo va on-chain en %1$d partes más, todo con la misma aprobación (una pequeña comisión de red por cada una).</string>
+    <string name="quick_post">Publicar como reseña rápida (sin wallet)</string>
+    <string name="quick_note">Firmada con una clave de este teléfono en lugar de tu wallet, y la comisión de red se paga por ti. Anónima: aparece en su propia sección de Reseñas rápidas, con sus propias estrellas, nunca en la puntuación firmada. Pública y permanente, como cualquier reseña.</string>
+    <string name="quick_paused">Las reseñas rápidas están en pausa por hoy. Firma con tu wallet o inténtalo de nuevo después de las 00:00 UTC.</string>
+    <string name="reviews_group_quick">Reseñas rápidas</string>
+    <string name="reviews_group_quick_note">Firmadas con una clave del teléfono del autor, no con una wallet, así que cualquiera puede publicar una. Anónimas y sin contar en ninguna puntuación; se muestran con sus propias estrellas.</string>
+    <string name="quick_score_line">Reseñas rápidas: %1$s★ · %2$d</string>
+    <string name="sort_quick">Estrellas rápidas</string>
 </resources>

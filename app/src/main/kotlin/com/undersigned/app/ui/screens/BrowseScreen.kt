@@ -54,7 +54,7 @@ import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.AppScore
 
 private enum class Tab { INSTALLED, SIGNED, ALL }
-private enum class Sort { SCORE, NEW, CATEGORY, NAME }
+private enum class Sort { SCORE, QUICK, NEW, CATEGORY, NAME }
 
 /** A row of the list, or a category head when sorted by category. */
 private sealed class Row { data class App(val app: CatalogueApp) : Row(); data class Head(val category: String, val count: Int) : Row() }
@@ -64,6 +64,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
+    val quickScores by vm.quickScores.collectAsState()
     val status by vm.ledgerStatus.collectAsState()
     val changes by vm.changes.collectAsState()
     val icons by vm.iconCache.state.collectAsState()
@@ -104,6 +105,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.packageName.lowercase().contains(q) || (it.category?.lowercase()?.contains(q) == true) || (scores[it.packageName]?.tagCounts?.keys?.any { t -> context.tagLabel(t.wire).lowercase().contains(q) || t.wire.contains(q) } == true) }
             .sortedWith(when (sort) {
                 Sort.SCORE -> compareByDescending<CatalogueApp> { scores[it.packageName]?.takeIf { s -> s.countedReviews > 0 }?.weightedRating ?: -1.0 }.thenByDescending { it.updated }
+                Sort.QUICK -> compareByDescending<CatalogueApp> { quickScores[it.packageName]?.mean ?: -1.0 }.thenByDescending { quickScores[it.packageName]?.count ?: 0 }
                 Sort.NEW -> compareByDescending<CatalogueApp> { it.updated }.thenBy { it.name.lowercase() }
                 Sort.CATEGORY -> compareBy<CatalogueApp> { it.category ?: "￿" }.thenByDescending { scores[it.packageName]?.takeIf { s -> s.countedReviews > 0 }?.weightedRating ?: -1.0 }
                 Sort.NAME -> compareBy { it.name.lowercase() }
@@ -213,7 +215,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             Tab(selected = tab == Tab.SIGNED, onClick = { tabPicked = Tab.SIGNED }, text = { Text(stringResource(R.string.tab_signed) + " · ${scores.size}", fontSize = 13.sp) })
             Tab(selected = tab == Tab.ALL, onClick = { tabPicked = Tab.ALL }, text = { Text(stringResource(R.string.tab_all), fontSize = 13.sp) })
         }
-        ChipRow(stringResource(R.string.sort), listOf(Sort.SCORE to stringResource(R.string.sort_score), Sort.NEW to stringResource(R.string.sort_new), Sort.CATEGORY to stringResource(R.string.sort_category), Sort.NAME to stringResource(R.string.sort_name)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp, vertical = 2.dp))
+        ChipRow(stringResource(R.string.sort), listOf(Sort.SCORE to stringResource(R.string.sort_score), Sort.QUICK to stringResource(R.string.sort_quick), Sort.NEW to stringResource(R.string.sort_new), Sort.CATEGORY to stringResource(R.string.sort_category), Sort.NAME to stringResource(R.string.sort_name)), sort, { sort = it }, Modifier.padding(horizontal = 20.dp, vertical = 2.dp))
         // Tags in use on the ledger, most used first; tapping one shows only apps reviewers gave that tag (with its count).
         val tagsInUse = remember(scores) { scores.values.flatMap { it.tagCounts.entries }.groupBy({ it.key }, { it.value }).mapValues { it.value.sum() }.entries.sortedByDescending { it.value }.map { it.key to it.value } }
         if (tagsInUse.isNotEmpty()) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -273,7 +275,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
                             val app = r.app
                             val iconUrl = icons[app.packageName]?.takeIf { it.isNotEmpty() }
                             if (dense) DenseRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, iconUrl) { onOpen(app.packageName) }
-                            else AppRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, sort != Sort.CATEGORY, iconUrl) { onOpen(app.packageName) }
+                            else AppRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, sort != Sort.CATEGORY, iconUrl, quickScores[app.packageName]) { onOpen(app.packageName) }
                         }
                     }
                 }
@@ -343,7 +345,7 @@ private fun CategoryHead(category: String, count: Int) {
 /** Balanced: two lines, 44 dp icon, chips with counts, the category as a pill in a right-hand column. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, onClick: () -> Unit) {
+private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, quick: com.undersigned.protocol.QuickReviews.Score? = null, onClick: () -> Unit) {
     Column(Modifier.fillMaxWidth().clickable { onClick() }.padding(horizontal = 20.dp, vertical = 10.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             DAppIcon(app.packageName, app.name, iconUrl)
@@ -371,6 +373,8 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, show
                 score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.label(), n) }
             }
         } else Text(stringResource(if (uncounted) R.string.reviews_group_uncounted else R.string.row_no_reviews), color = RbColors.textTertiary, fontSize = 12.sp)
+        // Quick reviews on their own line, never mixed into the signed score (owner, 10 Oct 2026).
+        quick?.let { q -> Text(stringResource(R.string.quick_score_line, String.format(java.util.Locale.US, "%.1f", q.mean), q.count), color = RbColors.info, fontSize = 11.sp) }
     }
     HorizontalDivider(color = RbColors.surfaceVariant, thickness = 1.dp)
 }

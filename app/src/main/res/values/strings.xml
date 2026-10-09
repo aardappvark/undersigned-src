@@ -1182,4 +1182,11 @@
     <string name="notif_helpful_body">Someone marked your signed review helpful.</string>
     <string name="notif_pub_reply_title">%1$s: a reviewer answered</string>
     <string name="review_long_note">Over 140 characters: the first words show as the preview and the full text goes on-chain in %1$d more pieces, all in the same single approval (a small network fee for each).</string>
+    <string name="quick_post">Post as a quick review (no wallet)</string>
+    <string name="quick_note">Signed by a key on this phone instead of your wallet, and the network fee is paid for you. Anonymous: it shows in its own Quick reviews section with its own stars, never in the signed score. Public and permanent, like any review.</string>
+    <string name="quick_paused">Quick reviews are paused for today. Sign with your wallet instead, or try again after 00:00 UTC.</string>
+    <string name="reviews_group_quick">Quick reviews</string>
+    <string name="reviews_group_quick_note">Signed by a key on the reviewer\'s phone, not a wallet, so anyone can post one. Anonymous and counted in no score; shown with their own stars.</string>
+    <string name="quick_score_line">Quick reviews: %1$s★ · %2$d</string>
+    <string name="sort_quick">Quick stars</string>
 </resources>

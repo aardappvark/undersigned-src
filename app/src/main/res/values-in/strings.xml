@@ -1141,4 +1141,11 @@
     <string name="notif_helpful_body">Seseorang menandai ulasan bertanda tangan Anda sebagai bermanfaat.</string>
     <string name="notif_pub_reply_title">%1$s: pengulas menjawab</string>
     <string name="review_long_note">Lebih dari 140 karakter: kata-kata pertama tampil sebagai pratinjau dan teks lengkap masuk on-chain dalam %1$d bagian lagi, semua dalam satu persetujuan (biaya jaringan kecil per bagian).</string>
+    <string name="quick_post">Posting sebagai ulasan cepat (tanpa dompet)</string>
+    <string name="quick_note">Ditandatangani dengan kunci di ponsel ini, bukan dompet Anda, dan biaya jaringan dibayarkan untuk Anda. Anonim: tampil di bagian Ulasan cepat tersendiri, dengan bintang sendiri, tidak pernah masuk skor bertanda tangan. Publik dan permanen, seperti ulasan lainnya.</string>
+    <string name="quick_paused">Ulasan cepat dijeda untuk hari ini. Tanda tangani dengan dompet Anda, atau coba lagi setelah 00:00 UTC.</string>
+    <string name="reviews_group_quick">Ulasan cepat</string>
+    <string name="reviews_group_quick_note">Ditandatangani dengan kunci di ponsel pengulas, bukan dompet, sehingga siapa pun bisa memposting. Anonim dan tidak dihitung dalam skor mana pun; ditampilkan dengan bintang sendiri.</string>
+    <string name="quick_score_line">Ulasan cepat: %1$s★ · %2$d</string>
+    <string name="sort_quick">Bintang cepat</string>
 </resources>

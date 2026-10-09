@@ -95,6 +95,8 @@ class State(
     val fixes = com.undersigned.protocol.Threads.fixes(entries, verified)
     val rounds = com.undersigned.protocol.Threads.rounds(entries, verified)
     val longTexts = com.undersigned.protocol.LongText.assemble(entries)
+    val quickIds = com.undersigned.protocol.QuickReviews.ids(entries)
+    val quickScores = com.undersigned.protocol.QuickReviews.scores(entries)
     val notes = StoreNotes.current(entries, verified)
     fun factsOf(w: String) = raw(w)
     fun countsFor(w: String) = f(w)

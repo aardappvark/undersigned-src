@@ -1227,4 +1227,11 @@
     <string name="notif_helpful_body">علّم شخص مراجعتك الموقّعة بأنها مفيدة.</string>
     <string name="notif_pub_reply_title">%1$s: مراجع أجاب</string>
     <string name="review_long_note">أكثر من 140 حرفًا: تظهر الكلمات الأولى كمعاينة ويُكتب النص كاملًا على السلسلة في %1$d أجزاء إضافية، كلها بموافقة واحدة (رسوم شبكة صغيرة لكل جزء).</string>
+    <string name="quick_post">النشر كمراجعة سريعة (بلا محفظة)</string>
+    <string name="quick_note">موقّعة بمفتاح على هذا الهاتف بدل محفظتك، ورسوم الشبكة تُدفع عنك. مجهولة الهوية: تظهر في قسم المراجعات السريعة الخاص بها بنجومها الخاصة، ولا تدخل أبدًا في التقييم الموقّع. علنية ودائمة، مثل أي مراجعة.</string>
+    <string name="quick_paused">المراجعات السريعة متوقفة مؤقتًا لهذا اليوم. وقّع بمحفظتك بدلًا من ذلك، أو حاول مجددًا بعد 00:00 UTC.</string>
+    <string name="reviews_group_quick">المراجعات السريعة</string>
+    <string name="reviews_group_quick_note">موقّعة بمفتاح على هاتف المراجع لا بمحفظة، لذا يمكن لأي شخص نشر واحدة. مجهولة الهوية ولا تُحسب في أي تقييم؛ تُعرض بنجومها الخاصة.</string>
+    <string name="quick_score_line">المراجعات السريعة: %1$s★ · %2$d</string>
+    <string name="sort_quick">النجوم السريعة</string>
 </resources>

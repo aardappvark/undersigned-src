@@ -1133,4 +1133,11 @@
     <string name="notif_helpful_body">누군가 서명된 내 리뷰를 유용하다고 표시했습니다.</string>
     <string name="notif_pub_reply_title">%1$s: 리뷰어가 답변함</string>
     <string name="review_long_note">140자를 넘으면: 앞부분이 미리보기로 보이고 전체 글은 %1$d개 조각으로 더 나뉘어 온체인에 기록되며, 모두 한 번의 승인으로 처리됩니다(조각마다 소액의 네트워크 수수료).</string>
+    <string name="quick_post">빠른 리뷰로 게시 (지갑 없이)</string>
+    <string name="quick_note">지갑 대신 이 휴대폰의 키로 서명되며 네트워크 수수료는 대신 지불됩니다. 익명이며 별도의 빠른 리뷰 섹션에 자체 별점과 함께 표시되고 서명 점수에는 포함되지 않습니다. 다른 리뷰처럼 공개되며 영구적입니다.</string>
+    <string name="quick_paused">오늘은 빠른 리뷰가 일시 중지되었습니다. 대신 지갑으로 서명하거나 00:00 UTC 이후에 다시 시도하세요.</string>
+    <string name="reviews_group_quick">빠른 리뷰</string>
+    <string name="reviews_group_quick_note">지갑이 아닌 리뷰어 휴대폰의 키로 서명되므로 누구나 게시할 수 있습니다. 익명이며 어떤 점수에도 반영되지 않고 자체 별점과 함께 표시됩니다.</string>
+    <string name="quick_score_line">빠른 리뷰: %1$s★ · %2$d</string>
+    <string name="sort_quick">빠른 별점</string>
 </resources>

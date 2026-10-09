@@ -1194,4 +1194,11 @@
     <string name="notif_helpful_body">Ktoś oznaczył Twoją podpisaną recenzję jako pomocną.</string>
     <string name="notif_pub_reply_title">%1$s: autor recenzji odpowiedział</string>
     <string name="review_long_note">Ponad 140 znaków: pierwsze słowa są podglądem, a pełny tekst trafia on-chain w %1$d dodatkowych częściach, wszystko w tym samym zatwierdzeniu (mała opłata sieciowa za każdą).</string>
+    <string name="quick_post">Opublikuj jako szybką recenzję (bez portfela)</string>
+    <string name="quick_note">Podpisana kluczem na tym telefonie zamiast Twoim portfelem, a opłata sieciowa jest opłacona za Ciebie. Anonimowa: pojawia się we własnej sekcji Szybkie recenzje, z własnymi gwiazdkami, nigdy w podpisanej ocenie. Publiczna i trwała, jak każda recenzja.</string>
+    <string name="quick_paused">Szybkie recenzje są na dziś wstrzymane. Podpisz portfelem albo spróbuj ponownie po 00:00 UTC.</string>
+    <string name="reviews_group_quick">Szybkie recenzje</string>
+    <string name="reviews_group_quick_note">Podpisane kluczem na telefonie autora recenzji, a nie portfelem, więc każdy może taką dodać. Anonimowe i nieliczone w żadnej ocenie; pokazane z własnymi gwiazdkami.</string>
+    <string name="quick_score_line">Szybkie recenzje: %1$s★ · %2$d</string>
+    <string name="sort_quick">Szybkie gwiazdki</string>
 </resources>

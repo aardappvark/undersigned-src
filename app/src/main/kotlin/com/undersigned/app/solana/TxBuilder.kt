@@ -65,6 +65,26 @@ object TxBuilder {
         return out
     }
 
+    // ---- Quick reviews: the relayer pays, the phone's app key signs the records ----
+    /**
+     * The message of a quick-review transaction, in the one shape the relayer accepts (api Relayer.kt): accounts
+     * [relayer (fee payer), app key (read-only signer), Memo, System, registry]; one memo per record naming the app key;
+     * then a 0-lamport transfer relayer -> relayer carrying the registry reference.
+     */
+    fun quickMessage(relayer: ByteArray, appKey: ByteArray, memoTexts: List<String>, blockhash: ByteArray): ByteArray =
+        com.undersigned.protocol.QuickTx.message(relayer, appKey, MEMO_PROGRAM_ID, REGISTRY, memoTexts, blockhash)
+
+    /** The signed quick-review transaction: the relayer's slot left empty for it to fill, the app key's signature second. */
+    fun quickTransaction(message: ByteArray, appSignature: ByteArray): ByteArray = com.undersigned.protocol.QuickTx.transaction(message, appSignature)
+
+    /** Packs quick-review groups (the review and what must ride with it; then each long-text piece) under the size limit. */
+    fun quickChunks(groups: List<List<String>>): List<List<String>> {
+        fun fits(t: List<String>) = quickTransaction(quickMessage(ByteArray(32), ByteArray(32), t, ZERO_BLOCKHASH), ByteArray(64)).size <= AppConfig.Solana.MAX_TX_BYTES
+        val out = ArrayList<List<String>>()
+        for (g0 in groups) { var g = g0; while (g.size > 2 && !fits(g)) g = g.dropLast(1); if (fits(g)) out.add(g) }
+        return out
+    }
+
     // ---- Pro payment carriers (fleet shape: transfer with the reference on it, the app memo appended LAST) ----
     val TREASURY: ByteArray = Base58.decode(AppConfig.Payment.TREASURY)
     val TOKEN_PROGRAM_ID: ByteArray = Base58.decode(AppConfig.Payment.TOKEN_PROGRAM)

@@ -75,6 +75,8 @@ sealed class ReviewMemo {
      * current one, as any newer review does; the pair shows first and second stars and the change ([Threads]).
      */
     data class FollowUp(val originalSignature: String) : ReviewMemo()
+    /** `SRL1|qck`: beside a review, marks it a quick review (anonymous app key, fee paid by [Registry.QUICK_RELAYER]); counted in no score. */
+    object Quick : ReviewMemo() { override fun toString() = "Quick" }
     /** `SRL1|lng|<tag>|<parts>|<hash>`: rides beside a review; its full text is in [parts] [TextPart]s with [tag] (see [LongText]). */
     data class LongTextHead(val tag: String, val parts: Int, val hash: String) : ReviewMemo()
     /** `SRL1|txt|<tag>|<index>|<base64url>`: one piece of a long review text, by the review's own signer. */
@@ -211,6 +213,7 @@ sealed class ReviewMemo {
                 require(LongText.TAG.matches(m.tag) && m.index in 0 until LongText.MAX_PARTS && m.chunk.toByteArray(StandardCharsets.UTF_8).size in 1..LongText.CHUNK_BYTES) { "text part" }
                 "${Registry.PROTOCOL}|txt|${m.tag}|${m.index}|" + Base64.getUrlEncoder().withoutPadding().encodeToString(m.chunk.toByteArray(StandardCharsets.UTF_8))
             }
+            Quick -> "${Registry.PROTOCOL}|qck"
             is FollowUp -> { require(SIGNATURE.matches(m.originalSignature)) { "signature" }; "${Registry.PROTOCOL}|fup|${m.originalSignature}" }
             is Reply -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
@@ -288,6 +291,7 @@ sealed class ReviewMemo {
                     val bytes = runCatching { Base64.getUrlDecoder().decode(f[4]) }.getOrNull()?.takeIf { it.size in 1..LongText.CHUNK_BYTES } ?: return null
                     TextPart(f[2], i, String(bytes, StandardCharsets.UTF_8))
                 }
+                "qck" -> if (f.size == 2) Quick else null
                 "fup" -> if (f.size == 3 && SIGNATURE.matches(f[2])) FollowUp(f[2]) else null
                 "rep" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null

@@ -1156,4 +1156,11 @@
     <string name="notif_helpful_body">Valaki hasznosnak jelölte az aláírt értékelésedet.</string>
     <string name="notif_pub_reply_title">%1$s: egy értékelő válaszolt</string>
     <string name="review_long_note">140 karakter felett: az első szavak előnézetként látszanak, a teljes szöveg további %1$d részben kerül a láncra, ugyanazzal az egy jóváhagyással (részenként kis hálózati díj).</string>
+    <string name="quick_post">Közzététel gyors értékelésként (pénztárca nélkül)</string>
+    <string name="quick_note">Az ezen a telefonon lévő kulccsal van aláírva a pénztárcád helyett, a hálózati díjat pedig helyetted kifizetik. Névtelen: a saját Gyors értékelések szakaszában jelenik meg, saját csillagokkal, soha nem az aláírt pontszámban. Nyilvános és végleges, mint minden értékelés.</string>
+    <string name="quick_paused">A gyors értékelések mára szünetelnek. Írd alá inkább a pénztárcáddal, vagy próbáld újra 00:00 UTC után.</string>
+    <string name="reviews_group_quick">Gyors értékelések</string>
+    <string name="reviews_group_quick_note">Az értékelő telefonján lévő kulccsal van aláírva, nem pénztárcával, ezért bárki közzétehet ilyet. Névtelen, és egyetlen pontszámba sem számít bele; saját csillagokkal jelenik meg.</string>
+    <string name="quick_score_line">Gyors értékelések: %1$s★ · %2$d</string>
+    <string name="sort_quick">Gyors csillagok</string>
 </resources>

@@ -19,7 +19,7 @@ class EconomicsTest {
         db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES ('s1', 'k', 'w', 'SOL', 60700000, ?)", System.currentTimeMillis() / 1000)   // 0.0607 SOL = $6.07
         db.exec("INSERT INTO records (id, sig, signer, block_time, memo) VALUES ('p1', 'p1', 'w', ?, ?)", System.currentTimeMillis() / 1000, ReviewMemo.encode(ReviewMemo.Pro(12)))
         db.exec("INSERT INTO txmeta (sig, fee, seeker, lamports, skr) VALUES ('p1', 5000, 0, 0, 369000000)")                     // 369 SKR = $7.38
-        val r = Economics(db) { prices }.report(7)
+        val r = Economics(db, { prices }).report(7)
         val t = r.getJSONObject("today")
         assertEquals(0.004, t.getDouble("ai_cost_usd")); assertEquals(6.07, t.getDouble("api_revenue_usd")); assertEquals(7.38, t.getDouble("app_revenue_usd"))
         assertEquals(13.446, t.getDouble("margin_usd")); assertEquals(10, t.getJSONObject("ai_by_caller").getJSONObject("anon").getInt("answers"))
@@ -29,7 +29,7 @@ class EconomicsTest {
     @Test fun `a costly day and a week of cost over revenue each raise an alert`() {
         val db = db()
         db.exec("INSERT INTO ai_segment (day, segment, calls, in_tok, out_tok) VALUES (?, 'pass', 2000, 6000000, 1200000)", today)   // $0.60 + $0.60
-        val alerts = Economics(db) { prices }.report(7).getJSONArray("alerts")
+        val alerts = Economics(db, { prices }).report(7).getJSONArray("alerts")
         assertEquals(2, alerts.length()); assertTrue("today" in alerts.getString(0)); assertTrue("7 days" in alerts.getString(1))
     }
 
@@ -47,7 +47,7 @@ class EconomicsTest {
     @Test fun `the economics page answers on this machine only`() {
         val db = db()
         val rpc = Rpc(listOf("http://127.0.0.1:9")); val ix = Indexer(db, rpc, Store(0))
-        val api = Api(Views(ix, Boards(ix, Board(db, rpc), Prices(db)), db), Billing(db, { null }, { false }), ix).also { it.economics = Economics(db) { prices } }
+        val api = Api(Views(ix, Boards(ix, Board(db, rpc), Prices(db)), db), Billing(db, { null }, { false }), ix).also { it.economics = Economics(db, { prices }) }
         assertEquals(404, api.handle("GET", "/v1/admin/economics", emptyMap(), "", null, "8.8.8.8").status)
         assertEquals(200, api.handle("GET", "/v1/admin/economics", emptyMap(), "", null, "127.0.0.1").status)
     }

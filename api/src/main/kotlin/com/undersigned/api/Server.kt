@@ -16,6 +16,8 @@ import java.util.concurrent.Executors
  */
 class Api(private val views: Views, private val billing: Billing, private val indexer: Indexer, private val limiter: RateLimiter = RateLimiter(), private val hooks: Hooks? = null,
           private val blockhash: () -> String = { Rpc().latestBlockhash() }, private val sanctioned: (String) -> Boolean = Screening::isSanctioned) {
+    /** Pays quick reviews' fees (Relayer.kt); null when its key is missing. */
+    @Volatile var relayer: Relayer? = null
     /** Cost against revenue per day (Economics.kt), for the operator on this machine; set by main. */
     @Volatile var economics: Economics? = null
     /** Human pages and badges (Web.kt); set after construction because pages call back into [handle]'s views. */
@@ -27,7 +29,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
     /** JSON by default; [raw] with its [contentType] for pages and badges. */
     class Response(val status: Int, val body: JSONObject, val headers: Map<String, String> = emptyMap(), val raw: ByteArray? = null, val contentType: String = "application/json; charset=utf-8")
     private class Route(val method: String, val pattern: Regex, val tier: Tier, val summary: String, val handler: (Req) -> Response)
-    class Req(val params: Map<String, String>, val query: Map<String, String>, val body: String, val caller: Caller) {
+    class Req(val params: Map<String, String>, val query: Map<String, String>, val body: String, val caller: Caller, val ip: String = "") {
         fun int(k: String, def: Int, max: Int) = query[k]?.toIntOrNull()?.coerceIn(0, max) ?: def
     }
 
@@ -108,6 +110,13 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val answer = ai.ask(q, web?.llmsText().orEmpty() + "\n\nEndpoints:\n" + routes.joinToString("\n") { "${it.method} ${paths[it]} (${it.tier.name.lowercase()}): ${it.summary}" })
                 ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "no answer right now; see ${Config.PUBLIC_URL}/api"))
             ok(JSONObject().put("answer", answer).put("label", "Suggested answer, by AI, from the published docs. Check the docs: ${Config.PUBLIC_URL}/api"))
+        }
+        // Quick reviews (Relayer.kt): the phone signs with its app key, the relayer pays the fee. Own limits per key, IP and day.
+        route("GET", "/v1/relay/info", Tier.FREE, "Quick reviews: the fee payer, a recent blockhash and the limits") { ok(relayer?.info() ?: JSONObject().put("paused", true)) }
+        route("POST", "/v1/relay/review", Tier.FREE, "Quick reviews: submit a transaction signed by the phone's app key; the relayer adds the fee payer's signature. Body {tx: base64}") { r ->
+            val rl = relayer ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "quick reviews are off"))
+            val tx = runCatching { JSONObject(r.body).optString("tx") }.getOrNull().orEmpty()
+            try { ok(JSONObject().put("signature", rl.relay(tx, r.ip))) } catch (e: Relayer.Refused) { Response(e.status, JSONObject().put("error", "refused").put("message", e.message)) }
         }
         route("GET", "/v1/changelog", Tier.FREE, "What changed in the API and MCP, newest first") { ok(Changelog.json()) }
         route("GET", "/v1/pricing", Tier.FREE, "Pass price and how to pay") { ok(pricing()) }
@@ -249,7 +258,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
             }
             return Response(r.status, r.body, h, r.raw, r.contentType)
         }
-        return try { withLimits(rt.handler(Req(params, query, body, caller))) }
+        return try { withLimits(rt.handler(Req(params, query, body, caller, ip))) }
         catch (e: Ai.AllowanceUsed) { Response(429, JSONObject().put("error", "ai_allowance").put("message", e.message).put("used_today", views.ai?.usedToday(e.caller.id) ?: 0),
             mapOf("Retry-After" to (86_400 - System.currentTimeMillis() / 1000 % 86_400).toString())) }
         catch (e: Billing.Refused) { Response(e.status, JSONObject().put("error", "refused").put("message", e.message)) }
@@ -564,7 +573,8 @@ fun main(args: Array<String>) {
     if (Config.INDEX) hooks.startWorker()
     hooks.weeklyDigest = { views.digest() }
     val api = Api(views, billing, indexer, hooks = hooks)
-    api.economics = Prices(db).let { p -> Economics(db) { p.history() } }
+    api.relayer = java.io.File(Config.DB_PATH).parentFile?.resolve("relayer.key")?.takeIf { it.exists() }?.let { k -> runCatching { Relayer(db, rpc, k) }.onFailure { log("relayer: ${it.message}") }.getOrNull() }
+    api.economics = Prices(db).let { p -> Economics(db, { p.history() }) { d -> api.relayer?.feesOn(d) ?: 0L } }
     api.web = Web(views, indexer).also { w -> w.apiInfo = { api.pricing() }; w.apiDocs = { api.openApi() } }
     runCatching { indexer.rebuild() }   // serve what the database already holds at once
     if (Config.INDEX) {

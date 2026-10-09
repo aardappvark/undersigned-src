@@ -1140,4 +1140,11 @@
     <string name="notif_helpful_body">有人将您已签名的评价标记为有用。</string>
     <string name="notif_pub_reply_title">%1$s:评价者已回复</string>
     <string name="review_long_note">超过 140 个字符：开头部分作为预览，全文另分 %1$d 段写上链，全部在同一次授权中完成（每段收取少量网络费）。</string>
+    <string name="quick_post">以快速评价发布(无需钱包)</string>
+    <string name="quick_note">由这部手机上的密钥签名,而不是您的钱包,网络费用已为您支付。匿名:显示在单独的快速评价栏,使用自己的星级,不计入已签名评分。与所有评价一样公开且永久。</string>
+    <string name="quick_paused">今天的快速评价已暂停。请改用钱包签名,或在 00:00 UTC 之后重试。</string>
+    <string name="reviews_group_quick">快速评价</string>
+    <string name="reviews_group_quick_note">由评价者手机上的密钥签名,而非钱包,因此任何人都可以发布。匿名,不计入任何评分;以自己的星级显示。</string>
+    <string name="quick_score_line">快速评价:%1$s★ · %2$d</string>
+    <string name="sort_quick">快速星级</string>
 </resources>

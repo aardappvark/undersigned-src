@@ -1157,4 +1157,11 @@
     <string name="notif_helpful_body">Någon har markerat din signerade recension som hjälpsam.</string>
     <string name="notif_pub_reply_title">%1$s: en recensent har svarat</string>
     <string name="review_long_note">Över 140 tecken: de första orden visas som förhandsvisning och hela texten går on-chain i %1$d delar till, allt i samma godkännande (en liten nätverksavgift per del).</string>
+    <string name="quick_post">Publicera som snabbrecension (utan plånbok)</string>
+    <string name="quick_note">Signerad med en nyckel på den här telefonen i stället för din plånbok, och nätverksavgiften betalas åt dig. Anonym: den visas i sin egen sektion Snabbrecensioner, med egna stjärnor, aldrig i det signerade betyget. Offentlig och permanent, som alla recensioner.</string>
+    <string name="quick_paused">Snabbrecensioner är pausade för i dag. Signera med din plånbok i stället, eller försök igen efter 00:00 UTC.</string>
+    <string name="reviews_group_quick">Snabbrecensioner</string>
+    <string name="reviews_group_quick_note">Signerade med en nyckel på recensentens telefon, inte en plånbok, så vem som helst kan skriva en. Anonyma och inte räknade i något betyg; visas med egna stjärnor.</string>
+    <string name="quick_score_line">Snabbrecensioner: %1$s★ · %2$d</string>
+    <string name="sort_quick">Snabbstjärnor</string>
 </resources>

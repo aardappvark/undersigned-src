@@ -28,6 +28,15 @@ object Registry {
     const val REGISTRY_BUMP = 255
     val REGISTRY_SEEDS = listOf("review-ledger", "v1")
     const val MEMO_PROGRAM = "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+    /**
+     * Pays the network fee for quick reviews (owner, 10 Oct 2026): the phone's own app key signs the records, this wallet
+     * only pays. A transaction whose fee payer is this wallet and that has a second signer is AUTHORED by that second
+     * signer; readers attribute it so (see [author]).
+     */
+    const val QUICK_RELAYER = "5fnAzQBqUK3cF82G8tbmhRMPSECQwgKk2XjYRNseYyN"
+
+    /** Who wrote a transaction's records: its fee payer, or for a relayed quick review the second signer. */
+    fun author(signers: List<String>): String? = if (signers.size >= 2 && signers[0] == QUICK_RELAYER) signers[1] else signers.firstOrNull()
     /** Zero-lamport self-transfer: no value moves, the wallet only pays the network fee. */
     const val CARRIER_LAMPORTS = 0L
 }

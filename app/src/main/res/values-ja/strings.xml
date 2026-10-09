@@ -1132,4 +1132,11 @@
     <string name="notif_helpful_body">誰かがあなたの署名済みレビューを参考になったとしました。</string>
     <string name="notif_pub_reply_title">%1$s: レビュアーが回答しました</string>
     <string name="review_long_note">140文字を超える場合：最初の言葉がプレビューになり、全文はさらに %1$d 個に分けてオンチェーンに記録されます。すべて1回の承認で（各パーツに少額のネットワーク手数料）。</string>
+    <string name="quick_post">クイックレビューとして投稿(ウォレットなし)</string>
+    <string name="quick_note">ウォレットではなく、この端末のキーで署名され、ネットワーク手数料はあなたの代わりに支払われます。匿名で、専用のクイックレビュー欄に独自の星とともに表示され、署名済みスコアには含まれません。他のレビューと同じく公開され、永続します。</string>
+    <string name="quick_paused">クイックレビューは本日は一時停止中です。代わりにウォレットで署名するか、00:00 UTC以降にもう一度お試しください。</string>
+    <string name="reviews_group_quick">クイックレビュー</string>
+    <string name="reviews_group_quick_note">ウォレットではなく、レビューした人の端末のキーで署名されるため、誰でも投稿できます。匿名で、どのスコアにも含まれず、独自の星とともに表示されます。</string>
+    <string name="quick_score_line">クイックレビュー: %1$s★ · %2$d</string>
+    <string name="sort_quick">クイックスター</string>
 </resources>
