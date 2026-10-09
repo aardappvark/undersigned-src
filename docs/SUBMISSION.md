@@ -1,4 +1,4 @@
-# CLOCK IN submission — Undersigned (draft, 8 Oct 2026)
+# CLOCK IN submission — Undersigned (final draft, 10 Oct 2026)
 
 Everything the Align form is likely to ask for, in final wording. Nothing here is submitted until the owner does it.
 
@@ -16,10 +16,10 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 
 | Deliverable | Status | Where |
 |---|---|---|
-| Functional Android APK | **READY** — 1.0.0 (versionCode 10), 10.1 MB, signed v2+v3 with the fleet key, lint 0 errors, 174 tests | `app/build/outputs/apk/release/app-release.apk` (copy in `assets/submission/`). Attach it as a GitHub Release asset on the repo (`v1.0.0`) or upload in the form. |
-| GitHub repository | **READY after push** — 115 commits, 8 Sep → 8 Oct, all inside the window. 5 commits are local only (icons, snapshot). | https://github.com/aardappvark/Undersigned (private) |
-| Demo video (≤ 3 min) | **READY** — `assets/video/undersigned-demo.mp4`, 2:29, 1920×1080 H.264 + AAC, 7.7 MB. Screen-recorded on the airdropper Seeker 8 Oct: list, A–Z rail, Toolkit page, a real review of Jupiter Mobile signed in the Seed Vault (tx 4Eqgb1ex…odmNXXL5), proofs, publisher section, store lens, device facts, import scan, the web page and Solscan. Narration: `assets/video/narration.txt`; rebuild with `build.py` + `mux.py` (the takes are in the session scratchpad, not the repo). | Upload to YouTube (unlisted) or Drive; paste the link |
-| Pitch deck | **READY** — 12 slides, a framed screenshot on every product slide (slide 10: a companion to the store, code offered to strengthen it) | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
+| Functional Android APK | **READY** — 1.1.0 (versionCode 11), 12.0 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 83a20638…7296f | `assets/submission/Undersigned-1.1.0-vc11.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.0` (owner). |
+| GitHub repository | **READY** — 157 commits on 18 days from 8 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
+| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.0 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
+| Pitch deck | **READY** — 14 slides, core loop first, then the handover path and what stewardship is worth; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
 
@@ -30,6 +30,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 - Interacts meaningfully with Solana: every review, reply, flag, claim, listing and licence is a mainnet transaction.
 - Runs on a device, not only an emulator: three Seekers run it; the demo is recorded on one.
 - Winners must publish to the dApp Store within 30 days: `docs/STORE_LISTING.md` is ready; cost about 0.021 SOL.
+- Hosting for the judging window: the API runs on a Hetzner server prepaid for more than two months (`docs/DEPLOY.md`); if it ever stops, the app and the browser viewer still read every record from the chain.
 - KYC via Sumsub for finalists (owner, after the announcement).
 
 ## Form fields — final wording
@@ -43,27 +44,31 @@ Field names are my best guess at Align's form `[unverified: the form is behind t
 **Category:** Mobile (single category). Also entering the **SKR Integration prize** (see below).
 
 **Short description (about 300 characters):**
-Undersigned is a review layer beside the Solana dApp Store. Every review is a transaction the owner signs on their Seeker; only wallets holding a Genesis Token count, so a review farm needs a farm of phones. Publishers prove their apps and reply on-chain. No server is needed to read it.
+Undersigned is a review layer beside the Solana dApp Store. Every review is a transaction the owner signs on their Seeker; only wallets holding a Genesis Token count, so a review farm needs a farm of phones at US$400+ each. Publishers prove their apps, reply on-chain and say when a problem is fixed. Anyone can read and recompute it.
 
 **Full description:**
 
-The dApp Store shows a star rating, but nothing tells you which of those stars came from a real Seeker. Undersigned does. It is an Android app for Seeker that lists every dApp in the store (1,539 today, updated every Monday), shows the store's own rating beside a **signed score**, and lets the owner write a review that their wallet signs with the Seed Vault double-tap. The review is a memo transaction carrying a fixed reference address, so anyone can find every review by reading the chain.
+The dApp Store shows a star rating, but nothing tells you which of those stars came from a real Seeker. Undersigned does. It is an Android app for Seeker that lists every dApp in the store (1,543 today, updated every Monday), shows the store's own rating beside a **signed score**, and runs one loop: **write → sign → counted → read anywhere.**
 
-What makes a review count is the device, not the account. A review is counted only when the signing wallet holds a Seeker Genesis Token, which is soulbound to a Seed Vault key; the wallet's own transaction fingerprint shows the review was signed on the phone. One Seeker is one voice, and every voice weighs the same. The SKR and SOL a reviewer has staked are shown beside each review, as read at the time, so readers can judge for themselves; stake never changes a weight, and the app never asks anyone to stake, buy or move anything: it reads the chain, it does not touch it.
+**Write.** Stars, tags from a fixed set, an optional note of up to 2,000 characters, and, if the owner opts in, what the phone can report: how long the app has been installed, how many of the last six months it was actually used, and how often it was reinstalled.
 
-Publishers prove an app is theirs by signing a claim that verifies against the website the store lists (`/.well-known/undersigned.txt`) or the manifest of the store's own build, then reply on-chain under their name. Publishers who do not want to sign with a treasury wallet can list a treasury from their proven publisher wallet instead. Twenty-nine apps carry proven claims today.
+**Sign.** Mobile Wallet Adapter hands the transaction to the Seeker Wallet and the owner double-taps; the key never leaves the Seed Vault. The record is a memo transaction carrying one fixed reference address.
 
-What the phone can prove is shown as facts, never verdicts: whether the installed build matches the certificate the store lists, whether permissions grew between versions, how long the owner has actually used the app (opt-in). Integrity is handled in the open: flags, "looks genuine" clears, consensus hiding at a Genesis-weighted threshold, author disputes, and moderation that can hide text but never a voice.
+**Counted.** A review counts only when the signing wallet holds a Seeker Genesis Token, which is soulbound to the device. One Seeker is one voice, and a Seeker costs US$400 or more, so a farm of fake voices is a farm of phones. A review's weight grows with what it carries (the phone's own facts, a written note), never with money: staked SKR and SOL are shown beside each review for readers to judge and never weighed, and no payment to Undersigned adds weight to anything.
 
-Undersigned is a companion to the dApp Store, not a rival to it. Every app opens in the store; the store's own rating and reviews are shown and credited on every page and never written to; a signed review can be copied into the store's own review box in one tap. The parts that would strengthen the store's reviews, the Genesis lens on store reviewers, the publisher proof file, the memo format and the ranking rules, are public, documented and tested, and are offered to Solana Mobile to adopt: first as a reader of the ledger, later as a drop-in. Until then the app stands beside the store, in the store, as an ordinary listed dApp.
+**Read anywhere.** The app, a public website and JSON API (https://undersigned.provenby.dev), an MCP server for AI agents, a browser viewer that reads the chain with no server, and Solscan all read the same records. The ranking rules are a pure Kotlin module with unit tests; anyone can recompute every score.
 
-Everything is readable without the app: a public website and JSON API (https://undersigned.provenby.dev), a browser viewer that reads the chain directly, a dataset download, and an MCP server so AI agents can read reviews and hand the owner a transaction to sign. Twenty-eight languages. No token, no rewards, no server of ours between the owner and the chain.
+Around the loop: **publishers** prove an app is theirs with a signed claim checked against the website the store lists or the manifest of the store's own build, reply on-chain under a Publisher mark, and can sign "fixed in version N" under a review; the reviewer is notified and can sign a follow-up with new stars, and the publisher's responsiveness (fixes, follow-ups, the change in stars, hours to fix) is shown publicly. **Owners** follow apps, choose which actions notify them, import their existing store reviews in one approval, and see facts their phone can prove (the installed build matches the certificate the store lists; permissions grew) as facts, never verdicts. **Integrity** is in the open: Genesis-weighted flags and clears, author disputes, near-duplicate labels, store review bursts, and moderation that can hide text for four narrow reasons but never a voice. A **payments board** shows what each dApp has been paid, from treasuries its publisher proved.
 
-**What was built during the hackathon (8 Sep – 8 Oct 2026):** everything. 115 commits, about 17,000 lines of Kotlin across the Android app, a pure-JVM protocol module (memo codec, ranking, reputation, payments; 174 unit tests, including golden-transaction byte tests shared with the server), the API server, the website, the MCP server, 28 locales and the legal pack. The first mainnet review was signed on 8 Sep; the first Pro licence was paid in SKR on 15 Sep; 29 publisher claims and 28 treasury listings were signed on 7 Oct.
+**Shown apart, never mixed in.** Quick reviews (signed by a key the app holds, no wallet; Undersigned pays the fee) are anonymous, so they have their own section and average and are never counted. Reviews from wallets without a Genesis Token, and from Undersigned's own wallets, are shown and not counted. A promoted review counts once at the same weight as an unpaid one; the payment buys only a labelled place after the organic reviews.
 
-**Built after the deck was cut (8 Oct, in the repo before the deadline):** review nudges (opt-in; one store app a day that has been on the phone a week or used an hour and has no review from this wallet, each asked once, opening its composer), "Share to Undersigned" (share a store listing or an app name from any app; it opens that app's page or a search), and a one-tap badge embed for proven publishers on the app page. The public API now seeds its dApp list from the app's shipped list so both say 1,539.
+**A companion to the dApp Store, built to be handed over.** Every app opens in the store; the store's own rating and reviews are shown and credited on every page and never written to; a signed review can be copied into the store's review box in one tap. The memo format, the Genesis lens, the publisher proof file and the ranking rules are public, documented and tested, and offered to Solana Mobile in three steps: read the ledger (Guardian curation, today), adopt the proof file and the ranking rules, then take the code or rebuild it. We see it as rightfully under Seeker's stewardship. Until a handover it stands beside the store as an ordinary listed dApp: Pro and API passes, paid in SOL or SKR, pay for hosting (about US$7 a month), every payment is public on-chain under its own memo, and what is left after running costs is intended to go back to the Seeker community, never to reviewers for their reviews. At these prices and today's scale it would bring a steward about US$37,000 a year now and US$83,000 next year (mid cases, adoption assumed and stated; `docs/REVENUE_MODEL.md`), against under US$1,000 a year to run.
 
-**Solana Mobile Stack / MWA usage:** every write is an MWA `transact` to the Seeker Wallet (authorize once, then sign-and-send); the Genesis Token check reads the soulbound Token-2022 mint on the signer; the Seeker wallet fingerprint (the Lighthouse guard it adds to every transaction) is read back from the chain and shown on the record; `.skr` names resolve from the ANS registry; batch signing puts up to 8 reviews in one approval. The app is Compose, portrait, mobile-first; nothing of it exists as a web app.
+**Where it stands (10 Oct).** 77 records on mainnet: 29 proven publisher claims, 28 treasury listings, a Pro licence paid in SKR, and the first reviews, all signed by Undersigned's own wallets, which are shown, labelled and never counted. The counted score starts at zero and fills only as Seeker owners sign; the website's home page says so. Twenty-eight languages. No token, no rewards.
+
+**What was built during the hackathon:** everything, from the first commit on 8 Sep 2026: 157 commits on 18 days; about 18,800 lines of Kotlin across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (251 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (23 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
+
+**Solana Mobile Stack / MWA usage:** every write is an MWA `transact` to the Seeker Wallet (authorize once, then sign-and-send); the Genesis Token check reads the soulbound Token-2022 mint on the signer; the Seeker wallet fingerprint (the Lighthouse guard it adds to every transaction) is read back from the chain and shown on the record; `.skr` names resolve from the ANS registry; batch signing puts up to 8 reviews in one approval; a 2,000-character review goes on-chain in pieces under one approval; quick reviews are co-signed by a relayer that can pay fees and nothing else. The app is Compose, portrait, mobile-first; nothing of it exists as a web app.
 
 **SKR integration (for the SKR prize):** SKR is a payment rail and an identity layer, not a staking integration. Pro, publisher treasury listings and API passes are priced in SKR (369 SKR, 10% below the SOL price at the 9 Oct 2026 rate) and paid straight to the treasury token account with a memo and a reference address, so the licence is read back from the chain by the app, the website and the API without any server of ours. It was tested on mainnet with a real 276 SKR Pro payment on 15 Sep 2026 (signature 2L6fwENd…), read back from the chain. `.skr` names are shown everywhere a wallet appears. Separately, staked SKR and SOL are *read* and shown beside each review for transparency (never weighed), which is not the claim.
 
@@ -87,14 +92,14 @@ Everything is readable without the app: a public website and JSON API (https://u
 | Evaluation process item | Evidence |
 |---|---|
 | Completion based on the demo video | the video shows a review signed, landed and read back from the chain in a browser |
-| Technical depth based on GitHub commits | 115 commits over 31 days; protocol tests; golden tx bytes; `docs/SPEC.md` |
+| Technical depth based on GitHub commits | 157 commits on 18 days; 251 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
 | Mobile-optimised UX, mobile features | Seed Vault signing, Genesis Token, PackageManager facts, usage stats, notifications, weekly WorkManager, A–Z rail, offline icons, 28 locales |
-| Usage and interaction with the Solana network | every record is a mainnet tx; 73 records live today (`/v1/stats`) |
-| Clarity and vision from the presentation | the deck; the ask is one line: read the ledger in Guardian curation |
+| Usage and interaction with the Solana network | every record is a mainnet tx; 77 records live today (`/v1/stats`) |
+| Clarity and vision from the presentation | the deck: the core loop first, then the handover path to the store |
 
 ## Owner's steps (in order)
 
-1. Record the demo video (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
+1. Re-record the demo video on 1.1.0 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
 2. Sign in to RADOS / Align at solanamobile.radiant.nexus, complete the builder profile, register for Clock In.
 3. Install the Radiants Align GitHub app on `aardappvark/Undersigned`.
 4. Fill the form from this file; attach the APK and the deck; paste the video link.

@@ -3,9 +3,20 @@
 # install-local.sh) and posts a macOS notification when something needs the owner: the server is down, the indexer
 # reports an error, a store snapshot day was missed, or webhook deliveries failed. One notification per distinct
 # message per 6 hours. Also: the AI cost alerts from /v1/admin/economics (10 Oct 2026).
+# Once the API runs on a server (deploy-hetzner.sh writes its address to "server" beside the database), this watches the
+# PUBLIC URL instead, and reads the server's economics over SSH (that route answers on the server's loopback only).
 DIR="$HOME/Library/Application Support/UndersignedAPI"
-H=$(curl -s -m 10 http://127.0.0.1:8817/v1/health) || H=""
-if [ -z "$H" ]; then MSG="The Undersigned API is not answering on this Mac."
+SERVER=$(cat "$DIR/server" 2>/dev/null)
+if [ -n "$SERVER" ]; then
+  H=$(curl -s -m 15 -A undersigned-watch https://undersigned.provenby.dev/v1/health) || H=""
+  ECON="ssh -o BatchMode=yes -o ConnectTimeout=10 root@$SERVER curl -s -m 10 http://127.0.0.1:8817/v1/admin/economics?days=7"
+  WHERE="at https://undersigned.provenby.dev (server $SERVER)"
+else
+  H=$(curl -s -m 10 http://127.0.0.1:8817/v1/health) || H=""
+  ECON="curl -s -m 10 http://127.0.0.1:8817/v1/admin/economics?days=7"
+  WHERE="on this Mac"
+fi
+if [ -z "$H" ]; then MSG="The Undersigned API is not answering $WHERE."
 else MSG=$(printf '%s' "$H" | /usr/bin/python3 -c '
 import json, sys, datetime
 j = json.load(sys.stdin); out = []
@@ -19,7 +30,7 @@ if j.get("hook_failures_24h", 0) > 0: out.append("%d webhook delivery failure(s)
 print(" ".join(out))
 ' 2>/dev/null)
   # Cost against revenue (Economics.kt): a costly day, or a week of AI cost above revenue plus a floor.
-  E=$(curl -s -m 10 "http://127.0.0.1:8817/v1/admin/economics?days=7") || E=""
+  E=$($ECON) || E=""
   EMSG=$(printf '%s' "$E" | /usr/bin/python3 -c 'import json,sys; print(" ".join(json.load(sys.stdin).get("alerts", [])))' 2>/dev/null)
   [ -n "$EMSG" ] && MSG="$MSG $EMSG"
   MSG=$(printf '%s' "$MSG" | sed 's/^ *//')

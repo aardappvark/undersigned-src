@@ -159,9 +159,10 @@ api/run-local.sh                # builds, reads api/.env.local (git-ignored: UND
 UNDERSIGNED_API_URL=http://localhost:8817 node mcp/server.js
 ```
 
-Hosted on this Mac only (owner, 28 Sep 2026): `api/install-local.sh` runs it as a LaunchAgent at http://127.0.0.1:8817, loopback
-only. Test prices for a local test run: `UNDERSIGNED_TEST_PASS_SOL` / `UNDERSIGNED_TEST_PASS_SKR` in `api/.env.local`,
-honoured only while the server listens on loopback. A public host, a domain and the store-data question (§5) are owner decisions.
+Hosted at https://undersigned.provenby.dev on a Hetzner Cloud server since 9 Oct 2026 (`docs/DEPLOY.md`); before
+that on the owner's Mac. Locally, `api/install-local.sh` runs it as a LaunchAgent at http://127.0.0.1:8817, loopback only.
+Test prices for a local test run: `UNDERSIGNED_TEST_PASS_SOL` / `UNDERSIGNED_TEST_PASS_SKR` in `api/.env.local`,
+honoured only while the server listens on loopback; a public server refuses to start with them set.
 
 ## 5. Rules the numbers follow
 - **A payer, and "paid for this app", need a real amount**: at least 0.001 SOL, 1 SKR or 0.10 USDC in one payment

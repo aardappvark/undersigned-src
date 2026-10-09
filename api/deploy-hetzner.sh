@@ -87,6 +87,7 @@ UNIT
   echo "server: API and tunnel up"'
 # Hand the URL over: stop the Mac connector, then check the public URL answers from the server.
 launchctl bootout "gui/$(id -u)/com.undersigned.tunnel" 2>/dev/null || true
+printf '%s\n' "$IP" > "$LOCAL/server"   # the watchdog (watch-local.sh) now watches the public URL and this server
 for i in $(seq 1 30); do curl -fs -A deploy https://undersigned.provenby.dev/v1/health >/dev/null && break; sleep 3; done
 curl -fs -A deploy https://undersigned.provenby.dev/v1/health | head -c 200; echo
 echo "Public URL now served by $IP. Backup: launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.undersigned.tunnel.plist"

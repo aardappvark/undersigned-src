@@ -164,7 +164,7 @@ Besides tools:
 
 - **Resources:** `undersigned://policy` (the integrity rules, for the model to read before describing a score), `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.
 - **Prompts:** `audit_app_reputation(package)` and `compare_apps(package_a, package_b)`. Both tell the model to quote counts and to treat bursts as facts, not verdicts.
-- **What changed:** [`/v1/changelog`](https://undersigned.provenby.dev/v1/changelog) (and the page [`/changelog`](https://undersigned.provenby.dev/changelog)); uptime at [`/status`](https://undersigned.provenby.dev/status).
+- **What changed:** [`/v1/changelog`](https://undersigned.provenby.dev/v1/changelog) (and the page [`/changelog`](https://undersigned.provenby.dev/changelog)); uptime at [`/status`](https://undersigned.provenby.dev/status). Hosting: a Hetzner Cloud server behind a Cloudflare tunnel (`docs/DEPLOY.md`); if it is ever down, every record is still on Solana and the [browser viewer](https://aardappvark.github.io/undersigned-viewer/) reads it with no server.
 - **Discovery:** [`/llms.txt`](https://undersigned.provenby.dev/llms.txt) and [`/.well-known/mcp/server-card.json`](https://undersigned.provenby.dev/.well-known/mcp/server-card.json).
 
 How the server works:

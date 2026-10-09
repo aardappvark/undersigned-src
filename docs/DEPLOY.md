@@ -1,17 +1,30 @@
-# Putting the Undersigned API on a public host
+# Hosting the Undersigned API
 
-Today it runs on the owner's Mac only (`api/install-local.sh`, http://127.0.0.1:8817). A public https host is what makes
-badges, pages, web reviewing and the QR path usable by anyone, and keeps the daily store snapshots from missing days when
-the Mac sleeps (5 of 7 days were read between 28 Sep and 4 Oct 2026).
+**Live since 9 Oct 2026 on a Hetzner Cloud server**: CX23 (2 vCPU, 4 GB, 40 GB disk), Nuremberg, Ubuntu 26.04,
+US$7.09 a month on prepaid credit. The public URL `https://undersigned.provenby.dev` reaches it through the same
+Cloudflare tunnel that used to point at the owner's Mac.
 
-## What a host needs
-- A JVM 17 container or process, always on, with **one persistent volume** for the SQLite file and its `backups/` folder
-  (14 daily copies are kept beside the database). Passes and redeemed payments are the only data the chain cannot rebuild.
-- **https** with a stable name. Wallets only fetch Solana Pay transaction requests (the QR path) over https.
-- Outbound access to: a Solana RPC (a keyed one first), dappstore.solanamobile.com, solanaappstore.com (store builds of
-  claimed apps), api.trmlabs.com, api.coingecko.com, and publishers' websites for proof files.
+| Piece | Where |
+|---|---|
+| API (JVM, SQLite) | systemd `undersigned-api`, user `undersigned`, `127.0.0.1:8817`, `/opt/undersigned` |
+| Tunnel | systemd `undersigned-tunnel`, `/etc/cloudflared/undersigned.yml` |
+| Database | `/opt/undersigned/undersigned-api.db`; a daily copy in `backups/`, 14 kept |
+| Secrets (0600, owner `undersigned`) | `env`, `relayer.key` (the quick-review fee payer), `.config/undersigned/anthropic.env` |
+| Watchdog | the owner's Mac, every 10 minutes (`watch-local.sh`): public `/v1/health`, and `/v1/admin/economics` over SSH |
 
-## Environment
+Deploy a new build: `sh api/deploy-hetzner.sh 188.245.27.29`. It builds here, copies the build, and restarts the API;
+the server's live database is never overwritten unless `--fresh-db` is given. Logs: `ssh root@<ip> journalctl -u undersigned-api`.
+
+**If the server is down**: nothing on the ledger is lost (it is Solana). The app reads the chain itself and keeps
+working, except for quick reviews, AI help and found-in-code wallets. The [browser viewer](https://aardappvark.github.io/undersigned-viewer/)
+reads the ledger with no server. To serve the URL from the Mac again: `sh api/install-local.sh`, then
+`launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.undersigned.tunnel.plist` (stop the server's tunnel first:
+two connectors split traffic between two databases). Passes and redeemed payments live only in the server's database;
+copy it back first.
+
+**Known limit**: the watchdog runs on the Mac, so it only notifies while the Mac is awake.
+
+## Environment (any host)
 | Variable | Value |
 |---|---|
 | `UNDERSIGNED_PUBLIC=1` | Required. Turns off test prices and localhost webhooks; the server refuses to start with test prices set. |
@@ -22,18 +35,6 @@ the Mac sleeps (5 of 7 days were read between 28 Sep and 4 Oct 2026).
 | `UNDERSIGNED_DB` | Path on the persistent volume. |
 | `UNDERSIGNED_CONTACT` | An address shown on `/report` for content complaints. |
 
-## Options (owner's choice)
-1. **A small always-on VM or container host** with a volume: build with `api/Dockerfile`, set the variables above.
-2. **A tunnel from this Mac** (no new machine): keeps everything local but still depends on the Mac staying awake, so
-   the missed-snapshot problem remains. `TRUST_PROXY=1` and `UNDERSIGNED_PUBLIC=1` are still required.
-
-## Before the first public request
-- [ ] Publish the updated Terms and Privacy pages (sections 2B, 8A and 5A describe the website, the listing fee, the API
-      pass and what the server holds).
-- [ ] Set `UNDERSIGNED_CONTACT` and read `/report` once.
-- [ ] Decide the store-data question in `docs/API.md` §6 (selling passes that include store-derived series).
-- [ ] Copy the local database across if the passes on it should survive (`backups/undersigned-YYYY-MM-DD.db`).
-- [ ] Point the app's badge and page links at `PUBLIC_URL`.
 
 ## Operating it
 - `GET /v1/health`: last syncs, last error, skipped transactions, snapshot days, last backup, webhook failures.

@@ -87,6 +87,11 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             listOf("reviews_counted" to "counted reviews", "attested_signers" to "Seeker owners reviewing", "apps_reviewed" to "apps reviewed", "publisher_replies" to "publisher replies", "catalogue_apps" to "apps in the store")
                 .forEach { (k, l) -> sb.append("<div class=stat><b>${"%,d".format(java.util.Locale.US, s.optLong(k))}</b><span>$l</span></div>") }
             sb.append("</div></div>")
+            // Early days, said plainly (judge review, 10 Oct 2026): an empty score is the rules working, not the site failing.
+            if (s.optLong("reviews_counted") == 0L) sb.append("<div class='card how'><div class=label>Early days</div><p class=meta>Undersigned launched in September 2026. " +
+                "Reviews signed by Undersigned's own wallets are shown, labelled, and never counted, so the signed scores fill only as Seeker owners sign. " +
+                "Every record so far is on-chain and readable here and in the <a href='https://aardappvark.github.io/undersigned-viewer/'>browser viewer</a>. " +
+                "<a href='/review'>Be one of the first.</a> <a href='https://aardappvark.github.io/undersigned-legal/integrity.html'>How counting works</a>.</p></div>")
             sb.append("<h2>How it works</h2><div class=steps3>" +
                 "<div class=card><b>1</b><strong>Rate an app</strong><p class=meta>Stars, one to three tags, a short note if you like. From this site or the Undersigned app.</p></div>" +
                 "<div class=card><b>2</b><strong>Sign it with your wallet</strong><p class=meta>Your wallet signs the record. You pay only the Solana network fee; Undersigned takes nothing.</p></div>" +
@@ -121,7 +126,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         // The two scores side by side, each labelled with where it comes from.
         sb.append("<div class='card grid2'><div><div class=label>Signed by Seeker owners</div>")
         if (sg != null && sg.optInt("counted_reviews") > 0) sb.append("<div class=big>${"%.1f".format(java.util.Locale.US, sg.optDouble("mean"))}</div><div class=meta>${plural(sg.optInt("counted_reviews"), "counted review", "counted reviews")} · ranked as ${sg.opt("rank_score")} until more Seekers sign</div>${bars(sg.optJSONArray("stars"))}")
-        else sb.append("<div class=big>–</div><div class=meta>No counted signed reviews yet.</div>")
+        else sb.append("<div class=big>–</div><div class=meta>No counted signed reviews yet. Reviews from Undersigned's own wallets, and from wallets without a Seeker Genesis Token, are shown below but not counted.</div>")
         sb.append("</div><div><div class=label>The dApp Store's own rating</div>")
         if (sr != null && sr.optInt("count") > 0) sb.append("<div class=big>${sr.opt("average")}</div><div class=meta>${sr.optInt("count")} ratings, read ${esc(sr.optString("as_of"))}</div>${bars(sr.optJSONArray("stars"))}")
         else sb.append("<div class=big>–</div><div class=meta>Not read yet.</div>")

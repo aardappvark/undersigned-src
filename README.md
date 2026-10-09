@@ -1,16 +1,49 @@
 # Undersigned
 
-A Seeker dApp that puts a **sybil-resistant, on-chain review and trust layer** on top of the Solana
-dApp Store. One Genesis Token = one voice. Reviews are memo transactions the reviewer signs in their
-own wallet; ranking is deterministic from the chain; the phone adds the facts it can prove about
-installed apps (certificate changes, permission drift). No token and no prizes; the app itself reads the chain
-directly and uses no server of ours. An optional API and website (`api/`, `docs/API.md`) index the same public
-ledger for other programs and for readers without a Seeker.
+**Signed reviews from Seeker owners. One Seeker, one voice, written to Solana, readable by anyone.**
 
-CLOCK IN hackathon entry (8 Sep – 8 Oct 2026). See `docs/SPEC.md` (protocol), `docs/LEGAL_GATES.md`
-(compliance), and this file's "How it exists" section for the relationship to the store.
+A Seeker dApp that puts a sybil-resistant review layer beside the Solana dApp Store. A review is a memo transaction the
+owner signs in their own wallet with the Seed Vault double-tap. It counts only when the signing wallet holds a Seeker
+Genesis Token, so a review farm needs a farm of phones, at US$400 or more each. Ranking is deterministic from the chain;
+anyone can recompute it. No token, no prizes, nothing staked or moved by the app.
 
-**Developers:** the public API and the MCP server for AI agents are documented in [docs/DEVELOPERS.md](docs/DEVELOPERS.md).
+CLOCK IN hackathon entry (Solana Mobile). First commit 8 Sep 2026; submissions close Mon 12 Oct 2026, 11:59 UTC.
+Submission pack: [docs/SUBMISSION.md](docs/SUBMISSION.md). Protocol: [docs/SPEC.md](docs/SPEC.md).
+Developers (API, MCP): [docs/DEVELOPERS.md](docs/DEVELOPERS.md). What was built when: [docs/HISTORY.md](docs/HISTORY.md).
+
+## The core loop
+
+1. **Write.** Stars, one to three tags from a fixed set, an optional note (up to 2,000 characters, on-chain) and,
+   opt-in, what the phone can report: install age, time actually used, reinstalls.
+2. **Sign.** Mobile Wallet Adapter hands the transaction to the Seeker Wallet; the owner double-taps; the key never
+   leaves the Seed Vault. The wallet sets the network fee (0.000065 SOL on the first mainnet review); Undersigned takes nothing.
+3. **Counted.** One Genesis Token, one voice. Each review's weight is between 0.25 and 1: more when it carries what the
+   phone saw or a written note, halved for a wallet with a review hidden by consensus. Staked SKR and SOL are shown
+   beside each review, never weighed. No payment to Undersigned adds weight to anything.
+4. **Read anywhere.** Every record carries one reference address, so the app, the website, the API, the MCP server, a
+   browser viewer that reads the chain directly, Solscan, or Solana Mobile's own tools all read the same bytes.
+
+Everything else hangs off that loop:
+
+| For | What |
+|---|---|
+| Seeker owners | Browse all 1,543 dApps with the store's rating beside the signed score; follow apps; per-action notifications; review nudges; import existing store reviews in one approval; a second round when a publisher says a problem is fixed; facts the phone can prove (certificate matches the store's, permission drift), never verdicts; 28 languages; a guided tour. |
+| Publishers | Prove an app is yours (a signed claim checked against the website the store lists or the manifest of the store's own build); reply on-chain under a Publisher mark; sign "fixed in version N" and see who followed up; responsiveness shown publicly; per-version scores; desk, webhooks, badge, MCP. |
+| Integrity | Genesis-weighted flags and "looks genuine" clears; author disputes; near-duplicate labels; store review bursts and no-Genesis waves shown as facts; moderation hides text for four narrow reasons, never a voice ([docs/MODERATION.md](docs/MODERATION.md)). |
+| Payments board | Treasuries proven by the publisher, payments counted per app and over time, a leaderboard; wallets found in app code listed apart as unconfirmed. |
+| Developers and agents | Public website and JSON API, OpenAPI, dataset download, feeds, signed webhooks, a hosted MCP server (23 tools) and a local MCP desk (53 tools). |
+
+### Shown apart, labelled, and kept out of the signed score's ordering
+
+- **Quick reviews**: stars, tags and text signed by a key the app holds on the phone, no wallet; Undersigned's relayer
+  pays the fee. Anonymous, so **never counted**: their own section, average and sort.
+- **Reviews from wallets without a Genesis Token**, and from Undersigned's own wallets: shown, **not counted**.
+- **Promoted reviews**: their author paid to promote them. Counted **once, at the same weight** as if unpaid; the
+  payment buys only a labelled place **after** organic reviews, never first, never weight.
+- **Pro members' reviews**: counted like everyone's, and also shown as their own labelled score.
+- **Reviews by holders of a Pro seat gifted by the app's publisher**: labelled, counted in no score.
+
+Rules: [integrity policy](https://aardappvark.github.io/undersigned-legal/integrity.html), `protocol/.../Weighting.kt`.
 
 ## How it exists relative to the Solana dApp Store
 
@@ -36,90 +69,43 @@ Three lines of copy that must appear in the listing, onboarding and terms, for t
 individual Seeker owners, not the store's ratings**; **the facts panel reports what your device can
 verify, it is not a safety verdict.**
 
+
+## Where it runs
+
+- **The app** reads the chain directly (an RPC pool with fallbacks): reading, signing and scoring need no server of ours.
+  The server adds extras: quick reviews (its relayer pays the fee), AI help and the digest, wallets found in app code.
+- **The website, API and MCP** (`https://undersigned.provenby.dev`) run on a Hetzner Cloud server (CX23, Nuremberg)
+  as two systemd services: the API (JVM, SQLite, daily backups kept 14 days) and the Cloudflare tunnel. Deploy and
+  redeploy: `sh api/deploy-hetzner.sh <ip>` (keeps the live database). A watchdog on the owner's Mac checks the public
+  URL every 10 minutes and the server's cost/revenue alerts, and posts a notification when either needs attention.
+  See [docs/DEPLOY.md](docs/DEPLOY.md).
+- **If the server is down**, nothing is lost: every record is on Solana, the app keeps working, and the
+  [browser viewer](https://aardappvark.github.io/undersigned-viewer/) reads the ledger with no server at all.
+- **Quick-review relayer**: a fee-payer wallet the server holds, which can only co-sign quick reviews (memo + one
+  0-lamport self-transfer); 10,000 lamports per review, limits per phone, per network and per day.
+
+## State today (measured 10 Oct 2026)
+
+- Release **1.1.0** (versionCode 11). 157 commits on 18 days; about 18,800 lines of Kotlin plus 3,400 lines of tests;
+  251 Kotlin tests and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
+- Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR. **0 counted reviews
+  so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
+  scores fill as Seeker owners sign.
+- Legal pack live: https://aardappvark.github.io/undersigned-legal/ (terms, privacy, EULA, integrity policy).
+
 ## Repo layout
 
 ```
-protocol/   pure-Kotlin JVM module: memo codec, ranking, safety-fact model, unit tests (runs today)
-docs/       SPEC.md (wire format, registry, reader), LEGAL_GATES.md (compliance, feature gates)
-app/        Android shell (Compose, MWA 2.0.3, seeker-verify 1.1.0), bootstrapped 8 Sep from the RentBack Sol
-            scaffold: terms gate (SIWS), onboarding, Browse (Installed / Signed / All), App detail (signed score,
-            tags, device facts, reviews, hide/report), Review composer (rating + tags + double-consented note,
-            Genesis-Token gate, simulate → sign → confirm), What-changed feed, Settings. Bundled catalogue
-            snapshot (1,333 apps) + background GraphQL refresh; ledger reader with on-device cache.
-            Debug build verified on a throwaway AVD 8 Sep (all screens, live catalogue refresh, ledger sync).
+protocol/   pure Kotlin/JVM: memo codec, ranking and weighting, threads, long text, quick reviews, payments, tests
+app/        Android (Compose, MWA 2.0, Seeker Genesis Token check, WorkManager, 28 locales)
+api/        JVM server over :protocol: indexer, website, JSON API, MCP, relayer, economics; deploy scripts
+mcp/        local MCP server for publishers (Node): desk, inbox, handoffs to the phone, every API route as a tool
+docs/       SPEC (wire format), DEVELOPERS, API, DEPLOY, MODERATION, LEGAL_GATES, SUBMISSION, PITCH, HISTORY
+assets/     submission APK, deck (pitch.html, PDF), video
 ```
 
-Run the protocol tests: `JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :protocol:test`
-
-## Live on mainnet (8 Sep 2026, owner's Seeker `airdropper.skr`)
-
-Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the owner's wallet, wallet-set fee
-47,000 lamports each. Genesis Token + staked-SKR reads worked against the real wallet (weight capped at 3×).
-
-## Built on top since (same day)
-
-- Real icons (installed launcher icon → store icon URI → letter badge), Toolkit pattern.
-- Follow apps; local 6-hourly ledger alerts (new signed reviews on followed apps, replies to yours); signed replies (`SRL1|rep`).
-- Score display = true weighted mean; the Bayesian value is shown only as a "rank score" and used only to order lists.
-- **Store mirror**: the native store's public rating histogram + reviews (`.skr` names, publisher-replied badge) read through the
-  store's own `DAppByPackageSummary` / `DAppReviews` operations, which answer without any token (probed 8 Sep). Read-only.
-- **Import my store reviews**: scans installed + followed apps' public store reviews for the user's own wallet address and
-  re-signs the chosen ones as ledger records in ONE wallet approval (multi-memo transactions, record ids `sig`, `sig:1`, …).
-- `.skr` main-domain names for ledger signers (AllDomains MainDomain PDA), cached on-device.
-
-## Built since (26–28 Sep 2026)
-
-- **My reviews**: every review the wallet wrote, one card per dApp, signed beside store, searchable; the store scan runs
-  in the background and notifies when done.
-- **Review bursts**: each app page flags clusters of 5★ (or 1★) reviews against the app's median day, with how many
-  reviewers hold an attested device and whether the burst fell in a reward period. Checked on real data: CrushCoin's
-  gold-for-5★ campaign (17 Mar 2026) reads as 69 five-star reviews in 17–24 Mar, 67 of 67 from attested wallets.
-- **Star-rating bursts and Store watch**: daily snapshots of the store's star counts (the batch query takes 20 apps; the
-  whole store is 72 requests), per followed app and, opt-in, store-wide; alerts on new bursts for followed apps.
-- **Install age and usage time on reviews** (`SRL1|use`, `SRL1|tim` in the review's own transaction): total time on the
-  phone across reinstalls, and opt-in foreground time, both rounded and shown as the reviewer's device report.
-- **Payments board**: a treasury confirmed by both its own signature (`SRL1|trs`) and the publisher's website, counted
-  by memo code or reference account, publisher's own wallets left out, USD at each payment's day. Matches the fleet
-  ledger exactly (SeekerVerify: 63 payments, 0.4335 SOL + 1,690 SKR). "Paid for this app" badge on reviews by payers.
-- **Publisher notes on store reviews** (`SRL1|snt`): a verified publisher's signed, permanent answer under a store review.
-- **Reward-period tags**: reviews and bursts inside Seeker Season 1 (approximate) or Seeker Summer are tagged.
-
-## Built since (28 Sep – 5 Oct 2026)
-
-- **Listing fee and Pro at the fleet price** (0.0607 SOL / 369 SKR, 332 SKR with a Seeker Genesis Token); the 276 SKR
-  Pro licence of 15 Sep still reads (legacy floor).
-- **Publisher proof hardened**: the app's own signed build names the wallet (`undersigned.publisher` manifest line), read
-  from the installed app, or on request from the build the store serves (shared reader in `:protocol`); website proof
-  refused on shared hosts. All 29 fleet apps carry the line from their next release.
-- **API, website and MCP** (`api/`, `mcp/`, `docs/API.md`, `docs/DEPLOY.md`): a JVM server over `:protocol` with
-  public pages per app and wallet, badges, a Store watch report, web reviewing (server builds, wallet signs), helpful
-  votes/replies/flags from the web, a QR path for desktops, webhooks, and passes bought in SOL or SKR. Runs on the
-  owner's Mac only; a public host is the owner's decision. Buying a pass was run end to end on mainnet (29 Sep).
-- **Two reviews** of the server code and the feature suite; their findings are fixed (see the commit log).
-- 190+ tests across `:protocol`, `:app` and `:api`, including a golden transaction both builders must produce.
-
-## Built 6 Oct 2026
-
-- **Not reviewed on this phone**: installed store apps the wallet has not reviewed and has had a week or used an hour;
-  review one, or tick up to eight and sign them in **one approval** (stars and tags; each review keeps its install-age and
-  usage records in its own transaction, `TxBuilder.chunkGroups`; a 7-review batch simulated on mainnet). An optional
-  weekly reminder (off by default) names how many there are.
-- **"Still true on this version?"**: one tap re-signs a review for the version the phone now runs.
-- **Tags by theme with opposite pairs** (protocol `TagGroups`) in the composer, the batch, the importer and the web.
-- **Imports ask for tags** instead of writing "Works"/"Confusing" into every imported review.
-- **Links** `undersigned://app?pkg=` and `undersigned://review?pkg=`; **share** an app or a review; **filter by tag**.
-- **Alerts**: a record of mine flagged, my claim proven, a publisher's signed note on my store review.
-- **Open dataset** at `/v1/dataset.json`.
-
-## Status — what is NOT done yet
-
-- **Legal site** is live at `https://aardappvark.github.io/undersigned-legal/` (repo `aardappvark/undersigned-legal`,
-  Pages from `main`/`docs`, published 28 Sep 2026; privacy policy dated 28 Sep). Its favicon (the icon in the wallet approval
-  sheet), the launcher and the store icon are all the Undersigned mark from the design handoff (`handoff/store/icon-512.png`).
-- **Payments board listing fee**: not built; it needs a price decision, and a fee paid under the `UNS` memo must be
-  told apart from a Pro licence by amount.
-- Store assets, demo video, pitch deck.
-- `FLEET_PACKAGES` lock-step on publish; Pro payment memo `UNS` reserved in the fleet registry (one 3-letter memo, nothing else).
+Build and test everything:
+`JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :app:assembleRelease test :app:lintRelease :api:installDist`
 
 ## Owner decisions still open
 
