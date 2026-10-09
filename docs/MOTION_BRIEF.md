@@ -22,7 +22,7 @@ Animated parts of the CLOCK IN video: the store today, the core loop, why it is 
 | 6 | 0:50–1:01 | 100 phones → $40,000 | "A fake voice now costs a phone. A hundred fake reviews cost forty thousand dollars in Seekers, in public." |
 | 7 | 1:01–1:15 | Example: ★★ → publisher signs "fixed" → follow-up ★★★★★, +3; on the right, "In the app": the real reviews screen (`tk_reviews.png`) with its "Mark fixed" action ringed | "When the developer fixes it, they sign that it's fixed. The reviewer is told, and can follow up. Everyone sees both sets of stars, and which developers listen." |
 | 8 | 1:15–1:30 | Side by side, row by row | "Side by side with the store: one phone, one voice; fixes followed up; real usage; bursts shown as facts; and an open record anyone can recompute." |
-| 9 | 1:30–1:44 | $843 a year · 127 licences · $194,031 at 10% | "It costs about eight hundred dollars a year to run and breaks even at a hundred and twenty-seven Pro licences. With one Seeker in ten on Pro, plus publisher and data plans, that's over a hundred and ninety thousand dollars a year: paid for by tools, never by reviews." |
+| 9 | 1:30–1:44 | $843 a year · 127 licences · $194,031 at 10% | "About eight hundred dollars a year to run; break-even at a hundred and twenty-seven Pro licences. One Seeker in ten on Pro, plus publisher and data plans: over a hundred and ninety thousand dollars a year." |
 | 10 | 1:44–1:52 | Logo, tagline, not affiliated | "Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone." |
 
 Suggested cut for a 3-minute video: scenes 1, 3 and 4 (0:27) before the device footage; scene 5 as the bridge into the
@@ -46,7 +46,7 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
 - **Scene 9 does not fit at a natural rate.** Its 49 words need about 14.7 s at 200 words a minute; the scene has 14 s.
   It is read at `say -r 200` (about 216 words a minute measured) and starts at +0.2 s, ending 0.19 s before 1:44.
   To relax it: shorten the line by about 6 words, or lengthen scene 9 in `motion.html` by 1–2 s.
-- **Spoken spelling:** "dApp" is fed to `say` as "dee-app"; the words are the table's, unchanged.
+- **Spoken spelling:** "dApp" is fed to `say` as "dapp", read as one word ("dap"), never "d app" (owner, 10 Oct 2026); the words are the table's, unchanged.
 - **Build:** one AIFF per line → ffmpeg `adelay` per line → `amix` (normalize=0) → two-pass `loudnorm` (I=−16,
   TP=−1.5, linear) → muxed with the video, `-c:v copy -c:a aac`.
 - **Short cut (65 s, not 60):** the six scenes add up to 9 + 9 + 14 + 11 + 14 + 8 = 65 s; each is cut on its whole-second

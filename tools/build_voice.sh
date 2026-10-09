@@ -14,14 +14,14 @@ RATE=180; RATE_MAX=200; LEAD=0.6; LEAD_MIN=0.2; MARGIN=0.15
 W="$(mktemp -d -t undersigned-vo)"; trap 'rm -rf "$W"' EXIT
 [ -f "$M/undersigned-motion.mp4" ] || { echo "render first: node tools/render_motion.mjs"; exit 1; }
 
-# n <TAB> start <TAB> duration <TAB> spoken text   (scene times from motion.html; "dApp" spoken as "dee-app")
+# n <TAB> start <TAB> duration <TAB> spoken text   (scene times from motion.html; "dApp" spoken as one word, "dapp" (owner, 10 Oct 2026: "dapp not d app"; say reads "dapp" exactly as "dap"))
 node -e '
 const fs = require("fs"); const [html, md] = process.argv.slice(1).map((f) => fs.readFileSync(f, "utf8"));
 const scenes = [...html.match(/const SCENES = \[([\s\S]*?)\];/)[1].matchAll(/\["s(\d+)",\s*([\d.]+),\s*([\d.]+)\]/g)];
 const sec = md.split("## Scenes, timings and voice-over")[1].split("\n## ")[0];
 const lines = {}; for (const row of sec.split("\n")) { const m = row.match(/^\|\s*(\d+)\s*\|.*\|\s*"(.+)"\s*\|\s*$/); if (m) lines[m[1]] = m[2]; }
 for (const [, n, s, d] of scenes) { if (!lines[n]) throw new Error("no voice line for scene " + n);
-  console.log([n, s, d, lines[n].replace(/\bdApp/g, "dee-app")].join("\t")); }
+  console.log([n, s, d, lines[n].replace(/\bd[Aa]pp/g, "dapp")].join("\t")); }
 ' "$M/motion.html" "$BRIEF" > "$W/lines.tsv"
 
 speech_end() { # seconds until the last sound in an audio file
