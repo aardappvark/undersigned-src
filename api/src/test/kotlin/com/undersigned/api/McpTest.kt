@@ -49,6 +49,15 @@ class McpTest {
         val paid = call("store_watch"); assertTrue(paid.getBoolean("isError")); assertTrue("needs a key" in paid.getJSONArray("content").getJSONObject(0).getString("text") && "per-call" in paid.getJSONArray("content").getJSONObject(0).getString("text"))
     }
 
+    @Test fun `get_apps reads several apps and lists unknown ones apart, scoring_help needs a question`() {
+        val r = call("get_apps", JSONObject().put("packages", JSONArray().put("com.a.b").put("com.nope.x").put("com.a.b")))
+        assertFalse(r.getBoolean("isError"))
+        val sc = r.getJSONObject("structuredContent")
+        assertEquals(1, sc.getJSONArray("apps").length()); assertEquals("com.nope.x", sc.getJSONArray("unknown").getString(0))
+        assertTrue(call("get_apps", JSONObject().put("packages", JSONArray())).getBoolean("isError"))
+        assertTrue(call("scoring_help", JSONObject().put("question", "x")).getBoolean("isError"))
+    }
+
     @Test fun `protocol errors, batches and GET`() {
         assertEquals(-32601, rpc("nope").body.getJSONObject("error").getInt("code"))
         assertEquals(400, api.handle("POST", "/mcp", emptyMap(), "not json", null, "5.5.5.6").status)

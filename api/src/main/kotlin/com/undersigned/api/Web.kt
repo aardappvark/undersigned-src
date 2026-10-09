@@ -481,7 +481,7 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
 - GET /v1/payments: payments board (publisher-confirmed treasuries); GET /v1/payments/found: wallets found in app code, NOT confirmed (separate, labelled, never ranked); /v1/payments/found/{package}: full-history analytics; /v1/payments/found/trends: store-wide monthly
 
 ## MCP tools
-search_apps, get_app, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key), weekly_digest (AI, Pro wallet or key), found_treasuries (labelled: found in app code, not confirmed); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
+search_apps, get_app, get_apps, scoring_help, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key), weekly_digest (AI, Pro wallet or key), found_treasuries (labelled: found in app code, not confirmed); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
 
 ## Rules for describing the data
 - Quote a score with its counted-review count.

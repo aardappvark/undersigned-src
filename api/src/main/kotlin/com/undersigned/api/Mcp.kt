@@ -70,6 +70,17 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             val lang = a.optString("lang").takeIf { it in Config.AI_LANGS } ?: throw IllegalArgumentException("unsupported lang")
             JSONObject().put("id", e.signature).put("lang", lang).put("text", ai.translate(e.signature, text, lang) ?: throw IllegalArgumentException("no translation right now"))
                 .put("label", "Suggested translation, by AI. The original is the author's own words.") },
+        Tool("get_apps", "Several apps at once (the same fields as get_app for each), for comparing or checking a list. Up to 20 packages free, 100 with a key; unknown ones are listed apart.",
+            obj("packages" to JSONObject().put("type", "array").put("items", JSONObject().put("type", "string")).put("minItems", 1).put("maxItems", 100).put("description", "Android package names"), required = listOf("packages"))) { a, c ->
+            val ps = a.optJSONArray("packages")?.let { arr -> (0 until arr.length()).map { arr.optString(it).trim() }.filter { it.isNotEmpty() }.distinct() }.orEmpty().take(if (c.paid) 100 else Config.FREE_ROWS)
+            if (ps.isEmpty()) throw IllegalArgumentException("packages: one or more package names")
+            JSONObject().put("apps", JSONArray(ps.mapNotNull { views.app(it) })).put("unknown", JSONArray(ps.filter { views.app(it) == null })) },
+        Tool("scoring_help", "Ask how reviews are collected, checked, weighted, ordered and shown: answered by AI from the Review Integrity Policy only (labelled), optionally in another language. For exact wording read the undersigned://policy resource.",
+            obj("question" to str("The question, 3 to 400 characters"), "lang" to str("Answer language", Config.AI_LANGS.sorted()), required = listOf("question"))) { a, _ ->
+            val q = a.optString("question").trim().takeIf { it.length in 3..400 } ?: throw IllegalArgumentException("question: 3 to 400 characters")
+            val lang = a.optString("lang").takeIf { it in Config.AI_LANGS } ?: "en"
+            val ans = views.ai?.takeIf { it.enabled }?.help(q, POLICY.replace("\\n", "\n"), lang) ?: throw IllegalStateException("no answer right now; read undersigned://policy")
+            JSONObject().put("answer", ans).put("lang", lang).put("label", "Suggested answer, by AI, from the review integrity policy.") },
         Tool("app_summary", "A suggested summary, by AI, of an app's counted reviews: the points mentioned most, each with its count and review ids. Null when there are too few.",
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ ->
             views.summary(pkg(a)) ?: JSONObject().put("summary", JSONObject.NULL).put("message", "needs at least ${Config.AI_SUMMARY_MIN} counted reviews with text") },

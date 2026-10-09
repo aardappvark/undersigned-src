@@ -106,6 +106,29 @@ Delivery:
 - **Duplicates.** Events carry ids, so drop repeats.
 - **Testing.** `POST /v1/hooks/{id}/test` sends a signed ping now. `GET /v1/hooks/{id}/deliveries` lists the last 100 attempts with the receiver's status.
 
+Checking a delivery (verify against the RAW body, before parsing it):
+
+```js
+import crypto from "node:crypto";
+function verify(secret, rawBody, header) {           // header: X-Undersigned-Signature-V2
+  const { t, v1 } = Object.fromEntries(header.split(",").map((p) => p.split("=")));
+  if (Math.abs(Date.now() / 1000 - Number(t)) > 300) return false;   // replayed or stale
+  const mac = crypto.createHmac("sha256", secret).update(`${t}.${rawBody}`).digest();
+  const got = Buffer.from(v1, "hex");
+  return got.length === mac.length && crypto.timingSafeEqual(got, mac);
+}
+```
+
+```python
+import hmac, hashlib, time
+def verify(secret: str, raw_body: bytes, header: str) -> bool:   # header: X-Undersigned-Signature-V2
+    parts = dict(p.split("=", 1) for p in header.split(","))
+    if abs(time.time() - int(parts["t"])) > 300:
+        return False                                              # replayed or stale
+    mac = hmac.new(secret.encode(), f"{parts['t']}.".encode() + raw_body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(mac, parts["v1"])
+```
+
 ## 4. AI agents (MCP)
 
 The API is also a [Model Context Protocol](https://modelcontextprotocol.io) server. You don't install a package; add the URL.
@@ -135,7 +158,7 @@ Everything the server offers is read-only:
 
 | Free | With a pass |
 |---|---|
-| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `found_treasuries`, `translate_review` and `weekly_digest` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+| `search_apps`, `get_app`, `get_apps` (several at once), `scoring_help`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `found_treasuries` (list, one app's analytics, or store-wide trends), `translate_review` and `weekly_digest` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
 
 Besides tools:
 
@@ -158,7 +181,7 @@ cd mcp && npm install
 UNDERSIGNED_API_URL=https://undersigned.provenby.dev node server.js
 ```
 
-It gives your agent a publisher desk:
+It gives your agent a publisher desk, and every API route as a tool (42, on by default against the public API; `UNDERSIGNED_API_URL=off` to leave them out):
 
 - **Inbox and watch.** New reviews of your apps and replies to them, with live watch and macOS notifications.
 - **Profiles.** The store's reviews beside the signed ones.

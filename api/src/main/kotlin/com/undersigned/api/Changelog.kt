@@ -8,6 +8,10 @@ object Changelog {
     data class Entry(val date: String, val title: String, val items: List<String>)
 
     val ENTRIES = listOf(
+        Entry("2026-10-09", "Developer tools", listOf(
+            "MCP: get_apps (several apps at once) and scoring_help (questions answered from the integrity policy).",
+            "Local MCP (mcp/, 0.2.0): every API route as a tool (42), on by default against the public API; api_verify_webhook checks a delivery locally; npm test checks coverage against the live spec.",
+            "Webhook verification code for Node and Python in the developer docs.")),
         Entry("2026-10-09", "Treasuries found in app code", listOf(
             "GET /v1/payments/found and MCP found_treasuries: wallets written into apps' store builds that received payments from 5+ wallets, labelled 'found in app code, not confirmed', separate from the board and never ranked.",
             "GET /v1/payments/found/{pkg} and /v1/payments/found/trends: analytics from each found wallet's full payment history (dates, monthly series, new and returning payers, concentration); MCP found_treasuries takes package or trends.")),

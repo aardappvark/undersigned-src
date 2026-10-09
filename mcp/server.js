@@ -11,12 +11,12 @@ import fs from "node:fs";
 import { execFile } from "node:child_process";
 import WebSocket from "ws";
 import * as L from "./ledger.js";
-import { registerApiTools } from "./api.js";
+import { registerApiTools, VERSION } from "./api.js";
 
 const STORE = "https://dappstore.solanamobile.com/graphql";
 const SC = { locale: "en-US", platformSdk: 35, pixelDensity: 420, model: "Seeker" };
 async function store(op, query, variables) {
-  const r = await fetch(STORE, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ operationName: op, variables, query }) });
+  const r = await fetch(STORE, { method: "POST", headers: { "content-type": "application/json", "user-agent": `undersigned-mcp/${VERSION}` }, body: JSON.stringify({ operationName: op, variables, query }) });
   const j = await r.json(); if (j.errors) throw new Error(JSON.stringify(j.errors).slice(0, 200)); return j.data;
 }
 const Q_REVIEWS = "query DAppReviews($systemContext: SystemContext!, $androidPackage: String!, $first: Int!, $after: String) { dAppReviews(systemContext: $systemContext, androidPackage: $androidPackage, first: $first, after: $after) { edges { node { id createdAt rating review walletAddress domain reply { reply } } } pageInfo { hasNextPage endCursor } } }";
@@ -26,7 +26,7 @@ const myWallets = (process.env.UNDERSIGNED_WALLETS || "").split(",").map((s) => 
 const text = (s) => ({ content: [{ type: "text", text: typeof s === "string" ? s : JSON.stringify(s, null, 2) }] });
 const who = (e) => e.signer.slice(0, 4) + "…" + e.signer.slice(-4);
 
-const server = new McpServer({ name: "undersigned", version: "0.1.0" });
+const server = new McpServer({ name: "undersigned", version: VERSION });
 
 server.tool("ledger_sync", "Read new records from the Undersigned registry on Solana into the local cache. Returns counts.", {}, async () => {
   const entries = await L.sync(); const d = L.derive(entries);
