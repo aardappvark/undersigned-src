@@ -1079,4 +1079,15 @@
     <string name="import_prompt_body">dApp Store のレビューを見つけて、ここで1回の承認で署名しましょう。それぞれがこの Seeker からの署名付きレビューになり、端末がそのアプリについて示せる情報も添えられます。</string>
     <string name="import_prompt_find">自分のレビューを探す</string>
     <string name="import_prompt_later">今はしない</string>
+    <string name="act_row_label">どのように使ったか</string>
+    <string name="act_add">%1$s を追加：直近6か月のうち Android が使用を記録した月数、最後に使った時期、この端末で確認した再インストール回数。概数で、それ以外は端末から出ません。</string>
+    <string name="act_months">直近6か月中 %1$d か月使用</string>
+    <string name="act_reinstalls">%1$s 回再インストール</string>
+    <string name="act_pill">その人の端末：%1$s</string>
+    <string name="recency_r0">最終使用は今日</string>
+    <string name="recency_r1">最終使用は今週</string>
+    <string name="recency_r2">最終使用は今月</string>
+    <string name="recency_r3">直近3か月以内に使用</string>
+    <string name="recency_r4">最終使用は3か月以上前</string>
+    <string name="recency_rn">使用記録なし</string>
 </resources>

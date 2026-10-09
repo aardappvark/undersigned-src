@@ -1141,4 +1141,15 @@
     <string name="import_prompt_body">Znajdź swoje recenzje z dApp Store i podpisz je tutaj jednym zatwierdzeniem. Każda stanie się podpisaną recenzją z tego Seekera, z tym, co telefon może pokazać o aplikacji.</string>
     <string name="import_prompt_find">Znajdź moje recenzje</string>
     <string name="import_prompt_later">Nie teraz</string>
+    <string name="act_row_label">Jak jej używałeś</string>
+    <string name="act_add">Dodaje %1$s: w ilu z ostatnich 6 miesięcy Android odnotował użycie, kiedy ostatnio jej używałeś i ponowne instalacje widziane przez ten telefon. Zaokrąglone; nic więcej nie opuszcza telefonu.</string>
+    <string name="act_months">używana w %1$d z ostatnich 6 miesięcy</string>
+    <string name="act_reinstalls">ponownie instalowana %1$s×</string>
+    <string name="act_pill">Na jego telefonie: %1$s</string>
+    <string name="recency_r0">ostatnio używana dziś</string>
+    <string name="recency_r1">ostatnio używana w tym tygodniu</string>
+    <string name="recency_r2">ostatnio używana w tym miesiącu</string>
+    <string name="recency_r3">używana w ostatnich 3 miesiącach</string>
+    <string name="recency_r4">ostatnio używana ponad 3 miesiące temu</string>
+    <string name="recency_rn">brak zapisanego użycia</string>
 </resources>

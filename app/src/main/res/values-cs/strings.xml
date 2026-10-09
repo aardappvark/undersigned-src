@@ -1133,4 +1133,15 @@
     <string name="import_prompt_body">Najděte své recenze z dApp Store a podepište je zde jedním schválením. Každá se stane podepsanou recenzí z tohoto Seekeru s tím, co telefon o aplikaci ukáže.</string>
     <string name="import_prompt_find">Najít mé recenze</string>
     <string name="import_prompt_later">Teď ne</string>
+    <string name="act_row_label">Jak jste ji používali</string>
+    <string name="act_add">Přidá %1$s: v kolika z posledních 6 měsíců Android zaznamenal použití, kdy jste ji naposledy použili a přeinstalace, které tento telefon viděl. Zaokrouhleno; nic jiného telefon neopustí.</string>
+    <string name="act_months">používána v %1$d z posledních 6 měsíců</string>
+    <string name="act_reinstalls">přeinstalována %1$s×</string>
+    <string name="act_pill">Na jeho telefonu: %1$s</string>
+    <string name="recency_r0">naposledy použita dnes</string>
+    <string name="recency_r1">naposledy použita tento týden</string>
+    <string name="recency_r2">naposledy použita tento měsíc</string>
+    <string name="recency_r3">použita v posledních 3 měsících</string>
+    <string name="recency_r4">naposledy použita před více než 3 měsíci</string>
+    <string name="recency_rn">žádné zaznamenané použití</string>
 </resources>

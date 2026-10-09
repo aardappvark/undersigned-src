@@ -1132,4 +1132,15 @@
     <string name="import_prompt_body">Retrouvez vos avis du dApp Store et signez-les ici en une seule validation. Chacun devient un avis signé depuis ce Seeker, avec ce que le téléphone peut montrer de l\'app.</string>
     <string name="import_prompt_find">Trouver mes avis</string>
     <string name="import_prompt_later">Plus tard</string>
+    <string name="act_row_label">Comment vous l\'avez utilisée</string>
+    <string name="act_add">Ajoute %1$s : sur combien des 6 derniers mois Android a enregistré une utilisation, quand vous l\'avez utilisée pour la dernière fois et les réinstallations vues par ce téléphone. Arrondi ; rien d\'autre ne quitte le téléphone.</string>
+    <string name="act_months">utilisée %1$d mois sur les 6 derniers</string>
+    <string name="act_reinstalls">réinstallée %1$s×</string>
+    <string name="act_pill">Sur son téléphone : %1$s</string>
+    <string name="recency_r0">utilisée aujourd\'hui</string>
+    <string name="recency_r1">utilisée cette semaine</string>
+    <string name="recency_r2">utilisée ce mois-ci</string>
+    <string name="recency_r3">utilisée ces 3 derniers mois</string>
+    <string name="recency_r4">utilisée il y a plus de 3 mois</string>
+    <string name="recency_rn">aucune utilisation enregistrée</string>
 </resources>

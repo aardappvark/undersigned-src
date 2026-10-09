@@ -81,6 +81,13 @@ sealed class ReviewMemo {
     data class Unshare(val tag: String) : ReviewMemo()
     data class Use(val packageName: String, val bucket: UseBucket) : ReviewMemo()
     data class Time(val packageName: String, val time: UseTime) : ReviewMemo()
+    /**
+     * `SRL1|act|<package>|m<0-6>|<recency>|i<0-9>` (10 Oct 2026, owner: "how long the reviewer has actually used the dapp
+     * ... installed and uninstalled over time"): in how many of the last six months the phone recorded use, when it was last
+     * used ([Recency]), and how many reinstalls Undersigned saw on this phone (9 = nine or more). Opt-in, from Android's
+     * usage access, in the review's own transaction like [Time]; the device's report, read by no score or weight.
+     */
+    data class Activity(val packageName: String, val monthsActive: Int, val recency: Recency, val reinstalls: Int) : ReviewMemo()
     data class StoreNote(val packageName: String, val reviewId: String, val text: String) : ReviewMemo()
     data class Treasury(val packageName: String, val code: String) : ReviewMemo()
     data class Untreasury(val packageName: String) : ReviewMemo()
@@ -167,6 +174,11 @@ sealed class ReviewMemo {
                 "${Registry.PROTOCOL}|snt|${m.packageName}|${m.reviewId}|" + Base64.getUrlEncoder().withoutPadding().encodeToString(text.toByteArray(StandardCharsets.UTF_8))
             }
             is Time -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|tim|${m.packageName}|${m.time.wire}" }
+            is Activity -> {
+                require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }
+                require(m.monthsActive in 0..Usage.ACTIVE_MONTHS_WINDOW && m.reinstalls in 0..Usage.MAX_REINSTALLS) { "bad activity" }
+                "${Registry.PROTOCOL}|act|${m.packageName}|m${m.monthsActive}|${m.recency.wire}|i${m.reinstalls}"
+            }
             is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
             is Moderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|mod|${m.recordId}|${m.reason.wire}" }
             is Unmoderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|umd|${m.recordId}" }
@@ -223,6 +235,12 @@ sealed class ReviewMemo {
                     StoreNote(f[2], f[3], text)
                 }
                 "tim" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) UseTime.fromWire(f[3])?.let { Time(f[2], it) } else null
+                "act" -> {
+                    if (f.size != 6 || f[2].length > MAX_PACKAGE_CHARS || !PACKAGE.matches(f[2])) return null
+                    val months = f[3].removePrefix("m").takeIf { f[3].startsWith("m") }?.toIntOrNull()?.takeIf { it in 0..Usage.ACTIVE_MONTHS_WINDOW } ?: return null
+                    val re = f[5].removePrefix("i").takeIf { f[5].startsWith("i") }?.toIntOrNull()?.takeIf { it in 0..Usage.MAX_REINSTALLS } ?: return null
+                    Recency.fromWire(f[4])?.let { Activity(f[2], months, it, re) }
+                }
                 "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
                 "mod" -> if (f.size == 4 && SIGNATURE.matches(f[2])) ModReason.fromWire(f[3])?.let { Moderate(f[2], it) } else null
                 "umd" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unmoderate(f[2]) else null

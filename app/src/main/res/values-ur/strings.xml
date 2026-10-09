@@ -1106,4 +1106,15 @@
     <string name="import_prompt_body">اپنے dApp Store جائزے تلاش کریں اور یہاں ایک منظوری میں دستخط کریں۔ ہر ایک اس Seeker سے دستخط شدہ جائزہ بن جاتا ہے، اس کے ساتھ جو فون ایپ کے بارے میں دکھا سکتا ہے۔</string>
     <string name="import_prompt_find">میرے جائزے تلاش کریں</string>
     <string name="import_prompt_later">ابھی نہیں</string>
+    <string name="act_row_label">آپ نے اسے کیسے استعمال کیا</string>
+    <string name="act_add">%1$s شامل کرتا ہے: پچھلے 6 مہینوں میں سے کتنے میں Android نے استعمال ریکارڈ کیا، آپ نے آخری بار کب استعمال کیا، اور اس فون نے کتنی بار دوبارہ انسٹال دیکھا۔ گول کیا ہوا؛ اس کے سوا فون سے کچھ نہیں جاتا۔</string>
+    <string name="act_months">پچھلے 6 میں سے %1$d مہینوں میں استعمال</string>
+    <string name="act_reinstalls">%1$s بار دوبارہ انسٹال</string>
+    <string name="act_pill">ان کے فون پر: %1$s</string>
+    <string name="recency_r0">آخری استعمال آج</string>
+    <string name="recency_r1">آخری استعمال اس ہفتے</string>
+    <string name="recency_r2">آخری استعمال اس مہینے</string>
+    <string name="recency_r3">پچھلے 3 مہینوں میں استعمال</string>
+    <string name="recency_r4">آخری استعمال 3 مہینے سے پہلے</string>
+    <string name="recency_rn">کوئی استعمال ریکارڈ نہیں</string>
 </resources>

@@ -1121,4 +1121,15 @@
     <string name="import_prompt_body">Găsește-ți recenziile din dApp Store și semnează-le aici cu o singură aprobare. Fiecare devine o recenzie semnată de pe acest Seeker, cu ce poate arăta telefonul despre aplicație.</string>
     <string name="import_prompt_find">Găsește-mi recenziile</string>
     <string name="import_prompt_later">Nu acum</string>
+    <string name="act_row_label">Cum ai folosit-o</string>
+    <string name="act_add">Adaugă %1$s: în câte din ultimele 6 luni Android a înregistrat utilizare, când ai folosit-o ultima dată și reinstalările văzute de acest telefon. Rotunjit; nimic altceva nu părăsește telefonul.</string>
+    <string name="act_months">folosită în %1$d din ultimele 6 luni</string>
+    <string name="act_reinstalls">reinstalată de %1$s×</string>
+    <string name="act_pill">Pe telefonul său: %1$s</string>
+    <string name="recency_r0">folosită ultima dată azi</string>
+    <string name="recency_r1">folosită ultima dată săptămâna aceasta</string>
+    <string name="recency_r2">folosită ultima dată luna aceasta</string>
+    <string name="recency_r3">folosită în ultimele 3 luni</string>
+    <string name="recency_r4">folosită ultima dată acum peste 3 luni</string>
+    <string name="recency_rn">nicio utilizare înregistrată</string>
 </resources>

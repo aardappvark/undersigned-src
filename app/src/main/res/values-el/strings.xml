@@ -1103,4 +1103,15 @@
     <string name="import_prompt_body">Βρες τις κριτικές σου στο dApp Store και υπέγραψέ τες εδώ με μία έγκριση. Η καθεμία γίνεται υπογεγραμμένη κριτική από αυτό το Seeker, με ό,τι μπορεί να δείξει το τηλέφωνο για την εφαρμογή.</string>
     <string name="import_prompt_find">Βρες τις κριτικές μου</string>
     <string name="import_prompt_later">Όχι τώρα</string>
+    <string name="act_row_label">Πώς τη χρησιμοποίησες</string>
+    <string name="act_add">Προσθέτει %1$s: σε πόσους από τους τελευταίους 6 μήνες κατέγραψε χρήση το Android, πότε τη χρησιμοποίησες τελευταία φορά και τις επανεγκαταστάσεις που είδε αυτό το τηλέφωνο. Στρογγυλεμένο· τίποτε άλλο δεν φεύγει από το τηλέφωνο.</string>
+    <string name="act_months">χρησιμοποιήθηκε %1$d από τους τελευταίους 6 μήνες</string>
+    <string name="act_reinstalls">επανεγκαταστάθηκε %1$s×</string>
+    <string name="act_pill">Στο τηλέφωνό του: %1$s</string>
+    <string name="recency_r0">τελευταία χρήση σήμερα</string>
+    <string name="recency_r1">τελευταία χρήση αυτή την εβδομάδα</string>
+    <string name="recency_r2">τελευταία χρήση αυτόν τον μήνα</string>
+    <string name="recency_r3">χρήση τους τελευταίους 3 μήνες</string>
+    <string name="recency_r4">τελευταία χρήση πριν από πάνω από 3 μήνες</string>
+    <string name="recency_rn">καμία καταγεγραμμένη χρήση</string>
 </resources>

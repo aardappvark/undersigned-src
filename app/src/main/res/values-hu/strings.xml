@@ -1103,4 +1103,15 @@
     <string name="import_prompt_body">Keresd meg a dApp Store-értékeléseidet, és írd alá őket itt egyetlen jóváhagyással. Mindegyik aláírt értékelés lesz erről a Seekerről, azzal, amit a telefon az alkalmazásról mutatni tud.</string>
     <string name="import_prompt_find">Értékeléseim keresése</string>
     <string name="import_prompt_later">Most nem</string>
+    <string name="act_row_label">Hogyan használtad</string>
+    <string name="act_add">Hozzáadja: %1$s – az elmúlt 6 hónapból hányban rögzített használatot az Android, mikor használtad utoljára, és hány újratelepítést látott ez a telefon. Kerekítve; más nem hagyja el a telefont.</string>
+    <string name="act_months">az elmúlt 6 hónapból %1$d hónapban használva</string>
+    <string name="act_reinstalls">%1$s× újratelepítve</string>
+    <string name="act_pill">A telefonján: %1$s</string>
+    <string name="recency_r0">ma használva utoljára</string>
+    <string name="recency_r1">ezen a héten használva utoljára</string>
+    <string name="recency_r2">ebben a hónapban használva utoljára</string>
+    <string name="recency_r3">az elmúlt 3 hónapban használva</string>
+    <string name="recency_r4">több mint 3 hónapja használva utoljára</string>
+    <string name="recency_rn">nincs rögzített használat</string>
 </resources>

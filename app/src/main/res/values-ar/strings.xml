@@ -1174,4 +1174,15 @@
     <string name="import_prompt_body">اعثر على مراجعاتك في dApp Store ووقّعها هنا بموافقة واحدة. تصبح كل واحدة مراجعة موقّعة من هذا الـSeeker، مع ما يستطيع الهاتف إظهاره عن التطبيق.</string>
     <string name="import_prompt_find">اعثر على مراجعاتي</string>
     <string name="import_prompt_later">ليس الآن</string>
+    <string name="act_row_label">كيف استخدمته</string>
+    <string name="act_add">يضيف %1$s: في كم شهرًا من آخر 6 أشهر سجّل Android استخدامًا، ومتى استخدمته آخر مرة، وعمليات إعادة التثبيت التي رآها هذا الهاتف. مُقرَّب؛ ولا يغادر الهاتفَ شيء آخر.</string>
+    <string name="act_months">استُخدم في %1$d من آخر 6 أشهر</string>
+    <string name="act_reinstalls">أُعيد تثبيته %1$s مرة</string>
+    <string name="act_pill">على هاتفه: %1$s</string>
+    <string name="recency_r0">آخر استخدام اليوم</string>
+    <string name="recency_r1">آخر استخدام هذا الأسبوع</string>
+    <string name="recency_r2">آخر استخدام هذا الشهر</string>
+    <string name="recency_r3">استُخدم خلال آخر 3 أشهر</string>
+    <string name="recency_r4">آخر استخدام قبل أكثر من 3 أشهر</string>
+    <string name="recency_rn">لا استخدام مسجّل</string>
 </resources>

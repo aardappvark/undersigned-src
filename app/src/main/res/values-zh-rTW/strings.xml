@@ -1087,4 +1087,15 @@
     <string name="import_prompt_body">找到你在 dApp Store 的評論，在這裡一次授權全部簽署。每則都會成為來自這台 Seeker 的簽署評論，並附上手機能提供的該應用程式資訊。</string>
     <string name="import_prompt_find">尋找我的評論</string>
     <string name="import_prompt_later">稍後再說</string>
+    <string name="act_row_label">你是如何使用的</string>
+    <string name="act_add">加入 %1$s：最近 6 個月中有幾個月 Android 記錄了使用、你最後一次使用的時間，以及這支手機看到的重新安裝次數。取整數；其他資訊不會離開手機。</string>
+    <string name="act_months">最近 6 個月中有 %1$d 個月使用</string>
+    <string name="act_reinstalls">重新安裝 %1$s 次</string>
+    <string name="act_pill">在其手機上：%1$s</string>
+    <string name="recency_r0">今天最後使用</string>
+    <string name="recency_r1">本週最後使用</string>
+    <string name="recency_r2">本月最後使用</string>
+    <string name="recency_r3">最近 3 個月內使用</string>
+    <string name="recency_r4">最後使用在 3 個月前</string>
+    <string name="recency_rn">無使用記錄</string>
 </resources>

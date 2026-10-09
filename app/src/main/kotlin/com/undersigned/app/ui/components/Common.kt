@@ -286,3 +286,20 @@ fun ModHiddenText(reason: com.undersigned.protocol.ReviewMemo.ModReason, fontSiz
     Text(androidx.compose.ui.res.stringResource(R.string.mod_hidden, modReasonLabel(reason)), color = RbColors.textTertiary, fontSize = fontSize.sp, lineHeight = (fontSize + 5).sp,
         fontStyle = androidx.compose.ui.text.font.FontStyle.Italic)
 }
+
+
+/** "5 of the last 6 months · this week · reinstalled 2×": the activity a review carries, in the reader's words. */
+@Composable
+fun activityLabel(a: com.undersigned.protocol.ReviewMemo.Activity): String {
+    val last = androidx.compose.ui.res.stringResource(when (a.recency) {
+        com.undersigned.protocol.Recency.TODAY -> com.undersigned.app.R.string.recency_r0
+        com.undersigned.protocol.Recency.WEEK -> com.undersigned.app.R.string.recency_r1
+        com.undersigned.protocol.Recency.MONTH -> com.undersigned.app.R.string.recency_r2
+        com.undersigned.protocol.Recency.QUARTER -> com.undersigned.app.R.string.recency_r3
+        com.undersigned.protocol.Recency.OLDER -> com.undersigned.app.R.string.recency_r4
+        com.undersigned.protocol.Recency.NEVER -> com.undersigned.app.R.string.recency_rn
+    })
+    val months = androidx.compose.ui.res.stringResource(com.undersigned.app.R.string.act_months, a.monthsActive)
+    val re = if (a.reinstalls > 0) " · " + androidx.compose.ui.res.stringResource(com.undersigned.app.R.string.act_reinstalls, if (a.reinstalls >= com.undersigned.protocol.Usage.MAX_REINSTALLS) "9+" else a.reinstalls.toString()) else ""
+    return "$months · $last$re"
+}

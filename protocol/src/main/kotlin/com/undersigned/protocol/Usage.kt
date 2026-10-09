@@ -39,7 +39,28 @@ enum class UseTime(val wire: String, val minMinutes: Long) {
     }
 }
 
+/**
+ * When the reviewer's phone last had the reviewed app in front, rounded: rides in the `act` record (see [ReviewMemo.Activity]).
+ * NEVER when Android has no use on record. Like the others, the device's report: read by no score or weight.
+ */
+enum class Recency(val wire: String, val maxDays: Long) {
+    TODAY("r0", 1), WEEK("r1", 7), MONTH("r2", 30), QUARTER("r3", 90), OLDER("r4", Long.MAX_VALUE), NEVER("rn", -1);
+
+    companion object {
+        private val byWire = entries.associateBy { it.wire }
+        fun fromWire(s: String) = byWire[s]
+        /** The bucket for a last use at [lastUsedMs] seen at [nowMs]; 0 or less means no use on record. */
+        fun of(lastUsedMs: Long, nowMs: Long): Recency {
+            if (lastUsedMs <= 0) return NEVER
+            val days = (nowMs - lastUsedMs).coerceAtLeast(0L) / 86_400_000L
+            return entries.first { it.maxDays >= 0 && days < it.maxDays }
+        }
+    }
+}
+
 object Usage {
+    const val ACTIVE_MONTHS_WINDOW = 6
+    const val MAX_REINSTALLS = 9
     /**
      * Review record id → the bucket its own transaction reported. A `use` record counts only beside a review of the
      * SAME package, in the SAME transaction, by the SAME signer; anywhere else it is ignored.
@@ -52,6 +73,19 @@ object Usage {
             val r = e.memo as? ReviewMemo.Review ?: continue
             val u = uses[e.signature.substringBefore(':')]?.firstOrNull { it.signer == e.signer && (it.memo as ReviewMemo.Use).packageName == r.packageName } ?: continue
             out[e.signature] = (u.memo as ReviewMemo.Use).bucket
+        }
+        return out
+    }
+
+    /** Review record id → the activity its own transaction reported (months used, last used, reinstalls); same rule as [index]. */
+    fun activity(entries: List<LedgerEntry>): Map<String, ReviewMemo.Activity> {
+        val acts = entries.filter { it.memo is ReviewMemo.Activity }.groupBy { it.signature.substringBefore(':') }
+        if (acts.isEmpty()) return emptyMap()
+        val out = HashMap<String, ReviewMemo.Activity>()
+        for (e in entries) {
+            val r = e.memo as? ReviewMemo.Review ?: continue
+            val a = acts[e.signature.substringBefore(':')]?.firstOrNull { it.signer == e.signer && (it.memo as ReviewMemo.Activity).packageName == r.packageName } ?: continue
+            out[e.signature] = a.memo as ReviewMemo.Activity
         }
         return out
     }

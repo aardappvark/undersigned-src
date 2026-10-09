@@ -1072,4 +1072,15 @@
     <string name="import_prompt_body">ค้นหารีวิวของคุณใน dApp Store แล้วลงนามที่นี่ในการอนุมัติครั้งเดียว แต่ละรายการจะเป็นรีวิวที่ลงนามจาก Seeker เครื่องนี้ พร้อมสิ่งที่โทรศัพท์แสดงได้เกี่ยวกับแอป</string>
     <string name="import_prompt_find">ค้นหารีวิวของฉัน</string>
     <string name="import_prompt_later">ไว้ทีหลัง</string>
+    <string name="act_row_label">คุณใช้แอปนี้อย่างไร</string>
+    <string name="act_add">เพิ่ม %1$s: ใน 6 เดือนล่าสุด Android บันทึกการใช้งานกี่เดือน ใช้ครั้งล่าสุดเมื่อไร และจำนวนการติดตั้งใหม่ที่โทรศัพท์นี้เห็น ปัดเศษแล้ว ไม่มีข้อมูลอื่นออกจากโทรศัพท์</string>
+    <string name="act_months">ใช้ใน %1$d จาก 6 เดือนล่าสุด</string>
+    <string name="act_reinstalls">ติดตั้งใหม่ %1$s ครั้ง</string>
+    <string name="act_pill">บนโทรศัพท์ของเขา: %1$s</string>
+    <string name="recency_r0">ใช้ล่าสุดวันนี้</string>
+    <string name="recency_r1">ใช้ล่าสุดสัปดาห์นี้</string>
+    <string name="recency_r2">ใช้ล่าสุดเดือนนี้</string>
+    <string name="recency_r3">ใช้ภายใน 3 เดือนล่าสุด</string>
+    <string name="recency_r4">ใช้ล่าสุดเกิน 3 เดือนก่อน</string>
+    <string name="recency_rn">ไม่มีบันทึกการใช้งาน</string>
 </resources>

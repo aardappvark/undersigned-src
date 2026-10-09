@@ -1132,4 +1132,15 @@
     <string name="import_prompt_body">Encontre suas avaliações da dApp Store e assine-as aqui com uma só aprovação. Cada uma vira uma avaliação assinada deste Seeker, com o que o celular pode mostrar sobre o app.</string>
     <string name="import_prompt_find">Encontrar minhas avaliações</string>
     <string name="import_prompt_later">Agora não</string>
+    <string name="act_row_label">Como você usou</string>
+    <string name="act_add">Adiciona %1$s: em quantos dos últimos 6 meses o Android registrou uso, quando você usou pela última vez e as reinstalações que este celular viu. Arredondado; nada mais sai do celular.</string>
+    <string name="act_months">usado em %1$d dos últimos 6 meses</string>
+    <string name="act_reinstalls">reinstalado %1$s×</string>
+    <string name="act_pill">No celular: %1$s</string>
+    <string name="recency_r0">usado hoje</string>
+    <string name="recency_r1">usado esta semana</string>
+    <string name="recency_r2">usado este mês</string>
+    <string name="recency_r3">usado nos últimos 3 meses</string>
+    <string name="recency_r4">usado há mais de 3 meses</string>
+    <string name="recency_rn">nenhum uso registrado</string>
 </resources>

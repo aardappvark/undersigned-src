@@ -68,6 +68,9 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     val hasUsageAccess = remember(resumes) { com.undersigned.app.device.UsageTime.hasAccess(context) }
     val useTime = remember(pkg, hasUsageAccess) { if (hasUsageAccess && installAge != null) vm.useTime(pkg) else null }
     var addTime by remember { mutableStateOf(true) }
+    // How it was used (owner, 10 Oct 2026): months of the last six, last use, reinstalls. Its own switch, opt-in like the rest.
+    val activity = remember(pkg, hasUsageAccess) { if (hasUsageAccess && installAge != null) vm.activity(pkg) else null }
+    var addActivity by remember { mutableStateOf(true) }
 
     val bytes = text.toByteArray(Charsets.UTF_8).size
     val textOk = text.isEmpty() || (text.length <= ReviewMemo.MAX_TEXT_CHARS && bytes <= ReviewMemo.MAX_TEXT_BYTES && text.none { it == '|' || it == '\n' || it == '\r' })
@@ -106,7 +109,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     PrimaryButton(stage ?: stringResource(R.string.resign_button, installedVersion), enabled = gate == null && stage == null && sender != null, loading = stage != null, onClick = {
                         val s = sender ?: return@PrimaryButton
                         error = null
-                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
+                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, onStage = { st ->
                             stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                         }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
                     })
@@ -144,6 +147,10 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     if (useTime != null) {
                         val timeDesc = stringResource(R.string.time_add, timeLabel(useTime))
                         ExtraRow(stringResource(R.string.time_row_label), timeLabel(useTime), addTime, enabled = stage == null, description = timeDesc) { addTime = it }
+                        activity?.let { act ->
+                            val actValue = com.undersigned.app.ui.components.activityLabel(act)
+                            ExtraRow(stringResource(R.string.act_row_label), actValue, addActivity, enabled = stage == null, description = stringResource(R.string.act_add, actValue)) { addActivity = it }
+                        }
                     } else if (!hasUsageAccess) {
                         HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 6.dp))
                         Text(stringResource(R.string.time_needs_access), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
@@ -172,7 +179,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 val s = sender ?: return@PrimaryButton
                 error = null
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, text.trim().takeIf { it.isNotEmpty() })
-                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, onStage = { st ->
+                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
             })

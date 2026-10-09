@@ -1104,4 +1104,15 @@
     <string name="import_prompt_body">Hitta dina recensioner från dApp Store och signera dem här i ett enda godkännande. Var och en blir en signerad recension från den här Seekern, med vad telefonen kan visa om appen.</string>
     <string name="import_prompt_find">Hitta mina recensioner</string>
     <string name="import_prompt_later">Inte nu</string>
+    <string name="act_row_label">Hur du har använt den</string>
+    <string name="act_add">Lägger till %1$s: under hur många av de senaste 6 månaderna Android registrerade användning, när du senast använde den och ominstallationer som telefonen sett. Avrundat; inget annat lämnar telefonen.</string>
+    <string name="act_months">använd %1$d av de senaste 6 månaderna</string>
+    <string name="act_reinstalls">ominstallerad %1$s×</string>
+    <string name="act_pill">På deras telefon: %1$s</string>
+    <string name="recency_r0">senast använd i dag</string>
+    <string name="recency_r1">senast använd denna vecka</string>
+    <string name="recency_r2">senast använd denna månad</string>
+    <string name="recency_r3">använd de senaste 3 månaderna</string>
+    <string name="recency_r4">senast använd för över 3 månader sedan</string>
+    <string name="recency_rn">ingen användning registrerad</string>
 </resources>

@@ -1088,4 +1088,15 @@
     <string name="import_prompt_body">Tìm các đánh giá dApp Store của bạn và ký tại đây trong một lần duyệt. Mỗi đánh giá trở thành đánh giá có chữ ký từ Seeker này, kèm những gì điện thoại có thể cho biết về ứng dụng.</string>
     <string name="import_prompt_find">Tìm đánh giá của tôi</string>
     <string name="import_prompt_later">Để sau</string>
+    <string name="act_row_label">Bạn đã dùng nó thế nào</string>
+    <string name="act_add">Thêm %1$s: trong bao nhiêu tháng của 6 tháng qua Android ghi nhận sử dụng, lần cuối bạn dùng, và số lần cài lại điện thoại này thấy. Làm tròn; không gì khác rời khỏi điện thoại.</string>
+    <string name="act_months">dùng trong %1$d/6 tháng qua</string>
+    <string name="act_reinstalls">cài lại %1$s×</string>
+    <string name="act_pill">Trên điện thoại của họ: %1$s</string>
+    <string name="recency_r0">dùng lần cuối hôm nay</string>
+    <string name="recency_r1">dùng lần cuối tuần này</string>
+    <string name="recency_r2">dùng lần cuối tháng này</string>
+    <string name="recency_r3">dùng trong 3 tháng qua</string>
+    <string name="recency_r4">dùng lần cuối hơn 3 tháng trước</string>
+    <string name="recency_rn">không có ghi nhận sử dụng</string>
 </resources>

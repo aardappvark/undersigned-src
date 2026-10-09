@@ -1123,4 +1123,15 @@
     <string name="import_prompt_body">Finde deine dApp-Store-Bewertungen und signiere sie hier mit einer Bestätigung. Jede wird zu einer signierten Bewertung von diesem Seeker, mit dem, was das Telefon über die App zeigen kann.</string>
     <string name="import_prompt_find">Meine Bewertungen finden</string>
     <string name="import_prompt_later">Nicht jetzt</string>
+    <string name="act_row_label">Wie du sie genutzt hast</string>
+    <string name="act_add">Fügt hinzu: %1$s – in wie vielen der letzten 6 Monate Android Nutzung aufgezeichnet hat, wann du sie zuletzt genutzt hast und welche Neuinstallationen dieses Telefon gesehen hat. Gerundet; sonst verlässt nichts das Telefon.</string>
+    <string name="act_months">in %1$d der letzten 6 Monate genutzt</string>
+    <string name="act_reinstalls">%1$s× neu installiert</string>
+    <string name="act_pill">Auf dem Telefon: %1$s</string>
+    <string name="recency_r0">zuletzt heute genutzt</string>
+    <string name="recency_r1">zuletzt diese Woche genutzt</string>
+    <string name="recency_r2">zuletzt diesen Monat genutzt</string>
+    <string name="recency_r3">zuletzt in den letzten 3 Monaten genutzt</string>
+    <string name="recency_r4">zuletzt vor über 3 Monaten genutzt</string>
+    <string name="recency_rn">keine Nutzung erfasst</string>
 </resources>

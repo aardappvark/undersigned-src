@@ -1080,4 +1080,15 @@
     <string name="import_prompt_body">dApp Store 리뷰를 찾아 여기서 한 번의 승인으로 서명하세요. 각각 이 Seeker에서 서명한 리뷰가 되며, 휴대폰이 앱에 대해 보여 줄 수 있는 정보가 함께 담깁니다.</string>
     <string name="import_prompt_find">내 리뷰 찾기</string>
     <string name="import_prompt_later">나중에</string>
+    <string name="act_row_label">어떻게 사용했는지</string>
+    <string name="act_add">%1$s 추가: 최근 6개월 중 Android가 사용을 기록한 개월 수, 마지막 사용 시점, 이 휴대폰이 확인한 재설치 횟수. 반올림된 값이며 그 외에는 휴대폰 밖으로 나가지 않습니다.</string>
+    <string name="act_months">최근 6개월 중 %1$d개월 사용</string>
+    <string name="act_reinstalls">%1$s회 재설치</string>
+    <string name="act_pill">그 사람의 휴대폰: %1$s</string>
+    <string name="recency_r0">오늘 마지막 사용</string>
+    <string name="recency_r1">이번 주 마지막 사용</string>
+    <string name="recency_r2">이번 달 마지막 사용</string>
+    <string name="recency_r3">최근 3개월 내 사용</string>
+    <string name="recency_r4">3개월 이상 전 마지막 사용</string>
+    <string name="recency_rn">사용 기록 없음</string>
 </resources>

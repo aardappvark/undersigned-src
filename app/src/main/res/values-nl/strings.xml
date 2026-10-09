@@ -1112,4 +1112,15 @@
     <string name="import_prompt_body">Vind je dApp Store-reviews en onderteken ze hier in één goedkeuring. Elke wordt een ondertekende review van deze Seeker, met wat de telefoon over de app kan laten zien.</string>
     <string name="import_prompt_find">Mijn reviews vinden</string>
     <string name="import_prompt_later">Niet nu</string>
+    <string name="act_row_label">Hoe je hem gebruikte</string>
+    <string name="act_add">Voegt %1$s toe: in hoeveel van de laatste 6 maanden Android gebruik registreerde, wanneer je hem voor het laatst gebruikte en de herinstallaties die deze telefoon zag. Afgerond; verder verlaat niets de telefoon.</string>
+    <string name="act_months">gebruikt in %1$d van de laatste 6 maanden</string>
+    <string name="act_reinstalls">%1$s× opnieuw geïnstalleerd</string>
+    <string name="act_pill">Op hun telefoon: %1$s</string>
+    <string name="recency_r0">vandaag gebruikt</string>
+    <string name="recency_r1">deze week gebruikt</string>
+    <string name="recency_r2">deze maand gebruikt</string>
+    <string name="recency_r3">in de laatste 3 maanden gebruikt</string>
+    <string name="recency_r4">meer dan 3 maanden geleden gebruikt</string>
+    <string name="recency_rn">geen gebruik geregistreerd</string>
 </resources>

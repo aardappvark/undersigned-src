@@ -1099,4 +1099,15 @@
     <string name="import_prompt_body">আপনার dApp Store রিভিউ খুঁজে এখানে একটি অনুমোদনে স্বাক্ষর করুন। প্রতিটি এই Seeker থেকে স্বাক্ষরিত রিভিউ হয়, সাথে ফোন অ্যাপ সম্পর্কে যা দেখাতে পারে।</string>
     <string name="import_prompt_find">আমার রিভিউ খুঁজুন</string>
     <string name="import_prompt_later">এখন নয়</string>
+    <string name="act_row_label">আপনি এটি কীভাবে ব্যবহার করেছেন</string>
+    <string name="act_add">%1$s যোগ করে: গত 6 মাসের কয়টিতে Android ব্যবহার রেকর্ড করেছে, শেষ কবে ব্যবহার করেছেন, এবং এই ফোন কতবার পুনরায় ইনস্টল দেখেছে। আনুমানিক; এর বাইরে ফোন থেকে কিছু যায় না।</string>
+    <string name="act_months">গত 6 মাসের %1$dটিতে ব্যবহৃত</string>
+    <string name="act_reinstalls">%1$s বার পুনরায় ইনস্টল</string>
+    <string name="act_pill">তাঁর ফোনে: %1$s</string>
+    <string name="recency_r0">শেষ ব্যবহার আজ</string>
+    <string name="recency_r1">শেষ ব্যবহার এই সপ্তাহে</string>
+    <string name="recency_r2">শেষ ব্যবহার এই মাসে</string>
+    <string name="recency_r3">গত 3 মাসে ব্যবহৃত</string>
+    <string name="recency_r4">শেষ ব্যবহার 3 মাসের বেশি আগে</string>
+    <string name="recency_rn">কোনো ব্যবহার রেকর্ড নেই</string>
 </resources>

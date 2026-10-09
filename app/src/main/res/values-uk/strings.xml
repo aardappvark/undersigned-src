@@ -1140,4 +1140,15 @@
     <string name="import_prompt_body">Знайдіть свої відгуки з dApp Store і підпишіть їх тут одним підтвердженням. Кожен стане підписаним відгуком із цього Seeker разом із тим, що телефон знає про застосунок.</string>
     <string name="import_prompt_find">Знайти мої відгуки</string>
     <string name="import_prompt_later">Не зараз</string>
+    <string name="act_row_label">Як ви ним користувалися</string>
+    <string name="act_add">Додає %1$s: у скількох із останніх 6 місяців Android зафіксував використання, коли ви востаннє ним користувалися та перевстановлення, помічені цим телефоном. Округлено; більше нічого не залишає телефон.</string>
+    <string name="act_months">використовувався в %1$d з останніх 6 місяців</string>
+    <string name="act_reinstalls">перевстановлено %1$s×</string>
+    <string name="act_pill">На його телефоні: %1$s</string>
+    <string name="recency_r0">востаннє сьогодні</string>
+    <string name="recency_r1">востаннє цього тижня</string>
+    <string name="recency_r2">востаннє цього місяця</string>
+    <string name="recency_r3">використовувався за останні 3 місяці</string>
+    <string name="recency_r4">востаннє понад 3 місяці тому</string>
+    <string name="recency_rn">використання не зафіксовано</string>
 </resources>

@@ -1107,4 +1107,15 @@
     <string name="import_prompt_body">Hanapin ang mga review mo sa dApp Store at pirmahan dito sa iisang pag-apruba. Bawat isa ay nagiging pirmadong review mula sa Seeker na ito, kasama ang kayang ipakita ng telepono tungkol sa app.</string>
     <string name="import_prompt_find">Hanapin ang mga review ko</string>
     <string name="import_prompt_later">Hindi ngayon</string>
+    <string name="act_row_label">Paano mo ito ginamit</string>
+    <string name="act_add">Idinadagdag ang %1$s: sa ilan sa huling 6 na buwan may naitalang paggamit ang Android, kailan mo ito huling ginamit, at ang mga muling pag-install na nakita ng teleponong ito. Tinantiya; wala nang ibang lumalabas sa telepono.</string>
+    <string name="act_months">ginamit sa %1$d sa huling 6 na buwan</string>
+    <string name="act_reinstalls">muling na-install nang %1$s×</string>
+    <string name="act_pill">Sa telepono nila: %1$s</string>
+    <string name="recency_r0">huling ginamit ngayon</string>
+    <string name="recency_r1">huling ginamit ngayong linggo</string>
+    <string name="recency_r2">huling ginamit ngayong buwan</string>
+    <string name="recency_r3">ginamit sa huling 3 buwan</string>
+    <string name="recency_r4">huling ginamit mahigit 3 buwan na</string>
+    <string name="recency_rn">walang naitalang paggamit</string>
 </resources>

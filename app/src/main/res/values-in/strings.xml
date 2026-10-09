@@ -1088,4 +1088,15 @@
     <string name="import_prompt_body">Temukan ulasan dApp Store-mu dan tanda tangani di sini dalam satu persetujuan. Masing-masing menjadi ulasan bertanda tangan dari Seeker ini, beserta apa yang bisa ditunjukkan ponsel tentang aplikasinya.</string>
     <string name="import_prompt_find">Temukan ulasanku</string>
     <string name="import_prompt_later">Nanti</string>
+    <string name="act_row_label">Cara kamu menggunakannya</string>
+    <string name="act_add">Menambahkan %1$s: dalam berapa dari 6 bulan terakhir Android mencatat penggunaan, kapan terakhir kamu memakainya, dan pemasangan ulang yang terlihat di ponsel ini. Dibulatkan; tak ada lagi yang keluar dari ponsel.</string>
+    <string name="act_months">dipakai dalam %1$d dari 6 bulan terakhir</string>
+    <string name="act_reinstalls">dipasang ulang %1$s×</string>
+    <string name="act_pill">Di ponselnya: %1$s</string>
+    <string name="recency_r0">terakhir dipakai hari ini</string>
+    <string name="recency_r1">terakhir dipakai minggu ini</string>
+    <string name="recency_r2">terakhir dipakai bulan ini</string>
+    <string name="recency_r3">dipakai dalam 3 bulan terakhir</string>
+    <string name="recency_r4">terakhir dipakai lebih dari 3 bulan lalu</string>
+    <string name="recency_rn">tak ada penggunaan tercatat</string>
 </resources>

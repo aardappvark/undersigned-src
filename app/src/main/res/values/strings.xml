@@ -1129,4 +1129,15 @@
     <string name="import_prompt_body">Find your dApp Store reviews and sign them here in one approval. Each becomes a signed review from this Seeker, with what the phone can show about the app.</string>
     <string name="import_prompt_find">Find my reviews</string>
     <string name="import_prompt_later">Not now</string>
+    <string name="act_row_label">How you have used it</string>
+    <string name="act_add">Adds %1$s: in how many of the last 6 months Android recorded use, when you last used it, and reinstalls this phone saw. Rounded; nothing else leaves the phone.</string>
+    <string name="act_months">used in %1$d of the last 6 months</string>
+    <string name="act_reinstalls">reinstalled %1$s×</string>
+    <string name="act_pill">On their phone: %1$s</string>
+    <string name="recency_r0">last used today</string>
+    <string name="recency_r1">last used this week</string>
+    <string name="recency_r2">last used this month</string>
+    <string name="recency_r3">last used in the last 3 months</string>
+    <string name="recency_r4">last used over 3 months ago</string>
+    <string name="recency_rn">no use on record</string>
 </resources>

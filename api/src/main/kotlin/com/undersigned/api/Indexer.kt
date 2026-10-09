@@ -91,6 +91,7 @@ class State(
     val similarity = com.undersigned.protocol.Similarity.findings(entries)
     val usage = Usage.index(entries)
     val useTimes = Usage.time(entries)
+    val activity = Usage.activity(entries)
     val notes = StoreNotes.current(entries, verified)
     fun factsOf(w: String) = raw(w)
     fun countsFor(w: String) = f(w)

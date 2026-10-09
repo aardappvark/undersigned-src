@@ -251,6 +251,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("related", when { com.undersigned.protocol.Operator.isOperator(e.signer) -> "operator"; st.weighting.parts(e).gifted -> "pro_from_publisher"; else -> JSONObject.NULL })
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("install_age", st.usage[e.signature]?.wire ?: JSONObject.NULL).put("usage_time", st.useTimes[e.signature]?.wire ?: JSONObject.NULL)
+                .put("activity", st.activity[e.signature]?.let { a -> JSONObject().put("months_active_of_6", a.monthsActive).put("last_used", a.recency.name.lowercase()).put("reinstalls", a.reinstalls) } ?: JSONObject.NULL)
                 .put("season", Seasons.at(e.blockTime)?.let { JSONObject().put("id", it.id).put("label", it.label) } ?: JSONObject.NULL)
                 .put("paid_for_app", e.signer in paid)
                 .put("similar", st.similarity[e.signature]?.let { JSONObject().put("to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } ?: JSONObject.NULL)

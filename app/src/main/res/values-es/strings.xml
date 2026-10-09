@@ -1132,4 +1132,15 @@
     <string name="import_prompt_body">Encuentra tus reseñas de la dApp Store y fírmalas aquí con una sola aprobación. Cada una se convierte en una reseña firmada desde este Seeker, con lo que el teléfono puede mostrar de la app.</string>
     <string name="import_prompt_find">Buscar mis reseñas</string>
     <string name="import_prompt_later">Ahora no</string>
+    <string name="act_row_label">Cómo la has usado</string>
+    <string name="act_add">Añade %1$s: en cuántos de los últimos 6 meses Android registró uso, cuándo la usaste por última vez y las reinstalaciones que vio este teléfono. Redondeado; nada más sale del teléfono.</string>
+    <string name="act_months">usada en %1$d de los últimos 6 meses</string>
+    <string name="act_reinstalls">reinstalada %1$s×</string>
+    <string name="act_pill">En su teléfono: %1$s</string>
+    <string name="recency_r0">usada por última vez hoy</string>
+    <string name="recency_r1">usada por última vez esta semana</string>
+    <string name="recency_r2">usada por última vez este mes</string>
+    <string name="recency_r3">usada en los últimos 3 meses</string>
+    <string name="recency_r4">usada por última vez hace más de 3 meses</string>
+    <string name="recency_rn">sin uso registrado</string>
 </resources>

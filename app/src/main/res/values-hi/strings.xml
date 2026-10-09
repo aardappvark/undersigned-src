@@ -1106,4 +1106,15 @@
     <string name="import_prompt_body">अपनी dApp Store समीक्षाएँ खोजें और यहाँ एक मंज़ूरी में हस्ताक्षर करें। हर एक इस Seeker से हस्ताक्षरित समीक्षा बनती है, साथ में वह जो फ़ोन ऐप के बारे में दिखा सकता है।</string>
     <string name="import_prompt_find">मेरी समीक्षाएँ खोजें</string>
     <string name="import_prompt_later">अभी नहीं</string>
+    <string name="act_row_label">आपने इसे कैसे इस्तेमाल किया</string>
+    <string name="act_add">%1$s जोड़ता है: पिछले 6 महीनों में से कितने में Android ने उपयोग दर्ज किया, आपने आख़िरी बार कब इस्तेमाल किया, और इस फ़ोन ने कितने रीइंस्टॉल देखे। गोल किया हुआ; इसके अलावा फ़ोन से कुछ नहीं जाता।</string>
+    <string name="act_months">पिछले 6 में से %1$d महीनों में इस्तेमाल</string>
+    <string name="act_reinstalls">%1$s बार फिर से इंस्टॉल</string>
+    <string name="act_pill">उनके फ़ोन पर: %1$s</string>
+    <string name="recency_r0">आख़िरी बार आज इस्तेमाल</string>
+    <string name="recency_r1">आख़िरी बार इस हफ़्ते इस्तेमाल</string>
+    <string name="recency_r2">आख़िरी बार इस महीने इस्तेमाल</string>
+    <string name="recency_r3">पिछले 3 महीनों में इस्तेमाल</string>
+    <string name="recency_r4">आख़िरी बार 3 महीने से पहले इस्तेमाल</string>
+    <string name="recency_rn">कोई उपयोग दर्ज नहीं</string>
 </resources>

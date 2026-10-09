@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.StarBorder
@@ -134,6 +135,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var noteFor by remember { mutableStateOf<String?>(null) }
     var noteText by remember { mutableStateOf("") }
     val useTimes by vm.useTimes.collectAsState()
+    val useActivity by vm.useActivity.collectAsState()
     val storeHistory by vm.storeHistory.collectAsState()
     val storeBursts = remember(storeHistory[pkg]) { vm.storeBursts(pkg) }
     val ledgerBursts = remember(entries) { vm.ledgerBursts(pkg) }
@@ -386,13 +388,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     reviewStakes[e.signature]?.let { k -> Text(stringResource(R.string.review_stake_at, String.format(java.util.Locale.US, "%,.0f", k.skr), k.sol?.let { String.format(java.util.Locale.US, "%,.2f", it) } ?: "–",
                         java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(k.readAt * 1000))), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
                     val seekerSigned = txMeta[e.signature.substringBefore(':')]?.seekerWallet == true
-                    val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]
-                    if (seekerSigned || useAge != null || useSpent != null) {
+                    val useAge = usage[e.signature]; val useSpent = useTimes[e.signature]; val used = useActivity[e.signature]
+                    if (seekerSigned || useAge != null || useSpent != null || used != null) {
                         Spacer(Modifier.height(8.dp))
                         DeviceLine {
                             if (seekerSigned) DeviceUnit(Icons.Default.Key, stringResource(R.string.seeker_signed), stringResource(R.string.seeker_signed), tint = RbColors.info)
                             useAge?.let { DeviceUnit(Icons.Default.PhoneAndroid, useLabel(it), stringResource(R.string.use_pill, useLabel(it))) }
                             useSpent?.let { DeviceUnit(Icons.Default.Schedule, timeLabel(it), stringResource(R.string.time_pill, timeLabel(it))) }
+                            used?.let { val l = com.undersigned.app.ui.components.activityLabel(it); DeviceUnit(Icons.Default.DateRange, l, stringResource(R.string.act_pill, l)) }
                         }
                     }
                     disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 11.sp) }

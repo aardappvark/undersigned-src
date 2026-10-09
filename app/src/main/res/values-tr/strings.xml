@@ -1103,4 +1103,15 @@
     <string name="import_prompt_body">dApp Store incelemelerinizi bulun ve burada tek onayla imzalayın. Her biri, telefonun uygulama hakkında gösterebildikleriyle birlikte bu Seeker\'dan imzalı bir inceleme olur.</string>
     <string name="import_prompt_find">İncelemelerimi bul</string>
     <string name="import_prompt_later">Şimdi değil</string>
+    <string name="act_row_label">Nasıl kullandınız</string>
+    <string name="act_add">%1$s ekler: son 6 ayın kaçında Android\'in kullanım kaydettiğini, en son ne zaman kullandığınızı ve bu telefonun gördüğü yeniden kurulumları. Yuvarlanmış; telefondan başka bir şey çıkmaz.</string>
+    <string name="act_months">son 6 ayın %1$d ayında kullanıldı</string>
+    <string name="act_reinstalls">%1$s× yeniden kuruldu</string>
+    <string name="act_pill">Telefonunda: %1$s</string>
+    <string name="recency_r0">en son bugün kullanıldı</string>
+    <string name="recency_r1">en son bu hafta kullanıldı</string>
+    <string name="recency_r2">en son bu ay kullanıldı</string>
+    <string name="recency_r3">son 3 ayda kullanıldı</string>
+    <string name="recency_r4">en son 3 aydan önce kullanıldı</string>
+    <string name="recency_rn">kayıtlı kullanım yok</string>
 </resources>

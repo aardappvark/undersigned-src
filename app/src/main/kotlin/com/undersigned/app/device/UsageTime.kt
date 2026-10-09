@@ -24,6 +24,25 @@ object UsageTime {
 
     fun settingsIntent(): Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
+    /**
+     * In how many of the last six calendar months Android recorded at least a minute in front, and when the app was last
+     * in front (ms, 0 when never). Monthly totals are what Android keeps for about six months; both read on request only,
+     * like [foregroundMs]. Null without usage access.
+     */
+    fun activity(ctx: Context, pkg: String, now: Long = System.currentTimeMillis()): Pair<Int, Long>? {
+        if (!hasAccess(ctx)) return null
+        return runCatching {
+            val usm = ctx.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+            val zone = java.time.ZoneId.systemDefault()
+            val months = usm.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY, now - 183L * 86_400_000L, now)
+                .filter { it.packageName == pkg && it.totalTimeInForeground >= 60_000L }
+                .map { java.time.Instant.ofEpochMilli(maxOf(it.firstTimeStamp, it.lastTimeUsed.coerceAtLeast(it.firstTimeStamp))).atZone(zone).let { d -> d.year * 12 + d.monthValue } }
+                .toSet().size.coerceAtMost(com.undersigned.protocol.Usage.ACTIVE_MONTHS_WINDOW)
+            val last = usm.queryAndAggregateUsageStats(now - 730L * 86_400_000L, now)[pkg]?.lastTimeUsed ?: 0L
+            months to last
+        }.getOrNull()
+    }
+
     /** Total foreground milliseconds over the last two years (Android keeps yearly totals for about that long), or null without access. */
     fun foregroundMs(ctx: Context, pkg: String, now: Long = System.currentTimeMillis()): Long? {
         if (!hasAccess(ctx)) return null
