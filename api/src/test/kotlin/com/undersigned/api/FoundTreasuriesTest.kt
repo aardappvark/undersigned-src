@@ -33,6 +33,16 @@ class FoundTreasuriesTest {
         assertEquals(setOf(a, b), FoundTreasuries.addresses(f))
     }
 
+    // A key cut by a chunk edge is still read once, whole; nothing is invented from its two halves.
+    @Test fun keysAcrossChunkEdgesAreReadWhole() {
+        for (offset in listOf(0, 1, 20, 43, 44, 45)) {
+            val pad = ByteArray(FoundTreasuries.CHUNK - offset) { 0 }
+            val out = HashSet<String>()
+            FoundTreasuries.scan((pad + a.toByteArray() + byteArrayOf(0) + ByteArray(100)).inputStream(), out)
+            assertEquals(setOf(a), out, "offset $offset")
+        }
+    }
+
     private class FakeRpc(val payers: Map<String, Int>) : Rpc(listOf("http://127.0.0.1:9")) {
         override fun briefs(keys: List<String>) = keys.associateWith { Brief(FoundTreasuries.SYSTEM, false, 1) }
         override fun signatures(address: String, limit: Int, before: String?, until: String?): List<SignatureRow> {

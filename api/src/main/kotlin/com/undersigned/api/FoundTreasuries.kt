@@ -31,8 +31,10 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
 
     companion object {
         const val MIN_PAYERS = 5
-        const val MAX_APK = Config.MAX_APK_BYTES   // 150 MB skipped 3 of the first 16 builds (games), 9 Oct 2026
-        const val MAX_ENTRY = 64 * 1024 * 1024
+        /** Builds of any size are read (owner, 9 Oct 2026: "we can still do them"); only free disk is checked, with this to spare. */
+        const val DISK_SPARE = 10L * 1024 * 1024 * 1024
+        const val CHUNK = 4 * 1024 * 1024
+        private const val CARRY = 64   // longer than any key, so a key cut by a chunk edge is read whole in the next window
         const val SIGS_READ = 100
         const val TXS_READ = 40
         const val REMEASURE_MS = 7L * 86_400_000
@@ -50,13 +52,29 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
             for (e in z.entries()) {
                 val n = e.name.lowercase()
                 if (e.isDirectory || n.startsWith("meta-inf/") || SKIP.any { n.endsWith(it) }) continue
-                val bytes = runCatching { z.getInputStream(e).use { it.readNBytes(MAX_ENTRY) } }.getOrNull() ?: continue
-                // ISO-8859-1 keeps one char per byte, so the pattern sees ASCII runs inside binary files too.
-                // A real key uses many of the 58 letters; "2222…2222"-style placeholders (funded on-chain, seen in fun.cherry's build
-                // 9 Oct 2026) do not.
-                B58.findAll(String(bytes, Charsets.ISO_8859_1)).forEach { m -> if (m.value.toSet().size >= 12 && Base58.decodePubkey(m.value) != null) out += m.value }
+                runCatching { z.getInputStream(e).use { scan(it, out) } }
             }
             out
+        }
+
+        /**
+         * Reads a stream in [CHUNK]s, whatever its size, keeping the last [CARRY] bytes of each window in front of the next.
+         * A match touching a window's end is left for the next window, which sees it whole. ISO-8859-1 keeps one char per byte,
+         * so the pattern sees ASCII runs inside binary files too. A real key uses many of the 58 letters; "2222…2222"-style
+         * placeholders (funded on-chain, seen in fun.cherry's build 9 Oct 2026) do not.
+         */
+        fun scan(inp: java.io.InputStream, out: MutableSet<String>) {
+            val buf = ByteArray(CHUNK); var carry = ByteArray(0)
+            while (true) {
+                val n = inp.readNBytes(buf, 0, CHUNK)
+                val last = n < CHUNK
+                val window = String(carry + buf.copyOf(n), Charsets.ISO_8859_1)
+                B58.findAll(window).forEach { m ->
+                    if ((last || m.range.last < window.length - 1) && m.value.toSet().size >= 12 && Base58.decodePubkey(m.value) != null) out += m.value
+                }
+                if (last) break
+                carry = window.takeLast(CARRY).toByteArray(Charsets.ISO_8859_1)
+            }
         }
 
         /** SKR and USDC are both classic SPL Token mints (SKR's owner read on-chain 9 Oct 2026); the account is derived under it. */
@@ -88,10 +106,10 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
             try {
                 c.connectTimeout = 10_000; c.readTimeout = 60_000; c.setRequestProperty("User-Agent", "Undersigned-API/1.0")
                 if (c.responseCode != 200) { record(app.packageName, version, 0, emptySet(), d.publisherName, "HTTP ${c.responseCode}"); return null }
-                if (c.contentLengthLong > MAX_APK) { record(app.packageName, version, c.contentLengthLong, emptySet(), d.publisherName, "over ${MAX_APK shr 20} MB"); return null }
+                if (tmp.usableSpace < maxOf(c.contentLengthLong, 0L) + DISK_SPARE) { record(app.packageName, version, c.contentLengthLong, emptySet(), d.publisherName, "HTTP wait: disk"); return null }
                 c.inputStream.use { inp -> tmp.outputStream().use { out -> val buf = ByteArray(1 shl 16)
                     while (true) { val n = inp.read(buf); if (n < 0) break; size += n
-                        if (size > MAX_APK) { record(app.packageName, version, size, emptySet(), d.publisherName, "over ${MAX_APK shr 20} MB"); return null }
+                        if ((size and 0xFFFFFFF) < n && tmp.usableSpace < DISK_SPARE) { record(app.packageName, version, size, emptySet(), d.publisherName, "HTTP wait: disk"); return null }
                         out.write(buf, 0, n) } } }
             } finally { c.disconnect() }
             val found = runCatching { addresses(tmp) }.getOrElse { record(app.packageName, version, size, emptySet(), d.publisherName, "unreadable"); return null }
