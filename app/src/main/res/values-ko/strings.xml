@@ -1058,4 +1058,10 @@
     <string name="pay_trend_monthly">월별</string>
     <string name="pay_trend_running">누적 합계</string>
     <string name="pay_trend_others">기타</string>
+    <string name="pay_found_title">앱 코드에서 발견, 미확인</string>
+    <string name="pay_found_note">앱의 스토어 빌드에 적혀 있고 서로 다른 지갑 %1$d개 이상에서 SOL, SKR 또는 USDC를 받은 지갑. 게시자가 확인하지 않았으며, 일부는 앱의 금고가 아닐 수 있습니다. 순위가 없고 위 보드에도 없습니다.</string>
+    <string name="pay_found_row">결제자 %1$d · 읽은 최근 거래 %3$d건 중 결제 %2$d건</string>
+    <string name="pay_found_empty">아직 찾지 못했습니다. 스토어 빌드를 읽는 중입니다(지금까지 %1$d개).</string>
+    <string name="pay_found_dispute">본인 것인가요? 아래에서 금고를 등록하면 보드로 옮겨집니다. 본인 것이 아닌가요? 신고하면 삭제됩니다.</string>
+    <string name="pay_found_report">지갑 신고</string>
 </resources>

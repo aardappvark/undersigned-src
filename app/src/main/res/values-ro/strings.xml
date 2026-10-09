@@ -1099,4 +1099,10 @@
     <string name="pay_trend_monthly">Lunar</string>
     <string name="pay_trend_running">Total cumulat</string>
     <string name="pay_trend_others">Altele</string>
+    <string name="pay_found_title">Găsite în codul aplicației, neconfirmate</string>
+    <string name="pay_found_note">Portofele scrise în versiunea din magazin a unei aplicații care au primit SOL, SKR sau USDC de la cel puțin %1$d portofele diferite. Editorul nu le-a confirmat și unul s-ar putea să nu fie trezoreria aplicației. Fără clasament și în afara tabloului de mai sus.</string>
+    <string name="pay_found_row">%1$d plătitori · %2$d plăți în ultimele %3$d tranzacții citite</string>
+    <string name="pay_found_empty">Nimic încă. Versiunile din magazin se citesc în continuare (%1$d până acum).</string>
+    <string name="pay_found_dispute">E vreunul al tău? Înregistrează-ți trezoreria mai jos și trece în tablou. Nu e al tău? Raportează-l și va fi eliminat.</string>
+    <string name="pay_found_report">Raportează un portofel</string>
 </resources>

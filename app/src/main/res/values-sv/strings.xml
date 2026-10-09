@@ -1082,4 +1082,10 @@
     <string name="pay_trend_monthly">Per månad</string>
     <string name="pay_trend_running">Löpande summa</string>
     <string name="pay_trend_others">Övriga</string>
+    <string name="pay_found_title">Hittade i appkod, ej bekräftade</string>
+    <string name="pay_found_note">Plånböcker skrivna i en apps butiksversion som tagit emot SOL, SKR eller USDC från minst %1$d olika plånböcker. Utgivaren har inte bekräftat dem, och någon kanske inte är appens kassa. Inte rankade och inte på tavlan ovan.</string>
+    <string name="pay_found_row">%1$d betalare · %2$d betalningar i de senaste %3$d lästa transaktionerna</string>
+    <string name="pay_found_empty">Inget hittat än. Butiksversioner läses fortfarande (%1$d hittills).</string>
+    <string name="pay_found_dispute">Är någon din? Registrera din kassa nedan så flyttas den till tavlan. Inte din? Anmäl den så tas den bort.</string>
+    <string name="pay_found_report">Anmäl en plånbok</string>
 </resources>

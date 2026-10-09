@@ -1081,4 +1081,10 @@
     <string name="pay_trend_monthly">Μηνιαία</string>
     <string name="pay_trend_running">Σωρευτικό σύνολο</string>
     <string name="pay_trend_others">Άλλες</string>
+    <string name="pay_found_title">Βρέθηκαν στον κώδικα, χωρίς επιβεβαίωση</string>
+    <string name="pay_found_note">Πορτοφόλια γραμμένα στην έκδοση καταστήματος μιας εφαρμογής που έλαβαν SOL, SKR ή USDC από τουλάχιστον %1$d διαφορετικά πορτοφόλια. Ο εκδότης δεν τα έχει επιβεβαιώσει και κάποιο μπορεί να μην είναι το ταμείο της εφαρμογής. Χωρίς κατάταξη και εκτός του πίνακα πάνω.</string>
+    <string name="pay_found_row">%1$d πληρωτές · %2$d πληρωμές στις τελευταίες %3$d συναλλαγές που διαβάστηκαν</string>
+    <string name="pay_found_empty">Τίποτα ακόμα. Οι εκδόσεις του καταστήματος διαβάζονται ακόμη (%1$d μέχρι στιγμής).</string>
+    <string name="pay_found_dispute">Είναι κάποιο δικό σου; Καταχώρισε το ταμείο σου παρακάτω και περνά στον πίνακα. Δεν είναι δικό σου; Ανέφερέ το και αφαιρείται.</string>
+    <string name="pay_found_report">Αναφορά πορτοφολιού</string>
 </resources>

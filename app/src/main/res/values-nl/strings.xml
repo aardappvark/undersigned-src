@@ -1090,4 +1090,10 @@
     <string name="pay_trend_monthly">Per maand</string>
     <string name="pay_trend_running">Lopend totaal</string>
     <string name="pay_trend_others">Overige</string>
+    <string name="pay_found_title">Gevonden in app-code, niet bevestigd</string>
+    <string name="pay_found_note">Wallets in de store-build van een app die SOL, SKR of USDC ontvingen van minstens %1$d verschillende wallets. De uitgever heeft ze niet bevestigd; een ervan is misschien niet de kas van de app. Niet gerangschikt en niet op het overzicht hierboven.</string>
+    <string name="pay_found_row">%1$d betalers · %2$d betalingen in de laatste %3$d gelezen transacties</string>
+    <string name="pay_found_empty">Nog niets gevonden. Store-builds worden nog gelezen (tot nu toe %1$d).</string>
+    <string name="pay_found_dispute">Is er een van jou? Meld hieronder je kas aan en hij gaat naar het overzicht. Niet van jou? Meld het en hij wordt verwijderd.</string>
+    <string name="pay_found_report">Wallet melden</string>
 </resources>

@@ -1111,4 +1111,10 @@
     <string name="pay_trend_monthly">Měsíčně</string>
     <string name="pay_trend_running">Průběžný součet</string>
     <string name="pay_trend_others">Ostatní</string>
+    <string name="pay_found_title">Nalezeno v kódu, nepotvrzeno</string>
+    <string name="pay_found_note">Peněženky zapsané v obchodní verzi aplikace, které přijaly SOL, SKR nebo USDC od nejméně %1$d různých peněženek. Vydavatel je nepotvrdil a některá nemusí být pokladnou aplikace. Bez pořadí a mimo přehled výše.</string>
+    <string name="pay_found_row">%1$d plátců · %2$d plateb v posledních %3$d přečtených transakcích</string>
+    <string name="pay_found_empty">Zatím nic. Verze z obchodu se stále čtou (zatím %1$d).</string>
+    <string name="pay_found_dispute">Je některá vaše? Zaregistrujte níže svou pokladnu a přesune se do přehledu. Není vaše? Nahlaste ji a bude odstraněna.</string>
+    <string name="pay_found_report">Nahlásit peněženku</string>
 </resources>

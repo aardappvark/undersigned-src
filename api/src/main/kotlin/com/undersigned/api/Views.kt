@@ -450,6 +450,23 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         .put("rows", JSONArray(boards.rows.filter { it.confirmed }.take(limit).map { boardJson(it, false) }))
         .put("unconfirmed", JSONArray(boards.rows.filter { !it.confirmed }.map { JSONObject().put("package", it.claim.packageName).put("treasury", it.claim.treasury) }))
 
+    /** Read builds for treasuries found in app code (null when the reader is off). */
+    @Volatile var found: FoundTreasuries? = null
+
+    /** Treasuries found in app code, NOT confirmed by the publisher: their own list, by app name, never ranked with the board. */
+    fun foundTreasuries(limit: Int): JSONObject {
+        val f = found
+        val st = s
+        val rows = f?.list(st.byPackage.mapValues { it.value.name }, boards.rows.filter { it.confirmed }.map { it.claim.treasury }.toSet(),
+            boards.rows.filter { it.confirmed }.map { it.claim.packageName }.toSet(), indexer.operatorHidden().keys) ?: emptyList()
+        return JSONObject()
+            .put("label", "Found in app code, not confirmed by the publisher. A wallet written into an app's store build that received SOL, SKR or USDC from at least ${FoundTreasuries.MIN_PAYERS} different wallets in the transactions read. It may not be the app's treasury.")
+            .put("method", "Each store build is read for wallet addresses; kept only if ordinary wallets, found in one publisher's apps only, not a known shared address, and paid by ${FoundTreasuries.MIN_PAYERS}+ wallets in the newest ${FoundTreasuries.TXS_READ} transactions of the wallet and its SKR and USDC accounts.")
+            .put("dispute", "Publishers: confirm a treasury in the app (Payments board > List your treasury) and it moves to the board; if a wallet here is not yours, tell us at ${Config.PUBLIC_URL}/report and it is removed.")
+            .put("total", rows.size).put("rows", JSONArray(rows.take(limit)))
+            .put("progress", f?.stats() ?: JSONObject.NULL)
+    }
+
     fun appPayments(pkg: String): JSONObject? = boards.rows.firstOrNull { it.claim.packageName == pkg && it.confirmed }?.let { boardJson(it, true) }
 
     private fun boardJson(r: BoardRow, months: Boolean): JSONObject {

@@ -36,7 +36,7 @@ From scripts, send a `User-Agent` header (`requests`, `fetch`, axios, Go and cur
 | `/v1/apps/{pkg}`: signed score and count, Pro members' and promoted scores shown apart, the store's own rating, publisher proof, payments | `/v1/apps`: catalogue search; `?packages=a,b,c` reads many apps in one call (20 free, 100 with a key) | `/v1/watch`: store-wide rating bursts |
 | `/v1/apps/{pkg}/bursts`: review and rating bursts | `/v1/apps/{pkg}/reviews`: every signal per review, `sort=newest\|helpful\|skr\|sol` | `/v1/changes`: new releases across the whole store, version and certificate changes |
 | `/v1/dataset.json`: the whole ledger with scores | `/v1/records`: decoded records, filterable | `/v1/apps/{pkg}/versions`, `/similar`, `/store-ratings`, `/payments` |
-| `/v1/records/{id}`, `/v1/stats`, `/v1/tags`, `/v1/health` | `/v1/wallets/{address}`, `/v1/leaderboard`, `/v1/payments` | `/v1/hooks`: signed webhooks (review, reply, store_note, flag, claim, burst, release, version, certificate, digest) |
+| `/v1/records/{id}`, `/v1/stats`, `/v1/tags`, `/v1/health` | `/v1/wallets/{address}`, `/v1/leaderboard`, `/v1/payments`, `/v1/payments/found` (wallets found in app code, not confirmed) | `/v1/hooks`: signed webhooks (review, reply, store_note, flag, claim, burst, release, version, certificate, digest) |
 
 Answers:
 - **200**: the data.
@@ -135,7 +135,7 @@ Everything the server offers is read-only:
 
 | Free | With a pass |
 |---|---|
-| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `translate_review` and `weekly_digest` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+| `search_apps`, `get_app`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `found_treasuries`, `translate_review` and `weekly_digest` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
 
 Besides tools:
 

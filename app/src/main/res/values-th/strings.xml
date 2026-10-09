@@ -1050,4 +1050,10 @@
     <string name="pay_trend_monthly">รายเดือน</string>
     <string name="pay_trend_running">ยอดสะสม</string>
     <string name="pay_trend_others">อื่น ๆ</string>
+    <string name="pay_found_title">พบในโค้ดแอป ยังไม่ยืนยัน</string>
+    <string name="pay_found_note">วอลเล็ตที่เขียนไว้ในบิลด์ของแอปบนสโตร์ ซึ่งได้รับ SOL, SKR หรือ USDC จากวอลเล็ตต่างกันอย่างน้อย %1$d ราย ผู้เผยแพร่ยังไม่ได้ยืนยัน และบางวอลเล็ตอาจไม่ใช่คลังของแอป ไม่จัดอันดับและไม่อยู่ในกระดานด้านบน</string>
+    <string name="pay_found_row">ผู้จ่าย %1$d ราย · %2$d การชำระใน %3$d ธุรกรรมล่าสุดที่อ่าน</string>
+    <string name="pay_found_empty">ยังไม่พบอะไร กำลังอ่านบิลด์ของสโตร์อยู่ (อ่านแล้ว %1$d)</string>
+    <string name="pay_found_dispute">มีของคุณไหม ลงทะเบียนคลังของคุณด้านล่างแล้วจะย้ายไปที่กระดาน ไม่ใช่ของคุณ แจ้งแล้วจะถูกนำออก</string>
+    <string name="pay_found_report">แจ้งวอลเล็ต</string>
 </resources>

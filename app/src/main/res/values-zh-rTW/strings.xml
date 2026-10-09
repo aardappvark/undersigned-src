@@ -1065,4 +1065,10 @@
     <string name="pay_trend_monthly">按月</string>
     <string name="pay_trend_running">累計</string>
     <string name="pay_trend_others">其他</string>
+    <string name="pay_found_title">在應用程式程式碼中發現，未經確認</string>
+    <string name="pay_found_note">寫在某個應用程式商店版本中的錢包，曾從至少 %1$d 個不同錢包收到 SOL、SKR 或 USDC。發布者尚未確認，其中可能有並非該應用程式金庫的錢包。不排名，也不在上方的榜單中。</string>
+    <string name="pay_found_row">%1$d 位付款人 · 讀取的最近 %3$d 筆交易中有 %2$d 筆付款</string>
+    <string name="pay_found_empty">暫未發現。仍在讀取商店版本（目前 %1$d 個）。</string>
+    <string name="pay_found_dispute">其中有你的嗎？在下方登記你的金庫，它就會進入榜單。不是你的？檢舉後會被移除。</string>
+    <string name="pay_found_report">檢舉錢包</string>
 </resources>

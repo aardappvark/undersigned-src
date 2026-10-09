@@ -1081,4 +1081,10 @@
     <string name="pay_trend_monthly">Havonta</string>
     <string name="pay_trend_running">Halmozott összeg</string>
     <string name="pay_trend_others">Egyéb</string>
+    <string name="pay_found_title">Alkalmazáskódban találva, nem megerősítve</string>
+    <string name="pay_found_note">Egy alkalmazás bolti buildjébe írt tárcák, amelyek legalább %1$d különböző tárcától kaptak SOL-t, SKR-t vagy USDC-t. A kiadó nem erősítette meg őket, és lehet, hogy valamelyik nem az alkalmazás kasszája. Nincs rangsor, és nincs a fenti táblán.</string>
+    <string name="pay_found_row">%1$d fizető · %2$d fizetés az utolsó %3$d beolvasott tranzakcióban</string>
+    <string name="pay_found_empty">Még nincs találat. A bolti buildek olvasása folyik (eddig %1$d).</string>
+    <string name="pay_found_dispute">A tiéd valamelyik? Add meg lent a kasszádat, és átkerül a táblára. Nem a tiéd? Jelentsd, és eltávolítjuk.</string>
+    <string name="pay_found_report">Tárca jelentése</string>
 </resources>

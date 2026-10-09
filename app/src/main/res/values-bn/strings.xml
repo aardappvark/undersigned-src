@@ -1077,4 +1077,10 @@
     <string name="pay_trend_monthly">মাসিক</string>
     <string name="pay_trend_running">চলমান মোট</string>
     <string name="pay_trend_others">অন্যান্য</string>
+    <string name="pay_found_title">অ্যাপ কোডে পাওয়া, নিশ্চিত নয়</string>
+    <string name="pay_found_note">কোনো অ্যাপের স্টোর বিল্ডে লেখা ওয়ালেট যেগুলো অন্তত %1$dটি ভিন্ন ওয়ালেট থেকে SOL, SKR বা USDC পেয়েছে। প্রকাশক এগুলো নিশ্চিত করেননি, আর কোনোটি অ্যাপের ট্রেজারি নাও হতে পারে। র‍্যাঙ্কিং নেই এবং উপরের বোর্ডে নেই।</string>
+    <string name="pay_found_row">%1$d জন প্রদানকারী · পড়া শেষ %3$dটি লেনদেনে %2$dটি পেমেন্ট</string>
+    <string name="pay_found_empty">এখনো কিছু পাওয়া যায়নি। স্টোর বিল্ড এখনো পড়া হচ্ছে (এ পর্যন্ত %1$d)।</string>
+    <string name="pay_found_dispute">কোনোটি কি আপনার? নিচে আপনার ট্রেজারি তালিকাভুক্ত করুন, এটি বোর্ডে যাবে। আপনার নয়? রিপোর্ট করুন, সরিয়ে দেওয়া হবে।</string>
+    <string name="pay_found_report">ওয়ালেট রিপোর্ট করুন</string>
 </resources>

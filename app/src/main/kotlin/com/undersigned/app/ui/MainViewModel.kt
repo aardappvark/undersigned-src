@@ -611,6 +611,18 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         postJson("/v1/translate/reply", org.json.JSONObject().put("reply", reply).put("review_id", reviewId).put("wallet", w)).getString("reply")
     }
 
+    /** Treasuries found in app code, not confirmed (from the API: the phone cannot read every store build). */
+    suspend fun foundTreasuries(): Result<org.json.JSONObject> = withContext(Dispatchers.IO) {
+        runCatching {
+            val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}/v1/payments/found?limit=20").openConnection() as java.net.HttpURLConnection
+            try {
+                c.connectTimeout = 10_000; c.readTimeout = 30_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                if (c.responseCode != 200) error("HTTP ${c.responseCode}")
+                org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() })
+            } finally { c.disconnect() }
+        }
+    }
+
     /** The app page the first-use tour opens: the one with the most counted signed reviews, else the first listed. */
     fun tourSamplePackage(): String? = scores.value.maxByOrNull { it.value.countedReviews }?.key ?: catalogue.value.firstOrNull()?.packageName
 

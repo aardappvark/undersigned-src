@@ -53,6 +53,9 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("payments_board", "Apps whose publishers confirmed a treasury, by payments received on-chain (USD on the day of each payment). Off-chain income is invisible; not a statement about profit.",
             obj("limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.paymentsBoard(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
+        Tool("found_treasuries", "Wallets FOUND IN APPS' CODE that received payments from 5+ wallets, NOT confirmed by the publisher: a separate list by app name, never ranked with payments_board. Say 'found in the app's code, not confirmed' whenever you mention one; it may not be the app's treasury.",
+            obj("limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500))) { a, c ->
+            views.foundTreasuries(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_ROWS).coerceIn(1, Config.FREE_ROWS)) },
         Tool("translate_review", "A suggested translation, by AI, of one review's or reply's text into a language. For Pro members (pass wallet) or a pass / credits key. The original stays the author's words.",
             obj("id" to str("Record id of the review or reply"), "lang" to str("Target language code", Config.AI_LANGS.sorted()), "wallet" to str("A wallet holding Pro (not needed with a key)"),
                 required = listOf("id", "lang"))) { a, c ->

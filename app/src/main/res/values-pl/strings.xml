@@ -1119,4 +1119,10 @@
     <string name="pay_trend_monthly">Miesięcznie</string>
     <string name="pay_trend_running">Suma narastająca</string>
     <string name="pay_trend_others">Pozostałe</string>
+    <string name="pay_found_title">Znalezione w kodzie, niepotwierdzone</string>
+    <string name="pay_found_note">Portfele zapisane w wersji sklepowej aplikacji, które otrzymały SOL, SKR lub USDC od co najmniej %1$d różnych portfeli. Wydawca ich nie potwierdził i któryś może nie być skarbcem aplikacji. Bez rankingu i poza tablicą powyżej.</string>
+    <string name="pay_found_row">%1$d płacących · %2$d płatności w ostatnich %3$d odczytanych transakcjach</string>
+    <string name="pay_found_empty">Na razie nic. Wersje ze sklepu są wciąż odczytywane (dotąd %1$d).</string>
+    <string name="pay_found_dispute">Któryś jest Twój? Zgłoś swój skarbiec poniżej, a trafi na tablicę. Nie Twój? Zgłoś to, a zostanie usunięty.</string>
+    <string name="pay_found_report">Zgłoś portfel</string>
 </resources>

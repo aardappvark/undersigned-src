@@ -1066,4 +1066,10 @@
     <string name="pay_trend_monthly">Bulanan</string>
     <string name="pay_trend_running">Total berjalan</string>
     <string name="pay_trend_others">Lainnya</string>
+    <string name="pay_found_title">Ditemukan di kode aplikasi, belum dikonfirmasi</string>
+    <string name="pay_found_note">Dompet yang tertulis di build toko sebuah aplikasi dan menerima SOL, SKR, atau USDC dari setidaknya %1$d dompet berbeda. Penerbit belum mengonfirmasinya, dan salah satunya mungkin bukan treasury aplikasi. Tidak diperingkat dan tidak ada di papan di atas.</string>
+    <string name="pay_found_row">%1$d pembayar · %2$d pembayaran dalam %3$d transaksi terakhir yang dibaca</string>
+    <string name="pay_found_empty">Belum ada yang ditemukan. Build toko masih dibaca (%1$d sejauh ini).</string>
+    <string name="pay_found_dispute">Salah satunya milikmu? Daftarkan treasury-mu di bawah dan akan pindah ke papan. Bukan milikmu? Laporkan dan akan dihapus.</string>
+    <string name="pay_found_report">Laporkan dompet</string>
 </resources>

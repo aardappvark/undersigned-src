@@ -1107,4 +1107,10 @@
     <string name="pay_trend_monthly">Monthly</string>
     <string name="pay_trend_running">Running total</string>
     <string name="pay_trend_others">Others</string>
+    <string name="pay_found_title">Found in app code, not confirmed</string>
+    <string name="pay_found_note">Wallets written into an app\'s store build that received SOL, SKR or USDC from at least %1$d different wallets. The publisher has not confirmed them, and one may not be the app\'s treasury. Not ranked and not on the board above.</string>
+    <string name="pay_found_row">%1$d payers · %2$d payments in the last %3$d transactions read</string>
+    <string name="pay_found_empty">Nothing found yet. Store builds are still being read (%1$d so far).</string>
+    <string name="pay_found_dispute">Is one of these yours? List your treasury below and it moves to the board. Not yours? Report it and it is removed.</string>
+    <string name="pay_found_report">Report a wallet</string>
 </resources>

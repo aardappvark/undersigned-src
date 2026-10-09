@@ -1110,4 +1110,10 @@
     <string name="pay_trend_monthly">Mensal</string>
     <string name="pay_trend_running">Total acumulado</string>
     <string name="pay_trend_others">Outros</string>
+    <string name="pay_found_title">Encontradas no código, não confirmadas</string>
+    <string name="pay_found_note">Carteiras escritas na versão da loja de um app que receberam SOL, SKR ou USDC de pelo menos %1$d carteiras diferentes. O editor não as confirmou, e alguma pode não ser a tesouraria do app. Sem ranking e fora do painel acima.</string>
+    <string name="pay_found_row">%1$d pagantes · %2$d pagamentos nas últimas %3$d transações lidas</string>
+    <string name="pay_found_empty">Nada encontrado ainda. As versões da loja ainda estão sendo lidas (%1$d até agora).</string>
+    <string name="pay_found_dispute">Alguma é sua? Cadastre sua tesouraria abaixo e ela vai para o painel. Não é sua? Denuncie e ela será removida.</string>
+    <string name="pay_found_report">Denunciar uma carteira</string>
 </resources>

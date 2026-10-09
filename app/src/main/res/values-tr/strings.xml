@@ -1081,4 +1081,10 @@
     <string name="pay_trend_monthly">Aylık</string>
     <string name="pay_trend_running">Kümülatif toplam</string>
     <string name="pay_trend_others">Diğerleri</string>
+    <string name="pay_found_title">Uygulama kodunda bulundu, onaylanmadı</string>
+    <string name="pay_found_note">Bir uygulamanın mağaza sürümüne yazılmış ve en az %1$d farklı cüzdandan SOL, SKR veya USDC almış cüzdanlar. Yayıncı bunları onaylamadı; biri uygulamanın hazinesi olmayabilir. Sıralanmaz ve yukarıdaki tabloda yer almaz.</string>
+    <string name="pay_found_row">%1$d ödeyen · okunan son %3$d işlemde %2$d ödeme</string>
+    <string name="pay_found_empty">Henüz bir şey bulunmadı. Mağaza sürümleri hâlâ okunuyor (şimdiye kadar %1$d).</string>
+    <string name="pay_found_dispute">Biri sizin mi? Hazinenizi aşağıdan kaydedin, tabloya geçsin. Sizin değil mi? Bildirin, kaldırılsın.</string>
+    <string name="pay_found_report">Cüzdan bildir</string>
 </resources>

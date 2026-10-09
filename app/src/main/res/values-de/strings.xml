@@ -1101,4 +1101,10 @@
     <string name="pay_trend_monthly">Monatlich</string>
     <string name="pay_trend_running">Laufende Summe</string>
     <string name="pay_trend_others">Andere</string>
+    <string name="pay_found_title">Im App-Code gefunden, nicht bestätigt</string>
+    <string name="pay_found_note">Wallets im Store-Build einer App, die SOL, SKR oder USDC von mindestens %1$d verschiedenen Wallets erhalten haben. Der Herausgeber hat sie nicht bestätigt; eine davon ist vielleicht nicht die Kasse der App. Nicht gereiht und nicht in der Tabelle oben.</string>
+    <string name="pay_found_row">%1$d Zahler · %2$d Zahlungen in den letzten %3$d gelesenen Transaktionen</string>
+    <string name="pay_found_empty">Noch nichts gefunden. Store-Builds werden noch gelesen (bisher %1$d).</string>
+    <string name="pay_found_dispute">Ist eine davon deine? Trag unten deine Kasse ein, dann wandert sie in die Tabelle. Nicht deine? Melde sie, dann wird sie entfernt.</string>
+    <string name="pay_found_report">Wallet melden</string>
 </resources>

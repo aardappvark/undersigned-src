@@ -1110,4 +1110,10 @@
     <string name="pay_trend_monthly">Mensile</string>
     <string name="pay_trend_running">Totale progressivo</string>
     <string name="pay_trend_others">Altri</string>
+    <string name="pay_found_title">Trovati nel codice, non confermati</string>
+    <string name="pay_found_note">Wallet scritti nella build dello store di un\'app che hanno ricevuto SOL, SKR o USDC da almeno %1$d wallet diversi. L\'editore non li ha confermati e uno potrebbe non essere la tesoreria dell\'app. Non classificati e fuori dalla tabella sopra.</string>
+    <string name="pay_found_row">%1$d pagatori · %2$d pagamenti nelle ultime %3$d transazioni lette</string>
+    <string name="pay_found_empty">Ancora niente. Le build dello store sono ancora in lettura (%1$d finora).</string>
+    <string name="pay_found_dispute">Uno di questi è tuo? Registra la tua tesoreria qui sotto e passerà alla tabella. Non è tuo? Segnalalo e verrà rimosso.</string>
+    <string name="pay_found_report">Segnala un wallet</string>
 </resources>

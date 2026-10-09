@@ -1066,4 +1066,10 @@
     <string name="pay_trend_monthly">Hằng tháng</string>
     <string name="pay_trend_running">Lũy kế</string>
     <string name="pay_trend_others">Khác</string>
+    <string name="pay_found_title">Tìm thấy trong mã ứng dụng, chưa xác nhận</string>
+    <string name="pay_found_note">Các ví được ghi trong bản phát hành trên cửa hàng của ứng dụng, đã nhận SOL, SKR hoặc USDC từ ít nhất %1$d ví khác nhau. Nhà phát hành chưa xác nhận, và có thể có ví không phải kho bạc của ứng dụng. Không xếp hạng và không nằm trên bảng phía trên.</string>
+    <string name="pay_found_row">%1$d người trả · %2$d khoản trong %3$d giao dịch gần nhất đã đọc</string>
+    <string name="pay_found_empty">Chưa tìm thấy gì. Các bản phát hành vẫn đang được đọc (%1$d đến nay).</string>
+    <string name="pay_found_dispute">Có ví nào của bạn? Đăng ký kho bạc bên dưới để chuyển lên bảng. Không phải của bạn? Báo cáo để gỡ bỏ.</string>
+    <string name="pay_found_report">Báo cáo ví</string>
 </resources>

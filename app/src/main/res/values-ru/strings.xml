@@ -1102,4 +1102,10 @@
     <string name="pay_trend_monthly">По месяцам</string>
     <string name="pay_trend_running">Нарастающий итог</string>
     <string name="pay_trend_others">Другие</string>
+    <string name="pay_found_title">Найдено в коде приложений, не подтверждено</string>
+    <string name="pay_found_note">Кошельки, записанные в сборку приложения из магазина, получившие SOL, SKR или USDC минимум от %1$d разных кошельков. Издатель их не подтвердил, и какой-то может не быть казной приложения. Без рейтинга и вне таблицы выше.</string>
+    <string name="pay_found_row">%1$d плательщиков · %2$d платежей в последних %3$d прочитанных транзакциях</string>
+    <string name="pay_found_empty">Пока ничего. Сборки из магазина ещё читаются (пока %1$d).</string>
+    <string name="pay_found_dispute">Один из них ваш? Укажите казну ниже, и он перейдёт в таблицу. Не ваш? Сообщите, и его уберут.</string>
+    <string name="pay_found_report">Сообщить о кошельке</string>
 </resources>

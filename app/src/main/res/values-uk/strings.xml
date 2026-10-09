@@ -1118,4 +1118,10 @@
     <string name="pay_trend_monthly">Щомісяця</string>
     <string name="pay_trend_running">Наростаючий підсумок</string>
     <string name="pay_trend_others">Інші</string>
+    <string name="pay_found_title">Знайдено в коді застосунків, не підтверджено</string>
+    <string name="pay_found_note">Гаманці, записані у збірку застосунку з магазину, які отримали SOL, SKR або USDC щонайменше від %1$d різних гаманців. Видавець їх не підтвердив, і якийсь може не бути скарбницею застосунку. Без рейтингу й поза таблицею вище.</string>
+    <string name="pay_found_row">%1$d платників · %2$d платежів в останніх %3$d прочитаних транзакціях</string>
+    <string name="pay_found_empty">Поки нічого. Збірки з магазину ще читаються (поки %1$d).</string>
+    <string name="pay_found_dispute">Один із них ваш? Укажіть скарбницю нижче, і він перейде до таблиці. Не ваш? Повідомте, і його приберуть.</string>
+    <string name="pay_found_report">Повідомити про гаманець</string>
 </resources>

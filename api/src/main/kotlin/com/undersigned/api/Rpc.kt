@@ -125,6 +125,14 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
         return (0 until arr.length()).mapNotNull { arr.optJSONObject(it)?.optString("pubkey")?.takeIf { k -> k.isNotEmpty() } }
     }
 
+    /** Owner, executable flag and balance of each account (null: no account), up to 100 per call, with no account data. */
+    data class Brief(val owner: String, val executable: Boolean, val lamports: Long)
+    open fun briefs(keys: List<String>): Map<String, Brief?> = keys.chunked(100).flatMap { ch ->
+        val v = call("getMultipleAccounts", JSONArray().put(JSONArray(ch)).put(JSONObject().put("encoding", "base64").put("dataSlice", JSONObject().put("offset", 0).put("length", 0))))
+            .optJSONObject("result")?.optJSONArray("value") ?: JSONArray()
+        ch.mapIndexed { i, k -> k to v.optJSONObject(i)?.let { o -> Brief(o.optString("owner"), o.optBoolean("executable"), o.optLong("lamports")) } }
+    }.toMap()
+
     private fun call(method: String, params: JSONArray): JSONObject {
         val body = JSONObject().put("jsonrpc", "2.0").put("id", 1).put("method", method).put("params", params).toString()
         var last: Exception? = null

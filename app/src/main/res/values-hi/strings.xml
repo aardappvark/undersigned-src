@@ -1084,4 +1084,10 @@
     <string name="pay_trend_monthly">मासिक</string>
     <string name="pay_trend_running">चालू योग</string>
     <string name="pay_trend_others">अन्य</string>
+    <string name="pay_found_title">ऐप कोड में मिले, पुष्ट नहीं</string>
+    <string name="pay_found_note">किसी ऐप के स्टोर बिल्ड में लिखे वॉलेट जिन्हें कम से कम %1$d अलग वॉलेट से SOL, SKR या USDC मिला। प्रकाशक ने इनकी पुष्टि नहीं की है, और हो सकता है कोई ऐप का खज़ाना न हो। कोई रैंकिंग नहीं और ऊपर के बोर्ड पर नहीं।</string>
+    <string name="pay_found_row">%1$d भुगतानकर्ता · पढ़े गए अंतिम %3$d लेन-देन में %2$d भुगतान</string>
+    <string name="pay_found_empty">अभी कुछ नहीं मिला। स्टोर बिल्ड अभी पढ़े जा रहे हैं (अब तक %1$d)।</string>
+    <string name="pay_found_dispute">क्या कोई आपका है? नीचे अपना खज़ाना दर्ज करें, वह बोर्ड पर चला जाएगा। आपका नहीं? रिपोर्ट करें, हटा दिया जाएगा।</string>
+    <string name="pay_found_report">वॉलेट रिपोर्ट करें</string>
 </resources>

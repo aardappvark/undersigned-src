@@ -1152,4 +1152,10 @@
     <string name="pay_trend_monthly">شهريًا</string>
     <string name="pay_trend_running">المجموع التراكمي</string>
     <string name="pay_trend_others">أخرى</string>
+    <string name="pay_found_title">وُجدت في كود التطبيقات، غير مؤكَّدة</string>
+    <string name="pay_found_note">محافظ مكتوبة في نسخة المتجر من تطبيق، استلمت SOL أو SKR أو USDC من %1$d محافظ مختلفة على الأقل. لم يؤكدها الناشر، وقد لا تكون إحداها خزينة التطبيق. بلا ترتيب وخارج اللوحة أعلاه.</string>
+    <string name="pay_found_row">%1$d دافعين · %2$d دفعات في آخر %3$d معاملة مقروءة</string>
+    <string name="pay_found_empty">لم يُعثر على شيء بعد. ما زالت نسخ المتجر تُقرأ (%1$d حتى الآن).</string>
+    <string name="pay_found_dispute">هل إحداها لك؟ سجّل خزينتك أدناه فتنتقل إلى اللوحة. ليست لك؟ أبلغ عنها فتُزال.</string>
+    <string name="pay_found_report">الإبلاغ عن محفظة</string>
 </resources>

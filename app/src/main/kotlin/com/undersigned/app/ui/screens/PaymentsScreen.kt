@@ -153,6 +153,9 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 }
                 val waiting = rows.count { !it.confirmed }
                 if (waiting > 0) Text(stringResource(R.string.pay_waiting_list, waiting), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 8.dp))
+                // Treasuries found in app code (owner, 9 Oct 2026): their own card under the board, by name, never ranked.
+                Spacer(Modifier.height(14.dp))
+                FoundInCode(vm, onOpen)
                 Text(stringResource(R.string.pay_tools).uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 22.dp, bottom = 8.dp))
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(RbColors.surface)) {
                     if (wallet != null) {
@@ -489,6 +492,42 @@ private fun PaymentsOverTime(listed: List<MainViewModel.BoardRow>) {
                 Text(n, color = RbColors.textSecondary, fontSize = 12.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 Text(usd(if (running) v.lastOrNull() ?: 0.0 else v.sum()), color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
             }
+        }
+    }
+}
+
+
+/**
+ * Wallets written into an app's store build that received payments from several wallets, NOT confirmed by the publisher.
+ * Listed apart from the board, by app name, each labelled; read from the Undersigned API (the phone cannot read every build).
+ */
+@Composable
+private fun FoundInCode(vm: MainViewModel, onOpen: (String) -> Unit) {
+    val found by produceState<Result<org.json.JSONObject>?>(null) { value = vm.foundTreasuries() }
+    val uri = androidx.compose.ui.platform.LocalUriHandler.current
+    GlassCard(accent = RbColors.warning.copy(alpha = 0.5f)) {
+        Text(stringResource(R.string.pay_found_title), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.pay_found_note, 5), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 2.dp, bottom = 6.dp))
+        when (val f = found) {
+            null -> LinearProgressIndicator(Modifier.fillMaxWidth(), color = RbColors.purpleLight)
+            else -> f.fold({ j ->
+                val rows = j.optJSONArray("rows") ?: org.json.JSONArray()
+                if (rows.length() == 0) Text(stringResource(R.string.pay_found_empty, j.optJSONObject("progress")?.optInt("builds_read") ?: 0), color = RbColors.textSecondary, fontSize = 12.sp)
+                for (i in 0 until rows.length()) {
+                    val r = rows.getJSONObject(i)
+                    if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
+                    Column(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable { onOpen(r.getString("package")) }.padding(vertical = 8.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(r.optString("name"), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f), maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                            Text(shortKey(r.getString("wallet"), 4, 4), color = RbColors.textTertiary, fontSize = 11.sp)
+                        }
+                        Text(stringResource(R.string.pay_found_row, r.optInt("payers"), r.optInt("payments"), r.optInt("transactions_read")), color = RbColors.textSecondary, fontSize = 12.sp)
+                    }
+                }
+                Text(stringResource(R.string.pay_found_dispute), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 8.dp))
+                Text(stringResource(R.string.pay_found_report), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uri.openUri(com.undersigned.app.AppConfig.Site.URL + "/report") } }.padding(vertical = 14.dp))
+            }, { Text(stringResource(R.string.load_failed), color = RbColors.textSecondary, fontSize = 12.sp) })
         }
     }
 }

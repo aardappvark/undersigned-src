@@ -1084,4 +1084,10 @@
     <string name="pay_trend_monthly">ماہانہ</string>
     <string name="pay_trend_running">مجموعی کل</string>
     <string name="pay_trend_others">دیگر</string>
+    <string name="pay_found_title">ایپ کوڈ میں ملے، تصدیق شدہ نہیں</string>
+    <string name="pay_found_note">ایپ کے اسٹور بلڈ میں لکھے والیٹ جنہیں کم از کم %1$d مختلف والیٹس سے SOL، SKR یا USDC ملے۔ پبلشر نے ان کی تصدیق نہیں کی، اور ممکن ہے کوئی ایپ کا خزانہ نہ ہو۔ درجہ بندی نہیں اور اوپر کے بورڈ پر نہیں۔</string>
+    <string name="pay_found_row">%1$d ادا کنندگان · پڑھی گئی آخری %3$d ٹرانزیکشنز میں %2$d ادائیگیاں</string>
+    <string name="pay_found_empty">ابھی کچھ نہیں ملا۔ اسٹور بلڈز ابھی پڑھے جا رہے ہیں (اب تک %1$d)۔</string>
+    <string name="pay_found_dispute">کیا کوئی آپ کا ہے؟ نیچے اپنا خزانہ درج کریں تو یہ بورڈ پر چلا جائے گا۔ آپ کا نہیں؟ رپورٹ کریں تو ہٹا دیا جائے گا۔</string>
+    <string name="pay_found_report">والیٹ رپورٹ کریں</string>
 </resources>

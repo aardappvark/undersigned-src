@@ -1085,4 +1085,10 @@
     <string name="pay_trend_monthly">Buwanan</string>
     <string name="pay_trend_running">Kabuuang tumatakbo</string>
     <string name="pay_trend_others">Iba pa</string>
+    <string name="pay_found_title">Nakita sa code ng app, hindi kumpirmado</string>
+    <string name="pay_found_note">Mga wallet na nakasulat sa store build ng isang app na nakatanggap ng SOL, SKR o USDC mula sa hindi bababa sa %1$d magkakaibang wallet. Hindi pa ito kinukumpirma ng publisher, at maaaring hindi treasury ng app ang isa. Walang ranggo at wala sa board sa itaas.</string>
+    <string name="pay_found_row">%1$d nagbayad · %2$d bayad sa huling %3$d transaksyong nabasa</string>
+    <string name="pay_found_empty">Wala pang nakita. Binabasa pa ang mga store build (%1$d sa ngayon).</string>
+    <string name="pay_found_dispute">Sa iyo ba ang isa rito? I-lista ang treasury mo sa ibaba at lilipat ito sa board. Hindi sa iyo? I-report at aalisin ito.</string>
+    <string name="pay_found_report">I-report ang wallet</string>
 </resources>
