@@ -14,3 +14,4 @@ assets/submission/*.apk
 assets/video/*.mp4
 assets/video/takes/
 assets/video/motion/*.mp4
+tools/.tts

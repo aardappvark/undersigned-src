@@ -7,9 +7,11 @@
 #         then started earlier (LEAD down to LEAD_MIN); every adjustment is printed. A line that still overruns fails.
 # Out:    assets/video/motion/undersigned-motion-vo.mp4 (full, AAC) and undersigned-motion-60s.mp4 (scenes in CUT).
 # Env:    VOICE (default Samantha), CUT (default "1 3 5 6 9 10"), LUFS (default -16).
+#         VOICE may be an AVSpeechSynthesizer identifier (com.apple.…), e.g. com.apple.siri.natural.Gordon: voices `say`
+#         cannot reach (Siri and Premium voices) are rendered by tools/tts.swift, compiled on first use.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"; M="$ROOT/assets/video/motion"; BRIEF="$ROOT/docs/MOTION_BRIEF.md"
-VOICE="${VOICE:-Samantha}"; CUT="${CUT:-1 3 5 6 9 10}"; LUFS="${LUFS:--16}"
+VOICE="${VOICE:-com.apple.siri.natural.Gordon}"; CUT="${CUT:-1 3 5 6 9 10}"; LUFS="${LUFS:--16}"
 RATE=180; RATE_MAX=200; LEAD=0.6; LEAD_MIN=0.2; MARGIN=0.15
 W="$(mktemp -d -t undersigned-vo)"; trap 'rm -rf "$W"' EXIT
 [ -f "$M/undersigned-motion.mp4" ] || { echo "render first: node tools/render_motion.mjs"; exit 1; }
@@ -27,13 +29,23 @@ for (const [, n, s, d] of scenes) { if (!lines[n]) throw new Error("no voice lin
 speech_end() { # seconds until the last sound in an audio file
   local e; e=$(ffmpeg -hide_banner -i "$1" -af silencedetect=n=-45dB:d=0.15 -f null - 2>&1 | grep -oE 'silence_start: [0-9.]+' | tail -1 | cut -d' ' -f2 || true)
   [ -n "$e" ] && echo "$e" || ffprobe -v error -show_entries format=duration -of csv=p=0 "$1"; }
+TTS="$ROOT/tools/.tts"
+speak() { # $1 rate (words a minute), $2 out.aiff, $3 text
+  case "$VOICE" in
+    com.apple.*)
+      [ -x "$TTS" ] && [ "$TTS" -nt "$ROOT/tools/tts.swift" ] || swiftc -O "$ROOT/tools/tts.swift" -o "$TTS"
+      # AVSpeechUtterance rate: 0.5 is the voice's natural pace; about 0.05 more for each 20 words a minute faster.
+      "$TTS" "$VOICE" "$(awk -v r="$1" 'BEGIN { printf "%.3f", 0.5 + (r - 180) / 400 }')" "$W/tts.caf" "$3" >/dev/null
+      ffmpeg -hide_banner -loglevel error -y -i "$W/tts.caf" "$2" ;;
+    *) say -v "$VOICE" -r "$1" -o "$2" "$3" ;;
+  esac; }
 fits() { awk -v a="$1" -v b="$2" 'BEGIN { exit !(a <= b) }'; }
 
 : > "$W/plan.tsv"   # n start dur lead
 while IFS=$'\t' read -r n s d txt; do
   rate=$RATE; lead=$LEAD
   while :; do
-    say -v "$VOICE" -r "$rate" -o "$W/l$n.aiff" "$txt"; len=$(speech_end "$W/l$n.aiff")
+    speak "$rate" "$W/l$n.aiff" "$txt"; len=$(speech_end "$W/l$n.aiff")
     budget=$(awk -v d="$d" -v l="$lead" -v m="$MARGIN" 'BEGIN { print d - l - m }')
     fits "$len" "$budget" && break
     if [ "$rate" -lt "$RATE_MAX" ]; then rate=$((rate + 5)); continue; fi

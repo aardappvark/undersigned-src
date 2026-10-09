@@ -36,9 +36,7 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
 | `assets/video/motion/undersigned-motion-vo.mp4` | 1:52 | The same with the voice-over (AAC, 48 kHz, about −16 LUFS) |
 | `assets/video/motion/undersigned-motion-60s.mp4` | 1:05 | Short cut with voice: scenes 1, 3, 5, 6, 9, 10 in that order |
 
-- **Voice:** macOS `say`, voice **Samantha** (en_US). No Premium or Enhanced English voice is installed on this Mac;
-  installing one (System Settings → Accessibility → Spoken Content → System voice → Manage Voices, e.g. Ava or Zoe
-  Premium) and re-running the steps below would sound more natural.
+- **Voice:** Gordon, Apple's Siri natural voice in Australian English (`VOICE=com.apple.siri.natural.Gordon bash tools/build_voice.sh`), rendered through AVSpeechSynthesizer by `tools/tts.swift` because `say` cannot reach Siri or Premium voices. It is the default; `VOICE=Samantha` uses the `say` voice instead. Every line fits at the natural pace.
 - **Script:** `bash tools/build_voice.sh` rebuilds both voiced files from `undersigned-motion.mp4`, reading the lines
   from the table above and the scene times from `motion.html`; re-run it after any edit (render first).
 - **Timing:** each line starts at its scene's start + 0.6 s and must end 0.15 s before the scene does. The script reads
