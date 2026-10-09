@@ -46,6 +46,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/seed" -> page("Seed the fleet — Undersigned", seed())
             path == "/act" -> act(query["kind"].orEmpty(), query["target"].orEmpty(), lang)
             path == "/api" -> page("API — Undersigned", apiPage())
+            path == "/plans" -> page("Publisher and data plans — Undersigned", plansPage())
             path == "/publishers" -> page("For publishers — Undersigned", publishers(query["package"]?.trim()))
             extra.containsKey(path) -> extra.getValue(path)(query)
             else -> notFound()
@@ -389,6 +390,8 @@ ready();
         p.optJSONObject("pay_per_call")?.let { c -> val pc = c.optJSONObject("per_call") ?: JSONObject(); val mn = c.optJSONObject("minimum") ?: JSONObject()
             sb.append("<p class=meta><b>Or pay per call</b> (for agents): ${esc(pc.opt("sol").toString())} SOL or ${esc(pc.opt("skr").toString())} SKR a call, from ${esc(mn.opt("sol").toString())} SOL or ${esc(mn.opt("skr").toString())} SKR, valid a year. <code>POST /v1/checkout</code> with <code>{\"calls\": N}</code>, pay, redeem.</p>") }
         sb.append("<div class=ctas><a class=btn href='${esc(pay.optString("sol"))}'>Pay in SOL</a><a class='btn sec' href='${esc(pay.optString("skr"))}'>Pay in SKR</a></div><div id=qr></div></div></div>")
+        p.optJSONObject("publisher_plan")?.let { pp -> sb.append("<div class=grid2><div class=card><div class=label>Publisher plan</div><div class=big>${esc(pp.opt("sol").toString())} SOL</div><p class=meta>a month for one app (${n(pp.optDouble("skr").toLong())} SKR; ${n(pp.optDouble("skr_with_seeker_genesis_token").toLong())} with a Genesis Token), up to ${pp.optInt("max_months_per_payment")} months a payment. For the app's proven publisher: its report (reviews waiting for an answer, the store rating's trend, bursts, certificate and permission changes, scores by version, its category's benchmark), webhooks and the API. <a href='/plans'>Get it</a></p></div>") }
+        p.optJSONObject("data_plan")?.let { dp -> val pr = dp.optJSONObject("price") ?: JSONObject(); sb.append("<div class=card><div class=label>Data plan</div><div class=big>${n(dp.optLong("requests"))}</div><p class=meta>requests over ${dp.optLong("days")} days, ${n(dp.optInt("per_minute").toLong())} a minute, and CSV exports of the store's history (${esc((dp.optJSONObject("exports") ?: JSONObject()).keys().asSequence().joinToString(", "))}). ${esc(pr.opt("sol").toString())} SOL or ${n(pr.optDouble("skr").toLong())} SKR. <a href='/plans'>Get it</a></p></div></div>") }
         sb.append("<div class='card how'><div class=label>Getting a key</div><ol><li><b>Pay</b> with the button above from a phone wallet, or scan the QR code on a computer. The payment carries the pass reference, so it is found on-chain.</li>" +
             "<li><b>Redeem</b>: <code>POST /v1/keys</code> with the payment's signature and the paying wallet's signature of the message <code>Undersigned API key for &lt;payment signature&gt;</code>. Only the wallet that paid can redeem it. Or start with <code>POST /v1/checkout</code> for a one-time secret instead of a message signature.</li>" +
             "<li><b>Call</b> with <code>Authorization: Bearer &lt;key&gt;</code>. <code>GET /v1/keys/me</code> shows what is left.</li></ol></div>")
@@ -435,6 +438,57 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
         sb.append("<script type=module>\n${'$'}JS_HELPERS_PLACEHOLDER\nif (!ANDROID) { const QR = (await import('https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm')).default; const u = document.querySelector('.ctas a.btn').href;\n  document.getElementById('qr').innerHTML = '<img alt=\"QR code to pay for a pass\" width=200 height=200 style=\"border-radius:12px;margin-top:12px\" src=\"' + await QR.toDataURL(u, { margin: 1, width: 200 }) + '\"><div class=meta>Scan with your phone wallet to pay in SOL.</div>'; }\n</script>")
         return sb.toString().replace("${'$'}JS_HELPERS_PLACEHOLDER", JS_HELPERS)
     }
+
+    /**
+     * Buying the publisher plan or the data plan from a browser (owner, 10 Oct 2026): a checkout secret and Solana Pay
+     * links (a QR code on a computer), then the redeem, then the publisher's report. The key stays in this browser's
+     * storage and in request headers, never in a URL.
+     */
+    private fun plansPage(): String = """<h1>Publisher and data plans</h1>
+<p class=sub>Paid tools around the reviews, never inside them: no plan changes a score, a weight or an order. Every payment is public on Solana.</p>
+<div class=grid2><div class=card><div class=label>Publisher plan</div><p class=meta>For an app's proven publisher: the app's report (reviews waiting for an answer, the store rating's trend, bursts, certificate and permission changes, scores by version, the category's benchmark), webhooks for the app, and the API. Paid by the month, per app; pay from the wallet that proved the app.</p>
+<form id=pf><input id=pkg placeholder='Package, e.g. com.example.app' aria-label='Package' required style='width:100%'><label class=meta>Months <input id=months type=number min=1 max=12 value=1 style='width:70px'></label> <button class=btn>Get payment links</button></form></div>
+<div class=card><div class=label>Data plan</div><p class=meta>Two million requests over 30 days and CSV exports of the store's history: daily star ratings per app, releases and certificate changes, every dApp with its scores, wallets found in app code.</p><button id=df class=btn>Get payment links</button></div></div>
+<div class='card how' id=pay style='display:none'><div class=label>Pay</div><p class=meta id=paywhat></p><div class=ctas><a class=btn id=psol>Pay in SOL</a><a class='btn sec' id=pskr>Pay in SKR</a><a class='btn sec' id=psgt>SKR with a Genesis Token</a></div><div id=qr></div>
+<p class=meta>Keep this page open. The secret below redeems the payment; anyone holding it can, so do not share it.</p><pre class=code id=secret></pre>
+<form id=rf><input id=txsig placeholder='Payment transaction signature' aria-label='Payment transaction signature' required style='width:100%'><button class=btn style='margin-top:8px'>Redeem</button></form><p id=rout class=meta></p></div>
+<div class=card><div class=label>Your publisher report</div><p class=meta>With a publisher key (kept in this browser only).</p><form id=kf><input id=rpkg placeholder='Package' aria-label='Package' style='width:100%'><input id=key placeholder='Key (us_…)' aria-label='Key' style='width:100%;margin-top:8px' autocomplete=off><button class=btn style='margin-top:8px'>Open report</button></form><div id=rep></div></div>
+<script type=module>
+const ${'$'} = (id) => document.getElementById(id); let job = null;
+try { ${'$'}('key').value = localStorage.getItem('us_key') || ''; } catch (e) {}
+async function checkout(body, what) {
+  const r = await fetch('/v1/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); const j = await r.json();
+  job = { secret: j.secret, pkg: body.publisher || null };
+  ${'$'}('pay').style.display = ''; ${'$'}('paywhat').textContent = what; ${'$'}('secret').textContent = j.secret;
+  ${'$'}('psol').href = j.solana_pay.sol; ${'$'}('pskr').href = j.solana_pay.skr; ${'$'}('psgt').href = j.solana_pay.skr_with_seeker_genesis_token;
+  try { const QR = (await import('https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm')).default; ${'$'}('qr').innerHTML = '<img alt="QR code to pay in SOL" width=220 height=220 style="border-radius:14px;margin-top:10px" src="' + await QR.toDataURL(j.solana_pay.sol, { width: 440, margin: 1 }) + '">'; } catch (e) {}
+  ${'$'}('pay').scrollIntoView({ behavior: 'smooth' });
+}
+${'$'}('pf').onsubmit = (e) => { e.preventDefault(); const pkg = ${'$'}('pkg').value.trim(), m = +${'$'}('months').value || 1; checkout({ publisher: pkg, months: m }, 'Publisher plan for ' + pkg + ', ' + m + (m === 1 ? ' month' : ' months') + '. Pay from a wallet that is a proven publisher of the app.'); };
+${'$'}('df').onclick = () => checkout({ plan: 'data' }, 'Data plan, 30 days.');
+${'$'}('rf').onsubmit = async (e) => { e.preventDefault(); const sig = ${'$'}('txsig').value.trim();
+  const r = job.pkg ? await fetch('/v1/publisher/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ signature: sig, package: job.pkg, secret: job.secret }) })
+                    : await fetch('/v1/keys', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ signature: sig, secret: job.secret }) });
+  const j = await r.json();
+  if (!r.ok) { ${'$'}('rout').textContent = j.message || 'Not redeemed yet; try again in a minute.'; return; }
+  try { localStorage.setItem('us_key', j.key); } catch (e) {}
+  ${'$'}('key').value = j.key; if (job.pkg) ${'$'}('rpkg').value = job.pkg;
+  ${'$'}('rout').textContent = 'Done. Your key is saved in this browser and shown in the report form below; copy it somewhere safe.' + (j.plan_ends_at ? ' Plan ends ' + new Date(j.plan_ends_at * 1000).toISOString().slice(0, 10) + '.' : '');
+};
+${'$'}('kf').onsubmit = async (e) => { e.preventDefault(); const k = ${'$'}('key').value.trim(), pkg = ${'$'}('rpkg').value.trim(); try { localStorage.setItem('us_key', k); } catch (x) {}
+  const r = await fetch('/v1/publisher/' + encodeURIComponent(pkg) + '/report', { headers: { Authorization: 'Bearer ' + k } }); const j = await r.json(); const out = ${'$'}('rep');
+  if (!r.ok) { out.textContent = j.message || 'No report.'; return; }
+  const t = j.store_rating_trend || {}, b = j.benchmark || {}, w = j.waiting_for_an_answer || {}, s = (j.app || {}).signed || {}, f = ((j.app || {}).publisher || {}).fixes || {};
+  const row = (k, v) => '<div class=rev style="padding:8px 0"><b>' + k + '</b><div class=meta>' + v + '</div></div>';
+  out.innerHTML = row('Signed score', (s.mean ?? '–') + ' from ' + (s.counted_reviews || 0) + ' counted reviews')
+    + row('Waiting for your answer', (w.count || 0) + ' signed reviews')
+    + row('Store rating', (t.average_then ?? '–') + ' → ' + (t.average_now ?? '–') + ', ' + (t.ratings_added ?? 0) + ' new ratings since ' + (t.from || '–') + ' (' + (t.ratings_per_day ?? 0) + ' a day)')
+    + row('Category', (b.category || '–') + ': median rating ' + (b.median_store_rating ?? '–') + '; you are above ' + (b.store_rating_percentile ?? '–') + '% of ' + (b.apps_rated || 0) + ' rated apps')
+    + row('Fixes', (f.announced || 0) + ' announced, ' + (f.follow_ups_after_fix || 0) + ' follow-ups, mean change ' + (f.mean_star_change_after_fix ?? '–') + '★')
+    + row('Changes seen', (j.changes || []).length + ' (version, certificate, permissions)')
+    + '<p class=small>' + j.label + ' Full JSON: GET /v1/publisher/' + pkg + '/report with your key.</p>';
+};
+</script>"""
 
     /** What this site can and cannot do about content, and who to write to. */
     /** Live status from the indexer's own clocks: when the ledger and the store were last read, and whether the AI aids are on. */

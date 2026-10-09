@@ -59,11 +59,13 @@ def table(title, res):
 # ---- The financial case (docs/FINANCIAL_CASE.md): python3 tools/revenue_model.py case ------------------------------
 SOL_LOW, SOL_HIGH = 62.18, 234.78     # trailing-year range of SOL, server price history (376 days to 9 Oct 2026)
 SKR_USD = 0.01638                     # 9 Oct 2026
-CASES = {   # share of the 200,000 devices taking Pro; publishers listing + Pro; promoted share; passes/month; agent calls/year
-    "Conservative": (0.0025, 0.05, 0.005, 3, 500_000),
-    "Base":         (0.03,   0.25, 0.02,  20, 5_000_000),
-    "Owner target": (0.10,   0.50, 0.05,  50, 20_000_000),
-    "Owner stretch": (0.20,  0.50, 0.05,  50, 20_000_000),
+DATA_SOL = 0.607                      # the data plan, 30 days (api Config.kt)
+CASES = {   # Pro share of 200,000 devices; share of 1,543 dApps on the monthly publisher plan; promoted share of reviews;
+            # API passes a month; data plans a month; agent calls a year
+    "Conservative":  (0.0025, 0.02, 0.005, 3,  1,  500_000),
+    "Base":          (0.03,   0.10, 0.02,  20, 5,  5_000_000),
+    "Owner target":  (0.10,   0.20, 0.05,  50, 10, 20_000_000),
+    "Owner stretch": (0.20,   0.20, 0.05,  50, 10, 20_000_000),
 }
 
 
@@ -71,17 +73,19 @@ def case():
     unit = UNIT_SOL * SOL_USD
     cost = HOSTING_USD + RPC_USD + RELAY_USD + AI_USD
     reviews_year = RATINGS_PER_DAY * 365
-    print("| Case | Pro buyers | Pro | Publishers | Promotion | API passes | Agent calls | **Year 1** | at SOL $%.0f | at SOL $%.0f |" % (SOL_LOW, SOL_HIGH))
-    print("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
-    for name, (pro, pub, prom, passes, calls) in CASES.items():
-        sol = {"pro": DEVICES_SHIPPED * pro * UNIT_SOL, "pub": APPS * pub * UNIT_SOL * 2,
-               "prom": reviews_year * prom * PROMOTE_SOL, "api": passes * 12 * UNIT_SOL, "calls": calls * PER_CALL_SOL}
+    print("| Case | Pro buyers | Pro | Publisher plans | Data plans | API passes | Promotion | Agent calls | **Year 1** | at SOL $%.0f | at SOL $%.0f |" % (SOL_LOW, SOL_HIGH))
+    print("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+    for name, (pro, pub, prom, passes, data, calls) in CASES.items():
+        sol = {"pro": DEVICES_SHIPPED * pro * UNIT_SOL, "pub": APPS * pub * 12 * UNIT_SOL, "data": data * 12 * DATA_SOL,
+               "api": passes * 12 * UNIT_SOL, "prom": reviews_year * prom * PROMOTE_SOL, "calls": calls * PER_CALL_SOL}
         t = sum(sol.values())
-        print(f"| {name} | {DEVICES_SHIPPED * pro:,.0f} | ${sol['pro'] * SOL_USD:,.0f} | ${sol['pub'] * SOL_USD:,.0f} | ${sol['prom'] * SOL_USD:,.0f} | "
-              f"${sol['api'] * SOL_USD:,.0f} | ${sol['calls'] * SOL_USD:,.0f} | **${t * SOL_USD:,.0f}** | ${t * SOL_LOW:,.0f} | ${t * SOL_HIGH:,.0f} |")
-    print(f"\nUnit: one Pro licence 0.0607 SOL = ${unit:.2f} (or 369 SKR = ${369 * SKR_USD:.2f}; 332 SKR with a Genesis Token = ${332 * SKR_USD:.2f}).")
+        print(f"| {name} | {DEVICES_SHIPPED * pro:,.0f} | ${sol['pro'] * SOL_USD:,.0f} | ${sol['pub'] * SOL_USD:,.0f} | ${sol['data'] * SOL_USD:,.0f} | "
+              f"${sol['api'] * SOL_USD:,.0f} | ${sol['prom'] * SOL_USD:,.0f} | ${sol['calls'] * SOL_USD:,.0f} | **${t * SOL_USD:,.0f}** | ${t * SOL_LOW:,.0f} | ${t * SOL_HIGH:,.0f} |")
+    print(f"\nUnit: one Pro licence or one publisher-plan month 0.0607 SOL = ${unit:.2f} (or 369 SKR = ${369 * SKR_USD:.2f}; 332 SKR with a Genesis Token = ${332 * SKR_USD:.2f}); "
+          f"a data-plan month 0.607 SOL = ${DATA_SOL * SOL_USD:.2f}.")
     print(f"Running cost ${cost:,.0f} a year -> break-even at {cost / unit:,.0f} Pro licences a year "
-          f"({cost / unit / DEVICES_SHIPPED:.2%} of devices shipped, {cost / unit / GENESIS_TOKENS:.2%} of Genesis holders).")
+          f"({cost / unit / DEVICES_SHIPPED:.2%} of devices shipped, {cost / unit / GENESIS_TOKENS:.2%} of Genesis holders), "
+          f"or {cost / unit / 12:,.0f} apps on the publisher plan.")
     print(f"Marginal cost per signed review: $0 (the reviewer's wallet pays its own network fee); per quick review "
           f"${10_000 / 1e9 * SOL_USD:.4f} (relayer fee); per AI answer about $0.00003 (measured).")
 

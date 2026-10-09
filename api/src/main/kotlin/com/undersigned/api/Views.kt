@@ -488,6 +488,88 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     fun foundTrends(): JSONObject = (found?.trends() ?: JSONObject())
         .put("label", "Monthly payments into every wallet found in app code (not confirmed), each wallet once. USD on the day of each payment; unpriced payments are counted, not valued.")
 
+    // ---- The publisher plan's report (owner, 10 Oct 2026) --------------------------------------------------------
+
+    /**
+     * Everything a publisher needs about one app, in one answer: the app's public page data, its reviews waiting for an
+     * answer, the store's rating trend from the daily snapshots, bursts, certificate and permission changes, scores by
+     * version, and where the app sits in its category. Built from public data; the plan pays for the work of putting it
+     * together, the alerts and the API around it. Nothing in it changes any score.
+     */
+    fun publisherReport(pkg: String, now: Long = System.currentTimeMillis() / 1000): JSONObject? {
+        val st = s
+        val page = app(pkg) ?: return null
+        val vp = st.verified[pkg].orEmpty()
+        val live = liveReviews(pkg, st)
+        val answered = st.entries.filter { e -> (e.memo as? ReviewMemo.Reply)?.let { it.reviewSignature } != null && e.signer in vp }
+            .map { (it.memo as ReviewMemo.Reply).reviewSignature }.toSet()
+        val waiting = live.filter { it.signer !in vp && it.signature !in answered }.sortedBy { it.blockTime }
+        val snaps = indexer.snapshots(pkg)
+        fun avg(st5: List<Int>) = if (st5.sum() == 0) null else st5.withIndex().sumOf { (i, n) -> (i + 1) * n }.toDouble() / st5.sum()
+        val trend = JSONObject().put("snapshot_days", snaps.size)
+        if (snaps.size >= 2) {
+            val a = snaps.first(); val b = snaps.last(); val days = maxOf(1.0, (b.time - a.time) / 86_400.0)
+            trend.put("from", java.time.Instant.ofEpochSecond(a.time).toString().take(10)).put("to", java.time.Instant.ofEpochSecond(b.time).toString().take(10))
+                .put("ratings_added", b.byStar.sum() - a.byStar.sum()).put("ratings_per_day", r2((b.byStar.sum() - a.byStar.sum()) / days))
+                .put("average_then", avg(a.byStar)?.let(::r2) ?: JSONObject.NULL).put("average_now", avg(b.byStar)?.let(::r2) ?: JSONObject.NULL)
+                .put("new_by_star", JSONArray((0..4).map { b.byStar[it] - a.byStar[it] }))
+        }
+        // The category, from the latest snapshot of every app in it: medians, and this app's place.
+        val cat = st.byPackage[pkg]?.category
+        val peers = if (cat == null) emptyList() else st.catalogue.filter { it.category == cat }.mapNotNull { c -> indexer.latestRating(c.packageName)?.second?.let { c.packageName to it } }
+        fun median(v: List<Double>) = v.sorted().let { if (it.isEmpty()) null else if (it.size % 2 == 1) it[it.size / 2] else (it[it.size / 2 - 1] + it[it.size / 2]) / 2 }
+        fun rank(v: Double?, all: List<Double>) = v?.let { x -> if (all.isEmpty()) null else r2(100.0 * all.count { it < x } / all.size) }
+        val rated = peers.filter { it.second.sum() > 0 }
+        val avgs = rated.mapNotNull { avg(it.second) }; val counts = rated.map { it.second.sum().toDouble() }
+        val mine = indexer.latestRating(pkg)?.second
+        val bench = JSONObject().put("category", cat ?: JSONObject.NULL).put("apps_rated", rated.size)
+            .put("median_store_rating", median(avgs)?.let(::r2) ?: JSONObject.NULL).put("median_store_ratings", median(counts)?.toLong() ?: JSONObject.NULL)
+            .put("store_rating_percentile", rank(mine?.let { avg(it) }, avgs) ?: JSONObject.NULL)
+            .put("store_ratings_percentile", rank(mine?.sum()?.toDouble(), counts) ?: JSONObject.NULL)
+            .put("note", "Percentile: the share of rated apps in the category below this one.")
+        val changes = db.query("SELECT at, kind, old, new FROM changes WHERE pkg = ? ORDER BY at DESC LIMIT 50", pkg) { rs ->
+            JSONObject().put("time", rs.getLong(1)).put("kind", rs.getString(2)).put("old", rs.getString(3)).put("new", rs.getString(4)) }
+        return JSONObject().put("package", pkg).put("generated_at", now)
+            .put("app", page)
+            .put("waiting_for_an_answer", JSONObject().put("count", waiting.size).put("reviews", JSONArray(waiting.take(50).map { record(it, st) })))
+            .put("versions", versions(pkg).optJSONArray("versions") ?: JSONArray())
+            .put("store_rating_trend", trend)
+            .put("bursts", bursts(pkg))
+            .put("changes", JSONArray(changes))
+            .put("benchmark", bench)
+            .put("label", "Built from public data: the ledger on Solana and the store's public catalogue and ratings. A fact sheet, never a verdict.")
+    }
+
+    // ---- The data plan's exports ----------------------------------------------------------------------------------
+
+    private fun csv(header: List<String>, rows: List<List<Any?>>): String {
+        fun cell(v: Any?): String { val t = v?.toString() ?: ""; return if (t.any { it == ',' || it == '"' || it == '\n' || it == '\r' }) "\"" + t.replace("\"", "\"\"") + "\"" else t }
+        return (listOf(header) + rows).joinToString("\n") { r -> r.joinToString(",") { cell(it) } } + "\n"
+    }
+
+    val EXPORTS = mapOf(
+        "ratings" to "The store's star counts per app per day, from Undersigned's daily snapshots",
+        "changes" to "Version, certificate and permission changes seen in the store, per app",
+        "apps" to "Every dApp in the store: category, signed score and counts, the store's latest rating",
+        "found" to "Wallets found in apps' store builds (not confirmed), with what they received",
+    )
+
+    fun export(dataset: String): String? = when (dataset) {
+        "ratings" -> csv(listOf("package", "day", "stars_1", "stars_2", "stars_3", "stars_4", "stars_5"),
+            db.query("SELECT pkg, day, s1, s2, s3, s4, s5 FROM ratings ORDER BY day, pkg") { rs -> listOf(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7)) })
+        "changes" -> csv(listOf("package", "time_utc", "kind", "old", "new"),
+            db.query("SELECT pkg, at, kind, old, new FROM changes ORDER BY at") { rs -> listOf(rs.getString(1), java.time.Instant.ofEpochSecond(rs.getLong(2)).toString(), rs.getString(3), rs.getString(4), rs.getString(5)) })
+        "apps" -> { val st = s; csv(listOf("package", "name", "category", "signed_mean", "counted_reviews", "store_rating", "store_ratings", "store_rating_day"),
+            st.catalogue.map { c -> val sc = st.scores[c.packageName]?.takeIf { it.countedReviews > 0 }; val r = indexer.latestRating(c.packageName)
+                listOf(c.packageName, c.name, c.category, sc?.weightedMean?.let(::r2), sc?.countedReviews ?: 0,
+                    r?.second?.let { st5 -> if (st5.sum() == 0) null else r2(st5.withIndex().sumOf { (i, n) -> (i + 1) * n }.toDouble() / st5.sum()) }, r?.second?.sum(), r?.first) }) }
+        "found" -> { val rows = foundTreasuries(500).optJSONArray("rows") ?: JSONArray()
+            csv(listOf("package", "name", "wallet", "payers", "payments", "sol", "skr", "usdc", "first", "last", "transactions_read"),
+                (0 until rows.length()).map { i -> val o = rows.getJSONObject(i); listOf(o.optString("package"), o.optString("name"), o.optString("wallet"), o.optInt("payers"), o.optInt("payments"),
+                    o.optDouble("sol"), o.optDouble("skr"), o.optDouble("usdc"), o.opt("first"), o.opt("last"), o.optInt("transactions_read")) }) }
+        else -> null
+    }
+
     fun appPayments(pkg: String): JSONObject? = boards.rows.firstOrNull { it.claim.packageName == pkg && it.confirmed }?.let { boardJson(it, true) }
 
     private fun boardJson(r: BoardRow, months: Boolean): JSONObject {

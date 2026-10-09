@@ -122,6 +122,15 @@ The SGT price is honoured when the payer holds a Seeker Genesis Token at redempt
 API payments carry `API_REFERENCE`, never the registry, so the app never reads one as a Pro licence or a listing fee;
 fleet ledger tools see `UNS` and attribute them to Undersigned.
 
+### Publisher plan and data plan (10 Oct 2026)
+
+- **Publisher plan**: per app, 30 days, the fleet unit (0.0607 SOL / 369 SKR / 332 with a Genesis Token), up to 12 months
+  per payment, terms stacking. Redeemed by `POST /v1/publisher/plan` only when the payer is a proven publisher of the
+  package (Billing.redeemPlan); the key (kind `publisher`) opens `GET /v1/publisher/{pkg}/report` for apps with a live plan.
+- **Data plan**: a payment of ten passes or more on the API reference redeems as kind `data`: 2,000,000 requests over
+  30 days, 3,000 a minute, and `GET /v1/export/{dataset}` CSV (ratings, changes, apps, found).
+- Both land in `redeemed`, so the economics ledger counts them as API revenue.
+
 ## 3. MCP
 
 Two MCP servers, for two audiences (full setup in [DEVELOPERS.md](DEVELOPERS.md)):

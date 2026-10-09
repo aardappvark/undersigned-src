@@ -124,15 +124,53 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("POST", "/v1/keys", Tier.FREE, "Redeem a pass payment for an API key") { r -> redeem(r) }
         route("POST", "/v1/checkout", Tier.FREE, "Start a purchase: a secret, and Solana Pay URLs whose memo commits to it. Body {\"calls\": N} for pay-per-call credits instead of a pass") { r ->
             val c = billing.checkout()
-            val calls = runCatching { JSONObject(r.body.ifBlank { "{}" }).optLong("calls", 0) }.getOrDefault(0L).coerceIn(0, 10_000_000)
-            ok(JSONObject().put("secret", c.secret).put("memo", c.memo).put("solana_pay", if (calls > 0) perCallUrls(c.memo, calls) else payUrls(c.memo))
+            val body = runCatching { JSONObject(r.body.ifBlank { "{}" }) }.getOrDefault(JSONObject())
+            val calls = body.optLong("calls", 0).coerceIn(0, 10_000_000)
+            val publisherPkg = body.optString("publisher").ifBlank { null }
+            val months = body.optInt("months", 1).coerceIn(1, Config.PLAN_MAX_MONTHS)
+            if (publisherPkg != null) return@route ok(JSONObject().put("secret", c.secret).put("memo", c.memo).put("package", publisherPkg).put("months", months)
+                .put("solana_pay", payUrls(c.memo, Config.PLAN_SOL * months, Config.PLAN_SKR * months, Config.PLAN_SKR_SGT * months, "Undersigned publisher plan"))
+                .put("pay_from", "a wallet that is a proven publisher of $publisherPkg (the plan is redeemed only by its own payer)")
+                .put("then", JSONObject().put("post", "/v1/publisher/plan").put("body", JSONObject().put("signature", "<payment transaction signature>").put("package", publisherPkg).put("secret", c.secret)))
+                .put("keep_secret", "Anyone holding this secret can redeem the payment. It is not stored until you redeem.").put("test_prices", Config.testPrices))
+            val data = body.optString("plan") == "data"
+            ok(JSONObject().put("secret", c.secret).put("memo", c.memo).put("solana_pay", when { calls > 0 -> perCallUrls(c.memo, calls)
+                    data -> payUrls(c.memo, Config.DATA_SOL, Config.DATA_SKR, Config.DATA_SKR_SGT, "Undersigned data plan"); else -> payUrls(c.memo) })
                 .apply { if (calls > 0) put("calls", maxOf(calls, (Config.CREDITS_MIN_SOL / Config.PER_CALL_SOL).toLong())) }
                 .put("then", JSONObject().put("post", "/v1/keys").put("body", JSONObject().put("signature", "<payment transaction signature>").put("secret", c.secret)))
                 .put("keep_secret", "Anyone holding this secret can redeem the payment. It is not stored until you redeem.").put("test_prices", Config.testPrices))
         }
+        // The publisher plan (owner, 10 Oct 2026): one app's report, alerts and the API, redeemed by its proven publisher.
+        route("POST", "/v1/publisher/plan", Tier.FREE, "Redeem a publisher-plan payment: {signature, package, secret or message_signature}. Only a proven publisher of the package, paying from that wallet") { r ->
+            val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return@route Response(400, JSONObject().put("error", "bad_json").put("message", "send {\"signature\", \"package\", \"secret\" or \"message_signature\"}"))
+            val sig = b.optString("signature"); val pkg = b.optString("package"); val msig = b.optString("message_signature"); val secret = b.optString("secret")
+            if (sig.isEmpty() || pkg.isEmpty() || (msig.isEmpty() && secret.isEmpty())) return@route Response(400, JSONObject().put("error", "missing_fields").put("message", "send signature, package, and the checkout secret or the paying wallet's signature of \"${billing.message(sig.ifEmpty { "<signature>" })}\""))
+            val p = billing.redeemPlan(sig, msig.ifEmpty { null }, pkg, { w, pk -> w in indexer.state.verified[pk].orEmpty() }, secret = secret.ifEmpty { null })
+            ok(JSONObject().put("package", p.packageName).put("wallet", p.wallet).put("months", p.months).put("plan_ends_at", p.endsAt).put("key", p.key)
+                .put("use", "Authorization: Bearer ${p.key}").put("report", "/v1/publisher/${p.packageName}/report"))
+        }
+        route("GET", "/v1/publisher/{pkg}/plan", Tier.FREE, "Whether an app has a live publisher plan, until when, and the price") { r ->
+            val pkg = r.params["pkg"]!!; val ends = billing.planEnds(pkg)
+            ok(JSONObject().put("package", pkg).put("active", ends > System.currentTimeMillis() / 1000).put("ends_at", if (ends > 0) ends else JSONObject.NULL).put("price", planPrice()))
+        }
+        route("GET", "/v1/publisher/{pkg}/report", Tier.PAID, "Publisher plan: the app's report (waiting reviews, rating trend, bursts, changes, versions, category benchmark). A publisher key for that app") { r ->
+            val pkg = r.params["pkg"]!!
+            val key = r.caller.key!!; val p = billing.pass(key)!!
+            if (billing.kind(key) != "publisher" || p.wallet !in indexer.state.verified[pkg].orEmpty() || !billing.planActive(pkg))
+                return@route Response(403, JSONObject().put("error", "no_plan").put("message", "the report needs a live publisher plan for $pkg and a key redeemed by one of its proven publishers").put("price", planPrice()))
+            views.publisherReport(pkg)?.let(::ok) ?: notFound("unknown package")
+        }
+        // The data plan: store-wide history as CSV, for a data key.
+        route("GET", "/v1/export/{dataset}", Tier.PAID, "Data plan: CSV export of a dataset (ratings | changes | apps | found)") { r ->
+            val key = r.caller.key!!
+            if (billing.kind(key) != "data") return@route Response(403, JSONObject().put("error", "data_plan_only").put("message", "exports need a data-plan key (${Config.DATA_SOL} SOL or ${Config.DATA_SKR} SKR for ${Config.DATA_DAYS} days)").put("datasets", JSONObject(views.EXPORTS)))
+            val name = r.params["dataset"]!!.removeSuffix(".csv")
+            val body = views.export(name) ?: return@route notFound("datasets: ${views.EXPORTS.keys.joinToString()}")
+            Response(200, JSONObject(), mapOf("Content-Disposition" to "attachment; filename=\"undersigned-$name.csv\""), body.toByteArray(), "text/csv; charset=utf-8")
+        }
         route("GET", "/v1/keys/me", Tier.FREE, "Your pass: requests left and end date") { r ->
             val p = r.caller.key?.let { billing.pass(it) } ?: return@route Response(401, JSONObject().put("error", "no_key").put("message", "send Authorization: Bearer <key>"))
-            ok(JSONObject().put("wallet", p.wallet).put("requests_left", p.requestsLeft).put("ends_at", p.endsAt))
+            ok(JSONObject().put("wallet", p.wallet).put("kind", billing.kind(p.key) ?: "pass").put("requests_left", p.requestsLeft).put("ends_at", p.endsAt))
         }
         route("GET", "/v1/stats", Tier.FREE, "Ledger totals") { ok(views.stats()) }
         route("GET", "/v1/dataset.json", Tier.FREE, "The open dataset: every record, every app's signed score, every signer's public facts (rebuilt every few minutes)") { cachedDataset() }
@@ -228,7 +266,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
             path == "/v1/keys/me" -> { ipBudget()?.let { return it }; Caller(false, key) }
             key != null && !known -> { ipBudget()?.let { return it }; return paymentRequired("this key does not exist") }
             key != null && rt.tier != Tier.FREE -> {
-                if (limiter.take("key:$key", Config.PASS_PER_MINUTE, null) != null) return Response(429, JSONObject().put("error", "rate_limited").put("message", "${Config.PASS_PER_MINUTE} requests per minute per pass"), mapOf("Retry-After" to "60"))
+                val perMinute = if (billing.kind(key) == "data") Config.DATA_PER_MINUTE else Config.PASS_PER_MINUTE
+                if (limiter.take("key:$key", perMinute, null) != null) return Response(429, JSONObject().put("error", "rate_limited").put("message", "$perMinute requests per minute per key"), mapOf("Retry-After" to "60"))
                 if (!billing.consume(key)) return paymentRequired("this key has no requests left or has ended")
                 Caller(true, key)
             }
@@ -396,6 +435,10 @@ class Api(private val views: Views, private val billing: Billing, private val in
             .put("pay_per_call", JSONObject().put("per_call", JSONObject().put("sol", Config.PER_CALL_SOL).put("skr", Config.PER_CALL_SKR))
                 .put("minimum", JSONObject().put("sol", Config.CREDITS_MIN_SOL).put("skr", Config.CREDITS_MIN_SKR)).put("days", Config.CREDITS_DAYS)
                 .put("how", "POST /v1/checkout with {\"calls\": N}, pay the URL it returns, redeem with POST /v1/keys. Any payment from the minimum up to just under the pass price buys calls; at the pass price or more it buys a pass."))
+            .put("data_plan", JSONObject().put("requests", Config.DATA_REQUESTS).put("days", Config.DATA_DAYS).put("per_minute", Config.DATA_PER_MINUTE)
+                .put("price", JSONObject().put("sol", Config.DATA_SOL).put("skr", Config.DATA_SKR).put("skr_with_seeker_genesis_token", Config.DATA_SKR_SGT))
+                .put("exports", JSONObject(views.EXPORTS)).put("how", "POST /v1/checkout {\"plan\": \"data\"}, pay, redeem with POST /v1/keys: a payment of the data price or more redeems as a data plan"))
+            .put("publisher_plan", planPrice().put("includes", "The app's report (reviews waiting for an answer, store rating trend, bursts, certificate and permission changes, scores by version, category benchmark), webhooks for the app, and the API"))
             .put("note", "Paying again adds ${Config.PASS_REQUESTS} requests and ${Config.PASS_DAYS} days to a pass, or more calls to credits. The payment is read from balances on-chain; only the payer (or the checkout secret's holder) can redeem it.")
     }
 
@@ -412,12 +455,16 @@ class Api(private val views: Views, private val billing: Billing, private val in
     }
 
     /** Solana Pay transfer requests for each rail, with the pass reference and [memo]. */
-    fun payUrls(memo: String): JSONObject {
-        fun amt(v: Double) = v.toBigDecimal().stripTrailingZeros().toPlainString()
+    fun payUrls(memo: String, sol: Double = Config.passSol, skr: Double = Config.passSkr, skrSgt: Double = Config.passSkrSgt, message: String = "Undersigned API pass"): JSONObject {
+        fun amt(v: Double) = java.math.BigDecimal.valueOf(v).setScale(9, java.math.RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
         fun url(amount: String, token: String?) = "solana:${Config.TREASURY}?amount=$amount" + (token?.let { "&spl-token=$it" } ?: "") +
-            "&reference=${Config.API_REFERENCE}&label=${enc("Undersigned")}&message=${enc("Undersigned API pass")}&memo=${enc(memo)}"
-        return JSONObject().put("sol", url(amt(Config.passSol), null)).put("skr", url(amt(Config.passSkr), Config.SKR_MINT)).put("skr_with_seeker_genesis_token", url(amt(Config.passSkrSgt), Config.SKR_MINT))
+            "&reference=${Config.API_REFERENCE}&label=${enc("Undersigned")}&message=${enc(message)}&memo=${enc(memo)}"
+        return JSONObject().put("sol", url(amt(sol), null)).put("skr", url(amt(skr), Config.SKR_MINT)).put("skr_with_seeker_genesis_token", url(amt(skrSgt), Config.SKR_MINT))
     }
+
+    fun planPrice(): JSONObject = JSONObject().put("per_app_per_days", Config.PLAN_DAYS).put("sol", Config.PLAN_SOL).put("skr", Config.PLAN_SKR)
+        .put("skr_with_seeker_genesis_token", Config.PLAN_SKR_SGT).put("max_months_per_payment", Config.PLAN_MAX_MONTHS)
+        .put("checkout", "POST /v1/checkout {\"publisher\": \"<package>\", \"months\": N}, pay from a proven publisher wallet, then POST /v1/publisher/plan")
 
     /** A sample call per main route, whose live answer gives the response schema (types inferred, nothing hand-written to drift). */
     private val SAMPLES = mapOf("/v1/apps" to "/v1/apps?limit=1", "/v1/apps/{pkg}" to "/v1/apps/com.solflare.mobile", "/v1/apps/{pkg}/reviews" to "/v1/apps/com.solflare.mobile/reviews?limit=1",

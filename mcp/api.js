@@ -134,7 +134,9 @@ export function registerApiTools(server, env = process.env) {
   // ---- Keys, pay per call ------------------------------------------------------------------------------------------
   t("api_pricing", "What a pass and per-call credits cost (SOL or SKR; SKR about 10% below SOL; less again with a Seeker Genesis Token), what they buy, and how to redeem.", {}, async () => call("/v1/pricing"));
   t("api_checkout", "Start buying a pass, or per-call credits with calls = N: returns a secret and Solana Pay URLs whose memo commits to it. The wallet owner pays one URL; then call api_redeem_pass with the payment signature and this secret. This tool never pays.",
-    { calls: z.number().int().min(1).max(10_000_000).optional() }, async ({ calls }) => call("/v1/checkout", { method: "POST", body: calls ? { calls } : {}, auth: false }));
+    { calls: z.number().int().min(1).max(10_000_000).optional(), plan: z.enum(["data"]).optional().describe("data = the data plan (exports, 2M requests)"),
+      publisher: z.string().optional().describe("a package: checkout for that app's publisher plan (pay from its proven publisher wallet)"), months: z.number().int().min(1).max(12).optional() },
+    async ({ calls, plan, publisher, months }) => call("/v1/checkout", { method: "POST", body: publisher ? { publisher, months } : plan ? { plan } : calls ? { calls } : {}, auth: false }));
   t("api_redeem_pass", "Turn a payment into an API key. signature = the payment transaction; then EITHER secret (from api_checkout) OR message_signature = the PAYING wallet's signature of \"Undersigned API key for <signature>\". Paying again tops up the same key. The key is used for the rest of this session; save it as UNDERSIGNED_API_KEY to keep it.",
     { signature: z.string(), secret: z.string().optional(), message_signature: z.string().optional() }, async (a) => {
       const r = await fetch(`${base}/v1/keys`, { method: "POST", headers: { "content-type": "application/json", "user-agent": UA }, body: JSON.stringify(a) });
@@ -142,6 +144,25 @@ export function registerApiTools(server, env = process.env) {
       if (!r.ok) return text({ refused: j.message || r.status });
       key = j.key;
       return text({ ...j, saved_for_this_session: true });
+    });
+  // ---- Publisher plan and data plan (10 Oct 2026) ------------------------------------------------------------------
+  t("api_redeem_publisher_plan", "Turn a publisher-plan payment into a publisher key. Only a proven publisher of the package, paying from that wallet, can redeem. signature = the payment; package; then secret (from api_checkout with publisher) or message_signature.",
+    { signature: z.string(), package: z.string(), secret: z.string().optional(), message_signature: z.string().optional() }, async (a) => {
+      const r = await fetch(`${base}/v1/publisher/plan`, { method: "POST", headers: { "content-type": "application/json", "user-agent": UA }, body: JSON.stringify(a) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) return text({ refused: j.message || r.status });
+      key = j.key;
+      return text({ ...j, saved_for_this_session: true });
+    });
+  t("api_publisher_plan", "Whether an app has a live publisher plan, until when, and the price. Free.", { package: pkg }, async ({ package: p }) => call(`/v1/publisher/${enc(p)}/plan`, { auth: false }));
+  t("api_publisher_report", "The publisher plan's report for one app: signed reviews waiting for an answer, the store rating's trend, bursts, certificate and permission changes, scores by version, the category benchmark. Needs a publisher key for that app.",
+    { package: pkg }, async ({ package: p }) => call(`/v1/publisher/${enc(p)}/report`));
+  t("api_export", "Data plan: one dataset as CSV (ratings = daily star counts per app; changes = versions, certificates, permissions; apps = every dApp with scores; found = wallets found in app code). Needs a data-plan key. Returns the first max_lines lines.",
+    { dataset: z.enum(["ratings", "changes", "apps", "found"]), max_lines: z.number().int().min(1).max(5000).optional() }, async ({ dataset, max_lines }) => {
+      const r = await fetch(`${base}/v1/export/${dataset}.csv`, { headers: { "user-agent": UA, ...(key ? { authorization: `Bearer ${key}` } : {}) } });
+      if (!r.ok) { const j = await r.json().catch(() => ({})); return text({ error: j.error || r.status, message: j.message }); }
+      const lines = (await r.text()).split("\n");
+      return text({ dataset, total_lines: lines.length - 1, csv: lines.slice(0, (max_lines || 200) + 1).join("\n") });
     });
   t("api_pass", "This session's key: requests (or calls) left and end date.", {}, async () => key ? call("/v1/keys/me") : text("No key. Set UNDERSIGNED_API_KEY or redeem a payment with api_redeem_pass."));
 

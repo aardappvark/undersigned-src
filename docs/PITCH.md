@@ -24,8 +24,8 @@ passes (every payment public on-chain under the `UNS` memo). We are happy to con
 grows, never by paying reviewers or moderators for what they sign.
 
 The numbers ([docs/FINANCIAL_CASE.md](FINANCIAL_CASE.md)): about US$843 a year to run, break-even at 127 Pro licences
-a year. Base case (3% of the 200,000 Seekers shipped take Pro) about US$53,000 in year one; the owner's target (10–20%)
-US$172,000–305,000. What the store's apps have actually been paid is read from the chain in §3 of the case.
+a year, or 11 apps on the publisher plan. Base case (3% of the 200,000 Seekers on Pro, 10% of dApps on the publisher plan)
+about US$64,000 in year one; the owner's target (10–20% on Pro) US$194,000–327,000. What the store's apps have actually been paid is read from the chain in §3 of the case.
 
 ## To publishers
 

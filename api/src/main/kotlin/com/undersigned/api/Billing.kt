@@ -17,6 +17,7 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
               private val screen: (String) -> Boolean? = { false }) {
 
     data class Pass(val key: String, val wallet: String, val requestsLeft: Long, val endsAt: Long)
+    init { db.exec("CREATE TABLE IF NOT EXISTS publisher_plans (sig TEXT PRIMARY KEY, pkg TEXT NOT NULL, wallet TEXT NOT NULL, starts_at INTEGER NOT NULL, ends_at INTEGER NOT NULL, months INTEGER NOT NULL)") }
     class Refused(val status: Int, message: String) : Exception(message)
 
     fun message(txSignature: String) = "Undersigned API key for $txSignature"
@@ -32,6 +33,26 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
     /** Verifies the payment and the payer's signature, then creates the wallet's pass or tops it up. */
     /** Redeems with EITHER the paying wallet's [messageSignature] OR the checkout [secret] whose commitment is in the memo. */
     fun redeem(txSignature: String, messageSignature: String?, now: Long = System.currentTimeMillis() / 1000, secret: String? = null): Pass {
+        val (tx, already) = verified(txSignature, messageSignature, secret)
+        if (already != null) return pass(already) ?: throw Refused(409, "this payment has already been redeemed")
+        val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
+        // Ten passes' worth or more: the data plan, its own key (kind 'data').
+        val data = when {
+            tx.lamportsIn >= Config.dataFloorLamports -> "SOL" to tx.lamportsIn
+            skr >= Config.dataFloorSkrRaw -> "SKR" to skr
+            skr >= Config.dataFloorSkrSgtRaw && holdsGenesis(tx.feePayer) -> "SKR" to skr
+            else -> null
+        }
+        if (data != null) return grant("data", tx.feePayer, Config.DATA_REQUESTS, Config.DATA_DAYS * 86_400, txSignature, data.first, data.second, now)
+        return redeemPass(tx, txSignature, now)
+    }
+
+    /**
+     * Checks a payment and its proof, the same for every product: a confirmed transaction with the API reference, the
+     * UNS memo, not naming the registry, proven by the checkout secret or the payer's signature, and a payer the sanctions
+     * screen clears. Returns the transaction and the key it already redeemed for, if any.
+     */
+    private fun verified(txSignature: String, messageSignature: String?, secret: String?): Pair<TxInfo, String?> {
         if (!Regex("^[1-9A-HJ-NP-Za-km-z]{86,88}$").matches(txSignature)) throw Refused(400, "signature must be a base58 transaction signature")
         val already = db.query("SELECT key FROM redeemed WHERE sig = ?", txSignature) { it.getString(1) }.firstOrNull()
         val tx = txOf(txSignature) ?: throw Refused(404, "transaction not found yet; try again once it is confirmed")
@@ -52,7 +73,10 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
             false -> {}
         }
         // Already redeemed: the same proof gets the SAME key back (a lost key is recoverable by the payer), never a second pass.
-        if (already != null) return pass(already) ?: throw Refused(409, "this payment has already been redeemed")
+        return tx to already
+    }
+
+    private fun redeemPass(tx: TxInfo, txSignature: String, now: Long): Pass {
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
         val pass = when {
             tx.lamportsIn >= Config.passFloorLamports -> "SOL" to tx.lamportsIn
@@ -94,6 +118,59 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
             pass
         }
     }
+
+    /** Creates the wallet's key of [kind] or extends it (requests added, end pushed from the later of now and its end). */
+    private fun grant(kind: String, wallet: String, requests: Long, seconds: Long, txSignature: String, rail: String, amount: Long, now: Long, endsAt: Long? = null): Pass = db.tx {
+        val cur = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = ? ORDER BY ends_at DESC LIMIT 1", wallet, kind) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+        val p = if (cur != null) cur.copy(requestsLeft = maxOf(0, cur.requestsLeft) + requests, endsAt = endsAt?.let { maxOf(it, cur.endsAt) } ?: (maxOf(now, cur.endsAt) + seconds)).also {
+            db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", it.requestsLeft, it.endsAt, it.key) }
+        else Pass(newKey(), wallet, requests, endsAt ?: (now + seconds)).also {
+            db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created, kind) VALUES (?, ?, ?, ?, ?, ?)", it.key, it.wallet, it.requestsLeft, it.endsAt, now, kind) }
+        try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, p.key, wallet, rail, amount, now) }
+        catch (e: java.sql.SQLException) { throw Refused(409, "this payment has already been redeemed") }
+        p
+    }
+
+    // ---- The publisher plan -------------------------------------------------------------------------------------
+
+    data class Plan(val packageName: String, val wallet: String, val endsAt: Long, val key: String, val months: Int)
+
+    /**
+     * Redeems a payment as [months] of the publisher plan for [packageName] (one month per plan price paid, up to
+     * [Config.PLAN_MAX_MONTHS]). Only a wallet [isPublisher] names as the app's proven publisher can redeem, and only its
+     * own payment. Terms stack: a renewal starts when the current term ends. The publisher's key (kind 'publisher')
+     * opens the plan's report for every app it holds a plan for, and the rest of the API.
+     */
+    fun redeemPlan(txSignature: String, messageSignature: String?, packageName: String, isPublisher: (String, String) -> Boolean,
+                   now: Long = System.currentTimeMillis() / 1000, secret: String? = null): Plan {
+        val (tx, already) = verified(txSignature, messageSignature, secret)
+        if (already != null) {
+            val row = db.query("SELECT pkg, wallet, ends_at, months FROM publisher_plans WHERE sig = ?", txSignature) { Triple(it.getString(1), it.getString(2), it.getLong(3) to it.getInt(4)) }.firstOrNull()
+                ?: throw Refused(409, "this payment was redeemed as an API pass, not a publisher plan")
+            return Plan(row.first, row.second, row.third.first, already, row.third.second)
+        }
+        if (!isPublisher(tx.feePayer, packageName)) throw Refused(403, "the paying wallet ${tx.feePayer} is not a proven publisher of $packageName: prove it first (a signed claim), then pay from that wallet")
+        val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
+        val (rail, amount, unit) = when {
+            tx.lamportsIn >= Config.planFloorLamports -> Triple("SOL", tx.lamportsIn, Config.planFloorLamports)
+            skr >= Config.planFloorSkrRaw -> Triple("SKR", skr, Config.planFloorSkrRaw)
+            skr >= Config.planFloorSkrSgtRaw && holdsGenesis(tx.feePayer) -> Triple("SKR", skr, Config.planFloorSkrSgtRaw)
+            else -> throw Refused(402, "the payment credited ${tx.lamportsIn} lamports and $skr raw SKR, below one month of the plan (${Config.PLAN_SOL} SOL or ${Config.PLAN_SKR} SKR)")
+        }
+        val months = (amount / unit).toInt().coerceIn(1, Config.PLAN_MAX_MONTHS)
+        val start = maxOf(now, planEnds(packageName))
+        val ends = start + months * Config.PLAN_DAYS * 86_400
+        val key = grant("publisher", tx.feePayer, months * Config.PLAN_REQUESTS, 0, txSignature, rail, amount, now, endsAt = ends)
+        db.exec("INSERT INTO publisher_plans (sig, pkg, wallet, starts_at, ends_at, months) VALUES (?, ?, ?, ?, ?, ?)", txSignature, packageName, tx.feePayer, start, ends, months)
+        return Plan(packageName, tx.feePayer, ends, key.key, months)
+    }
+
+    /** When [packageName]'s plan ends (0 when it has none): any proven publisher's payment counts for the app. */
+    fun planEnds(packageName: String): Long = db.query("SELECT max(ends_at) FROM publisher_plans WHERE pkg = ?", packageName) { it.getLong(1) }.firstOrNull() ?: 0L
+    fun planActive(packageName: String, now: Long = System.currentTimeMillis() / 1000): Boolean = planEnds(packageName) > now
+    /** Apps with a live plan: what the report and the pricing page list. */
+    fun activePlans(now: Long = System.currentTimeMillis() / 1000): Map<String, Long> =
+        db.query("SELECT pkg, max(ends_at) FROM publisher_plans GROUP BY pkg HAVING max(ends_at) > ?", now) { it.getString(1) to it.getLong(2) }.toMap()
 
     /** The wallet's live pass (requests left, not ended), if any. */
     fun passOf(wallet: String, now: Long = System.currentTimeMillis() / 1000): Pass? =

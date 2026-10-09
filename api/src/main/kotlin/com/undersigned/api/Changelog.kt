@@ -8,6 +8,10 @@ object Changelog {
     data class Entry(val date: String, val title: String, val items: List<String>)
 
     val ENTRIES = listOf(
+        Entry("2026-10-10", "Publisher plan and data plan", listOf(
+            "Publisher plan, per app per 30 days (0.0607 SOL, 369 SKR, 332 with a Genesis Token; up to 12 months a payment): POST /v1/checkout {publisher, months}, pay from the app's proven publisher wallet, POST /v1/publisher/plan. GET /v1/publisher/{pkg}/report: reviews waiting for an answer, the store rating's trend, bursts, certificate/version/permission changes, scores by version, the category benchmark. GET /v1/publisher/{pkg}/plan: whether a plan is live.",
+            "Data plan, 30 days (0.607 SOL, 3,690 SKR, 3,320 with a Genesis Token): 2,000,000 requests at 3,000 a minute and GET /v1/export/{ratings|changes|apps|found} as CSV. POST /v1/checkout {plan: \"data\"}, then POST /v1/keys.",
+            "/plans: buy either from a browser (Solana Pay links and a QR code), redeem, and read the publisher report. Local MCP: api_redeem_publisher_plan, api_publisher_plan, api_publisher_report, api_export.")),
         Entry("2026-10-10", "AI allowance per caller", listOf(
             "Fresh AI answers per UTC day: 200 per pass key, 50 per Pro wallet, 20 per IP; per-call keys pay one extra call per fresh answer. Cached answers are free. Over it: 429 ai_allowance with Retry-After.",
             "GET /v1/health reports today's AI calls, tokens and cost.",

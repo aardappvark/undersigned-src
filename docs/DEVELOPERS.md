@@ -76,6 +76,17 @@ Hidden text is never translated. Each caller has a daily allowance of fresh AI a
 | Endpoints | free and limited | all, including webhooks | all, including webhooks |
 | Price | free | 0.0607 SOL, or 369 SKR (332 SKR with a Seeker Genesis Token) | 0.00001 SOL or 0.06 SKR a call, from 0.001 SOL or 6 SKR |
 
+Two plans sit above the pass (10 Oct 2026), bought the same way and also from the [`/plans`](https://undersigned.provenby.dev/plans) page:
+
+| | Publisher plan | Data plan |
+|---|---|---|
+| For | an app's proven publisher | analysts, wallets, funds, Guardians |
+| Price | 0.0607 SOL, 369 SKR (332 with a Genesis Token) per app per 30 days; up to 12 months a payment | 0.607 SOL, 3,690 SKR (3,320) per 30 days |
+| Gets | `GET /v1/publisher/{pkg}/report` (reviews waiting for an answer, the store rating's trend, bursts, certificate, version and permission changes, scores by version, the category benchmark), webhooks for the app, the API | 2,000,000 requests at 3,000 a minute, `GET /v1/export/{ratings\|changes\|apps\|found}` as CSV |
+| Checkout | `POST /v1/checkout {"publisher": "<pkg>", "months": N}`, pay from the publisher wallet, `POST /v1/publisher/plan {signature, package, secret}` | `POST /v1/checkout {"plan": "data"}`, pay, `POST /v1/keys` |
+
+No plan changes a score, a weight or an order. `GET /v1/publisher/{pkg}/plan` says whether an app's plan is live.
+
 SKR prices are 10% below SOL at the rate on the day they were set. The live figures are always at
 [`/v1/pricing`](https://undersigned.provenby.dev/v1/pricing). Every metered answer carries:
 - `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`.

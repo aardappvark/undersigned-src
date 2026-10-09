@@ -10,11 +10,11 @@ Reproduce: `python3 tools/revenue_model.py case` and `python3 tools/payments_rec
 | | Figure | Basis |
 |---|---|---|
 | Cost to run | about **US$843 a year** | measured and list prices (§4) |
-| Break-even | **127 Pro licences a year**, 0.06% of devices shipped | §4 |
-| Base case, year 1 | about **US$53,000** | 3% of devices take Pro (assumption) |
-| Owner target, year 1 | **US$172,000** at 10%, **US$305,000** at 20% | owner's target, not a forecast |
+| Break-even | **127 Pro licences a year** (0.06% of devices shipped), or **11 apps** on the publisher plan | §4 |
+| Base case, year 1 | about **US$64,000** | 3% of devices on Pro, 10% of dApps on the publisher plan (assumptions) |
+| Owner target, year 1 | **US$194,000** at 10% Pro, **US$327,000** at 20% | owner's target, not a forecast |
 | What the store's apps have actually been paid | see §3 (being read in full now) | on-chain record |
-| Margin after running costs | 84% in the conservative case; 98% or more in the others | the reviewer pays their own network fee |
+| Margin after running costs | 89% in the conservative case; 98% or more in the others | the reviewer pays their own network fee |
 
 The margin is structural: a signed review costs Undersigned nothing (the reviewer's wallet pays its own network fee, under 0.0001 SOL),
 the ledger is Solana, and the server is a US$7-a-month machine. What is uncertain is uptake, not cost.
@@ -53,7 +53,9 @@ the smaller, visible part: direct payments to apps.
 | Product | Price | Who pays |
 |---|---|---|
 | Pro (12 months; shareable with two wallets) | 0.0607 SOL, 369 SKR, 332 SKR with a Genesis Token | owners and publishers |
-| Publisher treasury listing (payments board) | 0.0607 SOL / 369 SKR | publishers |
+| **Publisher plan** (per app, 30 days; up to 12 months a payment): the app's report, webhooks, the API | 0.0607 SOL / 369 SKR / 332 SKR with a Genesis Token | the app's proven publisher |
+| **Data plan** (30 days): 2 million requests, CSV exports of the store's history | 0.607 SOL / 3,690 SKR / 3,320 SKR | analysts, wallets, funds, Guardians |
+| Publisher treasury listing (payments board) | 0.0607 SOL / 369 SKR, once | publishers |
 | Promote one's own review (Pro; labelled, listed after organic, never weight) | 0.00607 SOL / 37 SKR | reviewers |
 | API pass (30 days, 100,000 requests) | 0.0607 SOL / 369 SKR | developers |
 | API or MCP call on credits | 0.00001 SOL / 0.06 SKR | agents |
@@ -65,33 +67,45 @@ the smaller, visible part: direct payments to apps.
 | Quick-review fees at the daily cap | US$120 | 300 a day × 10,000 lamports, measured per transaction |
 | AI answers | about US$50 | US$0.00003 an answer measured; daily allowances cap it |
 
-| Case | Pro buyers | Pro | Publishers | Promotion | API passes | Agent calls | **Year 1** | at SOL $62 | at SOL $235 |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Conservative | 500 | $3,325 | $1,026 | $250 | $239 | $548 | **$5,389** | $3,058 | $11,547 |
-| Base | 6,000 | $39,905 | $5,131 | $999 | $1,596 | $5,478 | **$53,110** | $30,140 | $113,802 |
-| Owner target | 20,000 | $133,018 | $10,262 | $2,498 | $3,991 | $21,914 | **$171,683** | $97,428 | $367,871 |
-| Owner stretch | 40,000 | $266,036 | $10,262 | $2,498 | $3,991 | $21,914 | **$304,701** | $172,915 | $652,894 |
+| Case | Pro buyers | Pro | Publisher plans | Data plans | API passes | Promotion | Agent calls | **Year 1** | at SOL $62 | at SOL $235 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Conservative | 500 | $3,325 | $2,463 | $798 | $239 | $250 | $548 | **$7,624** | $4,326 | $16,335 |
+| Base | 6,000 | $39,905 | $12,315 | $3,991 | $1,596 | $999 | $5,478 | **$64,285** | $36,481 | $137,745 |
+| Owner target | 20,000 | $133,018 | $24,630 | $7,981 | $3,991 | $2,498 | $21,914 | **$194,031** | $110,111 | $415,758 |
+| Owner stretch | 40,000 | $266,036 | $24,630 | $7,981 | $3,991 | $2,498 | $21,914 | **$327,049** | $185,597 | $700,781 |
 
-Unit: one Pro licence 0.0607 SOL = $6.65 (or 369 SKR = $6.04; 332 SKR with a Genesis Token = $5.44).
-Running cost $843 a year -> break-even at 127 Pro licences a year (0.06% of devices shipped, 0.10% of Genesis holders).
+Unit: one Pro licence or one publisher-plan month 0.0607 SOL = $6.65 (or 369 SKR = $6.04; 332 SKR with a Genesis Token = $5.44); a data-plan month 0.607 SOL = $66.51.
+Running cost $843 a year -> break-even at 127 Pro licences a year (0.06% of devices shipped, 0.10% of Genesis holders), or 11 apps on the publisher plan.
 Marginal cost per signed review: $0 (the reviewer's wallet pays its own network fee); per quick review $0.0011 (relayer fee); per AI answer about $0.00003 (measured).
 
 Nothing is sold that changes a score. The free tier covers reading, reviewing, replying, voting and flagging.
+
+### What the two business plans contain (live 10 Oct 2026)
+
+- **Publisher plan** (`/plans`, `GET /v1/publisher/{package}/report`): signed reviews waiting for the publisher's answer;
+  the store rating's trend from daily snapshots; review and rating bursts; certificate, version and permission changes;
+  scores by version; fixes and follow-ups; where the app sits in its category (median rating, percentile); payments
+  received; webhooks for the app. Redeemed only by a wallet proven as the app's publisher.
+- **Data plan** (`GET /v1/export/{ratings|changes|apps|found}`): the store's star counts per app per day, every
+  version, certificate and permission change seen, every dApp with its scores, the wallets found in app code.
+
+Why these: paid tiers sold to owners reach tens of payers per app in this ecosystem so far (§3). Publishers and data
+buyers are the parties with budgets, and what they buy is work around the reviews, never the reviews.
 
 ## 5. Scenarios
 
 Assumptions per case (shares of 200,000 devices; of 1,543 dApps; of a year's 75,000 new reviews):
 
-| Case | Pro | Publishers list + Pro | Reviews promoted | API passes a month | Agent calls a year |
-|---|---:|---:|---:|---:|---:|
-| Conservative | 0.25% | 5% | 0.5% | 3 | 0.5 million |
-| Base | 3% | 25% | 2% | 20 | 5 million |
-| Owner target | 10% | 50% | 5% | 50 | 20 million |
-| Owner stretch | 20% | 50% | 5% | 50 | 20 million |
+| Case | Pro | dApps on the publisher plan | Data plans a month | Reviews promoted | API passes a month | Agent calls a year |
+|---|---:|---:|---:|---:|---:|---:|
+| Conservative | 0.25% | 2% | 1 | 0.5% | 3 | 0.5 million |
+| Base | 3% | 10% | 5 | 2% | 20 | 5 million |
+| Owner target | 10% | 20% | 10 | 5% | 50 | 20 million |
+| Owner stretch | 20% | 20% | 10 | 5% | 50 | 20 million |
 
 Results are in the table in §4. Sensitivity: revenue is priced in SOL, so the trailing-year SOL range alone moves any
 case between 0.57× and 2.1× of the figure at today's price. Every case clears the running cost; the conservative case
-by about six times.
+by about nine times.
 
 ## 6. Track record so far
 

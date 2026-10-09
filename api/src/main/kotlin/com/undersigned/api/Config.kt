@@ -59,6 +59,30 @@ object Config {
     val perCallSkrRaw: Long get() = skrRaw(PER_CALL_SKR)
     const val PASS_DAYS = 30L
     const val PASS_PER_MINUTE = 600
+
+    // ---- The data plan (owner, 10 Oct 2026: "publisher data video"): the pass, ten times over, for store-wide data ----
+    /** Ten passes' worth; a payment at or above it on the API reference redeems as a data plan (kind 'data'). */
+    const val DATA_SOL = 0.607
+    const val DATA_SKR = 3_690.0
+    const val DATA_SKR_SGT = 3_320.0
+    const val DATA_REQUESTS = 2_000_000L
+    const val DATA_DAYS = 30L
+    const val DATA_PER_MINUTE = 3_000
+    val dataFloorLamports: Long get() = lamports(TEST_SOL?.let { it * 10 } ?: DATA_SOL)
+    val dataFloorSkrRaw: Long get() = skrRaw(TEST_SKR?.let { it * 10 } ?: DATA_SKR)
+    val dataFloorSkrSgtRaw: Long get() = skrRaw(TEST_SKR?.let { it * 10 } ?: DATA_SKR_SGT)
+
+    // ---- The publisher plan: one app, 30 days, at the fleet unit; redeemed only by that app's proven publisher ------
+    const val PLAN_SOL = 0.0607
+    const val PLAN_SKR = 369.0
+    const val PLAN_SKR_SGT = 332.0
+    const val PLAN_DAYS = 30L
+    const val PLAN_MAX_MONTHS = 12
+    /** Requests each paid month adds to the publisher's key (its report, webhooks and the rest of the API). */
+    const val PLAN_REQUESTS = 100_000L
+    val planFloorLamports: Long get() = lamports(TEST_SOL ?: PLAN_SOL)
+    val planFloorSkrRaw: Long get() = skrRaw(TEST_SKR ?: PLAN_SKR)
+    val planFloorSkrSgtRaw: Long get() = skrRaw(TEST_SKR ?: PLAN_SKR_SGT)
     const val FREE_PER_MINUTE = 30
     const val FREE_PER_DAY = 1_000
     /** Free endpoints that list things show this many rows; a pass shows all. */
