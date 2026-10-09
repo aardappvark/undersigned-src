@@ -101,6 +101,9 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
 
     fun pass(key: String): Pass? = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE key = ?", key) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
 
+    /** "pass" or "credits"; null when the key is unknown. */
+    fun kind(key: String): String? = db.query("SELECT kind FROM passes WHERE key = ?", key) { it.getString(1) }.firstOrNull()
+
     /** Spends one request. False when the key is unknown, ended or used up (the caller answers 402). */
     fun consume(key: String, now: Long = System.currentTimeMillis() / 1000): Boolean =
         db.exec("UPDATE passes SET requests_left = requests_left - 1 WHERE key = ? AND requests_left > 0 AND ends_at > ?", key, now) == 1

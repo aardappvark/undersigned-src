@@ -1,6 +1,6 @@
 # Putting the Undersigned API on a public host
 
-Today it runs on the owner's Mac only (`api/install-local.sh`, http://127.0.0.1:8797). A public https host is what makes
+Today it runs on the owner's Mac only (`api/install-local.sh`, http://127.0.0.1:8817). A public https host is what makes
 badges, pages, web reviewing and the QR path usable by anyone, and keeps the daily store snapshots from missing days when
 the Mac sleeps (5 of 7 days were read between 28 Sep and 4 Oct 2026).
 

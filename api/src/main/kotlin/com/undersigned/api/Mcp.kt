@@ -64,6 +64,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             obj("id" to str("Record id of the review or reply"), "lang" to str("Target language code", Config.AI_LANGS.sorted()), "wallet" to str("A wallet holding Pro (not needed with a key)"),
                 required = listOf("id", "lang"))) { a, c ->
             val ai = views.ai?.takeIf { it.enabled } ?: throw IllegalArgumentException("translations are not available right now")
+            if (!c.paid && views.holdsPro(a.optString("wallet").trim())) Ai.who.set(Ai.Caller("wallet:" + a.optString("wallet").trim(), Config.AI_PER_PRO_WALLET_DAY))
             if (!c.paid && !views.holdsPro(a.optString("wallet").trim())) throw IllegalArgumentException("translations need Pro (pass a wallet holding Pro) or a pass / credits key; see get_pricing")
             val e = views.recordEntry(a.optString("id").trim()) ?: throw NoSuchElementException("no such record")
             val text = views.visibleText(e) ?: throw NoSuchElementException("this record has no text to translate")
@@ -86,6 +87,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             views.summary(pkg(a)) ?: JSONObject().put("summary", JSONObject.NULL).put("message", "needs at least ${Config.AI_SUMMARY_MIN} counted reviews with text") },
         Tool("weekly_digest", "This week's digest, by AI from the facts seen: store-wide rating bursts and app updates in plain words. For a Pro wallet or a pass / credits key.",
             obj("wallet" to str("A wallet holding Pro (not needed with a key)"))) { a, c ->
+            if (!c.paid && views.holdsPro(a.optString("wallet").trim())) Ai.who.set(Ai.Caller("wallet:" + a.optString("wallet").trim(), Config.AI_PER_PRO_WALLET_DAY))
             if (!c.paid && !views.holdsPro(a.optString("wallet").trim())) throw IllegalArgumentException("the weekly digest needs Pro (pass a wallet holding Pro) or a pass / credits key; see get_pricing")
             views.digest() ?: throw IllegalArgumentException("the digest is not available right now") },
         Tool("get_pricing", "What a pass and pay-per-call credits cost and buy, the free limits, and the Solana Pay links. Use it to explain a 'needs a key' answer.", obj()) { _, _ -> pricing() },
@@ -147,6 +149,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
                         .put("structuredContent", out).put("isError", false))
                 } catch (e: IllegalArgumentException) { result(id, toolError(e.message ?: "bad arguments")) }
                 catch (e: NoSuchElementException) { result(id, toolError(e.message ?: "not found")) }
+                catch (e: Ai.AllowanceUsed) { result(id, toolError(e.message ?: "today's AI allowance is used")) }
                 catch (e: Exception) { log("mcp ${t.name}: ${e.message?.take(120)}"); result(id, toolError("internal error; try again")) }
             }
             "resources/list" -> result(id, JSONObject().put("resources", JSONArray(RESOURCES.map { (uri, r) ->

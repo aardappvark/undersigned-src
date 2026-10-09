@@ -6,6 +6,7 @@ import org.json.JSONObject
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 /** Help from the policy, the weekly digest (Pro or key, and its webhook), batch lookup, changelog, status, inferred schemas. */
@@ -56,5 +57,29 @@ class GapsTest {
         val schema = spec.getJSONObject("paths").getJSONObject("/v1/stats").getJSONObject("get").getJSONObject("responses").getJSONObject("200")
             .getJSONObject("content").getJSONObject("application/json").getJSONObject("schema")
         assertEquals("object", schema.getString("type")); assertTrue(schema.getJSONObject("properties").has("records"))
+    }
+
+    // Owner, 10 Oct 2026: one caller must not use up the day's shared AI cap. Fresh answers count per caller; cached ones never do.
+    @Test fun `each caller has a daily AI allowance, cached answers are free, others are unaffected`() {
+        val (_, api, _) = setup()
+        fun help(q: String, ip: String = "8.8.8.8", auth: String? = null) = api.handle("POST", "/v1/help", emptyMap(), "{\"question\":\"$q\"}", auth, ip)
+        repeat(Config.AI_PER_IP_DAY) { assertEquals(200, help("How does weighting work, case $it?").status) }
+        val over = help("One question too many?")
+        assertEquals(429, over.status); assertEquals("ai_allowance", over.body.getString("error")); assertTrue(over.headers.containsKey("Retry-After"))
+        assertEquals(200, help("How does weighting work, case 3?").status)            // cached: free, still answered
+        assertEquals(200, help("One question too many?", ip = "9.9.9.9").status)      // another caller
+        assertEquals(200, help("And from a pass?", auth = "Bearer us_k").status)       // help is a free route: the key is not charged
+    }
+
+    @Test fun `a per-call key pays one extra call for each fresh AI answer`() {
+        val db = Db(File.createTempFile("us-aicap", ".db").apply { deleteOnExit() }.path)
+        val ai = Ai(db, call = { _, _, _ -> "an answer" })
+        var debits = 0
+        Ai.who.set(Ai.Caller("key:c", Int.MAX_VALUE) { debits++ < 1 })
+        try {
+            assertEquals("an answer", ai.help("First?", "policy", "en")); assertEquals(1, debits)
+            assertEquals("an answer", ai.help("First?", "policy", "en")); assertEquals(1, debits)      // cached: no debit
+            assertFailsWith<Ai.AllowanceUsed> { ai.help("Second?", "policy", "en") }                  // no calls left
+        } finally { Ai.who.remove() }
     }
 }

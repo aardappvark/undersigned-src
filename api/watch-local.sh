@@ -4,7 +4,7 @@
 # reports an error, a store snapshot day was missed, or webhook deliveries failed. One notification per distinct
 # message per 6 hours.
 DIR="$HOME/Library/Application Support/UndersignedAPI"
-H=$(curl -s -m 10 http://127.0.0.1:8797/v1/health) || H=""
+H=$(curl -s -m 10 http://127.0.0.1:8817/v1/health) || H=""
 if [ -z "$H" ]; then MSG="The Undersigned API is not answering on this Mac."
 else MSG=$(printf '%s' "$H" | /usr/bin/python3 -c '
 import json, sys, datetime

@@ -155,11 +155,11 @@ notification. `GET /v1/apps?packages=a,b,c` reads many apps in one call (20 free
 ## 4. Running
 
 ```
-api/run-local.sh                # builds, reads api/.env.local (git-ignored: UNDERSIGNED_RPC, UNDERSIGNED_DB), serves on 127.0.0.1:$PORT (8797 by default; HOST=0.0.0.0 to serve a network)
-UNDERSIGNED_API_URL=http://localhost:8797 node mcp/server.js
+api/run-local.sh                # builds, reads api/.env.local (git-ignored: UNDERSIGNED_RPC, UNDERSIGNED_DB), serves on 127.0.0.1:$PORT (8817 by default; HOST=0.0.0.0 to serve a network)
+UNDERSIGNED_API_URL=http://localhost:8817 node mcp/server.js
 ```
 
-Hosted on this Mac only (owner, 28 Sep 2026): `api/install-local.sh` runs it as a LaunchAgent at http://127.0.0.1:8797, loopback
+Hosted on this Mac only (owner, 28 Sep 2026): `api/install-local.sh` runs it as a LaunchAgent at http://127.0.0.1:8817, loopback
 only. Test prices for a local test run: `UNDERSIGNED_TEST_PASS_SOL` / `UNDERSIGNED_TEST_PASS_SKR` in `api/.env.local`,
 honoured only while the server listens on loopback. A public host, a domain and the store-data question (§5) are owner decisions.
 

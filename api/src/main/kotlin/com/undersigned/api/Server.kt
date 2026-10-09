@@ -46,7 +46,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
     init {
         route("GET", "/v1/health", Tier.FREE, "Indexer status: last syncs, last error, skipped transactions, hook failures") { ok(JSONObject().put("ok", true).put("indexed_at", indexer.state.builtAt / 1000).put("ledger_synced", indexer.lastLedgerSync / 1000).put("store_synced", indexer.lastStoreSync / 1000)
             .put("last_error", indexer.lastError ?: JSONObject.NULL).put("skipped_transactions", indexer.skippedTx).put("hook_failures_24h", hooks?.failures24h() ?: 0).put("limiter_entries", limiter.size).put("public", Config.PUBLIC).put("test_prices", Config.testPrices)
-            .put("snapshot_days", indexer.snapshotDays().size).put("last_snapshot_day", indexer.snapshotDays().lastOrNull() ?: JSONObject.NULL).put("last_backup", indexer.lastBackup ?: JSONObject.NULL)) }
+            .put("ai_today", views.ai?.usage() ?: JSONObject.NULL).put("snapshot_days", indexer.snapshotDays().size).put("last_snapshot_day", indexer.snapshotDays().lastOrNull() ?: JSONObject.NULL).put("last_backup", indexer.lastBackup ?: JSONObject.NULL)) }
         // MCP for agents (Mcp.kt): read-only tools over the same views, metered like any LIMITED route.
         route("POST", "/mcp", Tier.LIMITED, "Model Context Protocol (Streamable HTTP, JSON-RPC): read-only tools for AI agents. Add this URL to Claude, Cursor or any MCP client") { r -> mcp.handle(r.body, r.caller) }
         // Reading aids (Ai.kt), each labelled a suggestion. A translation is for Pro members (a wallet holding Pro on-chain)
@@ -63,7 +63,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
             ok(JSONObject().put("id", e.signature).put("lang", lang).put("text", out).put("label", "Suggested translation, by AI. The original is the author's own words.").put("model", Config.AI_MODEL))
         }
         // Pro: a store review's text into your language, and a reply you drafted into the language of the review it answers.
-        fun proOrKey(r: Req, wallet: String?): Response? = if (r.caller.paid || (wallet != null && views.holdsPro(wallet))) null
+        fun proOrKey(r: Req, wallet: String?): Response? = if (r.caller.paid) null
+            else if (wallet != null && views.holdsPro(wallet)) { Ai.who.set(Ai.Caller("wallet:$wallet", Config.AI_PER_PRO_WALLET_DAY)); null }
             else Response(402, JSONObject().put("error", "pro_required").put("message", "This is a Pro feature: hold Pro in the wallet you send, or use an API pass or pay-per-call credits.").put("pricing", pricing()))
         route("POST", "/v1/translate", Tier.LIMITED, "Suggested translation, by AI, of a store review's text (up to 1,000 characters) into lang. Body {text, lang, wallet}. Pro or a key") { r ->
             val b = runCatching { JSONObject(r.body) }.getOrNull() ?: return@route Response(400, JSONObject().put("error", "bad_json"))
@@ -222,6 +223,13 @@ class Api(private val views: Views, private val billing: Billing, private val in
             else -> { ipBudget()?.let { return it }; Caller(false, key) }
         }
         if (rt.tier == Tier.PAID && !caller.paid) return paymentRequired("this endpoint needs a pass")
+        // Who any fresh AI answer in this request is for (Ai.complete checks and counts it; proOrKey upgrades a Pro wallet).
+        // A known key counts against its own allowance on every route, free ones included (a pass calling /v1/help is still that pass).
+        Ai.who.set(when {
+            known && key != null && billing.kind(key) == "credits" -> Ai.Caller("key:$key", Int.MAX_VALUE) { billing.consume(key) }
+            known && key != null -> Ai.Caller("key:$key", Config.AI_PER_PASS_DAY)
+            else -> Ai.Caller("ip:$ip", Config.AI_PER_IP_DAY)
+        })
         val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to m.groupValues[i + 1] }.toMap()   // URI.path arrives decoded
         // Rate-limit headers on every metered answer (9 Oct 2026): what is left, and when it resets.
         fun withLimits(r: Response): Response {
@@ -239,8 +247,11 @@ class Api(private val views: Views, private val billing: Billing, private val in
             return Response(r.status, r.body, h, r.raw, r.contentType)
         }
         return try { withLimits(rt.handler(Req(params, query, body, caller))) }
+        catch (e: Ai.AllowanceUsed) { Response(429, JSONObject().put("error", "ai_allowance").put("message", e.message).put("used_today", views.ai?.usedToday(e.caller.id) ?: 0),
+            mapOf("Retry-After" to (86_400 - System.currentTimeMillis() / 1000 % 86_400).toString())) }
         catch (e: Billing.Refused) { Response(e.status, JSONObject().put("error", "refused").put("message", e.message)) }
         catch (e: Exception) { log("500 $path: ${e.message?.take(120)}"); Response(500, JSONObject().put("error", "internal")) }
+        finally { Ai.who.remove() }
     }
 
     /**

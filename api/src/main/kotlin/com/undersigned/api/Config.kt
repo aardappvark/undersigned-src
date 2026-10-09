@@ -7,7 +7,7 @@ import com.undersigned.protocol.Registry
  * fleet-config/tools/reprice.py before a release, and never raise a leg without keeping the old amount as a floor.
  */
 object Config {
-    val PORT: Int = System.getenv("PORT")?.toIntOrNull() ?: 8797
+    val PORT: Int = System.getenv("PORT")?.toIntOrNull() ?: 8817
     /**
      * Serving the public (behind a proxy or tunnel, or on a network): one explicit switch. It turns OFF everything that is
      * only right on a private machine: test prices, http://localhost webhooks. A proxy in front means TRUST_PROXY=1, which
@@ -87,7 +87,7 @@ object Config {
     const val AI_NOTES_PER_REQUEST = 10
     /** Languages a suggested translation can target: the app's 28. */
     val AI_LANGS = setOf("en", "de", "fr", "es", "it", "pt", "nl", "sv", "pl", "cs", "hu", "ro", "ru", "uk", "el", "tr", "ar", "ur", "hi", "bn", "id", "vi", "th", "ja", "ko", "zh-CN", "zh-TW", "fil")
-    val PUBLIC_URL: String = (System.getenv("PUBLIC_URL") ?: "http://127.0.0.1:${System.getenv("PORT")?.toIntOrNull() ?: 8797}").trimEnd('/')
+    val PUBLIC_URL: String = (System.getenv("PUBLIC_URL") ?: "http://127.0.0.1:${System.getenv("PORT")?.toIntOrNull() ?: 8817}").trimEnd('/')
     const val FREE_TOP = 10
 
     fun lamports(sol: Double): Long = Math.round(sol * 1_000_000_000.0)
@@ -126,6 +126,13 @@ object Config {
     /** The store's CDN blocks a whole network for minutes after a burst of reads; every store request is paced. */
     const val STORE_PACE_MS = 1_500L
     const val STORE_BATCH = 20
+    /** Fresh Claude answers per UTC day: per pass key, per Pro wallet, per anonymous IP. Per-call keys pay one extra call each. */
+    const val AI_PER_PASS_DAY = 200
+    const val AI_PER_PRO_WALLET_DAY = 50
+    const val AI_PER_IP_DAY = 20
+    /** Claude Haiku 5.5 list prices, USD per million tokens (prompts up to 100K tokens), for the measured cost in /v1/health. */
+    const val AI_PRICE_IN = 0.10
+    const val AI_PRICE_OUT = 0.50
     const val CATALOGUE_EVERY_MS = 24L * 3600 * 1000
     const val LEDGER_EVERY_MS = 5L * 60 * 1000
     const val FACTS_TTL_MS = 6L * 3600 * 1000

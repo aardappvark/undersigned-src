@@ -1,7 +1,7 @@
 #!/bin/sh
 # Hosts the API on this Mac while it is tested and built: installs the build under
 # ~/Library/Application Support/UndersignedAPI (outside ~/Downloads, which launchd jobs may not read) and runs it as a
-# LaunchAgent that starts at login and restarts if it stops. Loopback only: http://127.0.0.1:8797.
+# LaunchAgent that starts at login and restarts if it stops. Loopback only: http://127.0.0.1:8817.
 # Re-run after changes to redeploy. Remove: launchctl bootout gui/$(id -u)/com.undersigned.api; rm ~/Library/LaunchAgents/com.undersigned.api.plist
 set -e
 cd "$(dirname "$0")"
@@ -20,7 +20,7 @@ RPC=$(sed -n 's/^UNDERSIGNED_RPC=//p' .env.local 2>/dev/null | tail -1)
 TEST=$(grep -E '^UNDERSIGNED_TEST_PASS_(SOL|SKR)=[0-9.]+$' .env.local 2>/dev/null || true)
 # Public mode (set by go-public.sh): carried over while .env.local sets it. Still loopback: the tunnel is the only way in.
 PUB=$(grep -E '^(UNDERSIGNED_PUBLIC|TRUST_PROXY|PUBLIC_URL|UNDERSIGNED_CONTACT)=' .env.local 2>/dev/null || true)
-{ [ -n "$RPC" ] && printf 'UNDERSIGNED_RPC="%s"\n' "$RPC"; printf 'UNDERSIGNED_DB="%s"\nPORT=8797\nHOST=127.0.0.1\nJAVA_HOME="%s"\n' "$DEST/undersigned-api.db" "$JAVA_HOME"; [ -n "$TEST" ] && printf '%s\n' "$TEST"; [ -n "$PUB" ] && printf '%s\n' "$PUB"; } > "$DEST/env"
+{ [ -n "$RPC" ] && printf 'UNDERSIGNED_RPC="%s"\n' "$RPC"; printf 'UNDERSIGNED_DB="%s"\nPORT=8817\nHOST=127.0.0.1\nJAVA_HOME="%s"\n' "$DEST/undersigned-api.db" "$JAVA_HOME"; [ -n "$TEST" ] && printf '%s\n' "$TEST"; [ -n "$PUB" ] && printf '%s\n' "$PUB"; } > "$DEST/env"
 chmod 600 "$DEST/env"
 # First install: carry over the database the local test run already built (snapshots, passes).
 [ -f "$DEST/undersigned-api.db" ] || { [ -f data/undersigned-api.db ] && cp data/undersigned-api.db "$DEST/"; } || true
@@ -54,4 +54,4 @@ cat > "$WATCH" <<PL
 </dict></plist>
 PL
 launchctl bootstrap "gui/$(id -u)" "$WATCH"
-echo "Undersigned API: http://127.0.0.1:8797/v1/health  (log: $DEST/api.log)"
+echo "Undersigned API: http://127.0.0.1:8817/v1/health  (log: $DEST/api.log)"

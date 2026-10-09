@@ -19,7 +19,7 @@ Optional: `UNDERSIGNED_KEYPAIR=/path/to/publisher-keypair.json` enables `sign_re
 
 Tools (local desk, 11): `ledger_sync`, `inbox`, `app_reviews`, `profile`, `desk`, `store_reviews`, `star`, `reply_handoff`, `action_handoff`, `sign_reply`, `watch_status`.
 
-API tools (42, `mcp/api.js`): every route of the Undersigned API, on by default against `https://undersigned.provenby.dev`. Set `UNDERSIGNED_API_URL` to point elsewhere (for example `http://127.0.0.1:8797`) or to `off` to leave them out. `UNDERSIGNED_API_KEY` holds a pass or per-call key; `UNDERSIGNED_PRO_WALLET` (else the first of `UNDERSIGNED_WALLETS`) is used for the Pro-wallet AI tools.
+API tools (42, `mcp/api.js`): every route of the Undersigned API, on by default against `https://undersigned.provenby.dev`. Set `UNDERSIGNED_API_URL` to point elsewhere (for example `http://127.0.0.1:8817`) or to `off` to leave them out. `UNDERSIGNED_API_KEY` holds a pass or per-call key; `UNDERSIGNED_PRO_WALLET` (else the first of `UNDERSIGNED_WALLETS`) is used for the Pro-wallet AI tools.
 
 - Apps and reviews: `api_search_apps`, `api_apps_batch`, `api_app`, `api_reviews` (sort newest, helpful, skr, sol), `api_bursts`, `api_summary`, `api_versions`, `api_similar`, `api_store_ratings`.
 - AI reading aids, each labelled a suggestion: `api_translate_record`, `api_translate_text`, `api_translate_reply` (a reply draft into the reviewer's language; never signs), `api_scoring_help`, `api_ask_docs`, `api_digest`.

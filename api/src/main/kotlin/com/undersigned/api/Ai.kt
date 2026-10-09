@@ -20,6 +20,10 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
     init {
         db.exec("CREATE TABLE IF NOT EXISTS ai_cache (kind TEXT NOT NULL, k TEXT NOT NULL, out TEXT NOT NULL, model TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY (kind, k))")
         db.exec("CREATE TABLE IF NOT EXISTS ai_usage (day TEXT PRIMARY KEY, calls INTEGER NOT NULL)")
+        // Tokens per day (10 Oct 2026), so what Claude costs is measured, not estimated.
+        runCatching { db.exec("ALTER TABLE ai_usage ADD COLUMN in_tok INTEGER NOT NULL DEFAULT 0") }
+        runCatching { db.exec("ALTER TABLE ai_usage ADD COLUMN out_tok INTEGER NOT NULL DEFAULT 0") }
+        db.exec("CREATE TABLE IF NOT EXISTS ai_caller (day TEXT NOT NULL, id TEXT NOT NULL, calls INTEGER NOT NULL, PRIMARY KEY (day, id))")
     }
     val enabled: Boolean get() = call != null || !key.isNullOrBlank()
 
@@ -27,8 +31,29 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
     fun callsToday(): Int = db.query("SELECT calls FROM ai_usage WHERE day = ?", today()) { it.getInt(1) }.firstOrNull() ?: 0
 
     /** One completion, or null when disabled, over the daily cap, or the model could not be reached. */
+    /**
+     * Who a fresh Claude answer is for, set per request by the API (owner, 10 Oct 2026: one heavy key must not use up the
+     * day's shared cap). Cached answers and the local model never reach [complete], so they never count. [debit] charges
+     * per-call credits for the answer; background work (the weekly digest, hooks) has no caller and only the global cap.
+     */
+    data class Caller(val id: String, val limit: Int, val debit: (() -> Boolean)? = null)
+    class AllowanceUsed(val caller: Caller, message: String) : RuntimeException(message)
+
+    fun usedToday(id: String): Int = db.query("SELECT calls FROM ai_caller WHERE day = ? AND id = ?", today(), id) { it.getInt(1) }.firstOrNull() ?: 0
+
+    /** Today's measured use: calls, input and output tokens, and their cost at [Config.AI_PRICE_IN] / [Config.AI_PRICE_OUT]. */
+    fun usage(day: String = today()): JSONObject = db.query("SELECT calls, in_tok, out_tok FROM ai_usage WHERE day = ?", day) { rs ->
+        JSONObject().put("day", day).put("calls", rs.getInt(1)).put("input_tokens", rs.getLong(2)).put("output_tokens", rs.getLong(3))
+            .put("usd", Math.round((rs.getLong(2) * Config.AI_PRICE_IN + rs.getLong(3) * Config.AI_PRICE_OUT) / 1e6 * 10_000) / 10_000.0)
+    }.firstOrNull() ?: JSONObject().put("day", day).put("calls", 0).put("input_tokens", 0).put("output_tokens", 0).put("usd", 0.0)
+
     private fun complete(system: String, user: String, maxTokens: Int): String? {
         if (!enabled || callsToday() >= Config.AI_DAILY_CALLS) return null
+        who.get()?.let { c ->
+            if (usedToday(c.id) >= c.limit) throw AllowanceUsed(c, "today's AI allowance for this caller is used (${c.limit} fresh answers a day; cached answers stay free). It resets at 00:00 UTC; per-call credits have no daily limit.")
+            c.debit?.let { if (!it()) throw AllowanceUsed(c, "no calls left on this key for an AI answer (each fresh one uses one extra call)") }
+            db.exec("INSERT INTO ai_caller (day, id, calls) VALUES (?, ?, 1) ON CONFLICT(day, id) DO UPDATE SET calls = calls + 1", today(), c.id)
+        }
         db.exec("INSERT INTO ai_usage (day, calls) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET calls = calls + 1", today())
         call?.let { return it(system, user, maxTokens) }
         return runCatching {
@@ -42,6 +67,7 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
                 c.outputStream.use { it.write(body.toString().toByteArray()) }
                 if (c.responseCode != 200) { log("ai: HTTP ${c.responseCode}"); return@runCatching null }
                 val r = JSONObject(c.inputStream.bufferedReader().use { it.readText() })
+                r.optJSONObject("usage")?.let { u -> db.exec("UPDATE ai_usage SET in_tok = in_tok + ?, out_tok = out_tok + ? WHERE day = ?", u.optLong("input_tokens") + u.optLong("cache_read_input_tokens") + u.optLong("cache_creation_input_tokens"), u.optLong("output_tokens"), today()) }
                 val a = r.optJSONArray("content") ?: return@runCatching null
                 (0 until a.length()).mapNotNull { a.optJSONObject(it)?.takeIf { b -> b.optString("type") == "text" }?.optString("text") }.joinToString("").trim().ifEmpty { null }
             } finally { c.disconnect() }
@@ -194,6 +220,9 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
     }
 
     companion object {
+        /** The caller of the request this thread is serving (see [Caller]); null for background work. */
+        val who = ThreadLocal<Caller?>()
+
         /** One chat completion from the local Ollama server (non-streaming; gemma4 needs think:false). */
         fun ollama(system: String, user: String): String? {
             val c = URI("${Config.OLLAMA_URL}/api/chat").toURL().openConnection() as HttpURLConnection
