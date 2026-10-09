@@ -11,22 +11,21 @@ One line: **the review layer the dApp Store cannot build for itself: one Seeker,
 - **Publisher accountability the store can verify.** A publisher claims an app by signing, and the claim only verifies if the website the *store* lists for that app publishes the wallet. Verified publishers reply on-chain under their wallet.
 - The ask: read the ledger in Guardian curation, and list the app with the SKR-track story. Nothing in the design depends on a yes.
 
-## The handover path (we offer it; we do not compete)
+## How the store can adopt it (we offer it; we do not compete)
 
 1. **Read** — today. The store, Guardians or any tool reads the ledger at one reference address and re-runs the published ranking.
 2. **Adopt** — the publisher proof file (`/.well-known/undersigned.txt`), the Genesis lens on store reviewers, the memo
    format and the ranking rules, in the store's own review flow.
-3. **Take it** — the store's review box signs the same records through MWA, the two ledgers become one, and Solana
-   Mobile takes the code or rebuilds it. Undersigned becomes one reader among many.
+3. **Sign it** — the store's review box signs the same records through MWA and the two ledgers become one.
+   Undersigned stays ours, as one reader and writer among many.
 
-Until then it is an ordinary listed dApp beside the store. We see it as rightfully under Seeker's stewardship:
-optional Pro and API passes pay for hosting, every payment is public on-chain under the `UNS` memo (the economics
-ledger separates it from the rest of the fleet), and what is left after running costs is intended to go back to the
-Seeker community. Never to reviewers or moderators for what they sign: paying for reviews would undo the point.
+Undersigned itself stays ours: an independent, ordinary listed dApp beside the store, paid for by optional Pro and API
+passes (every payment public on-chain under the `UNS` memo). We are happy to contribute to the Seeker community as it
+grows, never by paying reviewers or moderators for what they sign.
 
-What that is worth to a steward ([docs/REVENUE_MODEL.md](REVENUE_MODEL.md), `tools/revenue_model.py`): at today's scale
-and these prices, about US$37,000 over the last 12 months and US$83,000 over the next (mid cases; US$12k–124k across
-cases), against under US$1,000 a year to run. Device and store numbers are measured; adoption rates are stated assumptions.
+The numbers ([docs/REVENUE_MODEL.md](REVENUE_MODEL.md), `tools/revenue_model.py`): under US$1,000 a year to run. Owner
+Pro at 10–20% of the 200,000 Seekers Solana Mobile reports shipped would bring US$133,000–266,000 a year. The historical
+record is far lower: the 63 store treasuries we watch received about US$14,750 between them in the last year.
 
 ## To publishers
 

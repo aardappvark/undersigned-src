@@ -23,7 +23,7 @@ Be plain about the state: all three of the owner's Seekers are operator wallets,
 | 2:05 | Quick review section on an app page, labelled | "Don't want to use a wallet? A quick review is signed by the app instead. It's shown apart and never counted." |
 | 2:15 | Store reviews with the Seeker-owner lens; device facts: certificate matches the store's | "The same lens on the store's own reviews, and facts the phone can prove about the build. Facts, never verdicts." |
 | 2:30 | Payments board: one app's payments over time | "And what each dApp has actually been paid, from treasuries its publisher proved." |
-| 2:42 | Slide or text card: read → adopt → take | "All of it is open. We built it to hand to the dApp Store: read the ledger today, adopt the format, take the code." |
+| 2:42 | Slide or text card: read → adopt → sign | "All of it is open to the dApp Store: read the ledger today, adopt the format, sign the same records from its own review box." |
 | 2:52 | Back to Browse | "One Seeker, one voice. Written to Solana. Readable by anyone. Undersigned." |
 
 Capture: screen-record on the Seeker plus a phone camera for the double-tap. Cuts under two seconds; no music over the voice.

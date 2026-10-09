@@ -1,18 +1,22 @@
-# What the review layer is worth to whoever runs it
+# What the review layer can bring in
 
-Owner's question (10 Oct 2026): if Solana Mobile, or whoever stewards the dApp Store, ran this review layer at
-Undersigned's prices, what could it have brought in over the last year, and what would next year look like?
+Owner's direction (10 Oct 2026): Undersigned stays ours. We are happy to contribute to the community in some way, and
+we keep the financial picture grounded in what has actually been paid on Solana.
 
-**Short answer:** about US$37,000 over the last 12 months (mid case) had it run at today's scale, and about
-US$83,000 over the next 12 months, against running costs under US$1,000 a year. The range runs from US$12,000 to
-US$124,000. The money is modest beside the store; the point is that **the layer pays for itself many times over**,
-so stewardship costs Solana Mobile nothing, and what is left can go back to the Seeker community.
+**Short answer.** At Undersigned's prices, owner Pro alone brings **US$133,000 a year if 10% of the 200,000 Seekers
+Solana Mobile says it has shipped buy it, and US$266,000 at 20%** (the owner's target range). Running costs are under
+US$1,000 a year. History says that range is ambitious: the 63 store treasuries we watch received about US$14,750 between
+them in the last year, and no single one had more than 23 distinct payers. Undersigned's own paid sales so far: none
+(its one Pro licence was a self-paid test). Every number reproduces with `python3 tools/revenue_model.py`.
 
-**What is measured and what is assumed.** Device count, dApp count, store ratings, the rate of new ratings, prices and
-costs are measured (sources below). Every adoption rate is an assumption: Undersigned's only Pro licence so far was paid
-by the operator as a test, so there is no observed rate at all. Freemium software commonly converts low single-digit percentages of
-users [unverified: general industry figure]; the low case is 1%. Reproduce or change any number with
-`python3 tools/revenue_model.py`.
+**Owner Pro alone, per year, by base and share** (0.0607 SOL each)
+
+| Base | 0.1% | 1.0% | 3.0% | 10.0% | 20.0% |
+|---|---:|---:|---:|---:|---:|
+| Genesis Tokens on-chain (121,161) | 121 buyers · $806 | 1,212 buyers · $8,058 | 3,635 buyers · $24,175 | 12,116 buyers · $80,583 | 24,232 buyers · $161,166 |
+| Devices shipped, Solana Mobile's claim (200,000) | 200 buyers · $1,330 | 2,000 buyers · $13,302 | 6,000 buyers · $39,905 | 20,000 buyers · $133,018 | 40,000 buyers · $266,036 |
+
+Historical check: the 63 store treasuries watched received about $14,750 in the last 365 days all together; the best-paid one $3,240; no one wallet had more than 23 distinct payers.
 
 **Last 12 months, had it run at today's scale**
 
@@ -39,34 +43,37 @@ users [unverified: general industry figure]; the low case is 1%. Reproduce or ch
 Running costs a year: about $843 (hosting $85, keyed RPC $588, quick-review fees at the cap $120, AI $50).
 Inputs: 121,161 Genesis Tokens; 1,543 dApps; 478,289 store ratings, 206 new a day (75,109 a year); SOL $109.57; next-year devices 125,242.
 
-## Assumptions per case
+## The two device bases
 
-| | Low | Mid | High |
-|---|---:|---:|---:|
-| Genesis holders buying Pro for a year (0.0607 SOL) | 1% | 3% | 5% |
-| dApps whose publisher lists a treasury and takes Pro (0.0607 SOL each) | 10% | 25% | 50% |
-| New reviews promoted by their own author (0.00607 SOL) | 1% | 2% | 5% |
-| 30-day API passes active each month (0.0607 SOL) | 5 | 20 | 50 |
-| Paid API/MCP calls a year (0.00001 SOL each) | 1M | 5M | 20M |
+- **200,000 devices shipped**: Solana Mobile's own figure (March 2026, "200K+ devices"), not independently confirmed.
+  The right base for **Pro**, which any owner can buy.
+- **121,161 Seeker Genesis Tokens claimed**: read on-chain (`GT22s89nU4iWFkNXj1Bw6uYhJJWDRPpShHt4Bk8f99Te`,
+  `tokenGroup.size`, 10 Oct; 120,915 on 18 Sep). The base for **counted reviews**, which need a Genesis Token.
 
-Next year moves each case one step on (low takes the mid rates, mid the high, high 1.5× the high), with the measured
-device growth (+11 Genesis Tokens a day, 18 Sep → 10 Oct), 20% more dApps and 20% more reviews.
+## Historical record: what Solana dApp treasuries actually received
 
-## Sources (measured 9–10 Oct 2026)
+From the server's payment history (`pay_rows`), last 365 days, payments of at least 0.001 SOL, 1 SKR or 0.10 USDC:
 
-- **121,161 Seeker Genesis Tokens**: the Genesis group's on-chain size (`GT22s89nU4iWFkNXj1Bw6uYhJJWDRPpShHt4Bk8f99Te`,
-  Token-2022 `tokenGroup.size`), 10 Oct; 120,915 on 18 Sep.
-- **1,543 dApps; 478,289 star ratings across 1,475 rated dApps**: the store's public feed, Undersigned's snapshot of 9 Oct.
-- **About 206 new ratings a day**: the same ~1,450 apps, snapshots of 28 Sep and 7 Oct (450,210 → 452,062).
-- **SOL US$109.57**: 9 Oct, from the price history the server keeps.
-- **Prices**: `api/.../Config.kt` and `Indexer.kt`. Costs: Hetzner CX23 US$7.09 a month (the order, 9 Oct); a keyed RPC plan at
-  list price; quick-review fees at the relayer's daily cap (300 × 10,000 lamports, measured per transaction on mainnet);
-  Claude answers at a measured US$0.00003 each, under the daily allowances.
+| | |
+|---|---|
+| Treasuries watched | 63 (14 proven fleet references; 49 wallets found in app code, unconfirmed) |
+| Received, all together | about US$14,750 |
+| Best-paid single wallet | about US$3,240, from 13 distinct payers |
+| Most distinct payers at any one wallet | 23 |
+| The AardAppvark fleet (29 apps) | 81 payments, US$229 (ledger of 4 Oct) |
+
+What it means: paid tiers in the Seeker ecosystem have so far reached tens of payers per app, not thousands. The 10–20%
+scenarios need roughly a thousand times what any watched app has done. They are targets, not forecasts. Big dApps earn
+through swap and trading fees, which this table does not see.
+
+## Upside not priced in
+
+- **More Android phones**: Solana is reaching beyond Seeker (Samsung Wallet adds USDC transfers on Solana for US Galaxy
+  phones from late October 2026). Not priced: those phones cannot sign a counted review today.
+- **Publishers, promotion, API and agents**: the scenario tables above.
 
 ## What it leaves out
 
-- **The bigger value is not cash**: one-device-one-voice reviews, publisher proof, review-burst and no-Genesis-wave
-  signals for Guardian curation and Season integrity. Those protect the store's revenue rather than add to it.
-- **Upside not counted**: the Solana Mobile Stack on other Android phones would grow the device base far beyond +11 a day.
-- **Rule that does not bend with money**: no payment buys weight. Fees pay for running it; the surplus is intended for
-  the Seeker community, never for reviewers or moderators for what they sign.
+- The bigger value is not cash: one-device-one-voice reviews, publisher proof and review-burst signals protect the store.
+- No payment buys weight, whatever the revenue. A contribution to the community, when there is one, is never paid to
+  reviewers or moderators for what they sign.
