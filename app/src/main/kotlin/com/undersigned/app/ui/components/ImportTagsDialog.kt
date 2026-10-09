@@ -36,7 +36,7 @@ fun ImportTagsDialog(vm: MainViewModel) {
                 r.chosen.forEach { (pkg, review) ->
                     Column {
                         Text(catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        Text("★".repeat(review.rating.coerceIn(1, 5)) + "☆".repeat(5 - review.rating.coerceIn(1, 5)) + (vm.importText(review)?.let { " · " + it } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp)
+                        Text("★".repeat(review.rating.coerceIn(1, 5)) + "☆".repeat(5 - review.rating.coerceIn(1, 5)) + (vm.importText(review)?.let { " · " + it.take(300) + if (it.length > 300) "…" else "" } ?: ""), color = RbColors.textTertiary, fontSize = 11.sp)
                         Spacer(Modifier.height(6.dp))
                         TagPicker(tags[pkg] ?: emptyList()) { tags[pkg] = it }
                     }

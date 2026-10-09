@@ -68,7 +68,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         // the place of a reply alert posted on 17 Sep, both under id 1000. A stable id also makes re-posting the
         // same record idempotent instead of stacking duplicates.
         var posted = 0
-        fun post(key: String, title: String, body: String, pkg: String) { if (notify(ctx, key, title, body, pkg)) posted++ }
+        fun post(kind: NotifKind, key: String, title: String, body: String, pkg: String) { if (UserPreferences.notifOn(kind.key) && notify(ctx, key, title, body, pkg)) posted++ }
         val follows = UserPreferences.follows.value
         val me = UserPreferences.walletAddress.value
         Log.i(TAG, "following ${follows.size}, wallet ${if (me == null) "none" else "connected"}")
@@ -78,7 +78,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             val w = me ?: return@runCatching
             val pro = com.undersigned.app.solana.ProLicence.of(after, cache.loadMeta(), w, UserPreferences.granters.value)
             val week = isoWeek()
-            if (pro?.active == true && UserPreferences.digestWeek != week) {
+            if (pro?.active == true && UserPreferences.digestWeek != week && UserPreferences.notifOn(NotifKind.DIGEST.key)) {
                 val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}/v1/digest?wallet=$w").openConnection() as java.net.HttpURLConnection
                 val text = try {
                     c.connectTimeout = 10_000; c.readTimeout = 90_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
@@ -95,7 +95,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             val reviewedByMe = after.filter { it.signer == me && it.memo is ReviewMemo.Review }.map { (it.memo as ReviewMemo.Review).packageName }.toSet()
             val updated = InstalledApps(ctx).refreshSnapshot(names.keys).filter { it.versionChanged && (it.packageName in follows || it.packageName in reviewedByMe) }
             Log.i(TAG, "update prompts: ${updated.size}")
-            updated.forEach { c -> post("upd:${c.packageName}:${c.versionCode}", ctx.getString(R.string.notif_update_title, names[c.packageName] ?: c.packageName, c.versionCode), ctx.getString(R.string.notif_update_body), c.packageName) }
+            updated.forEach { c -> post(NotifKind.UPDATES, "upd:${c.packageName}:${c.versionCode}", ctx.getString(R.string.notif_update_title, names[c.packageName] ?: c.packageName, c.versionCode), ctx.getString(R.string.notif_update_body), c.packageName) }
         }.onFailure { Log.w(TAG, "update-prompt pass failed: ${it.message?.take(80)}") }
         // (b) Signed vs store divergence and store review waves, for followed apps only (bounded RPC use).
         runCatching {
@@ -107,7 +107,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                 val sc = scores[pkg]; val sr = store.rating(pkg)
                 Log.i(TAG, "check $pkg: signed=${sc?.countedReviews ?: 0} store=${sr?.total ?: 0}")
                 if (sc != null && sr != null && sc.countedReviews >= 3 && sr.total >= 3 && kotlin.math.abs(sc.weightedMean - sr.average) >= 1.5 && UserPreferences.markDivergence(pkg, sc.weightedMean, sr.average))
-                    post("div:$pkg", ctx.getString(R.string.notif_divergence_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_divergence_body, String.format(java.util.Locale.US, "%.1f", sc.weightedMean), sc.countedReviews, String.format(java.util.Locale.US, "%.1f", sr.average), sr.total), pkg)
+                    post(NotifKind.SCORE, "div:$pkg", ctx.getString(R.string.notif_divergence_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_divergence_body, String.format(java.util.Locale.US, "%.1f", sc.weightedMean), sc.countedReviews, String.format(java.util.Locale.US, "%.1f", sr.average), sr.total), pkg)
                 // Review bursts (see protocol ReviewBursts), from the listed reviews and from this device's snapshots of the
                 // star counts. This replaced the 24-hour "wave" rule (5+ reviews, 3+ unattested), which fired on any busy
                 // day and could not see a campaign by attested wallets — CrushCoin's was 67 of 67 attested (27 Sep 2026).
@@ -131,7 +131,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                     val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
                     val res = when { fromRatings && b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high_ratings; fromRatings -> R.string.burst_low_ratings
                         b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high; else -> R.string.burst_low }
-                    post(key, ctx.getString(R.string.notif_burst_title, names[pkg] ?: pkg), ctx.getString(res, b.count, df.format(java.util.Date(b.start * 1000)), df.format(java.util.Date(b.end * 1000)), pace), pkg)
+                    post(NotifKind.FOLLOWED, key, ctx.getString(R.string.notif_burst_title, names[pkg] ?: pkg), ctx.getString(res, b.count, df.format(java.util.Date(b.start * 1000)), df.format(java.util.Date(b.end * 1000)), pace), pkg)
                 }
                 kotlinx.coroutines.delay(1000)
             }
@@ -151,21 +151,44 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         // My own store reviews (from the last scan), by store review id → package: a publisher's signed note on one is news.
         val myStoreIds = me?.let { w -> UserPreferences.loadMyStoreReviews(w)?.first?.entries?.associate { it.value.id to it.key } } ?: emptyMap()
         val verified = UserPreferences.loadVerifiedPublishers()
+        val myApps = me?.let { w -> verified.filterValues { w in it }.keys } ?: emptySet()
         for (e in fresh) {
             when (val m = e.memo) {
                 // Someone flagged one of my records: say which and why, so I can answer with a dispute if I disagree.
                 is ReviewMemo.Flag -> mineAny[m.recordId]?.let { mine -> if (e.signer != me) {
                     val pkg = (mine.memo as? ReviewMemo.Review)?.packageName
-                    post("flg:${e.signature}", ctx.getString(R.string.notif_flagged_title, pkg?.let { names[it] ?: it } ?: ""), ctx.getString(R.string.notif_flagged_body, flagReason(ctx, m.reason)), pkg ?: "")
+                    post(NotifKind.FLAG, "flg:${e.signature}", ctx.getString(R.string.notif_flagged_title, pkg?.let { names[it] ?: it } ?: ""), ctx.getString(R.string.notif_flagged_body, flagReason(ctx, m.reason)), pkg ?: "")
                 } }
                 // A publisher's signed note under MY store review (only verified publishers' notes count, as on the app page).
                 is ReviewMemo.StoreNote -> myStoreIds[m.reviewId]?.takeIf { it == m.packageName && verified[it]?.contains(e.signer) == true }?.let { pkg ->
-                    post("snt:${e.signature}", ctx.getString(R.string.notif_note_title, names[pkg] ?: pkg), m.text, pkg) }
-                is ReviewMemo.Review -> if (m.packageName in follows && e.signer != me)
-                    post("rev:${e.signature}", ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { with(com.undersigned.app.ui.components.TagLabels) { ctx.label(it.wire) } }), m.packageName)
-                is ReviewMemo.Reply -> mineBySig[m.reviewSignature]?.let { mine ->
-                    if (e.signer != me) { val pkg = (mine.memo as ReviewMemo.Review).packageName; post("rep:${e.signature}", ctx.getString(R.string.notif_reply_title, names[pkg] ?: pkg), m.text, pkg) }
+                    post(NotifKind.NOTE, "snt:${e.signature}", ctx.getString(R.string.notif_note_title, names[pkg] ?: pkg), m.text, pkg) }
+                is ReviewMemo.Review -> if (e.signer != me && (m.packageName in follows || m.packageName in myApps))
+                    post(if (m.packageName in myApps) NotifKind.PUB_REVIEW else NotifKind.FOLLOWED, "rev:${e.signature}", ctx.getString(R.string.notif_new_review_title, names[m.packageName] ?: m.packageName), ctx.getString(R.string.notif_new_review_body, m.rating, m.tags.joinToString(", ") { with(com.undersigned.app.ui.components.TagLabels) { ctx.label(it.wire) } }), m.packageName)
+                is ReviewMemo.Reply -> (mineBySig[m.reviewSignature] ?: run {
+                    // A reply in a thread on one of MY apps from someone other than me: the reviewer answering back.
+                    val target = after.firstOrNull { it.signature == m.reviewSignature }; val tpkg = (target?.memo as? ReviewMemo.Review)?.packageName
+                    if (tpkg != null && tpkg in myApps && e.signer != me && verified[tpkg]?.contains(e.signer) != true)
+                        post(NotifKind.PUB_REPLY, "prp:${e.signature}", ctx.getString(R.string.notif_pub_reply_title, names[tpkg] ?: tpkg), m.text, tpkg)
+                    null
+                })?.let { mine ->
+                    if (e.signer != me) { val pkg = (mine.memo as ReviewMemo.Review).packageName; post(NotifKind.REPLY, "rep:${e.signature}", ctx.getString(R.string.notif_reply_title, names[pkg] ?: pkg), m.text, pkg) }
                 }
+                // The publisher says what my review raised is fixed: tap opens the app page, where "Follow up" waits.
+                is ReviewMemo.Fixed -> mineBySig[m.reviewSignature]?.let { mine ->
+                    val pkg = (mine.memo as ReviewMemo.Review).packageName
+                    if (e.signer != me && verified[pkg]?.contains(e.signer) == true)
+                        post(NotifKind.FIXED, "fix:${e.signature}", ctx.getString(R.string.notif_fixed_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_fixed_body, m.versionCode.toString()) + (m.text?.let { " “$it”" } ?: ""), pkg)
+                }
+                // A reviewer followed up on one of MY apps (usually after my fix).
+                is ReviewMemo.FollowUp -> if (e.signer != me) after.firstOrNull { it.signature == m.originalSignature }?.let { orig ->
+                    val pkg = (orig.memo as? ReviewMemo.Review)?.packageName
+                    if (pkg != null && pkg in myApps) post(NotifKind.PUB_FOLLOWUP, "fup:${e.signature}", ctx.getString(R.string.notif_followup_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_followup_body), pkg)
+                }
+                // Someone found my review helpful.
+                is ReviewMemo.Upvote -> mineBySig[m.recordId]?.let { mine -> if (e.signer != me) {
+                    val pkg = (mine.memo as ReviewMemo.Review).packageName
+                    post(NotifKind.HELPFUL, "up:${e.signature}", ctx.getString(R.string.notif_helpful_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_helpful_body), pkg)
+                } }
                 else -> {}
             }
         }
@@ -174,7 +197,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         runCatching {
             val proven = me?.let { w -> verified.filterValues { w in it }.keys } ?: emptySet()
             val told = UserPreferences.provenNotified
-            (proven - told).forEach { pkg -> post("prv:$pkg:$me", ctx.getString(R.string.notif_proven_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_proven_body), pkg) }
+            (proven - told).forEach { pkg -> post(NotifKind.PROVEN, "prv:$pkg:$me", ctx.getString(R.string.notif_proven_title, names[pkg] ?: pkg), ctx.getString(R.string.notif_proven_body), pkg) }
             UserPreferences.provenNotified = told + proven
         }
         // A term bought or run out since the last schedule changes the cadence; re-evaluate without a run-now.

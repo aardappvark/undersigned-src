@@ -63,6 +63,22 @@ sealed class ReviewMemo {
     data class Revocation(val reviewSignature: String) : ReviewMemo()
 
     data class Reply(val reviewSignature: String, val text: String) : ReviewMemo()
+    /**
+     * `SRL1|fix|<review>|<versionCode>|<base64url text or empty>` (owner, 10 Oct 2026: "when a problem is fixed, they should
+     * be able to let the reviewer know"): the app's publisher says what the review raised is fixed in that version. Counts
+     * only from a verified publisher of the reviewed app, signed after the review ([Threads]).
+     */
+    data class Fixed(val reviewSignature: String, val versionCode: Long, val text: String?) : ReviewMemo()
+    /**
+     * `SRL1|fup|<original review>`: rides beside a review in the SAME transaction and marks it as the signer's follow-up to
+     * their own earlier review of the same app (a second round, usually after a fix). The new review counts as their
+     * current one, as any newer review does; the pair shows first and second stars and the change ([Threads]).
+     */
+    data class FollowUp(val originalSignature: String) : ReviewMemo()
+    /** `SRL1|lng|<tag>|<parts>|<hash>`: rides beside a review; its full text is in [parts] [TextPart]s with [tag] (see [LongText]). */
+    data class LongTextHead(val tag: String, val parts: Int, val hash: String) : ReviewMemo()
+    /** `SRL1|txt|<tag>|<index>|<base64url>`: one piece of a long review text, by the review's own signer. */
+    data class TextPart(val tag: String, val index: Int, val chunk: String) : ReviewMemo()
 
     data class Claim(val packageName: String) : ReviewMemo()
 
@@ -184,6 +200,18 @@ sealed class ReviewMemo {
             is Unmoderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|umd|${m.recordId}" }
             is TreasuryFor -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; require(Payments.isReference(m.treasury)) { "treasury address" }; "${Registry.PROTOCOL}|trd|${m.packageName}|${m.code}|${m.treasury}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
+            is Fixed -> {
+                require(SIGNATURE.matches(m.reviewSignature) && m.versionCode in 1..Int.MAX_VALUE.toLong()) { "fix" }
+                val t = m.text?.trim()?.takeIf { it.isNotEmpty() }
+                if (t != null) require(t.length <= MAX_TEXT_CHARS && t.toByteArray(StandardCharsets.UTF_8).size <= MAX_TEXT_BYTES && t.none { it == '\n' || it == '\r' }) { "fix text" }
+                "${Registry.PROTOCOL}|fix|${m.reviewSignature}|${m.versionCode}|" + (t?.let { Base64.getUrlEncoder().withoutPadding().encodeToString(it.toByteArray(StandardCharsets.UTF_8)) } ?: "")
+            }
+            is LongTextHead -> { require(LongText.TAG.matches(m.tag) && LongText.TAG.matches(m.hash) && m.parts in 1..LongText.MAX_PARTS) { "long text" }; "${Registry.PROTOCOL}|lng|${m.tag}|${m.parts}|${m.hash}" }
+            is TextPart -> {
+                require(LongText.TAG.matches(m.tag) && m.index in 0 until LongText.MAX_PARTS && m.chunk.toByteArray(StandardCharsets.UTF_8).size in 1..LongText.CHUNK_BYTES) { "text part" }
+                "${Registry.PROTOCOL}|txt|${m.tag}|${m.index}|" + Base64.getUrlEncoder().withoutPadding().encodeToString(m.chunk.toByteArray(StandardCharsets.UTF_8))
+            }
+            is FollowUp -> { require(SIGNATURE.matches(m.originalSignature)) { "signature" }; "${Registry.PROTOCOL}|fup|${m.originalSignature}" }
             is Reply -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "signature" }
                 val text = m.text.trim()
@@ -246,6 +274,21 @@ sealed class ReviewMemo {
                 "umd" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unmoderate(f[2]) else null
                 "trd" -> if (f.size == 5 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3]) && Payments.isReference(f[4])) TreasuryFor(f[2], f[3], f[4]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null
+                "fix" -> {
+                    if (f.size != 5 || !SIGNATURE.matches(f[2])) return null
+                    val vc = f[3].toLongOrNull()?.takeIf { it in 1..Int.MAX_VALUE.toLong() } ?: return null
+                    val t = if (f[4].isEmpty()) null else runCatching { Base64.getUrlDecoder().decode(f[4]) }.getOrNull()?.takeIf { it.size <= MAX_TEXT_BYTES }
+                        ?.let { String(it, StandardCharsets.UTF_8) }?.takeIf { it.isNotBlank() && it.length <= MAX_TEXT_CHARS && it.none { c -> c == '\n' || c == '\r' } } ?: if (f[4].isEmpty()) null else return null
+                    Fixed(f[2], vc, t)
+                }
+                "lng" -> if (f.size == 5 && LongText.TAG.matches(f[2]) && LongText.TAG.matches(f[4])) f[3].toIntOrNull()?.takeIf { it in 1..LongText.MAX_PARTS }?.let { LongTextHead(f[2], it, f[4]) } else null
+                "txt" -> {
+                    if (f.size != 5 || !LongText.TAG.matches(f[2])) return null
+                    val i = f[3].toIntOrNull()?.takeIf { it in 0 until LongText.MAX_PARTS } ?: return null
+                    val bytes = runCatching { Base64.getUrlDecoder().decode(f[4]) }.getOrNull()?.takeIf { it.size in 1..LongText.CHUNK_BYTES } ?: return null
+                    TextPart(f[2], i, String(bytes, StandardCharsets.UTF_8))
+                }
+                "fup" -> if (f.size == 3 && SIGNATURE.matches(f[2])) FollowUp(f[2]) else null
                 "rep" -> {
                     if (f.size != 4 || !SIGNATURE.matches(f[2]) || f[3].isEmpty()) return null
                     val text = Base64.getUrlDecoder().decode(f[3]).takeIf { it.size <= MAX_TEXT_BYTES }?.let { String(it, StandardCharsets.UTF_8) }

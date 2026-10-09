@@ -282,6 +282,21 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                     Switch(checked = alerts, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
+                // Each kind of alert on its own switch (owner, 10 Oct 2026), as a reviewer and as a publisher.
+                if (alerts) {
+                    LaunchedEffect(Unit) { UserPreferences.loadNotifOff() }
+                    val off by UserPreferences.notifOff.collectAsState()
+                    listOf(false to R.string.notif_group_reviewer, true to R.string.notif_group_publisher).forEach { (pub, title) ->
+                        Text(stringResource(title).uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 12.dp, bottom = 2.dp))
+                        com.undersigned.app.notify.NotifKind.entries.filter { it.publisher == pub }.forEach { k ->
+                            val on = k.key !in off
+                            Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(value = on, role = androidx.compose.ui.semantics.Role.Switch) { UserPreferences.setNotif(k.key, it) }, verticalAlignment = Alignment.CenterVertically) {
+                                Text(stringResource(k.label), color = RbColors.textSecondary, fontSize = 13.sp, modifier = Modifier.weight(1f))
+                                Switch(checked = on, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                            }
+                        }
+                    }
+                }
             }
 
             // The weekly reminder: one notification a week at most, off by default, naming how many apps here are unreviewed.

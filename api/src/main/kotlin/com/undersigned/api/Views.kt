@@ -64,7 +64,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     fun record(e: LedgerEntry, st: State = indexer.state): JSONObject {
         val o = JSONObject().put("id", e.signature).put("transaction", e.signature.substringBefore(':')).put("signer", e.signer).put("time", e.blockTime).put("type", type(e.memo))
         when (val m = e.memo) {
-            is ReviewMemo.Review -> o.put("package", m.packageName).put("rating", m.rating).put("tags", JSONArray(m.tags.map { it.wire })).put("version", m.versionCode).put("text", m.text ?: JSONObject.NULL)
+            is ReviewMemo.Review -> o.put("package", m.packageName).put("rating", m.rating).put("tags", JSONArray(m.tags.map { it.wire })).put("version", m.versionCode).put("text", st.longTexts[e.signature] ?: m.text ?: JSONObject.NULL).apply { if (st.longTexts.containsKey(e.signature)) put("text_preview", m.text).put("long_text", true) }
             is ReviewMemo.Revocation -> o.put("target", m.reviewSignature)
             is ReviewMemo.Reply -> o.put("target", m.reviewSignature).put("text", m.text)
             is ReviewMemo.Claim -> o.put("package", m.packageName)
@@ -212,6 +212,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("claims", JSONArray(st.entries.filter { (it.memo as? ReviewMemo.Claim)?.packageName == pkg }.map { c -> JSONObject().put("wallet", c.signer).put("time", c.blockTime)
                 .put("verified", c.signer in vp).put("proof", if (c.signer in vp) st.proofHow[pkg to c.signer] ?: "same_website" else JSONObject.NULL).put("proof_first_seen", st.proofSince[pkg to c.signer] ?: JSONObject.NULL) }))
             .put("verified_wallets", JSONArray(vp.toList()))
+            .put("fixes", com.undersigned.protocol.Threads.stats(st.entries, pkg, st.verified).let { f -> JSONObject().put("announced", f.fixes).put("follow_ups_after_fix", f.followUpsAfterFix)
+                .put("mean_star_change_after_fix", f.meanDelta?.let { Math.round(it * 100) / 100.0 } ?: JSONObject.NULL).put("median_hours_to_fix", f.medianHoursToFix?.let { Math.round(it * 10) / 10.0 } ?: JSONObject.NULL) })
             .put("responsiveness", Reputation.responsiveness(st.entries, pkg, vp).let { r -> JSONObject().put("answered", r.answered).put("total", r.total).put("median_hours", r.medianHours?.let(::r2) ?: JSONObject.NULL) })
             .put("store_notes", JSONArray(st.notes.filter { it.key.first == pkg }.values.map { n -> val m = n.memo as ReviewMemo.StoreNote
                 JSONObject().put("store_review", m.reviewId).put("wallet", n.signer).put("time", n.blockTime).put("text", if (n.signature in st.operatorHidden) JSONObject.NULL else m.text).put("hidden_by_operator", n.signature in st.operatorHidden) })))
@@ -251,6 +253,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("related", when { com.undersigned.protocol.Operator.isOperator(e.signer) -> "operator"; st.weighting.parts(e).gifted -> "pro_from_publisher"; else -> JSONObject.NULL })
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("install_age", st.usage[e.signature]?.wire ?: JSONObject.NULL).put("usage_time", st.useTimes[e.signature]?.wire ?: JSONObject.NULL)
+                .put("fixed", st.fixes[e.signature]?.let { f -> JSONObject().put("version_code", f.versionCode).put("note", f.text ?: JSONObject.NULL).put("by", f.entry.signer).put("record", f.entry.signature).put("time", f.entry.blockTime) } ?: JSONObject.NULL)
+                .put("follow_up_of", st.rounds[e.signature]?.let { rd -> JSONObject().put("original", rd.original.signature).put("stars_before", rd.before).put("stars_after", rd.after).put("change", rd.delta).put("after_fix_version", rd.fix?.versionCode ?: JSONObject.NULL) } ?: JSONObject.NULL)
                 .put("activity", st.activity[e.signature]?.let { a -> JSONObject().put("months_active_of_6", a.monthsActive).put("last_used", a.recency.name.lowercase()).put("reinstalls", a.reinstalls) } ?: JSONObject.NULL)
                 .put("season", Seasons.at(e.blockTime)?.let { JSONObject().put("id", it.id).put("label", it.label) } ?: JSONObject.NULL)
                 .put("paid_for_app", e.signer in paid)

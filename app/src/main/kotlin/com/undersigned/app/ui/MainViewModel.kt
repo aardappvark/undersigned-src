@@ -258,6 +258,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, verifiedPublishers.value)
         useTimes.value = com.undersigned.protocol.Usage.time(list)
         useActivity.value = com.undersigned.protocol.Usage.activity(list)
+        fixes.value = com.undersigned.protocol.Threads.fixes(list, verifiedPublishers.value)
+        rounds.value = com.undersigned.protocol.Threads.rounds(list, verifiedPublishers.value)
+        longTexts.value = com.undersigned.protocol.LongText.assemble(list)
         recomputePro()
         verifyClaims(list)
     }
@@ -500,6 +503,22 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     fun reinstalls(pkg: String): Int = installedApps.presence(pkg)?.second ?: 0
     val useTimes = MutableStateFlow<Map<String, com.undersigned.protocol.UseTime>>(emptyMap())
+    /** Review id → its full long text, where every piece is on the ledger and checks out (protocol LongText). */
+    val longTexts = MutableStateFlow<Map<String, String>>(emptyMap())
+    /** A review's text as readers should see it: the full long text when assembled, else the review's own (preview) text. */
+    fun fullText(e: LedgerEntry): String? = longTexts.value[e.signature] ?: (e.memo as? ReviewMemo.Review)?.text
+    fun myReviewText(pkg: String): String? = myReview(pkg)?.let { fullText(it) }
+
+    /** Review id → the publisher's latest valid "fixed in version X" on it (protocol Threads). */
+    val fixes = MutableStateFlow<Map<String, com.undersigned.protocol.Threads.Fix>>(emptyMap())
+    /** Follow-up review id → its round: the original, the fix it answers, first and second stars. */
+    val rounds = MutableStateFlow<Map<String, com.undersigned.protocol.Threads.Round>>(emptyMap())
+    fun fixStats(pkg: String) = com.undersigned.protocol.Threads.stats(entries.value, pkg, verifiedPublishers.value)
+    /** Whether [reviewId] already has a follow-up from its author. */
+    fun followedUp(reviewId: String): Boolean = rounds.value.values.any { it.original.signature == reviewId }
+    /** The version a publisher most likely fixed in: what the store serves now, else what this phone has. */
+    fun currentVersion(pkg: String): Long? = storeDetails.value[pkg]?.versionCode?.takeIf { it > 0 } ?: installedApps.facts(pkg)?.versionCode
+
     /** Review record id → the activity its own transaction reported (see protocol ReviewMemo.Activity). */
     val useActivity = MutableStateFlow<Map<String, ReviewMemo.Activity>>(emptyMap())
     /** What this phone can say about how [pkg] was used: months of the last six, last use, reinstalls seen. Null without usage access or when not installed. */
@@ -516,11 +535,37 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      * the pair would not fit one transaction the review goes alone: a `use` record in another transaction would attach
      * to nothing.
      */
-    fun publishReview(sender: ActivityResultSender, memo: ReviewMemo.Review, use: com.undersigned.protocol.UseBucket?, time: com.undersigned.protocol.UseTime? = null, activity: ReviewMemo.Activity? = null, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+    fun publishReview(sender: ActivityResultSender, memo: ReviewMemo.Review, use: com.undersigned.protocol.UseBucket?, time: com.undersigned.protocol.UseTime? = null, activity: ReviewMemo.Activity? = null, followUpOf: String? = null, longText: String? = null, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
-        val extras = listOfNotNull(use?.let { ReviewMemo.Use(memo.packageName, it) }, time?.let { ReviewMemo.Time(memo.packageName, it) }, activity?.takeIf { it.packageName == memo.packageName })
+        // The follow-up link first: when the extras do not all fit one transaction they are dropped from the end, and a
+        // follow-up must never lose the record that makes it one.
+        val extras = listOfNotNull(followUpOf?.let { ReviewMemo.FollowUp(it) }, use?.let { ReviewMemo.Use(memo.packageName, it) }, time?.let { ReviewMemo.Time(memo.packageName, it) }, activity?.takeIf { it.packageName == memo.packageName })
         val signer = com.undersigned.app.util.Base58.decode(w)
+        // Long text: the review, its head record and the follow-up link in one transaction (other extras as room allows),
+        // then the pieces; all signed in ONE wallet approval.
+        longText?.let { lt -> com.undersigned.protocol.LongText.records(lt, java.util.UUID.randomUUID().toString().replace("-", "").take(16)) }?.let { (head, parts) ->
+            val first = runCatching { (listOf<ReviewMemo>(memo, head) + extras).map { ReviewMemo.encode(it) } }.getOrElse { return onResult(Result.failure(it)) }
+            var group0 = first
+            while (group0.size > 2 && com.undersigned.app.solana.TxBuilder.chunkForBatches(signer, group0).size != 1) group0 = group0.dropLast(1)
+            val groups = listOf(group0) + parts.map { listOf(ReviewMemo.encode(it)) }
+            viewModelScope.launch {
+                if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
+                val chunks = com.undersigned.app.solana.TxBuilder.chunkGroups(signer, groups)
+                val r = txService.publishChunks(adapter, sender, w, chunks, onStage)
+                r.onSuccess { sigs ->
+                    UserPreferences.follow(memo.packageName)
+                    val now = System.currentTimeMillis() / 1000
+                    val fresh = ArrayList<LedgerEntry>()
+                    sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
+                    entries.value = (fresh + entries.value).distinctBy { it.signature }
+                    ledgerCache.save(entries.value)
+                    launch(Dispatchers.IO) { rank() }
+                }
+                onResult(r.map { s -> s.first().first })
+            }
+            return
+        }
         // The review and its extras must share ONE transaction; drop extras from the end until they fit.
         var texts = runCatching { (listOf<ReviewMemo>(memo) + extras).map { ReviewMemo.encode(it) } }.getOrElse { return onResult(Result.failure(it)) }
         while (texts.size > 1 && com.undersigned.app.solana.TxBuilder.chunkForBatches(signer, texts).size != 1) texts = texts.dropLast(1)
@@ -906,8 +951,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** A store review's text exactly as an import signs it: one line, no '|', at most 140 characters and 280 bytes. */
-    fun importText(r: StoreReview): String? = r.text?.take(ReviewMemo.MAX_TEXT_CHARS)?.replace('|', '/')?.replace('\n', ' ')
-        ?.let { t -> var x = t; while (x.toByteArray().size > ReviewMemo.MAX_TEXT_BYTES) x = x.dropLast(1); x.trim().ifEmpty { null } }
+    /** A store review's text exactly as an import signs it: the whole text (up to 2,000 characters, long text on-chain). */
+    fun importText(r: StoreReview): String? = r.text?.let { com.undersigned.protocol.LongText.clean(it) }?.ifEmpty { null }
 
     /**
      * Signs the chosen store reviews in ONE wallet approval (import review, 10 Oct 2026: the screens imported one at a time,
@@ -920,9 +965,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (chosen.any { tags[it.first].isNullOrEmpty() }) return onResult(Result.failure(Exception("Choose tags for every review first")))
         val groups = runCatching { chosen.map { (pkg, r) ->
             val version = installedApps.facts(pkg)?.versionCode ?: storeDetails.value[pkg]?.versionCode?.takeIf { it > 0 } ?: 1L
-            listOfNotNull<ReviewMemo>(ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), tags.getValue(pkg).take(ReviewMemo.MAX_TAGS), version, importText(r)),
-                installAge(pkg)?.let { ReviewMemo.Use(pkg, it) }, useTime(pkg)?.let { ReviewMemo.Time(pkg, it) }, activity(pkg)).map { ReviewMemo.encode(it) }
-        } }.getOrElse { return onResult(Result.failure(it)) }
+            val full = importText(r)
+            val long = full?.let { com.undersigned.protocol.LongText.records(it, java.util.UUID.randomUUID().toString().replace("-", "").take(16)) }
+            val head = listOfNotNull<ReviewMemo>(ReviewMemo.Review(pkg, r.rating.coerceIn(1, 5), tags.getValue(pkg).take(ReviewMemo.MAX_TAGS), version, full?.let { com.undersigned.protocol.LongText.preview(it) }),
+                long?.first, installAge(pkg)?.let { ReviewMemo.Use(pkg, it) }, useTime(pkg)?.let { ReviewMemo.Time(pkg, it) }, activity(pkg)).map { ReviewMemo.encode(it) }
+            // The review and its head record must share a transaction; the phone facts ride along when there is room.
+            val signerKey = com.undersigned.app.util.Base58.decode(w)
+            var g0 = head; while (g0.size > (if (long != null) 2 else 1) && com.undersigned.app.solana.TxBuilder.chunkForBatches(signerKey, g0).size != 1) g0 = g0.dropLast(1)
+            listOf(g0) + (long?.second?.map { listOf(ReviewMemo.encode(it)) } ?: emptyList())
+        }.flatten() }.getOrElse { return onResult(Result.failure(it)) }
         viewModelScope.launch {
             if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
             val chunks = com.undersigned.app.solana.TxBuilder.chunkGroups(com.undersigned.app.util.Base58.decode(w), groups)
@@ -1175,9 +1226,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.Activity -> "activity"; is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
-        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Boost -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
-        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.Activity -> "m${m.monthsActive} ${m.recency.wire} i${m.reinstalls}"; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
+        fun kind(m: ReviewMemo) = when (m) { is ReviewMemo.LongTextHead -> "long-text"; is ReviewMemo.TextPart -> "text-part"; is ReviewMemo.Fixed -> "fixed"; is ReviewMemo.FollowUp -> "follow-up"; is ReviewMemo.Activity -> "activity"; is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
+        fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Fixed -> m.reviewSignature; is ReviewMemo.FollowUp -> m.originalSignature; is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Boost -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
+        fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.Activity -> "m${m.monthsActive} ${m.recency.wire} i${m.reinstalls}"; is ReviewMemo.Fixed -> "v${m.versionCode}" + (m.text?.let { " $it" } ?: ""); is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
         fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.Activity -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }
         val rows = entries.value.sortedBy { it.blockTime }
         val iso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }

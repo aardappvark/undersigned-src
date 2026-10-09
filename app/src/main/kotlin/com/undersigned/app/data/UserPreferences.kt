@@ -267,6 +267,16 @@ object UserPreferences {
         get() = prefs?.getString(KEY_CHANGES, null)
         set(v) { prefs?.edit()?.putString(KEY_CHANGES, v)?.apply() }
     /** The one-time "hear when the scan is done" sheet (design F8) has been shown. */
+    /** Alert kinds switched off in Settings (NotifKind keys); every kind is on until switched off. */
+    val notifOff = kotlinx.coroutines.flow.MutableStateFlow<Set<String>>(emptySet())
+    fun notifOn(key: String): Boolean = key !in (prefs?.getStringSet("notif_off", emptySet()) ?: emptySet())
+    fun setNotif(key: String, on: Boolean) {
+        val cur = (prefs?.getStringSet("notif_off", emptySet()) ?: emptySet()).toMutableSet()
+        if (on) cur.remove(key) else cur.add(key)
+        prefs?.edit()?.putStringSet("notif_off", cur)?.apply(); notifOff.value = cur
+    }
+    fun loadNotifOff() { notifOff.value = prefs?.getStringSet("notif_off", emptySet()) ?: emptySet() }
+
     /** The Browse card offering to find the owner's dApp Store reviews was dismissed (or used). */
     var importPromptDone: Boolean
         get() = prefs?.getBoolean("import_prompt_done", false) ?: true

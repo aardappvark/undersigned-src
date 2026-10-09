@@ -57,7 +57,7 @@ import java.util.Date
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onPro: () -> Unit = {}) {
+fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onPro: () -> Unit = {}, onFollowUp: (String) -> Unit = {}) {
     val context = LocalContext.current
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
@@ -119,6 +119,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var modTarget by remember { mutableStateOf<String?>(null) }
     var revealed by remember { mutableStateOf<Set<String>>(emptySet()) }
     var flagTarget by remember { mutableStateOf<String?>(null) }
+    // The second round (owner, 10 Oct 2026): fix notices and follow-ups.
+    val fixes by vm.fixes.collectAsState()
+    val rounds by vm.rounds.collectAsState()
+    var fixTarget by remember { mutableStateOf<String?>(null) }
     var flagStage by remember { mutableStateOf<String?>(null) }
     var fromLink by remember { mutableStateOf(false) }
     val pendingReply by com.undersigned.app.ui.NavIntents.pendingReply.collectAsState()
@@ -405,11 +409,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     // A note from a wallet that is not counted stays folded until asked for: anyone can sign text for one network
                     // fee, and an uncounted wallet's words should not sit on an app's page by default.
                     modHidden[e.signature]?.let { reason -> Spacer(Modifier.height(6.dp)); ModHiddenText(reason, 13) }
-                    r.text?.takeIf { e.signature !in modHidden }?.let { note ->
+                    vm.fullText(e)?.takeIf { e.signature !in modHidden }?.let { note ->
                         // Keyed on whether the wallet counts too: the Genesis check often lands after the first draw, and a fold decided then stuck.
                         var shown by remember(e.signature, w.device > 0) { mutableStateOf(w.device > 0) }
                         Spacer(Modifier.height(6.dp))
-                        if (shown) Text(note, color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
+                        // A long review opens at its first ~600 characters.
+                        var whole by remember(e.signature) { mutableStateOf(note.length <= 700) }
+                        if (shown) { Text(if (whole) note else note.take(600).trimEnd() + "…", color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp)
+                            if (!whole) Text(stringResource(R.string.show_more), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { whole = true }.padding(vertical = 14.dp)) }
                         else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
                         // A suggested translation, Pro (owner, 9 Oct 2026): labelled as AI, the author's own words stay above it.
                         if (shown) {
@@ -439,6 +446,21 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             similarText?.let { pushStyle(androidx.compose.ui.text.SpanStyle(color = RbColors.warning)); append(it); pop() }
                         }, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
                     }
+                    // The thread: the publisher's fix notice on this review, and this review as a follow-up to an earlier one.
+                    fixes[e.signature]?.let { fx ->
+                        Spacer(Modifier.height(6.dp))
+                        Text(stringResource(R.string.fixed_notice, fx.versionCode.toString()) + (fx.text?.let { " · “$it”" } ?: ""), color = RbColors.green, fontSize = 12.sp, lineHeight = 16.sp)
+                    }
+                    rounds[e.signature]?.let { rd ->
+                        Spacer(Modifier.height(6.dp))
+                        val sign = if (rd.delta > 0) "+" else ""
+                        Text(stringResource(if (rd.fix != null) R.string.followup_after_fix else R.string.followup_line, rd.before, rd.after, sign + rd.delta, rd.fix?.versionCode?.toString() ?: ""),
+                            color = if (rd.delta > 0) RbColors.green else if (rd.delta < 0) RbColors.warning else RbColors.textSecondary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        // The store holds one review per person: copy the update so readers there see the chain too.
+                        if (e.signer == wallet) TextButton(onClick = { copyToStore(context.getString(R.string.followup_store_text, rd.fix?.versionCode?.toString() ?: "", rd.before, rd.after) + (r.text?.let { " $it" } ?: "")) },
+                            contentPadding = PaddingValues(0.dp), modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.followup_copy_store), color = RbColors.purpleLight, fontSize = 12.sp) }
+                    }
+                    if (rounds.values.any { it.original.signature == e.signature }) Text(stringResource(R.string.followup_superseded), color = RbColors.textTertiary, fontSize = 11.sp)
                     // Locked in place (design: Screens D): the copy-to-store tool where the user meets it, on their own review.
                     if (e.signer == wallet && myStore[pkg] == null) {
                         Spacer(Modifier.height(8.dp))
@@ -527,6 +549,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val voted = wallet != null && vm.myUpvote(e.signature); val flagged = wallet != null && vm.myFlag(e.signature)
                     FlowRow {
                         if (wallet != null) CardAction(stringResource(R.string.reply), RbColors.purpleLight) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }
+                        // Publisher: say it is fixed, once per review. Reviewer: follow up once it is.
+                        if (wallet != null && e.signer != wallet && wallet in verified[pkg].orEmpty() && fixes[e.signature] == null)
+                            CardAction(stringResource(R.string.mark_fixed), RbColors.green) { fixTarget = e.signature }
+                        if (e.signer == wallet && fixes[e.signature] != null && !vm.followedUp(e.signature))
+                            CardAction(stringResource(R.string.follow_up), RbColors.green) { onFollowUp(e.signature) }
                         if (e.signer != wallet && wallet != null) {
                             val helpfulA11y = stringResource(if (voted) R.string.unvote else R.string.helpful)
                             TextButton(enabled = simpleStage == null, onClick = { if (voted) sign(ReviewMemo.Unvote(e.signature)) else sign(ReviewMemo.Upvote(e.signature)) }, contentPadding = PaddingValues(horizontal = 4.dp),
@@ -602,6 +629,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     val b = bucketLabel(responsiveness.bucket)
                     Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
+                    // How the publisher reacts to what reviewers raise: fixes announced, follow-ups, the star change after a fix.
+                    val fs = remember(entries, verified) { vm.fixStats(pkg) }
+                    if (fs.fixes > 0) Text(stringResource(R.string.fix_stats_line, fs.fixes, fs.followUpsAfterFix) + (fs.meanDelta?.let { " · " + stringResource(R.string.fix_stats_delta, String.format(java.util.Locale.US, "%+.1f", it)) } ?: ""),
+                        color = RbColors.textSecondary, fontSize = 12.sp)
                 }
                 else Text(stringResource(R.string.publisher_none), color = RbColors.textTertiary, fontSize = 12.sp)
                 // A claim nobody has proven yet can be checked against the build the store itself serves (the strongest
@@ -886,6 +917,24 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
         var reason by remember { mutableStateOf(R.string.report_illegal) }
         var note by remember { mutableStateOf("") }
         val target = remember(sig) { vm.entryOf(sig) }
+    fixTarget?.let { target ->
+        var vc by remember(target) { mutableStateOf(vm.currentVersion(pkg)?.toString() ?: "") }
+        var note by remember(target) { mutableStateOf("") }
+        AlertDialog(onDismissRequest = { fixTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.mark_fixed_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
+            text = { Column {
+                Text(stringResource(R.string.mark_fixed_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                OutlinedTextField(vc, { vc = it.filter(Char::isDigit).take(10) }, label = { Text(stringResource(R.string.mark_fixed_version)) }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+                OutlinedTextField(note, { note = it.replace('\n', ' ').replace('|', '/').take(ReviewMemo.MAX_TEXT_CHARS) }, label = { Text(stringResource(R.string.mark_fixed_note)) }, modifier = Modifier.fillMaxWidth().padding(top = 8.dp), maxLines = 3)
+                Text(stringResource(R.string.mark_fixed_public), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp))
+            } },
+            confirmButton = { TextButton(enabled = (vc.toLongOrNull() ?: 0) > 0, onClick = {
+                val v = vc.toLong(); fixTarget = null
+                sign(ReviewMemo.Fixed(target, v, note.trim().ifEmpty { null })) { ok -> if (ok) copyToStore(context.getString(R.string.fixed_store_reply, v.toString()) + (note.trim().takeIf { it.isNotEmpty() }?.let { " $it" } ?: "")) }
+            }) { Text(stringResource(R.string.mark_fixed_sign), color = RbColors.green) } },
+            dismissButton = { TextButton(onClick = { fixTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
+
         AlertDialog(onDismissRequest = { reportTarget = null }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.report_title), color = RbColors.textPrimary) },
             text = { Column(Modifier.verticalScroll(rememberScrollState())) {
