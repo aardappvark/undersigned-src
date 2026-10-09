@@ -24,6 +24,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             .put("required", JSONArray(required)).put("additionalProperties", false)
     private fun str(d: String, enum: List<String>? = null) = JSONObject().put("type", "string").put("description", d).apply { enum?.let { put("enum", JSONArray(it)) } }
     private fun int(d: String, min: Int, max: Int) = JSONObject().put("type", "integer").put("description", d).put("minimum", min).put("maximum", max)
+    private fun bool(d: String) = JSONObject().put("type", "boolean").put("description", d)
     private fun rows(a: JSONObject, c: Api.Caller) = if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_ROWS).coerceIn(1, Config.FREE_ROWS)
     private fun pkg(a: JSONObject) = a.optString("package").trim().also { require(it.isNotEmpty()) { "package is required, e.g. com.example.app" } }
 
@@ -54,7 +55,10 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             obj("limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.paymentsBoard(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
         Tool("found_treasuries", "Wallets FOUND IN APPS' CODE that received payments from 5+ wallets, NOT confirmed by the publisher: a separate list by app name, never ranked with payments_board. Say 'found in the app's code, not confirmed' whenever you mention one; it may not be the app's treasury.",
-            obj("limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500))) { a, c ->
+            obj("limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500), "package" to str("Optional: one app, for its full-history analytics (dates, monthly series, new and returning payers, concentration)"),
+                "trends" to bool("Optional: store-wide monthly totals instead of the list"))) { a, c ->
+            if (a.optBoolean("trends")) return@Tool views.foundTrends()
+            a.optString("package").takeIf { it.isNotBlank() }?.let { p -> return@Tool views.foundAnalytics(p) ?: JSONObject().put("error", "nothing found in this app's code") }
             views.foundTreasuries(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_ROWS).coerceIn(1, Config.FREE_ROWS)) },
         Tool("translate_review", "A suggested translation, by AI, of one review's or reply's text into a language. For Pro members (pass wallet) or a pass / credits key. The original stays the author's words.",
             obj("id" to str("Record id of the review or reply"), "lang" to str("Target language code", Config.AI_LANGS.sorted()), "wallet" to str("A wallet holding Pro (not needed with a key)"),

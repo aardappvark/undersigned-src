@@ -181,6 +181,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val res = buildReview(account, r.query["package"].orEmpty().trim(), r.query["rating"]?.toIntOrNull() ?: 0, r.query["tags"].orEmpty().split(',').map { it.trim() }.filter { it.isNotEmpty() }, r.query["text"]?.trim()?.ifEmpty { null })
             if (res.status != 200) res else ok(JSONObject().put("transaction", res.body.getString("transaction")).put("message", "Signed review of ${res.body.getString("app")}. Permanent once signed; only the network fee is paid."))
         }
+        route("GET", "/v1/payments/found/trends", Tier.LIMITED, "Store-wide monthly payments into wallets found in app code (not confirmed)") { ok(views.foundTrends()) }
+        route("GET", "/v1/payments/found/{pkg}", Tier.LIMITED, "One app's wallets found in app code, with full-history analytics: dates, monthly series, new and returning payers, concentration") { r ->
+            views.foundAnalytics(r.params["pkg"]!!)?.let(::ok) ?: notFound("nothing found in this app's code") }
         route("GET", "/v1/payments/found", Tier.LIMITED, "Treasuries found in app code, not confirmed by the publisher: a separate list, by app name, never ranked with the board") { r -> ok(views.foundTreasuries(rows(r, Config.FREE_ROWS, 500))) }
         route("GET", "/v1/payments", Tier.LIMITED, "Payments board: confirmed treasuries by USD received") { r -> ok(views.paymentsBoard(rows(r, Config.FREE_TOP, 500))) }
     }
@@ -554,6 +557,8 @@ fun main(args: Array<String>) {
         // Treasuries found in app code: one store build at a time, paced, round the clock (about a day for the whole store).
         views.found = FoundTreasuries(db, rpc, Store()).also { ft ->
             Thread({ Thread.sleep(90_000); while (true) { runCatching { ft.tick(indexer.loadCatalogue()) }.onFailure { log("found treasuries: ${it.message?.take(80)}") }; Thread.sleep(20_000) } }, "found-treasuries").apply { isDaemon = true }.start()
+            // Their full payment histories, for the analytics: free public RPC, gently (about 60 transactions a round).
+            Thread({ Thread.sleep(120_000); while (true) { runCatching { ft.historyTick() }.onFailure { log("found history: ${it.message?.take(80)}") }; Thread.sleep(15_000) } }, "found-history").apply { isDaemon = true }.start()
         }
         Thread({ while (true) { Thread.sleep(60_000); runCatching { boards.refresh(indexer.state) }.onFailure { log("boards: ${it.message?.take(80)}") }; Thread.sleep(14 * 60_000L) } }, "boards").apply { isDaemon = true }.start()
     }

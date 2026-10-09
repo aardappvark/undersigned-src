@@ -75,6 +75,27 @@ class FoundTreasuriesTest {
         assertEquals(listOf("com.one.app"), ft.list(emptyMap(), emptySet(), emptySet(), setOf("treasury:com.one.other:$a")).map { it.getString("package") })
     }
 
+    // Analytics read the full history: dates, months with new and returning payers, and how much the largest payer accounts for.
+    @Test fun analyticsFromTheFullHistory() {
+        val db = db()
+        val ft = FoundTreasuries(db, FakeRpc(emptyMap()), Store(0))
+        fun pay(sig: String, day: String, payer: String, usdc: Long) = db.exec("INSERT INTO pay_rows (addr_key, sig, time, memo, fetched, payer, lamports, tokens) VALUES (?, ?, ?, '', 1, ?, 0, ?)",
+            "found:$a", sig, java.time.Instant.parse("${day}T12:00:00Z").epochSecond, payer, "{\"${Config.USDC_MINT}\": ${usdc * 1_000_000}}")
+        pay("s1", "2026-08-03", "p1", 10); pay("s2", "2026-08-20", "p2", 10)
+        pay("s3", "2026-09-01", "p1", 60); pay("s4", "2026-09-02", "p3", 20)
+        db.exec("INSERT INTO pay_rows (addr_key, sig, time, memo, fetched, payer, lamports, tokens) VALUES (?, 's5', 0, '', 0, NULL, 0, NULL)", "found:$a")   // listed, not yet read
+        val j = ft.walletAnalytics(a)
+        assertEquals(4, j.getInt("payments")); assertEquals(3, j.getInt("payers"))
+        assertEquals("2026-08-03", j.getString("first_payment")); assertEquals("2026-09-02", j.getString("last_payment"))
+        assertEquals(100.0, j.getDouble("usd_when_paid")); assertEquals(0, j.getInt("unpriced"))
+        assertEquals(0.7, j.getDouble("top_payer_share"))          // p1 paid 70 of 100
+        assertEquals(1, j.getInt("repeat_payers"))
+        val sep = j.getJSONArray("monthly").getJSONObject(1)
+        assertEquals("2026-09", sep.getString("month")); assertEquals(1, sep.getInt("new_payers")); assertEquals(1, sep.getInt("returning_payers"))
+        val cov = j.getJSONObject("coverage")
+        assertEquals(5, cov.getInt("transactions_listed")); assertEquals(4, cov.getInt("transactions_read")); assertEquals(false, cov.getBoolean("history_complete"))
+    }
+
     @Test fun theWalletPayingItselfIsNotAPayment() {
         val db = db()
         val rpc = object : Rpc(listOf("http://127.0.0.1:9")) {

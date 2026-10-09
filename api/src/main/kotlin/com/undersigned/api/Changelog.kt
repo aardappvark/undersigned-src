@@ -9,7 +9,8 @@ object Changelog {
 
     val ENTRIES = listOf(
         Entry("2026-10-09", "Treasuries found in app code", listOf(
-            "GET /v1/payments/found and MCP found_treasuries: wallets written into apps' store builds that received payments from 5+ wallets, labelled 'found in app code, not confirmed', separate from the board and never ranked.")),
+            "GET /v1/payments/found and MCP found_treasuries: wallets written into apps' store builds that received payments from 5+ wallets, labelled 'found in app code, not confirmed', separate from the board and never ranked.",
+            "GET /v1/payments/found/{pkg} and /v1/payments/found/trends: analytics from each found wallet's full payment history (dates, monthly series, new and returning payers, concentration); MCP found_treasuries takes package or trends.")),
         Entry("2026-10-09", "Store-wide releases", listOf(
             "/v1/changes, app_changes and webhooks add kind 'release': any listing's updated date moved, across the whole store (version codes are still read for apps the ledger mentions).",
             "The weekly digest covers the seven days to the start of today (UTC) and is rewritten when its facts change.",

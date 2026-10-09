@@ -467,6 +467,19 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("progress", f?.stats() ?: JSONObject.NULL)
     }
 
+    /** One app's found-in-code wallets with their full-history analytics; null when nothing is listed for it. */
+    fun foundAnalytics(pkg: String): JSONObject? {
+        val f = found ?: return null
+        val rows = foundTreasuries(500).getJSONArray("rows").let { a -> (0 until a.length()).map { a.getJSONObject(it) } }.filter { it.getString("package") == pkg }
+        if (rows.isEmpty()) return null
+        return JSONObject().put("package", pkg).put("name", rows.first().getString("name"))
+            .put("label", "Found in app code, not confirmed by the publisher. Payments INTO the wallet from other wallets; not a statement about revenue or profit.")
+            .put("wallets", JSONArray(rows.map { f.walletAnalytics(it.getString("wallet")) }))
+    }
+
+    fun foundTrends(): JSONObject = (found?.trends() ?: JSONObject())
+        .put("label", "Monthly payments into every wallet found in app code (not confirmed), each wallet once. USD on the day of each payment; unpriced payments are counted, not valued.")
+
     fun appPayments(pkg: String): JSONObject? = boards.rows.firstOrNull { it.claim.packageName == pkg && it.confirmed }?.let { boardJson(it, true) }
 
     private fun boardJson(r: BoardRow, months: Boolean): JSONObject {

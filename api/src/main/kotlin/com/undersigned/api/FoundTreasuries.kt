@@ -184,6 +184,91 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
         }.sortedBy { it.getString("name").lowercase() }
     }
 
+    // ---- Full payment history and analytics (owner, 9 Oct 2026: "analytics that allows trends, dates") -----------------
+
+    private val board = Board(db, rpc)
+    private val prices = Prices(db)
+
+    /** Wallets that pass the payment test (listed for at least one app), whatever the app-level hides. */
+    fun listedWallets(): List<String> {
+        val payers = db.query("SELECT wallet, payers FROM found_wallet") { it.getString(1) to it.getInt(2) }.toMap()
+        return candidates().filter { (w, v) -> v.second.size == 1 && (payers[w] ?: 0) >= MIN_PAYERS }.keys.sorted()
+    }
+
+    /** One round of history reading: the least-read listed wallet gets one older page and up to [maxFetch] transactions. */
+    fun historyTick(maxFetch: Int = 60) {
+        val w = listedWallets().minByOrNull { board.allProgress(it).let { (all, left) -> if (all == 0) -1 else all - left } } ?: return
+        if (board.allProgress(w).let { (all, left) -> all > 0 && left == 0 } && db.get("pay_exhausted:found:$w:$w") == "1") {
+            // Complete: re-read the newest only, at most hourly.
+            val k = "found_hist_at:$w"; if (System.currentTimeMillis() - (db.get(k)?.toLongOrNull() ?: 0L) < 3_600_000L) return; db.put(k, System.currentTimeMillis().toString())
+        }
+        board.readAll(w, backfillPages = 1, maxFetch = maxFetch)
+    }
+
+    private fun cached(wallet: String): List<com.undersigned.protocol.Payments.Payment> =
+        db.query("SELECT sig, time, payer, lamports, tokens FROM pay_rows WHERE addr_key = ? AND fetched = 1 AND payer IS NOT NULL", "found:$wallet") { rs ->
+            val t = rs.getString(5)?.let { JSONObject(it) } ?: JSONObject()
+            com.undersigned.protocol.Payments.Payment(rs.getString(1), rs.getString(3), rs.getLong(2), rs.getLong(4), t.keys().asSequence().associateWith { t.getLong(it) })
+        }
+
+    private fun month(t: Long) = java.time.Instant.ofEpochSecond(t).toString().take(7)
+    private fun day(t: Long) = java.time.Instant.ofEpochSecond(t).toString().take(10)
+    private fun r2(v: Double) = Math.round(v * 100) / 100.0
+
+    /**
+     * The trends for one wallet's full history so far: totals, dates, a monthly series with new and returning payers,
+     * the last twelve weeks, repeat rate and how much the largest payers account for. USD is on the day of each payment;
+     * a payment on a day with no price is counted in [unpriced] and left out of USD, never guessed.
+     */
+    fun walletAnalytics(wallet: String): JSONObject {
+        val ps = cached(wallet).sortedBy { it.time }
+        val h = prices.history()
+        val usdOf = ps.associate { it.signature to prices.usdWhenPaid(it, h) }
+        val (listed, left) = board.allProgress(wallet)
+        val o = JSONObject().put("wallet", wallet)
+            .put("coverage", JSONObject().put("transactions_listed", listed).put("transactions_read", listed - left)
+                .put("history_complete", left == 0 && Board.addressesOf(wallet).all { db.get("pay_exhausted:found:$wallet:$it") == "1" }))
+        if (ps.isEmpty()) return o.put("payments", 0)
+        val seen = HashSet<String>()
+        val byMonth = ps.groupBy { month(it.time) }.toSortedMap().map { (m, l) ->
+            val payers = l.map { it.payer }.toSet(); val fresh = payers.filter { it !in seen }; seen += payers
+            JSONObject().put("month", m).put("payments", l.size).put("payers", payers.size).put("new_payers", fresh.size).put("returning_payers", payers.size - fresh.size)
+                .put("sol", l.sumOf { it.lamports } / 1e9).put("skr", l.sumOf { it.tokens[Config.SKR_MINT] ?: 0L } / 1e6).put("usdc", l.sumOf { it.tokens[Config.USDC_MINT] ?: 0L } / 1e6)
+                .put("usd", r2(l.sumOf { usdOf[it.signature] ?: 0.0 })).put("unpriced", l.count { usdOf[it.signature] == null })
+        }
+        val now = System.currentTimeMillis() / 1000
+        val weeks = (11 downTo 0).map { k -> val to = now - k * 7 * 86_400L; val from = to - 7 * 86_400L
+            val l = ps.filter { it.time in from until to }
+            JSONObject().put("week_ending", day(to)).put("payments", l.size).put("payers", l.map { it.payer }.toSet().size).put("usd", r2(l.sumOf { usdOf[it.signature] ?: 0.0 })) }
+        val perPayer = ps.groupBy { it.payer }
+        val usdTotal = ps.sumOf { usdOf[it.signature] ?: 0.0 }
+        val payerUsd = perPayer.mapValues { (_, l) -> l.sumOf { usdOf[it.signature] ?: 0.0 } }.values.sortedDescending()
+        val pricedUsd = ps.mapNotNull { usdOf[it.signature] }.sorted()
+        return o.put("payments", ps.size).put("payers", perPayer.size)
+            .put("first_payment", day(ps.first().time)).put("last_payment", day(ps.last().time))
+            .put("active_days", ps.map { day(it.time) }.toSet().size)
+            .put("sol", ps.sumOf { it.lamports } / 1e9).put("skr", ps.sumOf { it.tokens[Config.SKR_MINT] ?: 0L } / 1e6).put("usdc", ps.sumOf { it.tokens[Config.USDC_MINT] ?: 0L } / 1e6)
+            .put("usd_when_paid", r2(usdTotal)).put("unpriced", ps.count { usdOf[it.signature] == null })
+            .put("median_payment_usd", pricedUsd.getOrNull(pricedUsd.size / 2)?.let(::r2) ?: JSONObject.NULL)
+            .put("repeat_payers", perPayer.count { it.value.size >= 2 })
+            .put("top_payer_share", if (usdTotal > 0) r2(payerUsd.first() / usdTotal) else JSONObject.NULL)
+            .put("top_10_payers_share", if (usdTotal > 0) r2(payerUsd.take(10).sum() / usdTotal) else JSONObject.NULL)
+            .put("monthly", JSONArray(byMonth)).put("last_12_weeks", JSONArray(weeks))
+    }
+
+    /** Store-wide monthly totals across every listed wallet (each wallet once, however many apps it was found in). */
+    fun trends(): JSONObject {
+        val h = prices.history()
+        val all = listedWallets().flatMap { w -> cached(w).map { w to it } }
+        val months = all.groupBy { month(it.second.time) }.toSortedMap().map { (m, l) ->
+            JSONObject().put("month", m).put("payments", l.size).put("payers", l.map { it.second.payer }.toSet().size).put("wallets_paid", l.map { it.first }.toSet().size)
+                .put("usd", r2(l.sumOf { prices.usdWhenPaid(it.second, h) ?: 0.0 })).put("unpriced", l.count { prices.usdWhenPaid(it.second, h) == null })
+        }
+        val progress = listedWallets().map { board.allProgress(it) }
+        return JSONObject().put("wallets", listedWallets().size).put("monthly", JSONArray(months))
+            .put("transactions_listed", progress.sumOf { it.first }).put("transactions_read", progress.sumOf { it.first - it.second })
+    }
+
     fun stats(): JSONObject = JSONObject()
         .put("builds_read", db.query("SELECT count(*) FROM apk_scan WHERE note LIKE '% keys'") { it.getInt(1) }.first())
         .put("builds_skipped", db.query("SELECT count(*) FROM apk_scan WHERE note NOT LIKE '% keys'") { it.getInt(1) }.first())

@@ -42,6 +42,37 @@ class Board(private val db: Db, private val rpc: Rpc) {
         return Read(payments, !failed && missed == 0 && exhausted)
     }
 
+    /**
+     * Every payment INTO [wallet] (SOL to it, SKR/USDC to its token accounts) from anyone else, memo or not: the full history
+     * read for treasuries found in app code. Paced by the caller: at most [backfillPages] older pages and [maxFetch]
+     * transactions per call, so a wallet with years of history fills in over several rounds. Kept apart from the board's
+     * rows under "found:<wallet>".
+     */
+    @Synchronized fun readAll(wallet: String, backfillPages: Int = 1, maxFetch: Int = 60): Read {
+        val key = "found:$wallet"
+        val addrs = addressesOf(wallet)
+        var failed = false
+        for (a in addrs) runCatching { sync(key, a, keepAll = true, backfillPages) }.onFailure { failed = true; log("found history ${a.take(6)}: ${it.message?.take(80)}") }
+        val unread = db.query("SELECT sig FROM pay_rows WHERE addr_key = ? AND fetched = 0 ORDER BY time DESC LIMIT ?", key, maxFetch) { it.getString(1) }
+        for (sig in unread) {
+            val tx = runCatching { rpc.tx(sig, wallet) }.getOrNull() ?: continue
+            val tokens = tx.tokensIn.filterKeys { it in rails }
+            val paid = tx.ok && tx.feePayer != wallet && (tx.lamportsIn > 0 || tokens.values.any { it > 0 })
+            db.exec("UPDATE pay_rows SET fetched = 1, payer = ?, lamports = ?, tokens = ? WHERE addr_key = ? AND sig = ?",
+                if (paid) tx.feePayer else null, if (paid) tx.lamportsIn else 0L, if (paid) JSONObject(tokens.filterValues { it > 0 } as Map<*, *>).toString() else null, key, sig)
+        }
+        val payments = db.query("SELECT sig, time, payer, lamports, tokens FROM pay_rows WHERE addr_key = ? AND fetched = 1 AND payer IS NOT NULL", key) { rs ->
+            val t = rs.getString(5)?.let { JSONObject(it) } ?: JSONObject()
+            Payments.Payment(rs.getString(1), rs.getString(3), rs.getLong(2), rs.getLong(4), t.keys().asSequence().filter { it in rails }.associateWith { t.getLong(it) })
+        }
+        val left = db.query("SELECT count(*) FROM pay_rows WHERE addr_key = ? AND fetched = 0", key) { it.getInt(1) }.first()
+        val exhausted = addrs.all { db.get("pay_exhausted:$key:$it") == "1" }
+        return Read(payments, !failed && left == 0 && exhausted)
+    }
+
+    /** Transactions listed for [wallet]'s full history, and how many are still to be read. */
+    fun allProgress(wallet: String): Pair<Int, Int> = db.query("SELECT count(*), sum(fetched = 0) FROM pay_rows WHERE addr_key = ?", "found:$wallet") { it.getInt(1) to it.getInt(2) }.first()
+
     private fun sync(key: String, addr: String, keepAll: Boolean, backfillPages: Int) {
         val newestKey = "pay_newest:$key:$addr"; val oldestKey = "pay_oldest:$key:$addr"; val exKey = "pay_exhausted:$key:$addr"
         fun add(rows: List<SignatureRow>) = db.tx { rows.filter { !it.err && (keepAll || !it.memo.isNullOrBlank()) }.forEach {

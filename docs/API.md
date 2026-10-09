@@ -54,6 +54,8 @@ caller's own device is available (install age and usage time exist only as what 
 | Board: listed dApps ordered by USD received (at the price on the day of each payment), payers, payers with an attested device, SOL/SKR/USDC raw totals, first/last payment, own-wallet payments counted apart | `GET /v1/payments` | F (top 10) / P |
 | One dApp's tally with a monthly series | `GET /v1/apps/{pkg}/payments` | P |
 | **Found in app code, not confirmed**: wallets written into an app's public store build that are ordinary wallets, in one publisher's apps only, not a known shared address, and paid by 5+ wallets in the newest 40 transactions of the wallet and its SKR/USDC accounts. By app name, never ranked with the board; confirmed treasuries and disputed rows drop out | `GET /v1/payments/found` | F (20) / P |
+| Analytics for one app's found wallets from their FULL payment history: first and last payment, active days, monthly series (payments, payers, new vs returning, SOL/SKR/USDC, USD on the day paid), last 12 weeks, repeat payers, top-payer and top-10 share, coverage (history read so far) | `GET /v1/payments/found/{pkg}` | F |
+| Store-wide monthly payments into every found wallet (each once) | `GET /v1/payments/found/trends` | F |
 
 ### F. Wallets (reviewers, publishers, payers)
 | Data | Endpoint | Tier |
