@@ -70,7 +70,9 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
 
     /** The next app to read: never read, or its listing moved since. Null when every listed build has been read. */
     fun nextToScan(catalogue: List<CatalogueApp>): CatalogueApp? {
-        val seen = db.query("SELECT pkg, version FROM apk_scan") { it.getString(1) to it.getString(2) }.toMap()
+        // A download the store refused or failed (HTTP 403 / 572 seen 9 Oct 2026) is tried again after six hours.
+        val retryBefore = System.currentTimeMillis() - 6 * 3_600_000L
+        val seen = db.query("SELECT pkg, version FROM apk_scan WHERE NOT (note LIKE 'HTTP %' AND at < ?)", retryBefore) { it.getString(1) to it.getString(2) }.toMap()
         return catalogue.firstOrNull { seen[it.packageName] == null } ?: catalogue.firstOrNull { it.updated.isNotBlank() && seen[it.packageName] != it.updated }
     }
 
