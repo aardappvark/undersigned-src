@@ -31,7 +31,7 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
 
     companion object {
         const val MIN_PAYERS = 5
-        const val MAX_APK = 150L * 1024 * 1024
+        const val MAX_APK = Config.MAX_APK_BYTES   // 150 MB skipped 3 of the first 16 builds (games), 9 Oct 2026
         const val MAX_ENTRY = 64 * 1024 * 1024
         const val SIGS_READ = 100
         const val TXS_READ = 40
