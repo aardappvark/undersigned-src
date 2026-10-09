@@ -80,7 +80,7 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
         composable(Routes.WATCH) { StoreWatchScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.PAYMENTS) { PaymentsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.PRO) { ProScreen(vm, activityResultSender, onBack = { nav.popBackStack() }) }
-        composable(Routes.DESK) { PublisherDeskScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
+        composable(Routes.DESK) { PublisherDeskScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onPro = { nav.navigate(Routes.PRO) }, onPayments = { nav.navigate(Routes.PAYMENTS) }) }
         composable(Routes.HOWTO) { HowToScreen(onDone = { nav.popBackStack() }) }
         // Replay is a screen on the stack, so finishing it returns to Settings (it used to swap out the whole app and land on Browse).
         composable(Routes.INTRO) { OnboardingScreen(onDone = { nav.popBackStack() }) }

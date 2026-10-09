@@ -1088,4 +1088,15 @@
     <string name="pay_found_empty">Inget hittat än. Butiksversioner läses fortfarande (%1$d hittills).</string>
     <string name="pay_found_dispute">Är någon din? Registrera din kassa nedan så flyttas den till tavlan. Inte din? Anmäl den så tas den bort.</string>
     <string name="pay_found_report">Anmäl en plånbok</string>
+    <string name="desk_trend">Senaste 30 dagarna: %1$d signerade recensioner (de 30 innan: %2$d)</string>
+    <string name="desk_treasury_confirmed">Kassa bekräftad · %1$s mottaget</string>
+    <string name="desk_treasury_none">Ingen kassa registrerad</string>
+    <string name="desk_found">Hittad i din apps kod: %1$s, betald av %2$d plånböcker. Bekräfta den som din kassa under Betalningar, eller anmäl den om den inte är din.</string>
+    <string name="desk_payments">Betalningar</string>
+    <string name="desk_report">Anmäl</string>
+    <string name="desk_kit_title">Utvecklarkit</string>
+    <string name="desk_kit_note">Visa ditt signerade betyg på din webbplats och koppla Undersigned till dina egna verktyg.</string>
+    <string name="desk_kit_badge">Kopiera märket för %1$s</string>
+    <string name="desk_kit_mcp">Kopiera MCP-kommandot för Claude och andra agenter</string>
+    <string name="desk_kit_api">API, webhooks och dokumentation</string>
 </resources>

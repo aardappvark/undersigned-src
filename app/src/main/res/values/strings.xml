@@ -1113,4 +1113,15 @@
     <string name="pay_found_empty">Nothing found yet. Store builds are still being read (%1$d so far).</string>
     <string name="pay_found_dispute">Is one of these yours? List your treasury below and it moves to the board. Not yours? Report it and it is removed.</string>
     <string name="pay_found_report">Report a wallet</string>
+    <string name="desk_trend">Last 30 days: %1$d signed reviews (the 30 before: %2$d)</string>
+    <string name="desk_treasury_confirmed">Treasury confirmed · %1$s received</string>
+    <string name="desk_treasury_none">No treasury listed</string>
+    <string name="desk_found">Found in your app\'s code: %1$s, paid by %2$d wallets. Confirm it as your treasury in Payments, or report it if it isn\'t yours.</string>
+    <string name="desk_payments">Payments</string>
+    <string name="desk_report">Report</string>
+    <string name="desk_kit_title">Developer kit</string>
+    <string name="desk_kit_note">Show your signed score on your site and connect Undersigned to your own tools.</string>
+    <string name="desk_kit_badge">Copy the badge for %1$s</string>
+    <string name="desk_kit_mcp">Copy the MCP command for Claude and other agents</string>
+    <string name="desk_kit_api">API, webhooks and docs</string>
 </resources>

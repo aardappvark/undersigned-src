@@ -1087,4 +1087,15 @@
     <string name="pay_found_empty">Henüz bir şey bulunmadı. Mağaza sürümleri hâlâ okunuyor (şimdiye kadar %1$d).</string>
     <string name="pay_found_dispute">Biri sizin mi? Hazinenizi aşağıdan kaydedin, tabloya geçsin. Sizin değil mi? Bildirin, kaldırılsın.</string>
     <string name="pay_found_report">Cüzdan bildir</string>
+    <string name="desk_trend">Son 30 gün: %1$d imzalı inceleme (önceki 30: %2$d)</string>
+    <string name="desk_treasury_confirmed">Hazine onaylandı · %1$s alındı</string>
+    <string name="desk_treasury_none">Kayıtlı hazine yok</string>
+    <string name="desk_found">Uygulamanızın kodunda bulundu: %1$s, %2$d cüzdan ödeme yaptı. Ödemeler\'de hazineniz olarak onaylayın ya da sizin değilse bildirin.</string>
+    <string name="desk_payments">Ödemeler</string>
+    <string name="desk_report">Bildir</string>
+    <string name="desk_kit_title">Geliştirici kiti</string>
+    <string name="desk_kit_note">İmzalı puanınızı sitenizde gösterin ve Undersigned\'ı kendi araçlarınıza bağlayın.</string>
+    <string name="desk_kit_badge">%1$s rozetini kopyala</string>
+    <string name="desk_kit_mcp">Claude ve diğer ajanlar için MCP komutunu kopyala</string>
+    <string name="desk_kit_api">API, webhook\'lar ve belgeler</string>
 </resources>

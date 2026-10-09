@@ -1091,4 +1091,15 @@
     <string name="pay_found_empty">Wala pang nakita. Binabasa pa ang mga store build (%1$d sa ngayon).</string>
     <string name="pay_found_dispute">Sa iyo ba ang isa rito? I-lista ang treasury mo sa ibaba at lilipat ito sa board. Hindi sa iyo? I-report at aalisin ito.</string>
     <string name="pay_found_report">I-report ang wallet</string>
+    <string name="desk_trend">Huling 30 araw: %1$d pirmadong review (ang 30 bago nito: %2$d)</string>
+    <string name="desk_treasury_confirmed">Kumpirmado ang treasury · %1$s natanggap</string>
+    <string name="desk_treasury_none">Walang nakalistang treasury</string>
+    <string name="desk_found">Nakita sa code ng app mo: %1$s, binayaran ng %2$d wallet. Kumpirmahin bilang treasury mo sa Payments, o i-report kung hindi sa iyo.</string>
+    <string name="desk_payments">Payments</string>
+    <string name="desk_report">I-report</string>
+    <string name="desk_kit_title">Kit ng developer</string>
+    <string name="desk_kit_note">Ipakita ang pirmadong score mo sa site mo at ikonekta ang Undersigned sa sarili mong mga tool.</string>
+    <string name="desk_kit_badge">Kopyahin ang badge para sa %1$s</string>
+    <string name="desk_kit_mcp">Kopyahin ang MCP command para sa Claude at iba pang agent</string>
+    <string name="desk_kit_api">API, webhooks at docs</string>
 </resources>

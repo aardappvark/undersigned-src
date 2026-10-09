@@ -1083,4 +1083,15 @@
     <string name="pay_found_empty">এখনো কিছু পাওয়া যায়নি। স্টোর বিল্ড এখনো পড়া হচ্ছে (এ পর্যন্ত %1$d)।</string>
     <string name="pay_found_dispute">কোনোটি কি আপনার? নিচে আপনার ট্রেজারি তালিকাভুক্ত করুন, এটি বোর্ডে যাবে। আপনার নয়? রিপোর্ট করুন, সরিয়ে দেওয়া হবে।</string>
     <string name="pay_found_report">ওয়ালেট রিপোর্ট করুন</string>
+    <string name="desk_trend">গত 30 দিন: %1$dটি স্বাক্ষরিত রিভিউ (তার আগের 30: %2$d)</string>
+    <string name="desk_treasury_confirmed">ট্রেজারি নিশ্চিত · %1$s প্রাপ্ত</string>
+    <string name="desk_treasury_none">কোনো ট্রেজারি তালিকাভুক্ত নেই</string>
+    <string name="desk_found">আপনার অ্যাপের কোডে পাওয়া গেছে: %1$s, %2$dটি ওয়ালেট পেমেন্ট করেছে। পেমেন্টে এটি আপনার ট্রেজারি হিসেবে নিশ্চিত করুন, বা আপনার না হলে রিপোর্ট করুন।</string>
+    <string name="desk_payments">পেমেন্ট</string>
+    <string name="desk_report">রিপোর্ট</string>
+    <string name="desk_kit_title">ডেভেলপার কিট</string>
+    <string name="desk_kit_note">আপনার সাইটে স্বাক্ষরিত স্কোর দেখান এবং Undersigned আপনার টুলের সাথে যুক্ত করুন।</string>
+    <string name="desk_kit_badge">%1$s-এর ব্যাজ কপি করুন</string>
+    <string name="desk_kit_mcp">Claude ও অন্যান্য এজেন্টের জন্য MCP কমান্ড কপি করুন</string>
+    <string name="desk_kit_api">API, ওয়েবহুক ও ডকুমেন্টেশন</string>
 </resources>

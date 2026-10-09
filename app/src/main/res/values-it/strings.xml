@@ -1116,4 +1116,15 @@
     <string name="pay_found_empty">Ancora niente. Le build dello store sono ancora in lettura (%1$d finora).</string>
     <string name="pay_found_dispute">Uno di questi è tuo? Registra la tua tesoreria qui sotto e passerà alla tabella. Non è tuo? Segnalalo e verrà rimosso.</string>
     <string name="pay_found_report">Segnala un wallet</string>
+    <string name="desk_trend">Ultimi 30 giorni: %1$d recensioni firmate (i 30 precedenti: %2$d)</string>
+    <string name="desk_treasury_confirmed">Tesoreria confermata · %1$s ricevuti</string>
+    <string name="desk_treasury_none">Nessuna tesoreria registrata</string>
+    <string name="desk_found">Trovato nel codice della tua app: %1$s, pagato da %2$d wallet. Confermalo come tua tesoreria in Pagamenti o segnalalo se non è tuo.</string>
+    <string name="desk_payments">Pagamenti</string>
+    <string name="desk_report">Segnala</string>
+    <string name="desk_kit_title">Kit sviluppatori</string>
+    <string name="desk_kit_note">Mostra il tuo punteggio firmato sul tuo sito e collega Undersigned ai tuoi strumenti.</string>
+    <string name="desk_kit_badge">Copia il badge di %1$s</string>
+    <string name="desk_kit_mcp">Copia il comando MCP per Claude e altri agenti</string>
+    <string name="desk_kit_api">API, webhook e documentazione</string>
 </resources>

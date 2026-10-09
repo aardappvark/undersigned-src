@@ -1087,4 +1087,15 @@
     <string name="pay_found_empty">Még nincs találat. A bolti buildek olvasása folyik (eddig %1$d).</string>
     <string name="pay_found_dispute">A tiéd valamelyik? Add meg lent a kasszádat, és átkerül a táblára. Nem a tiéd? Jelentsd, és eltávolítjuk.</string>
     <string name="pay_found_report">Tárca jelentése</string>
+    <string name="desk_trend">Elmúlt 30 nap: %1$d aláírt értékelés (az előző 30: %2$d)</string>
+    <string name="desk_treasury_confirmed">Kassza megerősítve · %1$s beérkezett</string>
+    <string name="desk_treasury_none">Nincs bejelentett kassza</string>
+    <string name="desk_found">Az alkalmazásod kódjában találtuk: %1$s, %2$d tárca fizetett bele. Erősítsd meg kasszaként a Fizetéseknél, vagy jelentsd, ha nem a tiéd.</string>
+    <string name="desk_payments">Fizetések</string>
+    <string name="desk_report">Jelentés</string>
+    <string name="desk_kit_title">Fejlesztői készlet</string>
+    <string name="desk_kit_note">Mutasd meg az aláírt pontszámodat a weboldaladon, és kösd össze az Undersignedot a saját eszközeiddel.</string>
+    <string name="desk_kit_badge">%1$s jelvényének másolása</string>
+    <string name="desk_kit_mcp">MCP-parancs másolása Claude-hoz és más ügynökökhöz</string>
+    <string name="desk_kit_api">API, webhookok és dokumentáció</string>
 </resources>

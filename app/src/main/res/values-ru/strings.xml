@@ -1108,4 +1108,15 @@
     <string name="pay_found_empty">Пока ничего. Сборки из магазина ещё читаются (пока %1$d).</string>
     <string name="pay_found_dispute">Один из них ваш? Укажите казну ниже, и он перейдёт в таблицу. Не ваш? Сообщите, и его уберут.</string>
     <string name="pay_found_report">Сообщить о кошельке</string>
+    <string name="desk_trend">Последние 30 дней: %1$d подписанных отзывов (30 до этого: %2$d)</string>
+    <string name="desk_treasury_confirmed">Казна подтверждена · получено %1$s</string>
+    <string name="desk_treasury_none">Казна не указана</string>
+    <string name="desk_found">Найдено в коде вашего приложения: %1$s, платили %2$d кошельков. Подтвердите её как свою казну в разделе «Платежи» или сообщите, если она не ваша.</string>
+    <string name="desk_payments">Платежи</string>
+    <string name="desk_report">Сообщить</string>
+    <string name="desk_kit_title">Набор разработчика</string>
+    <string name="desk_kit_note">Покажите подписанную оценку на своём сайте и подключите Undersigned к своим инструментам.</string>
+    <string name="desk_kit_badge">Скопировать значок для %1$s</string>
+    <string name="desk_kit_mcp">Скопировать команду MCP для Claude и других агентов</string>
+    <string name="desk_kit_api">API, вебхуки и документация</string>
 </resources>

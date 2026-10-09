@@ -1064,4 +1064,15 @@
     <string name="pay_found_empty">아직 찾지 못했습니다. 스토어 빌드를 읽는 중입니다(지금까지 %1$d개).</string>
     <string name="pay_found_dispute">본인 것인가요? 아래에서 금고를 등록하면 보드로 옮겨집니다. 본인 것이 아닌가요? 신고하면 삭제됩니다.</string>
     <string name="pay_found_report">지갑 신고</string>
+    <string name="desk_trend">최근 30일: 서명된 리뷰 %1$d개 (그 전 30일: %2$d개)</string>
+    <string name="desk_treasury_confirmed">금고 확인됨 · %1$s 수령</string>
+    <string name="desk_treasury_none">등록된 금고 없음</string>
+    <string name="desk_found">앱 코드에서 발견: %1$s, 지갑 %2$d개가 결제함. 결제에서 내 금고로 확인하거나, 내 것이 아니면 신고하세요.</string>
+    <string name="desk_payments">결제</string>
+    <string name="desk_report">신고</string>
+    <string name="desk_kit_title">개발자 키트</string>
+    <string name="desk_kit_note">사이트에 서명된 점수를 보여 주고 Undersigned를 내 도구에 연결하세요.</string>
+    <string name="desk_kit_badge">%1$s 배지 복사</string>
+    <string name="desk_kit_mcp">Claude 및 다른 에이전트용 MCP 명령 복사</string>
+    <string name="desk_kit_api">API, 웹훅, 문서</string>
 </resources>

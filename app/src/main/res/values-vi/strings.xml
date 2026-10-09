@@ -1072,4 +1072,15 @@
     <string name="pay_found_empty">Chưa tìm thấy gì. Các bản phát hành vẫn đang được đọc (%1$d đến nay).</string>
     <string name="pay_found_dispute">Có ví nào của bạn? Đăng ký kho bạc bên dưới để chuyển lên bảng. Không phải của bạn? Báo cáo để gỡ bỏ.</string>
     <string name="pay_found_report">Báo cáo ví</string>
+    <string name="desk_trend">30 ngày qua: %1$d đánh giá có chữ ký (30 ngày trước đó: %2$d)</string>
+    <string name="desk_treasury_confirmed">Kho bạc đã xác nhận · đã nhận %1$s</string>
+    <string name="desk_treasury_none">Chưa đăng ký kho bạc</string>
+    <string name="desk_found">Tìm thấy trong mã ứng dụng của bạn: %1$s, được %2$d ví thanh toán. Xác nhận là kho bạc của bạn trong Thanh toán, hoặc báo cáo nếu không phải của bạn.</string>
+    <string name="desk_payments">Thanh toán</string>
+    <string name="desk_report">Báo cáo</string>
+    <string name="desk_kit_title">Bộ công cụ nhà phát triển</string>
+    <string name="desk_kit_note">Hiển thị điểm có chữ ký trên trang của bạn và kết nối Undersigned với công cụ của bạn.</string>
+    <string name="desk_kit_badge">Sao chép huy hiệu cho %1$s</string>
+    <string name="desk_kit_mcp">Sao chép lệnh MCP cho Claude và các tác tử khác</string>
+    <string name="desk_kit_api">API, webhook và tài liệu</string>
 </resources>

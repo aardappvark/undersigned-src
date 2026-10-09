@@ -1117,4 +1117,15 @@
     <string name="pay_found_empty">Zatím nic. Verze z obchodu se stále čtou (zatím %1$d).</string>
     <string name="pay_found_dispute">Je některá vaše? Zaregistrujte níže svou pokladnu a přesune se do přehledu. Není vaše? Nahlaste ji a bude odstraněna.</string>
     <string name="pay_found_report">Nahlásit peněženku</string>
+    <string name="desk_trend">Posledních 30 dní: %1$d podepsaných recenzí (30 předtím: %2$d)</string>
+    <string name="desk_treasury_confirmed">Pokladna potvrzena · přijato %1$s</string>
+    <string name="desk_treasury_none">Žádná zaregistrovaná pokladna</string>
+    <string name="desk_found">Nalezeno v kódu vaší aplikace: %1$s, placeno %2$d peněženkami. Potvrďte ji v Platbách jako svou pokladnu, nebo ji nahlaste, pokud není vaše.</string>
+    <string name="desk_payments">Platby</string>
+    <string name="desk_report">Nahlásit</string>
+    <string name="desk_kit_title">Vývojářská sada</string>
+    <string name="desk_kit_note">Ukažte své podepsané hodnocení na webu a propojte Undersigned se svými nástroji.</string>
+    <string name="desk_kit_badge">Kopírovat odznak pro %1$s</string>
+    <string name="desk_kit_mcp">Kopírovat příkaz MCP pro Claude a další agenty</string>
+    <string name="desk_kit_api">API, webhooky a dokumentace</string>
 </resources>

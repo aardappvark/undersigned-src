@@ -1125,4 +1125,15 @@
     <string name="pay_found_empty">Na razie nic. Wersje ze sklepu są wciąż odczytywane (dotąd %1$d).</string>
     <string name="pay_found_dispute">Któryś jest Twój? Zgłoś swój skarbiec poniżej, a trafi na tablicę. Nie Twój? Zgłoś to, a zostanie usunięty.</string>
     <string name="pay_found_report">Zgłoś portfel</string>
+    <string name="desk_trend">Ostatnie 30 dni: %1$d podpisanych recenzji (30 wcześniejszych: %2$d)</string>
+    <string name="desk_treasury_confirmed">Skarbiec potwierdzony · otrzymano %1$s</string>
+    <string name="desk_treasury_none">Brak zgłoszonego skarbca</string>
+    <string name="desk_found">Znaleziony w kodzie Twojej aplikacji: %1$s, opłacany przez %2$d portfeli. Potwierdź go jako swój skarbiec w Płatnościach lub zgłoś, jeśli nie jest Twój.</string>
+    <string name="desk_payments">Płatności</string>
+    <string name="desk_report">Zgłoś</string>
+    <string name="desk_kit_title">Zestaw dewelopera</string>
+    <string name="desk_kit_note">Pokaż podpisaną ocenę na swojej stronie i połącz Undersigned ze swoimi narzędziami.</string>
+    <string name="desk_kit_badge">Skopiuj odznakę dla %1$s</string>
+    <string name="desk_kit_mcp">Skopiuj polecenie MCP dla Claude i innych agentów</string>
+    <string name="desk_kit_api">API, webhooki i dokumentacja</string>
 </resources>

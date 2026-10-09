@@ -1087,4 +1087,15 @@
     <string name="pay_found_empty">Τίποτα ακόμα. Οι εκδόσεις του καταστήματος διαβάζονται ακόμη (%1$d μέχρι στιγμής).</string>
     <string name="pay_found_dispute">Είναι κάποιο δικό σου; Καταχώρισε το ταμείο σου παρακάτω και περνά στον πίνακα. Δεν είναι δικό σου; Ανέφερέ το και αφαιρείται.</string>
     <string name="pay_found_report">Αναφορά πορτοφολιού</string>
+    <string name="desk_trend">Τελευταίες 30 ημέρες: %1$d υπογεγραμμένες κριτικές (οι 30 πριν: %2$d)</string>
+    <string name="desk_treasury_confirmed">Ταμείο επιβεβαιωμένο · ελήφθησαν %1$s</string>
+    <string name="desk_treasury_none">Δεν έχει καταχωριστεί ταμείο</string>
+    <string name="desk_found">Βρέθηκε στον κώδικα της εφαρμογής σου: %1$s, πληρωμένο από %2$d πορτοφόλια. Επιβεβαίωσέ το ως ταμείο σου στις Πληρωμές ή ανέφερέ το αν δεν είναι δικό σου.</string>
+    <string name="desk_payments">Πληρωμές</string>
+    <string name="desk_report">Αναφορά</string>
+    <string name="desk_kit_title">Κιτ προγραμματιστή</string>
+    <string name="desk_kit_note">Δείξε την υπογεγραμμένη βαθμολογία σου στον ιστότοπό σου και σύνδεσε το Undersigned με τα εργαλεία σου.</string>
+    <string name="desk_kit_badge">Αντιγραφή σήματος για %1$s</string>
+    <string name="desk_kit_mcp">Αντιγραφή εντολής MCP για το Claude και άλλους πράκτορες</string>
+    <string name="desk_kit_api">API, webhooks και τεκμηρίωση</string>
 </resources>

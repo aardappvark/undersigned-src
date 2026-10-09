@@ -1107,4 +1107,15 @@
     <string name="pay_found_empty">Noch nichts gefunden. Store-Builds werden noch gelesen (bisher %1$d).</string>
     <string name="pay_found_dispute">Ist eine davon deine? Trag unten deine Kasse ein, dann wandert sie in die Tabelle. Nicht deine? Melde sie, dann wird sie entfernt.</string>
     <string name="pay_found_report">Wallet melden</string>
+    <string name="desk_trend">Letzte 30 Tage: %1$d signierte Bewertungen (die 30 davor: %2$d)</string>
+    <string name="desk_treasury_confirmed">Kasse bestätigt · %1$s erhalten</string>
+    <string name="desk_treasury_none">Keine Kasse eingetragen</string>
+    <string name="desk_found">Im Code deiner App gefunden: %1$s, von %2$d Wallets bezahlt. Bestätige sie unter Zahlungen als deine Kasse oder melde sie, wenn sie nicht deine ist.</string>
+    <string name="desk_payments">Zahlungen</string>
+    <string name="desk_report">Melden</string>
+    <string name="desk_kit_title">Entwickler-Kit</string>
+    <string name="desk_kit_note">Zeig deine signierte Wertung auf deiner Website und verbinde Undersigned mit deinen Tools.</string>
+    <string name="desk_kit_badge">Badge für %1$s kopieren</string>
+    <string name="desk_kit_mcp">MCP-Befehl für Claude und andere Agenten kopieren</string>
+    <string name="desk_kit_api">API, Webhooks und Doku</string>
 </resources>

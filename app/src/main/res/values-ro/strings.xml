@@ -1105,4 +1105,15 @@
     <string name="pay_found_empty">Nimic încă. Versiunile din magazin se citesc în continuare (%1$d până acum).</string>
     <string name="pay_found_dispute">E vreunul al tău? Înregistrează-ți trezoreria mai jos și trece în tablou. Nu e al tău? Raportează-l și va fi eliminat.</string>
     <string name="pay_found_report">Raportează un portofel</string>
+    <string name="desk_trend">Ultimele 30 de zile: %1$d recenzii semnate (cele 30 dinainte: %2$d)</string>
+    <string name="desk_treasury_confirmed">Trezorerie confirmată · %1$s primiți</string>
+    <string name="desk_treasury_none">Nicio trezorerie înregistrată</string>
+    <string name="desk_found">Găsit în codul aplicației tale: %1$s, plătit de %2$d portofele. Confirmă-l ca trezorerie în Plăți sau raportează-l dacă nu e al tău.</string>
+    <string name="desk_payments">Plăți</string>
+    <string name="desk_report">Raportează</string>
+    <string name="desk_kit_title">Kit pentru dezvoltatori</string>
+    <string name="desk_kit_note">Arată-ți scorul semnat pe site și conectează Undersigned la uneltele tale.</string>
+    <string name="desk_kit_badge">Copiază insigna pentru %1$s</string>
+    <string name="desk_kit_mcp">Copiază comanda MCP pentru Claude și alți agenți</string>
+    <string name="desk_kit_api">API, webhook-uri și documentație</string>
 </resources>

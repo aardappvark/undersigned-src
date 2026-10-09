@@ -1124,4 +1124,15 @@
     <string name="pay_found_empty">Поки нічого. Збірки з магазину ще читаються (поки %1$d).</string>
     <string name="pay_found_dispute">Один із них ваш? Укажіть скарбницю нижче, і він перейде до таблиці. Не ваш? Повідомте, і його приберуть.</string>
     <string name="pay_found_report">Повідомити про гаманець</string>
+    <string name="desk_trend">Останні 30 днів: %1$d підписаних відгуків (30 до того: %2$d)</string>
+    <string name="desk_treasury_confirmed">Скарбницю підтверджено · отримано %1$s</string>
+    <string name="desk_treasury_none">Скарбницю не вказано</string>
+    <string name="desk_found">Знайдено в коді вашого застосунку: %1$s, платили %2$d гаманців. Підтвердьте її як свою скарбницю в «Платежах» або повідомте, якщо вона не ваша.</string>
+    <string name="desk_payments">Платежі</string>
+    <string name="desk_report">Повідомити</string>
+    <string name="desk_kit_title">Набір розробника</string>
+    <string name="desk_kit_note">Покажіть підписану оцінку на своєму сайті й підключіть Undersigned до своїх інструментів.</string>
+    <string name="desk_kit_badge">Скопіювати значок для %1$s</string>
+    <string name="desk_kit_mcp">Скопіювати команду MCP для Claude та інших агентів</string>
+    <string name="desk_kit_api">API, вебхуки й документація</string>
 </resources>

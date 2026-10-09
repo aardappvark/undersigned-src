@@ -1056,4 +1056,15 @@
     <string name="pay_found_empty">ยังไม่พบอะไร กำลังอ่านบิลด์ของสโตร์อยู่ (อ่านแล้ว %1$d)</string>
     <string name="pay_found_dispute">มีของคุณไหม ลงทะเบียนคลังของคุณด้านล่างแล้วจะย้ายไปที่กระดาน ไม่ใช่ของคุณ แจ้งแล้วจะถูกนำออก</string>
     <string name="pay_found_report">แจ้งวอลเล็ต</string>
+    <string name="desk_trend">30 วันล่าสุด: รีวิวที่ลงนาม %1$d รายการ (30 วันก่อนหน้า: %2$d)</string>
+    <string name="desk_treasury_confirmed">ยืนยันคลังแล้ว · ได้รับ %1$s</string>
+    <string name="desk_treasury_none">ยังไม่มีคลังที่ลงทะเบียน</string>
+    <string name="desk_found">พบในโค้ดแอปของคุณ: %1$s มีวอลเล็ตจ่าย %2$d ราย ยืนยันเป็นคลังของคุณในการชำระเงิน หรือแจ้งหากไม่ใช่ของคุณ</string>
+    <string name="desk_payments">การชำระเงิน</string>
+    <string name="desk_report">แจ้ง</string>
+    <string name="desk_kit_title">ชุดเครื่องมือนักพัฒนา</string>
+    <string name="desk_kit_note">แสดงคะแนนที่ลงนามบนเว็บไซต์ของคุณ และเชื่อม Undersigned กับเครื่องมือของคุณ</string>
+    <string name="desk_kit_badge">คัดลอกตราสำหรับ %1$s</string>
+    <string name="desk_kit_mcp">คัดลอกคำสั่ง MCP สำหรับ Claude และเอเจนต์อื่น</string>
+    <string name="desk_kit_api">API, webhook และเอกสาร</string>
 </resources>

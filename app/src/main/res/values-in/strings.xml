@@ -1072,4 +1072,15 @@
     <string name="pay_found_empty">Belum ada yang ditemukan. Build toko masih dibaca (%1$d sejauh ini).</string>
     <string name="pay_found_dispute">Salah satunya milikmu? Daftarkan treasury-mu di bawah dan akan pindah ke papan. Bukan milikmu? Laporkan dan akan dihapus.</string>
     <string name="pay_found_report">Laporkan dompet</string>
+    <string name="desk_trend">30 hari terakhir: %1$d ulasan bertanda tangan (30 hari sebelumnya: %2$d)</string>
+    <string name="desk_treasury_confirmed">Treasury terkonfirmasi · %1$s diterima</string>
+    <string name="desk_treasury_none">Belum ada treasury terdaftar</string>
+    <string name="desk_found">Ditemukan di kode aplikasimu: %1$s, dibayar oleh %2$d dompet. Konfirmasi sebagai treasury-mu di Pembayaran, atau laporkan jika bukan milikmu.</string>
+    <string name="desk_payments">Pembayaran</string>
+    <string name="desk_report">Laporkan</string>
+    <string name="desk_kit_title">Kit pengembang</string>
+    <string name="desk_kit_note">Tampilkan skor bertanda tanganmu di situsmu dan hubungkan Undersigned ke alatmu sendiri.</string>
+    <string name="desk_kit_badge">Salin lencana untuk %1$s</string>
+    <string name="desk_kit_mcp">Salin perintah MCP untuk Claude dan agen lain</string>
+    <string name="desk_kit_api">API, webhook, dan dokumentasi</string>
 </resources>

@@ -1129,6 +1129,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     data class DeskApp(val packageName: String, val score: AppScore?, val responsiveness: Responsiveness, val waiting: Int)
     data class Desk(val apps: List<DeskApp>, val unanswered: Int, val medianReplyHours: Double?, val answeredPercent: Int?, val oldest: List<LedgerEntry>)
 
+    /** Signed reviews of [pkg] (not withdrawn, not the publisher's own) in the last 30 days and the 30 before. */
+    fun deskTrend(pkg: String, now: Long = System.currentTimeMillis() / 1000): Pair<Int, Int> {
+        val w = wallet.value; val revoked = revokedSignatures(); val day = 86_400L
+        val rs = entries.value.filter { (it.memo as? ReviewMemo.Review)?.packageName == pkg && it.signature !in revoked && it.signer != w }
+        return rs.count { it.blockTime > now - 30 * day } to rs.count { it.blockTime in (now - 60 * day + 1)..(now - 30 * day) }
+    }
+
     /** The publisher desk: every verified dApp, the unanswered queue oldest first, and the reply gap as readers see it. */
     fun desk(): Desk {
         val w = wallet.value ?: return Desk(emptyList(), 0, null, null, emptyList())

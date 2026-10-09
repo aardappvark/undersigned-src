@@ -1096,4 +1096,15 @@
     <string name="pay_found_empty">Nog niets gevonden. Store-builds worden nog gelezen (tot nu toe %1$d).</string>
     <string name="pay_found_dispute">Is er een van jou? Meld hieronder je kas aan en hij gaat naar het overzicht. Niet van jou? Meld het en hij wordt verwijderd.</string>
     <string name="pay_found_report">Wallet melden</string>
+    <string name="desk_trend">Laatste 30 dagen: %1$d ondertekende reviews (de 30 daarvoor: %2$d)</string>
+    <string name="desk_treasury_confirmed">Kas bevestigd · %1$s ontvangen</string>
+    <string name="desk_treasury_none">Geen kas aangemeld</string>
+    <string name="desk_found">Gevonden in de code van je app: %1$s, betaald door %2$d wallets. Bevestig hem als je kas bij Betalingen, of meld hem als hij niet van jou is.</string>
+    <string name="desk_payments">Betalingen</string>
+    <string name="desk_report">Melden</string>
+    <string name="desk_kit_title">Ontwikkelaarskit</string>
+    <string name="desk_kit_note">Toon je ondertekende score op je site en koppel Undersigned aan je eigen tools.</string>
+    <string name="desk_kit_badge">Badge voor %1$s kopiëren</string>
+    <string name="desk_kit_mcp">MCP-opdracht voor Claude en andere agents kopiëren</string>
+    <string name="desk_kit_api">API, webhooks en documentatie</string>
 </resources>

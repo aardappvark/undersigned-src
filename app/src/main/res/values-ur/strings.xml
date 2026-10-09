@@ -1090,4 +1090,15 @@
     <string name="pay_found_empty">ابھی کچھ نہیں ملا۔ اسٹور بلڈز ابھی پڑھے جا رہے ہیں (اب تک %1$d)۔</string>
     <string name="pay_found_dispute">کیا کوئی آپ کا ہے؟ نیچے اپنا خزانہ درج کریں تو یہ بورڈ پر چلا جائے گا۔ آپ کا نہیں؟ رپورٹ کریں تو ہٹا دیا جائے گا۔</string>
     <string name="pay_found_report">والیٹ رپورٹ کریں</string>
+    <string name="desk_trend">پچھلے 30 دن: %1$d دستخط شدہ جائزے (اس سے پہلے کے 30: %2$d)</string>
+    <string name="desk_treasury_confirmed">خزانہ تصدیق شدہ · %1$s موصول</string>
+    <string name="desk_treasury_none">کوئی خزانہ درج نہیں</string>
+    <string name="desk_found">آپ کی ایپ کے کوڈ میں ملا: %1$s، جسے %2$d والیٹس نے ادائیگی کی۔ ادائیگیوں میں اسے اپنا خزانہ تصدیق کریں، یا اگر آپ کا نہیں تو رپورٹ کریں۔</string>
+    <string name="desk_payments">ادائیگیاں</string>
+    <string name="desk_report">رپورٹ</string>
+    <string name="desk_kit_title">ڈیولپر کٹ</string>
+    <string name="desk_kit_note">اپنا دستخط شدہ اسکور اپنی سائٹ پر دکھائیں اور Undersigned کو اپنے ٹولز سے جوڑیں۔</string>
+    <string name="desk_kit_badge">%1$s کا بیج کاپی کریں</string>
+    <string name="desk_kit_mcp">Claude اور دیگر ایجنٹس کے لیے MCP کمانڈ کاپی کریں</string>
+    <string name="desk_kit_api">API، ویب ہکس اور دستاویزات</string>
 </resources>

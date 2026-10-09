@@ -1063,4 +1063,15 @@
     <string name="pay_found_empty">まだ見つかっていません。ストアのビルドを読み込み中です（これまで %1$d 件）。</string>
     <string name="pay_found_dispute">あなたのものですか？下で資金口座を登録するとボードに移ります。違う場合は報告すると削除されます。</string>
     <string name="pay_found_report">ウォレットを報告</string>
+    <string name="desk_trend">直近30日：署名付きレビュー %1$d 件（その前の30日：%2$d 件）</string>
+    <string name="desk_treasury_confirmed">資金口座を確認済み · %1$s 受領</string>
+    <string name="desk_treasury_none">資金口座は未登録</string>
+    <string name="desk_found">あなたのアプリのコード内で発見：%1$s（%2$d 個のウォレットが支払い）。「支払い」で資金口座として確認するか、あなたのものでなければ報告してください。</string>
+    <string name="desk_payments">支払い</string>
+    <string name="desk_report">報告</string>
+    <string name="desk_kit_title">開発者キット</string>
+    <string name="desk_kit_note">署名付きスコアをサイトに表示し、Undersigned を自分のツールにつなげましょう。</string>
+    <string name="desk_kit_badge">%1$s のバッジをコピー</string>
+    <string name="desk_kit_mcp">Claude などのエージェント用 MCP コマンドをコピー</string>
+    <string name="desk_kit_api">API・Webhook・ドキュメント</string>
 </resources>

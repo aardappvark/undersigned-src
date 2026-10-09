@@ -1071,4 +1071,15 @@
     <string name="pay_found_empty">暂未发现。仍在读取商店版本（目前 %1$d 个）。</string>
     <string name="pay_found_dispute">其中有你的吗？在下方登记你的金库，它就会进入榜单。不是你的？举报后会被移除。</string>
     <string name="pay_found_report">举报钱包</string>
+    <string name="desk_trend">最近 30 天：%1$d 条签名评价（之前 30 天：%2$d 条）</string>
+    <string name="desk_treasury_confirmed">金库已确认 · 已收到 %1$s</string>
+    <string name="desk_treasury_none">尚未登记金库</string>
+    <string name="desk_found">在你的应用代码中发现：%1$s，有 %2$d 个钱包付款。请在「付款」中确认为你的金库，若不是你的请举报。</string>
+    <string name="desk_payments">付款</string>
+    <string name="desk_report">举报</string>
+    <string name="desk_kit_title">开发者工具包</string>
+    <string name="desk_kit_note">在你的网站展示签名评分，并把 Undersigned 接入你自己的工具。</string>
+    <string name="desk_kit_badge">复制 %1$s 的徽章</string>
+    <string name="desk_kit_mcp">复制供 Claude 等智能体使用的 MCP 命令</string>
+    <string name="desk_kit_api">API、Webhook 与文档</string>
 </resources>

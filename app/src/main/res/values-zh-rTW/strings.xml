@@ -1071,4 +1071,15 @@
     <string name="pay_found_empty">暫未發現。仍在讀取商店版本（目前 %1$d 個）。</string>
     <string name="pay_found_dispute">其中有你的嗎？在下方登記你的金庫，它就會進入榜單。不是你的？檢舉後會被移除。</string>
     <string name="pay_found_report">檢舉錢包</string>
+    <string name="desk_trend">最近 30 天：%1$d 則簽署評論（之前 30 天：%2$d 則）</string>
+    <string name="desk_treasury_confirmed">金庫已確認 · 已收到 %1$s</string>
+    <string name="desk_treasury_none">尚未登記金庫</string>
+    <string name="desk_found">在你的應用程式程式碼中發現：%1$s，有 %2$d 個錢包付款。請在「付款」中確認為你的金庫，若不是你的請檢舉。</string>
+    <string name="desk_payments">付款</string>
+    <string name="desk_report">檢舉</string>
+    <string name="desk_kit_title">開發者工具包</string>
+    <string name="desk_kit_note">在你的網站展示簽署評分，並將 Undersigned 接入你自己的工具。</string>
+    <string name="desk_kit_badge">複製 %1$s 的徽章</string>
+    <string name="desk_kit_mcp">複製供 Claude 等代理使用的 MCP 指令</string>
+    <string name="desk_kit_api">API、Webhook 與文件</string>
 </resources>
