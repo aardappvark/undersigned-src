@@ -8,14 +8,6 @@ ASSUMPTION, stated in the table. Run: python3 tools/revenue_model.py  (prints th
 GENESIS_TOKENS = 121_161        # Seeker Genesis Token group size, read on-chain (GT22s89n…, tokenGroup.size), 10 Oct
 GENESIS_18_SEP = 120_915        # same read, 18 Sep: +246 in 22 days
 DEVICES_SHIPPED = 200_000       # Solana Mobile's own claim, March 2026 ("200K+ devices"); not independently confirmed
-# ---- Historical: what store treasuries actually received, last 365 days (server pay_rows, 10 Oct 2026) -----------
-HIST_TREASURIES = 63            # wallets watched: 14 proven fleet references + 49 found in app code (unconfirmed)
-HIST_USD_YEAR = 14_750          # all payments of 0.001 SOL / 1 SKR / 0.10 USDC or more into them, at 10 Oct prices
-HIST_TOP_USD = 3_240            # the best-paid single wallet; its distinct payers: 13
-HIST_MAX_PAYERS = 23            # the most distinct payers any one watched wallet had in the year
-APPS = 1_543                    # dApps in the store catalogue, 9 Oct
-STORE_RATINGS = 478_289         # star ratings across 1,475 rated dApps, store snapshot 9 Oct
-RATINGS_PER_DAY = (452_062 - 450_210) / 9   # same ~1,450 apps, 28 Sep -> 7 Oct snapshots
 SOL_USD = 109.57                # 9 Oct, price history held by the server
 # ---- Undersigned's prices (api Config.kt, Indexer.kt) ------------------------------------------------------------
 UNIT_SOL = 0.0607               # Pro (12 months), publisher treasury listing, API pass (30 days)
@@ -61,7 +53,40 @@ def table(title, res):
     return "\n".join(lines), tot
 
 
+# ---- The financial case (docs/FINANCIAL_CASE.md): python3 tools/revenue_model.py case ------------------------------
+SOL_LOW, SOL_HIGH = 62.18, 234.78     # trailing-year range of SOL, server price history (376 days to 9 Oct 2026)
+SKR_USD = 0.01638                     # 9 Oct 2026
+CASES = {   # share of the 200,000 devices taking Pro; publishers listing + Pro; promoted share; passes/month; agent calls/year
+    "Conservative": (0.0025, 0.05, 0.005, 3, 500_000),
+    "Base":         (0.03,   0.25, 0.02,  20, 5_000_000),
+    "Owner target": (0.10,   0.50, 0.05,  50, 20_000_000),
+    "Owner stretch": (0.20,  0.50, 0.05,  50, 20_000_000),
+}
+
+
+def case():
+    unit = UNIT_SOL * SOL_USD
+    cost = HOSTING_USD + RPC_USD + RELAY_USD + AI_USD
+    reviews_year = RATINGS_PER_DAY * 365
+    print("| Case | Pro buyers | Pro | Publishers | Promotion | API passes | Agent calls | **Year 1** | at SOL $%.0f | at SOL $%.0f |" % (SOL_LOW, SOL_HIGH))
+    print("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+    for name, (pro, pub, prom, passes, calls) in CASES.items():
+        sol = {"pro": DEVICES_SHIPPED * pro * UNIT_SOL, "pub": APPS * pub * UNIT_SOL * 2,
+               "prom": reviews_year * prom * PROMOTE_SOL, "api": passes * 12 * UNIT_SOL, "calls": calls * PER_CALL_SOL}
+        t = sum(sol.values())
+        print(f"| {name} | {DEVICES_SHIPPED * pro:,.0f} | ${sol['pro'] * SOL_USD:,.0f} | ${sol['pub'] * SOL_USD:,.0f} | ${sol['prom'] * SOL_USD:,.0f} | "
+              f"${sol['api'] * SOL_USD:,.0f} | ${sol['calls'] * SOL_USD:,.0f} | **${t * SOL_USD:,.0f}** | ${t * SOL_LOW:,.0f} | ${t * SOL_HIGH:,.0f} |")
+    print(f"\nUnit: one Pro licence 0.0607 SOL = ${unit:.2f} (or 369 SKR = ${369 * SKR_USD:.2f}; 332 SKR with a Genesis Token = ${332 * SKR_USD:.2f}).")
+    print(f"Running cost ${cost:,.0f} a year -> break-even at {cost / unit:,.0f} Pro licences a year "
+          f"({cost / unit / DEVICES_SHIPPED:.2%} of devices shipped, {cost / unit / GENESIS_TOKENS:.2%} of Genesis holders).")
+    print(f"Marginal cost per signed review: $0 (the reviewer's wallet pays its own network fee); per quick review "
+          f"${10_000 / 1e9 * SOL_USD:.4f} (relayer fee); per AI answer about $0.00003 (measured).")
+
+
 if __name__ == "__main__":
+    import sys
+    if sys.argv[1:] == ["case"]:
+        case(); raise SystemExit
     reviews_year = RATINGS_PER_DAY * 365
     past, tp = table("Last 12 months, had it run at today's scale", year(GENESIS_TOKENS, APPS, reviews_year))
     # Next year: the measured device growth (+11 a day) and adoption one step further along (low->mid, mid->high, high x1.5).
@@ -75,8 +100,6 @@ if __name__ == "__main__":
     print("| Base | " + " | ".join(f"{x:.1%}" for x in shares) + " |"); print("|---|" + "---:|" * len(shares))
     for name, base in (("Genesis Tokens on-chain (121,161)", GENESIS_TOKENS), ("Devices shipped, Solana Mobile's claim (200,000)", DEVICES_SHIPPED)):
         print(f"| {name} | " + " | ".join(f"{base * x:,.0f} buyers · ${base * x * UNIT_SOL * SOL_USD:,.0f}" for x in shares) + " |")
-    print(f"\nHistorical check: the {HIST_TREASURIES} store treasuries watched received about ${HIST_USD_YEAR:,} in the last 365 days "
-          f"all together; the best-paid one ${HIST_TOP_USD:,}; no one wallet had more than {HIST_MAX_PAYERS} distinct payers.\n")
     cost = HOSTING_USD + RPC_USD + RELAY_USD + AI_USD
     print(past, "\n\n", nxt_t, sep="")
     print(f"\nRunning costs a year: about ${cost:,.0f} (hosting ${HOSTING_USD:,.0f}, keyed RPC ${RPC_USD:,.0f}, "

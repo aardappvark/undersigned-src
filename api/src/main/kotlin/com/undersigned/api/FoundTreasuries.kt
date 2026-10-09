@@ -29,7 +29,21 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
     data class Scan(val pkg: String, val version: String, val wallets: Set<String>, val publisher: String?)
     data class Measure(val read: Int, val payments: Int, val payers: Int, val lamports: Long, val skr: Long, val usdc: Long, val first: Long?, val last: Long?)
 
+    data class HistoryState(val wallet: String, val listed: Int, val unread: Int, val unreadLastYear: Int, val exhausted: Boolean)
+
     companion object {
+        /**
+         * Which wallet the next history round reads (10 Oct 2026). It used to be "the fewest transactions read", which let a
+         * small, already complete wallet win every round, so the others starved (2,611 -> 2,671 reads in hours). Now: the
+         * most unread in the last year first, then any unread, then a wallet whose older pages are not listed yet, then the
+         * least-read for the hourly refresh of the newest.
+         */
+        fun pickHistoryWallet(states: List<HistoryState>): String? =
+            (states.filter { it.unreadLastYear > 0 }.maxByOrNull { it.unreadLastYear }
+                ?: states.filter { it.unread > 0 }.maxByOrNull { it.unread }
+                ?: states.firstOrNull { !it.exhausted || it.listed == 0 }
+                ?: states.minByOrNull { it.listed - it.unread })?.wallet
+
         const val MIN_PAYERS = 5
         /** Builds of any size are read (owner, 9 Oct 2026: "we can still do them"); only free disk is checked, with this to spare. */
         const val DISK_SPARE = 10L * 1024 * 1024 * 1024
@@ -195,9 +209,18 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
         return candidates().filter { (w, v) -> v.second.size == 1 && (payers[w] ?: 0) >= MIN_PAYERS }.keys.sorted()
     }
 
+    /** Listed transactions of the last 365 days not read yet, across every found wallet: what the yearly figures still miss. */
+    fun yearBacklog(): Int = db.query("SELECT count(*) FROM pay_rows WHERE addr_key LIKE 'found:%' AND fetched = 0 AND time > ?",
+        System.currentTimeMillis() / 1000 - 365L * 86_400) { it.getInt(1) }.firstOrNull() ?: 0
+
     /** One round of history reading: the least-read listed wallet gets one older page and up to [maxFetch] transactions. */
     fun historyTick(maxFetch: Int = 60) {
-        val w = listedWallets().minByOrNull { board.allProgress(it).let { (all, left) -> if (all == 0) -1 else all - left } } ?: return
+        val yearAgo = System.currentTimeMillis() / 1000 - 365L * 86_400
+        val w = pickHistoryWallet(listedWallets().map { w ->
+            val (all, left) = board.allProgress(w)
+            val yearLeft = db.query("SELECT count(*) FROM pay_rows WHERE addr_key = ? AND fetched = 0 AND time > ?", "found:$w", yearAgo) { it.getInt(1) }.first()
+            HistoryState(w, all, left, yearLeft, Board.addressesOf(w).all { db.get("pay_exhausted:found:$w:$it") == "1" })
+        }) ?: return
         if (board.allProgress(w).let { (all, left) -> all > 0 && left == 0 } && db.get("pay_exhausted:found:$w:$w") == "1") {
             // Complete: re-read the newest only, at most hourly.
             val k = "found_hist_at:$w"; if (System.currentTimeMillis() - (db.get(k)?.toLongOrNull() ?: 0L) < 3_600_000L) return; db.put(k, System.currentTimeMillis().toString())

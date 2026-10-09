@@ -104,4 +104,14 @@ class FoundTreasuriesTest {
         }
         assertEquals(0, FoundTreasuries(db, rpc, Store(0)).measure(a).payers)
     }
+
+    @Test fun `history reading never starves behind a small complete wallet`() {
+        fun st(w: String, listed: Int, unread: Int, year: Int, ex: Boolean) = FoundTreasuries.HistoryState(w, listed, unread, year, ex)
+        val small = st("small", 3, 0, 0, true); val big = st("big", 9_000, 8_700, 3_000, false); val old = st("old", 500, 400, 0, false)
+        val pick = { l: List<FoundTreasuries.HistoryState> -> FoundTreasuries.pickHistoryWallet(l) }
+        assertEquals("big", pick(listOf(small, big, old)))                 // the last year's backlog first
+        assertEquals("old", pick(listOf(small, old)))                      // then any unread
+        assertEquals("fresh", pick(listOf(small, st("fresh", 0, 0, 0, false))))  // then one not listed yet
+        assertEquals("small", pick(listOf(small)))                         // only complete wallets: the hourly refresh
+    }
 }

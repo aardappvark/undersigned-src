@@ -23,9 +23,9 @@ Undersigned itself stays ours: an independent, ordinary listed dApp beside the s
 passes (every payment public on-chain under the `UNS` memo). We are happy to contribute to the Seeker community as it
 grows, never by paying reviewers or moderators for what they sign.
 
-The numbers ([docs/REVENUE_MODEL.md](REVENUE_MODEL.md), `tools/revenue_model.py`): under US$1,000 a year to run. Owner
-Pro at 10–20% of the 200,000 Seekers Solana Mobile reports shipped would bring US$133,000–266,000 a year. The historical
-record is far lower: the 63 store treasuries we watch received about US$14,750 between them in the last year.
+The numbers ([docs/FINANCIAL_CASE.md](FINANCIAL_CASE.md)): about US$843 a year to run, break-even at 127 Pro licences
+a year. Base case (3% of the 200,000 Seekers shipped take Pro) about US$53,000 in year one; the owner's target (10–20%)
+US$172,000–305,000. What the store's apps have actually been paid is read from the chain in §3 of the case.
 
 ## To publishers
 

@@ -10,6 +10,7 @@ anyone can recompute it. No token, no prizes, nothing staked or moved by the app
 CLOCK IN hackathon entry (Solana Mobile). First commit 8 Sep 2026; submissions close Mon 12 Oct 2026, 11:59 UTC.
 Submission pack: [docs/SUBMISSION.md](docs/SUBMISSION.md). Protocol: [docs/SPEC.md](docs/SPEC.md).
 Developers (API, MCP): [docs/DEVELOPERS.md](docs/DEVELOPERS.md). What was built when: [docs/HISTORY.md](docs/HISTORY.md).
+The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 
 ## The core loop
 

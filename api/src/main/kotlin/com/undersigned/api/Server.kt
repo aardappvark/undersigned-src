@@ -582,8 +582,10 @@ fun main(args: Array<String>) {
         // Treasuries found in app code: one store build at a time, paced, round the clock (about a day for the whole store).
         views.found = FoundTreasuries(db, rpc, Store()).also { ft ->
             Thread({ Thread.sleep(90_000); while (true) { runCatching { ft.tick(indexer.loadCatalogue()) }.onFailure { log("found treasuries: ${it.message?.take(80)}") }; Thread.sleep(20_000) } }, "found-treasuries").apply { isDaemon = true }.start()
-            // Their full payment histories, for the analytics: free public RPC, gently (about 60 transactions a round).
-            Thread({ Thread.sleep(120_000); while (true) { runCatching { ft.historyTick() }.onFailure { log("found history: ${it.message?.take(80)}") }; Thread.sleep(15_000) } }, "found-history").apply { isDaemon = true }.start()
+            // Their full payment histories, for the analytics: one request at a time; quicker rounds while the last year
+            // still has unread transactions (the financial case reads that year, 10 Oct 2026), gently after.
+            Thread({ Thread.sleep(120_000); while (true) { runCatching { ft.historyTick() }.onFailure { log("found history: ${it.message?.take(80)}") }
+                Thread.sleep(if (runCatching { ft.yearBacklog() }.getOrDefault(0) > 0) 2_000 else 15_000) } }, "found-history").apply { isDaemon = true }.start()
         }
         Thread({ while (true) { Thread.sleep(60_000); runCatching { boards.refresh(indexer.state) }.onFailure { log("boards: ${it.message?.take(80)}") }; Thread.sleep(14 * 60_000L) } }, "boards").apply { isDaemon = true }.start()
     }
