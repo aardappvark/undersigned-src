@@ -34,7 +34,6 @@
     <string name="row_signed_count">%1$d件の署名</string>
     <string name="row_no_reviews">まだ署名付きレビューがありません</string>
     <string name="ledger_syncing">台帳を読み込んでいます…</string>
-    <string name="ledger_synced">台帳: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d件のレビュー</item><item quantity="other">%1$d件のレビュー</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d人の Seeker</item><item quantity="other">%1$d人の Seeker</item></plurals>
     <string name="ledger_error">台帳の読み込みに失敗しました：%1$s</string>
@@ -132,7 +131,7 @@
     </plurals>
     <string name="import_note">インポートされたレビューには \"works\"（4–5★）または \"confusing\"（1–3★）のタグが付きます。いつでも新しいレビューで編集できます。140文字を超えるテキストは切り詰められます。</string>
     <string name="detail_tags_title">所有者が付けたタグ</string>
-    <string name="detail_facts_title">お使いの端末で検証できること</string>
+    <string name="detail_facts_title">お使いの端末で確認できること</string>
     <string name="detail_facts_sub">この端末のパッケージマネージャーから読み取られます。事実と変更点のみで、安全性の判定ではありません。</string>
     <string name="fact_version">インストール済みのバージョンコード</string>
     <string name="fact_signer">署名証明書（SHA-256）</string>
@@ -161,7 +160,7 @@
     <string name="review_needs_wallet">投稿するには Seeker ウォレットでサインインしてください。</string>
     <string name="review_needs_sgt">このウォレットには証明済みデバイスの資格情報がありません（現在は Seeker Genesis Token）。そのため、このウォレットのレビューはカウントされません。ネットワーク手数料を無駄にしないよう、投稿は無効になっています。</string>
     <string name="review_checking_sgt">端末のアテステーションを確認しています…</string>
-    <string name="review_fee_note">ウォレットが支払うのは自身が設定する Solana ネットワーク手数料のみです（通常0.0001 SOL未満、Seeker では0.000047 SOLを計測）。価値の移動はありません。Undersigned は一切受け取りません。</string>
+    <string name="review_fee_note">ウォレットが支払うのは Solana のネットワーク手数料のみで、ウォレットが設定し、通常0.0001 SOL未満です。価値の移動はありません。Undersigned はレビューに対して何も受け取りません。</string>
     <string name="review_submit">署名して公開</string>
     <string name="review_simulating">トランザクションを確認しています…</string>
     <string name="review_signing">ウォレットからの応答を待っています…</string>
@@ -240,7 +239,7 @@
     <string name="inbox_replies">自分への返信</string>
     <string name="inbox_starred">スター付き</string>
     <string name="inbox_unanswered_sub">あなたが証明済みパブリッシャーであるアプリへの署名付きレビューのうち、あなたからの返信がないもの。</string>
-    <string name="inbox_unanswered_empty">待機中の項目はありません。パブリッシャーの主張を検証すると、ここにあなたのアプリが表示されます。</string>
+    <string name="inbox_unanswered_empty">待機中の項目はありません。アプリを公開していることを証明すると、ここにレビューが表示されます。</string>
     <string name="inbox_replies_empty">あなたのレコードへの返信はまだありません。</string>
     <string name="inbox_starred_empty">レビューにスターを付けると、ここに保存されます。</string>
     <string name="swipe_hint">レビューを右にスワイプすると返信できます。</string>
@@ -400,7 +399,7 @@
     <string name="pro_paying_title">支払う内容</string>
     <string name="pro_line_licence">Pro、12か月</string>
     <string name="pro_line_fee">ネットワーク手数料（ウォレットが設定）</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">通常0.0001 SOL未満</string>
     <string name="pro_line_total">合計</string>
     <string name="pro_paid_to">法的情報シートに記載のアドレスへ支払われます。ライセンスはこのウォレットに対して台帳に書き込まれます — アカウントもサーバーもなく、あなたについて何も保存されません。</string>
     <string name="pro_before_title">署名する前に</string>
@@ -468,7 +467,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">台帳をすべて読む</string>
     <string name="fp_sign">レビュー・返信・フラグ・異議に署名</string>
-    <string name="fp_facts">端末が確認できること</string>
+    <string name="fp_facts">お使いの端末で確認できること</string>
     <string name="fp_claim">dApp の権利を主張し、証明済みパブリッシャーとして返信</string>
     <string name="fp_copy">レビューをストアにコピー</string>
     <string name="fp_import">ストアレビューをインポート</string>
@@ -602,7 +601,7 @@
     <string name="lb_open">リーダーボード</string>
     <string name="lb_overall">総合</string>
     <plurals name="lb_dapps"><item quantity="other">%1$d件の dApp</item></plurals>
-    <string name="lb_m_revenue">収入</string>
+    <string name="lb_m_revenue">受取額</string>
     <string name="lb_m_payers">有料ユーザー</string>
     <string name="lb_m_signed_score">署名スコア</string>
     <string name="lb_m_signed_reviews">署名済みレビュー</string>
@@ -623,7 +622,7 @@
     <string name="lb_downloads_title">ダウンロード数</string>
     <string name="lb_downloads_body">dApp Store はインストール数を公開していないため、ダウンロードランキングはありません。データソースが追加されれば、ここに表示されます。</string>
     <string name="lb_signed_n">署名済みレビュー:%1$d</string>
-    <string name="dd_revenue">収入</string>
+    <string name="dd_revenue">受取額</string>
     <string name="dd_signed">署名済み</string>
     <string name="dd_store">ストア</string>
     <string name="dd_updates">更新</string>
@@ -646,7 +645,7 @@
     <string name="tr_90d">90日</string>
     <string name="tr_1y">1年</string>
     <string name="tr_all">全期間</string>
-    <string name="tr_revenue">収入</string>
+    <string name="tr_revenue">受取額</string>
     <string name="tr_score">スコアの推移</string>
     <string name="tr_signed">署名済み</string>
     <string name="tr_store">ストア</string>
@@ -735,7 +734,7 @@
     <string name="tag_perms_excess">権限過多</string>
     <string name="tag_spam_reviews">不自然なレビュー</string>
     <string name="tag_misleading">誤解を招く表示</string>
-    <string name="tag_suspected_scam">詐欺の疑い</string>
+    <string name="tag_suspected_scam">欺瞞的に見える</string>
     <string name="tag_abandoned">開発終了</string>
     <string name="tag_active_dev">活発に開発中</string>
     <string name="tag_onboarding_ok">導入体験が良い</string>
@@ -1061,7 +1060,6 @@
     <string name="pay_found_empty">まだ見つかっていません。ストアのビルドを読み込み中です（これまで %1$d 件）。</string>
     <string name="pay_found_dispute">あなたのものですか？下で資金口座を登録するとボードに移ります。違う場合は報告すると削除されます。</string>
     <string name="pay_found_report">ウォレットを報告</string>
-    <string name="desk_trend">直近30日：署名付きレビュー %1$d 件（その前の30日：%2$d 件）</string>
     <string name="desk_treasury_confirmed">資金口座を確認済み · %1$s 受領</string>
     <string name="desk_treasury_none">資金口座は未登録</string>
     <string name="desk_found">あなたのアプリのコード内で発見：%1$s（%2$d 個のウォレットが支払い）。「支払い」で資金口座として確認するか、あなたのものでなければ報告してください。</string>
@@ -1159,9 +1157,6 @@
     <string name="pa_board_title">最も支払われたアプリ</string>
     <string name="pa_pill_confirmed">確認済み</string>
     <string name="pa_pill_found">アプリのコードで発見</string>
-    <string name="pa_row_counts">支払い%1$s件 · 支払者%2$s · 新規%3$s</string>
-    <string name="pa_payments_payers">支払い%1$s件 · 支払者%2$s</string>
-    <string name="pa_new_line">支払い%1$s件 · 新規支払者%2$s</string>
     <string name="pa_cat_title">カテゴリ</string>
     <string name="pa_cat_apps">支払われたアプリ%1$s</string>
     <string name="pa_vs_before">変化は同じ長さの直前の期間との比較です。</string>
@@ -1173,7 +1168,6 @@
     <string name="pa_was">以前 %1$s</string>
     <string name="pa_trend_note">受け取ったUSDの変化を、同じ長さの直前の期間と比較。ランキングに入るには、どちらかの期間で%1$sが必要です。新登場：期間内に初めて支払いが見られたもの。</string>
     <string name="pa_how_title">支払い方法</string>
-    <string name="pa_rail_line">支払い%1$s件 · %2$s</string>
     <string name="pa_median">支払いの中央値</string>
     <string name="pa_p90">90パーセンタイル</string>
     <string name="pa_max">最大</string>
@@ -1216,4 +1210,34 @@
     <string name="ph_top_payer">最大の支払者の割合</string>
     <string name="ph_top10_payers">上位10支払者の割合</string>
     <string name="ph_of">%2$s 中 %1$s</string>
+    <string name="ledger_counted_frame">カウント済み：%2$s による %1$s · 表示 %3$d 件</string>
+    <string name="standing_operator">Undersigned 運営者のウォレット：あなたのレビューはラベル付きで表示され、カウントされることはありません。</string>
+    <string name="me_sgt_yes">Seeker Genesis Token：保有</string>
+    <string name="me_sgt_no">Seeker Genesis Token：未保有</string>
+    <string name="me_counts_yes">カウント対象：Genesis Token 保有</string>
+    <string name="me_counts_operator">表示のみ、カウントなし：Undersigned 運営者のウォレット</string>
+    <string name="me_counts_no">表示のみ、カウントなし：Genesis Token なし</string>
+    <string name="row_store_rating">ストア：%1$s★（%2$d）</string>
+    <string name="row_store_short">ストア %1$s★</string>
+    <string name="score_empty_shown">カウントされたレビューはまだありません · 表示 %1$d 件</string>
+    <string name="score_empty_operator">カウントされたレビューはまだありません · 表示 %1$d 件（Undersigned 運営者）</string>
+    <string name="inbox_unanswered_empty_publisher">待機中なし：証明済みアプリのすべてのレビューに返信があります。</string>
+    <string name="pro_line_fee_short">ネットワーク手数料</string>
+    <string name="quick_apart">クイックレビューは別枠で表示され、カウントされません。</string>
+    <string name="tags_more">その他のタグ（%1$d）</string>
+    <string name="alert_offer_title">返信があったら知らせる</string>
+    <string name="alert_offer_body">通知はオフです。パブリッシャーがあなたのレビューに返信したときにこの端末で知るにはオンにしてください。端末の外には何も送られません。</string>
+    <string name="alert_offer_button">通知をオンにする</string>
+    <string name="alert_offer_on">通知はオンです。設定からいつでも変更できます。</string>
+    <string name="pay_seg_analytics">分析</string>
+    <string name="pay_seg_confirmed">確認済み</string>
+    <string name="pay_seg_found">コードで発見</string>
+    <string name="pa_headline_label">主にアプリのコードで見つかったウォレットで、パブリッシャーは未確認。総受取額であり収益ではありません</string>
+    <string name="score_none_counted">カウントされたレビューなし</string>
+    <string name="share_review_it">Seeker でレビューする：%1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s 件の支払い</item><item quantity="other">%1$s 件の支払い</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s 人の支払者</item><item quantity="other">%1$s 人の支払者</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">新規 %1$s</item><item quantity="other">新規 %1$s</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">新規支払者 %1$s 人</item><item quantity="other">新規支払者 %1$s 人</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">直近30日：署名レビュー %1$d 件（その前の30日：%2$d）</item><item quantity="other">直近30日：署名レビュー %1$d 件（その前の30日：%2$d）</item></plurals>
 </resources>

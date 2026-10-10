@@ -30,7 +30,6 @@
     <string name="row_signed_count">%1$d signerade</string>
     <string name="row_no_reviews">Inga signerade recensioner än</string>
     <string name="ledger_syncing">Läser liggaren…</string>
-    <string name="ledger_synced">Liggare: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d recension</item><item quantity="other">%1$d recensioner</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Det gick inte att läsa liggaren: %1$s</string>
@@ -128,7 +127,7 @@
     </plurals>
     <string name="import_note">Importerade recensioner bär taggen \"works\" (4–5★) eller \"confusing\" (1–3★); redigera dem när som helst med en ny recension. Text längre än 140 tecken klipps av.</string>
     <string name="detail_tags_title">Vad ägare taggade</string>
-    <string name="detail_facts_title">Vad din enhet kan verifiera</string>
+    <string name="detail_facts_title">Vad din enhet kan kontrollera</string>
     <string name="detail_facts_sub">Läst från telefonens pakethanterare. Endast fakta och ändringar; ingen säkerhetsdom.</string>
     <string name="fact_version">Installerad versionskod</string>
     <string name="fact_signer">Signeringscertifikat (SHA-256)</string>
@@ -156,7 +155,7 @@
     <string name="review_needs_wallet">Logga in med din Seeker-plånbok för att publicera.</string>
     <string name="review_needs_sgt">Den här plånboken saknar bevis för en attesterad enhet (idag: Seeker Genesis Token), så dess recensioner skulle inte räknas. Publicering är avstängd för att spara dig nätverksavgiften.</string>
     <string name="review_checking_sgt">Kontrollerar enhetsattesteringen…</string>
-    <string name="review_fee_note">Din plånbok betalar bara den Solana-nätverksavgift den själv sätter (vanligtvis under 0,0001 SOL; uppmätt 0,000047 SOL på en Seeker). Inget värde flyttas. Undersigned tar ingenting.</string>
+    <string name="review_fee_note">Din plånbok betalar bara Solanas nätverksavgift, satt av plånboken, oftast under 0,0001 SOL. Inget värde flyttas. Undersigned tar inget för en recension.</string>
     <string name="review_submit">Signera och publicera</string>
     <string name="review_simulating">Kontrollerar transaktionen…</string>
     <string name="review_signing">Väntar på din plånbok…</string>
@@ -234,7 +233,7 @@
     <string name="inbox_replies">Svar till mig</string>
     <string name="inbox_starred">Stjärnmärkta</string>
     <string name="inbox_unanswered_sub">Signerade recensioner på appar där du är den bevisade utgivaren, utan svar från dig.</string>
-    <string name="inbox_unanswered_empty">Inget väntande. Verifiera ett utgivaranspråk för att se dina appar här.</string>
+    <string name="inbox_unanswered_empty">Inget väntar. Bevisa att du ger ut en app för att se dess recensioner här.</string>
     <string name="inbox_replies_empty">Inga svar på dina poster ännu.</string>
     <string name="inbox_starred_empty">Stjärnmärk en recension för att spara den här.</string>
     <string name="swipe_hint">Svep en recension åt höger för att svara.</string>
@@ -394,7 +393,7 @@
     <string name="pro_paying_title">Vad du betalar</string>
     <string name="pro_line_licence">Pro, 12 månader</string>
     <string name="pro_line_fee">Nätverksavgift, satt av din plånbok</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">oftast under 0,0001 SOL</string>
     <string name="pro_line_total">Totalt</string>
     <string name="pro_paid_to">Betalas till adressen i det juridiska bladet. Licensen skrivs till liggaren mot den här plånboken — inget konto, ingen server, inget lagrat om dig.</string>
     <string name="pro_before_title">Innan du signerar</string>
@@ -464,7 +463,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Läs hela liggaren</string>
     <string name="fp_sign">Signera recensioner, svar, flaggor, bestridanden</string>
-    <string name="fp_facts">Vad din enhet kan verifiera</string>
+    <string name="fp_facts">Vad din enhet kan kontrollera</string>
     <string name="fp_claim">Gör anspråk på en dApp, svara som dess bevisade utgivare</string>
     <string name="fp_copy">Kopiera en recension till butiken</string>
     <string name="fp_import">Importera butiksrecensioner</string>
@@ -602,7 +601,7 @@
     <string name="lb_open">Topplista</string>
     <string name="lb_overall">Totalt</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Intäkter</string>
+    <string name="lb_m_revenue">Mottaget</string>
     <string name="lb_m_payers">Betalande användare</string>
     <string name="lb_m_signed_score">Signerad poäng</string>
     <string name="lb_m_signed_reviews">Signerade recensioner</string>
@@ -623,7 +622,7 @@
     <string name="lb_downloads_title">Nedladdningar</string>
     <string name="lb_downloads_body">dApp Store publicerar inte installationsantal, så det finns ingen nedladdningsranking. Den visas här om en källa läggs till.</string>
     <string name="lb_signed_n">Signerade recensioner: %1$d</string>
-    <string name="dd_revenue">Intäkter</string>
+    <string name="dd_revenue">Mottaget</string>
     <string name="dd_signed">Signerad</string>
     <string name="dd_store">Butik</string>
     <string name="dd_updates">Uppdateringar</string>
@@ -646,7 +645,7 @@
     <string name="tr_90d">90D</string>
     <string name="tr_1y">1 ÅR</string>
     <string name="tr_all">Alla</string>
-    <string name="tr_revenue">Intäkter</string>
+    <string name="tr_revenue">Mottaget</string>
     <string name="tr_score">Poäng över tid</string>
     <string name="tr_signed">Signerad</string>
     <string name="tr_store">Butik</string>
@@ -750,7 +749,7 @@
     <string name="tag_perms_excess">För många behörigheter</string>
     <string name="tag_spam_reviews">Onaturliga recensioner</string>
     <string name="tag_misleading">Vilseledande</string>
-    <string name="tag_suspected_scam">Misstänkt bedrägeri</string>
+    <string name="tag_suspected_scam">Verkar vilseledande</string>
     <string name="tag_abandoned">Övergiven</string>
     <string name="tag_active_dev">Aktiv utveckling</string>
     <string name="tag_onboarding_ok">Introduktion ok</string>
@@ -1086,7 +1085,6 @@
     <string name="pay_found_empty">Inget hittat än. Butiksversioner läses fortfarande (%1$d hittills).</string>
     <string name="pay_found_dispute">Är någon din? Registrera din kassa nedan så flyttas den till tavlan. Inte din? Anmäl den så tas den bort.</string>
     <string name="pay_found_report">Anmäl en plånbok</string>
-    <string name="desk_trend">Senaste 30 dagarna: %1$d signerade recensioner (de 30 innan: %2$d)</string>
     <string name="desk_treasury_confirmed">Kassa bekräftad · %1$s mottaget</string>
     <string name="desk_treasury_none">Ingen kassa registrerad</string>
     <string name="desk_found">Hittad i din apps kod: %1$s, betald av %2$d plånböcker. Bekräfta den som din kassa under Betalningar, eller anmäl den om den inte är din.</string>
@@ -1184,9 +1182,6 @@
     <string name="pa_board_title">Mest betalda appar</string>
     <string name="pa_pill_confirmed">bekräftad</string>
     <string name="pa_pill_found">hittad i appens kod</string>
-    <string name="pa_row_counts">%1$s betalningar · %2$s betalare · %3$s nya</string>
-    <string name="pa_payments_payers">%1$s betalningar · %2$s betalare</string>
-    <string name="pa_new_line">%1$s betalningar · %2$s nya betalare</string>
     <string name="pa_cat_title">Kategorier</string>
     <string name="pa_cat_apps">%1$s betalda appar</string>
     <string name="pa_vs_before">Förändring jämfört med lika lång period innan.</string>
@@ -1198,7 +1193,6 @@
     <string name="pa_was">tidigare %1$s</string>
     <string name="pa_trend_note">Förändring i mottagna USD jämfört med lika lång period innan. En app behöver %1$s under någon av perioderna för att rankas. Nykomlingar: första betalningen sedd inom perioden.</string>
     <string name="pa_how_title">Hur det betalades</string>
-    <string name="pa_rail_line">%1$s betalningar · %2$s</string>
     <string name="pa_median">Medianbetalning</string>
     <string name="pa_p90">90:e percentilen</string>
     <string name="pa_max">Störst</string>
@@ -1241,4 +1235,34 @@
     <string name="ph_top_payer">Största betalarens andel</string>
     <string name="ph_top10_payers">De 10 största betalarnas andel</string>
     <string name="ph_of">%1$s av %2$s</string>
+    <string name="ledger_counted_frame">Räknade: %1$s från %2$s · %3$d visade</string>
+    <string name="standing_operator">Undersigneds operatörsplånbok: dina recensioner visas, märks och räknas aldrig.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: finns</string>
+    <string name="me_sgt_no">Seeker Genesis Token: saknas</string>
+    <string name="me_counts_yes">Räknas: Genesis Token finns</string>
+    <string name="me_counts_operator">Visas, räknas aldrig: Undersigneds operatörsplånbok</string>
+    <string name="me_counts_no">Visas, räknas inte: ingen Genesis Token</string>
+    <string name="row_store_rating">Butik: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Butik %1$s★</string>
+    <string name="score_empty_shown">Inga räknade recensioner än · %1$d visade</string>
+    <string name="score_empty_operator">Inga räknade recensioner än · %1$d visade (Undersigneds operatör)</string>
+    <string name="inbox_unanswered_empty_publisher">Inget väntar: varje recension av dina bevisade appar har ett svar.</string>
+    <string name="pro_line_fee_short">nätverksavgift</string>
+    <string name="quick_apart">En snabbrecension visas för sig och räknas aldrig.</string>
+    <string name="tags_more">Fler taggar (%1$d)</string>
+    <string name="alert_offer_title">Få veta när någon svarar</string>
+    <string name="alert_offer_body">Aviseringar är av. Slå på dem för att få veta på den här telefonen när utgivaren svarar på din recension. Inget lämnar enheten.</string>
+    <string name="alert_offer_button">Slå på aviseringar</string>
+    <string name="alert_offer_on">Aviseringar är på. Ändra dem när du vill i Inställningar.</string>
+    <string name="pay_seg_analytics">Analys</string>
+    <string name="pay_seg_confirmed">Bekräftade</string>
+    <string name="pay_seg_found">Hittade i kod</string>
+    <string name="pa_headline_label">Mest plånböcker hittade i appkod, inte bekräftade av utgivare; bruttoinbetalningar, inte intäkter</string>
+    <string name="score_none_counted">Inga räknade recensioner</string>
+    <string name="share_review_it">Recensera med din Seeker: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s betalning</item><item quantity="other">%1$s betalningar</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s betalare</item><item quantity="other">%1$s betalare</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s ny</item><item quantity="other">%1$s nya</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s ny betalare</item><item quantity="other">%1$s nya betalare</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Senaste 30 dagarna: %1$d signerad recension (de 30 före: %2$d)</item><item quantity="other">Senaste 30 dagarna: %1$d signerade recensioner (de 30 före: %2$d)</item></plurals>
 </resources>

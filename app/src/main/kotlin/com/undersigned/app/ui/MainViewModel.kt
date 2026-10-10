@@ -60,6 +60,8 @@ sealed class LedgerStatus {
 class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val catalogueRepo = CatalogueRepository(app)
     private val installedApps = InstalledApps(app)
+    /** Permission constants as the phone names them ("Camera", "Location") for the facts panel. */
+    fun permissionNames(perms: List<String>): List<String> = installedApps.permissionNames(perms)
     private val ledgerCache = LedgerCache(app)
     private val reader = LedgerReader(cache = ledgerCache)
     private val factsService = SignerFactsService(attestations = com.undersigned.app.solana.AttestationList.load(app))
@@ -1266,19 +1268,32 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val apps: Int, val appsScored: Int, val replies: Int, val publisherReplies: Int, val claims: Int, val claimsVerified: Int, val flags: Int, val clears: Int, val disputes: Int,
         val hidden: Int, val withdrawn: Int, val licences: Int, val first: Long, val latest: Long)
 
+    /**
+     * Browse's ledger line: reviews the scores count, and the attested Seekers behind live reviews (operator wallets never
+     * among them), beside how many reviews are shown. Same rules as [stats] and the server.
+     */
+    fun ledgerHeadline(): Pair<Int, Int> {
+        val rv = Ranking.revoked(entries.value); val f = facts.value
+        val signers = entries.value.filter { it.memo is ReviewMemo.Review && it.signature !in rv }.map { it.signer }.toSet()
+        return scores.value.values.sumOf { it.countedReviews } to signers.count { f[it]?.hasGenesisToken == true && !com.undersigned.protocol.Operator.isOperator(it) }
+    }
+
     /** The curator's numbers, recomputed from the registry on this device. */
     fun stats(): Stats {
         val all = entries.value; val revoked = revokedSignatures(); val f = facts.value; val vp = verifiedPublishers.value
         val live = all.filter { it.memo is ReviewMemo.Review && it.signature !in revoked }
-        val counted = live.filter { (f[it.signer]?.hasGenesisToken == true) && !isSelfPublished(it) }
+        // As the server's /v1/stats counts (judge, 10 Oct 2026): counted = what the per-app scores count, and an operator
+        // wallet is never an attested signer, whatever it holds (Operator: shown, labelled, never counted).
+        val sc = scores.value
+        val countedTotal = sc.values.sumOf { it.countedReviews }
         val signers = live.map { it.signer }.toSet()
         val replies = all.filter { it.memo is ReviewMemo.Reply }
         val byId = all.associateBy { it.signature }
         val pubReplies = replies.count { r -> val pkg = (byId[(r.memo as ReviewMemo.Reply).reviewSignature]?.memo as? ReviewMemo.Review)?.packageName; pkg != null && vp[pkg]?.contains(r.signer) == true }
         val meta = txMeta.value
         val ordered = all.filter { it.memo !is ReviewMemo.Pro && it.memo !is ReviewMemo.Share && it.memo !is ReviewMemo.Unshare }
-        return Stats(all.size, live.size, counted.size, signers.size, signers.count { f[it]?.hasGenesisToken == true }, meta.values.count { it.seekerWallet }, meta.size,
-            live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size, scores.value.size, replies.size, pubReplies,
+        return Stats(all.size, live.size, countedTotal, signers.size, signers.count { f[it]?.hasGenesisToken == true && !com.undersigned.protocol.Operator.isOperator(it) }, meta.values.count { it.seekerWallet }, meta.size,
+            live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size, sc.values.count { it.countedReviews > 0 }, replies.size, pubReplies,
             all.count { it.memo is ReviewMemo.Claim }, vp.values.sumOf { it.size }, all.count { it.memo is ReviewMemo.Flag }, all.count { it.memo is ReviewMemo.Clear }, all.count { it.memo is ReviewMemo.Dispute },
             hiddenByConsensus.value.size, revoked.size, all.count { it.memo is ReviewMemo.Pro },
             ordered.minOfOrNull { it.blockTime } ?: 0L, ordered.maxOfOrNull { it.blockTime } ?: 0L)

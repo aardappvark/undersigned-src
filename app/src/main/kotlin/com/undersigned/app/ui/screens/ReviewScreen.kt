@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.undersigned.app.R
+import com.undersigned.app.data.UserPreferences
 import com.undersigned.app.solana.ReviewTxService
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
@@ -58,20 +59,21 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     var stage by remember { mutableStateOf<String?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     var done by remember { mutableStateOf<String?>(null) }
-    // Install age rides in the review's own transaction; on by default because the reviewer sees exactly what is added.
+    // Install age rides in the review's own transaction. Every device fact is opt-in (README): off until the reviewer turns
+    // it on, and then remembered as their last choice (judge, 10 Oct 2026).
     val installAge = remember(pkg) { vm.installAge(pkg) }
     val reinstalls = remember(pkg) { vm.reinstalls(pkg) }
-    var addAge by remember { mutableStateOf(true) }
+    var addAge by remember { mutableStateOf(UserPreferences.addInstallAge) }
     // Usage access is a system-settings switch, so re-read it whenever the screen comes back from Settings.
     var resumes by remember { mutableStateOf(0) }
     val owner = androidx.compose.ui.platform.LocalLifecycleOwner.current
     DisposableEffect(owner) { val o = androidx.lifecycle.LifecycleEventObserver { _, e -> if (e == androidx.lifecycle.Lifecycle.Event.ON_RESUME) resumes++ }; owner.lifecycle.addObserver(o); onDispose { owner.lifecycle.removeObserver(o) } }
     val hasUsageAccess = remember(resumes) { com.undersigned.app.device.UsageTime.hasAccess(context) }
     val useTime = remember(pkg, hasUsageAccess) { if (hasUsageAccess && installAge != null) vm.useTime(pkg) else null }
-    var addTime by remember { mutableStateOf(true) }
+    var addTime by remember { mutableStateOf(UserPreferences.addUseTime) }
     // How it was used (owner, 10 Oct 2026): months of the last six, last use, reinstalls. Its own switch, opt-in like the rest.
     val activity = remember(pkg, hasUsageAccess) { if (hasUsageAccess && installAge != null) vm.activity(pkg) else null }
-    var addActivity by remember { mutableStateOf(true) }
+    var addActivity by remember { mutableStateOf(UserPreferences.addActivity) }
 
     val bytes = text.toByteArray(Charsets.UTF_8).size
     val textOk = text.isEmpty() || (text.trim().length <= com.undersigned.protocol.LongText.MAX_CHARS && bytes <= com.undersigned.protocol.LongText.MAX_BYTES)
@@ -92,6 +94,11 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
         dismissButton = { TextButton(onClick = { confirmLeave = false }) { Text(stringResource(R.string.keep_editing), color = RbColors.purpleLight) } })
     val canSubmit = gate == null && rating in 1..5 && tags.isNotEmpty() && textOk && (text.isEmpty() || consent) && stage == null && done == null && sender != null
 
+    // A failed or declined publish is said at the bottom of the screen, where it is seen (judge, 10 Oct 2026: it was text
+    // under the buttons, below the fold).
+    val snack = remember { SnackbarHostState() }
+    LaunchedEffect(error) { error?.let { snack.showSnackbar(context.getString(R.string.review_failed, it), withDismissAction = true, duration = SnackbarDuration.Long) } }
+    Box(Modifier.fillMaxSize()) {
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             BackButton({ leave() }, enabled = stage == null)
@@ -130,7 +137,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             SectionTitle(stringResource(R.string.review_rating))
             RatingInput(rating, enabled = stage == null) { rating = it }
             SectionTitle(stringResource(R.string.review_tags))
-            TagPicker(tags, enabled = stage == null) { tags = it }
+            TagPicker(tags, enabled = stage == null, collapsible = true) { tags = it }
             SectionTitle(stringResource(R.string.review_text_label, com.undersigned.protocol.LongText.MAX_CHARS - text.length, com.undersigned.protocol.LongText.MAX_BYTES - bytes))
             if (com.undersigned.protocol.LongText.needsParts(com.undersigned.protocol.LongText.clean(text))) Text(stringResource(R.string.review_long_note, com.undersigned.protocol.LongText.split(com.undersigned.protocol.LongText.clean(text)).size), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             OutlinedTextField(
@@ -154,14 +161,14 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 if (installAge == null) Text(stringResource(R.string.use_not_installed), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 8.dp))
                 else {
                     val ageDesc = stringResource(R.string.use_add, useLabel(installAge))
-                    ExtraRow(stringResource(R.string.use_row_label), useLabel(installAge), addAge, enabled = stage == null, description = ageDesc) { addAge = it }
+                    ExtraRow(stringResource(R.string.use_row_label), useLabel(installAge), addAge, enabled = stage == null, description = ageDesc) { addAge = it; UserPreferences.addInstallAge = it }
                     if (reinstalls > 0) Text(stringResource(R.string.use_reinstalled, reinstalls), color = RbColors.textTertiary, fontSize = 11.sp)
                     if (useTime != null) {
                         val timeDesc = stringResource(R.string.time_add, timeLabel(useTime))
-                        ExtraRow(stringResource(R.string.time_row_label), timeLabel(useTime), addTime, enabled = stage == null, description = timeDesc) { addTime = it }
+                        ExtraRow(stringResource(R.string.time_row_label), timeLabel(useTime), addTime, enabled = stage == null, description = timeDesc) { addTime = it; UserPreferences.addUseTime = it }
                         activity?.let { act ->
                             val actValue = com.undersigned.app.ui.components.activityLabel(act)
-                            ExtraRow(stringResource(R.string.act_row_label), actValue, addActivity, enabled = stage == null, description = stringResource(R.string.act_add, actValue)) { addActivity = it }
+                            ExtraRow(stringResource(R.string.act_row_label), actValue, addActivity, enabled = stage == null, description = stringResource(R.string.act_add, actValue)) { addActivity = it; UserPreferences.addActivity = it }
                         }
                     } else if (!hasUsageAccess) {
                         HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 6.dp))
@@ -199,6 +206,11 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             // Quick review (owner, 10 Oct 2026): no wallet, no Seed Vault; this phone's app key signs, the fee is paid for it.
             // Its own section and stars, never in the signed score; public and permanent like any review.
             if (followUpOf == null) {
+                // Set apart from "Sign and publish" (judge, 10 Oct 2026): a rule, then what a quick review is, then its button.
+                Spacer(Modifier.height(20.dp))
+                HorizontalDivider(color = RbColors.surfaceVariant)
+                Spacer(Modifier.height(14.dp))
+                Text(stringResource(R.string.quick_apart), color = RbColors.info, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, lineHeight = 18.sp)
                 Spacer(Modifier.height(8.dp))
                 val quickOk = rating in 1..5 && tags.isNotEmpty() && textOk && (text.isEmpty() || consent) && stage == null && done == null
                 com.undersigned.app.ui.components.SecondaryButton(stringResource(R.string.quick_post), enabled = quickOk, onClick = {
@@ -210,9 +222,12 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 })
                 Text(stringResource(R.string.quick_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
             }
-            error?.let { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_failed, it), color = RbColors.negative, fontSize = 12.sp) }
             done?.let {
                 Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.review_done, shortKey(it, 8, 8)), color = RbColors.green, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                // Once, after the first review that went through: alerts are off by default, so offer them here (judge, 10 Oct 2026).
+                val offer = remember { !UserPreferences.alertOfferShown && !UserPreferences.alertsEnabled.value }
+                LaunchedEffect(Unit) { UserPreferences.alertOfferShown = true }
+                if (offer) { Spacer(Modifier.height(10.dp)); AlertsOffer() }
                 Spacer(Modifier.height(8.dp))
                 // Free for everyone (feature review, 9 Oct 2026): sending the review into the store's own box strengthens the store.
                 var storeHandoff by remember { mutableStateOf(false) }
@@ -223,6 +238,25 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             }
             Spacer(Modifier.height(32.dp))
         }
+    }
+    SnackbarHost(snack, Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(12.dp)) { d ->
+        Snackbar(d, containerColor = RbColors.surface, contentColor = RbColors.negative, dismissActionContentColor = RbColors.textSecondary)
+    }
+    }
+}
+
+/** The one-time offer to turn alerts on after a first review; the switch is the same as Settings' (permission asked first). */
+@Composable
+private fun AlertsOffer() {
+    val context = LocalContext.current
+    val alerts by UserPreferences.alertsEnabled.collectAsState()
+    fun on() { UserPreferences.setAlerts(true); com.undersigned.app.notify.LedgerWatchWorker.schedule(context) }
+    val ask = androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()) { granted -> if (granted) on() }
+    GlassCard(accent = RbColors.purple.copy(alpha = 0.6f)) {
+        Text(stringResource(R.string.alert_offer_title), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(if (alerts) R.string.alert_offer_on else R.string.alert_offer_body), color = if (alerts) RbColors.green else RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 4.dp))
+        if (!alerts) { Spacer(Modifier.height(8.dp)); SecondaryButton(stringResource(R.string.alert_offer_button), onClick = {
+            if (android.os.Build.VERSION.SDK_INT >= 33) ask.launch(android.Manifest.permission.POST_NOTIFICATIONS) else on() }) }
     }
 }
 

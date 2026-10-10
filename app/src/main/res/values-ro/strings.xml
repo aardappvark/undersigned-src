@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d semnate</string>
     <string name="row_no_reviews">Încă nicio recenzie semnată</string>
     <string name="ledger_syncing">Se citește registrul…</string>
-    <string name="ledger_synced">Registru: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d recenzie</item><item quantity="few">%1$d recenzii</item><item quantity="other">%1$d de recenzii</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="few">%1$d Seeker</item><item quantity="other">%1$d de Seeker</item></plurals>
     <string name="ledger_error">Citirea registrului a eșuat: %1$s</string>
@@ -171,7 +170,7 @@
     <string name="review_needs_wallet">Conectează-te cu portofelul tău Seeker pentru a publica.</string>
     <string name="review_needs_sgt">Acest portofel nu deține o acreditare de dispozitiv atestat (astăzi: Seeker Genesis Token), așa că recenziile sale nu ar fi numărate. Publicarea este dezactivată ca să nu plătești degeaba comisionul de rețea.</string>
     <string name="review_checking_sgt">Se verifică atestarea dispozitivului…</string>
-    <string name="review_fee_note">Portofelul tău plătește doar comisionul de rețea Solana pe care îl stabilește singur (de obicei sub 0,0001 SOL; măsurat 0,000047 SOL pe un Seeker). Nu se mută nicio valoare. Undersigned nu ia nimic.</string>
+    <string name="review_fee_note">Portofelul tău plătește doar taxa de rețea Solana, stabilită de portofel, de obicei sub 0,0001 SOL. Nu se mută nicio valoare. Undersigned nu ia nimic pentru o recenzie.</string>
     <string name="review_submit">Semnează și publică</string>
     <string name="review_simulating">Se verifică tranzacția…</string>
     <string name="review_signing">Se așteaptă portofelul…</string>
@@ -254,7 +253,7 @@
     <string name="inbox_replies">Răspunsuri pentru mine</string>
     <string name="inbox_starred">Cu stea</string>
     <string name="inbox_unanswered_sub">Recenzii semnate la aplicații ale căror editor dovedit ești, fără răspuns din partea ta.</string>
-    <string name="inbox_unanswered_empty">Nimic în așteptare. Verifică o revendicare de editor ca să-ți vezi aplicațiile aici.</string>
+    <string name="inbox_unanswered_empty">Nimic în așteptare. Dovedește că publici o aplicație ca să-i vezi aici recenziile.</string>
     <string name="inbox_replies_empty">Încă niciun răspuns la înregistrările tale.</string>
     <string name="inbox_starred_empty">Marchează o recenzie cu stea ca s-o păstrezi aici.</string>
     <string name="swipe_hint">Glisează o recenzie spre dreapta pentru a răspunde.</string>
@@ -415,7 +414,7 @@
     <string name="pro_paying_title">Ce plătești</string>
     <string name="pro_line_licence">Pro, 12 luni</string>
     <string name="pro_line_fee">Comision de rețea, stabilit de portofelul tău</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">de obicei sub 0,0001 SOL</string>
     <string name="pro_line_total">Total</string>
     <string name="pro_paid_to">Plătit la adresa din fișa Legal. Licența este scrisă în registru pentru acest portofel — niciun cont, niciun server, nimic stocat despre tine.</string>
     <string name="pro_before_title">Înainte să semnezi</string>
@@ -625,7 +624,7 @@
     <string name="lb_open">Clasament</string>
     <string name="lb_overall">General</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Venituri</string>
+    <string name="lb_m_revenue">Primit</string>
     <string name="lb_m_payers">Utilizatori plătitori</string>
     <string name="lb_m_signed_score">Scor semnat</string>
     <string name="lb_m_signed_reviews">Recenzii semnate</string>
@@ -646,7 +645,7 @@
     <string name="lb_downloads_title">Descărcări</string>
     <string name="lb_downloads_body">dApp Store nu publică numărul de instalări, așa că nu există clasament al descărcărilor. Va apărea aici dacă se adaugă o sursă.</string>
     <string name="lb_signed_n">Recenzii semnate: %1$d</string>
-    <string name="dd_revenue">Venituri</string>
+    <string name="dd_revenue">Primit</string>
     <string name="dd_signed">Semnat</string>
     <string name="dd_store">Magazin</string>
     <string name="dd_updates">Actualizări</string>
@@ -669,7 +668,7 @@
     <string name="tr_90d">90Z</string>
     <string name="tr_1y">1A</string>
     <string name="tr_all">Tot</string>
-    <string name="tr_revenue">Venituri</string>
+    <string name="tr_revenue">Primit</string>
     <string name="tr_score">Scor în timp</string>
     <string name="tr_signed">Semnat</string>
     <string name="tr_store">Magazin</string>
@@ -757,7 +756,7 @@
     <string name="tag_perms_excess">Permisiuni excesive</string>
     <string name="tag_spam_reviews">Recenzii nenaturale</string>
     <string name="tag_misleading">Înșelător</string>
-    <string name="tag_suspected_scam">Suspiciune de escrocherie</string>
+    <string name="tag_suspected_scam">Pare înșelătoare</string>
     <string name="tag_abandoned">Abandonat</string>
     <string name="tag_active_dev">Dezvoltare activă</string>
     <string name="tag_onboarding_ok">Onboarding ok</string>
@@ -1103,7 +1102,6 @@
     <string name="pay_found_empty">Nimic încă. Versiunile din magazin se citesc în continuare (%1$d până acum).</string>
     <string name="pay_found_dispute">E vreunul al tău? Înregistrează-ți trezoreria mai jos și trece în tablou. Nu e al tău? Raportează-l și va fi eliminat.</string>
     <string name="pay_found_report">Raportează un portofel</string>
-    <string name="desk_trend">Ultimele 30 de zile: %1$d recenzii semnate (cele 30 dinainte: %2$d)</string>
     <string name="desk_treasury_confirmed">Trezorerie confirmată · %1$s primiți</string>
     <string name="desk_treasury_none">Nicio trezorerie înregistrată</string>
     <string name="desk_found">Găsit în codul aplicației tale: %1$s, plătit de %2$d portofele. Confirmă-l ca trezorerie în Plăți sau raportează-l dacă nu e al tău.</string>
@@ -1201,9 +1199,6 @@
     <string name="pa_board_title">Cele mai plătite aplicații</string>
     <string name="pa_pill_confirmed">confirmată</string>
     <string name="pa_pill_found">găsit în codul aplicației</string>
-    <string name="pa_row_counts">%1$s plăți · %2$s plătitori · %3$s noi</string>
-    <string name="pa_payments_payers">%1$s plăți · %2$s plătitori</string>
-    <string name="pa_new_line">%1$s plăți · %2$s plătitori noi</string>
     <string name="pa_cat_title">Categorii</string>
     <string name="pa_cat_apps">%1$s aplicații plătite</string>
     <string name="pa_vs_before">Schimbarea este față de perioada anterioară de aceeași durată.</string>
@@ -1215,7 +1210,6 @@
     <string name="pa_was">înainte %1$s</string>
     <string name="pa_trend_note">Schimbarea USD primiți față de perioada anterioară de aceeași durată. O aplicație are nevoie de %1$s într-una dintre cele două perioade pentru a fi clasată. Noi veniți: prima plată văzută în perioadă.</string>
     <string name="pa_how_title">Cum s-a plătit</string>
-    <string name="pa_rail_line">%1$s plăți · %2$s</string>
     <string name="pa_median">Plata mediană</string>
     <string name="pa_p90">Percentila 90</string>
     <string name="pa_max">Cea mai mare</string>
@@ -1258,4 +1252,34 @@
     <string name="ph_top_payer">Ponderea celui mai mare plătitor</string>
     <string name="ph_top10_payers">Ponderea primilor 10 plătitori</string>
     <string name="ph_of">%1$s din %2$s</string>
+    <string name="ledger_counted_frame">Numărate: %1$s de la %2$s · %3$d afișate</string>
+    <string name="standing_operator">Portofel al operatorului Undersigned: recenziile tale sunt afișate, etichetate și niciodată numărate.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: deținut</string>
+    <string name="me_sgt_no">Seeker Genesis Token: nedeținut</string>
+    <string name="me_counts_yes">Contează: Genesis Token deținut</string>
+    <string name="me_counts_operator">Afișat, niciodată numărat: portofel al operatorului Undersigned</string>
+    <string name="me_counts_no">Afișat, nenumărat: fără Genesis Token</string>
+    <string name="row_store_rating">Magazin: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Magazin %1$s★</string>
+    <string name="score_empty_shown">Încă nicio recenzie numărată · %1$d afișate</string>
+    <string name="score_empty_operator">Încă nicio recenzie numărată · %1$d afișate (operatorul Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Nimic în așteptare: fiecare recenzie a aplicațiilor tale dovedite are un răspuns.</string>
+    <string name="pro_line_fee_short">taxa de rețea</string>
+    <string name="quick_apart">O recenzie rapidă e afișată separat și nu e numărată niciodată.</string>
+    <string name="tags_more">Mai multe etichete (%1$d)</string>
+    <string name="alert_offer_title">Află când cineva răspunde</string>
+    <string name="alert_offer_body">Alertele sunt oprite. Pornește-le ca să afli pe acest telefon când editorul răspunde la recenzia ta. Nimic nu părăsește dispozitivul.</string>
+    <string name="alert_offer_button">Pornește alertele</string>
+    <string name="alert_offer_on">Alertele sunt pornite. Le poți schimba oricând din Setări.</string>
+    <string name="pay_seg_analytics">Analize</string>
+    <string name="pay_seg_confirmed">Confirmate</string>
+    <string name="pay_seg_found">Găsite în cod</string>
+    <string name="pa_headline_label">Mai ales portofele găsite în codul aplicațiilor, neconfirmate de editori; încasări brute, nu venit</string>
+    <string name="score_none_counted">Nicio recenzie numărată</string>
+    <string name="share_review_it">Evaluează-o cu Seeker-ul tău: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s plată</item><item quantity="few">%1$s plăți</item><item quantity="other">%1$s de plăți</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s plătitor</item><item quantity="few">%1$s plătitori</item><item quantity="other">%1$s de plătitori</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s nou</item><item quantity="few">%1$s noi</item><item quantity="other">%1$s noi</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s plătitor nou</item><item quantity="few">%1$s plătitori noi</item><item quantity="other">%1$s de plătitori noi</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Ultimele 30 de zile: %1$d recenzie semnată (cele 30 dinainte: %2$d)</item><item quantity="few">Ultimele 30 de zile: %1$d recenzii semnate (cele 30 dinainte: %2$d)</item><item quantity="other">Ultimele 30 de zile: %1$d de recenzii semnate (cele 30 dinainte: %2$d)</item></plurals>
 </resources>

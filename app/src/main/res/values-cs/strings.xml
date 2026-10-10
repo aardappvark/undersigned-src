@@ -34,7 +34,6 @@
     <string name="row_signed_count">%1$d podepsáno</string>
     <string name="row_no_reviews">Zatím žádné podepsané recenze</string>
     <string name="ledger_syncing">Čte se evidence…</string>
-    <string name="ledger_synced">Evidence: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d recenze</item><item quantity="few">%1$d recenze</item><item quantity="many">%1$d recenze</item><item quantity="other">%1$d recenzí</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="few">%1$d Seekery</item><item quantity="many">%1$d Seekeru</item><item quantity="other">%1$d Seekerů</item></plurals>
     <string name="ledger_error">Čtení evidence selhalo: %1$s</string>
@@ -139,7 +138,7 @@
     </plurals>
     <string name="import_note">Importované recenze nesou štítek \"works\" (4–5★) nebo \"confusing\" (1–3★); kdykoli je upravte novou recenzí. Text delší než 140 znaků je zkrácen.</string>
     <string name="detail_tags_title">Co vlastníci označili</string>
-    <string name="detail_facts_title">Co dokáže vaše zařízení ověřit</string>
+    <string name="detail_facts_title">Co může vaše zařízení zkontrolovat</string>
     <string name="detail_facts_sub">Přečteno ze správce balíčků tohoto telefonu. Pouze fakta a změny, nikoli bezpečnostní verdikt.</string>
     <string name="fact_version">Nainstalovaný kód verze</string>
     <string name="fact_signer">Podpisový certifikát (SHA-256)</string>
@@ -168,7 +167,7 @@
     <string name="review_needs_wallet">Pro zveřejnění se přihlaste svou peněženkou Seeker.</string>
     <string name="review_needs_sgt">Tato peněženka nemá žádné pověření ověřeného zařízení (dnes: Seeker Genesis Token), takže by se její recenze nezapočítávaly. Zveřejnění je zakázáno, abyste ušetřili síťový poplatek.</string>
     <string name="review_checking_sgt">Kontroluje se atestace zařízení…</string>
-    <string name="review_fee_note">Vaše peněženka platí pouze síťový poplatek Solany, který si sama nastaví (obvykle pod 0,0001 SOL; naměřeno 0,000047 SOL na zařízení Seeker). Nepřevádí se žádná hodnota. Undersigned si nebere nic.</string>
+    <string name="review_fee_note">Vaše peněženka platí jen síťový poplatek Solany, stanovený peněženkou, obvykle pod 0,0001 SOL. Žádná hodnota se nepřesouvá. Undersigned si za recenzi nic nebere.</string>
     <string name="review_submit">Podepsat a zveřejnit</string>
     <string name="review_simulating">Kontroluje se transakce…</string>
     <string name="review_signing">Čeká se na vaši peněženku…</string>
@@ -250,7 +249,7 @@
     <string name="inbox_replies">Odpovědi mně</string>
     <string name="inbox_starred">Oblíbené</string>
     <string name="inbox_unanswered_sub">Podepsané recenze aplikací, jejichž jste prokázaným vydavatelem, bez vaší odpovědi.</string>
-    <string name="inbox_unanswered_empty">Nic nečeká. Ověřte nárok vydavatele, aby se zde zobrazily vaše aplikace.</string>
+    <string name="inbox_unanswered_empty">Nic nečeká. Prokažte, že vydáváte aplikaci, a uvidíte zde její recenze.</string>
     <string name="inbox_replies_empty">Zatím žádné odpovědi na vaše záznamy.</string>
     <string name="inbox_starred_empty">Přidejte recenzi do oblíbených, aby zůstala zde.</string>
     <string name="swipe_hint">Přejetím recenze doprava odpovíte.</string>
@@ -412,7 +411,7 @@
     <string name="pro_paying_title">Za co platíte</string>
     <string name="pro_line_licence">Pro, 12 měsíců</string>
     <string name="pro_line_fee">Síťový poplatek, nastavený vaší peněženkou</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">obvykle pod 0,0001 SOL</string>
     <string name="pro_line_total">Celkem</string>
     <string name="pro_paid_to">Placeno na adresu uvedenou v Právních informacích. Licence se zapisuje do evidence k této peněžence — žádný účet, žádný server, nic o vás se neukládá.</string>
     <string name="pro_before_title">Než podepíšete</string>
@@ -486,7 +485,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Číst celou evidenci</string>
     <string name="fp_sign">Podepisovat recenze, odpovědi, označení, rozpory</string>
-    <string name="fp_facts">Co dokáže vaše zařízení ověřit</string>
+    <string name="fp_facts">Co může vaše zařízení zkontrolovat</string>
     <string name="fp_claim">Nárokovat dApp, odpovídat jako její prokázaný vydavatel</string>
     <string name="fp_copy">Zkopírovat recenzi do obchodu</string>
     <string name="fp_import">Importovat recenze z obchodu</string>
@@ -626,7 +625,7 @@
     <string name="lb_open">Žebříček</string>
     <string name="lb_overall">Celkově</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Příjmy</string>
+    <string name="lb_m_revenue">Přijato</string>
     <string name="lb_m_payers">Platící uživatelé</string>
     <string name="lb_m_signed_score">Podepsané skóre</string>
     <string name="lb_m_signed_reviews">Podepsané recenze</string>
@@ -647,7 +646,7 @@
     <string name="lb_downloads_title">Stažení</string>
     <string name="lb_downloads_body">dApp Store nezveřejňuje počty instalací, takže žebříček stažení neexistuje. Objeví se zde, pokud bude přidán zdroj.</string>
     <string name="lb_signed_n">Podepsané recenze: %1$d</string>
-    <string name="dd_revenue">Příjmy</string>
+    <string name="dd_revenue">Přijato</string>
     <string name="dd_signed">Podepsáno</string>
     <string name="dd_store">Obchod</string>
     <string name="dd_updates">Aktualizace</string>
@@ -670,7 +669,7 @@
     <string name="tr_90d">90D</string>
     <string name="tr_1y">1R</string>
     <string name="tr_all">Vše</string>
-    <string name="tr_revenue">Příjmy</string>
+    <string name="tr_revenue">Přijato</string>
     <string name="tr_score">Skóre v čase</string>
     <string name="tr_signed">Podepsáno</string>
     <string name="tr_store">Obchod</string>
@@ -759,7 +758,7 @@
     <string name="tag_perms_excess">Nadměrná oprávnění</string>
     <string name="tag_spam_reviews">Nepřirozené recenze</string>
     <string name="tag_misleading">Zavádějící</string>
-    <string name="tag_suspected_scam">Podezření na podvod</string>
+    <string name="tag_suspected_scam">Působí klamavě</string>
     <string name="tag_abandoned">Opuštěná</string>
     <string name="tag_active_dev">Aktivní vývoj</string>
     <string name="tag_onboarding_ok">Úvod ok</string>
@@ -1115,7 +1114,6 @@
     <string name="pay_found_empty">Zatím nic. Verze z obchodu se stále čtou (zatím %1$d).</string>
     <string name="pay_found_dispute">Je některá vaše? Zaregistrujte níže svou pokladnu a přesune se do přehledu. Není vaše? Nahlaste ji a bude odstraněna.</string>
     <string name="pay_found_report">Nahlásit peněženku</string>
-    <string name="desk_trend">Posledních 30 dní: %1$d podepsaných recenzí (30 předtím: %2$d)</string>
     <string name="desk_treasury_confirmed">Pokladna potvrzena · přijato %1$s</string>
     <string name="desk_treasury_none">Žádná zaregistrovaná pokladna</string>
     <string name="desk_found">Nalezeno v kódu vaší aplikace: %1$s, placeno %2$d peněženkami. Potvrďte ji v Platbách jako svou pokladnu, nebo ji nahlaste, pokud není vaše.</string>
@@ -1213,9 +1211,6 @@
     <string name="pa_board_title">Nejvíce placené aplikace</string>
     <string name="pa_pill_confirmed">potvrzeno</string>
     <string name="pa_pill_found">nalezeno v kódu aplikace</string>
-    <string name="pa_row_counts">Platby: %1$s · plátci: %2$s · noví: %3$s</string>
-    <string name="pa_payments_payers">Platby: %1$s · plátci: %2$s</string>
-    <string name="pa_new_line">Platby: %1$s · noví plátci: %2$s</string>
     <string name="pa_cat_title">Kategorie</string>
     <string name="pa_cat_apps">Placené aplikace: %1$s</string>
     <string name="pa_vs_before">Změna oproti předchozímu stejně dlouhému období.</string>
@@ -1227,7 +1222,6 @@
     <string name="pa_was">dříve %1$s</string>
     <string name="pa_trend_note">Změna přijatých USD oproti předchozímu stejně dlouhému období. Aplikace potřebuje %1$s v jednom z obou období, aby byla zařazena. Nováčci: první platba zachycená v tomto období.</string>
     <string name="pa_how_title">Jak se platilo</string>
-    <string name="pa_rail_line">Platby: %1$s · %2$s</string>
     <string name="pa_median">Medián platby</string>
     <string name="pa_p90">90. percentil</string>
     <string name="pa_max">Největší</string>
@@ -1270,4 +1264,34 @@
     <string name="ph_top_payer">Podíl největšího plátce</string>
     <string name="ph_top10_payers">Podíl 10 největších plátců</string>
     <string name="ph_of">%1$s z %2$s</string>
+    <string name="ledger_counted_frame">Započteno: %1$s od %2$s · %3$d zobrazeno</string>
+    <string name="standing_operator">Peněženka provozovatele Undersigned: vaše recenze se zobrazují, označené, a nikdy se nezapočítávají.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: vlastněn</string>
+    <string name="me_sgt_no">Seeker Genesis Token: nevlastněn</string>
+    <string name="me_counts_yes">Započítává se: Genesis Token vlastněn</string>
+    <string name="me_counts_operator">Zobrazeno, nikdy nezapočteno: peněženka provozovatele Undersigned</string>
+    <string name="me_counts_no">Zobrazeno, nezapočteno: bez Genesis Token</string>
+    <string name="row_store_rating">Obchod: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Obchod %1$s★</string>
+    <string name="score_empty_shown">Zatím žádné započtené recenze · %1$d zobrazeno</string>
+    <string name="score_empty_operator">Zatím žádné započtené recenze · %1$d zobrazeno (provozovatel Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Nic nečeká: každá recenze vašich prokázaných aplikací má odpověď.</string>
+    <string name="pro_line_fee_short">síťový poplatek</string>
+    <string name="quick_apart">Rychlá recenze se zobrazuje zvlášť a nikdy se nezapočítává.</string>
+    <string name="tags_more">Další štítky (%1$d)</string>
+    <string name="alert_offer_title">Dozvědět se, když někdo odpoví</string>
+    <string name="alert_offer_body">Upozornění jsou vypnutá. Zapněte je, abyste se na tomto telefonu dozvěděli, když vydavatel odpoví na vaši recenzi. Nic neopouští zařízení.</string>
+    <string name="alert_offer_button">Zapnout upozornění</string>
+    <string name="alert_offer_on">Upozornění jsou zapnutá. Změníte je kdykoli v Nastavení.</string>
+    <string name="pay_seg_analytics">Analýza</string>
+    <string name="pay_seg_confirmed">Potvrzené</string>
+    <string name="pay_seg_found">Nalezené v kódu</string>
+    <string name="pa_headline_label">Většinou peněženky nalezené v kódu aplikací, nepotvrzené vydavateli; hrubé příjmy, ne tržby</string>
+    <string name="score_none_counted">Žádné započtené recenze</string>
+    <string name="share_review_it">Ohodnoťte ji svým Seekerem: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s platba</item><item quantity="few">%1$s platby</item><item quantity="many">%1$s platby</item><item quantity="other">%1$s plateb</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s plátce</item><item quantity="few">%1$s plátci</item><item quantity="many">%1$s plátce</item><item quantity="other">%1$s plátců</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s nový</item><item quantity="few">%1$s noví</item><item quantity="many">%1$s nového</item><item quantity="other">%1$s nových</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s nový plátce</item><item quantity="few">%1$s noví plátci</item><item quantity="many">%1$s nového plátce</item><item quantity="other">%1$s nových plátců</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Posledních 30 dní: %1$d podepsaná recenze (30 předtím: %2$d)</item><item quantity="few">Posledních 30 dní: %1$d podepsané recenze (30 předtím: %2$d)</item><item quantity="many">Posledních 30 dní: %1$d podepsané recenze (30 předtím: %2$d)</item><item quantity="other">Posledních 30 dní: %1$d podepsaných recenzí (30 předtím: %2$d)</item></plurals>
 </resources>

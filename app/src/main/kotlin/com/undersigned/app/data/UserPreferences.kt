@@ -302,6 +302,20 @@ object UserPreferences {
     var catalogueAuto: Boolean
         get() = prefs?.getBoolean("catalogue_auto", true) ?: true
         set(v) { prefs?.edit()?.putBoolean("catalogue_auto", v)?.apply() }
+    /** The composer's three device-fact switches: OFF until the reviewer turns one on, then their last choice (judge, 10 Oct 2026; README: opt-in). */
+    var addInstallAge: Boolean
+        get() = prefs?.getBoolean("fact_install_age", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("fact_install_age", v)?.apply() }
+    var addUseTime: Boolean
+        get() = prefs?.getBoolean("fact_use_time", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("fact_use_time", v)?.apply() }
+    var addActivity: Boolean
+        get() = prefs?.getBoolean("fact_activity", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("fact_activity", v)?.apply() }
+    /** The one-time "turn alerts on" card after the first signed review has been shown. */
+    var alertOfferShown: Boolean
+        get() = prefs?.getBoolean("alert_offer_shown", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("alert_offer_shown", v)?.apply() }
     var reviewReminder: Boolean
         get() = prefs?.getBoolean("review_reminder", false) ?: false
         set(v) { prefs?.edit()?.putBoolean("review_reminder", v)?.apply() }

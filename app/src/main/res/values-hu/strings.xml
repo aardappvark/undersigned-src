@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d aláírva</string>
     <string name="row_no_reviews">Még nincs aláírt értékelés</string>
     <string name="ledger_syncing">Nyilvántartás olvasása…</string>
-    <string name="ledger_synced">Nyilvántartás: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d értékelés</item><item quantity="other">%1$d értékelés</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">A nyilvántartás olvasása sikertelen: %1$s</string>
@@ -138,7 +137,7 @@
     </plurals>
     <string name="import_note">Az importált értékelések a \"works\" (4–5★) vagy a \"confusing\" (1–3★) címkét kapják; bármikor szerkesztheted őket egy új értékeléssel. A 140 karakternél hosszabb szöveg levágásra kerül.</string>
     <string name="detail_tags_title">Mit jelöltek meg a tulajdonosok</string>
-    <string name="detail_facts_title">Mit tud ellenőrizni az eszközöd</string>
+    <string name="detail_facts_title">Mit ellenőrizhet az eszközöd</string>
     <string name="detail_facts_sub">A telefon csomagkezelőjéből olvasva. Csak tények és változások; nem biztonsági ítélet.</string>
     <string name="fact_version">Telepített verziókód</string>
     <string name="fact_signer">Aláíró tanúsítvány (SHA-256)</string>
@@ -168,7 +167,7 @@
     <string name="review_needs_wallet">A közzétételhez jelentkezz be a Seeker tárcáddal.</string>
     <string name="review_needs_sgt">Ez a tárca nem rendelkezik hitelesített eszköz igazolással (ma: a Seeker Genesis Token), így az értékelései nem számítanának bele. A közzététel le van tiltva, hogy megspóroljuk neked a hálózati díjat.</string>
     <string name="review_checking_sgt">Eszközhitelesítés ellenőrzése…</string>
-    <string name="review_fee_note">A tárcád csak azt a Solana hálózati díjat fizeti ki, amelyet maga állapít meg (jellemzően 0,0001 SOL alatt; egy Seekeren mért érték 0,000047 SOL volt). Semmilyen érték nem mozog. Az Undersigned semmit sem vesz el.</string>
+    <string name="review_fee_note">A tárcád csak a Solana hálózati díját fizeti, amelyet a tárcád állít be, jellemzően 0,0001 SOL alatt. Érték nem mozdul. Az Undersigned semmit sem kér egy értékelésért.</string>
     <string name="review_submit">Aláírás és közzététel</string>
     <string name="review_simulating">Tranzakció ellenőrzése…</string>
     <string name="review_signing">Várakozás a tárcádra…</string>
@@ -250,7 +249,7 @@
     <string name="inbox_replies">Válaszok nekem</string>
     <string name="inbox_starred">Csillagozott</string>
     <string name="inbox_unanswered_sub">Aláírt értékelések olyan alkalmazásokon, amelyeknek te vagy a bizonyított kiadója, és amelyekre még nem válaszoltál.</string>
-    <string name="inbox_unanswered_empty">Nincs semmi függőben. Igazolj egy kiadói igénylést, hogy itt lásd az alkalmazásaidat.</string>
+    <string name="inbox_unanswered_empty">Semmi sem vár. Igazold, hogy te adsz ki egy alkalmazást, és itt látod az értékeléseit.</string>
     <string name="inbox_replies_empty">Még nincs válasz a bejegyzéseidre.</string>
     <string name="inbox_starred_empty">Csillagozz meg egy értékelést, hogy itt tartsd.</string>
     <string name="swipe_hint">Húzd jobbra az értékelést a válaszhoz.</string>
@@ -411,7 +410,7 @@
     <string name="pro_paying_title">Amit fizetsz</string>
     <string name="pro_line_licence">Pro, 12 hónap</string>
     <string name="pro_line_fee">Hálózati díj, a tárcád állapítja meg</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">jellemzően 0,0001 SOL alatt</string>
     <string name="pro_line_total">Összesen</string>
     <string name="pro_paid_to">A Jogi lapon szereplő címre fizetve. A licenc ehhez a tárcához kötve kerül a nyilvántartásba — nincs fiók, nincs szerver, semmi sincs rólad tárolva.</string>
     <string name="pro_before_title">Mielőtt aláírsz</string>
@@ -481,7 +480,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">A teljes nyilvántartás olvasása</string>
     <string name="fp_sign">Értékelések, válaszok, jelölések, vitatások aláírása</string>
-    <string name="fp_facts">Amit az eszközöd ellenőrizni tud</string>
+    <string name="fp_facts">Mit ellenőrizhet az eszközöd</string>
     <string name="fp_claim">dApp igénylése, válasz a bizonyított kiadójaként</string>
     <string name="fp_copy">Értékelés átmásolása az áruházba</string>
     <string name="fp_import">Áruházi értékelések importálása</string>
@@ -617,7 +616,7 @@
     <string name="lb_open">Ranglista</string>
     <string name="lb_overall">Összesített</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Bevétel</string>
+    <string name="lb_m_revenue">Beérkezett</string>
     <string name="lb_m_payers">Fizető felhasználók</string>
     <string name="lb_m_signed_score">Aláírt pontszám</string>
     <string name="lb_m_signed_reviews">Aláírt értékelések</string>
@@ -638,7 +637,7 @@
     <string name="lb_downloads_title">Letöltések</string>
     <string name="lb_downloads_body">A dApp Store nem teszi közzé a telepítési számokat, ezért nincs letöltési ranglista. Itt jelenik meg, ha hozzáadnak egy forrást.</string>
     <string name="lb_signed_n">Aláírt értékelések: %1$d</string>
-    <string name="dd_revenue">Bevétel</string>
+    <string name="dd_revenue">Beérkezett</string>
     <string name="dd_signed">Aláírva</string>
     <string name="dd_store">Áruház</string>
     <string name="dd_updates">Frissítések</string>
@@ -661,7 +660,7 @@
     <string name="tr_90d">90N</string>
     <string name="tr_1y">1É</string>
     <string name="tr_all">Mind</string>
-    <string name="tr_revenue">Bevétel</string>
+    <string name="tr_revenue">Beérkezett</string>
     <string name="tr_score">Pontszám az idő során</string>
     <string name="tr_signed">Aláírva</string>
     <string name="tr_store">Áruház</string>
@@ -749,7 +748,7 @@
     <string name="tag_perms_excess">Túl sok jogosultság</string>
     <string name="tag_spam_reviews">Természetellenes értékelések</string>
     <string name="tag_misleading">Megtévesztő</string>
-    <string name="tag_suspected_scam">Átverés gyanúja</string>
+    <string name="tag_suspected_scam">Megtévesztőnek tűnik</string>
     <string name="tag_abandoned">Elhagyott</string>
     <string name="tag_active_dev">Aktív fejlesztés</string>
     <string name="tag_onboarding_ok">Bevezetés ok</string>
@@ -1085,7 +1084,6 @@
     <string name="pay_found_empty">Még nincs találat. A bolti buildek olvasása folyik (eddig %1$d).</string>
     <string name="pay_found_dispute">A tiéd valamelyik? Add meg lent a kasszádat, és átkerül a táblára. Nem a tiéd? Jelentsd, és eltávolítjuk.</string>
     <string name="pay_found_report">Tárca jelentése</string>
-    <string name="desk_trend">Elmúlt 30 nap: %1$d aláírt értékelés (az előző 30: %2$d)</string>
     <string name="desk_treasury_confirmed">Kassza megerősítve · %1$s beérkezett</string>
     <string name="desk_treasury_none">Nincs bejelentett kassza</string>
     <string name="desk_found">Az alkalmazásod kódjában találtuk: %1$s, %2$d tárca fizetett bele. Erősítsd meg kasszaként a Fizetéseknél, vagy jelentsd, ha nem a tiéd.</string>
@@ -1183,9 +1181,6 @@
     <string name="pa_board_title">Legtöbbet fizetett alkalmazások</string>
     <string name="pa_pill_confirmed">megerősített</string>
     <string name="pa_pill_found">az alkalmazás kódjában talált</string>
-    <string name="pa_row_counts">%1$s fizetés · %2$s fizető · %3$s új</string>
-    <string name="pa_payments_payers">%1$s fizetés · %2$s fizető</string>
-    <string name="pa_new_line">%1$s fizetés · %2$s új fizető</string>
     <string name="pa_cat_title">Kategóriák</string>
     <string name="pa_cat_apps">%1$s fizetett alkalmazás</string>
     <string name="pa_vs_before">A változás az előző, azonos hosszú időszakhoz képest.</string>
@@ -1197,7 +1192,6 @@
     <string name="pa_was">korábban %1$s</string>
     <string name="pa_trend_note">A beérkezett USD változása az előző, azonos hosszú időszakhoz képest. Egy alkalmazásnak %1$s kell a két időszak egyikében a rangsorhoz. Újonnan érkezők: az első fizetés az időszakon belül.</string>
     <string name="pa_how_title">Hogyan fizettek</string>
-    <string name="pa_rail_line">%1$s fizetés · %2$s</string>
     <string name="pa_median">Medián fizetés</string>
     <string name="pa_p90">90. percentilis</string>
     <string name="pa_max">Legnagyobb</string>
@@ -1240,4 +1234,34 @@
     <string name="ph_top_payer">A legnagyobb fizető részesedése</string>
     <string name="ph_top10_payers">A 10 legnagyobb fizető részesedése</string>
     <string name="ph_of">%1$s / %2$s</string>
+    <string name="ledger_counted_frame">Beszámítva: %1$s, %2$s részéről · %3$d látható</string>
+    <string name="standing_operator">Undersigned üzemeltetői tárca: értékeléseid megjelennek, jelölve, és soha nem számítanak bele.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: megvan</string>
+    <string name="me_sgt_no">Seeker Genesis Token: nincs</string>
+    <string name="me_counts_yes">Beleszámít: Genesis Token megvan</string>
+    <string name="me_counts_operator">Látható, soha nem számít: Undersigned üzemeltetői tárca</string>
+    <string name="me_counts_no">Látható, nem számít: nincs Genesis Token</string>
+    <string name="row_store_rating">Áruház: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Áruház %1$s★</string>
+    <string name="score_empty_shown">Még nincs beszámított értékelés · %1$d látható</string>
+    <string name="score_empty_operator">Még nincs beszámított értékelés · %1$d látható (Undersigned üzemeltető)</string>
+    <string name="inbox_unanswered_empty_publisher">Semmi sem vár: igazolt alkalmazásaid minden értékelésére van válasz.</string>
+    <string name="pro_line_fee_short">hálózati díj</string>
+    <string name="quick_apart">A gyors értékelés külön jelenik meg, és soha nem számít bele.</string>
+    <string name="tags_more">További címkék (%1$d)</string>
+    <string name="alert_offer_title">Értesülj, ha valaki válaszol</string>
+    <string name="alert_offer_body">Az értesítések ki vannak kapcsolva. Kapcsold be őket, hogy ezen a telefonon megtudd, ha a kiadó válaszol az értékelésedre. Semmi sem hagyja el az eszközt.</string>
+    <string name="alert_offer_button">Értesítések bekapcsolása</string>
+    <string name="alert_offer_on">Az értesítések be vannak kapcsolva. A Beállításokban bármikor módosíthatod.</string>
+    <string name="pay_seg_analytics">Elemzés</string>
+    <string name="pay_seg_confirmed">Megerősített</string>
+    <string name="pay_seg_found">Kódban talált</string>
+    <string name="pa_headline_label">Főleg alkalmazáskódban talált tárcák, a kiadók nem erősítették meg; bruttó bevételek, nem árbevétel</string>
+    <string name="score_none_counted">Nincs beszámított értékelés</string>
+    <string name="share_review_it">Értékeld a Seekereddel: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s fizetés</item><item quantity="other">%1$s fizetés</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s fizető</item><item quantity="other">%1$s fizető</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s új</item><item quantity="other">%1$s új</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s új fizető</item><item quantity="other">%1$s új fizető</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Elmúlt 30 nap: %1$d aláírt értékelés (az előző 30: %2$d)</item><item quantity="other">Elmúlt 30 nap: %1$d aláírt értékelés (az előző 30: %2$d)</item></plurals>
 </resources>

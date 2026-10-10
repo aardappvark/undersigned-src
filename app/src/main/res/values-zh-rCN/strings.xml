@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d 条签名</string>
     <string name="row_no_reviews">暂无签名评价</string>
     <string name="ledger_syncing">正在读取账本……</string>
-    <string name="ledger_synced">账本: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="other">%1$d 条评价</item></plurals>
     <plurals name="ledger_seekers"><item quantity="other">%1$d 台 Seeker</item></plurals>
     <string name="ledger_error">账本读取失败:%1$s</string>
@@ -137,7 +136,7 @@
     </plurals>
     <string name="import_note">导入的评价会带有标签 \"works\"(4–5★)或 \"confusing\"(1–3★);您可以随时用新评价编辑它们。超过 140 个字符的文本将被截断。</string>
     <string name="detail_tags_title">用户标记的内容</string>
-    <string name="detail_facts_title">您设备可以验证的内容</string>
+    <string name="detail_facts_title">你的设备能检查的内容</string>
     <string name="detail_facts_sub">读取自此手机的包管理器。仅为事实与变化信息;并非安全定论。</string>
     <string name="fact_version">已安装版本号</string>
     <string name="fact_signer">签名证书(SHA-256)</string>
@@ -167,7 +166,7 @@
     <string name="review_needs_wallet">使用您的 Seeker 钱包登录后即可发布。</string>
     <string name="review_needs_sgt">此钱包未持有已认证设备凭证(目前为 Seeker Genesis Token),因此其评价不会被计入。为节省您的网络费用,发布功能已禁用。</string>
     <string name="review_checking_sgt">正在检查设备认证……</string>
-    <string name="review_fee_note">您的钱包只会支付其自身设定的 Solana 网络费用(通常低于 0.0001 SOL;在 Seeker 上实测为 0.000047 SOL)。不会转移任何价值。Undersigned 不收取任何费用。</string>
+    <string name="review_fee_note">你的钱包只支付由钱包设定的 Solana 网络费，通常低于 0.0001 SOL。不转移任何价值。Undersigned 不为评价收取任何费用。</string>
     <string name="review_submit">签名并发布</string>
     <string name="review_simulating">正在检查交易……</string>
     <string name="review_signing">正在等待您的钱包……</string>
@@ -248,7 +247,7 @@
     <string name="inbox_replies">给我的回复</string>
     <string name="inbox_starred">已收藏</string>
     <string name="inbox_unanswered_sub">您作为已证明发布者的应用上尚未收到您回复的签名评价。</string>
-    <string name="inbox_unanswered_empty">没有待处理项。认领并通过发布者验证后,您的应用会显示在这里。</string>
+    <string name="inbox_unanswered_empty">没有待处理。证明你发布了某个应用，即可在此查看其评价。</string>
     <string name="inbox_replies_empty">您的记录尚未收到任何回复。</string>
     <string name="inbox_starred_empty">收藏一条评价即可保存在这里。</string>
     <string name="swipe_hint">向右滑动评价即可回复。</string>
@@ -408,7 +407,7 @@
     <string name="pro_paying_title">您将支付的内容</string>
     <string name="pro_line_licence">Pro,12 个月</string>
     <string name="pro_line_fee">网络费用,由您的钱包设定</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">通常低于 0.0001 SOL</string>
     <string name="pro_line_total">总计</string>
     <string name="pro_paid_to">费用支付至法律页面中列出的地址。许可记录会写入账本并与此钱包绑定——无需账户,无需服务器,不存储您的任何信息。</string>
     <string name="pro_before_title">签名之前</string>
@@ -476,7 +475,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">阅读完整账本</string>
     <string name="fp_sign">签名评价、回复、标记、申诉</string>
-    <string name="fp_facts">您设备可以验证的内容</string>
+    <string name="fp_facts">你的设备能检查的内容</string>
     <string name="fp_claim">认领 dApp,以其已证明发布者的身份作答</string>
     <string name="fp_copy">将评价复制到商店</string>
     <string name="fp_import">导入商店评价</string>
@@ -610,7 +609,7 @@
     <string name="lb_open">排行榜</string>
     <string name="lb_overall">总体</string>
     <plurals name="lb_dapps"><item quantity="other">%1$d 个 dApp</item></plurals>
-    <string name="lb_m_revenue">收入</string>
+    <string name="lb_m_revenue">已收款</string>
     <string name="lb_m_payers">付费用户</string>
     <string name="lb_m_signed_score">签名评分</string>
     <string name="lb_m_signed_reviews">已签名评价</string>
@@ -631,7 +630,7 @@
     <string name="lb_downloads_title">下载量</string>
     <string name="lb_downloads_body">dApp Store 不公开安装量,因此没有下载排名。如添加了数据来源,将在此处显示。</string>
     <string name="lb_signed_n">已签名评价:%1$d</string>
-    <string name="dd_revenue">收入</string>
+    <string name="dd_revenue">已收款</string>
     <string name="dd_signed">已签名</string>
     <string name="dd_store">商店</string>
     <string name="dd_updates">更新</string>
@@ -654,7 +653,7 @@
     <string name="tr_90d">90天</string>
     <string name="tr_1y">1年</string>
     <string name="tr_all">全部</string>
-    <string name="tr_revenue">收入</string>
+    <string name="tr_revenue">已收款</string>
     <string name="tr_score">评分变化</string>
     <string name="tr_signed">已签名</string>
     <string name="tr_store">商店</string>
@@ -743,7 +742,7 @@
     <string name="tag_perms_excess">权限过多</string>
     <string name="tag_spam_reviews">评价不自然</string>
     <string name="tag_misleading">描述误导</string>
-    <string name="tag_suspected_scam">疑似骗局</string>
+    <string name="tag_suspected_scam">看似具有欺骗性</string>
     <string name="tag_abandoned">已停止维护</string>
     <string name="tag_active_dev">积极开发中</string>
     <string name="tag_onboarding_ok">新手引导好</string>
@@ -1069,7 +1068,6 @@
     <string name="pay_found_empty">暂未发现。仍在读取商店版本（目前 %1$d 个）。</string>
     <string name="pay_found_dispute">其中有你的吗？在下方登记你的金库，它就会进入榜单。不是你的？举报后会被移除。</string>
     <string name="pay_found_report">举报钱包</string>
-    <string name="desk_trend">最近 30 天：%1$d 条签名评价（之前 30 天：%2$d 条）</string>
     <string name="desk_treasury_confirmed">金库已确认 · 已收到 %1$s</string>
     <string name="desk_treasury_none">尚未登记金库</string>
     <string name="desk_found">在你的应用代码中发现：%1$s，有 %2$d 个钱包付款。请在「付款」中确认为你的金库，若不是你的请举报。</string>
@@ -1167,9 +1165,6 @@
     <string name="pa_board_title">收到付款最多的应用</string>
     <string name="pa_pill_confirmed">已确认</string>
     <string name="pa_pill_found">在应用代码中找到</string>
-    <string name="pa_row_counts">%1$s 笔付款 · %2$s 位付款者 · %3$s 位新付款者</string>
-    <string name="pa_payments_payers">%1$s 笔付款 · %2$s 位付款者</string>
-    <string name="pa_new_line">%1$s 笔付款 · %2$s 位新付款者</string>
     <string name="pa_cat_title">类别</string>
     <string name="pa_cat_apps">%1$s 个应用收到付款</string>
     <string name="pa_vs_before">变化与之前同等长度的时段相比。</string>
@@ -1181,7 +1176,6 @@
     <string name="pa_was">之前 %1$s</string>
     <string name="pa_trend_note">收到的 USD 与之前同等长度时段相比的变化。应用需在两个时段之一达到 %1$s 才会排名。新上榜：时段内首次出现付款。</string>
     <string name="pa_how_title">付款方式</string>
-    <string name="pa_rail_line">%1$s 笔付款 · %2$s</string>
     <string name="pa_median">付款中位数</string>
     <string name="pa_p90">第 90 百分位</string>
     <string name="pa_max">最大</string>
@@ -1224,4 +1218,34 @@
     <string name="ph_top_payer">最大付款人占比</string>
     <string name="ph_top10_payers">前 10 名付款人占比</string>
     <string name="ph_of">%2$s 中的 %1$s</string>
+    <string name="ledger_counted_frame">计入：%2$s 的 %1$s · 显示 %3$d 条</string>
+    <string name="standing_operator">Undersigned 运营方钱包：你的评价会带标注显示，但永不计入。</string>
+    <string name="me_sgt_yes">Seeker Genesis Token：持有</string>
+    <string name="me_sgt_no">Seeker Genesis Token：未持有</string>
+    <string name="me_counts_yes">计入：持有 Genesis Token</string>
+    <string name="me_counts_operator">显示、永不计入：Undersigned 运营方钱包</string>
+    <string name="me_counts_no">显示、不计入：无 Genesis Token</string>
+    <string name="row_store_rating">商店：%1$s★（%2$d）</string>
+    <string name="row_store_short">商店 %1$s★</string>
+    <string name="score_empty_shown">尚无计入的评价 · 显示 %1$d 条</string>
+    <string name="score_empty_operator">尚无计入的评价 · 显示 %1$d 条（Undersigned 运营方）</string>
+    <string name="inbox_unanswered_empty_publisher">没有待处理：你已证明的应用的每条评价都已回复。</string>
+    <string name="pro_line_fee_short">网络费</string>
+    <string name="quick_apart">快速评价单独显示，永不计入。</string>
+    <string name="tags_more">更多标签（%1$d）</string>
+    <string name="alert_offer_title">有人回复时通知我</string>
+    <string name="alert_offer_body">提醒已关闭。开启后，发布者回复你的评价时会在这部手机上通知你。任何数据都不会离开设备。</string>
+    <string name="alert_offer_button">开启提醒</string>
+    <string name="alert_offer_on">提醒已开启。可随时在设置中更改。</string>
+    <string name="pay_seg_analytics">分析</string>
+    <string name="pay_seg_confirmed">已确认</string>
+    <string name="pay_seg_found">代码中发现</string>
+    <string name="pa_headline_label">主要是在应用代码中发现、未经发布者确认的钱包；总收款，不是收入</string>
+    <string name="score_none_counted">没有计入的评价</string>
+    <string name="share_review_it">用你的 Seeker 评价：%1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s 笔付款</item><item quantity="other">%1$s 笔付款</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s 位付款人</item><item quantity="other">%1$s 位付款人</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s 位新</item><item quantity="other">%1$s 位新</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s 位新付款人</item><item quantity="other">%1$s 位新付款人</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">最近 30 天：%1$d 条签名评价（之前 30 天：%2$d）</item><item quantity="other">最近 30 天：%1$d 条签名评价（之前 30 天：%2$d）</item></plurals>
 </resources>

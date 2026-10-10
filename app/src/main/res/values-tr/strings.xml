@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d imzalı</string>
     <string name="row_no_reviews">Henüz imzalı inceleme yok</string>
     <string name="ledger_syncing">Defter okunuyor…</string>
-    <string name="ledger_synced">Defter: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d inceleme</item><item quantity="other">%1$d inceleme</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Defter okunamadı: %1$s</string>
@@ -138,7 +137,7 @@
     </plurals>
     <string name="import_note">İçe aktarılan incelemeler \"works\" (4–5★) veya \"confusing\" (1–3★) etiketini taşır; bunları istediğiniz zaman yeni bir inceleme ile düzenleyebilirsiniz. 140 karakterden uzun metinler kısaltılır.</string>
     <string name="detail_tags_title">Sahiplerin etiketlediği şeyler</string>
-    <string name="detail_facts_title">Cihazınızın doğrulayabildikleri</string>
+    <string name="detail_facts_title">Cihazınızın kontrol edebildikleri</string>
     <string name="detail_facts_sub">Bu telefonun paket yöneticisinden okunur. Yalnızca gerçekler ve değişiklikler; bir güvenlik hükmü değildir.</string>
     <string name="fact_version">Yüklü sürüm kodu</string>
     <string name="fact_signer">İmzalama sertifikası (SHA-256)</string>
@@ -168,7 +167,7 @@
     <string name="review_needs_wallet">Yayınlamak için Seeker cüzdanınızla giriş yapın.</string>
     <string name="review_needs_sgt">Bu cüzdanda kanıtlı-cihaz kimlik bilgisi yok (bugün: Seeker Genesis Token), bu yüzden incelemeleri sayılmaz. Ağ ücretinden tasarruf etmeniz için yayınlama devre dışı bırakıldı.</string>
     <string name="review_checking_sgt">Cihaz doğrulaması kontrol ediliyor…</string>
-    <string name="review_fee_note">Cüzdanınız yalnızca kendi belirlediği Solana ağ ücretini öder (genellikle 0.0001 SOL\'ün altında; bir Seeker\'da ölçülen 0.000047 SOL). Hiçbir değer hareket etmez. Undersigned hiçbir şey almaz.</string>
+    <string name="review_fee_note">Cüzdanınız yalnızca Solana ağ ücretini öder; ücreti cüzdanınız belirler, genellikle 0,0001 SOL\'un altındadır. Değer taşınmaz. Undersigned bir yorum için hiçbir şey almaz.</string>
     <string name="review_submit">İmzala ve yayınla</string>
     <string name="review_simulating">İşlem kontrol ediliyor…</string>
     <string name="review_signing">Cüzdanınız bekleniyor…</string>
@@ -250,7 +249,7 @@
     <string name="inbox_replies">Bana gelen yanıtlar</string>
     <string name="inbox_starred">Yıldızlı</string>
     <string name="inbox_unanswered_sub">Kanıtlanmış yayıncısı olduğunuz uygulamalardaki, sizden yanıt almamış imzalı incelemeler.</string>
-    <string name="inbox_unanswered_empty">Bekleyen bir şey yok. Uygulamalarınızı burada görmek için bir yayıncı talebini doğrulayın.</string>
+    <string name="inbox_unanswered_empty">Bekleyen yok. Bir uygulamayı yayınladığınızı kanıtlayın, yorumlarını burada görün.</string>
     <string name="inbox_replies_empty">Kayıtlarınıza henüz yanıt yok.</string>
     <string name="inbox_starred_empty">Burada tutmak için bir incelemeyi yıldızlayın.</string>
     <string name="swipe_hint">Yanıtlamak için bir incelemeyi sağa kaydırın.</string>
@@ -411,7 +410,7 @@
     <string name="pro_paying_title">Ne ödüyorsunuz</string>
     <string name="pro_line_licence">Pro, 12 ay</string>
     <string name="pro_line_fee">Ağ ücreti, cüzdanınız tarafından belirlenir</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">genellikle 0,0001 SOL altında</string>
     <string name="pro_line_total">Toplam</string>
     <string name="pro_paid_to">Yasal sayfasındaki adrese ödenir. Lisans bu cüzdana karşı deftere yazılır — hesap yok, sunucu yok, hakkınızda saklanan hiçbir şey yok.</string>
     <string name="pro_before_title">İmzalamadan önce</string>
@@ -481,7 +480,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Tüm defteri oku</string>
     <string name="fp_sign">İncelemeleri, yanıtları, işaretlemeleri, itirazları imzala</string>
-    <string name="fp_facts">Cihazınızın doğrulayabildikleri</string>
+    <string name="fp_facts">Cihazınızın kontrol edebildikleri</string>
     <string name="fp_claim">Bir dApp talep edin, kanıtlanmış yayıncısı olarak yanıt verin</string>
     <string name="fp_copy">Bir incelemeyi mağazaya kopyala</string>
     <string name="fp_import">Mağaza incelemelerini içe aktar</string>
@@ -617,7 +616,7 @@
     <string name="lb_open">Lider tablosu</string>
     <string name="lb_overall">Genel</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Gelir</string>
+    <string name="lb_m_revenue">Alınan</string>
     <string name="lb_m_payers">Ödeme yapan kullanıcılar</string>
     <string name="lb_m_signed_score">İmzalı puan</string>
     <string name="lb_m_signed_reviews">İmzalı incelemeler</string>
@@ -638,7 +637,7 @@
     <string name="lb_downloads_title">İndirmeler</string>
     <string name="lb_downloads_body">dApp Store yükleme sayılarını yayımlamıyor, bu yüzden indirme sıralaması yok. Bir kaynak eklenirse burada görünür.</string>
     <string name="lb_signed_n">İmzalı incelemeler: %1$d</string>
-    <string name="dd_revenue">Gelir</string>
+    <string name="dd_revenue">Alınan</string>
     <string name="dd_signed">İmzalı</string>
     <string name="dd_store">Mağaza</string>
     <string name="dd_updates">Güncellemeler</string>
@@ -661,7 +660,7 @@
     <string name="tr_90d">90G</string>
     <string name="tr_1y">1Y</string>
     <string name="tr_all">Tümü</string>
-    <string name="tr_revenue">Gelir</string>
+    <string name="tr_revenue">Alınan</string>
     <string name="tr_score">Zaman içinde puan</string>
     <string name="tr_signed">İmzalı</string>
     <string name="tr_store">Mağaza</string>
@@ -749,7 +748,7 @@
     <string name="tag_perms_excess">Aşırı izin</string>
     <string name="tag_spam_reviews">Doğal olmayan incelemeler</string>
     <string name="tag_misleading">Yanıltıcı</string>
-    <string name="tag_suspected_scam">Dolandırıcılık şüphesi</string>
+    <string name="tag_suspected_scam">Yanıltıcı görünüyor</string>
     <string name="tag_abandoned">Terk edilmiş</string>
     <string name="tag_active_dev">Aktif geliştirme</string>
     <string name="tag_onboarding_ok">Başlangıç ok</string>
@@ -1085,7 +1084,6 @@
     <string name="pay_found_empty">Henüz bir şey bulunmadı. Mağaza sürümleri hâlâ okunuyor (şimdiye kadar %1$d).</string>
     <string name="pay_found_dispute">Biri sizin mi? Hazinenizi aşağıdan kaydedin, tabloya geçsin. Sizin değil mi? Bildirin, kaldırılsın.</string>
     <string name="pay_found_report">Cüzdan bildir</string>
-    <string name="desk_trend">Son 30 gün: %1$d imzalı inceleme (önceki 30: %2$d)</string>
     <string name="desk_treasury_confirmed">Hazine onaylandı · %1$s alındı</string>
     <string name="desk_treasury_none">Kayıtlı hazine yok</string>
     <string name="desk_found">Uygulamanızın kodunda bulundu: %1$s, %2$d cüzdan ödeme yaptı. Ödemeler\'de hazineniz olarak onaylayın ya da sizin değilse bildirin.</string>
@@ -1183,9 +1181,6 @@
     <string name="pa_board_title">En çok ödeme alan uygulamalar</string>
     <string name="pa_pill_confirmed">onaylı</string>
     <string name="pa_pill_found">uygulama kodunda bulundu</string>
-    <string name="pa_row_counts">%1$s ödeme · %2$s ödeyen · %3$s yeni</string>
-    <string name="pa_payments_payers">%1$s ödeme · %2$s ödeyen</string>
-    <string name="pa_new_line">%1$s ödeme · %2$s yeni ödeyen</string>
     <string name="pa_cat_title">Kategoriler</string>
     <string name="pa_cat_apps">%1$s uygulama ödeme aldı</string>
     <string name="pa_vs_before">Değişim, aynı uzunluktaki önceki döneme göredir.</string>
@@ -1197,7 +1192,6 @@
     <string name="pa_was">önce %1$s</string>
     <string name="pa_trend_note">Alınan USD\'deki değişim, aynı uzunluktaki önceki döneme göre. Bir uygulamanın sıralamaya girmesi için iki dönemden birinde %1$s alması gerekir. Yeni gelenler: dönem içinde görülen ilk ödeme.</string>
     <string name="pa_how_title">Nasıl ödendi</string>
-    <string name="pa_rail_line">%1$s ödeme · %2$s</string>
     <string name="pa_median">Medyan ödeme</string>
     <string name="pa_p90">90. yüzdelik</string>
     <string name="pa_max">En büyük</string>
@@ -1240,4 +1234,34 @@
     <string name="ph_top_payer">En büyük ödeyenin payı</string>
     <string name="ph_top10_payers">En büyük 10 ödeyenin payı</string>
     <string name="ph_of">%2$s içinden %1$s</string>
+    <string name="ledger_counted_frame">Sayılan: %2$s tarafından %1$s · %3$d gösteriliyor</string>
+    <string name="standing_operator">Undersigned işletmeci cüzdanı: yorumlarınız etiketlenerek gösterilir ve asla sayılmaz.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: var</string>
+    <string name="me_sgt_no">Seeker Genesis Token: yok</string>
+    <string name="me_counts_yes">Sayılır: Genesis Token var</string>
+    <string name="me_counts_operator">Gösterilir, asla sayılmaz: Undersigned işletmeci cüzdanı</string>
+    <string name="me_counts_no">Gösterilir, sayılmaz: Genesis Token yok</string>
+    <string name="row_store_rating">Mağaza: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Mağaza %1$s★</string>
+    <string name="score_empty_shown">Henüz sayılan yorum yok · %1$d gösteriliyor</string>
+    <string name="score_empty_operator">Henüz sayılan yorum yok · %1$d gösteriliyor (Undersigned işletmecisi)</string>
+    <string name="inbox_unanswered_empty_publisher">Bekleyen yok: kanıtlanmış uygulamalarınızın her yorumunun bir yanıtı var.</string>
+    <string name="pro_line_fee_short">ağ ücreti</string>
+    <string name="quick_apart">Hızlı yorum ayrı gösterilir ve asla sayılmaz.</string>
+    <string name="tags_more">Daha fazla etiket (%1$d)</string>
+    <string name="alert_offer_title">Biri yanıtladığında haberdar olun</string>
+    <string name="alert_offer_body">Uyarılar kapalı. Yayıncı yorumunuza yanıt verdiğinde bu telefonda haberdar olmak için açın. Hiçbir şey cihazdan çıkmaz.</string>
+    <string name="alert_offer_button">Uyarıları aç</string>
+    <string name="alert_offer_on">Uyarılar açık. Ayarlar\'dan istediğiniz zaman değiştirebilirsiniz.</string>
+    <string name="pay_seg_analytics">Analiz</string>
+    <string name="pay_seg_confirmed">Onaylanan</string>
+    <string name="pay_seg_found">Kodda bulunan</string>
+    <string name="pa_headline_label">Çoğu uygulama kodunda bulunan, yayıncılarca onaylanmamış cüzdanlar; brüt tahsilat, gelir değil</string>
+    <string name="score_none_counted">Sayılan yorum yok</string>
+    <string name="share_review_it">Seeker\'ınızla değerlendirin: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s ödeme</item><item quantity="other">%1$s ödeme</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s ödeyen</item><item quantity="other">%1$s ödeyen</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s yeni</item><item quantity="other">%1$s yeni</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s yeni ödeyen</item><item quantity="other">%1$s yeni ödeyen</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Son 30 gün: %1$d imzalı yorum (önceki 30: %2$d)</item><item quantity="other">Son 30 gün: %1$d imzalı yorum (önceki 30: %2$d)</item></plurals>
 </resources>

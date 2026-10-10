@@ -125,7 +125,24 @@ class InstalledApps(private val context: Context) {
 
     fun appLabel(packageName: String): String? = runCatching { pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString() }.getOrNull()
 
-    companion object { const val PUBLISHER_META = "undersigned.publisher" }
+    companion object {
+        const val PUBLISHER_META = "undersigned.publisher"
+        /** Platform dangerous permissions by the group Settings shows them under (Android hides the mapping since 10). */
+        private val PERM_GROUP: Map<String, String> = mapOf(
+            "CAMERA" to "CAMERA", "RECORD_AUDIO" to "MICROPHONE",
+            "ACCESS_FINE_LOCATION" to "LOCATION", "ACCESS_COARSE_LOCATION" to "LOCATION", "ACCESS_BACKGROUND_LOCATION" to "LOCATION", "ACCESS_MEDIA_LOCATION" to "LOCATION",
+            "READ_CONTACTS" to "CONTACTS", "WRITE_CONTACTS" to "CONTACTS", "GET_ACCOUNTS" to "CONTACTS",
+            "READ_CALENDAR" to "CALENDAR", "WRITE_CALENDAR" to "CALENDAR",
+            "READ_PHONE_STATE" to "PHONE", "READ_PHONE_NUMBERS" to "PHONE", "CALL_PHONE" to "PHONE", "ANSWER_PHONE_CALLS" to "PHONE", "ADD_VOICEMAIL" to "PHONE", "USE_SIP" to "PHONE", "ACCEPT_HANDOVER" to "PHONE",
+            "READ_CALL_LOG" to "CALL_LOG", "WRITE_CALL_LOG" to "CALL_LOG", "PROCESS_OUTGOING_CALLS" to "CALL_LOG",
+            "SEND_SMS" to "SMS", "RECEIVE_SMS" to "SMS", "READ_SMS" to "SMS", "RECEIVE_MMS" to "SMS", "RECEIVE_WAP_PUSH" to "SMS",
+            "BODY_SENSORS" to "SENSORS", "BODY_SENSORS_BACKGROUND" to "SENSORS", "ACTIVITY_RECOGNITION" to "ACTIVITY_RECOGNITION",
+            "READ_EXTERNAL_STORAGE" to "STORAGE", "WRITE_EXTERNAL_STORAGE" to "STORAGE",
+            "READ_MEDIA_IMAGES" to "READ_MEDIA_VISUAL", "READ_MEDIA_VIDEO" to "READ_MEDIA_VISUAL", "READ_MEDIA_VISUAL_USER_SELECTED" to "READ_MEDIA_VISUAL", "READ_MEDIA_AUDIO" to "READ_MEDIA_AURAL",
+            "BLUETOOTH_SCAN" to "NEARBY_DEVICES", "BLUETOOTH_CONNECT" to "NEARBY_DEVICES", "BLUETOOTH_ADVERTISE" to "NEARBY_DEVICES", "NEARBY_WIFI_DEVICES" to "NEARBY_DEVICES", "UWB_RANGING" to "NEARBY_DEVICES",
+            "POST_NOTIFICATIONS" to "NOTIFICATIONS",
+        )
+    }
 
     private fun versionCodeOf(pi: PackageInfo): Long = if (Build.VERSION.SDK_INT >= 28) pi.longVersionCode else @Suppress("DEPRECATION") pi.versionCode.toLong()
 
@@ -137,6 +154,16 @@ class InstalledApps(private val context: Context) {
         val first = sigs?.firstOrNull() ?: return ""
         return MessageDigest.getInstance("SHA-256").digest(first.toByteArray()).joinToString("") { "%02x".format(it) }
     }
+
+    /**
+     * Human names for permission constants as listed by [dangerousPermissions] ("CAMERA" → "Camera"), in the phone's language:
+     * the system's own label for the permission's group, else the permission's label, else the constant. Distinct, in order.
+     */
+    fun permissionNames(perms: List<String>): List<String> = perms.map { p ->
+        runCatching { PERM_GROUP[p]?.let { g -> pm.getPermissionGroupInfo("android.permission-group.$g", 0).loadLabel(pm).toString() } }.getOrNull()?.takeIf { it.isNotBlank() }
+            ?: runCatching { pm.getPermissionInfo("android.permission.$p", 0).loadLabel(pm).toString().replaceFirstChar { it.titlecase() } }.getOrNull()?.takeIf { it.isNotBlank() && !it.startsWith("android.") }
+            ?: p
+    }.distinct()
 
     private fun dangerousPermissions(pi: PackageInfo): List<String> {
         val req = pi.requestedPermissions ?: return emptyList()

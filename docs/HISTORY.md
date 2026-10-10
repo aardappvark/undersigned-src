@@ -85,5 +85,5 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 - **AI allowance and economics**: per-caller daily allowances; a cost and revenue ledger per day
   (`/v1/admin/economics`, server-local) with alerts.
 - **Hosting**: the API moved from the owner's Mac to a Hetzner Cloud server (9 Oct), same URL, same tunnel.
-- **Release 1.1.0** (versionCode 11); **1.1.1** (versionCode 12, 10 Oct): payment analytics in the app and on the web, quick reviews withdrawable, API keys hashed; **1.1.2** (versionCode 13, 10 Oct): a bottom tab bar (Browse, Changes, Payments, Pro, Me) with Pro as its own tab.
+- **Release 1.1.0** (versionCode 11); **1.1.1** (versionCode 12, 10 Oct): payment analytics in the app and on the web, quick reviews withdrawable, API keys hashed; **1.1.2** (versionCode 13, 10 Oct): a bottom tab bar (Browse, Changes, Payments, Pro, Me) with Pro as its own tab; **1.1.3**: Pro prompts, per-dApp payment history; **1.1.4** (versionCode 15, 10 Oct): the judge's list: operator wallets count nowhere in the app's own stats, device facts opt-in by default, store ★ on Browse rows, plain empty states, wording, https share links, alerts offer, 1.1 MB lighter.
 

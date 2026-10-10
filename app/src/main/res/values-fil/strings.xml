@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d naka-sign</string>
     <string name="row_no_reviews">Wala pang naka-sign na review</string>
     <string name="ledger_syncing">Binabasa ang ledger…</string>
-    <string name="ledger_synced">Ang Ledger: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d review</item><item quantity="other">%1$d review</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Nabigo ang pagbasa ng ledger: %1$s</string>
@@ -141,7 +140,7 @@
     </plurals>
     <string name="import_note">Ang mga na-import na review ay may tag na \"works\" (4–5★) o \"confusing\" (1–3★); i-edit ang mga ito anumang oras gamit ang bagong review. Ang tekstong mahigit 140 na character ay pinuputol.</string>
     <string name="detail_tags_title">Ano ang tinag ng mga may-ari</string>
-    <string name="detail_facts_title">Ano ang mave-verify ng iyong device</string>
+    <string name="detail_facts_title">Ang kayang suriin ng device mo</string>
     <string name="detail_facts_sub">Binasa mula sa package manager ng telepono na ito. Facts at pagbabago lang; hindi ito verdict tungkol sa kaligtasan.</string>
     <string name="fact_version">Naka-install na version code</string>
     <string name="fact_signer">Certificate ng pag-sign (SHA-256)</string>
@@ -171,7 +170,7 @@
     <string name="review_needs_wallet">Mag-sign in gamit ang iyong Seeker wallet para makapag-post.</string>
     <string name="review_needs_sgt">Walang hawak ang wallet na ito na attested-device credential (sa ngayon: ang Seeker Genesis Token), kaya hindi mabibilang ang mga review nito. Naka-disable ang pag-post para makatipid ka sa network fee.</string>
     <string name="review_checking_sgt">Sinusuri ang attestation ng device…</string>
-    <string name="review_fee_note">Babayaran lang ng iyong wallet ang bayad sa Solana network na sarili nitong itinakda (karaniwang mas mababa sa 0.0001 SOL; nasukat na 0.000047 SOL sa isang Seeker). Walang halagang gagalaw. Wala kunin ang Undersigned.</string>
+    <string name="review_fee_note">Ang network fee lang ng Solana ang binabayaran ng wallet mo, na itinatakda ng wallet, karaniwang mas mababa sa 0.0001 SOL. Walang halagang gumagalaw. Walang kinukuha ang Undersigned para sa isang review.</string>
     <string name="review_submit">I-sign at i-publish</string>
     <string name="review_simulating">Sinusuri ang transaction…</string>
     <string name="review_signing">Hinihintay ang iyong wallet…</string>
@@ -253,7 +252,7 @@
     <string name="inbox_replies">Mga sagot sa akin</string>
     <string name="inbox_starred">Naka-star</string>
     <string name="inbox_unanswered_sub">Mga naka-sign na review sa mga app na ikaw ang napatunayang publisher, na wala ka pang sagot.</string>
-    <string name="inbox_unanswered_empty">Walang naghihintay. I-verify ang isang publisher claim para makita ang mga app mo dito.</string>
+    <string name="inbox_unanswered_empty">Walang naghihintay. Patunayang ikaw ang nag-publish ng isang app para makita rito ang mga review nito.</string>
     <string name="inbox_replies_empty">Wala pang sagot sa mga record mo.</string>
     <string name="inbox_starred_empty">Mag-star ng review para itago ito dito.</string>
     <string name="swipe_hint">I-swipe ang review pakanan para sumagot.</string>
@@ -413,7 +412,7 @@
     <string name="pro_paying_title">Ang binabayaran mo</string>
     <string name="pro_line_licence">Pro, 12 buwan</string>
     <string name="pro_line_fee">Network fee, itinatakda ng wallet mo</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">karaniwang mas mababa sa 0.0001 SOL</string>
     <string name="pro_line_total">Kabuuan</string>
     <string name="pro_paid_to">Binayaran sa address sa Legal sheet. Nakasulat ang lisensya sa ledger laban sa wallet na ito — walang account, walang server, walang naka-store tungkol sa iyo.</string>
     <string name="pro_before_title">Bago ka mag-sign</string>
@@ -483,7 +482,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Basahin ang buong ledger</string>
     <string name="fp_sign">Mag-sign ng review, sagot, flag, dispute</string>
-    <string name="fp_facts">Ano ang mave-verify ng device mo</string>
+    <string name="fp_facts">Ang kayang suriin ng device mo</string>
     <string name="fp_claim">Mag-claim ng dApp, sumagot bilang napatunayang publisher nito</string>
     <string name="fp_copy">Kopyahin ang isang review sa store</string>
     <string name="fp_import">I-import ang mga review sa store</string>
@@ -621,7 +620,7 @@
     <string name="lb_open">Leaderboard</string>
     <string name="lb_overall">Pangkalahatan</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Kita</string>
+    <string name="lb_m_revenue">Natanggap</string>
     <string name="lb_m_payers">Mga nagbabayad na user</string>
     <string name="lb_m_signed_score">Naka-sign na iskor</string>
     <string name="lb_m_signed_reviews">Naka-sign na review</string>
@@ -642,7 +641,7 @@
     <string name="lb_downloads_title">Mga Download</string>
     <string name="lb_downloads_body">Hindi naglalathala ang dApp Store ng bilang ng install, kaya walang ranggo ng download. Lalabas ito dito kapag may idinagdag na source.</string>
     <string name="lb_signed_n">Naka-sign na review: %1$d</string>
-    <string name="dd_revenue">Kita</string>
+    <string name="dd_revenue">Natanggap</string>
     <string name="dd_signed">Naka-sign</string>
     <string name="dd_store">Store</string>
     <string name="dd_updates">Mga Update</string>
@@ -665,7 +664,7 @@
     <string name="tr_90d">90A</string>
     <string name="tr_1y">1T</string>
     <string name="tr_all">Lahat</string>
-    <string name="tr_revenue">Kita</string>
+    <string name="tr_revenue">Natanggap</string>
     <string name="tr_score">Iskor sa paglipas ng panahon</string>
     <string name="tr_signed">Naka-sign</string>
     <string name="tr_store">Store</string>
@@ -753,7 +752,7 @@
     <string name="tag_perms_excess">Sobra ang permission</string>
     <string name="tag_spam_reviews">Kakaibang review</string>
     <string name="tag_misleading">Nakaliligaw</string>
-    <string name="tag_suspected_scam">Pinaghihinalaang scam</string>
+    <string name="tag_suspected_scam">Mukhang mapanlinlang</string>
     <string name="tag_abandoned">Abandonado</string>
     <string name="tag_active_dev">Aktibong dev</string>
     <string name="tag_onboarding_ok">Maayos simula</string>
@@ -1089,7 +1088,6 @@
     <string name="pay_found_empty">Wala pang nakita. Binabasa pa ang mga store build (%1$d sa ngayon).</string>
     <string name="pay_found_dispute">Sa iyo ba ang isa rito? I-lista ang treasury mo sa ibaba at lilipat ito sa board. Hindi sa iyo? I-report at aalisin ito.</string>
     <string name="pay_found_report">I-report ang wallet</string>
-    <string name="desk_trend">Huling 30 araw: %1$d pirmadong review (ang 30 bago nito: %2$d)</string>
     <string name="desk_treasury_confirmed">Kumpirmado ang treasury · %1$s natanggap</string>
     <string name="desk_treasury_none">Walang nakalistang treasury</string>
     <string name="desk_found">Nakita sa code ng app mo: %1$s, binayaran ng %2$d wallet. Kumpirmahin bilang treasury mo sa Payments, o i-report kung hindi sa iyo.</string>
@@ -1187,9 +1185,6 @@
     <string name="pa_board_title">Mga app na pinakamaraming binayaran</string>
     <string name="pa_pill_confirmed">kumpirmado</string>
     <string name="pa_pill_found">nahanap sa code ng app</string>
-    <string name="pa_row_counts">%1$s bayad · %2$s nagbayad · %3$s bago</string>
-    <string name="pa_payments_payers">%1$s bayad · %2$s nagbayad</string>
-    <string name="pa_new_line">%1$s bayad · %2$s bagong nagbayad</string>
     <string name="pa_cat_title">Mga kategorya</string>
     <string name="pa_cat_apps">%1$s app na binayaran</string>
     <string name="pa_vs_before">Ang pagbabago ay kumpara sa naunang panahon na kapareho ang haba.</string>
@@ -1201,7 +1196,6 @@
     <string name="pa_was">dati %1$s</string>
     <string name="pa_trend_note">Pagbabago sa USD na natanggap kumpara sa naunang panahon na kapareho ang haba. Kailangan ng app ng %1$s sa isa sa dalawang panahon para maranggo. Mga bagong dating: unang bayad na nakita sa loob ng panahon.</string>
     <string name="pa_how_title">Paano binayaran</string>
-    <string name="pa_rail_line">%1$s bayad · %2$s</string>
     <string name="pa_median">Median na bayad</string>
     <string name="pa_p90">Ika-90 percentile</string>
     <string name="pa_max">Pinakamalaki</string>
@@ -1244,4 +1238,34 @@
     <string name="ph_top_payer">Bahagi ng pinakamalaking nagbayad</string>
     <string name="ph_top10_payers">Bahagi ng nangungunang 10 nagbayad</string>
     <string name="ph_of">%1$s sa %2$s</string>
+    <string name="ledger_counted_frame">Binilang: %1$s mula sa %2$s · %3$d ipinapakita</string>
+    <string name="standing_operator">Wallet ng operator ng Undersigned: ipinapakita ang mga review mo, may label, at hindi kailanman binibilang.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: hawak</string>
+    <string name="me_sgt_no">Seeker Genesis Token: wala</string>
+    <string name="me_counts_yes">Binibilang: may Genesis Token</string>
+    <string name="me_counts_operator">Ipinapakita, hindi kailanman binibilang: wallet ng operator ng Undersigned</string>
+    <string name="me_counts_no">Ipinapakita, hindi binibilang: walang Genesis Token</string>
+    <string name="row_store_rating">Store: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Store %1$s★</string>
+    <string name="score_empty_shown">Wala pang binilang na review · %1$d ipinapakita</string>
+    <string name="score_empty_operator">Wala pang binilang na review · %1$d ipinapakita (operator ng Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Walang naghihintay: may sagot ang bawat review ng mga napatunayan mong app.</string>
+    <string name="pro_line_fee_short">network fee</string>
+    <string name="quick_apart">Hiwalay na ipinapakita ang mabilis na review at hindi kailanman binibilang.</string>
+    <string name="tags_more">Higit pang tag (%1$d)</string>
+    <string name="alert_offer_title">Malaman kapag may sumagot</string>
+    <string name="alert_offer_body">Naka-off ang mga alerto. I-on para malaman sa phone na ito kapag sinagot ng publisher ang review mo. Walang lumalabas sa device.</string>
+    <string name="alert_offer_button">I-on ang mga alerto</string>
+    <string name="alert_offer_on">Naka-on ang mga alerto. Palitan anumang oras sa Settings.</string>
+    <string name="pay_seg_analytics">Analytics</string>
+    <string name="pay_seg_confirmed">Kumpirmado</string>
+    <string name="pay_seg_found">Nakita sa code</string>
+    <string name="pa_headline_label">Karamihan ay mga wallet na nakita sa code ng app, hindi kinumpirma ng mga publisher; kabuuang natanggap, hindi kita</string>
+    <string name="score_none_counted">Walang binilang na review</string>
+    <string name="share_review_it">I-review gamit ang Seeker mo: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s bayad</item><item quantity="other">%1$s bayad</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s nagbayad</item><item quantity="other">%1$s nagbayad</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s bago</item><item quantity="other">%1$s bago</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s bagong nagbayad</item><item quantity="other">%1$s bagong nagbayad</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Huling 30 araw: %1$d pinirmahang review (ang 30 bago nito: %2$d)</item><item quantity="other">Huling 30 araw: %1$d pinirmahang review (ang 30 bago nito: %2$d)</item></plurals>
 </resources>

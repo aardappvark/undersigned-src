@@ -34,7 +34,6 @@
     <string name="row_signed_count">%1$d건 서명됨</string>
     <string name="row_no_reviews">아직 서명된 리뷰가 없습니다</string>
     <string name="ledger_syncing">원장을 읽는 중…</string>
-    <string name="ledger_synced">원장: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">리뷰 %1$d건</item><item quantity="other">리뷰 %1$d건</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">Seeker %1$d명</item><item quantity="other">Seeker %1$d명</item></plurals>
     <string name="ledger_error">원장 읽기에 실패했습니다: %1$s</string>
@@ -132,7 +131,7 @@
     </plurals>
     <string name="import_note">가져온 리뷰에는 \"works\"(4–5★) 또는 \"confusing\"(1–3★) 태그가 붙습니다. 언제든 새 리뷰로 수정할 수 있습니다. 140자를 넘는 텍스트는 잘립니다.</string>
     <string name="detail_tags_title">소유자들이 남긴 태그</string>
-    <string name="detail_facts_title">기기가 확인할 수 있는 정보</string>
+    <string name="detail_facts_title">기기가 확인할 수 있는 것</string>
     <string name="detail_facts_sub">이 휴대폰의 패키지 매니저에서 읽어옵니다. 사실과 변경 사항일 뿐, 안전성 판정이 아닙니다.</string>
     <string name="fact_version">설치된 버전 코드</string>
     <string name="fact_signer">서명 인증서(SHA-256)</string>
@@ -161,7 +160,7 @@
     <string name="review_needs_wallet">게시하려면 Seeker 지갑으로 로그인하세요.</string>
     <string name="review_needs_sgt">이 지갑에는 기기 인증 정보(현재는 Seeker Genesis Token)가 없어 리뷰가 집계되지 않습니다. 불필요한 네트워크 수수료를 아끼기 위해 게시가 비활성화되어 있습니다.</string>
     <string name="review_checking_sgt">기기 인증 확인 중…</string>
-    <string name="review_fee_note">지갑은 자체적으로 설정하는 Solana 네트워크 수수료만 지불합니다(일반적으로 0.0001 SOL 미만, Seeker에서 실측 0.000047 SOL). 어떠한 가치도 이동하지 않습니다. Undersigned는 아무것도 가져가지 않습니다.</string>
+    <string name="review_fee_note">지갑은 지갑이 정하는 Solana 네트워크 수수료만 내며, 보통 0.0001 SOL 미만입니다. 가치는 이동하지 않습니다. Undersigned는 리뷰에 대해 아무것도 받지 않습니다.</string>
     <string name="review_submit">서명하고 게시</string>
     <string name="review_simulating">트랜잭션 확인 중…</string>
     <string name="review_signing">지갑 응답을 기다리는 중…</string>
@@ -240,7 +239,7 @@
     <string name="inbox_replies">나에게 온 답글</string>
     <string name="inbox_starred">별표 표시</string>
     <string name="inbox_unanswered_sub">증명된 퍼블리셔로 등록된 앱에 달린 서명된 리뷰 중 아직 답글을 남기지 않은 것입니다.</string>
-    <string name="inbox_unanswered_empty">대기 중인 항목이 없습니다. 퍼블리셔 주장을 검증하면 여기에서 내 앱을 확인할 수 있습니다.</string>
+    <string name="inbox_unanswered_empty">대기 중 없음. 앱을 게시했다는 것을 증명하면 여기에서 리뷰를 볼 수 있습니다.</string>
     <string name="inbox_replies_empty">아직 내 기록에 달린 답글이 없습니다.</string>
     <string name="inbox_starred_empty">리뷰에 별표를 표시하면 여기에 보관됩니다.</string>
     <string name="swipe_hint">리뷰를 오른쪽으로 스와이프하면 답글을 달 수 있습니다.</string>
@@ -401,7 +400,7 @@
     <string name="pro_paying_title">결제 내역</string>
     <string name="pro_line_licence">Pro, 12개월</string>
     <string name="pro_line_fee">네트워크 수수료(지갑이 설정)</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">보통 0.0001 SOL 미만</string>
     <string name="pro_line_total">합계</string>
     <string name="pro_paid_to">법적 고지에 기재된 주소로 결제됩니다. 라이선스는 이 지갑을 기준으로 원장에 기록됩니다 — 계정도, 서버도, 저장되는 개인정보도 없습니다.</string>
     <string name="pro_before_title">서명하기 전에</string>
@@ -469,7 +468,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">전체 원장 읽기</string>
     <string name="fp_sign">리뷰·답글·플래그·이의 제기 서명</string>
-    <string name="fp_facts">기기가 확인할 수 있는 정보</string>
+    <string name="fp_facts">기기가 확인할 수 있는 것</string>
     <string name="fp_claim">dApp 소유권 주장, 증명된 퍼블리셔로 답변</string>
     <string name="fp_copy">리뷰를 스토어로 복사</string>
     <string name="fp_import">스토어 리뷰 가져오기</string>
@@ -603,7 +602,7 @@
     <string name="lb_open">리더보드</string>
     <string name="lb_overall">종합</string>
     <plurals name="lb_dapps"><item quantity="other">dApp %1$d개</item></plurals>
-    <string name="lb_m_revenue">수입</string>
+    <string name="lb_m_revenue">수령액</string>
     <string name="lb_m_payers">유료 사용자</string>
     <string name="lb_m_signed_score">서명 점수</string>
     <string name="lb_m_signed_reviews">서명된 리뷰</string>
@@ -624,7 +623,7 @@
     <string name="lb_downloads_title">다운로드 수</string>
     <string name="lb_downloads_body">dApp Store는 설치 수를 공개하지 않으므로 다운로드 순위는 없습니다. 데이터 소스가 추가되면 여기에 표시됩니다.</string>
     <string name="lb_signed_n">서명된 리뷰: %1$d</string>
-    <string name="dd_revenue">수입</string>
+    <string name="dd_revenue">수령액</string>
     <string name="dd_signed">서명됨</string>
     <string name="dd_store">스토어</string>
     <string name="dd_updates">업데이트</string>
@@ -647,7 +646,7 @@
     <string name="tr_90d">90일</string>
     <string name="tr_1y">1년</string>
     <string name="tr_all">전체</string>
-    <string name="tr_revenue">수입</string>
+    <string name="tr_revenue">수령액</string>
     <string name="tr_score">점수 추이</string>
     <string name="tr_signed">서명됨</string>
     <string name="tr_store">스토어</string>
@@ -736,7 +735,7 @@
     <string name="tag_perms_excess">권한 과다</string>
     <string name="tag_spam_reviews">부자연스러운 리뷰</string>
     <string name="tag_misleading">오해 소지 있음</string>
-    <string name="tag_suspected_scam">사기 의심</string>
+    <string name="tag_suspected_scam">기만적으로 보임</string>
     <string name="tag_abandoned">관리 중단</string>
     <string name="tag_active_dev">활발히 개발 중</string>
     <string name="tag_onboarding_ok">첫 사용 경험 좋음</string>
@@ -1062,7 +1061,6 @@
     <string name="pay_found_empty">아직 찾지 못했습니다. 스토어 빌드를 읽는 중입니다(지금까지 %1$d개).</string>
     <string name="pay_found_dispute">본인 것인가요? 아래에서 금고를 등록하면 보드로 옮겨집니다. 본인 것이 아닌가요? 신고하면 삭제됩니다.</string>
     <string name="pay_found_report">지갑 신고</string>
-    <string name="desk_trend">최근 30일: 서명된 리뷰 %1$d개 (그 전 30일: %2$d개)</string>
     <string name="desk_treasury_confirmed">금고 확인됨 · %1$s 수령</string>
     <string name="desk_treasury_none">등록된 금고 없음</string>
     <string name="desk_found">앱 코드에서 발견: %1$s, 지갑 %2$d개가 결제함. 결제에서 내 금고로 확인하거나, 내 것이 아니면 신고하세요.</string>
@@ -1160,9 +1158,6 @@
     <string name="pa_board_title">가장 많이 결제받은 앱</string>
     <string name="pa_pill_confirmed">확인됨</string>
     <string name="pa_pill_found">앱 코드에서 발견</string>
-    <string name="pa_row_counts">결제 %1$s건 · 결제자 %2$s명 · 신규 %3$s명</string>
-    <string name="pa_payments_payers">결제 %1$s건 · 결제자 %2$s명</string>
-    <string name="pa_new_line">결제 %1$s건 · 신규 결제자 %2$s명</string>
     <string name="pa_cat_title">카테고리</string>
     <string name="pa_cat_apps">결제받은 앱 %1$s개</string>
     <string name="pa_vs_before">변화는 같은 길이의 직전 기간과 비교한 것입니다.</string>
@@ -1174,7 +1169,6 @@
     <string name="pa_was">이전 %1$s</string>
     <string name="pa_trend_note">받은 USD의 변화를 같은 길이의 직전 기간과 비교합니다. 순위에 오르려면 두 기간 중 하나에서 %1$s 이상이 필요합니다. 새로 등장: 기간 안에서 처음 본 결제.</string>
     <string name="pa_how_title">결제 방식</string>
-    <string name="pa_rail_line">결제 %1$s건 · %2$s</string>
     <string name="pa_median">결제 중앙값</string>
     <string name="pa_p90">90번째 백분위수</string>
     <string name="pa_max">최대</string>
@@ -1217,4 +1211,34 @@
     <string name="ph_top_payer">최대 결제자 비중</string>
     <string name="ph_top10_payers">상위 10명 결제자 비중</string>
     <string name="ph_of">%2$s 중 %1$s</string>
+    <string name="ledger_counted_frame">집계됨: %2$s의 %1$s · %3$d개 표시</string>
+    <string name="standing_operator">Undersigned 운영자 지갑: 리뷰는 라벨과 함께 표시되며 절대 집계되지 않습니다.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: 보유</string>
+    <string name="me_sgt_no">Seeker Genesis Token: 미보유</string>
+    <string name="me_counts_yes">집계됨: Genesis Token 보유</string>
+    <string name="me_counts_operator">표시만, 집계 안 됨: Undersigned 운영자 지갑</string>
+    <string name="me_counts_no">표시만, 집계 안 됨: Genesis Token 없음</string>
+    <string name="row_store_rating">스토어: %1$s★ (%2$d)</string>
+    <string name="row_store_short">스토어 %1$s★</string>
+    <string name="score_empty_shown">아직 집계된 리뷰 없음 · %1$d개 표시</string>
+    <string name="score_empty_operator">아직 집계된 리뷰 없음 · %1$d개 표시 (Undersigned 운영자)</string>
+    <string name="inbox_unanswered_empty_publisher">대기 중 없음: 증명된 앱의 모든 리뷰에 답글이 있습니다.</string>
+    <string name="pro_line_fee_short">네트워크 수수료</string>
+    <string name="quick_apart">빠른 리뷰는 따로 표시되며 집계되지 않습니다.</string>
+    <string name="tags_more">태그 더 보기 (%1$d)</string>
+    <string name="alert_offer_title">답글이 오면 알림 받기</string>
+    <string name="alert_offer_body">알림이 꺼져 있습니다. 퍼블리셔가 리뷰에 답글을 달면 이 휴대폰에서 알 수 있도록 켜세요. 기기 밖으로 나가는 것은 없습니다.</string>
+    <string name="alert_offer_button">알림 켜기</string>
+    <string name="alert_offer_on">알림이 켜져 있습니다. 설정에서 언제든 바꿀 수 있습니다.</string>
+    <string name="pay_seg_analytics">분석</string>
+    <string name="pay_seg_confirmed">확인됨</string>
+    <string name="pay_seg_found">코드에서 발견</string>
+    <string name="pa_headline_label">대부분 앱 코드에서 발견된, 퍼블리셔가 확인하지 않은 지갑; 총수령액이며 매출이 아님</string>
+    <string name="score_none_counted">집계된 리뷰 없음</string>
+    <string name="share_review_it">Seeker로 리뷰하기: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">결제 %1$s건</item><item quantity="other">결제 %1$s건</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">결제자 %1$s명</item><item quantity="other">결제자 %1$s명</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">신규 %1$s</item><item quantity="other">신규 %1$s</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">신규 결제자 %1$s명</item><item quantity="other">신규 결제자 %1$s명</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">최근 30일: 서명된 리뷰 %1$d개 (그 전 30일: %2$d)</item><item quantity="other">최근 30일: 서명된 리뷰 %1$d개 (그 전 30일: %2$d)</item></plurals>
 </resources>

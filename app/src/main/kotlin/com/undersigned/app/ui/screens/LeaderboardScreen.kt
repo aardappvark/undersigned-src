@@ -55,7 +55,7 @@ private enum class Metric(val label: Int) {
     STORE_RATING(R.string.lb_m_store_rating), STORE_REVIEWS(R.string.lb_m_store_reviews), GROWTH(R.string.lb_m_growth)
 }
 
-private data class LbRow(val pkg: String, val name: String, val category: String, val value: String, val sub: String, val growth: Double? = null)
+private data class LbRow(val pkg: String, val name: String, val category: String, val value: String, val sub: String, val growth: Double? = null, val isNew: Boolean = false)
 
 private fun usd(v: Double): String = NumberFormat.getCurrencyInstance(Locale.US).apply { maximumFractionDigits = 0 }.format(v)
 private fun pct(v: Double): String = (if (v >= 0) "+" else "−") + String.format(Locale.US, "%.0f%%", kotlin.math.abs(v * 100))
@@ -66,7 +66,14 @@ private fun growthOf(row: MainViewModel.BoardRow): Double? {
     val m = row.monthUsd; if (m.size < 2) return null
     val now = java.time.YearMonth.now(java.time.ZoneOffset.UTC)
     val cur = m[now.toString()] ?: 0.0; val prev = m[now.minusMonths(1).toString()] ?: return null
-    return if (prev <= 0) null else (cur - prev) / prev
+    // Nothing yet this month is not a fall of 100% (judge, 10 Oct 2026): no figure until the month has a payment.
+    return if (prev <= 0 || cur <= 0) null else (cur - prev) / prev
+}
+
+/** This month paid, last month not: a newcomer, shown as "new" rather than a percentage. */
+private fun isNewThisMonth(row: MainViewModel.BoardRow): Boolean {
+    val now = java.time.YearMonth.now(java.time.ZoneOffset.UTC)
+    return (row.monthUsd[now.toString()] ?: 0.0) > 0 && (row.monthUsd[now.minusMonths(1).toString()] ?: 0.0) <= 0
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -102,7 +109,7 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
     val storeMean = remember(counts) { val all = counts.values.fold(IntArray(5)) { a, c -> c.forEachIndexed { i, k -> a[i] += k }; a }.toList(); storeAvg(all)?.first ?: 4.0 }
     val rows: List<LbRow> = remember(m, tab, boardRows, scores, counts) {
         when (m) {
-            Metric.REVENUE -> confirmed.sortedByDescending { it.usd ?: 0.0 }.map { LbRow(it.claim.packageName, it.name, catOf[it.claim.packageName] ?: "", it.usd?.let(::usd) ?: "—", "payers:${it.tally!!.payers}", growthOf(it)) }
+            Metric.REVENUE -> confirmed.sortedByDescending { it.usd ?: 0.0 }.map { LbRow(it.claim.packageName, it.name, catOf[it.claim.packageName] ?: "", it.usd?.let(::usd) ?: "—", "payers:${it.tally!!.payers}", growthOf(it), isNewThisMonth(it)) }
             Metric.PAYERS -> confirmed.sortedByDescending { it.tally!!.payers }.map { LbRow(it.claim.packageName, it.name, catOf[it.claim.packageName] ?: "", "${it.tally!!.payers}", "usd:" + (it.usd?.let(::usd) ?: "—")) }
             Metric.GROWTH -> confirmed.mapNotNull { r -> growthOf(r)?.let { g -> r to g } }.sortedByDescending { it.second }.map { (r, g) -> LbRow(r.claim.packageName, r.name, catOf[r.claim.packageName] ?: "", pct(g), "usd:" + (r.usd?.let(::usd) ?: "—"), g) }
             Metric.SIGNED_SCORE -> scores.values.filter { it.packageName in inTab && it.countedReviews >= 2 }.sortedByDescending { it.weightedRating }
@@ -163,6 +170,7 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
                         Column(horizontalAlignment = Alignment.End) {
                             Text(r.value, color = if (m == Metric.GROWTH) growthColor(r.growth) else RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
                             if (m == Metric.REVENUE) r.growth?.let { Text(pct(it), color = growthColor(it), fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                                ?: if (r.isNew) Text(stringResource(R.string.pa_new), color = RbColors.green, fontSize = 11.sp, fontWeight = FontWeight.Bold) else Unit
                             if (m == Metric.SIGNED_SCORE) RatingStars(r.sub.split(":").getOrNull(2)?.toDoubleOrNull() ?: 0.0, size = 10)
                         }
                     }
@@ -277,7 +285,7 @@ private fun DrillDown(vm: MainViewModel, pkg: String, name: String, rank: String
             }
             // Trends.
             SectionTitle(stringResource(R.string.tr_title))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {   // "All time" was clipped
                 Range.entries.forEach { r -> FilterChip(selected = range == r, onClick = { range = r }, label = { Text(stringResource(r.label)) }, border = null,
                     colors = FilterChipDefaults.filterChipColors(selectedContainerColor = RbColors.purple, selectedLabelColor = RbColors.textPrimary, labelColor = RbColors.textSecondary, containerColor = RbColors.surfaceVariant)) }
             }
@@ -318,6 +326,7 @@ private fun RevenueTrend(row: MainViewModel.BoardRow?, from: Long) {
     if (pts.isEmpty()) { TrendCard(stringResource(R.string.tr_revenue), stringResource(R.string.tr_no_data)) {}; return }
     val total = pts.sumOf { it.second }
     val before = row!!.paid.filter { it.first.time < from }.sumOf { it.second }
+    // Growth of the running total over the range; nothing before the range is "new", never a percentage.
     val change = if (before > 0) total / before else null
     TrendCard(stringResource(R.string.tr_revenue), stringResource(R.string.tr_sum_revenue, usd(total), pts.size),
         trailing = { change?.let { Text(pct(it), color = growthColor(it), fontSize = 12.sp, fontWeight = FontWeight.Bold) } }) {

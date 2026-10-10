@@ -59,8 +59,8 @@ fun ChangesScreen(vm: MainViewModel, onBack: (() -> Unit)?, onOpen: (String) -> 
                     Spacer(Modifier.height(6.dp))
                     if (c.signerChanged) Text(stringResource(R.string.fact_signer_changed), color = RbColors.negative, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     if (c.versionChanged) Text(stringResource(R.string.change_new_version, c.versionCode), color = RbColors.textSecondary, fontSize = 12.sp)
-                    if (c.permsAdded.isNotEmpty()) Text(stringResource(R.string.fact_perms_added, c.permsAdded.joinToString(", ")), color = RbColors.warning, fontSize = 12.sp)
-                    if (c.permsRemoved.isNotEmpty()) Text(stringResource(R.string.fact_perms_removed, c.permsRemoved.joinToString(", ")), color = RbColors.textSecondary, fontSize = 12.sp)
+                    if (c.permsAdded.isNotEmpty()) Text(stringResource(R.string.fact_perms_added, vm.permissionNames(c.permsAdded).joinToString(", ")), color = RbColors.warning, fontSize = 12.sp)
+                    if (c.permsRemoved.isNotEmpty()) Text(stringResource(R.string.fact_perms_removed, vm.permissionNames(c.permsRemoved).joinToString(", ")), color = RbColors.textSecondary, fontSize = 12.sp)
                     // The store's "What's new" describes ITS latest release. Shown only when that is the exact version this
                     // phone updated to — the Toolkit's listing said vc 175 while phones ran 243 and 248 (24 Sep 2026), and
                     // those notes would have described the wrong build.

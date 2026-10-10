@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d دستخط شدہ</string>
     <string name="row_no_reviews">ابھی تک کوئی دستخط شدہ جائزہ نہیں</string>
     <string name="ledger_syncing">لیجر پڑھا جا رہا ہے…</string>
-    <string name="ledger_synced">لیجر: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d جائزہ</item><item quantity="other">%1$d جائزے</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">لیجر پڑھنے میں ناکامی: %1$s</string>
@@ -141,7 +140,7 @@
     </plurals>
     <string name="import_note">درآمد شدہ جائزے \"works\" (4–5★) یا \"confusing\" (1–3★) ٹیگ رکھتے ہیں؛ انہیں کسی بھی وقت نئے جائزے سے ترمیم کریں۔ 140 حروف سے طویل متن کاٹ دیا جاتا ہے۔</string>
     <string name="detail_tags_title">مالکان نے کیا ٹیگ کیا</string>
-    <string name="detail_facts_title">آپ کا آلہ کیا تصدیق کر سکتا ہے</string>
+    <string name="detail_facts_title">آپ کی ڈیوائس کیا جانچ سکتی ہے</string>
     <string name="detail_facts_sub">اس فون کے پیکج مینیجر سے پڑھا گیا۔ صرف حقائق اور تبدیلیاں؛ حفاظتی فیصلہ نہیں۔</string>
     <string name="fact_version">نصب شدہ ورژن کوڈ</string>
     <string name="fact_signer">سائننگ سرٹیفکیٹ (SHA-256)</string>
@@ -171,7 +170,7 @@
     <string name="review_needs_wallet">پوسٹ کرنے کے لیے اپنے Seeker والٹ سے سائن ان کریں۔</string>
     <string name="review_needs_sgt">اس والٹ کے پاس کوئی تصدیق شدہ آلہ اسناد نہیں (آج: Seeker Genesis Token)، اس لیے اس کے جائزے شمار نہیں ہوں گے۔ آپ کی نیٹ ورک فیس بچانے کے لیے پوسٹ کرنا غیر فعال ہے۔</string>
     <string name="review_checking_sgt">آلے کی تصدیق جانچی جا رہی ہے…</string>
-    <string name="review_fee_note">آپ کا والٹ صرف وہ Solana نیٹ ورک فیس ادا کرتا ہے جو وہ خود مقرر کرتا ہے (عام طور پر 0.0001 SOL سے کم؛ ایک Seeker پر 0.000047 SOL ناپا گیا)۔ کوئی قدر منتقل نہیں ہوتی۔ Undersigned کچھ نہیں لیتا۔</string>
+    <string name="review_fee_note">آپ کا والٹ صرف Solana نیٹ ورک فیس ادا کرتا ہے، جو والٹ خود طے کرتا ہے، عموماً 0.0001 SOL سے کم۔ کوئی قدر منتقل نہیں ہوتی۔ Undersigned ریویو کے لیے کچھ نہیں لیتا۔</string>
     <string name="review_submit">دستخط کریں اور شائع کریں</string>
     <string name="review_simulating">ٹرانزیکشن کی جانچ ہو رہی ہے…</string>
     <string name="review_signing">آپ کے والٹ کا انتظار ہے…</string>
@@ -253,7 +252,7 @@
     <string name="inbox_replies">مجھے موصول جوابات</string>
     <string name="inbox_starred">اسٹار شدہ</string>
     <string name="inbox_unanswered_sub">ان ایپس پر دستخط شدہ جائزے جن کے آپ ثابت شدہ پبلشر ہیں، جن کا آپ نے ابھی جواب نہیں دیا۔</string>
-    <string name="inbox_unanswered_empty">کچھ زیرِ التوا نہیں۔ یہاں اپنی ایپس دیکھنے کے لیے پبلشر دعویٰ تصدیق کریں۔</string>
+    <string name="inbox_unanswered_empty">کچھ زیر التوا نہیں۔ ثابت کریں کہ آپ کوئی ایپ شائع کرتے ہیں تاکہ اس کے ریویوز یہاں دیکھیں۔</string>
     <string name="inbox_replies_empty">ابھی تک آپ کے ریکارڈز پر کوئی جواب نہیں۔</string>
     <string name="inbox_starred_empty">کسی جائزے کو یہاں رکھنے کے لیے اسٹار لگائیں۔</string>
     <string name="swipe_hint">جواب دینے کے لیے جائزے کو دائیں طرف سوائپ کریں۔</string>
@@ -413,7 +412,7 @@
     <string name="pro_paying_title">آپ کیا ادا کر رہے ہیں</string>
     <string name="pro_line_licence">Pro، 12 ماہ</string>
     <string name="pro_line_fee">نیٹ ورک فیس، آپ کے والٹ کی جانب سے مقرر</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">عموماً 0.0001 SOL سے کم</string>
     <string name="pro_line_total">کل</string>
     <string name="pro_paid_to">قانونی شیٹ میں دیے گئے پتے پر ادا کیا گیا۔ لائسنس اس والٹ کے خلاف لیجر پر لکھا جاتا ہے — کوئی اکاؤنٹ نہیں، کوئی سرور نہیں، آپ کے بارے میں کچھ بھی محفوظ نہیں۔</string>
     <string name="pro_before_title">دستخط کرنے سے پہلے</string>
@@ -483,7 +482,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">پورا لیجر پڑھیں</string>
     <string name="fp_sign">جائزوں، جوابات، نشان زدگیوں، اعتراضات پر دستخط کریں</string>
-    <string name="fp_facts">آپ کا آلہ کیا تصدیق کر سکتا ہے</string>
+    <string name="fp_facts">آپ کی ڈیوائس کیا جانچ سکتی ہے</string>
     <string name="fp_claim">کسی dApp کا دعویٰ کریں، اس کے ثابت شدہ پبلشر کے طور پر جواب دیں</string>
     <string name="fp_copy">جائزہ اسٹور میں کاپی کریں</string>
     <string name="fp_import">اسٹور جائزے درآمد کریں</string>
@@ -620,7 +619,7 @@
     <string name="lb_open">لیڈر بورڈ</string>
     <string name="lb_overall">مجموعی</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">آمدنی</string>
+    <string name="lb_m_revenue">وصول شدہ</string>
     <string name="lb_m_payers">ادائیگی کرنے والے صارفین</string>
     <string name="lb_m_signed_score">دستخط شدہ اسکور</string>
     <string name="lb_m_signed_reviews">دستخط شدہ جائزے</string>
@@ -641,7 +640,7 @@
     <string name="lb_downloads_title">ڈاؤن لوڈز</string>
     <string name="lb_downloads_body">dApp Store انسٹال کی تعداد شائع نہیں کرتا، اس لیے ڈاؤن لوڈ کی کوئی درجہ بندی نہیں۔ ماخذ شامل ہونے پر یہ یہاں ظاہر ہوگا۔</string>
     <string name="lb_signed_n">دستخط شدہ جائزے: %1$d</string>
-    <string name="dd_revenue">آمدنی</string>
+    <string name="dd_revenue">وصول شدہ</string>
     <string name="dd_signed">دستخط شدہ</string>
     <string name="dd_store">اسٹور</string>
     <string name="dd_updates">اپ ڈیٹس</string>
@@ -664,7 +663,7 @@
     <string name="tr_90d">90د</string>
     <string name="tr_1y">1س</string>
     <string name="tr_all">تمام</string>
-    <string name="tr_revenue">آمدنی</string>
+    <string name="tr_revenue">وصول شدہ</string>
     <string name="tr_score">وقت کے ساتھ اسکور</string>
     <string name="tr_signed">دستخط شدہ</string>
     <string name="tr_store">اسٹور</string>
@@ -752,7 +751,7 @@
     <string name="tag_perms_excess">ضرورت سے زیادہ اجازتیں</string>
     <string name="tag_spam_reviews">غیر فطری جائزے</string>
     <string name="tag_misleading">گمراہ کن</string>
-    <string name="tag_suspected_scam">فراڈ کا شبہ</string>
+    <string name="tag_suspected_scam">گمراہ کن لگتی ہے</string>
     <string name="tag_abandoned">ترک شدہ</string>
     <string name="tag_active_dev">فعال ترقی</string>
     <string name="tag_onboarding_ok">اچھا آغاز</string>
@@ -1088,7 +1087,6 @@
     <string name="pay_found_empty">ابھی کچھ نہیں ملا۔ اسٹور بلڈز ابھی پڑھے جا رہے ہیں (اب تک %1$d)۔</string>
     <string name="pay_found_dispute">کیا کوئی آپ کا ہے؟ نیچے اپنا خزانہ درج کریں تو یہ بورڈ پر چلا جائے گا۔ آپ کا نہیں؟ رپورٹ کریں تو ہٹا دیا جائے گا۔</string>
     <string name="pay_found_report">والیٹ رپورٹ کریں</string>
-    <string name="desk_trend">پچھلے 30 دن: %1$d دستخط شدہ جائزے (اس سے پہلے کے 30: %2$d)</string>
     <string name="desk_treasury_confirmed">خزانہ تصدیق شدہ · %1$s موصول</string>
     <string name="desk_treasury_none">کوئی خزانہ درج نہیں</string>
     <string name="desk_found">آپ کی ایپ کے کوڈ میں ملا: %1$s، جسے %2$d والیٹس نے ادائیگی کی۔ ادائیگیوں میں اسے اپنا خزانہ تصدیق کریں، یا اگر آپ کا نہیں تو رپورٹ کریں۔</string>
@@ -1186,9 +1184,6 @@
     <string name="pa_board_title">سب سے زیادہ ادائیگی پانے والی ایپس</string>
     <string name="pa_pill_confirmed">تصدیق شدہ</string>
     <string name="pa_pill_found">ایپ کے کوڈ میں ملا</string>
-    <string name="pa_row_counts">%1$s ادائیگیاں · %2$s ادا کنندگان · %3$s نئے</string>
-    <string name="pa_payments_payers">%1$s ادائیگیاں · %2$s ادا کنندگان</string>
-    <string name="pa_new_line">%1$s ادائیگیاں · %2$s نئے ادا کنندگان</string>
     <string name="pa_cat_title">زمرے</string>
     <string name="pa_cat_apps">%1$s ایپس کو ادائیگی ملی</string>
     <string name="pa_vs_before">تبدیلی اسی لمبائی کی پچھلی مدت کے مقابلے میں ہے۔</string>
@@ -1200,7 +1195,6 @@
     <string name="pa_was">پہلے %1$s</string>
     <string name="pa_trend_note">وصول شدہ USD میں تبدیلی، اسی لمبائی کی پچھلی مدت کے مقابلے میں۔ درجہ بندی کے لیے ایپ کو دونوں میں سے کسی ایک مدت میں %1$s چاہییں۔ نئی آمد: مدت کے اندر دیکھی گئی پہلی ادائیگی۔</string>
     <string name="pa_how_title">ادائیگی کیسے ہوئی</string>
-    <string name="pa_rail_line">%1$s ادائیگیاں · %2$s</string>
     <string name="pa_median">درمیانی ادائیگی</string>
     <string name="pa_p90">90واں پرسنٹائل</string>
     <string name="pa_max">سب سے بڑی</string>
@@ -1243,4 +1237,34 @@
     <string name="ph_top_payer">سب سے بڑے ادا کنندہ کا حصہ</string>
     <string name="ph_top10_payers">سب سے بڑے 10 ادا کنندگان کا حصہ</string>
     <string name="ph_of">%2$s میں سے %1$s</string>
+    <string name="ledger_counted_frame">شمار شدہ: %2$s سے %1$s · %3$d دکھائے گئے</string>
+    <string name="standing_operator">Undersigned آپریٹر والٹ: آپ کے ریویوز نشان کے ساتھ دکھائے جاتے ہیں اور کبھی شمار نہیں ہوتے۔</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: موجود</string>
+    <string name="me_sgt_no">Seeker Genesis Token: موجود نہیں</string>
+    <string name="me_counts_yes">شمار ہوتا ہے: Genesis Token موجود</string>
+    <string name="me_counts_operator">دکھایا جاتا ہے، کبھی شمار نہیں: Undersigned آپریٹر والٹ</string>
+    <string name="me_counts_no">دکھایا جاتا ہے، شمار نہیں: Genesis Token نہیں</string>
+    <string name="row_store_rating">اسٹور: %1$s★ (%2$d)</string>
+    <string name="row_store_short">اسٹور %1$s★</string>
+    <string name="score_empty_shown">ابھی کوئی شمار شدہ ریویو نہیں · %1$d دکھائے گئے</string>
+    <string name="score_empty_operator">ابھی کوئی شمار شدہ ریویو نہیں · %1$d دکھائے گئے (Undersigned آپریٹر)</string>
+    <string name="inbox_unanswered_empty_publisher">کچھ زیر التوا نہیں: آپ کی ثابت شدہ ایپس کے ہر ریویو کا جواب موجود ہے۔</string>
+    <string name="pro_line_fee_short">نیٹ ورک فیس</string>
+    <string name="quick_apart">فوری ریویو الگ دکھایا جاتا ہے اور کبھی شمار نہیں ہوتا۔</string>
+    <string name="tags_more">مزید ٹیگز (%1$d)</string>
+    <string name="alert_offer_title">جواب آنے پر جانیں</string>
+    <string name="alert_offer_body">الرٹس بند ہیں۔ انہیں آن کریں تاکہ اس فون پر معلوم ہو جب پبلشر آپ کے ریویو کا جواب دے۔ کچھ بھی ڈیوائس سے باہر نہیں جاتا۔</string>
+    <string name="alert_offer_button">الرٹس آن کریں</string>
+    <string name="alert_offer_on">الرٹس آن ہیں۔ انہیں کسی بھی وقت سیٹنگز میں بدلیں۔</string>
+    <string name="pay_seg_analytics">تجزیہ</string>
+    <string name="pay_seg_confirmed">تصدیق شدہ</string>
+    <string name="pay_seg_found">کوڈ میں ملے</string>
+    <string name="pa_headline_label">زیادہ تر ایپ کوڈ میں ملے والٹس، پبلشرز سے تصدیق شدہ نہیں؛ مجموعی وصولیاں، آمدنی نہیں</string>
+    <string name="score_none_counted">کوئی شمار شدہ ریویو نہیں</string>
+    <string name="share_review_it">اپنے Seeker سے ریویو کریں: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s ادائیگی</item><item quantity="other">%1$s ادائیگیاں</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s ادا کنندہ</item><item quantity="other">%1$s ادا کنندگان</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s نیا</item><item quantity="other">%1$s نئے</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s نیا ادا کنندہ</item><item quantity="other">%1$s نئے ادا کنندگان</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">پچھلے 30 دن: %1$d دستخط شدہ ریویو (اس سے پہلے کے 30: %2$d)</item><item quantity="other">پچھلے 30 دن: %1$d دستخط شدہ ریویوز (اس سے پہلے کے 30: %2$d)</item></plurals>
 </resources>

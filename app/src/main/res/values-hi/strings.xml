@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d हस्ताक्षरित</string>
     <string name="row_no_reviews">अभी तक कोई हस्ताक्षरित समीक्षा नहीं</string>
     <string name="ledger_syncing">ledger पढ़ा जा रहा है…</string>
-    <string name="ledger_synced">लेजर: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d समीक्षा</item><item quantity="other">%1$d समीक्षाएं</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Ledger पढ़ने में विफल: %1$s</string>
@@ -141,7 +140,7 @@
     </plurals>
     <string name="import_note">आयातित समीक्षाओं में \"works\" (4–5★) या \"confusing\" (1–3★) टैग होता है; इन्हें किसी भी समय नई समीक्षा से संपादित करें। 140 वर्णों से अधिक लंबा टेक्स्ट काट दिया जाता है।</string>
     <string name="detail_tags_title">मालिकों ने क्या टैग किया</string>
-    <string name="detail_facts_title">आपका डिवाइस क्या सत्यापित कर सकता है</string>
+    <string name="detail_facts_title">आपका डिवाइस क्या जाँच सकता है</string>
     <string name="detail_facts_sub">इस फ़ोन के package manager से पढ़ा गया। केवल तथ्य और बदलाव; सुरक्षा का फैसला नहीं।</string>
     <string name="fact_version">इंस्टॉल किया गया वर्ज़न कोड</string>
     <string name="fact_signer">साइनिंग सर्टिफिकेट (SHA-256)</string>
@@ -171,7 +170,7 @@
     <string name="review_needs_wallet">पोस्ट करने के लिए अपने Seeker wallet से साइन इन करें।</string>
     <string name="review_needs_sgt">इस wallet के पास कोई प्रमाणित डिवाइस नहीं है (आज: Seeker Genesis Token), इसलिए इसकी समीक्षाएं गिनी नहीं जाएंगी। आपकी नेटवर्क फीस बचाने के लिए पोस्ट करना अक्षम है।</string>
     <string name="review_checking_sgt">डिवाइस प्रमाणीकरण की जांच हो रही है…</string>
-    <string name="review_fee_note">आपका wallet केवल वह Solana नेटवर्क फीस चुकाता है जो वह स्वयं तय करता है (आमतौर पर 0.0001 SOL से कम; एक Seeker पर 0.000047 SOL मापा गया)। कोई मूल्य स्थानांतरित नहीं होता। Undersigned कुछ भी नहीं लेता।</string>
+    <string name="review_fee_note">आपका वॉलेट सिर्फ़ Solana नेटवर्क शुल्क देता है, जो वॉलेट खुद तय करता है, आमतौर पर 0.0001 SOL से कम। कोई मूल्य नहीं जाता। Undersigned समीक्षा के लिए कुछ नहीं लेता।</string>
     <string name="review_submit">साइन करें और प्रकाशित करें</string>
     <string name="review_simulating">लेनदेन की जांच हो रही है…</string>
     <string name="review_signing">आपके wallet की प्रतीक्षा…</string>
@@ -253,7 +252,7 @@
     <string name="inbox_replies">मुझे मिले जवाब</string>
     <string name="inbox_starred">स्टार की गईं</string>
     <string name="inbox_unanswered_sub">उन ऐप्स पर हस्ताक्षरित समीक्षाएं जिनके आप सिद्ध प्रकाशक हैं, जिनका आपने अभी जवाब नहीं दिया।</string>
-    <string name="inbox_unanswered_empty">कुछ भी प्रतीक्षा में नहीं है। यहां अपने ऐप्स देखने के लिए एक प्रकाशक दावा सत्यापित करें।</string>
+    <string name="inbox_unanswered_empty">कुछ बाकी नहीं। कोई ऐप प्रकाशित करने का प्रमाण दें ताकि उसकी समीक्षाएँ यहाँ दिखें।</string>
     <string name="inbox_replies_empty">आपके रिकॉर्ड्स पर अभी तक कोई जवाब नहीं।</string>
     <string name="inbox_starred_empty">किसी समीक्षा को यहां रखने के लिए उसे स्टार करें।</string>
     <string name="swipe_hint">जवाब देने के लिए किसी समीक्षा को दाईं ओर स्वाइप करें।</string>
@@ -413,7 +412,7 @@
     <string name="pro_paying_title">आप क्या भुगतान कर रहे हैं</string>
     <string name="pro_line_licence">Pro, 12 महीने</string>
     <string name="pro_line_fee">नेटवर्क फीस, आपके wallet द्वारा तय</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">आमतौर पर 0.0001 SOL से कम</string>
     <string name="pro_line_total">कुल</string>
     <string name="pro_paid_to">Legal शीट में दिए गए पते पर भुगतान किया गया। लाइसेंस इस wallet के विरुद्ध Ledger पर लिखा जाता है — कोई अकाउंट नहीं, कोई सर्वर नहीं, आपके बारे में कुछ भी सहेजा नहीं जाता।</string>
     <string name="pro_before_title">साइन करने से पहले</string>
@@ -483,7 +482,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">पूरा Ledger पढ़ें</string>
     <string name="fp_sign">समीक्षाएं, जवाब, फ़्लैग, विवाद साइन करें</string>
-    <string name="fp_facts">आपका डिवाइस क्या सत्यापित कर सकता है</string>
+    <string name="fp_facts">आपका डिवाइस क्या जाँच सकता है</string>
     <string name="fp_claim">किसी dApp का दावा करें, उसके सिद्ध प्रकाशक के रूप में जवाब दें</string>
     <string name="fp_copy">एक समीक्षा स्टोर में कॉपी करें</string>
     <string name="fp_import">स्टोर समीक्षाएं आयात करें</string>
@@ -620,7 +619,7 @@
     <string name="lb_open">लीडरबोर्ड</string>
     <string name="lb_overall">कुल मिलाकर</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">आय</string>
+    <string name="lb_m_revenue">प्राप्त</string>
     <string name="lb_m_payers">भुगतान करने वाले उपयोगकर्ता</string>
     <string name="lb_m_signed_score">हस्ताक्षरित स्कोर</string>
     <string name="lb_m_signed_reviews">हस्ताक्षरित समीक्षाएं</string>
@@ -641,7 +640,7 @@
     <string name="lb_downloads_title">डाउनलोड</string>
     <string name="lb_downloads_body">dApp Store इंस्टॉल गिनती प्रकाशित नहीं करता, इसलिए कोई डाउनलोड रैंकिंग नहीं है। स्रोत जोड़े जाने पर यह यहां दिखाई देगा।</string>
     <string name="lb_signed_n">हस्ताक्षरित समीक्षाएं: %1$d</string>
-    <string name="dd_revenue">आय</string>
+    <string name="dd_revenue">प्राप्त</string>
     <string name="dd_signed">हस्ताक्षरित</string>
     <string name="dd_store">स्टोर</string>
     <string name="dd_updates">अपडेट</string>
@@ -664,7 +663,7 @@
     <string name="tr_90d">90दि</string>
     <string name="tr_1y">1व</string>
     <string name="tr_all">सभी</string>
-    <string name="tr_revenue">आय</string>
+    <string name="tr_revenue">प्राप्त</string>
     <string name="tr_score">समय के साथ स्कोर</string>
     <string name="tr_signed">हस्ताक्षरित</string>
     <string name="tr_store">स्टोर</string>
@@ -752,7 +751,7 @@
     <string name="tag_perms_excess">अत्यधिक अनुमतियां</string>
     <string name="tag_spam_reviews">अस्वाभाविक समीक्षाएं</string>
     <string name="tag_misleading">भ्रामक</string>
-    <string name="tag_suspected_scam">धोखाधड़ी का संदेह</string>
+    <string name="tag_suspected_scam">भ्रामक लगता है</string>
     <string name="tag_abandoned">परित्यक्त</string>
     <string name="tag_active_dev">सक्रिय विकास</string>
     <string name="tag_onboarding_ok">शुरुआत अच्छी</string>
@@ -1088,7 +1087,6 @@
     <string name="pay_found_empty">अभी कुछ नहीं मिला। स्टोर बिल्ड अभी पढ़े जा रहे हैं (अब तक %1$d)।</string>
     <string name="pay_found_dispute">क्या कोई आपका है? नीचे अपना खज़ाना दर्ज करें, वह बोर्ड पर चला जाएगा। आपका नहीं? रिपोर्ट करें, हटा दिया जाएगा।</string>
     <string name="pay_found_report">वॉलेट रिपोर्ट करें</string>
-    <string name="desk_trend">पिछले 30 दिन: %1$d हस्ताक्षरित समीक्षाएँ (उससे पहले के 30: %2$d)</string>
     <string name="desk_treasury_confirmed">खज़ाना पुष्ट · %1$s प्राप्त</string>
     <string name="desk_treasury_none">कोई खज़ाना दर्ज नहीं</string>
     <string name="desk_found">आपके ऐप के कोड में मिला: %1$s, जिसे %2$d वॉलेट ने भुगतान किया। भुगतान में इसे अपने खज़ाने के रूप में पुष्ट करें, या आपका न हो तो रिपोर्ट करें।</string>
@@ -1186,9 +1184,6 @@
     <string name="pa_board_title">सबसे ज़्यादा भुगतान पाने वाले ऐप</string>
     <string name="pa_pill_confirmed">पुष्ट</string>
     <string name="pa_pill_found">ऐप कोड में मिला</string>
-    <string name="pa_row_counts">%1$s भुगतान · %2$s भुगतानकर्ता · %3$s नए</string>
-    <string name="pa_payments_payers">%1$s भुगतान · %2$s भुगतानकर्ता</string>
-    <string name="pa_new_line">%1$s भुगतान · %2$s नए भुगतानकर्ता</string>
     <string name="pa_cat_title">श्रेणियां</string>
     <string name="pa_cat_apps">%1$s ऐप को भुगतान मिला</string>
     <string name="pa_vs_before">बदलाव उतनी ही लंबी पिछली अवधि की तुलना में है।</string>
@@ -1200,7 +1195,6 @@
     <string name="pa_was">पहले %1$s</string>
     <string name="pa_trend_note">प्राप्त USD में बदलाव, उतनी ही लंबी पिछली अवधि की तुलना में। रैंक होने के लिए ऐप को दोनों में से किसी एक अवधि में %1$s चाहिए। नए आगमन: अवधि के भीतर देखा गया पहला भुगतान।</string>
     <string name="pa_how_title">भुगतान कैसे हुआ</string>
-    <string name="pa_rail_line">%1$s भुगतान · %2$s</string>
     <string name="pa_median">माध्यिका भुगतान</string>
     <string name="pa_p90">90वां पर्सेंटाइल</string>
     <string name="pa_max">सबसे बड़ा</string>
@@ -1243,4 +1237,34 @@
     <string name="ph_top_payer">सबसे बड़े भुगतानकर्ता का हिस्सा</string>
     <string name="ph_top10_payers">शीर्ष 10 भुगतानकर्ताओं का हिस्सा</string>
     <string name="ph_of">%2$s में से %1$s</string>
+    <string name="ledger_counted_frame">गिने गए: %2$s से %1$s · %3$d दिखाए गए</string>
+    <string name="standing_operator">Undersigned ऑपरेटर वॉलेट: आपकी समीक्षाएँ लेबल के साथ दिखाई जाती हैं और कभी गिनी नहीं जातीं।</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: है</string>
+    <string name="me_sgt_no">Seeker Genesis Token: नहीं है</string>
+    <string name="me_counts_yes">गिना जाता है: Genesis Token है</string>
+    <string name="me_counts_operator">दिखाया जाता है, कभी गिना नहीं जाता: Undersigned ऑपरेटर वॉलेट</string>
+    <string name="me_counts_no">दिखाया जाता है, गिना नहीं जाता: Genesis Token नहीं</string>
+    <string name="row_store_rating">स्टोर: %1$s★ (%2$d)</string>
+    <string name="row_store_short">स्टोर %1$s★</string>
+    <string name="score_empty_shown">अभी कोई गिनी गई समीक्षा नहीं · %1$d दिखाई गईं</string>
+    <string name="score_empty_operator">अभी कोई गिनी गई समीक्षा नहीं · %1$d दिखाई गईं (Undersigned ऑपरेटर)</string>
+    <string name="inbox_unanswered_empty_publisher">कुछ बाकी नहीं: आपके सिद्ध ऐप्स की हर समीक्षा का जवाब है।</string>
+    <string name="pro_line_fee_short">नेटवर्क शुल्क</string>
+    <string name="quick_apart">त्वरित समीक्षा अलग दिखाई जाती है और कभी गिनी नहीं जाती।</string>
+    <string name="tags_more">और टैग (%1$d)</string>
+    <string name="alert_offer_title">कोई जवाब दे तो जानें</string>
+    <string name="alert_offer_body">अलर्ट बंद हैं। प्रकाशक आपकी समीक्षा का जवाब दे तो इस फ़ोन पर जानने के लिए इन्हें चालू करें। डिवाइस से कुछ बाहर नहीं जाता।</string>
+    <string name="alert_offer_button">अलर्ट चालू करें</string>
+    <string name="alert_offer_on">अलर्ट चालू हैं। सेटिंग्स में कभी भी बदलें।</string>
+    <string name="pay_seg_analytics">विश्लेषण</string>
+    <string name="pay_seg_confirmed">पुष्ट</string>
+    <string name="pay_seg_found">कोड में मिले</string>
+    <string name="pa_headline_label">ज़्यादातर ऐप कोड में मिले वॉलेट, प्रकाशकों द्वारा पुष्ट नहीं; सकल प्राप्तियाँ, राजस्व नहीं</string>
+    <string name="score_none_counted">कोई गिनी गई समीक्षा नहीं</string>
+    <string name="share_review_it">अपने Seeker से समीक्षा करें: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s भुगतान</item><item quantity="other">%1$s भुगतान</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s भुगतानकर्ता</item><item quantity="other">%1$s भुगतानकर्ता</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s नए</item><item quantity="other">%1$s नए</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s नए भुगतानकर्ता</item><item quantity="other">%1$s नए भुगतानकर्ता</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">पिछले 30 दिन: %1$d हस्ताक्षरित समीक्षा (उससे पहले के 30: %2$d)</item><item quantity="other">पिछले 30 दिन: %1$d हस्ताक्षरित समीक्षाएँ (उससे पहले के 30: %2$d)</item></plurals>
 </resources>

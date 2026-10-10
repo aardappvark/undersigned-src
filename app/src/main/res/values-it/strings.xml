@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d firmate</string>
     <string name="row_no_reviews">Ancora nessuna recensione firmata</string>
     <string name="ledger_syncing">Lettura del registro…</string>
-    <string name="ledger_synced">Registro: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d recensione</item><item quantity="other">%1$d recensioni</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Lettura del registro non riuscita: %1$s</string>
@@ -140,7 +139,7 @@
     </plurals>
     <string name="import_note">Le recensioni importate portano il tag \"works\" (4–5★) o \"confusing\" (1–3★); puoi modificarle in qualsiasi momento con una nuova recensione. Il testo più lungo di 140 caratteri viene tagliato.</string>
     <string name="detail_tags_title">Cosa hanno taggato i proprietari</string>
-    <string name="detail_facts_title">Cosa può verificare il tuo dispositivo</string>
+    <string name="detail_facts_title">Cosa può controllare il tuo dispositivo</string>
     <string name="detail_facts_sub">Letto dal gestore pacchetti di questo telefono. Solo fatti e modifiche; non un verdetto di sicurezza.</string>
     <string name="fact_version">Codice versione installato</string>
     <string name="fact_signer">Certificato di firma (SHA-256)</string>
@@ -170,7 +169,7 @@
     <string name="review_needs_wallet">Accedi con il tuo portafoglio Seeker per pubblicare.</string>
     <string name="review_needs_sgt">Questo portafoglio non ha una credenziale di dispositivo attestato (oggi: il Seeker Genesis Token), quindi le sue recensioni non verrebbero conteggiate. La pubblicazione è disattivata per risparmiarti la commissione di rete.</string>
     <string name="review_checking_sgt">Verifica dell\'attestazione del dispositivo…</string>
-    <string name="review_fee_note">Il tuo portafoglio paga solo la commissione di rete Solana che imposta autonomamente (in genere sotto 0,0001 SOL; misurata a 0,000047 SOL su un Seeker). Nessun valore si sposta. Undersigned non trattiene nulla.</string>
+    <string name="review_fee_note">Il tuo wallet paga solo la commissione di rete Solana, fissata dal wallet, di solito sotto 0,0001 SOL. Nessun valore si sposta. Undersigned non prende nulla per una recensione.</string>
     <string name="review_submit">Firma e pubblica</string>
     <string name="review_simulating">Controllo della transazione…</string>
     <string name="review_signing">In attesa del tuo portafoglio…</string>
@@ -253,7 +252,7 @@
     <string name="inbox_replies">Risposte a me</string>
     <string name="inbox_starred">Preferiti</string>
     <string name="inbox_unanswered_sub">Recensioni firmate su app di cui sei l\'editore dimostrato, senza una tua risposta.</string>
-    <string name="inbox_unanswered_empty">Niente in attesa. Verifica una rivendicazione di editore per vedere qui le tue app.</string>
+    <string name="inbox_unanswered_empty">Niente in attesa. Dimostra di pubblicare un\'app per vederne qui le recensioni.</string>
     <string name="inbox_replies_empty">Ancora nessuna risposta ai tuoi record.</string>
     <string name="inbox_starred_empty">Aggiungi una recensione ai preferiti per conservarla qui.</string>
     <string name="swipe_hint">Scorri una recensione verso destra per rispondere.</string>
@@ -413,7 +412,7 @@
     <string name="pro_paying_title">Cosa stai pagando</string>
     <string name="pro_line_licence">Pro, 12 mesi</string>
     <string name="pro_line_fee">Commissione di rete, fissata dal tuo portafoglio</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">di solito sotto 0,0001 SOL</string>
     <string name="pro_line_total">Totale</string>
     <string name="pro_paid_to">Pagato all\'indirizzo indicato nella scheda Informazioni legali. La licenza viene scritta sul registro a nome di questo portafoglio — nessun account, nessun server, nulla memorizzato su di te.</string>
     <string name="pro_before_title">Prima di firmare</string>
@@ -485,7 +484,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Leggi tutto il registro</string>
     <string name="fp_sign">Firma recensioni, risposte, flag, contestazioni</string>
-    <string name="fp_facts">Cosa può verificare il tuo dispositivo</string>
+    <string name="fp_facts">Cosa può controllare il tuo dispositivo</string>
     <string name="fp_claim">Rivendica un dApp, rispondi come suo editore dimostrato</string>
     <string name="fp_copy">Copia una recensione sullo store</string>
     <string name="fp_import">Importa recensioni dello store</string>
@@ -625,7 +624,7 @@
     <string name="lb_open">Classifica</string>
     <string name="lb_overall">Generale</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="many">%1$d dApp</item><item quantity="other">%1$d dApp</item></plurals>
-    <string name="lb_m_revenue">Entrate</string>
+    <string name="lb_m_revenue">Ricevuto</string>
     <string name="lb_m_payers">Utenti paganti</string>
     <string name="lb_m_signed_score">Punteggio firmato</string>
     <string name="lb_m_signed_reviews">Recensioni firmate</string>
@@ -646,7 +645,7 @@
     <string name="lb_downloads_title">Download</string>
     <string name="lb_downloads_body">Il dApp Store non pubblica il numero di installazioni, quindi non c\'è una classifica dei download. Compare qui se viene aggiunta una fonte.</string>
     <string name="lb_signed_n">Recensioni firmate: %1$d</string>
-    <string name="dd_revenue">Entrate</string>
+    <string name="dd_revenue">Ricevuto</string>
     <string name="dd_signed">Firmato</string>
     <string name="dd_store">Store</string>
     <string name="dd_updates">Aggiornamenti</string>
@@ -669,7 +668,7 @@
     <string name="tr_90d">90G</string>
     <string name="tr_1y">1A</string>
     <string name="tr_all">Tutto</string>
-    <string name="tr_revenue">Entrate</string>
+    <string name="tr_revenue">Ricevuto</string>
     <string name="tr_score">Punteggio nel tempo</string>
     <string name="tr_signed">Firmato</string>
     <string name="tr_store">Store</string>
@@ -778,7 +777,7 @@
     <string name="tag_perms_excess">Permessi eccessivi</string>
     <string name="tag_spam_reviews">Recensioni innaturali</string>
     <string name="tag_misleading">Fuorviante</string>
-    <string name="tag_suspected_scam">Sospetta truffa</string>
+    <string name="tag_suspected_scam">Sembra ingannevole</string>
     <string name="tag_abandoned">Abbandonata</string>
     <string name="tag_active_dev">Sviluppo attivo</string>
     <string name="tag_onboarding_ok">Avvio ok</string>
@@ -1114,7 +1113,6 @@
     <string name="pay_found_empty">Ancora niente. Le build dello store sono ancora in lettura (%1$d finora).</string>
     <string name="pay_found_dispute">Uno di questi è tuo? Registra la tua tesoreria qui sotto e passerà alla tabella. Non è tuo? Segnalalo e verrà rimosso.</string>
     <string name="pay_found_report">Segnala un wallet</string>
-    <string name="desk_trend">Ultimi 30 giorni: %1$d recensioni firmate (i 30 precedenti: %2$d)</string>
     <string name="desk_treasury_confirmed">Tesoreria confermata · %1$s ricevuti</string>
     <string name="desk_treasury_none">Nessuna tesoreria registrata</string>
     <string name="desk_found">Trovato nel codice della tua app: %1$s, pagato da %2$d wallet. Confermalo come tua tesoreria in Pagamenti o segnalalo se non è tuo.</string>
@@ -1212,9 +1210,6 @@
     <string name="pa_board_title">App più pagate</string>
     <string name="pa_pill_confirmed">confermata</string>
     <string name="pa_pill_found">trovato nel codice dell’app</string>
-    <string name="pa_row_counts">%1$s pagamenti · %2$s pagatori · %3$s nuovi</string>
-    <string name="pa_payments_payers">%1$s pagamenti · %2$s pagatori</string>
-    <string name="pa_new_line">%1$s pagamenti · %2$s nuovi pagatori</string>
     <string name="pa_cat_title">Categorie</string>
     <string name="pa_cat_apps">%1$s app pagate</string>
     <string name="pa_vs_before">La variazione è rispetto al periodo precedente di pari durata.</string>
@@ -1226,7 +1221,6 @@
     <string name="pa_was">prima %1$s</string>
     <string name="pa_trend_note">Variazione degli USD ricevuti rispetto al periodo precedente di pari durata. Un’app deve raggiungere %1$s in uno dei due periodi per entrare in classifica. Nuovi arrivi: primo pagamento visto nel periodo.</string>
     <string name="pa_how_title">Come è stato pagato</string>
-    <string name="pa_rail_line">%1$s pagamenti · %2$s</string>
     <string name="pa_median">Pagamento mediano</string>
     <string name="pa_p90">90° percentile</string>
     <string name="pa_max">Il più alto</string>
@@ -1269,4 +1263,34 @@
     <string name="ph_top_payer">Quota del pagante principale</string>
     <string name="ph_top10_payers">Quota dei primi 10 paganti</string>
     <string name="ph_of">%1$s su %2$s</string>
+    <string name="ledger_counted_frame">Contate: %1$s da %2$s · %3$d mostrate</string>
+    <string name="standing_operator">Wallet dell\'operatore Undersigned: le tue recensioni sono mostrate, etichettate e mai contate.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: presente</string>
+    <string name="me_sgt_no">Seeker Genesis Token: assente</string>
+    <string name="me_counts_yes">Conta: Genesis Token presente</string>
+    <string name="me_counts_operator">Mostrato, mai contato: wallet dell\'operatore Undersigned</string>
+    <string name="me_counts_no">Mostrato, non contato: nessun Genesis Token</string>
+    <string name="row_store_rating">Store: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Store %1$s★</string>
+    <string name="score_empty_shown">Ancora nessuna recensione contata · %1$d mostrate</string>
+    <string name="score_empty_operator">Ancora nessuna recensione contata · %1$d mostrate (operatore Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Niente in attesa: ogni recensione delle tue app dimostrate ha una risposta.</string>
+    <string name="pro_line_fee_short">commissione di rete</string>
+    <string name="quick_apart">Una recensione rapida è mostrata a parte e mai contata.</string>
+    <string name="tags_more">Altri tag (%1$d)</string>
+    <string name="alert_offer_title">Sapere quando qualcuno risponde</string>
+    <string name="alert_offer_body">Gli avvisi sono disattivati. Attivali per sapere su questo telefono quando l\'editore risponde alla tua recensione. Nulla lascia il dispositivo.</string>
+    <string name="alert_offer_button">Attiva gli avvisi</string>
+    <string name="alert_offer_on">Gli avvisi sono attivi. Puoi cambiarli quando vuoi nelle Impostazioni.</string>
+    <string name="pay_seg_analytics">Analisi</string>
+    <string name="pay_seg_confirmed">Confermati</string>
+    <string name="pay_seg_found">Trovati nel codice</string>
+    <string name="pa_headline_label">Per lo più wallet trovati nel codice delle app, non confermati dagli editori; incassi lordi, non ricavi</string>
+    <string name="score_none_counted">Nessuna recensione contata</string>
+    <string name="share_review_it">Recensiscila con il tuo Seeker: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s pagamento</item><item quantity="other">%1$s pagamenti</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s pagante</item><item quantity="other">%1$s paganti</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s nuovo</item><item quantity="other">%1$s nuovi</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s nuovo pagante</item><item quantity="other">%1$s nuovi paganti</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Ultimi 30 giorni: %1$d recensione firmata (i 30 precedenti: %2$d)</item><item quantity="other">Ultimi 30 giorni: %1$d recensioni firmate (i 30 precedenti: %2$d)</item></plurals>
 </resources>

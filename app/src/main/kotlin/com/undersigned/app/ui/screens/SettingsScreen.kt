@@ -210,6 +210,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                 SectionTitle(stringResource(R.string.settings_standing))
                 GlassCard {
                     when {
+                        // An operator wallet is never told its reviews count: shown, labelled, never counted (Operator).
+                        wallet?.let { com.undersigned.protocol.Operator.isOperator(it) } == true -> Text(stringResource(R.string.standing_operator), color = RbColors.warning, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, lineHeight = 18.sp)
                         selfLoading || selfFacts == null -> Text(stringResource(R.string.review_checking_sgt), color = RbColors.textSecondary, fontSize = 13.sp)
                         else -> {
                             val f = selfFacts!!

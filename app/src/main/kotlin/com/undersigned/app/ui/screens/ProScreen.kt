@@ -141,7 +141,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> U
                 StatRow(stringResource(R.string.pro_line_licence), price)
                 StatRow(stringResource(R.string.pro_line_fee), stringResource(R.string.pro_line_fee_value))
                 HorizontalDivider(color = RbColors.surfaceVariant)
-                StatRow(stringResource(R.string.pro_line_total), stringResource(R.string.pro_total_value, price, stringResource(R.string.pro_line_fee_value).removePrefix("≈")))
+                StatRow(stringResource(R.string.pro_line_total), stringResource(R.string.pro_total_value, price, stringResource(R.string.pro_line_fee_short)))
                 Spacer(Modifier.height(4.dp))
                 Text(stringResource(R.string.pro_paid_to), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }

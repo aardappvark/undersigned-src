@@ -57,9 +57,25 @@ fun MeScreen(
         Spacer(Modifier.height(12.dp))
         Column(Modifier.padding(horizontal = 16.dp).fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(RbColors.card).padding(16.dp)) {
             Text(stringResource(R.string.settings_wallet), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            // The .skr name when known, the Genesis Token, and whether this wallet's reviews count and why (judge, 10 Oct 2026).
+            val names by vm.domainNames.collectAsState()
+            val selfFacts by vm.selfFacts.collectAsState()
+            val selfLoading by vm.selfFactsLoading.collectAsState()
+            LaunchedEffect(wallet) { wallet?.let { vm.resolveDomains(listOf(it)) } }
+            val skr = wallet?.let { names[it] }?.takeIf { it.isNotEmpty() }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(wallet?.let { shortKey(it, 6, 6) } ?: stringResource(R.string.settings_no_wallet), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f, fill = false))
+                Text(skr ?: wallet?.let { shortKey(it, 6, 6) } ?: stringResource(R.string.settings_no_wallet), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f, fill = false))
                 if (pro?.active == true) { Spacer(Modifier.width(8.dp)); Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) }
+            }
+            wallet?.let { w ->
+                if (skr != null) Text(shortKey(w, 6, 6), color = RbColors.textTertiary, fontSize = 12.sp)
+                val operator = com.undersigned.protocol.Operator.isOperator(w)
+                val f = selfFacts
+                Spacer(Modifier.height(6.dp))
+                Text(when { f == null && selfLoading -> stringResource(R.string.review_checking_sgt); f?.hasGenesisToken == true -> stringResource(R.string.me_sgt_yes); f != null -> stringResource(R.string.me_sgt_no); else -> stringResource(R.string.review_checking_sgt) },
+                    color = RbColors.textSecondary, fontSize = 13.sp)
+                if (operator || f != null) Text(stringResource(when { operator -> R.string.me_counts_operator; f?.hasGenesisToken == true -> R.string.me_counts_yes; else -> R.string.me_counts_no }),
+                    color = if (!operator && f?.hasGenesisToken == true) RbColors.green else RbColors.warning, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
             }
             if (wallet == null) { Spacer(Modifier.height(10.dp)); SecondaryButton(stringResource(R.string.settings_signin), onClick = onSettings) }
         }

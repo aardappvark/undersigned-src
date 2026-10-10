@@ -87,7 +87,7 @@ fun PaymentHistoryScreen(vm: MainViewModel, pkg: String, onBack: () -> Unit, onO
                             Text(stringResource(if (src.confirmed) R.string.pa_legend_confirmed else R.string.ph_pill_found), color = c, fontSize = 10.sp, fontWeight = FontWeight.SemiBold,
                                 modifier = Modifier.clip(RoundedCornerShape(50)).background(c.copy(alpha = 0.14f)).padding(horizontal = 7.dp, vertical = 2.dp))
                         }
-                        Text(stringResource(R.string.pa_rail_line, payCount(src.payments), payUsd(src.usd)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp))
+                        Text(nPayments(src.payments) + " · " + payUsd(src.usd), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp))
                     }
                 }
                 if (anyFound) Text(stringResource(R.string.ph_found_caveat), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
@@ -96,7 +96,7 @@ fun PaymentHistoryScreen(vm: MainViewModel, pkg: String, onBack: () -> Unit, onO
 
             // The window, then USD per week inside it and the window's totals.
             val labels = mapOf("7d" to R.string.pa_window_7d, "30d" to R.string.pa_window_30d, "90d" to R.string.pa_window_90d, "1y" to R.string.pa_window_1y, "all" to R.string.pa_window_all)
-            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 PaymentAnalytics.WINDOWS.forEach { w -> FilterChip(selected = window == w, onClick = { window = w }, label = { Text(stringResource(labels.getValue(w)), fontSize = 12.sp) }) }
             }
             val weeks = remember(week, window) { PaymentAnalytics.weeksIn(week.series, window, java.time.LocalDate.now(java.time.ZoneOffset.UTC)) }

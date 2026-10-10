@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 import com.undersigned.app.R
 import com.undersigned.app.data.CatalogueApp
 import com.undersigned.app.data.UserPreferences
@@ -123,6 +124,18 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onProfile: (String
                 .forEach { u -> context.imageLoader.enqueue(coil.request.ImageRequest.Builder(context).data(u).size(160).build()) }
         }
     }
+    // The store's own ★ beside the signed score on every row (judge, 10 Oct 2026; the tour promises both): the counts the app
+    // already keeps for the leaderboard and Store watch, read for the rows on screen in the store's batches of 20, paced.
+    val storeCounts by vm.storeCounts.collectAsState()
+    val storeRatings by vm.storeRatings.collectAsState()
+    LaunchedEffect(listState, apps) {
+        snapshotFlow { listState.firstVisibleItemIndex / 10 }.collectLatest { page ->
+            kotlinx.coroutines.delay(700)
+            vm.loadStoreCounts(apps.drop((page * 10 - 5).coerceAtLeast(0)).take(40).map { it.packageName })
+        }
+    }
+    fun storeOf(pkg: String): Pair<Double, Int>? = storeRatings[pkg]?.takeIf { it.total > 0 }?.let { it.average to it.total }
+        ?: storeCounts[pkg]?.let { c -> val n = c.sum(); if (n == 0) null else c.mapIndexed { i, k -> (i + 1) * k }.sum().toDouble() / n to n }
     val firstKey = rows.firstOrNull()?.let { r -> when (r) { is Row.App -> r.app.packageName; is Row.Head -> "head:" + r.category } }
     // Back to the top when the list itself changes, but not on returning to this screen (its position is restored).
     var shownKey by rememberSaveable { mutableStateOf<String?>(null) }
@@ -164,13 +177,16 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onProfile: (String
                     Text(stringResource(R.string.import_prompt_later), color = RbColors.textTertiary) }
             }
         }
+        val headlineScores by vm.scores.collectAsState(); val headlineFacts by vm.facts.collectAsState()
         androidx.compose.animation.AnimatedVisibility(visible = headerShown || query.isNotEmpty(), enter = androidx.compose.animation.expandVertically() + androidx.compose.animation.fadeIn(),
             exit = androidx.compose.animation.shrinkVertically() + androidx.compose.animation.fadeOut()) { Column {
         Row(Modifier.padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 when (val s = status) {
                     is LedgerStatus.Syncing -> stringResource(R.string.ledger_syncing) + if (s.total > 0) " ${s.done}/${s.total}" else ""
-                    is LedgerStatus.Synced -> stringResource(R.string.ledger_synced, pluralStringResource(R.plurals.ledger_reviews, s.reviews, s.reviews), pluralStringResource(R.plurals.ledger_seekers, s.signers, s.signers))
+                    // Counted reviews and attested Seekers, operator wallets excluded, then how many are shown (judge, 10 Oct 2026).
+                    is LedgerStatus.Synced -> { val (counted, seekers) = remember(s, headlineScores, headlineFacts) { vm.ledgerHeadline() }
+                        stringResource(R.string.ledger_counted_frame, pluralStringResource(R.plurals.ledger_reviews, counted, counted), pluralStringResource(R.plurals.ledger_seekers, seekers, seekers), s.reviews) }
                     is LedgerStatus.Error -> stringResource(R.string.ledger_error, s.message)
                     LedgerStatus.Idle -> stringResource(R.string.catalogue_count, catalogue.size)
                 }, color = if (status is LedgerStatus.Error) RbColors.warning else RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.weight(1f),
@@ -260,8 +276,8 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onProfile: (String
                         is Row.App -> {
                             val app = r.app
                             val iconUrl = icons[app.packageName]?.takeIf { it.isNotEmpty() }
-                            if (dense) DenseRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, iconUrl) { onOpen(app.packageName) }
-                            else AppRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, sort != Sort.CATEGORY, iconUrl, quickScores[app.packageName]) { onOpen(app.packageName) }
+                            if (dense) DenseRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, iconUrl, storeOf(app.packageName)) { onOpen(app.packageName) }
+                            else AppRow(app, scores[app.packageName]?.takeIf { it.countedReviews > 0 }, scores[app.packageName]?.countedReviews == 0, app.packageName in installed && tab != Tab.INSTALLED, sort != Sort.CATEGORY, iconUrl, quickScores[app.packageName], storeOf(app.packageName)) { onOpen(app.packageName) }
                         }
                     }
                 }
@@ -331,7 +347,7 @@ private fun CategoryHead(category: String, count: Int) {
 /** Balanced: two lines, 44 dp icon, chips with counts, the category as a pill in a right-hand column. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, quick: com.undersigned.protocol.QuickReviews.Score? = null, onClick: () -> Unit) {
+private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, showCategory: Boolean, iconUrl: String?, quick: com.undersigned.protocol.QuickReviews.Score? = null, store: Pair<Double, Int>? = null, onClick: () -> Unit) {
     Column(Modifier.fillMaxWidth().clickable { onClick() }.padding(horizontal = 20.dp, vertical = 10.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             DAppIcon(app.packageName, app.name, iconUrl)
@@ -359,6 +375,7 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, show
                 score.tagCounts.entries.sortedByDescending { it.value }.take(2).forEach { (t, n) -> TagChip(t.label(), n) }
             }
         } else Text(stringResource(if (uncounted) R.string.reviews_group_uncounted else R.string.row_no_reviews), color = RbColors.textTertiary, fontSize = 12.sp)
+        store?.let { (avg, n) -> Text(stringResource(R.string.row_store_rating, String.format(java.util.Locale.US, "%.1f", avg), n), color = RbColors.textSecondary, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp)) }
         // Quick reviews on their own line, never mixed into the signed score (owner, 10 Oct 2026).
         quick?.let { q -> Text(stringResource(R.string.quick_score_line, String.format(java.util.Locale.US, "%.1f", q.mean), q.count), color = RbColors.info, fontSize = 11.sp) }
     }
@@ -367,7 +384,7 @@ private fun AppRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, show
 
 /** Dense: one baseline, 32 dp icon, tags as dot-separated text, installed as a green dot, score in a fixed column. */
 @Composable
-private fun DenseRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, iconUrl: String?, onClick: () -> Unit) {
+private fun DenseRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, showInstalled: Boolean, iconUrl: String?, store: Pair<Double, Int>? = null, onClick: () -> Unit) {
     val context = androidx.compose.ui.platform.LocalContext.current
     Row(Modifier.fillMaxWidth().clickable { onClick() }.heightIn(min = 48.dp).padding(horizontal = 20.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         DAppIcon(app.packageName, app.name, iconUrl, modifier = Modifier.size(32.dp))
@@ -386,6 +403,7 @@ private fun DenseRow(app: CatalogueApp, score: AppScore?, uncounted: Boolean, sh
                 RatingStars(score.weightedMean, size = 10)
                 Text(String.format(java.util.Locale.US, "%.1f · %d", score.weightedMean, score.countedReviews), color = RbColors.textPrimary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             } else Text("—", color = RbColors.textDim, fontSize = 11.sp)
+            store?.let { (avg, _) -> Text(stringResource(R.string.row_store_short, String.format(java.util.Locale.US, "%.1f", avg)), color = RbColors.textTertiary, fontSize = 10.sp) }
         }
     }
     HorizontalDivider(color = RbColors.surfaceVariant, thickness = 1.dp)

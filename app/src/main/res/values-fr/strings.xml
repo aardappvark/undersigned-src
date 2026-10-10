@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d signés</string>
     <string name="row_no_reviews">Aucun avis signé pour l\'instant</string>
     <string name="ledger_syncing">Lecture du registre…</string>
-    <string name="ledger_synced">Registre: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d avis</item><item quantity="other">%1$d avis</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Échec de la lecture du registre : %1$s</string>
@@ -170,7 +169,7 @@
     <string name="review_needs_wallet">Connectez-vous avec votre wallet Seeker pour publier.</string>
     <string name="review_needs_sgt">Ce wallet ne détient aucune attestation d\'appareil (aujourd\'hui : le Seeker Genesis Token), donc ses avis ne seraient pas comptabilisés. La publication est désactivée pour vous épargner les frais de réseau.</string>
     <string name="review_checking_sgt">Vérification de l\'attestation de l\'appareil…</string>
-    <string name="review_fee_note">Votre wallet ne paie que les frais de réseau Solana qu\'il fixe lui-même (généralement moins de 0,0001 SOL ; 0,000047 SOL mesuré sur un Seeker). Aucune valeur ne se déplace. Undersigned ne prélève rien.</string>
+    <string name="review_fee_note">Votre wallet ne paie que les frais de réseau Solana, fixés par votre wallet, généralement moins de 0,0001 SOL. Aucune valeur ne se déplace. Undersigned ne prend rien pour un avis.</string>
     <string name="review_submit">Signer et publier</string>
     <string name="review_simulating">Vérification de la transaction…</string>
     <string name="review_signing">En attente de votre wallet…</string>
@@ -253,7 +252,7 @@
     <string name="inbox_replies">Réponses qui me sont adressées</string>
     <string name="inbox_starred">Mis en avant</string>
     <string name="inbox_unanswered_sub">Avis signés sur des applications dont vous êtes l\'éditeur prouvé, sans réponse de votre part.</string>
-    <string name="inbox_unanswered_empty">Rien en attente. Vérifiez une revendication d\'éditeur pour voir vos applications ici.</string>
+    <string name="inbox_unanswered_empty">Rien en attente. Prouvez que vous publiez une app pour voir ses avis ici.</string>
     <string name="inbox_replies_empty">Aucune réponse à vos enregistrements pour l\'instant.</string>
     <string name="inbox_starred_empty">Mettez un avis en avant pour le conserver ici.</string>
     <string name="swipe_hint">Balayez un avis vers la droite pour répondre.</string>
@@ -413,7 +412,7 @@
     <string name="pro_paying_title">Ce que vous payez</string>
     <string name="pro_line_licence">Pro, 12 mois</string>
     <string name="pro_line_fee">Frais de réseau, fixés par votre wallet</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">généralement moins de 0,0001 SOL</string>
     <string name="pro_line_total">Total</string>
     <string name="pro_paid_to">Payé à l\'adresse indiquée dans la fiche Mentions légales. La licence est écrite sur le registre au nom de ce wallet — pas de compte, pas de serveur, rien de stocké sur vous.</string>
     <string name="pro_before_title">Avant de signer</string>
@@ -625,7 +624,7 @@
     <string name="lb_open">Classement</string>
     <string name="lb_overall">Général</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Revenus</string>
+    <string name="lb_m_revenue">Reçu</string>
     <string name="lb_m_payers">Utilisateurs payants</string>
     <string name="lb_m_signed_score">Score signé</string>
     <string name="lb_m_signed_reviews">Avis signés</string>
@@ -646,7 +645,7 @@
     <string name="lb_downloads_title">Téléchargements</string>
     <string name="lb_downloads_body">Le dApp Store ne publie pas de nombre d\'installations, donc il n\'y a pas de classement des téléchargements. Il apparaît ici si une source est ajoutée.</string>
     <string name="lb_signed_n">Avis signés : %1$d</string>
-    <string name="dd_revenue">Revenus</string>
+    <string name="dd_revenue">Reçu</string>
     <string name="dd_signed">Signé</string>
     <string name="dd_store">Store</string>
     <string name="dd_updates">Mises à jour</string>
@@ -669,7 +668,7 @@
     <string name="tr_90d">90 J</string>
     <string name="tr_1y">1 AN</string>
     <string name="tr_all">Tout</string>
-    <string name="tr_revenue">Revenus</string>
+    <string name="tr_revenue">Reçu</string>
     <string name="tr_score">Score dans le temps</string>
     <string name="tr_signed">Signé</string>
     <string name="tr_store">Store</string>
@@ -778,7 +777,7 @@
     <string name="tag_perms_excess">Permissions excessives</string>
     <string name="tag_spam_reviews">Avis non naturels</string>
     <string name="tag_misleading">Trompeur</string>
-    <string name="tag_suspected_scam">Arnaque suspectée</string>
+    <string name="tag_suspected_scam">Semble trompeur</string>
     <string name="tag_abandoned">Abandonné</string>
     <string name="tag_active_dev">Dev actif</string>
     <string name="tag_onboarding_ok">Prise en main ok</string>
@@ -1114,7 +1113,6 @@
     <string name="pay_found_empty">Rien trouvé pour l\'instant. Les versions du store sont encore en lecture (%1$d jusqu\'ici).</string>
     <string name="pay_found_dispute">L\'un d\'eux est à vous ? Inscrivez votre trésorerie ci-dessous et il passera au tableau. Pas à vous ? Signalez-le et il sera retiré.</string>
     <string name="pay_found_report">Signaler un wallet</string>
-    <string name="desk_trend">30 derniers jours : %1$d avis signés (les 30 d\'avant : %2$d)</string>
     <string name="desk_treasury_confirmed">Trésorerie confirmée · %1$s reçus</string>
     <string name="desk_treasury_none">Aucune trésorerie inscrite</string>
     <string name="desk_found">Trouvé dans le code de votre app : %1$s, payé par %2$d wallets. Confirmez-le comme votre trésorerie dans Paiements, ou signalez-le s\'il n\'est pas à vous.</string>
@@ -1212,9 +1210,6 @@
     <string name="pa_board_title">Apps les plus payées</string>
     <string name="pa_pill_confirmed">confirmée</string>
     <string name="pa_pill_found">trouvé dans le code de l’app</string>
-    <string name="pa_row_counts">%1$s paiements · %2$s payeurs · %3$s nouveaux</string>
-    <string name="pa_payments_payers">%1$s paiements · %2$s payeurs</string>
-    <string name="pa_new_line">%1$s paiements · %2$s nouveaux payeurs</string>
     <string name="pa_cat_title">Catégories</string>
     <string name="pa_cat_apps">%1$s apps payées</string>
     <string name="pa_vs_before">L’évolution est comparée à la période précédente de même durée.</string>
@@ -1226,7 +1221,6 @@
     <string name="pa_was">avant %1$s</string>
     <string name="pa_trend_note">Évolution des USD reçus par rapport à la période précédente de même durée. Une app doit atteindre %1$s sur l’une des deux périodes pour être classée. Nouveaux venus : premier paiement vu dans la période.</string>
     <string name="pa_how_title">Comment c’était payé</string>
-    <string name="pa_rail_line">%1$s paiements · %2$s</string>
     <string name="pa_median">Paiement médian</string>
     <string name="pa_p90">90e centile</string>
     <string name="pa_max">Le plus élevé</string>
@@ -1269,4 +1263,34 @@
     <string name="ph_top_payer">Part du plus gros payeur</string>
     <string name="ph_top10_payers">Part des 10 plus gros payeurs</string>
     <string name="ph_of">%1$s sur %2$s</string>
+    <string name="ledger_counted_frame">Comptés : %1$s de %2$s · %3$d affichés</string>
+    <string name="standing_operator">Wallet de l\'opérateur Undersigned : vos avis sont affichés, signalés comme tels, et jamais comptés.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token : détenu</string>
+    <string name="me_sgt_no">Seeker Genesis Token : non détenu</string>
+    <string name="me_counts_yes">Compte : Genesis Token détenu</string>
+    <string name="me_counts_operator">Affiché, jamais compté : wallet de l\'opérateur Undersigned</string>
+    <string name="me_counts_no">Affiché, non compté : pas de Genesis Token</string>
+    <string name="row_store_rating">Store : %1$s★ (%2$d)</string>
+    <string name="row_store_short">Store %1$s★</string>
+    <string name="score_empty_shown">Aucun avis compté pour l\'instant · %1$d affichés</string>
+    <string name="score_empty_operator">Aucun avis compté pour l\'instant · %1$d affichés (opérateur Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Rien en attente : chaque avis sur vos apps prouvées a une réponse.</string>
+    <string name="pro_line_fee_short">frais de réseau</string>
+    <string name="quick_apart">Un avis rapide est affiché à part et jamais compté.</string>
+    <string name="tags_more">Plus de tags (%1$d)</string>
+    <string name="alert_offer_title">Être prévenu d\'une réponse</string>
+    <string name="alert_offer_body">Les alertes sont désactivées. Activez-les pour être prévenu sur ce téléphone quand l\'éditeur répond à votre avis. Rien ne quitte l\'appareil.</string>
+    <string name="alert_offer_button">Activer les alertes</string>
+    <string name="alert_offer_on">Les alertes sont activées. Modifiez-les à tout moment dans les Réglages.</string>
+    <string name="pay_seg_analytics">Analyses</string>
+    <string name="pay_seg_confirmed">Confirmés</string>
+    <string name="pay_seg_found">Trouvés dans le code</string>
+    <string name="pa_headline_label">Surtout des wallets trouvés dans le code des apps, non confirmés par les éditeurs ; recettes brutes, pas un chiffre d\'affaires</string>
+    <string name="score_none_counted">Aucun avis compté</string>
+    <string name="share_review_it">Donnez votre avis avec votre Seeker : %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s paiement</item><item quantity="other">%1$s paiements</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s payeur</item><item quantity="other">%1$s payeurs</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s nouveau</item><item quantity="other">%1$s nouveaux</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s nouveau payeur</item><item quantity="other">%1$s nouveaux payeurs</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">30 derniers jours : %1$d avis signé (les 30 précédents : %2$d)</item><item quantity="other">30 derniers jours : %1$d avis signés (les 30 précédents : %2$d)</item></plurals>
 </resources>

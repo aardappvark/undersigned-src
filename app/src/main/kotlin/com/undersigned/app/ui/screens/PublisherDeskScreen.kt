@@ -83,12 +83,12 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                         Column(Modifier.weight(1f)) {
                             Text(name(a.packageName), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                             val r = a.responsiveness
-                            Text((a.score?.let { stringResource(R.string.desk_signed_mean, String.format(java.util.Locale.US, "%.1f", it.weightedMean)) } ?: stringResource(R.string.row_no_reviews)) + " · " + (if (r.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucketLabel(r.bucket), r.answered, r.total)), color = RbColors.textSecondary, fontSize = 11.sp)
+                            Text((a.score?.takeIf { it.countedReviews > 0 }?.let { stringResource(R.string.desk_signed_mean, String.format(java.util.Locale.US, "%.1f", it.weightedMean)) } ?: stringResource(R.string.score_none_counted)) + " · " + (if (r.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, bucketLabel(r.bucket), r.answered, r.total)), color = RbColors.textSecondary, fontSize = 11.sp)
                         }
                         Pill(if (a.waiting > 0) stringResource(R.string.desk_waiting, a.waiting) else stringResource(R.string.desk_clear), if (a.waiting > 0) RbColors.warning else RbColors.green)
                     }
                     val (now30, prev30) = remember(entries, a.packageName) { vm.deskTrend(a.packageName) }
-                    Text(stringResource(R.string.desk_trend, now30, prev30), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
+                    Text(pluralStringResource(R.plurals.desk_trend_p, now30, now30, prev30), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
                     val row = board.firstOrNull { it.claim.packageName == a.packageName && it.confirmed }
                     Text(row?.let { r -> stringResource(R.string.desk_treasury_confirmed, r.usd?.let { java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(it) } ?: "—") }
                         ?: stringResource(R.string.desk_treasury_none), color = if (row != null) RbColors.green else RbColors.textTertiary, fontSize = 12.sp)

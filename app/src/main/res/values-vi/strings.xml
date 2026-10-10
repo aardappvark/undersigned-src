@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d đã ký</string>
     <string name="row_no_reviews">Chưa có đánh giá đã ký nào</string>
     <string name="ledger_syncing">Đang đọc sổ cái…</string>
-    <string name="ledger_synced">Sổ cái: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d đánh giá</item><item quantity="other">%1$d đánh giá</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Đọc sổ cái thất bại: %1$s</string>
@@ -137,7 +136,7 @@
     </plurals>
     <string name="import_note">Các đánh giá đã nhập mang thẻ \"works\" (4–5★) hoặc \"confusing\" (1–3★); bạn có thể chỉnh sửa chúng bất cứ lúc nào bằng một đánh giá mới. Văn bản dài hơn 140 ký tự sẽ bị cắt bớt.</string>
     <string name="detail_tags_title">Những gì chủ sở hữu đã gắn thẻ</string>
-    <string name="detail_facts_title">Những gì thiết bị của bạn có thể xác minh</string>
+    <string name="detail_facts_title">Những gì thiết bị của bạn có thể kiểm tra</string>
     <string name="detail_facts_sub">Đọc từ trình quản lý gói của điện thoại này. Chỉ là thông tin thực tế và thay đổi; không phải phán quyết về an toàn.</string>
     <string name="fact_version">Mã phiên bản đã cài đặt</string>
     <string name="fact_signer">Chứng chỉ ký (SHA-256)</string>
@@ -167,7 +166,7 @@
     <string name="review_needs_wallet">Đăng nhập bằng ví Seeker của bạn để đăng.</string>
     <string name="review_needs_sgt">Ví này không có thông tin xác nhận thiết bị (hiện tại: Seeker Genesis Token), nên các đánh giá của nó sẽ không được tính. Việc đăng bị vô hiệu hóa để giúp bạn tiết kiệm phí mạng.</string>
     <string name="review_checking_sgt">Đang kiểm tra xác nhận thiết bị…</string>
-    <string name="review_fee_note">Ví của bạn chỉ trả phí mạng Solana do chính nó đặt ra (thường dưới 0,0001 SOL; đo được 0,000047 SOL trên một Seeker). Không có giá trị nào được chuyển. Undersigned không lấy gì cả.</string>
+    <string name="review_fee_note">Ví của bạn chỉ trả phí mạng Solana, do ví tự đặt, thường dưới 0,0001 SOL. Không có giá trị nào di chuyển. Undersigned không lấy gì cho một đánh giá.</string>
     <string name="review_submit">Ký và đăng</string>
     <string name="review_simulating">Đang kiểm tra giao dịch…</string>
     <string name="review_signing">Đang chờ ví của bạn…</string>
@@ -248,7 +247,7 @@
     <string name="inbox_replies">Trả lời cho tôi</string>
     <string name="inbox_starred">Đã đánh dấu sao</string>
     <string name="inbox_unanswered_sub">Các đánh giá đã ký trên ứng dụng mà bạn là nhà phát hành đã chứng minh, mà bạn chưa trả lời.</string>
-    <string name="inbox_unanswered_empty">Không có gì đang chờ. Xác minh quyền sở hữu nhà phát hành để xem ứng dụng của bạn ở đây.</string>
+    <string name="inbox_unanswered_empty">Không có gì chờ. Hãy chứng minh bạn phát hành một ứng dụng để xem đánh giá của nó tại đây.</string>
     <string name="inbox_replies_empty">Chưa có trả lời nào cho bản ghi của bạn.</string>
     <string name="inbox_starred_empty">Đánh dấu sao một đánh giá để giữ nó ở đây.</string>
     <string name="swipe_hint">Vuốt một đánh giá sang phải để trả lời.</string>
@@ -408,7 +407,7 @@
     <string name="pro_paying_title">Những gì bạn đang trả</string>
     <string name="pro_line_licence">Pro, 12 tháng</string>
     <string name="pro_line_fee">Phí mạng, do ví của bạn đặt ra</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">thường dưới 0,0001 SOL</string>
     <string name="pro_line_total">Tổng</string>
     <string name="pro_paid_to">Đã trả đến địa chỉ trong trang Pháp lý. Giấy phép được ghi lên sổ cái gắn với ví này — không tài khoản, không máy chủ, không lưu trữ gì về bạn.</string>
     <string name="pro_before_title">Trước khi bạn ký</string>
@@ -476,7 +475,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Đọc toàn bộ sổ cái</string>
     <string name="fp_sign">Ký đánh giá, trả lời, cờ, phản đối</string>
-    <string name="fp_facts">Những gì thiết bị của bạn có thể xác minh</string>
+    <string name="fp_facts">Những gì thiết bị của bạn có thể kiểm tra</string>
     <string name="fp_claim">Gửi yêu cầu cho một dApp, trả lời với tư cách nhà phát hành đã chứng minh của nó</string>
     <string name="fp_copy">Sao chép một đánh giá sang cửa hàng</string>
     <string name="fp_import">Nhập đánh giá cửa hàng</string>
@@ -611,7 +610,7 @@
     <string name="lb_open">Bảng xếp hạng</string>
     <string name="lb_overall">Tổng thể</string>
     <plurals name="lb_dapps"><item quantity="other">%1$d dApp</item></plurals>
-    <string name="lb_m_revenue">Doanh thu</string>
+    <string name="lb_m_revenue">Đã nhận</string>
     <string name="lb_m_payers">Người dùng trả phí</string>
     <string name="lb_m_signed_score">Điểm đã ký</string>
     <string name="lb_m_signed_reviews">Đánh giá đã ký</string>
@@ -632,7 +631,7 @@
     <string name="lb_downloads_title">Lượt tải xuống</string>
     <string name="lb_downloads_body">dApp Store không công bố số lượt cài đặt, nên không có xếp hạng lượt tải xuống. Mục này sẽ xuất hiện nếu có một nguồn được thêm vào.</string>
     <string name="lb_signed_n">Đánh giá đã ký: %1$d</string>
-    <string name="dd_revenue">Doanh thu</string>
+    <string name="dd_revenue">Đã nhận</string>
     <string name="dd_signed">Đã ký</string>
     <string name="dd_store">Cửa hàng</string>
     <string name="dd_updates">Cập nhật</string>
@@ -655,7 +654,7 @@
     <string name="tr_90d">90N</string>
     <string name="tr_1y">1N</string>
     <string name="tr_all">Tất cả</string>
-    <string name="tr_revenue">Doanh thu</string>
+    <string name="tr_revenue">Đã nhận</string>
     <string name="tr_score">Điểm theo thời gian</string>
     <string name="tr_signed">Đã ký</string>
     <string name="tr_store">Cửa hàng</string>
@@ -744,7 +743,7 @@
     <string name="tag_perms_excess">Xin quá nhiều quyền</string>
     <string name="tag_spam_reviews">Đánh giá bất thường</string>
     <string name="tag_misleading">Mô tả gây hiểu lầm</string>
-    <string name="tag_suspected_scam">Nghi ngờ lừa đảo</string>
+    <string name="tag_suspected_scam">Có vẻ lừa dối</string>
     <string name="tag_abandoned">Ngừng phát triển</string>
     <string name="tag_active_dev">Đang phát triển tích cực</string>
     <string name="tag_onboarding_ok">Trải nghiệm ban đầu tốt</string>
@@ -1070,7 +1069,6 @@
     <string name="pay_found_empty">Chưa tìm thấy gì. Các bản phát hành vẫn đang được đọc (%1$d đến nay).</string>
     <string name="pay_found_dispute">Có ví nào của bạn? Đăng ký kho bạc bên dưới để chuyển lên bảng. Không phải của bạn? Báo cáo để gỡ bỏ.</string>
     <string name="pay_found_report">Báo cáo ví</string>
-    <string name="desk_trend">30 ngày qua: %1$d đánh giá có chữ ký (30 ngày trước đó: %2$d)</string>
     <string name="desk_treasury_confirmed">Kho bạc đã xác nhận · đã nhận %1$s</string>
     <string name="desk_treasury_none">Chưa đăng ký kho bạc</string>
     <string name="desk_found">Tìm thấy trong mã ứng dụng của bạn: %1$s, được %2$d ví thanh toán. Xác nhận là kho bạc của bạn trong Thanh toán, hoặc báo cáo nếu không phải của bạn.</string>
@@ -1168,9 +1166,6 @@
     <string name="pa_board_title">Ứng dụng được trả nhiều nhất</string>
     <string name="pa_pill_confirmed">đã xác nhận</string>
     <string name="pa_pill_found">tìm thấy trong mã ứng dụng</string>
-    <string name="pa_row_counts">%1$s khoản thanh toán · %2$s người trả · %3$s mới</string>
-    <string name="pa_payments_payers">%1$s khoản thanh toán · %2$s người trả</string>
-    <string name="pa_new_line">%1$s khoản thanh toán · %2$s người trả mới</string>
     <string name="pa_cat_title">Danh mục</string>
     <string name="pa_cat_apps">%1$s ứng dụng được trả tiền</string>
     <string name="pa_vs_before">Mức thay đổi so với khoảng thời gian trước có cùng độ dài.</string>
@@ -1182,7 +1177,6 @@
     <string name="pa_was">trước đó %1$s</string>
     <string name="pa_trend_note">Thay đổi USD nhận được so với khoảng thời gian trước có cùng độ dài. Ứng dụng cần %1$s trong một trong hai khoảng để được xếp hạng. Mới xuất hiện: khoản thanh toán đầu tiên thấy trong khoảng.</string>
     <string name="pa_how_title">Cách thanh toán</string>
-    <string name="pa_rail_line">%1$s khoản thanh toán · %2$s</string>
     <string name="pa_median">Khoản thanh toán trung vị</string>
     <string name="pa_p90">Phân vị 90</string>
     <string name="pa_max">Lớn nhất</string>
@@ -1225,4 +1219,34 @@
     <string name="ph_top_payer">Tỷ trọng người trả lớn nhất</string>
     <string name="ph_top10_payers">Tỷ trọng 10 người trả lớn nhất</string>
     <string name="ph_of">%1$s trên %2$s</string>
+    <string name="ledger_counted_frame">Được tính: %1$s từ %2$s · %3$d đang hiển thị</string>
+    <string name="standing_operator">Ví của bên vận hành Undersigned: đánh giá của bạn được hiển thị, có nhãn và không bao giờ được tính.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: có</string>
+    <string name="me_sgt_no">Seeker Genesis Token: không có</string>
+    <string name="me_counts_yes">Được tính: có Genesis Token</string>
+    <string name="me_counts_operator">Hiển thị, không bao giờ tính: ví của bên vận hành Undersigned</string>
+    <string name="me_counts_no">Hiển thị, không tính: không có Genesis Token</string>
+    <string name="row_store_rating">Cửa hàng: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Cửa hàng %1$s★</string>
+    <string name="score_empty_shown">Chưa có đánh giá được tính · %1$d đang hiển thị</string>
+    <string name="score_empty_operator">Chưa có đánh giá được tính · %1$d đang hiển thị (bên vận hành Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Không có gì chờ: mọi đánh giá về ứng dụng đã chứng minh của bạn đều có phản hồi.</string>
+    <string name="pro_line_fee_short">phí mạng</string>
+    <string name="quick_apart">Đánh giá nhanh được hiển thị riêng và không bao giờ được tính.</string>
+    <string name="tags_more">Thêm thẻ (%1$d)</string>
+    <string name="alert_offer_title">Biết khi có người trả lời</string>
+    <string name="alert_offer_body">Cảnh báo đang tắt. Bật để được báo trên điện thoại này khi nhà phát hành trả lời đánh giá của bạn. Không có gì rời khỏi thiết bị.</string>
+    <string name="alert_offer_button">Bật cảnh báo</string>
+    <string name="alert_offer_on">Cảnh báo đang bật. Thay đổi bất cứ lúc nào trong Cài đặt.</string>
+    <string name="pay_seg_analytics">Phân tích</string>
+    <string name="pay_seg_confirmed">Đã xác nhận</string>
+    <string name="pay_seg_found">Tìm thấy trong mã</string>
+    <string name="pa_headline_label">Phần lớn là ví tìm thấy trong mã ứng dụng, chưa được nhà phát hành xác nhận; tổng tiền nhận, không phải doanh thu</string>
+    <string name="score_none_counted">Không có đánh giá được tính</string>
+    <string name="share_review_it">Đánh giá bằng Seeker của bạn: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s khoản thanh toán</item><item quantity="other">%1$s khoản thanh toán</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s người trả</item><item quantity="other">%1$s người trả</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s mới</item><item quantity="other">%1$s mới</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s người trả mới</item><item quantity="other">%1$s người trả mới</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">30 ngày qua: %1$d đánh giá đã ký (30 ngày trước đó: %2$d)</item><item quantity="other">30 ngày qua: %1$d đánh giá đã ký (30 ngày trước đó: %2$d)</item></plurals>
 </resources>

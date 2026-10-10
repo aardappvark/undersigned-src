@@ -34,7 +34,6 @@
     <string name="row_signed_count">%1$d ondertekend</string>
     <string name="row_no_reviews">Nog geen ondertekende recensies</string>
     <string name="ledger_syncing">Grootboek wordt gelezen…</string>
-    <string name="ledger_synced">Grootboek: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d recensie</item><item quantity="other">%1$d recensies</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Lezen van grootboek mislukt: %1$s</string>
@@ -133,7 +132,7 @@
     </plurals>
     <string name="import_note">Geïmporteerde recensies krijgen de tag \"works\" (4–5★) of \"confusing\" (1–3★); u kunt ze op elk moment bewerken met een nieuwe recensie. Tekst langer dan 140 tekens wordt afgekapt.</string>
     <string name="detail_tags_title">Wat eigenaren hebben getagd</string>
-    <string name="detail_facts_title">Wat uw apparaat kan verifiëren</string>
+    <string name="detail_facts_title">Wat je toestel kan controleren</string>
     <string name="detail_facts_sub">Gelezen van het pakketbeheer van deze telefoon. Alleen feiten en wijzigingen; geen veiligheidsoordeel.</string>
     <string name="fact_version">Geïnstalleerde versiecode</string>
     <string name="fact_signer">Ondertekeningscertificaat (SHA-256)</string>
@@ -162,7 +161,7 @@
     <string name="review_needs_wallet">Log in met uw Seeker-wallet om te plaatsen.</string>
     <string name="review_needs_sgt">Deze wallet bezit geen bewijs van een geattesteerd apparaat (vandaag: de Seeker Genesis Token), dus de recensies ervan zouden niet worden meegeteld. Plaatsen is uitgeschakeld om u de netwerkkosten te besparen.</string>
     <string name="review_checking_sgt">Apparaatattestatie wordt gecontroleerd…</string>
-    <string name="review_fee_note">Uw wallet betaalt alleen de Solana-netwerkkosten die hij zelf instelt (doorgaans onder 0,0001 SOL; gemeten 0,000047 SOL op een Seeker). Er wordt geen waarde verplaatst. Undersigned neemt niets.</string>
+    <string name="review_fee_note">Je wallet betaalt alleen de Solana-netwerkkosten, door je wallet bepaald, meestal minder dan 0,0001 SOL. Er verplaatst geen waarde. Undersigned rekent niets voor een recensie.</string>
     <string name="review_submit">Ondertekenen en publiceren</string>
     <string name="review_simulating">Transactie wordt gecontroleerd…</string>
     <string name="review_signing">Wachten op uw wallet…</string>
@@ -242,7 +241,7 @@
     <string name="inbox_replies">Reacties aan mij</string>
     <string name="inbox_starred">Met ster</string>
     <string name="inbox_unanswered_sub">Ondertekende recensies op apps waarvan u de bewezen uitgever bent, zonder reactie van u.</string>
-    <string name="inbox_unanswered_empty">Niets wachtend. Verifieer een uitgeversclaim om uw apps hier te zien.</string>
+    <string name="inbox_unanswered_empty">Niets wacht. Bewijs dat je een app uitgeeft om de recensies ervan hier te zien.</string>
     <string name="inbox_replies_empty">Nog geen reacties op uw records.</string>
     <string name="inbox_starred_empty">Geef een recensie een ster om deze hier te bewaren.</string>
     <string name="swipe_hint">Veeg een recensie naar rechts om te reageren.</string>
@@ -402,7 +401,7 @@
     <string name="pro_paying_title">Wat u betaalt</string>
     <string name="pro_line_licence">Pro, 12 maanden</string>
     <string name="pro_line_fee">Netwerkkosten, bepaald door uw wallet</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">meestal minder dan 0,0001 SOL</string>
     <string name="pro_line_total">Totaal</string>
     <string name="pro_paid_to">Betaald aan het adres in het Juridisch blad. De licentie wordt op het grootboek geschreven tegen deze wallet — geen account, geen server, niets over u opgeslagen.</string>
     <string name="pro_before_title">Voordat u ondertekent</string>
@@ -472,7 +471,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Het hele grootboek lezen</string>
     <string name="fp_sign">Recensies, reacties, markeringen, bezwaren ondertekenen</string>
-    <string name="fp_facts">Wat uw apparaat kan verifiëren</string>
+    <string name="fp_facts">Wat je toestel kan controleren</string>
     <string name="fp_claim">Een dApp claimen, antwoorden als de bewezen uitgever ervan</string>
     <string name="fp_copy">Een recensie naar de store kopiëren</string>
     <string name="fp_import">Storerecensies importeren</string>
@@ -610,7 +609,7 @@
     <string name="lb_open">Ranglijst</string>
     <string name="lb_overall">Algemeen</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Omzet</string>
+    <string name="lb_m_revenue">Ontvangen</string>
     <string name="lb_m_payers">Betalende gebruikers</string>
     <string name="lb_m_signed_score">Ondertekende score</string>
     <string name="lb_m_signed_reviews">Ondertekende recensies</string>
@@ -631,7 +630,7 @@
     <string name="lb_downloads_title">Downloads</string>
     <string name="lb_downloads_body">De dApp Store publiceert geen installatieaantallen, dus is er geen downloadranglijst. Die verschijnt hier als een bron wordt toegevoegd.</string>
     <string name="lb_signed_n">Ondertekende recensies: %1$d</string>
-    <string name="dd_revenue">Omzet</string>
+    <string name="dd_revenue">Ontvangen</string>
     <string name="dd_signed">Ondertekend</string>
     <string name="dd_store">Store</string>
     <string name="dd_updates">Updates</string>
@@ -654,7 +653,7 @@
     <string name="tr_90d">90D</string>
     <string name="tr_1y">1J</string>
     <string name="tr_all">Alles</string>
-    <string name="tr_revenue">Omzet</string>
+    <string name="tr_revenue">Ontvangen</string>
     <string name="tr_score">Score in de tijd</string>
     <string name="tr_signed">Ondertekend</string>
     <string name="tr_store">Store</string>
@@ -758,7 +757,7 @@
     <string name="tag_perms_excess">Te veel machtigingen</string>
     <string name="tag_spam_reviews">Onnatuurlijke recensies</string>
     <string name="tag_misleading">Misleidend</string>
-    <string name="tag_suspected_scam">Vermoedelijke oplichting</string>
+    <string name="tag_suspected_scam">Lijkt misleidend</string>
     <string name="tag_abandoned">Verlaten</string>
     <string name="tag_active_dev">Actieve ontwikkeling</string>
     <string name="tag_onboarding_ok">Onboarding ok</string>
@@ -1094,7 +1093,6 @@
     <string name="pay_found_empty">Nog niets gevonden. Store-builds worden nog gelezen (tot nu toe %1$d).</string>
     <string name="pay_found_dispute">Is er een van jou? Meld hieronder je kas aan en hij gaat naar het overzicht. Niet van jou? Meld het en hij wordt verwijderd.</string>
     <string name="pay_found_report">Wallet melden</string>
-    <string name="desk_trend">Laatste 30 dagen: %1$d ondertekende reviews (de 30 daarvoor: %2$d)</string>
     <string name="desk_treasury_confirmed">Kas bevestigd · %1$s ontvangen</string>
     <string name="desk_treasury_none">Geen kas aangemeld</string>
     <string name="desk_found">Gevonden in de code van je app: %1$s, betaald door %2$d wallets. Bevestig hem als je kas bij Betalingen, of meld hem als hij niet van jou is.</string>
@@ -1192,9 +1190,6 @@
     <string name="pa_board_title">Meest betaalde apps</string>
     <string name="pa_pill_confirmed">bevestigd</string>
     <string name="pa_pill_found">gevonden in app-code</string>
-    <string name="pa_row_counts">%1$s betalingen · %2$s betalers · %3$s nieuw</string>
-    <string name="pa_payments_payers">%1$s betalingen · %2$s betalers</string>
-    <string name="pa_new_line">%1$s betalingen · %2$s nieuwe betalers</string>
     <string name="pa_cat_title">Categorieën</string>
     <string name="pa_cat_apps">%1$s betaalde apps</string>
     <string name="pa_vs_before">Verandering ten opzichte van de even lange periode ervoor.</string>
@@ -1206,7 +1201,6 @@
     <string name="pa_was">eerder %1$s</string>
     <string name="pa_trend_note">Verandering in ontvangen USD ten opzichte van de even lange periode ervoor. Een app heeft %1$s nodig in een van beide periodes om gerangschikt te worden. Nieuwkomers: eerste betaling gezien binnen de periode.</string>
     <string name="pa_how_title">Hoe er betaald werd</string>
-    <string name="pa_rail_line">%1$s betalingen · %2$s</string>
     <string name="pa_median">Mediane betaling</string>
     <string name="pa_p90">90e percentiel</string>
     <string name="pa_max">Grootste</string>
@@ -1249,4 +1243,34 @@
     <string name="ph_top_payer">Aandeel grootste betaler</string>
     <string name="ph_top10_payers">Aandeel 10 grootste betalers</string>
     <string name="ph_of">%1$s van %2$s</string>
+    <string name="ledger_counted_frame">Geteld: %1$s van %2$s · %3$d getoond</string>
+    <string name="standing_operator">Wallet van de Undersigned-beheerder: je recensies worden getoond, gemarkeerd en nooit geteld.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: in bezit</string>
+    <string name="me_sgt_no">Seeker Genesis Token: niet in bezit</string>
+    <string name="me_counts_yes">Telt: Genesis Token in bezit</string>
+    <string name="me_counts_operator">Getoond, nooit geteld: wallet van de Undersigned-beheerder</string>
+    <string name="me_counts_no">Getoond, niet geteld: geen Genesis Token</string>
+    <string name="row_store_rating">Winkel: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Winkel %1$s★</string>
+    <string name="score_empty_shown">Nog geen getelde recensies · %1$d getoond</string>
+    <string name="score_empty_operator">Nog geen getelde recensies · %1$d getoond (Undersigned-beheerder)</string>
+    <string name="inbox_unanswered_empty_publisher">Niets wacht: elke recensie van je bewezen apps heeft een antwoord.</string>
+    <string name="pro_line_fee_short">netwerkkosten</string>
+    <string name="quick_apart">Een snelle recensie wordt apart getoond en nooit geteld.</string>
+    <string name="tags_more">Meer tags (%1$d)</string>
+    <string name="alert_offer_title">Hoor het als iemand antwoordt</string>
+    <string name="alert_offer_body">Meldingen staan uit. Zet ze aan om op deze telefoon te horen wanneer de uitgever op je recensie antwoordt. Niets verlaat het toestel.</string>
+    <string name="alert_offer_button">Meldingen aanzetten</string>
+    <string name="alert_offer_on">Meldingen staan aan. Wijzig ze wanneer je wilt in Instellingen.</string>
+    <string name="pay_seg_analytics">Analyse</string>
+    <string name="pay_seg_confirmed">Bevestigd</string>
+    <string name="pay_seg_found">Gevonden in code</string>
+    <string name="pa_headline_label">Vooral wallets gevonden in app-code, niet bevestigd door uitgevers; bruto-ontvangsten, geen omzet</string>
+    <string name="score_none_counted">Geen getelde recensies</string>
+    <string name="share_review_it">Beoordeel het met je Seeker: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s betaling</item><item quantity="other">%1$s betalingen</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s betaler</item><item quantity="other">%1$s betalers</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s nieuw</item><item quantity="other">%1$s nieuw</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s nieuwe betaler</item><item quantity="other">%1$s nieuwe betalers</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Laatste 30 dagen: %1$d ondertekende recensie (de 30 ervoor: %2$d)</item><item quantity="other">Laatste 30 dagen: %1$d ondertekende recensies (de 30 ervoor: %2$d)</item></plurals>
 </resources>

@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d ditandatangani</string>
     <string name="row_no_reviews">Belum ada ulasan yang ditandatangani</string>
     <string name="ledger_syncing">Membaca buku besar…</string>
-    <string name="ledger_synced">Buku besar: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d ulasan</item><item quantity="other">%1$d ulasan</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Gagal membaca buku besar: %1$s</string>
@@ -137,7 +136,7 @@
     </plurals>
     <string name="import_note">Ulasan yang diimpor membawa tag \"works\" (4–5★) atau \"confusing\" (1–3★); Anda dapat mengeditnya kapan saja dengan ulasan baru. Teks yang lebih panjang dari 140 karakter akan dipotong.</string>
     <string name="detail_tags_title">Apa yang ditandai pemilik</string>
-    <string name="detail_facts_title">Apa yang dapat diverifikasi perangkat Anda</string>
+    <string name="detail_facts_title">Yang dapat diperiksa perangkat Anda</string>
     <string name="detail_facts_sub">Dibaca dari pengelola paket ponsel ini. Hanya fakta dan perubahan; bukan vonis keamanan.</string>
     <string name="fact_version">Kode versi yang terpasang</string>
     <string name="fact_signer">Sertifikat penandatanganan (SHA-256)</string>
@@ -167,7 +166,7 @@
     <string name="review_needs_wallet">Masuk dengan dompet Seeker Anda untuk memposting.</string>
     <string name="review_needs_sgt">Dompet ini tidak memiliki kredensial perangkat terverifikasi (saat ini: Seeker Genesis Token), sehingga ulasannya tidak akan dihitung. Memposting dinonaktifkan untuk menghemat biaya jaringan Anda.</string>
     <string name="review_checking_sgt">Memeriksa verifikasi perangkat…</string>
-    <string name="review_fee_note">Dompet Anda hanya membayar biaya jaringan Solana yang ditetapkannya sendiri (biasanya di bawah 0,0001 SOL; terukur 0,000047 SOL pada Seeker). Tidak ada nilai yang berpindah. Undersigned tidak mengambil apa pun.</string>
+    <string name="review_fee_note">Wallet Anda hanya membayar biaya jaringan Solana, yang ditetapkan wallet, biasanya di bawah 0,0001 SOL. Tidak ada nilai yang berpindah. Undersigned tidak mengambil apa pun untuk ulasan.</string>
     <string name="review_submit">Tandatangani dan terbitkan</string>
     <string name="review_simulating">Memeriksa transaksi…</string>
     <string name="review_signing">Menunggu dompet Anda…</string>
@@ -248,7 +247,7 @@
     <string name="inbox_replies">Balasan untuk saya</string>
     <string name="inbox_starred">Dibintangi</string>
     <string name="inbox_unanswered_sub">Ulasan yang ditandatangani pada aplikasi yang Anda terbukti sebagai penerbitnya, tanpa balasan dari Anda.</string>
-    <string name="inbox_unanswered_empty">Tidak ada yang menunggu. Verifikasi klaim penerbit untuk melihat aplikasi Anda di sini.</string>
+    <string name="inbox_unanswered_empty">Tidak ada yang menunggu. Buktikan Anda menerbitkan aplikasi untuk melihat ulasannya di sini.</string>
     <string name="inbox_replies_empty">Belum ada balasan untuk catatan Anda.</string>
     <string name="inbox_starred_empty">Bintangi ulasan untuk menyimpannya di sini.</string>
     <string name="swipe_hint">Geser ulasan ke kanan untuk membalas.</string>
@@ -408,7 +407,7 @@
     <string name="pro_paying_title">Yang Anda bayarkan</string>
     <string name="pro_line_licence">Pro, 12 bulan</string>
     <string name="pro_line_fee">Biaya jaringan, ditetapkan oleh dompet Anda</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">biasanya di bawah 0,0001 SOL</string>
     <string name="pro_line_total">Total</string>
     <string name="pro_paid_to">Dibayarkan ke alamat pada lembar Hukum. Lisensi ditulis ke buku besar terhadap dompet ini — tanpa akun, tanpa server, tidak ada yang disimpan tentang Anda.</string>
     <string name="pro_before_title">Sebelum Anda menandatangani</string>
@@ -476,7 +475,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Membaca seluruh buku besar</string>
     <string name="fp_sign">Menandatangani ulasan, balasan, tanda, sanggahan</string>
-    <string name="fp_facts">Apa yang dapat diverifikasi perangkat Anda</string>
+    <string name="fp_facts">Yang dapat diperiksa perangkat Anda</string>
     <string name="fp_claim">Klaim sebuah dApp, jawab sebagai penerbitnya yang terbukti</string>
     <string name="fp_copy">Salin ulasan ke toko</string>
     <string name="fp_import">Impor ulasan toko</string>
@@ -611,7 +610,7 @@
     <string name="lb_open">Papan peringkat</string>
     <string name="lb_overall">Keseluruhan</string>
     <plurals name="lb_dapps"><item quantity="other">%1$d dApp</item></plurals>
-    <string name="lb_m_revenue">Pendapatan</string>
+    <string name="lb_m_revenue">Diterima</string>
     <string name="lb_m_payers">Pengguna berbayar</string>
     <string name="lb_m_signed_score">Skor yang ditandatangani</string>
     <string name="lb_m_signed_reviews">Ulasan yang ditandatangani</string>
@@ -632,7 +631,7 @@
     <string name="lb_downloads_title">Unduhan</string>
     <string name="lb_downloads_body">dApp Store tidak mempublikasikan jumlah instalasi, sehingga tidak ada peringkat unduhan. Ini akan muncul di sini jika sumber ditambahkan.</string>
     <string name="lb_signed_n">Ulasan yang ditandatangani: %1$d</string>
-    <string name="dd_revenue">Pendapatan</string>
+    <string name="dd_revenue">Diterima</string>
     <string name="dd_signed">Ditandatangani</string>
     <string name="dd_store">Toko</string>
     <string name="dd_updates">Pembaruan</string>
@@ -655,7 +654,7 @@
     <string name="tr_90d">90H</string>
     <string name="tr_1y">1T</string>
     <string name="tr_all">Semua</string>
-    <string name="tr_revenue">Pendapatan</string>
+    <string name="tr_revenue">Diterima</string>
     <string name="tr_score">Skor dari waktu ke waktu</string>
     <string name="tr_signed">Ditandatangani</string>
     <string name="tr_store">Toko</string>
@@ -744,7 +743,7 @@
     <string name="tag_perms_excess">Izin berlebihan</string>
     <string name="tag_spam_reviews">Ulasan tidak wajar</string>
     <string name="tag_misleading">Menyesatkan</string>
-    <string name="tag_suspected_scam">Diduga penipuan</string>
+    <string name="tag_suspected_scam">Tampak menipu</string>
     <string name="tag_abandoned">Tidak lagi dikelola</string>
     <string name="tag_active_dev">Aktif dikembangkan</string>
     <string name="tag_onboarding_ok">Onboarding lancar</string>
@@ -1070,7 +1069,6 @@
     <string name="pay_found_empty">Belum ada yang ditemukan. Build toko masih dibaca (%1$d sejauh ini).</string>
     <string name="pay_found_dispute">Salah satunya milikmu? Daftarkan treasury-mu di bawah dan akan pindah ke papan. Bukan milikmu? Laporkan dan akan dihapus.</string>
     <string name="pay_found_report">Laporkan dompet</string>
-    <string name="desk_trend">30 hari terakhir: %1$d ulasan bertanda tangan (30 hari sebelumnya: %2$d)</string>
     <string name="desk_treasury_confirmed">Treasury terkonfirmasi · %1$s diterima</string>
     <string name="desk_treasury_none">Belum ada treasury terdaftar</string>
     <string name="desk_found">Ditemukan di kode aplikasimu: %1$s, dibayar oleh %2$d dompet. Konfirmasi sebagai treasury-mu di Pembayaran, atau laporkan jika bukan milikmu.</string>
@@ -1168,9 +1166,6 @@
     <string name="pa_board_title">Aplikasi paling banyak dibayar</string>
     <string name="pa_pill_confirmed">terkonfirmasi</string>
     <string name="pa_pill_found">ditemukan di kode aplikasi</string>
-    <string name="pa_row_counts">%1$s pembayaran · %2$s pembayar · %3$s baru</string>
-    <string name="pa_payments_payers">%1$s pembayaran · %2$s pembayar</string>
-    <string name="pa_new_line">%1$s pembayaran · %2$s pembayar baru</string>
     <string name="pa_cat_title">Kategori</string>
     <string name="pa_cat_apps">%1$s aplikasi dibayar</string>
     <string name="pa_vs_before">Perubahan dibandingkan periode sebelumnya dengan panjang sama.</string>
@@ -1182,7 +1177,6 @@
     <string name="pa_was">sebelumnya %1$s</string>
     <string name="pa_trend_note">Perubahan USD yang diterima dibandingkan periode sebelumnya dengan panjang sama. Aplikasi perlu %1$s di salah satu periode untuk masuk peringkat. Pendatang baru: pembayaran pertama yang terlihat dalam periode.</string>
     <string name="pa_how_title">Cara pembayaran</string>
-    <string name="pa_rail_line">%1$s pembayaran · %2$s</string>
     <string name="pa_median">Pembayaran median</string>
     <string name="pa_p90">Persentil ke-90</string>
     <string name="pa_max">Terbesar</string>
@@ -1225,4 +1219,34 @@
     <string name="ph_top_payer">Porsi pembayar terbesar</string>
     <string name="ph_top10_payers">Porsi 10 pembayar terbesar</string>
     <string name="ph_of">%1$s dari %2$s</string>
+    <string name="ledger_counted_frame">Dihitung: %1$s dari %2$s · %3$d ditampilkan</string>
+    <string name="standing_operator">Wallet operator Undersigned: ulasan Anda ditampilkan, diberi label, dan tidak pernah dihitung.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: dimiliki</string>
+    <string name="me_sgt_no">Seeker Genesis Token: tidak dimiliki</string>
+    <string name="me_counts_yes">Dihitung: memiliki Genesis Token</string>
+    <string name="me_counts_operator">Ditampilkan, tidak pernah dihitung: wallet operator Undersigned</string>
+    <string name="me_counts_no">Ditampilkan, tidak dihitung: tanpa Genesis Token</string>
+    <string name="row_store_rating">Toko: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Toko %1$s★</string>
+    <string name="score_empty_shown">Belum ada ulasan terhitung · %1$d ditampilkan</string>
+    <string name="score_empty_operator">Belum ada ulasan terhitung · %1$d ditampilkan (operator Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Tidak ada yang menunggu: setiap ulasan aplikasi Anda yang terbukti sudah dibalas.</string>
+    <string name="pro_line_fee_short">biaya jaringan</string>
+    <string name="quick_apart">Ulasan cepat ditampilkan terpisah dan tidak pernah dihitung.</string>
+    <string name="tags_more">Tag lainnya (%1$d)</string>
+    <string name="alert_offer_title">Tahu saat ada yang membalas</string>
+    <string name="alert_offer_body">Peringatan nonaktif. Aktifkan agar tahu di ponsel ini saat penerbit membalas ulasan Anda. Tidak ada yang keluar dari perangkat.</string>
+    <string name="alert_offer_button">Aktifkan peringatan</string>
+    <string name="alert_offer_on">Peringatan aktif. Ubah kapan saja di Setelan.</string>
+    <string name="pay_seg_analytics">Analitik</string>
+    <string name="pay_seg_confirmed">Terkonfirmasi</string>
+    <string name="pay_seg_found">Ditemukan di kode</string>
+    <string name="pa_headline_label">Sebagian besar wallet yang ditemukan di kode aplikasi, belum dikonfirmasi penerbit; penerimaan kotor, bukan pendapatan</string>
+    <string name="score_none_counted">Tidak ada ulasan terhitung</string>
+    <string name="share_review_it">Ulas dengan Seeker Anda: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s pembayaran</item><item quantity="other">%1$s pembayaran</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s pembayar</item><item quantity="other">%1$s pembayar</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s baru</item><item quantity="other">%1$s baru</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s pembayar baru</item><item quantity="other">%1$s pembayar baru</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">30 hari terakhir: %1$d ulasan bertanda tangan (30 sebelumnya: %2$d)</item><item quantity="other">30 hari terakhir: %1$d ulasan bertanda tangan (30 sebelumnya: %2$d)</item></plurals>
 </resources>

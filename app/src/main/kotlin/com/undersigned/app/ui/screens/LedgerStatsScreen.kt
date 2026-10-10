@@ -37,7 +37,8 @@ fun LedgerStatsScreen(vm: MainViewModel, onBack: () -> Unit) {
     val facts by vm.facts.collectAsState()
     val verified by vm.verifiedPublishers.collectAsState()
     val hidden by vm.hiddenByConsensus.collectAsState()
-    val s = remember(entries, facts, verified, hidden) { vm.stats() }
+    val scores by vm.scores.collectAsState()
+    val s = remember(entries, facts, verified, hidden, scores) { vm.stats() }
     val df = remember { DateFormat.getDateInstance(DateFormat.MEDIUM) }
     fun pct(n: Int, d: Int) = if (d == 0) "—" else "$n (${100 * n / d}%)"
     val rows = listOf(

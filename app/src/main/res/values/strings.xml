@@ -75,7 +75,6 @@
     <!-- Frame only. The two plurals below carry the number AND its noun, so this string must never name
          "reviews" or "Seekers" itself: a translator who put the noun in both made it read "2 reviews reviews"
          (caught in 13 locales, 20 Sep 2026). Localised frames are "<Ledger>: %1$s · %2$s". -->
-    <string name="ledger_synced">Ledger: %1$s from %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d review</item><item quantity="other">%1$d reviews</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seekers</item></plurals>
     <string name="ledger_error">Ledger read failed: %1$s</string>
@@ -229,7 +228,7 @@
     </plurals>
     <string name="import_note">Imported reviews carry the tag \"works\" (4–5★) or \"confusing\" (1–3★); edit them any time with a new review. Text longer than 140 characters is cut.</string>
     <string name="detail_tags_title">What owners tagged</string>
-    <string name="detail_facts_title">What your device can verify</string>
+    <string name="detail_facts_title">What your device can check</string>
     <string name="detail_facts_sub">Read from this phone\'s package manager. Facts and changes only; not a safety verdict.</string>
     <string name="fact_version">Installed version code</string>
     <string name="fact_signer">Signing certificate (SHA-256)</string>
@@ -270,7 +269,7 @@
     <string name="review_needs_wallet">Sign in with your Seeker wallet to post.</string>
     <string name="review_needs_sgt">This wallet holds no attested-device credential (today: the Seeker Genesis Token), so its reviews would not be counted. Posting is disabled to save you the network fee.</string>
     <string name="review_checking_sgt">Checking the device attestation…</string>
-    <string name="review_fee_note">Your wallet pays only the Solana network fee it sets itself (typically under 0.0001 SOL; measured 0.000047 SOL on a Seeker). No value moves. Undersigned takes nothing for a review.</string>
+    <string name="review_fee_note">Your wallet pays only the Solana network fee, set by your wallet, typically under 0.0001 SOL. No value moves. Undersigned takes nothing for a review.</string>
     <string name="review_submit">Sign and publish</string>
     <string name="review_simulating">Checking the transaction…</string>
     <string name="review_signing">Waiting for your wallet…</string>
@@ -347,7 +346,7 @@
     <string name="pro_paying_title">What you are paying</string>
     <string name="pro_line_licence">Pro, 12 months</string>
     <string name="pro_line_fee">Network fee, set by your wallet</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">typically under 0.0001 SOL</string>
     <string name="pro_line_total">Total</string>
     <string name="pro_paid_to">Paid to the address in the Legal sheet. The licence is written to the ledger against this wallet — no account, no server, nothing stored about you.</string>
     <string name="pro_before_title">Before you sign</string>
@@ -417,7 +416,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Read the whole ledger</string>
     <string name="fp_sign">Sign reviews, replies, flags, disputes</string>
-    <string name="fp_facts">What your device can verify</string>
+    <string name="fp_facts">What your device can check</string>
     <string name="fp_claim">Claim a dApp, answer as its proven publisher</string>
     <string name="fp_copy">Copy a review to the store</string>
     <string name="fp_import">Import store reviews</string>
@@ -477,7 +476,7 @@
     <string name="inbox_replies">Replies to me</string>
     <string name="inbox_starred">Starred</string>
     <string name="inbox_unanswered_sub">Signed reviews on apps you are the proven publisher of, with no reply from you.</string>
-    <string name="inbox_unanswered_empty">Nothing waiting. Verify a publisher claim to see your apps here.</string>
+    <string name="inbox_unanswered_empty">Nothing waiting. Prove you publish an app to see its reviews here.</string>
     <string name="inbox_replies_empty">No replies to your records yet.</string>
     <string name="inbox_starred_empty">Star a review to keep it here.</string>
     <string name="swipe_hint">Swipe a review right to reply.</string>
@@ -628,7 +627,7 @@
     <string name="lb_open">Leaderboard</string>
     <string name="lb_overall">Overall</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Revenue</string>
+    <string name="lb_m_revenue">Received</string>
     <string name="lb_m_payers">Paying users</string>
     <string name="lb_m_signed_score">Signed score</string>
     <string name="lb_m_signed_reviews">Signed reviews</string>
@@ -649,7 +648,7 @@
     <string name="lb_downloads_title">Downloads</string>
     <string name="lb_downloads_body">The dApp Store doesn\'t publish install counts, so there is no download ranking. It appears here if a source is added.</string>
     <string name="lb_signed_n">Signed reviews: %1$d</string>
-    <string name="dd_revenue">Revenue</string>
+    <string name="dd_revenue">Received</string>
     <string name="dd_signed">Signed</string>
     <string name="dd_store">Store</string>
     <string name="dd_updates">Updates</string>
@@ -672,7 +671,7 @@
     <string name="tr_90d">90D</string>
     <string name="tr_1y">1Y</string>
     <string name="tr_all">All</string>
-    <string name="tr_revenue">Revenue</string>
+    <string name="tr_revenue">Received</string>
     <string name="tr_score">Score over time</string>
     <string name="tr_signed">Signed</string>
     <string name="tr_store">Store</string>
@@ -772,7 +771,7 @@
     <string name="tag_perms_excess">Perms excess</string>
     <string name="tag_spam_reviews">Unnatural reviews</string>
     <string name="tag_misleading">Misleading</string>
-    <string name="tag_suspected_scam">Suspected scam</string>
+    <string name="tag_suspected_scam">Looks deceptive</string>
     <string name="tag_abandoned">Abandoned</string>
     <string name="tag_active_dev">Active dev</string>
     <string name="tag_onboarding_ok">Onboarding ok</string>
@@ -1111,7 +1110,6 @@
     <string name="pay_found_empty">Nothing found yet. Store builds are still being read (%1$d so far).</string>
     <string name="pay_found_dispute">Is one of these yours? List your treasury below and it moves to the board. Not yours? Report it and it is removed.</string>
     <string name="pay_found_report">Report a wallet</string>
-    <string name="desk_trend">Last 30 days: %1$d signed reviews (the 30 before: %2$d)</string>
     <string name="desk_treasury_confirmed">Treasury confirmed · %1$s received</string>
     <string name="desk_treasury_none">No treasury listed</string>
     <string name="desk_found">Found in your app\'s code: %1$s, paid by %2$d wallets. Confirm it as your treasury in Payments, or report it if it isn\'t yours.</string>
@@ -1209,9 +1207,6 @@
     <string name="pa_board_title">Most paid apps</string>
     <string name="pa_pill_confirmed">confirmed</string>
     <string name="pa_pill_found">found in app code</string>
-    <string name="pa_row_counts">%1$s payments · %2$s payers · %3$s new</string>
-    <string name="pa_payments_payers">%1$s payments · %2$s payers</string>
-    <string name="pa_new_line">%1$s payments · %2$s new payers</string>
     <string name="pa_cat_title">Categories</string>
     <string name="pa_cat_apps">%1$s apps paid</string>
     <string name="pa_vs_before">Change is against the window before, same length.</string>
@@ -1223,7 +1218,6 @@
     <string name="pa_was">was %1$s</string>
     <string name="pa_trend_note">Change in USD received against the window before, same length. An app needs %1$s in one of the two windows to be ranked. Newcomers: first payment seen inside the window.</string>
     <string name="pa_how_title">How it was paid</string>
-    <string name="pa_rail_line">%1$s payments · %2$s</string>
     <string name="pa_median">Median payment</string>
     <string name="pa_p90">90th percentile</string>
     <string name="pa_max">Largest</string>
@@ -1266,4 +1260,34 @@
     <string name="ph_top_payer">Top payer\'s share</string>
     <string name="ph_top10_payers">Top 10 payers\' share</string>
     <string name="ph_of">%1$s of %2$s</string>
+    <string name="ledger_counted_frame">Counted: %1$s from %2$s · %3$d shown</string>
+    <string name="standing_operator">Undersigned operator wallet: your reviews are shown, labelled, and never counted.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: held</string>
+    <string name="me_sgt_no">Seeker Genesis Token: not held</string>
+    <string name="me_counts_yes">Counts: Genesis Token held</string>
+    <string name="me_counts_operator">Shown, never counted: Undersigned operator wallet</string>
+    <string name="me_counts_no">Shown, not counted: no Genesis Token</string>
+    <string name="row_store_rating">Store: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Store %1$s★</string>
+    <string name="score_empty_shown">No counted reviews yet · %1$d shown</string>
+    <string name="score_empty_operator">No counted reviews yet · %1$d shown (Undersigned operator)</string>
+    <string name="inbox_unanswered_empty_publisher">Nothing waiting: every review of your proven apps has a reply.</string>
+    <string name="pro_line_fee_short">network fee</string>
+    <string name="quick_apart">A quick review is shown apart and never counted.</string>
+    <string name="tags_more">More tags (%1$d)</string>
+    <string name="alert_offer_title">Hear when someone answers</string>
+    <string name="alert_offer_body">Alerts are off. Turn them on to be told on this phone when the publisher replies to your review. Nothing leaves the device.</string>
+    <string name="alert_offer_button">Turn on alerts</string>
+    <string name="alert_offer_on">Alerts are on. Change them any time in Settings.</string>
+    <string name="pay_seg_analytics">Analytics</string>
+    <string name="pay_seg_confirmed">Confirmed</string>
+    <string name="pay_seg_found">Found in code</string>
+    <string name="pa_headline_label">Mostly wallets found in app code, not confirmed by publishers; gross receipts, not revenue</string>
+    <string name="score_none_counted">No counted reviews</string>
+    <string name="share_review_it">Review it with your Seeker: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s payment</item><item quantity="other">%1$s payments</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s payer</item><item quantity="other">%1$s payers</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s new</item><item quantity="other">%1$s new</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s new payer</item><item quantity="other">%1$s new payers</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Last 30 days: %1$d signed review (the 30 before: %2$d)</item><item quantity="other">Last 30 days: %1$d signed reviews (the 30 before: %2$d)</item></plurals>
 </resources>

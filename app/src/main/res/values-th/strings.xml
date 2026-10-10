@@ -30,7 +30,6 @@
     <string name="row_signed_count">ลงลายเซ็นแล้ว %1$d รายการ</string>
     <string name="row_no_reviews">ยังไม่มีรีวิวที่ลงลายเซ็น</string>
     <string name="ledger_syncing">กำลังอ่านบัญชีบันทึก…</string>
-    <string name="ledger_synced">บัญชีบันทึก: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d รีวิว</item><item quantity="other">%1$d รีวิว</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">อ่านบัญชีบันทึกไม่สำเร็จ: %1$s</string>
@@ -155,7 +154,7 @@
     <string name="review_needs_wallet">ลงชื่อเข้าใช้ด้วยกระเป๋าเงิน Seeker ของคุณเพื่อโพสต์</string>
     <string name="review_needs_sgt">กระเป๋าเงินนี้ไม่มีข้อมูลรับรองอุปกรณ์ (ปัจจุบันคือ Seeker Genesis Token) ดังนั้นรีวิวของกระเป๋าเงินนี้จะไม่ถูกนับ การโพสต์ถูกปิดใช้งานเพื่อช่วยประหยัดค่าธรรมเนียมเครือข่ายให้คุณ</string>
     <string name="review_checking_sgt">กำลังตรวจสอบการรับรองอุปกรณ์…</string>
-    <string name="review_fee_note">กระเป๋าเงินของคุณจ่ายเฉพาะค่าธรรมเนียมเครือข่าย Solana ที่กำหนดขึ้นเอง (โดยทั่วไปต่ำกว่า 0.0001 SOL วัดได้ 0.000047 SOL บน Seeker) ไม่มีมูลค่าใดถูกย้าย Undersigned ไม่เก็บอะไรเลย</string>
+    <string name="review_fee_note">กระเป๋าของคุณจ่ายเพียงค่าธรรมเนียมเครือข่าย Solana ซึ่งกระเป๋ากำหนดเอง โดยปกติต่ำกว่า 0.0001 SOL ไม่มีมูลค่าเคลื่อนย้าย Undersigned ไม่เก็บค่าใดๆ สำหรับรีวิว</string>
     <string name="review_submit">ลงลายเซ็นและเผยแพร่</string>
     <string name="review_simulating">กำลังตรวจสอบธุรกรรม…</string>
     <string name="review_signing">กำลังรอกระเป๋าเงินของคุณ…</string>
@@ -232,7 +231,7 @@
     <string name="inbox_replies">การตอบกลับถึงฉัน</string>
     <string name="inbox_starred">ติดดาวไว้</string>
     <string name="inbox_unanswered_sub">รีวิวที่ลงลายเซ็นบนแอปที่คุณเป็นผู้เผยแพร่ที่พิสูจน์แล้ว ซึ่งคุณยังไม่ได้ตอบกลับ</string>
-    <string name="inbox_unanswered_empty">ไม่มีอะไรรออยู่ ตรวจสอบการอ้างสิทธิ์ผู้เผยแพร่เพื่อดูแอปของคุณที่นี่</string>
+    <string name="inbox_unanswered_empty">ไม่มีอะไรรอ พิสูจน์ว่าคุณเผยแพร่แอปเพื่อดูรีวิวของแอปที่นี่</string>
     <string name="inbox_replies_empty">ยังไม่มีการตอบกลับบันทึกของคุณ</string>
     <string name="inbox_starred_empty">ติดดาวรีวิวเพื่อเก็บไว้ที่นี่</string>
     <string name="swipe_hint">ปัดรีวิวไปทางขวาเพื่อตอบกลับ</string>
@@ -392,7 +391,7 @@
     <string name="pro_paying_title">สิ่งที่คุณกำลังจ่าย</string>
     <string name="pro_line_licence">Pro 12 เดือน</string>
     <string name="pro_line_fee">ค่าธรรมเนียมเครือข่าย กำหนดโดยกระเป๋าเงินของคุณ</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">โดยปกติต่ำกว่า 0.0001 SOL</string>
     <string name="pro_line_total">รวม</string>
     <string name="pro_paid_to">จ่ายไปยังที่อยู่ในหน้ากฎหมาย สัญญาอนุญาตถูกเขียนลงบัญชีบันทึกผูกกับกระเป๋าเงินนี้ — ไม่มีบัญชี ไม่มีเซิร์ฟเวอร์ ไม่มีการเก็บข้อมูลเกี่ยวกับคุณ</string>
     <string name="pro_before_title">ก่อนที่คุณจะลงลายเซ็น</string>
@@ -595,7 +594,7 @@
     <string name="lb_open">กระดานผู้นำ</string>
     <string name="lb_overall">โดยรวม</string>
     <plurals name="lb_dapps"><item quantity="other">%1$d dApp</item></plurals>
-    <string name="lb_m_revenue">รายได้</string>
+    <string name="lb_m_revenue">ได้รับ</string>
     <string name="lb_m_payers">ผู้ใช้ที่ชำระเงิน</string>
     <string name="lb_m_signed_score">คะแนนที่ลงลายเซ็น</string>
     <string name="lb_m_signed_reviews">รีวิวที่ลงลายเซ็น</string>
@@ -616,7 +615,7 @@
     <string name="lb_downloads_title">การดาวน์โหลด</string>
     <string name="lb_downloads_body">dApp Store ไม่เผยแพร่จำนวนการติดตั้ง จึงไม่มีการจัดอันดับการดาวน์โหลด จะปรากฏที่นี่หากมีการเพิ่มแหล่งข้อมูล</string>
     <string name="lb_signed_n">รีวิวที่ลงลายเซ็น: %1$d</string>
-    <string name="dd_revenue">รายได้</string>
+    <string name="dd_revenue">ได้รับ</string>
     <string name="dd_signed">ลงลายเซ็นแล้ว</string>
     <string name="dd_store">สโตร์</string>
     <string name="dd_updates">การอัปเดต</string>
@@ -639,7 +638,7 @@
     <string name="tr_90d">90ว</string>
     <string name="tr_1y">1ปี</string>
     <string name="tr_all">ทั้งหมด</string>
-    <string name="tr_revenue">รายได้</string>
+    <string name="tr_revenue">ได้รับ</string>
     <string name="tr_score">คะแนนตามช่วงเวลา</string>
     <string name="tr_signed">ลงลายเซ็นแล้ว</string>
     <string name="tr_store">สโตร์</string>
@@ -728,7 +727,7 @@
     <string name="tag_perms_excess">ขอสิทธิ์เกินจำเป็น</string>
     <string name="tag_spam_reviews">รีวิวดูผิดปกติ</string>
     <string name="tag_misleading">ข้อมูลทำให้เข้าใจผิด</string>
-    <string name="tag_suspected_scam">สงสัยว่าหลอกลวง</string>
+    <string name="tag_suspected_scam">ดูเหมือนหลอกลวง</string>
     <string name="tag_abandoned">เลิกดูแลแล้ว</string>
     <string name="tag_active_dev">พัฒนาต่อเนื่อง</string>
     <string name="tag_onboarding_ok">เริ่มใช้งานง่าย</string>
@@ -1054,7 +1053,6 @@
     <string name="pay_found_empty">ยังไม่พบอะไร กำลังอ่านบิลด์ของสโตร์อยู่ (อ่านแล้ว %1$d)</string>
     <string name="pay_found_dispute">มีของคุณไหม ลงทะเบียนคลังของคุณด้านล่างแล้วจะย้ายไปที่กระดาน ไม่ใช่ของคุณ แจ้งแล้วจะถูกนำออก</string>
     <string name="pay_found_report">แจ้งวอลเล็ต</string>
-    <string name="desk_trend">30 วันล่าสุด: รีวิวที่ลงนาม %1$d รายการ (30 วันก่อนหน้า: %2$d)</string>
     <string name="desk_treasury_confirmed">ยืนยันคลังแล้ว · ได้รับ %1$s</string>
     <string name="desk_treasury_none">ยังไม่มีคลังที่ลงทะเบียน</string>
     <string name="desk_found">พบในโค้ดแอปของคุณ: %1$s มีวอลเล็ตจ่าย %2$d ราย ยืนยันเป็นคลังของคุณในการชำระเงิน หรือแจ้งหากไม่ใช่ของคุณ</string>
@@ -1152,9 +1150,6 @@
     <string name="pa_board_title">แอปที่ได้รับเงินมากที่สุด</string>
     <string name="pa_pill_confirmed">ยืนยันแล้ว</string>
     <string name="pa_pill_found">พบในโค้ดของแอป</string>
-    <string name="pa_row_counts">%1$s รายการ · ผู้ชำระ %2$s · ใหม่ %3$s</string>
-    <string name="pa_payments_payers">%1$s รายการ · ผู้ชำระ %2$s</string>
-    <string name="pa_new_line">%1$s รายการ · ผู้ชำระใหม่ %2$s</string>
     <string name="pa_cat_title">หมวดหมู่</string>
     <string name="pa_cat_apps">แอปที่ได้รับเงิน %1$s แอป</string>
     <string name="pa_vs_before">การเปลี่ยนแปลงเทียบกับช่วงก่อนหน้าที่ยาวเท่ากัน</string>
@@ -1166,7 +1161,6 @@
     <string name="pa_was">ก่อนหน้า %1$s</string>
     <string name="pa_trend_note">การเปลี่ยนแปลงของ USD ที่ได้รับเทียบกับช่วงก่อนหน้าที่ยาวเท่ากัน แอปต้องมี %1$s ในช่วงใดช่วงหนึ่งจึงจะถูกจัดอันดับ หน้าใหม่: การชำระครั้งแรกที่พบในช่วงนี้</string>
     <string name="pa_how_title">ชำระอย่างไร</string>
-    <string name="pa_rail_line">%1$s รายการ · %2$s</string>
     <string name="pa_median">การชำระค่ามัธยฐาน</string>
     <string name="pa_p90">เปอร์เซ็นไทล์ที่ 90</string>
     <string name="pa_max">มากที่สุด</string>
@@ -1209,4 +1203,34 @@
     <string name="ph_top_payer">สัดส่วนผู้ชำระรายใหญ่สุด</string>
     <string name="ph_top10_payers">สัดส่วนผู้ชำระ 10 อันดับแรก</string>
     <string name="ph_of">%1$s จาก %2$s</string>
+    <string name="ledger_counted_frame">นับแล้ว: %1$s จาก %2$s · แสดง %3$d</string>
+    <string name="standing_operator">กระเป๋าของผู้ดำเนินการ Undersigned: รีวิวของคุณแสดงพร้อมป้ายกำกับ และไม่ถูกนับเลย</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: มี</string>
+    <string name="me_sgt_no">Seeker Genesis Token: ไม่มี</string>
+    <string name="me_counts_yes">นับ: มี Genesis Token</string>
+    <string name="me_counts_operator">แสดง ไม่นับเลย: กระเป๋าของผู้ดำเนินการ Undersigned</string>
+    <string name="me_counts_no">แสดง ไม่นับ: ไม่มี Genesis Token</string>
+    <string name="row_store_rating">สโตร์: %1$s★ (%2$d)</string>
+    <string name="row_store_short">สโตร์ %1$s★</string>
+    <string name="score_empty_shown">ยังไม่มีรีวิวที่นับ · แสดง %1$d</string>
+    <string name="score_empty_operator">ยังไม่มีรีวิวที่นับ · แสดง %1$d (ผู้ดำเนินการ Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">ไม่มีอะไรรอ: ทุกรีวิวของแอปที่พิสูจน์แล้วของคุณมีคำตอบ</string>
+    <string name="pro_line_fee_short">ค่าธรรมเนียมเครือข่าย</string>
+    <string name="quick_apart">รีวิวด่วนแสดงแยกต่างหากและไม่ถูกนับเลย</string>
+    <string name="tags_more">แท็กเพิ่มเติม (%1$d)</string>
+    <string name="alert_offer_title">รู้เมื่อมีคนตอบ</string>
+    <string name="alert_offer_body">การแจ้งเตือนปิดอยู่ เปิดเพื่อให้รู้บนโทรศัพท์นี้เมื่อผู้เผยแพร่ตอบรีวิวของคุณ ไม่มีอะไรออกจากอุปกรณ์</string>
+    <string name="alert_offer_button">เปิดการแจ้งเตือน</string>
+    <string name="alert_offer_on">การแจ้งเตือนเปิดอยู่ เปลี่ยนได้ทุกเมื่อในการตั้งค่า</string>
+    <string name="pay_seg_analytics">การวิเคราะห์</string>
+    <string name="pay_seg_confirmed">ยืนยันแล้ว</string>
+    <string name="pay_seg_found">พบในโค้ด</string>
+    <string name="pa_headline_label">ส่วนใหญ่เป็นกระเป๋าที่พบในโค้ดของแอป ผู้เผยแพร่ยังไม่ยืนยัน; รายรับรวม ไม่ใช่รายได้</string>
+    <string name="score_none_counted">ไม่มีรีวิวที่นับ</string>
+    <string name="share_review_it">รีวิวด้วย Seeker ของคุณ: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">ชำระ %1$s ครั้ง</item><item quantity="other">ชำระ %1$s ครั้ง</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">ผู้ชำระ %1$s ราย</item><item quantity="other">ผู้ชำระ %1$s ราย</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">ใหม่ %1$s</item><item quantity="other">ใหม่ %1$s</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">ผู้ชำระใหม่ %1$s ราย</item><item quantity="other">ผู้ชำระใหม่ %1$s ราย</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">30 วันล่าสุด: รีวิวที่ลงนาม %1$d รายการ (30 วันก่อนหน้า: %2$d)</item><item quantity="other">30 วันล่าสุด: รีวิวที่ลงนาม %1$d รายการ (30 วันก่อนหน้า: %2$d)</item></plurals>
 </resources>

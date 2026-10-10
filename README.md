@@ -87,7 +87,7 @@ verify, it is not a safety verdict.**
 
 ## State today (measured 10 Oct 2026)
 
-- Release **1.1.2** (versionCode 13). 180 commits on 18 days; about 18,800 lines of Kotlin plus 3,400 lines of tests;
+- Release **1.1.4** (versionCode 15). 180 commits on 18 days; about 18,800 lines of Kotlin plus 3,400 lines of tests;
   258 Kotlin tests and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
 - Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed

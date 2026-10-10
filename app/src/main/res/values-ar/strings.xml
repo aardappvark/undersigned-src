@@ -34,7 +34,6 @@
     <string name="row_signed_count">%1$d موقّعة</string>
     <string name="row_no_reviews">لا توجد مراجعات موقّعة بعد</string>
     <string name="ledger_syncing">جارٍ قراءة السجل…</string>
-    <string name="ledger_synced">السجل: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="zero">%1$d مراجعة</item><item quantity="one">%1$d مراجعة</item><item quantity="two">%1$d مراجعتين</item><item quantity="few">%1$d مراجعات</item><item quantity="many">%1$d مراجعة</item><item quantity="other">%1$d مراجعة</item></plurals>
     <plurals name="ledger_seekers"><item quantity="zero">%1$d جهاز Seeker</item><item quantity="one">%1$d جهاز Seeker</item><item quantity="two">%1$d جهازي Seeker</item><item quantity="few">%1$d أجهزة Seeker</item><item quantity="many">%1$d جهاز Seeker</item><item quantity="other">%1$d جهاز Seeker</item></plurals>
     <string name="ledger_error">فشلت قراءة السجل: %1$s</string>
@@ -152,7 +151,7 @@
     </plurals>
     <string name="import_note">تحمل المراجعات المستوردة الوسم \"works\" (4–5★) أو \"confusing\" (1–3★)؛ عدّلها في أي وقت بمراجعة جديدة. يُقتطع النص الأطول من 140 حرفًا.</string>
     <string name="detail_tags_title">ما وسمه المالكون</string>
-    <string name="detail_facts_title">ما يمكن لجهازك التحقق منه</string>
+    <string name="detail_facts_title">ما يمكن لجهازك فحصه</string>
     <string name="detail_facts_sub">مقروءة من مدير الحزم في هذا الهاتف. حقائق وتغييرات فقط؛ ليست حكمًا على السلامة.</string>
     <string name="fact_version">رمز الإصدار المثبَّت</string>
     <string name="fact_signer">شهادة التوقيع (SHA-256)</string>
@@ -181,7 +180,7 @@
     <string name="review_needs_wallet">سجّل الدخول بمحفظة Seeker الخاصة بك للنشر.</string>
     <string name="review_needs_sgt">لا تحمل هذه المحفظة بيانات اعتماد جهاز مصادق (اليوم: Seeker Genesis Token)، لذا لن تُحتسب مراجعاتها. تم تعطيل النشر لتوفير رسوم الشبكة عليك.</string>
     <string name="review_checking_sgt">جارٍ التحقق من مصادقة الجهاز…</string>
-    <string name="review_fee_note">تدفع محفظتك فقط رسوم شبكة Solana التي تحددها بنفسها (عادةً أقل من 0.0001 SOL؛ تم قياس 0.000047 SOL على جهاز Seeker). لا تنتقل أي قيمة. Undersigned لا يأخذ شيئًا.</string>
+    <string name="review_fee_note">تدفع محفظتك فقط رسوم شبكة Solana التي تحددها محفظتك، وعادةً أقل من 0.0001 SOL. لا تنتقل أي قيمة. لا يأخذ Undersigned شيئًا مقابل المراجعة.</string>
     <string name="review_submit">توقيع ونشر</string>
     <string name="review_simulating">جارٍ التحقق من المعاملة…</string>
     <string name="review_signing">في انتظار محفظتك…</string>
@@ -265,7 +264,7 @@
     <string name="inbox_replies">الردود عليّ</string>
     <string name="inbox_starred">المميزة بنجمة</string>
     <string name="inbox_unanswered_sub">مراجعات موقّعة على تطبيقات أنت ناشرها المُثبَت، بلا رد منك.</string>
-    <string name="inbox_unanswered_empty">لا شيء بالانتظار. أثبِت مطالبة بنشر لرؤية تطبيقاتك هنا.</string>
+    <string name="inbox_unanswered_empty">لا شيء بالانتظار. أثبت أنك تنشر تطبيقًا لترى مراجعاته هنا.</string>
     <string name="inbox_replies_empty">لا ردود على سجلاتك بعد.</string>
     <string name="inbox_starred_empty">ميّز مراجعة بنجمة لحفظها هنا.</string>
     <string name="swipe_hint">اسحب المراجعة يمينًا للرد.</string>
@@ -425,7 +424,7 @@
     <string name="pro_paying_title">ما الذي تدفعه</string>
     <string name="pro_line_licence">Pro، 12 شهرًا</string>
     <string name="pro_line_fee">رسوم الشبكة، تحددها محفظتك</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">عادةً أقل من 0.0001 SOL</string>
     <string name="pro_line_total">الإجمالي</string>
     <string name="pro_paid_to">تُدفع إلى العنوان الموجود في ورقة الأحكام القانونية. يُكتب الترخيص على السجل مقابل هذه المحفظة — لا حساب، لا خادم، لا شيء يُخزَّن عنك.</string>
     <string name="pro_before_title">قبل أن توقّع</string>
@@ -503,7 +502,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">قراءة السجل بالكامل</string>
     <string name="fp_sign">توقيع المراجعات والردود والإشارات والاعتراضات</string>
-    <string name="fp_facts">ما يمكن لجهازك التحقق منه</string>
+    <string name="fp_facts">ما يمكن لجهازك فحصه</string>
     <string name="fp_claim">المطالبة بـ dApp، والرد بصفتك ناشرها المُثبَت</string>
     <string name="fp_copy">نسخ مراجعة إلى المتجر</string>
     <string name="fp_import">استيراد مراجعات المتجر</string>
@@ -648,7 +647,7 @@
     <string name="lb_open">لوحة الصدارة</string>
     <string name="lb_overall">الإجمالي</string>
     <plurals name="lb_dapps"><item quantity="zero">%1$d dApp</item><item quantity="one">%1$d dApp</item><item quantity="two">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">الإيرادات</string>
+    <string name="lb_m_revenue">المستلَم</string>
     <string name="lb_m_payers">المستخدمون الدافعون</string>
     <string name="lb_m_signed_score">التقييم الموقّع</string>
     <string name="lb_m_signed_reviews">المراجعات الموقّعة</string>
@@ -669,7 +668,7 @@
     <string name="lb_downloads_title">التنزيلات</string>
     <string name="lb_downloads_body">لا ينشر dApp Store أعداد التثبيت، لذا لا يوجد ترتيب للتنزيلات. يظهر هنا إذا أُضيف مصدر.</string>
     <string name="lb_signed_n">المراجعات الموقّعة: %1$d</string>
-    <string name="dd_revenue">الإيرادات</string>
+    <string name="dd_revenue">المستلَم</string>
     <string name="dd_signed">موقّع</string>
     <string name="dd_store">المتجر</string>
     <string name="dd_updates">التحديثات</string>
@@ -692,7 +691,7 @@
     <string name="tr_90d">90ي</string>
     <string name="tr_1y">1س</string>
     <string name="tr_all">الكل</string>
-    <string name="tr_revenue">الإيرادات</string>
+    <string name="tr_revenue">المستلَم</string>
     <string name="tr_score">التقييم عبر الزمن</string>
     <string name="tr_signed">موقّع</string>
     <string name="tr_store">المتجر</string>
@@ -780,7 +779,7 @@
     <string name="tag_perms_excess">أذونات مفرطة</string>
     <string name="tag_spam_reviews">مراجعات غير طبيعية</string>
     <string name="tag_misleading">مضلل</string>
-    <string name="tag_suspected_scam">اشتباه احتيال</string>
+    <string name="tag_suspected_scam">يبدو مضللًا</string>
     <string name="tag_abandoned">مهجور</string>
     <string name="tag_active_dev">تطوير نشط</string>
     <string name="tag_onboarding_ok">بداية سلسة</string>
@@ -1156,7 +1155,6 @@
     <string name="pay_found_empty">لم يُعثر على شيء بعد. ما زالت نسخ المتجر تُقرأ (%1$d حتى الآن).</string>
     <string name="pay_found_dispute">هل إحداها لك؟ سجّل خزينتك أدناه فتنتقل إلى اللوحة. ليست لك؟ أبلغ عنها فتُزال.</string>
     <string name="pay_found_report">الإبلاغ عن محفظة</string>
-    <string name="desk_trend">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</string>
     <string name="desk_treasury_confirmed">الخزينة مؤكَّدة · استُلم %1$s</string>
     <string name="desk_treasury_none">لا توجد خزينة مسجّلة</string>
     <string name="desk_found">وُجدت في كود تطبيقك: %1$s، دفع لها %2$d محفظة. أكّدها كخزينتك في المدفوعات، أو أبلغ عنها إن لم تكن لك.</string>
@@ -1254,9 +1252,6 @@
     <string name="pa_board_title">التطبيقات الأكثر تلقيًا للمدفوعات</string>
     <string name="pa_pill_confirmed">مؤكدة</string>
     <string name="pa_pill_found">موجودة في شيفرة التطبيق</string>
-    <string name="pa_row_counts">%1$s دفعة · %2$s دافع · %3$s جديد</string>
-    <string name="pa_payments_payers">%1$s دفعة · %2$s دافع</string>
-    <string name="pa_new_line">%1$s دفعة · %2$s دافع جديد</string>
     <string name="pa_cat_title">الفئات</string>
     <string name="pa_cat_apps">%1$s تطبيقًا مدفوعًا له</string>
     <string name="pa_vs_before">التغيّر مقارنةً بالفترة السابقة بنفس الطول.</string>
@@ -1268,7 +1263,6 @@
     <string name="pa_was">سابقًا %1$s</string>
     <string name="pa_trend_note">التغيّر في الدولارات المستلَمة مقارنةً بالفترة السابقة بنفس الطول. يحتاج التطبيق إلى %1$s في إحدى الفترتين ليُدرج في الترتيب. الوافدون الجدد: أول دفعة شوهدت داخل الفترة.</string>
     <string name="pa_how_title">كيف دُفع</string>
-    <string name="pa_rail_line">%1$s دفعة · %2$s</string>
     <string name="pa_median">الدفعة الوسيطة</string>
     <string name="pa_p90">المئين التسعون</string>
     <string name="pa_max">الأكبر</string>
@@ -1311,4 +1305,34 @@
     <string name="ph_top_payer">حصة أكبر دافع</string>
     <string name="ph_top10_payers">حصة أكبر 10 دافعين</string>
     <string name="ph_of">%1$s من %2$s</string>
+    <string name="ledger_counted_frame">المحتسَب: %1$s من %2$s · %3$d معروضة</string>
+    <string name="standing_operator">محفظة مشغّل Undersigned: تُعرض مراجعاتك مع تمييزها، ولا تُحتسب أبدًا.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: موجود</string>
+    <string name="me_sgt_no">Seeker Genesis Token: غير موجود</string>
+    <string name="me_counts_yes">تُحتسب: Genesis Token موجود</string>
+    <string name="me_counts_operator">معروضة، لا تُحتسب أبدًا: محفظة مشغّل Undersigned</string>
+    <string name="me_counts_no">معروضة، غير محتسبة: لا يوجد Genesis Token</string>
+    <string name="row_store_rating">المتجر: %1$s★ (%2$d)</string>
+    <string name="row_store_short">المتجر %1$s★</string>
+    <string name="score_empty_shown">لا مراجعات محتسبة بعد · %1$d معروضة</string>
+    <string name="score_empty_operator">لا مراجعات محتسبة بعد · %1$d معروضة (مشغّل Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">لا شيء بالانتظار: لكل مراجعة لتطبيقاتك المُثبتة رد.</string>
+    <string name="pro_line_fee_short">رسوم الشبكة</string>
+    <string name="quick_apart">المراجعة السريعة تُعرض منفصلة ولا تُحتسب أبدًا.</string>
+    <string name="tags_more">وسوم أخرى (%1$d)</string>
+    <string name="alert_offer_title">اعرف حين يرد أحد</string>
+    <string name="alert_offer_body">التنبيهات متوقفة. شغّلها لتعرف على هذا الهاتف حين يرد الناشر على مراجعتك. لا يغادر شيء الجهاز.</string>
+    <string name="alert_offer_button">تشغيل التنبيهات</string>
+    <string name="alert_offer_on">التنبيهات مفعّلة. غيّرها متى شئت من الإعدادات.</string>
+    <string name="pay_seg_analytics">التحليلات</string>
+    <string name="pay_seg_confirmed">المؤكدة</string>
+    <string name="pay_seg_found">الموجودة في الكود</string>
+    <string name="pa_headline_label">معظمها محافظ موجودة في كود التطبيقات ولم يؤكدها الناشرون؛ إيصالات إجمالية، وليست إيرادات</string>
+    <string name="score_none_counted">لا مراجعات محتسبة</string>
+    <string name="share_review_it">قيّمه بجهاز Seeker الخاص بك: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="zero">%1$s دفعة</item><item quantity="one">دفعة واحدة (%1$s)</item><item quantity="two">دفعتان (%1$s)</item><item quantity="few">%1$s دفعات</item><item quantity="many">%1$s دفعة</item><item quantity="other">%1$s دفعة</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="zero">%1$s دافع</item><item quantity="one">دافع واحد (%1$s)</item><item quantity="two">دافعان (%1$s)</item><item quantity="few">%1$s دافعين</item><item quantity="many">%1$s دافعًا</item><item quantity="other">%1$s دافع</item></plurals>
+    <plurals name="pa_n_new"><item quantity="zero">%1$s جديد</item><item quantity="one">%1$s جديد</item><item quantity="two">%1$s جديدان</item><item quantity="few">%1$s جدد</item><item quantity="many">%1$s جديدًا</item><item quantity="other">%1$s جديد</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="zero">%1$s دافع جديد</item><item quantity="one">دافع جديد واحد (%1$s)</item><item quantity="two">دافعان جديدان (%1$s)</item><item quantity="few">%1$s دافعين جدد</item><item quantity="many">%1$s دافعًا جديدًا</item><item quantity="other">%1$s دافع جديد</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="zero">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item><item quantity="one">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item><item quantity="two">آخر 30 يومًا: %1$d مراجعتان موقّعتان (الـ30 السابقة: %2$d)</item><item quantity="few">آخر 30 يومًا: %1$d مراجعات موقّعة (الـ30 السابقة: %2$d)</item><item quantity="many">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item><item quantity="other">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item></plurals>
 </resources>

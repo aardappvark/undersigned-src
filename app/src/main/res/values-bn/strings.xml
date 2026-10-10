@@ -34,7 +34,6 @@
     <string name="row_signed_count">%1$d স্বাক্ষরিত</string>
     <string name="row_no_reviews">এখনও কোনো স্বাক্ষরিত পর্যালোচনা নেই</string>
     <string name="ledger_syncing">লেজার পড়া হচ্ছে…</string>
-    <string name="ledger_synced">লেজার: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d টি পর্যালোচনা</item><item quantity="other">%1$d টি পর্যালোচনা</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d টি Seeker</item><item quantity="other">%1$d টি Seeker</item></plurals>
     <string name="ledger_error">লেজার পড়া ব্যর্থ হয়েছে: %1$s</string>
@@ -165,7 +164,7 @@
     <string name="review_needs_wallet">পোস্ট করতে আপনার Seeker ওয়ালেট দিয়ে সাইন ইন করুন।</string>
     <string name="review_needs_sgt">এই ওয়ালেটে কোনো প্রত্যয়িত-ডিভাইস পরিচয়পত্র নেই (আজ: Seeker Genesis Token), তাই এর পর্যালোচনা গণনা করা হবে না। নেটওয়ার্ক ফি বাঁচাতে পোস্ট করা নিষ্ক্রিয় করা হয়েছে।</string>
     <string name="review_checking_sgt">ডিভাইস প্রত্যয়ন যাচাই করা হচ্ছে…</string>
-    <string name="review_fee_note">আপনার ওয়ালেট শুধুমাত্র নিজে নির্ধারণ করা Solana নেটওয়ার্ক ফি প্রদান করে (সাধারণত ০.০০০১ SOL-এর কম; একটি Seeker-এ ০.০০০০৪৭ SOL পরিমাপ করা হয়েছে)। কোনো মূল্য স্থানান্তরিত হয় না। Undersigned কিছুই নেয় না।</string>
+    <string name="review_fee_note">আপনার ওয়ালেট শুধু Solana নেটওয়ার্ক ফি দেয়, যা ওয়ালেট নিজেই ঠিক করে, সাধারণত 0.0001 SOL-এর কম। কোনো মূল্য সরে না। Undersigned রিভিউর জন্য কিছু নেয় না।</string>
     <string name="review_submit">স্বাক্ষর করে প্রকাশ করুন</string>
     <string name="review_simulating">লেনদেন যাচাই করা হচ্ছে…</string>
     <string name="review_signing">আপনার ওয়ালেটের জন্য অপেক্ষা করা হচ্ছে…</string>
@@ -245,7 +244,7 @@
     <string name="inbox_replies">আমাকে দেওয়া উত্তর</string>
     <string name="inbox_starred">স্টার করা</string>
     <string name="inbox_unanswered_sub">আপনি যে অ্যাপগুলোর প্রমাণিত প্রকাশক, সেগুলোর স্বাক্ষরিত পর্যালোচনা, যেগুলোতে আপনার কোনো উত্তর নেই।</string>
-    <string name="inbox_unanswered_empty">অপেক্ষমাণ কিছু নেই। এখানে আপনার অ্যাপ দেখতে একটি প্রকাশক দাবি যাচাই করুন।</string>
+    <string name="inbox_unanswered_empty">কিছু অপেক্ষায় নেই। কোনো অ্যাপ প্রকাশ করেন তা প্রমাণ করুন, তাহলে এখানে তার রিভিউ দেখবেন।</string>
     <string name="inbox_replies_empty">আপনার রেকর্ডে এখনও কোনো উত্তর নেই।</string>
     <string name="inbox_starred_empty">এখানে রাখতে একটি পর্যালোচনা স্টার করুন।</string>
     <string name="swipe_hint">উত্তর দিতে একটি পর্যালোচনা ডানদিকে সোয়াইপ করুন।</string>
@@ -405,7 +404,7 @@
     <string name="pro_paying_title">আপনি যা পরিশোধ করছেন</string>
     <string name="pro_line_licence">Pro, ১২ মাস</string>
     <string name="pro_line_fee">নেটওয়ার্ক ফি, আপনার ওয়ালেট নির্ধারণ করে</string>
-    <string name="pro_line_fee_value">≈০.০০০০৪৭ SOL</string>
+    <string name="pro_line_fee_value">সাধারণত 0.0001 SOL-এর কম</string>
     <string name="pro_line_total">মোট</string>
     <string name="pro_paid_to">লিগ্যাল শিটে থাকা ঠিকানায় পরিশোধ করা হয়। লাইসেন্সটি এই ওয়ালেটের বিপরীতে লেজারে লেখা হয় — কোনো অ্যাকাউন্ট নেই, কোনো সার্ভার নেই, আপনার সম্পর্কে কিছুই সংরক্ষিত হয় না।</string>
     <string name="pro_before_title">স্বাক্ষর করার আগে</string>
@@ -612,7 +611,7 @@
     <string name="lb_open">লিডারবোর্ড</string>
     <string name="lb_overall">সামগ্রিক</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">আয়</string>
+    <string name="lb_m_revenue">প্রাপ্ত</string>
     <string name="lb_m_payers">অর্থ প্রদানকারী ব্যবহারকারী</string>
     <string name="lb_m_signed_score">স্বাক্ষরিত স্কোর</string>
     <string name="lb_m_signed_reviews">স্বাক্ষরিত পর্যালোচনা</string>
@@ -633,7 +632,7 @@
     <string name="lb_downloads_title">ডাউনলোড</string>
     <string name="lb_downloads_body">dApp Store ইনস্টল সংখ্যা প্রকাশ করে না, তাই কোনো ডাউনলোড র‍্যাঙ্কিং নেই। কোনো উৎস যোগ হলে এটি এখানে দেখা যাবে।</string>
     <string name="lb_signed_n">স্বাক্ষরিত পর্যালোচনা: %1$d</string>
-    <string name="dd_revenue">আয়</string>
+    <string name="dd_revenue">প্রাপ্ত</string>
     <string name="dd_signed">স্বাক্ষরিত</string>
     <string name="dd_store">স্টোর</string>
     <string name="dd_updates">আপডেট</string>
@@ -656,7 +655,7 @@
     <string name="tr_90d">৯০দি</string>
     <string name="tr_1y">১ব</string>
     <string name="tr_all">সব</string>
-    <string name="tr_revenue">আয়</string>
+    <string name="tr_revenue">প্রাপ্ত</string>
     <string name="tr_score">সময়ের সাথে স্কোর</string>
     <string name="tr_signed">স্বাক্ষরিত</string>
     <string name="tr_store">স্টোর</string>
@@ -745,7 +744,7 @@
     <string name="tag_perms_excess">বাড়তি অনুমতি</string>
     <string name="tag_spam_reviews">অস্বাভাবিক পর্যালোচনা</string>
     <string name="tag_misleading">বিভ্রান্তিকর তথ্য</string>
-    <string name="tag_suspected_scam">প্রতারণার সন্দেহ</string>
+    <string name="tag_suspected_scam">বিভ্রান্তিকর মনে হয়</string>
     <string name="tag_abandoned">পরিত্যক্ত</string>
     <string name="tag_active_dev">সক্রিয় উন্নয়ন</string>
     <string name="tag_onboarding_ok">শুরুটা ভালো</string>
@@ -1081,7 +1080,6 @@
     <string name="pay_found_empty">এখনো কিছু পাওয়া যায়নি। স্টোর বিল্ড এখনো পড়া হচ্ছে (এ পর্যন্ত %1$d)।</string>
     <string name="pay_found_dispute">কোনোটি কি আপনার? নিচে আপনার ট্রেজারি তালিকাভুক্ত করুন, এটি বোর্ডে যাবে। আপনার নয়? রিপোর্ট করুন, সরিয়ে দেওয়া হবে।</string>
     <string name="pay_found_report">ওয়ালেট রিপোর্ট করুন</string>
-    <string name="desk_trend">গত 30 দিন: %1$dটি স্বাক্ষরিত রিভিউ (তার আগের 30: %2$d)</string>
     <string name="desk_treasury_confirmed">ট্রেজারি নিশ্চিত · %1$s প্রাপ্ত</string>
     <string name="desk_treasury_none">কোনো ট্রেজারি তালিকাভুক্ত নেই</string>
     <string name="desk_found">আপনার অ্যাপের কোডে পাওয়া গেছে: %1$s, %2$dটি ওয়ালেট পেমেন্ট করেছে। পেমেন্টে এটি আপনার ট্রেজারি হিসেবে নিশ্চিত করুন, বা আপনার না হলে রিপোর্ট করুন।</string>
@@ -1179,9 +1177,6 @@
     <string name="pa_board_title">সবচেয়ে বেশি পেমেন্ট পাওয়া অ্যাপ</string>
     <string name="pa_pill_confirmed">নিশ্চিত</string>
     <string name="pa_pill_found">অ্যাপের কোডে পাওয়া</string>
-    <string name="pa_row_counts">%1$sটি পেমেন্ট · %2$s জন পেমেন্টকারী · %3$s জন নতুন</string>
-    <string name="pa_payments_payers">%1$sটি পেমেন্ট · %2$s জন পেমেন্টকারী</string>
-    <string name="pa_new_line">%1$sটি পেমেন্ট · %2$s জন নতুন পেমেন্টকারী</string>
     <string name="pa_cat_title">বিভাগ</string>
     <string name="pa_cat_apps">%1$sটি অ্যাপ পেমেন্ট পেয়েছে</string>
     <string name="pa_vs_before">পরিবর্তন একই দৈর্ঘ্যের আগের সময়ের তুলনায়।</string>
@@ -1193,7 +1188,6 @@
     <string name="pa_was">আগে %1$s</string>
     <string name="pa_trend_note">প্রাপ্ত USD-এর পরিবর্তন, একই দৈর্ঘ্যের আগের সময়ের তুলনায়। তালিকায় আসতে একটি অ্যাপের দুই সময়ের যেকোনো একটিতে %1$s দরকার। নতুন আগত: সময়ের মধ্যে দেখা প্রথম পেমেন্ট।</string>
     <string name="pa_how_title">কীভাবে পেমেন্ট হয়েছে</string>
-    <string name="pa_rail_line">%1$sটি পেমেন্ট · %2$s</string>
     <string name="pa_median">মধ্যমা পেমেন্ট</string>
     <string name="pa_p90">৯০তম পার্সেন্টাইল</string>
     <string name="pa_max">সবচেয়ে বড়</string>
@@ -1236,4 +1230,34 @@
     <string name="ph_top_payer">সবচেয়ে বড় পেমেন্টকারীর অংশ</string>
     <string name="ph_top10_payers">শীর্ষ ১০ পেমেন্টকারীর অংশ</string>
     <string name="ph_of">%2$s এর মধ্যে %1$s</string>
+    <string name="ledger_counted_frame">গণনা করা: %2$s থেকে %1$s · %3$d দেখানো</string>
+    <string name="standing_operator">Undersigned অপারেটর ওয়ালেট: আপনার রিভিউ চিহ্নসহ দেখানো হয় এবং কখনো গণনা করা হয় না।</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: আছে</string>
+    <string name="me_sgt_no">Seeker Genesis Token: নেই</string>
+    <string name="me_counts_yes">গণনা হয়: Genesis Token আছে</string>
+    <string name="me_counts_operator">দেখানো হয়, কখনো গণনা নয়: Undersigned অপারেটর ওয়ালেট</string>
+    <string name="me_counts_no">দেখানো হয়, গণনা নয়: Genesis Token নেই</string>
+    <string name="row_store_rating">স্টোর: %1$s★ (%2$d)</string>
+    <string name="row_store_short">স্টোর %1$s★</string>
+    <string name="score_empty_shown">এখনো কোনো গণিত রিভিউ নেই · %1$d দেখানো</string>
+    <string name="score_empty_operator">এখনো কোনো গণিত রিভিউ নেই · %1$d দেখানো (Undersigned অপারেটর)</string>
+    <string name="inbox_unanswered_empty_publisher">কিছু অপেক্ষায় নেই: আপনার প্রমাণিত অ্যাপের প্রতিটি রিভিউর উত্তর আছে।</string>
+    <string name="pro_line_fee_short">নেটওয়ার্ক ফি</string>
+    <string name="quick_apart">দ্রুত রিভিউ আলাদা দেখানো হয় এবং কখনো গণনা করা হয় না।</string>
+    <string name="tags_more">আরও ট্যাগ (%1$d)</string>
+    <string name="alert_offer_title">কেউ উত্তর দিলে জানুন</string>
+    <string name="alert_offer_body">অ্যালার্ট বন্ধ। প্রকাশক আপনার রিভিউর উত্তর দিলে এই ফোনে জানতে এগুলো চালু করুন। ডিভাইস থেকে কিছুই বাইরে যায় না।</string>
+    <string name="alert_offer_button">অ্যালার্ট চালু করুন</string>
+    <string name="alert_offer_on">অ্যালার্ট চালু আছে। সেটিংসে যেকোনো সময় বদলান।</string>
+    <string name="pay_seg_analytics">বিশ্লেষণ</string>
+    <string name="pay_seg_confirmed">নিশ্চিত</string>
+    <string name="pay_seg_found">কোডে পাওয়া</string>
+    <string name="pa_headline_label">মূলত অ্যাপ কোডে পাওয়া ওয়ালেট, প্রকাশকরা নিশ্চিত করেননি; মোট প্রাপ্তি, আয় নয়</string>
+    <string name="score_none_counted">কোনো গণিত রিভিউ নেই</string>
+    <string name="share_review_it">আপনার Seeker দিয়ে রিভিউ দিন: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s পেমেন্ট</item><item quantity="other">%1$s পেমেন্ট</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s পেমেন্টকারী</item><item quantity="other">%1$s পেমেন্টকারী</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s নতুন</item><item quantity="other">%1$s নতুন</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s নতুন পেমেন্টকারী</item><item quantity="other">%1$s নতুন পেমেন্টকারী</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">গত ৩০ দিন: %1$d স্বাক্ষরিত রিভিউ (তার আগের ৩০: %2$d)</item><item quantity="other">গত ৩০ দিন: %1$d স্বাক্ষরিত রিভিউ (তার আগের ৩০: %2$d)</item></plurals>
 </resources>

@@ -30,7 +30,6 @@
     <string name="row_signed_count">%1$d подписано</string>
     <string name="row_no_reviews">Пока нет подписанных отзывов</string>
     <string name="ledger_syncing">Чтение реестра…</string>
-    <string name="ledger_synced">Реестр: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d отзыв</item><item quantity="few">%1$d отзыва</item><item quantity="many">%1$d отзывов</item><item quantity="other">%1$d отзыва</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="few">%1$d Seeker\'а</item><item quantity="many">%1$d Seeker\'ов</item><item quantity="other">%1$d Seeker\'а</item></plurals>
     <string name="ledger_error">Не удалось прочитать реестр: %1$s</string>
@@ -162,7 +161,7 @@
     <string name="review_needs_wallet">Войдите с кошельком Seeker, чтобы опубликовать отзыв.</string>
     <string name="review_needs_sgt">У этого кошелька нет учётных данных подтверждённого устройства (сегодня: Seeker Genesis Token), поэтому его отзывы не будут учитываться. Публикация отключена, чтобы сэкономить вам комиссию сети.</string>
     <string name="review_checking_sgt">Проверка атестации устройства…</string>
-    <string name="review_fee_note">Ваш кошелёк платит только комиссию сети Solana, которую устанавливает сам (обычно менее 0,0001 SOL; измерено 0,000047 SOL на Seeker). Никакая стоимость не перемещается. Undersigned не берёт ничего.</string>
+    <string name="review_fee_note">Ваш кошелёк платит только комиссию сети Solana, которую он задаёт сам, обычно менее 0,0001 SOL. Ценности не перемещаются. Undersigned ничего не берёт за отзыв.</string>
     <string name="review_submit">Подписать и опубликовать</string>
     <string name="review_simulating">Проверка транзакции…</string>
     <string name="review_signing">Ожидание вашего кошелька…</string>
@@ -242,7 +241,7 @@
     <string name="inbox_replies">Ответы мне</string>
     <string name="inbox_starred">Избранное</string>
     <string name="inbox_unanswered_sub">Подписанные отзывы на приложения, где вы доказанный издатель, без вашего ответа.</string>
-    <string name="inbox_unanswered_empty">Ничего не ждёт. Подтвердите заявку издателя, чтобы увидеть здесь свои приложения.</string>
+    <string name="inbox_unanswered_empty">Ничего не ждёт. Докажите, что публикуете приложение, чтобы видеть здесь его отзывы.</string>
     <string name="inbox_replies_empty">Пока нет ответов на ваши записи.</string>
     <string name="inbox_starred_empty">Добавьте отзыв в избранное, чтобы он остался здесь.</string>
     <string name="swipe_hint">Смахните отзыв вправо, чтобы ответить.</string>
@@ -404,7 +403,7 @@
     <string name="pro_paying_title">За что вы платите</string>
     <string name="pro_line_licence">Pro, 12 месяцев</string>
     <string name="pro_line_fee">Комиссия сети, устанавливается вашим кошельком</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">обычно менее 0,0001 SOL</string>
     <string name="pro_line_total">Итого</string>
     <string name="pro_paid_to">Оплата на адрес, указанный в разделе Правовая информация. Лицензия записывается в реестр для этого кошелька — без аккаунта, без сервера, ничего о вас не хранится.</string>
     <string name="pro_before_title">Прежде чем подписать</string>
@@ -618,7 +617,7 @@
     <string name="lb_open">Таблица лидеров</string>
     <string name="lb_overall">В целом</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Доход</string>
+    <string name="lb_m_revenue">Получено</string>
     <string name="lb_m_payers">Платящие пользователи</string>
     <string name="lb_m_signed_score">Подписанная оценка</string>
     <string name="lb_m_signed_reviews">Подписанные отзывы</string>
@@ -639,7 +638,7 @@
     <string name="lb_downloads_title">Загрузки</string>
     <string name="lb_downloads_body">dApp Store не публикует количество установок, поэтому рейтинга загрузок нет. Он появится здесь, если будет добавлен источник.</string>
     <string name="lb_signed_n">Подписанные отзывы: %1$d</string>
-    <string name="dd_revenue">Доход</string>
+    <string name="dd_revenue">Получено</string>
     <string name="dd_signed">Подписано</string>
     <string name="dd_store">Магазин</string>
     <string name="dd_updates">Обновления</string>
@@ -662,7 +661,7 @@
     <string name="tr_90d">90Д</string>
     <string name="tr_1y">1Г</string>
     <string name="tr_all">Все</string>
-    <string name="tr_revenue">Доход</string>
+    <string name="tr_revenue">Получено</string>
     <string name="tr_score">Оценка со временем</string>
     <string name="tr_signed">Подписано</string>
     <string name="tr_store">Магазин</string>
@@ -750,7 +749,7 @@
     <string name="tag_perms_excess">Избыточные разрешения</string>
     <string name="tag_spam_reviews">Неестественные отзывы</string>
     <string name="tag_misleading">Вводит в заблуждение</string>
-    <string name="tag_suspected_scam">Подозрение на мошенничество</string>
+    <string name="tag_suspected_scam">Похоже на обман</string>
     <string name="tag_abandoned">Заброшено</string>
     <string name="tag_active_dev">Активная разработка</string>
     <string name="tag_onboarding_ok">Онбординг ок</string>
@@ -1106,7 +1105,6 @@
     <string name="pay_found_empty">Пока ничего. Сборки из магазина ещё читаются (пока %1$d).</string>
     <string name="pay_found_dispute">Один из них ваш? Укажите казну ниже, и он перейдёт в таблицу. Не ваш? Сообщите, и его уберут.</string>
     <string name="pay_found_report">Сообщить о кошельке</string>
-    <string name="desk_trend">Последние 30 дней: %1$d подписанных отзывов (30 до этого: %2$d)</string>
     <string name="desk_treasury_confirmed">Казна подтверждена · получено %1$s</string>
     <string name="desk_treasury_none">Казна не указана</string>
     <string name="desk_found">Найдено в коде вашего приложения: %1$s, платили %2$d кошельков. Подтвердите её как свою казну в разделе «Платежи» или сообщите, если она не ваша.</string>
@@ -1204,9 +1202,6 @@
     <string name="pa_board_title">Самые оплачиваемые приложения</string>
     <string name="pa_pill_confirmed">подтверждено</string>
     <string name="pa_pill_found">найден в коде приложения</string>
-    <string name="pa_row_counts">Платежей: %1$s · плательщиков: %2$s · новых: %3$s</string>
-    <string name="pa_payments_payers">Платежей: %1$s · плательщиков: %2$s</string>
-    <string name="pa_new_line">Платежей: %1$s · новых плательщиков: %2$s</string>
     <string name="pa_cat_title">Категории</string>
     <string name="pa_cat_apps">Оплаченных приложений: %1$s</string>
     <string name="pa_vs_before">Изменение относительно предыдущего периода той же длины.</string>
@@ -1218,7 +1213,6 @@
     <string name="pa_was">было %1$s</string>
     <string name="pa_trend_note">Изменение полученных USD относительно предыдущего периода той же длины. Чтобы попасть в рейтинг, приложению нужно %1$s в одном из двух периодов. Новички: первый платёж замечен в этом периоде.</string>
     <string name="pa_how_title">Как платили</string>
-    <string name="pa_rail_line">Платежей: %1$s · %2$s</string>
     <string name="pa_median">Медианный платёж</string>
     <string name="pa_p90">90-й процентиль</string>
     <string name="pa_max">Крупнейший</string>
@@ -1261,4 +1255,34 @@
     <string name="ph_top_payer">Доля крупнейшего плательщика</string>
     <string name="ph_top10_payers">Доля 10 крупнейших плательщиков</string>
     <string name="ph_of">%1$s из %2$s</string>
+    <string name="ledger_counted_frame">Учтено: %1$s от %2$s · показано %3$d</string>
+    <string name="standing_operator">Кошелёк оператора Undersigned: ваши отзывы показываются с пометкой и никогда не учитываются.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: есть</string>
+    <string name="me_sgt_no">Seeker Genesis Token: нет</string>
+    <string name="me_counts_yes">Учитывается: есть Genesis Token</string>
+    <string name="me_counts_operator">Показывается, никогда не учитывается: кошелёк оператора Undersigned</string>
+    <string name="me_counts_no">Показывается, не учитывается: нет Genesis Token</string>
+    <string name="row_store_rating">Магазин: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Магазин %1$s★</string>
+    <string name="score_empty_shown">Учтённых отзывов пока нет · показано %1$d</string>
+    <string name="score_empty_operator">Учтённых отзывов пока нет · показано %1$d (оператор Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Ничего не ждёт: на каждый отзыв о ваших подтверждённых приложениях есть ответ.</string>
+    <string name="pro_line_fee_short">комиссия сети</string>
+    <string name="quick_apart">Быстрый отзыв показывается отдельно и никогда не учитывается.</string>
+    <string name="tags_more">Ещё теги (%1$d)</string>
+    <string name="alert_offer_title">Узнавать об ответах</string>
+    <string name="alert_offer_body">Оповещения выключены. Включите их, чтобы узнавать на этом телефоне, когда издатель отвечает на ваш отзыв. Ничего не покидает устройство.</string>
+    <string name="alert_offer_button">Включить оповещения</string>
+    <string name="alert_offer_on">Оповещения включены. Изменить их можно в любой момент в Настройках.</string>
+    <string name="pay_seg_analytics">Аналитика</string>
+    <string name="pay_seg_confirmed">Подтверждённые</string>
+    <string name="pay_seg_found">Найдены в коде</string>
+    <string name="pa_headline_label">В основном кошельки, найденные в коде приложений, не подтверждённые издателями; валовые поступления, не выручка</string>
+    <string name="score_none_counted">Учтённых отзывов нет</string>
+    <string name="share_review_it">Оцените его со своего Seeker: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s платёж</item><item quantity="few">%1$s платежа</item><item quantity="many">%1$s платежей</item><item quantity="other">%1$s платежа</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s плательщик</item><item quantity="few">%1$s плательщика</item><item quantity="many">%1$s плательщиков</item><item quantity="other">%1$s плательщика</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s новый</item><item quantity="few">%1$s новых</item><item quantity="many">%1$s новых</item><item quantity="other">%1$s новых</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s новый плательщик</item><item quantity="few">%1$s новых плательщика</item><item quantity="many">%1$s новых плательщиков</item><item quantity="other">%1$s новых плательщика</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Последние 30 дней: %1$d подписанный отзыв (30 до этого: %2$d)</item><item quantity="few">Последние 30 дней: %1$d подписанных отзыва (30 до этого: %2$d)</item><item quantity="many">Последние 30 дней: %1$d подписанных отзывов (30 до этого: %2$d)</item><item quantity="other">Последние 30 дней: %1$d подписанных отзыва (30 до этого: %2$d)</item></plurals>
 </resources>

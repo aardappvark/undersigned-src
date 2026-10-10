@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d підписано</string>
     <string name="row_no_reviews">Ще немає підписаних відгуків</string>
     <string name="ledger_syncing">Читання реєстру…</string>
-    <string name="ledger_synced">Реєстр: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d відгук</item><item quantity="few">%1$d відгуки</item><item quantity="many">%1$d відгуків</item><item quantity="other">%1$d відгука</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="few">%1$d Seeker\'и</item><item quantity="many">%1$d Seeker\'ів</item><item quantity="other">%1$d Seeker\'а</item></plurals>
     <string name="ledger_error">Не вдалося прочитати реєстр: %1$s</string>
@@ -174,7 +173,7 @@
     <string name="review_needs_wallet">Увійдіть за допомогою гаманця Seeker, щоб публікувати.</string>
     <string name="review_needs_sgt">Цей гаманець не має облікових даних підтвердженого пристрою (сьогодні: Seeker Genesis Token), тому його відгуки не враховуватимуться. Публікацію вимкнено, щоб заощадити вашу комісію мережі.</string>
     <string name="review_checking_sgt">Перевірка атестації пристрою…</string>
-    <string name="review_fee_note">Ваш гаманець сплачує лише комісію мережі Solana, яку встановлює сам (зазвичай менше 0.0001 SOL; виміряно 0.000047 SOL на Seeker). Жодна вартість не переміщується. Undersigned нічого не бере.</string>
+    <string name="review_fee_note">Ваш гаманець платить лише комісію мережі Solana, яку встановлює сам, зазвичай менше 0,0001 SOL. Цінності не переміщуються. Undersigned нічого не бере за відгук.</string>
     <string name="review_submit">Підписати й опублікувати</string>
     <string name="review_simulating">Перевірка транзакції…</string>
     <string name="review_signing">Очікування вашого гаманця…</string>
@@ -258,7 +257,7 @@
     <string name="inbox_replies">Відповіді мені</string>
     <string name="inbox_starred">Обране</string>
     <string name="inbox_unanswered_sub">Підписані відгуки на додатки, де ви доведений видавець, без вашої відповіді.</string>
-    <string name="inbox_unanswered_empty">Нічого не очікує. Підтвердьте заявку видавця, щоб побачити тут свої додатки.</string>
+    <string name="inbox_unanswered_empty">Нічого не чекає. Доведіть, що публікуєте застосунок, щоб бачити тут його відгуки.</string>
     <string name="inbox_replies_empty">Поки немає відповідей на ваші записи.</string>
     <string name="inbox_starred_empty">Додайте відгук до обраного, щоб він залишився тут.</string>
     <string name="swipe_hint">Проведіть по відгуку вправо, щоб відповісти.</string>
@@ -420,7 +419,7 @@
     <string name="pro_paying_title">За що ви платите</string>
     <string name="pro_line_licence">Pro, 12 місяців</string>
     <string name="pro_line_fee">Комісія мережі, встановлена вашим гаманцем</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">зазвичай менше 0,0001 SOL</string>
     <string name="pro_line_total">Разом</string>
     <string name="pro_paid_to">Оплата на адресу, вказану в розділі Правова інформація. Ліцензія записується в реєстр для цього гаманця — без облікового запису, без сервера, нічого про вас не зберігається.</string>
     <string name="pro_before_title">Перш ніж підписати</string>
@@ -634,7 +633,7 @@
     <string name="lb_open">Таблиця лідерів</string>
     <string name="lb_overall">Загалом</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Дохід</string>
+    <string name="lb_m_revenue">Отримано</string>
     <string name="lb_m_payers">Користувачі, що платять</string>
     <string name="lb_m_signed_score">Підписана оцінка</string>
     <string name="lb_m_signed_reviews">Підписані відгуки</string>
@@ -655,7 +654,7 @@
     <string name="lb_downloads_title">Завантаження</string>
     <string name="lb_downloads_body">dApp Store не публікує кількість встановлень, тому рейтингу завантажень немає. Він з\'явиться тут, якщо буде додано джерело.</string>
     <string name="lb_signed_n">Підписані відгуки: %1$d</string>
-    <string name="dd_revenue">Дохід</string>
+    <string name="dd_revenue">Отримано</string>
     <string name="dd_signed">Підписано</string>
     <string name="dd_store">Магазин</string>
     <string name="dd_updates">Оновлення</string>
@@ -678,7 +677,7 @@
     <string name="tr_90d">90Д</string>
     <string name="tr_1y">1Р</string>
     <string name="tr_all">Усі</string>
-    <string name="tr_revenue">Дохід</string>
+    <string name="tr_revenue">Отримано</string>
     <string name="tr_score">Оцінка в часі</string>
     <string name="tr_signed">Підписано</string>
     <string name="tr_store">Магазин</string>
@@ -766,7 +765,7 @@
     <string name="tag_perms_excess">Надмірні дозволи</string>
     <string name="tag_spam_reviews">Неприродні відгуки</string>
     <string name="tag_misleading">Вводить в оману</string>
-    <string name="tag_suspected_scam">Підозра на шахрайство</string>
+    <string name="tag_suspected_scam">Схоже на обман</string>
     <string name="tag_abandoned">Покинутий</string>
     <string name="tag_active_dev">Активна розробка</string>
     <string name="tag_onboarding_ok">Онбординг ок</string>
@@ -1122,7 +1121,6 @@
     <string name="pay_found_empty">Поки нічого. Збірки з магазину ще читаються (поки %1$d).</string>
     <string name="pay_found_dispute">Один із них ваш? Укажіть скарбницю нижче, і він перейде до таблиці. Не ваш? Повідомте, і його приберуть.</string>
     <string name="pay_found_report">Повідомити про гаманець</string>
-    <string name="desk_trend">Останні 30 днів: %1$d підписаних відгуків (30 до того: %2$d)</string>
     <string name="desk_treasury_confirmed">Скарбницю підтверджено · отримано %1$s</string>
     <string name="desk_treasury_none">Скарбницю не вказано</string>
     <string name="desk_found">Знайдено в коді вашого застосунку: %1$s, платили %2$d гаманців. Підтвердьте її як свою скарбницю в «Платежах» або повідомте, якщо вона не ваша.</string>
@@ -1220,9 +1218,6 @@
     <string name="pa_board_title">Найбільш оплачувані застосунки</string>
     <string name="pa_pill_confirmed">підтверджено</string>
     <string name="pa_pill_found">знайдено в коді застосунку</string>
-    <string name="pa_row_counts">Платежів: %1$s · платників: %2$s · нових: %3$s</string>
-    <string name="pa_payments_payers">Платежів: %1$s · платників: %2$s</string>
-    <string name="pa_new_line">Платежів: %1$s · нових платників: %2$s</string>
     <string name="pa_cat_title">Категорії</string>
     <string name="pa_cat_apps">Оплачених застосунків: %1$s</string>
     <string name="pa_vs_before">Зміна порівняно з попереднім періодом такої самої тривалості.</string>
@@ -1234,7 +1229,6 @@
     <string name="pa_was">було %1$s</string>
     <string name="pa_trend_note">Зміна отриманих USD порівняно з попереднім періодом такої самої тривалості. Щоб потрапити до рейтингу, застосунку потрібно %1$s в одному з двох періодів. Новачки: перший платіж помічено в цьому періоді.</string>
     <string name="pa_how_title">Як платили</string>
-    <string name="pa_rail_line">Платежів: %1$s · %2$s</string>
     <string name="pa_median">Медіанний платіж</string>
     <string name="pa_p90">90-й процентиль</string>
     <string name="pa_max">Найбільший</string>
@@ -1277,4 +1271,34 @@
     <string name="ph_top_payer">Частка найбільшого платника</string>
     <string name="ph_top10_payers">Частка 10 найбільших платників</string>
     <string name="ph_of">%1$s з %2$s</string>
+    <string name="ledger_counted_frame">Враховано: %1$s від %2$s · показано %3$d</string>
+    <string name="standing_operator">Гаманець оператора Undersigned: ваші відгуки показуються з позначкою й ніколи не враховуються.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: є</string>
+    <string name="me_sgt_no">Seeker Genesis Token: немає</string>
+    <string name="me_counts_yes">Враховується: є Genesis Token</string>
+    <string name="me_counts_operator">Показується, ніколи не враховується: гаманець оператора Undersigned</string>
+    <string name="me_counts_no">Показується, не враховується: немає Genesis Token</string>
+    <string name="row_store_rating">Магазин: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Магазин %1$s★</string>
+    <string name="score_empty_shown">Врахованих відгуків поки немає · показано %1$d</string>
+    <string name="score_empty_operator">Врахованих відгуків поки немає · показано %1$d (оператор Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Нічого не чекає: на кожен відгук про ваші підтверджені застосунки є відповідь.</string>
+    <string name="pro_line_fee_short">комісія мережі</string>
+    <string name="quick_apart">Швидкий відгук показується окремо й ніколи не враховується.</string>
+    <string name="tags_more">Ще теги (%1$d)</string>
+    <string name="alert_offer_title">Дізнаватися про відповіді</string>
+    <string name="alert_offer_body">Сповіщення вимкнено. Увімкніть їх, щоб дізнаватися на цьому телефоні, коли видавець відповідає на ваш відгук. Ніщо не залишає пристрій.</string>
+    <string name="alert_offer_button">Увімкнути сповіщення</string>
+    <string name="alert_offer_on">Сповіщення увімкнено. Змінити їх можна будь-коли в Налаштуваннях.</string>
+    <string name="pay_seg_analytics">Аналітика</string>
+    <string name="pay_seg_confirmed">Підтверджені</string>
+    <string name="pay_seg_found">Знайдені в коді</string>
+    <string name="pa_headline_label">Здебільшого гаманці, знайдені в коді застосунків, не підтверджені видавцями; валові надходження, не виручка</string>
+    <string name="score_none_counted">Врахованих відгуків немає</string>
+    <string name="share_review_it">Оцініть його зі свого Seeker: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s платіж</item><item quantity="few">%1$s платежі</item><item quantity="many">%1$s платежів</item><item quantity="other">%1$s платежі</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s платник</item><item quantity="few">%1$s платники</item><item quantity="many">%1$s платників</item><item quantity="other">%1$s платники</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s новий</item><item quantity="few">%1$s нові</item><item quantity="many">%1$s нових</item><item quantity="other">%1$s нові</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s новий платник</item><item quantity="few">%1$s нові платники</item><item quantity="many">%1$s нових платників</item><item quantity="other">%1$s нові платники</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Останні 30 днів: %1$d підписаний відгук (30 до того: %2$d)</item><item quantity="few">Останні 30 днів: %1$d підписані відгуки (30 до того: %2$d)</item><item quantity="many">Останні 30 днів: %1$d підписаних відгуків (30 до того: %2$d)</item><item quantity="other">Останні 30 днів: %1$d підписані відгуки (30 до того: %2$d)</item></plurals>
 </resources>

@@ -77,6 +77,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
     LaunchedEffect(entries) { vm.loadBoard() }
     LaunchedEffect(rows) { vm.resolveIcons(rows.map { it.claim.packageName }) }
     var page by remember { mutableStateOf(PayPage.BOARD) }
+    var segment by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(0) }
     var step by remember { mutableStateOf(1) }
     var treasury by remember { mutableStateOf("") }
     var code by remember { mutableStateOf("") }
@@ -122,8 +123,12 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
         when (page) {
             // G1 — the board, then the publisher tools.
             PayPage.BOARD -> Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
-                // Store-wide analytics by window (owner, 10 Oct 2026), above the board of confirmed listings.
-                PaymentAnalyticsBlock(vm, onOpen, onHistory)
+                // Three views of one tab (judge, 10 Oct 2026): store-wide analytics (default), the board of confirmed treasuries,
+                // and the wallets found in app code. Each is its own segment so nothing confirmed is read as found, or back.
+                PaySegments(segment) { segment = it }
+                Spacer(Modifier.height(10.dp))
+                if (segment == 0) PaymentAnalyticsBlock(vm, onOpen, onHistory)
+                if (segment == 1) {
                 Text(stringResource(R.string.pay_title), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(bottom = 4.dp))
                 Text(stringResource(R.string.pay_intro), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 18.sp)
                 Row(Modifier.fillMaxWidth().padding(top = 10.dp)) {
@@ -160,9 +165,9 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
                 }
                 val waiting = rows.count { !it.confirmed }
                 if (waiting > 0) Text(stringResource(R.string.pay_waiting_list, waiting), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 8.dp))
-                // Treasuries found in app code (owner, 9 Oct 2026): their own card under the board, by name, never ranked.
-                Spacer(Modifier.height(14.dp))
-                FoundInCode(vm, onHistory)
+                }
+                // Treasuries found in app code (owner, 9 Oct 2026): their own segment, by name, never ranked.
+                if (segment == 2) FoundInCode(vm, onHistory)
                 Text(stringResource(R.string.pay_tools).uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 22.dp, bottom = 8.dp))
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(RbColors.surface)) {
                     if (wallet != null) {
@@ -504,6 +509,20 @@ private fun PaymentsOverTime(listed: List<MainViewModel.BoardRow>) {
 }
 
 
+/** [Analytics · Confirmed · Found in code] at the top of the Payments tab. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun PaySegments(selected: Int, onSelect: (Int) -> Unit) {
+    val labels = listOf(R.string.pay_seg_analytics, R.string.pay_seg_confirmed, R.string.pay_seg_found)
+    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+        labels.forEachIndexed { i, l ->
+            SegmentedButton(selected = selected == i, onClick = { onSelect(i) }, shape = SegmentedButtonDefaults.itemShape(i, labels.size),
+                colors = SegmentedButtonDefaults.colors(activeContainerColor = RbColors.purple.copy(alpha = 0.35f), activeContentColor = RbColors.textPrimary, inactiveContainerColor = RbColors.surface, inactiveContentColor = RbColors.textSecondary),
+                icon = {}) { Text(stringResource(l), fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+        }
+    }
+}
+
 /**
  * Wallets written into an app's store build that received payments from several wallets, NOT confirmed by the publisher.
  * Listed apart from the board, by app name, each labelled; read from the Undersigned API (the phone cannot read every build).
@@ -550,6 +569,10 @@ private fun share(v: Double): String = String.format(Locale.US, if (v >= 10) "%.
 private fun count(n: Int): String = NumberFormat.getIntegerInstance().format(n)
 
 /** "2026-09-07" or "2026-09" as the phone's short date; anything else as given. */
+/** "1 payment", "2 payments" with the count grouped (judge, 10 Oct 2026: "1 payments · 1 new payers"). */
+@Composable internal fun nPayments(n: Int): String = pluralStringResource(R.plurals.pa_n_payments, n, count(n))
+@Composable internal fun nPayers(n: Int): String = pluralStringResource(R.plurals.pa_n_payers, n, count(n))
+
 /** Shared with the payment history screen (same formats as the board). */
 internal fun payUsd(v: Double): String = usd0(v)
 internal fun payCount(n: Int): String = count(n)
@@ -586,7 +609,8 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
     LaunchedEffect(window, attempt) { vm.paymentSummary(window).fold({ failed = failed - window }, { failed = failed + window }) }
     val labels = mapOf("7d" to R.string.pa_window_7d, "30d" to R.string.pa_window_30d, "90d" to R.string.pa_window_90d, "1y" to R.string.pa_window_1y, "all" to R.string.pa_window_all)
     Text(stringResource(R.string.pa_title), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
-    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    // Wraps instead of scrolling: "All time" sat clipped at the right edge (judge, 10 Oct 2026).
+    FlowRow(Modifier.fillMaxWidth().padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         com.undersigned.app.ledger.PaymentAnalytics.WINDOWS.forEach { w ->
             FilterChip(selected = window == w, onClick = { window = w }, label = { Text(stringResource(labels.getValue(w)), fontSize = 12.sp) })
         }
@@ -601,8 +625,9 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
     }
     s.coverage?.takeIf { it.read < it.listed }?.let { c -> Text(stringResource(R.string.pa_coverage, count(c.read), count(c.listed)), color = RbColors.warning, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(bottom = 6.dp)) }
 
-    // (1) Totals.
+    // (1) Totals, under the line that says what they mostly are (judge, 10 Oct 2026).
     GlassCard {
+        Text(stringResource(R.string.pa_headline_label), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(bottom = 8.dp))
         val items = listOf(stringResource(R.string.pa_received) to usd0(s.totalUsd), stringResource(R.string.pa_payments) to count(s.payments), stringResource(R.string.pa_paying_wallets) to count(s.payers),
             stringResource(R.string.pa_apps_paid) to count(s.apps), stringResource(R.string.pa_repeat_share) to share(s.repeatShare), stringResource(R.string.pa_top10_share) to share(s.top10Share))
         KeyValueGrid(items, columns = 3, description = items.joinToString(", ") { "${it.first} ${it.second}" }, valueSize = 15)
@@ -637,7 +662,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
                         Text(r.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
                         Spacer(Modifier.width(6.dp)); SourcePill(r.confirmed)
                     }
-                    Text(share(r.share) + " · " + stringResource(R.string.pa_row_counts, count(r.payments), count(r.payers), count(r.newPayers)), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2)
+                    Text(share(r.share) + " · " + listOf(nPayments(r.payments), nPayers(r.payers), pluralStringResource(R.plurals.pa_n_new, r.newPayers, count(r.newPayers))).joinToString(" · "), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2)
                 }
                 Column(horizontalAlignment = Alignment.End) {
                     Text(usd0(r.usd), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
@@ -684,7 +709,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
                             Text(m.name, color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
                             Spacer(Modifier.width(6.dp)); SourcePill(m.confirmed)
                         }
-                        Text(if (m.isNew) stringResource(R.string.pa_new_line, count(m.payments), count(m.newPayers))
+                        Text(if (m.isNew) nPayments(m.payments) + " · " + pluralStringResource(R.plurals.pa_n_new_payers, m.newPayers, count(m.newPayers))
                             else stringResource(R.string.pa_was, usd0(m.previousUsd)), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
                     val ch = if (m.isNew) stringResource(R.string.pa_new) else com.undersigned.app.ledger.PaymentAnalytics.pct(m.change)
@@ -709,7 +734,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
                 }
                 Text(share(r.share), color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.End, modifier = Modifier.widthIn(min = 48.dp))
             }
-            Text(stringResource(R.string.pa_rail_line, count(r.payments), usd0(r.usd)), color = RbColors.textTertiary, fontSize = 10.sp, modifier = Modifier.padding(start = 48.dp))
+            Text(nPayments(r.payments) + " · " + usd0(r.usd), color = RbColors.textTertiary, fontSize = 10.sp, modifier = Modifier.padding(start = 48.dp))
         }
         Spacer(Modifier.height(10.dp))
         val sizes = listOf(stringResource(R.string.pa_median) to usd0(s.median), stringResource(R.string.pa_p90) to usd0(s.p90), stringResource(R.string.pa_max) to usd0(s.max))
@@ -735,7 +760,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
                         Spacer(Modifier.width(6.dp)); SourcePill(w.confirmed)
                     }
                     if (w.apps.isNotEmpty()) Text(stringResource(R.string.pa_wallet_apps, w.apps.joinToString(", ") { it.name }), color = RbColors.textSecondary, fontSize = 11.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                    Text(stringResource(R.string.pa_payments_payers, count(w.payments), count(w.payers)), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Text(nPayments(w.payments) + " · " + nPayers(w.payers), color = RbColors.textTertiary, fontSize = 11.sp)
                 }
                 Text(usd0(w.usd), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
             }
@@ -819,7 +844,7 @@ fun AppWeeklyPayments(series: PaymentAnalytics.AppSeries) {
     val weeks = series.series.takeLast(26)
     val max = weeks.maxOfOrNull { it.usd }?.takeIf { it > 0 } ?: return
     Text(stringResource(R.string.pa_app_weekly), color = RbColors.textSecondary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(bottom = 4.dp))
-    Text(usd0(series.totalUsd) + " · " + stringResource(R.string.pa_payments_payers, count(series.payments), count(series.payers)), color = RbColors.textTertiary, fontSize = 11.sp)
+    Text(usd0(series.totalUsd) + " · " + nPayments(series.payments) + " · " + nPayers(series.payers), color = RbColors.textTertiary, fontSize = 11.sp)
     val a11y = weeks.joinToString(", ") { bucketLabel(it.bucket) + " " + usd0(it.usd) }
     Row(Modifier.fillMaxWidth().padding(top = 6.dp)) {
         Column(Modifier.height(80.dp), verticalArrangement = Arrangement.SpaceBetween) {

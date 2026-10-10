@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d podpisanych</string>
     <string name="row_no_reviews">Brak podpisanych recenzji</string>
     <string name="ledger_syncing">Odczytywanie rejestru…</string>
-    <string name="ledger_synced">Rejestr: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d recenzja</item><item quantity="few">%1$d recenzje</item><item quantity="many">%1$d recenzji</item><item quantity="other">%1$d recenzji</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="few">%1$d Seekery</item><item quantity="many">%1$d Seekerów</item><item quantity="other">%1$d Seekera</item></plurals>
     <string name="ledger_error">Odczyt rejestru nie powiódł się: %1$s</string>
@@ -144,7 +143,7 @@
     </plurals>
     <string name="import_note">Zaimportowane recenzje noszą tag \"works\" (4–5★) lub \"confusing\" (1–3★); możesz je edytować w dowolnym momencie nową recenzją. Tekst dłuższy niż 140 znaków jest skracany.</string>
     <string name="detail_tags_title">Co oznaczyli właściciele</string>
-    <string name="detail_facts_title">Co może zweryfikować Twoje urządzenie</string>
+    <string name="detail_facts_title">Co może sprawdzić twoje urządzenie</string>
     <string name="detail_facts_sub">Odczytane z menedżera pakietów telefonu. Tylko fakty i zmiany; nie ocena bezpieczeństwa.</string>
     <string name="fact_version">Zainstalowany kod wersji</string>
     <string name="fact_signer">Certyfikat podpisujący (SHA-256)</string>
@@ -174,7 +173,7 @@
     <string name="review_needs_wallet">Zaloguj się portfelem Seeker, aby opublikować.</string>
     <string name="review_needs_sgt">Ten portfel nie posiada żadnego poświadczenia potwierdzonego urządzenia (obecnie: Seeker Genesis Token), więc jego recenzje nie byłyby liczone. Publikowanie jest wyłączone, aby zaoszczędzić Ci opłatę sieciową.</string>
     <string name="review_checking_sgt">Sprawdzanie atestacji urządzenia…</string>
-    <string name="review_fee_note">Twój portfel płaci wyłącznie opłatę sieciową Solana, którą sam ustala (zwykle poniżej 0,0001 SOL; zmierzono 0,000047 SOL na Seekerze). Żadna wartość się nie przemieszcza. Undersigned nie pobiera niczego.</string>
+    <string name="review_fee_note">Twój portfel płaci tylko opłatę sieci Solana, ustaloną przez portfel, zwykle poniżej 0,0001 SOL. Żadna wartość się nie przemieszcza. Undersigned nic nie pobiera za recenzję.</string>
     <string name="review_submit">Podpisz i opublikuj</string>
     <string name="review_simulating">Sprawdzanie transakcji…</string>
     <string name="review_signing">Oczekiwanie na portfel…</string>
@@ -258,7 +257,7 @@
     <string name="inbox_replies">Odpowiedzi do mnie</string>
     <string name="inbox_starred">Ulubione</string>
     <string name="inbox_unanswered_sub">Podpisane recenzje aplikacji, których jesteś udowodnionym wydawcą, bez Twojej odpowiedzi.</string>
-    <string name="inbox_unanswered_empty">Nic nie czeka. Zweryfikuj zgłoszenie wydawcy, aby zobaczyć tutaj swoje aplikacje.</string>
+    <string name="inbox_unanswered_empty">Nic nie czeka. Udowodnij, że publikujesz aplikację, aby zobaczyć tu jej recenzje.</string>
     <string name="inbox_replies_empty">Jeszcze brak odpowiedzi na Twoje wpisy.</string>
     <string name="inbox_starred_empty">Dodaj recenzję do ulubionych, aby została tutaj.</string>
     <string name="swipe_hint">Przesuń recenzję w prawo, aby odpowiedzieć.</string>
@@ -420,7 +419,7 @@
     <string name="pro_paying_title">Za co płacisz</string>
     <string name="pro_line_licence">Pro, 12 miesięcy</string>
     <string name="pro_line_fee">Opłata sieciowa, ustalona przez Twój portfel</string>
-    <string name="pro_line_fee_value">≈0.000047 SOL</string>
+    <string name="pro_line_fee_value">zwykle poniżej 0,0001 SOL</string>
     <string name="pro_line_total">Razem</string>
     <string name="pro_paid_to">Płatne na adres podany w sekcji Informacje prawne. Licencja jest zapisywana w rejestrze dla tego portfela — brak konta, brak serwera, nic o Tobie nie jest przechowywane.</string>
     <string name="pro_before_title">Zanim podpiszesz</string>
@@ -494,7 +493,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Czytaj cały rejestr</string>
     <string name="fp_sign">Podpisuj recenzje, odpowiedzi, oznaczenia, zakwestionowania</string>
-    <string name="fp_facts">Co może zweryfikować Twoje urządzenie</string>
+    <string name="fp_facts">Co może sprawdzić twoje urządzenie</string>
     <string name="fp_claim">Zgłoś dApp, odpowiadaj jako jego udowodniony wydawca</string>
     <string name="fp_copy">Skopiuj recenzję do sklepu</string>
     <string name="fp_import">Importuj recenzje ze sklepu</string>
@@ -634,7 +633,7 @@
     <string name="lb_open">Ranking</string>
     <string name="lb_overall">Ogółem</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="few">%1$d dApps</item><item quantity="many">%1$d dApps</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Przychody</string>
+    <string name="lb_m_revenue">Otrzymano</string>
     <string name="lb_m_payers">Płacący użytkownicy</string>
     <string name="lb_m_signed_score">Podpisany wynik</string>
     <string name="lb_m_signed_reviews">Podpisane recenzje</string>
@@ -655,7 +654,7 @@
     <string name="lb_downloads_title">Pobrania</string>
     <string name="lb_downloads_body">dApp Store nie publikuje liczby instalacji, więc nie ma rankingu pobrań. Pojawi się tutaj, jeśli zostanie dodane źródło.</string>
     <string name="lb_signed_n">Podpisane recenzje: %1$d</string>
-    <string name="dd_revenue">Przychody</string>
+    <string name="dd_revenue">Otrzymano</string>
     <string name="dd_signed">Podpisane</string>
     <string name="dd_store">Sklep</string>
     <string name="dd_updates">Aktualizacje</string>
@@ -678,7 +677,7 @@
     <string name="tr_90d">90D</string>
     <string name="tr_1y">1R</string>
     <string name="tr_all">Wszystko</string>
-    <string name="tr_revenue">Przychody</string>
+    <string name="tr_revenue">Otrzymano</string>
     <string name="tr_score">Wynik w czasie</string>
     <string name="tr_signed">Podpisane</string>
     <string name="tr_store">Sklep</string>
@@ -767,7 +766,7 @@
     <string name="tag_perms_excess">Nadmierne uprawnienia</string>
     <string name="tag_spam_reviews">Nienaturalne recenzje</string>
     <string name="tag_misleading">Wprowadza w błąd</string>
-    <string name="tag_suspected_scam">Podejrzenie oszustwa</string>
+    <string name="tag_suspected_scam">Wygląda na wprowadzającą w błąd</string>
     <string name="tag_abandoned">Porzucona</string>
     <string name="tag_active_dev">Aktywny rozwój</string>
     <string name="tag_onboarding_ok">Wprowadzenie ok</string>
@@ -1123,7 +1122,6 @@
     <string name="pay_found_empty">Na razie nic. Wersje ze sklepu są wciąż odczytywane (dotąd %1$d).</string>
     <string name="pay_found_dispute">Któryś jest Twój? Zgłoś swój skarbiec poniżej, a trafi na tablicę. Nie Twój? Zgłoś to, a zostanie usunięty.</string>
     <string name="pay_found_report">Zgłoś portfel</string>
-    <string name="desk_trend">Ostatnie 30 dni: %1$d podpisanych recenzji (30 wcześniejszych: %2$d)</string>
     <string name="desk_treasury_confirmed">Skarbiec potwierdzony · otrzymano %1$s</string>
     <string name="desk_treasury_none">Brak zgłoszonego skarbca</string>
     <string name="desk_found">Znaleziony w kodzie Twojej aplikacji: %1$s, opłacany przez %2$d portfeli. Potwierdź go jako swój skarbiec w Płatnościach lub zgłoś, jeśli nie jest Twój.</string>
@@ -1221,9 +1219,6 @@
     <string name="pa_board_title">Najczęściej opłacane aplikacje</string>
     <string name="pa_pill_confirmed">potwierdzony</string>
     <string name="pa_pill_found">znaleziony w kodzie aplikacji</string>
-    <string name="pa_row_counts">Płatności: %1$s · płatnicy: %2$s · nowi: %3$s</string>
-    <string name="pa_payments_payers">Płatności: %1$s · płatnicy: %2$s</string>
-    <string name="pa_new_line">Płatności: %1$s · nowi płatnicy: %2$s</string>
     <string name="pa_cat_title">Kategorie</string>
     <string name="pa_cat_apps">Opłacone aplikacje: %1$s</string>
     <string name="pa_vs_before">Zmiana względem poprzedniego okresu o tej samej długości.</string>
@@ -1235,7 +1230,6 @@
     <string name="pa_was">wcześniej %1$s</string>
     <string name="pa_trend_note">Zmiana otrzymanych USD względem poprzedniego okresu o tej samej długości. Aplikacja potrzebuje %1$s w jednym z dwóch okresów, by trafić do zestawienia. Nowe: pierwsza płatność widziana w tym okresie.</string>
     <string name="pa_how_title">Jak płacono</string>
-    <string name="pa_rail_line">Płatności: %1$s · %2$s</string>
     <string name="pa_median">Mediana płatności</string>
     <string name="pa_p90">90. percentyl</string>
     <string name="pa_max">Największa</string>
@@ -1278,4 +1272,34 @@
     <string name="ph_top_payer">Udział największego płacącego</string>
     <string name="ph_top10_payers">Udział 10 największych płacących</string>
     <string name="ph_of">%1$s z %2$s</string>
+    <string name="ledger_counted_frame">Liczone: %1$s od %2$s · %3$d widocznych</string>
+    <string name="standing_operator">Portfel operatora Undersigned: twoje recenzje są widoczne, oznaczone i nigdy niezliczane.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: posiadany</string>
+    <string name="me_sgt_no">Seeker Genesis Token: brak</string>
+    <string name="me_counts_yes">Liczy się: posiadany Genesis Token</string>
+    <string name="me_counts_operator">Widoczne, nigdy niezliczane: portfel operatora Undersigned</string>
+    <string name="me_counts_no">Widoczne, niezliczane: brak Genesis Token</string>
+    <string name="row_store_rating">Sklep: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Sklep %1$s★</string>
+    <string name="score_empty_shown">Brak liczonych recenzji · %1$d widocznych</string>
+    <string name="score_empty_operator">Brak liczonych recenzji · %1$d widocznych (operator Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Nic nie czeka: każda recenzja twoich udowodnionych aplikacji ma odpowiedź.</string>
+    <string name="pro_line_fee_short">opłata sieciowa</string>
+    <string name="quick_apart">Szybka recenzja jest pokazywana osobno i nigdy nie jest liczona.</string>
+    <string name="tags_more">Więcej tagów (%1$d)</string>
+    <string name="alert_offer_title">Dowiedz się, gdy ktoś odpowie</string>
+    <string name="alert_offer_body">Alerty są wyłączone. Włącz je, by dowiedzieć się na tym telefonie, gdy wydawca odpowie na twoją recenzję. Nic nie opuszcza urządzenia.</string>
+    <string name="alert_offer_button">Włącz alerty</string>
+    <string name="alert_offer_on">Alerty są włączone. Zmienisz je w każdej chwili w Ustawieniach.</string>
+    <string name="pay_seg_analytics">Analityka</string>
+    <string name="pay_seg_confirmed">Potwierdzone</string>
+    <string name="pay_seg_found">Znalezione w kodzie</string>
+    <string name="pa_headline_label">Głównie portfele znalezione w kodzie aplikacji, niepotwierdzone przez wydawców; wpływy brutto, nie przychód</string>
+    <string name="score_none_counted">Brak liczonych recenzji</string>
+    <string name="share_review_it">Oceń ją swoim Seekerem: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s płatność</item><item quantity="few">%1$s płatności</item><item quantity="many">%1$s płatności</item><item quantity="other">%1$s płatności</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s płacący</item><item quantity="few">%1$s płacących</item><item quantity="many">%1$s płacących</item><item quantity="other">%1$s płacących</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s nowy</item><item quantity="few">%1$s nowi</item><item quantity="many">%1$s nowych</item><item quantity="other">%1$s nowi</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s nowy płacący</item><item quantity="few">%1$s nowych płacących</item><item quantity="many">%1$s nowych płacących</item><item quantity="other">%1$s nowych płacących</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Ostatnie 30 dni: %1$d podpisana recenzja (30 wcześniej: %2$d)</item><item quantity="few">Ostatnie 30 dni: %1$d podpisane recenzje (30 wcześniej: %2$d)</item><item quantity="many">Ostatnie 30 dni: %1$d podpisanych recenzji (30 wcześniej: %2$d)</item><item quantity="other">Ostatnie 30 dni: %1$d podpisane recenzje (30 wcześniej: %2$d)</item></plurals>
 </resources>

@@ -38,7 +38,6 @@
     <string name="row_signed_count">%1$d υπογεγραμμένες</string>
     <string name="row_no_reviews">Καμία υπογεγραμμένη κριτική ακόμα</string>
     <string name="ledger_syncing">Ανάγνωση του ledger…</string>
-    <string name="ledger_synced">Ledger: %1$s · %2$s</string>
     <plurals name="ledger_reviews"><item quantity="one">%1$d κριτική</item><item quantity="other">%1$d κριτικές</item></plurals>
     <plurals name="ledger_seekers"><item quantity="one">%1$d Seeker</item><item quantity="other">%1$d Seeker</item></plurals>
     <string name="ledger_error">Η ανάγνωση του ledger απέτυχε: %1$s</string>
@@ -138,7 +137,7 @@
     </plurals>
     <string name="import_note">Οι εισαγόμενες κριτικές φέρουν την ετικέτα \"works\" (4–5★) ή \"confusing\" (1–3★)· επεξεργαστείτε τις όποτε θέλετε με νέα κριτική. Κείμενο πάνω από 140 χαρακτήρες περικόπτεται.</string>
     <string name="detail_tags_title">Τι επισήμαναν οι κάτοχοι</string>
-    <string name="detail_facts_title">Τι μπορεί να επαληθεύσει η συσκευή σας</string>
+    <string name="detail_facts_title">Τι μπορεί να ελέγξει η συσκευή σας</string>
     <string name="detail_facts_sub">Διαβάζεται από τον διαχειριστή πακέτων αυτού του τηλεφώνου. Μόνο στοιχεία και αλλαγές· όχι κρίση ασφάλειας.</string>
     <string name="fact_version">Εγκατεστημένος κωδικός έκδοσης</string>
     <string name="fact_signer">Πιστοποιητικό υπογραφής (SHA-256)</string>
@@ -168,7 +167,7 @@
     <string name="review_needs_wallet">Συνδεθείτε με το πορτοφόλι Seeker σας για να δημοσιεύσετε.</string>
     <string name="review_needs_sgt">Αυτό το πορτοφόλι δεν κατέχει διαπιστευτήριο πιστοποιημένης συσκευής (σήμερα: το Seeker Genesis Token), οπότε οι κριτικές του δεν θα μετρούσαν. Η δημοσίευση είναι απενεργοποιημένη για να μην πληρώσετε το τέλος δικτύου χωρίς λόγο.</string>
     <string name="review_checking_sgt">Έλεγχος πιστοποίησης συσκευής…</string>
-    <string name="review_fee_note">Το πορτοφόλι σας πληρώνει μόνο το τέλος δικτύου Solana που ορίζει το ίδιο (συνήθως κάτω από 0,0001 SOL· μετρήθηκε 0,000047 SOL σε ένα Seeker). Δεν μετακινείται αξία. Το Undersigned δεν κρατάει τίποτα.</string>
+    <string name="review_fee_note">Το πορτοφόλι σας πληρώνει μόνο τη χρέωση δικτύου του Solana, που ορίζει το ίδιο, συνήθως κάτω από 0,0001 SOL. Δεν μετακινείται αξία. Το Undersigned δεν παίρνει τίποτα για μια κριτική.</string>
     <string name="review_submit">Υπογραφή και δημοσίευση</string>
     <string name="review_simulating">Έλεγχος της συναλλαγής…</string>
     <string name="review_signing">Αναμονή για το πορτοφόλι σας…</string>
@@ -250,7 +249,7 @@
     <string name="inbox_replies">Απαντήσεις σε εμένα</string>
     <string name="inbox_starred">Με αστέρι</string>
     <string name="inbox_unanswered_sub">Υπογεγραμμένες κριτικές σε εφαρμογές των οποίων είστε ο αποδεδειγμένος εκδότης, χωρίς απάντηση από εσάς.</string>
-    <string name="inbox_unanswered_empty">Τίποτα σε αναμονή. Επαληθεύστε μια διεκδίκηση εκδότη για να δείτε τις εφαρμογές σας εδώ.</string>
+    <string name="inbox_unanswered_empty">Τίποτα σε αναμονή. Αποδείξτε ότι εκδίδετε μια εφαρμογή για να δείτε εδώ τις κριτικές της.</string>
     <string name="inbox_replies_empty">Καμία απάντηση στις εγγραφές σας ακόμα.</string>
     <string name="inbox_starred_empty">Βάλτε αστέρι σε μια κριτική για να τη διατηρήσετε εδώ.</string>
     <string name="swipe_hint">Σύρετε μια κριτική προς τα δεξιά για να απαντήσετε.</string>
@@ -411,7 +410,7 @@
     <string name="pro_paying_title">Τι πληρώνετε</string>
     <string name="pro_line_licence">Pro, 12 μήνες</string>
     <string name="pro_line_fee">Τέλος δικτύου, ορίζεται από το πορτοφόλι σας</string>
-    <string name="pro_line_fee_value">≈0,000047 SOL</string>
+    <string name="pro_line_fee_value">συνήθως κάτω από 0,0001 SOL</string>
     <string name="pro_line_total">Σύνολο</string>
     <string name="pro_paid_to">Πληρώνεται στη διεύθυνση που αναφέρεται στο φύλλο Νομικών. Η άδεια γράφεται στο ledger έναντι αυτού του πορτοφολιού — κανένας λογαριασμός, κανένας server, τίποτα αποθηκευμένο για εσάς.</string>
     <string name="pro_before_title">Πριν υπογράψετε</string>
@@ -481,7 +480,7 @@
     <string name="fp_pro">Pro</string>
     <string name="fp_read">Ανάγνωση ολόκληρου του ledger</string>
     <string name="fp_sign">Υπογραφή κριτικών, απαντήσεων, επισημάνσεων, ενστάσεων</string>
-    <string name="fp_facts">Τι μπορεί να επαληθεύσει η συσκευή σας</string>
+    <string name="fp_facts">Τι μπορεί να ελέγξει η συσκευή σας</string>
     <string name="fp_claim">Διεκδίκηση dApp, απάντηση ως αποδεδειγμένος εκδότης του</string>
     <string name="fp_copy">Αντιγραφή κριτικής στο κατάστημα</string>
     <string name="fp_import">Εισαγωγή κριτικών καταστήματος</string>
@@ -617,7 +616,7 @@
     <string name="lb_open">Πίνακας κατάταξης</string>
     <string name="lb_overall">Συνολικά</string>
     <plurals name="lb_dapps"><item quantity="one">%1$d dApp</item><item quantity="other">%1$d dApps</item></plurals>
-    <string name="lb_m_revenue">Έσοδα</string>
+    <string name="lb_m_revenue">Εισπράχθηκαν</string>
     <string name="lb_m_payers">Χρήστες που πληρώνουν</string>
     <string name="lb_m_signed_score">Υπογεγραμμένη βαθμολογία</string>
     <string name="lb_m_signed_reviews">Υπογεγραμμένες κριτικές</string>
@@ -638,7 +637,7 @@
     <string name="lb_downloads_title">Λήψεις</string>
     <string name="lb_downloads_body">Το dApp Store δεν δημοσιεύει αριθμούς εγκαταστάσεων, άρα δεν υπάρχει κατάταξη λήψεων. Θα εμφανιστεί εδώ αν προστεθεί μια πηγή.</string>
     <string name="lb_signed_n">Υπογεγραμμένες κριτικές: %1$d</string>
-    <string name="dd_revenue">Έσοδα</string>
+    <string name="dd_revenue">Εισπράχθηκαν</string>
     <string name="dd_signed">Υπογεγραμμένο</string>
     <string name="dd_store">Κατάστημα</string>
     <string name="dd_updates">Ενημερώσεις</string>
@@ -661,7 +660,7 @@
     <string name="tr_90d">90Η</string>
     <string name="tr_1y">1Ε</string>
     <string name="tr_all">Όλα</string>
-    <string name="tr_revenue">Έσοδα</string>
+    <string name="tr_revenue">Εισπράχθηκαν</string>
     <string name="tr_score">Βαθμολογία με την πάροδο του χρόνου</string>
     <string name="tr_signed">Υπογεγραμμένο</string>
     <string name="tr_store">Κατάστημα</string>
@@ -749,7 +748,7 @@
     <string name="tag_perms_excess">Υπερβολικά δικαιώματα</string>
     <string name="tag_spam_reviews">Αφύσικες κριτικές</string>
     <string name="tag_misleading">Παραπλανητικό</string>
-    <string name="tag_suspected_scam">Πιθανή απάτη</string>
+    <string name="tag_suspected_scam">Φαίνεται παραπλανητική</string>
     <string name="tag_abandoned">Εγκαταλελειμμένο</string>
     <string name="tag_active_dev">Ενεργή ανάπτυξη</string>
     <string name="tag_onboarding_ok">Καλή εκκίνηση</string>
@@ -1085,7 +1084,6 @@
     <string name="pay_found_empty">Τίποτα ακόμα. Οι εκδόσεις του καταστήματος διαβάζονται ακόμη (%1$d μέχρι στιγμής).</string>
     <string name="pay_found_dispute">Είναι κάποιο δικό σου; Καταχώρισε το ταμείο σου παρακάτω και περνά στον πίνακα. Δεν είναι δικό σου; Ανέφερέ το και αφαιρείται.</string>
     <string name="pay_found_report">Αναφορά πορτοφολιού</string>
-    <string name="desk_trend">Τελευταίες 30 ημέρες: %1$d υπογεγραμμένες κριτικές (οι 30 πριν: %2$d)</string>
     <string name="desk_treasury_confirmed">Ταμείο επιβεβαιωμένο · ελήφθησαν %1$s</string>
     <string name="desk_treasury_none">Δεν έχει καταχωριστεί ταμείο</string>
     <string name="desk_found">Βρέθηκε στον κώδικα της εφαρμογής σου: %1$s, πληρωμένο από %2$d πορτοφόλια. Επιβεβαίωσέ το ως ταμείο σου στις Πληρωμές ή ανέφερέ το αν δεν είναι δικό σου.</string>
@@ -1183,9 +1181,6 @@
     <string name="pa_board_title">Εφαρμογές με τις περισσότερες πληρωμές</string>
     <string name="pa_pill_confirmed">επιβεβαιωμένο</string>
     <string name="pa_pill_found">βρέθηκε στον κώδικα της εφαρμογής</string>
-    <string name="pa_row_counts">%1$s πληρωμές · %2$s πληρωτές · %3$s νέοι</string>
-    <string name="pa_payments_payers">%1$s πληρωμές · %2$s πληρωτές</string>
-    <string name="pa_new_line">%1$s πληρωμές · %2$s νέοι πληρωτές</string>
     <string name="pa_cat_title">Κατηγορίες</string>
     <string name="pa_cat_apps">%1$s εφαρμογές πληρώθηκαν</string>
     <string name="pa_vs_before">Η μεταβολή είναι σε σχέση με την προηγούμενη περίοδο ίδιας διάρκειας.</string>
@@ -1197,7 +1192,6 @@
     <string name="pa_was">πριν %1$s</string>
     <string name="pa_trend_note">Μεταβολή των USD που ελήφθησαν σε σχέση με την προηγούμενη περίοδο ίδιας διάρκειας. Μια εφαρμογή χρειάζεται %1$s σε μία από τις δύο περιόδους για να καταταχθεί. Νέες: πρώτη πληρωμή μέσα στην περίοδο.</string>
     <string name="pa_how_title">Πώς πληρώθηκε</string>
-    <string name="pa_rail_line">%1$s πληρωμές · %2$s</string>
     <string name="pa_median">Διάμεση πληρωμή</string>
     <string name="pa_p90">90ό εκατοστημόριο</string>
     <string name="pa_max">Μεγαλύτερη</string>
@@ -1240,4 +1234,34 @@
     <string name="ph_top_payer">Μερίδιο του μεγαλύτερου πληρωτή</string>
     <string name="ph_top10_payers">Μερίδιο των 10 μεγαλύτερων πληρωτών</string>
     <string name="ph_of">%1$s από %2$s</string>
+    <string name="ledger_counted_frame">Μετρήθηκαν: %1$s από %2$s · %3$d εμφανίζονται</string>
+    <string name="standing_operator">Πορτοφόλι διαχειριστή του Undersigned: οι κριτικές σας εμφανίζονται, επισημασμένες, και δεν μετρούν ποτέ.</string>
+    <string name="me_sgt_yes">Seeker Genesis Token: υπάρχει</string>
+    <string name="me_sgt_no">Seeker Genesis Token: δεν υπάρχει</string>
+    <string name="me_counts_yes">Μετρά: υπάρχει Genesis Token</string>
+    <string name="me_counts_operator">Εμφανίζεται, δεν μετρά ποτέ: πορτοφόλι διαχειριστή του Undersigned</string>
+    <string name="me_counts_no">Εμφανίζεται, δεν μετρά: χωρίς Genesis Token</string>
+    <string name="row_store_rating">Κατάστημα: %1$s★ (%2$d)</string>
+    <string name="row_store_short">Κατάστημα %1$s★</string>
+    <string name="score_empty_shown">Καμία μετρημένη κριτική ακόμη · %1$d εμφανίζονται</string>
+    <string name="score_empty_operator">Καμία μετρημένη κριτική ακόμη · %1$d εμφανίζονται (διαχειριστής Undersigned)</string>
+    <string name="inbox_unanswered_empty_publisher">Τίποτα σε αναμονή: κάθε κριτική των αποδεδειγμένων εφαρμογών σας έχει απάντηση.</string>
+    <string name="pro_line_fee_short">χρέωση δικτύου</string>
+    <string name="quick_apart">Μια γρήγορη κριτική εμφανίζεται χωριστά και δεν μετρά ποτέ.</string>
+    <string name="tags_more">Περισσότερες ετικέτες (%1$d)</string>
+    <string name="alert_offer_title">Μάθετε όταν κάποιος απαντά</string>
+    <string name="alert_offer_body">Οι ειδοποιήσεις είναι απενεργοποιημένες. Ενεργοποιήστε τες για να μαθαίνετε σε αυτό το τηλέφωνο όταν ο εκδότης απαντά στην κριτική σας. Τίποτα δεν φεύγει από τη συσκευή.</string>
+    <string name="alert_offer_button">Ενεργοποίηση ειδοποιήσεων</string>
+    <string name="alert_offer_on">Οι ειδοποιήσεις είναι ενεργές. Αλλάξτε τες οποτεδήποτε στις Ρυθμίσεις.</string>
+    <string name="pay_seg_analytics">Ανάλυση</string>
+    <string name="pay_seg_confirmed">Επιβεβαιωμένα</string>
+    <string name="pay_seg_found">Βρέθηκαν στον κώδικα</string>
+    <string name="pa_headline_label">Κυρίως πορτοφόλια που βρέθηκαν σε κώδικα εφαρμογών, μη επιβεβαιωμένα από εκδότες· ακαθάριστες εισπράξεις, όχι έσοδα</string>
+    <string name="score_none_counted">Καμία μετρημένη κριτική</string>
+    <string name="share_review_it">Αξιολογήστε την με το Seeker σας: %1$s</string>
+    <plurals name="pa_n_payments"><item quantity="one">%1$s πληρωμή</item><item quantity="other">%1$s πληρωμές</item></plurals>
+    <plurals name="pa_n_payers"><item quantity="one">%1$s πληρωτής</item><item quantity="other">%1$s πληρωτές</item></plurals>
+    <plurals name="pa_n_new"><item quantity="one">%1$s νέος</item><item quantity="other">%1$s νέοι</item></plurals>
+    <plurals name="pa_n_new_payers"><item quantity="one">%1$s νέος πληρωτής</item><item quantity="other">%1$s νέοι πληρωτές</item></plurals>
+    <plurals name="desk_trend_p"><item quantity="one">Τελευταίες 30 ημέρες: %1$d υπογεγραμμένη κριτική (οι 30 πριν: %2$d)</item><item quantity="other">Τελευταίες 30 ημέρες: %1$d υπογεγραμμένες κριτικές (οι 30 πριν: %2$d)</item></plurals>
 </resources>

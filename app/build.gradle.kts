@@ -23,8 +23,8 @@ android {
         applicationId = "com.undersigned.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 14
-        versionName = "1.1.3"
+        versionCode = 15
+        versionName = "1.1.4"
         // Keyed RPC provider from local.properties — never in source control. Empty = public pools only.
         resValue("string", "helius_api_key", localProperties.getProperty("HELIUS_API_KEY", ""))
         // Fleet last-resort key: lives ONLY in ~/.gradle/gradle.properties (never committed). Appended LAST.
@@ -58,7 +58,8 @@ android {
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true; buildConfig = true }
-    packaging { resources { excludes += "win32-x86/**"; excludes += "win32-x86-64/**" } }
+    // BouncyCastle's Picnic tables (~1.2 MB, post-quantum signatures this app never uses) are dropped from the APK (judge, 10 Oct 2026).
+    packaging { resources { excludes += "win32-x86/**"; excludes += "win32-x86-64/**"; excludes += "org/bouncycastle/pqc/crypto/picnic/lowmc*.properties" } }
 }
 
 dependencies {

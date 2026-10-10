@@ -272,14 +272,20 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                     }
                     segment(stringResource(R.string.member_score_title), stringResource(R.string.member_score_note), proScores[pkg], RbColors.purpleLight)
-                } else Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 14.sp)
-                Spacer(Modifier.height(6.dp))
-                Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                } else {
+                    // Nothing counted: one line instead of the method paragraph (judge, 10 Oct 2026), saying what IS shown and why.
+                    val shown = reviews.size
+                    val allOperator = shown > 0 && reviews.all { com.undersigned.protocol.Operator.isOperator(it.first.signer) }
+                    Text(when { shown == 0 -> stringResource(R.string.row_no_reviews); allOperator -> stringResource(R.string.score_empty_operator, shown); else -> stringResource(R.string.score_empty_shown, shown) },
+                        color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 19.sp)
+                }
+                val counted = score != null && score.countedReviews > 0
+                if (counted) { Spacer(Modifier.height(6.dp)); Text(stringResource(R.string.detail_score_sub), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
                 // The review-integrity policy: how reviews are collected, checked, ranked and moderated (CMA208 8.9, UCPD 7(6)).
                 val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
                 Text(stringResource(R.string.integrity_link), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uriHandler.openUri(com.undersigned.app.AppConfig.Identity.URI + "integrity.html") } }.padding(vertical = 14.dp))
-                com.undersigned.app.ui.components.HelpAsk(vm, Modifier.tourTarget("d_help"))
+                if (counted) com.undersigned.app.ui.components.HelpAsk(vm, Modifier.tourTarget("d_help"))
             }
 
             // Reviews over time (owner, 8 Oct 2026): store reviews by Seeker owners and other wallets, signed reviews, and both
@@ -288,8 +294,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             val timeline by androidx.compose.runtime.produceState<Pair<List<com.undersigned.protocol.Timeline.Bucket>, Long?>>(emptyList<com.undersigned.protocol.Timeline.Bucket>() to null, pkg, timelineRange, entries, storeHistory[pkg], factsMap.size, txMeta.size) {
                 value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { vm.timeline(pkg, timelineRange.days) }
             }
-            SectionTitle(stringResource(R.string.timeline_title))
-            GlassCard { ReviewTimeline(timeline.first, timelineRange, { timelineRange = it }, timeline.second) }
+            // No data, no chart (judge, 10 Oct 2026). The range chips stay while another range might have some.
+            val anyTimeline = timeline.first.any { it.storeSeeker + it.storeOther + it.signed > 0 }
+            if (anyTimeline || timelineRange != TimelineRange.ALL) {
+                SectionTitle(stringResource(R.string.timeline_title))
+                GlassCard { ReviewTimeline(timeline.first, timelineRange, { timelineRange = it }, timeline.second) }
+            }
 
             // Signed reviews are what this app is for, so they come straight after the score; the store's own rating,
             // bursts and device facts follow (UI review 6 Oct 2026: they sat about ten swipes down, under store reviews).
@@ -882,11 +892,12 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         }
                     }
                     StatRow(stringResource(R.string.fact_perms), facts.dangerousPermissions.size.toString())
-                    if (facts.dangerousPermissions.isNotEmpty()) Text(facts.dangerousPermissions.joinToString(", "), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    // Human names (judge, 10 Oct 2026), not android.permission constants.
+                    if (facts.dangerousPermissions.isNotEmpty()) Text(remember(facts.dangerousPermissions) { vm.permissionNames(facts.dangerousPermissions) }.joinToString(", "), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                     facts.delta?.let { d ->
                         if (d.signerChanged) { Spacer(Modifier.height(6.dp)); Text(stringResource(R.string.fact_signer_changed), color = RbColors.negative, fontSize = 13.sp, fontWeight = FontWeight.Bold) }
-                        if (d.permissionsAdded.isNotEmpty()) Text(stringResource(R.string.fact_perms_added, d.permissionsAdded.joinToString(", ")), color = RbColors.warning, fontSize = 12.sp)
-                        if (d.permissionsRemoved.isNotEmpty()) Text(stringResource(R.string.fact_perms_removed, d.permissionsRemoved.joinToString(", ")), color = RbColors.textSecondary, fontSize = 12.sp)
+                        if (d.permissionsAdded.isNotEmpty()) Text(stringResource(R.string.fact_perms_added, vm.permissionNames(d.permissionsAdded).joinToString(", ")), color = RbColors.warning, fontSize = 12.sp)
+                        if (d.permissionsRemoved.isNotEmpty()) Text(stringResource(R.string.fact_perms_removed, vm.permissionNames(d.permissionsRemoved).joinToString(", ")), color = RbColors.textSecondary, fontSize = 12.sp)
                     }
                 }
             }

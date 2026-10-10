@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -203,11 +205,16 @@ fun timeLabel(t: com.undersigned.protocol.UseTime): String = androidx.compose.ui
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun TagPicker(selected: List<com.undersigned.protocol.ReviewMemo.Tag>, enabled: Boolean = true, onChange: (List<com.undersigned.protocol.ReviewMemo.Tag>) -> Unit) {
+fun TagPicker(selected: List<com.undersigned.protocol.ReviewMemo.Tag>, enabled: Boolean = true, collapsible: Boolean = false, onChange: (List<com.undersigned.protocol.ReviewMemo.Tag>) -> Unit) {
     val ctx = LocalContext.current
+    // Collapsed (judge, 10 Oct 2026): the first six tags and any already chosen, then "More tags". Expanding never unchooses.
+    var expanded by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(!collapsible) }
+    val all = com.undersigned.protocol.TagGroups.groups.flatMap { it.second }
+    val visible = if (expanded) all.toSet() else (all.take(COLLAPSED_TAGS) + selected).toSet()
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        com.undersigned.protocol.TagGroups.groups.forEach { (g, tags) ->
-            Column {
+        com.undersigned.protocol.TagGroups.groups.forEach { (g, groupTags) ->
+            val tags = groupTags.filter { it in visible }
+            if (tags.isNotEmpty()) Column {
                 Text(ctx.getString(when (g) {
                     com.undersigned.protocol.TagGroups.Group.USE -> com.undersigned.app.R.string.tag_group_use
                     com.undersigned.protocol.TagGroups.Group.WALLET -> com.undersigned.app.R.string.tag_group_wallet
@@ -220,8 +227,18 @@ fun TagPicker(selected: List<com.undersigned.protocol.ReviewMemo.Tag>, enabled: 
                 }
             }
         }
+        if (collapsible) {
+            val hidden = all.size - visible.size
+            if (!expanded && hidden > 0) TextButton(onClick = { expanded = true }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(ctx.getString(R.string.tags_more, hidden), color = RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) }
+            else if (expanded) TextButton(onClick = { expanded = false }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(ctx.getString(R.string.show_less), color = RbColors.purpleLight, fontSize = 13.sp) }
+        }
     }
 }
+
+/** How many tags the collapsed picker shows before "More tags". */
+private const val COLLAPSED_TAGS = 6
 
 /** The back arrow every screen's header uses, with its screen-reader label (all 16 had none, UI review 6 Oct 2026). */
 @Composable
