@@ -44,7 +44,9 @@ fun PaymentHistoryScreen(vm: MainViewModel, pkg: String, onBack: () -> Unit, onO
     val cache by vm.payHistories.collectAsState()
     var failed by remember { mutableStateOf(false) }
     var attempt by remember { mutableStateOf(0) }
-    LaunchedEffect(pkg, attempt) { vm.paymentHistory(pkg).fold({ failed = false }, { failed = true }) }
+    LaunchedEffect(pkg, attempt) { com.undersigned.app.util.NetStatus.retryOnce { vm.paymentHistory(pkg) }.fold({ failed = false }, { failed = true }) }
+    val reconnects by com.undersigned.app.util.NetStatus.reconnects.collectAsState()
+    LaunchedEffect(reconnects) { if (failed) { failed = false; attempt++ } }
     val h = cache[pkg]
     val catalogue by vm.catalogue.collectAsState()
     val name = h?.week?.name ?: h?.month?.name ?: catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg

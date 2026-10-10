@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 1.1.6: a retry waits for the system to say the network is back (normal permission, granted at install). -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Local alerts only (new signed reviews on apps you follow, replies to your reviews). Asked on opt-in. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- Installed-app facts (signing certificate, permission drift) are computed ON-DEVICE and never

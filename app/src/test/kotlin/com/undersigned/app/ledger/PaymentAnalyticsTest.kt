@@ -85,6 +85,23 @@ class PaymentAnalyticsTest {
         assertTrue(PaymentAnalytics.parseHistory(JSONObject(week)).windows.isEmpty())
     }
 
+    @Test fun deskSparklineIsTwelveWeeksOldestFirstWithGapsAsZero() {
+        val h = PaymentAnalytics.parseHistory(JSONObject(week))
+        // Saturday 10 Oct 2026: the current week is the one starting Monday 5 Oct.
+        val w = PaymentAnalytics.lastWeeks(h.series, 12, java.time.LocalDate.parse("2026-10-10"))
+        assertEquals(12, w.size)
+        assertEquals(listOf(11488.55, 7638.54, 11442.05), w.takeLast(3))
+        assertEquals(0.0, w.first(), 0.0)              // 20 Jul: no payments that week, drawn as 0, not skipped
+        assertEquals(30569.14, w.sum(), 0.001)        // the Feb 2025 week is outside the 12
+        // On a Monday the new week is the last point (still 0) and the oldest of the previous run drops off.
+        assertEquals(0.0, PaymentAnalytics.lastWeeks(h.series, 12, java.time.LocalDate.parse("2026-10-12")).last(), 0.0)
+        assertTrue(PaymentAnalytics.lastWeeks(emptyList(), 12, java.time.LocalDate.parse("2026-10-10")).all { it == 0.0 })
+        // 30 days: the server's window total when sent, else the overlapping weeks.
+        assertEquals(30569.14, PaymentAnalytics.last30Usd(h, java.time.LocalDate.parse("2026-10-10")), 0.001)
+        val withWindows = PaymentAnalytics.parseHistory(JSONObject(week).put("windows", JSONObject("""{"30d":{"usd":27000.5,"payments":700,"payers":120}}""")))
+        assertEquals(27000.5, PaymentAnalytics.last30Usd(withWindows, java.time.LocalDate.parse("2026-10-10")), 0.0)
+    }
+
     @Test fun windowKeepsTheWeeksThatOverlapIt() {
         val s = PaymentAnalytics.parseHistory(JSONObject(week)).series
         val today = java.time.LocalDate.parse("2026-10-10")

@@ -182,7 +182,8 @@ private fun KitLink(text: String, onClick: () -> Unit) {
 @Composable
 private fun DeskPayments(vm: MainViewModel, pkg: String) {
     val cached by vm.deskSeries.collectAsState()
-    LaunchedEffect(pkg) { vm.deskPayments(pkg) }
+    val reconnects by com.undersigned.app.util.NetStatus.reconnects.collectAsState()
+    LaunchedEffect(pkg, reconnects) { vm.deskPayments(pkg) }   // read once; a failed read is tried again when the network returns
     val h = cached[pkg] ?: return
     val today = remember { java.time.LocalDate.now(java.time.ZoneOffset.UTC) }
     val weeks = remember(h) { com.undersigned.app.ledger.PaymentAnalytics.lastWeeks(h.series, 12, today) }

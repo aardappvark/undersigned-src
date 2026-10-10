@@ -535,7 +535,10 @@ private fun PaySegments(selected: Int, onSelect: (Int) -> Unit) {
 @Composable
 private fun FoundInCode(vm: MainViewModel, onOpen: (String) -> Unit) {
     var attempt by remember { mutableStateOf(0) }
-    val found by produceState<Result<org.json.JSONObject>?>(null, attempt) { value = null; value = vm.foundTreasuries() }
+    // A network failure is tried again once after 1.5 s, and a failed read re-runs when the system says the network is back (1.1.6).
+    val found by produceState<Result<org.json.JSONObject>?>(null, attempt) { value = null; value = com.undersigned.app.util.NetStatus.retryOnce { vm.foundTreasuries() } }
+    val reconnects by com.undersigned.app.util.NetStatus.reconnects.collectAsState()
+    LaunchedEffect(reconnects) { if (found?.isFailure == true) attempt++ }
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     GlassCard(accent = RbColors.warning.copy(alpha = 0.5f)) {
         Text(stringResource(R.string.pay_found_title), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
@@ -612,7 +615,9 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
     val cache by vm.paymentSummaries.collectAsState()
     var failed by remember { mutableStateOf(setOf<String>()) }
     var attempt by remember { mutableStateOf(0) }
-    LaunchedEffect(window, attempt) { vm.paymentSummary(window).fold({ failed = failed - window }, { failed = failed + window }) }
+    LaunchedEffect(window, attempt) { com.undersigned.app.util.NetStatus.retryOnce { vm.paymentSummary(window) }.fold({ failed = failed - window }, { failed = failed + window }) }
+    val reconnects by com.undersigned.app.util.NetStatus.reconnects.collectAsState()
+    LaunchedEffect(reconnects) { if (window in failed) { failed = failed - window; attempt++ } }
     val labels = mapOf("7d" to R.string.pa_window_7d, "30d" to R.string.pa_window_30d, "90d" to R.string.pa_window_90d, "1y" to R.string.pa_window_1y, "all" to R.string.pa_window_all)
     Text(stringResource(R.string.pa_title), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
     // Wraps instead of scrolling: "All time" sat clipped at the right edge (judge, 10 Oct 2026).

@@ -16,9 +16,9 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 
 | Deliverable | Status | Where |
 |---|---|---|
-| Functional Android APK | **READY** — 1.1.5 (versionCode 16), 11.2 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 60a000c6…c7c5 | `assets/submission/Undersigned-1.1.5-vc16.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.5` (owner). |
+| Functional Android APK | **READY** — 1.1.6 (versionCode 17), 11.2 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 773a0088…8bdf | `assets/submission/Undersigned-1.1.6-vc17.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.6` (owner). |
 | GitHub repository | **READY** — 180 commits on 18 days from 8 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
-| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.5 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
+| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.6 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
 | Pitch deck | **READY** — 15 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
@@ -89,7 +89,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 ## Five minutes with it (the judge's path)
 
-1. **The app** (`assets/submission/Undersigned-1.1.5-vc16.apk`): open it, take the tour, open any app's page, tap Write a signed review, see the Seed Vault sheet. Payments tab: leaderboards, categories, rising dApps; tap one for its history.
+1. **The app** (`assets/submission/Undersigned-1.1.6-vc17.apk`): open it, take the tour, open any app's page, tap Write a signed review, see the Seed Vault sheet. Payments tab: leaderboards, categories, rising dApps; tap one for its history.
 2. **The site**: https://undersigned.provenby.dev · [/payments](https://undersigned.provenby.dev/payments) · [/status](https://undersigned.provenby.dev/status), where "Scores recomputed from the chain alone · OK" is a six-hourly run of `api verify` that rebuilds every score from the registry in a throwaway database and diffs the live dataset.
 3. **The chain**: a review signed on a Seeker, [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5); the registry `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs`; the [browser viewer](https://aardappvark.github.io/undersigned-viewer/) that reads it with no server.
 4. **An agent**: add `https://undersigned.provenby.dev/mcp` to Claude or Cursor; 24 read-only tools.
@@ -107,7 +107,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 ## Owner's steps (in order)
 
-1. Re-record the demo video on 1.1.5 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
+1. Re-record the demo video on 1.1.6 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
 2. Sign in to RADOS / Align at solanamobile.radiant.nexus, complete the builder profile, register for Clock In.
 3. Install the Radiants Align GitHub app on `aardappvark/Undersigned`.
 4. Fill the form from this file; attach the APK and the deck; paste the video link.
