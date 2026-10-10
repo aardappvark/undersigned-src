@@ -70,7 +70,10 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
                 c.requestMethod = "POST"; c.doOutput = true; c.connectTimeout = 10_000; c.readTimeout = 60_000
                 c.setRequestProperty("x-api-key", key); c.setRequestProperty("anthropic-version", "2023-06-01")
                 c.setRequestProperty("content-type", "application/json"); c.setRequestProperty("User-Agent", "Undersigned-API/1")
+                // Reading aids need no deliberation: with thinking left on, Haiku 5.5 spent the whole budget thinking and
+                // answered nothing (the weekly digest, 10 Oct 2026). Thinking off; the budget is the answer's alone.
                 val body = JSONObject().put("model", Config.AI_MODEL).put("max_tokens", maxTokens).put("system", system)
+                    .put("thinking", JSONObject().put("type", "disabled"))
                     .put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", user)))
                 c.outputStream.use { it.write(body.toString().toByteArray()) }
                 if (c.responseCode != 200) { log("ai: HTTP ${c.responseCode}"); return@runCatching null }
@@ -80,8 +83,11 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
                     db.exec("UPDATE ai_usage SET in_tok = in_tok + ?, out_tok = out_tok + ? WHERE day = ?", inTok, outTok, today())
                     db.exec("UPDATE ai_segment SET in_tok = in_tok + ?, out_tok = out_tok + ? WHERE day = ? AND segment = ?", inTok, outTok, today(), segment)
                 }
-                val a = r.optJSONArray("content") ?: return@runCatching null
-                (0 until a.length()).mapNotNull { a.optJSONObject(it)?.takeIf { b -> b.optString("type") == "text" }?.optString("text") }.joinToString("").trim().ifEmpty { null }
+                val a = r.optJSONArray("content") ?: run { log("ai: no content (stop=${r.optString("stop_reason")}, ${r.toString().take(200)})"); return@runCatching null }
+                val text = (0 until a.length()).mapNotNull { a.optJSONObject(it)?.takeIf { b -> b.optString("type") == "text" }?.optString("text") }.joinToString("").trim()
+                // An empty answer is a fact worth a log line (10 Oct 2026: the weekly digest answered 503 for a day with nothing in the log).
+                if (text.isEmpty()) log("ai: empty answer (stop=${r.optString("stop_reason")}, blocks=${(0 until a.length()).joinToString(",") { a.optJSONObject(it)?.optString("type") ?: "?" }}, max_tokens=$maxTokens)")
+                text.ifEmpty { null }
             } finally { c.disconnect() }
         }.getOrElse { log("ai: ${it.message?.take(80)}"); null }
     }

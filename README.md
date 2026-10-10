@@ -32,7 +32,7 @@ Everything else hangs off that loop:
 | Publishers | Prove an app is yours (a signed claim checked against the website the store lists or the manifest of the store's own build); reply on-chain under a Publisher mark; sign "fixed in version N" and see who followed up; responsiveness shown publicly; per-version scores; desk, webhooks, badge, MCP. |
 | Integrity | Genesis-weighted flags and "looks genuine" clears; author disputes; near-duplicate labels; store review bursts and no-Genesis waves shown as facts; moderation hides text for four narrow reasons, never a voice ([docs/MODERATION.md](docs/MODERATION.md)). |
 | Payments board | Treasuries proven by the publisher, payments counted per app and over time, a leaderboard; wallets found in app code listed apart as unconfirmed. |
-| Developers and agents | Public website and JSON API, OpenAPI, dataset download, feeds, signed webhooks, a hosted MCP server (23 tools) and a local MCP desk (53 tools). |
+| Developers and agents | Public website and JSON API, OpenAPI, dataset download, feeds, signed webhooks, a hosted MCP server (24 tools) and a local MCP desk (53 tools). |
 
 ### Shown apart, labelled, and kept out of the signed score's ordering
 
