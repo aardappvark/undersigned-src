@@ -1075,8 +1075,6 @@
     <string name="tour_s9_b">Allt du har signerat, och appar i telefonen som väntar på din recension.</string>
     <string name="tour_s10_t">Inkorg</string>
     <string name="tour_s10_b">Svar på dina recensioner och, om du publicerar appar, recensioner av dina appar som behöver svar.</string>
-    <string name="tour_s11_t">Inställningar och Pro</string>
-    <string name="tour_s11_b">Din plånbok, aviseringar, Pro och betalningstavlan. Spela upp guiden igen från Inställningar när du vill.</string>
     <string name="pay_trend_title">Betalningar över tid</string>
     <string name="pay_trend_note">USD per månad för varje bekräftad listning, värderat som på tavlan: de fem största var för sig, resten tillsammans.</string>
     <string name="pay_trend_monthly">Per månad</string>
@@ -1210,4 +1208,18 @@
     <string name="pa_app_weekly">Mottagna betalningar per vecka</string>
     <string name="quick_withdraw_title">Dra tillbaka denna snabbrecension</string>
     <string name="quick_yours">Din snabbrecension (signerad av den här telefonen)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Bläddra</string>
+    <string name="nav_changes">Ändringar</string>
+    <string name="nav_payments">Betalningar</string>
+    <string name="nav_me">Jag</string>
+    <string name="pro_status_free">Den här plånboken har Free.</string>
+    <string name="pro_publisher_title">För utgivare</string>
+    <string name="pro_publisher_body">Utgivarplanen är skild från Pro: en apps rapport, webhooks och API:t, betalt per månad och app från plånboken som bevisade appen. Den köps på webbplatsen.</string>
+    <string name="pro_publisher_open">Se utgivarplanen</string>
+    <string name="tour_tabs_t">Fem flikar</string>
+    <string name="tour_tabs_b">Bläddra, Ändringar, Betalningar, Pro och Jag ligger längst ner. Varje flik minns var du var när du byter.</string>
+    <string name="tour_pro_t">Pro har en egen flik</string>
+    <string name="tour_pro_b">Vad Pro innehåller, priset i SOL eller SKR och plånbokens status. Utgivarplanen är länkad längre ner.</string>
+    <string name="tour_settings_b">Din plånbok, aviseringar och applistan. Spela upp rundturen igen från Inställningar när du vill.</string>
 </resources>

@@ -1051,8 +1051,6 @@
     <string name="tour_s9_b">내가 서명한 모든 것과 리뷰를 기다리는 휴대폰의 앱.</string>
     <string name="tour_s10_t">받은편지함</string>
     <string name="tour_s10_b">내 리뷰에 달린 답글, 그리고 앱을 게시한다면 답변이 필요한 내 앱의 리뷰.</string>
-    <string name="tour_s11_t">설정과 Pro</string>
-    <string name="tour_s11_b">지갑, 알림, Pro, 결제 보드. 이 투어는 설정에서 언제든 다시 볼 수 있습니다.</string>
     <string name="pay_trend_title">기간별 결제</string>
     <string name="pay_trend_note">확인된 각 등록 항목이 매월 받은 USD(보드와 같은 기준): 상위 5개는 따로, 나머지는 합쳐서.</string>
     <string name="pay_trend_monthly">월별</string>
@@ -1186,4 +1184,18 @@
     <string name="pa_app_weekly">주별 받은 결제</string>
     <string name="quick_withdraw_title">이 빠른 리뷰 철회</string>
     <string name="quick_yours">내 빠른 리뷰 (이 휴대폰으로 서명됨)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">둘러보기</string>
+    <string name="nav_changes">변경</string>
+    <string name="nav_payments">결제</string>
+    <string name="nav_me">나</string>
+    <string name="pro_status_free">이 지갑은 Free입니다.</string>
+    <string name="pro_publisher_title">퍼블리셔용</string>
+    <string name="pro_publisher_body">퍼블리셔 플랜은 Pro와 별개입니다. 앱 하나의 리포트, 웹훅, API를 앱을 증명한 지갑에서 앱별로 매월 결제합니다. 웹사이트에서 구매합니다.</string>
+    <string name="pro_publisher_open">퍼블리셔 플랜 보기</string>
+    <string name="tour_tabs_t">다섯 개의 탭</string>
+    <string name="tour_tabs_b">둘러보기, 변경, 결제, Pro, 나 탭이 아래에 있습니다. 탭을 바꿔도 각 탭은 보던 위치를 기억합니다.</string>
+    <string name="tour_pro_t">Pro 전용 탭</string>
+    <string name="tour_pro_b">Pro에 포함된 기능, SOL 또는 SKR 가격, 이 지갑의 상태. 퍼블리셔 플랜 링크는 아래에 있습니다.</string>
+    <string name="tour_settings_b">지갑, 알림, 앱 목록. 설정에서 언제든 이 투어를 다시 볼 수 있습니다.</string>
 </resources>

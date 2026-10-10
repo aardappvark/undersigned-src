@@ -1094,8 +1094,6 @@
     <string name="tour_s9_b">Alles, was du signiert hast, und Apps auf deinem Telefon, die auf deine Bewertung warten.</string>
     <string name="tour_s10_t">Posteingang</string>
     <string name="tour_s10_b">Antworten auf deine Bewertungen und, wenn du Apps veröffentlichst, Bewertungen deiner Apps, die eine Antwort brauchen.</string>
-    <string name="tour_s11_t">Einstellungen und Pro</string>
-    <string name="tour_s11_b">Deine Wallet, Mitteilungen, Pro und die Zahlungstabelle. Die Tour lässt sich jederzeit in den Einstellungen wiederholen.</string>
     <string name="pay_trend_title">Zahlungen im Zeitverlauf</string>
     <string name="pay_trend_note">USD pro Monat für jeden bestätigten Eintrag, bewertet wie in der Tabelle: die fünf größten einzeln, der Rest zusammen.</string>
     <string name="pay_trend_monthly">Monatlich</string>
@@ -1229,4 +1227,18 @@
     <string name="pa_app_weekly">Erhaltene Zahlungen pro Woche</string>
     <string name="quick_withdraw_title">Diese Schnellbewertung zurückziehen</string>
     <string name="quick_yours">Deine Schnellbewertung (von diesem Telefon signiert)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Entdecken</string>
+    <string name="nav_changes">Änderungen</string>
+    <string name="nav_payments">Zahlungen</string>
+    <string name="nav_me">Ich</string>
+    <string name="pro_status_free">Diese Wallet ist auf Free.</string>
+    <string name="pro_publisher_title">Für Herausgeber</string>
+    <string name="pro_publisher_body">Der Herausgeber-Plan ist von Pro getrennt: der Bericht einer App, Webhooks und die API, monatlich pro App bezahlt von der Wallet, mit der die App nachgewiesen wurde. Er wird auf der Website gekauft.</string>
+    <string name="pro_publisher_open">Herausgeber-Plan ansehen</string>
+    <string name="tour_tabs_t">Fünf Tabs</string>
+    <string name="tour_tabs_b">Entdecken, Änderungen, Zahlungen, Pro und Ich liegen unten. Jeder Tab merkt sich beim Wechseln, wo Sie waren.</string>
+    <string name="tour_pro_t">Pro hat einen eigenen Tab</string>
+    <string name="tour_pro_b">Was Pro enthält, der Preis in SOL oder SKR und der Status dieser Wallet. Der Herausgeber-Plan ist weiter unten verlinkt.</string>
+    <string name="tour_settings_b">Ihre Wallet, Benachrichtigungen und die App-Liste. Die Tour lässt sich jederzeit in den Einstellungen wiederholen.</string>
 </resources>

@@ -1059,8 +1059,6 @@
     <string name="tour_s9_b">Semua yang kamu tandatangani, dan aplikasi di ponselmu yang menunggu ulasanmu.</string>
     <string name="tour_s10_t">Kotak masuk</string>
     <string name="tour_s10_b">Balasan untuk ulasanmu dan, jika kamu menerbitkan aplikasi, ulasan aplikasimu yang perlu dijawab.</string>
-    <string name="tour_s11_t">Setelan dan Pro</string>
-    <string name="tour_s11_b">Dompetmu, peringatan, Pro, dan papan pembayaran. Ulangi tur ini dari Setelan kapan saja.</string>
     <string name="pay_trend_title">Pembayaran dari waktu ke waktu</string>
     <string name="pay_trend_note">USD yang diterima tiap bulan oleh setiap listing terkonfirmasi, dinilai seperti di papan: lima terbesar terpisah, sisanya digabung.</string>
     <string name="pay_trend_monthly">Bulanan</string>
@@ -1194,4 +1192,18 @@
     <string name="pa_app_weekly">Pembayaran diterima per minggu</string>
     <string name="quick_withdraw_title">Tarik ulasan cepat ini</string>
     <string name="quick_yours">Ulasan cepat Anda (ditandatangani oleh ponsel ini)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Jelajahi</string>
+    <string name="nav_changes">Perubahan</string>
+    <string name="nav_payments">Pembayaran</string>
+    <string name="nav_me">Saya</string>
+    <string name="pro_status_free">Dompet ini memakai Free.</string>
+    <string name="pro_publisher_title">Untuk penerbit</string>
+    <string name="pro_publisher_body">Paket penerbit terpisah dari Pro: laporan satu aplikasi, webhook, dan API, dibayar per bulan per aplikasi dari dompet yang membuktikan aplikasi itu. Dibeli di situs web.</string>
+    <string name="pro_publisher_open">Lihat paket penerbit</string>
+    <string name="tour_tabs_t">Lima tab</string>
+    <string name="tour_tabs_b">Jelajahi, Perubahan, Pembayaran, Pro, dan Saya ada di bawah. Setiap tab mengingat posisi Anda saat berpindah.</string>
+    <string name="tour_pro_t">Pro punya tab sendiri</string>
+    <string name="tour_pro_b">Apa saja isi Pro, harganya dalam SOL atau SKR, dan status dompet ini. Tautan paket penerbit ada di bawah.</string>
+    <string name="tour_settings_b">Dompet, peringatan, dan daftar aplikasi Anda. Ulangi tur ini dari Setelan kapan saja.</string>
 </resources>

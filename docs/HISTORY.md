@@ -85,5 +85,5 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
 - **AI allowance and economics**: per-caller daily allowances; a cost and revenue ledger per day
   (`/v1/admin/economics`, server-local) with alerts.
 - **Hosting**: the API moved from the owner's Mac to a Hetzner Cloud server (9 Oct), same URL, same tunnel.
-- **Release 1.1.0** (versionCode 11); **1.1.1** (versionCode 12, 10 Oct): payment analytics in the app and on the web, quick reviews withdrawable, API keys hashed.
+- **Release 1.1.0** (versionCode 11); **1.1.1** (versionCode 12, 10 Oct): payment analytics in the app and on the web, quick reviews withdrawable, API keys hashed; **1.1.2** (versionCode 13, 10 Oct): a bottom tab bar (Browse, Changes, Payments, Pro, Me) with Pro as its own tab.
 

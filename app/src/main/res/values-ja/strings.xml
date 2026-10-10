@@ -1050,8 +1050,6 @@
     <string name="tour_s9_b">あなたが署名したすべてと、レビューを待っている端末のアプリ。</string>
     <string name="tour_s10_t">受信トレイ</string>
     <string name="tour_s10_b">あなたのレビューへの返信と、アプリを公開している場合は返信が必要なレビュー。</string>
-    <string name="tour_s11_t">設定と Pro</string>
-    <string name="tour_s11_b">ウォレット、通知、Pro、支払いボード。このツアーは設定からいつでも見直せます。</string>
     <string name="pay_trend_title">支払いの推移</string>
     <string name="pay_trend_note">確認済みの各掲載が毎月受け取った USD（ボードと同じ評価）。上位5件は個別に、残りはまとめて表示。</string>
     <string name="pay_trend_monthly">月別</string>
@@ -1185,4 +1183,18 @@
     <string name="pa_app_weekly">週ごとの受取額</string>
     <string name="quick_withdraw_title">このクイックレビューを取り下げる</string>
     <string name="quick_yours">あなたのクイックレビュー（この端末で署名）</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">ブラウズ</string>
+    <string name="nav_changes">変更</string>
+    <string name="nav_payments">支払い</string>
+    <string name="nav_me">マイページ</string>
+    <string name="pro_status_free">このウォレットは Free です。</string>
+    <string name="pro_publisher_title">パブリッシャー向け</string>
+    <string name="pro_publisher_body">パブリッシャープランは Pro とは別です。1つのアプリのレポート、webhook、API を、アプリを証明したウォレットからアプリごとに月単位で支払います。ウェブサイトで購入します。</string>
+    <string name="pro_publisher_open">パブリッシャープランを見る</string>
+    <string name="tour_tabs_t">5つのタブ</string>
+    <string name="tour_tabs_b">ブラウズ、変更、支払い、Pro、マイページが画面下にあります。タブを切り替えても各タブは表示位置を保ちます。</string>
+    <string name="tour_pro_t">Pro 専用のタブ</string>
+    <string name="tour_pro_b">Pro に含まれるもの、SOL または SKR での価格、このウォレットの状態。パブリッシャープランへのリンクは下にあります。</string>
+    <string name="tour_settings_b">ウォレット、アラート、アプリ一覧。このツアーは設定からいつでも再生できます。</string>
 </resources>

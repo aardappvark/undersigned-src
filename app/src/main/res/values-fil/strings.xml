@@ -1078,8 +1078,6 @@
     <string name="tour_s9_b">Lahat ng pinirmahan mo, at mga app sa telepono mo na naghihintay ng review mo.</string>
     <string name="tour_s10_t">Inbox</string>
     <string name="tour_s10_b">Mga sagot sa review mo at, kung naglalathala ka ng app, mga review ng app mo na kailangang sagutin.</string>
-    <string name="tour_s11_t">Settings at Pro</string>
-    <string name="tour_s11_b">Ang wallet mo, alerto, Pro at ang payments board. Ulitin ang tour na ito mula sa Settings kahit kailan.</string>
     <string name="pay_trend_title">Mga bayad sa paglipas ng panahon</string>
     <string name="pay_trend_note">USD na natanggap bawat buwan ng bawat kumpirmadong listing, tinasa gaya sa board: ang limang pinakamalaki nang hiwalay, ang iba nang magkakasama.</string>
     <string name="pay_trend_monthly">Buwanan</string>
@@ -1213,4 +1211,18 @@
     <string name="pa_app_weekly">Mga bayad na natanggap bawat linggo</string>
     <string name="quick_withdraw_title">I-withdraw ang quick review na ito</string>
     <string name="quick_yours">Ang iyong quick review (pinirmahan ng phone na ito)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Mag-browse</string>
+    <string name="nav_changes">Mga pagbabago</string>
+    <string name="nav_payments">Mga bayad</string>
+    <string name="nav_me">Ako</string>
+    <string name="pro_status_free">Nasa Free ang wallet na ito.</string>
+    <string name="pro_publisher_title">Para sa mga publisher</string>
+    <string name="pro_publisher_body">Hiwalay sa Pro ang publisher plan: ulat ng isang app, webhooks at ang API, binabayaran buwan-buwan bawat app mula sa wallet na nagpatunay sa app. Binibili ito sa website.</string>
+    <string name="pro_publisher_open">Tingnan ang publisher plan</string>
+    <string name="tour_tabs_t">Limang tab</string>
+    <string name="tour_tabs_b">Nasa ibaba ang Mag-browse, Mga pagbabago, Mga bayad, Pro at Ako. Naaalala ng bawat tab kung nasaan ka kapag lumipat ka.</string>
+    <string name="tour_pro_t">May sariling tab ang Pro</string>
+    <string name="tour_pro_b">Ano ang kasama sa Pro, ang presyo nito sa SOL o SKR at ang status ng wallet na ito. Nasa ibaba ang link ng publisher plan.</string>
+    <string name="tour_settings_b">Ang iyong wallet, mga alerto at ang listahan ng app. Ulitin ang tour na ito mula sa Settings anumang oras.</string>
 </resources>

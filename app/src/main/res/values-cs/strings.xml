@@ -1104,8 +1104,6 @@
     <string name="tour_s9_b">Vše, co jste podepsali, a aplikace v telefonu, které čekají na vaši recenzi.</string>
     <string name="tour_s10_t">Doručené</string>
     <string name="tour_s10_b">Odpovědi na vaše recenze a, pokud vydáváte aplikace, recenze vašich aplikací, které čekají na odpověď.</string>
-    <string name="tour_s11_t">Nastavení a Pro</string>
-    <string name="tour_s11_b">Vaše peněženka, upozornění, Pro a přehled plateb. Průvodce můžete kdykoli zopakovat v Nastavení.</string>
     <string name="pay_trend_title">Platby v čase</string>
     <string name="pay_trend_note">USD přijaté každý měsíc každým potvrzeným záznamem, oceněné jako v přehledu: pět největších zvlášť, zbytek dohromady.</string>
     <string name="pay_trend_monthly">Měsíčně</string>
@@ -1239,4 +1237,18 @@
     <string name="pa_app_weekly">Přijaté platby po týdnech</string>
     <string name="quick_withdraw_title">Stáhnout tuto rychlou recenzi</string>
     <string name="quick_yours">Vaše rychlá recenze (podepsaná tímto telefonem)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Procházet</string>
+    <string name="nav_changes">Změny</string>
+    <string name="nav_payments">Platby</string>
+    <string name="nav_me">Já</string>
+    <string name="pro_status_free">Tato peněženka je na Free.</string>
+    <string name="pro_publisher_title">Pro vydavatele</string>
+    <string name="pro_publisher_body">Plán pro vydavatele je oddělený od Pro: přehled jedné aplikace, webhooky a API, placené měsíčně za aplikaci z peněženky, která aplikaci prokázala. Kupuje se na webu.</string>
+    <string name="pro_publisher_open">Zobrazit plán pro vydavatele</string>
+    <string name="tour_tabs_t">Pět karet</string>
+    <string name="tour_tabs_b">Procházet, Změny, Platby, Pro a Já jsou dole. Každá karta si při přepínání pamatuje, kde jste byli.</string>
+    <string name="tour_pro_t">Pro má vlastní kartu</string>
+    <string name="tour_pro_b">Co Pro obsahuje, jeho cena v SOL nebo SKR a stav této peněženky. Odkaz na plán pro vydavatele je níže.</string>
+    <string name="tour_settings_b">Vaše peněženka, upozornění a seznam aplikací. Prohlídku můžete kdykoli spustit znovu v Nastavení.</string>
 </resources>

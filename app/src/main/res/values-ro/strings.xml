@@ -1092,8 +1092,6 @@
     <string name="tour_s9_b">Tot ce ai semnat și aplicațiile de pe telefon care îți așteaptă recenzia.</string>
     <string name="tour_s10_t">Mesaje</string>
     <string name="tour_s10_b">Răspunsuri la recenziile tale și, dacă publici aplicații, recenzii ale aplicațiilor tale care așteaptă un răspuns.</string>
-    <string name="tour_s11_t">Setări și Pro</string>
-    <string name="tour_s11_b">Portofelul, alertele, Pro și tabloul plăților. Poți relua ghidul oricând din Setări.</string>
     <string name="pay_trend_title">Plăți în timp</string>
     <string name="pay_trend_note">USD primiți lunar de fiecare listare confirmată, evaluați ca în tablou: cele mai mari cinci separat, restul împreună.</string>
     <string name="pay_trend_monthly">Lunar</string>
@@ -1227,4 +1225,18 @@
     <string name="pa_app_weekly">Plăți primite pe săptămână</string>
     <string name="quick_withdraw_title">Retrage această recenzie rapidă</string>
     <string name="quick_yours">Recenzia ta rapidă (semnată de acest telefon)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Răsfoiește</string>
+    <string name="nav_changes">Modificări</string>
+    <string name="nav_payments">Plăți</string>
+    <string name="nav_me">Eu</string>
+    <string name="pro_status_free">Acest portofel este pe Free.</string>
+    <string name="pro_publisher_title">Pentru editori</string>
+    <string name="pro_publisher_body">Planul de editor este separat de Pro: raportul unei aplicații, webhook-uri și API-ul, plătite lunar pentru fiecare aplicație din portofelul care a dovedit aplicația. Se cumpără de pe site.</string>
+    <string name="pro_publisher_open">Vezi planul de editor</string>
+    <string name="tour_tabs_t">Cinci file</string>
+    <string name="tour_tabs_b">Răsfoiește, Modificări, Plăți, Pro și Eu sunt jos. Fiecare filă ține minte unde ai rămas când comuți.</string>
+    <string name="tour_pro_t">Pro are propria filă</string>
+    <string name="tour_pro_b">Ce include Pro, prețul în SOL sau SKR și starea acestui portofel. Planul de editor are link mai jos.</string>
+    <string name="tour_settings_b">Portofelul, alertele și lista de aplicații. Reia acest tur din Setări oricând.</string>
 </resources>

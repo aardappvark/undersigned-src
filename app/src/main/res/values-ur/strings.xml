@@ -1077,8 +1077,6 @@
     <string name="tour_s9_b">جو کچھ آپ نے دستخط کیا، اور آپ کے فون کی وہ ایپس جو آپ کے جائزے کی منتظر ہیں۔</string>
     <string name="tour_s10_t">ان باکس</string>
     <string name="tour_s10_b">آپ کے جائزوں کے جوابات اور، اگر آپ ایپس شائع کرتے ہیں، آپ کی ایپس کے وہ جائزے جنہیں جواب درکار ہے۔</string>
-    <string name="tour_s11_t">ترتیبات اور Pro</string>
-    <string name="tour_s11_b">آپ کا والیٹ، الرٹس، Pro اور ادائیگیوں کا بورڈ۔ یہ ٹور ترتیبات سے جب چاہیں دوبارہ دیکھیں۔</string>
     <string name="pay_trend_title">وقت کے ساتھ ادائیگیاں</string>
     <string name="pay_trend_note">ہر تصدیق شدہ لسٹنگ کو ہر ماہ ملنے والے USD، بورڈ کی طرح قدر کے ساتھ: سب سے بڑی پانچ الگ، باقی اکٹھی۔</string>
     <string name="pay_trend_monthly">ماہانہ</string>
@@ -1212,4 +1210,18 @@
     <string name="pa_app_weekly">ہفتہ وار وصول شدہ ادائیگیاں</string>
     <string name="quick_withdraw_title">یہ فوری جائزہ واپس لیں</string>
     <string name="quick_yours">آپ کا فوری جائزہ (اس فون سے دستخط شدہ)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">براؤز</string>
+    <string name="nav_changes">تبدیلیاں</string>
+    <string name="nav_payments">ادائیگیاں</string>
+    <string name="nav_me">میں</string>
+    <string name="pro_status_free">یہ والیٹ Free پر ہے۔</string>
+    <string name="pro_publisher_title">پبلشرز کے لیے</string>
+    <string name="pro_publisher_body">پبلشر پلان Pro سے الگ ہے: ایک ایپ کی رپورٹ، webhooks اور API، ہر ایپ کے لیے ماہانہ، اس والیٹ سے ادائیگی جس نے ایپ ثابت کی۔ یہ ویب سائٹ پر خریدا جاتا ہے۔</string>
+    <string name="pro_publisher_open">پبلشر پلان دیکھیں</string>
+    <string name="tour_tabs_t">پانچ ٹیبز</string>
+    <string name="tour_tabs_b">براؤز، تبدیلیاں، ادائیگیاں، Pro اور میں نیچے ہیں۔ ٹیب بدلنے پر ہر ٹیب آپ کی جگہ یاد رکھتا ہے۔</string>
+    <string name="tour_pro_t">Pro کا اپنا ٹیب ہے</string>
+    <string name="tour_pro_b">Pro میں کیا شامل ہے، SOL یا SKR میں اس کی قیمت اور اس والیٹ کی حالت۔ پبلشر پلان کا لنک نیچے ہے۔</string>
+    <string name="tour_settings_b">آپ کا والیٹ، الرٹس اور ایپ فہرست۔ یہ ٹور سیٹنگز سے کسی بھی وقت دوبارہ دیکھیں۔</string>
 </resources>

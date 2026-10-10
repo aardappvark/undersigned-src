@@ -1083,8 +1083,6 @@
     <string name="tour_s9_b">Alles wat je hebt ondertekend, en apps op je telefoon die op je review wachten.</string>
     <string name="tour_s10_t">Inbox</string>
     <string name="tour_s10_b">Reacties op je reviews en, als je apps publiceert, reviews van je apps die een antwoord nodig hebben.</string>
-    <string name="tour_s11_t">Instellingen en Pro</string>
-    <string name="tour_s11_b">Je wallet, meldingen, Pro en het betalingsoverzicht. Herhaal deze rondleiding wanneer je wilt via Instellingen.</string>
     <string name="pay_trend_title">Betalingen in de tijd</string>
     <string name="pay_trend_note">USD per maand voor elke bevestigde vermelding, gewaardeerd zoals op het overzicht: de vijf grootste apart, de rest samen.</string>
     <string name="pay_trend_monthly">Per maand</string>
@@ -1218,4 +1216,18 @@
     <string name="pa_app_weekly">Ontvangen betalingen per week</string>
     <string name="quick_withdraw_title">Deze snelle recensie terugtrekken</string>
     <string name="quick_yours">Uw snelle recensie (ondertekend door deze telefoon)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Bladeren</string>
+    <string name="nav_changes">Wijzigingen</string>
+    <string name="nav_payments">Betalingen</string>
+    <string name="nav_me">Ik</string>
+    <string name="pro_status_free">Deze wallet staat op Free.</string>
+    <string name="pro_publisher_title">Voor uitgevers</string>
+    <string name="pro_publisher_body">Het uitgeversplan staat los van Pro: het rapport van één app, webhooks en de API, per maand per app betaald vanuit de wallet die de app heeft aangetoond. Het wordt op de website gekocht.</string>
+    <string name="pro_publisher_open">Bekijk het uitgeversplan</string>
+    <string name="tour_tabs_t">Vijf tabbladen</string>
+    <string name="tour_tabs_b">Bladeren, Wijzigingen, Betalingen, Pro en Ik staan onderaan. Elk tabblad onthoudt waar je was als je wisselt.</string>
+    <string name="tour_pro_t">Pro heeft een eigen tabblad</string>
+    <string name="tour_pro_b">Wat Pro bevat, de prijs in SOL of SKR en de status van deze wallet. Het uitgeversplan staat verderop gelinkt.</string>
+    <string name="tour_settings_b">Je wallet, meldingen en de lijst met apps. Speel deze rondleiding altijd opnieuw af via Instellingen.</string>
 </resources>

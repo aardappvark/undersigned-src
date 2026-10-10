@@ -1103,8 +1103,6 @@
     <string name="tour_s9_b">Tutto ciò che hai firmato e le app sul tuo telefono che aspettano la tua recensione.</string>
     <string name="tour_s10_t">Posta in arrivo</string>
     <string name="tour_s10_b">Risposte alle tue recensioni e, se pubblichi app, recensioni delle tue app che attendono una risposta.</string>
-    <string name="tour_s11_t">Impostazioni e Pro</string>
-    <string name="tour_s11_b">Il tuo wallet, gli avvisi, Pro e la tabella dei pagamenti. Puoi rifare il tour dalle Impostazioni quando vuoi.</string>
     <string name="pay_trend_title">Pagamenti nel tempo</string>
     <string name="pay_trend_note">USD ricevuti ogni mese da ogni inserzione confermata, valutati come nella tabella: i cinque maggiori a parte, il resto insieme.</string>
     <string name="pay_trend_monthly">Mensile</string>
@@ -1238,4 +1236,18 @@
     <string name="pa_app_weekly">Pagamenti ricevuti per settimana</string>
     <string name="quick_withdraw_title">Ritira questa recensione rapida</string>
     <string name="quick_yours">La tua recensione rapida (firmata da questo telefono)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Esplora</string>
+    <string name="nav_changes">Modifiche</string>
+    <string name="nav_payments">Pagamenti</string>
+    <string name="nav_me">Io</string>
+    <string name="pro_status_free">Questo wallet è su Free.</string>
+    <string name="pro_publisher_title">Per gli editori</string>
+    <string name="pro_publisher_body">Il piano editore è separato da Pro: il report di un\'app, i webhook e l\'API, pagati al mese per app dal wallet che ha dimostrato l\'app. Si acquista sul sito web.</string>
+    <string name="pro_publisher_open">Vedi il piano editore</string>
+    <string name="tour_tabs_t">Cinque schede</string>
+    <string name="tour_tabs_b">Esplora, Modifiche, Pagamenti, Pro e Io sono in basso. Ogni scheda ricorda dov\'eri quando cambi.</string>
+    <string name="tour_pro_t">Pro ha una sua scheda</string>
+    <string name="tour_pro_b">Cosa include Pro, il prezzo in SOL o SKR e lo stato di questo wallet. Il piano editore è collegato più in basso.</string>
+    <string name="tour_settings_b">Il tuo wallet, gli avvisi e l\'elenco delle app. Ripeti questo tour dalle Impostazioni quando vuoi.</string>
 </resources>

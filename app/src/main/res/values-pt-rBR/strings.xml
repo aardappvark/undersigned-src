@@ -1103,8 +1103,6 @@
     <string name="tour_s9_b">Tudo o que você assinou e os apps do seu celular esperando sua avaliação.</string>
     <string name="tour_s10_t">Caixa de entrada</string>
     <string name="tour_s10_b">Respostas às suas avaliações e, se você publica apps, avaliações dos seus apps que precisam de resposta.</string>
-    <string name="tour_s11_t">Ajustes e Pro</string>
-    <string name="tour_s11_b">Sua carteira, alertas, Pro e o painel de pagamentos. Refaça este tour nos Ajustes quando quiser.</string>
     <string name="pay_trend_title">Pagamentos ao longo do tempo</string>
     <string name="pay_trend_note">USD recebidos por mês por cada listagem confirmada, avaliados como no painel: os cinco maiores à parte, o resto junto.</string>
     <string name="pay_trend_monthly">Mensal</string>
@@ -1238,4 +1236,18 @@
     <string name="pa_app_weekly">Pagamentos recebidos por semana</string>
     <string name="quick_withdraw_title">Retirar esta avaliação rápida</string>
     <string name="quick_yours">Sua avaliação rápida (assinada por este celular)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Explorar</string>
+    <string name="nav_changes">Mudanças</string>
+    <string name="nav_payments">Pagamentos</string>
+    <string name="nav_me">Eu</string>
+    <string name="pro_status_free">Esta carteira está no Free.</string>
+    <string name="pro_publisher_title">Para publicadores</string>
+    <string name="pro_publisher_body">O plano de publicador é separado do Pro: o relatório de um app, webhooks e a API, pagos por mês por app a partir da carteira que comprovou o app. É comprado no site.</string>
+    <string name="pro_publisher_open">Ver o plano de publicador</string>
+    <string name="tour_tabs_t">Cinco abas</string>
+    <string name="tour_tabs_b">Explorar, Mudanças, Pagamentos, Pro e Eu ficam na parte de baixo. Cada aba lembra onde você estava ao trocar.</string>
+    <string name="tour_pro_t">O Pro tem sua própria aba</string>
+    <string name="tour_pro_b">O que o Pro inclui, o preço em SOL ou SKR e o status desta carteira. O plano de publicador está no link mais abaixo.</string>
+    <string name="tour_settings_b">Sua carteira, alertas e a lista de apps. Repita este tour em Configurações quando quiser.</string>
 </resources>

@@ -1074,8 +1074,6 @@
     <string name="tour_s9_b">Όλα όσα έχεις υπογράψει και οι εφαρμογές του κινητού σου που περιμένουν την κριτική σου.</string>
     <string name="tour_s10_t">Εισερχόμενα</string>
     <string name="tour_s10_b">Απαντήσεις στις κριτικές σου και, αν δημοσιεύεις εφαρμογές, κριτικές των εφαρμογών σου που χρειάζονται απάντηση.</string>
-    <string name="tour_s11_t">Ρυθμίσεις και Pro</string>
-    <string name="tour_s11_b">Το πορτοφόλι σου, ειδοποιήσεις, Pro και ο πίνακας πληρωμών. Επανέλαβε την περιήγηση από τις Ρυθμίσεις όποτε θέλεις.</string>
     <string name="pay_trend_title">Πληρωμές στον χρόνο</string>
     <string name="pay_trend_note">USD ανά μήνα για κάθε επιβεβαιωμένη καταχώριση, αποτιμημένα όπως στον πίνακα: οι πέντε μεγαλύτερες χωριστά, οι υπόλοιπες μαζί.</string>
     <string name="pay_trend_monthly">Μηνιαία</string>
@@ -1209,4 +1207,18 @@
     <string name="pa_app_weekly">Πληρωμές που ελήφθησαν ανά εβδομάδα</string>
     <string name="quick_withdraw_title">Απόσυρση αυτής της γρήγορης κριτικής</string>
     <string name="quick_yours">Η γρήγορη κριτική σας (υπογεγραμμένη από αυτό το τηλέφωνο)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Περιήγηση</string>
+    <string name="nav_changes">Αλλαγές</string>
+    <string name="nav_payments">Πληρωμές</string>
+    <string name="nav_me">Εγώ</string>
+    <string name="pro_status_free">Αυτό το πορτοφόλι είναι στο Free.</string>
+    <string name="pro_publisher_title">Για εκδότες</string>
+    <string name="pro_publisher_body">Το πρόγραμμα εκδότη είναι ξεχωριστό από το Pro: η αναφορά μίας εφαρμογής, webhooks και το API, με μηνιαία πληρωμή ανά εφαρμογή από το πορτοφόλι που απέδειξε την εφαρμογή. Αγοράζεται στον ιστότοπο.</string>
+    <string name="pro_publisher_open">Δείτε το πρόγραμμα εκδότη</string>
+    <string name="tour_tabs_t">Πέντε καρτέλες</string>
+    <string name="tour_tabs_b">Περιήγηση, Αλλαγές, Πληρωμές, Pro και Εγώ βρίσκονται κάτω. Κάθε καρτέλα θυμάται πού ήσασταν όταν αλλάζετε.</string>
+    <string name="tour_pro_t">Το Pro έχει δική του καρτέλα</string>
+    <string name="tour_pro_b">Τι περιλαμβάνει το Pro, η τιμή του σε SOL ή SKR και η κατάσταση αυτού του πορτοφολιού. Ο σύνδεσμος για το πρόγραμμα εκδότη είναι πιο κάτω.</string>
+    <string name="tour_settings_b">Το πορτοφόλι σας, οι ειδοποιήσεις και η λίστα εφαρμογών. Επαναλάβετε την περιήγηση από τις Ρυθμίσεις όποτε θέλετε.</string>
 </resources>

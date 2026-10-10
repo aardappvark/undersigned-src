@@ -52,14 +52,17 @@ object Tour {
         Step(Routes.BROWSE, "b_search", R.string.tour_s1_t, R.string.tour_s1_b),
         Step(Routes.BROWSE, "b_tabs", R.string.tour_s2_t, R.string.tour_s2_b),
         Step(Routes.BROWSE, "b_list", R.string.tour_s3_t, R.string.tour_s3_b),
+        // The tab bar along the bottom (owner, 10 Oct 2026); My reviews, Inbox and Settings moved from the Browse header to Me.
+        Step(Routes.BROWSE, "nav_bar", R.string.tour_tabs_t, R.string.tour_tabs_b),
         Step(Routes.DETAIL, "d_review", R.string.tour_s4_t, R.string.tour_s4_b),
         Step(Routes.DETAIL, "d_score", R.string.tour_s5_t, R.string.tour_s5_b),
         Step(Routes.DETAIL, "d_help", R.string.tour_s6_t, R.string.tour_s6_b),
         Step(Routes.DETAIL, null, R.string.tour_s7_t, R.string.tour_s7_b),
         Step(Routes.CHANGES, "c_digest", R.string.tour_s8_t, R.string.tour_s8_b),
-        Step(Routes.BROWSE, "b_reviews", R.string.tour_s9_t, R.string.tour_s9_b),
-        Step(Routes.BROWSE, "b_inbox", R.string.tour_s10_t, R.string.tour_s10_b),
-        Step(Routes.BROWSE, "b_settings", R.string.tour_s11_t, R.string.tour_s11_b),
+        Step(Routes.PRO, "nav_" + Routes.PRO, R.string.tour_pro_t, R.string.tour_pro_b),
+        Step(Routes.ME, "m_reviews", R.string.tour_s9_t, R.string.tour_s9_b),
+        Step(Routes.ME, "m_inbox", R.string.tour_s10_t, R.string.tour_s10_b),
+        Step(Routes.ME, "m_settings", R.string.settings, R.string.tour_settings_b),
     )
 
     /** The step showing, or null when no tour runs. */

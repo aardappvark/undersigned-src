@@ -1077,8 +1077,6 @@
     <string name="tour_s9_b">जो कुछ आपने हस्ताक्षर किया, और आपके फ़ोन के वे ऐप जो आपकी समीक्षा का इंतज़ार कर रहे हैं।</string>
     <string name="tour_s10_t">इनबॉक्स</string>
     <string name="tour_s10_b">आपकी समीक्षाओं के जवाब और, अगर आप ऐप प्रकाशित करते हैं, आपके ऐप की वे समीक्षाएँ जिन्हें जवाब चाहिए।</string>
-    <string name="tour_s11_t">सेटिंग्स और Pro</string>
-    <string name="tour_s11_b">आपका वॉलेट, अलर्ट, Pro और भुगतान बोर्ड। यह टूर सेटिंग्स से कभी भी दोबारा देखें।</string>
     <string name="pay_trend_title">समय के साथ भुगतान</string>
     <string name="pay_trend_note">हर पुष्ट लिस्टिंग को हर महीने मिले USD, बोर्ड की तरह मूल्यांकित: सबसे बड़ी पाँच अलग, बाकी एक साथ।</string>
     <string name="pay_trend_monthly">मासिक</string>
@@ -1212,4 +1210,18 @@
     <string name="pa_app_weekly">सप्ताह के अनुसार प्राप्त भुगतान</string>
     <string name="quick_withdraw_title">यह क्विक समीक्षा वापस लें</string>
     <string name="quick_yours">आपकी क्विक समीक्षा (इस फ़ोन से हस्ताक्षरित)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">ब्राउज़</string>
+    <string name="nav_changes">बदलाव</string>
+    <string name="nav_payments">भुगतान</string>
+    <string name="nav_me">मैं</string>
+    <string name="pro_status_free">यह वॉलेट Free पर है।</string>
+    <string name="pro_publisher_title">प्रकाशकों के लिए</string>
+    <string name="pro_publisher_body">प्रकाशक प्लान Pro से अलग है: एक ऐप की रिपोर्ट, webhooks और API, हर ऐप के लिए मासिक, उस वॉलेट से भुगतान जिसने ऐप साबित किया। यह वेबसाइट पर खरीदा जाता है।</string>
+    <string name="pro_publisher_open">प्रकाशक प्लान देखें</string>
+    <string name="tour_tabs_t">पाँच टैब</string>
+    <string name="tour_tabs_b">ब्राउज़, बदलाव, भुगतान, Pro और मैं नीचे हैं। टैब बदलने पर भी हर टैब आपकी जगह याद रखता है।</string>
+    <string name="tour_pro_t">Pro का अपना टैब है</string>
+    <string name="tour_pro_b">Pro में क्या है, SOL या SKR में इसकी कीमत और इस वॉलेट की स्थिति। प्रकाशक प्लान का लिंक नीचे है।</string>
+    <string name="tour_settings_b">आपका वॉलेट, अलर्ट और ऐप सूची। यह टूर सेटिंग्स से कभी भी दोबारा देखें।</string>
 </resources>

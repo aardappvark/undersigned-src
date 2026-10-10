@@ -1058,8 +1058,6 @@
     <string name="tour_s9_b">你簽署過的所有內容，以及本機上等待你評論的應用程式。</string>
     <string name="tour_s10_t">收件匣</string>
     <string name="tour_s10_b">對你評論的回覆；如果你發布應用程式，還有等待你回覆的評論。</string>
-    <string name="tour_s11_t">設定與 Pro</string>
-    <string name="tour_s11_b">你的錢包、提醒、Pro 和付款榜。隨時可在設定中重新觀看本導覽。</string>
     <string name="pay_trend_title">付款趨勢</string>
     <string name="pay_trend_note">每個已確認上架項目每月收到的美元，依付款榜的方式估值：前五名單獨顯示，其餘合併。</string>
     <string name="pay_trend_monthly">按月</string>
@@ -1193,4 +1191,18 @@
     <string name="pa_app_weekly">每週收到的付款</string>
     <string name="quick_withdraw_title">撤回這則快速評價</string>
     <string name="quick_yours">你的快速評價（由這支手機簽署）</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">瀏覽</string>
+    <string name="nav_changes">變更</string>
+    <string name="nav_payments">付款</string>
+    <string name="nav_me">我的</string>
+    <string name="pro_status_free">此錢包為 Free。</string>
+    <string name="pro_publisher_title">發布者</string>
+    <string name="pro_publisher_body">發布者方案獨立於 Pro：單一應用程式的報告、webhook 和 API，依應用程式按月付費，從證明該應用程式的錢包付款。在網站上購買。</string>
+    <string name="pro_publisher_open">查看發布者方案</string>
+    <string name="tour_tabs_t">五個分頁</string>
+    <string name="tour_tabs_b">瀏覽、變更、付款、Pro 和我的位於底部。切換時每個分頁都會記住你的位置。</string>
+    <string name="tour_pro_t">Pro 有自己的分頁</string>
+    <string name="tour_pro_b">Pro 包含的內容、以 SOL 或 SKR 計的價格以及此錢包的狀態。發布者方案的連結在下方。</string>
+    <string name="tour_settings_b">你的錢包、提醒和應用程式清單。可隨時在設定中重新播放此導覽。</string>
 </resources>

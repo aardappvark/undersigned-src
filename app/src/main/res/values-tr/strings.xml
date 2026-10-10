@@ -1074,8 +1074,6 @@
     <string name="tour_s9_b">İmzaladığınız her şey ve telefonunuzda incelemenizi bekleyen uygulamalar.</string>
     <string name="tour_s10_t">Gelen kutusu</string>
     <string name="tour_s10_b">İncelemelerinize gelen yanıtlar ve uygulama yayınlıyorsanız yanıt bekleyen uygulama incelemeleriniz.</string>
-    <string name="tour_s11_t">Ayarlar ve Pro</string>
-    <string name="tour_s11_b">Cüzdanınız, bildirimler, Pro ve ödemeler tablosu. Bu turu istediğiniz zaman Ayarlar\'dan yeniden izleyin.</string>
     <string name="pay_trend_title">Zaman içinde ödemeler</string>
     <string name="pay_trend_note">Onaylı her kaydın aylık aldığı USD, tablodaki gibi değerlenmiş: en büyük beşi ayrı, kalanı birlikte.</string>
     <string name="pay_trend_monthly">Aylık</string>
@@ -1209,4 +1207,18 @@
     <string name="pa_app_weekly">Haftalık alınan ödemeler</string>
     <string name="quick_withdraw_title">Bu hızlı incelemeyi geri çek</string>
     <string name="quick_yours">Hızlı incelemeniz (bu telefonla imzalandı)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Göz at</string>
+    <string name="nav_changes">Değişiklikler</string>
+    <string name="nav_payments">Ödemeler</string>
+    <string name="nav_me">Ben</string>
+    <string name="pro_status_free">Bu cüzdan Free planında.</string>
+    <string name="pro_publisher_title">Yayıncılar için</string>
+    <string name="pro_publisher_body">Yayıncı planı Pro\'dan ayrıdır: bir uygulamanın raporu, webhook\'lar ve API; uygulamayı kanıtlayan cüzdandan uygulama başına aylık ödenir. Web sitesinden satın alınır.</string>
+    <string name="pro_publisher_open">Yayıncı planını gör</string>
+    <string name="tour_tabs_t">Beş sekme</string>
+    <string name="tour_tabs_b">Göz at, Değişiklikler, Ödemeler, Pro ve Ben altta yer alır. Her sekme geçiş yaptığınızda kaldığınız yeri hatırlar.</string>
+    <string name="tour_pro_t">Pro\'nun kendi sekmesi var</string>
+    <string name="tour_pro_b">Pro\'nun içerdikleri, SOL veya SKR fiyatı ve bu cüzdanın durumu. Yayıncı planının bağlantısı aşağıda.</string>
+    <string name="tour_settings_b">Cüzdanınız, uyarılar ve uygulama listesi. Bu turu Ayarlar\'dan istediğiniz zaman yeniden oynatın.</string>
 </resources>

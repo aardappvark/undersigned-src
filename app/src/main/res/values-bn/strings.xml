@@ -1070,8 +1070,6 @@
     <string name="tour_s9_b">আপনি যা স্বাক্ষর করেছেন, আর আপনার ফোনের যেসব অ্যাপ আপনার রিভিউয়ের অপেক্ষায়।</string>
     <string name="tour_s10_t">ইনবক্স</string>
     <string name="tour_s10_b">আপনার রিভিউয়ের উত্তর এবং, আপনি অ্যাপ প্রকাশ করলে, আপনার অ্যাপের যেসব রিভিউয়ের উত্তর দরকার।</string>
-    <string name="tour_s11_t">সেটিংস ও Pro</string>
-    <string name="tour_s11_b">আপনার ওয়ালেট, অ্যালার্ট, Pro ও পেমেন্ট বোর্ড। সেটিংস থেকে যেকোনো সময় এই ট্যুর আবার দেখুন।</string>
     <string name="pay_trend_title">সময়ের সাথে পেমেন্ট</string>
     <string name="pay_trend_note">প্রতিটি নিশ্চিত তালিকার প্রতি মাসে পাওয়া USD, বোর্ডের মতো মূল্যায়িত: বড় পাঁচটি আলাদা, বাকিগুলো একসাথে।</string>
     <string name="pay_trend_monthly">মাসিক</string>
@@ -1205,4 +1203,18 @@
     <string name="pa_app_weekly">সপ্তাহ অনুযায়ী প্রাপ্ত পেমেন্ট</string>
     <string name="quick_withdraw_title">এই কুইক পর্যালোচনা প্রত্যাহার করুন</string>
     <string name="quick_yours">আপনার কুইক পর্যালোচনা (এই ফোন দ্বারা স্বাক্ষরিত)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">ব্রাউজ</string>
+    <string name="nav_changes">পরিবর্তন</string>
+    <string name="nav_payments">পেমেন্ট</string>
+    <string name="nav_me">আমি</string>
+    <string name="pro_status_free">এই ওয়ালেট Free-তে আছে।</string>
+    <string name="pro_publisher_title">প্রকাশকদের জন্য</string>
+    <string name="pro_publisher_body">প্রকাশক প্ল্যান Pro থেকে আলাদা: একটি অ্যাপের রিপোর্ট, webhooks ও API, প্রতি অ্যাপ মাসিক ভিত্তিতে, অ্যাপটি প্রমাণ করা ওয়ালেট থেকে পরিশোধ। এটি ওয়েবসাইটে কেনা হয়।</string>
+    <string name="pro_publisher_open">প্রকাশক প্ল্যান দেখুন</string>
+    <string name="tour_tabs_t">পাঁচটি ট্যাব</string>
+    <string name="tour_tabs_b">ব্রাউজ, পরিবর্তন, পেমেন্ট, Pro ও আমি নিচে থাকে। ট্যাব বদলালেও প্রতিটি ট্যাব তার জায়গা মনে রাখে।</string>
+    <string name="tour_pro_t">Pro-র নিজস্ব ট্যাব</string>
+    <string name="tour_pro_b">Pro-তে কী আছে, SOL বা SKR-এ এর দাম এবং এই ওয়ালেটের অবস্থা। প্রকাশক প্ল্যানের লিংক নিচে আছে।</string>
+    <string name="tour_settings_b">আপনার ওয়ালেট, সতর্কতা ও অ্যাপ তালিকা। সেটিংস থেকে যেকোনো সময় এই ট্যুর আবার দেখুন।</string>
 </resources>

@@ -1059,8 +1059,6 @@
     <string name="tour_s9_b">Mọi thứ bạn đã ký và các ứng dụng trên điện thoại đang chờ bạn đánh giá.</string>
     <string name="tour_s10_t">Hộp thư</string>
     <string name="tour_s10_b">Phản hồi cho đánh giá của bạn và, nếu bạn phát hành ứng dụng, các đánh giá ứng dụng cần trả lời.</string>
-    <string name="tour_s11_t">Cài đặt và Pro</string>
-    <string name="tour_s11_b">Ví, cảnh báo, Pro và bảng thanh toán. Xem lại hướng dẫn này trong Cài đặt bất cứ lúc nào.</string>
     <string name="pay_trend_title">Thanh toán theo thời gian</string>
     <string name="pay_trend_note">USD nhận được mỗi tháng của từng niêm yết đã xác nhận, định giá như trên bảng: năm mục lớn nhất riêng, phần còn lại gộp chung.</string>
     <string name="pay_trend_monthly">Hằng tháng</string>
@@ -1194,4 +1192,18 @@
     <string name="pa_app_weekly">Thanh toán nhận được theo tuần</string>
     <string name="quick_withdraw_title">Rút đánh giá nhanh này</string>
     <string name="quick_yours">Đánh giá nhanh của bạn (ký bởi điện thoại này)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Duyệt</string>
+    <string name="nav_changes">Thay đổi</string>
+    <string name="nav_payments">Thanh toán</string>
+    <string name="nav_me">Tôi</string>
+    <string name="pro_status_free">Ví này đang dùng Free.</string>
+    <string name="pro_publisher_title">Dành cho nhà phát hành</string>
+    <string name="pro_publisher_body">Gói nhà phát hành tách biệt với Pro: báo cáo của một ứng dụng, webhook và API, trả theo tháng cho từng ứng dụng từ ví đã chứng minh ứng dụng đó. Mua trên trang web.</string>
+    <string name="pro_publisher_open">Xem gói nhà phát hành</string>
+    <string name="tour_tabs_t">Năm thẻ</string>
+    <string name="tour_tabs_b">Duyệt, Thay đổi, Thanh toán, Pro và Tôi nằm ở dưới cùng. Mỗi thẻ nhớ vị trí của bạn khi bạn chuyển thẻ.</string>
+    <string name="tour_pro_t">Pro có thẻ riêng</string>
+    <string name="tour_pro_b">Pro gồm những gì, giá bằng SOL hoặc SKR và trạng thái của ví này. Liên kết gói nhà phát hành ở bên dưới.</string>
+    <string name="tour_settings_b">Ví, cảnh báo và danh sách ứng dụng của bạn. Xem lại chuyến tham quan này trong Cài đặt bất cứ lúc nào.</string>
 </resources>

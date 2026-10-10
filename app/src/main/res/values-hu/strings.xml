@@ -1074,8 +1074,6 @@
     <string name="tour_s9_b">Minden, amit aláírtál, és a telefonod alkalmazásai, amelyek az értékelésedre várnak.</string>
     <string name="tour_s10_t">Beérkezett</string>
     <string name="tour_s10_b">Válaszok az értékeléseidre, és ha alkalmazásokat adsz ki, az alkalmazásaid válaszra váró értékelései.</string>
-    <string name="tour_s11_t">Beállítások és Pro</string>
-    <string name="tour_s11_b">A tárcád, értesítések, Pro és a fizetési tábla. A bemutatót bármikor újra megnézheted a Beállításokban.</string>
     <string name="pay_trend_title">Fizetések időben</string>
     <string name="pay_trend_note">Minden megerősített tétel havi USD-bevétele, a táblán szereplő értékeléssel: az öt legnagyobb külön, a többi együtt.</string>
     <string name="pay_trend_monthly">Havonta</string>
@@ -1209,4 +1207,18 @@
     <string name="pa_app_weekly">Beérkezett fizetések hetente</string>
     <string name="quick_withdraw_title">Gyors értékelés visszavonása</string>
     <string name="quick_yours">A gyors értékelésed (ezzel a telefonnal aláírva)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Böngészés</string>
+    <string name="nav_changes">Változások</string>
+    <string name="nav_payments">Fizetések</string>
+    <string name="nav_me">Én</string>
+    <string name="pro_status_free">Ez a tárca Free csomagon van.</string>
+    <string name="pro_publisher_title">Kiadóknak</string>
+    <string name="pro_publisher_body">A kiadói csomag külön van a Prótól: egy alkalmazás jelentése, webhookok és az API, havonta alkalmazásonként fizetve abból a tárcából, amely igazolta az alkalmazást. A weboldalon vásárolható meg.</string>
+    <string name="pro_publisher_open">A kiadói csomag megtekintése</string>
+    <string name="tour_tabs_t">Öt fül</string>
+    <string name="tour_tabs_b">A Böngészés, Változások, Fizetések, Pro és Én alul találhatók. Minden fül megjegyzi, hol tartott, amikor vált.</string>
+    <string name="tour_pro_t">A Prónak saját füle van</string>
+    <string name="tour_pro_b">Mit tartalmaz a Pro, az ára SOL-ban vagy SKR-ben és ennek a tárcának az állapota. A kiadói csomag lejjebb van linkelve.</string>
+    <string name="tour_settings_b">A tárcája, az értesítések és az alkalmazáslista. A bemutatót bármikor újraindíthatja a Beállításokban.</string>
 </resources>

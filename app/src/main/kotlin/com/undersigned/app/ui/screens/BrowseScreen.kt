@@ -12,11 +12,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Inbox
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.RateReview
-import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import coil.imageLoader
@@ -60,13 +56,12 @@ private enum class Sort { SCORE, QUICK, NEW, CATEGORY, NAME }
 private sealed class Row { data class App(val app: CatalogueApp) : Row(); data class Head(val category: String, val count: Int) : Row() }
 
 @Composable
-fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> Unit, onSettings: () -> Unit, onInbox: () -> Unit = {}, onProfile: (String) -> Unit = {}, onStats: () -> Unit = {}, onMyReviews: () -> Unit = {}) {
+fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onProfile: (String) -> Unit = {}, onStats: () -> Unit = {}, onMyReviews: () -> Unit = {}) {
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
     val scores by vm.scores.collectAsState()
     val quickScores by vm.quickScores.collectAsState()
     val status by vm.ledgerStatus.collectAsState()
-    val changes by vm.changes.collectAsState()
     val icons by vm.iconCache.state.collectAsState()
     val dense by UserPreferences.dense.collectAsState()
     val refreshing by vm.catalogueRefreshing.collectAsState()
@@ -150,16 +145,7 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onChanges: () -> U
             // ("Undersigne / d" at 1.3× beside four icons, UI pass 6 Oct 2026).
             val fs = androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceAtLeast(1f)
             Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = (28f * minOf(fs, 1.15f) / fs).sp, lineHeight = (30f * minOf(fs, 1.15f) / fs).sp, maxLines = 1, softWrap = false, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp, modifier = Modifier.weight(1f))
-            val entriesAll by vm.entries.collectAsState()
-            val inboxCount = remember(entriesAll) { vm.unanswered().size + vm.repliesToMe().size }
-            IconButton(onClick = onMyReviews, modifier = Modifier.tourTarget("b_reviews")) { Icon(Icons.Default.RateReview, contentDescription = stringResource(R.string.my_reviews_title), tint = RbColors.textSecondary) }
-            IconButton(onClick = onInbox, modifier = Modifier.tourTarget("b_inbox")) {
-                BadgedBox(badge = { if (inboxCount > 0) Badge(containerColor = RbColors.purple) { Text("$inboxCount") } }) { Icon(Icons.Default.Inbox, contentDescription = if (inboxCount > 0) pluralStringResource(R.plurals.inbox_a11y, inboxCount, inboxCount) else stringResource(R.string.inbox), tint = RbColors.textSecondary) }
-            }
-            IconButton(onClick = onChanges) {
-                BadgedBox(badge = { if (changes.any { !it.firstSeen }) Badge(containerColor = RbColors.warning) }) { Icon(Icons.Default.Update, contentDescription = stringResource(if (changes.any { !it.firstSeen }) R.string.changes_new_a11y else R.string.changes_title), tint = RbColors.textSecondary) }
-            }
-            IconButton(onClick = onSettings, modifier = Modifier.tourTarget("b_settings")) { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings), tint = RbColors.textSecondary) }
+            // My reviews, Inbox, What changed and Settings were icons here; they are tabs (What changed, Me) since 10 Oct 2026.
         }
         // Once, after sign-in: most owners have already rated apps in the dApp Store; bring those over in one approval
         // (import review, 10 Oct 2026: the import sat in Settings and My reviews, and nobody found it).

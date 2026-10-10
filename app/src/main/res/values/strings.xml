@@ -1100,8 +1100,6 @@
     <string name="tour_s9_b">Everything you have signed, and apps on your phone that are waiting for your review.</string>
     <string name="tour_s10_t">Inbox</string>
     <string name="tour_s10_b">Replies to your reviews and, if you publish apps, reviews of your apps that need an answer.</string>
-    <string name="tour_s11_t">Settings and Pro</string>
-    <string name="tour_s11_b">Your wallet, alerts, Pro and the payments board. Replay this tour from Settings any time.</string>
     <string name="pay_trend_title">Payments over time</string>
     <string name="pay_trend_note">USD received each month by every confirmed listing, valued as on the board: the five largest apart, the rest together.</string>
     <string name="pay_trend_monthly">Monthly</string>
@@ -1235,4 +1233,18 @@
     <string name="pa_app_weekly">Payments received by week</string>
     <string name="quick_withdraw_title">Withdraw this quick review</string>
     <string name="quick_yours">Your quick review (signed by this phone)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Browse</string>
+    <string name="nav_changes">Changes</string>
+    <string name="nav_payments">Payments</string>
+    <string name="nav_me">Me</string>
+    <string name="pro_status_free">This wallet is on Free.</string>
+    <string name="pro_publisher_title">For publishers</string>
+    <string name="pro_publisher_body">The publisher plan is separate from Pro: one app\'s report, webhooks and the API, paid by the month per app from the wallet that proved the app. It is bought on the website.</string>
+    <string name="pro_publisher_open">See the publisher plan</string>
+    <string name="tour_tabs_t">Five tabs</string>
+    <string name="tour_tabs_b">Browse, Changes, Payments, Pro and Me sit along the bottom. Each tab keeps its place while you switch.</string>
+    <string name="tour_pro_t">Pro has its own tab</string>
+    <string name="tour_pro_b">What Pro includes, its price in SOL or SKR and this wallet\'s status. The publisher plan is linked further down.</string>
+    <string name="tour_settings_b">Your wallet, alerts and the app list. Replay this tour from Settings any time.</string>
 </resources>

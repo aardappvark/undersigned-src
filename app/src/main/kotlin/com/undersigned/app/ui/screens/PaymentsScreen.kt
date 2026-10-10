@@ -61,7 +61,7 @@ private enum class PayPage { BOARD, LIST, LISTINGS, PREVIEW }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit, onOpen: (String) -> Unit) {
+fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> Unit)?, onOpen: (String) -> Unit) {
     val context = LocalContext.current
     val rows by vm.boardRows.collectAsState()
     val loading by vm.boardLoading.collectAsState()
@@ -108,13 +108,15 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             if (r.isSuccess) vm.loadBoard(force = true)
         }
     }
-    val back = { if (page == PayPage.BOARD) onBack() else if (page == PayPage.LIST && step == 2) step = 1 else page = PayPage.BOARD }
+    val back = { if (page == PayPage.BOARD) onBack?.invoke() else if (page == PayPage.LIST && step == 2) step = 1 else page = PayPage.BOARD }
     androidx.activity.compose.BackHandler(enabled = page != PayPage.BOARD) { back() }
     val title = stringResource(when (page) { PayPage.BOARD -> R.string.pay_title; PayPage.LIST -> R.string.pay_list_title; PayPage.LISTINGS -> R.string.pay_my_claims; PayPage.PREVIEW -> R.string.pay_preview_title })
 
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
-        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            BackButton({ back() })
+        // As a tab the board has no back arrow; its own pages (list, my listings, preview) still do.
+        val arrow = onBack != null || page != PayPage.BOARD
+        Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(start = if (arrow) 8.dp else 20.dp, end = 8.dp, top = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            if (arrow) BackButton({ back() })
             Text(title, color = RbColors.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         }
         when (page) {

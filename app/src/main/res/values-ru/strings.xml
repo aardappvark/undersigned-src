@@ -1095,8 +1095,6 @@
     <string name="tour_s9_b">Всё, что вы подписали, и приложения на телефоне, которые ждут вашего отзыва.</string>
     <string name="tour_s10_t">Входящие</string>
     <string name="tour_s10_b">Ответы на ваши отзывы и, если вы публикуете приложения, отзывы о ваших приложениях, ждущие ответа.</string>
-    <string name="tour_s11_t">Настройки и Pro</string>
-    <string name="tour_s11_b">Кошелёк, оповещения, Pro и таблица платежей. Тур можно пройти снова в Настройках в любое время.</string>
     <string name="pay_trend_title">Платежи во времени</string>
     <string name="pay_trend_note">USD, полученные за каждый месяц каждой подтверждённой записью, в оценке как в таблице: пять крупнейших отдельно, остальные вместе.</string>
     <string name="pay_trend_monthly">По месяцам</string>
@@ -1230,4 +1228,18 @@
     <string name="pa_app_weekly">Полученные платежи по неделям</string>
     <string name="quick_withdraw_title">Отозвать этот быстрый отзыв</string>
     <string name="quick_yours">Ваш быстрый отзыв (подписан этим телефоном)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Обзор</string>
+    <string name="nav_changes">Изменения</string>
+    <string name="nav_payments">Платежи</string>
+    <string name="nav_me">Я</string>
+    <string name="pro_status_free">Этот кошелёк на Free.</string>
+    <string name="pro_publisher_title">Для издателей</string>
+    <string name="pro_publisher_body">План издателя отделён от Pro: отчёт по одному приложению, вебхуки и API, оплата помесячно за приложение с кошелька, который доказал приложение. Покупается на сайте.</string>
+    <string name="pro_publisher_open">Открыть план издателя</string>
+    <string name="tour_tabs_t">Пять вкладок</string>
+    <string name="tour_tabs_b">Обзор, Изменения, Платежи, Pro и Я находятся внизу. Каждая вкладка помнит, где вы были, при переключении.</string>
+    <string name="tour_pro_t">У Pro своя вкладка</string>
+    <string name="tour_pro_b">Что входит в Pro, цена в SOL или SKR и статус этого кошелька. Ссылка на план издателя ниже.</string>
+    <string name="tour_settings_b">Ваш кошелёк, оповещения и список приложений. Повторите тур в Настройках в любое время.</string>
 </resources>

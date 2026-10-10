@@ -1111,8 +1111,6 @@
     <string name="tour_s9_b">Усе, що ви підписали, і застосунки на телефоні, які чекають на ваш відгук.</string>
     <string name="tour_s10_t">Вхідні</string>
     <string name="tour_s10_b">Відповіді на ваші відгуки та, якщо ви публікуєте застосунки, відгуки про ваші застосунки, що чекають відповіді.</string>
-    <string name="tour_s11_t">Налаштування і Pro</string>
-    <string name="tour_s11_b">Гаманець, сповіщення, Pro і таблиця платежів. Тур можна пройти знову в Налаштуваннях будь-коли.</string>
     <string name="pay_trend_title">Платежі в часі</string>
     <string name="pay_trend_note">USD, отримані щомісяця кожним підтвердженим записом, в оцінці як у таблиці: п’ять найбільших окремо, решта разом.</string>
     <string name="pay_trend_monthly">Щомісяця</string>
@@ -1246,4 +1244,18 @@
     <string name="pa_app_weekly">Отримані платежі по тижнях</string>
     <string name="quick_withdraw_title">Вилучити цей швидкий відгук</string>
     <string name="quick_yours">Ваш швидкий відгук (підписаний цим телефоном)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Огляд</string>
+    <string name="nav_changes">Зміни</string>
+    <string name="nav_payments">Платежі</string>
+    <string name="nav_me">Я</string>
+    <string name="pro_status_free">Цей гаманець на Free.</string>
+    <string name="pro_publisher_title">Для видавців</string>
+    <string name="pro_publisher_body">План видавця окремий від Pro: звіт по одному застосунку, вебхуки та API, оплата щомісяця за застосунок з гаманця, який довів застосунок. Купується на сайті.</string>
+    <string name="pro_publisher_open">Відкрити план видавця</string>
+    <string name="tour_tabs_t">П\'ять вкладок</string>
+    <string name="tour_tabs_b">Огляд, Зміни, Платежі, Pro і Я розташовані внизу. Кожна вкладка пам\'ятає, де ви були, коли перемикаєтеся.</string>
+    <string name="tour_pro_t">Pro має власну вкладку</string>
+    <string name="tour_pro_b">Що входить у Pro, ціна в SOL або SKR і стан цього гаманця. Посилання на план видавця нижче.</string>
+    <string name="tour_settings_b">Ваш гаманець, сповіщення та список застосунків. Повторіть тур у Налаштуваннях будь-коли.</string>
 </resources>

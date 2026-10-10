@@ -1043,8 +1043,6 @@
     <string name="tour_s9_b">ทุกอย่างที่คุณลงนาม และแอปในโทรศัพท์ที่รอรีวิวจากคุณ</string>
     <string name="tour_s10_t">กล่องข้อความ</string>
     <string name="tour_s10_b">คำตอบต่อรีวิวของคุณ และหากคุณเผยแพร่แอป รีวิวแอปของคุณที่รอการตอบ</string>
-    <string name="tour_s11_t">การตั้งค่าและ Pro</string>
-    <string name="tour_s11_b">วอลเล็ต การแจ้งเตือน Pro และกระดานการชำระเงิน ดูทัวร์นี้อีกครั้งได้จากการตั้งค่าทุกเมื่อ</string>
     <string name="pay_trend_title">การชำระเงินตามเวลา</string>
     <string name="pay_trend_note">USD ที่แต่ละรายการที่ยืนยันแล้วได้รับในแต่ละเดือน คิดมูลค่าตามกระดาน: ห้ารายการใหญ่สุดแยกกัน ที่เหลือรวมกัน</string>
     <string name="pay_trend_monthly">รายเดือน</string>
@@ -1178,4 +1176,18 @@
     <string name="pa_app_weekly">การชำระเงินที่ได้รับรายสัปดาห์</string>
     <string name="quick_withdraw_title">ถอนรีวิวด่วนนี้</string>
     <string name="quick_yours">รีวิวด่วนของคุณ (ลงนามโดยโทรศัพท์เครื่องนี้)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">เรียกดู</string>
+    <string name="nav_changes">การเปลี่ยนแปลง</string>
+    <string name="nav_payments">การชำระเงิน</string>
+    <string name="nav_me">ฉัน</string>
+    <string name="pro_status_free">กระเป๋านี้ใช้ Free อยู่</string>
+    <string name="pro_publisher_title">สำหรับผู้เผยแพร่</string>
+    <string name="pro_publisher_body">แพ็กเกจผู้เผยแพร่แยกจาก Pro: รายงานของแอปหนึ่งแอป webhook และ API ชำระรายเดือนต่อแอปจากกระเป๋าที่พิสูจน์แอปนั้น ซื้อได้ที่เว็บไซต์</string>
+    <string name="pro_publisher_open">ดูแพ็กเกจผู้เผยแพร่</string>
+    <string name="tour_tabs_t">ห้าแท็บ</string>
+    <string name="tour_tabs_b">เรียกดู การเปลี่ยนแปลง การชำระเงิน Pro และฉัน อยู่ด้านล่าง แต่ละแท็บจำตำแหน่งของคุณไว้เมื่อสลับแท็บ</string>
+    <string name="tour_pro_t">Pro มีแท็บของตัวเอง</string>
+    <string name="tour_pro_b">สิ่งที่ Pro มี ราคาเป็น SOL หรือ SKR และสถานะของกระเป๋านี้ ลิงก์แพ็กเกจผู้เผยแพร่อยู่ด้านล่าง</string>
+    <string name="tour_settings_b">กระเป๋าของคุณ การแจ้งเตือน และรายการแอป เล่นทัวร์นี้ซ้ำได้จากการตั้งค่าทุกเมื่อ</string>
 </resources>

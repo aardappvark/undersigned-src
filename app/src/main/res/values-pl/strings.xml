@@ -1112,8 +1112,6 @@
     <string name="tour_s9_b">Wszystko, co podpisałeś, i aplikacje na Twoim telefonie czekające na Twoją recenzję.</string>
     <string name="tour_s10_t">Skrzynka</string>
     <string name="tour_s10_b">Odpowiedzi na Twoje recenzje oraz, jeśli publikujesz aplikacje, recenzje Twoich aplikacji czekające na odpowiedź.</string>
-    <string name="tour_s11_t">Ustawienia i Pro</string>
-    <string name="tour_s11_b">Twój portfel, alerty, Pro i tablica płatności. Przewodnik możesz powtórzyć w Ustawieniach w każdej chwili.</string>
     <string name="pay_trend_title">Płatności w czasie</string>
     <string name="pay_trend_note">USD otrzymane w każdym miesiącu przez każdy potwierdzony wpis, wycenione jak na tablicy: pięć największych osobno, reszta razem.</string>
     <string name="pay_trend_monthly">Miesięcznie</string>
@@ -1247,4 +1245,18 @@
     <string name="pa_app_weekly">Otrzymane płatności tygodniowo</string>
     <string name="quick_withdraw_title">Wycofaj tę szybką recenzję</string>
     <string name="quick_yours">Twoja szybka recenzja (podpisana przez ten telefon)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Przeglądaj</string>
+    <string name="nav_changes">Zmiany</string>
+    <string name="nav_payments">Płatności</string>
+    <string name="nav_me">Ja</string>
+    <string name="pro_status_free">Ten portfel jest na planie Free.</string>
+    <string name="pro_publisher_title">Dla wydawców</string>
+    <string name="pro_publisher_body">Plan wydawcy jest oddzielny od Pro: raport jednej aplikacji, webhooki i API, płatne co miesiąc za aplikację z portfela, który udowodnił aplikację. Kupuje się go na stronie.</string>
+    <string name="pro_publisher_open">Zobacz plan wydawcy</string>
+    <string name="tour_tabs_t">Pięć kart</string>
+    <string name="tour_tabs_b">Przeglądaj, Zmiany, Płatności, Pro i Ja są na dole. Każda karta pamięta, gdzie byłeś, gdy przełączasz.</string>
+    <string name="tour_pro_t">Pro ma własną kartę</string>
+    <string name="tour_pro_b">Co obejmuje Pro, jego cena w SOL lub SKR i stan tego portfela. Link do planu wydawcy jest niżej.</string>
+    <string name="tour_settings_b">Twój portfel, alerty i lista aplikacji. Powtórz ten przewodnik w Ustawieniach w dowolnej chwili.</string>
 </resources>

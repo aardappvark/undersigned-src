@@ -1103,8 +1103,6 @@
     <string name="tour_s9_b">Todo lo que has firmado y las apps de tu teléfono que esperan tu reseña.</string>
     <string name="tour_s10_t">Bandeja de entrada</string>
     <string name="tour_s10_b">Respuestas a tus reseñas y, si publicas apps, reseñas de tus apps que necesitan respuesta.</string>
-    <string name="tour_s11_t">Ajustes y Pro</string>
-    <string name="tour_s11_b">Tu wallet, avisos, Pro y el tablero de pagos. Repite este recorrido desde Ajustes cuando quieras.</string>
     <string name="pay_trend_title">Pagos en el tiempo</string>
     <string name="pay_trend_note">USD recibidos cada mes por cada listado confirmado, valorados como en el tablero: los cinco mayores aparte, el resto juntos.</string>
     <string name="pay_trend_monthly">Mensual</string>
@@ -1238,4 +1236,18 @@
     <string name="pa_app_weekly">Pagos recibidos por semana</string>
     <string name="quick_withdraw_title">Retirar esta reseña rápida</string>
     <string name="quick_yours">Tu reseña rápida (firmada por este teléfono)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Explorar</string>
+    <string name="nav_changes">Cambios</string>
+    <string name="nav_payments">Pagos</string>
+    <string name="nav_me">Yo</string>
+    <string name="pro_status_free">Esta cartera está en Free.</string>
+    <string name="pro_publisher_title">Para editores</string>
+    <string name="pro_publisher_body">El plan de editor es aparte de Pro: el informe de una app, webhooks y la API, pagado por mes y por app desde la cartera que demostró la app. Se compra en el sitio web.</string>
+    <string name="pro_publisher_open">Ver el plan de editor</string>
+    <string name="tour_tabs_t">Cinco pestañas</string>
+    <string name="tour_tabs_b">Explorar, Cambios, Pagos, Pro y Yo están abajo. Cada pestaña recuerda dónde estabas al cambiar.</string>
+    <string name="tour_pro_t">Pro tiene su propia pestaña</string>
+    <string name="tour_pro_b">Qué incluye Pro, su precio en SOL o SKR y el estado de esta cartera. El plan de editor está enlazado más abajo.</string>
+    <string name="tour_settings_b">Tu cartera, las alertas y la lista de apps. Repite este recorrido desde Ajustes cuando quieras.</string>
 </resources>

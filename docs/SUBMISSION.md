@@ -16,9 +16,9 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 
 | Deliverable | Status | Where |
 |---|---|---|
-| Functional Android APK | **READY** — 1.1.1 (versionCode 12), 12.1 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 5cf1f5eb…9194 | `assets/submission/Undersigned-1.1.1-vc12.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.1` (owner). |
+| Functional Android APK | **READY** — 1.1.2 (versionCode 13), 12.1 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 a379c6a5…d580 | `assets/submission/Undersigned-1.1.2-vc13.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.2` (owner). |
 | GitHub repository | **READY** — 157 commits on 18 days from 8 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
-| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.1 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
+| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.2 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
 | Pitch deck | **READY** — 14 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
@@ -99,7 +99,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 ## Owner's steps (in order)
 
-1. Re-record the demo video on 1.1.1 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
+1. Re-record the demo video on 1.1.2 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
 2. Sign in to RADOS / Align at solanamobile.radiant.nexus, complete the builder profile, register for Clock In.
 3. Install the Radiants Align GitHub app on `aardappvark/Undersigned`.
 4. Fill the form from this file; attach the APK and the deck; paste the video link.

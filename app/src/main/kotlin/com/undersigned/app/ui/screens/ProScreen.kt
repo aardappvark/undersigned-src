@@ -38,7 +38,7 @@ import java.util.Date
  * Pro buys tools, never standing; the price pair is the fleet's, read from AppConfig.Payment.
  */
 @Composable
-fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Unit) {
+fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> Unit)?) {
     val context = LocalContext.current
     val wallet by vm.wallet.collectAsState()
     val pro by vm.pro.collectAsState()
@@ -55,7 +55,8 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
     Column(Modifier.fillMaxSize().background(RbColors.background)) {
         PhotoBackdrop(R.drawable.photo_pro_hero, Modifier.fillMaxWidth().heightIn(min = 240.dp), fadeFrom = 0.25f) {
             Row(Modifier.align(Alignment.TopStart).systemBarsPadding().padding(horizontal = 8.dp, vertical = 4.dp)) {
-                BackButton(onBack, enabled = stage == null, tint = RbColors.textPrimary)
+                // The Pro tab has no back arrow; Pro opened from a lock elsewhere does, and returns there.
+                onBack?.let { BackButton(it, enabled = stage == null, tint = RbColors.textPrimary) }
             }
             Column(Modifier.align(Alignment.BottomStart).padding(horizontal = 20.dp, vertical = 14.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.pro_term), color = RbColors.textSecondary, fontSize = 12.sp) }
@@ -64,6 +65,11 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
             }
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
+            // Where this wallet stands, first: Pro with its dates, or Free (owner, 10 Oct 2026: the Pro tab reads clearly).
+            if (pro == null) {
+                Spacer(Modifier.height(12.dp))
+                GlassCard { Text(stringResource(if (wallet != null) R.string.pro_status_free else R.string.settings_no_wallet), color = RbColors.textSecondary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold) }
+            }
             pro?.let { p ->
                 Spacer(Modifier.height(12.dp))
                 GlassCard(accent = if (p.active) RbColors.green else RbColors.warning) {
@@ -149,8 +155,16 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () -> Un
                 }
             })
             message?.let { (ok, m) -> Spacer(Modifier.height(8.dp)); Text(m, color = if (ok) RbColors.green else RbColors.negative, fontSize = 13.sp, lineHeight = 18.sp) }
-            Spacer(Modifier.height(8.dp))
-            SecondaryButton(stringResource(R.string.pro_stay_free), onClick = onBack, enabled = stage == null)
+            onBack?.let { Spacer(Modifier.height(8.dp)); SecondaryButton(stringResource(R.string.pro_stay_free), onClick = it, enabled = stage == null) }
+
+            // The publisher plan is a separate purchase, on the website: per app, by the month, for the app's proven publisher.
+            SectionTitle(stringResource(R.string.pro_publisher_title))
+            GlassCard {
+                Text(stringResource(R.string.pro_publisher_body), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                TextButton(onClick = { open(AppConfig.Site.URL + "/plans") }, contentPadding = PaddingValues(0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.pro_publisher_open), color = RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                }
+            }
             Spacer(Modifier.height(10.dp))
             TextButton(onClick = { open(AppConfig.Identity.URI + "terms.html#pro") }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_refunds), color = RbColors.purpleLight, fontSize = 12.sp) }
             Spacer(Modifier.height(32.dp))

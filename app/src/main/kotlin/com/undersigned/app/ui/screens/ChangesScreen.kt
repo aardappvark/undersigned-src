@@ -29,15 +29,16 @@ import java.text.DateFormat
 import java.util.Date
 
 @Composable
-fun ChangesScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit, onReview: (String) -> Unit = onOpen, onPro: () -> Unit = {}) {
+fun ChangesScreen(vm: MainViewModel, onBack: (() -> Unit)?, onOpen: (String) -> Unit, onReview: (String) -> Unit = onOpen, onPro: () -> Unit = {}) {
     val changes by vm.changes.collectAsState()
     val catalogue by vm.catalogue.collectAsState()
     val icons by vm.iconCache.state.collectAsState()
     val real = changes.filter { !it.firstSeen }
     val details by vm.storeDetails.collectAsState()
     Column(Modifier.fillMaxSize().background(RbColors.background).systemBarsPadding()) {
-        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            BackButton(onBack)
+        // As a tab (no back arrow) the title lines up with the other tabs' titles.
+        Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(start = if (onBack == null) 20.dp else 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            onBack?.let { BackButton(it) }
             Text(stringResource(R.string.changes_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
         Text(stringResource(R.string.changes_sub), color = RbColors.textTertiary, fontSize = 12.sp, modifier = Modifier.padding(horizontal = 20.dp))

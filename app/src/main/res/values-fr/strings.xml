@@ -1103,8 +1103,6 @@
     <string name="tour_s9_b">Tout ce que vous avez signé, et les apps de votre téléphone qui attendent votre avis.</string>
     <string name="tour_s10_t">Boîte de réception</string>
     <string name="tour_s10_b">Les réponses à vos avis et, si vous publiez des apps, les avis sur vos apps qui attendent une réponse.</string>
-    <string name="tour_s11_t">Réglages et Pro</string>
-    <string name="tour_s11_b">Votre wallet, les alertes, Pro et le tableau des paiements. Relancez cette visite depuis les Réglages à tout moment.</string>
     <string name="pay_trend_title">Paiements dans le temps</string>
     <string name="pay_trend_note">USD reçus chaque mois par chaque inscription confirmée, valorisés comme sur le tableau : les cinq plus grands à part, le reste ensemble.</string>
     <string name="pay_trend_monthly">Mensuel</string>
@@ -1238,4 +1236,18 @@
     <string name="pa_app_weekly">Paiements reçus par semaine</string>
     <string name="quick_withdraw_title">Retirer cet avis rapide</string>
     <string name="quick_yours">Votre avis rapide (signé par ce téléphone)</string>
+    <!-- Tab bar, Me hub, Pro tab (10 Oct 2026) -->
+    <string name="nav_browse">Parcourir</string>
+    <string name="nav_changes">Changements</string>
+    <string name="nav_payments">Paiements</string>
+    <string name="nav_me">Moi</string>
+    <string name="pro_status_free">Ce portefeuille est en Free.</string>
+    <string name="pro_publisher_title">Pour les éditeurs</string>
+    <string name="pro_publisher_body">Le forfait éditeur est distinct de Pro : le rapport d\'une app, les webhooks et l\'API, payés au mois par app depuis le portefeuille qui a prouvé l\'app. Il s\'achète sur le site web.</string>
+    <string name="pro_publisher_open">Voir le forfait éditeur</string>
+    <string name="tour_tabs_t">Cinq onglets</string>
+    <string name="tour_tabs_b">Parcourir, Changements, Paiements, Pro et Moi sont en bas. Chaque onglet garde votre place quand vous changez.</string>
+    <string name="tour_pro_t">Pro a son propre onglet</string>
+    <string name="tour_pro_b">Ce que comprend Pro, son prix en SOL ou en SKR et le statut de ce portefeuille. Le forfait éditeur est en lien plus bas.</string>
+    <string name="tour_settings_b">Votre portefeuille, les alertes et la liste des apps. Relancez cette visite depuis les Réglages à tout moment.</string>
 </resources>
