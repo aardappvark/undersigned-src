@@ -116,6 +116,18 @@ export function registerApiTools(server, env = process.env) {
     { limit: z.number().int().min(1).max(500).optional() }, async (a) => call(`/v1/payments/found${q(a)}`));
   t("api_found_analytics", "Analytics for one app's found-in-code wallets from their FULL payment history: first and last payment, monthly series with new and returning payers and USD on the day paid, last 12 weeks, repeat payers, top-payer concentration, and how much history has been read. Free.",
     { package: pkg }, async ({ package: p }) => call(`/v1/payments/found/${enc(p)}`));
+  const win = z.enum(["7d", "30d", "90d", "1y", "all"]).optional().describe("default 30d");
+  t("api_payments_leaderboard", "dApps ranked by USD received in a window across CONFIRMED treasuries and wallets FOUND in app code (include = confirmed | found | all; always say which). Rails, payers, new payers, a weekly series each. Gross receipts, never revenue.",
+    { window: win, include: z.enum(["confirmed", "found", "all"]).optional(), limit: z.number().int().min(1).max(500).optional() }, async (a) => call(`/v1/payments/leaderboard${q(a)}`));
+  t("api_payments_series", "Payments into every dApp wallet per day|week|month over a window, confirmed and found apart. Free.", { window: win, by: z.enum(["day", "week", "month"]).optional() }, async (a) => call(`/v1/payments/series${q(a)}`, { auth: false }));
+  t("api_payments_categories", "Store categories ranked by USD received in a window, with the change against the window before and three leaders each.", { window: win }, async (a) => call(`/v1/payments/categories${q(a)}`));
+  t("api_payments_trending", "dApps rising, falling and new by USD received: this window against the one before (a $20 base to be ranked).", { window: win, limit: z.number().int().min(1).max(100).optional() }, async (a) => call(`/v1/payments/trending${q(a)}`));
+  t("api_payments_patterns", "Rails (SOL/SKR/USDC), repeat payers, concentration, payment sizes, payments by hour (UTC) and weekday, in a window.", { window: win }, async (a) => call(`/v1/payments/patterns${q(a)}`));
+  t("api_payments_treasuries", "Wallets ranked by USD received in a window, each with the dApps it was listed for or found in.", { window: win, limit: z.number().int().min(1).max(500).optional() }, async (a) => call(`/v1/payments/treasuries${q(a)}`));
+  t("api_payments_summary", "The payments dashboard in one answer: leaderboard, categories, trending, patterns, treasuries and the series.", { window: win }, async (a) => call(`/v1/payments/summary${q(a)}`));
+  t("api_app_payment_series", "One dApp's payments per day|week|month across its confirmed and found wallets. Free.", { package: pkg, by: z.enum(["day", "week", "month"]).optional() }, async ({ package: p, by }) => call(`/v1/payments/app/${enc(p)}/series${q({ by })}`, { auth: false }));
+  t("api_payment_charts", "URLs of the SVG charts (embed or screenshot them): top dApps, the store over time, one app over time. Free, cached five minutes.", { window: win, package: z.string().optional() },
+    async ({ window, package: p }) => text({ top: `${base}/v1/payments/chart/top.svg${q({ window })}`, store: `${base}/v1/payments/chart/store.svg${q({ window })}`, app: p ? `${base}/v1/payments/chart/app/${enc(p)}.svg` : "pass package for an app's chart" }));
   t("api_found_trends", "Store-wide monthly payments into every wallet found in app code (each wallet once). Free.", {}, async () => call("/v1/payments/found/trends"));
 
   // ---- The ledger -------------------------------------------------------------------------------------------------

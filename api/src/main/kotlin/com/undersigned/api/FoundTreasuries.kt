@@ -209,6 +209,9 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
         return candidates().filter { (w, v) -> v.second.size == 1 && (payers[w] ?: 0) >= MIN_PAYERS }.keys.sorted()
     }
 
+    /** How much of the found wallets' history is read: (transactions listed, transactions read). The yearly figures are a floor until equal. */
+    fun coverage(): Pair<Int, Int> = listedWallets().map { board.allProgress(it) }.let { p -> p.sumOf { it.first } to p.sumOf { it.first - it.second } }
+
     /** Listed transactions of the last 365 days not read yet, across every found wallet: what the yearly figures still miss. */
     fun yearBacklog(): Int = db.query("SELECT count(*) FROM pay_rows WHERE addr_key LIKE 'found:%' AND fetched = 0 AND time > ?",
         System.currentTimeMillis() / 1000 - 365L * 86_400) { it.getInt(1) }.firstOrNull() ?: 0
@@ -228,6 +231,8 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
         board.readAll(w, backfillPages = 1, maxFetch = maxFetch)
     }
 
+    /** A found wallet's payments as read so far (the full history fills in over time). */
+    fun payments(wallet: String): List<com.undersigned.protocol.Payments.Payment> = cached(wallet)
     private fun cached(wallet: String): List<com.undersigned.protocol.Payments.Payment> =
         db.query("SELECT sig, time, payer, lamports, tokens FROM pay_rows WHERE addr_key = ? AND fetched = 1 AND payer IS NOT NULL", "found:$wallet") { rs ->
             val t = rs.getString(5)?.let { JSONObject(it) } ?: JSONObject()

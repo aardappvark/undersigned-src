@@ -235,6 +235,26 @@ class Api(private val views: Views, private val billing: Billing, private val in
         route("GET", "/v1/payments/found/{pkg}", Tier.LIMITED, "One app's wallets found in app code, with full-history analytics: dates, monthly series, new and returning payers, concentration") { r ->
             views.foundAnalytics(r.params["pkg"]!!)?.let(::ok) ?: notFound("nothing found in this app's code") }
         route("GET", "/v1/payments/found", Tier.LIMITED, "Treasuries found in app code, not confirmed by the publisher: a separate list, by app name, never ranked with the board") { r -> ok(views.foundTreasuries(rows(r, Config.FREE_ROWS, 500))) }
+        // Analytics (owner, 10 Oct 2026): leaderboards, categories, trends and charts over confirmed treasuries and found wallets.
+        fun win(r: Req) = r.query["window"]?.takeIf { it in Analytics.WINDOWS } ?: "30d"
+        fun by(r: Req) = r.query["by"]?.takeIf { it in listOf("day", "week", "month") } ?: "week"
+        route("GET", "/v1/payments/leaderboard", Tier.LIMITED, "dApps ranked by USD received in a window (7d|30d|90d|1y|all) across confirmed treasuries and found wallets (include=confirmed|found|all), with rails, payers, new payers and a weekly series each") { r ->
+            ok(views.analytics.leaderboard(win(r), r.query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all", rows(r, Config.FREE_ROWS, 500))) }
+        route("GET", "/v1/payments/series", Tier.FREE, "Payments into every dApp wallet per day|week|month over a window, confirmed and found apart") { r -> ok(views.analytics.storeSeries(win(r), by(r))) }
+        route("GET", "/v1/payments/categories", Tier.LIMITED, "Store categories ranked by USD received in a window, each with its change against the window before and its three leaders") { r -> ok(views.analytics.categoriesReport(win(r))) }
+        route("GET", "/v1/payments/trending", Tier.LIMITED, "dApps rising, falling and new by USD received, this window against the one before") { r -> ok(views.analytics.trending(win(r), rows(r, 10, 100))) }
+        route("GET", "/v1/payments/patterns", Tier.LIMITED, "Rails, repeat payers, concentration, payment sizes, and payments by hour and weekday in a window") { r -> ok(views.analytics.patterns(win(r))) }
+        route("GET", "/v1/payments/treasuries", Tier.LIMITED, "Wallets ranked by USD received in a window, each with the dApps it was listed for or found in") { r -> ok(views.analytics.treasuries(win(r), rows(r, Config.FREE_ROWS, 500))) }
+        route("GET", "/v1/payments/summary", Tier.LIMITED, "The analytics dashboard in one answer: leaderboard, categories, trending, patterns, treasuries, series") { r -> ok(views.analytics.summary(win(r))) }
+        route("GET", "/v1/payments/app/{pkg}/series", Tier.FREE, "One dApp's payments per day|week|month across its confirmed and found wallets") { r -> views.analytics.appSeries(r.params["pkg"]!!, by(r))?.let(::ok) ?: notFound("no payments seen for that package") }
+        route("GET", "/v1/payments/chart/top.svg", Tier.FREE, "Chart: the top dApps by USD received in a window (n, include), as SVG") { r ->
+            Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), views.analytics.chartTop(win(r), r.int("n", 10, 25), r.query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all").toByteArray(), "image/svg+xml; charset=utf-8") }
+        route("GET", "/v1/payments/chart/store.svg", Tier.FREE, "Chart: payments into dApp wallets over a window, confirmed and found stacked, as SVG") { r ->
+            val s = views.analytics.storeSeries(win(r), by(r))
+            Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), views.analytics.chartSeries("Payments into dApp wallets · " + views.analytics.label(win(r)), "USD on the day paid, per ${by(r)} · gross receipts, from the Solana ledger", views.analytics.pts(s.getJSONArray("confirmed")), views.analytics.pts(s.getJSONArray("found"))).toByteArray(), "image/svg+xml; charset=utf-8") }
+        route("GET", "/v1/payments/chart/app/{pkg}.svg", Tier.FREE, "Chart: one dApp's payments over time, as SVG") { r ->
+            val s = views.analytics.appSeries(r.params["pkg"]!!, by(r)) ?: return@route notFound("no payments seen for that package")
+            Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), views.analytics.chartSeries(s.getString("name") + " · payments received", "USD on the day paid, per ${by(r)} · ${s.getInt("payments")} payments from ${s.getInt("payers")} payers", views.analytics.pts(s.getJSONArray("series"))).toByteArray(), "image/svg+xml; charset=utf-8") }
         route("GET", "/v1/payments", Tier.LIMITED, "Payments board: confirmed treasuries by USD received") { r -> ok(views.paymentsBoard(rows(r, Config.FREE_TOP, 500))) }
     }
 

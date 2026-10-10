@@ -27,7 +27,7 @@ object Seasons {
 
 /** One listed dApp on the payments board, computed in the background (reads the chain; never inside a request). */
 data class BoardRow(val claim: Payments.Claim, val name: String, val confirmed: Boolean, val tally: Payments.Tally?, val usdWhenPaid: Double?, val complete: Boolean,
-                    val monthUsd: Map<String, Double>, val payers: Set<String>, val unpriced: Int = 0)
+                    val monthUsd: Map<String, Double>, val payers: Set<String>, val unpriced: Int = 0, val own: Set<String> = emptySet())
 
 class Boards(private val indexer: Indexer, private val board: Board, private val prices: Prices) {
     @Volatile var rows: List<BoardRow> = emptyList(); private set
@@ -48,7 +48,7 @@ class Boards(private val indexer: Indexer, private val board: Board, private val
             val fmt = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM").withZone(java.time.ZoneOffset.UTC)
             val months = real.groupBy { fmt.format(java.time.Instant.ofEpochSecond(it.time)) }.mapValues { (_, l) -> l.sumOf { prices.usdWhenPaid(it, h) ?: 0.0 } }
             // A payer is someone who paid a real amount (protocol Payments.meaningful); the tally still counts every unit.
-            BoardRow(c, name, true, tally, usd, read.complete, months, real.filter { Prices.meaningful(it) }.map { it.payer }.toSet(), priced.count { it.second == null })
+            BoardRow(c, name, true, tally, usd, read.complete, months, real.filter { Prices.meaningful(it) }.map { it.payer }.toSet(), priced.count { it.second == null }, own)
         }.sortedByDescending { it.usdWhenPaid ?: -1.0 }
     }
 }
@@ -485,6 +485,10 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("label", "Found in app code, not confirmed by the publisher. Payments INTO the wallet from other wallets; not a statement about revenue or profit.")
             .put("wallets", JSONArray(rows.map { f.walletAnalytics(it.getString("wallet")) }))
     }
+
+    /** Payment analytics over confirmed treasuries and found wallets (Analytics.kt); its own five-minute cache. */
+    val analytics: Analytics by lazy { Analytics(db, Prices(db), boards, { found }, { foundRowsAll() }, { s.catalogue.associate { it.packageName to it.category } }) }
+    private fun foundRowsAll(): List<JSONObject> = (foundTreasuries(Int.MAX_VALUE).optJSONArray("rows") ?: JSONArray()).let { a -> (0 until a.length()).map { a.getJSONObject(it) } }
 
     /** Heavy answers built from the whole history, kept five minutes: the history grows by the minute, these are read often. */
     private val heavy = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, Any>>()

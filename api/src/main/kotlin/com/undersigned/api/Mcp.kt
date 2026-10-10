@@ -54,6 +54,17 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("payments_board", "Apps whose publishers confirmed a treasury, by payments received on-chain (USD on the day of each payment). Off-chain income is invisible; not a statement about profit.",
             obj("limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.paymentsBoard(if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
+        Tool("payments_analytics", "Payment analytics from the Solana ledger over confirmed treasuries and wallets found in app code (always labelled apart): report = summary | leaderboard | categories | trending | patterns | treasuries | series; window = 7d|30d|90d|1y|all. Gross receipts on the day paid, never revenue or profit; a found wallet is a suspicion, not a fact.",
+            obj("report" to str("summary | leaderboard | categories | trending | patterns | treasuries | series | app_series"), "window" to str("7d | 30d | 90d | 1y | all (default 30d)"),
+                "package" to str("For app_series: the package"), "include" to str("For leaderboard: confirmed | found | all"), "limit" to int("Rows", 1, 100))) { a, c ->
+            val w = a.optString("window").takeIf { it in Analytics.WINDOWS } ?: "30d"; val an = views.analytics; val lim = a.optInt("limit", 10).coerceIn(1, 100)
+            when (a.optString("report", "summary")) {
+                "leaderboard" -> an.leaderboard(w, a.optString("include").takeIf { it in listOf("confirmed", "found", "all") } ?: "all", lim)
+                "categories" -> an.categoriesReport(w); "trending" -> an.trending(w, lim); "patterns" -> an.patterns(w); "treasuries" -> an.treasuries(w, lim)
+                "series" -> an.storeSeries(w, if (w == "7d") "day" else if (w == "all") "month" else "week")
+                "app_series" -> an.appSeries(a.optString("package"), "week") ?: JSONObject().put("error", "no payments seen for that package")
+                else -> an.summary(w)
+            } },
         Tool("found_treasuries", "Wallets FOUND IN APPS' CODE that received payments from 5+ wallets, NOT confirmed by the publisher: a separate list by app name, never ranked with payments_board. Say 'found in the app's code, not confirmed' whenever you mention one; it may not be the app's treasury.",
             obj("limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500), "package" to str("Optional: one app, for its full-history analytics (dates, monthly series, new and returning payers, concentration)"),
                 "trends" to bool("Optional: store-wide monthly totals instead of the list"))) { a, c ->

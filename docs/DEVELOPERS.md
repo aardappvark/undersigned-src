@@ -67,6 +67,25 @@ Each of these is made by AI (Claude Haiku), cached, and labelled a suggestion. N
 
 Hidden text is never translated. Each caller has a daily allowance of fresh AI answers (UTC day): 200 per pass key, 50 per Pro wallet, 20 per IP without a key (and 300 a day shared by everyone without a key); per-call keys have no daily limit and pay one extra call for each fresh answer. Cached answers are always free. Past the allowance the answer is `429` with `error: ai_allowance` and a `Retry-After` to midnight UTC.
 
+### Payment analytics (10 Oct 2026)
+
+What the store's apps are paid, read from the Solana ledger: confirmed treasuries (listed and proven by their publishers) and
+wallets **found in app code** (paid by 5+ wallets, confirmed by no one; always labelled apart, a suspicion, never a fact).
+Windows `7d|30d|90d|1y|all`; USD on the day paid; gross receipts, never revenue.
+
+| Route | What |
+|---|---|
+| `GET /v1/payments/leaderboard?window=30d&include=all` | dApps ranked by USD, with rails, payers, new payers, a weekly series each |
+| `GET /v1/payments/categories?window=` | categories ranked, with the change against the window before and three leaders each |
+| `GET /v1/payments/trending?window=` | rising, falling and new dApps (a $20 base to be ranked) |
+| `GET /v1/payments/patterns?window=` | rails, repeat payers, concentration, payment sizes, payments by hour (UTC) and weekday |
+| `GET /v1/payments/treasuries?window=` | wallets ranked, each with the dApps it was listed for or found in |
+| `GET /v1/payments/series?window=&by=day\|week\|month`, `/v1/payments/app/{pkg}/series` | time series, confirmed and found apart (free) |
+| `GET /v1/payments/summary?window=` | all of the above in one answer |
+| `GET /v1/payments/chart/top.svg`, `store.svg`, `app/{pkg}.svg` | charts as SVG, cached five minutes, free to embed |
+
+The page: [`/payments`](https://undersigned.provenby.dev/payments). MCP: `payments_analytics` (hosted), `api_payments_*` (local).
+
 ## 3. Limits, the pass, and pay per call
 
 | | Free | Pass | Pay per call (agents) |

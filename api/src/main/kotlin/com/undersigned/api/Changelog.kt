@@ -8,6 +8,10 @@ object Changelog {
     data class Entry(val date: String, val title: String, val items: List<String>)
 
     val ENTRIES = listOf(
+        Entry("2026-10-10", "Payment analytics", listOf(
+            "/payments: what the store's apps are paid, from the Solana ledger, over 7d|30d|90d|1y|all: a leaderboard by dApp (confirmed treasuries and wallets found in app code, always labelled apart), categories with their change against the window before and leaders, rising/falling/new dApps, rails, repeat payers, concentration, payment sizes, timing, and wallets.",
+            "API: GET /v1/payments/leaderboard, /series, /categories, /trending, /patterns, /treasuries, /summary, /app/{pkg}/series; charts as SVG at /v1/payments/chart/top.svg, store.svg and app/{pkg}.svg. MCP: payments_analytics (hosted) and api_payments_* (local).",
+            "Every figure is gross receipts on the day paid, never revenue; a found wallet is a suspicion with evidence, never a fact.")),
         Entry("2026-10-10", "Keys hashed; every redemption renews the key", listOf(
             "API keys are stored as hashes; a copy of the database opens nothing. Keys already issued keep working.",
             "Each redemption (a new pass, a top-up, or proving the same payment again) returns a NEW key for the pass and retires the previous one. Webhooks and the pass's allowance follow the new key. POST /v1/keys and POST /v1/publisher/plan say so in their answer.",

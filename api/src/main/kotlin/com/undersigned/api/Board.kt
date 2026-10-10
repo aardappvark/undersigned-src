@@ -142,16 +142,19 @@ class Prices(private val db: Db) {
         const val SOL = "So11111111111111111111111111111111111111112"
         /** A payment large enough to make its payer a payer (protocol Payments.MIN_PAYER_*): totals count every unit, pills and payer counts do not. */
         fun meaningful(p: Payments.Payment): Boolean = Payments.meaningful(p)   // the shared rule: phone and API agree
+
+        /** The priced value of one payment: USD on its day, or null when a rail's price for that day is not held. Stateless, so Analytics uses it too. */
+        fun usdWhenPaid(p: Payments.Payment, h: Map<String, Map<String, Double>>): Double? {
+            val day = java.time.Instant.ofEpochSecond(p.time).toString().take(10)
+            var total = if (p.lamports > 0) (h[SOL]?.get(day) ?: return null) * p.lamports / 1e9 else 0.0
+            for ((mint, raw) in p.tokens) total += when (mint) {
+                Config.USDC_MINT -> raw / 1e6
+                Config.SKR_MINT -> (h[mint]?.get(day) ?: return null) * raw / 1e6
+                else -> return null
+            }
+            return total
+        }
     }
 
-    fun usdWhenPaid(p: Payments.Payment, h: Map<String, Map<String, Double>>): Double? {
-        val day = java.time.Instant.ofEpochSecond(p.time).toString().take(10)
-        var total = if (p.lamports > 0) (h[SOL]?.get(day) ?: return null) * p.lamports / 1e9 else 0.0
-        for ((mint, raw) in p.tokens) total += when (mint) {
-            Config.USDC_MINT -> raw / 1e6
-            Config.SKR_MINT -> (h[mint]?.get(day) ?: return null) * raw / 1e6
-            else -> return null
-        }
-        return total
-    }
+    fun usdWhenPaid(p: Payments.Payment, h: Map<String, Map<String, Double>>): Double? = Prices.usdWhenPaid(p, h)
 }
