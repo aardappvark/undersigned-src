@@ -260,7 +260,7 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
         sb.append("<text x='40' y='46' $FONT font-size='26' font-weight='700' fill='#F2EEFF'>What dApps were paid · ${esc(label(window))}</text>")
         sb.append("<text x='40' y='76' $FONT font-size='15' fill='#B7AED1'>USD on the day paid · ${money(lb.getDouble("total_usd"))} across ${lb.getInt("apps")} dApps, ${lb.getInt("payers")} payers · <tspan fill='#14F195'>■</tspan> confirmed treasury  <tspan fill='#FFB547'>■</tspan> found in app code, not confirmed</text>")
         if (rows.length() == 0) sb.append("<text x='40' y='${top + 20}' $FONT font-size='16' fill='#6E6588'>No payments in this window yet.</text>")
-        for (i in 0 until rows.length()) { val r = rows.getJSONObject(i); val y = top + i * rowH; val bw = (720 * r.getDouble("usd") / max).coerceAtLeast(2.0)
+        for (i in 0 until rows.length()) { val r = rows.getJSONObject(i); val y = top + i * rowH; val bw = (560 * r.getDouble("usd") / max).coerceAtLeast(2.0)   // leaves room for the label after the longest bar
             val col = if (r.getString("source") == "confirmed") "#14F195" else "#FFB547"
             sb.append("<text x='40' y='${y + 27}' $FONT font-size='16' fill='#F2EEFF'>${esc(r.getString("name").take(28))}</text>")
             sb.append("<rect x='330' y='${y + 10}' width='${"%.1f".format(java.util.Locale.US, bw)}' height='22' rx='6' fill='$col' opacity='0.9'/>")

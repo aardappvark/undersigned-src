@@ -851,13 +851,21 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 Text(stringResource(R.string.burst_causes), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp)
             }
 
+            // Weekly payments from the API (owner, 10 Oct 2026): confirmed treasuries and wallets found in the app's code; a 404 shows nothing.
+            val weekly by produceState<com.undersigned.app.ledger.PaymentAnalytics.AppSeries?>(null, pkg) { value = vm.appPaymentSeries(pkg) }
+            val weeklyShown = weekly?.takeIf { w -> w.series.any { it.usd > 0 } }
             boardRow?.let { row ->
                 SectionTitle(stringResource(R.string.pay_detail_title))
                 GlassCard {
                     TallyView(row, vm.quotes.collectAsState().value)
                     Spacer(Modifier.height(6.dp))
                     Text(stringResource(R.string.pay_detail_sub, shortKey(row.claim.treasury, 4, 4), row.claim.code), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                    weeklyShown?.let { Spacer(Modifier.height(14.dp)); AppWeeklyPayments(it) }
                 }
+            }
+            if (boardRow == null) weeklyShown?.let { w ->
+                SectionTitle(stringResource(R.string.pay_detail_title))
+                GlassCard(accent = if (w.anyFound) RbColors.warning.copy(alpha = 0.5f) else RbColors.glassBorder) { AppWeeklyPayments(w) }
             }
 
             SectionTitle(stringResource(R.string.detail_facts_title))
