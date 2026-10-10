@@ -12,6 +12,7 @@ class Db(path: String = Config.DB_PATH) {
     private val c: Connection = DriverManager.getConnection("jdbc:sqlite:$path")
 
     init {
+        privately(java.io.File(path))
         c.createStatement().use { s ->
             s.execute("PRAGMA journal_mode=WAL")
             s.execute("CREATE TABLE IF NOT EXISTS kv (k TEXT PRIMARY KEY, v TEXT NOT NULL)")
@@ -50,7 +51,18 @@ class Db(path: String = Config.DB_PATH) {
     }
 
     /** A consistent copy of the whole database into [file] (SQLite VACUUM INTO): passes and redemptions are the one thing the chain cannot rebuild. */
-    @Synchronized fun backupTo(file: java.io.File) { file.parentFile?.mkdirs(); file.delete(); c.createStatement().use { it.execute("VACUUM INTO '" + file.path.replace("'", "''") + "'") } }
+    @Synchronized fun backupTo(file: java.io.File) {
+        file.parentFile?.mkdirs(); file.parentFile?.let { privately(it) }; file.delete()
+        c.createStatement().use { it.execute("VACUUM INTO '" + file.path.replace("'", "''") + "'") }
+        privately(file)
+    }
+
+    /** Owner-only permissions on a file or folder (and a database's -wal/-shm beside it): keys and payments live here. Best effort. */
+    private fun privately(f: java.io.File) {
+        val perms = if (f.isDirectory) "rwx------" else "rw-------"
+        for (x in listOf(f, java.io.File(f.path + "-wal"), java.io.File(f.path + "-shm"))) if (x.exists())
+            runCatching { java.nio.file.Files.setPosixFilePermissions(x.toPath(), java.nio.file.attribute.PosixFilePermissions.fromString(perms)) }
+    }
 
     fun get(k: String): String? = query("SELECT v FROM kv WHERE k = ?", k) { it.getString(1) }.firstOrNull()
     fun put(k: String, v: String) { exec("INSERT INTO kv (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v", k, v) }

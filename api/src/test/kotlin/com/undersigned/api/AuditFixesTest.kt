@@ -150,7 +150,7 @@ class OutboxTest {
     @Test fun `events queue in the outbox and a worker delivers with retries`() {
         val db = tmpDb(); val billing = Billing(db, { null }, { false })
         val now = 1_000_000L
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_a', 'w', 10, ?, 0)", now + 3600)
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 10, ?, 0)", Billing.hashKey("us_a"), now + 3600)
         var fail = true; val sent = ArrayList<String>()
         val hooks = Hooks(db, billing) { _, body, _ -> sent += body; if (fail) 500 else 200 }
         hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))
@@ -168,7 +168,7 @@ class OutboxTest {
     @Test fun `a receiver that never answers is tried seven times over about a day, then dropped`() {
         val db = tmpDb(); val billing = Billing(db, { null }, { false })
         val now = 1_000_000L
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_a', 'w', 10, ?, 0)", now + 999_999)
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 10, ?, 0)", Billing.hashKey("us_a"), now + 999_999)
         var tries = 0
         val hooks = Hooks(db, billing) { _, _, _ -> tries++; throw java.net.ConnectException("refused") }
         hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))

@@ -8,6 +8,11 @@ object Changelog {
     data class Entry(val date: String, val title: String, val items: List<String>)
 
     val ENTRIES = listOf(
+        Entry("2026-10-10", "Keys hashed; every redemption renews the key", listOf(
+            "API keys are stored as hashes; a copy of the database opens nothing. Keys already issued keep working.",
+            "Each redemption (a new pass, a top-up, or proving the same payment again) returns a NEW key for the pass and retires the previous one. Webhooks and the pass's allowance follow the new key. POST /v1/keys and POST /v1/publisher/plan say so in their answer.",
+            "Quick reviews can be withdrawn: the relayer accepts a withdrawal (rvk) signed by the app key that wrote the review.",
+            "Quick reviews count in no score, whatever the signing key holds; /v1/stats and the dataset apply the operator rule everywhere; found-wallet trends apply the list's filters; the store-sync time survives a restart.")),
         Entry("2026-10-10", "Publisher plan and data plan", listOf(
             "Publisher plan, per app per 30 days (0.0607 SOL, 369 SKR, 332 with a Genesis Token; up to 12 months a payment): POST /v1/checkout {publisher, months}, pay from the app's proven publisher wallet, POST /v1/publisher/plan. GET /v1/publisher/{pkg}/report: reviews waiting for an answer, the store rating's trend, bursts, certificate/version/permission changes, scores by version, the category benchmark. GET /v1/publisher/{pkg}/plan: whether a plan is live.",
             "Data plan, 30 days (0.607 SOL, 3,690 SKR, 3,320 with a Genesis Token): 2,000,000 requests at 3,000 a minute and GET /v1/export/{ratings|changes|apps|found} as CSV. POST /v1/checkout {plan: \"data\"}, then POST /v1/keys.",

@@ -16,8 +16,24 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
               /** The payer's sanctions screen: true listed, false clear, null could not run (refused: fail closed, 9 Oct 2026). */
               private val screen: (String) -> Boolean? = { false }) {
 
+    /** [key] is the plaintext only on the Pass a redemption returns; a Pass read from the database carries the key's HASH. */
     data class Pass(val key: String, val wallet: String, val requestsLeft: Long, val endsAt: Long)
-    init { db.exec("CREATE TABLE IF NOT EXISTS publisher_plans (sig TEXT PRIMARY KEY, pkg TEXT NOT NULL, wallet TEXT NOT NULL, starts_at INTEGER NOT NULL, ends_at INTEGER NOT NULL, months INTEGER NOT NULL)") }
+    init {
+        db.exec("CREATE TABLE IF NOT EXISTS publisher_plans (sig TEXT PRIMARY KEY, pkg TEXT NOT NULL, wallet TEXT NOT NULL, starts_at INTEGER NOT NULL, ends_at INTEGER NOT NULL, months INTEGER NOT NULL)")
+        // Keys are stored hashed (audit, 10 Oct 2026: the database and its backups held them in clear). Rows written in
+        // clear before that are hashed once here; their holders' keys keep working, because lookups hash what they send.
+        db.tx { for (k in db.query("SELECT key FROM passes WHERE key LIKE 'us_%'") { it.getString(1) }) rekey(k, hashKey(k)) }
+    }
+
+    /** Every table that names a key by its hash follows a rotation. */
+    private fun rekey(from: String, to: String) {
+        db.exec("UPDATE passes SET key = ? WHERE key = ?", to, from)
+        db.exec("UPDATE redeemed SET key = ? WHERE key = ?", to, from)
+        runCatching { db.exec("UPDATE hooks SET key = ? WHERE key = ?", to, from) }   // the hooks table exists once Hooks has started
+    }
+
+    /** A fresh plaintext key for the pass row whose key hash is [hash]; the old key stops working. */
+    private fun rotate(hash: String): String { val plain = newKey(); rekey(hash, hashKey(plain)); return plain }
     class Refused(val status: Int, message: String) : Exception(message)
 
     fun message(txSignature: String) = "Undersigned API key for $txSignature"
@@ -34,7 +50,9 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
     /** Redeems with EITHER the paying wallet's [messageSignature] OR the checkout [secret] whose commitment is in the memo. */
     fun redeem(txSignature: String, messageSignature: String?, now: Long = System.currentTimeMillis() / 1000, secret: String? = null): Pass {
         val (tx, already) = verified(txSignature, messageSignature, secret)
-        if (already != null) return pass(already) ?: throw Refused(409, "this payment has already been redeemed")
+        // The payer proving the same payment again gets a NEW key for the same pass (nothing added; the old key stops
+        // working): a lost key is recoverable by the payer, and never by anyone who only saw the transaction.
+        if (already != null) return db.tx { passByHash(already)?.let { it.copy(key = rotate(already)) } ?: throw Refused(409, "this payment has already been redeemed") }
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
         // Ten passes' worth or more: the data plan, its own key (kind 'data').
         val data = when {
@@ -72,7 +90,6 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
             null -> throw Refused(503, "the sanctions check could not be completed just now; redeem again in a minute")
             false -> {}
         }
-        // Already redeemed: the same proof gets the SAME key back (a lost key is recoverable by the payer), never a second pass.
         return tx to already
     }
 
@@ -91,42 +108,29 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
                 skr >= Config.skrRaw(Config.CREDITS_MIN_SKR) -> "SKR" to skr / Config.perCallSkrRaw
                 else -> throw Refused(402, "the payment credited the treasury ${tx.lamportsIn} lamports and $skr raw SKR, below the minimum top-up (${Config.CREDITS_MIN_SOL} SOL or ${Config.CREDITS_MIN_SKR} SKR)")
             }
-            return db.tx {
-                val cur = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = 'credits' ORDER BY ends_at DESC LIMIT 1", tx.feePayer) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
-                val p = if (cur != null) cur.copy(requestsLeft = maxOf(0, cur.requestsLeft) + calls.second, endsAt = now + Config.CREDITS_DAYS * 86_400).also {
-                    db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", it.requestsLeft, it.endsAt, it.key) }
-                else Pass(newKey(), tx.feePayer, calls.second, now + Config.CREDITS_DAYS * 86_400).also {
-                    db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created, kind) VALUES (?, ?, ?, ?, ?, 'credits')", it.key, it.wallet, it.requestsLeft, it.endsAt, now) }
-                try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, p.key, tx.feePayer, calls.first, if (calls.first == "SOL") tx.lamportsIn else skr, now) }
-                catch (e: java.sql.SQLException) { throw Refused(409, "this payment has already been redeemed") }
-                p
-            }
+            // Credits run a year from the latest top-up.
+            return grant("credits", tx.feePayer, calls.second, 0, txSignature, calls.first, if (calls.first == "SOL") tx.lamportsIn else skr, now, endsAt = now + Config.CREDITS_DAYS * 86_400, extendOnly = false)
         }
         val (rail, amount) = pass
-        return db.tx {
-            val current = passOf(tx.feePayer, now)
-            val pass = if (current != null) {
-                val p = current.copy(requestsLeft = current.requestsLeft + Config.PASS_REQUESTS, endsAt = maxOf(now, current.endsAt) + Config.PASS_DAYS * 86_400)
-                db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", p.requestsLeft, p.endsAt, p.key); p
-            } else {
-                val p = Pass(newKey(), tx.feePayer, Config.PASS_REQUESTS, now + Config.PASS_DAYS * 86_400)
-                db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, ?, ?, ?, ?)", p.key, p.wallet, p.requestsLeft, p.endsAt, now); p
-            }
-            // Two redemptions racing on one signature: the primary key lets exactly one through; the other is a replay.
-            try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, pass.key, tx.feePayer, rail, amount, now) }
-            catch (e: java.sql.SQLException) { throw Refused(409, "this payment has already been redeemed") }
-            pass
-        }
+        return grant("pass", tx.feePayer, Config.PASS_REQUESTS, Config.PASS_DAYS * 86_400, txSignature, rail, amount, now, live = true)
     }
 
-    /** Creates the wallet's key of [kind] or extends it (requests added, end pushed from the later of now and its end). */
-    private fun grant(kind: String, wallet: String, requests: Long, seconds: Long, txSignature: String, rail: String, amount: Long, now: Long, endsAt: Long? = null): Pass = db.tx {
-        val cur = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = ? ORDER BY ends_at DESC LIMIT 1", wallet, kind) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
-        val p = if (cur != null) cur.copy(requestsLeft = maxOf(0, cur.requestsLeft) + requests, endsAt = endsAt?.let { maxOf(it, cur.endsAt) } ?: (maxOf(now, cur.endsAt) + seconds)).also {
-            db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", it.requestsLeft, it.endsAt, it.key) }
-        else Pass(newKey(), wallet, requests, endsAt ?: (now + seconds)).also {
-            db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created, kind) VALUES (?, ?, ?, ?, ?, ?)", it.key, it.wallet, it.requestsLeft, it.endsAt, now, kind) }
-        try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, p.key, wallet, rail, amount, now) }
+    /**
+     * Creates the wallet's key of [kind] or extends its row (requests added; the end pushed from the later of now and its
+     * end, or set to [endsAt]; [extendOnly] false lets [endsAt] shorten it, as credits' year from the latest top-up does;
+     * [live] true extends only a pass still usable, else starts a new one). Every grant returns a fresh plaintext key for
+     * the row and retires the previous one: the database only ever holds hashes.
+     */
+    private fun grant(kind: String, wallet: String, requests: Long, seconds: Long, txSignature: String, rail: String, amount: Long, now: Long,
+                      endsAt: Long? = null, extendOnly: Boolean = true, live: Boolean = false): Pass = db.tx {
+        val cur = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = ?" + (if (live) " AND ends_at > ? AND requests_left > 0" else "") + " ORDER BY ends_at DESC LIMIT 1",
+            *(if (live) arrayOf(wallet, kind, now) else arrayOf(wallet, kind))) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+        val plain = newKey(); val h = hashKey(plain)
+        val p = if (cur != null) cur.copy(key = plain, requestsLeft = maxOf(0, cur.requestsLeft) + requests, endsAt = endsAt?.let { if (extendOnly) maxOf(it, cur.endsAt) else it } ?: (maxOf(now, cur.endsAt) + seconds)).also {
+            rekey(cur.key, h); db.exec("UPDATE passes SET requests_left = ?, ends_at = ? WHERE key = ?", it.requestsLeft, it.endsAt, h) }
+        else Pass(plain, wallet, requests, endsAt ?: (now + seconds)).also {
+            db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created, kind) VALUES (?, ?, ?, ?, ?, ?)", h, it.wallet, it.requestsLeft, it.endsAt, now, kind) }
+        try { db.exec("INSERT INTO redeemed (sig, key, wallet, rail, amount, at) VALUES (?, ?, ?, ?, ?, ?)", txSignature, h, wallet, rail, amount, now) }
         catch (e: java.sql.SQLException) { throw Refused(409, "this payment has already been redeemed") }
         p
     }
@@ -147,7 +151,7 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
         if (already != null) {
             val row = db.query("SELECT pkg, wallet, ends_at, months FROM publisher_plans WHERE sig = ?", txSignature) { Triple(it.getString(1), it.getString(2), it.getLong(3) to it.getInt(4)) }.firstOrNull()
                 ?: throw Refused(409, "this payment was redeemed as an API pass, not a publisher plan")
-            return Plan(row.first, row.second, row.third.first, already, row.third.second)
+            return Plan(row.first, row.second, row.third.first, db.tx { rotate(already) }, row.third.second)
         }
         if (!isPublisher(tx.feePayer, packageName)) throw Refused(403, "the paying wallet ${tx.feePayer} is not a proven publisher of $packageName: prove it first (a signed claim), then pay from that wallet")
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
@@ -181,18 +185,22 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
     fun passOf(wallet: String, now: Long = System.currentTimeMillis() / 1000): Pass? =
         db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE wallet = ? AND kind = 'pass' AND ends_at > ? AND requests_left > 0 ORDER BY ends_at DESC LIMIT 1", wallet, now) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
 
-    fun pass(key: String): Pass? = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE key = ?", key) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
+    /** The pass a plaintext [key] opens (its [Pass.key] is the hash). */
+    fun pass(key: String): Pass? = passByHash(hashKey(key))
+    fun passByHash(h: String): Pass? = db.query("SELECT key, wallet, requests_left, ends_at FROM passes WHERE key = ?", h) { Pass(it.getString(1), it.getString(2), it.getLong(3), it.getLong(4)) }.firstOrNull()
 
-    /** "pass" or "credits"; null when the key is unknown. */
-    fun kind(key: String): String? = db.query("SELECT kind FROM passes WHERE key = ?", key) { it.getString(1) }.firstOrNull()
+    /** "pass", "credits", "data" or "publisher"; null when the key is unknown. */
+    fun kind(key: String): String? = db.query("SELECT kind FROM passes WHERE key = ?", hashKey(key)) { it.getString(1) }.firstOrNull()
 
     /** Spends one request. False when the key is unknown, ended or used up (the caller answers 402). */
     fun consume(key: String, now: Long = System.currentTimeMillis() / 1000): Boolean =
-        db.exec("UPDATE passes SET requests_left = requests_left - 1 WHERE key = ? AND requests_left > 0 AND ends_at > ?", key, now) == 1
+        db.exec("UPDATE passes SET requests_left = requests_left - 1 WHERE key = ? AND requests_left > 0 AND ends_at > ?", hashKey(key), now) == 1
 
     private fun newKey(): String = "us_" + Base58.encode(ByteArray(24).also { SecureRandom().nextBytes(it) })
 
     companion object {
+        /** What the database holds for a key: a salted SHA-256, so a copy of the database (or a backup) opens nothing. */
+        fun hashKey(key: String): String = java.security.MessageDigest.getInstance("SHA-256").digest(("undersigned-key:" + key.trim()).toByteArray()).joinToString("") { "%02x".format(it) }
         /** First 16 bytes of SHA-256("undersigned-pass:" + secret), hex: short enough for a memo, far too wide to guess. */
         fun commitment(secret: String): String = java.security.MessageDigest.getInstance("SHA-256").digest(("undersigned-pass:" + secret).toByteArray()).take(16).joinToString("") { "%02x".format(it) }
 

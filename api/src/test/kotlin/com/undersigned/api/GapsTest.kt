@@ -20,7 +20,7 @@ class GapsTest {
             .put(JSONObject().put("p", "com.c.d").put("n", "App D").put("u", "2026-09-01").put("c", "Tools")).toString())
         db.exec("INSERT INTO records (id, sig, signer, block_time, memo) VALUES (?, ?, ?, ?, ?)", sig('p'), sig('p'), member, System.currentTimeMillis() / 1000 - 60, ReviewMemo.encode(ReviewMemo.Pro(12)))
         db.exec("INSERT INTO changes (pkg, at, kind, old, new) VALUES ('com.a.b', ?, 'version', '41', '42')", System.currentTimeMillis() / 1000 - 3600)
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_k', 'w', 50, ?, 0)", System.currentTimeMillis() / 1000 + 3600)
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 50, ?, 0)", Billing.hashKey("us_k"), System.currentTimeMillis() / 1000 + 3600)
         val rpc = Rpc(listOf("http://127.0.0.1:9")); val ix = Indexer(db, rpc, Store(0)).also { it.rebuild() }
         val ai = Ai(db, call = { sys, user, _ -> when {
             sys.startsWith("You answer questions from people reading") -> "Each attested device counts once."

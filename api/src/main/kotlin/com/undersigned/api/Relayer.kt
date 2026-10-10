@@ -39,7 +39,8 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         fun network(ip: String): String = if (':' in ip) ip.split(':').let { p -> (p.take(4) + List(4 - minOf(4, p.size)) { "0" }).joinToString(":") + "::/64" } else ip
         const val FEE_LAMPORTS = 10_000L   // two signatures (relayer + app key) at 5,000 each; measured on mainnet 9 Oct 2026
         private val ALLOWED = setOf(ReviewMemo.Review::class, ReviewMemo.Quick::class, ReviewMemo.Use::class, ReviewMemo.Time::class, ReviewMemo.Activity::class,
-            ReviewMemo.LongTextHead::class, ReviewMemo.TextPart::class, ReviewMemo.FollowUp::class)
+            ReviewMemo.LongTextHead::class, ReviewMemo.TextPart::class, ReviewMemo.FollowUp::class,
+            ReviewMemo.Revocation::class)   // withdrawing: readers honour a revocation only from the review's own signer (Ranking.revoked)
 
         data class Ix(val program: Int, val accounts: List<Int>, val data: ByteArray)
         data class Parsed(val signatures: List<ByteArray>, val message: ByteArray, val header: Triple<Int, Int, Int>, val keys: List<String>, val ixs: List<Ix>)
@@ -112,7 +113,7 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         val reviews = memos.count { it is ReviewMemo.Review }
         if (reviews > 1) throw Refused(400, "one review per transaction")
         if (reviews == 1 && ReviewMemo.Quick !in memos) throw Refused(400, "a relayed review must carry the quick marker")
-        if (reviews == 0 && memos.any { it !is ReviewMemo.TextPart }) throw Refused(400, "without a review, only long-text pieces")
+        if (reviews == 0 && memos.any { it !is ReviewMemo.TextPart && it !is ReviewMemo.Revocation }) throw Refused(400, "without a review, only long-text pieces or a withdrawal")
         val pub = KeyFactory.getInstance("Ed25519").generatePublic(X509EncodedKeySpec(byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00) + Base58.decode(appKey)))
         if (!Signature.getInstance("Ed25519").run { initVerify(pub); update(p.message); verify(p.signatures[1]) }) throw Refused(400, "the app key's signature does not match")
         // Limits: per app key, per network (hour and day), per day for everyone. The counts and the reservation are one

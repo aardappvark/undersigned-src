@@ -96,7 +96,9 @@ To get a key:
 
 1. **Checkout.** `POST /v1/checkout` returns a secret and ready Solana Pay URLs. For per-call credits, send `{"calls": N}` instead. The payment carries the API reference and memo `UNS:<commitment>`.
 2. **Pay** one of the URLs from any wallet. The payment goes straight to the treasury.
-3. **Redeem.** `POST /v1/keys` with `{"signature": "<payment tx>", "secret": "<from checkout>"}`. What you get depends on the amount:
+3. **Redeem.** `POST /v1/keys` with `{"signature": "<payment tx>", "secret": "<from checkout>"}`. Every redemption returns a
+   **new key** for the pass and retires the previous one (webhooks follow it), so proving the same payment again recovers
+   a lost key. Keys are stored hashed. What you get depends on the amount:
    - the pass price or more buys a pass;
    - less buys calls at the per-call rate;
    - paying again tops up the same pass or credits.

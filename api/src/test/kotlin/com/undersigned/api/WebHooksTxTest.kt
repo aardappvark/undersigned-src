@@ -125,7 +125,7 @@ class HooksTest {
     @Test fun `delivers signed events for watched apps and stops when the pass ends`() {
         val f = Fixture()
         val now = System.currentTimeMillis() / 1000
-        f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_a', 'w', 10, ?, 0)", now + 3600)
+        f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 10, ?, 0)", Billing.hashKey("us_a"), now + 3600)
         val sent = ArrayList<Triple<String, String, Map<String, String>>>()
         val hooks = Hooks(f.db, f.billing) { url, body, hs -> sent += Triple(url, body, hs); 200 }
         val h = hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))
@@ -144,7 +144,7 @@ class HooksTest {
         val ev = JSONObject(body).getJSONArray("events")
         assertEquals(1, ev.length()); assertEquals("com.a.b", ev.getJSONObject(0).getString("package"))
         // The pass ends: nothing more is sent.
-        f.db.exec("UPDATE passes SET ends_at = ? WHERE key = 'us_a'", now - 1)
+        f.db.exec("UPDATE passes SET ends_at = ? WHERE key = ?", now - 1, Billing.hashKey("us_a"))
         hooks.dispatch(listOf(review), emptyList(), emptyList(), now); hooks.deliverDue(now)
         assertEquals(2, sent.size)   // the event and the test ping; nothing after the pass ended
     }
@@ -214,7 +214,7 @@ class GapFixesTest {
         val feed = f.get("/app/com.a.b/feed.xml"); assertTrue(feed.contentType.startsWith("application/atom+xml")); assertTrue("<entry>" in String(feed.raw!!))
         assertTrue("/report" in String(f.get("/").raw!!)); assertEquals(200, f.get("/report").status); assertTrue("<urlset" in String(f.get("/sitemap.xml").raw!!))
         val now = System.currentTimeMillis() / 1000
-        f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_h', 'w', 10, ?, 0)", now + 3600)
+        f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 10, ?, 0)", Billing.hashKey("us_h"), now + 3600)
         val sent = ArrayList<String>(); val hooks = Hooks(f.db, f.billing) { _, body, _ -> sent += body; 200 }
         hooks.create("us_h", "http://localhost:9999/h", listOf("flag", "claim"), listOf("com.a.b"))
         val review = f.indexer.state.entries.first()

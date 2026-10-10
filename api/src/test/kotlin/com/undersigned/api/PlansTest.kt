@@ -31,7 +31,7 @@ class PlansTest {
         txs[sig('b')] = tx(sig('b'), payer.address, lamports = Config.dataFloorLamports - 1)            // just under: an ordinary pass
         val p = redeem(sig('b')); assertEquals("pass", b.kind(p.key) ?: "pass"); assertTrue(p.key != d.key)
         txs[sig('c')] = tx(sig('c'), payer.address, skr = Config.dataFloorSkrRaw)                       // SKR, and a renewal stacks on the same key
-        val d2 = redeem(sig('c')); assertEquals(d.key, d2.key); assertEquals(2 * Config.DATA_REQUESTS, d2.requestsLeft); assertEquals(d.endsAt + Config.DATA_DAYS * 86_400, d2.endsAt)
+        val d2 = redeem(sig('c')); assertTrue(d2.key != d.key); assertEquals("data", b.kind(d2.key)); assertEquals(2 * Config.DATA_REQUESTS, d2.requestsLeft); assertEquals(d.endsAt + Config.DATA_DAYS * 86_400, d2.endsAt)
     }
 
     @Test fun `a publisher plan is redeemed only by the app's proven publisher, by the month, stacking`() {
@@ -48,9 +48,9 @@ class PlansTest {
         txs[sig('m')] = tx(sig('m'), pub.address, lamports = 3 * Config.planFloorLamports)               // three months in one payment
         val p = plan(sig('m'), pub); assertEquals(3, p.months); assertEquals(1_000_000 + 3 * Config.PLAN_DAYS * 86_400, p.endsAt)
         assertEquals("publisher", b.kind(p.key)); assertTrue(b.planActive("com.a.b", 1_000_001)); assertTrue(!b.planActive("com.c.d", 1_000_001))
-        assertEquals(p.key, plan(sig('m'), pub).key)                                                     // the same proof: the same key, nothing added
+        val again = plan(sig('m'), pub); assertTrue(again.key != p.key); assertEquals(p.endsAt, again.endsAt); assertEquals(null, b.pass(p.key))   // the same proof: a new key, nothing added
         txs[sig('r')] = tx(sig('r'), pub.address, skr = Config.planFloorSkrRaw)                         // a renewal starts when the term ends
-        val r = plan(sig('r'), pub); assertEquals(p.endsAt + Config.PLAN_DAYS * 86_400, r.endsAt); assertEquals(p.key, r.key)
+        val r = plan(sig('r'), pub); assertEquals(p.endsAt + Config.PLAN_DAYS * 86_400, r.endsAt); assertEquals("publisher", b.kind(r.key))
         txs[sig('y')] = tx(sig('y'), pub.address, lamports = 40 * Config.planFloorLamports)              // at most twelve months a payment
         assertEquals(Config.PLAN_MAX_MONTHS, plan(sig('y'), pub).months)
         txs[sig('g')] = tx(sig('g'), pub.address, skr = 12 * Config.planFloorSkrSgtRaw)               // a Genesis holder: 12 months at the Genesis price is 12 months
@@ -110,5 +110,19 @@ class PlansTest {
         val pricing = call("GET", "/v1/pricing").body
         assertEquals(Config.DATA_SOL, pricing.getJSONObject("data_plan").getJSONObject("price").getDouble("sol"))
         assertEquals(Config.PLAN_SOL, pricing.getJSONObject("publisher_plan").getDouble("sol"))
+    }
+
+    @Test fun `keys written in clear are hashed on start, and webhooks follow a rotated key`() {
+        val d = db(); val payer = W(); val txs = mutableMapOf<String, TxInfo>()
+        d.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created, kind) VALUES ('us_old', 'w', 5, 9999999999, 0, 'pass')")
+        val b = Billing(d, { txs[it] }, { false })
+        assertEquals(0, d.query("SELECT count(*) FROM passes WHERE key LIKE 'us_%'") { it.getInt(1) }.first())   // nothing in clear
+        assertEquals(5L, b.pass("us_old")!!.requestsLeft)                                                          // the old key still opens its pass
+        val hooks = Hooks(d, b) { _, _, _ -> 200 }
+        txs[sig('a')] = tx(sig('a'), payer.address, lamports = Config.passFloorLamports)
+        val k1 = b.redeem(sig('a'), payer.sign(b.message(sig('a')).toByteArray()), now = 1_000_000).key
+        hooks.create(k1, "http://localhost:9/h", listOf("review"), listOf("com.a.b"))
+        val k2 = b.redeem(sig('a'), payer.sign(b.message(sig('a')).toByteArray()), now = 1_000_001).key   // re-redeem rotates
+        assertEquals(1, hooks.list(k2).size); assertEquals(0, hooks.list(k1).size)
     }
 }

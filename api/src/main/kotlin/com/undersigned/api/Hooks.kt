@@ -32,7 +32,8 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         db.exec("CREATE TABLE IF NOT EXISTS hook_outbox (id INTEGER PRIMARY KEY AUTOINCREMENT, hook TEXT NOT NULL, body TEXT NOT NULL, attempts INTEGER NOT NULL, next_at INTEGER NOT NULL, created INTEGER NOT NULL)")
     }
 
-    fun create(key: String, url: String, events: Collection<String>, packages: Collection<String>): Hook {
+    fun create(key: String, url: String, events: Collection<String>, packages: Collection<String>): Hook = createByHash(Billing.hashKey(key), url, events, packages)
+    private fun createByHash(key: String, url: String, events: Collection<String>, packages: Collection<String>): Hook {
         val ev = events.map { it.trim() }.filter { it.isNotEmpty() }.toSet().ifEmpty { EVENTS }
         if (!EVENTS.containsAll(ev)) throw Invalid("events must be among ${EVENTS.joinToString()}")
         if (packages.isEmpty() || packages.size > 50) throw Invalid("name 1 to 50 packages to watch")
@@ -43,8 +44,8 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         return h
     }
 
-    fun list(key: String): List<Hook> = db.query("SELECT id, key, url, secret, events, packages FROM hooks WHERE key = ?", key) { row(it) }
-    fun delete(key: String, id: String): Boolean = db.exec("DELETE FROM hooks WHERE key = ? AND id = ?", key, id) == 1
+    fun list(key: String): List<Hook> = db.query("SELECT id, key, url, secret, events, packages FROM hooks WHERE key = ?", Billing.hashKey(key)) { row(it) }
+    fun delete(key: String, id: String): Boolean = db.exec("DELETE FROM hooks WHERE key = ? AND id = ?", Billing.hashKey(key), id) == 1
     fun count(): Int = db.query("SELECT count(*) FROM hooks") { it.getInt(1) }.first()
     /** Deliveries that ended in failure in the last 24 h, for /v1/health. */
     fun failures24h(): Int = db.query("SELECT count(*) FROM hook_log WHERE at > ? AND (status < 200 OR status >= 300)", System.currentTimeMillis() / 1000 - 86_400) { it.getInt(1) }.first()
@@ -72,7 +73,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         if (events.isEmpty()) return 0
         var queued = 0
         for (h in db.query("SELECT id, key, url, secret, events, packages FROM hooks") { row(it) }) {
-            val p = billing.pass(h.key)
+            val p = billing.passByHash(h.key)           // hooks store the key's hash
             if (p == null || p.endsAt <= now) continue      // an ended pass stops its hooks
             val mine = events.filter { (pkg, ev) -> pkg in h.packages && ev.getString("type") in h.events }.map { it.second }
             if (mine.isEmpty()) continue
@@ -137,7 +138,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         val dg = weeklyDigest?.invoke() ?: return
         if (db.get("hooks_digest_week") == dg.getString("week")) return
         val targets = db.query("SELECT id, key, events FROM hooks") { listOf(it.getString(1), it.getString(2), it.getString(3)) }
-            .filter { "digest" in it[2].split(',') && billing.pass(it[1])?.let { p -> p.endsAt > now } == true }
+            .filter { "digest" in it[2].split(',') && billing.passByHash(it[1])?.let { p -> p.endsAt > now } == true }
         targets.forEach { t ->
             val body = JSONObject().put("hook", t[0]).put("sent_at", now)
                 .put("events", org.json.JSONArray().put(JSONObject(dg.toString()).put("id", "digest-${dg.getString("week")}").put("type", "digest"))).toString()

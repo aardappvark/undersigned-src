@@ -49,7 +49,7 @@ class AiTest {
         db.exec("INSERT INTO facts (wallet, sgt, staked, at) VALUES (?, 1, 0, ?)", reviewer, System.currentTimeMillis())
         db.exec("INSERT INTO operator_hidden (id, reason, at) VALUES (?, 'abuse', 0)", sig('h'))
         rec('h', reviewer, ReviewMemo.Review("com.x.y", 1, listOf(ReviewMemo.Tag.CRASHES), 3, "hidden words"))
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_k', 'w', 10, ?, 0)", System.currentTimeMillis() / 1000 + 3600)
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 10, ?, 0)", Billing.hashKey("us_k"), System.currentTimeMillis() / 1000 + 3600)
         val rpc = Rpc(listOf("http://127.0.0.1:9")); val ix = Indexer(db, rpc, Store(0)).also { it.rebuild() }
         val ai = Ai(db, call = { sys, _, _ -> if (sys.startsWith("You answer developers")) "Use GET /v1/apps/{pkg}/reviews?sort=newest." else "Funktioniert gut auf meinem Seeker" })
         val api = Api(Views(ix, Boards(ix, Board(db, rpc), Prices(db)), db, ai), Billing(db, { null }, { false }), ix)

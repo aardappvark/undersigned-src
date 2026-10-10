@@ -267,7 +267,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
             key != null && !known -> { ipBudget()?.let { return it }; return paymentRequired("this key does not exist") }
             key != null && rt.tier != Tier.FREE -> {
                 val perMinute = if (billing.kind(key) == "data") Config.DATA_PER_MINUTE else Config.PASS_PER_MINUTE
-                if (limiter.take("key:$key", perMinute, null) != null) return Response(429, JSONObject().put("error", "rate_limited").put("message", "$perMinute requests per minute per key"), mapOf("Retry-After" to "60"))
+                if (limiter.take("key:${Billing.hashKey(key)}", perMinute, null) != null) return Response(429, JSONObject().put("error", "rate_limited").put("message", "$perMinute requests per minute per key"), mapOf("Retry-After" to "60"))
                 if (!billing.consume(key)) return paymentRequired("this key has no requests left or has ended")
                 Caller(true, key)
             }
@@ -277,8 +277,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
         // Who any fresh AI answer in this request is for (Ai.complete checks and counts it; proOrKey upgrades a Pro wallet).
         // A known key counts against its own allowance on every route, free ones included (a pass calling /v1/help is still that pass).
         Ai.who.set(when {
-            known && key != null && billing.kind(key) == "credits" -> Ai.Caller("key:$key", Int.MAX_VALUE, "credits") { billing.consume(key) }
-            known && key != null -> Ai.Caller("key:$key", Config.AI_PER_PASS_DAY, "pass")
+            known && key != null && billing.kind(key) == "credits" -> Ai.Caller("key:${Billing.hashKey(key)}", Int.MAX_VALUE, "credits") { billing.consume(key) }
+            known && key != null -> Ai.Caller("key:${Billing.hashKey(key)}", Config.AI_PER_PASS_DAY, "pass")
             else -> Ai.Caller("ip:$ip", Config.AI_PER_IP_DAY, "anon")
         })
         val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to m.groupValues[i + 1] }.toMap()   // URI.path arrives decoded
@@ -289,7 +289,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
                 val left = billing.pass(caller.key)
                 val perMinute = if (billing.kind(caller.key!!) == "data") Config.DATA_PER_MINUTE else Config.PASS_PER_MINUTE
                 h["X-RateLimit-Limit"] = perMinute.toString()
-                limiter.remaining("key:${caller.key}", perMinute, null).let { h["X-RateLimit-Remaining"] = it["minute_remaining"].toString(); h["X-RateLimit-Reset"] = it["minute_reset"].toString() }
+                limiter.remaining("key:${Billing.hashKey(caller.key)}", perMinute, null).let { h["X-RateLimit-Remaining"] = it["minute_remaining"].toString(); h["X-RateLimit-Reset"] = it["minute_reset"].toString() }
                 left?.let { h["X-Pass-Requests-Left"] = it.requestsLeft.toString(); h["X-Pass-Ends-At"] = it.endsAt.toString() }
             } else {
                 val l = limiter.remaining("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)
@@ -440,7 +440,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
                 .put("price", JSONObject().put("sol", Config.DATA_SOL).put("skr", Config.DATA_SKR).put("skr_with_seeker_genesis_token", Config.DATA_SKR_SGT))
                 .put("exports", JSONObject(views.EXPORTS)).put("how", "POST /v1/checkout {\"plan\": \"data\"}, pay, redeem with POST /v1/keys: a payment of the data price or more redeems as a data plan"))
             .put("publisher_plan", planPrice().put("includes", "The app's report (reviews waiting for an answer, store rating trend, bursts, certificate and permission changes, scores by version, category benchmark), webhooks for the app, and the API"))
-            .put("note", "Paying again adds ${Config.PASS_REQUESTS} requests and ${Config.PASS_DAYS} days to a pass, or more calls to credits. The payment is read from balances on-chain; only the payer (or the checkout secret's holder) can redeem it.")
+            .put("note", "Paying again adds ${Config.PASS_REQUESTS} requests and ${Config.PASS_DAYS} days to a pass, or more calls to credits, and returns a NEW key for it (the previous key stops working; webhooks follow). Redeeming the same payment again does the same, so a lost key is recoverable by the payer. The payment is read from balances on-chain; only the payer (or the checkout secret's holder) can redeem it.")
     }
 
     /** Solana Pay URLs for [calls] pay-per-call credits (at least the minimum top-up), with the pass reference and [memo]. */

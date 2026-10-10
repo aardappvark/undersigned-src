@@ -72,8 +72,10 @@ class BillingTest {
         txs[sig('a')] = tx(sig('a'))
         val p = redeem(sig('a'))
         assertEquals(Config.PASS_REQUESTS, p.requestsLeft); assertEquals(1_000_000 + Config.PASS_DAYS * 86_400, p.endsAt)
-        val again = redeem(sig('a'))                                                                       // the payer proves it again: the SAME key back, nothing added
-        assertEquals(p.key, again.key); assertEquals(Config.PASS_REQUESTS, again.requestsLeft)
+        val again = redeem(sig('a'))                                                                       // the payer proves it again: a NEW key for the same pass, nothing added
+        assertTrue(again.key != p.key); assertEquals(Config.PASS_REQUESTS, again.requestsLeft); assertEquals(p.endsAt, again.endsAt)
+        assertEquals(null, b.pass(p.key)); assertEquals(Config.PASS_REQUESTS, b.pass(again.key)!!.requestsLeft)   // the old key is dead
+        assertTrue(b.pass(again.key)!!.key != again.key)                                                  // the database holds a hash, never the key
 
         txs[sig('b')] = tx(sig('b')); assertEquals(403, assertFailsWith<Billing.Refused> { redeem(sig('b'), Wallet()) }.status)   // not the payer
         txs[sig('c')] = tx(sig('c'), ref = false); assertEquals(402, assertFailsWith<Billing.Refused> { redeem(sig('c')) }.status)  // no reference
@@ -88,7 +90,7 @@ class BillingTest {
         txs[sig('h')] = tx(sig('h'), lamports = 0, skr = Config.passFloorSkrSgtRaw)
         sgt = true
         val topped = redeem(sig('h'))
-        assertEquals(p.key, topped.key)                                                                        // same pass, topped up
+        assertTrue(topped.key != again.key); assertEquals(null, b.pass(again.key))                              // same pass, topped up, key renewed
         assertEquals(2 * Config.PASS_REQUESTS, topped.requestsLeft)
         assertEquals(p.endsAt + Config.PASS_DAYS * 86_400, topped.endsAt)
     }
@@ -100,11 +102,11 @@ class BillingTest {
         txs[sig('a')] = tx(sig('a'), lamports = Config.lamports(0.005))                    // 0.005 SOL at 0.00001 a call
         val c = redeem(sig('a')); assertEquals(500L, c.requestsLeft); assertEquals(1_000_000 + Config.CREDITS_DAYS * 86_400, c.endsAt)
         txs[sig('b')] = tx(sig('b'), lamports = 0, skr = Config.skrRaw(6.0))                 // 6 SKR at 0.06 a call
-        val c2 = redeem(sig('b')); assertEquals(c.key, c2.key); assertEquals(600L, c2.requestsLeft)   // topped up, same key
+        val c2 = redeem(sig('b')); assertTrue(c2.key != c.key); assertEquals(600L, c2.requestsLeft)   // topped up, key renewed
         txs[sig('c')] = tx(sig('c'))                                                         // a full pass: a separate key
         val pass = redeem(sig('c')); assertTrue(pass.key != c.key); assertEquals(Config.PASS_REQUESTS, pass.requestsLeft)
         assertEquals(1_000_000 + Config.PASS_DAYS * 86_400, pass.endsAt)                      // credits never stretch a pass
-        assertTrue(b.consume(c.key, 1_000_001)); assertEquals(599L, b.pass(c.key)!!.requestsLeft)
+        assertTrue(b.consume(c2.key, 1_000_001)); assertEquals(599L, b.pass(c2.key)!!.requestsLeft); assertEquals(false, b.consume(c.key, 1_000_001))
     }
 
     @Test fun `no pass for a listed payer, and none while the sanctions screen cannot run`() {
@@ -130,7 +132,8 @@ class BillingTest {
         assertEquals(400, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000) }.status)                                   // no proof at all
         val p = b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret)
         assertEquals(payer.address, p.wallet)
-        assertEquals(p.key, b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret).key)                // a lost key is recoverable with the same secret
+        val renewed = b.redeem(sig('a'), null, now = 1_000_000, secret = c.secret)                            // a lost key is recoverable with the same secret: a new key, the old one dead
+        assertTrue(renewed.key != p.key); assertEquals(null, b.pass(p.key)); assertEquals(p.requestsLeft, b.pass(renewed.key)!!.requestsLeft)
         assertEquals(403, assertFailsWith<Billing.Refused> { b.redeem(sig('a'), null, now = 1_000_000, secret = "someone-else") }.status)
         // A plain "UNS" payment has no commitment: a secret cannot redeem it, only the payer's signature can.
         txs[sig('b')] = tx(sig('b'))
@@ -139,9 +142,9 @@ class BillingTest {
 
     @Test fun `a pass is spent one request at a time and stops at zero or its end`() {
         val db = tempDb(); val b = Billing(db, { null }, { false })
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('k', 'w', 2, 2000, 0)")
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 2, 2000, 0)", Billing.hashKey("k"))
         assertTrue(b.consume("k", now = 1000)); assertTrue(b.consume("k", now = 1000)); assertFalse(b.consume("k", now = 1000))
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('old', 'w', 5, 500, 0)")
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 5, 500, 0)", Billing.hashKey("old"))
         assertFalse(b.consume("old", now = 1000))
         assertFalse(b.consume("nope", now = 1000))
     }
@@ -198,7 +201,7 @@ class ViewsAndHttpTest {
         assertEquals(402, r.status)
         assertTrue(r.body.getJSONObject("pricing").getJSONObject("solana_pay").getString("sol").contains("reference=${Config.API_REFERENCE}"))
         // With a pass: served and metered; a spent pass is refused, never served as free.
-        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES ('us_k', 'w', 1, ?, 0)", System.currentTimeMillis() / 1000 + 3600)
+        db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 1, ?, 0)", Billing.hashKey("us_k"), System.currentTimeMillis() / 1000 + 3600)
         assertEquals(200, get("/v1/watch", "Bearer us_k").status)
         assertEquals(402, get("/v1/watch", "Bearer us_k").status)
         assertEquals(402, get("/v1/apps/com.a.b/reviews", "Bearer us_k").status)

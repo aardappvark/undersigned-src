@@ -486,7 +486,16 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("wallets", JSONArray(rows.map { f.walletAnalytics(it.getString("wallet")) }))
     }
 
-    fun foundTrends(): JSONObject {
+    /** Heavy answers built from the whole history, kept five minutes: the history grows by the minute, these are read often. */
+    private val heavy = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, Any>>()
+    private fun <T : Any> cached5(key: String, build: () -> T): T {
+        val now = System.currentTimeMillis(); val c = heavy[key]
+        @Suppress("UNCHECKED_CAST") if (c != null && now - c.first < 300_000) return c.second as T
+        return build().also { heavy[key] = now to it }
+    }
+
+    fun foundTrends(): JSONObject = cached5("trends") { foundTrendsNow() }
+    private fun foundTrendsNow(): JSONObject {
         val f = found ?: return JSONObject()
         val st = s
         // The same filters as the list: confirmed treasuries and the operator's hide list stay out (audit, 10 Oct 2026).
@@ -562,7 +571,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         "found" to "Wallets found in apps' store builds (not confirmed), with what they received",
     )
 
-    fun export(dataset: String): String? = when (dataset) {
+    fun export(dataset: String): String? = if (dataset !in EXPORTS) null else cached5("export:$dataset") { exportNow(dataset)!! }
+    private fun exportNow(dataset: String): String? = when (dataset) {
         "ratings" -> csv(listOf("package", "day", "stars_1", "stars_2", "stars_3", "stars_4", "stars_5"),
             db.query("SELECT pkg, day, s1, s2, s3, s4, s5 FROM ratings ORDER BY day, pkg") { rs -> listOf(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7)) })
         "changes" -> csv(listOf("package", "time_utc", "kind", "old", "new"),
