@@ -40,24 +40,28 @@ def main():
     prog = found.get("progress", {})
     if len(rows) < found.get("total", len(rows)):
         print(f"WARNING: {len(rows)} of {found['total']} found apps returned (no key?); per-wallet figures are partial.\n")
-    wallets = []
+    wallets = []; seen = {}
     for r in rows:
+        if r["wallet"] in seen:   # one wallet written into several apps of one publisher: one entry, named for all
+            seen[r["wallet"]]["name"] += " / " + (r.get("name") or r["package"]); continue
         time.sleep(2.1)
         a = get("/v1/payments/found/" + r["package"])
         for w in a.get("wallets", []):
+            if w["wallet"] != r["wallet"] or w["wallet"] in seen: continue
             year = [m for m in w.get("monthly", []) if m["month"] >= first]
-            wallets.append({
+            seen[w["wallet"]] = {
                 "name": a.get("name") or r["package"], "usd_year": sum(m.get("usd", 0) for m in year),
                 "payments_year": sum(m.get("payments", 0) for m in year), "payers": w.get("payers", 0),
                 "repeat": w.get("repeat_payers", 0), "median": w.get("median_payment_usd", 0),
-                "complete": w.get("coverage", {}).get("history_complete", False)})
+                "complete": w.get("coverage", {}).get("history_complete", False)}
+            wallets.append(seen[w["wallet"]])
     wallets.sort(key=lambda w: -w["usd_year"])
     total = sum(m["usd"] for m in months)
     out = []
-    out.append(f"Measured {today.isoformat()} from the public API. Coverage: {read:,} of {listed:,} listed transactions read "
-               f"({read / max(1, listed):.0%}); {prog.get('builds_read', 0):,} store builds read and "
-               f"{prog.get('builds_skipped', 0):,} skipped; {len(wallets)} wallets kept. Figures below are a floor while "
-               "coverage is under 100%.\n")
+    year_ok = trends.get("last_year_complete", False)
+    out.append(f"Measured {today.isoformat()} from the public API. The last 12 months are {'fully read' if year_ok else 'NOT fully read (' + str(trends.get('transactions_unread_last_year')) + ' transactions to go; figures are a floor)'}; "
+               f"older history {read:,} of {listed:,} listed transactions ({read / max(1, listed):.0%}). {prog.get('builds_read', 0):,} store builds read, "
+               f"{prog.get('builds_skipped', 0):,} skipped; {len(wallets)} wallets.\n")
     out.append("| Month | Payments | Payers | Wallets paid | USD when paid |")
     out.append("|---|---:|---:|---:|---:|")
     for m in months:
@@ -70,11 +74,11 @@ def main():
     out.append(f"Concentration: the top 5 wallets took {top5 / max(1, total):.0%} of it. Wallets paid at all in the period: {len(paid)}. "
                f"Median single payment across wallets: ${sorted(w['median'] for w in paid)[len(paid) // 2] if paid else 0:,.2f}. "
                f"Wallets whose full history is read: {sum(w['complete'] for w in wallets)} of {len(wallets)}.\n")
-    # Ranked, not named: these wallets are found in app code, not confirmed as anyone's treasury.
-    out.append("| Rank | USD, period | Payments | Payers (all time) | Repeat payers |")
-    out.append("|---|---:|---:|---:|---:|")
+    # Named as the public page names them, with the same label: found in app code, confirmed by no one.
+    out.append("| Rank | Found in the code of | USD, period | Payments | Payers (all time) | Repeat payers |")
+    out.append("|---|---|---:|---:|---:|---:|")
     for i, w in enumerate(wallets[:10], 1):
-        out.append(f"| #{i} | ${w['usd_year']:,.0f} | {w['payments_year']:,} | {w['payers']:,} | {w['repeat']:,} |")
+        out.append(f"| #{i} | {w['name']} | ${w['usd_year']:,.0f} | {w['payments_year']:,} | {w['payers']:,} | {w['repeat']:,} |")
     print("\n".join(out))
 
 

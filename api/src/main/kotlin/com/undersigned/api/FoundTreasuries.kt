@@ -297,7 +297,9 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
                 .put("usd", r2(l.sumOf { prices.usdWhenPaid(it.second, h) ?: 0.0 })).put("unpriced", l.count { prices.usdWhenPaid(it.second, h) == null })
         }
         val progress = wallets.map { board.allProgress(it) }
-        return JSONObject().put("wallets", wallets.size).put("monthly", JSONArray(months))
+        val yearAgo = System.currentTimeMillis() / 1000 - 365L * 86_400
+        val yearUnread = wallets.sumOf { w -> db.query("SELECT count(*) FROM pay_rows WHERE addr_key = ? AND fetched = 0 AND time > ?", "found:$w", yearAgo) { it.getInt(1) }.firstOrNull() ?: 0 }
+        return JSONObject().put("wallets", wallets.size).put("monthly", JSONArray(months)).put("transactions_unread_last_year", yearUnread).put("last_year_complete", yearUnread == 0)
             .put("transactions_listed", progress.sumOf { it.first }).put("transactions_read", progress.sumOf { it.first - it.second })
     }
 

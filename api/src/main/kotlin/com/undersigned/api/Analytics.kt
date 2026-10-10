@@ -59,9 +59,12 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
             out += Src(r.claim.packageName, r.name, r.claim.treasury, true, ps)
         }
         val f = found()
-        if (f != null) for (row in foundRows()) {
-            val w = row.getString("wallet")
-            out += Src(row.getString("package"), row.optString("name", row.getString("package")), w, false, f.payments(w))
+        // The found list has one row per app and wallet; a wallet written into several apps of one publisher is one source
+        // here, named for all of them, so its payments are counted once (10 Oct 2026: a shared wallet read as three apps).
+        if (f != null) for ((w, rows) in foundRows().groupBy { it.getString("wallet") }) {
+            val first = rows.first()
+            val name = rows.map { it.optString("name", it.getString("package")) }.distinct().let { if (it.size == 1) it[0] else it.take(3).joinToString(" / ") + (if (it.size > 3) " +${it.size - 3}" else "") }
+            out += Src(first.getString("package"), name, w, false, f.payments(w))
         }
         cache = System.currentTimeMillis() to out
         return out

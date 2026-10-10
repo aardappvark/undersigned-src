@@ -31,7 +31,8 @@ class AnalyticsTest {
         pay(w2, "b2", now - 1 * day, "P9", lamports = 100_000_000)             // $10, repeat payer
         val ix = Indexer(db, rpc, Store(0))
         val found = FoundTreasuries(db, rpc, Store(0))
-        val rows = listOf(JSONObject().put("package", "com.a").put("name", "App A").put("wallet", w1), JSONObject().put("package", "com.b").put("name", "App B").put("wallet", w2))
+        val rows = listOf(JSONObject().put("package", "com.a").put("name", "App A").put("wallet", w1), JSONObject().put("package", "com.b").put("name", "App B").put("wallet", w2),
+            JSONObject().put("package", "com.a2").put("name", "App A Lite").put("wallet", w1))   // the same wallet in a second app of the publisher: one source
         return Analytics(db, prices, Boards(ix, Board(db, rpc), prices), { found }, { rows }, { mapOf("com.a" to "Games", "com.b" to "Tools") })
     }
 
@@ -40,6 +41,7 @@ class AnalyticsTest {
         val lb = an.leaderboard("30d", "all", 10, now)
         val rows = lb.getJSONArray("rows")
         assertEquals(2, rows.length()); assertEquals("com.a", rows.getJSONObject(0).getString("package")); assertEquals(200.0, rows.getJSONObject(0).getDouble("usd"))
+        assertEquals("App A / App A Lite", rows.getJSONObject(0).getString("name"))                       // counted once, named for both
         assertEquals("found", rows.getJSONObject(0).getString("source")); assertEquals(2, rows.getJSONObject(0).getInt("payers")); assertEquals(2, rows.getJSONObject(0).getInt("new_payers"))
         assertEquals(10.0, rows.getJSONObject(1).getDouble("usd")); assertEquals(0, rows.getJSONObject(1).getInt("new_payers"))   // P9 paid before the window
         assertEquals(210.0, lb.getDouble("total_usd"))
@@ -62,7 +64,7 @@ class AnalyticsTest {
         val c = an.categoriesReport("30d", now).getJSONArray("categories")
         val games = (0 until c.length()).map { c.getJSONObject(it) }.first { it.getString("category") == "Games" }
         assertEquals(200.0, games.getDouble("usd")); assertEquals(100.0, games.getDouble("previous_usd")); assertEquals(100.0, games.getDouble("change_pct"))
-        assertEquals("App A", games.getJSONArray("leaders").getJSONObject(0).getString("name")); assertEquals(1, games.getInt("apps_paid"))
+        assertEquals("App A / App A Lite", games.getJSONArray("leaders").getJSONObject(0).getString("name")); assertEquals(1, games.getInt("apps_paid"))
         val tools = (0 until c.length()).map { c.getJSONObject(it) }.first { it.getString("category") == "Tools" }
         assertEquals("new", tools.get("change_pct"))                             // nothing in the previous 30 days
     }
@@ -93,7 +95,7 @@ class AnalyticsTest {
         val s = an.storeSeries("90d", "week", now)
         val series = an.chartSeries("t", "s", an.pts(s.getJSONArray("confirmed")), an.pts(s.getJSONArray("found"))); assertTrue(series.startsWith("<svg") && "<polyline" in series)
         assertTrue("<script" !in top && "<script" !in series)
-        val tr = an.treasuries("all", 10, now).getJSONArray("rows"); assertEquals(w1, tr.getJSONObject(0).getString("wallet")); assertEquals("App A", tr.getJSONObject(0).getJSONArray("apps").getJSONObject(0).getString("name"))
+        val tr = an.treasuries("all", 10, now).getJSONArray("rows"); assertEquals(w1, tr.getJSONObject(0).getString("wallet")); assertEquals("App A / App A Lite", tr.getJSONObject(0).getJSONArray("apps").getJSONObject(0).getString("name"))
         val sum = an.summary("30d", now); assertTrue(sum.has("leaderboard") && sum.has("categories") && sum.has("trending") && sum.has("patterns") && sum.has("series"))
     }
 }
