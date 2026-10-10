@@ -111,7 +111,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
     val names = Names(db, rpc)
     @Volatile var state: State = State.EMPTY; private set
     @Volatile var lastLedgerSync: Long = 0L; private set
-    @Volatile var lastStoreSync: Long = 0L; private set
+    @Volatile var lastStoreSync: Long = db.get("store_synced")?.toLongOrNull() ?: 0L; private set
     @Volatile var lastError: String? = null; private set
     @Volatile var skippedTx: Int = 0; private set
     /** Wallets a request asked about that the ledger has not met: read by the next round, never inside a request. */

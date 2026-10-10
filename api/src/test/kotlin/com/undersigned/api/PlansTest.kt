@@ -53,6 +53,9 @@ class PlansTest {
         val r = plan(sig('r'), pub); assertEquals(p.endsAt + Config.PLAN_DAYS * 86_400, r.endsAt); assertEquals(p.key, r.key)
         txs[sig('y')] = tx(sig('y'), pub.address, lamports = 40 * Config.planFloorLamports)              // at most twelve months a payment
         assertEquals(Config.PLAN_MAX_MONTHS, plan(sig('y'), pub).months)
+        txs[sig('g')] = tx(sig('g'), pub.address, skr = 12 * Config.planFloorSkrSgtRaw)               // a Genesis holder: 12 months at the Genesis price is 12 months
+        val b2 = Billing(db(), { txs[it] }, { true })
+        assertEquals(12, b2.redeemPlan(sig('g'), pub.sign(b2.message(sig('g')).toByteArray()), "com.a.b", isPub, now = 1_000_000).months)
         txs[sig('z')] = tx(sig('z'), pub.address, lamports = Config.passFloorLamports)                   // redeemed as a pass first: not a plan too
         b.redeem(sig('z'), pub.sign(b.message(sig('z')).toByteArray()), now = 1_000_000)
         assertEquals(409, assertFailsWith<Billing.Refused> { plan(sig('z'), pub) }.status)

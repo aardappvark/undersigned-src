@@ -42,8 +42,9 @@ class Db(path: String = Config.DB_PATH) {
     @Synchronized fun <T> query(sql: String, vararg args: Any?, row: (ResultSet) -> T): List<T> =
         c.prepareStatement(sql).use { p -> args.forEachIndexed { i, a -> p.setObject(i + 1, a) }; p.executeQuery().use { rs -> val out = ArrayList<T>(); while (rs.next()) out.add(row(rs)); out } }
 
-    /** Several writes as one transaction (a crash leaves none of them). */
+    /** Several writes as one transaction (a crash leaves none of them). Reentrant: a tx inside a tx joins the outer one. */
     @Synchronized fun <T> tx(block: () -> T): T {
+        if (!c.autoCommit) return block()
         c.autoCommit = false
         try { val r = block(); c.commit(); return r } catch (e: Exception) { c.rollback(); throw e } finally { c.autoCommit = true }
     }

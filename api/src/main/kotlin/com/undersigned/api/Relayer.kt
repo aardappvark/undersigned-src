@@ -33,7 +33,10 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         const val PER_KEY_REVIEWS_DAY = 3
         const val PER_KEY_TX_DAY = 3 * (1 + com.undersigned.protocol.LongText.MAX_PARTS)
         const val PER_IP_TX_DAY = 60
+        const val PER_IP_TX_HOUR = 10
         const val GLOBAL_TX_DAY = 300
+        /** One IPv6 /64 is one network (an address there is free to change); IPv4 stays per address. Audit, 10 Oct 2026. */
+        fun network(ip: String): String = if (':' in ip) ip.split(':').let { p -> (p.take(4) + List(4 - minOf(4, p.size)) { "0" }).joinToString(":") + "::/64" } else ip
         const val FEE_LAMPORTS = 10_000L   // two signatures (relayer + app key) at 5,000 each; measured on mainnet 9 Oct 2026
         private val ALLOWED = setOf(ReviewMemo.Review::class, ReviewMemo.Quick::class, ReviewMemo.Use::class, ReviewMemo.Time::class, ReviewMemo.Activity::class,
             ReviewMemo.LongTextHead::class, ReviewMemo.TextPart::class, ReviewMemo.FollowUp::class)
@@ -112,17 +115,24 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         if (reviews == 0 && memos.any { it !is ReviewMemo.TextPart }) throw Refused(400, "without a review, only long-text pieces")
         val pub = KeyFactory.getInstance("Ed25519").generatePublic(X509EncodedKeySpec(byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00) + Base58.decode(appKey)))
         if (!Signature.getInstance("Ed25519").run { initVerify(pub); update(p.message); verify(p.signatures[1]) }) throw Refused(400, "the app key's signature does not match")
-        // Limits: per app key, per IP, per day for everyone.
-        val today = day()
-        if (count("SELECT count(*) FROM relay_log WHERE day = ?", today) >= GLOBAL_TX_DAY) throw Refused(429, "quick reviews are paused for today; they resume at 00:00 UTC, or sign with your wallet")
-        if (count("SELECT count(*) FROM relay_log WHERE day = ? AND ip = ?", today, ip) >= PER_IP_TX_DAY) throw Refused(429, "too many quick reviews from this network today")
-        if (count("SELECT count(*) FROM relay_log WHERE day = ? AND app_key = ?", today, appKey) >= PER_KEY_TX_DAY ||
-            (reviews == 1 && count("SELECT coalesce(sum(reviews), 0) FROM relay_log WHERE day = ? AND app_key = ?", today, appKey) >= PER_KEY_REVIEWS_DAY))
-            throw Refused(429, "$PER_KEY_REVIEWS_DAY quick reviews a day from one phone")
+        // Limits: per app key, per network (hour and day), per day for everyone. The counts and the reservation are one
+        // transaction, so parallel requests cannot overshoot; a send that fails releases its reservation.
+        val today = day(); val net = network(ip); val nowS = System.currentTimeMillis() / 1000
+        val reservation = "pending:" + Base64.getEncoder().encodeToString(p.signatures[1]).take(40)
+        db.tx {
+            if (count("SELECT count(*) FROM relay_log WHERE day = ?", today) >= GLOBAL_TX_DAY) throw Refused(429, "quick reviews are paused for today; they resume at 00:00 UTC, or sign with your wallet")
+            if (count("SELECT count(*) FROM relay_log WHERE day = ? AND ip = ?", today, net) >= PER_IP_TX_DAY) throw Refused(429, "too many quick reviews from this network today")
+            if (count("SELECT count(*) FROM relay_log WHERE ip = ? AND at > ?", net, nowS - 3600) >= PER_IP_TX_HOUR) throw Refused(429, "too many quick reviews from this network this hour; try again later or sign with your wallet")
+            if (count("SELECT count(*) FROM relay_log WHERE day = ? AND app_key = ?", today, appKey) >= PER_KEY_TX_DAY ||
+                (reviews == 1 && count("SELECT coalesce(sum(reviews), 0) FROM relay_log WHERE day = ? AND app_key = ?", today, appKey) >= PER_KEY_REVIEWS_DAY))
+                throw Refused(429, "$PER_KEY_REVIEWS_DAY quick reviews a day from one phone")
+            db.exec("INSERT OR IGNORE INTO relay_log (sig, day, app_key, ip, reviews, at) VALUES (?, ?, ?, ?, ?, ?)", reservation, today, appKey, net, reviews, nowS)
+        }
         val sig = Signature.getInstance("Ed25519").run { initSign(priv); update(p.message); sign() }
         val out = ByteArrayOutputStream().apply { write(2); write(sig); write(p.signatures[1]); write(p.message) }.toByteArray()
-        val txSig = runCatching { rpc.sendTransaction(Base64.getEncoder().encodeToString(out)) }.getOrElse { throw Refused(502, "the network did not take it: ${it.message?.take(120)}") }
-        db.exec("INSERT OR IGNORE INTO relay_log (sig, day, app_key, ip, reviews, at) VALUES (?, ?, ?, ?, ?, ?)", txSig, today, appKey, ip, reviews, System.currentTimeMillis() / 1000)
+        val txSig = runCatching { rpc.sendTransaction(Base64.getEncoder().encodeToString(out)) }.getOrElse {
+            db.exec("DELETE FROM relay_log WHERE sig = ?", reservation); throw Refused(502, "the network did not take it: ${it.message?.take(120)}") }
+        db.exec("UPDATE relay_log SET sig = ? WHERE sig = ?", txSig, reservation)
         return txSig
     }
 

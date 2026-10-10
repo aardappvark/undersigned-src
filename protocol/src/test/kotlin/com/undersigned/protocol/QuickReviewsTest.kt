@@ -16,6 +16,13 @@ class QuickReviewsTest {
         assertEquals(2, s.count); assertEquals(4.5, s.mean)
     }
 
+    @Test fun quickReviewsCountInNoScoreEvenWhenTheKeyHoldsAGenesisToken() {
+        fun r(id: String, who: String, t: Long, stars: Int) = LedgerEntry("$id:0", who, t, ReviewMemo.Review("com.a.b", stars, listOf(ReviewMemo.Tag.WORKS), 3, null))
+        val entries = listOf(r("a", "K1", 1, 1), LedgerEntry("a:1", "K1", 1, ReviewMemo.Quick), r("w", "W", 2, 5))
+        val s = Ranking.score(entries, emptyMap()) { SignerFacts(true, 0.0) }.single()       // every signer attested, quick key included
+        assertEquals(1, s.countedReviews); assertEquals(5.0, s.weightedMean)                  // only W's review; K1's quick 1-star is not in it
+    }
+
     @Test fun aRelayedTransactionIsWrittenByItsSecondSigner() {
         assertEquals("APPKEY", Registry.author(listOf(Registry.QUICK_RELAYER, "APPKEY")))
         assertEquals("WALLET", Registry.author(listOf("WALLET")))

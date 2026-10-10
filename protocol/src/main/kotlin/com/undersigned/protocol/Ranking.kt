@@ -84,7 +84,9 @@ object Ranking {
         val revoked = revoked(entries)
         val hidden = Reputation.hiddenByConsensus(entries, verifiedPublishers, gated)
         val ctx = Weighting.Context(entries, hidden, gated, paid, verifiedPublishers)
-        val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
+        // Quick reviews (an app key, no wallet) are shown apart and counted in no score, whatever the signer holds (audit, 10 Oct 2026).
+        val quick = QuickReviews.ids(entries)
+        val live = entries.filter { it.signature !in revoked && it.signature !in hidden && it.signature !in quick && it.memo is ReviewMemo.Review && !isSelfPublished(it, verifiedPublishers) }
         val newestPerWalletPerApp = live
             .groupBy { it.signer to (it.memo as ReviewMemo.Review).packageName }
             // Newest wins; two records in the same second (an import batch) break the tie on the record id, so every reader picks the same one.

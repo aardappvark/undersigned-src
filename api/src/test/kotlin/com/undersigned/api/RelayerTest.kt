@@ -23,8 +23,8 @@ class RelayerTest {
 
     private fun cu16(o: ByteArrayOutputStream, v: Int) { var x = v; while (true) { val b = x and 0x7f; x = x ushr 7; if (x == 0) { o.write(b); return }; o.write(b or 0x80) } }
     /** A quick-review transaction as the phone builds it, optionally bent to test a refusal. */
-    private fun tx(memos: List<String>, feePayer: ByteArray = relay.second, lamports: Byte = 0, signWith: PrivateKey = app.first, extraProgram: Boolean = false): String {
-        val keys = listOf(feePayer, app.second, Base58.decode(Config.MEMO_PROGRAM), ByteArray(32), Base58.decode(Config.REGISTRY)) + (if (extraProgram) listOf(ByteArray(32) { 7 }) else emptyList())
+    private fun tx(memos: List<String>, feePayer: ByteArray = relay.second, lamports: Byte = 0, signWith: PrivateKey = app.first, extraProgram: Boolean = false, appKey: ByteArray = app.second): String {
+        val keys = listOf(feePayer, appKey, Base58.decode(Config.MEMO_PROGRAM), ByteArray(32), Base58.decode(Config.REGISTRY)) + (if (extraProgram) listOf(ByteArray(32) { 7 }) else emptyList())
         val msg = ByteArrayOutputStream()
         msg.write(2); msg.write(1); msg.write(keys.size - 2)
         cu16(msg, keys.size); keys.forEach { msg.write(it) }; msg.write(ByteArray(32) { 1 })
@@ -72,5 +72,21 @@ class RelayerTest {
         val msg = com.undersigned.protocol.QuickTx.message(relay.second, app.second, Base58.decode(Config.MEMO_PROGRAM), Base58.decode(Config.REGISTRY), listOf(review, quick), ByteArray(32) { 1 })
         val sig = Signature.getInstance("Ed25519").run { initSign(app.first); update(msg); sign() }
         assertEquals("sig1", relayer().relay(Base64.getEncoder().encodeToString(com.undersigned.protocol.QuickTx.transaction(msg, sig)), "4.4.4.4"))
+    }
+
+    @Test fun oneIpv6NetworkIsOneBucketAndAFailedSendReleasesItsSlot() {
+        assertEquals("2001:db8:1:2::/64", Relayer.network("2001:db8:1:2:aaaa:bbbb:cccc:1"))
+        assertEquals(Relayer.network("2001:db8:1:2:aaaa:bbbb:cccc:1"), Relayer.network("2001:db8:1:2:ffff:0:0:9"))
+        assertEquals("9.9.9.9", Relayer.network("9.9.9.9"))
+        val r = relayer()
+        val review = ReviewMemo.encode(ReviewMemo.Review("com.a.b", 4, listOf(ReviewMemo.Tag.WORKS), 3, null)); val quick = ReviewMemo.encode(ReviewMemo.Quick)
+        // Different app keys from addresses across one /64 share the hourly network cap.
+        repeat(Relayer.PER_IP_TX_HOUR) { i -> val k = keypair(); r.relay(tx(listOf(review, quick), signWith = k.first, appKey = k.second), "2001:db8:1:2::" + (i + 1)) }
+        val k = keypair()
+        assertEquals(429, assertFailsWith<Relayer.Refused> { r.relay(tx(listOf(review, quick), signWith = k.first, appKey = k.second), "2001:db8:1:2::ffff") }.status)
+        // A send the network refuses leaves no count behind.
+        val failing = Relayer(Db(File.createTempFile("us-relay2", ".db").apply { deleteOnExit() }.path), object : Rpc(listOf("http://127.0.0.1:9")) { override fun sendTransaction(base64: String): String = throw RpcException("down") }, keyFile, Base58.encode(relay.second))
+        assertEquals(502, assertFailsWith<Relayer.Refused> { failing.relay(tx(listOf(review, quick)), "4.4.4.4") }.status)
+        assertEquals(0L, failing.feesOn(java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString()))
     }
 }

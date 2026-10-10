@@ -129,20 +129,21 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("records", JSONArray(st.entries.map { record(it, st) }))
             .put("apps", JSONArray(st.scores.values.sortedBy { it.packageName }.map { sc -> JSONObject().put("package", sc.packageName).put("name", st.byPackage[sc.packageName]?.name ?: JSONObject.NULL)
                 .put("rank_score", if (sc.countedReviews > 0) r2(sc.weightedRating) else JSONObject.NULL).put("mean", if (sc.countedReviews > 0) r2(sc.weightedMean) else JSONObject.NULL).put("counted_reviews", sc.countedReviews).put("tags", JSONObject(sc.tagCounts.mapKeys { it.key.wire })) }))
-            .put("signers", JSONArray(st.entries.map { it.signer }.distinct().sorted().map { w -> val f = st.factsOf(w)
+            .put("signers", JSONArray(st.entries.map { it.signer }.distinct().sorted().map { w -> val f = st.countsFor(w)
                 JSONObject().put("wallet", w).put("attested_device", f.hasGenesisToken).put("staked_skr", latestStake(st, w)?.let { r2(it.skr) } ?: JSONObject.NULL).put("weight", r2(com.undersigned.protocol.Ranking.weight(f))) }))
     }
 
     fun stats(): JSONObject {
         val st = s; val all = st.entries
         val live = all.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
-        val counted = live.filter { st.countsFor(it.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(it, st.verified) }
+        // What the per-app scores count: one newest review per wallet per app, weight above zero, nothing hidden or quick.
+        val countedTotal = st.scores.values.sumOf { it.countedReviews }
         val signers = live.map { it.signer }.toSet()
         val byId = all.associateBy { it.signature }
         val replies = all.filter { it.memo is ReviewMemo.Reply }
         val pub = replies.count { r -> val p = (byId[(r.memo as ReviewMemo.Reply).reviewSignature]?.memo as? ReviewMemo.Review)?.packageName; p != null && st.verified[p]?.contains(r.signer) == true }
         val dated = all.filter { it.memo !is ReviewMemo.Pro }
-        return JSONObject().put("records", all.size).put("reviews_live", live.size).put("reviews_counted", counted.size).put("signers", signers.size)
+        return JSONObject().put("records", all.size).put("reviews_live", live.size).put("reviews_counted", countedTotal).put("signers", signers.size)
             .put("attested_signers", signers.count { st.factsOf(it).hasGenesisToken && it !in com.undersigned.protocol.Operator.WALLETS }).put("apps_reviewed", live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size)
             .put("apps_scored", st.scores.values.count { it.countedReviews > 0 }).put("replies", replies.size).put("publisher_replies", pub)
             .put("claims", all.count { it.memo is ReviewMemo.Claim }).put("claims_verified", st.verified.values.sumOf { it.size })
@@ -186,7 +187,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val o = appRow(pkg)
         val sc = st.scores[pkg]
         val live = liveReviews(pkg, st)
-        val counted = live.filter { st.countsFor(it.signer).hasGenesisToken && st.weighting.parts(it).weight > 0 }
+        val counted = live.filter { it.signature !in st.quickIds && st.countsFor(it.signer).hasGenesisToken && st.weighting.parts(it).weight > 0 }
         o.put("signed", JSONObject()
             // Nothing counted means no score: null, never 0 (reads as zero stars) or the 3.0 ranking prior.
             .put("rank_score", sc?.takeIf { it.countedReviews > 0 }?.weightedRating?.let(::r2) ?: JSONObject.NULL).put("mean", sc?.takeIf { it.countedReviews > 0 }?.weightedMean?.let(::r2) ?: JSONObject.NULL)
@@ -251,7 +252,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                     .put("stake_at_review", st.reviewStake[e.signature]?.let { k -> JSONObject().put("skr", r2(k.skr)).put("sol", k.sol?.let(::r2) ?: JSONObject.NULL).put("read_at", k.readAt) } ?: JSONObject.NULL)
                     .put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
                     )
-                .put("counted", st.weighting.parts(e).weight > 0 && st.countsFor(e.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
+                .put("counted", e.signature !in st.quickIds && st.weighting.parts(e).weight > 0 && st.countsFor(e.signer).hasGenesisToken && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("related", when { com.undersigned.protocol.Operator.isOperator(e.signer) -> "operator"; st.weighting.parts(e).gifted -> "pro_from_publisher"; else -> JSONObject.NULL })
                 .put("self_published", com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified))
                 .put("install_age", st.usage[e.signature]?.wire ?: JSONObject.NULL).put("usage_time", st.useTimes[e.signature]?.wire ?: JSONObject.NULL)
@@ -485,8 +486,15 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("wallets", JSONArray(rows.map { f.walletAnalytics(it.getString("wallet")) }))
     }
 
-    fun foundTrends(): JSONObject = (found?.trends() ?: JSONObject())
-        .put("label", "Monthly payments into every wallet found in app code (not confirmed), each wallet once. USD on the day of each payment; unpriced payments are counted, not valued.")
+    fun foundTrends(): JSONObject {
+        val f = found ?: return JSONObject()
+        val st = s
+        // The same filters as the list: confirmed treasuries and the operator's hide list stay out (audit, 10 Oct 2026).
+        val shown = f.list(st.byPackage.mapValues { it.value.name }, boards.rows.filter { it.confirmed }.map { it.claim.treasury }.toSet(),
+            boards.rows.filter { it.confirmed }.map { it.claim.packageName }.toSet(), indexer.operatorHidden().keys).map { it.getString("wallet") }.toSet()
+        return f.trends(shown)
+            .put("label", "Monthly payments into every wallet found in app code (not confirmed), each wallet once. USD on the day of each payment; unpriced payments are counted, not valued.")
+    }
 
     // ---- The publisher plan's report (owner, 10 Oct 2026) --------------------------------------------------------
 
@@ -563,7 +571,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             st.catalogue.map { c -> val sc = st.scores[c.packageName]?.takeIf { it.countedReviews > 0 }; val r = indexer.latestRating(c.packageName)
                 listOf(c.packageName, c.name, c.category, sc?.weightedMean?.let(::r2), sc?.countedReviews ?: 0,
                     r?.second?.let { st5 -> if (st5.sum() == 0) null else r2(st5.withIndex().sumOf { (i, n) -> (i + 1) * n }.toDouble() / st5.sum()) }, r?.second?.sum(), r?.first) }) }
-        "found" -> { val rows = foundTreasuries(500).optJSONArray("rows") ?: JSONArray()
+        "found" -> { val rows = foundTreasuries(Int.MAX_VALUE).optJSONArray("rows") ?: JSONArray()
             csv(listOf("package", "name", "wallet", "payers", "payments", "sol", "skr", "usdc", "first", "last", "transactions_read"),
                 (0 until rows.length()).map { i -> val o = rows.getJSONObject(i); listOf(o.optString("package"), o.optString("name"), o.optString("wallet"), o.optInt("payers"), o.optInt("payments"),
                     o.optDouble("sol"), o.optDouble("skr"), o.optDouble("usdc"), o.opt("first"), o.opt("last"), o.optInt("transactions_read")) }) }

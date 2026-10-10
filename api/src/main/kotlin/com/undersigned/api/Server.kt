@@ -287,8 +287,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val h = LinkedHashMap(r.headers)
             if (caller.paid && caller.key != null) {
                 val left = billing.pass(caller.key)
-                h["X-RateLimit-Limit"] = Config.PASS_PER_MINUTE.toString()
-                limiter.remaining("key:${caller.key}", Config.PASS_PER_MINUTE, null).let { h["X-RateLimit-Remaining"] = it["minute_remaining"].toString(); h["X-RateLimit-Reset"] = it["minute_reset"].toString() }
+                val perMinute = if (billing.kind(caller.key!!) == "data") Config.DATA_PER_MINUTE else Config.PASS_PER_MINUTE
+                h["X-RateLimit-Limit"] = perMinute.toString()
+                limiter.remaining("key:${caller.key}", perMinute, null).let { h["X-RateLimit-Remaining"] = it["minute_remaining"].toString(); h["X-RateLimit-Reset"] = it["minute_reset"].toString() }
                 left?.let { h["X-Pass-Requests-Left"] = it.requestsLeft.toString(); h["X-Pass-Ends-At"] = it.endsAt.toString() }
             } else {
                 val l = limiter.remaining("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)

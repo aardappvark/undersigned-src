@@ -455,10 +455,20 @@ print(app["signed"]["mean"], app["signed"]["counted_reviews"])""")}</pre>")
 <div class=card><div class=label>Your publisher report</div><p class=meta>With a publisher key (kept in this browser only).</p><form id=kf><input id=rpkg placeholder='Package' aria-label='Package' style='width:100%'><input id=key placeholder='Key (us_…)' aria-label='Key' style='width:100%;margin-top:8px' autocomplete=off><button class=btn style='margin-top:8px'>Open report</button></form><div id=rep></div></div>
 <script type=module>
 const ${'$'} = (id) => document.getElementById(id); let job = null;
-try { ${'$'}('key').value = localStorage.getItem('us_key') || ''; } catch (e) {}
+// The checkout secret survives the hand-off to a wallet app (the tab often reloads): kept here until redeemed.
+try { ${'$'}('key').value = localStorage.getItem('us_key') || ''; job = JSON.parse(localStorage.getItem('us_checkout') || 'null'); } catch (e) {}
+if (job && job.secret) { ${'$'}('pay').style.display = ''; ${'$'}('paywhat').textContent = job.what || ''; ${'$'}('secret').textContent = job.secret; ${'$'}('psol').href = job.sol; ${'$'}('pskr').href = job.skr; ${'$'}('psgt').href = job.sgt; }
 async function checkout(body, what) {
+  if (body.publisher) {   // pay only from a wallet that can redeem: a proven publisher of the app
+    const a = await (await fetch('/v1/apps/' + encodeURIComponent(body.publisher))).json().catch(() => null);
+    const proven = ((a || {}).publisher || {}).verified_wallets || [];
+    if (!a) { ${'$'}('rout').textContent = ''; alert('Unknown package.'); return; }
+    if (!proven.length) { alert('No wallet has proven it publishes ' + body.publisher + ' yet. Prove it first (a signed claim from the app), then come back.'); return; }
+    what += ' Proven publisher wallet' + (proven.length > 1 ? 's' : '') + ': ' + proven.join(', ') + '.';
+  }
   const r = await fetch('/v1/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); const j = await r.json();
-  job = { secret: j.secret, pkg: body.publisher || null };
+  job = { secret: j.secret, pkg: body.publisher || null, what, sol: j.solana_pay.sol, skr: j.solana_pay.skr, sgt: j.solana_pay.skr_with_seeker_genesis_token };
+  try { localStorage.setItem('us_checkout', JSON.stringify(job)); } catch (e) {}
   ${'$'}('pay').style.display = ''; ${'$'}('paywhat').textContent = what; ${'$'}('secret').textContent = j.secret;
   ${'$'}('psol').href = j.solana_pay.sol; ${'$'}('pskr').href = j.solana_pay.skr; ${'$'}('psgt').href = j.solana_pay.skr_with_seeker_genesis_token;
   try { const QR = (await import('https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm')).default; ${'$'}('qr').innerHTML = '<img alt="QR code to pay in SOL" width=220 height=220 style="border-radius:14px;margin-top:10px" src="' + await QR.toDataURL(j.solana_pay.sol, { width: 440, margin: 1 }) + '">'; } catch (e) {}
@@ -467,11 +477,14 @@ async function checkout(body, what) {
 ${'$'}('pf').onsubmit = (e) => { e.preventDefault(); const pkg = ${'$'}('pkg').value.trim(), m = +${'$'}('months').value || 1; checkout({ publisher: pkg, months: m }, 'Publisher plan for ' + pkg + ', ' + m + (m === 1 ? ' month' : ' months') + '. Pay from a wallet that is a proven publisher of the app.'); };
 ${'$'}('df').onclick = () => checkout({ plan: 'data' }, 'Data plan, 30 days.');
 ${'$'}('rf').onsubmit = async (e) => { e.preventDefault(); const sig = ${'$'}('txsig').value.trim();
-  const r = job.pkg ? await fetch('/v1/publisher/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ signature: sig, package: job.pkg, secret: job.secret }) })
-                    : await fetch('/v1/keys', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ signature: sig, secret: job.secret }) });
-  const j = await r.json();
+  if (!job || !job.secret) { ${'$'}('rout').textContent = 'Start a checkout above first; the secret from it redeems the payment.'; return; }
+  const post = (path, body) => fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  let r = job.pkg ? await post('/v1/publisher/plan', { signature: sig, package: job.pkg, secret: job.secret }) : await post('/v1/keys', { signature: sig, secret: job.secret });
+  let j = await r.json();
+  if (r.status === 403 && job.pkg && /not a proven publisher/.test(j.message || '') && confirm((j.message || '') + '\n\nRedeem this payment as an API pass or credits instead?')) {
+    r = await post('/v1/keys', { signature: sig, secret: job.secret }); j = await r.json(); }
   if (!r.ok) { ${'$'}('rout').textContent = j.message || 'Not redeemed yet; try again in a minute.'; return; }
-  try { localStorage.setItem('us_key', j.key); } catch (e) {}
+  try { localStorage.setItem('us_key', j.key); localStorage.removeItem('us_checkout'); } catch (e) {}
   ${'$'}('key').value = j.key; if (job.pkg) ${'$'}('rpkg').value = job.pkg;
   ${'$'}('rout').textContent = 'Done. Your key is saved in this browser and shown in the report form below; copy it somewhere safe.' + (j.plan_ends_at ? ' Plan ends ' + new Date(j.plan_ends_at * 1000).toISOString().slice(0, 10) + '.' : '');
 };

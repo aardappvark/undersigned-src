@@ -280,15 +280,16 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
     }
 
     /** Store-wide monthly totals across every listed wallet (each wallet once, however many apps it was found in). */
-    fun trends(): JSONObject {
+    fun trends(only: Set<String>? = null): JSONObject {
         val h = prices.history()
-        val all = listedWallets().flatMap { w -> cached(w).map { w to it } }
+        val wallets = listedWallets().filter { only == null || it in only }
+        val all = wallets.flatMap { w -> cached(w).map { w to it } }
         val months = all.groupBy { month(it.second.time) }.toSortedMap().map { (m, l) ->
             JSONObject().put("month", m).put("payments", l.size).put("payers", l.map { it.second.payer }.toSet().size).put("wallets_paid", l.map { it.first }.toSet().size)
                 .put("usd", r2(l.sumOf { prices.usdWhenPaid(it.second, h) ?: 0.0 })).put("unpriced", l.count { prices.usdWhenPaid(it.second, h) == null })
         }
-        val progress = listedWallets().map { board.allProgress(it) }
-        return JSONObject().put("wallets", listedWallets().size).put("monthly", JSONArray(months))
+        val progress = wallets.map { board.allProgress(it) }
+        return JSONObject().put("wallets", wallets.size).put("monthly", JSONArray(months))
             .put("transactions_listed", progress.sumOf { it.first }).put("transactions_read", progress.sumOf { it.first - it.second })
     }
 

@@ -151,18 +151,23 @@ class Billing(private val db: Db, private val txOf: (String) -> TxInfo?, private
         }
         if (!isPublisher(tx.feePayer, packageName)) throw Refused(403, "the paying wallet ${tx.feePayer} is not a proven publisher of $packageName: prove it first (a signed claim), then pay from that wallet")
         val skr = tx.tokensIn[Config.SKR_MINT] ?: 0L
+        // A Genesis holder's SKR is divided by the Genesis unit, so 12 months at 332 each is 12 months, not 10 (audit, 10 Oct 2026).
+        val genesis = skr >= Config.planFloorSkrSgtRaw && holdsGenesis(tx.feePayer)
         val (rail, amount, unit) = when {
             tx.lamportsIn >= Config.planFloorLamports -> Triple("SOL", tx.lamportsIn, Config.planFloorLamports)
+            genesis -> Triple("SKR", skr, Config.planFloorSkrSgtRaw)
             skr >= Config.planFloorSkrRaw -> Triple("SKR", skr, Config.planFloorSkrRaw)
-            skr >= Config.planFloorSkrSgtRaw && holdsGenesis(tx.feePayer) -> Triple("SKR", skr, Config.planFloorSkrSgtRaw)
             else -> throw Refused(402, "the payment credited ${tx.lamportsIn} lamports and $skr raw SKR, below one month of the plan (${Config.PLAN_SOL} SOL or ${Config.PLAN_SKR} SKR)")
         }
         val months = (amount / unit).toInt().coerceIn(1, Config.PLAN_MAX_MONTHS)
-        val start = maxOf(now, planEnds(packageName))
-        val ends = start + months * Config.PLAN_DAYS * 86_400
-        val key = grant("publisher", tx.feePayer, months * Config.PLAN_REQUESTS, 0, txSignature, rail, amount, now, endsAt = ends)
-        db.exec("INSERT INTO publisher_plans (sig, pkg, wallet, starts_at, ends_at, months) VALUES (?, ?, ?, ?, ?, ?)", txSignature, packageName, tx.feePayer, start, ends, months)
-        return Plan(packageName, tx.feePayer, ends, key.key, months)
+        // One transaction: the key, the redeemed row and the plan row land together or not at all.
+        return db.tx {
+            val start = maxOf(now, planEnds(packageName))
+            val ends = start + months * Config.PLAN_DAYS * 86_400
+            val key = grant("publisher", tx.feePayer, months * Config.PLAN_REQUESTS, 0, txSignature, rail, amount, now, endsAt = ends)
+            db.exec("INSERT INTO publisher_plans (sig, pkg, wallet, starts_at, ends_at, months) VALUES (?, ?, ?, ?, ?, ?)", txSignature, packageName, tx.feePayer, start, ends, months)
+            Plan(packageName, tx.feePayer, ends, key.key, months)
+        }
     }
 
     /** When [packageName]'s plan ends (0 when it has none): any proven publisher's payment counts for the app. */

@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 
+const QUICK_RELAYER = "5fnAzQBqUK3cF82G8tbmhRMPSECQwgKk2XjYRNseYyN";   // protocol Registry.QUICK_RELAYER
 export const REGISTRY = "BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs";
 export const MEMO_PROGRAM = "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr";
 export const LIGHTHOUSE = "L2TExMFKdjpN9kozasaurPirfHy9P8sbXoAN1qA3S95";
@@ -38,6 +39,7 @@ export function decode(raw) {
   switch (f[1]) {
     case "rev": { if (f.length !== 7 || !PKG.test(f[2])) return null; const rating = +f[3]; if (!(rating >= 1 && rating <= 5)) return null; const tags = f[4].split(","); if (!tags.every((t) => TAGS.includes(t))) return null; return { t: "rev", pkg: f[2], rating, tags, vc: f[5], text: f[6] ? b64u(f[6]) : null }; }
     case "rvk": return f.length === 3 && SIG.test(f[2]) ? { t: "rvk", target: f[2] } : null;
+    case "qck": return f.length === 2 ? { t: "qck" } : null;
     case "rep": return f.length === 4 && SIG.test(f[2]) && f[3] ? { t: "rep", target: f[2], text: b64u(f[3]) } : null;
     case "clm": return f.length === 3 && PKG.test(f[2]) ? { t: "clm", pkg: f[2] } : null;
     case "unv": return f.length === 3 && SIG.test(f[2]) ? { t: "unv", target: f[2] } : null;
@@ -86,7 +88,9 @@ export async function sync() {
       // A Pro payment's only memo is the fleet code, so the protocol tag alone would skip it.
       if (s.err || known.has(s.signature) || !s.memo || !(s.memo.includes("SRL1|") || s.memo.includes(PAYMENT_MEMO))) continue;
       const tx = await rpc("getTransaction", [s.signature, { encoding: "jsonParsed", maxSupportedTransactionVersion: 0 }]); if (!tx || tx.meta.err) continue;
-      const keys = tx.transaction.message.accountKeys; const signer = keys[0].pubkey || keys[0];
+      const keys = tx.transaction.message.accountKeys; const k0 = keys[0].pubkey || keys[0];
+      // A quick review is relayed: the fee payer is Undersigned's relayer and the author is the second signer (protocol Registry.author).
+      const signer = k0 === QUICK_RELAYER && keys.length > 1 && (keys[1].signer ?? true) ? (keys[1].pubkey || keys[1]) : k0;
       const ixs = tx.transaction.message.instructions;
       const seeker = ixs.some((i) => i.programId === LIGHTHOUSE) && ixs.some((i) => i.programId === "ComputeBudget111111111111111111111111111111");
       let i = 0, records = 0;
