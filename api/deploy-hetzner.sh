@@ -79,7 +79,9 @@ User=undersigned
 WorkingDirectory=/opt/undersigned
 Environment=HOME=/opt/undersigned
 EnvironmentFile=/opt/undersigned/env
-ExecStart=/bin/sh -c '/opt/undersigned/bin/api verify > /opt/undersigned/verify.txt.new 2>&1; mv /opt/undersigned/verify.txt.new /opt/undersigned/verify.txt'
+ExecStart=/opt/undersigned/bin/api verify
+StandardOutput=truncate:/opt/undersigned/verify.txt
+StandardError=inherit
 UNIT
   cat > /etc/systemd/system/undersigned-verify.timer <<UNIT
 [Unit]
