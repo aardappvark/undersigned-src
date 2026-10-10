@@ -1239,4 +1239,23 @@
     <string name="tour_pro_t">Pro are propria filă</string>
     <string name="tour_pro_b">Ce include Pro, prețul în SOL sau SKR și starea acestui portofel. Planul de editor are link mai jos.</string>
     <string name="tour_settings_b">Portofelul, alertele și lista de aplicații. Reia acest tur din Setări oricând.</string>
+    <string name="pro_prompt_price">Pro · 12 luni · %1$s sau %2$s</string>
+    <string name="pro_prompt_never">Ce nu face niciodată Pro: nu schimbă niciodată un scor.</string>
+    <string name="pro_prompt_settings_body">Importul tuturor recenziilor din magazin cu o singură semnătură, biroul editorului, exportul registrului, alerte în fiecare oră și lista de dApps în fiecare luni.</string>
+    <string name="ph_title">Istoricul plăților</string>
+    <string name="ph_open_app">Deschide pagina aplicației</string>
+    <string name="ph_sources">Portofele plătite</string>
+    <string name="ph_pill_found">găsit în codul aplicației, neconfirmat</string>
+    <string name="ph_usd_label">USD din ziua plății · încasări brute, nu venit</string>
+    <string name="ph_found_caveat">Un portofel găsit este scris în build-ul aplicației din magazin și a primit plăți de la alte portofele. Editorul nu l-a confirmat și s-ar putea să nu fie trezoreria aplicației.</string>
+    <string name="ph_payers_summed">Plătitori (însumați pe săptămâni)</string>
+    <string name="ph_monthly">Pe luni</string>
+    <string name="ph_month">Luna</string>
+    <string name="ph_none">Nicio plată înregistrată încă pentru această aplicație.</string>
+    <string name="ph_new_returning">Plătitori noi și recurenți</string>
+    <string name="ph_new">Noi</string>
+    <string name="ph_returning">Recurenți</string>
+    <string name="ph_top_payer">Ponderea celui mai mare plătitor</string>
+    <string name="ph_top10_payers">Ponderea primilor 10 plătitori</string>
+    <string name="ph_of">%1$s din %2$s</string>
 </resources>

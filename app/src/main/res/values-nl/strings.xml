@@ -1230,4 +1230,23 @@
     <string name="tour_pro_t">Pro heeft een eigen tabblad</string>
     <string name="tour_pro_b">Wat Pro bevat, de prijs in SOL of SKR en de status van deze wallet. Het uitgeversplan staat verderop gelinkt.</string>
     <string name="tour_settings_b">Je wallet, meldingen en de lijst met apps. Speel deze rondleiding altijd opnieuw af via Instellingen.</string>
+    <string name="pro_prompt_price">Pro · 12 maanden · %1$s of %2$s</string>
+    <string name="pro_prompt_never">Wat Pro nooit doet: het verandert nooit een score.</string>
+    <string name="pro_prompt_settings_body">Alle winkelrecensies importeren met één handtekening, het uitgeversbureau, het register exporteren, elk uur meldingen en elke maandag de dApp-lijst.</string>
+    <string name="ph_title">Betalingsgeschiedenis</string>
+    <string name="ph_open_app">App-pagina openen</string>
+    <string name="ph_sources">Betaalde wallets</string>
+    <string name="ph_pill_found">gevonden in app-code, niet bevestigd</string>
+    <string name="ph_usd_label">USD op de dag van betaling · bruto-ontvangsten, geen omzet</string>
+    <string name="ph_found_caveat">Een gevonden wallet staat in de winkelbuild van de app en is door andere wallets betaald. De uitgever heeft hem niet bevestigd en het is misschien niet de treasury van de app.</string>
+    <string name="ph_payers_summed">Betalers (per week opgeteld)</string>
+    <string name="ph_monthly">Per maand</string>
+    <string name="ph_month">Maand</string>
+    <string name="ph_none">Nog geen betalingen geregistreerd voor deze app.</string>
+    <string name="ph_new_returning">Nieuwe en terugkerende betalers</string>
+    <string name="ph_new">Nieuw</string>
+    <string name="ph_returning">Terugkerend</string>
+    <string name="ph_top_payer">Aandeel grootste betaler</string>
+    <string name="ph_top10_payers">Aandeel 10 grootste betalers</string>
+    <string name="ph_of">%1$s van %2$s</string>
 </resources>

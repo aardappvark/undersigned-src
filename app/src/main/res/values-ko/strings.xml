@@ -1198,4 +1198,23 @@
     <string name="tour_pro_t">Pro 전용 탭</string>
     <string name="tour_pro_b">Pro에 포함된 기능, SOL 또는 SKR 가격, 이 지갑의 상태. 퍼블리셔 플랜 링크는 아래에 있습니다.</string>
     <string name="tour_settings_b">지갑, 알림, 앱 목록. 설정에서 언제든 이 투어를 다시 볼 수 있습니다.</string>
+    <string name="pro_prompt_price">Pro · 12개월 · %1$s 또는 %2$s</string>
+    <string name="pro_prompt_never">Pro가 절대 하지 않는 일: 점수를 절대 바꾸지 않습니다.</string>
+    <string name="pro_prompt_settings_body">스토어 리뷰를 한 번의 서명으로 모두 가져오기, 퍼블리셔 데스크, 원장 내보내기, 매시간 알림, 매주 월요일 dApp 목록.</string>
+    <string name="ph_title">결제 내역</string>
+    <string name="ph_open_app">앱 페이지 열기</string>
+    <string name="ph_sources">결제받은 지갑</string>
+    <string name="ph_pill_found">앱 코드에서 발견, 미확인</string>
+    <string name="ph_usd_label">결제일 기준 USD · 총수령액이며 매출이 아님</string>
+    <string name="ph_found_caveat">발견된 지갑은 스토어의 앱 빌드에 적혀 있고 다른 지갑들로부터 결제를 받았습니다. 퍼블리셔가 확인하지 않았으며 앱의 트레저리가 아닐 수 있습니다.</string>
+    <string name="ph_payers_summed">결제자 (주별 합계)</string>
+    <string name="ph_monthly">월별</string>
+    <string name="ph_month">월</string>
+    <string name="ph_none">이 앱에 기록된 결제가 아직 없습니다.</string>
+    <string name="ph_new_returning">신규 및 재결제자</string>
+    <string name="ph_new">신규</string>
+    <string name="ph_returning">재결제</string>
+    <string name="ph_top_payer">최대 결제자 비중</string>
+    <string name="ph_top10_payers">상위 10명 결제자 비중</string>
+    <string name="ph_of">%2$s 중 %1$s</string>
 </resources>

@@ -57,4 +57,44 @@ class PaymentAnalyticsTest {
         val s = PaymentAnalytics.parse(JSONObject("{}"))
         assertTrue(s.leaders.isEmpty() && s.categories.isEmpty() && s.byWeekday.isEmpty())
     }
+
+    // ---- One app's history (shapes as the live API served them for live.photofinish on 10 Oct 2026, trimmed) ----
+
+    private val week = """{"payers":3765,"package":"live.photofinish","sources":[{"wallet":"FTxK","payments":41244,"usd":4352952.42,"source":"found"},{"wallet":"W2","payments":3,"usd":9.5,"source":"confirmed"}],
+      "series":[{"bucket":"2026-10-05","payers":81,"usd":11442.05,"payments":259},{"bucket":"2026-09-28","payers":65,"usd":7638.54,"payments":244},{"bucket":"2026-09-21","payers":84,"usd":11488.55,"payments":278},{"bucket":"2025-02-24","payers":148,"usd":43109,"payments":488}],
+      "by":"week","total_usd":4352952.42,"payments":41244,"name":""}"""
+
+    @Test fun parsesAnAppsHistorySortedOldestFirst() {
+        val h = PaymentAnalytics.parseHistory(JSONObject(week))
+        assertEquals("live.photofinish", h.name) // blank name falls back to the package
+        assertEquals(listOf("2025-02-24", "2026-09-21", "2026-09-28", "2026-10-05"), h.series.map { it.bucket })
+        assertFalse(h.sources[0].confirmed); assertTrue(h.sources[1].confirmed)
+        assertEquals(3765, h.payers); assertEquals(41244, h.payments)
+    }
+
+    @Test fun windowKeepsTheWeeksThatOverlapIt() {
+        val s = PaymentAnalytics.parseHistory(JSONObject(week)).series
+        val today = java.time.LocalDate.parse("2026-10-10")
+        // 7 days back is 3 Oct: the week of 28 Sep ends 5 Oct (inside), the week of 21 Sep ends 28 Sep (outside).
+        assertEquals(listOf("2026-09-28", "2026-10-05"), PaymentAnalytics.weeksIn(s, "7d", today).map { it.bucket })
+        assertEquals(listOf("2026-09-21", "2026-09-28", "2026-10-05"), PaymentAnalytics.weeksIn(s, "30d", today).map { it.bucket })
+        // Boundary: a week ending exactly on the window's first day is outside it.
+        assertEquals(listOf("2026-10-05"), PaymentAnalytics.weeksIn(s, "7d", java.time.LocalDate.parse("2026-10-12")).map { it.bucket })
+        assertEquals(4, PaymentAnalytics.weeksIn(s, "all", today).size)
+        assertEquals(3, PaymentAnalytics.weeksIn(s, "1y", today).size)
+        assertTrue(PaymentAnalytics.weeksIn(emptyList(), "90d", today).isEmpty())
+    }
+
+    @Test fun parsesAFoundWalletsReading() {
+        val j = JSONObject("""{"package":"live.photofinish","name":"Photo Finish Live","wallets":[{"coverage":{"transactions_listed":286563,"transactions_read":71850,"history_complete":false},
+          "wallet":"FTxK","top_payer_share":0.16,"payments":41331,"repeat_payers":1995,"median_payment_usd":20,"usdc":4360677.51,"payers":3765,"sol":0.0685,"skr":0,
+          "top_10_payers_share":0.57,"monthly":[{"payers":93,"month":"2026-10","new_payers":21,"payments":335,"usd":14468.06,"returning_payers":72},{"payers":116,"month":"2025-02","new_payers":116,"payments":379,"usd":32453,"returning_payers":0}]}]}""")
+        val f = PaymentAnalytics.parseFound(j).single()
+        assertEquals(0.16, f.topPayerShare, 1e-9); assertEquals(0.57, f.top10Share, 1e-9)
+        assertEquals(1995, f.repeatPayers); assertEquals(20.0, f.medianUsd, 1e-9)
+        assertFalse(f.complete); assertEquals(71850, f.txRead); assertEquals(286563, f.txListed)
+        assertEquals(listOf("2025-02", "2026-10"), f.monthly.map { it.month })
+        assertEquals(72, f.monthly.last().returningPayers)
+        assertTrue(PaymentAnalytics.parseFound(JSONObject("{}")).isEmpty())
+    }
 }

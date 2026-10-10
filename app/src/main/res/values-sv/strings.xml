@@ -1222,4 +1222,23 @@
     <string name="tour_pro_t">Pro har en egen flik</string>
     <string name="tour_pro_b">Vad Pro innehåller, priset i SOL eller SKR och plånbokens status. Utgivarplanen är länkad längre ner.</string>
     <string name="tour_settings_b">Din plånbok, aviseringar och applistan. Spela upp rundturen igen från Inställningar när du vill.</string>
+    <string name="pro_prompt_price">Pro · 12 månader · %1$s eller %2$s</string>
+    <string name="pro_prompt_never">Det Pro aldrig gör: det ändrar aldrig ett betyg.</string>
+    <string name="pro_prompt_settings_body">Importera alla butiksrecensioner med en signatur, utgivarens skrivbord, export av registret, aviseringar varje timme och dApp-listan varje måndag.</string>
+    <string name="ph_title">Betalningshistorik</string>
+    <string name="ph_open_app">Öppna appens sida</string>
+    <string name="ph_sources">Betalade plånböcker</string>
+    <string name="ph_pill_found">hittad i appens kod, inte bekräftad</string>
+    <string name="ph_usd_label">USD på betalningsdagen · bruttoinbetalningar, inte intäkter</string>
+    <string name="ph_found_caveat">En hittad plånbok står i appens butiksbygge och har fått betalningar från andra plånböcker. Utgivaren har inte bekräftat den, och den kanske inte är appens treasury.</string>
+    <string name="ph_payers_summed">Betalare (summerat per vecka)</string>
+    <string name="ph_monthly">Per månad</string>
+    <string name="ph_month">Månad</string>
+    <string name="ph_none">Inga betalningar registrerade för den här appen ännu.</string>
+    <string name="ph_new_returning">Nya och återkommande betalare</string>
+    <string name="ph_new">Nya</string>
+    <string name="ph_returning">Återkommande</string>
+    <string name="ph_top_payer">Största betalarens andel</string>
+    <string name="ph_top10_payers">De 10 största betalarnas andel</string>
+    <string name="ph_of">%1$s av %2$s</string>
 </resources>

@@ -1206,4 +1206,23 @@
     <string name="tour_pro_t">Pro có thẻ riêng</string>
     <string name="tour_pro_b">Pro gồm những gì, giá bằng SOL hoặc SKR và trạng thái của ví này. Liên kết gói nhà phát hành ở bên dưới.</string>
     <string name="tour_settings_b">Ví, cảnh báo và danh sách ứng dụng của bạn. Xem lại chuyến tham quan này trong Cài đặt bất cứ lúc nào.</string>
+    <string name="pro_prompt_price">Pro · 12 tháng · %1$s hoặc %2$s</string>
+    <string name="pro_prompt_never">Điều Pro không bao giờ làm: không bao giờ thay đổi điểm số.</string>
+    <string name="pro_prompt_settings_body">Nhập mọi đánh giá trên cửa hàng bằng một chữ ký, bàn làm việc của nhà phát hành, xuất sổ cái, cảnh báo mỗi giờ và danh sách dApp mỗi thứ Hai.</string>
+    <string name="ph_title">Lịch sử thanh toán</string>
+    <string name="ph_open_app">Mở trang ứng dụng</string>
+    <string name="ph_sources">Ví được thanh toán</string>
+    <string name="ph_pill_found">tìm thấy trong mã ứng dụng, chưa xác nhận</string>
+    <string name="ph_usd_label">USD vào ngày thanh toán · tổng tiền nhận, không phải doanh thu</string>
+    <string name="ph_found_caveat">Ví tìm thấy được ghi trong bản build của ứng dụng trên cửa hàng và đã nhận thanh toán từ các ví khác. Nhà phát hành chưa xác nhận, và có thể đó không phải ngân quỹ của ứng dụng.</string>
+    <string name="ph_payers_summed">Người trả (cộng theo tuần)</string>
+    <string name="ph_monthly">Theo tháng</string>
+    <string name="ph_month">Tháng</string>
+    <string name="ph_none">Chưa có khoản thanh toán nào được ghi nhận cho ứng dụng này.</string>
+    <string name="ph_new_returning">Người trả mới và quay lại</string>
+    <string name="ph_new">Mới</string>
+    <string name="ph_returning">Quay lại</string>
+    <string name="ph_top_payer">Tỷ trọng người trả lớn nhất</string>
+    <string name="ph_top10_payers">Tỷ trọng 10 người trả lớn nhất</string>
+    <string name="ph_of">%1$s trên %2$s</string>
 </resources>

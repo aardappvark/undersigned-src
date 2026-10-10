@@ -1190,4 +1190,23 @@
     <string name="tour_pro_t">Pro มีแท็บของตัวเอง</string>
     <string name="tour_pro_b">สิ่งที่ Pro มี ราคาเป็น SOL หรือ SKR และสถานะของกระเป๋านี้ ลิงก์แพ็กเกจผู้เผยแพร่อยู่ด้านล่าง</string>
     <string name="tour_settings_b">กระเป๋าของคุณ การแจ้งเตือน และรายการแอป เล่นทัวร์นี้ซ้ำได้จากการตั้งค่าทุกเมื่อ</string>
+    <string name="pro_prompt_price">Pro · 12 เดือน · %1$s หรือ %2$s</string>
+    <string name="pro_prompt_never">สิ่งที่ Pro ไม่เคยทำ: ไม่เคยเปลี่ยนคะแนนใดๆ</string>
+    <string name="pro_prompt_settings_body">นำเข้ารีวิวทั้งหมดจากสโตร์ด้วยลายเซ็นเดียว โต๊ะผู้เผยแพร่ ส่งออกบัญชีแยกประเภท การแจ้งเตือนทุกชั่วโมง และรายการ dApp ทุกวันจันทร์</string>
+    <string name="ph_title">ประวัติการชำระเงิน</string>
+    <string name="ph_open_app">เปิดหน้าแอป</string>
+    <string name="ph_sources">กระเป๋าที่ได้รับเงิน</string>
+    <string name="ph_pill_found">พบในโค้ดของแอป ยังไม่ยืนยัน</string>
+    <string name="ph_usd_label">USD ในวันที่ชำระ · รายรับรวม ไม่ใช่รายได้</string>
+    <string name="ph_found_caveat">กระเป๋าที่พบเขียนอยู่ในบิลด์ของแอปบนสโตร์และได้รับเงินจากกระเป๋าอื่น ผู้เผยแพร่ยังไม่ยืนยัน และอาจไม่ใช่คลังของแอป</string>
+    <string name="ph_payers_summed">ผู้ชำระ (รวมรายสัปดาห์)</string>
+    <string name="ph_monthly">รายเดือน</string>
+    <string name="ph_month">เดือน</string>
+    <string name="ph_none">ยังไม่มีการชำระเงินที่บันทึกไว้สำหรับแอปนี้</string>
+    <string name="ph_new_returning">ผู้ชำระใหม่และกลับมาซ้ำ</string>
+    <string name="ph_new">ใหม่</string>
+    <string name="ph_returning">กลับมาซ้ำ</string>
+    <string name="ph_top_payer">สัดส่วนผู้ชำระรายใหญ่สุด</string>
+    <string name="ph_top10_payers">สัดส่วนผู้ชำระ 10 อันดับแรก</string>
+    <string name="ph_of">%1$s จาก %2$s</string>
 </resources>

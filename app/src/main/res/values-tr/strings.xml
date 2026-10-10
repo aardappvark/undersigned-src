@@ -1221,4 +1221,23 @@
     <string name="tour_pro_t">Pro\'nun kendi sekmesi var</string>
     <string name="tour_pro_b">Pro\'nun içerdikleri, SOL veya SKR fiyatı ve bu cüzdanın durumu. Yayıncı planının bağlantısı aşağıda.</string>
     <string name="tour_settings_b">Cüzdanınız, uyarılar ve uygulama listesi. Bu turu Ayarlar\'dan istediğiniz zaman yeniden oynatın.</string>
+    <string name="pro_prompt_price">Pro · 12 ay · %1$s veya %2$s</string>
+    <string name="pro_prompt_never">Pro\'nun asla yapmadığı: bir puanı asla değiştirmez.</string>
+    <string name="pro_prompt_settings_body">Tüm mağaza yorumlarını tek imzayla içe aktarma, yayıncı masası, kayıt dışa aktarımı, saatlik uyarılar ve her pazartesi dApp listesi.</string>
+    <string name="ph_title">Ödeme geçmişi</string>
+    <string name="ph_open_app">Uygulama sayfasını aç</string>
+    <string name="ph_sources">Ödeme alan cüzdanlar</string>
+    <string name="ph_pill_found">uygulama kodunda bulundu, onaylanmadı</string>
+    <string name="ph_usd_label">Ödeme günündeki USD · brüt tahsilat, gelir değil</string>
+    <string name="ph_found_caveat">Bulunan bir cüzdan, uygulamanın mağaza derlemesinde yazılı ve başka cüzdanlardan ödeme almış. Yayıncı bunu onaylamadı; uygulamanın hazinesi olmayabilir.</string>
+    <string name="ph_payers_summed">Ödeyenler (haftalık toplam)</string>
+    <string name="ph_monthly">Aya göre</string>
+    <string name="ph_month">Ay</string>
+    <string name="ph_none">Bu uygulama için henüz kayıtlı ödeme yok.</string>
+    <string name="ph_new_returning">Yeni ve tekrar ödeyenler</string>
+    <string name="ph_new">Yeni</string>
+    <string name="ph_returning">Tekrar</string>
+    <string name="ph_top_payer">En büyük ödeyenin payı</string>
+    <string name="ph_top10_payers">En büyük 10 ödeyenin payı</string>
+    <string name="ph_of">%2$s içinden %1$s</string>
 </resources>

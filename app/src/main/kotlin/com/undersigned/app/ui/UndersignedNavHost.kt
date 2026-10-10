@@ -39,12 +39,15 @@ object Routes {
     const val LEADERBOARD = "leaderboard"
     const val TO_REVIEW = "to-review"
     const val INTRO = "intro"
+    /** One app's payment history, from the Payments tab (owner, 10 Oct 2026): pushed, no tab bar, back returns. */
+    const val PAY_HISTORY = "pay-history/{pkg}"
     /** The Me hub: my reviews, inbox, publisher desk, settings (owner, 10 Oct 2026: a tab bar at the bottom). */
     const val ME = "me"
     /** The five tabs along the bottom, in order. */
     val TABS = listOf(BROWSE, CHANGES, PAYMENTS, PRO, ME)
     fun profile(w: String) = "profile/$w"
     fun detail(pkg: String) = "detail/$pkg"
+    fun payHistory(pkg: String) = "pay-history/$pkg"
     fun review(pkg: String) = "review/$pkg"
     /** The composer as a follow-up to the signer's own review [original] (after the publisher marked it fixed). */
     fun followUp(pkg: String, original: String) = "review/$pkg?fu=$original"
@@ -114,13 +117,14 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
         composable(Routes.MY_REVIEWS) { MyReviewsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }, onSignIn = { nav.navigate(Routes.SETTINGS) }) }
         composable(Routes.TO_REVIEW) { ToReviewScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(it)) }) }
         composable(Routes.STATS) { LedgerStatsScreen(vm, onBack = { nav.popBackStack() }) }
-        composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onFollowUp = { nav.navigate(Routes.followUp(pkg, it)) }, onProfile = { nav.navigate(Routes.profile(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
+        composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onFollowUp = { nav.navigate(Routes.followUp(pkg, it)) }, onProfile = { nav.navigate(Routes.profile(it)) }) }
         composable(Routes.REVIEW, arguments = listOf(androidx.navigation.navArgument("fu") { nullable = true; defaultValue = null })) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; ReviewScreen(vm, pkg, activityResultSender, followUpOf = b.arguments?.getString("fu"), onBack = { nav.popBackStack() }, onPublished = { nav.popBackStack() }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.CHANGES) { e -> val root = remember(e) { isTabRoot() }; ChangesScreen(vm, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onHowTo = { nav.navigate(Routes.HOWTO) }, onIntro = { nav.navigate(Routes.INTRO) }, onTour = { com.undersigned.app.ui.components.Tour.start() }, onPro = { nav.navigate(Routes.PRO) }, onDesk = { nav.navigate(Routes.DESK) }, onStats = { nav.navigate(Routes.STATS) }, onPayments = { nav.navigate(Routes.PAYMENTS) }, onWatch = { nav.navigate(Routes.WATCH) }, onLeaderboard = { nav.navigate(Routes.LEADERBOARD) }) }
         composable(Routes.LEADERBOARD) { LeaderboardScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.WATCH) { StoreWatchScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
-        composable(Routes.PAYMENTS) { e -> val root = remember(e) { isTabRoot() }; PaymentsScreen(vm, activityResultSender, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }) }
+        composable(Routes.PAYMENTS) { e -> val root = remember(e) { isTabRoot() }; PaymentsScreen(vm, activityResultSender, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }, onHistory = { nav.navigate(Routes.payHistory(it)) }) }
+        composable(Routes.PAY_HISTORY) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; PaymentHistoryScreen(vm, pkg, onBack = { nav.popBackStack() }, onOpenApp = { nav.navigate(Routes.detail(pkg)) }) }
         composable(Routes.PRO) { e -> val root = remember(e) { isTabRoot() }; ProScreen(vm, activityResultSender, onBack = if (root) null else ({ nav.popBackStack() })) }
         composable(Routes.DESK) { PublisherDeskScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onPro = { nav.navigate(Routes.PRO) }, onPayments = { nav.navigate(Routes.PAYMENTS) }) }
         composable(Routes.HOWTO) { HowToScreen(onDone = { nav.popBackStack() }) }

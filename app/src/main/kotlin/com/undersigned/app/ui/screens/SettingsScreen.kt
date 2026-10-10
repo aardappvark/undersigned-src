@@ -40,6 +40,7 @@ import com.undersigned.app.ui.components.Pill
 import com.undersigned.app.ui.components.storeDate
 import com.undersigned.app.ui.components.SecondaryButton
 import com.undersigned.app.ui.components.SectionTitle
+import com.undersigned.app.ui.components.ProPrompt
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.app.util.WalletScreening
 import com.undersigned.app.wallet.WalletSession
@@ -137,6 +138,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
 
             // Pro, above Your standing (design: Screens D). Read from the ledger; nothing stored locally decides it.
             SectionTitle(stringResource(R.string.pro_title), trailing = { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) })
+            // The one Pro prompt on Settings (owner, 10 Oct 2026), above the card; the import and weekly-list cards below only say "Pro".
+            if (pro?.active != true) { ProPrompt(stringResource(R.string.pro_tools), stringResource(R.string.pro_prompt_settings_body), onPro); Spacer(Modifier.height(8.dp)) }
             GlassCard(accent = if (pro?.active == true) RbColors.green else RbColors.glassBorder) {
                 val p = pro
                 if (p != null && !p.owned) {
@@ -150,7 +153,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     LinkRow(stringResource(R.string.pro_view_licence)) { open(AppConfig.Api.EXPLORER_TX + p.signature) }
                     Text(stringResource(R.string.pro_tied, df.format(java.util.Date(p.expiresAt * 1000))), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                     Spacer(Modifier.height(8.dp))
-                    SecondaryButton(if (p.active) stringResource(R.string.pro_renew) else stringResource(R.string.pro_get_short), onClick = onPro)
+                    if (p.active) SecondaryButton(stringResource(R.string.pro_renew), onClick = onPro)
                     if (p.active) {
                         Spacer(Modifier.height(10.dp))
                         Text(stringResource(R.string.pro_share_seated), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
@@ -169,8 +172,6 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                 } else {
                     Text(stringResource(R.string.pro_free_keeps), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
-                    Spacer(Modifier.height(8.dp))
-                    SecondaryButton(stringResource(R.string.pro_get, AppConfig.Payment.solLabel(), AppConfig.Payment.skrLabel()), onClick = onPro)
                     if (wallet != null) {
                         Spacer(Modifier.height(12.dp))
                         Text(stringResource(R.string.pro_shared_from_title), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
@@ -249,8 +250,6 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                         if (importable.isNotEmpty() && !isPro) {
                             Spacer(Modifier.height(6.dp))
                             Text(importStage ?: stringResource(R.string.pro_import_locked), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
-                            Spacer(Modifier.height(6.dp))
-                            com.undersigned.app.ui.screens.ProLock(onPro = onPro)
                         }
                         if (importable.isNotEmpty() && isPro) {
                             Spacer(Modifier.height(6.dp))
@@ -347,7 +346,6 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                     Switch(checked = auto && isPro, onCheckedChange = null, enabled = isPro, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
-                if (!isPro) { Spacer(Modifier.height(8.dp)); com.undersigned.app.ui.screens.ProLock(hint = stringResource(R.string.settings_catalogue_auto), onPro = onPro) }
                 Spacer(Modifier.height(6.dp))
                 val catAt by vm.catalogueRefreshedAt.collectAsState()
                 val refreshingCat by vm.catalogueRefreshing.collectAsState()

@@ -133,8 +133,12 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
             scanApp?.let { Text(it, color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             // Every store review not yet signed, in one wallet approval (import review, 10 Oct 2026).
             val importable = all.filter { it.signed == null && it.store != null }
-            if (importable.size >= 2 && scan == null) com.undersigned.app.ui.components.PrimaryButton(stringResource(R.string.import_all, importable.size),
-                onClick = { importMany(importable.map { it.pkg to it.store!! }) }, enabled = stage == null && sender != null, modifier = Modifier.padding(top = 6.dp))
+            // All in one signature is the Pro tool (Settings already gated it; here it was open to everyone until 10 Oct 2026).
+            // Free imports one at a time from each card below. The prompt is the one Pro prompt on this screen.
+            if (importable.size >= 2 && scan == null) {
+                if (pro?.active == true) com.undersigned.app.ui.components.PrimaryButton(stringResource(R.string.import_all, importable.size),
+                    onClick = { importMany(importable.map { it.pkg to it.store!! }) }, enabled = stage == null && sender != null, modifier = Modifier.padding(top = 6.dp))
+            }
             scanResult?.let { (failed, total) -> if (scan == null && failed > 0) Text(stringResource(R.string.import_incomplete, failed, total), color = RbColors.warning, fontSize = 11.sp) }
             (stage ?: message)?.let { Text(it, color = if (stage != null) RbColors.purpleLight else if (messageOk) RbColors.green else RbColors.negative, fontSize = 12.sp) }
         }
@@ -143,6 +147,11 @@ fun MyReviewsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: ()
             return@Column
         }
         LazyColumn(contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)) {
+            // Without Pro, the prompt sits first in the list (it scrolls away) rather than in the fixed header.
+            if (pro?.active != true && scan == null && all.count { it.signed == null && it.store != null } >= 2) item(key = "pro-prompt") {
+                com.undersigned.app.ui.components.ProPrompt(stringResource(R.string.pro_tool_import_title), stringResource(R.string.pro_tool_import_body), onPro)
+                Spacer(Modifier.height(10.dp))
+            }
             items(shown, key = { it.pkg }) { d ->
                 GlassCard(accent = if (d.differs) RbColors.info else RbColors.glassBorder) {
                     Row(Modifier.fillMaxWidth().clickable { onOpen(d.pkg) }, verticalAlignment = Alignment.CenterVertically) {

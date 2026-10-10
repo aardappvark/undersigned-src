@@ -1250,4 +1250,23 @@
     <string name="tour_pro_t">Pro ha una sua scheda</string>
     <string name="tour_pro_b">Cosa include Pro, il prezzo in SOL o SKR e lo stato di questo wallet. Il piano editore è collegato più in basso.</string>
     <string name="tour_settings_b">Il tuo wallet, gli avvisi e l\'elenco delle app. Ripeti questo tour dalle Impostazioni quando vuoi.</string>
+    <string name="pro_prompt_price">Pro · 12 mesi · %1$s o %2$s</string>
+    <string name="pro_prompt_never">Ciò che Pro non fa mai: non cambia mai un punteggio.</string>
+    <string name="pro_prompt_settings_body">Importa tutte le recensioni dello store con una firma, la scrivania dell\'editore, l\'esportazione del registro, avvisi ogni ora e l\'elenco delle dApp ogni lunedì.</string>
+    <string name="ph_title">Cronologia pagamenti</string>
+    <string name="ph_open_app">Apri la pagina dell\'app</string>
+    <string name="ph_sources">Wallet pagati</string>
+    <string name="ph_pill_found">trovato nel codice dell\'app, non confermato</string>
+    <string name="ph_usd_label">USD del giorno del pagamento · incassi lordi, non ricavi</string>
+    <string name="ph_found_caveat">Un wallet trovato è scritto nella build dell\'app sullo store ed è stato pagato da altri wallet. L\'editore non l\'ha confermato e potrebbe non essere la tesoreria dell\'app.</string>
+    <string name="ph_payers_summed">Paganti (sommati per settimana)</string>
+    <string name="ph_monthly">Per mese</string>
+    <string name="ph_month">Mese</string>
+    <string name="ph_none">Nessun pagamento registrato per questa app finora.</string>
+    <string name="ph_new_returning">Paganti nuovi e di ritorno</string>
+    <string name="ph_new">Nuovi</string>
+    <string name="ph_returning">Di ritorno</string>
+    <string name="ph_top_payer">Quota del pagante principale</string>
+    <string name="ph_top10_payers">Quota dei primi 10 paganti</string>
+    <string name="ph_of">%1$s su %2$s</string>
 </resources>

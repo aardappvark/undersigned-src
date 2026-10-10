@@ -61,7 +61,7 @@ private enum class PayPage { BOARD, LIST, LISTINGS, PREVIEW }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> Unit)?, onOpen: (String) -> Unit) {
+fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> Unit)?, onOpen: (String) -> Unit, onHistory: (String) -> Unit = onOpen) {
     val context = LocalContext.current
     val rows by vm.boardRows.collectAsState()
     val loading by vm.boardLoading.collectAsState()
@@ -123,7 +123,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
             // G1 — the board, then the publisher tools.
             PayPage.BOARD -> Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
                 // Store-wide analytics by window (owner, 10 Oct 2026), above the board of confirmed listings.
-                PaymentAnalyticsBlock(vm, onOpen)
+                PaymentAnalyticsBlock(vm, onOpen, onHistory)
                 Text(stringResource(R.string.pay_title), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(bottom = 4.dp))
                 Text(stringResource(R.string.pay_intro), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 18.sp)
                 Row(Modifier.fillMaxWidth().padding(top = 10.dp)) {
@@ -142,7 +142,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
                 if (listed.isNotEmpty()) GlassCard {
                     listed.forEachIndexed { i, row ->
                         if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
-                        Row(Modifier.fillMaxWidth().heightIn(min = 72.dp).clickable { onOpen(row.claim.packageName) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Row(Modifier.fillMaxWidth().heightIn(min = 72.dp).clickable { onHistory(row.claim.packageName) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                             Text("${i + 1}", color = RbColors.textTertiary, fontSize = 15.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.widthIn(min = 26.dp))
                             DAppIcon(row.claim.packageName, row.name, icons[row.claim.packageName]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp))
                             Spacer(Modifier.width(12.dp))
@@ -162,7 +162,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
                 if (waiting > 0) Text(stringResource(R.string.pay_waiting_list, waiting), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 8.dp))
                 // Treasuries found in app code (owner, 9 Oct 2026): their own card under the board, by name, never ranked.
                 Spacer(Modifier.height(14.dp))
-                FoundInCode(vm, onOpen)
+                FoundInCode(vm, onHistory)
                 Text(stringResource(R.string.pay_tools).uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, modifier = Modifier.padding(top = 22.dp, bottom = 8.dp))
                 Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(RbColors.surface)) {
                     if (wallet != null) {
@@ -550,6 +550,11 @@ private fun share(v: Double): String = String.format(Locale.US, if (v >= 10) "%.
 private fun count(n: Int): String = NumberFormat.getIntegerInstance().format(n)
 
 /** "2026-09-07" or "2026-09" as the phone's short date; anything else as given. */
+/** Shared with the payment history screen (same formats as the board). */
+internal fun payUsd(v: Double): String = usd0(v)
+internal fun payCount(n: Int): String = count(n)
+internal fun payBucketLabel(b: String): String = bucketLabel(b)
+
 private fun bucketLabel(b: String): String = runCatching {
     if (b.length == 7) java.time.YearMonth.parse(b).let { it.month.getDisplayName(java.time.format.TextStyle.SHORT, Locale.getDefault()) + " " + it.year }
     else java.time.LocalDate.parse(b.take(10)).format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM))
@@ -573,7 +578,7 @@ private fun CardTitle(text: String) { Text(text, color = RbColors.textPrimary, f
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
+private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, onHistory: (String) -> Unit) {
     var window by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf("30d") }
     val cache by vm.paymentSummaries.collectAsState()
     var failed by remember { mutableStateOf(setOf<String>()) }
@@ -625,7 +630,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
         CardTitle(stringResource(R.string.pa_board_title))
         s.leaders.take(10).forEachIndexed { i, r ->
             if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
-            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable { onOpen(r.pkg) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable { onHistory(r.pkg) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text("${r.rank}", color = RbColors.textTertiary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.widthIn(min = 24.dp))
                 Column(Modifier.weight(1f)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {

@@ -1221,4 +1221,23 @@
     <string name="tour_pro_t">A Prónak saját füle van</string>
     <string name="tour_pro_b">Mit tartalmaz a Pro, az ára SOL-ban vagy SKR-ben és ennek a tárcának az állapota. A kiadói csomag lejjebb van linkelve.</string>
     <string name="tour_settings_b">A tárcája, az értesítések és az alkalmazáslista. A bemutatót bármikor újraindíthatja a Beállításokban.</string>
+    <string name="pro_prompt_price">Pro · 12 hónap · %1$s vagy %2$s</string>
+    <string name="pro_prompt_never">Amit a Pro soha nem tesz: soha nem változtat egy pontszámon sem.</string>
+    <string name="pro_prompt_settings_body">Az összes áruházi értékelés importálása egy aláírással, a kiadói asztal, a főkönyv exportja, óránkénti értesítések és minden hétfőn a dApp-lista.</string>
+    <string name="ph_title">Fizetési előzmények</string>
+    <string name="ph_open_app">Az alkalmazás oldalának megnyitása</string>
+    <string name="ph_sources">Fizetett tárcák</string>
+    <string name="ph_pill_found">az alkalmazás kódjában találva, nem megerősítve</string>
+    <string name="ph_usd_label">USD a fizetés napján · bruttó bevételek, nem árbevétel</string>
+    <string name="ph_found_caveat">A talált tárca szerepel az alkalmazás áruházi buildjében, és más tárcák fizettek bele. A kiadó nem erősítette meg, és lehet, hogy nem az alkalmazás kincstára.</string>
+    <string name="ph_payers_summed">Fizetők (hetente összeadva)</string>
+    <string name="ph_monthly">Havonta</string>
+    <string name="ph_month">Hónap</string>
+    <string name="ph_none">Ehhez az alkalmazáshoz még nincs rögzített fizetés.</string>
+    <string name="ph_new_returning">Új és visszatérő fizetők</string>
+    <string name="ph_new">Új</string>
+    <string name="ph_returning">Visszatérő</string>
+    <string name="ph_top_payer">A legnagyobb fizető részesedése</string>
+    <string name="ph_top10_payers">A 10 legnagyobb fizető részesedése</string>
+    <string name="ph_of">%1$s / %2$s</string>
 </resources>

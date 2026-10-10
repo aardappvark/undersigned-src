@@ -1225,4 +1225,23 @@
     <string name="tour_pro_t">May sariling tab ang Pro</string>
     <string name="tour_pro_b">Ano ang kasama sa Pro, ang presyo nito sa SOL o SKR at ang status ng wallet na ito. Nasa ibaba ang link ng publisher plan.</string>
     <string name="tour_settings_b">Ang iyong wallet, mga alerto at ang listahan ng app. Ulitin ang tour na ito mula sa Settings anumang oras.</string>
+    <string name="pro_prompt_price">Pro · 12 buwan · %1$s o %2$s</string>
+    <string name="pro_prompt_never">Ang hindi kailanman ginagawa ng Pro: hindi nito binabago ang anumang score.</string>
+    <string name="pro_prompt_settings_body">I-import ang lahat ng review sa store sa isang pirma, ang publisher desk, ang export ng ledger, mga alerto bawat oras at ang listahan ng dApp tuwing Lunes.</string>
+    <string name="ph_title">Kasaysayan ng bayad</string>
+    <string name="ph_open_app">Buksan ang page ng app</string>
+    <string name="ph_sources">Mga wallet na binayaran</string>
+    <string name="ph_pill_found">nakita sa code ng app, hindi kumpirmado</string>
+    <string name="ph_usd_label">USD sa araw ng bayad · kabuuang natanggap, hindi kita</string>
+    <string name="ph_found_caveat">Ang nakitang wallet ay nakasulat sa store build ng app at binayaran ng ibang wallet. Hindi ito kinumpirma ng publisher, at maaaring hindi ito ang treasury ng app.</string>
+    <string name="ph_payers_summed">Mga nagbayad (pinagsama bawat linggo)</string>
+    <string name="ph_monthly">Ayon sa buwan</string>
+    <string name="ph_month">Buwan</string>
+    <string name="ph_none">Wala pang naitalang bayad para sa app na ito.</string>
+    <string name="ph_new_returning">Bago at bumabalik na nagbabayad</string>
+    <string name="ph_new">Bago</string>
+    <string name="ph_returning">Bumabalik</string>
+    <string name="ph_top_payer">Bahagi ng pinakamalaking nagbayad</string>
+    <string name="ph_top10_payers">Bahagi ng nangungunang 10 nagbayad</string>
+    <string name="ph_of">%1$s sa %2$s</string>
 </resources>

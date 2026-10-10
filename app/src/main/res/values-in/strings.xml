@@ -1206,4 +1206,23 @@
     <string name="tour_pro_t">Pro punya tab sendiri</string>
     <string name="tour_pro_b">Apa saja isi Pro, harganya dalam SOL atau SKR, dan status dompet ini. Tautan paket penerbit ada di bawah.</string>
     <string name="tour_settings_b">Dompet, peringatan, dan daftar aplikasi Anda. Ulangi tur ini dari Setelan kapan saja.</string>
+    <string name="pro_prompt_price">Pro · 12 bulan · %1$s atau %2$s</string>
+    <string name="pro_prompt_never">Yang tidak pernah dilakukan Pro: tidak pernah mengubah skor.</string>
+    <string name="pro_prompt_settings_body">Impor semua ulasan toko dengan satu tanda tangan, meja penerbit, ekspor ledger, peringatan setiap jam, dan daftar dApp setiap Senin.</string>
+    <string name="ph_title">Riwayat pembayaran</string>
+    <string name="ph_open_app">Buka halaman aplikasi</string>
+    <string name="ph_sources">Wallet yang dibayar</string>
+    <string name="ph_pill_found">ditemukan di kode aplikasi, belum dikonfirmasi</string>
+    <string name="ph_usd_label">USD pada hari pembayaran · penerimaan kotor, bukan pendapatan</string>
+    <string name="ph_found_caveat">Wallet yang ditemukan tertulis di build aplikasi di toko dan menerima pembayaran dari wallet lain. Penerbit belum mengonfirmasinya, dan mungkin bukan treasury aplikasi.</string>
+    <string name="ph_payers_summed">Pembayar (dijumlah per minggu)</string>
+    <string name="ph_monthly">Per bulan</string>
+    <string name="ph_month">Bulan</string>
+    <string name="ph_none">Belum ada pembayaran tercatat untuk aplikasi ini.</string>
+    <string name="ph_new_returning">Pembayar baru dan kembali</string>
+    <string name="ph_new">Baru</string>
+    <string name="ph_returning">Kembali</string>
+    <string name="ph_top_payer">Porsi pembayar terbesar</string>
+    <string name="ph_top10_payers">Porsi 10 pembayar terbesar</string>
+    <string name="ph_of">%1$s dari %2$s</string>
 </resources>

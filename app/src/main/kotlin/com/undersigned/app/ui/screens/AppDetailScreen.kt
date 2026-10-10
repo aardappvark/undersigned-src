@@ -57,7 +57,7 @@ import java.util.Date
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onPro: () -> Unit = {}, onFollowUp: (String) -> Unit = {}) {
+fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onFollowUp: (String) -> Unit = {}) {
     val context = LocalContext.current
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
@@ -447,7 +447,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                         translating = e.signature; translateError = null
                                         scope.launch { vm.suggestedTranslation(e.signature).fold({ translations[e.signature] = it }, { translateError = e.signature to (it.message ?: "") }); translating = null }
                                     }.padding(vertical = 14.dp))
-                                else ProLock(hint = stringResource(R.string.translate_button), onPro = onPro)
                                 translateError?.takeIf { it.first == e.signature }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
                             }
                         }
@@ -486,10 +485,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     // Promote my own counted review: Pro members only, once per review, never on an app the operator publishes,
                     // always labelled (protocol Weighting decides whether it is honoured).
-                    if (e.signer == wallet && w.device > 0 && !w.promoted && !com.undersigned.protocol.Operator.publishes(pkg, verified)) {
+                    // App pages are free screens: no Pro prompt here (owner, 10 Oct 2026); without Pro the control is absent.
+                    if (pro?.active == true && e.signer == wallet && w.device > 0 && !w.promoted && !com.undersigned.protocol.Operator.publishes(pkg, verified)) {
                         Spacer(Modifier.height(8.dp))
-                        if (pro?.active == true) SecondaryButton(boostStage ?: stringResource(R.string.boost_button), enabled = boostStage == null && sender != null, onClick = { boostMsg = null; boostFor = e.signature })
-                        else ProLock(hint = stringResource(R.string.boost_button), onPro = onPro)
+                        SecondaryButton(boostStage ?: stringResource(R.string.boost_button), enabled = boostStage == null && sender != null, onClick = { boostMsg = null; boostFor = e.signature })
                     }
                     if (e.signer == wallet) boostMsg?.takeIf { boostFor == null && it.second == e.signature }?.let { Text(it.first, color = RbColors.green, fontSize = 11.sp) }
                     if (boostFor == e.signature) {
@@ -780,7 +779,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                         translating = "store:${r.id}"; translateError = null
                                         scope.launch { vm.suggestedStoreTranslation(t).fold({ translations["store:${r.id}"] = it }, { translateError = "store:${r.id}" to (it.message ?: "") }); translating = null }
                                     }.padding(vertical = 14.dp))
-                                else ProLock(hint = stringResource(R.string.translate_button), onPro = onPro)
                                 translateError?.takeIf { it.first == "store:${r.id}" }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
                             }
                         }
@@ -1050,7 +1048,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                 replyTranslating = true; replyError = null; val draft = replyText
                                 scope.launch { vm.suggestedReplyTranslation(draft, target).fold({ replyOriginal = draft; replyText = it.take(ReviewMemo.MAX_TEXT_CHARS + 20) }, { replyError = context.getString(R.string.translate_failed) }); replyTranslating = false }
                             }.padding(vertical = 14.dp))
-                    } else ProLock(hint = stringResource(R.string.reply_translate_button), onPro = onPro)
+                    }
                     replyOriginal?.let { o -> Text(stringResource(R.string.reply_translate_note, o), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
                     Text(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - replyText.length, ReviewMemo.MAX_TEXT_BYTES - bytes), color = RbColors.textTertiary, fontSize = 11.sp)
                     Spacer(Modifier.height(8.dp))

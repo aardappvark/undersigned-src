@@ -1221,4 +1221,23 @@
     <string name="tour_pro_t">Το Pro έχει δική του καρτέλα</string>
     <string name="tour_pro_b">Τι περιλαμβάνει το Pro, η τιμή του σε SOL ή SKR και η κατάσταση αυτού του πορτοφολιού. Ο σύνδεσμος για το πρόγραμμα εκδότη είναι πιο κάτω.</string>
     <string name="tour_settings_b">Το πορτοφόλι σας, οι ειδοποιήσεις και η λίστα εφαρμογών. Επαναλάβετε την περιήγηση από τις Ρυθμίσεις όποτε θέλετε.</string>
+    <string name="pro_prompt_price">Pro · 12 μήνες · %1$s ή %2$s</string>
+    <string name="pro_prompt_never">Τι δεν κάνει ποτέ το Pro: δεν αλλάζει ποτέ μια βαθμολογία.</string>
+    <string name="pro_prompt_settings_body">Εισαγωγή όλων των κριτικών του καταστήματος με μία υπογραφή, το γραφείο εκδότη, εξαγωγή του μητρώου, ειδοποιήσεις κάθε ώρα και η λίστα dApp κάθε Δευτέρα.</string>
+    <string name="ph_title">Ιστορικό πληρωμών</string>
+    <string name="ph_open_app">Άνοιγμα σελίδας εφαρμογής</string>
+    <string name="ph_sources">Πορτοφόλια που πληρώθηκαν</string>
+    <string name="ph_pill_found">βρέθηκε στον κώδικα της εφαρμογής, μη επιβεβαιωμένο</string>
+    <string name="ph_usd_label">USD της ημέρας πληρωμής · ακαθάριστες εισπράξεις, όχι έσοδα</string>
+    <string name="ph_found_caveat">Ένα πορτοφόλι που βρέθηκε είναι γραμμένο στο build της εφαρμογής στο κατάστημα και πληρώθηκε από άλλα πορτοφόλια. Ο εκδότης δεν το έχει επιβεβαιώσει και ίσως να μην είναι το ταμείο της εφαρμογής.</string>
+    <string name="ph_payers_summed">Πληρωτές (άθροισμα ανά εβδομάδα)</string>
+    <string name="ph_monthly">Ανά μήνα</string>
+    <string name="ph_month">Μήνας</string>
+    <string name="ph_none">Δεν έχουν καταγραφεί ακόμη πληρωμές για αυτή την εφαρμογή.</string>
+    <string name="ph_new_returning">Νέοι και επαναλαμβανόμενοι πληρωτές</string>
+    <string name="ph_new">Νέοι</string>
+    <string name="ph_returning">Επαναλαμβανόμενοι</string>
+    <string name="ph_top_payer">Μερίδιο του μεγαλύτερου πληρωτή</string>
+    <string name="ph_top10_payers">Μερίδιο των 10 μεγαλύτερων πληρωτών</string>
+    <string name="ph_of">%1$s από %2$s</string>
 </resources>

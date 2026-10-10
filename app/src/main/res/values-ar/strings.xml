@@ -1292,4 +1292,23 @@
     <string name="tour_pro_t">لـ Pro علامة تبويب خاصة</string>
     <string name="tour_pro_b">ما يتضمنه Pro وسعره بـ SOL أو SKR وحالة هذه المحفظة. رابط خطة الناشر في الأسفل.</string>
     <string name="tour_settings_b">محفظتك والتنبيهات وقائمة التطبيقات. أعد هذه الجولة من الإعدادات في أي وقت.</string>
+    <string name="pro_prompt_price">Pro · 12 شهرًا · %1$s أو %2$s</string>
+    <string name="pro_prompt_never">ما لا يفعله Pro أبدًا: لا يغيّر أي تقييم.</string>
+    <string name="pro_prompt_settings_body">استيراد كل مراجعات المتجر بتوقيع واحد، ومكتب الناشر، وتصدير السجل، وتنبيهات كل ساعة، وقائمة تطبيقات dApp كل يوم اثنين.</string>
+    <string name="ph_title">سجل المدفوعات</string>
+    <string name="ph_open_app">فتح صفحة التطبيق</string>
+    <string name="ph_sources">المحافظ المدفوع لها</string>
+    <string name="ph_pill_found">موجودة في كود التطبيق، غير مؤكدة</string>
+    <string name="ph_usd_label">الدولار الأمريكي يوم الدفع · إيصالات إجمالية، وليست إيرادات</string>
+    <string name="ph_found_caveat">المحفظة الموجودة مكتوبة في نسخة التطبيق على المتجر وتلقّت مدفوعات من محافظ أخرى. لم يؤكدها الناشر، وقد لا تكون خزينة التطبيق.</string>
+    <string name="ph_payers_summed">الدافعون (مجموع أسبوعي)</string>
+    <string name="ph_monthly">حسب الشهر</string>
+    <string name="ph_month">الشهر</string>
+    <string name="ph_none">لا توجد مدفوعات مسجلة لهذا التطبيق بعد.</string>
+    <string name="ph_new_returning">الدافعون الجدد والعائدون</string>
+    <string name="ph_new">جدد</string>
+    <string name="ph_returning">عائدون</string>
+    <string name="ph_top_payer">حصة أكبر دافع</string>
+    <string name="ph_top10_payers">حصة أكبر 10 دافعين</string>
+    <string name="ph_of">%1$s من %2$s</string>
 </resources>

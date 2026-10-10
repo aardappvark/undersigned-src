@@ -1224,4 +1224,23 @@
     <string name="tour_pro_t">Pro का अपना टैब है</string>
     <string name="tour_pro_b">Pro में क्या है, SOL या SKR में इसकी कीमत और इस वॉलेट की स्थिति। प्रकाशक प्लान का लिंक नीचे है।</string>
     <string name="tour_settings_b">आपका वॉलेट, अलर्ट और ऐप सूची। यह टूर सेटिंग्स से कभी भी दोबारा देखें।</string>
+    <string name="pro_prompt_price">Pro · 12 महीने · %1$s या %2$s</string>
+    <string name="pro_prompt_never">Pro कभी क्या नहीं करता: यह कभी कोई स्कोर नहीं बदलता।</string>
+    <string name="pro_prompt_settings_body">स्टोर की सभी समीक्षाएँ एक हस्ताक्षर में आयात, पब्लिशर डेस्क, लेजर एक्सपोर्ट, हर घंटे अलर्ट और हर सोमवार dApp सूची।</string>
+    <string name="ph_title">भुगतान इतिहास</string>
+    <string name="ph_open_app">ऐप पेज खोलें</string>
+    <string name="ph_sources">भुगतान पाने वाले वॉलेट</string>
+    <string name="ph_pill_found">ऐप कोड में मिला, पुष्टि नहीं</string>
+    <string name="ph_usd_label">भुगतान के दिन का USD · सकल प्राप्तियाँ, राजस्व नहीं</string>
+    <string name="ph_found_caveat">मिला हुआ वॉलेट ऐप के स्टोर बिल्ड में लिखा है और उसे दूसरे वॉलेट से भुगतान मिले। प्रकाशक ने इसकी पुष्टि नहीं की है, और हो सकता है यह ऐप का ट्रेज़री न हो।</string>
+    <string name="ph_payers_summed">भुगतानकर्ता (सप्ताह के हिसाब से जोड़े गए)</string>
+    <string name="ph_monthly">महीने के अनुसार</string>
+    <string name="ph_month">महीना</string>
+    <string name="ph_none">इस ऐप के लिए अभी कोई भुगतान दर्ज नहीं है।</string>
+    <string name="ph_new_returning">नए और लौटने वाले भुगतानकर्ता</string>
+    <string name="ph_new">नए</string>
+    <string name="ph_returning">लौटने वाले</string>
+    <string name="ph_top_payer">सबसे बड़े भुगतानकर्ता का हिस्सा</string>
+    <string name="ph_top10_payers">शीर्ष 10 भुगतानकर्ताओं का हिस्सा</string>
+    <string name="ph_of">%2$s में से %1$s</string>
 </resources>

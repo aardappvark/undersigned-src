@@ -1197,4 +1197,23 @@
     <string name="tour_pro_t">Pro 専用のタブ</string>
     <string name="tour_pro_b">Pro に含まれるもの、SOL または SKR での価格、このウォレットの状態。パブリッシャープランへのリンクは下にあります。</string>
     <string name="tour_settings_b">ウォレット、アラート、アプリ一覧。このツアーは設定からいつでも再生できます。</string>
+    <string name="pro_prompt_price">Pro · 12か月 · %1$s または %2$s</string>
+    <string name="pro_prompt_never">Pro が決してしないこと：スコアを変えることはありません。</string>
+    <string name="pro_prompt_settings_body">ストアのレビューを1回の署名ですべてインポート、パブリッシャーデスク、台帳のエクスポート、1時間ごとの通知、毎週月曜の dApp リスト。</string>
+    <string name="ph_title">支払い履歴</string>
+    <string name="ph_open_app">アプリのページを開く</string>
+    <string name="ph_sources">支払先のウォレット</string>
+    <string name="ph_pill_found">アプリのコードで発見、未確認</string>
+    <string name="ph_usd_label">支払日の USD · 総受取額であり収益ではありません</string>
+    <string name="ph_found_caveat">発見されたウォレットはストア上のアプリのビルドに書かれており、他のウォレットから支払いを受けています。パブリッシャーは確認しておらず、アプリのトレジャリーではない可能性があります。</string>
+    <string name="ph_payers_summed">支払者（週ごとの合計）</string>
+    <string name="ph_monthly">月別</string>
+    <string name="ph_month">月</string>
+    <string name="ph_none">このアプリの支払いはまだ記録されていません。</string>
+    <string name="ph_new_returning">新規とリピートの支払者</string>
+    <string name="ph_new">新規</string>
+    <string name="ph_returning">リピート</string>
+    <string name="ph_top_payer">最大の支払者の割合</string>
+    <string name="ph_top10_payers">上位10支払者の割合</string>
+    <string name="ph_of">%2$s 中 %1$s</string>
 </resources>

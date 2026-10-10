@@ -1250,4 +1250,23 @@
     <string name="tour_pro_t">O Pro tem sua própria aba</string>
     <string name="tour_pro_b">O que o Pro inclui, o preço em SOL ou SKR e o status desta carteira. O plano de publicador está no link mais abaixo.</string>
     <string name="tour_settings_b">Sua carteira, alertas e a lista de apps. Repita este tour em Configurações quando quiser.</string>
+    <string name="pro_prompt_price">Pro · 12 meses · %1$s ou %2$s</string>
+    <string name="pro_prompt_never">O que o Pro nunca faz: nunca muda uma nota.</string>
+    <string name="pro_prompt_settings_body">Importar todas as avaliações da loja com uma assinatura, a mesa do editor, exportar o registro, alertas a cada hora e a lista de dApps toda segunda-feira.</string>
+    <string name="ph_title">Histórico de pagamentos</string>
+    <string name="ph_open_app">Abrir a página do app</string>
+    <string name="ph_sources">Carteiras pagas</string>
+    <string name="ph_pill_found">encontrada no código do app, não confirmada</string>
+    <string name="ph_usd_label">USD do dia do pagamento · recebimentos brutos, não receita</string>
+    <string name="ph_found_caveat">Uma carteira encontrada está escrita no build do app na loja e recebeu pagamentos de outras carteiras. O editor não a confirmou, e ela pode não ser a tesouraria do app.</string>
+    <string name="ph_payers_summed">Pagantes (somados por semana)</string>
+    <string name="ph_monthly">Por mês</string>
+    <string name="ph_month">Mês</string>
+    <string name="ph_none">Nenhum pagamento registrado para este app ainda.</string>
+    <string name="ph_new_returning">Pagantes novos e recorrentes</string>
+    <string name="ph_new">Novos</string>
+    <string name="ph_returning">Recorrentes</string>
+    <string name="ph_top_payer">Parcela do maior pagante</string>
+    <string name="ph_top10_payers">Parcela dos 10 maiores pagantes</string>
+    <string name="ph_of">%1$s de %2$s</string>
 </resources>

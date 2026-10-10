@@ -15,6 +15,8 @@ import com.undersigned.app.solana.TxMeta
 import com.undersigned.protocol.Reputation
 import com.undersigned.protocol.Responsiveness
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import com.undersigned.protocol.SignerStanding
 import com.undersigned.app.data.StoreReview
@@ -711,6 +713,45 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 else com.undersigned.app.ledger.PaymentAnalytics.parseApp(org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() }))
             } finally { c.disconnect() }
         }.getOrNull()
+    }
+
+    /**
+     * One app's payment history for its own screen (owner, 10 Oct 2026): the weekly and monthly series, and a found wallet's
+     * reading when the API has one. [week]/[month] are null when the API has no payments for the app (404); [found] is null
+     * unless /v1/payments/found/{pkg} answered 200.
+     */
+    data class PayHistory(val week: com.undersigned.app.ledger.PaymentAnalytics.History?, val month: com.undersigned.app.ledger.PaymentAnalytics.History?,
+        val found: List<com.undersigned.app.ledger.PaymentAnalytics.FoundWallet>?)
+    /** Per package, for this run; a failure is not kept, so opening the screen again tries again. */
+    val payHistories = MutableStateFlow<Map<String, PayHistory>>(emptyMap())
+
+    /** GET [path] on the API: the status and, on 200, the body. A network failure throws. */
+    private fun apiGet(path: String): Pair<Int, org.json.JSONObject?> {
+        val c = java.net.URL(com.undersigned.app.AppConfig.Site.URL + path).openConnection() as java.net.HttpURLConnection
+        try {
+            c.connectTimeout = 10_000; c.readTimeout = 45_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+            val code = c.responseCode
+            return code to (if (code == 200) org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() }) else null)
+        } finally { c.disconnect() }
+    }
+
+    suspend fun paymentHistory(pkg: String, force: Boolean = false): Result<PayHistory> = withContext(Dispatchers.IO) {
+        if (!force) payHistories.value[pkg]?.let { return@withContext Result.success(it) }
+        runCatching {
+            val p = java.net.URLEncoder.encode(pkg, "UTF-8")
+            coroutineScope {
+                val week = async { apiGet("/v1/payments/app/$p/series?by=week") }
+                val month = async { apiGet("/v1/payments/app/$p/series?by=month") }
+                val found = async { runCatching { apiGet("/v1/payments/found/$p") }.getOrNull() }
+                fun series(r: Pair<Int, org.json.JSONObject?>) = when {
+                    r.first == 200 && r.second != null -> com.undersigned.app.ledger.PaymentAnalytics.parseHistory(r.second!!)
+                    r.first == 404 -> null
+                    else -> error("HTTP ${r.first}")
+                }
+                PayHistory(series(week.await()), series(month.await()),
+                    found.await()?.takeIf { it.first == 200 }?.second?.let { com.undersigned.app.ledger.PaymentAnalytics.parseFound(it) })
+            }
+        }.onSuccess { h -> payHistories.value = payHistories.value + (pkg to h) }
     }
 
     /** The app page the first-use tour opens: the one with the most counted signed reviews, else the first listed. */

@@ -1224,4 +1224,23 @@
     <string name="tour_pro_t">Pro کا اپنا ٹیب ہے</string>
     <string name="tour_pro_b">Pro میں کیا شامل ہے، SOL یا SKR میں اس کی قیمت اور اس والیٹ کی حالت۔ پبلشر پلان کا لنک نیچے ہے۔</string>
     <string name="tour_settings_b">آپ کا والیٹ، الرٹس اور ایپ فہرست۔ یہ ٹور سیٹنگز سے کسی بھی وقت دوبارہ دیکھیں۔</string>
+    <string name="pro_prompt_price">Pro · 12 مہینے · %1$s یا %2$s</string>
+    <string name="pro_prompt_never">Pro کبھی کیا نہیں کرتا: یہ کبھی کوئی اسکور نہیں بدلتا۔</string>
+    <string name="pro_prompt_settings_body">اسٹور کے تمام ریویوز ایک دستخط سے درآمد، پبلشر ڈیسک، لیجر ایکسپورٹ، ہر گھنٹے الرٹس اور ہر پیر dApp فہرست۔</string>
+    <string name="ph_title">ادائیگیوں کی تاریخ</string>
+    <string name="ph_open_app">ایپ کا صفحہ کھولیں</string>
+    <string name="ph_sources">ادائیگی وصول کرنے والے والٹس</string>
+    <string name="ph_pill_found">ایپ کے کوڈ میں ملا، تصدیق شدہ نہیں</string>
+    <string name="ph_usd_label">ادائیگی کے دن کا USD · مجموعی وصولیاں، آمدنی نہیں</string>
+    <string name="ph_found_caveat">ملا ہوا والٹ ایپ کے اسٹور بلڈ میں لکھا ہے اور اسے دوسرے والٹس سے ادائیگیاں ملیں۔ پبلشر نے اس کی تصدیق نہیں کی، اور ہو سکتا ہے یہ ایپ کا خزانہ نہ ہو۔</string>
+    <string name="ph_payers_summed">ادا کنندگان (ہفتہ وار جمع)</string>
+    <string name="ph_monthly">مہینے کے حساب سے</string>
+    <string name="ph_month">مہینہ</string>
+    <string name="ph_none">اس ایپ کے لیے ابھی کوئی ادائیگی درج نہیں۔</string>
+    <string name="ph_new_returning">نئے اور واپس آنے والے ادا کنندگان</string>
+    <string name="ph_new">نئے</string>
+    <string name="ph_returning">واپس آنے والے</string>
+    <string name="ph_top_payer">سب سے بڑے ادا کنندہ کا حصہ</string>
+    <string name="ph_top10_payers">سب سے بڑے 10 ادا کنندگان کا حصہ</string>
+    <string name="ph_of">%2$s میں سے %1$s</string>
 </resources>

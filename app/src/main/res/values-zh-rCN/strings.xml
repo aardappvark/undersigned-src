@@ -1205,4 +1205,23 @@
     <string name="tour_pro_t">Pro 有自己的标签页</string>
     <string name="tour_pro_b">Pro 包含的内容、以 SOL 或 SKR 计的价格以及此钱包的状态。发布者方案的链接在下方。</string>
     <string name="tour_settings_b">你的钱包、提醒和应用列表。可随时在设置中重新播放此导览。</string>
+    <string name="pro_prompt_price">Pro · 12 个月 · %1$s 或 %2$s</string>
+    <string name="pro_prompt_never">Pro 绝不会做的事：绝不改变任何评分。</string>
+    <string name="pro_prompt_settings_body">一次签名导入所有商店评价、发布者工作台、导出账本、每小时提醒，以及每周一更新的 dApp 列表。</string>
+    <string name="ph_title">付款历史</string>
+    <string name="ph_open_app">打开应用页面</string>
+    <string name="ph_sources">收款钱包</string>
+    <string name="ph_pill_found">在应用代码中发现，未确认</string>
+    <string name="ph_usd_label">付款当天的美元 · 总收款，不是收入</string>
+    <string name="ph_found_caveat">发现的钱包写在应用的商店构建中，并收到了其他钱包的付款。发布者尚未确认，它可能不是该应用的金库。</string>
+    <string name="ph_payers_summed">付款人（按周累加）</string>
+    <string name="ph_monthly">按月</string>
+    <string name="ph_month">月份</string>
+    <string name="ph_none">此应用尚无付款记录。</string>
+    <string name="ph_new_returning">新付款人与回头付款人</string>
+    <string name="ph_new">新</string>
+    <string name="ph_returning">回头</string>
+    <string name="ph_top_payer">最大付款人占比</string>
+    <string name="ph_top10_payers">前 10 名付款人占比</string>
+    <string name="ph_of">%2$s 中的 %1$s</string>
 </resources>

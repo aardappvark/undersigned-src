@@ -17,7 +17,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 | Deliverable | Status | Where |
 |---|---|---|
 | Functional Android APK | **READY** — 1.1.2 (versionCode 13), 12.1 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 a379c6a5…d580 | `assets/submission/Undersigned-1.1.2-vc13.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.2` (owner). |
-| GitHub repository | **READY** — 157 commits on 18 days from 8 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
+| GitHub repository | **READY** — 180 commits on 18 days from 8 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
 | Demo video (≤ 3 min) | **OWNER re-records** for 1.1.2 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
 | Pitch deck | **READY** — 14 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
@@ -66,7 +66,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 **Where it stands (10 Oct).** 77 records on mainnet: 29 proven publisher claims, 28 treasury listings, a Pro licence paid in SKR, and the first reviews, all signed by Undersigned's own wallets: they prove the plumbing end to end, and they are shown, labelled and never counted. There is no independent usage yet. The counted score starts at zero and fills only as Seeker owners sign; the website's home page says so. Twenty-eight languages. No token, no rewards.
 
-**What was built during the hackathon:** everything, from the first commit on 8 Sep 2026: 157 commits on 18 days; about 18,800 lines of Kotlin across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (258 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (23 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
+**What was built during the hackathon:** everything, from the first commit on 8 Sep 2026: 180 commits on 18 days; about 18,800 lines of Kotlin across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (258 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (23 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
 
 **Solana Mobile Stack / MWA usage:** every write is an MWA `transact` to the Seeker Wallet (authorize once, then sign-and-send); the Genesis Token check reads the soulbound Token-2022 mint on the signer; the Seeker wallet fingerprint (the Lighthouse guard it adds to every transaction) is read back from the chain and shown on the record; `.skr` names resolve from the ANS registry; batch signing puts up to 8 reviews in one approval; a 2,000-character review goes on-chain in pieces under one approval; quick reviews are co-signed by a relayer that can pay fees and nothing else. The app is Compose, portrait, mobile-first. The website also lets a desktop wallet sign a short review, but the proofs that make a review count (the Genesis Token, the Seed Vault double-tap, the phone's own facts) come only from the phone.
 
@@ -92,7 +92,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 | Evaluation process item | Evidence |
 |---|---|
 | Completion based on the demo video | the video shows a review signed, landed and read back from the chain in a browser |
-| Technical depth based on GitHub commits | 157 commits on 18 days; 258 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
+| Technical depth based on GitHub commits | 180 commits on 18 days; 258 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
 | Mobile-optimised UX, mobile features | Seed Vault signing, Genesis Token, PackageManager facts, usage stats, notifications, weekly WorkManager, A–Z rail, offline icons, 28 locales |
 | Usage and interaction with the Solana network | every record is a mainnet tx; 77 records live today (`/v1/stats`) |
 | Clarity and vision from the presentation | the deck: the core loop first, then the handover path to the store |

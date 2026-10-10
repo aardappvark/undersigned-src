@@ -79,6 +79,46 @@ object PaymentAnalytics {
     fun parseApp(j: JSONObject): AppSeries = AppSeries(j.optString("package"), j.optString("name"), buckets(j.optJSONArray("series")), j.d("total_usd"), j.optInt("payments"), j.optInt("payers"),
         j.optJSONArray("sources").objects().any { it.optString("source") != "confirmed" })
 
+    // ---- One app's payment history (owner, 10 Oct 2026): /v1/payments/app/{pkg}/series and /v1/payments/found/{pkg} ----------
+
+    /** A wallet an app was paid into: its publisher's confirmed treasury, or one found in the app's code and confirmed by no one. */
+    data class Source(val wallet: String, val confirmed: Boolean, val payments: Int, val usd: Double)
+    /** One app's series by week or month, with its sources and all-time totals ([payers] = distinct paying wallets). */
+    data class History(val pkg: String, val name: String, val sources: List<Source>, val series: List<Bucket>, val totalUsd: Double, val payments: Int, val payers: Int)
+    data class FoundMonth(val month: String, val payments: Int, val payers: Int, val newPayers: Int, val returningPayers: Int, val usd: Double)
+    /**
+     * A found wallet's own reading: amounts per rail in tokens (not USD), repeat payers, concentration as fractions 0..1, the
+     * median payment in USD, and how much of its history has been read ([txRead] of [txListed]).
+     */
+    data class FoundWallet(val wallet: String, val sol: Double, val skr: Double, val usdc: Double, val payments: Int, val payers: Int, val repeatPayers: Int,
+        val topPayerShare: Double, val top10Share: Double, val medianUsd: Double, val txListed: Int, val txRead: Int, val complete: Boolean, val monthly: List<FoundMonth>)
+
+    fun parseHistory(j: JSONObject): History = History(j.optString("package"), j.optString("name").ifBlank { j.optString("package") },
+        j.optJSONArray("sources").objects().map { Source(it.optString("wallet"), it.optString("source") == "confirmed", it.optInt("payments"), it.d("usd")) },
+        buckets(j.optJSONArray("series")).sortedBy { it.bucket }, j.d("total_usd"), j.optInt("payments"), j.optInt("payers"))
+
+    fun parseFound(j: JSONObject): List<FoundWallet> = j.optJSONArray("wallets").objects().map { w ->
+        val cov = w.optJSONObject("coverage") ?: JSONObject()
+        FoundWallet(w.optString("wallet"), w.d("sol"), w.d("skr"), w.d("usdc"), w.optInt("payments"), w.optInt("payers"), w.optInt("repeat_payers"),
+            w.d("top_payer_share"), w.d("top_10_payers_share"), w.d("median_payment_usd"), cov.optInt("transactions_listed"), cov.optInt("transactions_read"),
+            cov.optBoolean("history_complete", true),
+            w.optJSONArray("monthly").objects().map { FoundMonth(it.optString("month"), it.optInt("payments"), it.optInt("payers"), it.optInt("new_payers"), it.optInt("returning_payers"), it.d("usd")) }
+                .sortedBy { it.month })
+    }
+
+    /** Days in a window; null for "all". */
+    fun windowDays(window: String): Int? = when (window) { "7d" -> 7; "30d" -> 30; "90d" -> 90; "1y" -> 365; else -> null }
+
+    /**
+     * The weekly buckets (keyed by the week's first day, "2026-10-05") that overlap the last [window] up to [today]: a week counts
+     * when it ends after the window starts. "all" keeps everything; an unreadable key is kept rather than silently dropped.
+     */
+    fun weeksIn(series: List<Bucket>, window: String, today: java.time.LocalDate): List<Bucket> {
+        val days = windowDays(window) ?: return series
+        val start = today.minusDays(days.toLong())
+        return series.filter { b -> runCatching { java.time.LocalDate.parse(b.bucket.take(10)).plusDays(7).isAfter(start) }.getOrDefault(true) }
+    }
+
     /** "+45%", "−58%" (true minus sign), or null when there is no number. */
     fun pct(change: Double?): String? = change?.let { if (it >= 0) String.format(java.util.Locale.US, "+%.0f%%", it) else String.format(java.util.Locale.US, "−%.0f%%", -it) }
 }

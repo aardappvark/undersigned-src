@@ -1247,4 +1247,23 @@
     <string name="tour_pro_t">Pro has its own tab</string>
     <string name="tour_pro_b">What Pro includes, its price in SOL or SKR and this wallet\'s status. The publisher plan is linked further down.</string>
     <string name="tour_settings_b">Your wallet, alerts and the app list. Replay this tour from Settings any time.</string>
+    <string name="pro_prompt_price">Pro · 12 months · %1$s or %2$s</string>
+    <string name="pro_prompt_never">What Pro never does: it never changes a score.</string>
+    <string name="pro_prompt_settings_body">Import every store review in one signature, the publisher desk, ledger export, hourly alerts and the dApp list every Monday.</string>
+    <string name="ph_title">Payment history</string>
+    <string name="ph_open_app">Open app page</string>
+    <string name="ph_sources">Wallets paid</string>
+    <string name="ph_pill_found">found in app code, not confirmed</string>
+    <string name="ph_usd_label">USD on the day paid · gross receipts, not revenue</string>
+    <string name="ph_found_caveat">A found wallet is written into the app\'s store build and was paid by other wallets. The publisher has not confirmed it, and it may not be the app\'s treasury.</string>
+    <string name="ph_payers_summed">Payers (summed by week)</string>
+    <string name="ph_monthly">By month</string>
+    <string name="ph_month">Month</string>
+    <string name="ph_none">No payments recorded for this app yet.</string>
+    <string name="ph_new_returning">New and returning payers</string>
+    <string name="ph_new">New</string>
+    <string name="ph_returning">Returning</string>
+    <string name="ph_top_payer">Top payer\'s share</string>
+    <string name="ph_top10_payers">Top 10 payers\' share</string>
+    <string name="ph_of">%1$s of %2$s</string>
 </resources>

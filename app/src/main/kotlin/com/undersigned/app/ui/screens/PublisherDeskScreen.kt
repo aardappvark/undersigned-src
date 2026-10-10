@@ -58,7 +58,7 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
         }
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             // Locked for real (feature review, 9 Oct 2026): the desk rendered everything for free users behind a banner.
-            if (pro?.active != true) { Spacer(Modifier.height(8.dp)); ProLock(onPro = onPro); Spacer(Modifier.height(8.dp)); return@Column }
+            if (pro?.active != true) { Spacer(Modifier.height(8.dp)); ProPrompt(stringResource(R.string.pro_tool_desk_title), stringResource(R.string.pro_tool_desk_body), onPro); Spacer(Modifier.height(8.dp)); return@Column }
             Text(pluralStringResource(R.plurals.desk_across, desk.apps.size, desk.apps.size), color = RbColors.textTertiary, fontSize = 12.sp)
             Spacer(Modifier.height(8.dp))
             // Three tiles only when each has room: at phone width a tile was ~69 dp inside, and "12 Stunden" at 22 sp broke

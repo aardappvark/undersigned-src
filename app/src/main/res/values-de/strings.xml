@@ -1241,4 +1241,23 @@
     <string name="tour_pro_t">Pro hat einen eigenen Tab</string>
     <string name="tour_pro_b">Was Pro enthält, der Preis in SOL oder SKR und der Status dieser Wallet. Der Herausgeber-Plan ist weiter unten verlinkt.</string>
     <string name="tour_settings_b">Ihre Wallet, Benachrichtigungen und die App-Liste. Die Tour lässt sich jederzeit in den Einstellungen wiederholen.</string>
+    <string name="pro_prompt_price">Pro · 12 Monate · %1$s oder %2$s</string>
+    <string name="pro_prompt_never">Was Pro nie tut: Es ändert nie eine Bewertung.</string>
+    <string name="pro_prompt_settings_body">Alle Store-Bewertungen mit einer Signatur importieren, der Herausgeber-Schreibtisch, Ledger-Export, stündliche Benachrichtigungen und jeden Montag die dApp-Liste.</string>
+    <string name="ph_title">Zahlungsverlauf</string>
+    <string name="ph_open_app">App-Seite öffnen</string>
+    <string name="ph_sources">Bezahlte Wallets</string>
+    <string name="ph_pill_found">im App-Code gefunden, nicht bestätigt</string>
+    <string name="ph_usd_label">USD am Tag der Zahlung · Bruttoeinnahmen, kein Umsatz</string>
+    <string name="ph_found_caveat">Eine gefundene Wallet steht im Store-Build der App und wurde von anderen Wallets bezahlt. Der Herausgeber hat sie nicht bestätigt, und sie ist vielleicht nicht die Treasury der App.</string>
+    <string name="ph_payers_summed">Zahlende (pro Woche summiert)</string>
+    <string name="ph_monthly">Nach Monat</string>
+    <string name="ph_month">Monat</string>
+    <string name="ph_none">Für diese App sind noch keine Zahlungen erfasst.</string>
+    <string name="ph_new_returning">Neue und wiederkehrende Zahlende</string>
+    <string name="ph_new">Neu</string>
+    <string name="ph_returning">Wiederkehrend</string>
+    <string name="ph_top_payer">Anteil des größten Zahlenden</string>
+    <string name="ph_top10_payers">Anteil der 10 größten Zahlenden</string>
+    <string name="ph_of">%1$s von %2$s</string>
 </resources>

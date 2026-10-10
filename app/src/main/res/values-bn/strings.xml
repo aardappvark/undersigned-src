@@ -1217,4 +1217,23 @@
     <string name="tour_pro_t">Pro-র নিজস্ব ট্যাব</string>
     <string name="tour_pro_b">Pro-তে কী আছে, SOL বা SKR-এ এর দাম এবং এই ওয়ালেটের অবস্থা। প্রকাশক প্ল্যানের লিংক নিচে আছে।</string>
     <string name="tour_settings_b">আপনার ওয়ালেট, সতর্কতা ও অ্যাপ তালিকা। সেটিংস থেকে যেকোনো সময় এই ট্যুর আবার দেখুন।</string>
+    <string name="pro_prompt_price">Pro · ১২ মাস · %1$s অথবা %2$s</string>
+    <string name="pro_prompt_never">Pro কখনো যা করে না: এটি কখনো কোনো স্কোর বদলায় না।</string>
+    <string name="pro_prompt_settings_body">স্টোরের সব রিভিউ এক স্বাক্ষরে ইমপোর্ট, পাবলিশার ডেস্ক, লেজার এক্সপোর্ট, প্রতি ঘণ্টায় অ্যালার্ট এবং প্রতি সোমবার dApp তালিকা।</string>
+    <string name="ph_title">পেমেন্টের ইতিহাস</string>
+    <string name="ph_open_app">অ্যাপের পাতা খুলুন</string>
+    <string name="ph_sources">যে ওয়ালেটে পেমেন্ট গেছে</string>
+    <string name="ph_pill_found">অ্যাপের কোডে পাওয়া, নিশ্চিত নয়</string>
+    <string name="ph_usd_label">পেমেন্টের দিনের USD · মোট প্রাপ্তি, আয় নয়</string>
+    <string name="ph_found_caveat">পাওয়া ওয়ালেটটি অ্যাপের স্টোর বিল্ডে লেখা আছে এবং অন্য ওয়ালেট থেকে পেমেন্ট পেয়েছে। প্রকাশক এটি নিশ্চিত করেননি, এবং এটি অ্যাপের ট্রেজারি না-ও হতে পারে।</string>
+    <string name="ph_payers_summed">পেমেন্টকারী (সাপ্তাহিক যোগফল)</string>
+    <string name="ph_monthly">মাস অনুযায়ী</string>
+    <string name="ph_month">মাস</string>
+    <string name="ph_none">এই অ্যাপের জন্য এখনো কোনো পেমেন্ট রেকর্ড হয়নি।</string>
+    <string name="ph_new_returning">নতুন ও ফিরে আসা পেমেন্টকারী</string>
+    <string name="ph_new">নতুন</string>
+    <string name="ph_returning">ফিরে আসা</string>
+    <string name="ph_top_payer">সবচেয়ে বড় পেমেন্টকারীর অংশ</string>
+    <string name="ph_top10_payers">শীর্ষ ১০ পেমেন্টকারীর অংশ</string>
+    <string name="ph_of">%2$s এর মধ্যে %1$s</string>
 </resources>

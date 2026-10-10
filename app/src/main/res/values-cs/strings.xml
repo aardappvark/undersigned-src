@@ -1251,4 +1251,23 @@
     <string name="tour_pro_t">Pro má vlastní kartu</string>
     <string name="tour_pro_b">Co Pro obsahuje, jeho cena v SOL nebo SKR a stav této peněženky. Odkaz na plán pro vydavatele je níže.</string>
     <string name="tour_settings_b">Vaše peněženka, upozornění a seznam aplikací. Prohlídku můžete kdykoli spustit znovu v Nastavení.</string>
+    <string name="pro_prompt_price">Pro · 12 měsíců · %1$s nebo %2$s</string>
+    <string name="pro_prompt_never">Co Pro nikdy nedělá: nikdy nemění hodnocení.</string>
+    <string name="pro_prompt_settings_body">Import všech recenzí z obchodu jedním podpisem, stůl vydavatele, export registru, upozornění každou hodinu a seznam dApps každé pondělí.</string>
+    <string name="ph_title">Historie plateb</string>
+    <string name="ph_open_app">Otevřít stránku aplikace</string>
+    <string name="ph_sources">Placené peněženky</string>
+    <string name="ph_pill_found">nalezeno v kódu aplikace, nepotvrzeno</string>
+    <string name="ph_usd_label">USD v den platby · hrubé příjmy, ne tržby</string>
+    <string name="ph_found_caveat">Nalezená peněženka je zapsaná v buildu aplikace v obchodě a přijímala platby od jiných peněženek. Vydavatel ji nepotvrdil a nemusí jít o pokladnu aplikace.</string>
+    <string name="ph_payers_summed">Plátci (sečteno po týdnech)</string>
+    <string name="ph_monthly">Po měsících</string>
+    <string name="ph_month">Měsíc</string>
+    <string name="ph_none">Pro tuto aplikaci zatím nejsou zaznamenány žádné platby.</string>
+    <string name="ph_new_returning">Noví a vracející se plátci</string>
+    <string name="ph_new">Noví</string>
+    <string name="ph_returning">Vracející se</string>
+    <string name="ph_top_payer">Podíl největšího plátce</string>
+    <string name="ph_top10_payers">Podíl 10 největších plátců</string>
+    <string name="ph_of">%1$s z %2$s</string>
 </resources>

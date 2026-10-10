@@ -1242,4 +1242,23 @@
     <string name="tour_pro_t">У Pro своя вкладка</string>
     <string name="tour_pro_b">Что входит в Pro, цена в SOL или SKR и статус этого кошелька. Ссылка на план издателя ниже.</string>
     <string name="tour_settings_b">Ваш кошелёк, оповещения и список приложений. Повторите тур в Настройках в любое время.</string>
+    <string name="pro_prompt_price">Pro · 12 месяцев · %1$s или %2$s</string>
+    <string name="pro_prompt_never">Чего Pro никогда не делает: никогда не меняет оценку.</string>
+    <string name="pro_prompt_settings_body">Импорт всех отзывов из магазина одной подписью, стол издателя, экспорт реестра, оповещения каждый час и список dApp каждый понедельник.</string>
+    <string name="ph_title">История платежей</string>
+    <string name="ph_open_app">Открыть страницу приложения</string>
+    <string name="ph_sources">Оплаченные кошельки</string>
+    <string name="ph_pill_found">найден в коде приложения, не подтверждён</string>
+    <string name="ph_usd_label">USD на день платежа · валовые поступления, не выручка</string>
+    <string name="ph_found_caveat">Найденный кошелёк записан в сборке приложения в магазине и получал платежи от других кошельков. Издатель его не подтвердил, и это может быть не казна приложения.</string>
+    <string name="ph_payers_summed">Плательщики (сумма по неделям)</string>
+    <string name="ph_monthly">По месяцам</string>
+    <string name="ph_month">Месяц</string>
+    <string name="ph_none">Платежей для этого приложения пока не записано.</string>
+    <string name="ph_new_returning">Новые и постоянные плательщики</string>
+    <string name="ph_new">Новые</string>
+    <string name="ph_returning">Постоянные</string>
+    <string name="ph_top_payer">Доля крупнейшего плательщика</string>
+    <string name="ph_top10_payers">Доля 10 крупнейших плательщиков</string>
+    <string name="ph_of">%1$s из %2$s</string>
 </resources>

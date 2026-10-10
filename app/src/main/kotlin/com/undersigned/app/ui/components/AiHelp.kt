@@ -68,10 +68,11 @@ fun HelpAsk(vm: MainViewModel, modifier: Modifier = Modifier) {
 @Composable
 fun DigestCard(vm: MainViewModel, onPro: () -> Unit, modifier: Modifier = Modifier) {
     val pro by vm.pro.collectAsState()
+    // Without Pro the card is the one Pro prompt on Changes (owner, 10 Oct 2026).
+    if (pro?.active != true) { ProPrompt(stringResource(R.string.pro_tool_digest_title), stringResource(R.string.pro_tool_digest_body), onPro, modifier); return }
     GlassCard(modifier = modifier) {
         Text(stringResource(R.string.digest_title), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(6.dp))
-        if (pro?.active != true) { com.undersigned.app.ui.screens.ProLock(stringResource(R.string.digest_locked), onPro); return@GlassCard }
         val digest by produceState<Result<org.json.JSONObject>?>(null, pro) { value = vm.weeklyDigest() }
         when (val d = digest) {
             null -> LinearProgressIndicator(Modifier.fillMaxWidth(), color = RbColors.purpleLight)

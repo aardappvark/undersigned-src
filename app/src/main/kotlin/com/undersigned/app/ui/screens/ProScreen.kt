@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.undersigned.app.AppConfig
@@ -92,20 +93,33 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> U
 
             SectionTitle(stringResource(R.string.free_pro_title))
             GlassCard {
+                // The feature text takes the rest of the width and stops 18 dp short of two fixed columns at the right, each
+                // header centred over its ticks (owner, 10 Oct 2026: the ticks sat too close to the writing).
+                val col = 76.dp
                 @Composable fun row(label: Int, free: String, proV: String) {
-                    Row(Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(label), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1.6f))
-                        Text(free, color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(0.8f))
-                        Text(proV, color = RbColors.textPrimary, fontSize = 11.sp, modifier = Modifier.weight(0.8f))
+                    Row(Modifier.fillMaxWidth().padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
+                        // Long words (German at 130 % text) broke mid-word in the narrowed column; hyphenate them properly instead.
+                        Text(stringResource(label), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.weight(1f).padding(end = 18.dp),
+                            style = LocalTextStyle.current.copy(hyphens = androidx.compose.ui.text.style.Hyphens.Auto, lineBreak = androidx.compose.ui.text.style.LineBreak.Paragraph))
+                        Text(free, color = RbColors.textTertiary, fontSize = if (free.length <= 2) 13.sp else 11.sp, lineHeight = 14.sp, textAlign = TextAlign.Center, modifier = Modifier.width(col))
+                        Text(proV, color = RbColors.textPrimary, fontSize = if (proV.length <= 2) 13.sp else 11.sp, lineHeight = 14.sp, textAlign = TextAlign.Center, modifier = Modifier.width(col))
                     }
                 }
-                Row { Spacer(Modifier.weight(1.6f)); Text(stringResource(R.string.fp_free), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(0.8f)); Text(stringResource(R.string.fp_pro), color = RbColors.purpleLight, fontSize = 11.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(0.8f)) }
+                Row(Modifier.fillMaxWidth().padding(bottom = 2.dp)) {
+                    Spacer(Modifier.weight(1f))
+                    Text(stringResource(R.string.fp_free), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.width(col))
+                    Text(stringResource(R.string.fp_pro), color = RbColors.purpleLight, fontSize = 11.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.width(col))
+                }
                 row(R.string.fp_read, "✓", "✓"); row(R.string.fp_sign, "✓", "✓"); row(R.string.fp_facts, "✓", "✓"); row(R.string.fp_claim, "✓", "✓")
-                row(R.string.fp_copy, "—", "✓"); row(R.string.fp_import, stringResource(R.string.fp_import_free), stringResource(R.string.fp_import_pro))
+                // One review at a time is free (feature review, 9 Oct 2026); Pro copies them all in one pass.
+                row(R.string.fp_copy, stringResource(R.string.fp_import_free), "✓"); row(R.string.fp_import, stringResource(R.string.fp_import_free), stringResource(R.string.fp_import_pro))
                 row(R.string.fp_desk, "—", "✓"); row(R.string.fp_export, "—", "✓"); row(R.string.fp_watch, stringResource(R.string.fp_watch_free), stringResource(R.string.fp_watch_pro))
                 row(R.string.fp_catalogue, "✓", "✓"); row(R.string.fp_catalogue_weekly, "—", "✓")
                 HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) { Text(stringResource(R.string.fp_weight), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.weight(1.6f)); Text(stringResource(R.string.fp_weight_both), color = RbColors.green, fontSize = 11.sp, modifier = Modifier.weight(1.6f)) }
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    Text(stringResource(R.string.fp_weight), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.weight(1f).padding(end = 18.dp))
+                    Text(stringResource(R.string.fp_weight_both), color = RbColors.green, fontSize = 11.sp, lineHeight = 14.sp, textAlign = TextAlign.Center, modifier = Modifier.width(col * 2))
+                }
             }
 
             SectionTitle(stringResource(R.string.pro_pay_in))
@@ -168,19 +182,6 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> U
             Spacer(Modifier.height(10.dp))
             TextButton(onClick = { open(AppConfig.Identity.URI + "terms.html#pro") }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.pro_refunds), color = RbColors.purpleLight, fontSize = 12.sp) }
             Spacer(Modifier.height(32.dp))
-        }
-    }
-}
-
-/** The lock a Pro tool shows in place, where the user meets it: what it is, then the way in. */
-@Composable
-fun ProLock(hint: String? = null, onPro: () -> Unit) {
-    Row(Modifier.fillMaxWidth().clickable { onPro() }.background(RbColors.surfaceVariant, androidx.compose.foundation.shape.RoundedCornerShape(10.dp)).padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        Pill(stringResource(R.string.pro_badge), RbColors.purpleLight)
-        Spacer(Modifier.width(8.dp))
-        Column(Modifier.weight(1f)) {
-            Text(hint ?: stringResource(R.string.pro_locked_hint), color = RbColors.textSecondary, fontSize = 12.sp)
-            Text(stringResource(R.string.pro_get, AppConfig.Payment.solLabel(), AppConfig.Payment.skrLabel()), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
         }
     }
 }

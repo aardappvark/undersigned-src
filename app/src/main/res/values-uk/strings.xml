@@ -1258,4 +1258,23 @@
     <string name="tour_pro_t">Pro має власну вкладку</string>
     <string name="tour_pro_b">Що входить у Pro, ціна в SOL або SKR і стан цього гаманця. Посилання на план видавця нижче.</string>
     <string name="tour_settings_b">Ваш гаманець, сповіщення та список застосунків. Повторіть тур у Налаштуваннях будь-коли.</string>
+    <string name="pro_prompt_price">Pro · 12 місяців · %1$s або %2$s</string>
+    <string name="pro_prompt_never">Чого Pro ніколи не робить: ніколи не змінює оцінку.</string>
+    <string name="pro_prompt_settings_body">Імпорт усіх відгуків із магазину одним підписом, стіл видавця, експорт реєстру, сповіщення щогодини та список dApp щопонеділка.</string>
+    <string name="ph_title">Історія платежів</string>
+    <string name="ph_open_app">Відкрити сторінку застосунку</string>
+    <string name="ph_sources">Оплачені гаманці</string>
+    <string name="ph_pill_found">знайдено в коді застосунку, не підтверджено</string>
+    <string name="ph_usd_label">USD на день платежу · валові надходження, не виручка</string>
+    <string name="ph_found_caveat">Знайдений гаманець записаний у збірці застосунку в магазині й отримував платежі від інших гаманців. Видавець його не підтвердив, і це може бути не скарбниця застосунку.</string>
+    <string name="ph_payers_summed">Платники (сума за тижнями)</string>
+    <string name="ph_monthly">За місяцями</string>
+    <string name="ph_month">Місяць</string>
+    <string name="ph_none">Для цього застосунку ще не записано платежів.</string>
+    <string name="ph_new_returning">Нові та постійні платники</string>
+    <string name="ph_new">Нові</string>
+    <string name="ph_returning">Постійні</string>
+    <string name="ph_top_payer">Частка найбільшого платника</string>
+    <string name="ph_top10_payers">Частка 10 найбільших платників</string>
+    <string name="ph_of">%1$s з %2$s</string>
 </resources>

@@ -1250,4 +1250,23 @@
     <string name="tour_pro_t">Pro a son propre onglet</string>
     <string name="tour_pro_b">Ce que comprend Pro, son prix en SOL ou en SKR et le statut de ce portefeuille. Le forfait éditeur est en lien plus bas.</string>
     <string name="tour_settings_b">Votre portefeuille, les alertes et la liste des apps. Relancez cette visite depuis les Réglages à tout moment.</string>
+    <string name="pro_prompt_price">Pro · 12 mois · %1$s ou %2$s</string>
+    <string name="pro_prompt_never">Ce que Pro ne fait jamais : il ne change jamais une note.</string>
+    <string name="pro_prompt_settings_body">Importer tous vos avis du store en une signature, le bureau éditeur, l\'export du registre, les alertes toutes les heures et la liste des dApps chaque lundi.</string>
+    <string name="ph_title">Historique des paiements</string>
+    <string name="ph_open_app">Ouvrir la page de l\'app</string>
+    <string name="ph_sources">Wallets payés</string>
+    <string name="ph_pill_found">trouvé dans le code de l\'app, non confirmé</string>
+    <string name="ph_usd_label">USD du jour du paiement · recettes brutes, pas un chiffre d\'affaires</string>
+    <string name="ph_found_caveat">Un wallet trouvé figure dans le build de l\'app sur le store et a été payé par d\'autres wallets. L\'éditeur ne l\'a pas confirmé, et ce n\'est peut-être pas la trésorerie de l\'app.</string>
+    <string name="ph_payers_summed">Payeurs (additionnés par semaine)</string>
+    <string name="ph_monthly">Par mois</string>
+    <string name="ph_month">Mois</string>
+    <string name="ph_none">Aucun paiement enregistré pour cette app pour l\'instant.</string>
+    <string name="ph_new_returning">Payeurs nouveaux et fidèles</string>
+    <string name="ph_new">Nouveaux</string>
+    <string name="ph_returning">Fidèles</string>
+    <string name="ph_top_payer">Part du plus gros payeur</string>
+    <string name="ph_top10_payers">Part des 10 plus gros payeurs</string>
+    <string name="ph_of">%1$s sur %2$s</string>
 </resources>
