@@ -1261,4 +1261,6 @@
     <string name="notif_ch_store_desc">レビューの急増、アプリの更新、週間ダイジェスト、月曜のリスト。</string>
     <string name="notif_ch_reminders">リマインダー</string>
     <string name="notif_ch_reminders_desc">毎週のレビューリマインダーとレビューのお知らせ。</string>
+    <string name="desk_pay_30d">過去30日間の受取額: %1$s(支払日のUSD)</string>
+    <string name="desk_pay_12w">週ごとのUSD、過去12週間</string>
 </resources>

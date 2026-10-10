@@ -1281,4 +1281,6 @@
     <string name="notif_ch_store_desc">রিভিউর ঢেউ, অ্যাপ আপডেট, সাপ্তাহিক সারাংশ ও সোমবারের তালিকা।</string>
     <string name="notif_ch_reminders">অনুস্মারক</string>
     <string name="notif_ch_reminders_desc">সাপ্তাহিক রিভিউ অনুস্মারক ও রিভিউ মনে করানো।</string>
+    <string name="desk_pay_30d">গত ৩০ দিনে প্রাপ্ত: %1$s (প্রদানের দিনের USD)</string>
+    <string name="desk_pay_12w">প্রতি সপ্তাহে USD, গত ১২ সপ্তাহ</string>
 </resources>

@@ -1288,4 +1288,6 @@
     <string name="notif_ch_store_desc">रिव्यू की लहरें, ऐप अपडेट, साप्ताहिक सारांश और सोमवार की सूची।</string>
     <string name="notif_ch_reminders">रिमाइंडर</string>
     <string name="notif_ch_reminders_desc">साप्ताहिक रिव्यू रिमाइंडर और रिव्यू के संकेत।</string>
+    <string name="desk_pay_30d">पिछले 30 दिनों में प्राप्त: %1$s (भुगतान के दिन का USD)</string>
+    <string name="desk_pay_12w">प्रति सप्ताह USD, पिछले 12 सप्ताह</string>
 </resources>

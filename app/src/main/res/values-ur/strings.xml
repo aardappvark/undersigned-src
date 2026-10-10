@@ -1288,4 +1288,6 @@
     <string name="notif_ch_store_desc">ریویوز کی لہریں، ایپ اپڈیٹس، ہفتہ وار خلاصہ اور پیر کی فہرست۔</string>
     <string name="notif_ch_reminders">یاد دہانیاں</string>
     <string name="notif_ch_reminders_desc">ہفتہ وار ریویو یاد دہانی اور ریویو کی ترغیب۔</string>
+    <string name="desk_pay_30d">پچھلے 30 دنوں میں موصول: %1$s (ادائیگی کے دن کا USD)</string>
+    <string name="desk_pay_12w">فی ہفتہ USD، پچھلے 12 ہفتے</string>
 </resources>

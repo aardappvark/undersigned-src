@@ -11,6 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
@@ -100,6 +105,7 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                     val row = board.firstOrNull { it.claim.packageName == a.packageName && it.confirmed }
                     Text(row?.let { r -> stringResource(R.string.desk_treasury_confirmed, r.usd?.let { java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(it) } ?: "—") }
                         ?: stringResource(R.string.desk_treasury_none), color = if (row != null) RbColors.green else RbColors.textTertiary, fontSize = 12.sp)
+                    DeskPayments(vm, a.packageName)
                     found[a.packageName]?.let { f ->
                         Text(stringResource(R.string.desk_found, com.undersigned.app.solana.shortKey(f.getString("wallet"), 4, 4), f.optInt("payers")), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 4.dp))
                         Row {
@@ -167,4 +173,36 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
 private fun KitLink(text: String, onClick: () -> Unit) {
     Text(text, color = RbColors.purpleLight, fontSize = 13.sp, lineHeight = 18.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Start,
         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.Button, onClick = onClick).padding(vertical = 14.dp))
+}
+
+/**
+ * The app's payments over the last 12 weeks as a small area chart (the history screen's Canvas style) with the 30-day total
+ * (1.1.6). Nothing at all when the API has no payments for the app (404) or could not be read: no empty frame, no "$0".
+ */
+@Composable
+private fun DeskPayments(vm: MainViewModel, pkg: String) {
+    val cached by vm.deskSeries.collectAsState()
+    LaunchedEffect(pkg) { vm.deskPayments(pkg) }
+    val h = cached[pkg] ?: return
+    val today = remember { java.time.LocalDate.now(java.time.ZoneOffset.UTC) }
+    val weeks = remember(h) { com.undersigned.app.ledger.PaymentAnalytics.lastWeeks(h.series, 12, today) }
+    val total = remember(h) { com.undersigned.app.ledger.PaymentAnalytics.last30Usd(h, today) }
+    val color = if (h.sources.any { !it.confirmed }) RbColors.warning else RbColors.green
+    val usd = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).apply { maximumFractionDigits = if (total >= 100) 0 else 2 }
+    Column(Modifier.fillMaxWidth().padding(top = 8.dp)) {
+        Text(stringResource(R.string.desk_pay_30d, usd.format(total)), color = RbColors.textSecondary, fontSize = 12.sp)
+        val max = weeks.maxOrNull()?.takeIf { it > 0 } ?: 1.0
+        val a11y = stringResource(R.string.desk_pay_12w) + ": " + weeks.joinToString(", ") { usd.format(it) }
+        val grid = RbColors.surfaceVariant
+        androidx.compose.foundation.Canvas(Modifier.fillMaxWidth().height(44.dp).padding(top = 4.dp)
+            .then(Modifier.semantics { contentDescription = a11y })) {
+            for (g in 0..2) { val gy = size.height * g / 2; drawLine(grid, Offset(0f, gy), Offset(size.width, gy), 1.dp.toPx()) }
+            val xs = weeks.indices.map { it * size.width / (weeks.size - 1).coerceAtLeast(1) }
+            fun y(v: Double) = (size.height * (1 - v / max)).toFloat()
+            val area = Path().apply { moveTo(xs.first(), size.height); weeks.indices.forEach { lineTo(xs[it], y(weeks[it])) }; lineTo(xs.last(), size.height); close() }
+            drawPath(area, color.copy(alpha = 0.25f))
+            for (i in 1 until weeks.size) drawLine(color, Offset(xs[i - 1], y(weeks[i - 1])), Offset(xs[i], y(weeks[i])), 2.dp.toPx(), cap = StrokeCap.Round)
+        }
+        Text(stringResource(R.string.desk_pay_12w), color = RbColors.textTertiary, fontSize = 10.sp, modifier = Modifier.padding(top = 2.dp))
+    }
 }

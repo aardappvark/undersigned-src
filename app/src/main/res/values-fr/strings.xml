@@ -1314,4 +1314,6 @@
     <string name="notif_ch_store_desc">Vagues d\'avis, mises à jour d\'apps, la synthèse hebdomadaire et la liste du lundi.</string>
     <string name="notif_ch_reminders">Rappels</string>
     <string name="notif_ch_reminders_desc">Le rappel d\'avis hebdomadaire et les incitations à donner un avis.</string>
+    <string name="desk_pay_30d">Reçu sur les 30 derniers jours : %1$s (USD au jour du paiement)</string>
+    <string name="desk_pay_12w">USD par semaine, 12 dernières semaines</string>
 </resources>

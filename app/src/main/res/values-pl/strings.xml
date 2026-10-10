@@ -1323,4 +1323,6 @@
     <string name="notif_ch_store_desc">Fale recenzji, aktualizacje aplikacji, tygodniowe podsumowanie i lista poniedziałkowa.</string>
     <string name="notif_ch_reminders">Przypomnienia</string>
     <string name="notif_ch_reminders_desc">Cotygodniowe przypomnienie o recenzji i zachęty do recenzji.</string>
+    <string name="desk_pay_30d">Otrzymano w ostatnich 30 dniach: %1$s (USD z dnia płatności)</string>
+    <string name="desk_pay_12w">USD na tydzień, ostatnie 12 tygodni</string>
 </resources>

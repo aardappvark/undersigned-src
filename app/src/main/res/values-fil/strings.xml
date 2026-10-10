@@ -1289,4 +1289,6 @@
     <string name="notif_ch_store_desc">Mga bugso ng review, update ng app, lingguhang buod at listahan ng Lunes.</string>
     <string name="notif_ch_reminders">Mga paalala</string>
     <string name="notif_ch_reminders_desc">Ang lingguhang paalala sa review at mga paalala na mag-review.</string>
+    <string name="desk_pay_30d">Natanggap sa nakaraang 30 araw: %1$s (USD sa araw ng bayad)</string>
+    <string name="desk_pay_12w">USD bawat linggo, huling 12 linggo</string>
 </resources>

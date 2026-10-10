@@ -1270,4 +1270,6 @@
     <string name="notif_ch_store_desc">Đợt tăng đánh giá, cập nhật ứng dụng, bản tóm tắt hằng tuần và danh sách thứ Hai.</string>
     <string name="notif_ch_reminders">Lời nhắc</string>
     <string name="notif_ch_reminders_desc">Lời nhắc đánh giá hằng tuần và gợi ý đánh giá.</string>
+    <string name="desk_pay_30d">Đã nhận trong 30 ngày qua: %1$s (USD vào ngày thanh toán)</string>
+    <string name="desk_pay_12w">USD mỗi tuần, 12 tuần gần nhất</string>
 </resources>

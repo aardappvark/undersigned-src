@@ -577,8 +577,11 @@ ${'$'}('kf').onsubmit = async (e) => { e.preventDefault(); const k = ${'$'}('key
         fun ago(t: Long) = if (t <= 0) "not yet" else ((now - t) / 60_000).let { m -> if (m < 1) "under a minute ago" else if (m < 120) "$m minutes ago" else "${m / 60} hours ago" }
         fun ok(t: Long, maxMin: Long) = t > 0 && now - t < maxMin * 60_000
         val ledger = indexer.lastLedgerSync; val store = indexer.lastStoreSync; val ai = views.ai?.enabled == true
+        // The independent recompute (api verify, run by a timer every six hours on the server): the chain alone reproduces the scores.
+        val verify = runCatching { java.io.File(java.io.File(Config.DB_PATH).absoluteFile.parentFile, "verify.txt").takeIf { it.exists() }?.let { f -> f.lastModified() to f.readText().trim().lines().lastOrNull().orEmpty() } }.getOrNull()
         val rows = listOf(Triple("Ledger (Solana)", ok(ledger, 30), "read ${ago(ledger)}"), Triple("dApp Store mirror", ok(store, 26 * 60), "read ${ago(store)}"),
-            Triple("API and MCP", true, "answering"), Triple("AI reading aids", ai, if (ai) "on; ${views.ai?.callsToday() ?: 0} model calls today" else "off"))
+            Triple("API and MCP", true, "answering"), Triple("AI reading aids", ai, if (ai) "on; ${views.ai?.callsToday() ?: 0} model calls today" else "off"),
+            Triple("Scores recomputed from the chain alone", verify?.second?.startsWith("OK") == true && ok(verify.first, 8 * 60), verify?.let { "${it.second.take(90)} · ${ago(it.first)}" } ?: "not run yet (api verify)"))
         return "<h1>Status</h1><p class=sub>Read from the server's own clocks when this page loaded. Raw: <a href='/v1/health'>/v1/health</a>.</p><div class=card>" +
             rows.joinToString("") { (name, good, what) -> "<div class=rev><b>${if (good) "Working" else "Check"}</b> · ${esc(name)} <span class=meta>· ${esc(what)}</span></div>" } + "</div>"
     }

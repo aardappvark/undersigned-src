@@ -1262,4 +1262,6 @@
     <string name="notif_ch_store_desc">리뷰 급증, 앱 업데이트, 주간 요약, 월요일 목록.</string>
     <string name="notif_ch_reminders">알림</string>
     <string name="notif_ch_reminders_desc">주간 리뷰 알림과 리뷰 권유.</string>
+    <string name="desk_pay_30d">최근 30일 수령액: %1$s (결제일 기준 USD)</string>
+    <string name="desk_pay_12w">주별 USD, 최근 12주</string>
 </resources>

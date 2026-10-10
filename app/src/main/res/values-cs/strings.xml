@@ -1315,4 +1315,6 @@
     <string name="notif_ch_store_desc">Vlny recenzí, aktualizace aplikací, týdenní přehled a pondělní seznam.</string>
     <string name="notif_ch_reminders">Připomínky</string>
     <string name="notif_ch_reminders_desc">Týdenní připomínka recenzí a pobídky k recenzi.</string>
+    <string name="desk_pay_30d">Přijato za posledních 30 dní: %1$s (USD v den platby)</string>
+    <string name="desk_pay_12w">USD za týden, posledních 12 týdnů</string>
 </resources>

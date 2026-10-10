@@ -1314,4 +1314,6 @@
     <string name="notif_ch_store_desc">Oleadas de reseñas, actualizaciones de apps, el resumen semanal y la lista del lunes.</string>
     <string name="notif_ch_reminders">Recordatorios</string>
     <string name="notif_ch_reminders_desc">El recordatorio semanal de reseñas y los avisos para reseñar.</string>
+    <string name="desk_pay_30d">Recibido en los últimos 30 días: %1$s (USD del día del pago)</string>
+    <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
 </resources>

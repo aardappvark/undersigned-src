@@ -1314,4 +1314,6 @@
     <string name="notif_ch_store_desc">Ondate di recensioni, aggiornamenti delle app, il riepilogo settimanale e la lista del lunedì.</string>
     <string name="notif_ch_reminders">Promemoria</string>
     <string name="notif_ch_reminders_desc">Il promemoria settimanale per le recensioni e gli inviti a recensire.</string>
+    <string name="desk_pay_30d">Ricevuto negli ultimi 30 giorni: %1$s (USD al giorno del pagamento)</string>
+    <string name="desk_pay_12w">USD a settimana, ultime 12 settimane</string>
 </resources>

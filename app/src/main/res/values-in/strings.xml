@@ -1270,4 +1270,6 @@
     <string name="notif_ch_store_desc">Lonjakan ulasan, pembaruan aplikasi, ringkasan mingguan, dan daftar Senin.</string>
     <string name="notif_ch_reminders">Pengingat</string>
     <string name="notif_ch_reminders_desc">Pengingat ulasan mingguan dan dorongan untuk mengulas.</string>
+    <string name="desk_pay_30d">Diterima dalam 30 hari terakhir: %1$s (USD pada hari pembayaran)</string>
+    <string name="desk_pay_12w">USD per minggu, 12 minggu terakhir</string>
 </resources>

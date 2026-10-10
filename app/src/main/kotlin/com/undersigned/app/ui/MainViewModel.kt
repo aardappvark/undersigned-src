@@ -790,6 +790,25 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }.net().onSuccess { h -> payHistories.value = payHistories.value + (pkg to h) }
     }
 
+    /**
+     * One app's weekly payments for the Publisher desk's sparkline (1.1.6): the week series only (one request, not the history
+     * screen's three). Success(null) = the API has no payments for it (404), and the desk shows nothing. Kept for this run once
+     * read; a failure is not kept. A history already loaded for the package is reused.
+     */
+    val deskSeries = MutableStateFlow<Map<String, com.undersigned.app.ledger.PaymentAnalytics.History?>>(emptyMap())
+    suspend fun deskPayments(pkg: String): Result<com.undersigned.app.ledger.PaymentAnalytics.History?> = withContext(Dispatchers.IO) {
+        if (deskSeries.value.containsKey(pkg)) return@withContext Result.success(deskSeries.value[pkg])
+        payHistories.value[pkg]?.let { return@withContext Result.success(it.week) }
+        runCatching {
+            val r = apiGet("/v1/payments/app/${java.net.URLEncoder.encode(pkg, "UTF-8")}/series?by=week")
+            when {
+                r.first == 200 && r.second != null -> com.undersigned.app.ledger.PaymentAnalytics.parseHistory(r.second!!)
+                r.first == 404 -> null
+                else -> error("HTTP ${r.first}")
+            }
+        }.net().onSuccess { h -> deskSeries.value = deskSeries.value + (pkg to h) }
+    }
+
     /** The app page the first-use tour opens: the one with the most counted signed reviews, else the first listed. */
     fun tourSamplePackage(): String? = scores.value.maxByOrNull { it.value.countedReviews }?.key ?: catalogue.value.firstOrNull()?.packageName
 

@@ -1356,4 +1356,6 @@
     <string name="notif_ch_store_desc">موجات المراجعات، وتحديثات التطبيقات، والملخص الأسبوعي، وقائمة الاثنين.</string>
     <string name="notif_ch_reminders">التذكيرات</string>
     <string name="notif_ch_reminders_desc">تذكير المراجعة الأسبوعي وتنبيهات المراجعة.</string>
+    <string name="desk_pay_30d">المستلم في آخر 30 يومًا: %1$s (بالدولار يوم الدفع)</string>
+    <string name="desk_pay_12w">دولار في الأسبوع، آخر 12 أسبوعًا</string>
 </resources>

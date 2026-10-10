@@ -1285,4 +1285,6 @@
     <string name="notif_ch_store_desc">Yorum dalgaları, uygulama güncellemeleri, haftalık özet ve pazartesi listesi.</string>
     <string name="notif_ch_reminders">Hatırlatıcılar</string>
     <string name="notif_ch_reminders_desc">Haftalık yorum hatırlatıcısı ve yorum dürtmeleri.</string>
+    <string name="desk_pay_30d">Son 30 günde alınan: %1$s (ödeme günündeki USD)</string>
+    <string name="desk_pay_12w">Haftalık USD, son 12 hafta</string>
 </resources>

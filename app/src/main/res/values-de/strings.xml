@@ -1305,4 +1305,6 @@
     <string name="notif_ch_store_desc">Bewertungswellen, App-Updates, der Wochenüberblick und die Montagsliste.</string>
     <string name="notif_ch_reminders">Erinnerungen</string>
     <string name="notif_ch_reminders_desc">Die wöchentliche Bewertungserinnerung und Bewertungshinweise.</string>
+    <string name="desk_pay_30d">In den letzten 30 Tagen erhalten: %1$s (USD am Zahlungstag)</string>
+    <string name="desk_pay_12w">USD pro Woche, letzte 12 Wochen</string>
 </resources>

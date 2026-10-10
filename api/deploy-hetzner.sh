@@ -68,6 +68,28 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 UNIT
+  # Every six hours: recompute every score from the chain alone (a throwaway database) and diff the live dataset; /status shows the result.
+  cat > /etc/systemd/system/undersigned-verify.service <<UNIT
+[Unit]
+Description=Undersigned: recompute scores from the chain and compare with the live dataset
+After=undersigned-api.service
+[Service]
+Type=oneshot
+User=undersigned
+WorkingDirectory=/opt/undersigned
+Environment=HOME=/opt/undersigned
+EnvironmentFile=/opt/undersigned/env
+ExecStart=/bin/sh -c '/opt/undersigned/bin/api verify > /opt/undersigned/verify.txt.new 2>&1; mv /opt/undersigned/verify.txt.new /opt/undersigned/verify.txt'
+UNIT
+  cat > /etc/systemd/system/undersigned-verify.timer <<UNIT
+[Unit]
+Description=Undersigned verify, every six hours
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=6h
+[Install]
+WantedBy=timers.target
+UNIT
   cat > /etc/systemd/system/undersigned-tunnel.service <<UNIT
 [Unit]
 Description=Cloudflare tunnel for undersigned.provenby.dev
@@ -84,6 +106,7 @@ UNIT
   for i in $(seq 1 60); do curl -fs http://127.0.0.1:8817/v1/health >/dev/null && break; sleep 2; done
   curl -fs http://127.0.0.1:8817/v1/health >/dev/null || { journalctl -u undersigned-api -n 40 --no-pager; exit 1; }
   systemctl enable --now undersigned-tunnel
+  systemctl enable --now undersigned-verify.timer
   echo "server: API and tunnel up"'
 # Hand the URL over: stop the Mac connector, then check the public URL answers from the server.
 launchctl bootout "gui/$(id -u)/com.undersigned.tunnel" 2>/dev/null || true

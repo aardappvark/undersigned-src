@@ -1322,4 +1322,6 @@
     <string name="notif_ch_store_desc">Сплески відгуків, оновлення застосунків, щотижневе зведення та список понеділка.</string>
     <string name="notif_ch_reminders">Нагадування</string>
     <string name="notif_ch_reminders_desc">Щотижневе нагадування про відгуки та підказки залишити відгук.</string>
+    <string name="desk_pay_30d">Отримано за останні 30 днів: %1$s (USD на день платежу)</string>
+    <string name="desk_pay_12w">USD на тиждень, останні 12 тижнів</string>
 </resources>

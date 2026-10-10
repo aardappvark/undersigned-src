@@ -1294,4 +1294,6 @@
     <string name="notif_ch_store_desc">Reviewgolven, app-updates, het weekoverzicht en de maandaglijst.</string>
     <string name="notif_ch_reminders">Herinneringen</string>
     <string name="notif_ch_reminders_desc">De wekelijkse reviewherinnering en reviewsuggesties.</string>
+    <string name="desk_pay_30d">Ontvangen in de laatste 30 dagen: %1$s (USD op de dag van betaling)</string>
+    <string name="desk_pay_12w">USD per week, laatste 12 weken</string>
 </resources>

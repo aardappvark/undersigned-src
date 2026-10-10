@@ -1311,4 +1311,6 @@
     <string name="notif_ch_store_desc">Review bursts, app updates, the weekly digest and the Monday list.</string>
     <string name="notif_ch_reminders">Reminders</string>
     <string name="notif_ch_reminders_desc">The weekly review reminder and review nudges.</string>
+    <string name="desk_pay_30d">Received in the last 30 days: %1$s (USD on the day paid)</string>
+    <string name="desk_pay_12w">USD per week, last 12 weeks</string>
 </resources>

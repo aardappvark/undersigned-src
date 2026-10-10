@@ -126,6 +126,20 @@ object PaymentAnalytics {
         return series.filter { b -> runCatching { java.time.LocalDate.parse(b.bucket.take(10)).plusDays(7).isAfter(start) }.getOrDefault(true) }
     }
 
+    /**
+     * The last [n] weeks up to [today] as USD per week, oldest first, a missing week as 0 (the desk sparkline, 1.1.6). Weeks are
+     * keyed by their Monday ("2026-10-05"), as the API buckets them; a key that is not a date is ignored.
+     */
+    fun lastWeeks(series: List<Bucket>, n: Int, today: java.time.LocalDate): List<Double> {
+        val monday = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY))
+        val byWeek = series.mapNotNull { b -> runCatching { java.time.LocalDate.parse(b.bucket.take(10)) }.getOrNull()?.let { it to b.usd } }
+            .groupBy({ it.first.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY)) }, { it.second }).mapValues { it.value.sum() }
+        return (n - 1 downTo 0).map { byWeek[monday.minusWeeks(it.toLong())] ?: 0.0 }
+    }
+
+    /** USD over the last 30 days: the server's own window total when it sent one, else the weeks overlapping the window. */
+    fun last30Usd(h: History, today: java.time.LocalDate): Double = h.windows["30d"]?.usd ?: weeksIn(h.series, "30d", today).sumOf { it.usd }
+
     /** "+45%", "−58%" (true minus sign), or null when there is no number. */
     fun pct(change: Double?): String? = change?.let { if (it >= 0) String.format(java.util.Locale.US, "+%.0f%%", it) else String.format(java.util.Locale.US, "−%.0f%%", -it) }
 }

@@ -1286,4 +1286,6 @@
     <string name="notif_ch_store_desc">Recensionsvågor, appuppdateringar, veckosammanfattningen och måndagslistan.</string>
     <string name="notif_ch_reminders">Påminnelser</string>
     <string name="notif_ch_reminders_desc">Den veckovisa recensionspåminnelsen och recensionsknuffar.</string>
+    <string name="desk_pay_30d">Mottaget de senaste 30 dagarna: %1$s (USD på betalningsdagen)</string>
+    <string name="desk_pay_12w">USD per vecka, senaste 12 veckorna</string>
 </resources>

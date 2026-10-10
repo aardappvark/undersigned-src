@@ -1303,4 +1303,6 @@
     <string name="notif_ch_store_desc">Valuri de recenzii, actualizări de aplicații, rezumatul săptămânal și lista de luni.</string>
     <string name="notif_ch_reminders">Mementouri</string>
     <string name="notif_ch_reminders_desc">Mementoul săptămânal de recenzie și îndemnurile de a recenza.</string>
+    <string name="desk_pay_30d">Primit în ultimele 30 de zile: %1$s (USD din ziua plății)</string>
+    <string name="desk_pay_12w">USD pe săptămână, ultimele 12 săptămâni</string>
 </resources>

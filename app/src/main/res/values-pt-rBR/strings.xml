@@ -1314,4 +1314,6 @@
     <string name="notif_ch_store_desc">Ondas de avaliações, atualizações de apps, o resumo semanal e a lista de segunda.</string>
     <string name="notif_ch_reminders">Lembretes</string>
     <string name="notif_ch_reminders_desc">O lembrete semanal de avaliação e os incentivos para avaliar.</string>
+    <string name="desk_pay_30d">Recebido nos últimos 30 dias: %1$s (USD do dia do pagamento)</string>
+    <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
 </resources>

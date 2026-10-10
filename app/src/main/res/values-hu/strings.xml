@@ -1285,4 +1285,6 @@
     <string name="notif_ch_store_desc">Értékeléshullámok, app-frissítések, a heti összefoglaló és a hétfői lista.</string>
     <string name="notif_ch_reminders">Emlékeztetők</string>
     <string name="notif_ch_reminders_desc">A heti értékelési emlékeztető és az értékelésre ösztönző jelzések.</string>
+    <string name="desk_pay_30d">Az elmúlt 30 napban kapott: %1$s (USD a fizetés napján)</string>
+    <string name="desk_pay_12w">USD hetente, az elmúlt 12 hét</string>
 </resources>

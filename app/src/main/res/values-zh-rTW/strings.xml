@@ -1269,4 +1269,6 @@
     <string name="notif_ch_store_desc">評論激增、應用程式更新、每週摘要和週一清單。</string>
     <string name="notif_ch_reminders">提醒</string>
     <string name="notif_ch_reminders_desc">每週評論提醒和評論提示。</string>
+    <string name="desk_pay_30d">過去 30 天收到:%1$s(按付款當日的美元計)</string>
+    <string name="desk_pay_12w">每週美元,最近 12 週</string>
 </resources>

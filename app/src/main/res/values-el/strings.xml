@@ -1285,4 +1285,6 @@
     <string name="notif_ch_store_desc">Κύματα κριτικών, ενημερώσεις εφαρμογών, η εβδομαδιαία σύνοψη και η λίστα της Δευτέρας.</string>
     <string name="notif_ch_reminders">Υπενθυμίσεις</string>
     <string name="notif_ch_reminders_desc">Η εβδομαδιαία υπενθύμιση κριτικής και οι προτροπές για κριτική.</string>
+    <string name="desk_pay_30d">Ελήφθησαν τις τελευταίες 30 ημέρες: %1$s (USD την ημέρα πληρωμής)</string>
+    <string name="desk_pay_12w">USD ανά εβδομάδα, τελευταίες 12 εβδομάδες</string>
 </resources>

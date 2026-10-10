@@ -1269,4 +1269,6 @@
     <string name="notif_ch_store_desc">评价激增、应用更新、每周摘要和周一列表。</string>
     <string name="notif_ch_reminders">提醒</string>
     <string name="notif_ch_reminders_desc">每周评价提醒和评价提示。</string>
+    <string name="desk_pay_30d">过去 30 天收到:%1$s(按付款当日的美元计)</string>
+    <string name="desk_pay_12w">每周美元,最近 12 周</string>
 </resources>
