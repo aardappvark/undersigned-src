@@ -252,7 +252,8 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
     fun series(ps: List<Payments.Payment>, by: String, h: Map<String, Map<String, Double>>, from0: Long, now: Long): List<Point> {
         // Weeks start on their Monday, so the first bucket is a whole week, not a false dip.
         val from = if (by == "week") java.time.LocalDate.ofInstant(java.time.Instant.ofEpochSecond(from0), java.time.ZoneOffset.UTC).let { d -> d.minusDays((d.dayOfWeek.value - 1).toLong()).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond() } else from0
-        val grouped = ps.filter { it.time >= from }.groupBy { bucket(it.time, by) }
+        // Buckets start on the Monday, but only payments inside the window are counted: the series' sum equals the window total.
+        val grouped = ps.filter { it.time >= from0 }.groupBy { bucket(it.time, by) }
         val step = when (by) { "day" -> 86_400L; "month" -> 0L; else -> 7 * 86_400L }
         val keys = LinkedHashSet<String>()
         if (by == "month") { var d = java.time.LocalDate.ofInstant(java.time.Instant.ofEpochSecond(from), java.time.ZoneOffset.UTC).withDayOfMonth(1)

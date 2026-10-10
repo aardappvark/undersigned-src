@@ -56,6 +56,9 @@ class AnalyticsTest {
         assertEquals(160.0, (0 until 8).sumOf { s.getJSONArray("all").getJSONObject(it).getDouble("usd") })   // a1 $100 + a2 $50 + b2 $10
         val m = an.storeSeries("1y", "month", now).getJSONArray("all"); assertEquals(13, m.length())
         val app = an.appSeries("com.a", "week", now)!!; assertEquals(300.0, app.getDouble("total_usd")); assertEquals(3, app.getInt("payers"))
+        // A 30-day weekly series sums to the 30-day total even though its first bucket starts on the Monday before.
+        val w30 = an.storeSeries("30d", "week", now).getJSONArray("all"); val lb30 = an.leaderboard("30d", "all", 10, now)
+        assertEquals(lb30.getDouble("total_usd"), (0 until w30.length()).sumOf { w30.getJSONObject(it).getDouble("usd") })
         assertEquals(2, app.getJSONObject("windows").getJSONObject("30d").getInt("payers"))   // P1 twice and P2 once: two distinct payers
         assertEquals(200.0, app.getJSONObject("windows").getJSONObject("30d").getDouble("usd"))
         assertEquals(null, an.appSeries("com.zzz", "week", now))
