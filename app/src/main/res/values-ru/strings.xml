@@ -49,7 +49,6 @@
     <string name="reply_title">Подписать ответ</string>
     <string name="reply_hint">Ваш ответ, своими словами (постоянный).</string>
     <string name="reply_publish">Подписать и опубликовать ответ</string>
-    <string name="notif_channel">Уведомления реестра</string>
     <string name="notif_new_review_title">Новый подписанный отзыв: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Ответ на ваш отзыв о %1$s</string>
@@ -1299,4 +1298,12 @@
     <string name="status_card_yes">Этот Seeker учитывается: один голос за приложение, как у любого другого Seeker.</string>
     <string name="status_card_no">На этом кошельке нет Seeker Genesis Token: ваши отзывы показываются, но не учитываются. Быстрые отзывы доступны без кошелька.</string>
     <string name="status_card_operator">Кошелёк оператора Undersigned: показывается, никогда не учитывается.</string>
+    <string name="notif_ch_reviews">Отзывы и ответы</string>
+    <string name="notif_ch_reviews_desc">Новые отзывы о приложениях, на которые вы подписаны, ответы и заметки к вашим отзывам, исправления.</string>
+    <string name="notif_ch_publisher">Издатель</string>
+    <string name="notif_ch_publisher_desc">Отзывы о ваших приложениях, ответы в ваших ветках, жалобы, доказанные права.</string>
+    <string name="notif_ch_store">Наблюдение за магазином и сводка</string>
+    <string name="notif_ch_store_desc">Всплески отзывов, обновления приложений, еженедельная сводка и список понедельника.</string>
+    <string name="notif_ch_reminders">Напоминания</string>
+    <string name="notif_ch_reminders_desc">Еженедельное напоминание об отзывах и подсказки оставить отзыв.</string>
 </resources>

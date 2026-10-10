@@ -59,7 +59,6 @@
     <string name="reply_title">Bir yanıt imzala</string>
     <string name="reply_hint">Kendi kelimelerinizle cevabınız (kalıcı).</string>
     <string name="reply_publish">İmzala ve yanıtı yayınla</string>
-    <string name="notif_channel">Defter uyarıları</string>
     <string name="notif_new_review_title">Yeni imzalı inceleme: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s incelemenize yanıt</string>
@@ -1278,4 +1277,12 @@
     <string name="status_card_yes">Bu Seeker sayılır: her uygulama için bir oy, diğer tüm Seeker\'lar gibi.</string>
     <string name="status_card_no">Bu cüzdanda Seeker Genesis Token yok: incelemeleriniz gösterilir, sayılmaz. Hızlı incelemeler cüzdansız yapılabilir.</string>
     <string name="status_card_operator">Undersigned işletmeci cüzdanı: gösterilir, asla sayılmaz.</string>
+    <string name="notif_ch_reviews">Yorumlar ve yanıtlar</string>
+    <string name="notif_ch_reviews_desc">Takip ettiğin uygulamalara yeni yorumlar, yorumlarına yanıtlar ve notlar, düzeltmeler.</string>
+    <string name="notif_ch_publisher">Yayıncı</string>
+    <string name="notif_ch_publisher_desc">Uygulamalarının yorumları, başlıklarındaki yanıtlar, işaretlemeler, kanıtlanmış talepler.</string>
+    <string name="notif_ch_store">Mağaza izleme ve özet</string>
+    <string name="notif_ch_store_desc">Yorum dalgaları, uygulama güncellemeleri, haftalık özet ve pazartesi listesi.</string>
+    <string name="notif_ch_reminders">Hatırlatıcılar</string>
+    <string name="notif_ch_reminders_desc">Haftalık yorum hatırlatıcısı ve yorum dürtmeleri.</string>
 </resources>

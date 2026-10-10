@@ -44,7 +44,7 @@ class StoreScanWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(
         val title = ctx.getString(R.string.scan_done_title)
         val body = if (failed > 0) ctx.getString(R.string.import_incomplete, failed, targets.size)
             else ctx.resources.getQuantityString(R.plurals.scan_done_body, found.size, found.size)
-        LedgerWatchWorker.notify(ctx, "store-scan:$w", title, body, extraValue = "my-reviews", extraKey = "screen")
+        LedgerWatchWorker.notify(ctx, NotifChannel.REVIEWS, "store-scan:$w", title, body, extraValue = "my-reviews", extraKey = "screen")
         return Result.success(workDataOf(OUT_FAILED to failed, OUT_TOTAL to targets.size))
     }
 

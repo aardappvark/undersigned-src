@@ -107,10 +107,16 @@ fun PaymentHistoryScreen(vm: MainViewModel, pkg: String, onBack: () -> Unit, onO
                 else WeeklyArea(weeks, if (anyFound) RbColors.warning else RbColors.green)
                 Spacer(Modifier.height(10.dp))
                 val all = window == "all"
-                val items = listOf(
+                // The server's own totals for the window (1.1.6): DISTINCT payers, counted from the payments, not from the weeks.
+                // Only a server older than 11 Oct 2026 lacks them; then the weekly counts are added and labelled so.
+                val t = week.windows[window]
+                val items = if (t != null) listOf(
+                    stringResource(R.string.pa_received) to payUsd(t.usd),
+                    stringResource(R.string.pa_payments) to payCount(t.payments),
+                    stringResource(R.string.pay_label_payers) to payCount(t.payers),
+                ) else listOf(
                     stringResource(R.string.pa_received) to payUsd(if (all) week.totalUsd else weeks.sumOf { it.usd }),
                     stringResource(R.string.pa_payments) to payCount(if (all) week.payments else weeks.sumOf { it.payments }),
-                    // Distinct payers exist only for all time; inside a window the weekly counts are added, and labelled so.
                     stringResource(if (all) R.string.pay_label_payers else R.string.ph_payers_summed) to payCount(if (all) week.payers else weeks.sumOf { it.payers }),
                 )
                 KeyValueGrid(items, columns = 3, description = items.joinToString(", ") { "${it.first} ${it.second}" }, valueSize = 15)

@@ -49,7 +49,6 @@
     <string name="reply_title">ลงลายเซ็นการตอบกลับ</string>
     <string name="reply_hint">คำตอบของคุณ ด้วยคำพูดของคุณเอง (ถาวร)</string>
     <string name="reply_publish">ลงลายเซ็นและเผยแพร่การตอบกลับ</string>
-    <string name="notif_channel">การแจ้งเตือนบัญชีบันทึก</string>
     <string name="notif_new_review_title">รีวิวที่ลงลายเซ็นใหม่: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">การตอบกลับรีวิวของคุณสำหรับ %1$s</string>
@@ -1247,4 +1246,12 @@
     <string name="status_card_yes">Seeker เครื่องนี้นับ: หนึ่งเสียงต่อแอป เหมือน Seeker เครื่องอื่นทุกเครื่อง</string>
     <string name="status_card_no">กระเป๋านี้ไม่มี Seeker Genesis Token: รีวิวของคุณจะแสดง แต่ไม่นับ รีวิวด่วนใช้ได้โดยไม่ต้องมีกระเป๋า</string>
     <string name="status_card_operator">กระเป๋าของผู้ดำเนินการ Undersigned: แสดง ไม่นับเลย</string>
+    <string name="notif_ch_reviews">รีวิวและการตอบกลับ</string>
+    <string name="notif_ch_reviews_desc">รีวิวใหม่ของแอปที่ติดตาม การตอบกลับและบันทึกในรีวิวของคุณ การแก้ไข</string>
+    <string name="notif_ch_publisher">ผู้เผยแพร่</string>
+    <string name="notif_ch_publisher_desc">รีวิวแอปของคุณ คำตอบในเธรดของคุณ การแจ้งปัญหา การอ้างสิทธิ์ที่พิสูจน์แล้ว</string>
+    <string name="notif_ch_store">เฝ้าดูสโตร์และสรุป</string>
+    <string name="notif_ch_store_desc">รีวิวที่พุ่งขึ้น การอัปเดตแอป สรุปรายสัปดาห์ และรายการวันจันทร์</string>
+    <string name="notif_ch_reminders">การเตือน</string>
+    <string name="notif_ch_reminders_desc">การเตือนรีวิวรายสัปดาห์และการชวนให้รีวิว</string>
 </resources>

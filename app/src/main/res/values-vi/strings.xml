@@ -59,7 +59,6 @@
     <string name="reply_title">Ký một câu trả lời</string>
     <string name="reply_hint">Câu trả lời của bạn, bằng lời của chính bạn (vĩnh viễn).</string>
     <string name="reply_publish">Ký và đăng câu trả lời</string>
-    <string name="notif_channel">Cảnh báo sổ cái</string>
     <string name="notif_new_review_title">Đánh giá đã ký mới: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Trả lời cho đánh giá của bạn về %1$s</string>
@@ -1263,4 +1262,12 @@
     <string name="status_card_yes">Seeker này được tính: một phiếu cho mỗi ứng dụng, như mọi Seeker khác.</string>
     <string name="status_card_no">Ví này không có Seeker Genesis Token: đánh giá của bạn được hiển thị, không được tính. Có thể gửi đánh giá nhanh mà không cần ví.</string>
     <string name="status_card_operator">Ví của bên vận hành Undersigned: hiển thị, không bao giờ tính.</string>
+    <string name="notif_ch_reviews">Đánh giá và phản hồi</string>
+    <string name="notif_ch_reviews_desc">Đánh giá mới về ứng dụng bạn theo dõi, phản hồi và ghi chú cho đánh giá của bạn, bản sửa.</string>
+    <string name="notif_ch_publisher">Nhà phát hành</string>
+    <string name="notif_ch_publisher_desc">Đánh giá ứng dụng của bạn, câu trả lời trong chuỗi của bạn, gắn cờ, xác nhận quyền đã chứng minh.</string>
+    <string name="notif_ch_store">Theo dõi cửa hàng và tóm tắt</string>
+    <string name="notif_ch_store_desc">Đợt tăng đánh giá, cập nhật ứng dụng, bản tóm tắt hằng tuần và danh sách thứ Hai.</string>
+    <string name="notif_ch_reminders">Lời nhắc</string>
+    <string name="notif_ch_reminders_desc">Lời nhắc đánh giá hằng tuần và gợi ý đánh giá.</string>
 </resources>

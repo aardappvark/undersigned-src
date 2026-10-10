@@ -86,8 +86,8 @@ class CatalogueWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(
             if (added.isEmpty()) return
             val names = added.take(4).joinToString(", ") { it.second } + if (added.size > 4) "…" else ""
             val title = ctx.resources.getQuantityString(R.plurals.catalogue_notif_title, added.size, added.size)
-            if (added.size == 1) LedgerWatchWorker.notify(ctx, "catalogue:${LocalDate.now()}", title, names, added[0].first)
-            else LedgerWatchWorker.notify(ctx, "catalogue:${LocalDate.now()}", title, names, "new", extraKey = "screen")
+            if (added.size == 1) LedgerWatchWorker.notify(ctx, NotifChannel.STORE, "catalogue:${LocalDate.now()}", title, names, added[0].first)
+            else LedgerWatchWorker.notify(ctx, NotifChannel.STORE, "catalogue:${LocalDate.now()}", title, names, "new", extraKey = "screen")
         }
     }
 }

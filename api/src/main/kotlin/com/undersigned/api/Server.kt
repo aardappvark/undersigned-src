@@ -618,6 +618,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
  * running server picks a change up at its next rebuild (within five minutes). Anything else starts the server.
  */
 fun main(args: Array<String>) {
+    // `api verify [--rpc URL]`: recompute every score from the chain alone, in a throwaway database, and compare with the
+    // live dataset (judge review, 11 Oct 2026: "show that anyone can rebuild the scores without the server"). Exit 1 on a difference.
+    if (args.firstOrNull() == "verify") { System.exit(verifyAgainstChain(args.getOrNull(2)?.takeIf { args.getOrNull(1) == "--rpc" })); return }
     if (args.isNotEmpty() && args[0] in setOf("hide", "unhide", "hidden")) {
         val ix = Indexer(Db(), Rpc(), Store())
         when (args[0]) {
@@ -663,4 +666,28 @@ fun main(args: Array<String>) {
     Thread({ while (true) { Thread.sleep(10 * 60_000L); runCatching { api.sweepLimiter() } } }, "limiter").apply { isDaemon = true }.start()
     api.serve(Config.PORT)
     log("Undersigned API on ${Config.HOST}:${Config.PORT} (db ${Config.DB_PATH}, indexing ${Config.INDEX}, public ${Config.PUBLIC}${if (Config.testPrices) ", TEST PRICES" else ""})")
+}
+
+
+/** Reads the registry from the chain into a fresh database, scores it with the protocol module, and diffs the live dataset. */
+fun verifyAgainstChain(rpcUrl: String?): Int {
+    val tmp = java.io.File.createTempFile("undersigned-verify", ".db").apply { deleteOnExit() }
+    val rpc = Rpc(rpcUrl?.let { listOf(it) } ?: Config.RPC)
+    val ix = Indexer(Db(tmp.path), rpc, Store(0))
+    println("reading the registry ${Config.REGISTRY} from the chain …")
+    val n = ix.syncLedger(); println("  $n records"); ix.rebuild()
+    val st = ix.state
+    val mine = st.scores.values.associate { it.packageName to Triple(it.countedReviews, Views.r2(it.weightedMean), Views.r2(it.weightedRating)) }
+    println("fetching the live dataset ${Config.PUBLIC_URL}/v1/dataset.json …")
+    val live = JSONObject(java.net.URI("${Config.PUBLIC_URL}/v1/dataset.json").toURL().openConnection().apply { setRequestProperty("User-Agent", "undersigned-verify") }.getInputStream().bufferedReader().use { it.readText() })
+    val apps = live.getJSONArray("apps"); var diffs = 0
+    val theirs = (0 until apps.length()).map { apps.getJSONObject(it) }.associate { it.getString("package") to it }
+    for ((pkg, m) in mine) { val t = theirs[pkg]; val tc = t?.optInt("counted_reviews") ?: 0; val tm = t?.optDouble("mean", Double.NaN) ?: Double.NaN
+        if (tc != m.first || (m.first > 0 && tm != m.second)) { diffs++; println("  DIFF $pkg: chain counted=${m.first} mean=${m.second} · live counted=$tc mean=$tm") } }
+    for (pkg in theirs.keys - mine.keys) if (theirs[pkg]!!.optInt("counted_reviews") > 0) { diffs++; println("  DIFF $pkg: live has a score, the chain read does not") }
+    val recs = live.getJSONArray("records").length()
+    println("records: chain ${st.entries.size} · live $recs${if (st.entries.size != recs) "  (the live index may be ahead or behind by the last few minutes)" else ""}")
+    println("apps scored: chain ${mine.count { it.value.first > 0 }} · live ${theirs.values.count { it.optInt("counted_reviews") > 0 }}")
+    println(if (diffs == 0) "OK: every score recomputed from the chain matches the live dataset" else "$diffs difference(s); publisher proof (website or store build) is not read here, which can explain a self-review exclusion")
+    return if (diffs == 0) 0 else 1
 }

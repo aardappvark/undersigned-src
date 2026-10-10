@@ -59,7 +59,6 @@
     <string name="reply_title">Assinar uma resposta</string>
     <string name="reply_hint">Sua resposta, com suas próprias palavras (permanente).</string>
     <string name="reply_publish">Assinar e publicar resposta</string>
-    <string name="notif_channel">Alertas do registro</string>
     <string name="notif_new_review_title">Nova avaliação assinada: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Resposta à sua avaliação de %1$s</string>
@@ -1307,4 +1306,12 @@
     <string name="status_card_yes">Este Seeker conta: um voto por app, igual a qualquer outro Seeker.</string>
     <string name="status_card_no">Esta carteira não tem Seeker Genesis Token: suas avaliações são exibidas, não contadas. Avaliações rápidas estão disponíveis sem carteira.</string>
     <string name="status_card_operator">Carteira do operador do Undersigned: exibida, nunca contada.</string>
+    <string name="notif_ch_reviews">Avaliações e respostas</string>
+    <string name="notif_ch_reviews_desc">Novas avaliações de apps que você segue, respostas e notas às suas avaliações, correções.</string>
+    <string name="notif_ch_publisher">Publicador</string>
+    <string name="notif_ch_publisher_desc">Avaliações dos seus apps, respostas nos seus tópicos, sinalizações, reivindicações comprovadas.</string>
+    <string name="notif_ch_store">Vigilância da loja e resumo</string>
+    <string name="notif_ch_store_desc">Ondas de avaliações, atualizações de apps, o resumo semanal e a lista de segunda.</string>
+    <string name="notif_ch_reminders">Lembretes</string>
+    <string name="notif_ch_reminders_desc">O lembrete semanal de avaliação e os incentivos para avaliar.</string>
 </resources>

@@ -54,7 +54,6 @@
     <string name="reply_title">Antwoord ondertekenen</string>
     <string name="reply_hint">Uw antwoord, in uw eigen woorden (permanent).</string>
     <string name="reply_publish">Ondertekenen en antwoord publiceren</string>
-    <string name="notif_channel">Grootboekmeldingen</string>
     <string name="notif_new_review_title">Nieuwe ondertekende recensie: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Reactie op uw recensie van %1$s</string>
@@ -1287,4 +1286,12 @@
     <string name="status_card_yes">Deze Seeker telt mee: één stem per app, net als elke andere Seeker.</string>
     <string name="status_card_no">Geen Seeker Genesis Token in deze wallet: uw recensies worden getoond, niet geteld. Snelle recensies kunnen zonder wallet.</string>
     <string name="status_card_operator">Wallet van de Undersigned-beheerder: getoond, nooit geteld.</string>
+    <string name="notif_ch_reviews">Reviews en antwoorden</string>
+    <string name="notif_ch_reviews_desc">Nieuwe reviews van gevolgde apps, antwoorden en notities bij je reviews, oplossingen.</string>
+    <string name="notif_ch_publisher">Uitgever</string>
+    <string name="notif_ch_publisher_desc">Reviews van je apps, antwoorden in je threads, meldingen, bewezen claims.</string>
+    <string name="notif_ch_store">Storebewaking en overzicht</string>
+    <string name="notif_ch_store_desc">Reviewgolven, app-updates, het weekoverzicht en de maandaglijst.</string>
+    <string name="notif_ch_reminders">Herinneringen</string>
+    <string name="notif_ch_reminders_desc">De wekelijkse reviewherinnering en reviewsuggesties.</string>
 </resources>

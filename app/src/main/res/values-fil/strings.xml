@@ -59,7 +59,6 @@
     <string name="reply_title">Mag-sign ng sagot</string>
     <string name="reply_hint">Ang sagot mo, sa sarili mong salita (permanente).</string>
     <string name="reply_publish">I-sign at i-publish ang sagot</string>
-    <string name="notif_channel">Alerto ng ledger</string>
     <string name="notif_new_review_title">Bagong naka-sign na review: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Sagot sa iyong review ng %1$s</string>
@@ -1282,4 +1281,12 @@
     <string name="status_card_yes">Binibilang ang Seeker na ito: isang boses bawat app, gaya ng bawat ibang Seeker.</string>
     <string name="status_card_no">Walang Seeker Genesis Token ang wallet na ito: ipinapakita ang mga review mo, hindi binibilang. Magagamit ang mga quick review kahit walang wallet.</string>
     <string name="status_card_operator">Wallet ng operator ng Undersigned: ipinapakita, hindi kailanman binibilang.</string>
+    <string name="notif_ch_reviews">Mga review at sagot</string>
+    <string name="notif_ch_reviews_desc">Mga bagong review sa app na sinusundan mo, mga sagot at tala sa review mo, mga ayos.</string>
+    <string name="notif_ch_publisher">Publisher</string>
+    <string name="notif_ch_publisher_desc">Mga review ng app mo, mga sagot sa thread mo, mga flag, napatunayang claim.</string>
+    <string name="notif_ch_store">Bantay sa store at buod</string>
+    <string name="notif_ch_store_desc">Mga bugso ng review, update ng app, lingguhang buod at listahan ng Lunes.</string>
+    <string name="notif_ch_reminders">Mga paalala</string>
+    <string name="notif_ch_reminders_desc">Ang lingguhang paalala sa review at mga paalala na mag-review.</string>
 </resources>

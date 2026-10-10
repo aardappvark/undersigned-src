@@ -83,8 +83,14 @@ object PaymentAnalytics {
 
     /** A wallet an app was paid into: its publisher's confirmed treasury, or one found in the app's code and confirmed by no one. */
     data class Source(val wallet: String, val confirmed: Boolean, val payments: Int, val usd: Double)
-    /** One app's series by week or month, with its sources and all-time totals ([payers] = distinct paying wallets). */
-    data class History(val pkg: String, val name: String, val sources: List<Source>, val series: List<Bucket>, val totalUsd: Double, val payments: Int, val payers: Int)
+    /** One window's totals as the API computed them from the payments themselves: [payers] is DISTINCT wallets in the window. */
+    data class WindowTotal(val usd: Double, val payments: Int, val payers: Int)
+    /**
+     * One app's series by week or month, with its sources and all-time totals ([payers] = distinct paying wallets). [windows]
+     * holds the server's per-window totals ("7d" … "all"); empty from a server older than 11 Oct 2026.
+     */
+    data class History(val pkg: String, val name: String, val sources: List<Source>, val series: List<Bucket>, val totalUsd: Double, val payments: Int, val payers: Int,
+        val windows: Map<String, WindowTotal> = emptyMap())
     data class FoundMonth(val month: String, val payments: Int, val payers: Int, val newPayers: Int, val returningPayers: Int, val usd: Double)
     /**
      * A found wallet's own reading: amounts per rail in tokens (not USD), repeat payers, concentration as fractions 0..1, the
@@ -95,7 +101,8 @@ object PaymentAnalytics {
 
     fun parseHistory(j: JSONObject): History = History(j.optString("package"), j.optString("name").ifBlank { j.optString("package") },
         j.optJSONArray("sources").objects().map { Source(it.optString("wallet"), it.optString("source") == "confirmed", it.optInt("payments"), it.d("usd")) },
-        buckets(j.optJSONArray("series")).sortedBy { it.bucket }, j.d("total_usd"), j.optInt("payments"), j.optInt("payers"))
+        buckets(j.optJSONArray("series")).sortedBy { it.bucket }, j.d("total_usd"), j.optInt("payments"), j.optInt("payers"),
+        j.optJSONObject("windows")?.let { o -> WINDOWS.mapNotNull { w -> o.optJSONObject(w)?.let { t -> w to WindowTotal(t.d("usd"), t.optInt("payments"), t.optInt("payers")) } }.toMap() } ?: emptyMap())
 
     fun parseFound(j: JSONObject): List<FoundWallet> = j.optJSONArray("wallets").objects().map { w ->
         val cov = w.optJSONObject("coverage") ?: JSONObject()

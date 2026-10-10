@@ -18,6 +18,8 @@ class UndersignedApp : Application(), coil.ImageLoaderFactory {
     override fun onCreate() {
         super.onCreate()
         try { UserPreferences.init(this) } catch (_: Exception) { }
+        // The four alert channels exist from first launch, so the system settings list them before any alert is posted.
+        try { com.undersigned.app.notify.NotifChannel.ensure(this) } catch (_: Exception) { }
         try {
             fun keyed(res: Int): String? = getString(res).trim().takeIf { it.isNotBlank() }?.let { "https://mainnet.helius-rpc.com/?api-key=$it" }
             val primary = keyed(R.string.helius_api_key)

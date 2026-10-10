@@ -49,7 +49,6 @@
     <string name="reply_title">Signera ett svar</string>
     <string name="reply_hint">Ditt svar, med dina egna ord (permanent).</string>
     <string name="reply_publish">Signera och publicera svar</string>
-    <string name="notif_channel">Liggarvarningar</string>
     <string name="notif_new_review_title">Ny signerad recension: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Svar på din recension av %1$s</string>
@@ -1279,4 +1278,12 @@
     <string name="status_card_yes">Den här Seekern räknas: en röst per app, precis som alla andra Seekers.</string>
     <string name="status_card_no">Ingen Seeker Genesis Token i den här plånboken: dina recensioner visas, räknas inte. Snabbrecensioner går att göra utan plånbok.</string>
     <string name="status_card_operator">Undersigneds operatörsplånbok: visas, räknas aldrig.</string>
+    <string name="notif_ch_reviews">Recensioner och svar</string>
+    <string name="notif_ch_reviews_desc">Nya recensioner av appar du följer, svar och anteckningar på dina recensioner, åtgärder.</string>
+    <string name="notif_ch_publisher">Utgivare</string>
+    <string name="notif_ch_publisher_desc">Recensioner av dina appar, svar i dina trådar, flaggningar, bevisade anspråk.</string>
+    <string name="notif_ch_store">Butiksbevakning och sammanfattning</string>
+    <string name="notif_ch_store_desc">Recensionsvågor, appuppdateringar, veckosammanfattningen och måndagslistan.</string>
+    <string name="notif_ch_reminders">Påminnelser</string>
+    <string name="notif_ch_reminders_desc">Den veckovisa recensionspåminnelsen och recensionsknuffar.</string>
 </resources>

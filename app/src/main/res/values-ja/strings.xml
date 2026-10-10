@@ -54,7 +54,6 @@
     <string name="reply_title">返信に署名</string>
     <string name="reply_hint">あなた自身の言葉での回答（永久に残ります）。</string>
     <string name="reply_publish">署名して返信を公開</string>
-    <string name="notif_channel">台帳アラート</string>
     <string name="notif_new_review_title">新しい署名付きレビュー：%1$s</string>
     <string name="notif_new_review_body">%1$d★・%2$s</string>
     <string name="notif_reply_title">%1$sのレビューへの返信</string>
@@ -1254,4 +1253,12 @@
     <string name="status_card_yes">この Seeker はカウントされます：アプリごとに 1 票、ほかのすべての Seeker と同じです。</string>
     <string name="status_card_no">このウォレットには Seeker Genesis Token がありません：レビューは表示されますが、カウントされません。クイックレビューはウォレットなしで利用できます。</string>
     <string name="status_card_operator">Undersigned 運営者のウォレット：表示のみ、カウントなし。</string>
+    <string name="notif_ch_reviews">レビューと返信</string>
+    <string name="notif_ch_reviews_desc">フォロー中のアプリの新しいレビュー、あなたのレビューへの返信とメモ、修正。</string>
+    <string name="notif_ch_publisher">パブリッシャー</string>
+    <string name="notif_ch_publisher_desc">あなたのアプリのレビュー、スレッドでの返答、フラグ、証明された申請。</string>
+    <string name="notif_ch_store">ストア監視とダイジェスト</string>
+    <string name="notif_ch_store_desc">レビューの急増、アプリの更新、週間ダイジェスト、月曜のリスト。</string>
+    <string name="notif_ch_reminders">リマインダー</string>
+    <string name="notif_ch_reminders_desc">毎週のレビューリマインダーとレビューのお知らせ。</string>
 </resources>

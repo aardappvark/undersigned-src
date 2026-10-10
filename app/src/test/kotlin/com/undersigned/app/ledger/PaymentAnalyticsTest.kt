@@ -72,6 +72,19 @@ class PaymentAnalyticsTest {
         assertEquals(3765, h.payers); assertEquals(41244, h.payments)
     }
 
+    @Test fun readsTheServersWindowTotalsWithDistinctPayers() {
+        // Distinct payers in a window can be far below the weekly counts added up (the same wallet pays in several weeks).
+        val j = JSONObject(week).put("windows", JSONObject("""{"7d":{"usd":11442.05,"payments":259,"payers":81},"30d":{"usd":30569.14,"payments":781,"payers":150},
+          "90d":{"usd":1,"payments":1,"payers":1},"1y":{"usd":2,"payments":2,"payers":2},"all":{"usd":4352952.42,"payments":41244,"payers":3765},"2y":{"usd":9,"payments":9,"payers":9}}"""))
+        val w = PaymentAnalytics.parseHistory(j).windows
+        assertEquals(PaymentAnalytics.WINDOWS.toSet(), w.keys) // an unknown window is ignored
+        assertEquals(PaymentAnalytics.WindowTotal(30569.14, 781, 150), w["30d"])
+        assertTrue(w.getValue("30d").payers < 81 + 65 + 84) // the old "summed by week" figure for those weeks
+        assertEquals(3765, w.getValue("all").payers)
+        // An older server without the field: no totals, so the screen falls back to the labelled weekly sum.
+        assertTrue(PaymentAnalytics.parseHistory(JSONObject(week)).windows.isEmpty())
+    }
+
     @Test fun windowKeepsTheWeeksThatOverlapIt() {
         val s = PaymentAnalytics.parseHistory(JSONObject(week)).series
         val today = java.time.LocalDate.parse("2026-10-10")

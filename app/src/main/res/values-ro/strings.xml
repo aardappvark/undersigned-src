@@ -59,7 +59,6 @@
     <string name="reply_title">Semnează un răspuns</string>
     <string name="reply_hint">Răspunsul tău, în cuvintele tale (permanent).</string>
     <string name="reply_publish">Semnează și publică răspunsul</string>
-    <string name="notif_channel">Alerte de registru</string>
     <string name="notif_new_review_title">Recenzie nouă semnată: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Răspuns la recenzia ta despre %1$s</string>
@@ -1296,4 +1295,12 @@
     <string name="status_card_yes">Acest Seeker contează: un vot pe aplicație, la fel ca orice alt Seeker.</string>
     <string name="status_card_no">Niciun Seeker Genesis Token în acest portofel: recenziile tale sunt afișate, nu numărate. Recenziile rapide sunt disponibile fără portofel.</string>
     <string name="status_card_operator">Portofel al operatorului Undersigned: afișat, niciodată numărat.</string>
+    <string name="notif_ch_reviews">Recenzii și răspunsuri</string>
+    <string name="notif_ch_reviews_desc">Recenzii noi la aplicațiile urmărite, răspunsuri și note la recenziile tale, remedieri.</string>
+    <string name="notif_ch_publisher">Editor</string>
+    <string name="notif_ch_publisher_desc">Recenziile aplicațiilor tale, răspunsuri în firele tale, semnalări, revendicări dovedite.</string>
+    <string name="notif_ch_store">Supravegherea magazinului și rezumat</string>
+    <string name="notif_ch_store_desc">Valuri de recenzii, actualizări de aplicații, rezumatul săptămânal și lista de luni.</string>
+    <string name="notif_ch_reminders">Mementouri</string>
+    <string name="notif_ch_reminders_desc">Mementoul săptămânal de recenzie și îndemnurile de a recenza.</string>
 </resources>

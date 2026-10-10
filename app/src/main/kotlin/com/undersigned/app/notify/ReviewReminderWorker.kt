@@ -28,7 +28,7 @@ class ReviewReminderWorker(ctx: Context, params: WorkerParameters) : CoroutineWo
         val ctx = applicationContext
         if (!UserPreferences.reviewReminder) return Result.success()
         val n = runCatching { count(ctx) }.getOrDefault(0)
-        if (n > 0) LedgerWatchWorker.notify(ctx, "remind:${System.currentTimeMillis() / (7L * 86_400_000)}", ctx.getString(R.string.remind_title),
+        if (n > 0) LedgerWatchWorker.notify(ctx, NotifChannel.REMINDERS, "remind:${System.currentTimeMillis() / (7L * 86_400_000)}", ctx.getString(R.string.remind_title),
             ctx.resources.getQuantityString(R.plurals.remind_body, n, n), "to-review", extraKey = "screen")
         return Result.success()
     }

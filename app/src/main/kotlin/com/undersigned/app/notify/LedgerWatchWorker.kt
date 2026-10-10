@@ -1,11 +1,9 @@
 package com.undersigned.app.notify
 
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Constraints
@@ -68,7 +66,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         // the place of a reply alert posted on 17 Sep, both under id 1000. A stable id also makes re-posting the
         // same record idempotent instead of stacking duplicates.
         var posted = 0
-        fun post(kind: NotifKind, key: String, title: String, body: String, pkg: String) { if (UserPreferences.notifOn(kind.key) && notify(ctx, key, title, body, pkg)) posted++ }
+        fun post(kind: NotifKind, key: String, title: String, body: String, pkg: String, channel: NotifChannel = kind.channel) { if (UserPreferences.notifOn(kind.key) && notify(ctx, channel, key, title, body, pkg)) posted++ }
         val follows = UserPreferences.follows.value
         val me = UserPreferences.walletAddress.value
         Log.i(TAG, "following ${follows.size}, wallet ${if (me == null) "none" else "connected"}")
@@ -86,7 +84,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                 } finally { c.disconnect() }
                 if (text.isNotEmpty()) {
                     UserPreferences.digestWeek = week
-                    if (notify(ctx, "digest:$week", ctx.getString(R.string.digest_notify_title), ctx.getString(R.string.digest_label) + "\n" + text, "changes", "screen")) posted++
+                    if (notify(ctx, NotifChannel.STORE, "digest:$week", ctx.getString(R.string.digest_notify_title), ctx.getString(R.string.digest_label) + "\n" + text, "changes", "screen")) posted++
                 }
             }
         }.onFailure { Log.w(TAG, "digest skipped: ${it.message?.take(80)}") }
@@ -131,7 +129,7 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
                     val pace = String.format(java.util.Locale.getDefault(), "%.1f", b.expected)
                     val res = when { fromRatings && b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high_ratings; fromRatings -> R.string.burst_low_ratings
                         b.kind == com.undersigned.protocol.ReviewBursts.Kind.HIGH -> R.string.burst_high; else -> R.string.burst_low }
-                    post(NotifKind.FOLLOWED, key, ctx.getString(R.string.notif_burst_title, names[pkg] ?: pkg), ctx.getString(res, b.count, df.format(java.util.Date(b.start * 1000)), df.format(java.util.Date(b.end * 1000)), pace), pkg)
+                    post(NotifKind.FOLLOWED, key, ctx.getString(R.string.notif_burst_title, names[pkg] ?: pkg), ctx.getString(res, b.count, df.format(java.util.Date(b.start * 1000)), df.format(java.util.Date(b.end * 1000)), pace), pkg, NotifChannel.STORE)
                 }
                 kotlinx.coroutines.delay(1000)
             }
@@ -232,18 +230,17 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
         }
 
         /** Posts one alert. [extraKey]/[extraValue] say where a tap lands: "pkg" → an app page, "screen" → a screen. */
-        fun notify(ctx: Context, key: String, title: String, body: String, extraValue: String, extraKey: String = EXTRA_PKG): Boolean {
+        fun notify(ctx: Context, channel: NotifChannel, key: String, title: String, body: String, extraValue: String, extraKey: String = EXTRA_PKG): Boolean {
             val id = alertId(key)
             val nm = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (Build.VERSION.SDK_INT >= 26) nm.createNotificationChannel(NotificationChannel(CHANNEL, ctx.getString(R.string.notif_channel), NotificationManager.IMPORTANCE_DEFAULT))
+            NotifChannel.ensure(ctx)
             val intent = Intent(ctx, MainActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP; putExtra(extraKey, extraValue) }
             val pi = PendingIntent.getActivity(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-            val n = NotificationCompat.Builder(ctx, CHANNEL).setSmallIcon(R.drawable.ic_notif).setColor(ctx.getColor(R.color.purple)).setContentTitle(title).setContentText(body)
+            val n = NotificationCompat.Builder(ctx, channel.id).setSmallIcon(R.drawable.ic_notif).setColor(ctx.getColor(R.color.purple)).setContentTitle(title).setContentText(body)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(body)).setContentIntent(pi).setAutoCancel(true).build()
             return try { nm.notify(id, n); Log.i(TAG, "alert $key"); true } catch (_: SecurityException) { false }
         }
 
-        const val CHANNEL = "ledger"
         const val EXTRA_PKG = "pkg"
         private const val PERIODIC = "ledger-watch"
         private val running = java.util.concurrent.atomic.AtomicBoolean(false)

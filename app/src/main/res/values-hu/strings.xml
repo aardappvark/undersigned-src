@@ -59,7 +59,6 @@
     <string name="reply_title">Válasz aláírása</string>
     <string name="reply_hint">A válaszod, saját szavaiddal (végleges).</string>
     <string name="reply_publish">Válasz aláírása és közzététele</string>
-    <string name="notif_channel">Nyilvántartási értesítések</string>
     <string name="notif_new_review_title">Új aláírt értékelés: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Válasz az értékelésedre: %1$s</string>
@@ -1278,4 +1277,12 @@
     <string name="status_card_yes">Ez a Seeker számít: alkalmazásonként egy hang, ugyanúgy, mint minden más Seeker.</string>
     <string name="status_card_no">Ebben a tárcában nincs Seeker Genesis Token: az értékeléseid láthatók, de nem számítanak. Gyors értékelés tárca nélkül is adható.</string>
     <string name="status_card_operator">Undersigned üzemeltetői tárca: látható, soha nem számít.</string>
+    <string name="notif_ch_reviews">Értékelések és válaszok</string>
+    <string name="notif_ch_reviews_desc">Új értékelések követett appokról, válaszok és jegyzetek az értékeléseidre, javítások.</string>
+    <string name="notif_ch_publisher">Kiadó</string>
+    <string name="notif_ch_publisher_desc">Az appjaid értékelései, válaszok a szálaidban, jelzések, igazolt igények.</string>
+    <string name="notif_ch_store">Áruházfigyelés és összefoglaló</string>
+    <string name="notif_ch_store_desc">Értékeléshullámok, app-frissítések, a heti összefoglaló és a hétfői lista.</string>
+    <string name="notif_ch_reminders">Emlékeztetők</string>
+    <string name="notif_ch_reminders_desc">A heti értékelési emlékeztető és az értékelésre ösztönző jelzések.</string>
 </resources>

@@ -59,7 +59,6 @@
     <string name="reply_title">签名回复</string>
     <string name="reply_hint">用您自己的话作答(永久保存)。</string>
     <string name="reply_publish">签名并发布回复</string>
-    <string name="notif_channel">账本提醒</string>
     <string name="notif_new_review_title">新的签名评价:%1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">对您关于 %1$s 的评价的回复</string>
@@ -1262,4 +1261,12 @@
     <string name="status_card_yes">这台 Seeker 计入：每个应用一票，与其他每台 Seeker 相同。</string>
     <string name="status_card_no">此钱包没有 Seeker Genesis Token：您的评价会显示，但不计入。无需钱包即可发布快速评价。</string>
     <string name="status_card_operator">Undersigned 运营方钱包：显示，永不计入。</string>
+    <string name="notif_ch_reviews">评价与回复</string>
+    <string name="notif_ch_reviews_desc">关注应用的新评价、对你评价的回复和备注、修复。</string>
+    <string name="notif_ch_publisher">发布者</string>
+    <string name="notif_ch_publisher_desc">你的应用的评价、你的讨论串中的回答、标记、已证明的认领。</string>
+    <string name="notif_ch_store">商店观察与摘要</string>
+    <string name="notif_ch_store_desc">评价激增、应用更新、每周摘要和周一列表。</string>
+    <string name="notif_ch_reminders">提醒</string>
+    <string name="notif_ch_reminders_desc">每周评价提醒和评价提示。</string>
 </resources>

@@ -59,7 +59,6 @@
     <string name="reply_title">Tandatangani balasan</string>
     <string name="reply_hint">Jawaban Anda, dengan kata-kata Anda sendiri (permanen).</string>
     <string name="reply_publish">Tandatangani dan terbitkan balasan</string>
-    <string name="notif_channel">Peringatan buku besar</string>
     <string name="notif_new_review_title">Ulasan baru yang ditandatangani: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Balasan untuk ulasan Anda tentang %1$s</string>
@@ -1263,4 +1262,12 @@
     <string name="status_card_yes">Seeker ini dihitung: satu suara per aplikasi, sama seperti setiap Seeker lain.</string>
     <string name="status_card_no">Tidak ada Seeker Genesis Token di dompet ini: ulasan Anda ditampilkan, tidak dihitung. Ulasan cepat tersedia tanpa dompet.</string>
     <string name="status_card_operator">Wallet operator Undersigned: ditampilkan, tidak pernah dihitung.</string>
+    <string name="notif_ch_reviews">Ulasan dan balasan</string>
+    <string name="notif_ch_reviews_desc">Ulasan baru di aplikasi yang diikuti, balasan dan catatan untuk ulasan Anda, perbaikan.</string>
+    <string name="notif_ch_publisher">Penerbit</string>
+    <string name="notif_ch_publisher_desc">Ulasan aplikasi Anda, jawaban di utas Anda, tanda, klaim yang terbukti.</string>
+    <string name="notif_ch_store">Pantauan toko dan ringkasan</string>
+    <string name="notif_ch_store_desc">Lonjakan ulasan, pembaruan aplikasi, ringkasan mingguan, dan daftar Senin.</string>
+    <string name="notif_ch_reminders">Pengingat</string>
+    <string name="notif_ch_reminders_desc">Pengingat ulasan mingguan dan dorongan untuk mengulas.</string>
 </resources>

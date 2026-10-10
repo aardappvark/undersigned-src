@@ -54,7 +54,6 @@
     <string name="reply_title">توقيع رد</string>
     <string name="reply_hint">إجابتك، بكلماتك الخاصة (دائمة).</string>
     <string name="reply_publish">توقيع ونشر الرد</string>
-    <string name="notif_channel">تنبيهات السجل</string>
     <string name="notif_new_review_title">مراجعة موقّعة جديدة: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">رد على مراجعتك لـ %1$s</string>
@@ -1349,4 +1348,12 @@
     <string name="status_card_yes">هذا الـ Seeker يُحتسب: صوت واحد لكل تطبيق، مثل أي Seeker آخر.</string>
     <string name="status_card_no">لا يوجد Seeker Genesis Token في هذه المحفظة: مراجعاتك تُعرض ولا تُحتسب. المراجعات السريعة متاحة دون محفظة.</string>
     <string name="status_card_operator">محفظة مشغّل Undersigned: معروضة، لا تُحتسب أبدًا.</string>
+    <string name="notif_ch_reviews">المراجعات والردود</string>
+    <string name="notif_ch_reviews_desc">مراجعات جديدة لتطبيقات تتابعها، وردود وملاحظات على مراجعاتك، وإصلاحات.</string>
+    <string name="notif_ch_publisher">الناشر</string>
+    <string name="notif_ch_publisher_desc">مراجعات تطبيقاتك، والردود في سلاسلك، والإبلاغات، والمطالبات المثبتة.</string>
+    <string name="notif_ch_store">مراقبة المتجر والملخص</string>
+    <string name="notif_ch_store_desc">موجات المراجعات، وتحديثات التطبيقات، والملخص الأسبوعي، وقائمة الاثنين.</string>
+    <string name="notif_ch_reminders">التذكيرات</string>
+    <string name="notif_ch_reminders_desc">تذكير المراجعة الأسبوعي وتنبيهات المراجعة.</string>
 </resources>

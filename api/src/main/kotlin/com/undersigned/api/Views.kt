@@ -559,6 +559,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("bursts", bursts(pkg))
             .put("changes", JSONArray(changes))
             .put("benchmark", bench)
+            .put("payments_over_time", analytics.appSeries(pkg, "week")?.let { s -> JSONObject().put("chart_svg", "${Config.PUBLIC_URL}/v1/payments/chart/app/$pkg.svg?by=week").put("windows", s.optJSONObject("windows")) } ?: JSONObject.NULL)
             .put("label", "Built from public data: the ledger on Solana and the store's public catalogue and ratings. A fact sheet, never a verdict.")
     }
 

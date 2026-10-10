@@ -29,7 +29,7 @@ class UseNudgeWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(c
         if (!UserPreferences.reviewNudge) return Result.success()
         val pick = runCatching { next(ctx) }.getOrNull() ?: return Result.success()
         val (pkg, name) = pick
-        if (LedgerWatchWorker.notify(ctx, "nudge:$pkg", ctx.getString(R.string.nudge_title, name), ctx.getString(R.string.nudge_body), pkg, extraKey = "review"))
+        if (LedgerWatchWorker.notify(ctx, NotifChannel.REMINDERS, "nudge:$pkg", ctx.getString(R.string.nudge_title, name), ctx.getString(R.string.nudge_body), pkg, extraKey = "review"))
             UserPreferences.nudged = UserPreferences.nudged + pkg
         return Result.success()
     }

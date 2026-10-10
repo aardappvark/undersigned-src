@@ -19,6 +19,7 @@ The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 | **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.5-vc16.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
 | **The site and API** | https://undersigned.provenby.dev · [`/payments`](https://undersigned.provenby.dev/payments) · [`/v1/stats`](https://undersigned.provenby.dev/v1/stats) · MCP at `/mcp` |
 | **One review, on-chain** | Jupiter Mobile, signed on a Seeker with the Seed Vault: [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5) (an operator wallet: shown, never counted) |
+| **Recompute it yourself** | `api/build/install/api/bin/api verify` reads the registry from the chain into a throwaway database, scores it with the protocol module, and diffs the live dataset (exit 0 on a match) |
 | **Where it stands** | 0 independent counted reviews yet; every record so far is from Undersigned's own wallets, labelled and never counted. The rules hold even for us. |
 
 <p><img src="assets/submission/shots/browse_az.png" width="200"> <img src="assets/submission/shots/tk_reviews.png" width="200"> <img src="assets/submission/shots/chart_top.png" width="420"></p>

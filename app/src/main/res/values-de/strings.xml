@@ -59,7 +59,6 @@
     <string name="reply_title">Eine Antwort signieren</string>
     <string name="reply_hint">Ihre Antwort, in Ihren eigenen Worten (dauerhaft).</string>
     <string name="reply_publish">Antwort signieren und veröffentlichen</string>
-    <string name="notif_channel">Ledger-Benachrichtigungen</string>
     <string name="notif_new_review_title">Neue signierte Bewertung: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Antwort auf Ihre Bewertung von %1$s</string>
@@ -1298,4 +1297,12 @@
     <string name="status_card_yes">Dieser Seeker zählt: eine Stimme pro App, genau wie jeder andere Seeker.</string>
     <string name="status_card_no">Kein Seeker Genesis Token in dieser Wallet: Ihre Bewertungen werden angezeigt, nicht gezählt. Schnellbewertungen sind ohne Wallet möglich.</string>
     <string name="status_card_operator">Undersigned-Betreiber-Wallet: angezeigt, nie gezählt.</string>
+    <string name="notif_ch_reviews">Bewertungen und Antworten</string>
+    <string name="notif_ch_reviews_desc">Neue Bewertungen gefolgter Apps, Antworten und Notizen zu deinen Bewertungen, Korrekturen.</string>
+    <string name="notif_ch_publisher">Publisher</string>
+    <string name="notif_ch_publisher_desc">Bewertungen deiner Apps, Antworten in deinen Threads, Meldungen, nachgewiesene Ansprüche.</string>
+    <string name="notif_ch_store">Store-Beobachtung und Überblick</string>
+    <string name="notif_ch_store_desc">Bewertungswellen, App-Updates, der Wochenüberblick und die Montagsliste.</string>
+    <string name="notif_ch_reminders">Erinnerungen</string>
+    <string name="notif_ch_reminders_desc">Die wöchentliche Bewertungserinnerung und Bewertungshinweise.</string>
 </resources>

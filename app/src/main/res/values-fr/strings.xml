@@ -59,7 +59,6 @@
     <string name="reply_title">Signer une réponse</string>
     <string name="reply_hint">Votre réponse, dans vos propres mots (permanente).</string>
     <string name="reply_publish">Signer et publier la réponse</string>
-    <string name="notif_channel">Alertes du registre</string>
     <string name="notif_new_review_title">Nouvel avis signé : %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Réponse à votre avis sur %1$s</string>
@@ -1307,4 +1306,12 @@
     <string name="status_card_yes">Ce Seeker compte : une voix par app, comme tout autre Seeker.</string>
     <string name="status_card_no">Aucun Seeker Genesis Token sur ce wallet : vos avis sont affichés, pas comptés. Les avis rapides sont possibles sans wallet.</string>
     <string name="status_card_operator">Wallet de l\'opérateur Undersigned : affiché, jamais compté.</string>
+    <string name="notif_ch_reviews">Avis et réponses</string>
+    <string name="notif_ch_reviews_desc">Nouveaux avis sur les apps suivies, réponses et notes sur vos avis, corrections.</string>
+    <string name="notif_ch_publisher">Éditeur</string>
+    <string name="notif_ch_publisher_desc">Avis sur vos apps, réponses dans vos fils, signalements, revendications prouvées.</string>
+    <string name="notif_ch_store">Veille du store et synthèse</string>
+    <string name="notif_ch_store_desc">Vagues d\'avis, mises à jour d\'apps, la synthèse hebdomadaire et la liste du lundi.</string>
+    <string name="notif_ch_reminders">Rappels</string>
+    <string name="notif_ch_reminders_desc">Le rappel d\'avis hebdomadaire et les incitations à donner un avis.</string>
 </resources>

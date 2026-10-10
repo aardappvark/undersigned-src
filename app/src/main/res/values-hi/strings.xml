@@ -59,7 +59,6 @@
     <string name="reply_title">एक जवाब साइन करें</string>
     <string name="reply_hint">आपका जवाब, आपके अपने शब्दों में (स्थायी)।</string>
     <string name="reply_publish">जवाब साइन करें और प्रकाशित करें</string>
-    <string name="notif_channel">Ledger अलर्ट</string>
     <string name="notif_new_review_title">नई हस्ताक्षरित समीक्षा: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s की आपकी समीक्षा का जवाब</string>
@@ -1281,4 +1280,12 @@
     <string name="status_card_yes">यह Seeker गिना जाता है: हर ऐप पर एक आवाज़, बाकी हर Seeker की तरह।</string>
     <string name="status_card_no">इस वॉलेट में Seeker Genesis Token नहीं है: आपकी समीक्षाएं दिखाई जाती हैं, गिनी नहीं जातीं। क्विक समीक्षाएं बिना वॉलेट के उपलब्ध हैं।</string>
     <string name="status_card_operator">Undersigned ऑपरेटर वॉलेट: दिखाया जाता है, कभी गिना नहीं जाता।</string>
+    <string name="notif_ch_reviews">रिव्यू और जवाब</string>
+    <string name="notif_ch_reviews_desc">फ़ॉलो किए ऐप्स पर नए रिव्यू, आपके रिव्यू पर जवाब और नोट, सुधार।</string>
+    <string name="notif_ch_publisher">पब्लिशर</string>
+    <string name="notif_ch_publisher_desc">आपके ऐप्स के रिव्यू, आपके थ्रेड में जवाब, फ़्लैग, सिद्ध दावे।</string>
+    <string name="notif_ch_store">स्टोर निगरानी और सारांश</string>
+    <string name="notif_ch_store_desc">रिव्यू की लहरें, ऐप अपडेट, साप्ताहिक सारांश और सोमवार की सूची।</string>
+    <string name="notif_ch_reminders">रिमाइंडर</string>
+    <string name="notif_ch_reminders_desc">साप्ताहिक रिव्यू रिमाइंडर और रिव्यू के संकेत।</string>
 </resources>

@@ -54,7 +54,6 @@
     <string name="reply_title">Podepsat odpověď</string>
     <string name="reply_hint">Vaše odpověď, vlastními slovy (trvalá).</string>
     <string name="reply_publish">Podepsat a zveřejnit odpověď</string>
-    <string name="notif_channel">Upozornění z evidence</string>
     <string name="notif_new_review_title">Nová podepsaná recenze: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Odpověď na vaši recenzi aplikace %1$s</string>
@@ -1308,4 +1307,12 @@
     <string name="status_card_yes">Tento Seeker se počítá: jeden hlas na aplikaci, stejně jako každý jiný Seeker.</string>
     <string name="status_card_no">V této peněžence není Seeker Genesis Token: vaše recenze jsou zobrazené, ne započtené. Rychlé recenze jsou dostupné i bez peněženky.</string>
     <string name="status_card_operator">Peněženka provozovatele Undersigned: zobrazeno, nikdy nezapočteno.</string>
+    <string name="notif_ch_reviews">Recenze a odpovědi</string>
+    <string name="notif_ch_reviews_desc">Nové recenze sledovaných aplikací, odpovědi a poznámky k vašim recenzím, opravy.</string>
+    <string name="notif_ch_publisher">Vydavatel</string>
+    <string name="notif_ch_publisher_desc">Recenze vašich aplikací, odpovědi ve vašich vláknech, nahlášení, prokázané nároky.</string>
+    <string name="notif_ch_store">Hlídání obchodu a přehled</string>
+    <string name="notif_ch_store_desc">Vlny recenzí, aktualizace aplikací, týdenní přehled a pondělní seznam.</string>
+    <string name="notif_ch_reminders">Připomínky</string>
+    <string name="notif_ch_reminders_desc">Týdenní připomínka recenzí a pobídky k recenzi.</string>
 </resources>

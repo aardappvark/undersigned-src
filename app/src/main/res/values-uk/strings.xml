@@ -59,7 +59,6 @@
     <string name="reply_title">Підписати відповідь</string>
     <string name="reply_hint">Ваша відповідь власними словами (постійна).</string>
     <string name="reply_publish">Підписати й опублікувати відповідь</string>
-    <string name="notif_channel">Сповіщення реєстру</string>
     <string name="notif_new_review_title">Новий підписаний відгук: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Відповідь на ваш відгук про %1$s</string>
@@ -1315,4 +1314,12 @@
     <string name="status_card_yes">Цей Seeker враховується: один голос за застосунок, як і будь-який інший Seeker.</string>
     <string name="status_card_no">У цьому гаманці немає Seeker Genesis Token: ваші відгуки показуються, але не враховуються. Швидкі відгуки доступні без гаманця.</string>
     <string name="status_card_operator">Гаманець оператора Undersigned: показується, ніколи не враховується.</string>
+    <string name="notif_ch_reviews">Відгуки та відповіді</string>
+    <string name="notif_ch_reviews_desc">Нові відгуки про застосунки, які ви відстежуєте, відповіді й нотатки до ваших відгуків, виправлення.</string>
+    <string name="notif_ch_publisher">Видавець</string>
+    <string name="notif_ch_publisher_desc">Відгуки про ваші застосунки, відповіді у ваших гілках, скарги, доведені права.</string>
+    <string name="notif_ch_store">Спостереження за магазином і зведення</string>
+    <string name="notif_ch_store_desc">Сплески відгуків, оновлення застосунків, щотижневе зведення та список понеділка.</string>
+    <string name="notif_ch_reminders">Нагадування</string>
+    <string name="notif_ch_reminders_desc">Щотижневе нагадування про відгуки та підказки залишити відгук.</string>
 </resources>

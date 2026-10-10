@@ -59,7 +59,6 @@
     <string name="reply_title">Podpisz odpowiedź</string>
     <string name="reply_hint">Twoja odpowiedź, własnymi słowami (trwała).</string>
     <string name="reply_publish">Podpisz i opublikuj odpowiedź</string>
-    <string name="notif_channel">Powiadomienia rejestru</string>
     <string name="notif_new_review_title">Nowa podpisana recenzja: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Odpowiedź na Twoją recenzję %1$s</string>
@@ -1316,4 +1315,12 @@
     <string name="status_card_yes">Ten Seeker się liczy: jeden głos na aplikację, tak jak każdy inny Seeker.</string>
     <string name="status_card_no">W tym portfelu nie ma Seeker Genesis Token: Twoje recenzje są widoczne, ale niezliczane. Szybkie recenzje są dostępne bez portfela.</string>
     <string name="status_card_operator">Portfel operatora Undersigned: widoczny, nigdy niezliczany.</string>
+    <string name="notif_ch_reviews">Recenzje i odpowiedzi</string>
+    <string name="notif_ch_reviews_desc">Nowe recenzje obserwowanych aplikacji, odpowiedzi i notatki do twoich recenzji, poprawki.</string>
+    <string name="notif_ch_publisher">Wydawca</string>
+    <string name="notif_ch_publisher_desc">Recenzje twoich aplikacji, odpowiedzi w twoich wątkach, zgłoszenia, udowodnione roszczenia.</string>
+    <string name="notif_ch_store">Obserwacja sklepu i podsumowanie</string>
+    <string name="notif_ch_store_desc">Fale recenzji, aktualizacje aplikacji, tygodniowe podsumowanie i lista poniedziałkowa.</string>
+    <string name="notif_ch_reminders">Przypomnienia</string>
+    <string name="notif_ch_reminders_desc">Cotygodniowe przypomnienie o recenzji i zachęty do recenzji.</string>
 </resources>

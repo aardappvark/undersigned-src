@@ -59,7 +59,6 @@
     <string name="reply_title">Υπογραφή απάντησης</string>
     <string name="reply_hint">Η απάντησή σας, με δικά σας λόγια (μόνιμη).</string>
     <string name="reply_publish">Υπογραφή και δημοσίευση απάντησης</string>
-    <string name="notif_channel">Ειδοποιήσεις ledger</string>
     <string name="notif_new_review_title">Νέα υπογεγραμμένη κριτική: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Απάντηση στην κριτική σας για %1$s</string>
@@ -1278,4 +1277,12 @@
     <string name="status_card_yes">Αυτό το Seeker μετρά: μία φωνή ανά εφαρμογή, όπως κάθε άλλο Seeker.</string>
     <string name="status_card_no">Δεν υπάρχει Seeker Genesis Token σε αυτό το πορτοφόλι: οι κριτικές σας εμφανίζονται, δεν μετρούν. Οι γρήγορες κριτικές είναι διαθέσιμες χωρίς πορτοφόλι.</string>
     <string name="status_card_operator">Πορτοφόλι διαχειριστή του Undersigned: εμφανίζεται, δεν μετρά ποτέ.</string>
+    <string name="notif_ch_reviews">Κριτικές και απαντήσεις</string>
+    <string name="notif_ch_reviews_desc">Νέες κριτικές σε εφαρμογές που ακολουθείτε, απαντήσεις και σημειώσεις στις κριτικές σας, διορθώσεις.</string>
+    <string name="notif_ch_publisher">Εκδότης</string>
+    <string name="notif_ch_publisher_desc">Κριτικές των εφαρμογών σας, απαντήσεις στα νήματά σας, επισημάνσεις, αποδεδειγμένες αξιώσεις.</string>
+    <string name="notif_ch_store">Παρακολούθηση καταστήματος και σύνοψη</string>
+    <string name="notif_ch_store_desc">Κύματα κριτικών, ενημερώσεις εφαρμογών, η εβδομαδιαία σύνοψη και η λίστα της Δευτέρας.</string>
+    <string name="notif_ch_reminders">Υπενθυμίσεις</string>
+    <string name="notif_ch_reminders_desc">Η εβδομαδιαία υπενθύμιση κριτικής και οι προτροπές για κριτική.</string>
 </resources>

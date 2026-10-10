@@ -86,6 +86,13 @@ Windows `7d|30d|90d|1y|all`; USD on the day paid; gross receipts, never revenue.
 
 The page: [`/payments`](https://undersigned.provenby.dev/payments). MCP: `payments_analytics` (hosted), `api_payments_*` (local).
 
+### Check the scores yourself
+
+`./gradlew :api:installDist && api/build/install/api/bin/api verify [--rpc <url>]` reads every record at the registry
+address from the chain into a temporary database, scores it with the same `:protocol` module the app uses, and compares
+every app's counted reviews and mean with `/v1/dataset.json`. Nothing of ours is trusted in that run but the code, which
+is in this repository.
+
 ## 3. Limits, the pass, and pay per call
 
 | | Free | Pass | Pay per call (agents) |

@@ -520,6 +520,7 @@ ${'$'}('kf').onsubmit = async (e) => { e.preventDefault(); const k = ${'$'}('key
     + row('Category', (b.category || '–') + ': median rating ' + (b.median_store_rating ?? '–') + '; you are above ' + (b.store_rating_percentile ?? '–') + '% of ' + (b.apps_rated || 0) + ' rated apps')
     + row('Fixes', (f.announced || 0) + ' announced, ' + (f.follow_ups_after_fix || 0) + ' follow-ups, mean change ' + (f.mean_star_change_after_fix ?? '–') + '★')
     + row('Changes seen', (j.changes || []).length + ' (version, certificate, permissions)')
+    + (j.payments_over_time ? '<img alt="Payments over time" style="width:100%;height:auto;border-radius:14px;margin-top:10px" src="' + j.payments_over_time.chart_svg.replace(/^https?:\/\/[^/]+/, '') + '">' : '')
     + '<p class=small>' + j.label + ' Full JSON: GET /v1/publisher/' + pkg + '/report with your key.</p>';
 };
 </script>"""

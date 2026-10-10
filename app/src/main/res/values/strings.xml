@@ -145,7 +145,6 @@
     <string name="reply_title">Sign a reply</string>
     <string name="reply_hint">Your answer, in your own words (permanent).</string>
     <string name="reply_publish">Sign and publish reply</string>
-    <string name="notif_channel">Ledger alerts</string>
     <string name="notif_new_review_title">New signed review: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Reply to your review of %1$s</string>
@@ -1304,4 +1303,12 @@
     <string name="status_card_yes">This Seeker counts: one voice per app, the same as every other Seeker.</string>
     <string name="status_card_no">No Seeker Genesis Token on this wallet: your reviews are shown, not counted. Quick reviews are available without a wallet.</string>
     <string name="status_card_operator">Undersigned operator wallet: shown, never counted.</string>
+    <string name="notif_ch_reviews">Reviews and replies</string>
+    <string name="notif_ch_reviews_desc">New reviews on apps you follow, replies and notes on your reviews, fixes.</string>
+    <string name="notif_ch_publisher">Publisher</string>
+    <string name="notif_ch_publisher_desc">Reviews of your apps, answers in your threads, flags, proven claims.</string>
+    <string name="notif_ch_store">Store watch and digest</string>
+    <string name="notif_ch_store_desc">Review bursts, app updates, the weekly digest and the Monday list.</string>
+    <string name="notif_ch_reminders">Reminders</string>
+    <string name="notif_ch_reminders_desc">The weekly review reminder and review nudges.</string>
 </resources>

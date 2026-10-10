@@ -131,6 +131,9 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
             .put("sources", JSONArray(mine.map { s -> JSONObject().put("wallet", s.wallet).put("source", if (s.confirmed) "confirmed" else "found").put("payments", s.payments.size).put("usd", r2(s.payments.mapNotNull { usd(it, h) }.sum())) }))
             .put("series", JSONArray(series(ps, by, h, from, now).map { p -> JSONObject().put("bucket", p.bucket).put("usd", r2(p.usd)).put("payments", p.payments).put("payers", p.payers) }))
             .put("total_usd", r2(ps.mapNotNull { usd(it, h) }.sum())).put("payments", ps.size).put("payers", ps.map { it.payer }.toSet().size)
+            // Totals per standard window with DISTINCT payers (the app showed "payers summed by week" without this, 11 Oct 2026).
+            .put("windows", JSONObject().also { o -> for (w in WINDOWS) { val l = ps.filter { it.time >= windowStart(w, now) }
+                o.put(w, JSONObject().put("usd", r2(l.mapNotNull { usd(it, h) }.sum())).put("payments", l.size).put("payers", l.map { it.payer }.toSet().size)) } })
     }
 
     /** Wallets ranked by USD received in [window], each with the dApps it was found in or listed for. */

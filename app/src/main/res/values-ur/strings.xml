@@ -59,7 +59,6 @@
     <string name="reply_title">جواب پر دستخط کریں</string>
     <string name="reply_hint">اپنے الفاظ میں آپ کا جواب (مستقل)۔</string>
     <string name="reply_publish">دستخط کریں اور جواب شائع کریں</string>
-    <string name="notif_channel">لیجر الرٹس</string>
     <string name="notif_new_review_title">نیا دستخط شدہ جائزہ: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s پر آپ کے جائزے کا جواب</string>
@@ -1281,4 +1280,12 @@
     <string name="status_card_yes">یہ Seeker شمار ہوتا ہے: ہر ایپ پر ایک رائے، باقی ہر Seeker کی طرح۔</string>
     <string name="status_card_no">اس والیٹ میں Seeker Genesis Token نہیں: آپ کے جائزے دکھائے جاتے ہیں، شمار نہیں ہوتے۔ فوری جائزے والیٹ کے بغیر دستیاب ہیں۔</string>
     <string name="status_card_operator">Undersigned آپریٹر والٹ: دکھایا جاتا ہے، کبھی شمار نہیں۔</string>
+    <string name="notif_ch_reviews">ریویوز اور جوابات</string>
+    <string name="notif_ch_reviews_desc">فالو کی گئی ایپس پر نئے ریویوز، آپ کے ریویوز پر جوابات اور نوٹس، درستیاں۔</string>
+    <string name="notif_ch_publisher">پبلشر</string>
+    <string name="notif_ch_publisher_desc">آپ کی ایپس کے ریویوز، آپ کے تھریڈز میں جوابات، فلیگز، ثابت شدہ دعوے۔</string>
+    <string name="notif_ch_store">اسٹور نگرانی اور خلاصہ</string>
+    <string name="notif_ch_store_desc">ریویوز کی لہریں، ایپ اپڈیٹس، ہفتہ وار خلاصہ اور پیر کی فہرست۔</string>
+    <string name="notif_ch_reminders">یاد دہانیاں</string>
+    <string name="notif_ch_reminders_desc">ہفتہ وار ریویو یاد دہانی اور ریویو کی ترغیب۔</string>
 </resources>

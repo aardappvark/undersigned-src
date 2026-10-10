@@ -56,6 +56,8 @@ class AnalyticsTest {
         assertEquals(160.0, (0 until 8).sumOf { s.getJSONArray("all").getJSONObject(it).getDouble("usd") })   // a1 $100 + a2 $50 + b2 $10
         val m = an.storeSeries("1y", "month", now).getJSONArray("all"); assertEquals(13, m.length())
         val app = an.appSeries("com.a", "week", now)!!; assertEquals(300.0, app.getDouble("total_usd")); assertEquals(3, app.getInt("payers"))
+        assertEquals(2, app.getJSONObject("windows").getJSONObject("30d").getInt("payers"))   // P1 twice and P2 once: two distinct payers
+        assertEquals(200.0, app.getJSONObject("windows").getJSONObject("30d").getDouble("usd"))
         assertEquals(null, an.appSeries("com.zzz", "week", now))
     }
 

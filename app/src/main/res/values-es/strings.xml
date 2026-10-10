@@ -59,7 +59,6 @@
     <string name="reply_title">Firmar una respuesta</string>
     <string name="reply_hint">Tu respuesta, con tus propias palabras (permanente).</string>
     <string name="reply_publish">Firmar y publicar respuesta</string>
-    <string name="notif_channel">Alertas del ledger</string>
     <string name="notif_new_review_title">Nueva reseña firmada: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Respuesta a tu reseña de %1$s</string>
@@ -1307,4 +1306,12 @@
     <string name="status_card_yes">Este Seeker cuenta: un voto por app, igual que cualquier otro Seeker.</string>
     <string name="status_card_no">Esta wallet no tiene Seeker Genesis Token: tus reseñas se muestran, no se cuentan. Las reseñas rápidas están disponibles sin wallet.</string>
     <string name="status_card_operator">Wallet del operador de Undersigned: se muestra, nunca se cuenta.</string>
+    <string name="notif_ch_reviews">Reseñas y respuestas</string>
+    <string name="notif_ch_reviews_desc">Reseñas nuevas de apps que sigues, respuestas y notas a tus reseñas, arreglos.</string>
+    <string name="notif_ch_publisher">Editor</string>
+    <string name="notif_ch_publisher_desc">Reseñas de tus apps, respuestas en tus hilos, marcas, reclamaciones probadas.</string>
+    <string name="notif_ch_store">Vigilancia de la tienda y resumen</string>
+    <string name="notif_ch_store_desc">Oleadas de reseñas, actualizaciones de apps, el resumen semanal y la lista del lunes.</string>
+    <string name="notif_ch_reminders">Recordatorios</string>
+    <string name="notif_ch_reminders_desc">El recordatorio semanal de reseñas y los avisos para reseñar.</string>
 </resources>

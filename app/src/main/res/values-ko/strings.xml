@@ -54,7 +54,6 @@
     <string name="reply_title">답글에 서명</string>
     <string name="reply_hint">자신의 표현으로 작성하는 답변입니다(영구 보존).</string>
     <string name="reply_publish">서명하고 답글 게시</string>
-    <string name="notif_channel">원장 알림</string>
     <string name="notif_new_review_title">새로운 서명된 리뷰: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">%1$s에 대한 내 리뷰에 답글이 달렸습니다</string>
@@ -1255,4 +1254,12 @@
     <string name="status_card_yes">이 Seeker는 집계됩니다: 다른 모든 Seeker와 똑같이 앱당 한 표입니다.</string>
     <string name="status_card_no">이 지갑에는 Seeker Genesis Token이 없습니다: 리뷰는 표시되지만 집계되지 않습니다. 빠른 리뷰는 지갑 없이도 쓸 수 있습니다.</string>
     <string name="status_card_operator">Undersigned 운영자 지갑: 표시만, 집계 안 됨.</string>
+    <string name="notif_ch_reviews">리뷰 및 답글</string>
+    <string name="notif_ch_reviews_desc">팔로우한 앱의 새 리뷰, 내 리뷰에 대한 답글과 메모, 수정.</string>
+    <string name="notif_ch_publisher">게시자</string>
+    <string name="notif_ch_publisher_desc">내 앱의 리뷰, 내 스레드의 답변, 신고, 증명된 소유 주장.</string>
+    <string name="notif_ch_store">스토어 감시 및 요약</string>
+    <string name="notif_ch_store_desc">리뷰 급증, 앱 업데이트, 주간 요약, 월요일 목록.</string>
+    <string name="notif_ch_reminders">알림</string>
+    <string name="notif_ch_reminders_desc">주간 리뷰 알림과 리뷰 권유.</string>
 </resources>

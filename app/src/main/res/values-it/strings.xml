@@ -59,7 +59,6 @@
     <string name="reply_title">Firma una risposta</string>
     <string name="reply_hint">La tua risposta, con parole tue (permanente).</string>
     <string name="reply_publish">Firma e pubblica la risposta</string>
-    <string name="notif_channel">Avvisi del registro</string>
     <string name="notif_new_review_title">Nuova recensione firmata: %1$s</string>
     <string name="notif_new_review_body">%1$d★ · %2$s</string>
     <string name="notif_reply_title">Risposta alla tua recensione di %1$s</string>
@@ -1307,4 +1306,12 @@
     <string name="status_card_yes">Questo Seeker conta: una voce per app, come ogni altro Seeker.</string>
     <string name="status_card_no">Nessun Seeker Genesis Token in questo wallet: le tue recensioni sono mostrate, non contate. Le recensioni rapide sono disponibili senza wallet.</string>
     <string name="status_card_operator">Wallet dell\'operatore Undersigned: mostrato, mai contato.</string>
+    <string name="notif_ch_reviews">Recensioni e risposte</string>
+    <string name="notif_ch_reviews_desc">Nuove recensioni delle app seguite, risposte e note alle tue recensioni, correzioni.</string>
+    <string name="notif_ch_publisher">Editore</string>
+    <string name="notif_ch_publisher_desc">Recensioni delle tue app, risposte nei tuoi thread, segnalazioni, rivendicazioni provate.</string>
+    <string name="notif_ch_store">Osservatorio dello store e riepilogo</string>
+    <string name="notif_ch_store_desc">Ondate di recensioni, aggiornamenti delle app, il riepilogo settimanale e la lista del lunedì.</string>
+    <string name="notif_ch_reminders">Promemoria</string>
+    <string name="notif_ch_reminders_desc">Il promemoria settimanale per le recensioni e gli inviti a recensire.</string>
 </resources>
