@@ -592,7 +592,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
         } else Text(stringResource(R.string.pa_loading), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.padding(vertical = 6.dp))
         return
     }
-    s.coverage?.takeIf { it.read < it.listed }?.let { c -> Text(stringResource(R.string.pa_coverage, c.read, c.listed), color = RbColors.warning, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(bottom = 6.dp)) }
+    s.coverage?.takeIf { it.read < it.listed }?.let { c -> Text(stringResource(R.string.pa_coverage, count(c.read), count(c.listed)), color = RbColors.warning, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(bottom = 6.dp)) }
 
     // (1) Totals.
     GlassCard {
@@ -630,7 +630,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
                         Text(r.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
                         Spacer(Modifier.width(6.dp)); SourcePill(r.confirmed)
                     }
-                    Text(share(r.share) + " · " + stringResource(R.string.pa_row_counts, r.payments, r.payers, r.newPayers), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2)
+                    Text(share(r.share) + " · " + stringResource(R.string.pa_row_counts, count(r.payments), count(r.payers), count(r.newPayers)), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 2)
                 }
                 Column(horizontalAlignment = Alignment.End) {
                     Text(usd0(r.usd), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
@@ -655,7 +655,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
                     ch?.let { Text(it, color = if (c.isNew || (c.change ?: 0.0) >= 0) RbColors.green else RbColors.negative, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(end = 8.dp)) }
                     Text(usd0(c.usd), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
                 }
-                Text(stringResource(R.string.pa_cat_apps, c.appsPaid) + " · " + share(c.share), color = RbColors.textTertiary, fontSize = 11.sp)
+                Text(stringResource(R.string.pa_cat_apps, count(c.appsPaid)) + " · " + share(c.share), color = RbColors.textTertiary, fontSize = 11.sp)
                 if (c.leaders.isNotEmpty()) FlowRow(Modifier.padding(top = 2.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     c.leaders.take(3).forEachIndexed { k, l -> Text("${k + 1}. ${l.name} ${usd0(l.usd)}", color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 32.dp).clickable { onOpen(l.pkg) }.padding(vertical = 6.dp)) }
                 }
@@ -677,7 +677,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
                             Text(m.name, color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
                             Spacer(Modifier.width(6.dp)); SourcePill(m.confirmed)
                         }
-                        Text(if (m.isNew) stringResource(R.string.pa_new_line, m.payments, m.newPayers)
+                        Text(if (m.isNew) stringResource(R.string.pa_new_line, count(m.payments), count(m.newPayers))
                             else stringResource(R.string.pa_was, usd0(m.previousUsd)), color = RbColors.textTertiary, fontSize = 11.sp)
                     }
                     val ch = if (m.isNew) stringResource(R.string.pa_new) else com.undersigned.app.ledger.PaymentAnalytics.pct(m.change)
@@ -728,7 +728,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit) {
                         Spacer(Modifier.width(6.dp)); SourcePill(w.confirmed)
                     }
                     if (w.apps.isNotEmpty()) Text(stringResource(R.string.pa_wallet_apps, w.apps.joinToString(", ") { it.name }), color = RbColors.textSecondary, fontSize = 11.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                    Text(stringResource(R.string.pa_payments_payers, w.payments, w.payers), color = RbColors.textTertiary, fontSize = 11.sp)
+                    Text(stringResource(R.string.pa_payments_payers, count(w.payments), count(w.payers)), color = RbColors.textTertiary, fontSize = 11.sp)
                 }
                 Text(usd0(w.usd), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
             }
@@ -795,11 +795,11 @@ private fun WeekdayBars(counts: List<Int>) {
     val max = counts.maxOrNull()?.takeIf { it > 0 } ?: return
     val days = java.time.DayOfWeek.entries.map { it.getDisplayName(java.time.format.TextStyle.SHORT, Locale.getDefault()) }
     val a11y = days.indices.joinToString(", ") { days[it] + " " + counts[it] }
-    Row(Modifier.fillMaxWidth().height(90.dp).semantics(mergeDescendants = true) { contentDescription = a11y }, horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.Bottom) {
+    Row(Modifier.fillMaxWidth().height(110.dp).semantics(mergeDescendants = true) { contentDescription = a11y }, horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.Bottom) {
         counts.forEachIndexed { i, n ->
             Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(count(n), color = RbColors.textTertiary, fontSize = 8.sp, maxLines = 1)
-                androidx.compose.foundation.Canvas(Modifier.fillMaxWidth().fillMaxHeight((n.toFloat() / max).coerceIn(0.03f, 1f) * 0.62f)) { drawRect(RbColors.purple) }
+                androidx.compose.foundation.Canvas(Modifier.fillMaxWidth().fillMaxHeight((n.toFloat() / max).coerceIn(0.03f, 1f) * 0.55f)) { drawRect(RbColors.purple) }
                 Text(days[i], color = RbColors.textTertiary, fontSize = 9.sp, maxLines = 1, modifier = Modifier.padding(top = 3.dp))
             }
         }
@@ -812,7 +812,7 @@ fun AppWeeklyPayments(series: PaymentAnalytics.AppSeries) {
     val weeks = series.series.takeLast(26)
     val max = weeks.maxOfOrNull { it.usd }?.takeIf { it > 0 } ?: return
     Text(stringResource(R.string.pa_app_weekly), color = RbColors.textSecondary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(bottom = 4.dp))
-    Text(usd0(series.totalUsd) + " · " + stringResource(R.string.pa_payments_payers, series.payments, series.payers), color = RbColors.textTertiary, fontSize = 11.sp)
+    Text(usd0(series.totalUsd) + " · " + stringResource(R.string.pa_payments_payers, count(series.payments), count(series.payers)), color = RbColors.textTertiary, fontSize = 11.sp)
     val a11y = weeks.joinToString(", ") { bucketLabel(it.bucket) + " " + usd0(it.usd) }
     Row(Modifier.fillMaxWidth().padding(top = 6.dp)) {
         Column(Modifier.height(80.dp), verticalArrangement = Arrangement.SpaceBetween) {
@@ -832,6 +832,5 @@ fun AppWeeklyPayments(series: PaymentAnalytics.AppSeries) {
         Text(bucketLabel(weeks.first().bucket), color = RbColors.textTertiary, fontSize = 9.sp, modifier = Modifier.weight(1f))
         if (weeks.size > 1) Text(bucketLabel(weeks.last().bucket), color = RbColors.textTertiary, fontSize = 9.sp)
     }
-    if (series.anyFound) Text(stringResource(R.string.pa_pill_found) + " · " + stringResource(R.string.pa_label), color = RbColors.textTertiary, fontSize = 10.sp, lineHeight = 14.sp, modifier = Modifier.padding(top = 6.dp))
-    else Text(stringResource(R.string.pa_label), color = RbColors.textTertiary, fontSize = 10.sp, lineHeight = 14.sp, modifier = Modifier.padding(top = 6.dp))
+    Text(stringResource(R.string.pa_label), color = RbColors.textTertiary, fontSize = 10.sp, lineHeight = 14.sp, modifier = Modifier.padding(top = 6.dp))
 }
