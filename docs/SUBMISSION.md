@@ -87,6 +87,14 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 **Pitch deck:** `assets/submission/Undersigned-pitch.pdf`
 
+## Five minutes with it (the judge's path)
+
+1. **The app** (`assets/submission/Undersigned-1.1.5-vc16.apk`): open it, take the tour, open any app's page, tap Write a signed review, see the Seed Vault sheet. Payments tab: leaderboards, categories, rising dApps; tap one for its history.
+2. **The site**: https://undersigned.provenby.dev · [/payments](https://undersigned.provenby.dev/payments) · [/status](https://undersigned.provenby.dev/status), where "Scores recomputed from the chain alone · OK" is a six-hourly run of `api verify` that rebuilds every score from the registry in a throwaway database and diffs the live dataset.
+3. **The chain**: a review signed on a Seeker, [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5); the registry `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs`; the [browser viewer](https://aardappvark.github.io/undersigned-viewer/) that reads it with no server.
+4. **An agent**: add `https://undersigned.provenby.dev/mcp` to Claude or Cursor; 24 read-only tools.
+5. **Honesty check**: `/v1/stats` says `reviews_counted: 0`. Every record so far is ours, labelled and never counted; the rules hold even for us.
+
 ## What the judges will check, and where it is
 
 | Evaluation process item | Evidence |

@@ -715,7 +715,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 if (c.responseCode != 200) error("HTTP ${c.responseCode}")
                 org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() })
             } finally { c.disconnect() }
-        }.net()
+        }.net().onFailure { android.util.Log.w("Payments", "found-in-code read failed: ${it.javaClass.simpleName}: ${it.message?.take(120)}") }
     }
 
     /** Feeds [offline]: an answer clears it, a network failure sets it (1.1.5). */
