@@ -165,7 +165,6 @@
     <string name="review_for">dla %1$s</string>
     <string name="review_rating">Ocena</string>
     <string name="review_tags">Tagi (wybierz od 1 do 3)</string>
-    <string name="review_text_label">Opcjonalna notatka (%1$d znaków, %2$d bajtów pozostało)</string>
     <string name="review_text_hint">Krótko, rzeczowo, własnymi słowami.</string>
     <string name="review_consent_title">To jest trwałe</string>
     <string name="review_consent_body">Twoja notatka zostanie zapisana w blockchainie Solana. Jest publiczna i trwała. Nie może zostać usunięta przez Ciebie, przez nas ani przez nikogo innego. Możesz później wycofać ją z rankingu tej aplikacji, ale sam tekst pozostaje na blockchainie na zawsze. Nie podawaj danych osobowych i podawaj tylko to, co uważasz za prawdziwe.</string>
@@ -1117,7 +1116,7 @@
     <string name="pay_trend_running">Suma narastająca</string>
     <string name="pay_trend_others">Pozostałe</string>
     <string name="pay_found_title">Znalezione w kodzie, niepotwierdzone</string>
-    <string name="pay_found_note">Portfele zapisane w wersji sklepowej aplikacji, które otrzymały SOL, SKR lub USDC od co najmniej %1$d różnych portfeli. Wydawca ich nie potwierdził i któryś może nie być skarbcem aplikacji. Bez rankingu i poza tablicą powyżej.</string>
+    <string name="pay_found_note">Portfele zapisane w wersji sklepowej aplikacji, które otrzymały SOL, SKR lub USDC od co najmniej %1$d różnych portfeli. Wydawca ich nie potwierdził i któryś może nie być skarbcem aplikacji. Bez rankingu, osobno od tablicy Potwierdzone.</string>
     <string name="pay_found_row">%1$d płacących · %2$d płatności w ostatnich %3$d odczytanych transakcjach</string>
     <string name="pay_found_empty">Na razie nic. Wersje ze sklepu są wciąż odczytywane (dotąd %1$d).</string>
     <string name="pay_found_dispute">Któryś jest Twój? Zgłoś swój skarbiec poniżej, a trafi na tablicę. Nie Twój? Zgłoś to, a zostanie usunięty.</string>
@@ -1302,4 +1301,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s nowy</item><item quantity="few">%1$s nowi</item><item quantity="many">%1$s nowych</item><item quantity="other">%1$s nowi</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s nowy płacący</item><item quantity="few">%1$s nowych płacących</item><item quantity="many">%1$s nowych płacących</item><item quantity="other">%1$s nowych płacących</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Ostatnie 30 dni: %1$d podpisana recenzja (30 wcześniej: %2$d)</item><item quantity="few">Ostatnie 30 dni: %1$d podpisane recenzje (30 wcześniej: %2$d)</item><item quantity="many">Ostatnie 30 dni: %1$d podpisanych recenzji (30 wcześniej: %2$d)</item><item quantity="other">Ostatnie 30 dni: %1$d podpisane recenzje (30 wcześniej: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Brak połączenia · widać to, co zapisano w tym telefonie</string>
+    <string name="pay_found_failed">Nie udało się wczytać portfeli znalezionych w kodzie aplikacji.</string>
+    <string name="store_load_failed">Nie udało się wczytać recenzji ze sklepu.</string>
+    <string name="publisher_proof_unchecked">Dowód jeszcze niesprawdzony (brak połączenia)</string>
+    <string name="desk_load_failed">Nie udało się odczytać Twoich udowodnionych dApps</string>
+    <string name="pay_usd_offline">USD niedostępne offline</string>
+    <string name="review_note_title">Opcjonalna notatka</string>
+    <string name="review_note_counter">%1$s / %2$s znaków</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned prowadzi AardAppvark, wydawca 28 dApps w tym sklepie. Recenzje z jego własnych portfeli są widoczne, oznaczone i nigdy niezliczane.</string>
+    <string name="status_card_yes">Ten Seeker się liczy: jeden głos na aplikację, tak jak każdy inny Seeker.</string>
+    <string name="status_card_no">W tym portfelu nie ma Seeker Genesis Token: Twoje recenzje są widoczne, ale niezliczane. Szybkie recenzje są dostępne bez portfela.</string>
+    <string name="status_card_operator">Portfel operatora Undersigned: widoczny, nigdy niezliczany.</string>
 </resources>

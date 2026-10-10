@@ -158,7 +158,6 @@
     <string name="review_for">針對 %1$s</string>
     <string name="review_rating">評分</string>
     <string name="review_tags">標籤(選擇 1 到 3 個)</string>
-    <string name="review_text_label">選填說明(%1$d 個字元,還剩 %2$d 位元組)</string>
     <string name="review_text_hint">簡短、真實,用您自己的話。</string>
     <string name="review_consent_title">這是永久性的</string>
     <string name="review_consent_body">您的說明將被寫入 Solana 區塊鏈。它是公開且永久的。無論是您、我們,還是任何人都無法刪除它。您之後可以將其從此應用程式的排名中撤回,但文字本身將永久留在鏈上。請勿包含個人資料,並且只陳述您確知為真實的內容。</string>
@@ -1063,7 +1062,7 @@
     <string name="pay_trend_running">累計</string>
     <string name="pay_trend_others">其他</string>
     <string name="pay_found_title">在應用程式程式碼中發現，未經確認</string>
-    <string name="pay_found_note">寫在某個應用程式商店版本中的錢包，曾從至少 %1$d 個不同錢包收到 SOL、SKR 或 USDC。發布者尚未確認，其中可能有並非該應用程式金庫的錢包。不排名，也不在上方的榜單中。</string>
+    <string name="pay_found_note">寫在某個應用程式商店版本中的錢包，曾從至少 %1$d 個不同錢包收到 SOL、SKR 或 USDC。發布者尚未確認，其中可能有並非該應用程式金庫的錢包。不排名，並與「已確認」榜單分開列出。</string>
     <string name="pay_found_row">%1$d 位付款人 · 讀取的最近 %3$d 筆交易中有 %2$d 筆付款</string>
     <string name="pay_found_empty">暫未發現。仍在讀取商店版本（目前 %1$d 個）。</string>
     <string name="pay_found_dispute">其中有你的嗎？在下方登記你的金庫，它就會進入榜單。不是你的？檢舉後會被移除。</string>
@@ -1248,4 +1247,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s 位新</item><item quantity="other">%1$s 位新</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s 位新付款人</item><item quantity="other">%1$s 位新付款人</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">最近 30 天：%1$d 則簽署評論（之前 30 天：%2$d）</item><item quantity="other">最近 30 天：%1$d 則簽署評論（之前 30 天：%2$d）</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">無網路連線 · 顯示的是本機已存的內容</string>
+    <string name="pay_found_failed">無法載入在應用程式程式碼中找到的錢包。</string>
+    <string name="store_load_failed">無法載入商店評論。</string>
+    <string name="publisher_proof_unchecked">證明尚未檢查（無網路連線）</string>
+    <string name="desk_load_failed">無法讀取您已證明的 dApp</string>
+    <string name="pay_usd_offline">離線時 USD 無法使用</string>
+    <string name="review_note_title">選填說明</string>
+    <string name="review_note_counter">%1$s / %2$s 個字元</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned 由 AardAppvark 營運，它在本商店發布了 28 個 dApp。其自有錢包的評價會顯示並加標註，但永不計入。</string>
+    <string name="status_card_yes">這台 Seeker 計入：每個應用程式一票，與其他每台 Seeker 相同。</string>
+    <string name="status_card_no">此錢包沒有 Seeker Genesis Token：您的評價會顯示，但不計入。無需錢包即可發布快速評價。</string>
+    <string name="status_card_operator">Undersigned 營運方錢包：顯示，永不計入。</string>
 </resources>

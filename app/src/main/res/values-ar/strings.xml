@@ -172,7 +172,6 @@
     <string name="review_for">لـ %1$s</string>
     <string name="review_rating">التقييم</string>
     <string name="review_tags">الوسوم (اختر من 1 إلى 3)</string>
-    <string name="review_text_label">ملاحظة اختيارية (%1$d حرفًا، %2$d بايت متبقٍ)</string>
     <string name="review_text_hint">قصيرة، واقعية، بكلماتك الخاصة.</string>
     <string name="review_consent_title">هذا دائم</string>
     <string name="review_consent_body">ستُكتب ملاحظتك على سلسلة كتل Solana. إنها عامة ودائمة. لا يمكن حذفها لا من قِبلك، ولا من قِبلنا، ولا من قِبل أي أحد. يمكنك سحبها من ترتيب هذا التطبيق لاحقًا، لكن النص نفسه يبقى على السلسلة إلى الأبد. لا تُدرج بيانات شخصية، واذكر فقط ما تعرف أنه صحيح.</string>
@@ -1150,7 +1149,7 @@
     <string name="pay_trend_running">المجموع التراكمي</string>
     <string name="pay_trend_others">أخرى</string>
     <string name="pay_found_title">وُجدت في كود التطبيقات، غير مؤكَّدة</string>
-    <string name="pay_found_note">محافظ مكتوبة في نسخة المتجر من تطبيق، استلمت SOL أو SKR أو USDC من %1$d محافظ مختلفة على الأقل. لم يؤكدها الناشر، وقد لا تكون إحداها خزينة التطبيق. بلا ترتيب وخارج اللوحة أعلاه.</string>
+    <string name="pay_found_note">محافظ مكتوبة في نسخة المتجر من تطبيق، استلمت SOL أو SKR أو USDC من %1$d محافظ مختلفة على الأقل. لم يؤكدها الناشر، وقد لا تكون إحداها خزينة التطبيق. بلا ترتيب، ومنفصلة عن لوحة «المؤكدة».</string>
     <string name="pay_found_row">%1$d دافعين · %2$d دفعات في آخر %3$d معاملة مقروءة</string>
     <string name="pay_found_empty">لم يُعثر على شيء بعد. ما زالت نسخ المتجر تُقرأ (%1$d حتى الآن).</string>
     <string name="pay_found_dispute">هل إحداها لك؟ سجّل خزينتك أدناه فتنتقل إلى اللوحة. ليست لك؟ أبلغ عنها فتُزال.</string>
@@ -1335,4 +1334,19 @@
     <plurals name="pa_n_new"><item quantity="zero">%1$s جديد</item><item quantity="one">%1$s جديد</item><item quantity="two">%1$s جديدان</item><item quantity="few">%1$s جدد</item><item quantity="many">%1$s جديدًا</item><item quantity="other">%1$s جديد</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="zero">%1$s دافع جديد</item><item quantity="one">دافع جديد واحد (%1$s)</item><item quantity="two">دافعان جديدان (%1$s)</item><item quantity="few">%1$s دافعين جدد</item><item quantity="many">%1$s دافعًا جديدًا</item><item quantity="other">%1$s دافع جديد</item></plurals>
     <plurals name="desk_trend_p"><item quantity="zero">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item><item quantity="one">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item><item quantity="two">آخر 30 يومًا: %1$d مراجعتان موقّعتان (الـ30 السابقة: %2$d)</item><item quantity="few">آخر 30 يومًا: %1$d مراجعات موقّعة (الـ30 السابقة: %2$d)</item><item quantity="many">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item><item quantity="other">آخر 30 يومًا: %1$d مراجعة موقّعة (الـ30 السابقة: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">لا يوجد اتصال · يُعرض ما يحفظه هذا الهاتف</string>
+    <string name="pay_found_failed">تعذّر تحميل المحافظ الموجودة في شيفرة التطبيقات.</string>
+    <string name="store_load_failed">تعذّر تحميل مراجعات المتجر.</string>
+    <string name="publisher_proof_unchecked">لم يُفحص الإثبات بعد (لا يوجد اتصال)</string>
+    <string name="desk_load_failed">تعذّرت قراءة تطبيقاتك المُثبَتة</string>
+    <string name="pay_usd_offline">الدولار غير متاح دون اتصال</string>
+    <string name="review_note_title">ملاحظة اختيارية</string>
+    <string name="review_note_counter">%1$s / %2$s حرف</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">يدير Undersigned شركة AardAppvark، ناشرة 28 تطبيقًا لامركزيًا في هذا المتجر. تُعرض مراجعات محافظها الخاصة مع تمييزها، ولا تُحتسب أبدًا.</string>
+    <string name="status_card_yes">هذا الـ Seeker يُحتسب: صوت واحد لكل تطبيق، مثل أي Seeker آخر.</string>
+    <string name="status_card_no">لا يوجد Seeker Genesis Token في هذه المحفظة: مراجعاتك تُعرض ولا تُحتسب. المراجعات السريعة متاحة دون محفظة.</string>
+    <string name="status_card_operator">محفظة مشغّل Undersigned: معروضة، لا تُحتسب أبدًا.</string>
 </resources>

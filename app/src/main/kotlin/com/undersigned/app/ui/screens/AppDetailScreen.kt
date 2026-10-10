@@ -93,6 +93,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var replyError by remember { mutableStateOf<String?>(null) }
     LaunchedEffect(pkg) { vm.resolveIcons(listOf(pkg)); vm.loadStoreMirror(pkg) }
     val storeRatings by vm.storeRatings.collectAsState()
+    val mirrorState by vm.storeMirrorState.collectAsState()
+    val proofUnread by vm.proofUnread.collectAsState()
     val storeReviews by vm.storeReviews.collectAsState()
     val myStore by vm.myStoreReviews.collectAsState()
     val domainNames by vm.domainNames.collectAsState()
@@ -219,7 +221,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
                 Text(name, color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-                Text(app?.updated?.takeIf { it.isNotEmpty() }?.let { stringResource(R.string.detail_pkg_updated, pkg, storeDate(it)) } ?: pkg, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 14.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                Text(app?.updated?.takeIf { it.isNotEmpty() }?.let { stringResource(R.string.detail_pkg_updated, pkg, storeDate(it).replace(' ', '\u00A0')) } ?: pkg, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 14.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
             }
             val ctxShare = LocalContext.current
             IconButton(onClick = { val sr = storeRatings[pkg]; com.undersigned.app.ui.components.Share.app(ctxShare, pkg, name, score, sr?.average, sr?.total) }) {
@@ -229,6 +231,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 Icon(if (pkg in follows) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = stringResource(if (pkg in follows) R.string.following else R.string.follow), tint = if (pkg in follows) RbColors.negative else RbColors.textSecondary)
             }
         }
+        com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             Spacer(Modifier.height(6.dp))
             // Stacked, not side by side: "Open in dApp Store" wrapped and clipped at half width on the Seeker (15 Sep 2026), and German runs longer.
@@ -389,18 +392,21 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         RatingStars(r.rating.toDouble())
                         Spacer(Modifier.width(8.dp))
                         Text(if (e.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[e.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(e.signer, 4, 4)), color = RbColors.textSecondary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f).clickable { onProfile(e.signer) })
+                        // An operator wallet never counts, so its standing is its label, not "0 signed" (1.1.5).
+                        val operator = com.undersigned.protocol.Operator.isOperator(e.signer)
                         standings[e.signer]?.let { st -> Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable { onProfile(e.signer) }.padding(horizontal = 4.dp), contentAlignment = Alignment.Center) {
-                            Text(stringResource(R.string.row_signed_count, st.countedReviews), color = RbColors.textTertiary, fontSize = 11.sp) } }
+                            Text(if (operator) stringResource(R.string.related_operator_pill) else stringResource(R.string.row_signed_count, st.countedReviews), color = RbColors.textTertiary, fontSize = 11.sp) } }
                     }
                     val paidReviewer = boardRow?.payers?.contains(e.signer) == true
                     val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified), RbColors.green)
+                        // One chip for an operator wallet, "Undersigned operator · not counted", not two (1.1.5).
+                        if (com.undersigned.protocol.Operator.isOperator(e.signer)) TrustPill(stringResource(R.string.related_operator_pill) + " · " + stringResource(R.string.review_weight_unverified), RbColors.warning)
+                        else if (w.device > 0) TrustPill(stringResource(R.string.review_weight_verified), RbColors.green)
                         else OutlinePill(stringResource(R.string.review_weight_unverified))
                         // Membership and paid promotion are always shown on the review itself.
                         if (w.device > 0 && w.pro) TrustPill(stringResource(R.string.weight_pro_pill), RbColors.purpleLight)
                         if (w.device > 0 && w.promoted) TrustPill(stringResource(R.string.weight_boosted_pill), RbColors.warning)
-                        if (com.undersigned.protocol.Operator.isOperator(e.signer)) TrustPill(stringResource(R.string.related_operator_pill), RbColors.warning)
                         if (w.gifted) TrustPill(stringResource(R.string.related_gifted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
@@ -686,7 +692,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Spacer(Modifier.height(8.dp))
                     val mine = vm.myClaim(pkg)
                     if (mine == null) SecondaryButton(claimStage ?: stringResource(R.string.publisher_claim), enabled = claimStage == null && sender != null, onClick = { dialogError = null; claimDialog = true })
-                    else if (!vp.contains(wallet)) Text(stringResource(R.string.publisher_claimed_pending), color = RbColors.textSecondary, fontSize = 12.sp)
+                    // Unread is not unproven: offline, the proof was not checked (1.1.5).
+                    else if (!vp.contains(wallet)) { if (pkg in proofUnread) LoadFailed(stringResource(R.string.publisher_proof_unchecked), onRetry = { vm.retryProofs() })
+                        else Text(stringResource(R.string.publisher_claimed_pending), color = RbColors.textSecondary, fontSize = 12.sp) }
                 }
             }
 
@@ -713,7 +721,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             SectionTitle(stringResource(R.string.store_title))
             GlassCard {
                 val sr = storeRatings[pkg]
-                if (sr == null || sr.total == 0) Text(stringResource(R.string.store_none), color = RbColors.textSecondary, fontSize = 13.sp)
+                // "No public reviews" only after the store ANSWERED with none; a failed read says so, with Try again (1.1.5).
+                val mirror = mirrorState[pkg]
+                if (sr == null && mirror == "failed") LoadFailed(stringResource(R.string.store_load_failed), onRetry = { vm.loadStoreMirror(pkg) })
+                else if (sr == null && mirror == "loading") Text(stringResource(R.string.loading), color = RbColors.textTertiary, fontSize = 13.sp)
+                else if (sr == null || sr.total == 0) Text(stringResource(R.string.store_none), color = RbColors.textSecondary, fontSize = 13.sp)
                 else {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(String.format(java.util.Locale.US, "%.1f", sr.average), color = RbColors.textPrimary, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
@@ -835,7 +847,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val newest = storeHistory[pkg]?.items?.firstOrNull()?.createdAt?.let { runCatching { java.time.Instant.parse(it).epochSecond }.getOrNull() }
                     val from = sb.from
                     Text(stringResource(R.string.burst_source_store).uppercase(), color = RbColors.textTertiary, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                    if (from == null || newest == null || newest - from < com.undersigned.protocol.ReviewBursts.MIN_HISTORY_DAYS * com.undersigned.protocol.ReviewBursts.DAY)
+                    // A read that failed with nothing read is not "too little history" (1.1.5).
+                    if (storeHistory[pkg]?.let { !it.complete && it.items.isEmpty() } == true) LoadFailed(stringResource(R.string.store_load_failed), onRetry = { vm.loadStoreMirror(pkg) }, modifier = Modifier.padding(top = 4.dp))
+                    else if (from == null || newest == null || newest - from < com.undersigned.protocol.ReviewBursts.MIN_HISTORY_DAYS * com.undersigned.protocol.ReviewBursts.DAY)
                         Text(stringResource(R.string.burst_short), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 4.dp))
                     else Text(stringResource(R.string.burst_none, sb.checked, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(from * 1000))), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 4.dp))
                 }
@@ -1061,7 +1075,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             }.padding(vertical = 14.dp))
                     }
                     replyOriginal?.let { o -> Text(stringResource(R.string.reply_translate_note, o), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
-                    Text(stringResource(R.string.review_text_label, ReviewMemo.MAX_TEXT_CHARS - replyText.length, ReviewMemo.MAX_TEXT_BYTES - bytes), color = RbColors.textTertiary, fontSize = 11.sp)
+                    com.undersigned.app.ui.components.CharCounter(replyText.length, ReviewMemo.MAX_TEXT_CHARS)
                     Spacer(Modifier.height(8.dp))
                     PermanenceNote(stringResource(R.string.permanent_title), stringResource(R.string.review_consent_body)) {
                         Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(enabled = replyStage == null) { replyConsent = !replyConsent }, verticalAlignment = Alignment.CenterVertically) {

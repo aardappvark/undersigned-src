@@ -147,7 +147,6 @@
     <string name="review_for">för %1$s</string>
     <string name="review_rating">Betyg</string>
     <string name="review_tags">Taggar (välj 1 till 3)</string>
-    <string name="review_text_label">Valfri anteckning (%1$d tecken, %2$d byte kvar)</string>
     <string name="review_text_hint">Kort, sakligt, dina egna ord.</string>
     <string name="review_consent_title">Detta är permanent</string>
     <string name="review_consent_body">Din anteckning skrivs till Solana-blockkedjan. Den är offentlig och permanent. Den kan inte raderas av dig, av oss eller av någon. Du kan dra tillbaka den från appens rankning senare, men själva texten stannar on-chain för alltid. Inkludera inte personuppgifter, och ange bara det du vet är sant.</string>
@@ -1080,7 +1079,7 @@
     <string name="pay_trend_running">Löpande summa</string>
     <string name="pay_trend_others">Övriga</string>
     <string name="pay_found_title">Hittade i appkod, ej bekräftade</string>
-    <string name="pay_found_note">Plånböcker skrivna i en apps butiksversion som tagit emot SOL, SKR eller USDC från minst %1$d olika plånböcker. Utgivaren har inte bekräftat dem, och någon kanske inte är appens kassa. Inte rankade och inte på tavlan ovan.</string>
+    <string name="pay_found_note">Plånböcker skrivna i en apps butiksversion som tagit emot SOL, SKR eller USDC från minst %1$d olika plånböcker. Utgivaren har inte bekräftat dem, och någon kanske inte är appens kassa. Inte rankade, och hålls åtskilda från tavlan Bekräftade.</string>
     <string name="pay_found_row">%1$d betalare · %2$d betalningar i de senaste %3$d lästa transaktionerna</string>
     <string name="pay_found_empty">Inget hittat än. Butiksversioner läses fortfarande (%1$d hittills).</string>
     <string name="pay_found_dispute">Är någon din? Registrera din kassa nedan så flyttas den till tavlan. Inte din? Anmäl den så tas den bort.</string>
@@ -1265,4 +1264,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s ny</item><item quantity="other">%1$s nya</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s ny betalare</item><item quantity="other">%1$s nya betalare</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Senaste 30 dagarna: %1$d signerad recension (de 30 före: %2$d)</item><item quantity="other">Senaste 30 dagarna: %1$d signerade recensioner (de 30 före: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Ingen anslutning · visar det som finns sparat i telefonen</string>
+    <string name="pay_found_failed">Det gick inte att läsa in plånböckerna som hittats i appkod.</string>
+    <string name="store_load_failed">Det gick inte att läsa in butikens recensioner.</string>
+    <string name="publisher_proof_unchecked">Beviset är inte kontrollerat än (ingen anslutning)</string>
+    <string name="desk_load_failed">Det gick inte att läsa dina bevisade dAppar</string>
+    <string name="pay_usd_offline">USD är inte tillgängligt offline</string>
+    <string name="review_note_title">Valfri anteckning</string>
+    <string name="review_note_counter">%1$s / %2$s tecken</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned drivs av AardAppvark, utgivare av 28 dAppar i den här butiken. Recensioner från dess egna plånböcker visas, märks och räknas aldrig.</string>
+    <string name="status_card_yes">Den här Seekern räknas: en röst per app, precis som alla andra Seekers.</string>
+    <string name="status_card_no">Ingen Seeker Genesis Token i den här plånboken: dina recensioner visas, räknas inte. Snabbrecensioner går att göra utan plånbok.</string>
+    <string name="status_card_operator">Undersigneds operatörsplånbok: visas, räknas aldrig.</string>
 </resources>

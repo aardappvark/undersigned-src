@@ -162,7 +162,6 @@
     <string name="review_for">%1$s کے لیے</string>
     <string name="review_rating">درجہ بندی</string>
     <string name="review_tags">ٹیگز (1 سے 3 چنیں)</string>
-    <string name="review_text_label">اختیاری نوٹ (%1$d حروف، %2$d بائٹس باقی)</string>
     <string name="review_text_hint">مختصر، حقیقت پر مبنی، اپنے الفاظ میں۔</string>
     <string name="review_consent_title">یہ مستقل ہے</string>
     <string name="review_consent_body">آپ کا نوٹ Solana بلاک چین پر لکھا جائے گا۔ یہ عوامی اور مستقل ہے۔ اسے آپ، ہم، یا کسی کے ذریعے حذف نہیں کیا جا سکتا۔ آپ بعد میں اسے اس ایپ کی درجہ بندی سے واپس لے سکتے ہیں، لیکن متن خود ہمیشہ کے لیے چین پر رہتا ہے۔ ذاتی ڈیٹا شامل نہ کریں، اور صرف وہی بیان کریں جسے آپ سچ جانتے ہیں۔</string>
@@ -1082,7 +1081,7 @@
     <string name="pay_trend_running">مجموعی کل</string>
     <string name="pay_trend_others">دیگر</string>
     <string name="pay_found_title">ایپ کوڈ میں ملے، تصدیق شدہ نہیں</string>
-    <string name="pay_found_note">ایپ کے اسٹور بلڈ میں لکھے والیٹ جنہیں کم از کم %1$d مختلف والیٹس سے SOL، SKR یا USDC ملے۔ پبلشر نے ان کی تصدیق نہیں کی، اور ممکن ہے کوئی ایپ کا خزانہ نہ ہو۔ درجہ بندی نہیں اور اوپر کے بورڈ پر نہیں۔</string>
+    <string name="pay_found_note">ایپ کے اسٹور بلڈ میں لکھے والیٹ جنہیں کم از کم %1$d مختلف والیٹس سے SOL، SKR یا USDC ملے۔ پبلشر نے ان کی تصدیق نہیں کی، اور ممکن ہے کوئی ایپ کا خزانہ نہ ہو۔ درجہ بندی نہیں، اور تصدیق شدہ بورڈ سے الگ رکھے گئے۔</string>
     <string name="pay_found_row">%1$d ادا کنندگان · پڑھی گئی آخری %3$d ٹرانزیکشنز میں %2$d ادائیگیاں</string>
     <string name="pay_found_empty">ابھی کچھ نہیں ملا۔ اسٹور بلڈز ابھی پڑھے جا رہے ہیں (اب تک %1$d)۔</string>
     <string name="pay_found_dispute">کیا کوئی آپ کا ہے؟ نیچے اپنا خزانہ درج کریں تو یہ بورڈ پر چلا جائے گا۔ آپ کا نہیں؟ رپورٹ کریں تو ہٹا دیا جائے گا۔</string>
@@ -1267,4 +1266,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s نیا</item><item quantity="other">%1$s نئے</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s نیا ادا کنندہ</item><item quantity="other">%1$s نئے ادا کنندگان</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">پچھلے 30 دن: %1$d دستخط شدہ ریویو (اس سے پہلے کے 30: %2$d)</item><item quantity="other">پچھلے 30 دن: %1$d دستخط شدہ ریویوز (اس سے پہلے کے 30: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">کنکشن نہیں · اس فون میں محفوظ معلومات دکھائی جا رہی ہیں</string>
+    <string name="pay_found_failed">ایپ کوڈ میں ملے والیٹ لوڈ نہیں ہو سکے۔</string>
+    <string name="store_load_failed">اسٹور کے جائزے لوڈ نہیں ہو سکے۔</string>
+    <string name="publisher_proof_unchecked">ثبوت ابھی جانچا نہیں گیا (کنکشن نہیں)</string>
+    <string name="desk_load_failed">آپ کی ثابت شدہ dApps پڑھی نہیں جا سکیں</string>
+    <string name="pay_usd_offline">آف لائن USD دستیاب نہیں</string>
+    <string name="review_note_title">اختیاری نوٹ</string>
+    <string name="review_note_counter">%1$s / %2$s حروف</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned کو AardAppvark چلاتا ہے، جو اس اسٹور پر 28 dApps کا پبلشر ہے۔ اس کے اپنے والیٹس کے جائزے دکھائے جاتے ہیں، نشان زد ہوتے ہیں، اور کبھی شمار نہیں ہوتے۔</string>
+    <string name="status_card_yes">یہ Seeker شمار ہوتا ہے: ہر ایپ پر ایک رائے، باقی ہر Seeker کی طرح۔</string>
+    <string name="status_card_no">اس والیٹ میں Seeker Genesis Token نہیں: آپ کے جائزے دکھائے جاتے ہیں، شمار نہیں ہوتے۔ فوری جائزے والیٹ کے بغیر دستیاب ہیں۔</string>
+    <string name="status_card_operator">Undersigned آپریٹر والٹ: دکھایا جاتا ہے، کبھی شمار نہیں۔</string>
 </resources>

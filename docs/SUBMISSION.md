@@ -6,10 +6,10 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 
 | | |
 |---|---|
-| Submissions close | **Monday 12 October 2026, 22:59 Melbourne (GMT+11)** = 13:59 Budapest = 11:59 UTC. No late entries. [verified: solanamobile.radiant.nexus desk calendar + terminal, 8 Oct] |
+| Submissions close | **Monday 12 October 2026, 22:59 Melbourne (GMT+11)** = 13:59 Budapest = 11:59 UTC. No late entries. [checked: solanamobile.radiant.nexus desk calendar + terminal, 8 Oct] |
 | Judging | 13 Oct – 9 Nov; results 11 Nov (the brief says "November 10th"; the calendar says 11 Nov 14:00 GMT+11) |
 | Where | https://solanamobile.radiant.nexus → the terminal (RADOS) → sign in / sign up (email or Google) → complete the builder profile → register for Clock In → submit. One submission per contestant; the team lead submits. A draft can be edited until the "final submission agreement" is completed. |
-| GitHub access | The repo can stay PRIVATE: install the **Radiants Align GitHub app** on `aardappvark/Undersigned` and share that repo. No judge invites needed. [verified: FAQ "Does my GitHub repo need to be public?"] |
+| GitHub access | The repo can stay PRIVATE: install the **Radiants Align GitHub app** on `aardappvark/Undersigned` and share that repo. No judge invites needed. [checked: FAQ "Does my GitHub repo need to be public?"] |
 | AI Coach | The form runs an "AI Coach" first review against the rubric before human judges. Write to the four criteria by name. |
 
 ## Required deliverables (all four, before the deadline)
@@ -19,7 +19,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 | Functional Android APK | **READY** — 1.1.4 (versionCode 15), 11.1 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 1b243e17…f13d | `assets/submission/Undersigned-1.1.4-vc15.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.4` (owner). |
 | GitHub repository | **READY** — 180 commits on 18 days from 8 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
 | Demo video (≤ 3 min) | **OWNER re-records** for 1.1.4 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
-| Pitch deck | **READY** — 14 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
+| Pitch deck | **READY** — 15 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
 
@@ -64,9 +64,9 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 **A companion to the dApp Store, open for it to adopt.** Every app opens in the store; the store's own rating and reviews are shown and credited on every page and never written to; a signed review can be copied into the store's review box in one tap. The memo format, the Genesis lens, the publisher proof file and the ranking rules are public, documented and tested, and offered to Solana Mobile in three steps: read the ledger (Guardian curation, today), adopt the proof file and the ranking rules, then sign the same records from the store's own review box. Undersigned is independent and stays ours: an ordinary listed dApp beside the store, paid for by optional Pro and API passes in SOL or SKR, every payment public on-chain under its own memo. We are happy to contribute to the Seeker community as it grows, and never by paying reviewers for their reviews. It costs under US$1,000 a year to run; at 10% of the 200,000 Seekers Solana Mobile reports shipped, Pro alone would bring about US$133,000 a year; it breaks even at 127 licences a year (`docs/FINANCIAL_CASE.md`).
 
-**Where it stands (10 Oct).** 77 records on mainnet: 29 proven publisher claims, 28 treasury listings, a Pro licence paid in SKR, and the first reviews, all signed by Undersigned's own wallets: they prove the plumbing end to end, and they are shown, labelled and never counted. There is no independent usage yet. The counted score starts at zero and fills only as Seeker owners sign; the website's home page says so. Twenty-eight languages. No token, no rewards.
+**Where it stands (10 Oct).** 77 records on mainnet: 29 proven publisher claims, 28 treasury listings, a Pro licence paid in SKR, and the first reviews, all signed by Undersigned's own wallets: they prove the plumbing end to end, and they are shown, labelled and never counted. There is no independent usage yet. The counted score starts at zero and fills only as Seeker owners sign; the website's home page says so. Twenty-eight languages. No token; nothing is ever paid for a review.
 
-**What was built during the hackathon:** everything, from the first commit on 8 Sep 2026: 180 commits on 18 days; about 18,800 lines of Kotlin across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (258 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (24 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
+**What was built during the hackathon:** everything, from the first commit on 8 Sep 2026: 180 commits on 18 days; about 18,800 lines of Kotlin across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (273 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (24 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
 
 **Solana Mobile Stack / MWA usage:** every write is an MWA `transact` to the Seeker Wallet (authorize once, then sign-and-send); the Genesis Token check reads the soulbound Token-2022 mint on the signer; the Seeker wallet fingerprint (the Lighthouse guard it adds to every transaction) is read back from the chain and shown on the record; `.skr` names resolve from the ANS registry; batch signing puts up to 8 reviews in one approval; a 2,000-character review goes on-chain in pieces under one approval; quick reviews are co-signed by a relayer that can pay fees and nothing else. The app is Compose, portrait, mobile-first. The website also lets a desktop wallet sign a short review, but the proofs that make a review count (the Genesis Token, the Seed Vault double-tap, the phone's own facts) come only from the phone.
 
@@ -92,7 +92,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 | Evaluation process item | Evidence |
 |---|---|
 | Completion based on the demo video | the video shows a review signed, landed and read back from the chain in a browser |
-| Technical depth based on GitHub commits | 180 commits on 18 days; 258 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
+| Technical depth based on GitHub commits | 180 commits on 18 days; 273 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
 | Mobile-optimised UX, mobile features | Seed Vault signing, Genesis Token, PackageManager facts, usage stats, notifications, weekly WorkManager, A–Z rail, offline icons, 28 locales |
 | Usage and interaction with the Solana network | every record is a mainnet tx; 77 records live today (`/v1/stats`) |
 | Clarity and vision from the presentation | the deck: the core loop first, then the handover path to the store |

@@ -62,6 +62,7 @@ fun InboxScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) -> Unit,
             BackButton(onBack)
             Text(stringResource(R.string.inbox), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
         }
+        com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
         TabRow(selectedTabIndex = tab, containerColor = RbColors.background, contentColor = RbColors.purpleLight) {
             Tab(selected = tab == 0, onClick = { tab = 0 }, text = { Text(stringResource(R.string.inbox_unanswered) + " · ${unanswered.size}", fontSize = 13.sp) })
             Tab(selected = tab == 1, onClick = { tab = 1 }, text = { Text(stringResource(R.string.inbox_replies) + " · ${replies.size}", fontSize = 13.sp) })

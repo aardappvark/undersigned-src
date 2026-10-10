@@ -16,6 +16,6 @@
     "zod": "^3.23.8"
   },
   "scripts": {
-    "test": "node --test test/*.test.js"
+    "test": "node --test --test-force-exit test/*.test.js"
   }
 }

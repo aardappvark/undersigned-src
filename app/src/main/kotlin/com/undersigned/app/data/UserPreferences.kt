@@ -278,6 +278,10 @@ object UserPreferences {
     fun loadNotifOff() { notifOff.value = prefs?.getStringSet("notif_off", emptySet()) ?: emptySet() }
 
     /** The Browse card offering to find the owner's dApp Store reviews was dismissed (or used). */
+    /** The Browse status card ("This Seeker counts" / not counted / operator), closed for [wallet] (1.1.5). */
+    fun statusCardDone(wallet: String): Boolean = prefs?.getBoolean("status_card_done_$wallet", false) ?: true
+    fun setStatusCardDone(wallet: String) { prefs?.edit()?.putBoolean("status_card_done_$wallet", true)?.apply() }
+
     var importPromptDone: Boolean
         get() = prefs?.getBoolean("import_prompt_done", false) ?: true
         set(v) { prefs?.edit()?.putBoolean("import_prompt_done", v)?.apply() }

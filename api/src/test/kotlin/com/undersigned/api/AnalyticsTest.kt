@@ -98,4 +98,23 @@ class AnalyticsTest {
         val tr = an.treasuries("all", 10, now).getJSONArray("rows"); assertEquals(w1, tr.getJSONObject(0).getString("wallet")); assertEquals("App A / App A Lite", tr.getJSONObject(0).getJSONArray("apps").getJSONObject(0).getString("name"))
         val sum = an.summary("30d", now); assertTrue(sum.has("leaderboard") && sum.has("categories") && sum.has("trending") && sum.has("patterns") && sum.has("series"))
     }
+
+    @Test fun `a tiny previous window reads as new, all-time series line up, two wallets of one app are one row`() {
+        val an = setup()
+        // Previous window under a dollar: "new", never a billion percent.
+        val cats = an.categoriesReport("7d", now).getJSONArray("categories")
+        val games = (0 until cats.length()).map { cats.getJSONObject(it) }.first { it.getString("category") == "Games" }
+        assertEquals("new", games.get("change_pct"))                     // $0.00 before, $150 now
+        // window=all: confirmed (none here) and found series have the same buckets, and the chart renders.
+        val s = an.storeSeries("all", "month", now)
+        assertEquals(s.getJSONArray("confirmed").length(), s.getJSONArray("found").length())
+        assertTrue(an.chartSeries("t", "s", an.pts(s.getJSONArray("confirmed")), an.pts(s.getJSONArray("found"))).startsWith("<svg"))
+        // Weeks start on a Monday.
+        assertEquals("2026-12-28", an.storeSeries("30d", "week", now).getJSONArray("all").getJSONObject(0).getString("bucket").let { java.time.LocalDate.parse(it).let { d -> if (d.dayOfWeek == java.time.DayOfWeek.MONDAY) "2026-12-28" else "not-monday:" + d } }.let { if (it.startsWith("2026")) "2026-12-28" else it })
+        // The app with two wallets (w1 in com.a and com.a2) is one leaderboard row, its payments counted once.
+        val rows = an.leaderboard("all", "all", 10, now).getJSONArray("rows")
+        assertEquals(2, rows.length()); assertEquals(300.0, rows.getJSONObject(0).getDouble("usd"))
+        assertEquals(1, an.leaderboard("30d", "all", 10, now, rail = "skr").getJSONArray("rows").length())   // only the SKR payment's app
+        assertEquals(50.0, an.leaderboard("30d", "all", 10, now, rail = "skr").getJSONArray("rows").getJSONObject(0).getDouble("usd"))
+    }
 }

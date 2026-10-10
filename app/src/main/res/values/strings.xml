@@ -261,7 +261,6 @@
     <string name="review_for">for %1$s</string>
     <string name="review_rating">Rating</string>
     <string name="review_tags">Tags (pick 1 to 3)</string>
-    <string name="review_text_label">Optional note (%1$d chars, %2$d bytes left)</string>
     <string name="review_text_hint">Short, factual, your own words.</string>
     <string name="review_consent_title">This is permanent</string>
     <string name="review_consent_body">Your note will be written to the Solana blockchain. It is public and permanent. It cannot be deleted by you, by us, or by anyone. You can withdraw it from this app\'s ranking later, but the text itself stays on-chain forever. Do not include personal data, and only state what you know to be true.</string>
@@ -1105,7 +1104,7 @@
     <string name="pay_trend_running">Running total</string>
     <string name="pay_trend_others">Others</string>
     <string name="pay_found_title">Found in app code, not confirmed</string>
-    <string name="pay_found_note">Wallets written into an app\'s store build that received SOL, SKR or USDC from at least %1$d different wallets. The publisher has not confirmed them, and one may not be the app\'s treasury. Not ranked and not on the board above.</string>
+    <string name="pay_found_note">Wallets written into an app\'s store build that received SOL, SKR or USDC from at least %1$d different wallets. The publisher has not confirmed them, and one may not be the app\'s treasury. Not ranked, and kept apart from the Confirmed board.</string>
     <string name="pay_found_row">%1$d payers · %2$d payments in the last %3$d transactions read</string>
     <string name="pay_found_empty">Nothing found yet. Store builds are still being read (%1$d so far).</string>
     <string name="pay_found_dispute">Is one of these yours? List your treasury below and it moves to the board. Not yours? Report it and it is removed.</string>
@@ -1290,4 +1289,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s new</item><item quantity="other">%1$s new</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s new payer</item><item quantity="other">%1$s new payers</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Last 30 days: %1$d signed review (the 30 before: %2$d)</item><item quantity="other">Last 30 days: %1$d signed reviews (the 30 before: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">No connection · showing what this phone holds</string>
+    <string name="pay_found_failed">Couldn\'t load the wallets found in app code.</string>
+    <string name="store_load_failed">Couldn\'t load the store\'s reviews.</string>
+    <string name="publisher_proof_unchecked">Proof not checked yet (no connection)</string>
+    <string name="desk_load_failed">Couldn\'t read your proven dApps</string>
+    <string name="pay_usd_offline">USD not available offline</string>
+    <string name="review_note_title">Optional note</string>
+    <string name="review_note_counter">%1$s / %2$s characters</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned is run by AardAppvark, publisher of 28 dApps on this store. Reviews from its own wallets are shown, labelled, and never counted.</string>
+    <string name="status_card_yes">This Seeker counts: one voice per app, the same as every other Seeker.</string>
+    <string name="status_card_no">No Seeker Genesis Token on this wallet: your reviews are shown, not counted. Quick reviews are available without a wallet.</string>
+    <string name="status_card_operator">Undersigned operator wallet: shown, never counted.</string>
 </resources>

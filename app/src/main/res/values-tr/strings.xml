@@ -159,7 +159,6 @@
     <string name="review_for">%1$s için</string>
     <string name="review_rating">Puan</string>
     <string name="review_tags">Etiketler (1 ila 3 seçin)</string>
-    <string name="review_text_label">İsteğe bağlı not (%1$d karakter, %2$d bayt kaldı)</string>
     <string name="review_text_hint">Kısa, gerçekçi, kendi kelimelerinizle.</string>
     <string name="review_consent_title">Bu kalıcıdır</string>
     <string name="review_consent_body">Notunuz Solana blok zincirine yazılacaktır. Herkese açık ve kalıcıdır. Sizin tarafınızdan, bizim tarafımızdan veya başka biri tarafından silinemez. Daha sonra bu uygulamanın sıralamasından geri çekebilirsiniz, ancak metin zincir üzerinde sonsuza dek kalır. Kişisel veri eklemeyin ve yalnızca doğru olduğunu bildiğiniz şeyleri belirtin.</string>
@@ -1079,7 +1078,7 @@
     <string name="pay_trend_running">Kümülatif toplam</string>
     <string name="pay_trend_others">Diğerleri</string>
     <string name="pay_found_title">Uygulama kodunda bulundu, onaylanmadı</string>
-    <string name="pay_found_note">Bir uygulamanın mağaza sürümüne yazılmış ve en az %1$d farklı cüzdandan SOL, SKR veya USDC almış cüzdanlar. Yayıncı bunları onaylamadı; biri uygulamanın hazinesi olmayabilir. Sıralanmaz ve yukarıdaki tabloda yer almaz.</string>
+    <string name="pay_found_note">Bir uygulamanın mağaza sürümüne yazılmış ve en az %1$d farklı cüzdandan SOL, SKR veya USDC almış cüzdanlar. Yayıncı bunları onaylamadı; biri uygulamanın hazinesi olmayabilir. Sıralanmaz ve Onaylanan tablosundan ayrı tutulur.</string>
     <string name="pay_found_row">%1$d ödeyen · okunan son %3$d işlemde %2$d ödeme</string>
     <string name="pay_found_empty">Henüz bir şey bulunmadı. Mağaza sürümleri hâlâ okunuyor (şimdiye kadar %1$d).</string>
     <string name="pay_found_dispute">Biri sizin mi? Hazinenizi aşağıdan kaydedin, tabloya geçsin. Sizin değil mi? Bildirin, kaldırılsın.</string>
@@ -1264,4 +1263,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s yeni</item><item quantity="other">%1$s yeni</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s yeni ödeyen</item><item quantity="other">%1$s yeni ödeyen</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Son 30 gün: %1$d imzalı yorum (önceki 30: %2$d)</item><item quantity="other">Son 30 gün: %1$d imzalı yorum (önceki 30: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Bağlantı yok · bu telefonda kayıtlı olanlar gösteriliyor</string>
+    <string name="pay_found_failed">Uygulama kodunda bulunan cüzdanlar yüklenemedi.</string>
+    <string name="store_load_failed">Mağaza yorumları yüklenemedi.</string>
+    <string name="publisher_proof_unchecked">Kanıt henüz kontrol edilmedi (bağlantı yok)</string>
+    <string name="desk_load_failed">Kanıtlanmış dApp\'leriniz okunamadı</string>
+    <string name="pay_usd_offline">USD çevrimdışı kullanılamıyor</string>
+    <string name="review_note_title">İsteğe bağlı not</string>
+    <string name="review_note_counter">%1$s / %2$s karakter</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned, bu mağazada 28 dApp yayımlayan AardAppvark tarafından işletilir. Kendi cüzdanlarından gelen incelemeler gösterilir, etiketlenir ve asla sayılmaz.</string>
+    <string name="status_card_yes">Bu Seeker sayılır: her uygulama için bir oy, diğer tüm Seeker\'lar gibi.</string>
+    <string name="status_card_no">Bu cüzdanda Seeker Genesis Token yok: incelemeleriniz gösterilir, sayılmaz. Hızlı incelemeler cüzdansız yapılabilir.</string>
+    <string name="status_card_operator">Undersigned işletmeci cüzdanı: gösterilir, asla sayılmaz.</string>
 </resources>

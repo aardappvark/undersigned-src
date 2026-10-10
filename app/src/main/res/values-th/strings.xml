@@ -146,7 +146,6 @@
     <string name="review_for">สำหรับ %1$s</string>
     <string name="review_rating">คะแนน</string>
     <string name="review_tags">แท็ก (เลือก 1 ถึง 3 รายการ)</string>
-    <string name="review_text_label">บันทึกเพิ่มเติม (ไม่บังคับ) (%1$d ตัวอักษร เหลืออีก %2$d ไบต์)</string>
     <string name="review_text_hint">สั้น ตรงตามข้อเท็จจริง ด้วยคำพูดของคุณเอง</string>
     <string name="review_consent_title">นี่คือสิ่งที่ถาวร</string>
     <string name="review_consent_body">บันทึกของคุณจะถูกเขียนลงบล็อกเชน Solana เป็นสาธารณะและถาวร ไม่สามารถลบได้ทั้งโดยคุณ โดยเรา หรือโดยใคร คุณสามารถถอนออกจากอันดับของแอปนี้ได้ในภายหลัง แต่ตัวข้อความเองจะคงอยู่บนเชนตลอดไป อย่าใส่ข้อมูลส่วนบุคคล และระบุเฉพาะสิ่งที่คุณรู้ว่าเป็นความจริงเท่านั้น</string>
@@ -1048,7 +1047,7 @@
     <string name="pay_trend_running">ยอดสะสม</string>
     <string name="pay_trend_others">อื่น ๆ</string>
     <string name="pay_found_title">พบในโค้ดแอป ยังไม่ยืนยัน</string>
-    <string name="pay_found_note">วอลเล็ตที่เขียนไว้ในบิลด์ของแอปบนสโตร์ ซึ่งได้รับ SOL, SKR หรือ USDC จากวอลเล็ตต่างกันอย่างน้อย %1$d ราย ผู้เผยแพร่ยังไม่ได้ยืนยัน และบางวอลเล็ตอาจไม่ใช่คลังของแอป ไม่จัดอันดับและไม่อยู่ในกระดานด้านบน</string>
+    <string name="pay_found_note">วอลเล็ตที่เขียนไว้ในบิลด์ของแอปบนสโตร์ ซึ่งได้รับ SOL, SKR หรือ USDC จากวอลเล็ตต่างกันอย่างน้อย %1$d ราย ผู้เผยแพร่ยังไม่ได้ยืนยัน และบางวอลเล็ตอาจไม่ใช่คลังของแอป ไม่จัดอันดับ และแยกไว้จากกระดาน ยืนยันแล้ว</string>
     <string name="pay_found_row">ผู้จ่าย %1$d ราย · %2$d การชำระใน %3$d ธุรกรรมล่าสุดที่อ่าน</string>
     <string name="pay_found_empty">ยังไม่พบอะไร กำลังอ่านบิลด์ของสโตร์อยู่ (อ่านแล้ว %1$d)</string>
     <string name="pay_found_dispute">มีของคุณไหม ลงทะเบียนคลังของคุณด้านล่างแล้วจะย้ายไปที่กระดาน ไม่ใช่ของคุณ แจ้งแล้วจะถูกนำออก</string>
@@ -1233,4 +1232,19 @@
     <plurals name="pa_n_new"><item quantity="one">ใหม่ %1$s</item><item quantity="other">ใหม่ %1$s</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">ผู้ชำระใหม่ %1$s ราย</item><item quantity="other">ผู้ชำระใหม่ %1$s ราย</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">30 วันล่าสุด: รีวิวที่ลงนาม %1$d รายการ (30 วันก่อนหน้า: %2$d)</item><item quantity="other">30 วันล่าสุด: รีวิวที่ลงนาม %1$d รายการ (30 วันก่อนหน้า: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">ไม่มีการเชื่อมต่อ · กำลังแสดงข้อมูลที่โทรศัพท์นี้เก็บไว้</string>
+    <string name="pay_found_failed">โหลดวอลเล็ตที่พบในโค้ดแอปไม่ได้</string>
+    <string name="store_load_failed">โหลดรีวิวจากสโตร์ไม่ได้</string>
+    <string name="publisher_proof_unchecked">ยังไม่ได้ตรวจหลักฐาน (ไม่มีการเชื่อมต่อ)</string>
+    <string name="desk_load_failed">อ่าน dApp ที่พิสูจน์แล้วของคุณไม่ได้</string>
+    <string name="pay_usd_offline">ไม่มี USD ขณะออฟไลน์</string>
+    <string name="review_note_title">บันทึกเพิ่มเติม (ไม่บังคับ)</string>
+    <string name="review_note_counter">%1$s / %2$s ตัวอักษร</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned ดำเนินการโดย AardAppvark ผู้เผยแพร่ dApp 28 รายการในสโตร์นี้ รีวิวจากกระเป๋าของผู้ดำเนินการเองจะแสดงพร้อมป้ายกำกับ และไม่นับเลย</string>
+    <string name="status_card_yes">Seeker เครื่องนี้นับ: หนึ่งเสียงต่อแอป เหมือน Seeker เครื่องอื่นทุกเครื่อง</string>
+    <string name="status_card_no">กระเป๋านี้ไม่มี Seeker Genesis Token: รีวิวของคุณจะแสดง แต่ไม่นับ รีวิวด่วนใช้ได้โดยไม่ต้องมีกระเป๋า</string>
+    <string name="status_card_operator">กระเป๋าของผู้ดำเนินการ Undersigned: แสดง ไม่นับเลย</string>
 </resources>

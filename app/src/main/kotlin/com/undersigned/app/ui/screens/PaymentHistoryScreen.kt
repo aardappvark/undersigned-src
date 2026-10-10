@@ -58,6 +58,7 @@ fun PaymentHistoryScreen(vm: MainViewModel, pkg: String, onBack: () -> Unit, onO
                 Text(stringResource(R.string.ph_title), color = RbColors.textTertiary, fontSize = 12.sp)
             }
         }
+        com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             Text(stringResource(R.string.ph_open_app), color = RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.heightIn(min = 48.dp).clickable(onClick = onOpenApp).padding(vertical = 14.dp))

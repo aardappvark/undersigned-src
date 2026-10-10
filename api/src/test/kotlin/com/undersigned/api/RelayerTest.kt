@@ -76,6 +76,7 @@ class RelayerTest {
 
     @Test fun oneIpv6NetworkIsOneBucketAndAFailedSendReleasesItsSlot() {
         assertEquals("2001:db8:1:2::/64", Relayer.network("2001:db8:1:2:aaaa:bbbb:cccc:1"))
+        assertEquals("2001:db8:0:0::/64", Relayer.network("2001:db8::1")); assertEquals(Relayer.network("2001:db8::1"), Relayer.network("2001:db8:0:0:ffff::9"))   // compressed forms, one network
         assertEquals(Relayer.network("2001:db8:1:2:aaaa:bbbb:cccc:1"), Relayer.network("2001:db8:1:2:ffff:0:0:9"))
         assertEquals("9.9.9.9", Relayer.network("9.9.9.9"))
         val r = relayer()

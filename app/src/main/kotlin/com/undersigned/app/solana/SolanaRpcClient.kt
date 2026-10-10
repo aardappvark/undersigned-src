@@ -178,7 +178,7 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
         }
     }
 
-    private suspend fun <T> rpc(block: () -> T): Result<T> = withContext(Dispatchers.IO) { try { Result.success(block()) } catch (e: Exception) { Result.failure(e) } }
+    private suspend fun <T> rpc(block: () -> T): Result<T> = withContext(Dispatchers.IO) { try { Result.success(block()) } catch (e: Exception) { com.undersigned.app.util.NetStatus.failed(e); Result.failure(e) } }
 
     private fun call(method: String, params: JSONArray): JSONObject {
         val body = JSONObject().put("jsonrpc", "2.0").put("id", 1).put("method", method).put("params", params).toString()
@@ -201,6 +201,7 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
             conn.connectTimeout = 8000; conn.readTimeout = 15000; conn.doOutput = true
             OutputStreamWriter(conn.outputStream).use { it.write(requestJson); it.flush() }
             val code = conn.responseCode
+            com.undersigned.app.util.NetStatus.ok()   // an answer, whatever its status: the network is there
             val host = endpoint.substringBefore("?")
             if (code == 429) throw RpcException("HTTP 429: rate limited by $host")
             if (code != 200) throw RpcException("HTTP $code from $host")

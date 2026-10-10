@@ -34,8 +34,11 @@ object PublisherVerifier {
     suspend fun verifyTreasury(pkg: String, treasury: String, details: StoreDetails?, force: Boolean = false): Boolean = withContext(Dispatchers.IO) {
         if (!force) UserPreferences.cachedClaim(pkg, "trs:$treasury", TTL)?.let { return@withContext it }
         if (force) bodies.clear()
-        val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, "trs:$treasury", false) }
-        val ok = fetch(url)?.let { treasury in com.undersigned.protocol.Payments.listedTreasuries(it) } ?: false
+        // Unread (no store details, or the site did not answer) is not cached: offline must not read "unconfirmed" for a day (1.1.5).
+        val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { if (details != null) UserPreferences.cacheClaim(pkg, "trs:$treasury", false) }
+        val r = fetchResult(url)
+        if (r.isFailure) return@withContext false
+        val ok = r.getOrNull()?.let { treasury in com.undersigned.protocol.Payments.listedTreasuries(it) } ?: false
         UserPreferences.cacheClaim(pkg, "trs:$treasury", ok); ok
     }
 
@@ -47,19 +50,32 @@ object PublisherVerifier {
         com.undersigned.protocol.Payments.listedWallets(body)
     }
 
-    private fun fetch(url: String): String? = try {
+    private fun fetch(url: String): String? = fetchResult(url).getOrNull()
+
+    /** The proof file's body; null when the site answered without one (not 2xx); a failure when it did not answer. */
+    private fun fetchResult(url: String): Result<String?> = try {
         val c = URL(url).openConnection() as HttpURLConnection
         try {
             c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true
-            if (c.responseCode in 200..299) c.inputStream.bufferedReader().use { it.readText() } else null
+            val code = c.responseCode
+            com.undersigned.app.util.NetStatus.ok()
+            Result.success(if (code in 200..299) c.inputStream.bufferedReader().use { it.readText() } else null)
         } finally { c.disconnect() }
-    } catch (e: Exception) { Log.w(TAG, "well-known fetch failed: ${e.message?.take(60)}"); null }
+    } catch (e: Exception) { Log.w(TAG, "well-known fetch failed: ${e.message?.take(60)}"); com.undersigned.app.util.NetStatus.failed(e); Result.failure(e) }
 
-    suspend fun verify(pkg: String, wallet: String, details: StoreDetails?): Boolean = withContext(Dispatchers.IO) {
+    suspend fun verify(pkg: String, wallet: String, details: StoreDetails?): Boolean = verifyOrNull(pkg, wallet, details) ?: false
+
+    /**
+     * As [verify], but null when the proof could not be READ (no store details, or the proof file's site did not answer):
+     * "not checked yet", which is not "not proven" (1.1.5). An unread result is never cached, so the next look asks again;
+     * before 1.1.5 a phone offline for a moment cached "not proven" for 24 hours.
+     */
+    suspend fun verifyOrNull(pkg: String, wallet: String, details: StoreDetails?): Boolean? = withContext(Dispatchers.IO) {
         UserPreferences.cachedClaim(pkg, wallet, TTL)?.let { return@withContext it }
-        val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext false.also { UserPreferences.cacheClaim(pkg, wallet, false) }
-        val body = fetch(url)
-        val ok = body?.lines()?.any { it.trim() == wallet } ?: false
+        val url = details?.website?.let { wellKnownUrl(it) } ?: return@withContext if (details == null) null else false.also { UserPreferences.cacheClaim(pkg, wallet, false) }
+        val r = fetchResult(url)
+        if (r.isFailure) return@withContext null
+        val ok = r.getOrNull()?.lines()?.any { it.trim() == wallet } ?: false
         // When a wallet first appeared in the proof file, as this device saw it: shown beside the badge, so a claim that
         // appeared yesterday on a domain that changed hands reads differently from one that has stood for months.
         if (ok) UserPreferences.proofFirstSeen(url, wallet)

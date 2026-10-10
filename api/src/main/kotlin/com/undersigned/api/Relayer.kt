@@ -36,7 +36,8 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         const val PER_IP_TX_HOUR = 10
         const val GLOBAL_TX_DAY = 300
         /** One IPv6 /64 is one network (an address there is free to change); IPv4 stays per address. Audit, 10 Oct 2026. */
-        fun network(ip: String): String = if (':' in ip) ip.split(':').let { p -> (p.take(4) + List(4 - minOf(4, p.size)) { "0" }).joinToString(":") + "::/64" } else ip
+        fun network(ip: String): String = runCatching { java.net.InetAddress.getByName(ip).address }.getOrNull()?.let { b ->
+            if (b.size == 16) (0 until 8 step 2).joinToString(":") { i -> "%x".format(((b[i].toInt() and 0xff) shl 8) or (b[i + 1].toInt() and 0xff)) } + "::/64" else null } ?: ip
         const val FEE_LAMPORTS = 10_000L   // two signatures (relayer + app key) at 5,000 each; measured on mainnet 9 Oct 2026
         private val ALLOWED = setOf(ReviewMemo.Review::class, ReviewMemo.Quick::class, ReviewMemo.Use::class, ReviewMemo.Time::class, ReviewMemo.Activity::class,
             ReviewMemo.LongTextHead::class, ReviewMemo.TextPart::class, ReviewMemo.FollowUp::class,

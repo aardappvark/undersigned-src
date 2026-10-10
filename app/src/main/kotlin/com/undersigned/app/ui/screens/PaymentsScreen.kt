@@ -120,6 +120,7 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
             if (arrow) BackButton({ back() })
             Text(title, color = RbColors.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         }
+        com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
         when (page) {
             // G1 — the board, then the publisher tools.
             PayPage.BOARD -> Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
@@ -132,14 +133,17 @@ fun PaymentsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (()
                 Text(stringResource(R.string.pay_title), color = RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(bottom = 4.dp))
                 Text(stringResource(R.string.pay_intro), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 18.sp)
                 Row(Modifier.fillMaxWidth().padding(top = 10.dp)) {
-                    Text(stringResource(R.string.pay_usd_note), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
+                    // No price held (no quote read this run, and the last fetch failed): say so, not "at today's prices" (1.1.5).
+                    val offlineNow by vm.offline.collectAsState()
+                    Text(stringResource(if (offlineNow && quotes[PaymentBoard.SOL_MINT] == null) R.string.pay_usd_offline else R.string.pay_usd_note), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                     Text(stringResource(R.string.pay_order), color = RbColors.textTertiary, fontSize = 11.sp)
                 }
                 if (loading) Text(stringResource(R.string.pay_loading), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
                 val listed = rows.filter { it.confirmed && it.tally != null }
                 Spacer(Modifier.height(10.dp))
                 if (listed.isEmpty() && !loading) {
-                    if (boardError) { Text(stringResource(R.string.load_failed), color = RbColors.negative, fontSize = 13.sp); SecondaryButton(stringResource(R.string.retry), onClick = { vm.loadBoard(force = true) }, modifier = Modifier.padding(top = 8.dp)) }
+                    // Offline, an empty board is an unread board, not "no dApp has confirmed" (1.1.5).
+                    if (boardError || vm.offline.collectAsState().value) { Text(stringResource(R.string.load_failed), color = RbColors.negative, fontSize = 13.sp); SecondaryButton(stringResource(R.string.retry), onClick = { vm.loadBoard(force = true) }, modifier = Modifier.padding(top = 8.dp)) }
                     else Text(stringResource(R.string.pay_empty), color = RbColors.textSecondary, fontSize = 13.sp)
                 }
                 // Payments over time across the board (owner, 9 Oct 2026): each listing's months, top five apart, the rest together.
@@ -401,7 +405,8 @@ fun TallyView(row: MainViewModel.BoardRow, quotes: Map<String, Prices.Quote>) {
     val t = row.tally ?: return
     val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
     row.usd?.let { Text(usd(it), color = RbColors.textPrimary, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold) }
-    Text(stringResource(if (row.usdWhenPaid) R.string.pay_usd_paid else R.string.pay_usd_note), color = RbColors.textTertiary, fontSize = 11.sp)
+    // No USD figure means no price was held: "not available offline", never "at today's prices" over nothing (1.1.5).
+    Text(stringResource(when { row.usd == null -> R.string.pay_usd_offline; row.usdWhenPaid -> R.string.pay_usd_paid; else -> R.string.pay_usd_note }), color = RbColors.textTertiary, fontSize = 11.sp)
     Spacer(Modifier.height(12.dp))
     KeyValueGrid(listOf(stringResource(R.string.pay_label_payments) to "${t.payments}", stringResource(R.string.pay_label_payers) to "${t.payers}", stringResource(R.string.pay_label_attested) to "${t.attestedPayers}"),
         columns = 3, description = stringResource(R.string.pay_row, t.payments, t.payers, t.attestedPayers), valueColors = mapOf(2 to RbColors.green))
@@ -529,7 +534,8 @@ private fun PaySegments(selected: Int, onSelect: (Int) -> Unit) {
  */
 @Composable
 private fun FoundInCode(vm: MainViewModel, onOpen: (String) -> Unit) {
-    val found by produceState<Result<org.json.JSONObject>?>(null) { value = vm.foundTreasuries() }
+    var attempt by remember { mutableStateOf(0) }
+    val found by produceState<Result<org.json.JSONObject>?>(null, attempt) { value = null; value = vm.foundTreasuries() }
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     GlassCard(accent = RbColors.warning.copy(alpha = 0.5f)) {
         Text(stringResource(R.string.pay_found_title), color = RbColors.textPrimary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
@@ -553,7 +559,7 @@ private fun FoundInCode(vm: MainViewModel, onOpen: (String) -> Unit) {
                 Text(stringResource(R.string.pay_found_dispute), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 8.dp))
                 Text(stringResource(R.string.pay_found_report), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.heightIn(min = 48.dp).clickable { runCatching { uri.openUri(com.undersigned.app.AppConfig.Site.URL + "/report") } }.padding(vertical = 14.dp))
-            }, { Text(stringResource(R.string.load_failed), color = RbColors.textSecondary, fontSize = 12.sp) })
+            }, { LoadFailed(stringResource(R.string.pay_found_failed), onRetry = { attempt++ }) })
         }
     }
 }

@@ -421,6 +421,9 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             SectionTitle(stringResource(R.string.settings_legal))
             GlassCard {
                 Text(stringResource(R.string.settings_affiliation), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+                // Who runs Undersigned, beside the affiliation line (1.1.5): the operator publishes in this store too.
+                Spacer(Modifier.height(6.dp))
+                Text(stringResource(R.string.operator_disclosure), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
                 Spacer(Modifier.height(6.dp))
                 LinkRow(stringResource(R.string.terms_link_terms)) { open(AppConfig.Identity.URI + "terms.html") }
                 LinkRow(stringResource(R.string.terms_link_privacy)) { open(AppConfig.Identity.URI + "privacy.html") }

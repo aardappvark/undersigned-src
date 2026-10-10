@@ -320,3 +320,33 @@ fun activityLabel(a: com.undersigned.protocol.ReviewMemo.Activity): String {
     val re = if (a.reinstalls > 0) " · " + androidx.compose.ui.res.stringResource(com.undersigned.app.R.string.act_reinstalls, if (a.reinstalls >= com.undersigned.protocol.Usage.MAX_REINSTALLS) "9+" else a.reinstalls.toString()) else ""
     return "$months · $last$re"
 }
+
+/**
+ * One quiet line at the top of a screen that fetches, while the last fetch failed for want of a connection (1.1.5): the
+ * screen shows what this phone already holds, and says so. Nothing when online.
+ */
+@Composable
+fun OfflineBanner(offline: Boolean, modifier: Modifier = Modifier) {
+    if (!offline) return
+    Text(androidx.compose.ui.res.stringResource(R.string.offline_banner), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp,
+        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp).clip(RoundedCornerShape(10.dp))
+            .background(RbColors.surfaceVariant).padding(horizontal = 12.dp, vertical = 8.dp))
+}
+
+/** "Couldn't load …" and a Try again button, where an empty-state sentence would otherwise follow a FAILED fetch (1.1.5). */
+@Composable
+fun LoadFailed(text: String, onRetry: () -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier) {
+        Text(text, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+        TextButton(onClick = onRetry, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
+            Text(androidx.compose.ui.res.stringResource(R.string.retry), color = RbColors.purpleLight, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) }
+    }
+}
+
+/** "0 / 2,000 characters" under a text field, in the phone's number format; red once over the limit (1.1.5). */
+@Composable
+fun CharCounter(used: Int, max: Int) {
+    val nf = java.text.NumberFormat.getIntegerInstance()
+    Text(androidx.compose.ui.res.stringResource(R.string.review_note_counter, nf.format(used), nf.format(max)), color = if (used > max) RbColors.negative else RbColors.textTertiary,
+        fontSize = 11.sp, modifier = Modifier.fillMaxWidth().padding(top = 4.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
+}

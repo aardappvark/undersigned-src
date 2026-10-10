@@ -60,13 +60,19 @@ fun cleanReleaseNotes(raw: String?): String? {
 class StoreReviewsClient {
     private val sc: JSONObject get() = JSONObject().put("locale", Locale.getDefault().toLanguageTag()).put("platformSdk", Build.VERSION.SDK_INT).put("pixelDensity", 420).put("model", Build.MODEL ?: "unknown")
 
-    suspend fun rating(pkg: String): StoreRating? = withContext(Dispatchers.IO) {
+    suspend fun rating(pkg: String): StoreRating? = ratingResult(pkg).getOrNull()
+
+    /**
+     * As [rating], but a failed read is a failure and not a null (1.1.5): null means the store answered and lists no rating,
+     * so "The store has no public reviews" is said only after an answer.
+     */
+    suspend fun ratingResult(pkg: String): Result<StoreRating?> = withContext(Dispatchers.IO) {
         runCatching {
             val d = post("DAppByPackageSummary", Q_RATING, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
             val r = d.optJSONObject("dAppByAndroidPackage")?.optJSONObject("rating") ?: return@runCatching null
             val arr = r.optJSONArray("reviewsByRating") ?: return@runCatching null
             StoreRating(r.optDouble("rating", 0.0), (0 until arr.length()).map { arr.optInt(it) })
-        }.getOrElse { Log.w(TAG, "rating failed: ${it.message?.take(80)}"); null }
+        }.onFailure { Log.w(TAG, "rating failed: ${it.message?.take(80)}") }
     }
 
     /**
@@ -85,7 +91,10 @@ class StoreReviewsClient {
         }.getOrElse { Log.w(TAG, "ratings batch failed: ${it.message?.take(80)}"); null }
     }
 
-    suspend fun details(pkg: String): StoreDetails? = withContext(Dispatchers.IO) {
+    suspend fun details(pkg: String): StoreDetails? = detailsResult(pkg).getOrNull()
+
+    /** As [details]; a failed read is a failure, null is the store's answer that it lists no release (1.1.5). */
+    suspend fun detailsResult(pkg: String): Result<StoreDetails?> = withContext(Dispatchers.IO) {
         runCatching {
             val d = post("DAppByPackageSummary", Q_DETAILS, JSONObject().put("systemContext", sc).put("androidPackage", pkg))
             val rel = d.optJSONObject("dAppByAndroidPackage")?.optJSONObject("lastRelease") ?: return@runCatching null
@@ -93,10 +102,9 @@ class StoreReviewsClient {
             StoreDetails(ad?.optLong("versionCode", 0L) ?: 0L, ad?.str("certFingerprint")?.lowercase()?.filter { c -> c in "0123456789abcdef" },
                 pd?.str("name"), pd?.str("website"), pd?.str("supportEmail"), cleanReleaseNotes(rel.str("newInVersion")),
                 rel.optJSONObject("installFile")?.str("uri")?.takeIf { it.startsWith("https://") }, rel.optJSONObject("installFile")?.optLong("size", 0L) ?: 0L)
-        }.getOrElse { Log.w(TAG, "details failed: ${it.message?.take(80)}"); null }
+        }.onFailure { Log.w(TAG, "details failed: ${it.message?.take(80)}") }
     }
 
-    /** Newest first. Stops after [maxPages]; [stopWhen] lets a wallet scan end early. Partial on failure — see [reviewsChecked]. */
     suspend fun reviews(pkg: String, pageSize: Int = MAX_REVIEW_PAGE, maxPages: Int = 3, stopWhen: (StoreReview) -> Boolean = { false }): List<StoreReview> =
         reviewsChecked(pkg, pageSize, maxPages, stopWhen = stopWhen).items
 
@@ -136,8 +144,10 @@ class StoreReviewsClient {
         try {
             c.requestMethod = "POST"; c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("Accept", "application/json")
             c.connectTimeout = 10000; c.readTimeout = 20000; c.doOutput = true
-            c.outputStream.use { it.write(body.toByteArray(Charsets.UTF_8)) }
-            if (c.responseCode != 200) throw IllegalStateException("HTTP ${c.responseCode}")
+            val code = try { c.outputStream.use { it.write(body.toByteArray(Charsets.UTF_8)) }; c.responseCode }
+                catch (e: java.io.IOException) { com.undersigned.app.util.NetStatus.failed(e); throw e }
+            com.undersigned.app.util.NetStatus.ok()
+            if (code != 200) throw IllegalStateException("HTTP $code")
             val resp = JSONObject(c.inputStream.bufferedReader().use { it.readText() })
             if (resp.has("errors")) throw IllegalStateException(resp.getJSONArray("errors").toString().take(120))
             return resp.getJSONObject("data")

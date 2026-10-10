@@ -492,6 +492,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     /** Heavy answers built from the whole history, kept five minutes: the history grows by the minute, these are read often. */
     private val heavy = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, Any>>()
+    fun <T : Any> memo5(key: String, build: () -> T): T = cached5(key, build)
     private fun <T : Any> cached5(key: String, build: () -> T): T {
         val now = System.currentTimeMillis(); val c = heavy[key]
         @Suppress("UNCHECKED_CAST") if (c != null && now - c.first < 300_000) return c.second as T
@@ -564,7 +565,10 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     // ---- The data plan's exports ----------------------------------------------------------------------------------
 
     private fun csv(header: List<String>, rows: List<List<Any?>>): String {
-        fun cell(v: Any?): String { val t = v?.toString() ?: ""; return if (t.any { it == ',' || it == '"' || it == '\n' || it == '\r' }) "\"" + t.replace("\"", "\"\"") + "\"" else t }
+        // A cell that a spreadsheet would run as a formula (=, +, -, @, tab) is prefixed with an apostrophe: names and version
+        // strings come from publishers. Numbers are written as numbers, so a negative number stays one.
+        fun cell(v: Any?): String { val t = v?.toString() ?: ""; val safe = if (v is String && t.isNotEmpty() && t[0] in "=+-@\t\r") "'$t" else t
+            return if (safe.any { it == ',' || it == '"' || it == '\n' || it == '\r' }) "\"" + safe.replace("\"", "\"\"") + "\"" else safe }
         return (listOf(header) + rows).joinToString("\n") { r -> r.joinToString(",") { cell(it) } } + "\n"
     }
 

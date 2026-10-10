@@ -156,7 +156,6 @@
     <string name="review_for">%1$s-এর জন্য</string>
     <string name="review_rating">রেটিং</string>
     <string name="review_tags">ট্যাগ (১ থেকে ৩টি বাছুন)</string>
-    <string name="review_text_label">ঐচ্ছিক নোট (%1$d অক্ষর, %2$d বাইট বাকি)</string>
     <string name="review_text_hint">সংক্ষিপ্ত, সত্যনির্ভর, আপনার নিজের ভাষায়।</string>
     <string name="review_consent_title">এটি স্থায়ী</string>
     <string name="review_consent_body">আপনার নোট Solana ব্লকচেইনে লেখা হবে। এটি সর্বজনীন এবং স্থায়ী। এটি আপনি, আমরা, বা অন্য কেউ মুছতে পারবে না। আপনি পরে এই অ্যাপের র‍্যাঙ্কিং থেকে এটি প্রত্যাহার করতে পারেন, তবে টেক্সটটি নিজেই চিরকালের জন্য চেইনে থেকে যায়। ব্যক্তিগত তথ্য অন্তর্ভুক্ত করবেন না, এবং শুধুমাত্র যা সত্য বলে জানেন তাই বলুন।</string>
@@ -1075,7 +1074,7 @@
     <string name="pay_trend_running">চলমান মোট</string>
     <string name="pay_trend_others">অন্যান্য</string>
     <string name="pay_found_title">অ্যাপ কোডে পাওয়া, নিশ্চিত নয়</string>
-    <string name="pay_found_note">কোনো অ্যাপের স্টোর বিল্ডে লেখা ওয়ালেট যেগুলো অন্তত %1$dটি ভিন্ন ওয়ালেট থেকে SOL, SKR বা USDC পেয়েছে। প্রকাশক এগুলো নিশ্চিত করেননি, আর কোনোটি অ্যাপের ট্রেজারি নাও হতে পারে। র‍্যাঙ্কিং নেই এবং উপরের বোর্ডে নেই।</string>
+    <string name="pay_found_note">কোনো অ্যাপের স্টোর বিল্ডে লেখা ওয়ালেট যেগুলো অন্তত %1$dটি ভিন্ন ওয়ালেট থেকে SOL, SKR বা USDC পেয়েছে। প্রকাশক এগুলো নিশ্চিত করেননি, আর কোনোটি অ্যাপের ট্রেজারি নাও হতে পারে। র‍্যাঙ্কিং নেই, এবং নিশ্চিত বোর্ড থেকে আলাদা রাখা।</string>
     <string name="pay_found_row">%1$d জন প্রদানকারী · পড়া শেষ %3$dটি লেনদেনে %2$dটি পেমেন্ট</string>
     <string name="pay_found_empty">এখনো কিছু পাওয়া যায়নি। স্টোর বিল্ড এখনো পড়া হচ্ছে (এ পর্যন্ত %1$d)।</string>
     <string name="pay_found_dispute">কোনোটি কি আপনার? নিচে আপনার ট্রেজারি তালিকাভুক্ত করুন, এটি বোর্ডে যাবে। আপনার নয়? রিপোর্ট করুন, সরিয়ে দেওয়া হবে।</string>
@@ -1260,4 +1259,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s নতুন</item><item quantity="other">%1$s নতুন</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s নতুন পেমেন্টকারী</item><item quantity="other">%1$s নতুন পেমেন্টকারী</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">গত ৩০ দিন: %1$d স্বাক্ষরিত রিভিউ (তার আগের ৩০: %2$d)</item><item quantity="other">গত ৩০ দিন: %1$d স্বাক্ষরিত রিভিউ (তার আগের ৩০: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">সংযোগ নেই · এই ফোনে যা আছে তা দেখানো হচ্ছে</string>
+    <string name="pay_found_failed">অ্যাপ কোডে পাওয়া ওয়ালেট লোড করা যায়নি।</string>
+    <string name="store_load_failed">স্টোরের রিভিউ লোড করা যায়নি।</string>
+    <string name="publisher_proof_unchecked">প্রমাণ এখনও পরীক্ষা করা হয়নি (সংযোগ নেই)</string>
+    <string name="desk_load_failed">আপনার প্রমাণিত dApp পড়া যায়নি</string>
+    <string name="pay_usd_offline">অফলাইনে USD পাওয়া যায় না</string>
+    <string name="review_note_title">ঐচ্ছিক নোট</string>
+    <string name="review_note_counter">%1$s / %2$s অক্ষর</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned চালায় AardAppvark, এই স্টোরে 28টি dApp-এর প্রকাশক। এর নিজস্ব ওয়ালেটের পর্যালোচনা দেখানো হয়, চিহ্নিত থাকে, এবং কখনো গণনা হয় না।</string>
+    <string name="status_card_yes">এই Seeker গণনা হয়: প্রতি অ্যাপে একটি মত, অন্য সব Seeker-এর মতোই।</string>
+    <string name="status_card_no">এই ওয়ালেটে Seeker Genesis Token নেই: আপনার পর্যালোচনা দেখানো হয়, গণনা হয় না। ওয়ালেট ছাড়াই কুইক পর্যালোচনা দেওয়া যায়।</string>
+    <string name="status_card_operator">Undersigned অপারেটর ওয়ালেট: দেখানো হয়, কখনো গণনা নয়।</string>
 </resources>

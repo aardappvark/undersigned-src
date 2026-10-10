@@ -152,7 +152,6 @@
     <string name="review_for">%1$s について</string>
     <string name="review_rating">評価</string>
     <string name="review_tags">タグ（1〜3個選択）</string>
-    <string name="review_text_label">任意のメモ（残り%1$d文字、%2$dバイト）</string>
     <string name="review_text_hint">短く、事実に基づいた、自分自身の言葉で。</string>
     <string name="review_consent_title">これは永久に残ります</string>
     <string name="review_consent_body">あなたのメモは Solana ブロックチェーンに書き込まれます。公開され、永久に残ります。あなた自身も、私たちも、他の誰も削除できません。後でこのアプリのランキングから取り下げることはできますが、テキスト自体は永久にオンチェーンに残ります。個人情報は含めず、事実であると確信していることのみを記載してください。</string>
@@ -1055,7 +1054,7 @@
     <string name="pay_trend_running">累計</string>
     <string name="pay_trend_others">その他</string>
     <string name="pay_found_title">アプリのコード内で見つかった未確認のウォレット</string>
-    <string name="pay_found_note">アプリのストア版ビルドに書き込まれ、%1$d 以上の異なるウォレットから SOL・SKR・USDC を受け取ったウォレット。発行者は確認しておらず、アプリの資金口座でない可能性もあります。順位付けはせず、上のボードにも載せません。</string>
+    <string name="pay_found_note">アプリのストア版ビルドに書き込まれ、%1$d 以上の異なるウォレットから SOL・SKR・USDC を受け取ったウォレット。発行者は確認しておらず、アプリの資金口座でない可能性もあります。順位付けはせず、「確認済み」ボードとは分けて表示します。</string>
     <string name="pay_found_row">支払者 %1$d · 読み込んだ直近 %3$d 件の取引中 %2$d 件の支払い</string>
     <string name="pay_found_empty">まだ見つかっていません。ストアのビルドを読み込み中です（これまで %1$d 件）。</string>
     <string name="pay_found_dispute">あなたのものですか？下で資金口座を登録するとボードに移ります。違う場合は報告すると削除されます。</string>
@@ -1240,4 +1239,19 @@
     <plurals name="pa_n_new"><item quantity="one">新規 %1$s</item><item quantity="other">新規 %1$s</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">新規支払者 %1$s 人</item><item quantity="other">新規支払者 %1$s 人</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">直近30日：署名レビュー %1$d 件（その前の30日：%2$d）</item><item quantity="other">直近30日：署名レビュー %1$d 件（その前の30日：%2$d）</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">接続なし · この端末に保存済みの内容を表示中</string>
+    <string name="pay_found_failed">アプリのコードで見つかったウォレットを読み込めませんでした。</string>
+    <string name="store_load_failed">ストアのレビューを読み込めませんでした。</string>
+    <string name="publisher_proof_unchecked">証明はまだ確認されていません（接続なし）</string>
+    <string name="desk_load_failed">証明済みの dApp を読み込めませんでした</string>
+    <string name="pay_usd_offline">オフラインでは USD を表示できません</string>
+    <string name="review_note_title">任意のメモ</string>
+    <string name="review_note_counter">%1$s / %2$s 文字</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned は、このストアで 28 個の dApp を公開している AardAppvark が運営しています。運営者自身のウォレットからのレビューは表示し、ラベルを付け、カウントしません。</string>
+    <string name="status_card_yes">この Seeker はカウントされます：アプリごとに 1 票、ほかのすべての Seeker と同じです。</string>
+    <string name="status_card_no">このウォレットには Seeker Genesis Token がありません：レビューは表示されますが、カウントされません。クイックレビューはウォレットなしで利用できます。</string>
+    <string name="status_card_operator">Undersigned 運営者のウォレット：表示のみ、カウントなし。</string>
 </resources>

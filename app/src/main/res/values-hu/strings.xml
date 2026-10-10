@@ -159,7 +159,6 @@
     <string name="review_for">ehhez: %1$s</string>
     <string name="review_rating">Értékelés</string>
     <string name="review_tags">Címkék (válassz 1–3-at)</string>
-    <string name="review_text_label">Opcionális megjegyzés (%1$d karakter, %2$d bájt maradt)</string>
     <string name="review_text_hint">Rövid, tényszerű, saját szavaiddal.</string>
     <string name="review_consent_title">Ez végleges</string>
     <string name="review_consent_body">A megjegyzésed a Solana blokkláncra kerül. Nyilvános és végleges. Sem te, sem mi, sem bárki más nem törölheti. Később visszavonhatod ennek az alkalmazásnak a rangsorából, de maga a szöveg örökre a láncon marad. Ne adj meg személyes adatokat, és csak olyasmit írj, amiről tudod, hogy igaz.</string>
@@ -1079,7 +1078,7 @@
     <string name="pay_trend_running">Halmozott összeg</string>
     <string name="pay_trend_others">Egyéb</string>
     <string name="pay_found_title">Alkalmazáskódban találva, nem megerősítve</string>
-    <string name="pay_found_note">Egy alkalmazás bolti buildjébe írt tárcák, amelyek legalább %1$d különböző tárcától kaptak SOL-t, SKR-t vagy USDC-t. A kiadó nem erősítette meg őket, és lehet, hogy valamelyik nem az alkalmazás kasszája. Nincs rangsor, és nincs a fenti táblán.</string>
+    <string name="pay_found_note">Egy alkalmazás bolti buildjébe írt tárcák, amelyek legalább %1$d különböző tárcától kaptak SOL-t, SKR-t vagy USDC-t. A kiadó nem erősítette meg őket, és lehet, hogy valamelyik nem az alkalmazás kasszája. Nincs rangsor, és a Megerősített táblától külön szerepel.</string>
     <string name="pay_found_row">%1$d fizető · %2$d fizetés az utolsó %3$d beolvasott tranzakcióban</string>
     <string name="pay_found_empty">Még nincs találat. A bolti buildek olvasása folyik (eddig %1$d).</string>
     <string name="pay_found_dispute">A tiéd valamelyik? Add meg lent a kasszádat, és átkerül a táblára. Nem a tiéd? Jelentsd, és eltávolítjuk.</string>
@@ -1264,4 +1263,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s új</item><item quantity="other">%1$s új</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s új fizető</item><item quantity="other">%1$s új fizető</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Elmúlt 30 nap: %1$d aláírt értékelés (az előző 30: %2$d)</item><item quantity="other">Elmúlt 30 nap: %1$d aláírt értékelés (az előző 30: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Nincs kapcsolat · a telefonon tárolt adatok láthatók</string>
+    <string name="pay_found_failed">Nem sikerült betölteni az alkalmazáskódban talált tárcákat.</string>
+    <string name="store_load_failed">Nem sikerült betölteni a bolti értékeléseket.</string>
+    <string name="publisher_proof_unchecked">A bizonyíték még nincs ellenőrizve (nincs kapcsolat)</string>
+    <string name="desk_load_failed">Nem sikerült beolvasni a bizonyított dAppjaidat</string>
+    <string name="pay_usd_offline">USD offline nem érhető el</string>
+    <string name="review_note_title">Opcionális megjegyzés</string>
+    <string name="review_note_counter">%1$s / %2$s karakter</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Az Undersignedot az AardAppvark üzemelteti, amely 28 dApp kiadója ebben az áruházban. A saját tárcáiból származó értékelések láthatók, meg vannak jelölve, és soha nem számítanak.</string>
+    <string name="status_card_yes">Ez a Seeker számít: alkalmazásonként egy hang, ugyanúgy, mint minden más Seeker.</string>
+    <string name="status_card_no">Ebben a tárcában nincs Seeker Genesis Token: az értékeléseid láthatók, de nem számítanak. Gyors értékelés tárca nélkül is adható.</string>
+    <string name="status_card_operator">Undersigned üzemeltetői tárca: látható, soha nem számít.</string>
 </resources>

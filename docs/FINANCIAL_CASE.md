@@ -35,7 +35,7 @@ Two bases matter: **devices** for Pro (anyone with a Seeker can buy it) and **Ge
 
 ## 3. Historical record: what the store's apps have been paid
 
-Measured 2026-10-10 from the public API. The last 12 months are fully read; older history 130,886 of 398,371 listed transactions (33%). 517 store builds read, 980 skipped; 48 wallets.
+Measured 2026-10-10 from the public API. The last 12 months are fully read; older history read about 60% (it continues in the background; the 12-month figures are complete). 517 store builds read, 980 skipped; 48 wallets.
 
 | Month | Payments | Payers | Wallets paid | USD when paid |
 |---|---:|---:|---:|---:|
@@ -71,10 +71,10 @@ Concentration: the top 5 wallets took 97% of it. Wallets paid at all in the peri
 | #9 | Degen Dash | $7,016 | 1,736 | 391 | 187 |
 | #10 | Arka Seeker | $6,816 | 837 | 322 | 103 |
 
-**What it says.** In the last twelve months, wallets written into dApp Store apps took about **US$2.64 million** in
-95,700 payments: real money moves through the store's apps. It is extremely concentrated (five wallets took 97%; one
-racing game took US$2.24 million), it is mostly games, and most single payments are cents (median US$0.13: in-game
-actions, not licences). So the ecosystem can pay; the question for Undersigned is uptake of a US$6.65 tool, not whether
+**What it says.** Over the thirteen calendar months Oct 2025 to Oct 2026 (the twelve full months: about US$2.61M),
+wallets written into dApp Store apps took about **US$2.64 million** in 95,700 payments: real money moves through the store's apps. It is extremely concentrated (five wallets took 97%; one
+racing game took US$2.24 million), it is mostly games, and most single payments are cents (the median wallet's median payment is US$0.13; the median payment
+across all of them US$0.53: in-game actions, not licences). So the ecosystem can pay; the question for Undersigned is uptake of a US$6.65 tool, not whether
 Seeker owners spend on-chain.
 
 How to read it: payments of SOL, SKR or USDC **into** wallets found in apps' store builds, valued on the day paid. A floor

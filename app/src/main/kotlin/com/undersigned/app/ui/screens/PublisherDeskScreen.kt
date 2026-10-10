@@ -36,6 +36,11 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
     val pro by vm.pro.collectAsState()
     val wallet by vm.wallet.collectAsState()
     val desk = remember(entries, verified, wallet) { vm.desk() }
+    val offline by vm.offline.collectAsState()
+    val proofUnread by vm.proofUnread.collectAsState()
+    // No proven dApp to show, and the proofs could not be read (this wallet's claims unread, or no connection): not "0".
+    val myClaimed = remember(entries, wallet) { entries.filter { it.signer == wallet && it.memo is ReviewMemo.Claim }.map { (it.memo as ReviewMemo.Claim).packageName }.toSet() }
+    val readFailed = desk.apps.isEmpty() && (offline || myClaimed.any { it in proofUnread })
     val board by vm.boardRows.collectAsState()
     LaunchedEffect(Unit) { vm.loadBoard() }
     // Wallets found in the code of the publisher's own apps: the person who can confirm or report them (owner, 9 Oct 2026).
@@ -56,10 +61,13 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
             Text(stringResource(R.string.desk_title), color = RbColors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.weight(1f))
             Pill(stringResource(R.string.pro_badge), RbColors.purpleLight); Spacer(Modifier.width(12.dp))
         }
+        com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             // Locked for real (feature review, 9 Oct 2026): the desk rendered everything for free users behind a banner.
             if (pro?.active != true) { Spacer(Modifier.height(8.dp)); ProPrompt(stringResource(R.string.pro_tool_desk_title), stringResource(R.string.pro_tool_desk_body), onPro); Spacer(Modifier.height(8.dp)); return@Column }
-            Text(pluralStringResource(R.plurals.desk_across, desk.apps.size, desk.apps.size), color = RbColors.textTertiary, fontSize = 12.sp)
+            // "Across your 0 proven dApps" after a failed read was a claim the phone could not make (1.1.5): unread, it says so.
+            if (readFailed) LoadFailed(stringResource(R.string.desk_load_failed), onRetry = { vm.retryProofs(); vm.loadBoard(force = true) })
+            else Text(pluralStringResource(R.plurals.desk_across, desk.apps.size, desk.apps.size), color = RbColors.textTertiary, fontSize = 12.sp)
             Spacer(Modifier.height(8.dp))
             // Three tiles only when each has room: at phone width a tile was ~69 dp inside, and "12 Stunden" at 22 sp broke
             // mid-value (UI review 6 Oct 2026). Narrower screens get one card of label/value rows.
@@ -74,7 +82,7 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                 } else GlassCard { stats.forEach { (v, l) -> StatRow(l, v) } }
             }
             SectionTitle(stringResource(R.string.desk_your_dapps))
-            if (desk.apps.isEmpty()) Text(stringResource(R.string.desk_none), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+            if (desk.apps.isEmpty() && !readFailed) Text(stringResource(R.string.desk_none), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
             desk.apps.forEach { a ->
                 GlassCard(Modifier.clickable { onOpen(a.packageName) }, accent = if (a.waiting > 0) RbColors.warning else RbColors.glassBorder) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -139,17 +147,24 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                 val site = com.undersigned.app.AppConfig.Site.URL
                 desk.apps.forEach { a ->
                     val e = java.net.URLEncoder.encode(a.packageName, "UTF-8")
-                    TextButton(onClick = { copy(a.packageName, "<a href=\"$site/app/$e\"><img src=\"$site/v1/badge/$e.svg\" alt=\"Undersigned signed reviews\"></a>") }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
-                        Text(stringResource(R.string.desk_kit_badge, name(a.packageName)) + if (copied == a.packageName) " ✓" else "", color = RbColors.purpleLight, fontSize = 13.sp) }
+                    KitLink(stringResource(R.string.desk_kit_badge, name(a.packageName)) + if (copied == a.packageName) " ✓" else "") { copy(a.packageName, "<a href=\"$site/app/$e\"><img src=\"$site/v1/badge/$e.svg\" alt=\"Undersigned signed reviews\"></a>") }
                 }
-                TextButton(onClick = { copy("mcp", "claude mcp add --transport http undersigned $site/mcp") }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.desk_kit_mcp) + if (copied == "mcp") " ✓" else "", color = RbColors.purpleLight, fontSize = 13.sp) }
-                TextButton(onClick = { runCatching { uri.openUri("$site/api") } }, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.desk_kit_api), color = RbColors.purpleLight, fontSize = 13.sp) }
+                KitLink(stringResource(R.string.desk_kit_mcp) + if (copied == "mcp") " ✓" else "") { copy("mcp", "claude mcp add --transport http undersigned $site/mcp") }
+                KitLink(stringResource(R.string.desk_kit_api)) { runCatching { uri.openUri("$site/api") } }
             }
             Spacer(Modifier.height(8.dp))
             Text(stringResource(R.string.desk_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             Spacer(Modifier.height(32.dp))
         }
     }
+}
+
+/**
+ * A developer-kit link: full width, start-aligned, 48 dp tall, wrapping onto a second line inside the card. As a TextButton
+ * (centred content, no horizontal padding) the MCP line was clipped at the card's left edge on the Seeker (1.1.5).
+ */
+@Composable
+private fun KitLink(text: String, onClick: () -> Unit) {
+    Text(text, color = RbColors.purpleLight, fontSize = 13.sp, lineHeight = 18.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Start,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = androidx.compose.ui.semantics.Role.Button, onClick = onClick).padding(vertical = 14.dp))
 }

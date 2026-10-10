@@ -158,7 +158,6 @@
     <string name="review_for">cho %1$s</string>
     <string name="review_rating">Xếp hạng</string>
     <string name="review_tags">Thẻ (chọn 1 đến 3)</string>
-    <string name="review_text_label">Ghi chú tùy chọn (%1$d ký tự, còn %2$d byte)</string>
     <string name="review_text_hint">Ngắn gọn, đúng sự thật, bằng lời của chính bạn.</string>
     <string name="review_consent_title">Điều này là vĩnh viễn</string>
     <string name="review_consent_body">Ghi chú của bạn sẽ được ghi lên blockchain Solana. Nó công khai và vĩnh viễn. Không ai có thể xóa được — không phải bạn, không phải chúng tôi, không phải bất kỳ ai. Bạn có thể rút nó khỏi bảng xếp hạng của ứng dụng này sau, nhưng bản thân văn bản vẫn ở trên chuỗi mãi mãi. Không đưa vào dữ liệu cá nhân, và chỉ nêu những gì bạn biết là đúng sự thật.</string>
@@ -1064,7 +1063,7 @@
     <string name="pay_trend_running">Lũy kế</string>
     <string name="pay_trend_others">Khác</string>
     <string name="pay_found_title">Tìm thấy trong mã ứng dụng, chưa xác nhận</string>
-    <string name="pay_found_note">Các ví được ghi trong bản phát hành trên cửa hàng của ứng dụng, đã nhận SOL, SKR hoặc USDC từ ít nhất %1$d ví khác nhau. Nhà phát hành chưa xác nhận, và có thể có ví không phải kho bạc của ứng dụng. Không xếp hạng và không nằm trên bảng phía trên.</string>
+    <string name="pay_found_note">Các ví được ghi trong bản phát hành trên cửa hàng của ứng dụng, đã nhận SOL, SKR hoặc USDC từ ít nhất %1$d ví khác nhau. Nhà phát hành chưa xác nhận, và có thể có ví không phải kho bạc của ứng dụng. Không xếp hạng, và tách riêng khỏi bảng Đã xác nhận.</string>
     <string name="pay_found_row">%1$d người trả · %2$d khoản trong %3$d giao dịch gần nhất đã đọc</string>
     <string name="pay_found_empty">Chưa tìm thấy gì. Các bản phát hành vẫn đang được đọc (%1$d đến nay).</string>
     <string name="pay_found_dispute">Có ví nào của bạn? Đăng ký kho bạc bên dưới để chuyển lên bảng. Không phải của bạn? Báo cáo để gỡ bỏ.</string>
@@ -1249,4 +1248,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s mới</item><item quantity="other">%1$s mới</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s người trả mới</item><item quantity="other">%1$s người trả mới</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">30 ngày qua: %1$d đánh giá đã ký (30 ngày trước đó: %2$d)</item><item quantity="other">30 ngày qua: %1$d đánh giá đã ký (30 ngày trước đó: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Không có kết nối · đang hiển thị dữ liệu điện thoại này lưu</string>
+    <string name="pay_found_failed">Không tải được các ví tìm thấy trong mã ứng dụng.</string>
+    <string name="store_load_failed">Không tải được đánh giá trên cửa hàng.</string>
+    <string name="publisher_proof_unchecked">Bằng chứng chưa được kiểm tra (không có kết nối)</string>
+    <string name="desk_load_failed">Không đọc được các dApp đã chứng minh của bạn</string>
+    <string name="pay_usd_offline">Không có USD khi ngoại tuyến</string>
+    <string name="review_note_title">Ghi chú tùy chọn</string>
+    <string name="review_note_counter">%1$s / %2$s ký tự</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned do AardAppvark vận hành, nhà phát hành 28 dApp trên cửa hàng này. Đánh giá từ các ví của chính họ được hiển thị, gắn nhãn và không bao giờ được tính.</string>
+    <string name="status_card_yes">Seeker này được tính: một phiếu cho mỗi ứng dụng, như mọi Seeker khác.</string>
+    <string name="status_card_no">Ví này không có Seeker Genesis Token: đánh giá của bạn được hiển thị, không được tính. Có thể gửi đánh giá nhanh mà không cần ví.</string>
+    <string name="status_card_operator">Ví của bên vận hành Undersigned: hiển thị, không bao giờ tính.</string>
 </resources>

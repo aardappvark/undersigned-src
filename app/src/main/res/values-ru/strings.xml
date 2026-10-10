@@ -153,7 +153,6 @@
     <string name="review_for">для %1$s</string>
     <string name="review_rating">Оценка</string>
     <string name="review_tags">Теги (выберите от 1 до 3)</string>
-    <string name="review_text_label">Необязательная заметка (%1$d симв., осталось %2$d байт)</string>
     <string name="review_text_hint">Кратко, по фактам, своими словами.</string>
     <string name="review_consent_title">Это навсегда</string>
     <string name="review_consent_body">Ваша заметка будет записана в блокчейн Solana. Она публична и постоянна. Её нельзя удалить ни вам, ни нам, ни кому-либо ещё. Позже вы сможете отозвать её из рейтинга этого приложения, но сам текст навсегда останется в блокчейне. Не указывайте личные данные и пишите только то, в чём уверены.</string>
@@ -1100,7 +1099,7 @@
     <string name="pay_trend_running">Нарастающий итог</string>
     <string name="pay_trend_others">Другие</string>
     <string name="pay_found_title">Найдено в коде приложений, не подтверждено</string>
-    <string name="pay_found_note">Кошельки, записанные в сборку приложения из магазина, получившие SOL, SKR или USDC минимум от %1$d разных кошельков. Издатель их не подтвердил, и какой-то может не быть казной приложения. Без рейтинга и вне таблицы выше.</string>
+    <string name="pay_found_note">Кошельки, записанные в сборку приложения из магазина, получившие SOL, SKR или USDC минимум от %1$d разных кошельков. Издатель их не подтвердил, и какой-то может не быть казной приложения. Без рейтинга и отдельно от таблицы «Подтверждённые».</string>
     <string name="pay_found_row">%1$d плательщиков · %2$d платежей в последних %3$d прочитанных транзакциях</string>
     <string name="pay_found_empty">Пока ничего. Сборки из магазина ещё читаются (пока %1$d).</string>
     <string name="pay_found_dispute">Один из них ваш? Укажите казну ниже, и он перейдёт в таблицу. Не ваш? Сообщите, и его уберут.</string>
@@ -1285,4 +1284,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s новый</item><item quantity="few">%1$s новых</item><item quantity="many">%1$s новых</item><item quantity="other">%1$s новых</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s новый плательщик</item><item quantity="few">%1$s новых плательщика</item><item quantity="many">%1$s новых плательщиков</item><item quantity="other">%1$s новых плательщика</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Последние 30 дней: %1$d подписанный отзыв (30 до этого: %2$d)</item><item quantity="few">Последние 30 дней: %1$d подписанных отзыва (30 до этого: %2$d)</item><item quantity="many">Последние 30 дней: %1$d подписанных отзывов (30 до этого: %2$d)</item><item quantity="other">Последние 30 дней: %1$d подписанных отзыва (30 до этого: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Нет соединения · показано то, что хранится на этом телефоне</string>
+    <string name="pay_found_failed">Не удалось загрузить кошельки, найденные в коде приложений.</string>
+    <string name="store_load_failed">Не удалось загрузить отзывы из магазина.</string>
+    <string name="publisher_proof_unchecked">Доказательство ещё не проверено (нет соединения)</string>
+    <string name="desk_load_failed">Не удалось прочитать ваши доказанные dApps</string>
+    <string name="pay_usd_offline">USD недоступен офлайн</string>
+    <string name="review_note_title">Необязательная заметка</string>
+    <string name="review_note_counter">%1$s / %2$s симв.</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned управляет AardAppvark — издатель 28 dApps в этом магазине. Отзывы с его собственных кошельков показываются, помечаются и никогда не учитываются.</string>
+    <string name="status_card_yes">Этот Seeker учитывается: один голос за приложение, как у любого другого Seeker.</string>
+    <string name="status_card_no">На этом кошельке нет Seeker Genesis Token: ваши отзывы показываются, но не учитываются. Быстрые отзывы доступны без кошелька.</string>
+    <string name="status_card_operator">Кошелёк оператора Undersigned: показывается, никогда не учитывается.</string>
 </resources>

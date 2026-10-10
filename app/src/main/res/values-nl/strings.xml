@@ -153,7 +153,6 @@
     <string name="review_for">voor %1$s</string>
     <string name="review_rating">Beoordeling</string>
     <string name="review_tags">Tags (kies 1 tot 3)</string>
-    <string name="review_text_label">Optionele opmerking (%1$d tekens, %2$d bytes over)</string>
     <string name="review_text_hint">Kort, feitelijk, in uw eigen woorden.</string>
     <string name="review_consent_title">Dit is permanent</string>
     <string name="review_consent_body">Uw opmerking wordt vastgelegd op de Solana-blockchain. Deze is openbaar en permanent. Ze kan niet door u, door ons, of door wie dan ook worden verwijderd. U kunt haar later terugtrekken uit de ranglijst van deze app, maar de tekst zelf blijft voor altijd on-chain staan. Voeg geen persoonlijke gegevens toe en vermeld alleen wat u weet dat waar is.</string>
@@ -1088,7 +1087,7 @@
     <string name="pay_trend_running">Lopend totaal</string>
     <string name="pay_trend_others">Overige</string>
     <string name="pay_found_title">Gevonden in app-code, niet bevestigd</string>
-    <string name="pay_found_note">Wallets in de store-build van een app die SOL, SKR of USDC ontvingen van minstens %1$d verschillende wallets. De uitgever heeft ze niet bevestigd; een ervan is misschien niet de kas van de app. Niet gerangschikt en niet op het overzicht hierboven.</string>
+    <string name="pay_found_note">Wallets in de store-build van een app die SOL, SKR of USDC ontvingen van minstens %1$d verschillende wallets. De uitgever heeft ze niet bevestigd; een ervan is misschien niet de kas van de app. Niet gerangschikt, en apart gehouden van het overzicht Bevestigd.</string>
     <string name="pay_found_row">%1$d betalers · %2$d betalingen in de laatste %3$d gelezen transacties</string>
     <string name="pay_found_empty">Nog niets gevonden. Store-builds worden nog gelezen (tot nu toe %1$d).</string>
     <string name="pay_found_dispute">Is er een van jou? Meld hieronder je kas aan en hij gaat naar het overzicht. Niet van jou? Meld het en hij wordt verwijderd.</string>
@@ -1273,4 +1272,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s nieuw</item><item quantity="other">%1$s nieuw</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s nieuwe betaler</item><item quantity="other">%1$s nieuwe betalers</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Laatste 30 dagen: %1$d ondertekende recensie (de 30 ervoor: %2$d)</item><item quantity="other">Laatste 30 dagen: %1$d ondertekende recensies (de 30 ervoor: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Geen verbinding · u ziet wat deze telefoon bewaard heeft</string>
+    <string name="pay_found_failed">De wallets uit app-code konden niet worden geladen.</string>
+    <string name="store_load_failed">De storereviews konden niet worden geladen.</string>
+    <string name="publisher_proof_unchecked">Bewijs nog niet gecontroleerd (geen verbinding)</string>
+    <string name="desk_load_failed">Uw bewezen dApps konden niet worden gelezen</string>
+    <string name="pay_usd_offline">USD niet beschikbaar offline</string>
+    <string name="review_note_title">Optionele opmerking</string>
+    <string name="review_note_counter">%1$s / %2$s tekens</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned wordt beheerd door AardAppvark, uitgever van 28 dApps in deze store. Recensies uit de eigen wallets worden getoond, gelabeld en nooit geteld.</string>
+    <string name="status_card_yes">Deze Seeker telt mee: één stem per app, net als elke andere Seeker.</string>
+    <string name="status_card_no">Geen Seeker Genesis Token in deze wallet: uw recensies worden getoond, niet geteld. Snelle recensies kunnen zonder wallet.</string>
+    <string name="status_card_operator">Wallet van de Undersigned-beheerder: getoond, nooit geteld.</string>
 </resources>

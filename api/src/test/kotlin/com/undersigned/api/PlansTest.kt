@@ -125,4 +125,16 @@ class PlansTest {
         val k2 = b.redeem(sig('a'), payer.sign(b.message(sig('a')).toByteArray()), now = 1_000_001).key   // re-redeem rotates
         assertEquals(1, hooks.list(k2).size); assertEquals(0, hooks.list(k1).size)
     }
+
+    @Test fun `csv cells that would run as formulas are neutralised and a data key reports its kind`() {
+        val pub = W(); val db = db(); val txs = mutableMapOf<String, TxInfo>()
+        db.put("catalogue", JSONArray().put(JSONObject().put("p", "com.evil").put("n", "=HYPERLINK(\"x\")").put("u", "2026-09-01").put("c", "Tools")).toString())
+        val rpc = Rpc(listOf("http://127.0.0.1:9")); val ix = Indexer(db, rpc, Store(0)).also { it.rebuild() }
+        val views = Views(ix, Boards(ix, Board(db, rpc), Prices(db)), db, null); val billing = Billing(db, { txs[it] }, { false }); val api = Api(views, billing, ix)
+        txs[sig('d')] = tx(sig('d'), pub.address, lamports = Config.dataFloorLamports)
+        val key = billing.redeem(sig('d'), pub.sign(billing.message(sig('d')).toByteArray())).key
+        val csv = String(api.handle("GET", "/v1/export/apps.csv", emptyMap(), "", "Bearer $key", "7.7.7.7").raw!!)
+        assertTrue(csv.contains("\"'=HYPERLINK(\"\"x\"\")\""), csv)
+        assertEquals("data", api.handle("GET", "/v1/keys/me", emptyMap(), "", "Bearer $key", "7.7.7.7").body.getString("kind"))
+    }
 }

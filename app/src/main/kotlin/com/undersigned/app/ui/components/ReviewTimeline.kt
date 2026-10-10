@@ -181,16 +181,20 @@ fun ReviewTimeline(buckets: List<Timeline.Bucket>, range: TimelineRange, onRange
 private fun TimelineHeader(buckets: List<Timeline.Bucket>, sel: MutableState<Int?>, df: DateFormat) {
     val at = sel.value
     val b = at?.let { buckets.getOrNull(it) } ?: buckets.lastOrNull()
+    // The section title above already names the chart: unselected, the header is only the latest standing, and a value
+    // with nothing behind it is left out instead of drawn as a lone "–" (1.1.5: the title read twice, with a stray dash).
+    if (at == null && b?.signedMean == null && b?.storeMean == null) return
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Column(Modifier.weight(1f)) {
-            Text(if (at == null) stringResource(R.string.timeline_title) else stringResource(R.string.timeline_period, df.format(Date(b!!.start * 1000)), df.format(Date((b.end - 1) * 1000))),
-                color = if (at == null) RbColors.textSecondary else RbColors.textPrimary, fontSize = 12.sp, fontWeight = if (at == null) FontWeight.Normal else FontWeight.Bold)
-            if (b != null && at != null) Text(stringResource(R.string.timeline_counts, b.storeTotal, b.storeSeeker, b.signed), color = RbColors.textTertiary, fontSize = 11.sp)
+            if (at != null && b != null) {
+                Text(stringResource(R.string.timeline_period, df.format(Date(b.start * 1000)), df.format(Date((b.end - 1) * 1000))), color = RbColors.textPrimary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.timeline_counts, b.storeTotal, b.storeSeeker, b.signed), color = RbColors.textTertiary, fontSize = 11.sp)
+            }
         }
         b?.let {
             Column(horizontalAlignment = Alignment.End) {
-                Text(it.signedMean?.let { v -> String.format(java.util.Locale.US, "%.1f", v) } ?: "–", color = RbColors.purpleLight, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
-                Text(stringResource(R.string.timeline_store_at, it.storeMean?.let { v -> String.format(java.util.Locale.US, "%.1f", v) } ?: "–"), color = RbColors.textTertiary, fontSize = 11.sp)
+                if (at != null || it.signedMean != null) Text(it.signedMean?.let { v -> String.format(java.util.Locale.US, "%.1f", v) } ?: "–", color = RbColors.purpleLight, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
+                if (at != null || it.storeMean != null) Text(stringResource(R.string.timeline_store_at, it.storeMean?.let { v -> String.format(java.util.Locale.US, "%.1f", v) } ?: "–"), color = RbColors.textTertiary, fontSize = 11.sp)
             }
         }
     }

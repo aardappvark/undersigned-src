@@ -160,6 +160,25 @@ fun BrowseScreen(vm: MainViewModel, onOpen: (String) -> Unit, onProfile: (String
             Text(stringResource(R.string.browse_title), color = RbColors.textPrimary, fontSize = (28f * minOf(fs, 1.15f) / fs).sp, lineHeight = (30f * minOf(fs, 1.15f) / fs).sp, maxLines = 1, softWrap = false, fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp, modifier = Modifier.weight(1f))
             // My reviews, Inbox, What changed and Settings were icons here; they are tabs (What changed, Me) since 10 Oct 2026.
         }
+        com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
+        // First run with a wallet (1.1.5): whether this wallet's reviews count, in the Me card's terms. Closed once per wallet.
+        val statusWallet by vm.wallet.collectAsState()
+        val statusFacts by vm.selfFacts.collectAsState()
+        statusWallet?.let { w ->
+            var closed by remember(w) { mutableStateOf(com.undersigned.app.data.UserPreferences.statusCardDone(w)) }
+            val operator = com.undersigned.protocol.Operator.isOperator(w)
+            val f = statusFacts
+            if (!closed && (operator || f != null)) {
+                val counts = !operator && f?.hasGenesisToken == true
+                Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp).background(RbColors.surfaceVariant, RoundedCornerShape(14.dp))
+                    .padding(start = 14.dp, top = 6.dp, bottom = 6.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text(stringResource(when { operator -> R.string.status_card_operator; counts -> R.string.status_card_yes; else -> R.string.status_card_no }),
+                        color = if (counts) RbColors.green else RbColors.warning, fontSize = 13.sp, lineHeight = 18.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).padding(vertical = 6.dp))
+                    TextButton(onClick = { com.undersigned.app.data.UserPreferences.setStatusCardDone(w); closed = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.help_close), color = RbColors.purpleLight, fontSize = 13.sp) }
+                }
+            }
+        }
         // Once, after sign-in: most owners have already rated apps in the dApp Store; bring those over in one approval
         // (import review, 10 Oct 2026: the import sat in Settings and My reviews, and nobody found it).
         val signedIn by vm.wallet.collectAsState()

@@ -12,6 +12,19 @@ Submission pack: [docs/SUBMISSION.md](docs/SUBMISSION.md). Protocol: [docs/SPEC.
 Developers (API, MCP): [docs/DEVELOPERS.md](docs/DEVELOPERS.md). What was built when: [docs/HISTORY.md](docs/HISTORY.md).
 The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 
+## Try it in 60 seconds
+
+| | |
+|---|---|
+| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.5-vc16.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
+| **The site and API** | https://undersigned.provenby.dev · [`/payments`](https://undersigned.provenby.dev/payments) · [`/v1/stats`](https://undersigned.provenby.dev/v1/stats) · MCP at `/mcp` |
+| **One review, on-chain** | Jupiter Mobile, signed on a Seeker with the Seed Vault: [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5) (an operator wallet: shown, never counted) |
+| **Where it stands** | 0 independent counted reviews yet; every record so far is from Undersigned's own wallets, labelled and never counted. The rules hold even for us. |
+
+<p><img src="assets/submission/shots/browse_az.png" width="200"> <img src="assets/submission/shots/tk_reviews.png" width="200"> <img src="assets/submission/shots/chart_top.png" width="420"></p>
+
+**Disclosure:** Undersigned is run by AardAppvark, publisher of 28 dApps on this store. Reviews from its own wallets are shown, labelled, and never counted; the confirmed treasuries on the payments board today are those apps'.
+
 ## The core loop
 
 1. **Write.** Stars, one to three tags from a fixed set, an optional note (up to 2,000 characters, on-chain) and,
@@ -60,7 +73,7 @@ and published through the same portal as the rest of the fleet, sitting *beside*
 | Launching / installing an app | Solana Mobile | Deep-links out: `solanadappstore://details?id=<package>` (the Toolkit's existing path). Undersigned never installs, updates or removes anything. |
 
 So the honest one-line answer to "is this the dApp Store?" is: *no, it is an independent trust
-layer that reads the store's public catalogue and lets verified Seeker owners publish signed
+layer that reads the store's public catalogue and lets Seeker owners holding a Genesis Token publish signed
 opinions about it to Solana, where anyone can read them.* If Solana Mobile's Guardian curation
 programme wants the data, it is already theirs to read; nothing about the design depends on them
 adopting it, and nothing about it competes with their install flow.
@@ -88,7 +101,7 @@ verify, it is not a safety verdict.**
 ## State today (measured 10 Oct 2026)
 
 - Release **1.1.4** (versionCode 15). 180 commits on 18 days; about 18,800 lines of Kotlin plus 3,400 lines of tests;
-  258 Kotlin tests and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
+  273 Kotlin tests and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
 - Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
   scores fill as Seeker owners sign.

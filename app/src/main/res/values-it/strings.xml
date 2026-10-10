@@ -161,7 +161,6 @@
     <string name="review_for">per %1$s</string>
     <string name="review_rating">Valutazione</string>
     <string name="review_tags">Tag (scegline da 1 a 3)</string>
-    <string name="review_text_label">Nota facoltativa (%1$d caratteri, %2$d byte rimasti)</string>
     <string name="review_text_hint">Breve, oggettiva, con parole tue.</string>
     <string name="review_consent_title">Questo è permanente</string>
     <string name="review_consent_body">La tua nota verrà scritta sulla blockchain di Solana. È pubblica e permanente. Non può essere eliminata da te, da noi o da chiunque altro. Puoi ritirarla in seguito dalla classifica di questa app, ma il testo stesso resta on-chain per sempre. Non includere dati personali e dichiara solo ciò che sai essere vero.</string>
@@ -1108,7 +1107,7 @@
     <string name="pay_trend_running">Totale progressivo</string>
     <string name="pay_trend_others">Altri</string>
     <string name="pay_found_title">Trovati nel codice, non confermati</string>
-    <string name="pay_found_note">Wallet scritti nella build dello store di un\'app che hanno ricevuto SOL, SKR o USDC da almeno %1$d wallet diversi. L\'editore non li ha confermati e uno potrebbe non essere la tesoreria dell\'app. Non classificati e fuori dalla tabella sopra.</string>
+    <string name="pay_found_note">Wallet scritti nella build dello store di un\'app che hanno ricevuto SOL, SKR o USDC da almeno %1$d wallet diversi. L\'editore non li ha confermati e uno potrebbe non essere la tesoreria dell\'app. Non classificati, e tenuti separati dalla tabella Confermati.</string>
     <string name="pay_found_row">%1$d pagatori · %2$d pagamenti nelle ultime %3$d transazioni lette</string>
     <string name="pay_found_empty">Ancora niente. Le build dello store sono ancora in lettura (%1$d finora).</string>
     <string name="pay_found_dispute">Uno di questi è tuo? Registra la tua tesoreria qui sotto e passerà alla tabella. Non è tuo? Segnalalo e verrà rimosso.</string>
@@ -1293,4 +1292,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s nuovo</item><item quantity="other">%1$s nuovi</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s nuovo pagante</item><item quantity="other">%1$s nuovi paganti</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Ultimi 30 giorni: %1$d recensione firmata (i 30 precedenti: %2$d)</item><item quantity="other">Ultimi 30 giorni: %1$d recensioni firmate (i 30 precedenti: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Nessuna connessione · si vede ciò che ha questo telefono</string>
+    <string name="pay_found_failed">Impossibile caricare i wallet trovati nel codice delle app.</string>
+    <string name="store_load_failed">Impossibile caricare le recensioni dello store.</string>
+    <string name="publisher_proof_unchecked">Prova non ancora controllata (nessuna connessione)</string>
+    <string name="desk_load_failed">Impossibile leggere le tue dApp dimostrate</string>
+    <string name="pay_usd_offline">USD non disponibile offline</string>
+    <string name="review_note_title">Nota facoltativa</string>
+    <string name="review_note_counter">%1$s / %2$s caratteri</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned è gestito da AardAppvark, editore di 28 dApp su questo store. Le recensioni dai suoi wallet sono mostrate, contrassegnate e mai contate.</string>
+    <string name="status_card_yes">Questo Seeker conta: una voce per app, come ogni altro Seeker.</string>
+    <string name="status_card_no">Nessun Seeker Genesis Token in questo wallet: le tue recensioni sono mostrate, non contate. Le recensioni rapide sono disponibili senza wallet.</string>
+    <string name="status_card_operator">Wallet dell\'operatore Undersigned: mostrato, mai contato.</string>
 </resources>

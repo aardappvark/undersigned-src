@@ -152,7 +152,6 @@
     <string name="review_for">%1$s에 대한 리뷰</string>
     <string name="review_rating">평점</string>
     <string name="review_tags">태그(1~3개 선택)</string>
-    <string name="review_text_label">선택 사항 메모(%1$d자, %2$d바이트 남음)</string>
     <string name="review_text_hint">짧고 사실적으로, 자신의 표현으로 작성하세요.</string>
     <string name="review_consent_title">이것은 영구적입니다</string>
     <string name="review_consent_body">작성한 메모는 Solana 블록체인에 기록됩니다. 공개되며 영구히 남습니다. 사용자 본인도, 저희도, 그 누구도 삭제할 수 없습니다. 나중에 이 앱의 순위에서 철회할 수는 있지만, 텍스트 자체는 영구히 온체인에 남습니다. 개인정보는 포함하지 말고 사실이라고 확신하는 내용만 작성하세요.</string>
@@ -1056,7 +1055,7 @@
     <string name="pay_trend_running">누적 합계</string>
     <string name="pay_trend_others">기타</string>
     <string name="pay_found_title">앱 코드에서 발견, 미확인</string>
-    <string name="pay_found_note">앱의 스토어 빌드에 적혀 있고 서로 다른 지갑 %1$d개 이상에서 SOL, SKR 또는 USDC를 받은 지갑. 게시자가 확인하지 않았으며, 일부는 앱의 금고가 아닐 수 있습니다. 순위가 없고 위 보드에도 없습니다.</string>
+    <string name="pay_found_note">앱의 스토어 빌드에 적혀 있고 서로 다른 지갑 %1$d개 이상에서 SOL, SKR 또는 USDC를 받은 지갑. 게시자가 확인하지 않았으며, 일부는 앱의 금고가 아닐 수 있습니다. 순위가 없으며, 확인됨 보드와 따로 표시됩니다.</string>
     <string name="pay_found_row">결제자 %1$d · 읽은 최근 거래 %3$d건 중 결제 %2$d건</string>
     <string name="pay_found_empty">아직 찾지 못했습니다. 스토어 빌드를 읽는 중입니다(지금까지 %1$d개).</string>
     <string name="pay_found_dispute">본인 것인가요? 아래에서 금고를 등록하면 보드로 옮겨집니다. 본인 것이 아닌가요? 신고하면 삭제됩니다.</string>
@@ -1241,4 +1240,19 @@
     <plurals name="pa_n_new"><item quantity="one">신규 %1$s</item><item quantity="other">신규 %1$s</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">신규 결제자 %1$s명</item><item quantity="other">신규 결제자 %1$s명</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">최근 30일: 서명된 리뷰 %1$d개 (그 전 30일: %2$d)</item><item quantity="other">최근 30일: 서명된 리뷰 %1$d개 (그 전 30일: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">연결 없음 · 이 휴대폰에 저장된 내용을 표시 중</string>
+    <string name="pay_found_failed">앱 코드에서 찾은 지갑을 불러올 수 없습니다.</string>
+    <string name="store_load_failed">스토어 리뷰를 불러올 수 없습니다.</string>
+    <string name="publisher_proof_unchecked">증명을 아직 확인하지 못했습니다(연결 없음)</string>
+    <string name="desk_load_failed">증명된 dApp을 읽을 수 없습니다</string>
+    <string name="pay_usd_offline">오프라인에서는 USD를 표시할 수 없습니다</string>
+    <string name="review_note_title">선택 사항 메모</string>
+    <string name="review_note_counter">%1$s / %2$s자</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned는 이 스토어에 dApp 28개를 게시한 AardAppvark가 운영합니다. 운영자 자체 지갑의 리뷰는 표시되고 라벨이 붙으며, 절대 집계되지 않습니다.</string>
+    <string name="status_card_yes">이 Seeker는 집계됩니다: 다른 모든 Seeker와 똑같이 앱당 한 표입니다.</string>
+    <string name="status_card_no">이 지갑에는 Seeker Genesis Token이 없습니다: 리뷰는 표시되지만 집계되지 않습니다. 빠른 리뷰는 지갑 없이도 쓸 수 있습니다.</string>
+    <string name="status_card_operator">Undersigned 운영자 지갑: 표시만, 집계 안 됨.</string>
 </resources>

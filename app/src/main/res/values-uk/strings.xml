@@ -165,7 +165,6 @@
     <string name="review_for">для %1$s</string>
     <string name="review_rating">Оцінка</string>
     <string name="review_tags">Теги (виберіть від 1 до 3)</string>
-    <string name="review_text_label">Необов\'язкова примітка (%1$d символів, залишилось %2$d байт)</string>
     <string name="review_text_hint">Коротко, по суті, власними словами.</string>
     <string name="review_consent_title">Це назавжди</string>
     <string name="review_consent_body">Ваша примітка буде записана в блокчейн Solana. Вона публічна й постійна. Її не можна видалити ні вам, ні нам, ні будь-кому іншому. Пізніше ви можете вилучити її з рейтингу цього додатка, але сам текст залишається в блокчейні назавжди. Не вказуйте персональні дані та зазначайте лише те, що ви знаєте як правду.</string>
@@ -1116,7 +1115,7 @@
     <string name="pay_trend_running">Наростаючий підсумок</string>
     <string name="pay_trend_others">Інші</string>
     <string name="pay_found_title">Знайдено в коді застосунків, не підтверджено</string>
-    <string name="pay_found_note">Гаманці, записані у збірку застосунку з магазину, які отримали SOL, SKR або USDC щонайменше від %1$d різних гаманців. Видавець їх не підтвердив, і якийсь може не бути скарбницею застосунку. Без рейтингу й поза таблицею вище.</string>
+    <string name="pay_found_note">Гаманці, записані у збірку застосунку з магазину, які отримали SOL, SKR або USDC щонайменше від %1$d різних гаманців. Видавець їх не підтвердив, і якийсь може не бути скарбницею застосунку. Без рейтингу й окремо від таблиці «Підтверджені».</string>
     <string name="pay_found_row">%1$d платників · %2$d платежів в останніх %3$d прочитаних транзакціях</string>
     <string name="pay_found_empty">Поки нічого. Збірки з магазину ще читаються (поки %1$d).</string>
     <string name="pay_found_dispute">Один із них ваш? Укажіть скарбницю нижче, і він перейде до таблиці. Не ваш? Повідомте, і його приберуть.</string>
@@ -1301,4 +1300,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s новий</item><item quantity="few">%1$s нові</item><item quantity="many">%1$s нових</item><item quantity="other">%1$s нові</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s новий платник</item><item quantity="few">%1$s нові платники</item><item quantity="many">%1$s нових платників</item><item quantity="other">%1$s нові платники</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Останні 30 днів: %1$d підписаний відгук (30 до того: %2$d)</item><item quantity="few">Останні 30 днів: %1$d підписані відгуки (30 до того: %2$d)</item><item quantity="many">Останні 30 днів: %1$d підписаних відгуків (30 до того: %2$d)</item><item quantity="other">Останні 30 днів: %1$d підписані відгуки (30 до того: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Немає з\'єднання · показано те, що зберігає цей телефон</string>
+    <string name="pay_found_failed">Не вдалося завантажити гаманці, знайдені в коді застосунків.</string>
+    <string name="store_load_failed">Не вдалося завантажити відгуки з магазину.</string>
+    <string name="publisher_proof_unchecked">Доказ ще не перевірено (немає з\'єднання)</string>
+    <string name="desk_load_failed">Не вдалося прочитати ваші доведені dApps</string>
+    <string name="pay_usd_offline">USD недоступний офлайн</string>
+    <string name="review_note_title">Необов\'язкова примітка</string>
+    <string name="review_note_counter">%1$s / %2$s символів</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned керує AardAppvark — видавець 28 dApps у цьому магазині. Відгуки з його власних гаманців показуються, позначаються й ніколи не враховуються.</string>
+    <string name="status_card_yes">Цей Seeker враховується: один голос за застосунок, як і будь-який інший Seeker.</string>
+    <string name="status_card_no">У цьому гаманці немає Seeker Genesis Token: ваші відгуки показуються, але не враховуються. Швидкі відгуки доступні без гаманця.</string>
+    <string name="status_card_operator">Гаманець оператора Undersigned: показується, ніколи не враховується.</string>
 </resources>

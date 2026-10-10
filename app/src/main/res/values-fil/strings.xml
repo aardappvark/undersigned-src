@@ -162,7 +162,6 @@
     <string name="review_for">para sa %1$s</string>
     <string name="review_rating">Marka</string>
     <string name="review_tags">Mga tag (pumili ng 1 hanggang 3)</string>
-    <string name="review_text_label">Opsyonal na tala (%1$d character, %2$d byte na natitira)</string>
     <string name="review_text_hint">Maikli, batay sa katotohanan, sa sarili mong salita.</string>
     <string name="review_consent_title">Permanente ito</string>
     <string name="review_consent_body">Isusulat ang iyong tala sa Solana blockchain. Ito ay pampubliko at permanente. Hindi ito mabubura mo, ng amin, o ng kahit sino. Maaari mo itong i-withdraw mula sa ranking ng app na ito sa ibang pagkakataon, pero ang teksto mismo ay mananatili sa chain magpakailanman. Huwag isama ang personal na datos, at sabihin lang ang alam mong totoo.</string>
@@ -1083,7 +1082,7 @@
     <string name="pay_trend_running">Kabuuang tumatakbo</string>
     <string name="pay_trend_others">Iba pa</string>
     <string name="pay_found_title">Nakita sa code ng app, hindi kumpirmado</string>
-    <string name="pay_found_note">Mga wallet na nakasulat sa store build ng isang app na nakatanggap ng SOL, SKR o USDC mula sa hindi bababa sa %1$d magkakaibang wallet. Hindi pa ito kinukumpirma ng publisher, at maaaring hindi treasury ng app ang isa. Walang ranggo at wala sa board sa itaas.</string>
+    <string name="pay_found_note">Mga wallet na nakasulat sa store build ng isang app na nakatanggap ng SOL, SKR o USDC mula sa hindi bababa sa %1$d magkakaibang wallet. Hindi pa ito kinukumpirma ng publisher, at maaaring hindi treasury ng app ang isa. Walang ranggo, at hiwalay sa board na Kumpirmado.</string>
     <string name="pay_found_row">%1$d nagbayad · %2$d bayad sa huling %3$d transaksyong nabasa</string>
     <string name="pay_found_empty">Wala pang nakita. Binabasa pa ang mga store build (%1$d sa ngayon).</string>
     <string name="pay_found_dispute">Sa iyo ba ang isa rito? I-lista ang treasury mo sa ibaba at lilipat ito sa board. Hindi sa iyo? I-report at aalisin ito.</string>
@@ -1268,4 +1267,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s bago</item><item quantity="other">%1$s bago</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s bagong nagbayad</item><item quantity="other">%1$s bagong nagbayad</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Huling 30 araw: %1$d pinirmahang review (ang 30 bago nito: %2$d)</item><item quantity="other">Huling 30 araw: %1$d pinirmahang review (ang 30 bago nito: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Walang koneksyon · ipinapakita ang hawak ng teleponong ito</string>
+    <string name="pay_found_failed">Hindi ma-load ang mga wallet na nakita sa code ng app.</string>
+    <string name="store_load_failed">Hindi ma-load ang mga review sa store.</string>
+    <string name="publisher_proof_unchecked">Hindi pa nasusuri ang patunay (walang koneksyon)</string>
+    <string name="desk_load_failed">Hindi mabasa ang mga napatunayan mong dApp</string>
+    <string name="pay_usd_offline">Hindi available ang USD nang offline</string>
+    <string name="review_note_title">Opsyonal na tala</string>
+    <string name="review_note_counter">%1$s / %2$s character</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Ang Undersigned ay pinapatakbo ng AardAppvark, publisher ng 28 dApp sa store na ito. Ang mga review mula sa sarili nitong mga wallet ay ipinapakita, may label, at hindi kailanman binibilang.</string>
+    <string name="status_card_yes">Binibilang ang Seeker na ito: isang boses bawat app, gaya ng bawat ibang Seeker.</string>
+    <string name="status_card_no">Walang Seeker Genesis Token ang wallet na ito: ipinapakita ang mga review mo, hindi binibilang. Magagamit ang mga quick review kahit walang wallet.</string>
+    <string name="status_card_operator">Wallet ng operator ng Undersigned: ipinapakita, hindi kailanman binibilang.</string>
 </resources>

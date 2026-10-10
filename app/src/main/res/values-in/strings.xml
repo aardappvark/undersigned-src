@@ -158,7 +158,6 @@
     <string name="review_for">untuk %1$s</string>
     <string name="review_rating">Peringkat</string>
     <string name="review_tags">Tag (pilih 1 hingga 3)</string>
-    <string name="review_text_label">Catatan opsional (%1$d karakter, %2$d byte tersisa)</string>
     <string name="review_text_hint">Singkat, faktual, dengan kata-kata Anda sendiri.</string>
     <string name="review_consent_title">Ini bersifat permanen</string>
     <string name="review_consent_body">Catatan Anda akan ditulis ke blockchain Solana. Ini bersifat publik dan permanen. Tidak dapat dihapus oleh Anda, oleh kami, atau oleh siapa pun. Anda dapat menariknya dari peringkat aplikasi ini nanti, tetapi teksnya sendiri akan tetap berada di on-chain selamanya. Jangan sertakan data pribadi, dan hanya nyatakan apa yang Anda ketahui benar.</string>
@@ -1064,7 +1063,7 @@
     <string name="pay_trend_running">Total berjalan</string>
     <string name="pay_trend_others">Lainnya</string>
     <string name="pay_found_title">Ditemukan di kode aplikasi, belum dikonfirmasi</string>
-    <string name="pay_found_note">Dompet yang tertulis di build toko sebuah aplikasi dan menerima SOL, SKR, atau USDC dari setidaknya %1$d dompet berbeda. Penerbit belum mengonfirmasinya, dan salah satunya mungkin bukan treasury aplikasi. Tidak diperingkat dan tidak ada di papan di atas.</string>
+    <string name="pay_found_note">Dompet yang tertulis di build toko sebuah aplikasi dan menerima SOL, SKR, atau USDC dari setidaknya %1$d dompet berbeda. Penerbit belum mengonfirmasinya, dan salah satunya mungkin bukan treasury aplikasi. Tidak diperingkat, dan dipisahkan dari papan Terkonfirmasi.</string>
     <string name="pay_found_row">%1$d pembayar · %2$d pembayaran dalam %3$d transaksi terakhir yang dibaca</string>
     <string name="pay_found_empty">Belum ada yang ditemukan. Build toko masih dibaca (%1$d sejauh ini).</string>
     <string name="pay_found_dispute">Salah satunya milikmu? Daftarkan treasury-mu di bawah dan akan pindah ke papan. Bukan milikmu? Laporkan dan akan dihapus.</string>
@@ -1249,4 +1248,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s baru</item><item quantity="other">%1$s baru</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s pembayar baru</item><item quantity="other">%1$s pembayar baru</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">30 hari terakhir: %1$d ulasan bertanda tangan (30 sebelumnya: %2$d)</item><item quantity="other">30 hari terakhir: %1$d ulasan bertanda tangan (30 sebelumnya: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Tidak ada koneksi · menampilkan yang tersimpan di ponsel ini</string>
+    <string name="pay_found_failed">Tidak dapat memuat dompet yang ditemukan di kode aplikasi.</string>
+    <string name="store_load_failed">Tidak dapat memuat ulasan toko.</string>
+    <string name="publisher_proof_unchecked">Bukti belum diperiksa (tidak ada koneksi)</string>
+    <string name="desk_load_failed">Tidak dapat membaca dApp terbukti milik Anda</string>
+    <string name="pay_usd_offline">USD tidak tersedia saat offline</string>
+    <string name="review_note_title">Catatan opsional</string>
+    <string name="review_note_counter">%1$s / %2$s karakter</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned dijalankan oleh AardAppvark, penerbit 28 dApp di toko ini. Ulasan dari dompetnya sendiri ditampilkan, diberi label, dan tidak pernah dihitung.</string>
+    <string name="status_card_yes">Seeker ini dihitung: satu suara per aplikasi, sama seperti setiap Seeker lain.</string>
+    <string name="status_card_no">Tidak ada Seeker Genesis Token di dompet ini: ulasan Anda ditampilkan, tidak dihitung. Ulasan cepat tersedia tanpa dompet.</string>
+    <string name="status_card_operator">Wallet operator Undersigned: ditampilkan, tidak pernah dihitung.</string>
 </resources>

@@ -89,7 +89,7 @@ Added 5 Oct 2026:
 | **Labels in the reader's language** (tags, install age, usage time, flag reasons) from the app's 27 translations; `?lang=` or Accept-Language | all pages | F |
 | **The operator's hide list**: this site stops serving a record's text and says so; the record stays | `api hide|unhide|hidden`, `/report` | — |
 | **Uncounted reviews folded** on pages; counted ones lead | `/app/{pkg}` | F |
-| **Webhook events** `flag`, `claim`; **key recovery** (the same proof returns the same key) | `/v1/hooks`, `/v1/keys` | P |
+| **Webhook events** `flag`, `claim`; **key recovery** (proving the same payment again returns a NEW key and retires the old one; webhooks follow) | `/v1/hooks`, `/v1/keys` | P |
 
 | **Open dataset**: every decoded record, every app's signed score, every signer's public facts; built once per rebuild | `/v1/dataset.json` | F |
 | **Tag groups and opposite pairs** on the web composer, as in the app (protocol `TagGroups`) | `/review` | F |
@@ -121,6 +121,16 @@ The SGT price is honoured when the payer holds a Seeker Genesis Token at redempt
 
 API payments carry `API_REFERENCE`, never the registry, so the app never reads one as a Pro licence or a listing fee;
 fleet ledger tools see `UNS` and attribute them to Undersigned.
+
+### Payment analytics (10 Oct 2026)
+
+`GET /v1/payments/leaderboard|categories|trending|patterns|treasuries|summary?window=7d|30d|90d|1y|all` (leaderboard also
+`include=confirmed|found|all`, `rail=sol|skr|usdc`), `GET /v1/payments/series?window=&by=day|week|month`,
+`GET /v1/payments/app/{pkg}/series`, and SVG charts at `GET /v1/payments/chart/top.svg|store.svg|app/{pkg}.svg` (served
+through the web limiter like badges). Built by `Analytics.kt` from pay_rows only; answers memoised five minutes
+(`Views.memo5`), the source cache tied to the board's refresh. Confirmed treasuries and found wallets are always told
+apart; a found wallet shared by several apps of one publisher is one source; the leaderboard is per dApp with its
+wallets merged and payments deduplicated by signature. USD on the day paid; gross receipts, never revenue.
 
 ### Publisher plan and data plan (10 Oct 2026)
 

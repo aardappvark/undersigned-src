@@ -87,7 +87,7 @@ export async function sync() {
     for (const s of page) {
       // A Pro payment's only memo is the fleet code, so the protocol tag alone would skip it.
       if (s.err || known.has(s.signature) || !s.memo || !(s.memo.includes("SRL1|") || s.memo.includes(PAYMENT_MEMO))) continue;
-      const tx = await rpc("getTransaction", [s.signature, { encoding: "jsonParsed", maxSupportedTransactionVersion: 0 }]); if (!tx || tx.meta.err) continue;
+      const tx = await rpc("getTransaction", [s.signature, { encoding: "jsonParsed", maxSupportedTransactionVersion: 1 }]); if (!tx || tx.meta.err) continue;
       const keys = tx.transaction.message.accountKeys; const k0 = keys[0].pubkey || keys[0];
       // A quick review is relayed: the fee payer is Undersigned's relayer and the author is the second signer (protocol Registry.author).
       const signer = k0 === QUICK_RELAYER && keys.length > 1 && (keys[1].signer ?? true) ? (keys[1].pubkey || keys[1]) : k0;

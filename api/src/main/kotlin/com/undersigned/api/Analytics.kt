@@ -41,14 +41,15 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
         const val MIN_BASE_USD = 20.0
     }
 
-    @Volatile private var cache: Pair<Long, List<Src>> = 0L to emptyList()
+    private class Cached(val at: Long, val rows: List<BoardRow>, val srcs: List<Src>)
+    @Volatile private var cache: Cached? = null
 
     /** Every source with its payments from the database (confirmed treasuries exclude their own wallets, as the board does). */
     fun sources(): List<Src> {
-        val (at, c) = cache
-        if (at > 0 && System.currentTimeMillis() - at < 300_000) return c
+        val board = boards.rows
+        cache?.let { c -> if (c.rows === board && System.currentTimeMillis() - c.at < 300_000) return c.srcs }   // a board refresh invalidates it
         val out = ArrayList<Src>()
-        for (r in boards.rows.filter { it.confirmed }) {
+        for (r in board.filter { it.confirmed }) {
             val byRef = Payments.isReference(r.claim.code)
             val key = if (byRef) "${r.claim.treasury}-${r.claim.code}" else r.claim.treasury
             val ps = db.query("SELECT sig, time, memo, payer, lamports, tokens FROM pay_rows WHERE addr_key = ? AND fetched = 1 AND payer IS NOT NULL", key) { rs ->
@@ -66,9 +67,13 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
             val name = rows.map { it.optString("name", it.getString("package")) }.distinct().let { if (it.size == 1) it[0] else it.take(3).joinToString(" / ") + (if (it.size > 3) " +${it.size - 3}" else "") }
             out += Src(first.getString("package"), name, w, false, f.payments(w))
         }
-        cache = System.currentTimeMillis() to out
+        if (board.isNotEmpty()) cache = Cached(System.currentTimeMillis(), board, out)   // an empty board (the first minute after a start) is never cached
         return out
     }
+
+    /** One entry per dApp: its sources merged, payments deduplicated by signature (an app with two wallets counted once, 11 Oct 2026). */
+    private fun byApp(srcs: List<Src>): List<Src> = srcs.groupBy { it.packageName }.map { (pkg, l) ->
+        Src(pkg, l.first().name, l.map { it.wallet }.distinct().joinToString(","), l.any { it.confirmed }, l.flatMap { it.payments }.distinctBy { it.signature }) }
 
     private fun usd(p: Payments.Payment, h: Map<String, Map<String, Double>>) = Prices.usdWhenPaid(p, h)
 
@@ -77,19 +82,20 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
      * Each row: source, totals by rail, payers, payers new in the window, share of the window's total, and a weekly
      * series over the window (the last 12 weeks for "all").
      */
-    fun leaderboard(window: String, include: String, limit: Int, now: Long = System.currentTimeMillis() / 1000): JSONObject {
+    fun leaderboard(window: String, include: String, limit: Int, now: Long = System.currentTimeMillis() / 1000, rail: String? = null): JSONObject {
         val h = prices.history(); val from = windowStart(window, now)
-        val srcs = sources().filter { include == "all" || (include == "confirmed") == it.confirmed }
+        val srcs = byApp(sources().filter { include == "all" || (include == "confirmed") == it.confirmed })
+        val onRail = { p: Payments.Payment -> when (rail) { "sol" -> p.lamports > 0 && p.tokens.isEmpty(); "skr" -> (p.tokens[Config.SKR_MINT] ?: 0L) > 0; "usdc" -> (p.tokens[Config.USDC_MINT] ?: 0L) > 0; else -> true } }
         data class Row(val s: Src, val inWin: List<Payments.Payment>, val usd: Double, val unpriced: Int, val newPayers: Int)
         val rows = srcs.map { s ->
-            val inWin = s.inWin(from)
+            val inWin = s.inWin(from).filter(onRail)
             val priced = inWin.map { usd(it, h) }
             val firstSeen = s.payments.groupBy { it.payer }.mapValues { (_, l) -> l.minOf { it.time } }
             Row(s, inWin, priced.filterNotNull().sum(), priced.count { it == null }, inWin.map { it.payer }.toSet().count { (firstSeen[it] ?: 0L) >= from })
         }.filter { it.inWin.isNotEmpty() }.sortedByDescending { it.usd }
         val total = rows.sumOf { it.usd }
         val sparkFrom = if (window == "all") now - 12 * 7 * 86_400L else from
-        return JSONObject().put("window", window).put("include", include).put("from", from).put("to", now)
+        return JSONObject().put("window", window).put("include", include).put("rail", rail ?: "all").put("from", from).put("to", now)
             .put("total_usd", r2(total)).put("apps", rows.size).put("payments", rows.sumOf { it.inWin.size })
             .put("payers", rows.flatMap { r -> r.inWin.map { it.payer } }.toSet().size)
             .put("rows", JSONArray(rows.take(limit).mapIndexed { i, r ->
@@ -98,16 +104,17 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
                     .put("payments", r.inWin.size).put("payers", r.inWin.map { it.payer }.toSet().size).put("new_payers", r.newPayers).put("unpriced", r.unpriced)
                     .put("sol", r2(r.inWin.sumOf { it.lamports } / 1e9)).put("skr", r2(r.inWin.sumOf { it.tokens[Config.SKR_MINT] ?: 0L } / 1e6)).put("usdc", r2(r.inWin.sumOf { it.tokens[Config.USDC_MINT] ?: 0L } / 1e6))
                     .put("first", r.s.payments.minOfOrNull { it.time } ?: JSONObject.NULL).put("last", r.inWin.maxOf { it.time })
-                    .put("spark", JSONArray(series(r.s.inWin(sparkFrom), "week", h, sparkFrom, now).map { r2(it.usd) }))
+                    .put("spark", JSONArray(series(r.s.inWin(sparkFrom).filter(onRail), "week", h, sparkFrom, now).map { r2(it.usd) }))
             }))
-            .put("label", "Confirmed: a treasury its publisher listed and proved. Found: a wallet written into the app's store build, paid by 5+ wallets, confirmed by no one; a suspicion, not a fact. USD on the day paid; receipts are gross, not revenue.")
+            .put("label", "Confirmed: a treasury its publisher listed and proved. Found: a wallet written into the app's store build, paid by 5+ wallets, confirmed by no one; unconfirmed. USD on the day paid; receipts are gross, not revenue.")
     }
 
     /** Payments into every source per bucket (day | week | month) over [window], split by source kind. */
     fun storeSeries(window: String, by: String, now: Long = System.currentTimeMillis() / 1000): JSONObject {
-        val h = prices.history(); val from = windowStart(window, now)
-        val all = sources()
-        fun pts(ps: List<Payments.Payment>) = JSONArray(series(ps, by, h, if (from > 0) from else (ps.minOfOrNull { it.time } ?: now), now).map { p -> JSONObject().put("bucket", p.bucket).put("usd", r2(p.usd)).put("payments", p.payments).put("payers", p.payers) })
+        val h = prices.history(); val all = sources()
+        // One start for every series, so confirmed and found line up bucket for bucket (window=all crashed the chart, 11 Oct 2026).
+        val from = windowStart(window, now).takeIf { it > 0 } ?: (all.flatMap { it.payments }.minOfOrNull { it.time } ?: now)
+        fun pts(ps: List<Payments.Payment>) = JSONArray(series(ps, by, h, from, now).map { p -> JSONObject().put("bucket", p.bucket).put("usd", r2(p.usd)).put("payments", p.payments).put("payers", p.payers) })
         val confirmed = all.filter { it.confirmed }.flatMap { it.inWin(from) }; val foundPs = all.filter { !it.confirmed }.flatMap { it.inWin(from) }
         return JSONObject().put("window", window).put("by", by).put("from", from).put("to", now)
             .put("confirmed", pts(confirmed)).put("found", pts(foundPs)).put("all", pts(confirmed + foundPs))
@@ -131,7 +138,7 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
         val h = prices.history(); val from = windowStart(window, now)
         val byWallet = sources().groupBy { it.wallet }
         val rows = byWallet.map { (w, srcs) ->
-            val ps = srcs.first().inWin(from)   // the same wallet's payments are the same list whichever app lists it
+            val ps = srcs.flatMap { it.inWin(from) }.distinctBy { it.signature }   // a treasury serving 28 apps by memo: every app's payments, once
             Triple(w, srcs, ps to ps.mapNotNull { usd(it, h) }.sum())
         }.filter { it.third.first.isNotEmpty() }.sortedByDescending { it.third.second }
         return JSONObject().put("window", window).put("rows", JSONArray(rows.take(limit).mapIndexed { i, (w, srcs, v) ->
@@ -147,7 +154,8 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
 
     private data class Win(val from: Long, val to: Long, val prevFrom: Long)
     private fun win(window: String, now: Long): Win { val from = windowStart(window, now); val len = if (from > 0) now - from else 0L; return Win(from, now, if (from > 0) from - len else 0L) }
-    private fun growth(cur: Double, prev: Double): Any = if (prev <= 0) (if (cur > 0) "new" else JSONObject.NULL) else r2(100 * (cur - prev) / prev)
+    /** A previous total under a dollar is "new" (a fraction of a cent once read as +1.8e11%, 11 Oct 2026). */
+    private fun growth(cur: Double, prev: Double): Any = if (prev < 1.0) (if (cur > 0) "new" else JSONObject.NULL) else r2(100 * (cur - prev) / prev)
 
     /**
      * Categories ranked by USD received in [window], each with its change against the window before, how many of its
@@ -155,21 +163,21 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
      */
     fun categoriesReport(window: String, now: Long = System.currentTimeMillis() / 1000): JSONObject {
         val h = prices.history(); val w = win(window, now); val cats = categories()
-        data class Agg(var usd: Double = 0.0, var prev: Double = 0.0, var payments: Int = 0, val payers: HashSet<String> = HashSet(), val apps: HashMap<String, Double> = HashMap(), val appNames: HashMap<String, String> = HashMap(), var found: Int = 0)
+        data class Agg(var usd: Double = 0.0, var prev: Double = 0.0, var payments: Int = 0, val payers: HashSet<String> = HashSet(), val apps: HashMap<String, Double> = HashMap(), val appNames: HashMap<String, String> = HashMap(), val found: HashSet<String> = HashSet())
         val by = HashMap<String, Agg>()
-        for (s in sources()) {
+        for (s in byApp(sources())) {
             val cat = cats[s.packageName] ?: "Uncategorised"; val a = by.getOrPut(cat) { Agg() }
             val cur = s.inWin(w.from); if (cur.isEmpty() && w.from > 0 && s.inWin(w.prevFrom, w.from).isEmpty()) continue
             val u = cur.mapNotNull { usd(it, h) }.sum()
             a.usd += u; a.payments += cur.size; cur.forEach { a.payers += it.payer }
             if (w.from > 0) a.prev += s.inWin(w.prevFrom, w.from).mapNotNull { usd(it, h) }.sum()
-            if (cur.isNotEmpty()) { a.apps.merge(s.packageName, u, Double::plus); a.appNames[s.packageName] = s.name; if (!s.confirmed) a.found++ }
+            if (cur.isNotEmpty()) { a.apps.merge(s.packageName, u, Double::plus); a.appNames[s.packageName] = s.name; if (!s.confirmed) a.found += s.packageName }
         }
         val total = by.values.sumOf { it.usd }
         val rows = by.entries.filter { it.value.usd > 0 || it.value.prev > 0 }.sortedByDescending { it.value.usd }.mapIndexed { i, (cat, a) ->
             JSONObject().put("rank", i + 1).put("category", cat).put("usd", r2(a.usd)).put("share", if (total > 0) r2(100 * a.usd / total) else 0.0)
                 .put("change_pct", if (w.from > 0) growth(a.usd, a.prev) else JSONObject.NULL).put("previous_usd", if (w.from > 0) r2(a.prev) else JSONObject.NULL)
-                .put("payments", a.payments).put("payers", a.payers.size).put("apps_paid", a.apps.size).put("of_which_found", a.found)
+                .put("payments", a.payments).put("payers", a.payers.size).put("apps_paid", a.apps.size).put("of_which_found", a.found.size)
                 .put("leaders", JSONArray(a.apps.entries.sortedByDescending { it.value }.take(3).map { e -> JSONObject().put("package", e.key).put("name", a.appNames[e.key]).put("usd", r2(e.value)) }))
         }
         return JSONObject().put("window", window).put("total_usd", r2(total)).put("categories", JSONArray(rows))
@@ -183,7 +191,7 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
     fun trending(window: String, limit: Int, now: Long = System.currentTimeMillis() / 1000): JSONObject {
         val h = prices.history(); val w = win(if (window == "all") "90d" else window, now)
         data class T(val s: Src, val cur: Double, val prev: Double, val curN: Int, val prevN: Int, val newPayers: Int, val repeat: Int)
-        val ts = sources().mapNotNull { s ->
+        val ts = byApp(sources()).mapNotNull { s ->
             val cur = s.inWin(w.from); val prev = s.inWin(w.prevFrom, w.from)
             if (cur.isEmpty() && prev.isEmpty()) return@mapNotNull null
             val firstSeen = s.payments.groupBy { it.payer }.mapValues { (_, l) -> l.minOf { it.time } }
@@ -199,7 +207,8 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
         val newcomers = ts.filter { t -> (t.s.payments.minOfOrNull { it.time } ?: 0L) >= w.from }.sortedByDescending { it.cur }.take(limit)
         return JSONObject().put("window", if (window == "all") "90d" else window).put("compared_with", "the ${label(if (window == "all") "90d" else window)} before")
             .put("rising", JSONArray(risers.map(::row))).put("falling", JSONArray(fallers.map(::row))).put("newcomers", JSONArray(newcomers.map(::row)))
-            .put("min_base_usd", MIN_BASE_USD).put("label", "Rising and falling by the change in USD received between two equal windows; a source needs $MIN_BASE_USD in one of them to be ranked. Newcomers: first payment ever seen inside the window.")
+            .put("min_base_usd", MIN_BASE_USD).put("label", "Rising and falling by the change in USD received between two equal windows; a source needs $MIN_BASE_USD in one of them to be ranked. Newcomers: first payment ever seen inside the window." +
+                if (window == "1y") " For 1y the window before is only partly read, so falls are overstated." else "")
     }
 
     /** Where the money comes from and when: rails, repeat payers, concentration, payments by hour (UTC) and weekday. */
@@ -211,9 +220,10 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
         val sol = ps.filter { it.lamports > 0 && it.tokens.isEmpty() }; val skr = ps.filter { (it.tokens[Config.SKR_MINT] ?: 0L) > 0 }; val usdc = ps.filter { (it.tokens[Config.USDC_MINT] ?: 0L) > 0 }
         fun railJson(l: List<Payments.Payment>) = JSONObject().put("payments", l.size).put("usd", r2(l.sumOf { usdOf[it.signature] ?: 0.0 })).put("share", if (total > 0) r2(100 * l.sumOf { usdOf[it.signature] ?: 0.0 } / total) else 0.0)
         // Repeat payers: paid this app before the window too.
-        var repeat = 0; var fresh = 0
-        for (s in srcs) { val firstSeen = s.payments.groupBy { it.payer }.mapValues { (_, l) -> l.minOf { it.time } }
-            s.inWin(w.from).map { it.payer }.toSet().forEach { if ((firstSeen[it] ?: 0L) >= w.from) fresh++ else repeat++ } }
+        // Distinct payers across the store: repeat = paid any app before the window.
+        val firstSeen = srcs.flatMap { it.payments }.groupBy { it.payer }.mapValues { (_, l) -> l.minOf { it.time } }
+        val winPayers = ps.map { it.payer }.toSet()
+        val fresh = winPayers.count { (firstSeen[it] ?: 0L) >= w.from }; val repeat = winPayers.size - fresh
         val byApp = srcs.map { s -> s.inWin(w.from).sumOf { usdOf[it.signature] ?: 0.0 } }.sortedDescending()
         val top10 = byApp.take(10).sum()
         val hours = IntArray(24); val days = IntArray(7)
@@ -236,7 +246,9 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
             .put("series", storeSeries(window, if (window == "7d") "day" else if (window == "all") "month" else "week", now))
 
     /** Buckets from [from] to [now] inclusive, every bucket present (zeros where nothing was paid). */
-    fun series(ps: List<Payments.Payment>, by: String, h: Map<String, Map<String, Double>>, from: Long, now: Long): List<Point> {
+    fun series(ps: List<Payments.Payment>, by: String, h: Map<String, Map<String, Double>>, from0: Long, now: Long): List<Point> {
+        // Weeks start on their Monday, so the first bucket is a whole week, not a false dip.
+        val from = if (by == "week") java.time.LocalDate.ofInstant(java.time.Instant.ofEpochSecond(from0), java.time.ZoneOffset.UTC).let { d -> d.minusDays((d.dayOfWeek.value - 1).toLong()).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond() } else from0
         val grouped = ps.filter { it.time >= from }.groupBy { bucket(it.time, by) }
         val step = when (by) { "day" -> 86_400L; "month" -> 0L; else -> 7 * 86_400L }
         val keys = LinkedHashSet<String>()
@@ -268,7 +280,7 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
             sb.append("<text x='40' y='${y + 27}' $FONT font-size='16' fill='#F2EEFF'>${esc(r.getString("name").take(28))}</text>")
             sb.append("<rect x='330' y='${y + 10}' width='${"%.1f".format(java.util.Locale.US, bw)}' height='22' rx='6' fill='$col' opacity='0.9'/>")
             sb.append("<text x='${330 + bw + 12}' y='${y + 27}' $FONT font-size='15' fill='#F2EEFF'>${money(r.getDouble("usd"))} <tspan fill='#6E6588'>· ${r.getInt("payments")} payments · ${r.getInt("payers")} payers</tspan></text>") }
-        sb.append("<text x='40' y='${h - 22}' $FONT font-size='12' fill='#6E6588'>undersigned.provenby.dev/payments · gross receipts into app wallets, from the Solana ledger · found wallets are a suspicion, not a fact</text></svg>")
+        sb.append("<text x='40' y='${h - 22}' $FONT font-size='12' fill='#6E6588'>undersigned.provenby.dev/payments · gross receipts into app wallets, from the Solana ledger · found wallets are unconfirmed</text></svg>")
         return sb.toString()
     }
 

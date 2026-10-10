@@ -170,7 +170,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         }
         route("GET", "/v1/keys/me", Tier.FREE, "Your pass: requests left and end date") { r ->
             val p = r.caller.key?.let { billing.pass(it) } ?: return@route Response(401, JSONObject().put("error", "no_key").put("message", "send Authorization: Bearer <key>"))
-            ok(JSONObject().put("wallet", p.wallet).put("kind", billing.kind(p.key) ?: "pass").put("requests_left", p.requestsLeft).put("ends_at", p.endsAt))
+            ok(JSONObject().put("wallet", p.wallet).put("kind", billing.kind(r.caller.key!!) ?: "pass").put("requests_left", p.requestsLeft).put("ends_at", p.endsAt))
         }
         route("GET", "/v1/stats", Tier.FREE, "Ledger totals") { ok(views.stats()) }
         route("GET", "/v1/dataset.json", Tier.FREE, "The open dataset: every record, every app's signed score, every signer's public facts (rebuilt every few minutes)") { cachedDataset() }
@@ -238,15 +238,18 @@ class Api(private val views: Views, private val billing: Billing, private val in
         // Analytics (owner, 10 Oct 2026): leaderboards, categories, trends and charts over confirmed treasuries and found wallets.
         fun win(r: Req) = r.query["window"]?.takeIf { it in Analytics.WINDOWS } ?: "30d"
         fun by(r: Req) = r.query["by"]?.takeIf { it in listOf("day", "week", "month") } ?: "week"
-        route("GET", "/v1/payments/leaderboard", Tier.LIMITED, "dApps ranked by USD received in a window (7d|30d|90d|1y|all) across confirmed treasuries and found wallets (include=confirmed|found|all), with rails, payers, new payers and a weekly series each") { r ->
-            ok(views.analytics.leaderboard(win(r), r.query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all", rows(r, Config.FREE_ROWS, 500))) }
-        route("GET", "/v1/payments/series", Tier.FREE, "Payments into every dApp wallet per day|week|month over a window, confirmed and found apart") { r -> ok(views.analytics.storeSeries(win(r), by(r))) }
-        route("GET", "/v1/payments/categories", Tier.LIMITED, "Store categories ranked by USD received in a window, each with its change against the window before and its three leaders") { r -> ok(views.analytics.categoriesReport(win(r))) }
-        route("GET", "/v1/payments/trending", Tier.LIMITED, "dApps rising, falling and new by USD received, this window against the one before") { r -> ok(views.analytics.trending(win(r), rows(r, 10, 100))) }
-        route("GET", "/v1/payments/patterns", Tier.LIMITED, "Rails, repeat payers, concentration, payment sizes, and payments by hour and weekday in a window") { r -> ok(views.analytics.patterns(win(r))) }
-        route("GET", "/v1/payments/treasuries", Tier.LIMITED, "Wallets ranked by USD received in a window, each with the dApps it was listed for or found in") { r -> ok(views.analytics.treasuries(win(r), rows(r, Config.FREE_ROWS, 500))) }
-        route("GET", "/v1/payments/summary", Tier.LIMITED, "The analytics dashboard in one answer: leaderboard, categories, trending, patterns, treasuries, series") { r -> ok(views.analytics.summary(win(r))) }
-        route("GET", "/v1/payments/app/{pkg}/series", Tier.FREE, "One dApp's payments per day|week|month across its confirmed and found wallets") { r -> views.analytics.appSeries(r.params["pkg"]!!, by(r))?.let(::ok) ?: notFound("no payments seen for that package") }
+        // Answers are kept five minutes (Views.memo5): each one reads the whole payment history.
+        fun rail(r: Req) = r.query["rail"]?.takeIf { it in listOf("sol", "skr", "usdc") }
+        route("GET", "/v1/payments/leaderboard", Tier.LIMITED, "dApps ranked by USD received in a window (7d|30d|90d|1y|all) across confirmed treasuries and found wallets (include=confirmed|found|all; rail=sol|skr|usdc to count one rail only), with rails, payers, new payers and a weekly series each") { r ->
+            val inc = r.query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all"; val lim = rows(r, Config.FREE_ROWS, 500)
+            ok(views.memo5("lb:${win(r)}:$inc:$lim:${rail(r)}") { views.analytics.leaderboard(win(r), inc, lim, rail = rail(r)) }) }
+        route("GET", "/v1/payments/series", Tier.FREE, "Payments into every dApp wallet per day|week|month over a window, confirmed and found apart") { r -> ok(views.memo5("series:${win(r)}:${by(r)}") { views.analytics.storeSeries(win(r), by(r)) }) }
+        route("GET", "/v1/payments/categories", Tier.LIMITED, "Store categories ranked by USD received in a window, each with its change against the window before and its three leaders") { r -> ok(views.memo5("cat:${win(r)}") { views.analytics.categoriesReport(win(r)) }) }
+        route("GET", "/v1/payments/trending", Tier.LIMITED, "dApps rising, falling and new by USD received, this window against the one before") { r -> val lim = rows(r, 10, 100); ok(views.memo5("tr:${win(r)}:$lim") { views.analytics.trending(win(r), lim) }) }
+        route("GET", "/v1/payments/patterns", Tier.LIMITED, "Rails, repeat payers, concentration, payment sizes, and payments by hour and weekday in a window") { r -> ok(views.memo5("pat:${win(r)}") { views.analytics.patterns(win(r)) }) }
+        route("GET", "/v1/payments/treasuries", Tier.LIMITED, "Wallets ranked by USD received in a window, each with the dApps it was listed for or found in") { r -> val lim = rows(r, Config.FREE_ROWS, 500); ok(views.memo5("tre:${win(r)}:$lim") { views.analytics.treasuries(win(r), lim) }) }
+        route("GET", "/v1/payments/summary", Tier.LIMITED, "The analytics dashboard in one answer: leaderboard, categories, trending, patterns, treasuries, series") { r -> ok(views.memo5("sum:${win(r)}") { views.analytics.summary(win(r)) }) }
+        route("GET", "/v1/payments/app/{pkg}/series", Tier.FREE, "One dApp's payments per day|week|month across its confirmed and found wallets") { r -> views.memo5("app:${r.params["pkg"]}:${by(r)}") { views.analytics.appSeries(r.params["pkg"]!!, by(r)) ?: JSONObject() }.takeIf { it.has("package") }?.let(::ok) ?: notFound("no payments seen for that package") }
         route("GET", "/v1/payments/chart/top.svg", Tier.FREE, "Chart: the top dApps by USD received in a window (n, include), as SVG") { r ->
             Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), views.analytics.chartTop(win(r), r.int("n", 10, 25), r.query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all").toByteArray(), "image/svg+xml; charset=utf-8") }
         route("GET", "/v1/payments/chart/store.svg", Tier.FREE, "Chart: payments into dApp wallets over a window, confirmed and found stacked, as SVG") { r ->

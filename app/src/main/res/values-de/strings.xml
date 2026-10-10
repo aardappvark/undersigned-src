@@ -159,7 +159,6 @@
     <string name="review_for">für %1$s</string>
     <string name="review_rating">Bewertung</string>
     <string name="review_tags">Tags (1 bis 3 wählen)</string>
-    <string name="review_text_label">Optionale Notiz (%1$d Zeichen, %2$d Bytes übrig)</string>
     <string name="review_text_hint">Kurz, sachlich, in Ihren eigenen Worten.</string>
     <string name="review_consent_title">Dies ist dauerhaft</string>
     <string name="review_consent_body">Ihre Notiz wird auf die Solana-Blockchain geschrieben. Sie ist öffentlich und dauerhaft. Sie kann weder von Ihnen noch von uns noch von irgendjemandem gelöscht werden. Sie können sie später aus der Rangliste dieser App zurückziehen, aber der Text selbst bleibt für immer on-chain. Geben Sie keine persönlichen Daten an und geben Sie nur an, was Sie als wahr wissen.</string>
@@ -1099,7 +1098,7 @@
     <string name="pay_trend_running">Laufende Summe</string>
     <string name="pay_trend_others">Andere</string>
     <string name="pay_found_title">Im App-Code gefunden, nicht bestätigt</string>
-    <string name="pay_found_note">Wallets im Store-Build einer App, die SOL, SKR oder USDC von mindestens %1$d verschiedenen Wallets erhalten haben. Der Herausgeber hat sie nicht bestätigt; eine davon ist vielleicht nicht die Kasse der App. Nicht gereiht und nicht in der Tabelle oben.</string>
+    <string name="pay_found_note">Wallets im Store-Build einer App, die SOL, SKR oder USDC von mindestens %1$d verschiedenen Wallets erhalten haben. Der Herausgeber hat sie nicht bestätigt; eine davon ist vielleicht nicht die Kasse der App. Nicht gereiht und getrennt von der Tabelle „Bestätigt“.</string>
     <string name="pay_found_row">%1$d Zahler · %2$d Zahlungen in den letzten %3$d gelesenen Transaktionen</string>
     <string name="pay_found_empty">Noch nichts gefunden. Store-Builds werden noch gelesen (bisher %1$d).</string>
     <string name="pay_found_dispute">Ist eine davon deine? Trag unten deine Kasse ein, dann wandert sie in die Tabelle. Nicht deine? Melde sie, dann wird sie entfernt.</string>
@@ -1284,4 +1283,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s neu</item><item quantity="other">%1$s neu</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s neuer Zahlender</item><item quantity="other">%1$s neue Zahlende</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Letzte 30 Tage: %1$d signierte Bewertung (die 30 davor: %2$d)</item><item quantity="other">Letzte 30 Tage: %1$d signierte Bewertungen (die 30 davor: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Keine Verbindung · angezeigt wird, was dieses Telefon gespeichert hat</string>
+    <string name="pay_found_failed">Die im App-Code gefundenen Wallets konnten nicht geladen werden.</string>
+    <string name="store_load_failed">Die Store-Bewertungen konnten nicht geladen werden.</string>
+    <string name="publisher_proof_unchecked">Nachweis noch nicht geprüft (keine Verbindung)</string>
+    <string name="desk_load_failed">Ihre nachgewiesenen dApps konnten nicht gelesen werden</string>
+    <string name="pay_usd_offline">USD offline nicht verfügbar</string>
+    <string name="review_note_title">Optionale Notiz</string>
+    <string name="review_note_counter">%1$s / %2$s Zeichen</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned wird von AardAppvark betrieben, dem Herausgeber von 28 dApps in diesem Store. Bewertungen aus dessen eigenen Wallets werden angezeigt, gekennzeichnet und nie gezählt.</string>
+    <string name="status_card_yes">Dieser Seeker zählt: eine Stimme pro App, genau wie jeder andere Seeker.</string>
+    <string name="status_card_no">Kein Seeker Genesis Token in dieser Wallet: Ihre Bewertungen werden angezeigt, nicht gezählt. Schnellbewertungen sind ohne Wallet möglich.</string>
+    <string name="status_card_operator">Undersigned-Betreiber-Wallet: angezeigt, nie gezählt.</string>
 </resources>

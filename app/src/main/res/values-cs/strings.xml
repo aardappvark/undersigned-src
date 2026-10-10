@@ -159,7 +159,6 @@
     <string name="review_for">pro %1$s</string>
     <string name="review_rating">Hodnocení</string>
     <string name="review_tags">Štítky (vyberte 1 až 3)</string>
-    <string name="review_text_label">Volitelná poznámka (%1$d znaků, zbývá %2$d bajtů)</string>
     <string name="review_text_hint">Stručně, věcně, vlastními slovy.</string>
     <string name="review_consent_title">Toto je trvalé</string>
     <string name="review_consent_body">Vaše poznámka bude zapsána do blockchainu Solana. Je veřejná a trvalá. Nemůže ji smazat vy, my ani nikdo jiný. Později ji můžete stáhnout z žebříčku této aplikace, ale samotný text zůstává na blockchainu navždy. Neuvádějte osobní údaje a uveďte pouze to, o čem víte, že je pravdivé.</string>
@@ -1109,7 +1108,7 @@
     <string name="pay_trend_running">Průběžný součet</string>
     <string name="pay_trend_others">Ostatní</string>
     <string name="pay_found_title">Nalezeno v kódu, nepotvrzeno</string>
-    <string name="pay_found_note">Peněženky zapsané v obchodní verzi aplikace, které přijaly SOL, SKR nebo USDC od nejméně %1$d různých peněženek. Vydavatel je nepotvrdil a některá nemusí být pokladnou aplikace. Bez pořadí a mimo přehled výše.</string>
+    <string name="pay_found_note">Peněženky zapsané v obchodní verzi aplikace, které přijaly SOL, SKR nebo USDC od nejméně %1$d různých peněženek. Vydavatel je nepotvrdil a některá nemusí být pokladnou aplikace. Bez pořadí a odděleně od přehledu Potvrzené.</string>
     <string name="pay_found_row">%1$d plátců · %2$d plateb v posledních %3$d přečtených transakcích</string>
     <string name="pay_found_empty">Zatím nic. Verze z obchodu se stále čtou (zatím %1$d).</string>
     <string name="pay_found_dispute">Je některá vaše? Zaregistrujte níže svou pokladnu a přesune se do přehledu. Není vaše? Nahlaste ji a bude odstraněna.</string>
@@ -1294,4 +1293,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s nový</item><item quantity="few">%1$s noví</item><item quantity="many">%1$s nového</item><item quantity="other">%1$s nových</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s nový plátce</item><item quantity="few">%1$s noví plátci</item><item quantity="many">%1$s nového plátce</item><item quantity="other">%1$s nových plátců</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Posledních 30 dní: %1$d podepsaná recenze (30 předtím: %2$d)</item><item quantity="few">Posledních 30 dní: %1$d podepsané recenze (30 předtím: %2$d)</item><item quantity="many">Posledních 30 dní: %1$d podepsané recenze (30 předtím: %2$d)</item><item quantity="other">Posledních 30 dní: %1$d podepsaných recenzí (30 předtím: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Bez připojení · zobrazuje se, co má tento telefon uloženo</string>
+    <string name="pay_found_failed">Peněženky nalezené v kódu aplikací se nepodařilo načíst.</string>
+    <string name="store_load_failed">Recenze z obchodu se nepodařilo načíst.</string>
+    <string name="publisher_proof_unchecked">Důkaz zatím nezkontrolován (bez připojení)</string>
+    <string name="desk_load_failed">Vaše prokázané dApps se nepodařilo načíst</string>
+    <string name="pay_usd_offline">USD není offline k dispozici</string>
+    <string name="review_note_title">Volitelná poznámka</string>
+    <string name="review_note_counter">%1$s / %2$s znaků</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned provozuje AardAppvark, vydavatel 28 dApps v tomto obchodě. Recenze z jeho vlastních peněženek jsou zobrazené, označené a nikdy nezapočtené.</string>
+    <string name="status_card_yes">Tento Seeker se počítá: jeden hlas na aplikaci, stejně jako každý jiný Seeker.</string>
+    <string name="status_card_no">V této peněžence není Seeker Genesis Token: vaše recenze jsou zobrazené, ne započtené. Rychlé recenze jsou dostupné i bez peněženky.</string>
+    <string name="status_card_operator">Peněženka provozovatele Undersigned: zobrazeno, nikdy nezapočteno.</string>
 </resources>

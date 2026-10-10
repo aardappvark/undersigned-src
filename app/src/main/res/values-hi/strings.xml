@@ -162,7 +162,6 @@
     <string name="review_for">%1$s के लिए</string>
     <string name="review_rating">रेटिंग</string>
     <string name="review_tags">टैग (1 से 3 चुनें)</string>
-    <string name="review_text_label">वैकल्पिक नोट (%1$d वर्ण, %2$d बाइट्स शेष)</string>
     <string name="review_text_hint">छोटा, तथ्यात्मक, आपके अपने शब्दों में।</string>
     <string name="review_consent_title">यह स्थायी है</string>
     <string name="review_consent_body">आपका नोट Solana blockchain पर लिखा जाएगा। यह सार्वजनिक और स्थायी है। इसे न तो आप, न हम, न ही कोई और हटा सकता है। आप बाद में इसे इस ऐप की रैंकिंग से वापस ले सकते हैं, लेकिन टेक्स्ट स्वयं हमेशा के लिए chain पर बना रहेगा। व्यक्तिगत डेटा शामिल न करें, और केवल वही बताएं जो आप सच जानते हैं।</string>
@@ -1082,7 +1081,7 @@
     <string name="pay_trend_running">चालू योग</string>
     <string name="pay_trend_others">अन्य</string>
     <string name="pay_found_title">ऐप कोड में मिले, पुष्ट नहीं</string>
-    <string name="pay_found_note">किसी ऐप के स्टोर बिल्ड में लिखे वॉलेट जिन्हें कम से कम %1$d अलग वॉलेट से SOL, SKR या USDC मिला। प्रकाशक ने इनकी पुष्टि नहीं की है, और हो सकता है कोई ऐप का खज़ाना न हो। कोई रैंकिंग नहीं और ऊपर के बोर्ड पर नहीं।</string>
+    <string name="pay_found_note">किसी ऐप के स्टोर बिल्ड में लिखे वॉलेट जिन्हें कम से कम %1$d अलग वॉलेट से SOL, SKR या USDC मिला। प्रकाशक ने इनकी पुष्टि नहीं की है, और हो सकता है कोई ऐप का खज़ाना न हो। कोई रैंकिंग नहीं, और पुष्ट बोर्ड से अलग रखे गए।</string>
     <string name="pay_found_row">%1$d भुगतानकर्ता · पढ़े गए अंतिम %3$d लेन-देन में %2$d भुगतान</string>
     <string name="pay_found_empty">अभी कुछ नहीं मिला। स्टोर बिल्ड अभी पढ़े जा रहे हैं (अब तक %1$d)।</string>
     <string name="pay_found_dispute">क्या कोई आपका है? नीचे अपना खज़ाना दर्ज करें, वह बोर्ड पर चला जाएगा। आपका नहीं? रिपोर्ट करें, हटा दिया जाएगा।</string>
@@ -1267,4 +1266,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s नए</item><item quantity="other">%1$s नए</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s नए भुगतानकर्ता</item><item quantity="other">%1$s नए भुगतानकर्ता</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">पिछले 30 दिन: %1$d हस्ताक्षरित समीक्षा (उससे पहले के 30: %2$d)</item><item quantity="other">पिछले 30 दिन: %1$d हस्ताक्षरित समीक्षाएँ (उससे पहले के 30: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">कनेक्शन नहीं · इस फ़ोन में जो है वही दिखाया जा रहा है</string>
+    <string name="pay_found_failed">ऐप कोड में मिले वॉलेट लोड नहीं हो सके।</string>
+    <string name="store_load_failed">स्टोर की समीक्षाएँ लोड नहीं हो सकीं।</string>
+    <string name="publisher_proof_unchecked">प्रमाण अभी जाँचा नहीं गया (कनेक्शन नहीं)</string>
+    <string name="desk_load_failed">आपके सिद्ध dApps पढ़े नहीं जा सके</string>
+    <string name="pay_usd_offline">ऑफ़लाइन USD उपलब्ध नहीं</string>
+    <string name="review_note_title">वैकल्पिक नोट</string>
+    <string name="review_note_counter">%1$s / %2$s वर्ण</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned को AardAppvark चलाता है, जो इस स्टोर पर 28 dApps का प्रकाशक है। इसके अपने वॉलेट की समीक्षाएं दिखाई जाती हैं, चिह्नित होती हैं, और कभी गिनी नहीं जातीं।</string>
+    <string name="status_card_yes">यह Seeker गिना जाता है: हर ऐप पर एक आवाज़, बाकी हर Seeker की तरह।</string>
+    <string name="status_card_no">इस वॉलेट में Seeker Genesis Token नहीं है: आपकी समीक्षाएं दिखाई जाती हैं, गिनी नहीं जातीं। क्विक समीक्षाएं बिना वॉलेट के उपलब्ध हैं।</string>
+    <string name="status_card_operator">Undersigned ऑपरेटर वॉलेट: दिखाया जाता है, कभी गिना नहीं जाता।</string>
 </resources>

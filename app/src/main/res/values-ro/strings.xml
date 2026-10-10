@@ -162,7 +162,6 @@
     <string name="review_for">pentru %1$s</string>
     <string name="review_rating">Evaluare</string>
     <string name="review_tags">Etichete (alege 1-3)</string>
-    <string name="review_text_label">Notă opțională (%1$d caractere, %2$d octeți rămași)</string>
     <string name="review_text_hint">Scurt, factual, în cuvintele tale.</string>
     <string name="review_consent_title">Acest lucru este permanent</string>
     <string name="review_consent_body">Nota ta va fi scrisă pe blockchain-ul Solana. Este publică și permanentă. Nu poate fi ștearsă de tine, de noi sau de nimeni altcineva. O poți retrage mai târziu din clasamentul acestei aplicații, dar textul în sine rămâne pe blockchain pentru totdeauna. Nu include date personale și afirmă doar ceea ce știi că este adevărat.</string>
@@ -1097,7 +1096,7 @@
     <string name="pay_trend_running">Total cumulat</string>
     <string name="pay_trend_others">Altele</string>
     <string name="pay_found_title">Găsite în codul aplicației, neconfirmate</string>
-    <string name="pay_found_note">Portofele scrise în versiunea din magazin a unei aplicații care au primit SOL, SKR sau USDC de la cel puțin %1$d portofele diferite. Editorul nu le-a confirmat și unul s-ar putea să nu fie trezoreria aplicației. Fără clasament și în afara tabloului de mai sus.</string>
+    <string name="pay_found_note">Portofele scrise în versiunea din magazin a unei aplicații care au primit SOL, SKR sau USDC de la cel puțin %1$d portofele diferite. Editorul nu le-a confirmat și unul s-ar putea să nu fie trezoreria aplicației. Fără clasament, și ținute separat de tabloul Confirmate.</string>
     <string name="pay_found_row">%1$d plătitori · %2$d plăți în ultimele %3$d tranzacții citite</string>
     <string name="pay_found_empty">Nimic încă. Versiunile din magazin se citesc în continuare (%1$d până acum).</string>
     <string name="pay_found_dispute">E vreunul al tău? Înregistrează-ți trezoreria mai jos și trece în tablou. Nu e al tău? Raportează-l și va fi eliminat.</string>
@@ -1282,4 +1281,19 @@
     <plurals name="pa_n_new"><item quantity="one">%1$s nou</item><item quantity="few">%1$s noi</item><item quantity="other">%1$s noi</item></plurals>
     <plurals name="pa_n_new_payers"><item quantity="one">%1$s plătitor nou</item><item quantity="few">%1$s plătitori noi</item><item quantity="other">%1$s de plătitori noi</item></plurals>
     <plurals name="desk_trend_p"><item quantity="one">Ultimele 30 de zile: %1$d recenzie semnată (cele 30 dinainte: %2$d)</item><item quantity="few">Ultimele 30 de zile: %1$d recenzii semnate (cele 30 dinainte: %2$d)</item><item quantity="other">Ultimele 30 de zile: %1$d de recenzii semnate (cele 30 dinainte: %2$d)</item></plurals>
+
+    <!-- 1.1.5: offline / failed loads read as such -->
+    <string name="offline_banner">Fără conexiune · se afișează ce are salvat acest telefon</string>
+    <string name="pay_found_failed">Portofelele găsite în codul aplicațiilor nu au putut fi încărcate.</string>
+    <string name="store_load_failed">Recenziile din magazin nu au putut fi încărcate.</string>
+    <string name="publisher_proof_unchecked">Dovada nu a fost încă controlată (fără conexiune)</string>
+    <string name="desk_load_failed">dApp-urile tale dovedite nu au putut fi citite</string>
+    <string name="pay_usd_offline">USD indisponibil offline</string>
+    <string name="review_note_title">Notă opțională</string>
+    <string name="review_note_counter">%1$s / %2$s caractere</string>
+    <!-- 1.1.5: operator disclosure and the first-run status card -->
+    <string name="operator_disclosure">Undersigned este administrat de AardAppvark, editorul a 28 de dApp-uri din acest magazin. Recenziile din propriile sale portofele sunt afișate, etichetate și niciodată numărate.</string>
+    <string name="status_card_yes">Acest Seeker contează: un vot pe aplicație, la fel ca orice alt Seeker.</string>
+    <string name="status_card_no">Niciun Seeker Genesis Token în acest portofel: recenziile tale sunt afișate, nu numărate. Recenziile rapide sunt disponibile fără portofel.</string>
+    <string name="status_card_operator">Portofel al operatorului Undersigned: afișat, niciodată numărat.</string>
 </resources>

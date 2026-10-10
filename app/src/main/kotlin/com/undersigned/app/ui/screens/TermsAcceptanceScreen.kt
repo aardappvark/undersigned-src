@@ -84,6 +84,8 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
         Text(stringResource(R.string.intro5_body), color = RbColors.textSecondary, fontSize = 14.sp, lineHeight = 20.sp)
         Spacer(Modifier.height(8.dp))
         Text(stringResource(R.string.terms_intro), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp)
+        // The operator, right after the "not affiliated" line (1.1.5).
+        Text(stringResource(R.string.operator_disclosure), color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp))
         Spacer(Modifier.height(14.dp))
         GlassCard {
             Text(stringResource(R.string.terms_confirm_heading), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)

@@ -89,6 +89,21 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val store = StoreReviewsClient()
     private val domains = DomainClient()
 
+    /**
+     * True while the last fetch failed for want of a connection; cleared by the next one that gets an answer (1.1.5). Screens
+     * that fetch show one quiet line for it: "No connection · showing what this phone holds".
+     */
+    val offline: StateFlow<Boolean> = com.undersigned.app.util.NetStatus.offline
+    /** Packages whose store rating read FAILED ("failed") or is under way ("loading"); absent once the store answered (1.1.5). */
+    val storeMirrorState = MutableStateFlow<Map<String, String>>(emptyMap())
+    /**
+     * Packages with a publisher claim whose proof could not be READ this time (no store details, or the proof site did not
+     * answer): "not checked yet", never "not proven" (1.1.5). A proof this phone already held stays held meanwhile.
+     */
+    val proofUnread = MutableStateFlow<Set<String>>(emptySet())
+    /** Asks again for every claim's proof (the "Try again" beside an unread proof). */
+    fun retryProofs() { viewModelScope.launch(Dispatchers.IO) { runCatching { verifyClaims(entries.value) } } }
+
     /** Native store mirror per package (read-only): rating summary + first page of public reviews. */
     val storeRatings = MutableStateFlow<Map<String, StoreRating>>(emptyMap())
     val storeReviews = MutableStateFlow<Map<String, List<StoreReview>>>(emptyMap())
@@ -284,11 +299,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** Every claim on-chain is checked against the store-listed website (cached 24 h). */
     private suspend fun verifyClaims(list: List<LedgerEntry>) {
         val claims = list.filter { it.memo is ReviewMemo.Claim }
-        if (claims.isEmpty()) return
+        if (claims.isEmpty()) { proofUnread.value = emptySet(); return }
         val out = HashMap<String, MutableSet<String>>()
+        val unread = HashSet<String>()
+        val held = verifiedPublishers.value
         for (c in claims) {
             val pkg = (c.memo as ReviewMemo.Claim).packageName
-            val d = storeDetails.value[pkg] ?: store.details(pkg)?.also { storeDetails.value = storeDetails.value + (pkg to it) }
+            val dr = storeDetails.value[pkg]?.let { Result.success(it) } ?: store.detailsResult(pkg).onSuccess { nd -> if (nd != null) storeDetails.update { it + (pkg to nd) } }
+            val d = dr.getOrNull()
             // Strongest first: the installed app's own signed build names the wallet, and its certificate is the one the
             // store lists (so it is the store's build). Otherwise the store-listed website's proof file.
             val apk = installed.value.contains(pkg) && c.signer in installedApps.declaredPublishers(pkg) &&
@@ -299,8 +317,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val storeBuild = build != null && c.signer in build.declared && !d.certFingerprint.isNullOrEmpty() && d.certFingerprint in build.certSha256
             if (apk) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "apk") } }
             else if (storeBuild) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "store") } }
-            else if (PublisherVerifier.verify(pkg, c.signer, d)) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "web") } }
+            else {
+                // The store's details failed to load, or the proof site did not answer: unread, not "not proven". What this phone
+                // already held for the pair stays held until a read says otherwise (1.1.5, offline walk 11 Oct 2026).
+                val web = if (dr.isFailure) null else PublisherVerifier.verifyOrNull(pkg, c.signer, d)
+                if (web == true) { out.getOrPut(pkg) { HashSet() }.add(c.signer); verifiedHow.update { it + ((pkg to c.signer) to "web") } }
+                else if (web == null) { unread.add(pkg); if (held[pkg]?.contains(c.signer) == true) out.getOrPut(pkg) { HashSet() }.add(c.signer) }
+            }
         }
+        proofUnread.value = unread
         // Extend each verification to every reviewed app that lists the same website, so a publisher's review of their
         // own OTHER app is not counted as independent. Store details for those apps are fetched once, paced.
         val reviewed = list.mapNotNull { (it.memo as? ReviewMemo.Review)?.packageName }.distinct()
@@ -390,9 +415,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
     fun loadStoreMirror(pkg: String) {
-        if (storeRatings.value.containsKey(pkg)) return
+        // Read again when the reviews read failed with nothing read, even if the rating came back (1.1.5 "Try again").
+        val reviewsFailed = storeHistory.value[pkg]?.let { !it.complete && it.items.isEmpty() } == true
+        if ((storeRatings.value.containsKey(pkg) && !reviewsFailed) || storeMirrorState.value[pkg] == "loading") return
+        storeMirrorState.update { it + (pkg to "loading") }
         viewModelScope.launch(Dispatchers.IO) {
-            store.rating(pkg)?.let { r -> storeRatings.value = storeRatings.value + (pkg to r); UserPreferences.recordRatingSnapshot(pkg, r.byStar) }
+            // A failed read says so ("Couldn't load"); only the store's own empty answer reads "no public reviews" (1.1.5).
+            val rr = store.ratingResult(pkg)
+            storeMirrorState.update { if (rr.isFailure) it + (pkg to "failed") else it - pkg }
+            rr.getOrNull()?.let { r -> storeRatings.value = storeRatings.value + (pkg to r); UserPreferences.recordRatingSnapshot(pkg, r.byStar) }
             if (!storeDetails.value.containsKey(pkg)) store.details(pkg)?.let { d -> storeDetails.value = storeDetails.value + (pkg to d) }
             // Five pages, paced for the store's CDN: the first shows at once, all five feed the burst check.
             val read = store.reviewsChecked(pkg, maxPages = HISTORY_PAGES, pauseMs = 700, onPage = { l -> if (l.size <= StoreReviewsClient.MAX_REVIEW_PAGE) storeReviews.update { it + (pkg to l) } })
@@ -684,8 +715,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 if (c.responseCode != 200) error("HTTP ${c.responseCode}")
                 org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() })
             } finally { c.disconnect() }
-        }
+        }.net()
     }
+
+    /** Feeds [offline]: an answer clears it, a network failure sets it (1.1.5). */
+    private fun <T> Result<T>.net(): Result<T> = also { r -> r.fold({ com.undersigned.app.util.NetStatus.ok() }, { com.undersigned.app.util.NetStatus.failed(it) }) }
 
     /**
      * Store-wide payment analytics for a window (7d, 30d, 90d, 1y, all) from the API (owner, 10 Oct 2026). Kept in memory per
@@ -702,7 +736,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 if (c.responseCode != 200) error("HTTP ${c.responseCode}")
                 com.undersigned.app.ledger.PaymentAnalytics.parse(org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() }))
             } finally { c.disconnect() }
-        }.onSuccess { s -> paymentSummaries.value = paymentSummaries.value + (window to s) }
+        }.net().onSuccess { s -> paymentSummaries.value = paymentSummaries.value + (window to s) }
     }
 
     /** One app's weekly payments from the API; null when the API has none for it (404) or cannot be reached. */
@@ -753,7 +787,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 PayHistory(series(week.await()), series(month.await()),
                     found.await()?.takeIf { it.first == 200 }?.second?.let { com.undersigned.app.ledger.PaymentAnalytics.parseFound(it) })
             }
-        }.onSuccess { h -> payHistories.value = payHistories.value + (pkg to h) }
+        }.net().onSuccess { h -> payHistories.value = payHistories.value + (pkg to h) }
     }
 
     /** The app page the first-use tour opens: the one with the most counted signed reviews, else the first listed. */
