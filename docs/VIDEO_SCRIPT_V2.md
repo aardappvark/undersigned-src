@@ -1,4 +1,22 @@
-# Video script v2 — for approval before the Gracie voice-over (10 Oct 2026)
+# Video script v2 — PARKED until the device UI is built out and approved (owner, 10 Oct 2026)
+
+**Status:** not yet approved; no Gracie credits spent. The owner will review the video once the app's build-out is done,
+because the video is to be built around many device screenshots. What the final video must include (owner's notes):
+1. **Lots of real device screenshots** of the finished UI (not the motion graphics alone).
+2. **Side-by-side comparisons with the current dApp Store review flow**, showing the difficulties it leaves for both
+   sides. For the developer: no quick way to see what is wrong (no tags, no per-version view), no way to answer in a
+   place that lasts, no way to flag a spam review that is dragging the score, no proof of who the publisher is, no way to
+   say "fixed" and have the reviewer told. For the reviewer: a star with no weight, no way to follow up after a fix, no
+   way to show how long they actually used the app, no record of their own, and bursts and campaigns invisible. The full
+   list is the comparison matrix in the session of 10 Oct (also docs/PITCH.md objections and MOTION_BRIEF "Content
+   review"); each row becomes a before/after pair of screens.
+3. **The analytics images** (leaderboard, payments by dApp, categories, rising) only once the build-out is seen and the
+   UI approved.
+4. **The deck (assets/submission/pitch.html) and the rest of the presentation are to be reviewed and edited to match**
+   at the same time, by me, not left as they are.
+
+The scene plan below stands as the narrative spine; the screenshots and comparisons slot into scenes 3, 4, 6, 7 and 8.
+
 
 Eleven scenes, 1:50. Built from the independent review of v1 (docs/MOTION_BRIEF.md "Content review" still applies).
 Nothing is generated with Higgsfield until this script is approved; then every line is voiced by **Gracie** (about 10

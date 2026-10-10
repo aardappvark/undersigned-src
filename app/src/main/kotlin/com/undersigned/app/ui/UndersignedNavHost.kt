@@ -1,6 +1,15 @@
 package com.undersigned.app.ui
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.undersigned.app.ui.theme.RbColors
+import com.undersigned.app.ui.components.UndersignedTabBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,6 +39,10 @@ object Routes {
     const val LEADERBOARD = "leaderboard"
     const val TO_REVIEW = "to-review"
     const val INTRO = "intro"
+    /** The Me hub: my reviews, inbox, publisher desk, settings (owner, 10 Oct 2026: a tab bar at the bottom). */
+    const val ME = "me"
+    /** The five tabs along the bottom, in order. */
+    val TABS = listOf(BROWSE, CHANGES, PAYMENTS, PRO, ME)
     fun profile(w: String) = "profile/$w"
     fun detail(pkg: String) = "detail/$pkg"
     fun review(pkg: String) = "review/$pkg"
@@ -60,7 +73,7 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     val pendingReview by NavIntents.pendingReview.collectAsState()
     LaunchedEffect(pendingReview) { pendingReview?.let { NavIntents.pendingReview.value = null; nav.navigate(Routes.review(it)) { launchSingleTop = true } } }
     val pendingScreen by NavIntents.pendingScreen.collectAsState()
-    LaunchedEffect(pendingScreen) { pendingScreen?.takeIf { it in setOf(Routes.MY_REVIEWS, Routes.CHANGES, Routes.PAYMENTS, Routes.WATCH, Routes.LEADERBOARD, Routes.TO_REVIEW) }?.let { NavIntents.pendingScreen.value = null; nav.navigate(it) { launchSingleTop = true } } }
+    LaunchedEffect(pendingScreen) { pendingScreen?.takeIf { it in setOf(Routes.MY_REVIEWS, Routes.WATCH, Routes.LEADERBOARD, Routes.TO_REVIEW) }?.let { NavIntents.pendingScreen.value = null; nav.navigate(it) { launchSingleTop = true } } }
     val pendingReply by NavIntents.pendingReply.collectAsState()
     val entries by vm.entries.collectAsState()
     LaunchedEffect(pendingReply, entries) { pendingReply?.let { (target, _) -> vm.packageOf(target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) { launchSingleTop = true } } } }
@@ -68,26 +81,54 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     LaunchedEffect(pendingAction, entries) { pendingAction?.let { a -> vm.packageOf(a.target)?.let { pkg -> nav.navigate(Routes.detail(pkg)) { launchSingleTop = true } } } }
     // The first-use tour, once after the opening slides; replayed from Settings.
     LaunchedEffect(Unit) { if (!UserPreferences.tourSeen) com.undersigned.app.ui.components.Tour.start() }
+    // A tab is a top-level screen opened from the bar, so it sits straight on Browse. The same screen opened from inside
+    // another one (Pro from an app page's lock, Payments from Settings) is pushed instead: no bar, a back arrow, and back
+    // returns to where it was opened.
+    val current by nav.currentBackStackEntryAsState()
+    val route = current?.destination?.route
+    val below = remember(current) { nav.previousBackStackEntry?.destination?.route }
+    val showBar = route in Routes.TABS && (route == Routes.BROWSE || below == Routes.BROWSE)
+    fun tab(r: String) {
+        // Compose docs pattern: each tab keeps its own stack; back from any tab lands on Browse.
+        nav.navigate(r) { popUpTo(nav.graph.findStartDestination().id) { saveState = true }; launchSingleTop = true; restoreState = true }
+    }
+    /** Whether the entry is a tab opened from the bar (no back arrow) rather than pushed from another screen. */
+    fun isTabRoot(): Boolean = nav.previousBackStackEntry?.destination?.route.let { it == null || it == Routes.BROWSE }
+    LaunchedEffect(pendingScreen) { pendingScreen?.takeIf { it in setOf(Routes.CHANGES, Routes.PAYMENTS) }?.let { NavIntents.pendingScreen.value = null; tab(it) } }
+    // The week's New list and a shared text that names no app are both shown by Browse, so go there first.
+    val pendingSearch by NavIntents.pendingSearch.collectAsState()
+    LaunchedEffect(pendingScreen, pendingSearch) { if ((pendingScreen == "new" || pendingSearch != null) && route != Routes.BROWSE) runCatching { nav.popBackStack(Routes.BROWSE, inclusive = false) } }
+    val entriesForBadge by vm.entries.collectAsState()
+    val inboxCount = remember(entriesForBadge) { vm.unanswered().size + vm.repliesToMe().size }
+    val changes by vm.changes.collectAsState()
     androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.fillMaxSize()) {
-    NavHost(navController = nav, startDestination = Routes.BROWSE) {
-        composable(Routes.BROWSE) { BrowseScreen(vm, onOpen = { nav.navigate(Routes.detail(it)) }, onChanges = { nav.navigate(Routes.CHANGES) }, onSettings = { nav.navigate(Routes.SETTINGS) }, onInbox = { nav.navigate(Routes.INBOX) }, onProfile = { nav.navigate(Routes.profile(it)) }, onStats = { nav.navigate(Routes.STATS) }, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }) }
+    Scaffold(
+        containerColor = RbColors.background,
+        // The screens pad themselves for the status and navigation bars; the Scaffold only adds the tab bar's height.
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        bottomBar = { if (showBar) UndersignedTabBar(route, inboxCount, changes.any { !it.firstSeen }) { if (it != route) tab(it) } },
+    ) { inner ->
+    NavHost(navController = nav, startDestination = Routes.BROWSE, modifier = Modifier.fillMaxSize().padding(inner).consumeWindowInsets(inner)) {
+        composable(Routes.BROWSE) { BrowseScreen(vm, onOpen = { nav.navigate(Routes.detail(it)) }, onChanges = { tab(Routes.CHANGES) }, onSettings = { nav.navigate(Routes.SETTINGS) }, onInbox = { nav.navigate(Routes.INBOX) }, onProfile = { nav.navigate(Routes.profile(it)) }, onStats = { nav.navigate(Routes.STATS) }, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }) }
+        composable(Routes.ME) { MeScreen(vm, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }, onInbox = { nav.navigate(Routes.INBOX) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }, onDesk = { nav.navigate(Routes.DESK) }, onWatch = { nav.navigate(Routes.WATCH) }, onLeaderboard = { nav.navigate(Routes.LEADERBOARD) }, onStats = { nav.navigate(Routes.STATS) }, onSettings = { nav.navigate(Routes.SETTINGS) }) }
         composable(Routes.MY_REVIEWS) { MyReviewsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }, onSignIn = { nav.navigate(Routes.SETTINGS) }) }
         composable(Routes.TO_REVIEW) { ToReviewScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(it)) }) }
         composable(Routes.STATS) { LedgerStatsScreen(vm, onBack = { nav.popBackStack() }) }
         composable(Routes.DETAIL) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; AppDetailScreen(vm, pkg, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(pkg)) }, onFollowUp = { nav.navigate(Routes.followUp(pkg, it)) }, onProfile = { nav.navigate(Routes.profile(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.REVIEW, arguments = listOf(androidx.navigation.navArgument("fu") { nullable = true; defaultValue = null })) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; ReviewScreen(vm, pkg, activityResultSender, followUpOf = b.arguments?.getString("fu"), onBack = { nav.popBackStack() }, onPublished = { nav.popBackStack() }, onPro = { nav.navigate(Routes.PRO) }) }
-        composable(Routes.CHANGES) { ChangesScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
+        composable(Routes.CHANGES) { e -> val root = remember(e) { isTabRoot() }; ChangesScreen(vm, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onHowTo = { nav.navigate(Routes.HOWTO) }, onIntro = { nav.navigate(Routes.INTRO) }, onTour = { com.undersigned.app.ui.components.Tour.start() }, onPro = { nav.navigate(Routes.PRO) }, onDesk = { nav.navigate(Routes.DESK) }, onStats = { nav.navigate(Routes.STATS) }, onPayments = { nav.navigate(Routes.PAYMENTS) }, onWatch = { nav.navigate(Routes.WATCH) }, onLeaderboard = { nav.navigate(Routes.LEADERBOARD) }) }
         composable(Routes.LEADERBOARD) { LeaderboardScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.WATCH) { StoreWatchScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
-        composable(Routes.PAYMENTS) { PaymentsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
-        composable(Routes.PRO) { ProScreen(vm, activityResultSender, onBack = { nav.popBackStack() }) }
+        composable(Routes.PAYMENTS) { e -> val root = remember(e) { isTabRoot() }; PaymentsScreen(vm, activityResultSender, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }) }
+        composable(Routes.PRO) { e -> val root = remember(e) { isTabRoot() }; ProScreen(vm, activityResultSender, onBack = if (root) null else ({ nav.popBackStack() })) }
         composable(Routes.DESK) { PublisherDeskScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onPro = { nav.navigate(Routes.PRO) }, onPayments = { nav.navigate(Routes.PAYMENTS) }) }
         composable(Routes.HOWTO) { HowToScreen(onDone = { nav.popBackStack() }) }
         // Replay is a screen on the stack, so finishing it returns to Settings (it used to swap out the whole app and land on Browse).
         composable(Routes.INTRO) { OnboardingScreen(onDone = { nav.popBackStack() }) }
         composable(Routes.INBOX) { InboxScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onDesk = { nav.navigate(Routes.DESK) }) }
         composable(Routes.PROFILE) { b -> val w = b.arguments?.getString("wallet") ?: return@composable; ProfileScreen(vm, w, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
+    }
     }
     com.undersigned.app.ui.components.TourOverlay(nav) { vm.tourSamplePackage() }
     }
