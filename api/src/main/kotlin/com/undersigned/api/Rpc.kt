@@ -38,7 +38,9 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
 
     /** Null when no node has the transaction (unknown, NOT "paid nothing": callers retry). */
     open fun tx(signature: String, creditsTo: String? = Config.TREASURY): TxInfo? {
-        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 0).put("commitment", "confirmed")))
+        // Version 1 transactions exist on mainnet (10 Oct 2026: 868 payments into one found wallet stalled the history read for
+        // hours, refused with -32015 at version 0). The parsed shape is the same; a version the RPC cannot serve still returns null.
+        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 1).put("commitment", "confirmed")))
             .optJSONObject("result") ?: return null
         return parseTx(signature, tx, creditsTo)
     }

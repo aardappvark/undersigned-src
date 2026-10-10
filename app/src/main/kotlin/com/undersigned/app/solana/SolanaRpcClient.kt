@@ -44,7 +44,7 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
 
     /** Fee payer + memo text of a confirmed transaction (jsonParsed so the memo arrives as a string). */
     suspend fun getLedgerTx(signature: String): Result<LedgerTx?> = rpc {
-        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 0).put("commitment", "confirmed")))
+        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 1).put("commitment", "confirmed")))
             .optJSONObject("result") ?: return@rpc null
         val meta = tx.optJSONObject("meta")
         if (meta != null && meta.opt("err") != null && meta.opt("err") != JSONObject.NULL) return@rpc null
@@ -94,7 +94,7 @@ class SolanaRpcClient(private val endpoints: List<String> = AppConfig.Api.RPC_EN
     suspend fun getPaymentTx(signature: String, treasury: String): Result<com.undersigned.protocol.Payments.Payment?> = rpc {
         // A node without that slot answers result: null. That is "unknown", not "paid nothing": failing here keeps the row
         // unread and retried, where returning null had cached it as a zero payment for good (found in review, 28 Sep 2026).
-        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 0).put("commitment", "confirmed")))
+        val tx = call("getTransaction", JSONArray().put(signature).put(JSONObject().put("encoding", "jsonParsed").put("maxSupportedTransactionVersion", 1).put("commitment", "confirmed")))
             .optJSONObject("result") ?: throw RpcException("transaction not found on this node")
         val meta = tx.optJSONObject("meta") ?: return@rpc null
         if (meta.opt("err") != null && meta.opt("err") != JSONObject.NULL) return@rpc null

@@ -213,8 +213,11 @@ class FoundTreasuries(private val db: Db, private val rpc: Rpc, private val stor
     fun coverage(): Pair<Int, Int> = listedWallets().map { board.allProgress(it) }.let { p -> p.sumOf { it.first } to p.sumOf { it.first - it.second } }
 
     /** Listed transactions of the last 365 days not read yet, across every found wallet: what the yearly figures still miss. */
-    fun yearBacklog(): Int = db.query("SELECT count(*) FROM pay_rows WHERE addr_key LIKE 'found:%' AND fetched = 0 AND time > ?",
-        System.currentTimeMillis() / 1000 - 365L * 86_400) { it.getInt(1) }.firstOrNull() ?: 0
+    fun yearBacklog(): Int {
+        // Only wallets still listed: rows of a wallet that fell off the list are never read and must not keep the fast pace on (10 Oct 2026).
+        val yearAgo = System.currentTimeMillis() / 1000 - 365L * 86_400
+        return listedWallets().sumOf { w -> db.query("SELECT count(*) FROM pay_rows WHERE addr_key = ? AND fetched = 0 AND time > ?", "found:$w", yearAgo) { it.getInt(1) }.firstOrNull() ?: 0 }
+    }
 
     /** One round of history reading: the least-read listed wallet gets one older page and up to [maxFetch] transactions. */
     fun historyTick(maxFetch: Int = 60) {
