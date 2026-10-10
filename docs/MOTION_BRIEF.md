@@ -104,3 +104,20 @@ signing; scenes 6 and 7 after it; scene 9 or 8 before the close; scene 10 to end
 9. "14 seconds: three cards count up: $843 a year to run; 127 Pro licences to break even; $194,031 a year at 10% (one
    Seeker in ten on Pro, plus publisher and data plans); footnote with sources and 'a target, not yet a record'."
 10. "8 seconds: the app icon, 'Undersigned', the line 'One Seeker, one voice. Written to Solana. Readable by anyone.'"
+
+## Rules adopted from the Claude + Remotion "studio" prompt (reviewed 10 Oct 2026)
+
+Reviewed at the owner's request. Not adopting Remotion: our pipeline is already the same idea (every frame a pure
+function of time, `draw(t)`, rendered frame-exact, no randomness, no network at render time) and switching stacks two
+days before the deadline buys nothing. Adopted for the v2 rebuild, as checks the build must pass:
+- **Carriers, no blank screen:** every cut is carried by a shape or a wipe; no dip to black between scenes (the v1 review
+  measured a dip every 9–14 s).
+- **Ease, stagger, overlap:** ease-out on entrances and ease-in on exits (already), related elements staggered 2–4 frames
+  (already, 0.02–0.03 s), the next element starting before the last settles.
+- **Let the key idea sit:** each scene's headline holds still for at least 1.5 s before anything else moves.
+- **Style frames before motion:** three stills (the opener, the core loop, the close) signed off before the re-render.
+- **Checks before delivery, reported pass/fixed/n/a:** every text box 5% inside the edges; text contrast 4.5:1 at its
+  worst frame; a frame sheet (one frame a second) with no black, flashed or frozen frame; constant frame rate, H.264 +
+  AAC; loudness −14 LUFS ±1 with true peak ≤ −1 dBTP (was −16; −14 is the platform target); each key word within 2
+  frames of its visual.
+Not adopted: the "animation vs motion" distinction (vocabulary, not practice) and the −18 dB music rule until there is music.
