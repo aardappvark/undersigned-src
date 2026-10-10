@@ -268,7 +268,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         if (path == "/v1/admin/economics" && method == "GET") return Response(200, (economics ?: return notFound("economics is off")).report(query["days"]?.toIntOrNull()?.coerceIn(7, 365) ?: 30))
         if (path == "/v1/admin/triage" && method == "GET") return Response(200, triage())
         // Human pages and badges: not the metered API. Their own, looser per-IP budget.
-        if (method == "GET" && web != null && (!path.startsWith("/v1/") || path.startsWith("/v1/badge/"))) {
+        if (method == "GET" && web != null && (!path.startsWith("/v1/") || path.startsWith("/v1/badge/") || path.startsWith("/v1/payments/chart/"))) {
             limiter.take("web:$ip", Config.WEB_PER_MINUTE, Config.WEB_PER_DAY)?.let { return Response(429, JSONObject().put("error", "rate_limited"), mapOf("Retry-After" to "60"), "Too many requests; try again in a minute.".toByteArray(), "text/plain; charset=utf-8") }
             return web!!.handle(path, query, I18n.pick(query["lang"] ?: acceptLanguage))
         }

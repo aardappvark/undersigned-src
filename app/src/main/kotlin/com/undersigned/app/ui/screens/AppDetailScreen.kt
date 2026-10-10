@@ -160,6 +160,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     // Quick actions (helpful, withdraw, looks genuine) used to discard their result, so a declined or
     // timed-out wallet request did nothing visible (15 Sep 2026). The outcome is now always shown.
     var actionMessage by remember { mutableStateOf<Pair<Boolean, String>?>(null) }
+    // Withdrawing a quick review this phone wrote: the review id in the confirm dialog, the relay's progress, which row the result belongs to.
+    var quickWithdraw by remember { mutableStateOf<String?>(null) }
+    var quickStage by remember { mutableStateOf<String?>(null) }
+    var quickMsgFor by remember { mutableStateOf<String?>(null) }
     fun stageText(st: ReviewTxService.Stage) = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
     fun sign(memo: ReviewMemo, onDone: (Boolean) -> Unit = {}) {
         val s = sender ?: return
@@ -390,6 +394,15 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         if (w.gifted) TrustPill(stringResource(R.string.related_gifted_pill), RbColors.warning)
                         if (paidReviewer) TrustPill(stringResource(R.string.pay_paid_pill), RbColors.purpleLight)
                         if (isPublisher) TrustPill(stringResource(R.string.publisher_badge), RbColors.green)
+                    }
+                    // A quick review this phone wrote (owner, 10 Oct 2026): it can be withdrawn by the same app key, relayed like the review.
+                    if (g == 4 && e.signer == vm.myQuickKey) {
+                        Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Text(stringResource(R.string.quick_yours), color = RbColors.info, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.weight(1f))
+                            TextButton(enabled = quickStage == null, onClick = { dialogError = null; quickWithdraw = e.signature }, modifier = Modifier.heightIn(min = 48.dp)) {
+                                Text(stringResource(R.string.detail_revoke_review), color = RbColors.negative, fontSize = 12.sp) }
+                        }
+                        actionMessage?.takeIf { quickMsgFor == e.signature }?.let { (ok, m) -> Text(m, color = if (ok) RbColors.green else RbColors.negative, fontSize = 11.sp, lineHeight = 15.sp) }
                     }
                     if (w.device > 0) Text(stringResource(R.string.weight_counts, String.format(java.util.Locale.US, "%.2f", w.weight), String.format(java.util.Locale.US, "%.2f", w.quality)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
                     // The reviewer's stake as read at the time: transparency only, it never changes the weight (owner, 9 Oct 2026).
@@ -1158,6 +1171,23 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }) { Text(stringResource(R.string.revoke_confirm), color = RbColors.negative) }
             },
             dismissButton = { TextButton(enabled = revokeStage == null, onClick = { revokeDialog = false }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
+        )
+    }
+    quickWithdraw?.let { id ->
+        AlertDialog(
+            onDismissRequest = { if (quickStage == null) quickWithdraw = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.quick_withdraw_title), color = RbColors.textPrimary) },
+            text = { Column { Text(quickStage ?: stringResource(R.string.revoke_body), color = RbColors.textSecondary, fontSize = 13.sp); dialogError?.let { Text(it, color = RbColors.negative, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp)) } } },
+            confirmButton = {
+                TextButton(enabled = quickStage == null, onClick = {
+                    dialogError = null; actionMessage = null; quickStage = context.getString(R.string.review_confirming)
+                    vm.withdrawQuick(id) { r ->
+                        quickStage = null
+                        r.fold({ sig -> quickWithdraw = null; quickMsgFor = id; actionMessage = true to context.getString(R.string.action_published, shortKey(sig, 6, 6)) }, { dialogError = context.errorText(it) })
+                    }
+                }) { Text(stringResource(R.string.revoke_confirm), color = RbColors.negative) }
+            },
+            dismissButton = { TextButton(enabled = quickStage == null, onClick = { quickWithdraw = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } },
         )
     }
     if (handoffOpen) StoreHandoffDialog(pkg, handoffText, onOpened = { copyMsg = context.getString(R.string.pro_copy_done) }) { handoffOpen = false }

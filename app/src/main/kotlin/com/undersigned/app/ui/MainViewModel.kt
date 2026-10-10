@@ -683,6 +683,36 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * Store-wide payment analytics for a window (7d, 30d, 90d, 1y, all) from the API (owner, 10 Oct 2026). Kept in memory per
+     * window for this run; a failure is not kept, so the next look tries again.
+     */
+    val paymentSummaries = MutableStateFlow<Map<String, com.undersigned.app.ledger.PaymentAnalytics.Summary>>(emptyMap())
+    suspend fun paymentSummary(window: String, force: Boolean = false): Result<com.undersigned.app.ledger.PaymentAnalytics.Summary> = withContext(Dispatchers.IO) {
+        if (!force) paymentSummaries.value[window]?.let { return@withContext Result.success(it) }
+        runCatching {
+            require(window in com.undersigned.app.ledger.PaymentAnalytics.WINDOWS)
+            val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}/v1/payments/summary?window=$window").openConnection() as java.net.HttpURLConnection
+            try {
+                c.connectTimeout = 10_000; c.readTimeout = 60_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                if (c.responseCode != 200) error("HTTP ${c.responseCode}")
+                com.undersigned.app.ledger.PaymentAnalytics.parse(org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() }))
+            } finally { c.disconnect() }
+        }.onSuccess { s -> paymentSummaries.value = paymentSummaries.value + (window to s) }
+    }
+
+    /** One app's weekly payments from the API; null when the API has none for it (404) or cannot be reached. */
+    suspend fun appPaymentSeries(pkg: String): com.undersigned.app.ledger.PaymentAnalytics.AppSeries? = withContext(Dispatchers.IO) {
+        runCatching {
+            val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}/v1/payments/app/${java.net.URLEncoder.encode(pkg, "UTF-8")}/series?by=week").openConnection() as java.net.HttpURLConnection
+            try {
+                c.connectTimeout = 10_000; c.readTimeout = 30_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                if (c.responseCode != 200) null
+                else com.undersigned.app.ledger.PaymentAnalytics.parseApp(org.json.JSONObject(c.inputStream.bufferedReader().use { it.readText() }))
+            } finally { c.disconnect() }
+        }.getOrNull()
+    }
+
     /** The app page the first-use tour opens: the one with the most counted signed reviews, else the first listed. */
     fun tourSamplePackage(): String? = scores.value.maxByOrNull { it.value.countedReviews }?.key ?: catalogue.value.firstOrNull()?.packageName
 
@@ -964,40 +994,60 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val ctx = getApplication<Application>()
         viewModelScope.launch(Dispatchers.IO) {
             val r = runCatching {
-                fun http(path: String, body: org.json.JSONObject? = null): org.json.JSONObject {
-                    val c = java.net.URL(com.undersigned.app.AppConfig.Site.URL + path).openConnection() as java.net.HttpURLConnection
-                    try {
-                        c.connectTimeout = 10_000; c.readTimeout = 30_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
-                        if (body != null) { c.requestMethod = "POST"; c.doOutput = true; c.setRequestProperty("Content-Type", "application/json"); c.outputStream.use { it.write(body.toString().toByteArray()) } }
-                        val ok = c.responseCode == 200
-                        val t = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
-                        if (!ok) error(runCatching { org.json.JSONObject(t).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
-                        return org.json.JSONObject(t)
-                    } finally { c.disconnect() }
-                }
-                val info = http("/v1/relay/info")
-                if (info.optBoolean("paused")) error(ctx.getString(com.undersigned.app.R.string.quick_paused))
-                val relayer = com.undersigned.app.util.Base58.decode(info.getString("fee_payer"))
-                val appKey = com.undersigned.app.device.QuickKey.publicKey(ctx)
                 val long = longText?.let { com.undersigned.protocol.LongText.records(it, java.util.UUID.randomUUID().toString().replace("-", "").take(16)) }
                 val head = (listOf<ReviewMemo>(memo, ReviewMemo.Quick) + listOfNotNull(long?.first) + extras).map { ReviewMemo.encode(it) }
                 val groups = com.undersigned.app.solana.TxBuilder.quickChunks(listOf(head) + (long?.second?.map { listOf(ReviewMemo.encode(it)) } ?: emptyList()))
                 if (groups.firstOrNull()?.firstOrNull() != head.first()) error("review too large")
-                val sigs = groups.map { g ->
-                    val blockhash = com.undersigned.app.util.Base58.decode(http("/v1/relay/info").getString("blockhash"))
-                    val msg = com.undersigned.app.solana.TxBuilder.quickMessage(relayer, appKey, g, blockhash)
-                    val tx = com.undersigned.app.solana.TxBuilder.quickTransaction(msg, com.undersigned.app.device.QuickKey.sign(ctx, msg))
-                    http("/v1/relay/review", org.json.JSONObject().put("tx", android.util.Base64.encodeToString(tx, android.util.Base64.NO_WRAP))).getString("signature") to g
-                }
-                val author = com.undersigned.app.util.Base58.encode(appKey); val now = System.currentTimeMillis() / 1000
-                val fresh = sigs.flatMap { (sig, g) -> g.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), author, now, it) } } }
-                entries.value = (fresh + entries.value).distinctBy { it.signature }
-                ledgerCache.save(entries.value)
-                launch { rank() }
-                sigs.first().first
+                relayQuick(ctx, groups)
             }
             withContext(Dispatchers.Main) { onResult(r) }
         }
+    }
+
+    /** This phone's quick-review key (Base58): the signer of every quick review written here. */
+    val myQuickKey: String by lazy { com.undersigned.app.util.Base58.encode(com.undersigned.app.device.QuickKey.publicKey(getApplication<Application>())) }
+
+    /**
+     * Withdraws a quick review this phone wrote (owner, 10 Oct 2026): one `rvk` record signed by the same app key, relayed the
+     * same way (the relayer accepts a withdrawal alone; readers honour it only from the review's own signer).
+     */
+    fun withdrawQuick(reviewId: String, onResult: (Result<String>) -> Unit) {
+        val ctx = getApplication<Application>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val r = runCatching { relayQuick(ctx, listOf(listOf(ReviewMemo.encode(ReviewMemo.Revocation(reviewId))))) }
+            withContext(Dispatchers.Main) { onResult(r) }
+        }
+    }
+
+    /** Signs each group with the app key, has the API relay it (fee paid by the relayer), adds the records to [entries]; the first signature. */
+    private fun relayQuick(ctx: Application, groups: List<List<String>>): String {
+        fun http(path: String, body: org.json.JSONObject? = null): org.json.JSONObject {
+            val c = java.net.URL(com.undersigned.app.AppConfig.Site.URL + path).openConnection() as java.net.HttpURLConnection
+            try {
+                c.connectTimeout = 10_000; c.readTimeout = 30_000; c.setRequestProperty("User-Agent", "Undersigned-Android/1")
+                if (body != null) { c.requestMethod = "POST"; c.doOutput = true; c.setRequestProperty("Content-Type", "application/json"); c.outputStream.use { it.write(body.toString().toByteArray()) } }
+                val ok = c.responseCode == 200
+                val t = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
+                if (!ok) error(runCatching { org.json.JSONObject(t).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
+                return org.json.JSONObject(t)
+            } finally { c.disconnect() }
+        }
+        val info = http("/v1/relay/info")
+        if (info.optBoolean("paused")) error(ctx.getString(com.undersigned.app.R.string.quick_paused))
+        val relayer = com.undersigned.app.util.Base58.decode(info.getString("fee_payer"))
+        val appKey = com.undersigned.app.device.QuickKey.publicKey(ctx)
+        val sigs = groups.map { g ->
+            val blockhash = com.undersigned.app.util.Base58.decode(http("/v1/relay/info").getString("blockhash"))
+            val msg = com.undersigned.app.solana.TxBuilder.quickMessage(relayer, appKey, g, blockhash)
+            val tx = com.undersigned.app.solana.TxBuilder.quickTransaction(msg, com.undersigned.app.device.QuickKey.sign(ctx, msg))
+            http("/v1/relay/review", org.json.JSONObject().put("tx", android.util.Base64.encodeToString(tx, android.util.Base64.NO_WRAP))).getString("signature") to g
+        }
+        val author = com.undersigned.app.util.Base58.encode(appKey); val now = System.currentTimeMillis() / 1000
+        val fresh = sigs.flatMap { (sig, g) -> g.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), author, now, it) } } }
+        entries.value = (fresh + entries.value).distinctBy { it.signature }
+        ledgerCache.save(entries.value)
+        viewModelScope.launch(Dispatchers.IO) { rank() }
+        return sigs.first().first
     }
 
     /** A store review's text exactly as an import signs it: one line, no '|', at most 140 characters and 280 bytes. */

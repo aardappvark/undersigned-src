@@ -20,6 +20,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
         when {
             path == "/" -> page("Undersigned — signed reviews from Seeker owners", home(query["q"]))
             path.startsWith("/v1/badge/") && path.endsWith(".svg") -> badge(dec(path.removePrefix("/v1/badge/").removeSuffix(".svg")))
+            path.startsWith("/v1/payments/chart/") && path.endsWith(".svg") -> chart(path.removePrefix("/v1/payments/chart/").removeSuffix(".svg"), query)
             path.startsWith("/app/") && path.endsWith("/feed.xml") -> dec(path.removePrefix("/app/").removeSuffix("/feed.xml")).let { pkg -> views.app(pkg)?.let { feed(pkg, it) } ?: notFound() }
             path.startsWith("/app/") -> dec(path.removePrefix("/app/")).let { pkg -> views.app(pkg)?.let { page("${it.optString("name", pkg)} — Undersigned", app(pkg, it, lang, query["sort"]), lang = lang,
                 description = "Signed reviews of ${it.optString("name", pkg)} from Seeker owners, beside the dApp Store's own rating.", head = "<link rel=alternate type='application/atom+xml' href='/app/${enc(pkg)}/feed.xml'>") } ?: notFound() }
@@ -57,6 +58,21 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
     // ---- Badge ------------------------------------------------------------------------------------------------------
 
     /** A shields-style SVG: "Undersigned | 4.6 · 12 signed". Cached an hour. Unknown or unreviewed apps say so plainly. */
+    /** The analytics charts (Analytics.kt), served like badges: cached five minutes, embeddable, no script. */
+    fun chart(which: String, query: Map<String, String>): Api.Response {
+        val an = views.analytics
+        val window = query["window"]?.takeIf { it in Analytics.WINDOWS } ?: "30d"
+        val by = query["by"]?.takeIf { it in listOf("day", "week", "month") } ?: (if (window == "7d") "day" else if (window == "all") "month" else "week")
+        val svg = when {
+            which == "top" -> an.chartTop(window, query["n"]?.toIntOrNull()?.coerceIn(1, 25) ?: 10, query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all")
+            which == "store" -> an.storeSeries(window, by).let { s -> an.chartSeries("Payments into dApp wallets · " + an.label(window), "USD on the day paid, per $by · gross receipts, from the Solana ledger", an.pts(s.getJSONArray("confirmed")), an.pts(s.getJSONArray("found"))) }
+            which.startsWith("app/") -> an.appSeries(dec(which.removePrefix("app/")), by)?.let { s -> an.chartSeries(s.getString("name") + " · payments received", "USD on the day paid, per $by · ${s.getInt("payments")} payments from ${s.getInt("payers")} payers", an.pts(s.getJSONArray("series"))) }
+                ?: return Api.Response(404, JSONObject().put("error", "not_found").put("message", "no payments seen for that package"))
+            else -> return Api.Response(404, JSONObject().put("error", "not_found"))
+        }
+        return Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), svg.toByteArray(), "image/svg+xml; charset=utf-8")
+    }
+
     fun badge(pkg: String): Api.Response {
         val app = views.app(pkg)
         val signed = app?.optJSONObject("signed")
