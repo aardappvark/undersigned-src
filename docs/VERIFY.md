@@ -1,7 +1,8 @@
 # Verify this submission: build it, run the tests, read the on-chain modules
 
-**Audit commit:** `f86669b` on `main` of https://github.com/aardappvark/Undersigned (private; shared with the judges
-through the Radiants Align GitHub app). Everything below was measured on that commit on 12 October 2026.
+**Public source:** https://github.com/aardappvark/undersigned-src (the same history with the signing keystore removed from
+every commit; anyone can clone it). The private original is https://github.com/aardappvark/Undersigned. **Audit commit:** the
+tip of `main` on 12 October 2026. Everything below was measured on that commit on 12 October 2026.
 
 ## Build and test (10 minutes on a Mac or Linux box)
 

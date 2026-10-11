@@ -17,8 +17,8 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 | Deliverable | Status | Where |
 |---|---|---|
 | Functional Android APK | **READY** — 1.1.27 (versionCode 38), 11.4 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass, Play Protect result=ALLOW on install (12 Oct); SHA-256 dfbec5dc…336e | `assets/submission/Undersigned-1.1.27-vc38.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.26` (owner). |
-| GitHub repository | **READY** — 231 commits on 20 days (UTC) from 7 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
-| Demo video (≤ 3 min) | **READY** `assets/video/undersigned-demo-v3.mp4` (2:59, 1.1.26 takes and stills, burned-in subtitles, Higgsfield Gracie voice approved 12 Oct, a Higgsfield cold open, logo card at both ends; lines in `docs/VIDEO_SCRIPT_V2.md` → Cut v3) | Upload to YouTube (unlisted) or Drive; paste the link |
+| GitHub repository | **READY** — 231 commits on 20 days (UTC) from 7 Sep 2026, all before the deadline | https://github.com/aardappvark/undersigned-src (public mirror, keystore removed from history) · private original https://github.com/aardappvark/Undersigned |
+| Demo video (≤ 3 min) | **READY** `assets/video/undersigned-demo-v3.mp4` (2:59, 1.1.26 takes and stills, burned-in subtitles, Higgsfield Gracie voice approved 12 Oct, a Higgsfield cold open, logo card at both ends; lines in `docs/VIDEO_SCRIPT_V2.md` → Cut v3) | https://youtu.be/tdjNWUJkEqI (unlisted, uploaded by the owner 12 Oct) |
 | Pitch deck | **READY** — 20 slides (four Higgsfield plates on the statement slides 1, 2, 18, 20; slides 16–17 = review analytics over every source), core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
@@ -85,7 +85,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 **Funding:** none (no VC, no angel).
 
-**Demo video:** `[link, owner]` — follows `docs/DEMO_SCRIPT.md`, recorded on a Seeker with the double-tap on camera.
+**Demo video:** https://youtu.be/tdjNWUJkEqI — follows `docs/DEMO_SCRIPT.md`, recorded on a Seeker with the double-tap on camera.
 
 **Pitch deck:** `assets/submission/Undersigned-pitch.pdf`
 
