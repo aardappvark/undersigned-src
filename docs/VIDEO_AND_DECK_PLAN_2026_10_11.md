@@ -48,6 +48,15 @@ Still open on the deck (needs fresh shots, 1–1.5 h):
 - Slide 10 would carry one screenshot of Claude or Cursor calling an MCP tool.
 - Decide 28 vs 29 apps (28 published; 29 claims because Undersigned itself is one). The deck says 28 throughout.
 
+## 2b. Side-by-side comparisons (built 11 Oct, late)
+
+The owner's required comparison exists now in three forms, all from `docs/COMPARISON.md` (the full matrix, 18 rows, with
+the store screens measured on v1.59.0 and the Undersigned screens from 1.1.10, in `assets/submission/shots/cmp/`):
+- Deck slides 5 and 6 (`pitch.html`): reviewer and developer, three paired rows each, store left and Undersigned right.
+- Video frames: `assets/video/compare.html` → `assets/video/frames/compare-1..8.png`, 1920×1080, one pair per frame,
+  for the 1:45–2:05 segment (8 frames × 2.5 s).
+- The matrix itself for the README and the submission text.
+
 ## 3. Video: what is wrong and the shot list
 
 The v2 script is motion only. The owner's rule stands: the final video is built around real device screenshots and

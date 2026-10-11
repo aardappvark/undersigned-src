@@ -500,7 +500,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     // Names the match (owner, 11 Oct 2026): "similar text to a review of X signed D", a fact, never an accusation.
                     val similarText = similar[e.signature]?.let { f -> val m = f.matches.firstOrNull()
                         if (m == null) stringResource(if (f.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge)
-                        else { val d = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(m.time * 1000)); val nm = vm.labelFor(m.packageName, m.packageName)
+                        else { val d = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(m.time * 1000)); val nm = catalogue.firstOrNull { c -> c.packageName == m.packageName }?.name ?: vm.labelFor(m.packageName, m.packageName)
                             when { f.matches.size > 1 -> stringResource(R.string.similar_to_more, nm, d, f.matches.size - 1); f.recent -> stringResource(R.string.similar_to_one_recent, nm, d); else -> stringResource(R.string.similar_to_one, nm, d) } } }
                     if (seasonText != null || similarText != null) {
                         Spacer(Modifier.height(6.dp))
