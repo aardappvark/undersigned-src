@@ -95,9 +95,9 @@ First release on the store: signed reviews from Seeker owners, long reviews, qui
 
 (REORDER_TASKS was removed 7 Oct 2026: the wallet library had been shipping test code that declared it.)
 
-## Screenshots (1080 × 2400, `assets/store/screenshots-1.0.0/`)
+## Screenshots (1200 × 2490 app area, no status bar; `assets/store/previews-1.1.27/`, 8 real 1.1.27 screens: app page, lens, composer, wallet sheet, request thread, category board, review analytics, publisher desk; the 1.0.0 set stays in `screenshots-1.0.0/` for history)
 1. `1-one-seeker-one-voice.png` · 2. `2-signed-not-typed.png` · 3. `3-app-page.png` · 4. `4-reviews-and-publisher.png` · 5. `5-every-dapp.png`
-Icon `assets/store/icon_512.png`, banner `assets/store/banner_1200x600.png`.
+Icon `assets/store/icon_512.png` (512, opaque), banner `assets/store/banner_1200x600.png` and graphic `assets/store/graphic_1200x1200.png` (12 Oct 2026: the deck's Higgsfield plates with the name set in Manrope; the 15 Sep versions, which still said "SKR-weighted", are in `old-2026-09-15/`).
 
 ## Publishing (after the owner's OK)
 1. Publisher Portal (logged in as DD4a): New app → `com.undersigned.app`, the fields above, screenshots, icon, banner → mint the App NFT.
