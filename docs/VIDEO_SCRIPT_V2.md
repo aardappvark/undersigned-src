@@ -98,14 +98,14 @@ approve these lines before any Gracie credit**; then `VOICE` swaps and the cut i
 | 0:35 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. No wallet yet? The form offers Sign in with wallet. |
 | 0:43 | w_sheet.png | The Seeker Wallet shows the fee. A double tap on the sensor signs it in the Seed Vault. The app never sees a key. |
 | 0:50 | batch_list.png | Or tick the apps this phone has used and sign them together: eight reviews, one double tap. |
-| 0:54 | record.mp4 | Back on the page the review carries its marks; staked SKR is shown, never weighed. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
+| 0:55 | record.mp4 | Back on the page the review carries its marks; staked SKR is shown, never weighed. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
 | 1:02 | web_app.png | The same record on the web, through the API and MCP, and on Solscan: one transaction nobody can edit. |
 | 1:08 | term_api.png | And it answers: the API, every review with every signal, no key to start; and the MCP server, one URL in Claude or Cursor, twenty-five read-only tools. |
 | 1:16 | thread.mp4 | Signed on mainnet: a four-star crash report, the publisher's Fixed in version one sixty-eight, and a five-star follow-up. Our own thread, labelled, never counted. |
 | 1:24 | request_category.png | Tag a review as a feature request and say what kind; the publisher signs will build or won't, and the hours to decide and deliver are public. |
 | 1:30 | update_switch.png | One switch tells you the day a dapp updates in the store. |
 | 1:32 | desk.png | A publisher desk on the phone: what is unanswered, how fast you reply, a developer kit. |
-| 1:36 | compare-1.png | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms. |
+| 1:37 | compare-1.png | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms. |
 | 1:47 | pro_pay.png | Pro is paid in SOL or SKR, three hundred thirty-two with a Genesis Token, the licence written to the ledger. |
 | 1:52 | translate.mp4 | Then any review or reply reads in your language with one tap, labelled as a suggestion by AI, plus two tags of your own. |
 | 2:00 | myreviews.png | Your store reviews come across in one approval, signed beside the originals. |
