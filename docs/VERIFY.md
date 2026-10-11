@@ -14,8 +14,8 @@ export JAVA_HOME=/path/to/jdk-21            # Android Studio's bundled JBR works
 ./gradlew :api:installDist && api/build/install/api/bin/api verify   # recompute every score from mainnet and diff the live dataset
 ```
 
-The release APK we submitted is `assets/submission/Undersigned-1.1.28-vc39.apk` (also at
-https://undersigned.provenby.dev/download/Undersigned-1.1.28-vc39.apk and on the GitHub release `v1.1.27`); its
+The release APK we submitted is `assets/submission/Undersigned-1.1.29-vc40.apk` (also at
+https://undersigned.provenby.dev/download/Undersigned-1.1.29-vc40.apk and on the GitHub release `v1.1.27`); its
 SHA-256 is beside it. It is signed with the fleet key (certificate SHA-256 `ac6932…100b`, the same key as our 28 live
 store apps) and installs with Play Protect `result=ALLOW`.
 

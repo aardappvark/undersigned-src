@@ -20,7 +20,7 @@ object AppConfig {
     }
 
     /** False only if the registry constant does not re-derive at start; then nothing is posted (see UndersignedApp). */
-    @Volatile var registryOk: Boolean = true
+    @Volatile var registryOk: Boolean = false   // fail closed: set true only when the derivation matched at start
 
     object Api {
         private val PUBLIC_ENDPOINTS = listOf(

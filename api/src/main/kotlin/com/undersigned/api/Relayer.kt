@@ -25,7 +25,10 @@ import java.util.Base64
 class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val address: String = Registry.QUICK_RELAYER) {
     private val priv = KeyFactory.getInstance("Ed25519").generatePrivate(PKCS8EncodedKeySpec(keyFile.readBytes()))
 
-    init { db.exec("CREATE TABLE IF NOT EXISTS relay_log (sig TEXT PRIMARY KEY, day TEXT NOT NULL, app_key TEXT NOT NULL, ip TEXT NOT NULL, reviews INTEGER NOT NULL, at INTEGER NOT NULL)") }
+    init {
+        db.exec("CREATE TABLE IF NOT EXISTS relay_log (sig TEXT PRIMARY KEY, day TEXT NOT NULL, app_key TEXT NOT NULL, ip TEXT NOT NULL, reviews INTEGER NOT NULL, at INTEGER NOT NULL)")
+        db.exec("CREATE TABLE IF NOT EXISTS relay_fees (day TEXT PRIMARY KEY, sent INTEGER NOT NULL)")   // the economics ledger: counts only, never pruned (re-audit, 12 Oct 2026)
+    }
 
     class Refused(val status: Int, message: String) : Exception(message)
 
@@ -147,9 +150,10 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         val txSig = runCatching { rpc.sendTransaction(Base64.getEncoder().encodeToString(out)) }.getOrElse {
             db.exec("DELETE FROM relay_log WHERE sig = ?", reservation); throw Refused(502, "the network did not take it: ${it.message?.take(120)}") }
         if (txSig != reservation) db.exec("UPDATE relay_log SET sig = ? WHERE sig = ?", txSig, reservation)
+        db.exec("INSERT INTO relay_fees (day, sent) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET sent = sent + 1", today)
         return txSig
     }
 
     /** Fees the relayer paid on [day] (lamports): one signature's fee per relayed transaction. */
-    fun feesOn(day: String): Long = count("SELECT count(*) FROM relay_log WHERE day = ?", day) * FEE_LAMPORTS
+    fun feesOn(day: String): Long = count("SELECT coalesce(sum(sent), 0) FROM relay_fees WHERE day = ?", day) * FEE_LAMPORTS
 }

@@ -31,6 +31,7 @@ class ProPaymentService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
     /** [sol]/[skr] default to the Pro price; a paid listing passes its own price and its `trs` [record] (see AppConfig.Payment.LIST_SOL). */
     suspend fun pay(context: Context, adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, rail: Rail, onStage: (ReviewTxService.Stage) -> Unit,
                     sol: Double = AppConfig.Payment.PRO_SOL, skr: Double = AppConfig.Payment.PRO_SKR, record: String? = null): Result<Receipt> {
+        check(com.undersigned.app.AppConfig.registryOk) { "registry mismatch; nothing is posted" }
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
         if (runCatching { GeoBlocker(context).isBlocked() }.getOrDefault(false)) return Result.failure(Exception("Nothing was charged. Payment is not available in this region because of sanctions and legal restrictions."))
         // Payments fail CLOSED (compliance review, 9 Oct 2026): if the sanctions screen cannot run, nothing is charged.

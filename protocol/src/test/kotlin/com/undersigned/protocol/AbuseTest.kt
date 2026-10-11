@@ -64,5 +64,7 @@ class AbuseTest {
         // Hyphenated ordinary words are not words on the list.
         assertFalse(Abuse.blocked("a well-known, first-class wallet"))
         assertFalse(Abuse.blocked("naïve café résumé"))
+        // Whole words in another script are that script's words (re-audit, 12 Oct 2026): Belarusian "ракі", Serbian "јар", Russian "сок" are not English.
+        assertFalse(Abuse.blocked("ракі јар сок"))
     }
 }

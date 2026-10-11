@@ -249,9 +249,13 @@ class Api(private val views: Views, private val billing: Billing, private val in
         fun src(r: Req) = r.query["source"]?.takeIf { it in ReviewAnalytics.SOURCES } ?: "store"
         fun rwin(r: Req) = r.query["window"]?.takeIf { it in Analytics.WINDOWS } ?: "all"
         fun rby(r: Req) = r.query["by"]?.takeIf { it in listOf("day", "week", "month") } ?: when (rwin(r)) { "7d", "30d" -> "day"; "90d" -> "week"; else -> "month" }
-        fun ra(r: Req) = views.memo5("ra:${src(r)}:${rwin(r)}:${r.query["category"]}:${r.query["package"]}:${rby(r)}:${rows(r, 25, 500)}") { views.reviewAnalytics.summary(src(r), rwin(r), r.query["category"], r.query["package"], rby(r), rows(r, 25, 500)) }
+        fun ra(r: Req): JSONObject {
+            r.query["category"]?.let { c -> if (views.categories().none { it.equals(c, true) }) throw IllegalArgumentException("unknown category") }
+            r.query["package"]?.let { p -> if (views.appRow(p).optString("name").isEmpty() && p !in views.packages()) throw IllegalArgumentException("unknown package") }
+            return views.memo5("ra:${src(r)}:${rwin(r)}:${r.query["category"]}:${r.query["package"]}:${rby(r)}:${rows(r, 25, 500)}") { views.reviewAnalytics.summary(src(r), rwin(r), r.query["category"], r.query["package"], rby(r), rows(r, 25, 500)) }
+        }
         fun svg(body: String) = Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), body.toByteArray(), "image/svg+xml; charset=utf-8")
-        route("GET", "/v1/reviews/analytics", Tier.LIMITED, "Review analytics for one source (source=store|all|organic|pro|promoted|quick|other|ours): reviews, mean, stars, replied and short shares, categories, top apps and a series per day|week|month over a window (7d|30d|90d|1y|all), optionally for one category or package") { r -> ok(ra(r)) }
+        route("GET", "/v1/reviews/analytics", Tier.LIMITED, "Review analytics for one source (source=store|all|organic|pro|promoted|quick|other|ours): reviews, mean, stars, replied and short shares, categories, top apps and a series per day|week|month over a window (7d|30d|90d|1y|all), optionally for one category or package") { r -> try { ok(ra(r)) } catch (e: IllegalArgumentException) { notFound(e.message ?: "unknown") } }
         route("GET", "/v1/reviews/analytics.csv", Tier.LIMITED, "The same review analytics as CSV (categories, apps, series)") { r ->
             Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300"), views.reviewAnalytics.csv(ra(r)).toByteArray(), "text/csv; charset=utf-8") }
         route("GET", "/v1/reviews/store.csv", Tier.LIMITED, "Raw rows of the dApp Store reviews read so far, one a line: package, name, category, stars, created, words, from_skr_name, publisher_replied. No text and no wallet: the words stay the store's and the reviewer's.") { r ->
@@ -317,6 +321,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         // limiter entry and a database write each. A key that is sent must be good: an ended or spent pass is told so.
         val known = key != null && billing.pass(key) != null
         val caller = when {
+            path == "/v1/rpc" -> Caller(false, key)   // the app's read proxy has its own per-network budget (re-audit, 12 Oct 2026)
             path == "/v1/keys/me" -> { ipBudget()?.let { return it }; Caller(false, key) }
             key != null && !known -> { ipBudget()?.let { return it }; return paymentRequired("this key does not exist") }
             key != null && rt.tier != Tier.FREE -> {

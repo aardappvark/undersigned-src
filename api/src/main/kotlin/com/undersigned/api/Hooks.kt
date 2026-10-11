@@ -210,7 +210,9 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
         }
 
         fun httpPost(url: String, body: String, headers: Map<String, String>): Int {
-            val c = URI(url).toURL().openConnection() as HttpURLConnection
+            val u = URI(url).toURL(); require(u.protocol == "https") { "https only" }
+            require(InetAddress.getAllByName(u.host).none { isPrivate(it) }) { "private destination" }   // re-checked at delivery, not only at registration (re-audit, 12 Oct 2026)
+            val c = u.openConnection() as HttpURLConnection
             try {
                 c.requestMethod = "POST"; c.instanceFollowRedirects = false; c.connectTimeout = 5000; c.readTimeout = 8000; c.doOutput = true
                 c.setRequestProperty("Content-Type", "application/json"); c.setRequestProperty("User-Agent", "Undersigned-Hooks/2"); headers.forEach { (k, v) -> c.setRequestProperty(k, v) }

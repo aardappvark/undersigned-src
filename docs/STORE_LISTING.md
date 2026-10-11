@@ -1,9 +1,9 @@
-# Undersigned — dApp Store listing (1.1.28, updated 12 Oct 2026)
+# Undersigned — dApp Store listing (1.1.29, updated 12 Oct 2026)
 
 The source of truth for the Publisher Portal fields. Nothing here is submitted until the owner says so.
 
 ## Build
-- APK: `app/build/outputs/apk/release/app-release.apk`, `com.undersigned.app`, versionCode **39**, versionName **1.1.26**
+- APK: `app/build/outputs/apk/release/app-release.apk`, `com.undersigned.app`, versionCode **40**, versionName **1.1.26**
 - Signed v2 + v3 with the fleet key, cert SHA-256 `ac693213aec9befa200be59881b9decd37646b1761591edc9bc6c144192d100b`
   (CN=MidMightBit Games), the same key as 28 of the fleet's live apps.
 - The manifest names its publishers: `undersigned.publisher` = `DD4a…Wq2Q,HVXV…yDaD` (publisher proof by the store's build).
@@ -41,6 +41,10 @@ One Seeker, one voice: only wallets holding a Seeker Genesis Token are counted, 
 - Pro: the dApp list updates itself every Monday, copy reviews to the store, a publisher desk, exports.
 
 Undersigned never holds your keys or funds and moves nothing from your wallet that you have not signed for. Not affiliated with Solana Mobile.
+
+### What's new (1.1.29)
+
+A second security pass: the registry check now fails closed and covers quick reviews and payments; the quick-review key rotates only on a real reset; look-alike letters are folded only beside Latin ones, so words in other scripts are read as their own.
 
 ### What's new (1.1.28)
 

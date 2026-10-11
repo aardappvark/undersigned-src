@@ -54,10 +54,12 @@ const PROJECT_META = {
 
 // Per-network token bucket, per isolate (no KV: the account is at its D1 cap). 60 a minute is far above any honest app.
 const buckets = new Map();
+function netKey(ip) { return ip.includes(':') ? ip.split(':').slice(0, 4).join(':') + '::/64' : ip; }   // one IPv6 /64 is one network
 function allow(ip) {
-  const now = Date.now(); const b = buckets.get(ip) || { n: 0, at: now };
+  const key = netKey(ip); const now = Date.now(); const b = buckets.get(key) || { n: 0, at: now };
   if (now - b.at > 60_000) { b.n = 0; b.at = now; }
-  b.n += 1; buckets.set(ip, b); if (buckets.size > 5000) buckets.clear();
+  b.n += 1; buckets.delete(key); buckets.set(key, b);   // re-insert: Map keeps insertion order, so the oldest sits first
+  if (buckets.size > 5000) buckets.delete(buckets.keys().next().value);
   return b.n <= 60;
 }
 
@@ -143,8 +145,8 @@ async function handleTrack(request, env) {
       INSERT INTO fleet_events (app, date, event_type, country, count)
       VALUES (?, ?, ?, ?, 1)
       ON CONFLICT(app, date, event_type, country)
-      DO UPDATE SET count = MIN(count + 1, 50000)
-    `).bind(APP, date, eventType, country).run();
+      DO UPDATE SET count = MIN(count + 1, ?)
+    `).bind(APP, date, eventType, country, eventType.startsWith('payment') ? 500 : 50000).run();   // payment counts stay reconcilable with the treasury
     return json({ ok: true });
   } catch (err) {
     console.error('DB write error:', err);
@@ -267,7 +269,7 @@ async function handlePublicStats(env) {
     });
   } catch (err) {
     console.error('public-stats error:', err);
-    return json({ error: 'Query failed', detail: String(err) }, 500);
+    return json({ error: 'Query failed' }, 500);
   }
 }
 

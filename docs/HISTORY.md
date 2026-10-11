@@ -109,4 +109,9 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
   MCP address decoding, systemd sandboxing, the Dockerfile pinned and non-root. Worker: per-network limit, row cap, a
   separate stats key. Docs: SECURITY, PAYMENTS, SCOPE, VERIFY, ONCHAIN, PRIVACY_MODEL, METRICS; the privacy policy says
   exactly what the App sends.
+- **1.1.29** (versionCode 40, 12 Oct, SHA-256 01b30d3b…): second security pass (`docs/SECURITY.md`, "Second pass"): registry check
+  fail-closed and on quick reviews and payments; quick seed rotates only on a genuine decryption failure; confusables folded only
+  inside Latin words; ban recusal resolves record-bound types. Server the same day: the RPC proxy outside the free budget with an
+  explicit method set and body caps, webhook destinations re-checked at delivery, analytics parameters validated, relayer fees
+  from an unpruned aggregate. Uncut device walkthrough recorded (`assets/video/walkthrough-uncut-2026-10-12.mp4`, 23:27).
 

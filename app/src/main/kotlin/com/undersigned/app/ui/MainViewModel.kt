@@ -1126,6 +1126,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      * goes to the API, which checks it and adds the relayer's signature.
      */
     fun publishQuick(memo: ReviewMemo.Review, extras: List<ReviewMemo>, longText: String?, onResult: (Result<String>) -> Unit) {
+        if (!com.undersigned.app.AppConfig.registryOk) { onResult(Result.failure(IllegalStateException("registry mismatch; nothing is posted"))); return }
         abuseRefusal(memo)?.let { return onResult(Result.failure(Exception(it))) }
         val ctx = getApplication<Application>()
         viewModelScope.launch(Dispatchers.IO) {

@@ -42,10 +42,13 @@ object Abuse {
     fun normalise(text: String): String {
         val folded = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKC).lowercase()
             .replace(Regex("(?<=\\p{L})[-._'’`]+(?=\\p{L})"), "")   // a joiner between letters is a disguise, never a word break
+        // A whole word in another script is that script's word ("ракі", "јар"); look-alikes are folded only where a Latin letter already sits beside them (re-audit, 12 Oct 2026).
+        val latinWords = Regex("[\\p{L}\\p{M}\\p{Cf}]+").findAll(folded).filter { w -> w.value.any { it in 'a'..'z' } }.map { it.range }.toList()
+        fun inLatinWord(i: Int) = latinWords.any { i in it }
         val sb = StringBuilder(folded.length)
-        for (ch0 in folded) {
+        for ((i, ch0) in folded.withIndex()) {
             if (invisible(ch0)) continue
-            val ch = CONFUSABLES[ch0] ?: ch0
+            val ch = (if (inLatinWord(i)) CONFUSABLES[ch0] else null) ?: ch0
             val c = LEET[ch] ?: ACCENTS[ch] ?: ch
             // A masking character inside a word ("f*ck", "sh#t") is kept as '*' so [match] can treat it as a wildcard.
             sb.append(if (c.isLetter()) c else if (c == '*' || c == '#' || c == '•') '*' else ' ')

@@ -501,6 +501,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     /** Review analytics over every source: the store crawl and the ledger's live reviews by class (see [ReviewAnalytics]). */
     /** The chain client, for the app's read-only proxy (its key stays on the server). */
     val rpc: Rpc get() = indexer.rpc
+    fun categories(): Set<String> = s.catalogue.mapNotNull { it.category }.toSet()
+    fun packages(): Set<String> = s.byPackage.keys
     val reviewAnalytics: ReviewAnalytics by lazy { ReviewAnalytics(java.io.File(Config.STORE_REVIEWS_DIR), { s.catalogue.associate { it.packageName to it.category } }, { s.catalogue.associate { it.packageName to it.name } }, { signedRows() }) }
 
     /** Every live signed review (the latest per wallet per app, withdrawn out) with the classes the protocol computes for it. */

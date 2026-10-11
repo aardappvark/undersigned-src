@@ -21,6 +21,7 @@ data class TxInfo(
 )
 
 class RpcException(message: String) : Exception(message)
+private const val MAX_BODY = 8 * 1024 * 1024
 
 /** Read-only JSON-RPC client over a failover pool (port of the app's SolanaRpcClient, blocking). */
 open class Rpc(private val endpoints: List<String> = Config.RPC) {
@@ -152,13 +153,15 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
     /** The app's read-only JSON-RPC proxy (audit, 12 Oct 2026: the paid key stays here): one whitelisted method per request, the raw answer returned. */
     fun proxy(body: String): JSONObject {
         val o = runCatching { JSONObject(body) }.getOrNull() ?: throw RpcException("bad request")
-        val method = o.optString("method"); require(PROXY_METHOD.matches(method) && method !in PROXY_DENIED) { "method not allowed" }
+        val method = o.optString("method"); require(method in PROXY_METHODS) { "method not allowed" }
+        require(o.optJSONArray("params")?.toString()?.length ?: 0 <= 4096) { "params too large" }
         var last: Exception? = null
         for (endpoint in endpoints) { if (overBudget(endpoint)) continue; try { return post(endpoint, o.toString()) } catch (e: Exception) { last = e } }
         throw last ?: RpcException("All RPC endpoints failed")
     }
-    private val PROXY_METHOD = Regex("^(get|simulate|send|is|request)[A-Za-z0-9]{2,48}$")
-    private val PROXY_DENIED = setOf("requestAirdrop")
+    /** Exactly the methods the Android app calls (`SolanaRpcClient`, `TxBuilder`) plus health; nothing heavier (re-audit, 12 Oct 2026). */
+    private val PROXY_METHODS = setOf("getAccountInfo", "getMultipleAccounts", "getBalance", "getLatestBlockhash", "getProgramAccounts", "getSignatureStatuses", "getSignaturesForAddress",
+        "getTokenAccountsByOwner", "getTokenAccountBalance", "getTransaction", "simulateTransaction", "getHealth", "getEpochInfo", "getBlockTime", "getMinimumBalanceForRentExemption")
     private fun call(method: String, params: JSONArray): JSONObject {
         val body = JSONObject().put("jsonrpc", "2.0").put("id", 1).put("method", method).put("params", params).toString()
         var last: Exception? = null
@@ -181,7 +184,8 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
             c.outputStream.use { it.write(body.toByteArray()) }
             val host = URL(endpoint).host   // never the path or query: a provider key can sit in either
             if (c.responseCode != 200) throw RpcException("HTTP ${c.responseCode} from $host")
-            return JSONObject(c.inputStream.bufferedReader().use { it.readText() })
+            val b = c.inputStream.use { it.readNBytes(MAX_BODY + 1) }; if (b.size > MAX_BODY) throw RpcException("answer too large from $host")   // re-audit, 12 Oct 2026
+            return JSONObject(String(b, Charsets.UTF_8))
         } finally { c.disconnect() }
     }
 }

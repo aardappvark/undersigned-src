@@ -50,7 +50,7 @@ object QuickKey {
         val p = ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val sealed = p.getString(SEALED, null); val nonce = p.getString(NONCE, null)
         val seed: ByteArray = if (sealed != null && nonce != null) {
-            runCatching { open(sealed, nonce) }.getOrElse { fresh(p) }   // a keystore reset (device wipe, key invalidated) means a new anonymous voice
+            try { open(sealed, nonce) } catch (e: javax.crypto.AEADBadTagException) { fresh(p) } catch (e: android.security.keystore.KeyPermanentlyInvalidatedException) { fresh(p) }   // only a real reset rotates the voice; a transient keystore error propagates (re-audit, 12 Oct 2026)
         } else {
             val legacy = p.getString(SEED, null)?.let { Base64.decode(it, Base64.NO_WRAP) }
             if (legacy != null && legacy.size == 32) { store(p, legacy); legacy } else fresh(p)

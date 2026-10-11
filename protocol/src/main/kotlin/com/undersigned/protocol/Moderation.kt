@@ -85,7 +85,8 @@ object Moderation {
         val pkgOf = entries.associate { it.signature to pkgOfMemo(it.memo) }
         return entries.filter { e ->
             val by = b[e.signer] ?: return@filter true
-            val pkg = pkgOfMemo(e.memo) ?: (e.memo as? ReviewMemo.Reply)?.let { pkgOf[it.reviewSignature] } ?: return@filter false
+            val named = when (val m = e.memo) { is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Fixed -> m.reviewSignature; is ReviewMemo.Ack -> m.reviewSignature; is ReviewMemo.FollowUp -> m.originalSignature; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Clear -> m.recordId; else -> null }
+            val pkg = pkgOfMemo(e.memo) ?: named?.let { pkgOf[it] } ?: return@filter false
             // Kept only when EVERY banning moderator is recused for this app.
             by.all { mod -> Operator.isOperator(mod) && Operator.publishes(pkg, verifiedPublishers) || mod in verifiedPublishers[pkg].orEmpty() }
         }
