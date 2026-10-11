@@ -175,7 +175,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         return JSONObject().put("total", sorted.size).put("apps", JSONArray(sorted.take(limit).map { appRow(it.packageName) }))
     }
 
-    private fun appRow(pkg: String): JSONObject {
+    fun appRow(pkg: String): JSONObject {
         val st = s; val c = st.byPackage[pkg]; val sc = st.scores[pkg]
         return JSONObject().put("package", pkg).put("name", c?.name ?: pkg).put("category", c?.category ?: JSONObject.NULL).put("updated", c?.updated ?: JSONObject.NULL)
             .put("signed", if (sc == null) JSONObject.NULL else JSONObject().put("rank_score", if (sc.countedReviews > 0) r2(sc.weightedRating) else JSONObject.NULL).put("mean", if (sc.countedReviews > 0) r2(sc.weightedMean) else JSONObject.NULL).put("counted_reviews", sc.countedReviews))
@@ -498,6 +498,30 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
 
     /** Payment analytics over confirmed treasuries and found wallets (Analytics.kt); its own five-minute cache. */
     val analytics: Analytics by lazy { Analytics(db, Prices(db), boards, { found }, { foundRowsAll() }, { s.catalogue.associate { it.packageName to it.category } }) }
+    /** Review analytics over every source: the store crawl and the ledger's live reviews by class (see [ReviewAnalytics]). */
+    val reviewAnalytics: ReviewAnalytics by lazy { ReviewAnalytics(java.io.File(Config.STORE_REVIEWS_DIR), { s.catalogue.associate { it.packageName to it.category } }, { s.catalogue.associate { it.packageName to it.name } }, { signedRows() }) }
+
+    /** Every live signed review (the latest per wallet per app, withdrawn out) with the classes the protocol computes for it. */
+    fun signedRows(): List<ReviewAnalytics.Rev> {
+        val st = s
+        val replied = st.entries.filter { it.memo is ReviewMemo.Reply }.map { (it.memo as ReviewMemo.Reply).reviewSignature }.toSet()
+        val live = st.entries.filter { it.memo is ReviewMemo.Review && it.signature !in st.revoked }
+            .groupBy { (it.memo as ReviewMemo.Review).packageName to it.signer }.map { (_, l) -> l.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature }) }
+        return live.map { e ->
+            val r = e.memo as ReviewMemo.Review
+            val ours = com.undersigned.protocol.Operator.isOperator(e.signer); val quick = e.signature in st.quickIds
+            val parts = st.weighting.parts(e); val genesis = st.countsFor(e.signer).hasGenesisToken
+            val counted = !quick && !ours && genesis && parts.weight > 0 && !com.undersigned.protocol.Ranking.isSelfPublished(e, st.verified)
+            val cls = HashSet<String>()
+            if (ours) cls += "ours"
+            if (quick) cls += "quick"
+            if (!quick && !ours && !genesis) cls += "other"
+            if (counted && !parts.promoted) cls += "organic"
+            if (counted && parts.pro) cls += "pro"
+            if (parts.promoted) cls += "promoted"
+            ReviewAnalytics.Rev(r.packageName, r.rating, e.blockTime, com.undersigned.protocol.Weighting.words(r.text), indexer.names.nameOf(e.signer) != null, e.signature in replied, cls)
+        }
+    }
     private fun foundRowsAll(): List<JSONObject> = (foundTreasuries(Int.MAX_VALUE).optJSONArray("rows") ?: JSONArray()).let { a -> (0 until a.length()).map { a.getJSONObject(it) } }
 
     /** Heavy answers built from the whole history, kept five minutes: the history grows by the minute, these are read often. */

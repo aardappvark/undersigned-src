@@ -134,6 +134,16 @@ through the web limiter like badges). Built by `Analytics.kt` from pay_rows only
 apart; a found wallet shared by several apps of one publisher is one source; the leaderboard is per dApp with its
 wallets merged and payments deduplicated by signature. USD on the day paid; gross receipts, never revenue.
 
+### Review analytics, every source (12 Oct 2026)
+
+`GET /v1/reviews/analytics?source=store|all|organic|pro|promoted|quick|other|ours&window=7d|30d|90d|1y|all&by=day|week|month&category=&package=`,
+`.csv` for the same, `GET /v1/reviews/store.csv` (raw store rows without text or wallet; 5,000 free, all with a pass) and SVG charts at
+`GET /v1/reviews/chart/categories|apps|series|stars.svg`. Built by `ReviewAnalytics.kt`: the store source is the paced crawl's
+`STORE_REVIEWS_DIR/reviews*.jsonl` (deduplicated by id, re-read when the files change), the signed sources are
+`Views.signedRows()`, each live review tagged with the classes the protocol computes (counted Genesis wallet, Pro at signing,
+promoted, quick, other wallet, operator). Counts, means and shares only; answers memoised five minutes; a store review is never
+mixed into a signed figure. Page `/reviews`; MCP `review_analytics`.
+
 ### Publisher plan and data plan (10 Oct 2026)
 
 - **Publisher plan**: per app, 30 days, the fleet unit (0.0607 SOL / 369 SKR / 332 with a Genesis Token), up to 12 months
@@ -151,7 +161,7 @@ Two MCP servers, for two audiences (full setup in [DEVELOPERS.md](DEVELOPERS.md)
 HTTP, one JSON-RPC message per POST (batches are refused, so every call is metered), protocol 2025-06-18 / 2025-03-26 /
 2024-11-05. It is read-only: no tool drafts, signs or submits a review, flag or vote.
 - **Tools, free:** `search_apps`, `get_app`, `get_reviews` (sort and, with a pass, offset), `get_bursts`, `get_wallet`, `get_record`,
-`list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `get_apps` (many packages in one call), `found_treasuries`, `payments_analytics`, `plan_report` and `scoring_help`.
+`list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `get_apps` (many packages in one call), `found_treasuries`, `payments_analytics`, `review_analytics` (every review source, by category, dApp and over time), `plan_report` and `scoring_help`.
 - **AI tools, labelled suggestions:** `app_summary` (free), `translate_review` and `weekly_digest` (Pro wallet or a key).
 - **Tools, with a pass:** `store_watch`, `app_changes`, `version_scores`, `similar_reviews` and `store_rating_history`.
 - **Resources:** `undersigned://policy`, `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.

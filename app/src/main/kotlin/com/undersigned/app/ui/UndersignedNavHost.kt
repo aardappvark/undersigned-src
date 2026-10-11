@@ -37,6 +37,8 @@ object Routes {
     const val PAYMENTS = "payments"
     const val WATCH = "watch"
     const val LEADERBOARD = "leaderboard"
+    /** Review analytics over every source (owner, 12 Oct 2026). */
+    const val ANALYTICS = "analytics"
     const val TO_REVIEW = "to-review"
     const val INTRO = "intro"
     /** One app's payment history, from the Payments tab (owner, 10 Oct 2026): pushed, no tab bar, back returns. */
@@ -113,7 +115,7 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     ) { inner ->
     NavHost(navController = nav, startDestination = Routes.BROWSE, modifier = Modifier.fillMaxSize().padding(inner).consumeWindowInsets(inner)) {
         composable(Routes.BROWSE) { BrowseScreen(vm, onOpen = { nav.navigate(Routes.detail(it)) }, onProfile = { nav.navigate(Routes.profile(it)) }, onStats = { nav.navigate(Routes.STATS) }, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }) }
-        composable(Routes.ME) { MeScreen(vm, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }, onInbox = { nav.navigate(Routes.INBOX) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }, onDesk = { nav.navigate(Routes.DESK) }, onWatch = { nav.navigate(Routes.WATCH) }, onLeaderboard = { nav.navigate(Routes.LEADERBOARD) }, onStats = { nav.navigate(Routes.STATS) }, onSettings = { nav.navigate(Routes.SETTINGS) }) }
+        composable(Routes.ME) { MeScreen(vm, onMyReviews = { nav.navigate(Routes.MY_REVIEWS) }, onInbox = { nav.navigate(Routes.INBOX) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }, onDesk = { nav.navigate(Routes.DESK) }, onWatch = { nav.navigate(Routes.WATCH) }, onLeaderboard = { nav.navigate(Routes.LEADERBOARD) }, onAnalytics = { nav.navigate(Routes.ANALYTICS) }, onStats = { nav.navigate(Routes.STATS) }, onSettings = { nav.navigate(Routes.SETTINGS) }) }
         composable(Routes.MY_REVIEWS) { MyReviewsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }, onToReview = { nav.navigate(Routes.TO_REVIEW) }, onSignIn = { nav.navigate(Routes.SETTINGS) }) }
         composable(Routes.TO_REVIEW) { ToReviewScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onReview = { nav.navigate(Routes.review(it)) }) }
         composable(Routes.STATS) { LedgerStatsScreen(vm, onBack = { nav.popBackStack() }) }
@@ -122,6 +124,7 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
         composable(Routes.CHANGES) { e -> val root = remember(e) { isTabRoot() }; ChangesScreen(vm, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }, onReview = { nav.navigate(Routes.review(it)) }, onPro = { nav.navigate(Routes.PRO) }) }
         composable(Routes.SETTINGS) { SettingsScreen(vm, activityResultSender, onBack = { nav.popBackStack() }, onHowTo = { nav.navigate(Routes.HOWTO) }, onIntro = { nav.navigate(Routes.INTRO) }, onTour = { com.undersigned.app.ui.components.Tour.start() }, onPro = { nav.navigate(Routes.PRO) }, onDesk = { nav.navigate(Routes.DESK) }, onStats = { nav.navigate(Routes.STATS) }, onPayments = { nav.navigate(Routes.PAYMENTS) }, onWatch = { nav.navigate(Routes.WATCH) }, onLeaderboard = { nav.navigate(Routes.LEADERBOARD) }) }
         composable(Routes.LEADERBOARD) { LeaderboardScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
+        composable(Routes.ANALYTICS) { ReviewAnalyticsScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.WATCH) { StoreWatchScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.detail(it)) }) }
         composable(Routes.PAYMENTS) { e -> val root = remember(e) { isTabRoot() }; PaymentsScreen(vm, activityResultSender, onBack = if (root) null else ({ nav.popBackStack() }), onOpen = { nav.navigate(Routes.detail(it)) }, onHistory = { nav.navigate(Routes.payHistory(it)) }) }
         composable(Routes.PAY_HISTORY) { b -> val pkg = b.arguments?.getString("pkg") ?: return@composable; PaymentHistoryScreen(vm, pkg, onBack = { nav.popBackStack() }, onOpenApp = { nav.navigate(Routes.detail(pkg)) }) }

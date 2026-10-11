@@ -1235,6 +1235,42 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             .sortedWith(compareByDescending<Pair<LedgerEntry, com.undersigned.protocol.Weighting.Parts>> { helpfulWeights.value[it.first.signature] ?: 0.0 }.thenByDescending { it.first.blockTime })
     }
 
+    // ---- Review analytics (owner, 12 Oct 2026): every source, by category, dApp and over time. The store source is the
+    // API's crawl of the store's public lists (counts, means and shares only); the signed sources are this phone's ledger.
+    data class RaRow(val pkg: String, val rating: Int, val time: Long, val words: Int, val replied: Boolean, val cls: Set<String>)
+    val reviewAnalytics = MutableStateFlow<Map<String, org.json.JSONObject>>(emptyMap())
+    val reviewAnalyticsFailed = MutableStateFlow<Set<String>>(emptySet())
+    fun loadReviewAnalytics(source: String, window: String) {
+        val key = "$source:$window"; if (reviewAnalytics.value.containsKey(key)) return
+        viewModelScope.launch(Dispatchers.IO) {
+            val o = runCatching { apiGet("/v1/reviews/analytics?source=$source&window=$window&limit=25").second }.getOrNull()
+            if (o != null) { reviewAnalytics.update { it + (key to o) }; reviewAnalyticsFailed.update { it - key } } else reviewAnalyticsFailed.update { it + key }
+        }
+    }
+    /** Every live signed review (latest per wallet per app, withdrawn out) with the classes the protocol computes for it: the same rule as the API's `signedRows`. */
+    fun signedAnalyticsRows(): List<RaRow> {
+        val revoked = revokedSignatures(); val all = entries.value; val quick = quickIds.value; val vp = verifiedPublishers.value
+        val f = com.undersigned.protocol.Operator.gate { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }
+        val ctx = com.undersigned.protocol.Weighting.Context(all, hiddenByConsensus.value, f, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), vp)
+        val replied = all.filter { it.memo is ReviewMemo.Reply }.map { (it.memo as ReviewMemo.Reply).reviewSignature }.toSet()
+        val live = all.filter { it.memo is ReviewMemo.Review && it.signature !in revoked }
+            .groupBy { (it.memo as ReviewMemo.Review).packageName to it.signer }.map { (_, l) -> l.maxWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature }) }
+        return live.map { e ->
+            val r = e.memo as ReviewMemo.Review
+            val ours = com.undersigned.protocol.Operator.isOperator(e.signer); val q = e.signature in quick
+            val parts = ctx.parts(e); val genesis = f(e.signer).hasGenesisToken
+            val counted = !q && !ours && genesis && parts.weight > 0 && !com.undersigned.protocol.Ranking.isSelfPublished(e, vp)
+            val cls = HashSet<String>()
+            if (ours) cls += "ours"
+            if (q) cls += "quick"
+            if (!q && !ours && !genesis) cls += "other"
+            if (counted && !parts.promoted) cls += "organic"
+            if (counted && parts.pro) cls += "pro"
+            if (parts.promoted) cls += "promoted"
+            RaRow(r.packageName, r.rating, e.blockTime, com.undersigned.protocol.Weighting.words(r.text), e.signature in replied, cls)
+        }
+    }
+
     fun toggleStar(id: String) = UserPreferences.toggleStar(id)
     /** Whether MY wallet's latest up/unvote on [id] is an upvote. Facts are forced to weight 1 so an unattested wallet still sees its own vote state. */
     fun myUpvote(id: String): Boolean = wallet.value?.let { w -> Reputation.helpfulWeights(entries.value.filter { it.signer == w || it.signature == id }) { SignerFacts(true, 0.0) }.containsKey(id) } ?: false

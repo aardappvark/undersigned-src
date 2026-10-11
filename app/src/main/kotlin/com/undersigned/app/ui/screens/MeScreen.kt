@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Inbox
+import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material.icons.outlined.Leaderboard
 import androidx.compose.material.icons.outlined.PendingActions
 import androidx.compose.material.icons.outlined.RateReview
@@ -45,7 +46,7 @@ import com.undersigned.app.ui.theme.RbColors
 @Composable
 fun MeScreen(
     vm: MainViewModel, onMyReviews: () -> Unit, onInbox: () -> Unit, onToReview: () -> Unit, onDesk: () -> Unit,
-    onWatch: () -> Unit, onLeaderboard: () -> Unit, onStats: () -> Unit, onSettings: () -> Unit,
+    onWatch: () -> Unit, onLeaderboard: () -> Unit, onAnalytics: () -> Unit = {}, onStats: () -> Unit, onSettings: () -> Unit,
 ) {
     val wallet by vm.wallet.collectAsState()
     val pro by vm.pro.collectAsState()
@@ -86,6 +87,7 @@ fun MeScreen(
         HubRow(Icons.Outlined.Storefront, stringResource(R.string.desk_title), onClick = onDesk)
         HubRow(Icons.Outlined.Visibility, stringResource(R.string.watch_title), onClick = onWatch)
         HubRow(Icons.Outlined.Leaderboard, stringResource(R.string.lb_open), onClick = onLeaderboard)
+        HubRow(Icons.Outlined.Insights, stringResource(R.string.ra_open), onClick = onAnalytics)
         HubRow(Icons.Outlined.BarChart, stringResource(R.string.stats_open), onClick = onStats)
         HubRow(Icons.Outlined.Settings, stringResource(R.string.settings), onClick = onSettings, modifier = Modifier.tourTarget("m_settings"))
         Spacer(Modifier.height(16.dp))

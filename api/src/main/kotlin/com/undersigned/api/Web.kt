@@ -43,6 +43,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path == "/robots.txt" -> Api.Response(200, JSONObject(), raw = "User-agent: *\nAllow: /\nDisallow: /v1/\nSitemap: ${Config.PUBLIC_URL}/sitemap.xml\n".toByteArray(), contentType = "text/plain; charset=utf-8")
             path == "/sitemap.xml" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=3600"), sitemap().toByteArray(), "application/xml; charset=utf-8")
             path == "/watch" -> page("Store watch — Undersigned", watch())
+            path == "/reviews" -> page("Review analytics — Undersigned", reviewsPage(query["source"]?.takeIf { it in ReviewAnalytics.SOURCES } ?: "store", query["window"]?.takeIf { it in Analytics.WINDOWS } ?: "all", query["category"]?.takeIf { it.isNotBlank() }), description = "What the reviews say: the dApp Store's own reviews and the signed reviews on Undersigned, by category, by dApp and over time, with every source told apart.")
             path == "/payments" -> page("Payments — Undersigned", paymentsPage(query["window"]?.takeIf { it in Analytics.WINDOWS } ?: "30d"), description = "What Solana dApp Store apps are paid on-chain: leaderboards, categories, trends and charts from confirmed treasuries and wallets found in app code.")
             path == "/review" -> page("Write a signed review — Undersigned", review(query["package"], lang), lang = lang)
             path == "/seed" -> page("Seed the fleet — Undersigned", seed())
@@ -546,6 +547,37 @@ ${'$'}('kf').onsubmit = async (e) => { e.preventDefault(); const k = ${'$'}('key
      * The payments analytics page (owner, 10 Oct 2026): what the store's apps are paid, from the Solana ledger. Every chart is
      * a server-made SVG, so the page needs no script and the images embed anywhere. Found wallets are always labelled.
      */
+    private fun reviewsPage(source: String, window: String, category: String?): String {
+        val ra = views.reviewAnalytics; val o = ra.summary(source, window, category, null, when (window) { "7d", "30d" -> "day"; "90d" -> "week"; else -> "month" }, 12)
+        val q = { s: String, w: String -> "/reviews?source=$s&window=$w" + (category?.let { "&category=" + java.net.URLEncoder.encode(it, "UTF-8") } ?: "") }
+        val qs = "source=$source&window=$window" + (category?.let { "&category=" + java.net.URLEncoder.encode(it, "UTF-8") } ?: "")
+        val sb = StringBuilder("<h1>What the reviews say</h1><p class=sub>Every source, told apart and never mixed: the dApp Store's own reviews (read by a paced crawl of its public lists; only counts, means and shares are published here) and the signed reviews on Undersigned by class: organic Seeker wallets, Pro members, promoted, quick reviews without a wallet, wallets without a Genesis Token, and our own. By category, by dApp and over time. Nothing on this page weighs a review.</p>")
+        sb.append("<div class=chips>" + ReviewAnalytics.SOURCES.joinToString("") { s -> "<a class='chip${if (s == source) " on" else ""}' href='${q(s, window)}'>${esc(ReviewAnalytics.label(s))}</a>" } + "</div>")
+        sb.append("<div class=chips>" + Analytics.WINDOWS.joinToString("") { w -> "<a class='chip${if (w == window) " on" else ""}' href='${q(source, w)}'>${esc(views.analytics.label(w))}</a>" } + (category?.let { "<a class='chip on' href='/reviews?source=$source&window=$window'>✕ ${esc(it)}</a>" } ?: "") + "</div>")
+        val stars = o.getJSONArray("stars"); val tot = (0 until 5).sumOf { stars.getInt(it) }.coerceAtLeast(1)
+        sb.append("<div class=card><div class=stats><div class=stat><b>${"%,d".format(java.util.Locale.US, o.getInt("reviews"))}</b><span>reviews, ${esc(views.analytics.label(window))}</span></div><div class=stat><b>${o.getInt("apps")}</b><span>dApps</span></div><div class=stat><b>${o.getDouble("mean")}★</b><span>mean</span></div>" +
+            "<div class=stat><b>${"%.0f".format(java.util.Locale.US, 100.0 * stars.getInt(4) / tot)}%</b><span>five stars</span></div><div class=stat><b>${o.optDouble("short_share", 0.0)}%</b><span>three words or fewer</span></div><div class=stat><b>${o.optDouble("replied_share", 0.0)}%</b><span>answered by the publisher</span></div>" +
+            (if (source == "store") "<div class=stat><b>${o.optDouble("skr_share", 0.0)}%</b><span>from a .skr name</span></div>" else "") +
+            (o.opt("change").let { if (it is Double) "<div class=stat><b>${if (it >= 0) "+" else ""}$it%</b><span>last 30 days against the 30 before</span></div>" else "" }) + "</div></div>")
+        if (o.getInt("reviews") == 0) sb.append("<div class=card><p class=small>Nothing in this source and window yet. Counted signed reviews begin when Seeker owners outside Undersigned sign; our own are labelled and never counted.</p></div>")
+        if (category == null) sb.append("<div class=card style='padding:10px'><img alt='Reviews by category' style='width:100%;height:auto;border-radius:14px' src='/v1/reviews/chart/categories.svg?$qs'></div>")
+        sb.append("<div class=card style='padding:10px'><img alt='Most-reviewed dApps' style='width:100%;height:auto;border-radius:14px' src='/v1/reviews/chart/apps.svg?$qs&n=12'></div>")
+        sb.append("<div class=card style='padding:10px'><img alt='Reviews over time' style='width:100%;height:auto;border-radius:14px' src='/v1/reviews/chart/series.svg?$qs'></div>")
+        sb.append("<div class=card style='padding:10px'><img alt='Star distribution' style='width:100%;height:auto;border-radius:14px' src='/v1/reviews/chart/stars.svg?$qs'></div>")
+        o.optJSONArray("categories")?.takeIf { it.length() > 0 }?.let { a ->
+            sb.append("<h2>Categories</h2><div class=card>")
+            for (i in 0 until a.length()) { val c = a.getJSONObject(i); val ch = c.opt("change")
+                sb.append("<div class=row><a class=grow href='${q(source, window)}&category=${java.net.URLEncoder.encode(c.getString("category"), "UTF-8")}'><b>${esc(c.getString("category"))}</b></a><span class=meta>${"%,d".format(java.util.Locale.US, c.getInt("reviews"))} reviews · ${c.getInt("apps")} dApps · ${c.getDouble("mean")}★ · ${c.optDouble("replied_share", 0.0)}% answered" + (if (ch is Double) " · <span style='color:${if (ch >= 0) "var(--g)" else "var(--n)"}'>${if (ch >= 0) "▲" else "▼"} ${kotlin.math.abs(ch)}%</span>" else "") + "</span></div>") }
+            sb.append("</div>") }
+        o.optJSONArray("top_apps")?.takeIf { it.length() > 0 }?.let { a ->
+            sb.append("<h2>Most reviewed</h2><div class=card>")
+            for (i in 0 until a.length()) { val c = a.getJSONObject(i); val ch = c.opt("change")
+                sb.append("<div class=row><span class=meta style='width:28px'>${c.getInt("rank")}</span><a class=grow href='/app/${esc(c.getString("package"))}'><b>${esc(c.getString("name"))}</b> <span class=small>${esc(c.optString("category"))}</span></a><span class=meta>${"%,d".format(java.util.Locale.US, c.getInt("reviews"))} · ${c.getDouble("mean")}★ · ${c.optDouble("replied_share", 0.0)}% answered" + (if (ch is Double) " · <span style='color:${if (ch >= 0) "var(--g)" else "var(--n)"}'>${if (ch >= 0) "▲" else "▼"} ${kotlin.math.abs(ch)}%</span>" else "") + "</span></div>") }
+            sb.append("</div>") }
+        sb.append("<p class=small>Data: <a href='/v1/reviews/analytics?$qs'>/v1/reviews/analytics</a> (JSON) · <a href='/v1/reviews/analytics.csv?$qs'>CSV</a> · charts: <code>/v1/reviews/chart/{categories,apps,series,stars}.svg?$qs</code> · the MCP tool <code>review_analytics</code> answers the same. Store reviews are read from the dApp Store's public lists (${"%,d".format(java.util.Locale.US, ra.store().size)} so far, the crawl continues); their text stays the store's and is not republished. Signed reviews are read from the Solana ledger. Disclosure: Undersigned is run by AardAppvark, publisher of 28 dApps on this store; reviews from its own wallets are the \"ours\" source and never count.</p>")
+        return sb.toString()
+    }
+
     private fun paymentsPage(window: String): String {
         val an = views.analytics
         val sum = an.summary(window)
@@ -640,7 +672,7 @@ ${'$'}('kf').onsubmit = async (e) => { e.preventDefault(); const k = ${'$'}('key
 - GET /v1/payments: payments board (publisher-confirmed treasuries); GET /v1/payments/found: wallets found in app code, NOT confirmed (separate, labelled, never ranked); /v1/payments/found/{package}: full-history analytics; /v1/payments/found/trends: store-wide monthly
 
 ## MCP tools
-search_apps, get_app, get_apps, scoring_help, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key), weekly_digest (AI, Pro wallet or key), found_treasuries (labelled: found in app code, not confirmed); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
+search_apps, get_app, get_apps, scoring_help, get_reviews, get_bursts, get_wallet, get_record, list_records, leaderboard, payments_board, ledger_stats, review_tags, get_pricing, app_summary (AI, labelled), translate_review (AI, Pro wallet or key), weekly_digest (AI, Pro wallet or key), found_treasuries (labelled: found in app code, not confirmed), review_analytics (every review source: the store's own reviews and signed reviews by class, by category, dApp and over time); with a pass: store_watch, app_changes, version_scores, similar_reviews, store_rating_history. Resources: undersigned://policy, undersigned://pricing, undersigned://tags, undersigned://app/{package}. Prompts: audit_app_reputation, compare_apps.
 
 ## Rules for describing the data
 - Quote a score with its counted-review count.
@@ -927,7 +959,7 @@ async function follow(sig, liveUrl, what) {
         /** The mark, inline (the same vector as /icon.svg and the app's launcher). */
         private val MARK: String get() = ICON.replace("<svg ", "<svg aria-hidden=true ")
         val HEADER: String get() = "<header class=top><div class=in><a class=brand href='/'>$MARK<span>Undersigned</span></a><nav class=nav aria-label=Main>" +
-            "<a href='/'>Apps</a><a href='/payments'>Payments</a><a href='/watch'>Store watch</a><a href='/publishers'>Publishers</a><a href='/api'>API</a><a class=cta href='/review'>Write a review</a></nav></div></header>"
+            "<a href='/'>Apps</a><a href='/reviews'>Reviews</a><a href='/payments'>Payments</a><a href='/watch'>Store watch</a><a href='/publishers'>Publishers</a><a href='/api'>API</a><a class=cta href='/review'>Write a review</a></nav></div></header>"
         const val FOOTER = "<footer class=foot><div class=in><div class=small style='max-width:520px'>Undersigned is an open review ledger on Solana, run by AardAppvark, publisher of 28 dApps on this store, whose own reviews never count. " +
             "Reviews are the opinions of individual Seeker owners, signed by their own wallets. Not affiliated with Solana Mobile.</div><nav class=small><a href='/review'>How to review</a><a href='/publishers'>For publishers</a><a href='/moderation'>Moderation</a>" +
             "<a href='/report'>Report content</a><a href='https://aardappvark.github.io/undersigned-legal/'>Terms and privacy</a><a href='/assets/OFL-1.1.txt'>Font licence</a></nav></div></footer>"

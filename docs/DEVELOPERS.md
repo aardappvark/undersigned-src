@@ -86,6 +86,37 @@ Windows `7d|30d|90d|1y|all`; USD on the day paid; gross receipts, never revenue.
 
 The page: [`/payments`](https://undersigned.provenby.dev/payments). MCP: `payments_analytics` (hosted), `api_payments_*` (local).
 
+### Review analytics, every source (12 Oct 2026)
+
+What the reviews say, by category, by dApp and over time, with every source told apart and never mixed. `source=`:
+
+| Source | What it is |
+|---|---|
+| `store` | the dApp Store's own reviews, read by a paced crawl of its public lists (148,000+ so far across 500+ dApps; the crawl continues). Only counts, means and shares are published; the text stays the store's and the reviewer's |
+| `all` | every live signed review on Undersigned (the latest per wallet per app; withdrawn ones out) |
+| `organic` | signed by a Seeker wallet holding a Genesis Token, counted, not promoted |
+| `pro` | the reviewer held Pro when signing (counted like everyone's; its own mean) |
+| `promoted` | the author paid to promote it (counted once, after the organic ones) |
+| `quick` | a quick review without a wallet: shown apart, never counted |
+| `other` | a wallet without a Genesis Token: shown, never counted |
+| `ours` | Undersigned's own wallets: labelled, never counted |
+
+Windows `7d|30d|90d|1y|all` (default `all`); series per `day|week|month` (default by window); narrow with `category=` or `package=`.
+Every answer carries reviews, mean stars, the 1–5 star distribution, the share answered by the publisher, the share with three
+words or fewer (low effort), the share with text, the change of the last 30 days against the 30 before, the categories
+(count, dApps, mean, change), the most-reviewed dApps and the series. Nothing here weighs a review.
+
+| Route | What |
+|---|---|
+| `GET /v1/reviews/analytics?source=store&window=all` | the whole answer for one source (JSON) |
+| `GET /v1/reviews/analytics.csv?source=&window=` | the same as CSV: categories, apps, series |
+| `GET /v1/reviews/store.csv` | **raw rows** of the store reviews read so far: package, name, category, stars, created, words, from_skr_name, publisher_replied (5,000 rows free, all with a pass); no text, no wallet |
+| `GET /v1/records?type=rev`, `GET /v1/apps/{pkg}/reviews`, `/v1/dataset.json` | raw signed reviews, every signal, from the ledger |
+| `GET /v1/reviews/chart/categories.svg`, `apps.svg`, `series.svg`, `stars.svg` | charts as SVG (`?source=&window=&category=&package=&n=`), cached five minutes, free to embed |
+
+The page: [`/reviews`](https://undersigned.provenby.dev/reviews). MCP: `review_analytics` (hosted) takes the same arguments.
+The app's Analytics screen (Me → Analytics) draws the same figures on the phone and filters by the same sources.
+
 ### Check the scores yourself
 
 `./gradlew :api:installDist && api/build/install/api/bin/api verify [--rpc <url>]` reads every record at the registry
