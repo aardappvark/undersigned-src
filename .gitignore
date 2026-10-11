@@ -18,3 +18,7 @@ tools/.tts
 assets/video/seg3/
 assets/video/vo3/
 assets/video/concat3.txt
+
+# the fleet signing keystore stays out of the repository (removed 12 Oct 2026)
+release-keystore.jks
+*.jks
