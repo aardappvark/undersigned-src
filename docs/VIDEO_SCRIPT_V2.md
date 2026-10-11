@@ -78,47 +78,44 @@ Maalej 2019) · Seeker $450 early pre-order, $500 retail · $843 a year · 127 l
 
 Reply **approve** (with any edits) and I generate the Gracie lines, rebuild the motion to this script, and send the result.
 
-## Cut v3 — rebuilt 12 Oct 2026, 2:58, `assets/video/undersigned-demo-v3.mp4` (TEMPORARY Gordon voice)
+## Cut v3 — rebuilt 12 Oct 2026, 2:56, `assets/video/undersigned-demo-v3.mp4` (Higgsfield Gracie voice)
 
-Built by `assets/video/build3.py` from the 1.1.26 takes and stills, subtitles burned in, the voice at a slower fixed rate ("Solana" fed as "Solarna", "dApp" as "dee-app"), the logo card at both ends, the motion opener and close
-(the cost scene is cut: redundant, owner), the eight comparison frames (store cards in English; the Polish review appears
-only translated), two terminal frames with the real API and MCP answers captured 12 Oct, and the feature-audit beats
-(batch signing, Pro paid in SKR, store-review import, quick reviews, the Changes tab, the publisher desk, the store review
-hidden for abuse). Every line below is spoken as written ("dApp" fed as "dapp"); each ends before the next cue. **Owner to
-approve these lines before any Gracie credit**; then `VOICE` swaps and the cut is rebuilt.
+Built by `assets/video/build3.py` (`FORCE=1 VOICE=file`) from the 1.1.26 takes and stills, subtitles burned in, the logo card
+at both ends, the motion opener and close, two terminal frames with the real API and MCP answers captured 12 Oct, and the
+feature-audit beats (batch signing, the mainnet fix thread, the feature-request thread, the publisher desk, Pro paid in
+SKR, translation, notifications, abuse refused and the store reviews it would hide, the payments ledger, /status).
+Voice: Higgsfield Gracie (seed_audio preset), approved by the owner 12 Oct; 35 generations, 20.8 credits. Gracie reads about
+a third slower than the Gordon draft, so to stay under three minutes five lines were shortened and six beats were cut
+rather than any line sped up: the eight comparison frames (the deck carries them), the store-review import still, the
+quick-review still, the Changes still, the cost scene, and the spoken line over the hidden store review (the still stays).
+Each line ends before the next cue; "Solana" fed as "Solarna", "dApp" as "dapp".
 
 | At | On screen | Line |
 |---|---|---|
-| 0:02 | motion 0–9s | Undersigned. Fifteen hundred dApps, half a million star ratings, every one from a Seeker owner. How many say something a developer can act on? |
+| 0:02 | motion 0–9s | Undersigned. Fifteen hundred dApps, half a million star ratings, all from Seeker owners. How many say something a developer can act on? |
 | 0:11 | jup_lens.png | Copies and bursts are shown as facts, so care stands out. |
-| 0:15 | compare-7.png | Meaningful reviews create outcomes: here the fix is signed, and the reviewer follows up. |
-| 0:21 | tour2.mp4 | Open it fresh: a tour, every dApp, the signed score beside the store's. |
-| 0:26 | browse.mp4 | Flick the rail, search, sort, filter by tag. |
-| 0:30 | apppage.mp4 | An app's page: scores per version, reviews over time, and what this phone can check about the build. |
-| 0:37 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. |
-| 0:44 | w_sheet.png | The Seeker Wallet shows the fee. A double tap signs it in the Seed Vault. The app never sees a key. |
-| 0:52 | batch_list.png | Or tick the apps this phone has used: eight reviews, one double tap. |
-| 0:56 | record.mp4 | Back on the page the review carries its marks. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
-| 1:04 | web_app.png | The same record on the web, the API, MCP and Solana: nobody can edit it. |
-| 1:10 | term_api.png | The API answers every review, every signal; MCP gives Claude or Cursor twenty-five read-only tools. |
-| 1:18 | thread.mp4 | On mainnet: a crash report, the publisher's fix, a five-star follow-up; ours, never counted. |
-| 1:25 | request_category.png | Tag a feature request and its kind; the publisher signs will build or won't. |
-| 1:30 | request_thread.png | Signed today: the request, will build forty-five minutes later, delivered within the hour. |
-| 1:35 | desk.png | A publisher desk: unanswered, reply speed, a kit. |
-| 1:39 | compare-1.png | Beside the store: one phone, one voice; tap a star to read why; copies named; a publisher proven, an answer that lasts. |
-| 1:49 | pro_pay.png | Pro is paid in SOL or SKR, three hundred thirty-two with a Genesis Token. |
-| 1:54 | translate.mp4 | Then any review or reply reads in your language with one tap, labelled as a suggestion by AI, plus two tags of your own. |
-| 2:01 | myreviews.png | Your store reviews come across in one approval. |
-| 2:04 | review_gate_emulator.png | No Seeker? A quick review, shown apart. |
-| 2:08 | changes.png | Changes says when a certificate or permission moves. |
-| 2:11 | settings.mp4 | In-app notifications for every review, reply and fix, each its own switch. |
-| 2:18 | abuse_block.png | Abusive language is refused as you type and hidden wherever it is read. |
-| 2:23 | caught.png | Of fifty-five thousand store reviews read, fifteen would be hidden. |
-| 2:28 | store_hidden.png | The text becomes the reason. |
-| 2:32 | payments.mp4 | It reads the ledger: what dApps are paid, leaderboards, categories, what is rising. |
-| 2:39 | motion 90–97s | It runs on about eight hundred dollars a year; a hundred and twenty-seven Pro licences cover it. |
-| 2:46 | web_status.png | Every score is recomputed from the chain; anyone can check it. |
-| 2:50 | motion 104–112s | Undersigned. One Seeker, one voice. Written to Solana, readable by anyone, ready for the store to read. |
+| 0:16 | compare-7.png | Meaningful reviews create outcomes: here the fix is signed, and the reviewer follows up. |
+| 0:23 | tour2.mp4 | Open it fresh: a tour, every dApp, the signed score beside the store's. |
+| 0:30 | browse.mp4 | Flick the rail, search, sort, filter by tag. |
+| 0:36 | apppage.mp4 | An app's page: scores per version, reviews over time, and what this phone can check about the build. |
+| 0:43 | compose.mp4 | Write a review: stars, fixed tags, your own words, and the device facts you choose. |
+| 0:51 | w_sheet.png | The Seeker Wallet shows the fee. A double tap signs it in the Seed Vault. The app never sees a key. |
+| 0:59 | batch_list.png | Or tick the apps this phone has used: eight reviews, one double tap. |
+| 1:06 | record.mp4 | The review carries its marks. Tap a star row to read only those; tap a reviewer for all they have signed. |
+| 1:14 | web_app.png | The same record on the web, the API, MCP and Solana: nobody can edit it. |
+| 1:23 | term_api.png | The API answers every review, every signal; MCP gives Claude or Cursor twenty-five read-only tools. |
+| 1:33 | thread.mp4 | On mainnet: a crash report, the publisher's fix, a five-star follow-up; ours, never counted. |
+| 1:42 | request_category.png | Tag a feature request and its kind; the publisher signs will build or won't. |
+| 1:48 | request_thread.png | Signed today: the request, will build forty-five minutes later, delivered within the hour. |
+| 1:56 | desk.png | A publisher desk: unanswered, reply speed, a kit. |
+| 2:01 | pro_pay.png | Pro is paid in SOL or SKR, three hundred thirty-two with a Genesis Token. |
+| 2:08 | translate.mp4 | Then any review or reply reads in your language with one tap, labelled as a suggestion by AI. |
+| 2:16 | settings.mp4 | In-app notifications for every review, reply and fix, each its own switch. |
+| 2:22 | abuse_block.png | Abusive language is refused as you type and hidden wherever it is read. |
+| 2:29 | caught.png | Of fifty-five thousand store reviews read, fifteen would be hidden. |
+| 2:36 | payments.mp4 | It reads the ledger: what dApps are paid, leaderboards, categories, what is rising. |
+| 2:43 | web_status.png | Every score is recomputed from the chain; anyone can check it. |
+| 2:48 | motion 104–112s | Undersigned. One Seeker, one voice. Written to Solana, readable by anyone. |
 
-Known limits of this draft: no music; the double-tap is the 8 Oct wallet stills, not a camera take. The abuse line will carry the
-full store-crawl figure once the server-side crawl of every dApp's reviews finishes. Nothing in it is 1.0.0.
+Known limits: no music; the double-tap is the 8 Oct wallet stills, not a camera take; the abuse figure is the 55,824-review scan
+of 12 Oct (the full crawl is still running on the server). Nothing in it is 1.0.0.

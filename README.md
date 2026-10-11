@@ -108,7 +108,7 @@ verify, it is not a safety verdict.**
 
 - Release **1.1.26** (versionCode 37). 212 commits on 19 days (UTC) since 7 Sep 2026; 21,780 lines of Kotlin plus 4,165 lines of tests;
   295 Kotlin tests (119 protocol, 102 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
-- Ledger: 97 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
+- Ledger: 101 records, publisher claims proven for all 28 of our store apps, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
   scores fill as Seeker owners sign.
 - Legal pack live: https://aardappvark.github.io/undersigned-legal/ (terms, privacy, EULA, integrity policy).
