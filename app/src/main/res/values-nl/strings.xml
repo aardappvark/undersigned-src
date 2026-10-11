@@ -1060,7 +1060,7 @@
     <string name="tour_done">Klaar</string>
     <string name="tour_count">%1$d van %2$d</string>
     <string name="tour_replay">Rondleiding volgen</string>
-    <string name="tour_s1_t">Vind elke app</string>
+    <string name="tour_s1_t">Vind elke dApp</string>
     <string name="tour_s1_b">Zoek op naam in de hele Solana dApp Store. Tags en categorieën verfijnen het.</string>
     <string name="tour_s2_t">Geïnstalleerd, ondertekend, alles</string>
     <string name="tour_s2_b">Geïnstalleerd zijn de apps op deze telefoon, Ondertekend de apps met ondertekende reviews, en Alles de hele store.</string>
@@ -1092,6 +1092,7 @@
     <string name="pay_found_dispute">Is er een van jou? Meld hieronder je kas aan en hij gaat naar het overzicht. Niet van jou? Meld het en hij wordt verwijderd.</string>
     <string name="pay_found_report">Wallet melden</string>
     <string name="desk_treasury_confirmed">Kas bevestigd · %1$s ontvangen</string>
+    <string name="desk_treasury_listed">Treasury vermeld · %1$s</string>
     <string name="desk_treasury_none">Geen kas aangemeld</string>
     <string name="desk_found">Gevonden in de code van je app: %1$s, betaald door %2$d wallets. Bevestig hem als je kas bij Betalingen, of meld hem als hij niet van jou is.</string>
     <string name="desk_payments">Betalingen</string>
@@ -1323,7 +1324,7 @@
     <string name="notif_ch_store_desc">Reviewgolven, app-updates, het weekoverzicht en de maandaglijst.</string>
     <string name="notif_ch_reminders">Herinneringen</string>
     <string name="notif_ch_reminders_desc">De wekelijkse reviewherinnering en reviewsuggesties.</string>
-    <string name="desk_pay_30d">Ontvangen in de laatste 30 dagen: %1$s (USD op de dag van betaling)</string>
+    <string name="desk_pay_30d">Ontvangen in de laatste 12 weken: %1$s (USD op de dag van betaling)</string>
     <string name="desk_pay_12w">USD per week, laatste 12 weken</string>
     <string name="settings_analytics">Anonieme gebruiksstatistieken</string>
     <string name="settings_analytics_hint">Eén gebeurtenisnaam per actie, geen identificatoren, alleen op landniveau. Uit betekent dat er niets wordt verstuurd.</string>

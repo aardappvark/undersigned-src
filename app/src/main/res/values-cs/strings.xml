@@ -1081,7 +1081,7 @@
     <string name="tour_done">Hotovo</string>
     <string name="tour_count">%1$d z %2$d</string>
     <string name="tour_replay">Spustit průvodce</string>
-    <string name="tour_s1_t">Najděte jakoukoli aplikaci</string>
+    <string name="tour_s1_t">Najděte jakoukoli dApp</string>
     <string name="tour_s1_b">Hledejte podle názvu v celém Solana dApp Store. Štítky a kategorie výběr zúží.</string>
     <string name="tour_s2_t">Nainstalované, podepsané, vše</string>
     <string name="tour_s2_b">Nainstalované jsou aplikace v tomto telefonu, Podepsané ty s podepsanými recenzemi a Vše je celý obchod.</string>
@@ -1113,6 +1113,7 @@
     <string name="pay_found_dispute">Je některá vaše? Zaregistrujte níže svou pokladnu a přesune se do přehledu. Není vaše? Nahlaste ji a bude odstraněna.</string>
     <string name="pay_found_report">Nahlásit peněženku</string>
     <string name="desk_treasury_confirmed">Pokladna potvrzena · přijato %1$s</string>
+    <string name="desk_treasury_listed">Pokladna uvedena · %1$s</string>
     <string name="desk_treasury_none">Žádná zaregistrovaná pokladna</string>
     <string name="desk_found">Nalezeno v kódu vaší aplikace: %1$s, placeno %2$d peněženkami. Potvrďte ji v Platbách jako svou pokladnu, nebo ji nahlaste, pokud není vaše.</string>
     <string name="desk_payments">Platby</string>
@@ -1344,7 +1345,7 @@
     <string name="notif_ch_store_desc">Vlny recenzí, aktualizace aplikací, týdenní přehled a pondělní seznam.</string>
     <string name="notif_ch_reminders">Připomínky</string>
     <string name="notif_ch_reminders_desc">Týdenní připomínka recenzí a pobídky k recenzi.</string>
-    <string name="desk_pay_30d">Přijato za posledních 30 dní: %1$s (USD v den platby)</string>
+    <string name="desk_pay_30d">Přijato za posledních 12 týdnů: %1$s (USD v den platby)</string>
     <string name="desk_pay_12w">USD za týden, posledních 12 týdnů</string>
     <string name="settings_analytics">Anonymní analytika používání</string>
     <string name="settings_analytics_hint">Jeden název události na akci, žádné identifikátory, jen úroveň země. Vypnuto znamená, že se neodesílá nic.</string>

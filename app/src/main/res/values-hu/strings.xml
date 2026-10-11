@@ -1051,7 +1051,7 @@
     <string name="tour_done">Kész</string>
     <string name="tour_count">%1$d / %2$d</string>
     <string name="tour_replay">Bemutató indítása</string>
-    <string name="tour_s1_t">Bármely alkalmazás megtalálása</string>
+    <string name="tour_s1_t">Bármely dApp megtalálása</string>
     <string name="tour_s1_b">Keress név szerint a teljes Solana dApp Store-ban. A címkék és kategóriák szűkítik a találatokat.</string>
     <string name="tour_s2_t">Telepített, aláírt, összes</string>
     <string name="tour_s2_b">A Telepített a telefonon lévő alkalmazások, az Aláírt az aláírt értékelésekkel rendelkezők, az Összes a teljes bolt.</string>
@@ -1083,6 +1083,7 @@
     <string name="pay_found_dispute">A tiéd valamelyik? Add meg lent a kasszádat, és átkerül a táblára. Nem a tiéd? Jelentsd, és eltávolítjuk.</string>
     <string name="pay_found_report">Tárca jelentése</string>
     <string name="desk_treasury_confirmed">Kassza megerősítve · %1$s beérkezett</string>
+    <string name="desk_treasury_listed">Kincstár listázva · %1$s</string>
     <string name="desk_treasury_none">Nincs bejelentett kassza</string>
     <string name="desk_found">Az alkalmazásod kódjában találtuk: %1$s, %2$d tárca fizetett bele. Erősítsd meg kasszaként a Fizetéseknél, vagy jelentsd, ha nem a tiéd.</string>
     <string name="desk_payments">Fizetések</string>
@@ -1314,7 +1315,7 @@
     <string name="notif_ch_store_desc">Értékeléshullámok, app-frissítések, a heti összefoglaló és a hétfői lista.</string>
     <string name="notif_ch_reminders">Emlékeztetők</string>
     <string name="notif_ch_reminders_desc">A heti értékelési emlékeztető és az értékelésre ösztönző jelzések.</string>
-    <string name="desk_pay_30d">Az elmúlt 30 napban kapott: %1$s (USD a fizetés napján)</string>
+    <string name="desk_pay_30d">Az elmúlt 12 hétben kapott: %1$s (USD a fizetés napján)</string>
     <string name="desk_pay_12w">USD hetente, az elmúlt 12 hét</string>
     <string name="settings_analytics">Névtelen használati analitika</string>
     <string name="settings_analytics_hint">Műveletenként egy eseménynév, azonosítók nélkül, csak országszinten. Kikapcsolva semmi nem kerül elküldésre.</string>

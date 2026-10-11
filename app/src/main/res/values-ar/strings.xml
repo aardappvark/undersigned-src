@@ -1122,7 +1122,7 @@
     <string name="tour_done">تم</string>
     <string name="tour_count">%1$d من %2$d</string>
     <string name="tour_replay">ابدأ الجولة</string>
-    <string name="tour_s1_t">ابحث عن أي تطبيق</string>
+    <string name="tour_s1_t">ابحث عن أي dApp</string>
     <string name="tour_s1_b">ابحث بالاسم في متجر Solana dApp Store كله. الوسوم والفئات تضيّق النتائج.</string>
     <string name="tour_s2_t">المثبتة، الموقّعة، الكل</string>
     <string name="tour_s2_b">المثبتة هي تطبيقات هذا الهاتف، والموقّعة هي ذات المراجعات الموقّعة، والكل هو المتجر كله.</string>
@@ -1154,6 +1154,7 @@
     <string name="pay_found_dispute">هل إحداها لك؟ سجّل خزينتك أدناه فتنتقل إلى اللوحة. ليست لك؟ أبلغ عنها فتُزال.</string>
     <string name="pay_found_report">الإبلاغ عن محفظة</string>
     <string name="desk_treasury_confirmed">الخزينة مؤكَّدة · استُلم %1$s</string>
+    <string name="desk_treasury_listed">الخزينة مُدرجة · %1$s</string>
     <string name="desk_treasury_none">لا توجد خزينة مسجّلة</string>
     <string name="desk_found">وُجدت في كود تطبيقك: %1$s، دفع لها %2$d محفظة. أكّدها كخزينتك في المدفوعات، أو أبلغ عنها إن لم تكن لك.</string>
     <string name="desk_payments">المدفوعات</string>
@@ -1385,7 +1386,7 @@
     <string name="notif_ch_store_desc">موجات المراجعات، وتحديثات التطبيقات، والملخص الأسبوعي، وقائمة الاثنين.</string>
     <string name="notif_ch_reminders">التذكيرات</string>
     <string name="notif_ch_reminders_desc">تذكير المراجعة الأسبوعي وتنبيهات المراجعة.</string>
-    <string name="desk_pay_30d">المستلم في آخر 30 يومًا: %1$s (بالدولار يوم الدفع)</string>
+    <string name="desk_pay_30d">المستلم في آخر 12 أسبوعًا: %1$s (بالدولار يوم الدفع)</string>
     <string name="desk_pay_12w">دولار في الأسبوع، آخر 12 أسبوعًا</string>
     <string name="settings_analytics">تحليلات استخدام مجهولة</string>
     <string name="settings_analytics_hint">اسم حدث واحد لكل إجراء، بلا معرّفات، وعلى مستوى الدولة فقط. الإيقاف يعني ألا يُرسل شيء.</string>

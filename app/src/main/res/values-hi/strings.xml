@@ -1054,7 +1054,7 @@
     <string name="tour_done">हो गया</string>
     <string name="tour_count">%2$d में से %1$d</string>
     <string name="tour_replay">टूर देखें</string>
-    <string name="tour_s1_t">कोई भी ऐप खोजें</string>
+    <string name="tour_s1_t">कोई भी dApp खोजें</string>
     <string name="tour_s1_b">पूरे Solana dApp Store में नाम से खोजें। टैग और श्रेणियाँ नतीजे सीमित करती हैं।</string>
     <string name="tour_s2_t">इंस्टॉल, हस्ताक्षरित, सभी</string>
     <string name="tour_s2_b">इंस्टॉल इस फ़ोन के ऐप हैं, हस्ताक्षरित वे जिनकी हस्ताक्षरित समीक्षाएँ हैं, और सभी पूरा स्टोर है।</string>
@@ -1086,6 +1086,7 @@
     <string name="pay_found_dispute">क्या कोई आपका है? नीचे अपना खज़ाना दर्ज करें, वह बोर्ड पर चला जाएगा। आपका नहीं? रिपोर्ट करें, हटा दिया जाएगा।</string>
     <string name="pay_found_report">वॉलेट रिपोर्ट करें</string>
     <string name="desk_treasury_confirmed">खज़ाना पुष्ट · %1$s प्राप्त</string>
+    <string name="desk_treasury_listed">ट्रेज़री सूचीबद्ध · %1$s</string>
     <string name="desk_treasury_none">कोई खज़ाना दर्ज नहीं</string>
     <string name="desk_found">आपके ऐप के कोड में मिला: %1$s, जिसे %2$d वॉलेट ने भुगतान किया। भुगतान में इसे अपने खज़ाने के रूप में पुष्ट करें, या आपका न हो तो रिपोर्ट करें।</string>
     <string name="desk_payments">भुगतान</string>
@@ -1317,7 +1318,7 @@
     <string name="notif_ch_store_desc">रिव्यू की लहरें, ऐप अपडेट, साप्ताहिक सारांश और सोमवार की सूची।</string>
     <string name="notif_ch_reminders">रिमाइंडर</string>
     <string name="notif_ch_reminders_desc">साप्ताहिक रिव्यू रिमाइंडर और रिव्यू के संकेत।</string>
-    <string name="desk_pay_30d">पिछले 30 दिनों में प्राप्त: %1$s (भुगतान के दिन का USD)</string>
+    <string name="desk_pay_30d">पिछले 12 हफ़्तों में प्राप्त: %1$s (भुगतान के दिन का USD)</string>
     <string name="desk_pay_12w">प्रति सप्ताह USD, पिछले 12 सप्ताह</string>
     <string name="settings_analytics">अनाम उपयोग विश्लेषण</string>
     <string name="settings_analytics_hint">हर क्रिया के लिए एक इवेंट नाम, कोई पहचानकर्ता नहीं, केवल देश-स्तर तक। बंद का अर्थ है कुछ भी नहीं भेजा जाता।</string>

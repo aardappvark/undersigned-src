@@ -1055,7 +1055,7 @@
     <string name="tour_done">Tapos</string>
     <string name="tour_count">%1$d sa %2$d</string>
     <string name="tour_replay">Simulan ang tour</string>
-    <string name="tour_s1_t">Hanapin ang anumang app</string>
+    <string name="tour_s1_t">Hanapin ang anumang dApp</string>
     <string name="tour_s1_b">Maghanap ayon sa pangalan sa buong Solana dApp Store. Pinapakitid ito ng mga tag at kategorya.</string>
     <string name="tour_s2_t">Naka-install, may pirma, lahat</string>
     <string name="tour_s2_b">Ang Naka-install ay ang mga app sa teleponong ito, ang May pirma ay mga app na may pirmadong review, at ang Lahat ay ang buong store.</string>
@@ -1087,6 +1087,7 @@
     <string name="pay_found_dispute">Sa iyo ba ang isa rito? I-lista ang treasury mo sa ibaba at lilipat ito sa board. Hindi sa iyo? I-report at aalisin ito.</string>
     <string name="pay_found_report">I-report ang wallet</string>
     <string name="desk_treasury_confirmed">Kumpirmado ang treasury · %1$s natanggap</string>
+    <string name="desk_treasury_listed">Nakalista ang treasury · %1$s</string>
     <string name="desk_treasury_none">Walang nakalistang treasury</string>
     <string name="desk_found">Nakita sa code ng app mo: %1$s, binayaran ng %2$d wallet. Kumpirmahin bilang treasury mo sa Payments, o i-report kung hindi sa iyo.</string>
     <string name="desk_payments">Payments</string>
@@ -1318,7 +1319,7 @@
     <string name="notif_ch_store_desc">Mga bugso ng review, update ng app, lingguhang buod at listahan ng Lunes.</string>
     <string name="notif_ch_reminders">Mga paalala</string>
     <string name="notif_ch_reminders_desc">Ang lingguhang paalala sa review at mga paalala na mag-review.</string>
-    <string name="desk_pay_30d">Natanggap sa nakaraang 30 araw: %1$s (USD sa araw ng bayad)</string>
+    <string name="desk_pay_30d">Natanggap sa nakaraang 12 linggo: %1$s (USD sa araw ng bayad)</string>
     <string name="desk_pay_12w">USD bawat linggo, huling 12 linggo</string>
     <string name="settings_analytics">Hindi nagpapakilalang usage analytics</string>
     <string name="settings_analytics_hint">Isang pangalan ng event bawat aksyon, walang identifier, antas-bansa lang. Ang naka-off ay nangangahulugang walang ipinapadala.</string>

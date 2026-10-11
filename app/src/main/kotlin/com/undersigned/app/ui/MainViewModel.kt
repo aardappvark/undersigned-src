@@ -345,6 +345,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val expanded = PublisherVerifier.expandToSameProof(out, reviewed) { storeDetails.value[it]?.website }
         val changed = verifiedPublishers.value != expanded
         verifiedPublishers.value = expanded
+        // Count a claim the first time this phone sees it proven; a re-check on the next ledger load is not a new verification.
+        expanded.forEach { (pkg, ws) -> ws.forEach { w -> if (held[pkg]?.contains(w) != true) com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.PUBLISHER_CLAIM_VERIFIED) } }
         UserPreferences.saveVerifiedPublishers(expanded)
         storeNotes.value = com.undersigned.protocol.StoreNotes.current(list, expanded)
         if (changed) { val f = com.undersigned.protocol.Operator.gate { w: String -> facts.value[w] ?: SignerFacts(false, 0.0) }; scores.value = Ranking.score(list, expanded, facts = f).associateBy { it.packageName }; setSegments(list, expanded, f); standings.value = Reputation.standing(list, expanded, f); flagWeights.value = Reputation.flagWeights(list, expanded, f); hiddenByConsensus.value = Reputation.hiddenByConsensus(list, expanded, f); modHidden.value = com.undersigned.protocol.Moderation.textHidden(list, expanded) }

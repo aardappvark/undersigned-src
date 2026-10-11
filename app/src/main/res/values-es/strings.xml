@@ -1080,7 +1080,7 @@
     <string name="tour_done">Listo</string>
     <string name="tour_count">%1$d de %2$d</string>
     <string name="tour_replay">Hacer el recorrido</string>
-    <string name="tour_s1_t">Encuentra cualquier app</string>
+    <string name="tour_s1_t">Encuentra cualquier dApp</string>
     <string name="tour_s1_b">Busca por nombre en toda la Solana dApp Store. Las etiquetas y categorías acotan la búsqueda.</string>
     <string name="tour_s2_t">Instaladas, firmadas, todas</string>
     <string name="tour_s2_b">Instaladas son las apps de este teléfono, Firmadas las que tienen reseñas firmadas y Todas, la tienda entera.</string>
@@ -1112,6 +1112,7 @@
     <string name="pay_found_dispute">¿Alguna es tuya? Registra tu tesorería abajo y pasará al tablero. ¿No es tuya? Repórtala y se quitará.</string>
     <string name="pay_found_report">Reportar una wallet</string>
     <string name="desk_treasury_confirmed">Tesorería confirmada · %1$s recibidos</string>
+    <string name="desk_treasury_listed">Tesorería listada · %1$s</string>
     <string name="desk_treasury_none">Sin tesorería registrada</string>
     <string name="desk_found">Encontrada en el código de tu app: %1$s, pagada por %2$d wallets. Confírmala como tu tesorería en Pagos o repórtala si no es tuya.</string>
     <string name="desk_payments">Pagos</string>
@@ -1343,7 +1344,7 @@
     <string name="notif_ch_store_desc">Oleadas de reseñas, actualizaciones de apps, el resumen semanal y la lista del lunes.</string>
     <string name="notif_ch_reminders">Recordatorios</string>
     <string name="notif_ch_reminders_desc">El recordatorio semanal de reseñas y los avisos para reseñar.</string>
-    <string name="desk_pay_30d">Recibido en los últimos 30 días: %1$s (USD del día del pago)</string>
+    <string name="desk_pay_30d">Recibido en las últimas 12 semanas: %1$s (USD del día del pago)</string>
     <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
     <string name="settings_analytics">Analítica de uso anónima</string>
     <string name="settings_analytics_hint">Un nombre de evento por acción, sin identificadores, solo a nivel de país. Desactivado significa que no se envía nada.</string>

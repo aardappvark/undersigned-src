@@ -1069,7 +1069,7 @@
     <string name="tour_done">Gata</string>
     <string name="tour_count">%1$d din %2$d</string>
     <string name="tour_replay">Pornește ghidul</string>
-    <string name="tour_s1_t">Găsește orice aplicație</string>
+    <string name="tour_s1_t">Găsește orice dApp</string>
     <string name="tour_s1_b">Caută după nume în tot Solana dApp Store. Etichetele și categoriile restrâng căutarea.</string>
     <string name="tour_s2_t">Instalate, semnate, toate</string>
     <string name="tour_s2_b">Instalate sunt aplicațiile de pe acest telefon, Semnate cele cu recenzii semnate, iar Toate este tot magazinul.</string>
@@ -1101,6 +1101,7 @@
     <string name="pay_found_dispute">E vreunul al tău? Înregistrează-ți trezoreria mai jos și trece în tablou. Nu e al tău? Raportează-l și va fi eliminat.</string>
     <string name="pay_found_report">Raportează un portofel</string>
     <string name="desk_treasury_confirmed">Trezorerie confirmată · %1$s primiți</string>
+    <string name="desk_treasury_listed">Trezorerie listată · %1$s</string>
     <string name="desk_treasury_none">Nicio trezorerie înregistrată</string>
     <string name="desk_found">Găsit în codul aplicației tale: %1$s, plătit de %2$d portofele. Confirmă-l ca trezorerie în Plăți sau raportează-l dacă nu e al tău.</string>
     <string name="desk_payments">Plăți</string>
@@ -1332,7 +1333,7 @@
     <string name="notif_ch_store_desc">Valuri de recenzii, actualizări de aplicații, rezumatul săptămânal și lista de luni.</string>
     <string name="notif_ch_reminders">Mementouri</string>
     <string name="notif_ch_reminders_desc">Mementoul săptămânal de recenzie și îndemnurile de a recenza.</string>
-    <string name="desk_pay_30d">Primit în ultimele 30 de zile: %1$s (USD din ziua plății)</string>
+    <string name="desk_pay_30d">Primit în ultimele 12 săptămâni: %1$s (USD din ziua plății)</string>
     <string name="desk_pay_12w">USD pe săptămână, ultimele 12 săptămâni</string>
     <string name="settings_analytics">Analiză anonimă de utilizare</string>
     <string name="settings_analytics_hint">Un nume de eveniment pe acțiune, fără identificatori, doar la nivel de țară. Oprit înseamnă că nu se trimite nimic.</string>

@@ -1035,7 +1035,7 @@
     <string name="tour_done">完成</string>
     <string name="tour_count">第 %1$d 步，共 %2$d 步</string>
     <string name="tour_replay">开始导览</string>
-    <string name="tour_s1_t">查找任何应用</string>
+    <string name="tour_s1_t">查找任何 dApp</string>
     <string name="tour_s1_b">在整个 Solana dApp Store 中按名称搜索。标签和分类可缩小范围。</string>
     <string name="tour_s2_t">已安装、已签名、全部</string>
     <string name="tour_s2_b">“已安装”是本机上的应用，“已签名”是有签名评价的应用，“全部”是整个商店。</string>
@@ -1067,6 +1067,7 @@
     <string name="pay_found_dispute">其中有你的吗？在下方登记你的金库，它就会进入榜单。不是你的？举报后会被移除。</string>
     <string name="pay_found_report">举报钱包</string>
     <string name="desk_treasury_confirmed">金库已确认 · 已收到 %1$s</string>
+    <string name="desk_treasury_listed">已登记金库 · %1$s</string>
     <string name="desk_treasury_none">尚未登记金库</string>
     <string name="desk_found">在你的应用代码中发现：%1$s，有 %2$d 个钱包付款。请在「付款」中确认为你的金库，若不是你的请举报。</string>
     <string name="desk_payments">付款</string>
@@ -1298,7 +1299,7 @@
     <string name="notif_ch_store_desc">评价激增、应用更新、每周摘要和周一列表。</string>
     <string name="notif_ch_reminders">提醒</string>
     <string name="notif_ch_reminders_desc">每周评价提醒和评价提示。</string>
-    <string name="desk_pay_30d">过去 30 天收到:%1$s(按付款当日的美元计)</string>
+    <string name="desk_pay_30d">过去 12 周收到:%1$s(按付款当日的美元计)</string>
     <string name="desk_pay_12w">每周美元,最近 12 周</string>
     <string name="settings_analytics">匿名使用统计</string>
     <string name="settings_analytics_hint">每个操作只上报一个事件名,不含任何标识符,只精确到国家。关闭后,不会发送任何内容。</string>

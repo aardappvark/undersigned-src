@@ -1051,7 +1051,7 @@
     <string name="tour_done">Τέλος</string>
     <string name="tour_count">%1$d από %2$d</string>
     <string name="tour_replay">Κάνε την περιήγηση</string>
-    <string name="tour_s1_t">Βρες οποιαδήποτε εφαρμογή</string>
+    <string name="tour_s1_t">Βρες οποιαδήποτε dApp</string>
     <string name="tour_s1_b">Αναζήτησε με όνομα σε όλο το Solana dApp Store. Οι ετικέτες και οι κατηγορίες περιορίζουν τα αποτελέσματα.</string>
     <string name="tour_s2_t">Εγκατεστημένες, υπογεγραμμένες, όλες</string>
     <string name="tour_s2_b">Εγκατεστημένες είναι οι εφαρμογές του κινητού, Υπογεγραμμένες όσες έχουν υπογεγραμμένες κριτικές, Όλες ολόκληρο το κατάστημα.</string>
@@ -1083,6 +1083,7 @@
     <string name="pay_found_dispute">Είναι κάποιο δικό σου; Καταχώρισε το ταμείο σου παρακάτω και περνά στον πίνακα. Δεν είναι δικό σου; Ανέφερέ το και αφαιρείται.</string>
     <string name="pay_found_report">Αναφορά πορτοφολιού</string>
     <string name="desk_treasury_confirmed">Ταμείο επιβεβαιωμένο · ελήφθησαν %1$s</string>
+    <string name="desk_treasury_listed">Το ταμείο καταχωρήθηκε · %1$s</string>
     <string name="desk_treasury_none">Δεν έχει καταχωριστεί ταμείο</string>
     <string name="desk_found">Βρέθηκε στον κώδικα της εφαρμογής σου: %1$s, πληρωμένο από %2$d πορτοφόλια. Επιβεβαίωσέ το ως ταμείο σου στις Πληρωμές ή ανέφερέ το αν δεν είναι δικό σου.</string>
     <string name="desk_payments">Πληρωμές</string>
@@ -1314,7 +1315,7 @@
     <string name="notif_ch_store_desc">Κύματα κριτικών, ενημερώσεις εφαρμογών, η εβδομαδιαία σύνοψη και η λίστα της Δευτέρας.</string>
     <string name="notif_ch_reminders">Υπενθυμίσεις</string>
     <string name="notif_ch_reminders_desc">Η εβδομαδιαία υπενθύμιση κριτικής και οι προτροπές για κριτική.</string>
-    <string name="desk_pay_30d">Ελήφθησαν τις τελευταίες 30 ημέρες: %1$s (USD την ημέρα πληρωμής)</string>
+    <string name="desk_pay_30d">Ελήφθησαν τις τελευταίες 12 εβδομάδες: %1$s (USD την ημέρα πληρωμής)</string>
     <string name="desk_pay_12w">USD ανά εβδομάδα, τελευταίες 12 εβδομάδες</string>
     <string name="settings_analytics">Ανώνυμα αναλυτικά χρήσης</string>
     <string name="settings_analytics_hint">Ένα όνομα συμβάντος ανά ενέργεια, χωρίς αναγνωριστικά, μόνο σε επίπεδο χώρας. Απενεργοποιημένο σημαίνει ότι δεν στέλνεται τίποτα.</string>

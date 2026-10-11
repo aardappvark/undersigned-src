@@ -1052,7 +1052,7 @@
     <string name="tour_done">Klar</string>
     <string name="tour_count">%1$d av %2$d</string>
     <string name="tour_replay">Visa guiden</string>
-    <string name="tour_s1_t">Hitta vilken app som helst</string>
+    <string name="tour_s1_t">Hitta vilken dApp som helst</string>
     <string name="tour_s1_b">Sök på namn i hela Solana dApp Store. Taggar och kategorier smalnar av.</string>
     <string name="tour_s2_t">Installerade, signerade, alla</string>
     <string name="tour_s2_b">Installerade är apparna i telefonen, Signerade är appar med signerade recensioner och Alla är hela butiken.</string>
@@ -1084,6 +1084,7 @@
     <string name="pay_found_dispute">Är någon din? Registrera din kassa nedan så flyttas den till tavlan. Inte din? Anmäl den så tas den bort.</string>
     <string name="pay_found_report">Anmäl en plånbok</string>
     <string name="desk_treasury_confirmed">Kassa bekräftad · %1$s mottaget</string>
+    <string name="desk_treasury_listed">Treasury listad · %1$s</string>
     <string name="desk_treasury_none">Ingen kassa registrerad</string>
     <string name="desk_found">Hittad i din apps kod: %1$s, betald av %2$d plånböcker. Bekräfta den som din kassa under Betalningar, eller anmäl den om den inte är din.</string>
     <string name="desk_payments">Betalningar</string>
@@ -1315,7 +1316,7 @@
     <string name="notif_ch_store_desc">Recensionsvågor, appuppdateringar, veckosammanfattningen och måndagslistan.</string>
     <string name="notif_ch_reminders">Påminnelser</string>
     <string name="notif_ch_reminders_desc">Den veckovisa recensionspåminnelsen och recensionsknuffar.</string>
-    <string name="desk_pay_30d">Mottaget de senaste 30 dagarna: %1$s (USD på betalningsdagen)</string>
+    <string name="desk_pay_30d">Mottaget de senaste 12 veckorna: %1$s (USD på betalningsdagen)</string>
     <string name="desk_pay_12w">USD per vecka, senaste 12 veckorna</string>
     <string name="settings_analytics">Anonym användningsstatistik</string>
     <string name="settings_analytics_hint">Ett händelsenamn per handling, inga identifierare, endast på landsnivå. Av betyder att ingenting skickas.</string>

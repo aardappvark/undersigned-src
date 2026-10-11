@@ -1089,7 +1089,7 @@
     <string name="tour_done">Gotowe</string>
     <string name="tour_count">%1$d z %2$d</string>
     <string name="tour_replay">Pokaż przewodnik</string>
-    <string name="tour_s1_t">Znajdź dowolną aplikację</string>
+    <string name="tour_s1_t">Znajdź dowolną dApp</string>
     <string name="tour_s1_b">Szukaj po nazwie w całym Solana dApp Store. Tagi i kategorie zawężają wyniki.</string>
     <string name="tour_s2_t">Zainstalowane, podpisane, wszystkie</string>
     <string name="tour_s2_b">Zainstalowane to aplikacje na tym telefonie, Podpisane to te z podpisanymi recenzjami, a Wszystkie to cały sklep.</string>
@@ -1121,6 +1121,7 @@
     <string name="pay_found_dispute">Któryś jest Twój? Zgłoś swój skarbiec poniżej, a trafi na tablicę. Nie Twój? Zgłoś to, a zostanie usunięty.</string>
     <string name="pay_found_report">Zgłoś portfel</string>
     <string name="desk_treasury_confirmed">Skarbiec potwierdzony · otrzymano %1$s</string>
+    <string name="desk_treasury_listed">Skarbiec wpisany · %1$s</string>
     <string name="desk_treasury_none">Brak zgłoszonego skarbca</string>
     <string name="desk_found">Znaleziony w kodzie Twojej aplikacji: %1$s, opłacany przez %2$d portfeli. Potwierdź go jako swój skarbiec w Płatnościach lub zgłoś, jeśli nie jest Twój.</string>
     <string name="desk_payments">Płatności</string>
@@ -1352,7 +1353,7 @@
     <string name="notif_ch_store_desc">Fale recenzji, aktualizacje aplikacji, tygodniowe podsumowanie i lista poniedziałkowa.</string>
     <string name="notif_ch_reminders">Przypomnienia</string>
     <string name="notif_ch_reminders_desc">Cotygodniowe przypomnienie o recenzji i zachęty do recenzji.</string>
-    <string name="desk_pay_30d">Otrzymano w ostatnich 30 dniach: %1$s (USD z dnia płatności)</string>
+    <string name="desk_pay_30d">Otrzymano w ostatnich 12 tygodniach: %1$s (USD z dnia płatności)</string>
     <string name="desk_pay_12w">USD na tydzień, ostatnie 12 tygodni</string>
     <string name="settings_analytics">Anonimowa analityka użycia</string>
     <string name="settings_analytics_hint">Jedna nazwa zdarzenia na akcję, bez identyfikatorów, tylko poziom kraju. Wyłączone znaczy, że nic nie jest wysyłane.</string>

@@ -1054,7 +1054,7 @@
     <string name="tour_done">ہو گیا</string>
     <string name="tour_count">%2$d میں سے %1$d</string>
     <string name="tour_replay">ٹور دیکھیں</string>
-    <string name="tour_s1_t">کوئی بھی ایپ تلاش کریں</string>
+    <string name="tour_s1_t">کوئی بھی dApp تلاش کریں</string>
     <string name="tour_s1_b">پورے Solana dApp Store میں نام سے تلاش کریں۔ ٹیگز اور زمرے نتائج محدود کرتے ہیں۔</string>
     <string name="tour_s2_t">انسٹال شدہ، دستخط شدہ، سب</string>
     <string name="tour_s2_b">انسٹال شدہ اس فون کی ایپس ہیں، دستخط شدہ وہ جن پر دستخط شدہ جائزے ہیں، اور سب پورا اسٹور ہے۔</string>
@@ -1086,6 +1086,7 @@
     <string name="pay_found_dispute">کیا کوئی آپ کا ہے؟ نیچے اپنا خزانہ درج کریں تو یہ بورڈ پر چلا جائے گا۔ آپ کا نہیں؟ رپورٹ کریں تو ہٹا دیا جائے گا۔</string>
     <string name="pay_found_report">والیٹ رپورٹ کریں</string>
     <string name="desk_treasury_confirmed">خزانہ تصدیق شدہ · %1$s موصول</string>
+    <string name="desk_treasury_listed">ٹریژری درج · %1$s</string>
     <string name="desk_treasury_none">کوئی خزانہ درج نہیں</string>
     <string name="desk_found">آپ کی ایپ کے کوڈ میں ملا: %1$s، جسے %2$d والیٹس نے ادائیگی کی۔ ادائیگیوں میں اسے اپنا خزانہ تصدیق کریں، یا اگر آپ کا نہیں تو رپورٹ کریں۔</string>
     <string name="desk_payments">ادائیگیاں</string>
@@ -1317,7 +1318,7 @@
     <string name="notif_ch_store_desc">ریویوز کی لہریں، ایپ اپڈیٹس، ہفتہ وار خلاصہ اور پیر کی فہرست۔</string>
     <string name="notif_ch_reminders">یاد دہانیاں</string>
     <string name="notif_ch_reminders_desc">ہفتہ وار ریویو یاد دہانی اور ریویو کی ترغیب۔</string>
-    <string name="desk_pay_30d">پچھلے 30 دنوں میں موصول: %1$s (ادائیگی کے دن کا USD)</string>
+    <string name="desk_pay_30d">پچھلے 12 ہفتوں میں موصول: %1$s (ادائیگی کے دن کا USD)</string>
     <string name="desk_pay_12w">فی ہفتہ USD، پچھلے 12 ہفتے</string>
     <string name="settings_analytics">گمنام استعمالی تجزیات</string>
     <string name="settings_analytics_hint">ہر عمل کے لیے ایک ایونٹ نام، کوئی شناخت کنندہ نہیں، صرف ملکی سطح تک۔ بند کا مطلب ہے کچھ بھی نہیں بھیجا جاتا۔</string>

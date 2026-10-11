@@ -1080,7 +1080,7 @@
     <string name="tour_done">Concluir</string>
     <string name="tour_count">%1$d de %2$d</string>
     <string name="tour_replay">Fazer o tour</string>
-    <string name="tour_s1_t">Encontre qualquer app</string>
+    <string name="tour_s1_t">Encontre qualquer dApp</string>
     <string name="tour_s1_b">Busque pelo nome em toda a Solana dApp Store. Tags e categorias refinam a busca.</string>
     <string name="tour_s2_t">Instalados, assinados, todos</string>
     <string name="tour_s2_b">Instalados são os apps deste celular, Assinados os que têm avaliações assinadas, e Todos é a loja inteira.</string>
@@ -1112,6 +1112,7 @@
     <string name="pay_found_dispute">Alguma é sua? Cadastre sua tesouraria abaixo e ela vai para o painel. Não é sua? Denuncie e ela será removida.</string>
     <string name="pay_found_report">Denunciar uma carteira</string>
     <string name="desk_treasury_confirmed">Tesouraria confirmada · %1$s recebidos</string>
+    <string name="desk_treasury_listed">Tesouraria listada · %1$s</string>
     <string name="desk_treasury_none">Nenhuma tesouraria cadastrada</string>
     <string name="desk_found">Encontrada no código do seu app: %1$s, paga por %2$d carteiras. Confirme como sua tesouraria em Pagamentos ou denuncie se não for sua.</string>
     <string name="desk_payments">Pagamentos</string>
@@ -1343,7 +1344,7 @@
     <string name="notif_ch_store_desc">Ondas de avaliações, atualizações de apps, o resumo semanal e a lista de segunda.</string>
     <string name="notif_ch_reminders">Lembretes</string>
     <string name="notif_ch_reminders_desc">O lembrete semanal de avaliação e os incentivos para avaliar.</string>
-    <string name="desk_pay_30d">Recebido nos últimos 30 dias: %1$s (USD do dia do pagamento)</string>
+    <string name="desk_pay_30d">Recebido nas últimas 12 semanas: %1$s (USD do dia do pagamento)</string>
     <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
     <string name="settings_analytics">Análise de uso anônima</string>
     <string name="settings_analytics_hint">Um nome de evento por ação, sem identificadores, apenas em nível de país. Desligado significa que nada é enviado.</string>

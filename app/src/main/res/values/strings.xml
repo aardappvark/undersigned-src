@@ -1079,7 +1079,7 @@
     <string name="tour_done">Done</string>
     <string name="tour_count">%1$d of %2$d</string>
     <string name="tour_replay">Take the tour</string>
-    <string name="tour_s1_t">Find any app</string>
+    <string name="tour_s1_t">Find any dApp</string>
     <string name="tour_s1_b">Search the whole Solana dApp Store by name. Tags and categories narrow it down.</string>
     <string name="tour_s2_t">Installed, signed, all</string>
     <string name="tour_s2_b">Installed is the apps on this phone, Signed is apps with signed reviews, and All is the whole store.</string>
@@ -1111,6 +1111,7 @@
     <string name="pay_found_dispute">Is one of these yours? List your treasury below and it moves to the board. Not yours? Report it and it is removed.</string>
     <string name="pay_found_report">Report a wallet</string>
     <string name="desk_treasury_confirmed">Treasury confirmed · %1$s received</string>
+    <string name="desk_treasury_listed">Treasury listed · %1$s</string>
     <string name="desk_treasury_none">No treasury listed</string>
     <string name="desk_found">Found in your app\'s code: %1$s, paid by %2$d wallets. Confirm it as your treasury in Payments, or report it if it isn\'t yours.</string>
     <string name="desk_payments">Payments</string>
@@ -1342,6 +1343,6 @@
     <string name="notif_ch_store_desc">Review bursts, app updates, the weekly digest and the Monday list.</string>
     <string name="notif_ch_reminders">Reminders</string>
     <string name="notif_ch_reminders_desc">The weekly review reminder and review nudges.</string>
-    <string name="desk_pay_30d">Received in the last 30 days: %1$s (USD on the day paid)</string>
+    <string name="desk_pay_30d">Received in the last 12 weeks: %1$s (USD on the day paid)</string>
     <string name="desk_pay_12w">USD per week, last 12 weeks</string>
 </resources>

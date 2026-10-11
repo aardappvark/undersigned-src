@@ -1036,7 +1036,7 @@
     <string name="tour_done">Xong</string>
     <string name="tour_count">%1$d/%2$d</string>
     <string name="tour_replay">Xem hướng dẫn</string>
-    <string name="tour_s1_t">Tìm bất kỳ ứng dụng nào</string>
+    <string name="tour_s1_t">Tìm bất kỳ dApp nào</string>
     <string name="tour_s1_b">Tìm theo tên trong toàn bộ Solana dApp Store. Thẻ và danh mục giúp thu hẹp kết quả.</string>
     <string name="tour_s2_t">Đã cài, đã ký, tất cả</string>
     <string name="tour_s2_b">Đã cài là ứng dụng trên điện thoại này, Đã ký là ứng dụng có đánh giá đã ký, Tất cả là toàn bộ cửa hàng.</string>
@@ -1068,6 +1068,7 @@
     <string name="pay_found_dispute">Có ví nào của bạn? Đăng ký kho bạc bên dưới để chuyển lên bảng. Không phải của bạn? Báo cáo để gỡ bỏ.</string>
     <string name="pay_found_report">Báo cáo ví</string>
     <string name="desk_treasury_confirmed">Kho bạc đã xác nhận · đã nhận %1$s</string>
+    <string name="desk_treasury_listed">Đã liệt kê kho bạc · %1$s</string>
     <string name="desk_treasury_none">Chưa đăng ký kho bạc</string>
     <string name="desk_found">Tìm thấy trong mã ứng dụng của bạn: %1$s, được %2$d ví thanh toán. Xác nhận là kho bạc của bạn trong Thanh toán, hoặc báo cáo nếu không phải của bạn.</string>
     <string name="desk_payments">Thanh toán</string>
@@ -1299,7 +1300,7 @@
     <string name="notif_ch_store_desc">Đợt tăng đánh giá, cập nhật ứng dụng, bản tóm tắt hằng tuần và danh sách thứ Hai.</string>
     <string name="notif_ch_reminders">Lời nhắc</string>
     <string name="notif_ch_reminders_desc">Lời nhắc đánh giá hằng tuần và gợi ý đánh giá.</string>
-    <string name="desk_pay_30d">Đã nhận trong 30 ngày qua: %1$s (USD vào ngày thanh toán)</string>
+    <string name="desk_pay_30d">Đã nhận trong 12 tuần qua: %1$s (USD vào ngày thanh toán)</string>
     <string name="desk_pay_12w">USD mỗi tuần, 12 tuần gần nhất</string>
     <string name="settings_analytics">Thống kê sử dụng ẩn danh</string>
     <string name="settings_analytics_hint">Mỗi thao tác một tên sự kiện, không định danh, chỉ ở mức quốc gia. Tắt nghĩa là không gửi gì cả.</string>

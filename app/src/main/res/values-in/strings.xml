@@ -1036,7 +1036,7 @@
     <string name="tour_done">Selesai</string>
     <string name="tour_count">%1$d dari %2$d</string>
     <string name="tour_replay">Ikuti tur</string>
-    <string name="tour_s1_t">Temukan aplikasi apa pun</string>
+    <string name="tour_s1_t">Temukan dApp apa pun</string>
     <string name="tour_s1_b">Cari berdasarkan nama di seluruh Solana dApp Store. Tag dan kategori mempersempit hasilnya.</string>
     <string name="tour_s2_t">Terpasang, bertanda tangan, semua</string>
     <string name="tour_s2_b">Terpasang adalah aplikasi di ponsel ini, Bertanda tangan adalah yang punya ulasan bertanda tangan, dan Semua adalah seluruh toko.</string>
@@ -1068,6 +1068,7 @@
     <string name="pay_found_dispute">Salah satunya milikmu? Daftarkan treasury-mu di bawah dan akan pindah ke papan. Bukan milikmu? Laporkan dan akan dihapus.</string>
     <string name="pay_found_report">Laporkan dompet</string>
     <string name="desk_treasury_confirmed">Treasury terkonfirmasi · %1$s diterima</string>
+    <string name="desk_treasury_listed">Treasury terdaftar · %1$s</string>
     <string name="desk_treasury_none">Belum ada treasury terdaftar</string>
     <string name="desk_found">Ditemukan di kode aplikasimu: %1$s, dibayar oleh %2$d dompet. Konfirmasi sebagai treasury-mu di Pembayaran, atau laporkan jika bukan milikmu.</string>
     <string name="desk_payments">Pembayaran</string>
@@ -1299,7 +1300,7 @@
     <string name="notif_ch_store_desc">Lonjakan ulasan, pembaruan aplikasi, ringkasan mingguan, dan daftar Senin.</string>
     <string name="notif_ch_reminders">Pengingat</string>
     <string name="notif_ch_reminders_desc">Pengingat ulasan mingguan dan dorongan untuk mengulas.</string>
-    <string name="desk_pay_30d">Diterima dalam 30 hari terakhir: %1$s (USD pada hari pembayaran)</string>
+    <string name="desk_pay_30d">Diterima dalam 12 minggu terakhir: %1$s (USD pada hari pembayaran)</string>
     <string name="desk_pay_12w">USD per minggu, 12 minggu terakhir</string>
     <string name="settings_analytics">Analitik penggunaan anonim</string>
     <string name="settings_analytics_hint">Satu nama peristiwa per tindakan, tanpa pengenal, hanya sampai tingkat negara. Kalau dimatikan, tidak ada yang dikirim.</string>

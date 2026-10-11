@@ -1047,7 +1047,7 @@
     <string name="tour_done">শেষ</string>
     <string name="tour_count">%2$d-এর মধ্যে %1$d</string>
     <string name="tour_replay">ট্যুর দেখুন</string>
-    <string name="tour_s1_t">যেকোনো অ্যাপ খুঁজুন</string>
+    <string name="tour_s1_t">যেকোনো dApp খুঁজুন</string>
     <string name="tour_s1_b">পুরো Solana dApp Store-এ নাম দিয়ে খুঁজুন। ট্যাগ ও বিভাগ ফলাফল সংকুচিত করে।</string>
     <string name="tour_s2_t">ইনস্টল করা, স্বাক্ষরিত, সব</string>
     <string name="tour_s2_b">ইনস্টল করা হলো এই ফোনের অ্যাপ, স্বাক্ষরিত হলো যেগুলোর স্বাক্ষরিত রিভিউ আছে, আর সব হলো পুরো স্টোর।</string>
@@ -1079,6 +1079,7 @@
     <string name="pay_found_dispute">কোনোটি কি আপনার? নিচে আপনার ট্রেজারি তালিকাভুক্ত করুন, এটি বোর্ডে যাবে। আপনার নয়? রিপোর্ট করুন, সরিয়ে দেওয়া হবে।</string>
     <string name="pay_found_report">ওয়ালেট রিপোর্ট করুন</string>
     <string name="desk_treasury_confirmed">ট্রেজারি নিশ্চিত · %1$s প্রাপ্ত</string>
+    <string name="desk_treasury_listed">ট্রেজারি তালিকাভুক্ত · %1$s</string>
     <string name="desk_treasury_none">কোনো ট্রেজারি তালিকাভুক্ত নেই</string>
     <string name="desk_found">আপনার অ্যাপের কোডে পাওয়া গেছে: %1$s, %2$dটি ওয়ালেট পেমেন্ট করেছে। পেমেন্টে এটি আপনার ট্রেজারি হিসেবে নিশ্চিত করুন, বা আপনার না হলে রিপোর্ট করুন।</string>
     <string name="desk_payments">পেমেন্ট</string>
@@ -1310,7 +1311,7 @@
     <string name="notif_ch_store_desc">রিভিউর ঢেউ, অ্যাপ আপডেট, সাপ্তাহিক সারাংশ ও সোমবারের তালিকা।</string>
     <string name="notif_ch_reminders">অনুস্মারক</string>
     <string name="notif_ch_reminders_desc">সাপ্তাহিক রিভিউ অনুস্মারক ও রিভিউ মনে করানো।</string>
-    <string name="desk_pay_30d">গত ৩০ দিনে প্রাপ্ত: %1$s (প্রদানের দিনের USD)</string>
+    <string name="desk_pay_30d">গত ১২ সপ্তাহে প্রাপ্ত: %1$s (প্রদানের দিনের USD)</string>
     <string name="desk_pay_12w">প্রতি সপ্তাহে USD, গত ১২ সপ্তাহ</string>
     <string name="settings_analytics">বেনামি ব্যবহার-বিশ্লেষণ</string>
     <string name="settings_analytics_hint">প্রতিটি ক্রিয়ার জন্য একটি ইভেন্ট নাম, কোনো শনাক্তকারী নয়, শুধু দেশ-স্তর পর্যন্ত। বন্ধ মানে কিছুই পাঠানো হয় না।</string>

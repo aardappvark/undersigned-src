@@ -21,6 +21,7 @@ object StoreHandoff {
             cm.setPrimaryClip(ClipData.newPlainText("review", text.trim()))
         }
         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.Store.DEEP_LINK + pkg)))
+        com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.STORE_HANDOFF)
         true
     } catch (e: Exception) {
         Log.w("StoreHandoff", "could not open the store listing for $pkg: ${e.message?.take(80)}")

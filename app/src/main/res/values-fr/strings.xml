@@ -1080,7 +1080,7 @@
     <string name="tour_done">Terminé</string>
     <string name="tour_count">%1$d sur %2$d</string>
     <string name="tour_replay">Faire la visite</string>
-    <string name="tour_s1_t">Trouver une app</string>
+    <string name="tour_s1_t">Trouver une dApp</string>
     <string name="tour_s1_b">Cherchez par nom dans tout le Solana dApp Store. Les tags et catégories affinent la recherche.</string>
     <string name="tour_s2_t">Installées, signées, toutes</string>
     <string name="tour_s2_b">Installées : les apps de ce téléphone. Signées : celles qui ont des avis signés. Toutes : tout le store.</string>
@@ -1112,6 +1112,7 @@
     <string name="pay_found_dispute">L\'un d\'eux est à vous ? Inscrivez votre trésorerie ci-dessous et il passera au tableau. Pas à vous ? Signalez-le et il sera retiré.</string>
     <string name="pay_found_report">Signaler un wallet</string>
     <string name="desk_treasury_confirmed">Trésorerie confirmée · %1$s reçus</string>
+    <string name="desk_treasury_listed">Trésorerie listée · %1$s</string>
     <string name="desk_treasury_none">Aucune trésorerie inscrite</string>
     <string name="desk_found">Trouvé dans le code de votre app : %1$s, payé par %2$d wallets. Confirmez-le comme votre trésorerie dans Paiements, ou signalez-le s\'il n\'est pas à vous.</string>
     <string name="desk_payments">Paiements</string>
@@ -1343,7 +1344,7 @@
     <string name="notif_ch_store_desc">Vagues d\'avis, mises à jour d\'apps, la synthèse hebdomadaire et la liste du lundi.</string>
     <string name="notif_ch_reminders">Rappels</string>
     <string name="notif_ch_reminders_desc">Le rappel d\'avis hebdomadaire et les incitations à donner un avis.</string>
-    <string name="desk_pay_30d">Reçu sur les 30 derniers jours : %1$s (USD au jour du paiement)</string>
+    <string name="desk_pay_30d">Reçu sur les 12 dernières semaines : %1$s (USD au jour du paiement)</string>
     <string name="desk_pay_12w">USD par semaine, 12 dernières semaines</string>
     <string name="settings_analytics">Statistiques d\'usage anonymes</string>
     <string name="settings_analytics_hint">Un nom d\'événement par action, aucun identifiant, au niveau du pays seulement. Désactivé signifie que rien n\'est envoyé.</string>

@@ -1020,7 +1020,7 @@
     <string name="tour_done">เสร็จ</string>
     <string name="tour_count">%1$d จาก %2$d</string>
     <string name="tour_replay">ดูทัวร์</string>
-    <string name="tour_s1_t">ค้นหาแอปใดก็ได้</string>
+    <string name="tour_s1_t">ค้นหา dApp ใดก็ได้</string>
     <string name="tour_s1_b">ค้นหาด้วยชื่อทั่วทั้ง Solana dApp Store แท็กและหมวดหมู่ช่วยจำกัดผลลัพธ์</string>
     <string name="tour_s2_t">ติดตั้งแล้ว ลงนามแล้ว ทั้งหมด</string>
     <string name="tour_s2_b">ติดตั้งแล้วคือแอปในโทรศัพท์นี้ ลงนามแล้วคือแอปที่มีรีวิวที่ลงนาม และทั้งหมดคือทั้งสโตร์</string>
@@ -1052,6 +1052,7 @@
     <string name="pay_found_dispute">มีของคุณไหม ลงทะเบียนคลังของคุณด้านล่างแล้วจะย้ายไปที่กระดาน ไม่ใช่ของคุณ แจ้งแล้วจะถูกนำออก</string>
     <string name="pay_found_report">แจ้งวอลเล็ต</string>
     <string name="desk_treasury_confirmed">ยืนยันคลังแล้ว · ได้รับ %1$s</string>
+    <string name="desk_treasury_listed">ลงทะเบียนคลังแล้ว · %1$s</string>
     <string name="desk_treasury_none">ยังไม่มีคลังที่ลงทะเบียน</string>
     <string name="desk_found">พบในโค้ดแอปของคุณ: %1$s มีวอลเล็ตจ่าย %2$d ราย ยืนยันเป็นคลังของคุณในการชำระเงิน หรือแจ้งหากไม่ใช่ของคุณ</string>
     <string name="desk_payments">การชำระเงิน</string>
@@ -1283,7 +1284,7 @@
     <string name="notif_ch_store_desc">รีวิวที่พุ่งขึ้น การอัปเดตแอป สรุปรายสัปดาห์ และรายการวันจันทร์</string>
     <string name="notif_ch_reminders">การเตือน</string>
     <string name="notif_ch_reminders_desc">การเตือนรีวิวรายสัปดาห์และการชวนให้รีวิว</string>
-    <string name="desk_pay_30d">ได้รับใน 30 วันที่ผ่านมา: %1$s (USD ณ วันที่ชำระ)</string>
+    <string name="desk_pay_30d">ได้รับใน 12 สัปดาห์ที่ผ่านมา: %1$s (USD ณ วันที่ชำระ)</string>
     <string name="desk_pay_12w">USD ต่อสัปดาห์ 12 สัปดาห์ล่าสุด</string>
     <string name="settings_analytics">สถิติการใช้งานแบบไม่ระบุตัวตน</string>
     <string name="settings_analytics_hint">หนึ่งชื่อเหตุการณ์ต่อหนึ่งการกระทำ ไม่มีตัวระบุตัวตน ระบุแค่ระดับประเทศ ปิดไว้ก็จะไม่ส่งอะไรเลย</string>

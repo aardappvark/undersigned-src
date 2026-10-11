@@ -1051,7 +1051,7 @@
     <string name="tour_done">Bitti</string>
     <string name="tour_count">%1$d / %2$d</string>
     <string name="tour_replay">Turu başlat</string>
-    <string name="tour_s1_t">Herhangi bir uygulamayı bulun</string>
+    <string name="tour_s1_t">Herhangi bir dApp\'i bulun</string>
     <string name="tour_s1_b">Tüm Solana dApp Store\'da adla arayın. Etiketler ve kategoriler aramayı daraltır.</string>
     <string name="tour_s2_t">Yüklü, imzalı, tümü</string>
     <string name="tour_s2_b">Yüklü bu telefondaki uygulamalar, İmzalı imzalı incelemesi olanlar, Tümü ise mağazanın tamamıdır.</string>
@@ -1083,6 +1083,7 @@
     <string name="pay_found_dispute">Biri sizin mi? Hazinenizi aşağıdan kaydedin, tabloya geçsin. Sizin değil mi? Bildirin, kaldırılsın.</string>
     <string name="pay_found_report">Cüzdan bildir</string>
     <string name="desk_treasury_confirmed">Hazine onaylandı · %1$s alındı</string>
+    <string name="desk_treasury_listed">Hazine listelendi · %1$s</string>
     <string name="desk_treasury_none">Kayıtlı hazine yok</string>
     <string name="desk_found">Uygulamanızın kodunda bulundu: %1$s, %2$d cüzdan ödeme yaptı. Ödemeler\'de hazineniz olarak onaylayın ya da sizin değilse bildirin.</string>
     <string name="desk_payments">Ödemeler</string>
@@ -1314,7 +1315,7 @@
     <string name="notif_ch_store_desc">Yorum dalgaları, uygulama güncellemeleri, haftalık özet ve pazartesi listesi.</string>
     <string name="notif_ch_reminders">Hatırlatıcılar</string>
     <string name="notif_ch_reminders_desc">Haftalık yorum hatırlatıcısı ve yorum dürtmeleri.</string>
-    <string name="desk_pay_30d">Son 30 günde alınan: %1$s (ödeme günündeki USD)</string>
+    <string name="desk_pay_30d">Son 12 haftada alınan: %1$s (ödeme günündeki USD)</string>
     <string name="desk_pay_12w">Haftalık USD, son 12 hafta</string>
     <string name="settings_analytics">Anonim kullanım analitiği</string>
     <string name="settings_analytics_hint">Eylem başına tek olay adı, kimlik bilgisi yok, yalnızca ülke düzeyinde. Kapalıysa hiçbir şey gönderilmez.</string>

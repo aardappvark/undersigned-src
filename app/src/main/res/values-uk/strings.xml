@@ -1088,7 +1088,7 @@
     <string name="tour_done">Готово</string>
     <string name="tour_count">%1$d з %2$d</string>
     <string name="tour_replay">Пройти тур</string>
-    <string name="tour_s1_t">Знайдіть будь-який застосунок</string>
+    <string name="tour_s1_t">Знайдіть будь-який dApp</string>
     <string name="tour_s1_b">Шукайте за назвою в усьому Solana dApp Store. Теги й категорії звужують пошук.</string>
     <string name="tour_s2_t">Встановлені, підписані, усі</string>
     <string name="tour_s2_b">Встановлені — застосунки на цьому телефоні, Підписані — з підписаними відгуками, Усі — весь магазин.</string>
@@ -1120,6 +1120,7 @@
     <string name="pay_found_dispute">Один із них ваш? Укажіть скарбницю нижче, і він перейде до таблиці. Не ваш? Повідомте, і його приберуть.</string>
     <string name="pay_found_report">Повідомити про гаманець</string>
     <string name="desk_treasury_confirmed">Скарбницю підтверджено · отримано %1$s</string>
+    <string name="desk_treasury_listed">Скарбницю вказано · %1$s</string>
     <string name="desk_treasury_none">Скарбницю не вказано</string>
     <string name="desk_found">Знайдено в коді вашого застосунку: %1$s, платили %2$d гаманців. Підтвердьте її як свою скарбницю в «Платежах» або повідомте, якщо вона не ваша.</string>
     <string name="desk_payments">Платежі</string>
@@ -1351,7 +1352,7 @@
     <string name="notif_ch_store_desc">Сплески відгуків, оновлення застосунків, щотижневе зведення та список понеділка.</string>
     <string name="notif_ch_reminders">Нагадування</string>
     <string name="notif_ch_reminders_desc">Щотижневе нагадування про відгуки та підказки залишити відгук.</string>
-    <string name="desk_pay_30d">Отримано за останні 30 днів: %1$s (USD на день платежу)</string>
+    <string name="desk_pay_30d">Отримано за останні 12 тижнів: %1$s (USD на день платежу)</string>
     <string name="desk_pay_12w">USD на тиждень, останні 12 тижнів</string>
     <string name="settings_analytics">Анонімна аналітика використання</string>
     <string name="settings_analytics_hint">По одній назві події на дію, без ідентифікаторів, лише рівень країни. Вимкнено — не надсилається нічого.</string>

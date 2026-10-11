@@ -843,7 +843,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
                 // Store rows sit flat in the card (design F2): trust pills only, season as quiet text, then the store's own
                 // reply and, after it, the publisher's SIGNED note — each marked for where it comes from.
-                storeReviews[pkg]?.let { l -> if (starFilter == 0) l.take(3) else l.filter { it.rating == starFilter } }?.forEach { r ->
+                // Unfiltered: the three newest. A star row: every store review read for that rating (the burst pages too), not only the newest ten (12 Oct 2026).
+                (if (starFilter == 0) storeReviews[pkg]?.take(3) else (storeHistory[pkg]?.items?.takeIf { it.isNotEmpty() } ?: storeReviews[pkg])?.filter { it.rating == starFilter })?.forEach { r ->
                     HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 10.dp))
                     Column(Modifier.fillMaxWidth()) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -863,10 +864,15 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         vm.seasonAtIso(r.createdAt)?.let { se -> Text(stringResource(R.string.season_pill, se.label), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 6.dp)) }
                         r.text?.let { t ->
                             var full by remember(r.id) { mutableStateOf(false) }
-                            Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = if (full) Int.MAX_VALUE else 4, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
-                            if (t.length > 220) ShowMore(full) { full = !full }
-                            // Pro: the store review in the app's language, labelled as a suggestion; the words above stay.
-                            TranslateControl("store:${r.id}", pro?.active == true) { vm.suggestedStoreTranslation(t) }
+                            // The store's text passes through the same shared list as a signed note (owner, 12 Oct 2026): abusive language
+                            // posted in the store is hidden here with the reason, the stars still count in the store's own tally.
+                            if (com.undersigned.protocol.Abuse.blocked(t)) Box(Modifier.padding(top = 6.dp)) { com.undersigned.app.ui.components.ModHiddenText(ReviewMemo.ModReason.ABUSE) }
+                            else {
+                                Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = if (full) Int.MAX_VALUE else 4, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
+                                if (t.length > 220) ShowMore(full) { full = !full }
+                                // Pro: the store review in the app's language, labelled as a suggestion; the words above stay.
+                                TranslateControl("store:${r.id}", pro?.active == true) { vm.suggestedStoreTranslation(t) }
+                            }
                         }
                         // The store's own reply: flat, blue, "from the dApp Store".
                         r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->
@@ -877,10 +883,13 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                     Text(stringResource(R.string.store_publisher_reply), color = RbColors.info, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                     Text(" · " + stringResource(R.string.store_reply_source), color = RbColors.textTertiary, fontSize = 10.sp)
                                 }
-                                Text(reply, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, maxLines = if (open) Int.MAX_VALUE else 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
-                                if (reply.length > 160) ShowMore(open) { open = !open }
-                                // The store's reply in the reader's language too (owner, 11 Oct 2026: a Polish reply helps nobody untranslated).
-                                TranslateControl("storereply:${r.id}", pro?.active == true) { vm.suggestedStoreTranslation(reply) }
+                                if (com.undersigned.protocol.Abuse.blocked(reply)) Box(Modifier.padding(top = 4.dp)) { com.undersigned.app.ui.components.ModHiddenText(ReviewMemo.ModReason.ABUSE, 11) }
+                                else {
+                                    Text(reply, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, maxLines = if (open) Int.MAX_VALUE else 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
+                                    if (reply.length > 160) ShowMore(open) { open = !open }
+                                    // The store's reply in the reader's language too (owner, 11 Oct 2026: a Polish reply helps nobody untranslated).
+                                    TranslateControl("storereply:${r.id}", pro?.active == true) { vm.suggestedStoreTranslation(reply) }
+                                }
                             }
                         }
                         // The verified publisher's SIGNED note (protocol StoreNotes): green outline, the mark, "signed on-chain".

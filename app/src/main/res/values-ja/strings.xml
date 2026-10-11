@@ -1027,7 +1027,7 @@
     <string name="tour_done">完了</string>
     <string name="tour_count">%1$d / %2$d</string>
     <string name="tour_replay">ツアーを見る</string>
-    <string name="tour_s1_t">どのアプリでも探せます</string>
+    <string name="tour_s1_t">どのdAppでも探せます</string>
     <string name="tour_s1_b">Solana dApp Store 全体を名前で検索。タグとカテゴリで絞り込めます。</string>
     <string name="tour_s2_t">インストール済み・署名あり・すべて</string>
     <string name="tour_s2_b">インストール済みはこの端末のアプリ、署名ありは署名付きレビューのあるアプリ、すべてはストア全体です。</string>
@@ -1059,6 +1059,7 @@
     <string name="pay_found_dispute">あなたのものですか？下で資金口座を登録するとボードに移ります。違う場合は報告すると削除されます。</string>
     <string name="pay_found_report">ウォレットを報告</string>
     <string name="desk_treasury_confirmed">資金口座を確認済み · %1$s 受領</string>
+    <string name="desk_treasury_listed">トレジャリー登録済み · %1$s</string>
     <string name="desk_treasury_none">資金口座は未登録</string>
     <string name="desk_found">あなたのアプリのコード内で発見：%1$s（%2$d 個のウォレットが支払い）。「支払い」で資金口座として確認するか、あなたのものでなければ報告してください。</string>
     <string name="desk_payments">支払い</string>
@@ -1290,7 +1291,7 @@
     <string name="notif_ch_store_desc">レビューの急増、アプリの更新、週間ダイジェスト、月曜のリスト。</string>
     <string name="notif_ch_reminders">リマインダー</string>
     <string name="notif_ch_reminders_desc">毎週のレビューリマインダーとレビューのお知らせ。</string>
-    <string name="desk_pay_30d">過去30日間の受取額: %1$s(支払日のUSD)</string>
+    <string name="desk_pay_30d">過去12週間の受取額: %1$s(支払日のUSD)</string>
     <string name="desk_pay_12w">週ごとのUSD、過去12週間</string>
     <string name="settings_analytics">匿名の利用状況データ</string>
     <string name="settings_analytics_hint">操作ごとにイベント名を1つ、識別子はなし、国レベルのみ。オフにすると、何も送信されません。</string>

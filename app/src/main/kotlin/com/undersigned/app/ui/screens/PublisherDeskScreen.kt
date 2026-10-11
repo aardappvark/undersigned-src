@@ -102,9 +102,15 @@ fun PublisherDeskScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) 
                     }
                     val (now30, prev30) = remember(entries, a.packageName) { vm.deskTrend(a.packageName) }
                     Text(pluralStringResource(R.plurals.desk_trend_p, now30, now30, prev30), color = RbColors.textSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 6.dp))
+                    // The listing itself comes from the ledger at once; "confirmed · $" waits for the board's website check (owner, 12 Oct
+                    // 2026: the card said "No treasury listed" while the board was still verifying 28 listings one by one).
                     val row = board.firstOrNull { it.claim.packageName == a.packageName && it.confirmed }
-                    Text(row?.let { r -> stringResource(R.string.desk_treasury_confirmed, r.usd?.let { java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(it) } ?: "—") }
-                        ?: stringResource(R.string.desk_treasury_none), color = if (row != null) RbColors.green else RbColors.textTertiary, fontSize = 12.sp)
+                    val claim = remember(entries, a.packageName) { vm.treasuryClaims().firstOrNull { it.packageName == a.packageName } }
+                    Text(when {
+                        row != null -> stringResource(R.string.desk_treasury_confirmed, row.usd?.let { java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).format(it) } ?: "—")
+                        claim != null -> stringResource(R.string.desk_treasury_listed, com.undersigned.app.solana.shortKey(claim.treasury, 4, 4))
+                        else -> stringResource(R.string.desk_treasury_none)
+                    }, color = if (row != null || claim != null) RbColors.green else RbColors.textTertiary, fontSize = 12.sp)
                     DeskPayments(vm, a.packageName)
                     found[a.packageName]?.let { f ->
                         Text(stringResource(R.string.desk_found, com.undersigned.app.solana.shortKey(f.getString("wallet"), 4, 4), f.optInt("payers")), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 4.dp))
@@ -187,7 +193,7 @@ private fun DeskPayments(vm: MainViewModel, pkg: String) {
     val h = cached[pkg] ?: return
     val today = remember { java.time.LocalDate.now(java.time.ZoneOffset.UTC) }
     val weeks = remember(h) { com.undersigned.app.ledger.PaymentAnalytics.lastWeeks(h.series, 12, today) }
-    val total = remember(h) { com.undersigned.app.ledger.PaymentAnalytics.last30Usd(h, today) }
+    val total = remember(weeks) { weeks.sum() }   // the same 12 weeks the sparkline draws (owner, 12 Oct 2026: 30 days read $0 beside a spike)
     val color = if (h.sources.any { !it.confirmed }) RbColors.warning else RbColors.green
     val usd = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US).apply { maximumFractionDigits = if (total >= 100) 0 else 2 }
     Column(Modifier.fillMaxWidth().padding(top = 8.dp)) {

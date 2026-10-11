@@ -1071,7 +1071,7 @@
     <string name="tour_done">Fertig</string>
     <string name="tour_count">%1$d von %2$d</string>
     <string name="tour_replay">Tour starten</string>
-    <string name="tour_s1_t">Jede App finden</string>
+    <string name="tour_s1_t">Jede dApp finden</string>
     <string name="tour_s1_b">Durchsuche den ganzen Solana dApp Store nach Namen. Tags und Kategorien grenzen ein.</string>
     <string name="tour_s2_t">Installiert, signiert, alle</string>
     <string name="tour_s2_b">Installiert sind die Apps auf diesem Telefon, Signiert die Apps mit signierten Bewertungen, Alle der ganze Store.</string>
@@ -1103,6 +1103,7 @@
     <string name="pay_found_dispute">Ist eine davon deine? Trag unten deine Kasse ein, dann wandert sie in die Tabelle. Nicht deine? Melde sie, dann wird sie entfernt.</string>
     <string name="pay_found_report">Wallet melden</string>
     <string name="desk_treasury_confirmed">Kasse bestätigt · %1$s erhalten</string>
+    <string name="desk_treasury_listed">Treasury gelistet · %1$s</string>
     <string name="desk_treasury_none">Keine Kasse eingetragen</string>
     <string name="desk_found">Im Code deiner App gefunden: %1$s, von %2$d Wallets bezahlt. Bestätige sie unter Zahlungen als deine Kasse oder melde sie, wenn sie nicht deine ist.</string>
     <string name="desk_payments">Zahlungen</string>
@@ -1334,7 +1335,7 @@
     <string name="notif_ch_store_desc">Bewertungswellen, App-Updates, der Wochenüberblick und die Montagsliste.</string>
     <string name="notif_ch_reminders">Erinnerungen</string>
     <string name="notif_ch_reminders_desc">Die wöchentliche Bewertungserinnerung und Bewertungshinweise.</string>
-    <string name="desk_pay_30d">In den letzten 30 Tagen erhalten: %1$s (USD am Zahlungstag)</string>
+    <string name="desk_pay_30d">In den letzten 12 Wochen erhalten: %1$s (USD am Zahlungstag)</string>
     <string name="desk_pay_12w">USD pro Woche, letzte 12 Wochen</string>
     <string name="settings_analytics">Anonyme Nutzungsstatistik</string>
     <string name="settings_analytics_hint">Ein Ereignisname pro Aktion, keine Kennungen, nur auf Länderebene. Aus heißt: es wird nichts gesendet.</string>

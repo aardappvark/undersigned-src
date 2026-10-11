@@ -1072,7 +1072,7 @@
     <string name="tour_done">Готово</string>
     <string name="tour_count">%1$d из %2$d</string>
     <string name="tour_replay">Пройти тур</string>
-    <string name="tour_s1_t">Найдите любое приложение</string>
+    <string name="tour_s1_t">Найдите любое dApp</string>
     <string name="tour_s1_b">Ищите по названию во всём Solana dApp Store. Теги и категории сужают поиск.</string>
     <string name="tour_s2_t">Установленные, подписанные, все</string>
     <string name="tour_s2_b">Установленные — приложения на этом телефоне, Подписанные — с подписанными отзывами, Все — весь магазин.</string>
@@ -1104,6 +1104,7 @@
     <string name="pay_found_dispute">Один из них ваш? Укажите казну ниже, и он перейдёт в таблицу. Не ваш? Сообщите, и его уберут.</string>
     <string name="pay_found_report">Сообщить о кошельке</string>
     <string name="desk_treasury_confirmed">Казна подтверждена · получено %1$s</string>
+    <string name="desk_treasury_listed">Казна указана · %1$s</string>
     <string name="desk_treasury_none">Казна не указана</string>
     <string name="desk_found">Найдено в коде вашего приложения: %1$s, платили %2$d кошельков. Подтвердите её как свою казну в разделе «Платежи» или сообщите, если она не ваша.</string>
     <string name="desk_payments">Платежи</string>
@@ -1335,7 +1336,7 @@
     <string name="notif_ch_store_desc">Всплески отзывов, обновления приложений, еженедельная сводка и список понедельника.</string>
     <string name="notif_ch_reminders">Напоминания</string>
     <string name="notif_ch_reminders_desc">Еженедельное напоминание об отзывах и подсказки оставить отзыв.</string>
-    <string name="desk_pay_30d">Получено за последние 30 дней: %1$s (USD на день платежа)</string>
+    <string name="desk_pay_30d">Получено за последние 12 недель: %1$s (USD на день платежа)</string>
     <string name="desk_pay_12w">USD в неделю, последние 12 недель</string>
     <string name="settings_analytics">Анонимная аналитика использования</string>
     <string name="settings_analytics_hint">По одному имени события на действие, без идентификаторов, только уровень страны. Выключено — не отправляется ничего.</string>
