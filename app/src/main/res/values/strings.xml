@@ -1191,6 +1191,9 @@
     <string name="pa_window_all">All time</string>
     <string name="pa_loading">Reading payments…</string>
     <string name="pa_offline">Payments analytics are not available offline.</string>
+    <string name="abuse_blocked">This text contains language Undersigned doesn’t publish (%1$s). Edit it to sign.</string>
+    <string name="mod_ban">Exclude this wallet (abuse)</string>
+    <string name="wallet_banned">Excluded by a moderator for abuse: this wallet’s records stay on Solana and are shown nowhere here.</string>
     <string name="translate_now">Translate</string>
     <string name="translate_pro">Translate · Pro</string>
     <string name="settings_auto_translate">Auto-translate notes and replies</string>

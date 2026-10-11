@@ -16,7 +16,7 @@ The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 
 | | |
 |---|---|
-| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.12-vc23.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
+| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.13-vc24.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
 | **The site and API** | https://undersigned.provenby.dev · [`/payments`](https://undersigned.provenby.dev/payments) · [`/v1/stats`](https://undersigned.provenby.dev/v1/stats) · MCP at `/mcp` |
 | **One review, on-chain** | Jupiter Mobile, signed on a Seeker with the Seed Vault: [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5) (an operator wallet: shown, never counted) |
 | **Recompute it yourself** | `api/build/install/api/bin/api verify` reads the registry from the chain into a throwaway database, scores it with the protocol module, and diffs the live dataset (exit 0 on a match) |
@@ -44,7 +44,7 @@ Everything else hangs off that loop:
 |---|---|
 | Seeker owners | Browse all 1,547 dApps with the store's rating beside the signed score; follow apps; per-action notifications; review nudges; import existing store reviews in one approval; a second round when a publisher says a problem is fixed; facts the phone can prove (certificate matches the store's, permission drift), never verdicts; 28 languages; a guided tour. |
 | Publishers | Prove an app is yours (a signed claim checked against the website the store lists or the manifest of the store's own build); reply on-chain under a Publisher mark; sign "fixed in version N" and see who followed up; responsiveness shown publicly; per-version scores; desk, webhooks, badge, MCP. |
-| Integrity | Genesis-weighted flags and "looks genuine" clears; author disputes; near-duplicate labels; store review bursts and no-Genesis waves shown as facts; moderation hides text for four narrow reasons, never a voice ([docs/MODERATION.md](docs/MODERATION.md)). |
+| Integrity | Genesis-weighted flags and "looks genuine" clears; author disputes; near-duplicate labels; store review bursts and no-Genesis waves shown as facts; moderation hides text for four narrow reasons, never a voice; abusive language (one shared list: slurs, strong profanity, threats) is refused by the composer and the relayer and hidden automatically by every reader, and a moderator's signed `ban` record excludes a wallet that keeps at it ([docs/MODERATION.md](docs/MODERATION.md)). |
 | Payments board | Treasuries proven by the publisher, payments counted per app and over time, a leaderboard; wallets found in app code listed apart as unconfirmed. |
 | Developers and agents | Public website and JSON API, OpenAPI, dataset download, feeds, signed webhooks, a hosted MCP server (25 tools) and a local MCP desk (53 tools). |
 
@@ -106,8 +106,8 @@ verify, it is not a safety verdict.**
 
 ## State today (measured 11 Oct 2026)
 
-- Release **1.1.12** (versionCode 23). 197 commits on 19 days (UTC) since 7 Sep 2026; 21,568 lines of Kotlin plus 4,074 lines of tests;
-  289 Kotlin tests (115 protocol, 100 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
+- Release **1.1.13** (versionCode 24). 197 commits on 19 days (UTC) since 7 Sep 2026; 21,780 lines of Kotlin plus 4,165 lines of tests;
+  295 Kotlin tests (119 protocol, 102 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
 - Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
   scores fill as Seeker owners sign.

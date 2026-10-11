@@ -16,9 +16,9 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 
 | Deliverable | Status | Where |
 |---|---|---|
-| Functional Android APK | **READY** — 1.1.12 (versionCode 23), 10.8 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 7223d8e2…b700 | `assets/submission/Undersigned-1.1.6-vc17.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.6` (owner). |
+| Functional Android APK | **READY** — 1.1.13 (versionCode 24), 10.8 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 9ff9b21c…1bbf | `assets/submission/Undersigned-1.1.6-vc17.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.6` (owner). |
 | GitHub repository | **READY** — 197 commits on 19 days (UTC) from 7 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
-| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.12 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
+| Demo video (≤ 3 min) | **OWNER re-records** for 1.1.13 from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
 | Pitch deck | **READY** — 17 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
@@ -68,7 +68,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 **Beside the store:** `docs/COMPARISON.md` sets the dApp Store's review flow (measured on v1.59.0) against Undersigned row by row, for reviewers and for developers, with the outcome of each; deck slides 5–6 show it with paired screens.
 
-**What was built during the hackathon:** everything, from the first commit on 7 Sep 2026 (UTC): 197 commits on 19 days; 21,568 lines of Kotlin (plus 4,074 of tests) across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (273 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (25 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
+**What was built during the hackathon:** everything, from the first commit on 7 Sep 2026 (UTC): 197 commits on 19 days; 21,780 lines of Kotlin (plus 4,165 of tests) across the Android app, a pure-JVM protocol module (memo codec, ranking and weighting, follow-up threads, long text, quick reviews, payments) and the API server, plus 3,400 lines of tests (273 Kotlin tests, including golden transaction bytes shared by the app and the server, and 8 for the MCP package); the website, the hosted MCP server (25 tools), a local MCP desk (53 tools), 28 locales and the legal pack. 144 of 144 live checks pass against the public API and MCP. Milestones on mainnet: the first review 8 Sep; the first Pro licence paid in SKR 15 Sep; 29 publisher claims and 28 treasury listings 7 Oct; the first quick review relayed 9 Oct.
 
 **Solana Mobile Stack / MWA usage:** every write is an MWA `transact` to the Seeker Wallet (authorize once, then sign-and-send); the Genesis Token check reads the soulbound Token-2022 mint on the signer; the Seeker wallet fingerprint (the Lighthouse guard it adds to every transaction) is read back from the chain and shown on the record; `.skr` names resolve from the ANS registry; batch signing puts up to 8 reviews in one approval; a 2,000-character review goes on-chain in pieces under one approval; quick reviews are co-signed by a relayer that can pay fees and nothing else. The app is Compose, portrait, mobile-first. The website also lets a desktop wallet sign a short review, but the proofs that make a review count (the Genesis Token, the Seed Vault double-tap, the phone's own facts) come only from the phone.
 
@@ -91,7 +91,7 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 
 ## Five minutes with it (the judge's path)
 
-1. **The app** (`assets/submission/Undersigned-1.1.12-vc23.apk`): open it, take the tour, open any app's page, tap Write a signed review; with no wallet yet, the form offers Sign in with wallet, then the Seed Vault sheet. Payments tab: leaderboards, categories, rising dApps; tap one for its history.
+1. **The app** (`assets/submission/Undersigned-1.1.13-vc24.apk`): open it, take the tour, open any app's page, tap Write a signed review; with no wallet yet, the form offers Sign in with wallet, then the Seed Vault sheet. Payments tab: leaderboards, categories, rising dApps; tap one for its history.
 2. **The site**: https://undersigned.provenby.dev · [/payments](https://undersigned.provenby.dev/payments) · [/status](https://undersigned.provenby.dev/status), where "Scores recomputed from the chain alone · OK" is a six-hourly run of `api verify` that rebuilds every score from the registry in a throwaway database and diffs the live dataset.
 3. **The chain**: a review signed on a Seeker, [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5); the registry `BtbL6dWhavkwZABZ2pGa7MrbTsshz6rsiw4DQQuE79Fs`; the [browser viewer](https://aardappvark.github.io/undersigned-viewer/) that reads it with no server.
 4. **An agent**: add `https://undersigned.provenby.dev/mcp` to Claude or Cursor; 25 read-only tools.
@@ -102,14 +102,14 @@ Around the loop: **publishers** prove an app is theirs with a signed claim check
 | Evaluation process item | Evidence |
 |---|---|
 | Completion based on the demo video | the video shows a review signed, landed and read back from the chain in a browser |
-| Technical depth based on GitHub commits | 197 commits on 19 days; 289 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
+| Technical depth based on GitHub commits | 197 commits on 19 days; 295 Kotlin tests; golden tx bytes; `docs/SPEC.md`; 144/144 live checks |
 | Mobile-optimised UX, mobile features | Seed Vault signing, Genesis Token, PackageManager facts, usage stats, notifications, weekly WorkManager, A–Z rail, offline icons, 28 locales |
 | Usage and interaction with the Solana network | every record is a mainnet tx; 77 records live today (`/v1/stats`) |
 | Clarity and vision from the presentation | the deck: the core loop first, then the handover path to the store |
 
 ## Owner's steps (in order)
 
-1. Re-record the demo video on 1.1.12 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
+1. Re-record the demo video on 1.1.13 (script in `docs/DEMO_SCRIPT.md`), upload, copy the link.
 2. Sign in to RADOS / Align at solanamobile.radiant.nexus, complete the builder profile, register for Clock In.
 3. Install the Radiants Align GitHub app on `aardappvark/Undersigned`.
 4. Fill the form from this file; attach the APK and the deck; paste the video link.

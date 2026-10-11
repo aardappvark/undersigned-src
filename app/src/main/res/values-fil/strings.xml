@@ -1169,6 +1169,9 @@
     <string name="pa_window_all">Lahat ng panahon</string>
     <string name="pa_loading">Binabasa ang mga bayad…</string>
     <string name="pa_offline">Hindi available offline ang analytics ng mga bayad.</string>
+    <string name="abuse_blocked">May wika sa tekstong ito na hindi inilalathala ng Undersigned (%1$s). I-edit ito para makalagda.</string>
+    <string name="mod_ban">Ibukod ang wallet na ito (pang-aabuso)</string>
+    <string name="wallet_banned">Ibinukod ng moderator dahil sa pang-aabuso: nananatili sa Solana ang mga record ng wallet na ito at hindi ipinapakita dito.</string>
     <string name="translate_now">Isalin</string>
     <string name="translate_pro">Isalin · Pro</string>
     <string name="settings_auto_translate">Awtomatikong isalin ang mga note at reply</string>

@@ -77,7 +77,9 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     var addActivity by remember { mutableStateOf(UserPreferences.addActivity) }
 
     val bytes = text.toByteArray(Charsets.UTF_8).size
-    val textOk = text.isEmpty() || (text.trim().length <= com.undersigned.protocol.LongText.MAX_CHARS && bytes <= com.undersigned.protocol.LongText.MAX_BYTES)
+    // The shared abusive-language rule (owner, 11 Oct 2026): a matching note or own tag is not signed; the words are named so it can be edited.
+    val abuseHits = remember(text) { com.undersigned.protocol.Abuse.match(text) }
+    val textOk = abuseHits.isEmpty() && (text.isEmpty() || (text.trim().length <= com.undersigned.protocol.LongText.MAX_CHARS && bytes <= com.undersigned.protocol.LongText.MAX_BYTES))
     val gate: String? = when {
         wallet == null -> stringResource(R.string.review_needs_wallet)
         selfLoading || selfFacts == null -> stringResource(R.string.review_checking_sgt)
@@ -177,12 +179,13 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             OutlinedTextField(
                 // A line break can't be signed: Enter and pasted paragraphs become spaces instead of a silent red border.
                 value = text, onValueChange = { if (stage == null) text = it.replace("\r\n", "\n").replace('\r', '\n').take(com.undersigned.protocol.LongText.MAX_CHARS + 20) }, minLines = 3, maxLines = 12, isError = !textOk,
-                supportingText = if (!textOk) { { Text(stringResource(R.string.text_invalid, com.undersigned.protocol.LongText.MAX_CHARS), color = RbColors.negative, fontSize = 11.sp) } } else null,
+                supportingText = if (!textOk && abuseHits.isEmpty()) { { Text(stringResource(R.string.text_invalid, com.undersigned.protocol.LongText.MAX_CHARS), color = RbColors.negative, fontSize = 11.sp) } } else null,
                 keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Done),
                 placeholder = { Text(stringResource(R.string.review_text_hint), color = RbColors.textTertiary) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight, errorBorderColor = RbColors.negative),
             )
             com.undersigned.app.ui.components.CharCounter(text.length, com.undersigned.protocol.LongText.MAX_CHARS)
+            if (abuseHits.isNotEmpty()) Text(stringResource(R.string.abuse_blocked, abuseHits.joinToString(", ")), color = RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 4.dp))
             val looksCopied = remember(text) { vm.draftLooksCopied(text, pkg) }
             if (looksCopied) { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.compose_similar_warning), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp) }
             // Design review 28 Sep 2026 (handoff 2, F5–F6): what the phone adds, as one card of switch rows with the value as

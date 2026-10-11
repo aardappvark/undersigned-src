@@ -60,6 +60,8 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             // Counts, not a score (6 Oct 2026): a single 0–100 number read as a verdict on a person and sat beside
             // "Counts only. No score" in the same app. The facts it was built from are shown as they are.
+            val banned by vm.bannedWallets.collectAsState()
+            if (wallet in banned) { GlassCard(accent = RbColors.negative) { Text(stringResource(R.string.wallet_banned), color = RbColors.textPrimary, fontSize = 13.sp, lineHeight = 18.sp) }; Spacer(Modifier.height(8.dp)) }
             SectionTitle(stringResource(R.string.standing_title))
             GlassCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {

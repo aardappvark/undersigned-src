@@ -1174,6 +1174,9 @@
     <string name="pa_window_all">Altijd</string>
     <string name="pa_loading">Betalingen worden gelezen…</string>
     <string name="pa_offline">Betalingsanalyse is offline niet beschikbaar.</string>
+    <string name="abuse_blocked">Deze tekst bevat taal die Undersigned niet publiceert (%1$s). Bewerk hem om te ondertekenen.</string>
+    <string name="mod_ban">Deze wallet uitsluiten (misbruik)</string>
+    <string name="wallet_banned">Uitgesloten door een moderator wegens misbruik: de records van deze wallet blijven op Solana en worden hier nergens getoond.</string>
     <string name="translate_now">Vertalen</string>
     <string name="translate_pro">Vertalen · Pro</string>
     <string name="settings_auto_translate">Notities en antwoorden automatisch vertalen</string>

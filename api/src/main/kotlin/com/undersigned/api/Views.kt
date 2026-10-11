@@ -435,7 +435,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("flags_given", it.flagsGiven).put("flags_upheld", it.flagsUpheld).put("flags_received", it.flagsReceived).put("records_hidden", it.recordsHidden)
                 .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen)
                 .put("apps_reviewed", it.appsReviewed).put("follow_ups", it.followUps).put("follow_ups_after_fix", it.followUpsAfterFix).put("fixes_confirmed", it.fixesConfirmed) } ?: JSONObject.NULL)
-            .put("reviews", reviews.size).put("publisher_of", JSONArray(st.verified.filterValues { addr in it }.keys.sorted()))
+            .put("reviews", reviews.size).put("banned", addr in st.banned).put("publisher_of", JSONArray(st.verified.filterValues { addr in it }.keys.sorted()))
             .put("treasury_listings", JSONArray(st.claims.filter { it.treasury == addr }.map { JSONObject().put("package", it.packageName).put("code", it.code) }))
             .put("pro_licence", mine.filter { it.memo is ReviewMemo.Pro }.maxByOrNull { it.blockTime }?.let { e -> JSONObject().put("paid_at", e.blockTime).put("months", (e.memo as ReviewMemo.Pro).months).put("ends_at", java.time.Instant.ofEpochSecond(e.blockTime).atZone(java.time.ZoneOffset.UTC).plusMonths((e.memo as ReviewMemo.Pro).months.toLong()).toEpochSecond()) } ?: JSONObject.NULL)
         if (full) o.put("records", JSONArray(mine.take(500).map { record(it, st) }))

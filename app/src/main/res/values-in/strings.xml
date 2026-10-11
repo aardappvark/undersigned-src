@@ -1150,6 +1150,9 @@
     <string name="pa_window_all">Sepanjang waktu</string>
     <string name="pa_loading">Membaca pembayaran…</string>
     <string name="pa_offline">Analitik pembayaran tidak tersedia secara offline.</string>
+    <string name="abuse_blocked">Teks ini memuat bahasa yang tidak diterbitkan Undersigned (%1$s). Edit untuk menandatangani.</string>
+    <string name="mod_ban">Kecualikan dompet ini (penyalahgunaan)</string>
+    <string name="wallet_banned">Dikecualikan moderator karena penyalahgunaan: catatan dompet ini tetap di Solana dan tidak ditampilkan di sini.</string>
     <string name="translate_now">Terjemahkan</string>
     <string name="translate_pro">Terjemahkan · Pro</string>
     <string name="settings_auto_translate">Terjemahkan catatan dan balasan otomatis</string>

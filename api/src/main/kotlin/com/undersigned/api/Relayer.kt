@@ -114,6 +114,9 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         val reviews = memos.count { it is ReviewMemo.Review }
         if (reviews > 1) throw Refused(400, "one review per transaction")
         if (reviews == 1 && ReviewMemo.Quick !in memos) throw Refused(400, "a relayed review must carry the quick marker")
+        // The shared abusive-language rule (protocol Abuse): the relayer pays for no such text.
+        memos.forEach { m -> val t = when (m) { is ReviewMemo.Review -> m.text; is ReviewMemo.TextPart -> runCatching { String(java.util.Base64.getUrlDecoder().decode(m.chunk), Charsets.UTF_8) }.getOrNull() ?: m.chunk; else -> null }
+            if (com.undersigned.protocol.Abuse.blocked(t)) throw Refused(400, "that text contains language Undersigned does not publish") }
         if (reviews == 0 && memos.any { it !is ReviewMemo.TextPart && it !is ReviewMemo.Revocation }) throw Refused(400, "without a review, only long-text pieces or a withdrawal")
         val pub = KeyFactory.getInstance("Ed25519").generatePublic(X509EncodedKeySpec(byteArrayOf(0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00) + Base58.decode(appKey)))
         if (!Signature.getInstance("Ed25519").run { initVerify(pub); update(p.message); verify(p.signatures[1]) }) throw Refused(400, "the app key's signature does not match")

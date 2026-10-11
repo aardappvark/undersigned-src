@@ -114,6 +114,13 @@ sealed class ReviewMemo {
      * (Weighting.proAt); no score, weight or tag statistic reads them.
      */
     data class CustomTags(val packageName: String, val tags: List<String>) : ReviewMemo()
+    /**
+     * `SRL1|ban|<wallet>|<reason>` (owner, 11 Oct 2026): a moderator excludes a wallet from every reader for abuse, and
+     * `SRL1|unb|<wallet>` lifts it; the moderator's later record wins (Moderation.banned). A banned wallet's records stay on
+     * the chain and are shown nowhere; moderators and the operator's wallets cannot be banned.
+     */
+    data class Ban(val wallet: String, val reason: ModReason) : ReviewMemo()
+    data class Unban(val wallet: String) : ReviewMemo()
     data class StoreNote(val packageName: String, val reviewId: String, val text: String) : ReviewMemo()
     data class Treasury(val packageName: String, val code: String) : ReviewMemo()
     data class Untreasury(val packageName: String) : ReviewMemo()
@@ -152,7 +159,8 @@ sealed class ReviewMemo {
         /** Words a custom tag may not be: verdicts and finance words the product never uses (CLAUDE_DESIGN_PROMPT), plus the fixed tags' wires. */
         val CUSTOM_TAG_BLOCKED: Set<String> = setOf("earn", "earns", "earning", "earnings", "reward", "rewards", "points", "yield", "apy", "apr", "invest", "investment",
             "safe", "unsafe", "scam", "scams", "fraud", "verified", "guaranteed", "profit", "airdrop", "free-money") + Tag.entries.map { it.wire }
-        fun validCustomTag(s: String): Boolean = CUSTOM_TAG.matches(s) && s !in CUSTOM_TAG_BLOCKED && !s.endsWith("-")
+        fun validCustomTag(s: String): Boolean = CUSTOM_TAG.matches(s) && s !in CUSTOM_TAG_BLOCKED && !s.endsWith("-") && !Abuse.blocked(s.replace('-', ' '))
+        private val WALLET = Regex("^[1-9A-HJ-NP-Za-km-z]{32,44}$")
         fun validCustomTags(tags: List<String>): Boolean = tags.size in 1..MAX_CUSTOM_TAGS && tags.toSet().size == tags.size && tags.all(::validCustomTag)
         const val MAX_PRO_MONTHS = 120
         private val PACKAGE = Regex("^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$")
@@ -219,6 +227,8 @@ sealed class ReviewMemo {
             }
             is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
             is Moderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|mod|${m.recordId}|${m.reason.wire}" }
+            is Ban -> { require(WALLET.matches(m.wallet)) { "wallet" }; "${Registry.PROTOCOL}|ban|${m.wallet}|${m.reason.wire}" }
+            is Unban -> { require(WALLET.matches(m.wallet)) { "wallet" }; "${Registry.PROTOCOL}|unb|${m.wallet}" }
             is Unmoderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|umd|${m.recordId}" }
             is TreasuryFor -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; require(Payments.isReference(m.treasury)) { "treasury address" }; "${Registry.PROTOCOL}|trd|${m.packageName}|${m.code}|${m.treasury}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
@@ -300,6 +310,8 @@ sealed class ReviewMemo {
                 }
                 "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
                 "mod" -> if (f.size == 4 && SIGNATURE.matches(f[2])) ModReason.fromWire(f[3])?.let { Moderate(f[2], it) } else null
+                "ban" -> if (f.size == 4 && WALLET.matches(f[2])) ModReason.fromWire(f[3])?.let { Ban(f[2], it) } else null
+                "unb" -> if (f.size == 3 && WALLET.matches(f[2])) Unban(f[2]) else null
                 "umd" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unmoderate(f[2]) else null
                 "trd" -> if (f.size == 5 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3]) && Payments.isReference(f[4])) TreasuryFor(f[2], f[3], f[4]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null

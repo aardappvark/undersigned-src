@@ -17,3 +17,18 @@ Moderation on Undersigned hides **text**, never a voice.
   record id; a moderator looks again within 7 days and answers.
 - **Transparency:** every moderation record is listed at `/moderation` and in `/v1/records?type=mod`.
 - **Separate:** the website operator's own hide list (`bin/api hide`) affects only the website and API.
+
+
+## Automatic hiding and exclusion (11 Oct 2026)
+
+- **Abusive language is hidden automatically.** One list ships in the protocol module (`protocol/.../Abuse.kt`: slurs, strong
+  profanity, threats and harassment phrases, matched on whole words after folding case, accents, leetspeak, masking and
+  repeated letters). A note, reply, dispute, store note, fix note or own tag that matches is: not signed by the app (the words
+  are named so the writer can edit); not relayed as a quick review; and, if it reaches the chain some other way, shown by every
+  reader with its text hidden and the reason "abuse". The rating, tags and weight still count. It hides text, never a voice.
+- **A wallet that keeps at it is excluded.** A moderator signs `SRL1|ban|<wallet>|<reason>` (one of the four reasons);
+  every reader then drops that wallet's records before anything is scored or shown, the relayer refuses its key, and its
+  wallet page says so. `SRL1|unb|<wallet>` lifts it; the moderator's later record wins. The records stay on Solana. Moderators
+  and the operator's wallets can never be banned, so no key can lock the ledger's own keepers out.
+- **Not automatic:** anything not on the list. A harsh review, criticism, a low rating, disagreement, sarcasm: none of it is
+  touched. The list is short on purpose and public in the source; changing it is a release.

@@ -1186,6 +1186,9 @@
     <string name="pa_window_all">За всё время</string>
     <string name="pa_loading">Читаем платежи…</string>
     <string name="pa_offline">Аналитика платежей недоступна офлайн.</string>
+    <string name="abuse_blocked">Текст содержит выражения, которые Undersigned не публикует (%1$s). Измените его, чтобы подписать.</string>
+    <string name="mod_ban">Исключить этот кошелёк (злоупотребление)</string>
+    <string name="wallet_banned">Исключён модератором за злоупотребления: записи этого кошелька остаются в Solana и здесь нигде не показываются.</string>
     <string name="translate_now">Перевести</string>
     <string name="translate_pro">Перевести · Pro</string>
     <string name="settings_auto_translate">Автоматически переводить заметки и ответы</string>

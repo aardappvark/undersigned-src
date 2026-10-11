@@ -1150,6 +1150,9 @@
     <string name="pa_window_all">Toàn bộ thời gian</string>
     <string name="pa_loading">Đang đọc các khoản thanh toán…</string>
     <string name="pa_offline">Phân tích thanh toán không khả dụng khi ngoại tuyến.</string>
+    <string name="abuse_blocked">Văn bản này chứa ngôn từ Undersigned không đăng (%1$s). Hãy sửa để ký.</string>
+    <string name="mod_ban">Loại ví này (lạm dụng)</string>
+    <string name="wallet_banned">Bị người điều hành loại vì lạm dụng: bản ghi của ví này vẫn ở trên Solana và không hiển thị ở đây.</string>
     <string name="translate_now">Dịch</string>
     <string name="translate_pro">Dịch · Pro</string>
     <string name="settings_auto_translate">Tự động dịch ghi chú và phản hồi</string>

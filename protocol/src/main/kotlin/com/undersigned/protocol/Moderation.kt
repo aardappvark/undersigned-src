@@ -20,7 +20,7 @@ object Moderation {
      * belongs to (a review's own package; a reply's review's package), [verifiedPublishers] package -> proven wallets.
      */
     fun textHidden(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>> = emptyMap(), moderators: Set<String> = MODERATORS,
-                   packageOf: ((String) -> String?)? = null): Map<String, ReviewMemo.ModReason> {
+                   packageOf: ((String) -> String?)? = null, autoHide: Boolean = true): Map<String, ReviewMemo.ModReason> {
         val byId by lazy { entries.associateBy { it.signature } }
         fun pkgOf(id: String): String? = packageOf?.invoke(id) ?: when (val m = byId[id]?.memo) {
             is ReviewMemo.Review -> m.packageName
@@ -41,6 +41,32 @@ object Moderation {
             if (pkg != null && Operator.isOperator(key.first) && Operator.publishes(pkg, verifiedPublishers)) return@forEach
             out.putIfAbsent(key.second, m.reason)
         }
+        // Automatic (owner, 11 Oct 2026): text on the shared abusive-language list is hidden with the reason "abuse" by every
+        // reader, no moderator needed; the rating, tags and weight still count. A moderator's own record on the same text wins.
+        if (autoHide) for (e in entries) {
+            val text = when (val m = e.memo) { is ReviewMemo.Review -> m.text; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Fixed -> m.text; else -> null }
+            if (text != null && e.signature !in out && Abuse.blocked(text)) out[e.signature] = ReviewMemo.ModReason.ABUSE
+        }
         return out
+    }
+
+    /**
+     * Wallets a moderator has excluded ([ReviewMemo.Ban]; [ReviewMemo.Unban] lifts it, the later record wins per moderator;
+     * any moderator's standing ban counts). Moderators and the operator's wallets are never banned, so a key cannot lock the
+     * ledger's own keepers out.
+     */
+    fun banned(entries: List<LedgerEntry>, moderators: Set<String> = MODERATORS): Set<String> {
+        val latest = HashMap<Pair<String, String>, LedgerEntry>()
+        entries.filter { it.signer in moderators && (it.memo is ReviewMemo.Ban || it.memo is ReviewMemo.Unban) }
+            .sortedWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature })
+            .forEach { e -> val w = (e.memo as? ReviewMemo.Ban)?.wallet ?: (e.memo as ReviewMemo.Unban).wallet; latest[e.signer to w] = e }
+        return latest.values.filter { it.memo is ReviewMemo.Ban }.map { (it.memo as ReviewMemo.Ban).wallet }
+            .filter { it !in moderators && !Operator.isOperator(it) }.toSet()
+    }
+
+    /** [entries] without any record signed by a banned wallet; the moderators' own records stay, so the ban can be read back. */
+    fun excludeBanned(entries: List<LedgerEntry>, moderators: Set<String> = MODERATORS): List<LedgerEntry> {
+        val b = banned(entries, moderators); if (b.isEmpty()) return entries
+        return entries.filter { it.signer !in b }
     }
 }

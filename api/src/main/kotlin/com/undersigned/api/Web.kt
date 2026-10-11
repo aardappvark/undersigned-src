@@ -770,6 +770,7 @@ $('go').onclick = async () => {
     private fun wallet(w: String): String {
         val j = views.wallet(w, false)
         val sb = StringBuilder("<h1>${esc(if (j.isNull("skr_name")) short(w) else j.getString("skr_name"))}</h1><p class=meta><code>${esc(w)}</code></p><div class=card><div class=stats>")
+        if (j.optBoolean("banned")) { sb.append("<div class=stat><b>Excluded</b><span>a moderator's signed record excludes this wallet for abuse; its records stay on Solana and are shown nowhere here</span></div></div></div>"); return sb.toString() }
         if (j.isNull("weight") && j.optInt("reviews") == 0 && j.isNull("standing")) {
             sb.append("<div class=stat><b>Not seen yet</b><span>this wallet has signed nothing on the ledger, or the index has not read it yet</span></div></div></div>")
             return sb.toString()

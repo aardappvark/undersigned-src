@@ -74,6 +74,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val isPro: Boolean get() = pro.value?.active == true
     private fun recomputePro() { pro.value = com.undersigned.app.solana.ProLicence.of(entries.value, txMeta.value, wallet.value, UserPreferences.granters.value); com.undersigned.app.ui.components.ProSignal.active.value = pro.value?.active == true }
     val granters: StateFlow<Set<String>> = UserPreferences.granters
+    /** Wallets a moderator has excluded (protocol Moderation.banned): their records are dropped as the ledger is read (owner, 11 Oct 2026). */
+    val bannedWallets = MutableStateFlow<Set<String>>(emptySet())
+    private fun honourBans(list: List<LedgerEntry>): List<LedgerEntry> { val b = com.undersigned.protocol.Moderation.banned(list); bannedWallets.value = b; return if (b.isEmpty()) list else list.filter { it.signer !in b } }
+    /** The shared abusive-language rule, applied before anything is signed: the reason, or null when the text is clean. */
+    private fun abuseRefusal(m: ReviewMemo): String? {
+        val text = when (m) { is ReviewMemo.Review -> m.text; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Fixed -> m.text; is ReviewMemo.CustomTags -> m.tags.joinToString(" "); is ReviewMemo.Ban -> m.reason.wire; else -> null }
+        val hits = com.undersigned.protocol.Abuse.match(text); return if (hits.isEmpty()) null else getApplication<Application>().getString(com.undersigned.app.R.string.abuse_blocked, hits.joinToString(", "))
+    }
     /** A typed wallet address or `.skr` name → the address, or null. */
     suspend fun resolveWallet(input: String): String? {
         val t = input.trim()
@@ -191,7 +199,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             runCatching { iconCache.resolve(cat.map { it.packageName }.filter { it in installed.value }) }
             runCatching { installedApps.refreshSnapshot(cat.map { it.packageName }) }
             changes.value = installedApps.changeLog()
-            entries.value = ledgerCache.load(); txMeta.value = ledgerCache.loadMeta()
+            entries.value = honourBans(ledgerCache.load()); txMeta.value = ledgerCache.loadMeta()
             verifiedPublishers.value = UserPreferences.loadVerifiedPublishers()
             rank()
             // Show what the cached ledger already says instead of the catalogue count, until the live read reports.
@@ -234,7 +242,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             ledgerStatus.value = LedgerStatus.Syncing(0, 0)
             reader.sync { p -> ledgerStatus.value = LedgerStatus.Syncing(p.fetched, p.total) }.fold(
-                onSuccess = { list -> entries.value = list; txMeta.value = ledgerCache.loadMeta(); rank(); ledgerStatus.value = syncedStatus(list) },
+                onSuccess = { list -> entries.value = honourBans(list); txMeta.value = ledgerCache.loadMeta(); rank(); ledgerStatus.value = syncedStatus(list) },
                 onFailure = { ledgerStatus.value = LedgerStatus.Error(it.message?.take(80) ?: "unknown") },
             )
         }
@@ -582,6 +590,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      * to nothing.
      */
     fun publishReview(sender: ActivityResultSender, memo: ReviewMemo.Review, use: com.undersigned.protocol.UseBucket?, time: com.undersigned.protocol.UseTime? = null, activity: ReviewMemo.Activity? = null, followUpOf: String? = null, longText: String? = null, customTags: List<String>? = null, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        abuseRefusal(memo)?.let { return onResult(Result.failure(Exception(it))) }
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
         // The follow-up link first: when the extras do not all fit one transaction they are dropped from the end, and a
@@ -606,7 +615,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                     val now = System.currentTimeMillis() / 1000
                     val fresh = ArrayList<LedgerEntry>()
                     sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
-                    entries.value = (fresh + entries.value).distinctBy { it.signature }
+                    entries.value = honourBans((fresh + entries.value).distinctBy { it.signature })
                     ledgerCache.save(entries.value)
                     launch(Dispatchers.IO) { rank() }
                 }
@@ -626,7 +635,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 UserPreferences.follow(memo.packageName)
                 val now = System.currentTimeMillis() / 1000
                 val fresh = texts.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), w, now, it) } }
-                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                entries.value = honourBans((fresh + entries.value).distinctBy { it.signature })
                 ledgerCache.save(entries.value)
                 launch(Dispatchers.IO) { rank() }
             }
@@ -1068,7 +1077,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 val now = System.currentTimeMillis() / 1000
                 val fresh = ArrayList<LedgerEntry>()
                 sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
-                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                entries.value = honourBans((fresh + entries.value).distinctBy { it.signature })
                 ledgerCache.save(entries.value)
                 items.forEach { UserPreferences.follow(it.first) }
                 launch(Dispatchers.IO) { rank() }
@@ -1095,6 +1104,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
      * goes to the API, which checks it and adds the relayer's signature.
      */
     fun publishQuick(memo: ReviewMemo.Review, extras: List<ReviewMemo>, longText: String?, onResult: (Result<String>) -> Unit) {
+        abuseRefusal(memo)?.let { return onResult(Result.failure(Exception(it))) }
         val ctx = getApplication<Application>()
         viewModelScope.launch(Dispatchers.IO) {
             val r = runCatching {
@@ -1148,7 +1158,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
         val author = com.undersigned.app.util.Base58.encode(appKey); val now = System.currentTimeMillis() / 1000
         val fresh = sigs.flatMap { (sig, g) -> g.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), author, now, it) } } }
-        entries.value = (fresh + entries.value).distinctBy { it.signature }
+        entries.value = honourBans((fresh + entries.value).distinctBy { it.signature })
         ledgerCache.save(entries.value)
         viewModelScope.launch(Dispatchers.IO) { rank() }
         return sigs.first().first
@@ -1186,7 +1196,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 val now = System.currentTimeMillis() / 1000
                 val fresh = ArrayList<LedgerEntry>()
                 sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
-                entries.value = (fresh + entries.value).distinctBy { it.signature }
+                entries.value = honourBans((fresh + entries.value).distinctBy { it.signature })
                 ledgerCache.save(entries.value)
                 chosen.forEach { UserPreferences.follow(it.first) }
                 launch(Dispatchers.IO) { rank() }
@@ -1267,6 +1277,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun publish(sender: ActivityResultSender, memo: ReviewMemo, onStage: (ReviewTxService.Stage) -> Unit, onResult: (Result<String>) -> Unit) {
+        abuseRefusal(memo)?.let { return onResult(Result.failure(Exception(it))) }
         val w = wallet.value ?: return onResult(Result.failure(Exception("Sign in with your wallet first")))
         val adapter = WalletSession.adapter ?: return onResult(Result.failure(Exception("Wallet adapter unavailable")))
         val text = runCatching { ReviewMemo.encode(memo) }.getOrElse { return onResult(Result.failure(it)) }
@@ -1443,7 +1454,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** The whole ledger as this device holds it, CSV or JSON. Public data; nothing about the exporter is in it. */
     fun exportLedger(json: Boolean): String {
-        fun kind(m: ReviewMemo) = when (m) { ReviewMemo.Quick -> "quick"; is ReviewMemo.LongTextHead -> "long-text"; is ReviewMemo.TextPart -> "text-part"; is ReviewMemo.Fixed -> "fixed"; is ReviewMemo.FollowUp -> "follow-up"; is ReviewMemo.Activity -> "activity"; is ReviewMemo.CustomTags -> "own-tags"; is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
+        fun kind(m: ReviewMemo) = when (m) { ReviewMemo.Quick -> "quick"; is ReviewMemo.LongTextHead -> "long-text"; is ReviewMemo.TextPart -> "text-part"; is ReviewMemo.Fixed -> "fixed"; is ReviewMemo.FollowUp -> "follow-up"; is ReviewMemo.Activity -> "activity"; is ReviewMemo.CustomTags -> "own-tags"; is ReviewMemo.Ban -> "exclusion"; is ReviewMemo.Unban -> "exclusion-lifted"; is ReviewMemo.Review -> "review"; is ReviewMemo.Revocation -> "revocation"; is ReviewMemo.Reply -> "reply"; is ReviewMemo.Claim -> "claim"; is ReviewMemo.Flag -> "flag"; is ReviewMemo.Unflag -> "unflag"; is ReviewMemo.Upvote -> "helpful"; is ReviewMemo.Unvote -> "unhelpful"; is ReviewMemo.Clear -> "clear"; is ReviewMemo.Dispute -> "dispute"; is ReviewMemo.Pro -> "licence"; is ReviewMemo.Boost -> "promotion"; is ReviewMemo.Share -> "share"; is ReviewMemo.Unshare -> "unshare"; is ReviewMemo.Use -> "install-age"; is ReviewMemo.Time -> "use-time"; is ReviewMemo.StoreNote -> "store-note"; is ReviewMemo.Treasury -> "treasury"; is ReviewMemo.Untreasury -> "treasury-withdrawn"; is ReviewMemo.Moderate -> "moderate"; is ReviewMemo.Unmoderate -> "unmoderate"; is ReviewMemo.TreasuryFor -> "treasury-for" }
         fun target(m: ReviewMemo) = when (m) { is ReviewMemo.Fixed -> m.reviewSignature; is ReviewMemo.FollowUp -> m.originalSignature; is ReviewMemo.Revocation -> m.reviewSignature; is ReviewMemo.Reply -> m.reviewSignature; is ReviewMemo.Flag -> m.recordId; is ReviewMemo.Boost -> m.recordId; is ReviewMemo.Unflag -> m.recordId; is ReviewMemo.Upvote -> m.recordId; is ReviewMemo.Unvote -> m.recordId; is ReviewMemo.Clear -> m.recordId; is ReviewMemo.Dispute -> m.recordId; is ReviewMemo.StoreNote -> m.reviewId; is ReviewMemo.Moderate -> m.recordId; is ReviewMemo.Unmoderate -> m.recordId; else -> "" }
         fun text(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.text ?: ""; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.Flag -> m.reason.wire; is ReviewMemo.Use -> m.bucket.wire; is ReviewMemo.Time -> m.time.wire; is ReviewMemo.Activity -> "m${m.monthsActive} ${m.recency.wire} i${m.reinstalls}"; is ReviewMemo.CustomTags -> m.tags.joinToString(" "); is ReviewMemo.Fixed -> "v${m.versionCode}" + (m.text?.let { " $it" } ?: ""); is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Treasury -> m.code; is ReviewMemo.Moderate -> m.reason.wire; else -> "" }
         fun pkgOf(m: ReviewMemo) = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.Activity -> m.packageName; is ReviewMemo.CustomTags -> m.packageName; is ReviewMemo.StoreNote -> m.packageName; is ReviewMemo.Treasury -> m.packageName; is ReviewMemo.TreasuryFor -> m.packageName; is ReviewMemo.Untreasury -> m.packageName; else -> "" }

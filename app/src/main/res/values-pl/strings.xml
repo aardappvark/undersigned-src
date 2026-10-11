@@ -1203,6 +1203,9 @@
     <string name="pa_window_all">Cały okres</string>
     <string name="pa_loading">Odczytywanie płatności…</string>
     <string name="pa_offline">Analiza płatności nie jest dostępna offline.</string>
+    <string name="abuse_blocked">Ten tekst zawiera słowa, których Undersigned nie publikuje (%1$s). Zmień go, aby podpisać.</string>
+    <string name="mod_ban">Wyklucz ten portfel (nadużycie)</string>
+    <string name="wallet_banned">Wykluczony przez moderatora za nadużycia: wpisy tego portfela zostają na Solanie i nie są tu nigdzie pokazywane.</string>
     <string name="translate_now">Przetłumacz</string>
     <string name="translate_pro">Przetłumacz · Pro</string>
     <string name="settings_auto_translate">Automatycznie tłumacz notatki i odpowiedzi</string>

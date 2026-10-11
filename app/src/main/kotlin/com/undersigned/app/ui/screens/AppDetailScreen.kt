@@ -668,6 +668,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                     if (vm.isModerator(wallet) && r.text != null) {
                                         if (vm.myModeration(e.signature)) DropdownMenuItem(text = { Text(stringResource(R.string.mod_unhide)) }, onClick = { menu = false; sign(ReviewMemo.Unmoderate(e.signature)) })
                                         else DropdownMenuItem(text = { Text(stringResource(R.string.mod_hide)) }, onClick = { menu = false; dialogError = null; modTarget = e.signature })
+                                        // Exclude the wallet (owner, 11 Oct 2026): a moderator's signed ban that every reader honours; the records stay on-chain.
+                                        if (vm.isModerator(wallet) && e.signer != wallet && !vm.isModerator(e.signer)) DropdownMenuItem(text = { Text(stringResource(R.string.mod_ban)) }, onClick = { menu = false; sign(ReviewMemo.Ban(e.signer, ReviewMemo.ModReason.ABUSE)) })
                                     }
                                     DropdownMenuItem(text = { Text(stringResource(R.string.review_report)) }, onClick = { menu = false; report(e.signature) })
                                 }

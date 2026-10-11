@@ -1194,6 +1194,9 @@
     <string name="pa_window_all">Todo el periodo</string>
     <string name="pa_loading">Leyendo pagos…</string>
     <string name="pa_offline">El análisis de pagos no está disponible sin conexión.</string>
+    <string name="abuse_blocked">Este texto contiene lenguaje que Undersigned no publica (%1$s). Edítalo para firmar.</string>
+    <string name="mod_ban">Excluir esta billetera (abuso)</string>
+    <string name="wallet_banned">Excluida por un moderador por abuso: sus registros quedan en Solana y no se muestran aquí.</string>
     <string name="translate_now">Traducir</string>
     <string name="translate_pro">Traducir · Pro</string>
     <string name="settings_auto_translate">Traducir automáticamente notas y respuestas</string>

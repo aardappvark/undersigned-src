@@ -73,11 +73,11 @@ recording. Status bar never in shot (`tools/shot.sh` rule); `dApp` written "dapp
 | 0:33–0:43 | App page: store rating beside the signed score, Seeker-owner lens on store reviews | 10 s |
 | 0:43–0:58 | Write a review: stars, two tags, note, usage toggle on, the Sign in with wallet button | 15 s |
 | 0:58–1:10 | Seeker Wallet sheet (fee visible) → double-tap, filmed with a camera over the screen → "Published" | 12 s, owner's hands |
-| 1:10–1:20 | Back on the page: the review with Genesis and Seeker-wallet marks and its label | 10 s; if an independent owner signed, this is their review |
+| 1:10–1:20 | Back on the page: the review with its marks and label; tap the 4★ row (list filters); tap the reviewer’s record (their history with date, dApp, stars, tags) | 10 s |
 | 1:20–1:30 | Browser: the app's page on the website, then Solscan with the memo and reference account | Mac screen, 10 s |
 | 1:30–1:45 | Publisher: Publisher mark, Mark fixed → notification on a second Seeker → follow-up with new stars, change shown | two screens, 15 s |
 | 1:45–2:05 | Side-by-sides 2 and 3: developer matrix and reviewer matrix, four rows each, a real shot in every Undersigned cell | motion + stills, 20 s |
-| 2:05–2:15 | Pro: offers that hide once Pro is active, up to two tags of your own, notification switches | 10 s |
+| 2:05–2:15 | Pro: the own-tags field, the Translate button on a note and on a reply, the offer gone once Pro is active; Settings switches; a quick review posted without a wallet; stills of batch signing and store import | 10 s |
 | 2:15–2:25 | Payments tab on the phone, then the three web charts (top dApps 30 d, weekly 12 months, categories/rising) | 4 s + 6 s |
 | 2:25–2:33 | Motion scene 5 ($2 vs $450–500) | existing |
 | 2:33–2:45 | Motion scenes 9 and 10 (numbers, labelled target; why now) trimmed to 35 words | existing, re-timed |

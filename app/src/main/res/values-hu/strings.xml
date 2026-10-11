@@ -1165,6 +1165,9 @@
     <string name="pa_window_all">Teljes időszak</string>
     <string name="pa_loading">Fizetések beolvasása…</string>
     <string name="pa_offline">A fizetési elemzés offline nem érhető el.</string>
+    <string name="abuse_blocked">A szöveg olyan nyelvezetet tartalmaz, amelyet az Undersigned nem tesz közzé (%1$s). Szerkessze az aláíráshoz.</string>
+    <string name="mod_ban">Tárca kizárása (visszaélés)</string>
+    <string name="wallet_banned">Moderátor zárta ki visszaélés miatt: a tárca bejegyzései a Solanán maradnak, itt sehol nem jelennek meg.</string>
     <string name="translate_now">Fordítás</string>
     <string name="translate_pro">Fordítás · Pro</string>
     <string name="settings_auto_translate">Jegyzetek és válaszok automatikus fordítása</string>

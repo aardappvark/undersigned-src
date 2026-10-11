@@ -66,6 +66,8 @@ class State(
 ) {
     val byPackage: Map<String, CatalogueApp> = catalogue.associateBy { it.packageName }
     val revoked: Set<String> = Ranking.revoked(entries)
+    /** Wallets excluded by a moderator's `ban` record; their records are already out of [entries]. */
+    val banned: Set<String> = com.undersigned.protocol.Moderation.banned(entries)
     /** Raw facts, for display; [f] is what every score, flag, vote and hide reads (the operator's wallets count nowhere). */
     private val raw = { w: String -> facts[w] ?: SignerFacts(false, 0.0) }
     private val f = com.undersigned.protocol.Operator.gate(raw)
@@ -466,7 +468,8 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
             else -> null
         }
         val hides = operatorHidden().filterKeys { id -> pkgOfRecord(id)?.let { com.undersigned.protocol.Operator.publishes(it, verified) } != true }
-        state = State(entries, meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides, reviewStake)
+        // A moderator's signed ban drops that wallet's records before anything is scored or shown (protocol Moderation, 11 Oct 2026).
+        state = State(com.undersigned.protocol.Moderation.excludeBanned(entries), meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides, reviewStake)
         if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 

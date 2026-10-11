@@ -1166,6 +1166,9 @@
     <string name="pa_window_all">Hela tiden</string>
     <string name="pa_loading">Läser betalningar…</string>
     <string name="pa_offline">Betalningsanalysen är inte tillgänglig offline.</string>
+    <string name="abuse_blocked">Texten innehåller språk som Undersigned inte publicerar (%1$s). Redigera den för att signera.</string>
+    <string name="mod_ban">Uteslut denna plånbok (missbruk)</string>
+    <string name="wallet_banned">Utesluten av en moderator för missbruk: plånbokens poster finns kvar på Solana och visas inte här.</string>
     <string name="translate_now">Översätt</string>
     <string name="translate_pro">Översätt · Pro</string>
     <string name="settings_auto_translate">Översätt anteckningar och svar automatiskt</string>
