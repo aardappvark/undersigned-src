@@ -1328,4 +1328,12 @@
     <string name="desk_pay_12w">USD per week, laatste 12 weken</string>
     <string name="settings_analytics">Anonieme gebruiksstatistieken</string>
     <string name="settings_analytics_hint">Eén gebeurtenisnaam per actie, geen identificatoren, alleen op landniveau. Uit betekent dat er niets wordt verstuurd.</string>
+    <string name="tag_feature">Functieverzoek</string>
+    <string name="ack_will">Wordt gebouwd</string>
+    <string name="ack_wont">Wordt niet gebouwd</string>
+    <string name="ack_line_will">Uitgever: wordt gebouwd · beantwoord in %1$s</string>
+    <string name="ack_line_wont">Uitgever: wordt niet gebouwd · beantwoord in %1$s</string>
+    <string name="delivered_line">Geleverd in versie %1$s · %2$s na het verzoek</string>
+    <string name="stats_requests">Functieverzoeken: %1$d van %2$d beantwoord · mediaan tot besluit %3$s · %4$d geleverd, mediaan %5$s</string>
+    <string name="stats_crashes">Gemelde crashes: %1$d · %2$d opgelost · mediaan tot fix %3$s</string>
 </resources>

@@ -1348,4 +1348,12 @@
     <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
     <string name="settings_analytics">Analítica de uso anónima</string>
     <string name="settings_analytics_hint">Un nombre de evento por acción, sin identificadores, solo a nivel de país. Desactivado significa que no se envía nada.</string>
+    <string name="tag_feature">Petición de función</string>
+    <string name="ack_will">Lo haremos</string>
+    <string name="ack_wont">No lo haremos</string>
+    <string name="ack_line_will">Editor: lo haremos · respondido en %1$s</string>
+    <string name="ack_line_wont">Editor: no lo haremos · respondido en %1$s</string>
+    <string name="delivered_line">Entregado en la versión %1$s · %2$s tras la petición</string>
+    <string name="stats_requests">Peticiones de función: %1$d de %2$d respondidas · mediana para decidir %3$s · %4$d entregadas, mediana %5$s</string>
+    <string name="stats_crashes">Fallos notificados: %1$d · %2$d corregidos · mediana para corregir %3$s</string>
 </resources>

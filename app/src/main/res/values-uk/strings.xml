@@ -1356,4 +1356,12 @@
     <string name="desk_pay_12w">USD на тиждень, останні 12 тижнів</string>
     <string name="settings_analytics">Анонімна аналітика використання</string>
     <string name="settings_analytics_hint">По одній назві події на дію, без ідентифікаторів, лише рівень країни. Вимкнено — не надсилається нічого.</string>
+    <string name="tag_feature">Запит функції</string>
+    <string name="ack_will">Зробимо</string>
+    <string name="ack_wont">Не робитимемо</string>
+    <string name="ack_line_will">Видавець: зробимо · відповідь за %1$s</string>
+    <string name="ack_line_wont">Видавець: не робитимемо · відповідь за %1$s</string>
+    <string name="delivered_line">Зроблено у версії %1$s · через %2$s після запиту</string>
+    <string name="stats_requests">Запити функцій: відповідь на %1$d з %2$d · медіана рішення %3$s · зроблено %4$d, медіана %5$s</string>
+    <string name="stats_crashes">Повідомлень про збої: %1$d · виправлено %2$d · медіана виправлення %3$s</string>
 </resources>

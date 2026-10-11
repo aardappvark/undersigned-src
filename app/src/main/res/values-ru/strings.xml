@@ -1340,4 +1340,12 @@
     <string name="desk_pay_12w">USD в неделю, последние 12 недель</string>
     <string name="settings_analytics">Анонимная аналитика использования</string>
     <string name="settings_analytics_hint">По одному имени события на действие, без идентификаторов, только уровень страны. Выключено — не отправляется ничего.</string>
+    <string name="tag_feature">Запрос функции</string>
+    <string name="ack_will">Сделаем</string>
+    <string name="ack_wont">Не будем делать</string>
+    <string name="ack_line_will">Издатель: сделаем · ответ за %1$s</string>
+    <string name="ack_line_wont">Издатель: не будем делать · ответ за %1$s</string>
+    <string name="delivered_line">Сделано в версии %1$s · через %2$s после запроса</string>
+    <string name="stats_requests">Запросы функций: отвечено %1$d из %2$d · медиана решения %3$s · сделано %4$d, медиана %5$s</string>
+    <string name="stats_crashes">Сообщений о сбоях: %1$d · исправлено %2$d · медиана исправления %3$s</string>
 </resources>

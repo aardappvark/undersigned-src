@@ -1295,4 +1295,12 @@
     <string name="desk_pay_12w">週ごとのUSD、過去12週間</string>
     <string name="settings_analytics">匿名の利用状況データ</string>
     <string name="settings_analytics_hint">操作ごとにイベント名を1つ、識別子はなし、国レベルのみ。オフにすると、何も送信されません。</string>
+    <string name="tag_feature">機能リクエスト</string>
+    <string name="ack_will">対応します</string>
+    <string name="ack_wont">対応しません</string>
+    <string name="ack_line_will">パブリッシャー: 対応します · %1$sで回答</string>
+    <string name="ack_line_wont">パブリッシャー: 対応しません · %1$sで回答</string>
+    <string name="delivered_line">バージョン%1$sで提供 · リクエストから%2$s</string>
+    <string name="stats_requests">機能リクエスト: %2$d件中%1$d件に回答 · 判断の中央値%3$s · %4$d件提供、中央値%5$s</string>
+    <string name="stats_crashes">クラッシュ報告: %1$d件 · %2$d件修正 · 修正の中央値%3$s</string>
 </resources>

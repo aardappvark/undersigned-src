@@ -1322,4 +1322,12 @@
     <string name="desk_pay_12w">प्रति सप्ताह USD, पिछले 12 सप्ताह</string>
     <string name="settings_analytics">अनाम उपयोग विश्लेषण</string>
     <string name="settings_analytics_hint">हर क्रिया के लिए एक इवेंट नाम, कोई पहचानकर्ता नहीं, केवल देश-स्तर तक। बंद का अर्थ है कुछ भी नहीं भेजा जाता।</string>
+    <string name="tag_feature">फ़ीचर अनुरोध</string>
+    <string name="ack_will">बनाएँगे</string>
+    <string name="ack_wont">नहीं बनाएँगे</string>
+    <string name="ack_line_will">प्रकाशक: बनाएँगे · %1$s में उत्तर</string>
+    <string name="ack_line_wont">प्रकाशक: नहीं बनाएँगे · %1$s में उत्तर</string>
+    <string name="delivered_line">संस्करण %1$s में दिया गया · अनुरोध के %2$s बाद</string>
+    <string name="stats_requests">फ़ीचर अनुरोध: %2$d में से %1$d उत्तरित · निर्णय का माध्यिका %3$s · %4$d दिए गए, माध्यिका %5$s</string>
+    <string name="stats_crashes">क्रैश रिपोर्ट: %1$d · %2$d ठीक · ठीक करने का माध्यिका %3$s</string>
 </resources>

@@ -1296,4 +1296,12 @@
     <string name="desk_pay_12w">주별 USD, 최근 12주</string>
     <string name="settings_analytics">익명 사용 통계</string>
     <string name="settings_analytics_hint">동작마다 이벤트 이름 하나, 식별자 없음, 국가 단위만. 끄면 아무것도 전송되지 않아요.</string>
+    <string name="tag_feature">기능 요청</string>
+    <string name="ack_will">구현 예정</string>
+    <string name="ack_wont">구현 안 함</string>
+    <string name="ack_line_will">퍼블리셔: 구현 예정 · %1$s 만에 답변</string>
+    <string name="ack_line_wont">퍼블리셔: 구현 안 함 · %1$s 만에 답변</string>
+    <string name="delivered_line">버전 %1$s에서 제공 · 요청 후 %2$s</string>
+    <string name="stats_requests">기능 요청: %2$d건 중 %1$d건 답변 · 결정 중앙값 %3$s · %4$d건 제공, 중앙값 %5$s</string>
+    <string name="stats_crashes">충돌 신고: %1$d건 · %2$d건 수정 · 수정 중앙값 %3$s</string>
 </resources>

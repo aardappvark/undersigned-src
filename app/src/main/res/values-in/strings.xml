@@ -1304,4 +1304,12 @@
     <string name="desk_pay_12w">USD per minggu, 12 minggu terakhir</string>
     <string name="settings_analytics">Analitik penggunaan anonim</string>
     <string name="settings_analytics_hint">Satu nama peristiwa per tindakan, tanpa pengenal, hanya sampai tingkat negara. Kalau dimatikan, tidak ada yang dikirim.</string>
+    <string name="tag_feature">Permintaan fitur</string>
+    <string name="ack_will">Akan dibuat</string>
+    <string name="ack_wont">Tidak akan dibuat</string>
+    <string name="ack_line_will">Penerbit: akan dibuat · dijawab dalam %1$s</string>
+    <string name="ack_line_wont">Penerbit: tidak akan dibuat · dijawab dalam %1$s</string>
+    <string name="delivered_line">Dikirim di versi %1$s · %2$s setelah permintaan</string>
+    <string name="stats_requests">Permintaan fitur: %1$d dari %2$d dijawab · median keputusan %3$s · %4$d dikirim, median %5$s</string>
+    <string name="stats_crashes">Crash dilaporkan: %1$d · %2$d diperbaiki · median perbaikan %3$s</string>
 </resources>

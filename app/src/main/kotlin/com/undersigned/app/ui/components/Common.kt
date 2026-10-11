@@ -132,6 +132,7 @@ object TagLabels { fun Context.label(wire: String): String = tagLabel(wire) }
 
 /** String resource for a tag wire value, or null for a wire value this build doesn't know. */
 fun tagLabelRes(wire: String): Int? = when (wire) {
+    "feature" -> R.string.tag_feature
     "works" -> R.string.tag_works
     "crashes" -> R.string.tag_crashes
     "wallet-ok" -> R.string.tag_wallet_ok

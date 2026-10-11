@@ -69,6 +69,8 @@ sealed class ReviewMemo {
      * only from a verified publisher of the reviewed app, signed after the review ([Threads]).
      */
     data class Fixed(val reviewSignature: String, val versionCode: Long, val text: String?) : ReviewMemo()
+    /** `SRL1|ack|<review sig>|<y|n>|<text b64>`: the publisher's answer to a feature request (a review tagged `feature`): will build it, or will not. Counted only from a proven publisher. */
+    data class Ack(val reviewSignature: String, val will: Boolean, val text: String?) : ReviewMemo()
     /**
      * `SRL1|fup|<original review>`: rides beside a review in the SAME transaction and marks it as the signer's follow-up to
      * their own earlier review of the same app (a second round, usually after a fix). The new review counts as their
@@ -142,7 +144,7 @@ sealed class ReviewMemo {
         EXCESS_PERMISSIONS("perms-excess"), SPAM_REVIEWS("spam-reviews"), MISLEADING_LISTING("misleading"),
         SUSPECTED_SCAM("suspected-scam"), ABANDONED("abandoned"), ACTIVE_DEV("active-dev"),
         GOOD_ONBOARDING("onboarding-ok"), CONFUSING("confusing"), OFFLINE_OK("offline-ok"),
-        NEEDS_ACCOUNT("needs-account"), SEEKER_NATIVE("seeker-native"), WEBVIEW_WRAPPER("webview");
+        NEEDS_ACCOUNT("needs-account"), SEEKER_NATIVE("seeker-native"), WEBVIEW_WRAPPER("webview"), FEATURE_REQUEST("feature");
         companion object { private val byWire = entries.associateBy { it.wire }; fun fromWire(s: String) = byWire[s] }
     }
 
@@ -232,6 +234,12 @@ sealed class ReviewMemo {
             is Unmoderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|umd|${m.recordId}" }
             is TreasuryFor -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; require(Payments.isReference(m.treasury)) { "treasury address" }; "${Registry.PROTOCOL}|trd|${m.packageName}|${m.code}|${m.treasury}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
+            is Ack -> {
+                require(SIGNATURE.matches(m.reviewSignature)) { "ack" }
+                val t = m.text?.trim()?.takeIf { it.isNotEmpty() }
+                if (t != null) require(t.length <= MAX_TEXT_CHARS && t.toByteArray(StandardCharsets.UTF_8).size <= MAX_TEXT_BYTES && t.none { it == '\n' || it == '\r' }) { "ack text" }
+                "${Registry.PROTOCOL}|ack|${m.reviewSignature}|" + (if (m.will) "y" else "n") + "|" + (t?.let { Base64.getUrlEncoder().withoutPadding().encodeToString(it.toByteArray(StandardCharsets.UTF_8)) } ?: "")
+            }
             is Fixed -> {
                 require(SIGNATURE.matches(m.reviewSignature) && m.versionCode in 1..Int.MAX_VALUE.toLong()) { "fix" }
                 val t = m.text?.trim()?.takeIf { it.isNotEmpty() }
@@ -315,6 +323,12 @@ sealed class ReviewMemo {
                 "umd" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unmoderate(f[2]) else null
                 "trd" -> if (f.size == 5 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3]) && Payments.isReference(f[4])) TreasuryFor(f[2], f[3], f[4]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null
+                "ack" -> {
+                    if (f.size != 5 || !SIGNATURE.matches(f[2]) || f[3] !in setOf("y", "n")) return null
+                    val t = if (f[4].isEmpty()) null else runCatching { Base64.getUrlDecoder().decode(f[4]) }.getOrNull()?.takeIf { it.size <= MAX_TEXT_BYTES }
+                        ?.let { String(it, StandardCharsets.UTF_8) }?.takeIf { it.isNotBlank() && it.length <= MAX_TEXT_CHARS && it.none { c -> c == '\n' || c == '\r' } } ?: if (f[4].isEmpty()) null else return null
+                    Ack(f[2], f[3] == "y", t)
+                }
                 "fix" -> {
                     if (f.size != 5 || !SIGNATURE.matches(f[2])) return null
                     val vc = f[3].toLongOrNull()?.takeIf { it in 1..Int.MAX_VALUE.toLong() } ?: return null

@@ -1349,4 +1349,12 @@
     <string name="desk_pay_12w">USD za týden, posledních 12 týdnů</string>
     <string name="settings_analytics">Anonymní analytika používání</string>
     <string name="settings_analytics_hint">Jeden název události na akci, žádné identifikátory, jen úroveň země. Vypnuto znamená, že se neodesílá nic.</string>
+    <string name="tag_feature">Žádost o funkci</string>
+    <string name="ack_will">Uděláme</string>
+    <string name="ack_wont">Neuděláme</string>
+    <string name="ack_line_will">Vydavatel: uděláme · odpověď za %1$s</string>
+    <string name="ack_line_wont">Vydavatel: neuděláme · odpověď za %1$s</string>
+    <string name="delivered_line">Dodáno ve verzi %1$s · %2$s po žádosti</string>
+    <string name="stats_requests">Žádosti o funkce: zodpovězeno %1$d z %2$d · medián rozhodnutí %3$s · dodáno %4$d, medián %5$s</string>
+    <string name="stats_crashes">Nahlášené pády: %1$d · opraveno %2$d · medián opravy %3$s</string>
 </resources>

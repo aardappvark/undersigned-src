@@ -1337,4 +1337,12 @@
     <string name="desk_pay_12w">USD pe săptămână, ultimele 12 săptămâni</string>
     <string name="settings_analytics">Analiză anonimă de utilizare</string>
     <string name="settings_analytics_hint">Un nume de eveniment pe acțiune, fără identificatori, doar la nivel de țară. Oprit înseamnă că nu se trimite nimic.</string>
+    <string name="tag_feature">Cerere de funcție</string>
+    <string name="ack_will">Vom construi</string>
+    <string name="ack_wont">Nu vom construi</string>
+    <string name="ack_line_will">Editor: vom construi · răspuns în %1$s</string>
+    <string name="ack_line_wont">Editor: nu vom construi · răspuns în %1$s</string>
+    <string name="delivered_line">Livrat în versiunea %1$s · la %2$s după cerere</string>
+    <string name="stats_requests">Cereri de funcții: %1$d din %2$d cu răspuns · mediana deciziei %3$s · %4$d livrate, mediana %5$s</string>
+    <string name="stats_crashes">Blocări raportate: %1$d · %2$d reparate · mediana reparării %3$s</string>
 </resources>

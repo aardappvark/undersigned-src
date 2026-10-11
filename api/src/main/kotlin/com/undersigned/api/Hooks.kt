@@ -63,6 +63,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
                 is ReviewMemo.Claim -> "claim" to m.packageName
                 // The second round (11 Oct 2026): a publisher's "fixed in version N" and a reviewer's follow-up, for the plan's webhooks.
                 is ReviewMemo.Fixed -> "fixed" to (byId(m.reviewSignature)?.memo as? ReviewMemo.Review)?.packageName
+                is ReviewMemo.Ack -> "decision" to (byId(m.reviewSignature)?.memo as? ReviewMemo.Review)?.packageName
                 is ReviewMemo.FollowUp -> "follow_up" to (byId(m.originalSignature)?.memo as? ReviewMemo.Review)?.packageName
                 else -> continue
             }

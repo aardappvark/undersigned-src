@@ -1390,4 +1390,12 @@
     <string name="desk_pay_12w">دولار في الأسبوع، آخر 12 أسبوعًا</string>
     <string name="settings_analytics">تحليلات استخدام مجهولة</string>
     <string name="settings_analytics_hint">اسم حدث واحد لكل إجراء، بلا معرّفات، وعلى مستوى الدولة فقط. الإيقاف يعني ألا يُرسل شيء.</string>
+    <string name="tag_feature">طلب ميزة</string>
+    <string name="ack_will">سنبنيها</string>
+    <string name="ack_wont">لن نبنيها</string>
+    <string name="ack_line_will">الناشر: سنبنيها · الرد خلال %1$s</string>
+    <string name="ack_line_wont">الناشر: لن نبنيها · الرد خلال %1$s</string>
+    <string name="delivered_line">تم التنفيذ في الإصدار %1$s · بعد %2$s من الطلب</string>
+    <string name="stats_requests">طلبات الميزات: تم الرد على %1$d من %2$d · وسيط القرار %3$s · %4$d نُفذت، وسيط %5$s</string>
+    <string name="stats_crashes">أعطال مُبلَّغة: %1$d · %2$d أُصلحت · وسيط الإصلاح %3$s</string>
 </resources>

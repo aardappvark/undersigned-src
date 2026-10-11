@@ -1319,4 +1319,12 @@
     <string name="desk_pay_12w">Haftalık USD, son 12 hafta</string>
     <string name="settings_analytics">Anonim kullanım analitiği</string>
     <string name="settings_analytics_hint">Eylem başına tek olay adı, kimlik bilgisi yok, yalnızca ülke düzeyinde. Kapalıysa hiçbir şey gönderilmez.</string>
+    <string name="tag_feature">Özellik isteği</string>
+    <string name="ack_will">Yapılacak</string>
+    <string name="ack_wont">Yapılmayacak</string>
+    <string name="ack_line_will">Yayıncı: yapılacak · %1$s içinde yanıtlandı</string>
+    <string name="ack_line_wont">Yayıncı: yapılmayacak · %1$s içinde yanıtlandı</string>
+    <string name="delivered_line">%1$s sürümünde sunuldu · istekten %2$s sonra</string>
+    <string name="stats_requests">Özellik istekleri: %2$d istekten %1$d yanıtlandı · karar medyanı %3$s · %4$d sunuldu, medyan %5$s</string>
+    <string name="stats_crashes">Bildirilen çökmeler: %1$d · %2$d düzeltildi · düzeltme medyanı %3$s</string>
 </resources>

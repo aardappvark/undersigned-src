@@ -1323,4 +1323,12 @@
     <string name="desk_pay_12w">USD bawat linggo, huling 12 linggo</string>
     <string name="settings_analytics">Hindi nagpapakilalang usage analytics</string>
     <string name="settings_analytics_hint">Isang pangalan ng event bawat aksyon, walang identifier, antas-bansa lang. Ang naka-off ay nangangahulugang walang ipinapadala.</string>
+    <string name="tag_feature">Hiling na feature</string>
+    <string name="ack_will">Gagawin</string>
+    <string name="ack_wont">Hindi gagawin</string>
+    <string name="ack_line_will">Publisher: gagawin · sinagot sa %1$s</string>
+    <string name="ack_line_wont">Publisher: hindi gagawin · sinagot sa %1$s</string>
+    <string name="delivered_line">Naihatid sa bersyon %1$s · %2$s matapos ang hiling</string>
+    <string name="stats_requests">Mga hiling na feature: %1$d sa %2$d nasagot · median na pagpapasya %3$s · %4$d naihatid, median %5$s</string>
+    <string name="stats_crashes">Naiulat na crash: %1$d · %2$d naayos · median na pag-aayos %3$s</string>
 </resources>

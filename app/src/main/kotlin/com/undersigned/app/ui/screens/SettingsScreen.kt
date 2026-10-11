@@ -131,7 +131,10 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
             SectionTitle(stringResource(R.string.settings_wallet))
             GlassCard {
-                Text(wallet?.let { shortKey(it, 8, 8) } ?: stringResource(R.string.settings_no_wallet), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                // The .skr name first, as everywhere else a wallet appears; the address beneath it (owner, 12 Oct 2026).
+                val skr = wallet?.let { domainNames[it]?.takeIf { n -> n.isNotEmpty() } }
+                Text(skr ?: wallet?.let { shortKey(it, 8, 8) } ?: stringResource(R.string.settings_no_wallet), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+                if (skr != null) Text(shortKey(wallet!!, 8, 8), color = RbColors.textTertiary, fontSize = 11.sp)
                 Spacer(Modifier.height(10.dp))
                 if (wallet != null) SecondaryButton(stringResource(R.string.disconnect_wallet), onClick = { confirm = Confirm(R.string.disconnect_wallet, R.string.confirm_disconnect_body, R.string.disconnect_wallet) { UserPreferences.setWallet(null); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.WALLET_DISCONNECTED) } })
                 else SecondaryButton(if (signing) stringResource(R.string.terms_signing) else stringResource(R.string.settings_signin), enabled = !signing && sender != null, onClick = { signIn() })

@@ -1357,4 +1357,12 @@
     <string name="desk_pay_12w">USD na tydzień, ostatnie 12 tygodni</string>
     <string name="settings_analytics">Anonimowa analityka użycia</string>
     <string name="settings_analytics_hint">Jedna nazwa zdarzenia na akcję, bez identyfikatorów, tylko poziom kraju. Wyłączone znaczy, że nic nie jest wysyłane.</string>
+    <string name="tag_feature">Prośba o funkcję</string>
+    <string name="ack_will">Zrobimy</string>
+    <string name="ack_wont">Nie zrobimy</string>
+    <string name="ack_line_will">Wydawca: zrobimy · odpowiedź w %1$s</string>
+    <string name="ack_line_wont">Wydawca: nie zrobimy · odpowiedź w %1$s</string>
+    <string name="delivered_line">Dostarczono w wersji %1$s · %2$s po prośbie</string>
+    <string name="stats_requests">Prośby o funkcje: %1$d z %2$d z odpowiedzią · mediana decyzji %3$s · %4$d dostarczono, mediana %5$s</string>
+    <string name="stats_crashes">Zgłoszone awarie: %1$d · %2$d naprawiono · mediana naprawy %3$s</string>
 </resources>

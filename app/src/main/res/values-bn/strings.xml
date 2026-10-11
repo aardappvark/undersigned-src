@@ -1315,4 +1315,12 @@
     <string name="desk_pay_12w">প্রতি সপ্তাহে USD, গত ১২ সপ্তাহ</string>
     <string name="settings_analytics">বেনামি ব্যবহার-বিশ্লেষণ</string>
     <string name="settings_analytics_hint">প্রতিটি ক্রিয়ার জন্য একটি ইভেন্ট নাম, কোনো শনাক্তকারী নয়, শুধু দেশ-স্তর পর্যন্ত। বন্ধ মানে কিছুই পাঠানো হয় না।</string>
+    <string name="tag_feature">ফিচার অনুরোধ</string>
+    <string name="ack_will">তৈরি করব</string>
+    <string name="ack_wont">তৈরি করব না</string>
+    <string name="ack_line_will">প্রকাশক: তৈরি করব · উত্তর %1$s-এ</string>
+    <string name="ack_line_wont">প্রকাশক: তৈরি করব না · উত্তর %1$s-এ</string>
+    <string name="delivered_line">সংস্করণ %1$s-এ দেওয়া হয়েছে · অনুরোধের %2$s পরে</string>
+    <string name="stats_requests">ফিচার অনুরোধ: %2$d-এর %1$d উত্তর · সিদ্ধান্তের মধ্যমা %3$s · %4$d দেওয়া, মধ্যমা %5$s</string>
+    <string name="stats_crashes">ক্র্যাশ রিপোর্ট: %1$d · %2$d ঠিক · ঠিক করার মধ্যমা %3$s</string>
 </resources>

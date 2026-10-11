@@ -1348,4 +1348,12 @@
     <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
     <string name="settings_analytics">Análise de uso anônima</string>
     <string name="settings_analytics_hint">Um nome de evento por ação, sem identificadores, apenas em nível de país. Desligado significa que nada é enviado.</string>
+    <string name="tag_feature">Pedido de recurso</string>
+    <string name="ack_will">Vamos fazer</string>
+    <string name="ack_wont">Não vamos fazer</string>
+    <string name="ack_line_will">Publicador: vamos fazer · respondido em %1$s</string>
+    <string name="ack_line_wont">Publicador: não vamos fazer · respondido em %1$s</string>
+    <string name="delivered_line">Entregue na versão %1$s · %2$s após o pedido</string>
+    <string name="stats_requests">Pedidos de recurso: %1$d de %2$d respondidos · mediana para decidir %3$s · %4$d entregues, mediana %5$s</string>
+    <string name="stats_crashes">Falhas relatadas: %1$d · %2$d corrigidas · mediana para corrigir %3$s</string>
 </resources>

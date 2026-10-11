@@ -1303,4 +1303,12 @@
     <string name="desk_pay_12w">每周美元,最近 12 周</string>
     <string name="settings_analytics">匿名使用统计</string>
     <string name="settings_analytics_hint">每个操作只上报一个事件名,不含任何标识符,只精确到国家。关闭后,不会发送任何内容。</string>
+    <string name="tag_feature">功能请求</string>
+    <string name="ack_will">将会实现</string>
+    <string name="ack_wont">不会实现</string>
+    <string name="ack_line_will">发布者:将会实现 · %1$s 内答复</string>
+    <string name="ack_line_wont">发布者:不会实现 · %1$s 内答复</string>
+    <string name="delivered_line">已在版本 %1$s 中提供 · 请求后 %2$s</string>
+    <string name="stats_requests">功能请求:%2$d 个中 %1$d 个已答复 · 决定中位 %3$s · %4$d 个已提供,中位 %5$s</string>
+    <string name="stats_crashes">崩溃报告:%1$d · 已修复 %2$d · 修复中位 %3$s</string>
 </resources>

@@ -24,6 +24,11 @@ data class SignerStanding(
     val fixesConfirmed: Int = 0,       // of those, with more stars than before: the fix held
 )
 
+
+/** Feature requests (reviews tagged `feature`) of one package and how the proven publisher handled them: decided (ack), promised, delivered (a `fix` after the request). Hours are medians. */
+data class Requests(val packageName: String, val total: Int, val answered: Int, val medianDecisionHours: Double?, val willBuild: Int, val delivered: Int, val medianDeliverHours: Double?)
+/** Crash reports (reviews tagged `crashes`) of one package and how fast the proven publisher signed a fix for them. */
+data class Crashes(val packageName: String, val total: Int, val fixed: Int, val medianFixHours: Double?)
 /** How quickly a verified publisher answers signed reviews of one package. */
 data class Responsiveness(
     val packageName: String,
@@ -200,6 +205,35 @@ object Reputation {
         return Responsiveness(packageName, delays.size, threads.size, median)
     }
 
+
+    private fun median(xs: List<Double>): Double? { val d = xs.sorted(); return if (d.isEmpty()) null else if (d.size % 2 == 1) d[d.size / 2] else (d[d.size / 2 - 1] + d[d.size / 2]) / 2 }
+    private fun taggedThreads(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Set<String>, tag: ReviewMemo.Tag): List<LedgerEntry> {
+        val revoked = Ranking.revoked(entries)
+        // One thread per reviewer, their latest live review of this app that carries the tag.
+        return entries.filter { it.memo is ReviewMemo.Review && it.signature !in revoked && (it.memo as ReviewMemo.Review).packageName == packageName && it.signer !in verifiedPublishers && tag in (it.memo as ReviewMemo.Review).tags }
+            .groupBy { it.signer }.values.map { mine -> mine.maxBy { it.blockTime } }
+    }
+    /** Feature requests and the publisher's answers: hours from the request to the signed decision, and to the fix that delivers it. */
+    fun requests(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Set<String>): Requests {
+        val threads = taggedThreads(entries, packageName, verifiedPublishers, ReviewMemo.Tag.FEATURE_REQUEST)
+        val acks = entries.filter { it.memo is ReviewMemo.Ack && it.signer in verifiedPublishers }
+        val fixes = entries.filter { it.memo is ReviewMemo.Fixed && it.signer in verifiedPublishers }
+        var will = 0; val decide = ArrayList<Double>(); val deliver = ArrayList<Double>()
+        for (r in threads) {
+            val ack = acks.filter { (it.memo as ReviewMemo.Ack).reviewSignature == r.signature && it.blockTime >= r.blockTime }.maxByOrNull { it.blockTime } ?: continue
+            decide += (ack.blockTime - r.blockTime) / 3600.0
+            if ((ack.memo as ReviewMemo.Ack).will) { will++
+                fixes.filter { (it.memo as ReviewMemo.Fixed).reviewSignature == r.signature && it.blockTime >= ack.blockTime }.minOfOrNull { it.blockTime }?.let { deliver += (it - r.blockTime) / 3600.0 } }
+        }
+        return Requests(packageName, threads.size, decide.size, median(decide), will, deliver.size, median(deliver))
+    }
+    /** Crash reports and how fast a proven publisher signed "fixed in version N" for them. */
+    fun crashes(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Set<String>): Crashes {
+        val threads = taggedThreads(entries, packageName, verifiedPublishers, ReviewMemo.Tag.CRASHES)
+        val fixes = entries.filter { it.memo is ReviewMemo.Fixed && it.signer in verifiedPublishers }
+        val hours = threads.mapNotNull { r -> fixes.filter { (it.memo as ReviewMemo.Fixed).reviewSignature == r.signature && it.blockTime >= r.blockTime }.minOfOrNull { it.blockTime }?.let { (it - r.blockTime) / 3600.0 } }
+        return Crashes(packageName, threads.size, hours.size, median(hours))
+    }
     /** Live counted reviews of one app grouped by the version they were written against, newest version first. */
     data class VersionScore(val versionCode: Long, val mean: Double, val count: Int)
     fun byVersion(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Map<String, Set<String>> = emptyMap(), facts: (String) -> SignerFacts): List<VersionScore> {

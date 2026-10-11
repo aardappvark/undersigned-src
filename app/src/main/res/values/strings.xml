@@ -1345,4 +1345,12 @@
     <string name="notif_ch_reminders_desc">The weekly review reminder and review nudges.</string>
     <string name="desk_pay_30d">Received in the last 12 weeks: %1$s (USD on the day paid)</string>
     <string name="desk_pay_12w">USD per week, last 12 weeks</string>
+    <string name="tag_feature">Feature request</string>
+    <string name="ack_will">Will build</string>
+    <string name="ack_wont">Won’t build</string>
+    <string name="ack_line_will">Publisher: will build · answered in %1$s</string>
+    <string name="ack_line_wont">Publisher: won’t build · answered in %1$s</string>
+    <string name="delivered_line">Delivered in version %1$s · %2$s after the request</string>
+    <string name="stats_requests">Feature requests: %1$d of %2$d answered · median %3$s to decide · %4$d delivered, median %5$s</string>
+    <string name="stats_crashes">Crashes reported: %1$d · %2$d fixed · median %3$s to fix</string>
 </resources>

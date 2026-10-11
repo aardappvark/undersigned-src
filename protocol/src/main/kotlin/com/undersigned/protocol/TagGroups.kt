@@ -13,7 +13,7 @@ object TagGroups {
         Group.WALLET to listOf(ReviewMemo.Tag.WALLET_CONNECTS, ReviewMemo.Tag.WALLET_FAILS),
         Group.MONEY to listOf(ReviewMemo.Tag.FAIR_PRICE, ReviewMemo.Tag.OVERPRICED, ReviewMemo.Tag.ADS, ReviewMemo.Tag.PAYWALL, ReviewMemo.Tag.NEEDS_ACCOUNT),
         Group.TRUST to listOf(ReviewMemo.Tag.CLEAR_PERMISSIONS, ReviewMemo.Tag.EXCESS_PERMISSIONS, ReviewMemo.Tag.MISLEADING_LISTING, ReviewMemo.Tag.SPAM_REVIEWS, ReviewMemo.Tag.SUSPECTED_SCAM),
-        Group.BUILD to listOf(ReviewMemo.Tag.ACTIVE_DEV, ReviewMemo.Tag.ABANDONED, ReviewMemo.Tag.GOOD_ONBOARDING, ReviewMemo.Tag.CONFUSING, ReviewMemo.Tag.SEEKER_NATIVE, ReviewMemo.Tag.WEBVIEW_WRAPPER),
+        Group.BUILD to listOf(ReviewMemo.Tag.FEATURE_REQUEST, ReviewMemo.Tag.ACTIVE_DEV, ReviewMemo.Tag.ABANDONED, ReviewMemo.Tag.GOOD_ONBOARDING, ReviewMemo.Tag.CONFUSING, ReviewMemo.Tag.SEEKER_NATIVE, ReviewMemo.Tag.WEBVIEW_WRAPPER),
     )
 
     /** Pairs that say opposite things about the same quality; choosing one releases the other. */

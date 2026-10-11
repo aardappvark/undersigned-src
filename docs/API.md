@@ -43,6 +43,8 @@ caller's own device is available (install age and usage time exist only as what 
 | Store reviews are NOT resold: the store's own reviews stay the store's (see §5) | — | — |
 
 ### D. Publishers
+
+Every app view carries `publisher.feature_requests` (total, answered, will_build, delivered, median_decision_hours, median_deliver_hours) and `publisher.crashes` (reported, fixed, median_fix_hours), computed from reviews tagged `feature` and `crashes` and the proven publisher's `ack` and `fix` records (12 Oct 2026). Webhook event `decision` fires on an `ack`.
 | Data | Endpoint | Tier |
 |---|---|---|
 | Claims ("I publish this app") and their proof: website `/.well-known/undersigned.txt` (refused on shared hosts), when first seen; the APK-declared proof needs the installed app, so the API reports it only as "declared in the store build" when checked | inside `/v1/apps/{pkg}` | F |

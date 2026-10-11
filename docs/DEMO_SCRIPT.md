@@ -1,6 +1,6 @@
 # Undersigned — 3-minute demo script (CLOCK IN submission video)
 
-Device: Seeker, wallet airdropper.skr (an operator wallet: its reviews show, labelled, and are never counted; `protocol/.../Operator.kt`), **Undersigned 1.1.20** installed fresh (so the guided tour shows). Second window:
+Device: Seeker, wallet airdropper.skr (an operator wallet: its reviews show, labelled, and are never counted; `protocol/.../Operator.kt`), **Undersigned 1.1.22** installed fresh (so the guided tour shows). Second window:
 https://undersigned.provenby.dev and Solscan. Due with the submission: Monday 12 Oct, 13:59 Budapest.
 
 Judges score "completion based on the demo video", so the one thing it must show end to end is the core loop:

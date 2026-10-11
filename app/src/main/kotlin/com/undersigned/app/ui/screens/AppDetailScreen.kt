@@ -169,6 +169,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     var flagTarget by remember { mutableStateOf<String?>(null) }
     // The second round (owner, 10 Oct 2026): fix notices and follow-ups.
     val fixes by vm.fixes.collectAsState()
+    val decisions by vm.decisions.collectAsState()
     val rounds by vm.rounds.collectAsState()
     var fixTarget by remember { mutableStateOf<String?>(null) }
     var flagStage by remember { mutableStateOf<String?>(null) }
@@ -539,10 +540,16 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             similarText?.let { pushStyle(androidx.compose.ui.text.SpanStyle(color = RbColors.warning)); append(it); pop() }
                         }, color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 16.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
                     }
-                    // The thread: the publisher's fix notice on this review, and this review as a follow-up to an earlier one.
+                    // The thread: the publisher's decision on a request, the fix notice on this review, and this review as a follow-up to an earlier one.
+                    decisions[e.signature]?.let { dc ->
+                        Spacer(Modifier.height(6.dp))
+                        Text(stringResource(if (dc.will) R.string.ack_line_will else R.string.ack_line_wont, hoursLabel((dc.entry.blockTime - e.blockTime) / 3600.0)) + (dc.text?.let { " · “$it”" } ?: ""), color = if (dc.will) RbColors.green else RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
+                    }
                     fixes[e.signature]?.let { fx ->
                         Spacer(Modifier.height(6.dp))
-                        Text(stringResource(R.string.fixed_notice, fx.versionCode.toString()) + (fx.text?.let { " · “$it”" } ?: ""), color = RbColors.green, fontSize = 12.sp, lineHeight = 16.sp)
+                        val dc = decisions[e.signature]
+                        Text((if (dc != null && dc.will && fx.entry.blockTime >= dc.entry.blockTime) stringResource(R.string.delivered_line, fx.versionCode.toString(), hoursLabel((fx.entry.blockTime - e.blockTime) / 3600.0))
+                            else stringResource(R.string.fixed_notice, fx.versionCode.toString())) + (fx.text?.let { " · “$it”" } ?: ""), color = RbColors.green, fontSize = 12.sp, lineHeight = 16.sp)
                     }
                     rounds[e.signature]?.let { rd ->
                         Spacer(Modifier.height(6.dp))
@@ -649,6 +656,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         // Publisher: say it is fixed, once per review. Reviewer: follow up once it is.
                         if (wallet != null && e.signer != wallet && wallet in verified[pkg].orEmpty() && fixes[e.signature] == null)
                             CardAction(stringResource(R.string.mark_fixed), RbColors.green) { fixTarget = e.signature }
+                        // A feature request: the publisher signs a decision, will or will not build (owner, 12 Oct 2026); the hours to decide and to deliver are public.
+                        if (wallet != null && e.signer != wallet && wallet in verified[pkg].orEmpty() && ReviewMemo.Tag.FEATURE_REQUEST in r.tags && decisions[e.signature] == null) {
+                            CardAction(stringResource(R.string.ack_will), RbColors.green) { sign(ReviewMemo.Ack(e.signature, true, null)) }
+                            CardAction(stringResource(R.string.ack_wont), RbColors.textSecondary) { sign(ReviewMemo.Ack(e.signature, false, null)) }
+                        }
                         if (e.signer == wallet && fixes[e.signature] != null && !vm.followedUp(e.signature))
                             CardAction(stringResource(R.string.follow_up), RbColors.green) { onFollowUp(e.signature) }
                         if (e.signer != wallet && wallet != null) {
@@ -734,6 +746,10 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     val b = bucketLabel(responsiveness.bucket)
                     Text(if (responsiveness.answered == 0) stringResource(R.string.responsiveness_never) else stringResource(R.string.responsiveness_line, b, responsiveness.answered, responsiveness.total), color = RbColors.textSecondary, fontSize = 12.sp)
+                    // What reviewers raised and how fast the publisher moved on it: requests decided and delivered, crashes fixed (owner, 12 Oct 2026).
+                    val rq = remember(entries, verified) { vm.requests(pkg) }; val cr = remember(entries, verified) { vm.crashes(pkg) }
+                    if (rq.total > 0) Text(stringResource(R.string.stats_requests, rq.answered, rq.total, rq.medianDecisionHours?.let { hoursLabel(it) } ?: "—", rq.delivered, rq.medianDeliverHours?.let { hoursLabel(it) } ?: "—"), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
+                    if (cr.total > 0) Text(stringResource(R.string.stats_crashes, cr.total, cr.fixed, cr.medianFixHours?.let { hoursLabel(it) } ?: "—"), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
                     // How the publisher reacts to what reviewers raise: fixes announced, follow-ups, the star change after a fix.
                     val fs = remember(entries, verified) { vm.fixStats(pkg) }
                     if (fs.fixes > 0) Text(stringResource(R.string.fix_stats_line, fs.fixes, fs.followUpsAfterFix) + (fs.meanDelta?.let { " · " + stringResource(R.string.fix_stats_delta, String.format(java.util.Locale.US, "%+.1f", it)) } ?: ""),
@@ -1403,4 +1419,11 @@ private const val REVIEW_PAGE = 20
 private fun ShowMore(open: Boolean, onToggle: () -> Unit) {
     TextButton(onClick = onToggle, contentPadding = PaddingValues(horizontal = 0.dp), modifier = Modifier.heightIn(min = 48.dp)) {
         Text(stringResource(if (open) R.string.show_less else R.string.show_more), color = RbColors.purpleLight, fontSize = 12.sp) }
+}
+
+/** "40 min", "3 h", "2 d": a span of hours in the reader's units, for the request and fix lines. */
+fun hoursLabel(h: Double): String = when {
+    h < 1 -> "${maxOf(1, (h * 60).toInt())} min"
+    h < 48 -> "${(h + 0.5).toInt()} h"
+    else -> "${(h / 24 + 0.5).toInt()} d"
 }

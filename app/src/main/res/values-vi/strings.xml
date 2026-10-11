@@ -1304,4 +1304,12 @@
     <string name="desk_pay_12w">USD mỗi tuần, 12 tuần gần nhất</string>
     <string name="settings_analytics">Thống kê sử dụng ẩn danh</string>
     <string name="settings_analytics_hint">Mỗi thao tác một tên sự kiện, không định danh, chỉ ở mức quốc gia. Tắt nghĩa là không gửi gì cả.</string>
+    <string name="tag_feature">Yêu cầu tính năng</string>
+    <string name="ack_will">Sẽ làm</string>
+    <string name="ack_wont">Sẽ không làm</string>
+    <string name="ack_line_will">Nhà phát hành: sẽ làm · trả lời sau %1$s</string>
+    <string name="ack_line_wont">Nhà phát hành: sẽ không làm · trả lời sau %1$s</string>
+    <string name="delivered_line">Đã có trong phiên bản %1$s · %2$s sau yêu cầu</string>
+    <string name="stats_requests">Yêu cầu tính năng: %1$d/%2$d được trả lời · trung vị quyết định %3$s · %4$d đã có, trung vị %5$s</string>
+    <string name="stats_crashes">Sự cố được báo: %1$d · %2$d đã sửa · trung vị sửa %3$s</string>
 </resources>

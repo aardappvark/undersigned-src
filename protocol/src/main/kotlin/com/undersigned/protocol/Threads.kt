@@ -19,6 +19,18 @@ object Threads {
     data class FixStats(val packageName: String, val fixes: Int, val followUpsAfterFix: Int, val meanDelta: Double?, val medianHoursToFix: Double?)
 
     /** Valid fix notices: review id -> the latest one. */
+    /** A proven publisher's decision on a feature request (an `ack`), by review signature: the latest one counts. */
+    data class Decision(val entry: LedgerEntry, val review: LedgerEntry, val will: Boolean, val text: String?)
+    fun decisions(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>): Map<String, Decision> {
+        val bySig = entries.associateBy { it.signature }
+        return entries.mapNotNull { e ->
+            val k = e.memo as? ReviewMemo.Ack ?: return@mapNotNull null
+            val r = bySig[k.reviewSignature]?.takeIf { it.memo is ReviewMemo.Review } ?: return@mapNotNull null
+            val pkg = (r.memo as ReviewMemo.Review).packageName
+            if (e.signer !in verifiedPublishers[pkg].orEmpty() || e.blockTime < r.blockTime) return@mapNotNull null
+            Decision(e, r, k.will, k.text)
+        }.groupBy { it.review.signature }.mapValues { (_, l) -> l.maxBy { it.entry.blockTime } }
+    }
     fun fixes(entries: List<LedgerEntry>, verifiedPublishers: Map<String, Set<String>>): Map<String, Fix> {
         val bySig = entries.associateBy { it.signature }
         return entries.mapNotNull { e ->

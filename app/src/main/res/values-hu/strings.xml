@@ -1319,4 +1319,12 @@
     <string name="desk_pay_12w">USD hetente, az elmúlt 12 hét</string>
     <string name="settings_analytics">Névtelen használati analitika</string>
     <string name="settings_analytics_hint">Műveletenként egy eseménynév, azonosítók nélkül, csak országszinten. Kikapcsolva semmi nem kerül elküldésre.</string>
+    <string name="tag_feature">Funkciókérés</string>
+    <string name="ack_will">Megcsináljuk</string>
+    <string name="ack_wont">Nem csináljuk meg</string>
+    <string name="ack_line_will">Kiadó: megcsináljuk · válasz %1$s alatt</string>
+    <string name="ack_line_wont">Kiadó: nem csináljuk meg · válasz %1$s alatt</string>
+    <string name="delivered_line">Kész a(z) %1$s verzióban · %2$s a kérés után</string>
+    <string name="stats_requests">Funkciókérések: %1$d / %2$d megválaszolva · döntés mediánja %3$s · %4$d elkészült, medián %5$s</string>
+    <string name="stats_crashes">Jelentett összeomlások: %1$d · %2$d javítva · javítás mediánja %3$s</string>
 </resources>

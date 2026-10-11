@@ -1320,4 +1320,12 @@
     <string name="desk_pay_12w">USD per vecka, senaste 12 veckorna</string>
     <string name="settings_analytics">Anonym användningsstatistik</string>
     <string name="settings_analytics_hint">Ett händelsenamn per handling, inga identifierare, endast på landsnivå. Av betyder att ingenting skickas.</string>
+    <string name="tag_feature">Funktionsönskemål</string>
+    <string name="ack_will">Kommer att byggas</string>
+    <string name="ack_wont">Byggs inte</string>
+    <string name="ack_line_will">Utgivare: kommer att byggas · svar inom %1$s</string>
+    <string name="ack_line_wont">Utgivare: byggs inte · svar inom %1$s</string>
+    <string name="delivered_line">Levererat i version %1$s · %2$s efter önskemålet</string>
+    <string name="stats_requests">Funktionsönskemål: %1$d av %2$d besvarade · median till beslut %3$s · %4$d levererade, median %5$s</string>
+    <string name="stats_crashes">Rapporterade krascher: %1$d · %2$d åtgärdade · median till fix %3$s</string>
 </resources>

@@ -1339,4 +1339,12 @@
     <string name="desk_pay_12w">USD pro Woche, letzte 12 Wochen</string>
     <string name="settings_analytics">Anonyme Nutzungsstatistik</string>
     <string name="settings_analytics_hint">Ein Ereignisname pro Aktion, keine Kennungen, nur auf Länderebene. Aus heißt: es wird nichts gesendet.</string>
+    <string name="tag_feature">Funktionswunsch</string>
+    <string name="ack_will">Wird gebaut</string>
+    <string name="ack_wont">Wird nicht gebaut</string>
+    <string name="ack_line_will">Publisher: wird gebaut · Antwort nach %1$s</string>
+    <string name="ack_line_wont">Publisher: wird nicht gebaut · Antwort nach %1$s</string>
+    <string name="delivered_line">Geliefert in Version %1$s · %2$s nach der Anfrage</string>
+    <string name="stats_requests">Funktionswünsche: %1$d von %2$d beantwortet · Median bis zur Entscheidung %3$s · %4$d geliefert, Median %5$s</string>
+    <string name="stats_crashes">Gemeldete Abstürze: %1$d · %2$d behoben · Median bis zur Behebung %3$s</string>
 </resources>

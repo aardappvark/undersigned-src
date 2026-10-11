@@ -1322,4 +1322,12 @@
     <string name="desk_pay_12w">فی ہفتہ USD، پچھلے 12 ہفتے</string>
     <string name="settings_analytics">گمنام استعمالی تجزیات</string>
     <string name="settings_analytics_hint">ہر عمل کے لیے ایک ایونٹ نام، کوئی شناخت کنندہ نہیں، صرف ملکی سطح تک۔ بند کا مطلب ہے کچھ بھی نہیں بھیجا جاتا۔</string>
+    <string name="tag_feature">فیچر کی درخواست</string>
+    <string name="ack_will">بنائیں گے</string>
+    <string name="ack_wont">نہیں بنائیں گے</string>
+    <string name="ack_line_will">پبلشر: بنائیں گے · %1$s میں جواب</string>
+    <string name="ack_line_wont">پبلشر: نہیں بنائیں گے · %1$s میں جواب</string>
+    <string name="delivered_line">ورژن %1$s میں فراہم · درخواست کے %2$s بعد</string>
+    <string name="stats_requests">فیچر درخواستیں: %2$d میں سے %1$d کا جواب · فیصلے کا میڈین %3$s · %4$d فراہم، میڈین %5$s</string>
+    <string name="stats_crashes">رپورٹ شدہ کریش: %1$d · %2$d ٹھیک · ٹھیک کرنے کا میڈین %3$s</string>
 </resources>
