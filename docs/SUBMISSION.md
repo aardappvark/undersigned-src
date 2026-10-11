@@ -19,7 +19,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 | Functional Android APK | **READY** — 1.1.26 (versionCode 37), 11.3 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 d8b22549…d694 | `assets/submission/Undersigned-1.1.26-vc37.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.26` (owner). |
 | GitHub repository | **READY** — 212 commits on 19 days (UTC) from 7 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
 | Demo video (≤ 3 min) | **READY** `assets/video/undersigned-demo-v3.mp4` (2:59, 1.1.26 takes and stills, burned-in subtitles, Higgsfield Gracie voice approved 12 Oct, a Higgsfield cold open, logo card at both ends; lines in `docs/VIDEO_SCRIPT_V2.md` → Cut v3) | Upload to YouTube (unlisted) or Drive; paste the link |
-| Pitch deck | **READY** — 18 slides (four Higgsfield plates on the statement slides 1, 2, 16, 18), core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
+| Pitch deck | **READY** — 19 slides (four Higgsfield plates on the statement slides 1, 2, 17, 19; slide 16 = leaderboards from the reviews), core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
 
