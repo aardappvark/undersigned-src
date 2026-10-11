@@ -90,7 +90,7 @@ approve these lines before any Gracie credit**; then `VOICE` swaps and the cut i
 | At | On screen | Line |
 |---|---|---|
 | 0:02 | motion 0–9s | Undersigned. Fifteen hundred dApps, half a million star ratings, every one from a Seeker owner. How many say something a developer can act on? |
-| 0:11 | jup_lens.png | Bursts and copies are shown as facts. |
+| 0:11 | jup_lens.png | Copies and bursts are shown as facts, so care stands out. |
 | 0:15 | compare-7.png | Meaningful reviews create outcomes: here the fix is signed, and the reviewer follows up. |
 | 0:21 | tour2.mp4 | Open it fresh: a tour, every dApp, the signed score beside the store's. |
 | 0:26 | browse.mp4 | Flick the rail, search, sort, filter by tag. |
@@ -117,8 +117,8 @@ approve these lines before any Gracie credit**; then `VOICE` swaps and the cut i
 | 2:28 | store_hidden.png | The text becomes the reason. |
 | 2:32 | payments.mp4 | It reads the ledger: what dApps are paid, leaderboards, categories, what is rising. |
 | 2:39 | motion 90–97s | It runs on about eight hundred dollars a year; a hundred and twenty-seven Pro licences cover it. |
-| 2:46 | web_status.png | Every score recomputed from the chain, six-hourly. |
-| 2:50 | motion 104–112s | Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone. |
+| 2:46 | web_status.png | Every score is recomputed from the chain; anyone can check it. |
+| 2:50 | motion 104–112s | Undersigned. One Seeker, one voice. Written to Solana, readable by anyone, ready for the store to read. |
 
 Known limits of this draft: no music; the double-tap is the 8 Oct wallet stills, not a camera take. The abuse line will carry the
 full store-crawl figure once the server-side crawl of every dApp's reviews finishes. Nothing in it is 1.0.0.
