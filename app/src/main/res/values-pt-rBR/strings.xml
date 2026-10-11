@@ -230,7 +230,7 @@
     <string name="intro4_body">Para os apps que você instalou, o Undersigned mostra se a versão corresponde ao certificado listado pela loja e se as permissões mudaram. Fatos, nunca veredictos.</string>
     <string name="intro5_title">Siga, seja avisado, responda</string>
     <string name="intro5_body">Siga apps para saber de novas avaliações assinadas, atualizações e respostas. Publicadores reivindicam seu app assinando, e suas respostas levam o selo Publicador quando a reivindicação está comprovada. Tudo o que você publica é permanente e público.</string>
-    <string name="review_also_store">Publicar também na dApp Store</string>
+    <string name="review_also_store">Copiar para a área de transferência e publicar na dApp Store</string>
     <string name="review_also_store_hint">Copia sua nota e abre a página, onde você a publica em “Classificações &amp; Críticas” → “Avaliar esta dApp”. A loja não tem como deixar outro app publicar por você, então os últimos toques são seus.</string>
     <string name="flag">Sinalizar</string>
     <string name="flag_title">Sinalizar este registro</string>
@@ -1194,6 +1194,13 @@
     <string name="pa_window_all">Todo o período</string>
     <string name="pa_loading">Lendo pagamentos…</string>
     <string name="pa_offline">A análise de pagamentos não está disponível offline.</string>
+    <string name="signed_by_stars">Avaliações assinadas por estrelas · toque em uma linha para lê-las</string>
+    <string name="stars_filter_on">Só avaliações de %1$d estrelas</string>
+    <string name="stars_filter_all">Todas as estrelas</string>
+    <string name="profile_timeline">Avaliações ao longo do tempo</string>
+    <string name="profile_timeline_note">%1$d avaliações no ledger; %2$d nos últimos doze meses</string>
+    <string name="profile_follow_up">Acompanhamento de uma avaliação anterior: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">O publicador marcou como corrigido na versão %1$d</string>
     <string name="standing_card">%1$d assinadas · %2$d apps · %3$d acompanhamentos</string>
     <string name="standing_fixes_confirmed">%1$d correções confirmadas</string>
     <string name="standing_since_short">desde %1$s</string>

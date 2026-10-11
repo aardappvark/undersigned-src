@@ -230,7 +230,7 @@
     <string name="intro4_body">جن ایپس آپ نے نصب کر رکھی ہیں ان کے لیے، Undersigned دکھاتا ہے کہ آیا بلڈ اسٹور کے درج کردہ سرٹیفکیٹ سے مماثل ہے اور آیا اجازتیں تبدیل ہوئیں۔ حقائق، کبھی فیصلے نہیں۔</string>
     <string name="intro5_title">فالو کریں، اطلاع پائیں، جواب دیں</string>
     <string name="intro5_body">نئے دستخط شدہ جائزوں، اپ ڈیٹس اور جوابات کے بارے میں جاننے کے لیے ایپس کو فالو کریں۔ پبلشرز دستخط کر کے اپنی ایپ کا دعویٰ کرتے ہیں، اور دعویٰ ثابت ہونے پر ان کے جوابات پر پبلشر کا نشان ہوتا ہے۔ آپ جو کچھ بھی شائع کرتے ہیں وہ مستقل اور عوامی ہے۔</string>
-    <string name="review_also_store">dApp Store میں بھی پوسٹ کریں</string>
+    <string name="review_also_store">dApp Store میں پوسٹ کرنے کے لیے کلپ بورڈ پر کاپی کریں</string>
     <string name="review_also_store_hint">آپ کا نوٹ کاپی کرتا ہے اور فہرست کھولتا ہے، جہاں آپ اسے “Ratings &amp; Reviews” → “Review this dApp” کے تحت پوسٹ کرتے ہیں۔ اسٹور کے پاس کسی دوسری ایپ کو آپ کی جانب سے پوسٹ کرنے کا کوئی طریقہ نہیں، اس لیے آخری ٹیپس آپ کے اپنے ہیں۔</string>
     <string name="flag">نشان زد کریں</string>
     <string name="flag_title">اس ریکارڈ کو نشان زد کریں</string>
@@ -1168,6 +1168,13 @@
     <string name="pa_window_all">تمام وقت</string>
     <string name="pa_loading">ادائیگیاں پڑھی جا رہی ہیں…</string>
     <string name="pa_offline">ادائیگیوں کا تجزیہ آف لائن دستیاب نہیں۔</string>
+    <string name="signed_by_stars">ستاروں کے لحاظ سے دستخط شدہ جائزے · پڑھنے کے لیے قطار پر ٹیپ کریں</string>
+    <string name="stars_filter_on">صرف %1$d ستارہ جائزے</string>
+    <string name="stars_filter_all">تمام ستارے</string>
+    <string name="profile_timeline">وقت کے ساتھ جائزے</string>
+    <string name="profile_timeline_note">لیجر میں %1$d جائزے؛ پچھلے بارہ مہینوں میں %2$d</string>
+    <string name="profile_follow_up">پہلے جائزے کا فالو اپ: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">پبلشر نے اسے ورژن %1$d میں درست شدہ قرار دیا</string>
     <string name="standing_card">%1$d دستخط شدہ · %2$d ایپس · %3$d فالو اپ</string>
     <string name="standing_fixes_confirmed">%1$d اصلاحات کی تصدیق</string>
     <string name="standing_since_short">%1$s سے</string>

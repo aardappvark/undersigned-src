@@ -454,7 +454,7 @@
     <string name="settings_about">Undersigned v%1$s — not affiliated with Solana Mobile, Solana Foundation or any wallet.</string>
     <string name="settings_contact">aardappvark@proton.me</string>
     <string name="settings_affiliation">Undersigned reads the public dApp Store catalogue and opens listings in the store. It never installs, updates or removes apps.</string>
-    <string name="review_also_store">Also post in the dApp Store</string>
+    <string name="review_also_store">Copy to clipboard to post in the dApp Store</string>
     <string name="review_also_store_hint">Copies your note and opens the listing, where you post it under “Ratings &amp; Reviews” → “Review this dApp”. The store has no way for another app to post for you, so the last taps are yours.</string>
     <string name="flag">Flag</string>
     <string name="flag_title">Flag this record</string>
@@ -1191,6 +1191,13 @@
     <string name="pa_window_all">All time</string>
     <string name="pa_loading">Reading payments…</string>
     <string name="pa_offline">Payments analytics are not available offline.</string>
+    <string name="signed_by_stars">Signed reviews by stars · tap a row to read them</string>
+    <string name="stars_filter_on">Showing %1$d-star reviews only</string>
+    <string name="stars_filter_all">All stars</string>
+    <string name="profile_timeline">Reviews over time</string>
+    <string name="profile_timeline_note">%1$d reviews on the ledger; %2$d in the last twelve months</string>
+    <string name="profile_follow_up">Follow-up to an earlier review: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">The publisher marked this fixed in version %1$d</string>
     <string name="standing_card">%1$d signed · %2$d apps · %3$d follow-ups</string>
     <string name="standing_fixes_confirmed">%1$d fixes confirmed</string>
     <string name="standing_since_short">since %1$s</string>

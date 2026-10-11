@@ -231,7 +231,7 @@
     <string name="intro4_body">Pentru aplicațiile instalate, Undersigned arată dacă build-ul corespunde certificatului listat de magazin și dacă permisiunile s-au schimbat. Fapte, niciodată verdicte.</string>
     <string name="intro5_title">Urmărește, află, răspunde</string>
     <string name="intro5_body">Urmărește aplicații ca să afli despre recenzii noi semnate, actualizări și răspunsuri. Editorii își revendică aplicația prin semnare, iar răspunsurile lor poartă insigna Editor după ce revendicarea este dovedită. Tot ce publici este permanent și public.</string>
-    <string name="review_also_store">Publică și în dApp Store</string>
+    <string name="review_also_store">Copiază în clipboard pentru a publica în dApp Store</string>
     <string name="review_also_store_hint">Copiază nota ta și deschide listarea, unde o publici la \"Ratings &amp; Reviews\" → \"Review this dApp\". Magazinul nu are cum să permită altei aplicații să publice în locul tău, deci ultimele atingeri îți aparțin.</string>
     <string name="flag">Semnalează</string>
     <string name="flag_title">Semnalează această înregistrare</string>
@@ -1183,6 +1183,13 @@
     <string name="pa_window_all">Toată perioada</string>
     <string name="pa_loading">Se citesc plățile…</string>
     <string name="pa_offline">Analiza plăților nu este disponibilă offline.</string>
+    <string name="signed_by_stars">Recenzii semnate pe stele · atinge un rând ca să le citești</string>
+    <string name="stars_filter_on">Doar recenzii de %1$d stele</string>
+    <string name="stars_filter_all">Toate stelele</string>
+    <string name="profile_timeline">Recenzii în timp</string>
+    <string name="profile_timeline_note">%1$d recenzii în registru; %2$d în ultimele douăsprezece luni</string>
+    <string name="profile_follow_up">Urmare a unei recenzii anterioare: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Editorul a marcat remedierea în versiunea %1$d</string>
     <string name="standing_card">%1$d semnate · %2$d aplicații · %3$d urmări</string>
     <string name="standing_fixes_confirmed">%1$d remedieri confirmate</string>
     <string name="standing_since_short">din %1$s</string>

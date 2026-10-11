@@ -227,7 +227,7 @@
     <string name="intro4_body">A telepített alkalmazásoknál az Undersigned megmutatja, hogy a build megegyezik-e az áruház által feltüntetett tanúsítvánnyal, és hogy változtak-e a jogosultságok. Tények, sohasem ítéletek.</string>
     <string name="intro5_title">Kövesd, értesülj, válaszolj</string>
     <string name="intro5_body">Kövess alkalmazásokat, hogy értesülj az új aláírt értékelésekről, frissítésekről és válaszokról. A kiadók aláírással igénylik az alkalmazásukat, és a válaszaik Kiadó jelvényt kapnak, ha az igénylés bizonyított. Amit közzéteszel, az végleges és nyilvános.</string>
-    <string name="review_also_store">Közzététel a dApp Store-ban is</string>
+    <string name="review_also_store">Másolás a vágólapra a dApp Store-ban való közzétételhez</string>
     <string name="review_also_store_hint">Átmásolja a megjegyzésedet, és megnyitja a listázást, ahol a \"Ratings &amp; Reviews\" → \"Review this dApp\" alatt teszed közzé. Az áruháznak nincs módja arra, hogy egy másik alkalmazás közzétegyen helyetted, így az utolsó koppintások a tieid.</string>
     <string name="flag">Jelölés</string>
     <string name="flag_title">Bejegyzés megjelölése</string>
@@ -1165,6 +1165,13 @@
     <string name="pa_window_all">Teljes időszak</string>
     <string name="pa_loading">Fizetések beolvasása…</string>
     <string name="pa_offline">A fizetési elemzés offline nem érhető el.</string>
+    <string name="signed_by_stars">Aláírt értékelések csillagok szerint · koppintson egy sorra az olvasáshoz</string>
+    <string name="stars_filter_on">Csak %1$d csillagos értékelések</string>
+    <string name="stars_filter_all">Minden csillag</string>
+    <string name="profile_timeline">Értékelések időben</string>
+    <string name="profile_timeline_note">%1$d értékelés a főkönyvben; %2$d az elmúlt tizenkét hónapban</string>
+    <string name="profile_follow_up">Korábbi értékelés folytatása: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">A kiadó javítottnak jelölte a(z) %1$d verzióban</string>
     <string name="standing_card">%1$d aláírt · %2$d app · %3$d folytatás</string>
     <string name="standing_fixes_confirmed">%1$d javítás megerősítve</string>
     <string name="standing_since_short">%1$s óta</string>

@@ -225,7 +225,7 @@
     <string name="intro4_body">對於您已安裝的應用程式,Undersigned 會顯示已安裝的版本是否與商店列出的憑證一致,以及權限是否有變化。只有事實,絕無定論。</string>
     <string name="intro5_title">追蹤、獲知、回覆</string>
     <string name="intro5_body">追蹤應用程式即可獲知新的簽署評價、更新與回覆。發行者透過簽署認領應用程式,認領獲得證明後,其回覆會帶有發行者標章。您發布的一切都是永久且公開的。</string>
-    <string name="review_also_store">同時發布到 dApp Store</string>
+    <string name="review_also_store">複製到剪貼簿以在 dApp Store 發布</string>
     <string name="review_also_store_hint">複製您的說明文字,並開啟應用程式頁面,您需要在 \"評分與評論\" → \"評論這個 dApp\" 下自行發布。商店沒有辦法讓其他應用程式代您發布,因此最後的操作仍需您親自完成。</string>
     <string name="flag">標記</string>
     <string name="flag_title">標記此記錄</string>
@@ -1149,6 +1149,13 @@
     <string name="pa_window_all">全部時間</string>
     <string name="pa_loading">正在讀取付款…</string>
     <string name="pa_offline">付款分析在離線時無法使用。</string>
+    <string name="signed_by_stars">依星級查看簽署評論 · 點一下某列即可閱讀</string>
+    <string name="stars_filter_on">僅顯示 %1$d 星評論</string>
+    <string name="stars_filter_all">全部星級</string>
+    <string name="profile_timeline">評論隨時間變化</string>
+    <string name="profile_timeline_note">帳本中 %1$d 則評論；最近十二個月 %2$d 則</string>
+    <string name="profile_follow_up">對先前評論的後續：%1$d★ → %2$d★</string>
+    <string name="profile_fixed">發布者已標記為在版本 %1$d 中修復</string>
     <string name="standing_card">已簽署 %1$d · %2$d 個應用程式 · %3$d 則後續</string>
     <string name="standing_fixes_confirmed">%1$d 項修復已確認</string>
     <string name="standing_since_short">自 %1$s</string>

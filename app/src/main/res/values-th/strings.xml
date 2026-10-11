@@ -209,7 +209,7 @@
     <string name="intro4_body">สำหรับแอปที่คุณติดตั้งไว้ Undersigned จะแสดงว่าบิลด์ตรงกับใบรับรองที่สโตร์ระบุไว้หรือไม่ และสิทธิ์เปลี่ยนแปลงหรือไม่ เป็นข้อเท็จจริง ไม่ใช่คำตัดสิน</string>
     <string name="intro5_title">ติดตาม รับแจ้ง ตอบกลับ</string>
     <string name="intro5_body">ติดตามแอปเพื่อรับรู้เกี่ยวกับรีวิวที่ลงลายเซ็นใหม่ การอัปเดต และการตอบกลับ ผู้เผยแพร่อ้างสิทธิ์แอปของตนด้วยการลงลายเซ็น และการตอบกลับของพวกเขาจะมีตราผู้เผยแพร่เมื่อการอ้างสิทธิ์พิสูจน์แล้ว ทุกสิ่งที่คุณเผยแพร่เป็นการถาวรและสาธารณะ</string>
-    <string name="review_also_store">โพสต์ใน dApp Store ด้วย</string>
+    <string name="review_also_store">คัดลอกไปยังคลิปบอร์ดเพื่อโพสต์ใน dApp Store</string>
     <string name="review_also_store_hint">คัดลอกบันทึกของคุณและเปิดหน้ารายการ ซึ่งคุณโพสต์ไว้ภายใต้ “การให้คะแนนและรีวิว” → “รีวิวแอปนี้” สโตร์ไม่มีวิธีให้แอปอื่นโพสต์แทนคุณ ดังนั้นการแตะครั้งสุดท้ายจึงเป็นของคุณเอง</string>
     <string name="flag">ปักธง</string>
     <string name="flag_title">ปักธงบันทึกนี้</string>
@@ -1134,6 +1134,13 @@
     <string name="pa_window_all">ตลอดเวลา</string>
     <string name="pa_loading">กำลังอ่านการชำระเงิน…</string>
     <string name="pa_offline">การวิเคราะห์การชำระเงินใช้ไม่ได้เมื่อออฟไลน์</string>
+    <string name="signed_by_stars">รีวิวที่ลงนามตามดาว · แตะแถวเพื่ออ่าน</string>
+    <string name="stars_filter_on">แสดงเฉพาะรีวิว %1$d ดาว</string>
+    <string name="stars_filter_all">ทุกดาว</string>
+    <string name="profile_timeline">รีวิวตามช่วงเวลา</string>
+    <string name="profile_timeline_note">%1$d รีวิวในบัญชีแยกประเภท; %2$d ในสิบสองเดือนที่ผ่านมา</string>
+    <string name="profile_follow_up">ติดตามผลรีวิวก่อนหน้า: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">ผู้เผยแพร่ระบุว่าแก้ไขแล้วในเวอร์ชัน %1$d</string>
     <string name="standing_card">ลงนาม %1$d · แอป %2$d · ติดตามผล %3$d</string>
     <string name="standing_fixes_confirmed">ยืนยันการแก้ไข %1$d</string>
     <string name="standing_since_short">ตั้งแต่ %1$s</string>

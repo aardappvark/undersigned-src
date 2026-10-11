@@ -225,7 +225,7 @@
     <string name="intro4_body">对于您已安装的应用,Undersigned 会显示已安装版本是否与商店列出的证书一致,以及权限是否发生变化。只有事实,绝无定论。</string>
     <string name="intro5_title">关注、获知、回复</string>
     <string name="intro5_body">关注应用即可获知新的签名评价、更新和回复。发布者通过签名认领应用,认领被证明后,其回复会带有发布者标识。您发布的一切都是永久且公开的。</string>
-    <string name="review_also_store">同时发布到 dApp Store</string>
+    <string name="review_also_store">复制到剪贴板以在 dApp Store 发布</string>
     <string name="review_also_store_hint">复制您的说明并打开应用页面,您需要在“评分和评价”→“评价此 dApp”下自行发布。商店无法让其他应用代您发布,因此最后的操作需要您自己完成。</string>
     <string name="flag">标记</string>
     <string name="flag_title">标记此记录</string>
@@ -1149,6 +1149,13 @@
     <string name="pa_window_all">全部时间</string>
     <string name="pa_loading">正在读取付款…</string>
     <string name="pa_offline">付款分析在离线时不可用。</string>
+    <string name="signed_by_stars">按星级查看签名评论 · 点按一行即可阅读</string>
+    <string name="stars_filter_on">仅显示 %1$d 星评论</string>
+    <string name="stars_filter_all">全部星级</string>
+    <string name="profile_timeline">评论随时间变化</string>
+    <string name="profile_timeline_note">账本中 %1$d 条评论；最近十二个月 %2$d 条</string>
+    <string name="profile_follow_up">对早先评论的后续：%1$d★ → %2$d★</string>
+    <string name="profile_fixed">发布者已标记为在版本 %1$d 中修复</string>
     <string name="standing_card">已签署 %1$d · %2$d 个应用 · %3$d 条后续</string>
     <string name="standing_fixes_confirmed">%1$d 项修复已确认</string>
     <string name="standing_since_short">自 %1$s</string>

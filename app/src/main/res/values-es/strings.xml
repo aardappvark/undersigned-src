@@ -230,7 +230,7 @@
     <string name="intro4_body">Para las apps que tienes instaladas, Undersigned muestra si la versión coincide con el certificado que indica la tienda y si cambiaron los permisos. Datos, nunca veredictos.</string>
     <string name="intro5_title">Sigue, entérate, responde</string>
     <string name="intro5_body">Sigue apps para saber de nuevas reseñas firmadas, actualizaciones y respuestas. Los editores reclaman su app firmando, y sus respuestas llevan la marca Editor una vez que la reclamación está demostrada. Todo lo que publicas es permanente y público.</string>
-    <string name="review_also_store">Publicar también en el dApp Store</string>
+    <string name="review_also_store">Copiar al portapapeles para publicar en la dApp Store</string>
     <string name="review_also_store_hint">Copia tu nota y abre la ficha, donde la publicas en «Calificaciones y Reseñas» → «Revisar esta dApp». La tienda no tiene forma de que otra app publique por ti, así que los últimos toques son tuyos.</string>
     <string name="flag">Marcar</string>
     <string name="flag_title">Marcar este registro</string>
@@ -1194,6 +1194,13 @@
     <string name="pa_window_all">Todo el periodo</string>
     <string name="pa_loading">Leyendo pagos…</string>
     <string name="pa_offline">El análisis de pagos no está disponible sin conexión.</string>
+    <string name="signed_by_stars">Reseñas firmadas por estrellas · toca una fila para leerlas</string>
+    <string name="stars_filter_on">Solo reseñas de %1$d estrellas</string>
+    <string name="stars_filter_all">Todas las estrellas</string>
+    <string name="profile_timeline">Reseñas a lo largo del tiempo</string>
+    <string name="profile_timeline_note">%1$d reseñas en el libro mayor; %2$d en los últimos doce meses</string>
+    <string name="profile_follow_up">Seguimiento de una reseña anterior: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">El publicador lo marcó como arreglado en la versión %1$d</string>
     <string name="standing_card">%1$d firmadas · %2$d apps · %3$d seguimientos</string>
     <string name="standing_fixes_confirmed">%1$d arreglos confirmados</string>
     <string name="standing_since_short">desde %1$s</string>

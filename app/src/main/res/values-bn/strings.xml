@@ -222,7 +222,7 @@
     <string name="intro4_body">আপনার ইনস্টল করা অ্যাপগুলির জন্য, Undersigned দেখায় বিল্ডটি স্টোরের তালিকাভুক্ত সার্টিফিকেটের সাথে মেলে কিনা এবং অনুমতি পরিবর্তিত হয়েছে কিনা। তথ্য, কখনও রায় নয়।</string>
     <string name="intro5_title">ফলো করুন, জানুন, উত্তর দিন</string>
     <string name="intro5_body">নতুন স্বাক্ষরিত পর্যালোচনা, আপডেট এবং উত্তর জানতে অ্যাপ ফলো করুন। প্রকাশকরা স্বাক্ষর করে তাদের অ্যাপের দাবি করেন, এবং দাবি প্রমাণিত হলে তাদের উত্তরে প্রকাশক চিহ্ন থাকে। আপনি যা প্রকাশ করেন তা স্থায়ী ও সর্বজনীন।</string>
-    <string name="review_also_store">dApp Store-এও পোস্ট করুন</string>
+    <string name="review_also_store">dApp Store-এ পোস্ট করতে ক্লিপবোর্ডে কপি করুন</string>
     <string name="review_also_store_hint">আপনার নোট কপি করে এবং তালিকাটি খোলে, যেখানে আপনি এটি “Ratings &amp; Reviews” → “Review this dApp”-এর অধীনে পোস্ট করেন। অন্য কোনো অ্যাপের পক্ষে স্টোরে আপনার হয়ে পোস্ট করার উপায় নেই, তাই শেষ ট্যাপগুলো আপনার নিজের।</string>
     <string name="flag">ফ্ল্যাগ</string>
     <string name="flag_title">এই রেকর্ড ফ্ল্যাগ করুন</string>
@@ -1161,6 +1161,13 @@
     <string name="pa_window_all">সব সময়</string>
     <string name="pa_loading">পেমেন্ট পড়া হচ্ছে…</string>
     <string name="pa_offline">পেমেন্ট বিশ্লেষণ অফলাইনে পাওয়া যায় না।</string>
+    <string name="signed_by_stars">তারকা অনুযায়ী স্বাক্ষরিত রিভিউ · পড়তে একটি সারিতে ট্যাপ করুন</string>
+    <string name="stars_filter_on">শুধু %1$d-তারকা রিভিউ দেখানো হচ্ছে</string>
+    <string name="stars_filter_all">সব তারকা</string>
+    <string name="profile_timeline">সময়ের সাথে রিভিউ</string>
+    <string name="profile_timeline_note">লেজারে %1$d রিভিউ; গত বারো মাসে %2$d</string>
+    <string name="profile_follow_up">আগের রিভিউর ফলো-আপ: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">প্রকাশক এটি সংস্করণ %1$d-এ সমাধান হয়েছে বলে চিহ্নিত করেছেন</string>
     <string name="standing_card">%1$d স্বাক্ষরিত · %2$d অ্যাপ · %3$d ফলো-আপ</string>
     <string name="standing_fixes_confirmed">%1$d সমাধান নিশ্চিত</string>
     <string name="standing_since_short">%1$s থেকে</string>

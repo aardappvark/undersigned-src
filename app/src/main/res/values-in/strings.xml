@@ -225,7 +225,7 @@
     <string name="intro4_body">Untuk aplikasi yang telah Anda instal, Undersigned menunjukkan apakah build cocok dengan sertifikat yang dicantumkan toko dan apakah izin berubah. Fakta, bukan vonis.</string>
     <string name="intro5_title">Ikuti, diberi tahu, balas</string>
     <string name="intro5_body">Ikuti aplikasi untuk mendengar tentang ulasan baru yang ditandatangani, pembaruan dan balasan. Penerbit mengklaim aplikasi mereka dengan menandatangani, dan balasan mereka membawa tanda Penerbit setelah klaim terbukti. Semua yang Anda publikasikan bersifat permanen dan publik.</string>
-    <string name="review_also_store">Posting juga di dApp Store</string>
+    <string name="review_also_store">Salin ke papan klip untuk diposting di dApp Store</string>
     <string name="review_also_store_hint">Menyalin catatan Anda dan membuka listingan, tempat Anda memposting di bawah “Ratings &amp; Reviews” → “Review this dApp”. Toko tidak memiliki cara bagi aplikasi lain untuk memposting atas nama Anda, jadi ketukan terakhir adalah milik Anda.</string>
     <string name="flag">Tandai</string>
     <string name="flag_title">Tandai catatan ini</string>
@@ -1150,6 +1150,13 @@
     <string name="pa_window_all">Sepanjang waktu</string>
     <string name="pa_loading">Membaca pembayaran…</string>
     <string name="pa_offline">Analitik pembayaran tidak tersedia secara offline.</string>
+    <string name="signed_by_stars">Ulasan bertanda tangan menurut bintang · ketuk baris untuk membaca</string>
+    <string name="stars_filter_on">Hanya ulasan %1$d bintang</string>
+    <string name="stars_filter_all">Semua bintang</string>
+    <string name="profile_timeline">Ulasan dari waktu ke waktu</string>
+    <string name="profile_timeline_note">%1$d ulasan di ledger; %2$d dalam dua belas bulan terakhir</string>
+    <string name="profile_follow_up">Tindak lanjut ulasan sebelumnya: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Penerbit menandainya sudah diperbaiki di versi %1$d</string>
     <string name="standing_card">%1$d ditandatangani · %2$d aplikasi · %3$d tindak lanjut</string>
     <string name="standing_fixes_confirmed">%1$d perbaikan terkonfirmasi</string>
     <string name="standing_since_short">sejak %1$s</string>

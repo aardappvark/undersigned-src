@@ -230,7 +230,7 @@
     <string name="intro4_body">जो ऐप्स आपने इंस्टॉल किए हैं उनके लिए, Undersigned दिखाता है कि क्या बिल्ड स्टोर द्वारा सूचीबद्ध certificate से मेल खाता है और क्या अनुमतियां बदलीं। तथ्य, कभी फैसले नहीं।</string>
     <string name="intro5_title">फ़ॉलो करें, सूचना पाएं, जवाब दें</string>
     <string name="intro5_body">नई हस्ताक्षरित समीक्षाओं, अपडेट और जवाबों के बारे में जानने के लिए ऐप्स को फ़ॉलो करें। प्रकाशक साइन करके अपने ऐप का दावा करते हैं, और दावा सिद्ध होने पर उनके जवाबों पर प्रकाशक चिह्न होता है। आप जो भी प्रकाशित करते हैं वह स्थायी और सार्वजनिक है।</string>
-    <string name="review_also_store">dApp Store में भी पोस्ट करें</string>
+    <string name="review_also_store">dApp Store में पोस्ट करने के लिए क्लिपबोर्ड पर कॉपी करें</string>
     <string name="review_also_store_hint">आपका नोट कॉपी करता है और लिस्टिंग खोलता है, जहां आप इसे “रेटिंग &amp; रिव्यु” → “dApp का रिव्यू दें” के तहत पोस्ट करते हैं। स्टोर के पास किसी अन्य ऐप को आपकी ओर से पोस्ट करने का कोई तरीका नहीं है, इसलिए आखिरी टैप आपके ही होते हैं।</string>
     <string name="flag">फ़्लैग</string>
     <string name="flag_title">इस रिकॉर्ड को फ़्लैग करें</string>
@@ -1168,6 +1168,13 @@
     <string name="pa_window_all">पूरा समय</string>
     <string name="pa_loading">भुगतान पढ़े जा रहे हैं…</string>
     <string name="pa_offline">भुगतान विश्लेषण ऑफ़लाइन उपलब्ध नहीं है।</string>
+    <string name="signed_by_stars">तारों के अनुसार हस्ताक्षरित समीक्षाएँ · पढ़ने के लिए पंक्ति पर टैप करें</string>
+    <string name="stars_filter_on">केवल %1$d-तारा समीक्षाएँ</string>
+    <string name="stars_filter_all">सभी तारे</string>
+    <string name="profile_timeline">समय के साथ समीक्षाएँ</string>
+    <string name="profile_timeline_note">लेजर में %1$d समीक्षाएँ; पिछले बारह महीनों में %2$d</string>
+    <string name="profile_follow_up">पहले की समीक्षा का फ़ॉलो-अप: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">प्रकाशक ने इसे संस्करण %1$d में ठीक किया बताया</string>
     <string name="standing_card">%1$d हस्ताक्षरित · %2$d ऐप · %3$d फ़ॉलो-अप</string>
     <string name="standing_fixes_confirmed">%1$d सुधार पुष्ट</string>
     <string name="standing_since_short">%1$s से</string>

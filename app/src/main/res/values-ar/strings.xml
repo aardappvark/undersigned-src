@@ -242,7 +242,7 @@
     <string name="intro4_body">بالنسبة للتطبيقات المثبتة لديك، يعرض Undersigned ما إذا كانت البنية تطابق الشهادة التي يدرجها المتجر وما إذا تغيّرت الأذونات. حقائق، لا أحكام أبدًا.</string>
     <string name="intro5_title">تابع، اعرف، رد</string>
     <string name="intro5_body">تابع التطبيقات لتعرف بالمراجعات الموقّعة الجديدة والتحديثات والردود. يطالب الناشرون بتطبيقاتهم بالتوقيع، وتحمل ردودهم علامة «ناشر» متى كانت المطالبة مُثبَتة. كل ما تنشره عامّ ودائم.</string>
-    <string name="review_also_store">النشر أيضًا في dApp Store</string>
+    <string name="review_also_store">انسخ إلى الحافظة للنشر في متجر dApp</string>
     <string name="review_also_store_hint">ينسخ ملاحظتك ويفتح القائمة، حيث تنشرها ضمن “التقييمات &amp; الآراء” → “راجع تطبيق dApp هذا”. لا توجد طريقة للمتجر ليقبل نشرًا من تطبيق آخر نيابة عنك، لذا فإن النقرات الأخيرة تبقى لك.</string>
     <string name="flag">إشارة</string>
     <string name="flag_title">الإشارة إلى هذا السجل</string>
@@ -1236,6 +1236,13 @@
     <string name="pa_window_all">كل الوقت</string>
     <string name="pa_loading">جارٍ قراءة المدفوعات…</string>
     <string name="pa_offline">تحليلات المدفوعات غير متاحة دون اتصال.</string>
+    <string name="signed_by_stars">المراجعات الموقّعة حسب النجوم · انقر صفًا لقراءتها</string>
+    <string name="stars_filter_on">عرض مراجعات %1$d نجوم فقط</string>
+    <string name="stars_filter_all">كل النجوم</string>
+    <string name="profile_timeline">المراجعات عبر الزمن</string>
+    <string name="profile_timeline_note">%1$d مراجعة في السجل؛ %2$d في آخر اثني عشر شهرًا</string>
+    <string name="profile_follow_up">متابعة لمراجعة سابقة: %1$d★ ← %2$d★</string>
+    <string name="profile_fixed">وضع الناشر علامة أنه أُصلح في الإصدار %1$d</string>
     <string name="standing_card">%1$d موقّعة · %2$d تطبيقات · %3$d متابعات</string>
     <string name="standing_fixes_confirmed">%1$d إصلاحات مؤكدة</string>
     <string name="standing_since_short">منذ %1$s</string>

@@ -227,7 +227,7 @@
     <string name="intro4_body">Για τις εφαρμογές που έχετε εγκαταστήσει, το Undersigned δείχνει αν το build ταιριάζει με το πιστοποιητικό που αναφέρει το κατάστημα και αν άλλαξαν τα δικαιώματα. Στοιχεία, ποτέ κρίσεις.</string>
     <string name="intro5_title">Ακολουθήστε, ενημερωθείτε, απαντήστε</string>
     <string name="intro5_body">Ακολουθήστε εφαρμογές για να μαθαίνετε για νέες υπογεγραμμένες κριτικές, ενημερώσεις και απαντήσεις. Οι εκδότες διεκδικούν την εφαρμογή τους υπογράφοντας, και οι απαντήσεις τους φέρουν το σήμα Εκδότης όταν η διεκδίκηση είναι αποδεδειγμένη. Ό,τι δημοσιεύετε είναι μόνιμο και δημόσιο.</string>
-    <string name="review_also_store">Δημοσίευση και στο dApp Store</string>
+    <string name="review_also_store">Αντιγραφή στο πρόχειρο για δημοσίευση στο dApp Store</string>
     <string name="review_also_store_hint">Αντιγράφει τη σημείωσή σας και ανοίγει την καταχώριση, όπου τη δημοσιεύετε στο \"Ratings &amp; Reviews\" → \"Review this dApp\". Το κατάστημα δεν επιτρέπει σε άλλη εφαρμογή να δημοσιεύει για εσάς, οπότε τα τελευταία πατήματα είναι δικά σας.</string>
     <string name="flag">Επισήμανση</string>
     <string name="flag_title">Επισήμανση αυτής της εγγραφής</string>
@@ -1165,6 +1165,13 @@
     <string name="pa_window_all">Όλη η περίοδος</string>
     <string name="pa_loading">Ανάγνωση πληρωμών…</string>
     <string name="pa_offline">Η ανάλυση πληρωμών δεν είναι διαθέσιμη εκτός σύνδεσης.</string>
+    <string name="signed_by_stars">Υπογεγραμμένες κριτικές ανά αστέρια · πατήστε μια σειρά για να τις διαβάσετε</string>
+    <string name="stars_filter_on">Μόνο κριτικές με %1$d αστέρια</string>
+    <string name="stars_filter_all">Όλα τα αστέρια</string>
+    <string name="profile_timeline">Κριτικές στον χρόνο</string>
+    <string name="profile_timeline_note">%1$d κριτικές στο ledger· %2$d τους τελευταίους δώδεκα μήνες</string>
+    <string name="profile_follow_up">Συνέχεια προηγούμενης κριτικής: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Ο εκδότης το σημείωσε ως διορθωμένο στην έκδοση %1$d</string>
     <string name="standing_card">%1$d υπογεγραμμένες · %2$d εφαρμογές · %3$d συνέχειες</string>
     <string name="standing_fixes_confirmed">%1$d διορθώσεις επιβεβαιωμένες</string>
     <string name="standing_since_short">από %1$s</string>

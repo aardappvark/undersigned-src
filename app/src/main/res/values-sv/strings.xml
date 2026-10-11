@@ -211,7 +211,7 @@
     <string name="intro4_body">För appar du har installerat visar Undersigned om byggversionen matchar certifikatet som butiken listar och om behörigheter har ändrats. Fakta, aldrig domar.</string>
     <string name="intro5_title">Följ, bli informerad, svara</string>
     <string name="intro5_body">Följ appar för att höra om nya signerade recensioner, uppdateringar och svar. Utgivare gör anspråk på sin app genom att signera, och deras svar bär märkningen Utgivare när anspråket är bevisat. Allt du publicerar är permanent och offentligt.</string>
-    <string name="review_also_store">Publicera även i dApp Store</string>
+    <string name="review_also_store">Kopiera till urklipp för att posta i dApp Store</string>
     <string name="review_also_store_hint">Kopierar din anteckning och öppnar listningen, där du publicerar den under ”Ratings &amp; Reviews” → ”Review this dApp”. Butiken har inget sätt för en annan app att publicera åt dig, så de sista tryckningarna är dina.</string>
     <string name="flag">Flagga</string>
     <string name="flag_title">Flagga den här posten</string>
@@ -1166,6 +1166,13 @@
     <string name="pa_window_all">Hela tiden</string>
     <string name="pa_loading">Läser betalningar…</string>
     <string name="pa_offline">Betalningsanalysen är inte tillgänglig offline.</string>
+    <string name="signed_by_stars">Signerade recensioner per stjärna · tryck på en rad för att läsa</string>
+    <string name="stars_filter_on">Endast recensioner med %1$d stjärnor</string>
+    <string name="stars_filter_all">Alla stjärnor</string>
+    <string name="profile_timeline">Recensioner över tid</string>
+    <string name="profile_timeline_note">%1$d recensioner i liggaren; %2$d de senaste tolv månaderna</string>
+    <string name="profile_follow_up">Uppföljning av en tidigare recension: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Utgivaren markerade det som fixat i version %1$d</string>
     <string name="standing_card">%1$d signerade · %2$d appar · %3$d uppföljningar</string>
     <string name="standing_fixes_confirmed">%1$d fixar bekräftade</string>
     <string name="standing_since_short">sedan %1$s</string>

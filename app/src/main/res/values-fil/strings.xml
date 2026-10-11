@@ -230,7 +230,7 @@
     <string name="intro4_body">Para sa mga app na naka-install sa iyo, ipinapakita ng Undersigned kung tumutugma ba ang build sa certificate na nakalista ng store at kung nagbago ba ang mga permission. Facts, hindi kailanman verdict.</string>
     <string name="intro5_title">Sundan, maalaman, sumagot</string>
     <string name="intro5_body">Sundan ang mga app para malaman ang mga bagong naka-sign na review, update at sagot. Kino-claim ng mga publisher ang kanilang app sa pamamagitan ng pag-sign, at taglay ng kanilang mga sagot ang tatak na Publisher kapag napatunayan na ang claim. Permanente at pampubliko ang lahat ng ini-publish mo.</string>
-    <string name="review_also_store">I-post din sa dApp Store</string>
+    <string name="review_also_store">Kopyahin sa clipboard para i-post sa dApp Store</string>
     <string name="review_also_store_hint">Kinokopya ang tala mo at binubuksan ang listing, kung saan mo ito ipo-post sa ilalim ng “Ratings &amp; Reviews” → “Review this dApp”. Walang paraan ang store para makapag-post ang ibang app para sa iyo, kaya sa iyo ang huling mga tap.</string>
     <string name="flag">I-flag</string>
     <string name="flag_title">I-flag ang record na ito</string>
@@ -1169,6 +1169,13 @@
     <string name="pa_window_all">Lahat ng panahon</string>
     <string name="pa_loading">Binabasa ang mga bayad…</string>
     <string name="pa_offline">Hindi available offline ang analytics ng mga bayad.</string>
+    <string name="signed_by_stars">Mga nilagdaang review ayon sa bituin · i-tap ang row para basahin</string>
+    <string name="stars_filter_on">Mga %1$d-bituin na review lang</string>
+    <string name="stars_filter_all">Lahat ng bituin</string>
+    <string name="profile_timeline">Mga review sa paglipas ng panahon</string>
+    <string name="profile_timeline_note">%1$d review sa ledger; %2$d sa nakaraang labindalawang buwan</string>
+    <string name="profile_follow_up">Follow-up sa naunang review: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Minarkahan ng publisher na naayos sa bersyon %1$d</string>
     <string name="standing_card">%1$d nilagdaan · %2$d app · %3$d follow-up</string>
     <string name="standing_fixes_confirmed">%1$d ayos na nakumpirma</string>
     <string name="standing_since_short">mula %1$s</string>

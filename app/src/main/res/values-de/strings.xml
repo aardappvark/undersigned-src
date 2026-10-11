@@ -227,7 +227,7 @@
     <string name="intro4_body">Für installierte Apps zeigt Undersigned, ob der Build mit dem vom Store gelisteten Zertifikat übereinstimmt und ob sich Berechtigungen geändert haben. Fakten, niemals Urteile.</string>
     <string name="intro5_title">Folgen, benachrichtigt werden, antworten</string>
     <string name="intro5_body">Folgen Sie Apps, um von neuen signierten Bewertungen, Updates und Antworten zu erfahren. Herausgeber beanspruchen ihre App durch Signieren, und ihre Antworten tragen das Kennzeichen Herausgeber, sobald der Anspruch nachgewiesen ist. Alles, was Sie veröffentlichen, ist dauerhaft und öffentlich.</string>
-    <string name="review_also_store">Auch im dApp Store posten</string>
+    <string name="review_also_store">In die Zwischenablage kopieren, um im dApp Store zu posten</string>
     <string name="review_also_store_hint">Kopiert Ihre Notiz und öffnet den Eintrag, wo Sie sie unter „Bewertungen &amp; Rezensionen“ → „Eine Rezension für diese dApp hinterlassen“ posten. Der Store bietet keine Möglichkeit für eine andere App, für Sie zu posten, daher bleiben die letzten Schritte bei Ihnen.</string>
     <string name="flag">Markieren</string>
     <string name="flag_title">Diesen Eintrag markieren</string>
@@ -1185,6 +1185,13 @@
     <string name="pa_window_all">Gesamter Zeitraum</string>
     <string name="pa_loading">Zahlungen werden gelesen…</string>
     <string name="pa_offline">Die Zahlungsanalyse ist offline nicht verfügbar.</string>
+    <string name="signed_by_stars">Signierte Bewertungen nach Sternen · Zeile antippen, um sie zu lesen</string>
+    <string name="stars_filter_on">Nur Bewertungen mit %1$d Sternen</string>
+    <string name="stars_filter_all">Alle Sterne</string>
+    <string name="profile_timeline">Bewertungen im Zeitverlauf</string>
+    <string name="profile_timeline_note">%1$d Bewertungen im Ledger; %2$d in den letzten zwölf Monaten</string>
+    <string name="profile_follow_up">Nachtrag zu einer früheren Bewertung: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Vom Publisher als behoben markiert in Version %1$d</string>
     <string name="standing_card">%1$d signiert · %2$d Apps · %3$d Nachträge</string>
     <string name="standing_fixes_confirmed">%1$d bestätigte Fixes</string>
     <string name="standing_since_short">seit %1$s</string>

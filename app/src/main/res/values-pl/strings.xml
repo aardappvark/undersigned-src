@@ -235,7 +235,7 @@
     <string name="intro4_body">Dla zainstalowanych aplikacji Undersigned pokazuje, czy kompilacja odpowiada certyfikatowi podanemu przez sklep i czy zmieniły się uprawnienia. Fakty, nigdy wyroki.</string>
     <string name="intro5_title">Obserwuj, bądź informowany, odpowiadaj</string>
     <string name="intro5_body">Obserwuj aplikacje, aby dowiadywać się o nowych podpisanych recenzjach, aktualizacjach i odpowiedziach. Wydawcy zgłaszają swoją aplikację podpisem, a ich odpowiedzi noszą odznakę Wydawca, gdy zgłoszenie jest udowodnione. Wszystko, co publikujesz, jest trwałe i publiczne.</string>
-    <string name="review_also_store">Opublikuj też w dApp Store</string>
+    <string name="review_also_store">Skopiuj do schowka, aby opublikować w dApp Store</string>
     <string name="review_also_store_hint">Kopiuje Twoją notatkę i otwiera ofertę, gdzie publikujesz ją w sekcji \"Oceny i Recenzje\" → \"Zrecenzuj tę dApp\". Sklep nie ma sposobu, aby inna aplikacja opublikowała coś za Ciebie, więc ostatnie dotknięcia należą do Ciebie.</string>
     <string name="flag">Oznacz</string>
     <string name="flag_title">Oznacz ten wpis</string>
@@ -1203,6 +1203,13 @@
     <string name="pa_window_all">Cały okres</string>
     <string name="pa_loading">Odczytywanie płatności…</string>
     <string name="pa_offline">Analiza płatności nie jest dostępna offline.</string>
+    <string name="signed_by_stars">Podpisane recenzje wg gwiazdek · dotknij wiersza, aby je przeczytać</string>
+    <string name="stars_filter_on">Tylko recenzje %1$d-gwiazdkowe</string>
+    <string name="stars_filter_all">Wszystkie gwiazdki</string>
+    <string name="profile_timeline">Recenzje w czasie</string>
+    <string name="profile_timeline_note">%1$d recenzji w księdze; %2$d w ostatnich dwunastu miesiącach</string>
+    <string name="profile_follow_up">Kontynuacja wcześniejszej recenzji: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Wydawca oznaczył jako naprawione w wersji %1$d</string>
     <string name="standing_card">%1$d podpisanych · %2$d aplikacji · %3$d kontynuacji</string>
     <string name="standing_fixes_confirmed">%1$d potwierdzonych poprawek</string>
     <string name="standing_since_short">od %1$s</string>

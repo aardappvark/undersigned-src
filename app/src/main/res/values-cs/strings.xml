@@ -227,7 +227,7 @@
     <string name="intro4_body">U nainstalovaných aplikací Undersigned ukazuje, zda sestavení odpovídá certifikátu uvedenému obchodem a zda se změnila oprávnění. Fakta, nikdy verdikty.</string>
     <string name="intro5_title">Sledujte, buďte informováni, odpovídejte</string>
     <string name="intro5_body">Sledujte aplikace, abyste se dozvěděli o nových podepsaných recenzích, aktualizacích a odpovědích. Vydavatelé si nárokují svou aplikaci podpisem a jejich odpovědi nesou značku Vydavatel, jakmile je nárok prokázaný. Vše, co zveřejníte, je trvalé a veřejné.</string>
-    <string name="review_also_store">Zveřejnit i v dApp Store</string>
+    <string name="review_also_store">Zkopírovat do schránky a vložit v dApp Store</string>
     <string name="review_also_store_hint">Zkopíruje vaši poznámku a otevře záznam, kde ji zveřejníte v části \"Ratings &amp; Reviews\" → \"Review this dApp\". Obchod nemá způsob, jak by za vás mohla zveřejnit jiná aplikace, takže poslední klepnutí jsou na vás.</string>
     <string name="flag">Označit</string>
     <string name="flag_title">Označit tento záznam</string>
@@ -1195,6 +1195,13 @@
     <string name="pa_window_all">Celé období</string>
     <string name="pa_loading">Načítání plateb…</string>
     <string name="pa_offline">Analýza plateb není offline k dispozici.</string>
+    <string name="signed_by_stars">Podepsané recenze podle hvězdiček · klepnutím na řádek je zobrazíte</string>
+    <string name="stars_filter_on">Zobrazeny jen recenze s %1$d hvězdičkami</string>
+    <string name="stars_filter_all">Všechny hvězdičky</string>
+    <string name="profile_timeline">Recenze v čase</string>
+    <string name="profile_timeline_note">%1$d recenzí v účetní knize; %2$d za posledních dvanáct měsíců</string>
+    <string name="profile_follow_up">Navazuje na dřívější recenzi: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Vydavatel označil opravu ve verzi %1$d</string>
     <string name="standing_card">%1$d podepsaných · %2$d aplikací · %3$d navazujících</string>
     <string name="standing_fixes_confirmed">%1$d potvrzených oprav</string>
     <string name="standing_since_short">od %1$s</string>

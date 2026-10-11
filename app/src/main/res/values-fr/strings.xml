@@ -230,7 +230,7 @@
     <string name="intro4_body">Pour les applications que vous avez installées, Undersigned montre si la version correspond au certificat indiqué par le store et si les permissions ont changé. Des faits, jamais des verdicts.</string>
     <string name="intro5_title">Suivez, soyez informé, répondez</string>
     <string name="intro5_body">Suivez des applications pour être informé des nouveaux avis signés, mises à jour et réponses. Les éditeurs revendiquent leur application en signant, et leurs réponses portent la marque Éditeur une fois la revendication prouvée. Tout ce que vous publiez est permanent et public.</string>
-    <string name="review_also_store">Publier aussi dans le dApp Store</string>
+    <string name="review_also_store">Copier dans le presse-papiers pour publier sur le dApp Store</string>
     <string name="review_also_store_hint">Copie votre note et ouvre la fiche, où vous la publiez sous «Notes &amp; Commentaires» → «Donnez votre avis sur cette dApp». Le store n\'a aucun moyen de laisser une autre application publier à votre place, donc les derniers gestes sont les vôtres.</string>
     <string name="flag">Flag</string>
     <string name="flag_title">Flaguer cet enregistrement</string>
@@ -1194,6 +1194,13 @@
     <string name="pa_window_all">Depuis le début</string>
     <string name="pa_loading">Lecture des paiements…</string>
     <string name="pa_offline">L’analyse des paiements n’est pas disponible hors ligne.</string>
+    <string name="signed_by_stars">Avis signés par étoiles · touchez une ligne pour les lire</string>
+    <string name="stars_filter_on">Avis à %1$d étoiles uniquement</string>
+    <string name="stars_filter_all">Toutes les étoiles</string>
+    <string name="profile_timeline">Avis au fil du temps</string>
+    <string name="profile_timeline_note">%1$d avis dans le registre ; %2$d sur les douze derniers mois</string>
+    <string name="profile_follow_up">Suite d’un avis précédent : %1$d★ → %2$d★</string>
+    <string name="profile_fixed">L’éditeur l’a marqué corrigé dans la version %1$d</string>
     <string name="standing_card">%1$d signés · %2$d apps · %3$d suites</string>
     <string name="standing_fixes_confirmed">%1$d correctifs confirmés</string>
     <string name="standing_since_short">depuis %1$s</string>

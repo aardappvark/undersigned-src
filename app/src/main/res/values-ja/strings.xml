@@ -217,7 +217,7 @@
     <string name="intro4_body">インストール済みのアプリについて、Undersigned はビルドがストア記載の証明書と一致しているか、権限が変更されていないかを表示します。事実のみで、判定は行いません。</string>
     <string name="intro5_title">フォローして、知らせを受け取り、返信する</string>
     <string name="intro5_body">アプリをフォローすると、新しい署名付きレビュー、更新、返信を知ることができます。パブリッシャーは署名してアプリの権利を主張し、主張が証明されると返信に「パブリッシャー」マークが付きます。公開した内容はすべて永久に残り、公開されます。</string>
-    <string name="review_also_store">dApp Store にも投稿</string>
+    <string name="review_also_store">クリップボードにコピーして dApp Store に投稿</string>
     <string name="review_also_store_hint">メモをコピーしてリスティングを開き、「評価 &amp;レビュー」→「このdAppをレビュー」の下でご自身が投稿します。ストアには他のアプリが代わりに投稿する仕組みがないため、最後の操作はご自身で行っていただきます。</string>
     <string name="flag">フラグ</string>
     <string name="flag_title">このレコードにフラグを立てる</string>
@@ -1141,6 +1141,13 @@
     <string name="pa_window_all">全期間</string>
     <string name="pa_loading">支払いを読み込み中…</string>
     <string name="pa_offline">支払い分析はオフラインでは利用できません。</string>
+    <string name="signed_by_stars">星別の署名レビュー · 行をタップして読む</string>
+    <string name="stars_filter_on">%1$d つ星のレビューのみ表示</string>
+    <string name="stars_filter_all">すべての星</string>
+    <string name="profile_timeline">レビューの推移</string>
+    <string name="profile_timeline_note">台帳に %1$d 件、直近12か月に %2$d 件</string>
+    <string name="profile_follow_up">以前のレビューのフォローアップ: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">パブリッシャーがバージョン %1$d で修正済みとしました</string>
     <string name="standing_card">署名 %1$d · アプリ %2$d · フォローアップ %3$d</string>
     <string name="standing_fixes_confirmed">修正確認 %1$d</string>
     <string name="standing_since_short">%1$s から</string>

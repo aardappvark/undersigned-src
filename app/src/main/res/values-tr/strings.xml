@@ -227,7 +227,7 @@
     <string name="intro4_body">Yüklediğiniz uygulamalar için Undersigned, build\'in mağazanın listelediği sertifikayla eşleşip eşleşmediğini ve izinlerin değişip değişmediğini gösterir. Gerçekler, asla hüküm değil.</string>
     <string name="intro5_title">Takip edin, haberdar olun, yanıtlayın</string>
     <string name="intro5_body">Yeni imzalı incelemeler, güncellemeler ve yanıtlardan haberdar olmak için uygulamaları takip edin. Yayıncılar uygulamalarını imzalayarak talep eder ve talep kanıtlandığında yanıtları Yayıncı rozetini taşır. Yayınladığınız her şey kalıcı ve herkese açıktır.</string>
-    <string name="review_also_store">dApp Store\'da da paylaş</string>
+    <string name="review_also_store">dApp Store’da paylaşmak için panoya kopyala</string>
     <string name="review_also_store_hint">Notunuzu kopyalar ve listelemeyi açar; burada \"Ratings &amp; Reviews\" → \"Review this dApp\" altında paylaşırsınız. Mağazanın başka bir uygulamanın sizin adınıza paylaşım yapmasına izin verecek bir yolu yoktur, bu yüzden son dokunuşlar size aittir.</string>
     <string name="flag">İşaretle</string>
     <string name="flag_title">Bu kaydı işaretle</string>
@@ -1165,6 +1165,13 @@
     <string name="pa_window_all">Tüm zamanlar</string>
     <string name="pa_loading">Ödemeler okunuyor…</string>
     <string name="pa_offline">Ödeme analizi çevrimdışı kullanılamaz.</string>
+    <string name="signed_by_stars">Yıldıza göre imzalı yorumlar · okumak için bir satıra dokunun</string>
+    <string name="stars_filter_on">Yalnızca %1$d yıldızlı yorumlar</string>
+    <string name="stars_filter_all">Tüm yıldızlar</string>
+    <string name="profile_timeline">Zaman içinde yorumlar</string>
+    <string name="profile_timeline_note">Defterde %1$d yorum; son on iki ayda %2$d</string>
+    <string name="profile_follow_up">Önceki bir yorumun takibi: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Yayıncı bunu %1$d sürümünde düzeltildi olarak işaretledi</string>
     <string name="standing_card">%1$d imzalı · %2$d uygulama · %3$d takip</string>
     <string name="standing_fixes_confirmed">%1$d düzeltme doğrulandı</string>
     <string name="standing_since_short">%1$s tarihinden beri</string>

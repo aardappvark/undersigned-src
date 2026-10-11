@@ -225,7 +225,7 @@
     <string name="intro4_body">Đối với các ứng dụng bạn đã cài đặt, Undersigned cho biết liệu bản build có khớp với chứng chỉ mà cửa hàng liệt kê hay không và liệu quyền có thay đổi hay không. Chỉ là thông tin thực tế, không bao giờ là phán quyết.</string>
     <string name="intro5_title">Theo dõi, được báo, trả lời</string>
     <string name="intro5_body">Theo dõi ứng dụng để biết về các đánh giá đã ký mới, cập nhật và trả lời. Nhà phát hành gửi yêu cầu cho ứng dụng của họ bằng cách ký, và phần trả lời của họ mang dấu Nhà phát hành khi yêu cầu đã được chứng minh. Mọi thứ bạn đăng đều là vĩnh viễn và công khai.</string>
-    <string name="review_also_store">Cũng đăng trong dApp Store</string>
+    <string name="review_also_store">Sao chép vào bảng nhớ tạm để đăng lên dApp Store</string>
     <string name="review_also_store_hint">Sao chép ghi chú của bạn và mở trang niêm yết, nơi bạn đăng nó dưới mục “Ratings &amp; Reviews” → “Review this dApp”. Cửa hàng không có cách nào để ứng dụng khác đăng thay bạn, nên các thao tác chạm cuối cùng là của bạn.</string>
     <string name="flag">Gắn cờ</string>
     <string name="flag_title">Gắn cờ bản ghi này</string>
@@ -1150,6 +1150,13 @@
     <string name="pa_window_all">Toàn bộ thời gian</string>
     <string name="pa_loading">Đang đọc các khoản thanh toán…</string>
     <string name="pa_offline">Phân tích thanh toán không khả dụng khi ngoại tuyến.</string>
+    <string name="signed_by_stars">Bài đánh giá đã ký theo sao · chạm một hàng để đọc</string>
+    <string name="stars_filter_on">Chỉ hiện bài %1$d sao</string>
+    <string name="stars_filter_all">Tất cả số sao</string>
+    <string name="profile_timeline">Đánh giá theo thời gian</string>
+    <string name="profile_timeline_note">%1$d bài trong sổ cái; %2$d trong mười hai tháng qua</string>
+    <string name="profile_follow_up">Theo dõi bài đánh giá trước: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Nhà phát hành đánh dấu đã sửa ở phiên bản %1$d</string>
     <string name="standing_card">%1$d đã ký · %2$d ứng dụng · %3$d bài theo dõi</string>
     <string name="standing_fixes_confirmed">%1$d bản sửa được xác nhận</string>
     <string name="standing_since_short">từ %1$s</string>

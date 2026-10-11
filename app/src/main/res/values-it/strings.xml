@@ -230,7 +230,7 @@
     <string name="intro4_body">Per le app che hai installato, Undersigned mostra se la build corrisponde al certificato indicato dallo store e se i permessi sono cambiati. Fatti, mai verdetti.</string>
     <string name="intro5_title">Segui, vieni informato, rispondi</string>
     <string name="intro5_body">Segui le app per sapere di nuove recensioni firmate, aggiornamenti e risposte. Gli editori rivendicano la loro app firmando, e le loro risposte portano il marchio Editore una volta che la rivendicazione è dimostrata. Tutto ciò che pubblichi è permanente e pubblico.</string>
-    <string name="review_also_store">Pubblica anche nel dApp Store</string>
+    <string name="review_also_store">Copia negli appunti per pubblicare nel dApp Store</string>
     <string name="review_also_store_hint">Copia la tua nota e apre la scheda, dove la pubblichi in «Valutazioni &amp; recensioni» → «Recensisci questa dApp». Lo store non ha modo di far pubblicare un\'altra app al posto tuo, quindi gli ultimi tocchi sono tuoi.</string>
     <string name="flag">Flag</string>
     <string name="flag_title">Aggiungi un flag a questo record</string>
@@ -1194,6 +1194,13 @@
     <string name="pa_window_all">Da sempre</string>
     <string name="pa_loading">Lettura dei pagamenti…</string>
     <string name="pa_offline">L’analisi dei pagamenti non è disponibile offline.</string>
+    <string name="signed_by_stars">Recensioni firmate per stelle · tocca una riga per leggerle</string>
+    <string name="stars_filter_on">Solo recensioni a %1$d stelle</string>
+    <string name="stars_filter_all">Tutte le stelle</string>
+    <string name="profile_timeline">Recensioni nel tempo</string>
+    <string name="profile_timeline_note">%1$d recensioni nel registro; %2$d negli ultimi dodici mesi</string>
+    <string name="profile_follow_up">Seguito di una recensione precedente: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">L’editore l’ha segnata come risolta nella versione %1$d</string>
     <string name="standing_card">%1$d firmate · %2$d app · %3$d seguiti</string>
     <string name="standing_fixes_confirmed">%1$d correzioni confermate</string>
     <string name="standing_since_short">dal %1$s</string>

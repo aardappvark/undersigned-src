@@ -26,6 +26,8 @@ import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,6 +83,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val isInstalled = pkg in installed
     val facts = remember(pkg, isInstalled) { if (isInstalled) vm.deviceFacts(pkg) else null }
     val reviews = remember(entries, hidden, scores) { vm.reviewsFor(pkg) }
+    // Tap a star row to read why it was rated so (owner, 11 Oct 2026, the Amazon pattern): one filter for the signed list and the store rows.
+    var starFilter by rememberSaveable(pkg) { mutableStateOf(0) }
     val mine = remember(entries, wallet) { vm.myReview(pkg) }
     var revokeDialog by remember { mutableStateOf(false) }
     var revokeStage by remember { mutableStateOf<String?>(null) }
@@ -233,7 +237,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             }
         }
         com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
-        Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
+        val pageScroll = rememberScrollState(); val pageScope = rememberCoroutineScope(); var reviewsY by remember { mutableStateOf(0) }
+        Column(Modifier.verticalScroll(pageScroll).padding(horizontal = 20.dp)) {
             Spacer(Modifier.height(6.dp))
             // Stacked, not side by side: "Open in dApp Store" wrapped and clipped at half width on the Seeker (15 Sep 2026), and German runs longer.
             SecondaryButton(stringResource(R.string.detail_open_store), onClick = { openStore() })
@@ -307,13 +312,27 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
 
             // Signed reviews are what this app is for, so they come straight after the score; the store's own rating,
             // bursts and device facts follow (UI review 6 Oct 2026: they sat about ten swipes down, under store reviews).
-            SectionTitle(stringResource(R.string.reviews_title))
+            Box(Modifier.onGloballyPositioned { reviewsY = it.positionInParent().y.toInt() }) { SectionTitle(stringResource(R.string.reviews_title)) }
             simpleStage?.let { Text(it, color = RbColors.purpleLight, fontSize = 12.sp) }
             actionMessage?.let { (ok, msg) -> Text(msg, color = if (ok) RbColors.green else RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp) }
             if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
             else Text(stringResource(R.string.swipe_hint), color = RbColors.textTertiary, fontSize = 11.sp)
             var show by remember { mutableStateOf(0) }   // 0 everyone · 1 mine · 2 answered by the publisher
             var sortBy by remember { mutableStateOf(0) } // 0 most helpful (default order) · 1 newest · 2 signer · 3 version
+            // Signed reviews by stars, each row a filter (owner, 11 Oct 2026): how many gave 3★, then straight to why.
+            if (reviews.size > 1) {
+                val byStar = (5 downTo 1).map { s -> s to reviews.count { (it.first.memo as ReviewMemo.Review).rating == s } }
+                val maxStar = byStar.maxOf { it.second }.coerceAtLeast(1)
+                Text(stringResource(R.string.signed_by_stars), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp))
+                byStar.forEach { (s, n) ->
+                    Row(Modifier.fillMaxWidth().heightIn(min = 36.dp).clickable { starFilter = if (starFilter == s) 0 else s }, verticalAlignment = Alignment.CenterVertically) {
+                        Text("$s★", color = if (starFilter == s) RbColors.purpleLight else RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 26.dp))
+                        Box(Modifier.weight(1f).height(6.dp).clip(RoundedCornerShape(3.dp)).background(RbColors.surfaceVariant)) { Box(Modifier.fillMaxWidth(n.toFloat() / maxStar).height(6.dp).background(if (starFilter == 0 || starFilter == s) RbColors.purple else RbColors.textDim)) }
+                        Text("$n", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 36.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
+                    }
+                }
+                if (starFilter != 0) TextButton(onClick = { starFilter = 0 }, modifier = Modifier.heightIn(min = 48.dp), contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.stars_filter_on, starFilter) + " · " + stringResource(R.string.stars_filter_all), color = RbColors.purpleLight, fontSize = 12.sp) }
+            }
             if (reviews.size > 1) {
                 ChipRow(stringResource(R.string.show), listOf(0 to stringResource(R.string.show_everyone), 1 to stringResource(R.string.show_mine), 2 to stringResource(R.string.show_answered)), show, { show = it })
                 ChipRow(stringResource(R.string.sort), listOf(0 to stringResource(R.string.sort_helpful), 1 to stringResource(R.string.sort_newest), 2 to stringResource(R.string.sort_signer), 3 to stringResource(R.string.sort_version),
@@ -321,8 +340,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 // The reader's choice, never the default (legal note, 9 Oct 2026); sorts within each section, never changes a score.
                 if (sortBy >= 4) Text(stringResource(R.string.sort_stake_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             }
-            val shown = remember(reviews, show, sortBy, entries, domainNames, verified, reviewStakes) {
-                reviews.filter { (e, _) -> when (show) { 1 -> e.signer == wallet; 2 -> vm.repliesFor(e.signature).any { vm.isVerifiedPublisher(pkg, it.signer) }; else -> true } }
+            val shown = remember(reviews, show, sortBy, starFilter, entries, domainNames, verified, reviewStakes) {
+                reviews.filter { (e, _) -> starFilter == 0 || (e.memo as ReviewMemo.Review).rating == starFilter }.filter { (e, _) -> when (show) { 1 -> e.signer == wallet; 2 -> vm.repliesFor(e.signature).any { vm.isVerifiedPublisher(pkg, it.signer) }; else -> true } }
                     .let { l -> when (sortBy) {
                         1 -> l.sortedByDescending { it.first.blockTime }
                         2 -> l.sortedBy { domainNames[it.first.signer]?.takeIf { n -> n.isNotEmpty() } ?: it.first.signer }
@@ -749,8 +768,9 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     val max = (sr.byStar.maxOrNull() ?: 1).coerceAtLeast(1)
                     (5 downTo 1).forEach { star ->
                         val n = sr.byStar.getOrNull(star - 1) ?: 0
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("$star★", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 26.dp))
+                        // Tap a store star row: the same filter, and the page scrolls to the reviews (owner, 11 Oct 2026).
+                        Row(Modifier.fillMaxWidth().heightIn(min = 36.dp).clickable { starFilter = if (starFilter == star) 0 else star; pageScope.launch { pageScroll.animateScrollTo(reviewsY) } }, verticalAlignment = Alignment.CenterVertically) {
+                            Text("$star★", color = if (starFilter == star) RbColors.purpleLight else RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 26.dp))
                             Box(Modifier.weight(1f).height(6.dp).clip(RoundedCornerShape(3.dp)).background(RbColors.surfaceVariant)) { Box(Modifier.fillMaxWidth(n.toFloat() / max).height(6.dp).background(RbColors.purple)) }
                             Text("$n", color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.widthIn(min = 36.dp), textAlign = androidx.compose.ui.text.style.TextAlign.End)
                         }
@@ -782,7 +802,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 }
                 // Store rows sit flat in the card (design F2): trust pills only, season as quiet text, then the store's own
                 // reply and, after it, the publisher's SIGNED note — each marked for where it comes from.
-                storeReviews[pkg]?.take(3)?.forEach { r ->
+                storeReviews[pkg]?.let { l -> if (starFilter == 0) l.take(3) else l.filter { it.rating == starFilter } }?.forEach { r ->
                     HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 10.dp))
                     Column(Modifier.fillMaxWidth()) {
                         Row(verticalAlignment = Alignment.CenterVertically) {

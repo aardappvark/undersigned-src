@@ -219,7 +219,7 @@
     <string name="intro4_body">Для установленных приложений Undersigned показывает, соответствует ли сборка сертификату, указанному магазином, и изменились ли разрешения. Факты, а не вердикты.</string>
     <string name="intro5_title">Подписывайтесь, узнавайте, отвечайте</string>
     <string name="intro5_body">Подписывайтесь на приложения, чтобы узнавать о новых подписанных отзывах, обновлениях и ответах. Издатели заявляют права на своё приложение подписью, а их ответы получают значок Издатель, когда заявка доказана. Всё, что вы публикуете, постоянно и публично.</string>
-    <string name="review_also_store">Также опубликовать в dApp Store</string>
+    <string name="review_also_store">Скопировать в буфер обмена, чтобы опубликовать в dApp Store</string>
     <string name="review_also_store_hint">Копирует вашу заметку и открывает листинг, где вы публикуете её в разделе \"Оценки и Отзывы\" → \"Оценить это децентрализованное приложение\". У магазина нет способа для другого приложения опубликовать за вас, поэтому последние нажатия — за вами.</string>
     <string name="flag">Отметить</string>
     <string name="flag_title">Отметить эту запись</string>
@@ -1186,6 +1186,13 @@
     <string name="pa_window_all">За всё время</string>
     <string name="pa_loading">Читаем платежи…</string>
     <string name="pa_offline">Аналитика платежей недоступна офлайн.</string>
+    <string name="signed_by_stars">Подписанные отзывы по звёздам · нажмите строку, чтобы прочитать</string>
+    <string name="stars_filter_on">Только отзывы на %1$d звёзд</string>
+    <string name="stars_filter_all">Все звёзды</string>
+    <string name="profile_timeline">Отзывы во времени</string>
+    <string name="profile_timeline_note">%1$d отзывов в реестре; %2$d за последние двенадцать месяцев</string>
+    <string name="profile_follow_up">Продолжение более раннего отзыва: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Издатель отметил исправление в версии %1$d</string>
     <string name="standing_card">%1$d подписано · %2$d приложений · %3$d продолжений</string>
     <string name="standing_fixes_confirmed">%1$d исправлений подтверждено</string>
     <string name="standing_since_short">с %1$s</string>

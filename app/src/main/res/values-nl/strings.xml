@@ -219,7 +219,7 @@
     <string name="intro4_body">Voor apps die u hebt geïnstalleerd, toont Undersigned of de build overeenkomt met het certificaat dat de store vermeldt en of machtigingen zijn veranderd. Feiten, nooit oordelen.</string>
     <string name="intro5_title">Volgen, op de hoogte blijven, reageren</string>
     <string name="intro5_body">Volg apps om te horen over nieuwe ondertekende recensies, updates en reacties. Uitgevers claimen hun app door te ondertekenen, en hun antwoorden dragen het label Uitgever zodra de claim bewezen is. Alles wat u publiceert is permanent en openbaar.</string>
-    <string name="review_also_store">Ook plaatsen in de dApp Store</string>
+    <string name="review_also_store">Kopiëren naar klembord om in de dApp Store te plaatsen</string>
     <string name="review_also_store_hint">Kopieert uw opmerking en opent de vermelding, waar u deze plaatst onder „Beoordelingen &amp; Recensies” → „Beoordeel deze dApp”. De store heeft geen manier voor een andere app om voor u te plaatsen, dus de laatste tikken zijn aan u.</string>
     <string name="flag">Markeren</string>
     <string name="flag_title">Dit record markeren</string>
@@ -1174,6 +1174,13 @@
     <string name="pa_window_all">Altijd</string>
     <string name="pa_loading">Betalingen worden gelezen…</string>
     <string name="pa_offline">Betalingsanalyse is offline niet beschikbaar.</string>
+    <string name="signed_by_stars">Ondertekende reviews per ster · tik op een rij om ze te lezen</string>
+    <string name="stars_filter_on">Alleen reviews met %1$d sterren</string>
+    <string name="stars_filter_all">Alle sterren</string>
+    <string name="profile_timeline">Reviews door de tijd</string>
+    <string name="profile_timeline_note">%1$d reviews in het grootboek; %2$d in de laatste twaalf maanden</string>
+    <string name="profile_follow_up">Vervolg op een eerdere review: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">De uitgever markeerde dit als opgelost in versie %1$d</string>
     <string name="standing_card">%1$d ondertekend · %2$d apps · %3$d vervolgen</string>
     <string name="standing_fixes_confirmed">%1$d fixes bevestigd</string>
     <string name="standing_since_short">sinds %1$s</string>

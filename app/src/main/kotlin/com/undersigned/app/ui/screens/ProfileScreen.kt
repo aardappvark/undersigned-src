@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,12 +20,15 @@ import com.undersigned.app.R
 import com.undersigned.app.solana.shortKey
 import com.undersigned.app.ui.MainViewModel
 import com.undersigned.app.ui.components.*
+import com.undersigned.app.ui.components.label
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.ReviewMemo
 import java.text.DateFormat
 import java.util.Date
 
 /** A wallet's public standing: counts, the two published-formula scores, apps it verifiably publishes, its reviews. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen: (String) -> Unit) {
     val standings by vm.standings.collectAsState()
@@ -37,6 +41,10 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
     val name = domainNames[wallet]?.takeIf { it.isNotEmpty() } ?: shortKey(wallet, 6, 6)
     val published = remember(verified) { vm.publishedBy(wallet) }
     val reviews = remember(entries) { vm.entriesBy(wallet).sortedByDescending { it.blockTime } }
+    val rounds by vm.rounds.collectAsState(); val fixes by vm.fixes.collectAsState(); val ownTags by vm.customTags.collectAsState()
+    val stamp = remember { DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT) }
+    // Reviews over time: the last twelve months, counts per month (owner, 11 Oct 2026: "see the user reviews over time").
+    val months = remember(reviews) { val now = java.time.YearMonth.now(); (11 downTo 0).map { now.minusMonths(it.toLong()) }.map { ym -> ym to reviews.count { java.time.YearMonth.from(java.time.Instant.ofEpochSecond(it.blockTime).atZone(java.time.ZoneId.systemDefault())) == ym } } }
     fun appName(pkg: String) = catalogue.firstOrNull { it.packageName == pkg }?.name ?: pkg
 
     Column(Modifier.fillMaxSize().background(RbColors.background)) {
@@ -78,14 +86,33 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                     Spacer(Modifier.height(8.dp))
                 }
             }
+            if (reviews.isNotEmpty()) {
+                SectionTitle(stringResource(R.string.profile_timeline))
+                GlassCard {
+                    val maxM = months.maxOf { it.second }.coerceAtLeast(1)
+                    Row(Modifier.fillMaxWidth().height(56.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        months.forEach { (ym, n) -> Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(Modifier.fillMaxWidth().height((40 * n / maxM).coerceAtLeast(if (n > 0) 3 else 1).dp).clip(RoundedCornerShape(2.dp)).background(if (n > 0) RbColors.purple else RbColors.surfaceVariant))
+                            Text(ym.month.getDisplayName(java.time.format.TextStyle.NARROW, java.util.Locale.getDefault()), color = RbColors.textTertiary, fontSize = 9.sp) } }
+                    }
+                    Text(stringResource(R.string.profile_timeline_note, reviews.size, months.sumOf { it.second }), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
+                }
+            }
             SectionTitle(stringResource(R.string.profile_reviews))
             if (reviews.isEmpty()) Text(stringResource(R.string.row_no_reviews), color = RbColors.textSecondary, fontSize = 13.sp)
             reviews.forEach { e ->
                 val r = e.memo as ReviewMemo.Review
                 GlassCard(modifier = Modifier.clickable { onOpen(r.packageName) }) {
                     Text(appName(r.packageName), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp) }
-                    vm.modHidden.collectAsState().value[e.signature]?.let { com.undersigned.app.ui.components.ModHiddenText(it) } ?: r.text?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp) }
+                    // Date AND time, the dApp, the stars, the tags and the note: the record a reader can check (owner, 11 Oct 2026).
+                    Row(verticalAlignment = Alignment.CenterVertically) { RatingStars(r.rating.toDouble(), size = 12); Spacer(Modifier.width(6.dp)); Text(stamp.format(Date(e.blockTime * 1000)) + " · v${r.versionCode}", color = RbColors.textTertiary, fontSize = 11.sp) }
+                    FlowRow(Modifier.padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        r.tags.forEach { TagChip(it.label()) }
+                        ownTags[e.signature]?.forEach { TagChip(it, selected = true) }
+                    }
+                    rounds[e.signature]?.let { rd -> Text(stringResource(R.string.profile_follow_up, rd.before, rd.after), color = RbColors.info, fontSize = 11.sp, modifier = Modifier.padding(top = 4.dp)) }
+                    fixes[e.signature]?.let { f -> Text(stringResource(R.string.profile_fixed, f.versionCode), color = RbColors.green, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp)) }
+                    vm.modHidden.collectAsState().value[e.signature]?.let { com.undersigned.app.ui.components.ModHiddenText(it) } ?: vm.fullText(e)?.let { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, modifier = Modifier.padding(top = 4.dp)) }
                 }
                 Spacer(Modifier.height(8.dp))
             }

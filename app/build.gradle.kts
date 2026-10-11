@@ -23,8 +23,8 @@ android {
         applicationId = "com.undersigned.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 20
-        versionName = "1.1.9"
+        versionCode = 21
+        versionName = "1.1.10"
         // Keyed RPC provider from local.properties — never in source control. Empty = public pools only.
         resValue("string", "helius_api_key", localProperties.getProperty("HELIUS_API_KEY", ""))
         // Fleet last-resort key: lives ONLY in ~/.gradle/gradle.properties (never committed). Appended LAST.

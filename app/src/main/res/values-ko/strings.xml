@@ -217,7 +217,7 @@
     <string name="intro4_body">설치한 앱에 대해 Undersigned는 빌드가 스토어에 기재된 인증서와 일치하는지, 권한이 변경되었는지를 보여줍니다. 사실일 뿐, 판정이 아닙니다.</string>
     <string name="intro5_title">팔로우하고, 알림 받고, 답글 달기</string>
     <string name="intro5_body">앱을 팔로우하면 새로운 서명된 리뷰, 업데이트, 답글 소식을 받을 수 있습니다. 퍼블리셔는 서명으로 자신의 앱을 주장하며, 주장이 증명되면 답글에 퍼블리셔 표시가 붙습니다. 게시하는 모든 내용은 영구적이며 공개됩니다.</string>
-    <string name="review_also_store">dApp Store에도 게시</string>
+    <string name="review_also_store">클립보드에 복사해 dApp Store에 게시</string>
     <string name="review_also_store_hint">메모를 복사해 리스팅을 열면 \"평가 &amp; 리뷰\" → \"이 dApp 리뷰하기\"에서 직접 게시합니다. 스토어는 다른 앱이 대신 게시하도록 허용하지 않으므로, 마지막 탭은 사용자가 직접 해야 합니다.</string>
     <string name="flag">플래그</string>
     <string name="flag_title">이 기록에 플래그 지정</string>
@@ -1142,6 +1142,13 @@
     <string name="pa_window_all">전체 기간</string>
     <string name="pa_loading">결제 읽는 중…</string>
     <string name="pa_offline">결제 분석은 오프라인에서 사용할 수 없습니다.</string>
+    <string name="signed_by_stars">별점별 서명 리뷰 · 행을 탭해 읽기</string>
+    <string name="stars_filter_on">%1$d점 리뷰만 표시</string>
+    <string name="stars_filter_all">모든 별점</string>
+    <string name="profile_timeline">시간에 따른 리뷰</string>
+    <string name="profile_timeline_note">원장에 %1$d개, 최근 12개월에 %2$d개</string>
+    <string name="profile_follow_up">이전 리뷰의 후속: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">퍼블리셔가 버전 %1$d에서 수정됨으로 표시</string>
     <string name="standing_card">서명 %1$d · 앱 %2$d · 후속 리뷰 %3$d</string>
     <string name="standing_fixes_confirmed">수정 확인 %1$d</string>
     <string name="standing_since_short">%1$s부터</string>

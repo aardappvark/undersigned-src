@@ -235,7 +235,7 @@
     <string name="intro4_body">Для встановлених додатків Undersigned показує, чи відповідає збірка сертифікату, вказаному магазином, і чи змінилися дозволи. Факти, ніколи не вердикти.</string>
     <string name="intro5_title">Стежте, дізнавайтеся, відповідайте</string>
     <string name="intro5_body">Стежте за додатками, щоб дізнаватися про нові підписані відгуки, оновлення й відповіді. Видавці заявляють права на свій додаток підписом, а їхні відповіді отримують значок Видавець, коли заявку доведено. Усе, що ви публікуєте, постійне й публічне.</string>
-    <string name="review_also_store">Також опублікувати в dApp Store</string>
+    <string name="review_also_store">Скопіювати в буфер обміну, щоб опублікувати в dApp Store</string>
     <string name="review_also_store_hint">Копіює вашу примітку й відкриває сторінку, де ви публікуєте її в розділі \"Оцінки та відгуки\" → \"Залиште відгук цьому децентралізованому застосунку\". У магазину немає способу, щоб інший додаток опублікував за вас, тож останні дотики — за вами.</string>
     <string name="flag">Позначити</string>
     <string name="flag_title">Позначити цей запис</string>
@@ -1202,6 +1202,13 @@
     <string name="pa_window_all">За весь час</string>
     <string name="pa_loading">Читаємо платежі…</string>
     <string name="pa_offline">Аналітика платежів недоступна офлайн.</string>
+    <string name="signed_by_stars">Підписані відгуки за зірками · торкніться рядка, щоб прочитати</string>
+    <string name="stars_filter_on">Лише відгуки на %1$d зірок</string>
+    <string name="stars_filter_all">Усі зірки</string>
+    <string name="profile_timeline">Відгуки в часі</string>
+    <string name="profile_timeline_note">%1$d відгуків у реєстрі; %2$d за останні дванадцять місяців</string>
+    <string name="profile_follow_up">Продовження попереднього відгуку: %1$d★ → %2$d★</string>
+    <string name="profile_fixed">Видавець позначив як виправлене у версії %1$d</string>
     <string name="standing_card">%1$d підписано · %2$d застосунків · %3$d продовжень</string>
     <string name="standing_fixes_confirmed">%1$d виправлень підтверджено</string>
     <string name="standing_since_short">з %1$s</string>
