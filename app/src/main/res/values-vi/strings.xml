@@ -1327,4 +1327,11 @@
     <string name="notif_store_update_title">%1$s đã cập nhật trên dApp Store (phiên bản %2$d)</string>
     <string name="notif_store_update_body">Mở để xem thay đổi và đánh giá phiên bản này.</string>
     <string name="sign_needs_consent">Đánh dấu ô “vĩnh viễn” ở trên để ký ghi chú</string>
+    <string name="lb_m_pro">Điểm thành viên Pro</string>
+    <string name="lb_m_stars">Tất cả sao, trung bình đơn giản</string>
+    <string name="lb_m_cat_store">Danh mục · đánh giá trên cửa hàng</string>
+    <string name="lb_m_cat_signed">Danh mục · đánh giá đã ký</string>
+    <string name="lb_note_pro">Đánh giá từ ví có Pro, tính điểm riêng; trong điểm đã ký được tính như mọi người.</string>
+    <string name="lb_note_stars">Mọi đánh giá đã ký còn hiệu lực của ứng dụng, trung bình như đã viết, không trọng số. Ít nhất hai đánh giá.</string>
+    <string name="lb_note_cats">Danh mục theo cửa hàng; số cửa hàng từ sao của cửa hàng; số đã ký từ sổ cái. Xu hướng: 30 ngày qua so với 30 ngày trước.</string>
 </resources>

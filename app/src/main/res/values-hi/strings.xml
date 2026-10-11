@@ -1345,4 +1345,11 @@
     <string name="notif_store_update_title">%1$s dApp Store में अपडेट हुआ (संस्करण %2$d)</string>
     <string name="notif_store_update_body">बदलाव देखने और इस संस्करण को रेट करने के लिए खोलें।</string>
     <string name="sign_needs_consent">नोट पर हस्ताक्षर करने के लिए ऊपर «स्थायी» बॉक्स पर टिक करें</string>
+    <string name="lb_m_pro">Pro सदस्यों का स्कोर</string>
+    <string name="lb_m_stars">सभी तारे, साधारण औसत</string>
+    <string name="lb_m_cat_store">श्रेणियाँ · स्टोर समीक्षाएँ</string>
+    <string name="lb_m_cat_signed">श्रेणियाँ · हस्ताक्षरित समीक्षाएँ</string>
+    <string name="lb_note_pro">Pro वाले वॉलेट की समीक्षाएँ, अलग स्कोर; हस्ताक्षरित स्कोर में सबकी तरह गिनी जाती हैं।</string>
+    <string name="lb_note_stars">ऐप की हर सक्रिय हस्ताक्षरित समीक्षा का सीधा औसत, कोई भार नहीं। कम से कम दो समीक्षाएँ।</string>
+    <string name="lb_note_cats">स्टोर की श्रेणियाँ; स्टोर संख्या उसके तारा गणना से; हस्ताक्षरित संख्या लेजर से। रुझान: पिछले 30 दिन बनाम उससे पहले के 30।</string>
 </resources>

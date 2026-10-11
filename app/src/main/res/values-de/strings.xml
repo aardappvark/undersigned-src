@@ -1362,4 +1362,11 @@
     <string name="notif_store_update_title">%1$s wurde im dApp Store aktualisiert (Version %2$d)</string>
     <string name="notif_store_update_body">Öffnen, um zu sehen, was sich geändert hat, und diese Version bewerten.</string>
     <string name="sign_needs_consent">Zum Signieren der Notiz oben das Kästchen „dauerhaft“ anhaken</string>
+    <string name="lb_m_pro">Score der Pro-Mitglieder</string>
+    <string name="lb_m_stars">Alle Sterne, einfacher Mittelwert</string>
+    <string name="lb_m_cat_store">Kategorien · Store-Rezensionen</string>
+    <string name="lb_m_cat_signed">Kategorien · signierte Rezensionen</string>
+    <string name="lb_note_pro">Rezensionen von Wallets mit Pro, eigens gewertet; im signierten Score zählen sie wie alle.</string>
+    <string name="lb_note_stars">Jede gültige signierte Rezension der App gemittelt wie geschrieben, nichts gewichtet. Mindestens zwei Rezensionen.</string>
+    <string name="lb_note_cats">Store-Kategorien wie gelistet; Store-Zahlen aus den Sterne-Zählungen des Stores; signierte Zahlen aus dem Ledger. Trend: die letzten 30 Tage gegen die 30 davor.</string>
 </resources>

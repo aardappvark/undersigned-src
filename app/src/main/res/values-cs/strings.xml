@@ -1372,4 +1372,11 @@
     <string name="notif_store_update_title">%1$s se aktualizovala v dApp Store (verze %2$d)</string>
     <string name="notif_store_update_body">Otevřete a podívejte se, co se změnilo, a ohodnoťte tuto verzi.</string>
     <string name="sign_needs_consent">Pro podpis poznámky zaškrtněte políčko „trvalé“ výše</string>
+    <string name="lb_m_pro">Skóre členů Pro</string>
+    <string name="lb_m_stars">Všechny hvězdy, prostý průměr</string>
+    <string name="lb_m_cat_store">Kategorie · recenze v obchodě</string>
+    <string name="lb_m_cat_signed">Kategorie · podepsané recenze</string>
+    <string name="lb_note_pro">Recenze peněženek s Pro, hodnocené zvlášť; v podepsaném skóre se počítají jako všechny.</string>
+    <string name="lb_note_stars">Každá živá podepsaná recenze aplikace zprůměrovaná tak, jak byla napsána, bez vážení. Nejméně dvě recenze.</string>
+    <string name="lb_note_cats">Kategorie obchodu jak jsou; počty z hvězdiček obchodu; podepsané počty z ledgeru. Trend: posledních 30 dní proti předchozím 30.</string>
 </resources>

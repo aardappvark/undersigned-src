@@ -1371,4 +1371,11 @@
     <string name="notif_store_update_title">%1$s foi atualizado na dApp Store (versão %2$d)</string>
     <string name="notif_store_update_body">Abra para ver o que mudou e avalie esta versão.</string>
     <string name="sign_needs_consent">Marque a caixa “permanente” acima para assinar a nota</string>
+    <string name="lb_m_pro">Pontuação dos membros Pro</string>
+    <string name="lb_m_stars">Todas as estrelas, média simples</string>
+    <string name="lb_m_cat_store">Categorias · avaliações da loja</string>
+    <string name="lb_m_cat_signed">Categorias · avaliações assinadas</string>
+    <string name="lb_note_pro">Avaliações de carteiras com Pro, pontuadas à parte; na pontuação assinada contam como todas.</string>
+    <string name="lb_note_stars">Cada avaliação assinada ativa do app em média simples, sem pesos. Pelo menos duas avaliações.</string>
+    <string name="lb_note_cats">Categorias da loja; contagens da loja pelas estrelas; assinadas pelo livro-razão. Tendência: últimos 30 dias contra os 30 anteriores.</string>
 </resources>

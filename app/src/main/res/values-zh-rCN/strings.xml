@@ -1326,4 +1326,11 @@
     <string name="notif_store_update_title">%1$s 已在 dApp Store 更新(版本 %2$d)</string>
     <string name="notif_store_update_body">打开查看变化并为此版本评分。</string>
     <string name="sign_needs_consent">勾选上方的「永久」框以签署备注</string>
+    <string name="lb_m_pro">Pro 会员评分</string>
+    <string name="lb_m_stars">所有星级,简单平均</string>
+    <string name="lb_m_cat_store">类别 · 商店评价</string>
+    <string name="lb_m_cat_signed">类别 · 已签名评价</string>
+    <string name="lb_note_pro">持有 Pro 的钱包的评价,单独计分;在签名评分中与所有人同样计算。</string>
+    <string name="lb_note_stars">应用的每条有效签名评价按原样平均,不加权。至少两条评价。</string>
+    <string name="lb_note_cats">商店类别;商店数来自其星级统计;签名数来自账本。趋势:最近 30 天对比之前 30 天。</string>
 </resources>

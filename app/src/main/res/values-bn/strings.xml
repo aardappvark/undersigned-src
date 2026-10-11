@@ -1338,4 +1338,11 @@
     <string name="notif_store_update_title">%1$s dApp স্টোরে আপডেট হয়েছে (সংস্করণ %2$d)</string>
     <string name="notif_store_update_body">কী বদলেছে দেখতে খুলুন এবং এই সংস্করণ রেট করুন।</string>
     <string name="sign_needs_consent">নোট সই করতে উপরের «স্থায়ী» বাক্সে টিক দিন</string>
+    <string name="lb_m_pro">Pro সদস্যদের স্কোর</string>
+    <string name="lb_m_stars">সব তারা, সাধারণ গড়</string>
+    <string name="lb_m_cat_store">বিভাগ · স্টোর রিভিউ</string>
+    <string name="lb_m_cat_signed">বিভাগ · সই করা রিভিউ</string>
+    <string name="lb_note_pro">Pro থাকা ওয়ালেটের রিভিউ, আলাদাভাবে স্কোর করা; সই করা স্কোরে সবার মতোই গণ্য।</string>
+    <string name="lb_note_stars">অ্যাপের প্রতিটি সই করা রিভিউ যেমন লেখা তেমন গড়, কোনো ওজন বা সংকোচন নেই। অন্তত দুটি রিভিউ।</string>
+    <string name="lb_note_cats">স্টোরের বিভাগ যেমন তালিকাভুক্ত; স্টোর সংখ্যা স্টোরের তারা গণনা থেকে; সই সংখ্যা লেজার থেকে। প্রবণতা: শেষ ৩০ দিন বনাম আগের ৩০।</string>
 </resources>

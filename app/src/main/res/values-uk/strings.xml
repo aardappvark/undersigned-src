@@ -1379,4 +1379,11 @@
     <string name="notif_store_update_title">%1$s оновлено в dApp Store (версія %2$d)</string>
     <string name="notif_store_update_body">Відкрийте, щоб побачити зміни, і оцініть цю версію.</string>
     <string name="sign_needs_consent">Щоб підписати нотатку, поставте позначку «назавжди» вище</string>
+    <string name="lb_m_pro">Оцінка учасників Pro</string>
+    <string name="lb_m_stars">Усі зірки, просте середнє</string>
+    <string name="lb_m_cat_store">Категорії · відгуки в магазині</string>
+    <string name="lb_m_cat_signed">Категорії · підписані відгуки</string>
+    <string name="lb_note_pro">Відгуки гаманців із Pro, оцінені окремо; у підписаній оцінці вони рахуються як усі.</string>
+    <string name="lb_note_stars">Кожен чинний підписаний відгук застосунку усереднений як написано, без ваг. Щонайменше два відгуки.</string>
+    <string name="lb_note_cats">Категорії магазину; його підрахунки за зірками; підписані з реєстру. Тренд: останні 30 днів проти попередніх 30.</string>
 </resources>

@@ -1342,4 +1342,11 @@
     <string name="notif_store_update_title">Το %1$s ενημερώθηκε στο dApp Store (έκδοση %2$d)</string>
     <string name="notif_store_update_body">Ανοίξτε για να δείτε τι άλλαξε και βαθμολογήστε αυτή την έκδοση.</string>
     <string name="sign_needs_consent">Για να υπογράψεις τη σημείωση, τσέκαρε το «μόνιμο» παραπάνω</string>
+    <string name="lb_m_pro">Βαθμολογία μελών Pro</string>
+    <string name="lb_m_stars">Όλα τα αστέρια, απλός μέσος</string>
+    <string name="lb_m_cat_store">Κατηγορίες · κριτικές store</string>
+    <string name="lb_m_cat_signed">Κατηγορίες · υπογεγραμμένες κριτικές</string>
+    <string name="lb_note_pro">Κριτικές από πορτοφόλια με Pro, με δική τους βαθμολογία· στη βαθμολογία υπογραφών μετρούν όπως όλες.</string>
+    <string name="lb_note_stars">Κάθε ενεργή υπογεγραμμένη κριτική της εφαρμογής, απλός μέσος, χωρίς βάρη. Τουλάχιστον δύο κριτικές.</string>
+    <string name="lb_note_cats">Κατηγορίες όπως στο store· μετρήσεις από τα αστέρια του store· υπογεγραμμένες από το ledger. Τάση: 30 τελευταίες μέρες έναντι 30 προηγούμενων.</string>
 </resources>

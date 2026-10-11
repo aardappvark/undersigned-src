@@ -1342,4 +1342,11 @@
     <string name="notif_store_update_title">%1$s frissült a dApp Store-ban (%2$d verzió)</string>
     <string name="notif_store_update_body">Nyisd meg, nézd meg, mi változott, és értékeld ezt a verziót.</string>
     <string name="sign_needs_consent">A jegyzet aláírásához pipáld be fent a „végleges” mezőt</string>
+    <string name="lb_m_pro">Pro-tagok pontszáma</string>
+    <string name="lb_m_stars">Minden csillag, egyszerű átlag</string>
+    <string name="lb_m_cat_store">Kategóriák · áruházi értékelések</string>
+    <string name="lb_m_cat_signed">Kategóriák · aláírt értékelések</string>
+    <string name="lb_note_pro">Pro-tárcák értékelései külön pontozva; az aláírt pontszámban mindenkiével együtt számítanak.</string>
+    <string name="lb_note_stars">Az app minden élő aláírt értékelése ahogy írták, súlyozás nélkül átlagolva. Legalább két értékelés.</string>
+    <string name="lb_note_cats">Áruházi kategóriák; áruházi számok a csillagokból; aláírt számok a főkönyvből. Trend: utolsó 30 nap az előző 30-hoz.</string>
 </resources>

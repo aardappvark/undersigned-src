@@ -1371,4 +1371,11 @@
     <string name="notif_store_update_title">%1$s aggiornato nel dApp Store (versione %2$d)</string>
     <string name="notif_store_update_body">Aprila per vedere cosa è cambiato e valuta questa versione.</string>
     <string name="sign_needs_consent">Spunta la casella «permanente» qui sopra per firmare la nota</string>
+    <string name="lb_m_pro">Punteggio dei membri Pro</string>
+    <string name="lb_m_stars">Tutte le stelle, media semplice</string>
+    <string name="lb_m_cat_store">Categorie · recensioni dello store</string>
+    <string name="lb_m_cat_signed">Categorie · recensioni firmate</string>
+    <string name="lb_note_pro">Recensioni di wallet con Pro, valutate a parte; nel punteggio firmato contano come tutte.</string>
+    <string name="lb_note_stars">Ogni recensione firmata attiva dell’app, media semplice, senza pesi. Almeno due recensioni.</string>
+    <string name="lb_note_cats">Categorie come nello store; conteggi store dalle sue stelle; conteggi firmati dal registro. Tendenza: ultimi 30 giorni contro i 30 prima.</string>
 </resources>

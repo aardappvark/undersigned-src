@@ -1368,4 +1368,11 @@
     <string name="notif_store_update_title">%1$s updated in the dApp Store (version %2$d)</string>
     <string name="notif_store_update_body">Open it to see what changed and rate this version.</string>
     <string name="sign_needs_consent">Tick the “permanent” box above to sign the note</string>
+    <string name="lb_m_pro">Pro members’ score</string>
+    <string name="lb_m_stars">All stars, plain mean</string>
+    <string name="lb_m_cat_store">Categories · store reviews</string>
+    <string name="lb_m_cat_signed">Categories · signed reviews</string>
+    <string name="lb_note_pro">Reviews by wallets holding Pro, scored on their own; they count like everyone’s in the signed score.</string>
+    <string name="lb_note_stars">Every live signed review of the app averaged as written, nothing weighted or shrunk. At least two reviews.</string>
+    <string name="lb_note_cats">Store categories as listed; store counts from the store’s own star tallies; signed counts from the ledger. Trend: the last 30 days against the 30 before.</string>
 </resources>

@@ -1318,4 +1318,11 @@
     <string name="notif_store_update_title">%1$sがdApp Storeで更新されました(バージョン%2$d)</string>
     <string name="notif_store_update_body">開いて変更点を確認し、このバージョンを評価しましょう。</string>
     <string name="sign_needs_consent">メモに署名するには上の「永久」のボックスにチェックを入れてください</string>
+    <string name="lb_m_pro">Proメンバーのスコア</string>
+    <string name="lb_m_stars">全ての星、単純平均</string>
+    <string name="lb_m_cat_store">カテゴリ · ストアレビュー</string>
+    <string name="lb_m_cat_signed">カテゴリ · 署名済みレビュー</string>
+    <string name="lb_note_pro">Proを持つウォレットのレビューを別途集計。署名済みスコアでは皆と同じに数えます。</string>
+    <string name="lb_note_stars">アプリの有効な署名済みレビューをそのまま平均。重み付けなし。2件以上。</string>
+    <string name="lb_note_cats">ストアのカテゴリ。ストア数はストアの星集計から、署名数は台帳から。傾向: 直近30日と前30日の比較。</string>
 </resources>

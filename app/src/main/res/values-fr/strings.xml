@@ -1371,4 +1371,11 @@
     <string name="notif_store_update_title">%1$s a été mis à jour sur le dApp Store (version %2$d)</string>
     <string name="notif_store_update_body">Ouvrez pour voir ce qui a changé et notez cette version.</string>
     <string name="sign_needs_consent">Cochez la case « permanent » ci-dessus pour signer la note</string>
+    <string name="lb_m_pro">Score des membres Pro</string>
+    <string name="lb_m_stars">Toutes les étoiles, moyenne simple</string>
+    <string name="lb_m_cat_store">Catégories · avis du store</string>
+    <string name="lb_m_cat_signed">Catégories · avis signés</string>
+    <string name="lb_note_pro">Avis de portefeuilles Pro, notés à part ; dans le score signé ils comptent comme les autres.</string>
+    <string name="lb_note_stars">Chaque avis signé actif de l’app, moyenne telle quelle, sans pondération. Au moins deux avis.</string>
+    <string name="lb_note_cats">Catégories du store ; comptes du store d’après ses étoiles ; comptes signés d’après le registre. Tendance : 30 derniers jours contre les 30 précédents.</string>
 </resources>

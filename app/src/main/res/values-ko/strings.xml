@@ -1319,4 +1319,11 @@
     <string name="notif_store_update_title">%1$s이(가) dApp Store에서 업데이트됨(버전 %2$d)</string>
     <string name="notif_store_update_body">열어서 변경 사항을 확인하고 이 버전을 평가하세요.</string>
     <string name="sign_needs_consent">메모에 서명하려면 위의 «영구» 상자에 체크하세요</string>
+    <string name="lb_m_pro">Pro 회원 점수</string>
+    <string name="lb_m_stars">모든 별점, 단순 평균</string>
+    <string name="lb_m_cat_store">카테고리 · 스토어 리뷰</string>
+    <string name="lb_m_cat_signed">카테고리 · 서명된 리뷰</string>
+    <string name="lb_note_pro">Pro 보유 지갑의 리뷰를 따로 집계; 서명 점수에서는 모두와 똑같이 계산됩니다.</string>
+    <string name="lb_note_stars">앱의 모든 유효 서명 리뷰를 쓰인 그대로 평균, 가중치 없음. 최소 2개.</string>
+    <string name="lb_note_cats">스토어 카테고리 기준; 스토어 수는 스토어 별점 집계, 서명 수는 원장에서. 추세: 최근 30일 대 이전 30일.</string>
 </resources>

@@ -58,8 +58,9 @@ object Abuse {
                 // Masked ("f*ck", "f**k"): each mask stands for any letters; a masked word that fits a listed word counts.
                 if ('*' in w && w.length >= 3) { val re = Regex("^" + w.replace("*", "\\p{L}*") + "$"); WORDS.firstOrNull { re.matches(it) }?.let { hits += it } }
                 // doubled letters collapse to two, so "fuuuck" became "fuuck": try the single-letter form as well
+                // Only for words long enough that a stretched spelling is the likely reading: "Jaap" (a name) must not become "jap" (12 Oct 2026).
                 val single = Regex("(\\p{L})\\1").replace(w) { it.groupValues[1] }
-                if (single in WORDS) hits += single
+                if (w.length > 4 && single in WORDS) hits += single
             }
             for (p in PHRASES) if (variant.contains(p)) hits += p
         }

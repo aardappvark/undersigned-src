@@ -1360,4 +1360,11 @@
     <string name="notif_store_update_title">%1$s s-a actualizat în dApp Store (versiunea %2$d)</string>
     <string name="notif_store_update_body">Deschide-o ca să vezi ce s-a schimbat și evaluează această versiune.</string>
     <string name="sign_needs_consent">Bifează căsuța „permanent” de mai sus pentru a semna nota</string>
+    <string name="lb_m_pro">Scorul membrilor Pro</string>
+    <string name="lb_m_stars">Toate stelele, medie simplă</string>
+    <string name="lb_m_cat_store">Categorii · recenzii din magazin</string>
+    <string name="lb_m_cat_signed">Categorii · recenzii semnate</string>
+    <string name="lb_note_pro">Recenzii ale portofelelor cu Pro, punctate separat; în scorul semnat contează ca toate.</string>
+    <string name="lb_note_stars">Fiecare recenzie semnată activă a aplicației, medie simplă, fără ponderi. Cel puțin două recenzii.</string>
+    <string name="lb_note_cats">Categorii din magazin; numere din stelele magazinului; semnate din registru. Tendință: ultimele 30 de zile față de cele 30 dinainte.</string>
 </resources>

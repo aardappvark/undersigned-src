@@ -1343,4 +1343,11 @@
     <string name="notif_store_update_title">%1$s uppdaterades i dApp Store (version %2$d)</string>
     <string name="notif_store_update_body">Öppna för att se vad som ändrats och betygsätt den här versionen.</string>
     <string name="sign_needs_consent">Kryssa i rutan ”permanent” ovan för att signera anteckningen</string>
+    <string name="lb_m_pro">Pro-medlemmarnas poäng</string>
+    <string name="lb_m_stars">Alla stjärnor, enkelt medel</string>
+    <string name="lb_m_cat_store">Kategorier · butiksrecensioner</string>
+    <string name="lb_m_cat_signed">Kategorier · signerade recensioner</string>
+    <string name="lb_note_pro">Recensioner från plånböcker med Pro, poängsatta för sig; i den signerade poängen räknas de som alla.</string>
+    <string name="lb_note_stars">Varje gällande signerad recension av appen i enkelt medel, inget viktat. Minst två recensioner.</string>
+    <string name="lb_note_cats">Butikens kategorier; butikens tal från dess stjärnor; signerade tal från liggaren. Trend: senaste 30 dagar mot 30 före.</string>
 </resources>

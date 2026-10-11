@@ -1351,4 +1351,11 @@
     <string name="notif_store_update_title">%1$s is bijgewerkt in de dApp Store (versie %2$d)</string>
     <string name="notif_store_update_body">Open hem om te zien wat er veranderd is en beoordeel deze versie.</string>
     <string name="sign_needs_consent">Vink het vakje ‘permanent’ hierboven aan om de notitie te ondertekenen</string>
+    <string name="lb_m_pro">Score van Pro-leden</string>
+    <string name="lb_m_stars">Alle sterren, gewoon gemiddelde</string>
+    <string name="lb_m_cat_store">Categorieën · store-reviews</string>
+    <string name="lb_m_cat_signed">Categorieën · ondertekende reviews</string>
+    <string name="lb_note_pro">Reviews van wallets met Pro, apart gescoord; in de ondertekende score tellen ze als alle andere.</string>
+    <string name="lb_note_stars">Elke geldige ondertekende review van de app gemiddeld zoals geschreven, niets gewogen. Minstens twee reviews.</string>
+    <string name="lb_note_cats">Store-categorieën; store-aantallen uit de sterren van de store; ondertekende uit het grootboek. Trend: laatste 30 dagen tegen de 30 ervoor.</string>
 </resources>

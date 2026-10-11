@@ -1311,4 +1311,11 @@
     <string name="notif_store_update_title">%1$s อัปเดตใน dApp Store แล้ว (เวอร์ชัน %2$d)</string>
     <string name="notif_store_update_body">เปิดดูว่ามีอะไรเปลี่ยน แล้วให้คะแนนเวอร์ชันนี้</string>
     <string name="sign_needs_consent">ติ๊กช่อง “ถาวร” ด้านบนเพื่อเซ็นบันทึก</string>
+    <string name="lb_m_pro">คะแนนสมาชิก Pro</string>
+    <string name="lb_m_stars">ดาวทั้งหมด ค่าเฉลี่ยธรรมดา</string>
+    <string name="lb_m_cat_store">หมวดหมู่ · รีวิวในสโตร์</string>
+    <string name="lb_m_cat_signed">หมวดหมู่ · รีวิวที่เซ็นแล้ว</string>
+    <string name="lb_note_pro">รีวิวจากกระเป๋าที่มี Pro ให้คะแนนแยก; ในคะแนนที่เซ็นแล้วนับเหมือนทุกคน</string>
+    <string name="lb_note_stars">รีวิวที่เซ็นแล้วทุกรายการของแอป เฉลี่ยตามที่เขียน ไม่ถ่วงน้ำหนัก อย่างน้อยสองรีวิว</string>
+    <string name="lb_note_cats">หมวดหมู่ตามสโตร์; จำนวนสโตร์จากดาวของสโตร์; จำนวนเซ็นจากเลดเจอร์ แนวโน้ม: 30 วันล่าสุดเทียบ 30 วันก่อน</string>
 </resources>

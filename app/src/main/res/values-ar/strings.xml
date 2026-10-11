@@ -1413,4 +1413,11 @@
     <string name="notif_store_update_title">تم تحديث %1$s في متجر dApp (الإصدار %2$d)</string>
     <string name="notif_store_update_body">افتحه لترى ما تغيّر وقيّم هذا الإصدار.</string>
     <string name="sign_needs_consent">ضع علامة على مربع «دائم» أعلاه لتوقيع الملاحظة</string>
+    <string name="lb_m_pro">تقييم أعضاء Pro</string>
+    <string name="lb_m_stars">كل النجوم، متوسط بسيط</string>
+    <string name="lb_m_cat_store">الفئات · مراجعات المتجر</string>
+    <string name="lb_m_cat_signed">الفئات · مراجعات موقّعة</string>
+    <string name="lb_note_pro">مراجعات المحافظ التي تحمل Pro، بتقييم مستقل؛ تُحتسب كغيرها في التقييم الموقّع.</string>
+    <string name="lb_note_stars">كل مراجعة موقّعة حيّة للتطبيق بمتوسط كما كُتبت، بلا وزن أو تقليص. مراجعتان على الأقل.</string>
+    <string name="lb_note_cats">فئات المتجر كما هي؛ أعداد المتجر من إحصاءات نجومه؛ الأعداد الموقّعة من السجل. الاتجاه: آخر 30 يومًا مقابل الـ30 قبلها.</string>
 </resources>

@@ -1371,4 +1371,11 @@
     <string name="notif_store_update_title">%1$s se actualizó en la dApp Store (versión %2$d)</string>
     <string name="notif_store_update_body">Ábrela para ver qué cambió y valora esta versión.</string>
     <string name="sign_needs_consent">Marca la casilla «permanente» de arriba para firmar la nota</string>
+    <string name="lb_m_pro">Puntuación de miembros Pro</string>
+    <string name="lb_m_stars">Todas las estrellas, media simple</string>
+    <string name="lb_m_cat_store">Categorías · reseñas de la tienda</string>
+    <string name="lb_m_cat_signed">Categorías · reseñas firmadas</string>
+    <string name="lb_note_pro">Reseñas de carteras con Pro, puntuadas aparte; en la puntuación firmada cuentan como todas.</string>
+    <string name="lb_note_stars">Cada reseña firmada vigente de la app promediada tal cual, sin pesos ni ajustes. Al menos dos reseñas.</string>
+    <string name="lb_note_cats">Categorías tal como las lista la tienda; cifras de la tienda de sus propios recuentos de estrellas; firmadas del libro mayor. Tendencia: últimos 30 días frente a los 30 anteriores.</string>
 </resources>

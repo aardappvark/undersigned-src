@@ -51,4 +51,9 @@ class AbuseTest {
         assertEquals("sh*t", Abuse.mask("shit")); assertEquals("f*cking", Abuse.mask("fucking"))
         assertEquals(listOf("sh*t", "f*cking"), Abuse.masked("This app is sh1t and the dev is f*cking slow"))
     }
+
+    @Test fun namesWithDoubledLettersAreNotSlurs() {
+        assertFalse(Abuse.blocked("Jaap is the same person"))
+        assertEquals(listOf("fuck"), Abuse.match("fuuuck this"))
+    }
 }

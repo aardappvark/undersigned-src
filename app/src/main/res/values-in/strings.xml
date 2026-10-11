@@ -1327,4 +1327,11 @@
     <string name="notif_store_update_title">%1$s diperbarui di dApp Store (versi %2$d)</string>
     <string name="notif_store_update_body">Buka untuk melihat perubahannya dan nilai versi ini.</string>
     <string name="sign_needs_consent">Centang kotak “permanen” di atas untuk menandatangani catatan</string>
+    <string name="lb_m_pro">Skor anggota Pro</string>
+    <string name="lb_m_stars">Semua bintang, rata-rata biasa</string>
+    <string name="lb_m_cat_store">Kategori · ulasan toko</string>
+    <string name="lb_m_cat_signed">Kategori · ulasan bertanda tangan</string>
+    <string name="lb_note_pro">Ulasan dompet pemegang Pro, dinilai terpisah; di skor bertanda tangan dihitung seperti semua.</string>
+    <string name="lb_note_stars">Setiap ulasan bertanda tangan yang aktif dirata-ratakan apa adanya, tanpa bobot. Minimal dua ulasan.</string>
+    <string name="lb_note_cats">Kategori toko apa adanya; hitungan toko dari bintang toko; hitungan bertanda tangan dari ledger. Tren: 30 hari terakhir vs 30 sebelumnya.</string>
 </resources>

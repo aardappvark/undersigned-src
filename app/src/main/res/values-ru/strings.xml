@@ -1363,4 +1363,11 @@
     <string name="notif_store_update_title">%1$s обновлено в dApp Store (версия %2$d)</string>
     <string name="notif_store_update_body">Откройте, чтобы увидеть изменения, и оцените эту версию.</string>
     <string name="sign_needs_consent">Чтобы подписать заметку, отметьте «навсегда» выше</string>
+    <string name="lb_m_pro">Оценка участников Pro</string>
+    <string name="lb_m_stars">Все звёзды, простое среднее</string>
+    <string name="lb_m_cat_store">Категории · отзывы в магазине</string>
+    <string name="lb_m_cat_signed">Категории · подписанные отзывы</string>
+    <string name="lb_note_pro">Отзывы кошельков с Pro, оценённые отдельно; в подписанной оценке они учитываются как все.</string>
+    <string name="lb_note_stars">Каждый действующий подписанный отзыв приложения усреднён как написан, без весов. Не менее двух отзывов.</string>
+    <string name="lb_note_cats">Категории магазина; его подсчёты по звёздам; подписанные из реестра. Тренд: последние 30 дней против предыдущих 30.</string>
 </resources>

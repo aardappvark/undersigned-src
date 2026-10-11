@@ -1342,4 +1342,11 @@
     <string name="notif_store_update_title">%1$s dApp Store\'da güncellendi (sürüm %2$d)</string>
     <string name="notif_store_update_body">Neyin değiştiğini görmek için açın ve bu sürümü puanlayın.</string>
     <string name="sign_needs_consent">Notu imzalamak için yukarıdaki “kalıcı” kutusunu işaretleyin</string>
+    <string name="lb_m_pro">Pro üyelerinin puanı</string>
+    <string name="lb_m_stars">Tüm yıldızlar, düz ortalama</string>
+    <string name="lb_m_cat_store">Kategoriler · mağaza yorumları</string>
+    <string name="lb_m_cat_signed">Kategoriler · imzalı yorumlar</string>
+    <string name="lb_note_pro">Pro sahibi cüzdanların yorumları ayrı puanlanır; imzalı puanda herkesinki gibi sayılır.</string>
+    <string name="lb_note_stars">Uygulamanın her geçerli imzalı yorumu yazıldığı gibi ortalanır, ağırlık yok. En az iki yorum.</string>
+    <string name="lb_note_cats">Mağaza kategorileri; mağaza sayıları yıldız sayımlarından; imzalı sayılar defterden. Eğilim: son 30 gün, önceki 30 güne karşı.</string>
 </resources>

@@ -1346,4 +1346,11 @@
     <string name="notif_store_update_title">Na-update ang %1$s sa dApp Store (bersyon %2$d)</string>
     <string name="notif_store_update_body">Buksan para makita kung ano ang nagbago at i-rate ang bersyong ito.</string>
     <string name="sign_needs_consent">Lagyan ng tsek ang kahong “permanente” sa itaas para lagdaan ang tala</string>
+    <string name="lb_m_pro">Score ng mga miyembrong Pro</string>
+    <string name="lb_m_stars">Lahat ng bituin, simpleng average</string>
+    <string name="lb_m_cat_store">Mga kategorya · review sa store</string>
+    <string name="lb_m_cat_signed">Mga kategorya · nilagdaang review</string>
+    <string name="lb_note_pro">Mga review ng wallet na may Pro, hiwalay ang score; sa signed score, pareho ang bilang.</string>
+    <string name="lb_note_stars">Bawat aktibong nilagdaang review ng app, in-average kung paano isinulat, walang timbang. Hindi bababa sa dalawang review.</string>
+    <string name="lb_note_cats">Mga kategorya ayon sa store; bilang ng store mula sa bituin nito; nilagdaang bilang mula sa ledger. Trend: huling 30 araw kontra 30 bago nito.</string>
 </resources>

@@ -52,7 +52,10 @@ import java.util.Locale
  */
 private enum class Metric(val label: Int) {
     REVENUE(R.string.lb_m_revenue), PAYERS(R.string.lb_m_payers), SIGNED_SCORE(R.string.lb_m_signed_score), SIGNED_REVIEWS(R.string.lb_m_signed_reviews),
-    STORE_RATING(R.string.lb_m_store_rating), STORE_REVIEWS(R.string.lb_m_store_reviews), GROWTH(R.string.lb_m_growth)
+    STORE_RATING(R.string.lb_m_store_rating), STORE_REVIEWS(R.string.lb_m_store_reviews), GROWTH(R.string.lb_m_growth),
+    // Owner, 12 Oct 2026: more lenses. Pro members' own score, the plain mean of every signed star, and the store's categories ranked.
+    PRO_SCORE(R.string.lb_m_pro), ALL_STARS(R.string.lb_m_stars), CAT_STORE(R.string.lb_m_cat_store), CAT_SIGNED(R.string.lb_m_cat_signed);
+    val categories: Boolean get() = this == CAT_STORE || this == CAT_SIGNED
 }
 
 private data class LbRow(val pkg: String, val name: String, val category: String, val value: String, val sub: String, val growth: Double? = null, val isNew: Boolean = false)
@@ -82,6 +85,8 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
     val catalogue by vm.catalogue.collectAsState()
     val boardRows by vm.boardRows.collectAsState()
     val scores by vm.scores.collectAsState()
+    val proScores by vm.proScores.collectAsState()
+    val entries by vm.entries.collectAsState()
     val counts by vm.storeCounts.collectAsState()
     val countsRead by vm.storeCountsRead.collectAsState()
     val countsProgress by vm.storeCountsProgress.collectAsState()
@@ -98,7 +103,7 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
     val nameOf = remember(catalogue) { catalogue.associate { it.packageName to it.name } }
     val inTab = remember(catalogue, tab) { catalogue.filter { tab == null || it.category == tab }.map { it.packageName }.toSet() }
     val m = metric ?: Metric.STORE_RATING
-    val needsStore = m == Metric.STORE_RATING || m == Metric.STORE_REVIEWS
+    val needsStore = m == Metric.STORE_RATING || m == Metric.STORE_REVIEWS || m == Metric.CAT_STORE
     LaunchedEffect(needsStore, inTab) { if (needsStore) vm.loadStoreCounts(inTab) }
 
     drill?.let { (pkg, rank) -> DrillDown(vm, pkg, nameOf[pkg] ?: pkg, rank = rank, onBack = { drill = null }, onOpen = onOpen); androidx.activity.compose.BackHandler { drill = null }; return }
@@ -107,8 +112,31 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
     // Store rating ranks by a shrunk average (toward the store-wide mean, strength 20) so seven 5★ cannot top 7,000
     // reviews at 4.8; the average itself is what is shown.
     val storeMean = remember(counts) { val all = counts.values.fold(IntArray(5)) { a, c -> c.forEachIndexed { i, k -> a[i] += k }; a }.toList(); storeAvg(all)?.first ?: 4.0 }
-    val rows: List<LbRow> = remember(m, tab, boardRows, scores, counts) {
+    // Every live signed review of each app, as written: (sum of stars, count), and the same per category in two 30-day windows.
+    val plain = remember(entries) {
+        val revoked = com.undersigned.protocol.Ranking.revoked(entries)
+        entries.filter { it.memo is com.undersigned.protocol.ReviewMemo.Review && it.signature !in revoked }
+            .groupBy { (it.memo as com.undersigned.protocol.ReviewMemo.Review).packageName }
+            .mapValues { (_, l) -> l.sumOf { (it.memo as com.undersigned.protocol.ReviewMemo.Review).rating } to l.size }
+    }
+    val signedByCat = remember(entries, catOf) {
+        val revoked = com.undersigned.protocol.Ranking.revoked(entries); val now = System.currentTimeMillis() / 1000
+        val live = entries.filter { it.memo is com.undersigned.protocol.ReviewMemo.Review && it.signature !in revoked }
+        live.groupBy { catOf[(it.memo as com.undersigned.protocol.ReviewMemo.Review).packageName] ?: "" }.filterKeys { it.isNotBlank() }
+            .mapValues { (_, l) -> Triple(l.size, l.count { it.blockTime >= now - 30 * 86400 }, l.count { it.blockTime in (now - 60 * 86400) until (now - 30 * 86400) }) }
+    }
+    val rows: List<LbRow> = remember(m, tab, boardRows, scores, proScores, counts, plain, signedByCat) {
         when (m) {
+            Metric.PRO_SCORE -> proScores.values.filter { it.packageName in inTab && it.countedReviews >= 2 }.sortedByDescending { it.weightedRating }
+                .map { LbRow(it.packageName, nameOf[it.packageName] ?: it.packageName, catOf[it.packageName] ?: "", String.format(Locale.US, "%.2f", it.weightedRating), "signed:${it.countedReviews}:${it.weightedMean}") }
+            Metric.ALL_STARS -> plain.filterKeys { it in inTab }.filterValues { it.second >= 2 }.entries.sortedByDescending { it.value.first.toDouble() / it.value.second }
+                .map { (p, v) -> LbRow(p, nameOf[p] ?: p, catOf[p] ?: "", String.format(Locale.US, "%.2f", v.first.toDouble() / v.second), "stars:${v.second}") }
+            Metric.CAT_STORE -> cats.map { c -> val pk = catalogue.filter { it.category == c }.map { it.packageName }.toSet()
+                    val all = counts.filterKeys { it in pk }.values.fold(IntArray(5)) { acc, x -> x.forEachIndexed { i, k -> acc[i] += k }; acc }.toList(); c to storeAvg(all) }
+                .filter { it.second != null }.sortedByDescending { it.second!!.second }
+                .map { (c, a) -> LbRow("", c, c, NumberFormat.getIntegerInstance().format(a!!.second), "avg:${a.first}") }
+            Metric.CAT_SIGNED -> signedByCat.entries.sortedByDescending { it.value.first }
+                .map { (c, v) -> LbRow("", c, c, "${v.first}", "trend:${v.second}:${v.third}", if (v.third > 0) (v.second - v.third).toDouble() / v.third else null, isNew = v.third == 0 && v.second > 0) }
             Metric.REVENUE -> confirmed.sortedByDescending { it.usd ?: 0.0 }.map { LbRow(it.claim.packageName, it.name, catOf[it.claim.packageName] ?: "", it.usd?.let(::usd) ?: "—", "payers:${it.tally!!.payers}", growthOf(it), isNewThisMonth(it)) }
             Metric.PAYERS -> confirmed.sortedByDescending { it.tally!!.payers }.map { LbRow(it.claim.packageName, it.name, catOf[it.claim.packageName] ?: "", "${it.tally!!.payers}", "usd:" + (it.usd?.let(::usd) ?: "—")) }
             Metric.GROWTH -> confirmed.mapNotNull { r -> growthOf(r)?.let { g -> r to g } }.sortedByDescending { it.second }.map { (r, g) -> LbRow(r.claim.packageName, r.name, catOf[r.claim.packageName] ?: "", pct(g), "usd:" + (r.usd?.let(::usd) ?: "—"), g) }
@@ -149,6 +177,9 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
                 Metric.GROWTH -> stringResource(R.string.lb_note_growth)
                 Metric.SIGNED_SCORE -> stringResource(R.string.lb_note_score)
                 Metric.SIGNED_REVIEWS -> stringResource(R.string.lb_note_signed)
+                Metric.PRO_SCORE -> stringResource(R.string.lb_note_pro)
+                Metric.ALL_STARS -> stringResource(R.string.lb_note_stars)
+                Metric.CAT_STORE, Metric.CAT_SIGNED -> stringResource(R.string.lb_note_cats)
                 Metric.STORE_RATING, Metric.STORE_REVIEWS -> countsRead?.let { stringResource(R.string.lb_note_store, android.text.format.DateUtils.getRelativeTimeSpanString(it, System.currentTimeMillis(), android.text.format.DateUtils.MINUTE_IN_MILLIS).toString()) } ?: stringResource(R.string.lb_note_store_unread)
             }
             Text(note, color = RbColors.textTertiary, fontSize = 12.sp, lineHeight = 17.sp, modifier = Modifier.padding(top = 8.dp, bottom = 10.dp))
@@ -160,9 +191,9 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
                 rows.forEachIndexed { i, r ->
                     if (i > 0) HorizontalDivider(color = RbColors.surfaceVariant)
                     val rankLine = "#${i + 1} " + (tab ?: stringResource(R.string.lb_overall)) + " · " + stringResource(m.label)
-                    Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).clickable { drill = r.pkg to rankLine }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).clickable { if (m.categories) { tab = r.category; metric = if (m == Metric.CAT_STORE) Metric.STORE_REVIEWS else Metric.SIGNED_REVIEWS } else drill = r.pkg to rankLine }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                         Text("${i + 1}", color = RbColors.textTertiary, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.widthIn(min = 30.dp))
-                        DAppIcon(r.pkg, r.name, icons[r.pkg]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp)); Spacer(Modifier.width(12.dp))
+                        if (!m.categories) { DAppIcon(r.pkg, r.name, icons[r.pkg]?.takeIf { it.isNotEmpty() }, modifier = Modifier.size(40.dp)); Spacer(Modifier.width(12.dp)) }
                         Column(Modifier.weight(1f)) {
                             Text(r.name, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             Text(subLine(r), color = RbColors.textTertiary, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -171,7 +202,8 @@ fun LeaderboardScreen(vm: MainViewModel, onBack: () -> Unit, onOpen: (String) ->
                             Text(r.value, color = if (m == Metric.GROWTH) growthColor(r.growth) else RbColors.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
                             if (m == Metric.REVENUE) r.growth?.let { Text(pct(it), color = growthColor(it), fontSize = 11.sp, fontWeight = FontWeight.Bold) }
                                 ?: if (r.isNew) Text(stringResource(R.string.pa_new), color = RbColors.green, fontSize = 11.sp, fontWeight = FontWeight.Bold) else Unit
-                            if (m == Metric.SIGNED_SCORE) RatingStars(r.sub.split(":").getOrNull(2)?.toDoubleOrNull() ?: 0.0, size = 10)
+                            if (m == Metric.SIGNED_SCORE || m == Metric.PRO_SCORE) RatingStars(r.sub.split(":").getOrNull(2)?.toDoubleOrNull() ?: 0.0, size = 10)
+                            if (m == Metric.CAT_SIGNED) r.growth?.let { Text(pct(it), color = growthColor(it), fontSize = 11.sp, fontWeight = FontWeight.Bold) } ?: if (r.isNew) Text(stringResource(R.string.pa_new), color = RbColors.green, fontSize = 11.sp, fontWeight = FontWeight.Bold) else Unit
                         }
                     }
                 }
@@ -208,6 +240,8 @@ private fun subLine(r: LbRow): String {
         "mean" -> r.category + " · " + String.format(Locale.US, "%.1f", p[1].toDouble()) + "★"
         "reviews" -> pluralStringResource(R.plurals.store_total, p[1].toInt(), p[1].toInt())
         "avg" -> r.category + " · " + String.format(Locale.US, "%.1f", p[1].toDouble()) + "★"
+        "stars" -> stringResource(R.string.lb_signed_n, p[1].toInt())
+        "trend" -> p[1] + " · " + p[2]
         else -> r.category
     }
 }

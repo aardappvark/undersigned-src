@@ -1380,4 +1380,11 @@
     <string name="notif_store_update_title">%1$s zaktualizowano w dApp Store (wersja %2$d)</string>
     <string name="notif_store_update_body">Otwórz, aby zobaczyć zmiany, i oceń tę wersję.</string>
     <string name="sign_needs_consent">Zaznacz pole „trwałe” powyżej, aby podpisać notatkę</string>
+    <string name="lb_m_pro">Wynik członków Pro</string>
+    <string name="lb_m_stars">Wszystkie gwiazdki, zwykła średnia</string>
+    <string name="lb_m_cat_store">Kategorie · recenzje w sklepie</string>
+    <string name="lb_m_cat_signed">Kategorie · podpisane recenzje</string>
+    <string name="lb_note_pro">Recenzje portfeli z Pro, oceniane osobno; w wyniku podpisanym liczą się jak wszystkie.</string>
+    <string name="lb_note_stars">Każda ważna podpisana recenzja aplikacji uśredniona tak, jak napisano, bez wag. Co najmniej dwie recenzje.</string>
+    <string name="lb_note_cats">Kategorie sklepu; liczby sklepu z jego gwiazdek; podpisane z rejestru. Trend: ostatnie 30 dni wobec 30 wcześniejszych.</string>
 </resources>

@@ -1345,4 +1345,11 @@
     <string name="notif_store_update_title">%1$s dApp Store میں اپ ڈیٹ ہوا (ورژن %2$d)</string>
     <string name="notif_store_update_body">کھولیں، تبدیلیاں دیکھیں اور اس ورژن کو ریٹ کریں۔</string>
     <string name="sign_needs_consent">نوٹ پر دستخط کے لیے اوپر «مستقل» باکس پر ٹک کریں</string>
+    <string name="lb_m_pro">Pro ممبران کا اسکور</string>
+    <string name="lb_m_stars">تمام ستارے، سادہ اوسط</string>
+    <string name="lb_m_cat_store">زمرے · اسٹور ریویو</string>
+    <string name="lb_m_cat_signed">زمرے · دستخط شدہ ریویو</string>
+    <string name="lb_note_pro">Pro رکھنے والے والٹس کے ریویو، الگ اسکور؛ دستخط شدہ اسکور میں سب کی طرح شمار۔</string>
+    <string name="lb_note_stars">ایپ کے ہر فعال دستخط شدہ ریویو کی سادہ اوسط، بغیر وزن۔ کم از کم دو ریویو۔</string>
+    <string name="lb_note_cats">اسٹور کے زمرے؛ اسٹور کی گنتی اس کے ستاروں سے؛ دستخط شدہ گنتی لیجر سے۔ رجحان: آخری 30 دن بمقابلہ پچھلے 30۔</string>
 </resources>
