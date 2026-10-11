@@ -18,7 +18,7 @@ Everything the Align form is likely to ask for, in final wording. Nothing here i
 |---|---|---|
 | Functional Android APK | **READY** — 1.1.23 (versionCode 34), 11.3 MB, signed v2+v3 with the fleet key (cert SHA-256 ac6932…100b), lint 0 errors, all tests pass; SHA-256 d8b22549…d694 | `assets/submission/Undersigned-1.1.23-vc34.apk` (SHA-256 beside it). Upload in the form, or attach to a GitHub Release `v1.1.23` (owner). |
 | GitHub repository | **READY** — 212 commits on 19 days (UTC) from 7 Sep 2026, all before the deadline | https://github.com/aardappvark/Undersigned (private; Radiants Align GitHub app) |
-| Demo video (≤ 3 min) | **DRAFT CUT** `assets/video/undersigned-demo-v3.mp4` (2:58, 1.1.23 takes, logo card at both ends, temporary Gordon voice; owner approves the lines, then Gracie) from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
+| Demo video (≤ 3 min) | **DRAFT CUT** `assets/video/undersigned-demo-v3.mp4` (2:59, 1.1.23 takes, logo card at both ends, temporary Gordon voice; owner approves the lines, then Gracie) from `docs/DEMO_SCRIPT.md` (the 8 Oct cut shows 1.0.0) | Upload to YouTube (unlisted) or Drive; paste the link |
 | Pitch deck | **READY** — 17 slides, core loop first, then how the store can adopt it, and the numbers; a framed screenshot on every product slide | `assets/submission/Undersigned-pitch.pdf` (source `pitch.html`) |
 
 ## Eligibility check (against the Rules page and the T&Cs, 8 Oct)
