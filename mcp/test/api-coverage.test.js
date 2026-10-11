@@ -6,7 +6,7 @@ import fs from "node:fs";
 const BASE = process.env.UNDERSIGNED_API_URL || "https://undersigned.provenby.dev";
 // Not for agents: the MCP endpoint itself, the spec, unsigned-transaction builders for wallets, the Solana Pay request,
 // and the quick-review relay (a phone submits a transaction its own app key signed; an agent has no app key).
-const NOT_TOOLS = new Set(["/mcp", "/v1/openapi.json", "/v1/tx/review", "/v1/tx/record", "/v1/tx/seed", "/v1/pay/review", "/v1/relay/info", "/v1/relay/review"]);
+const NOT_TOOLS = new Set(["/mcp", "/v1/openapi.json", "/v1/tx/review", "/v1/tx/record", "/v1/tx/seed", "/v1/pay/review", "/v1/relay/info", "/v1/relay/review", "/v1/rpc"]);   // /v1/rpc is the Android app's read proxy, not a developer tool
 
 test("every API path is called by a tool in api.js", async () => {
   const spec = await (await fetch(`${BASE}/v1/openapi.json`, { headers: { "user-agent": "undersigned-mcp-test" } })).json();

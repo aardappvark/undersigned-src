@@ -57,6 +57,14 @@ export function registerApiTools(server, env = process.env) {
     if (limits.remaining !== null || limits.pass_requests_left !== null) j._limits = limits;
     return text(j);
   }
+  /** A text answer (CSV, SVG) from the API, with the same key and errors as [call]. */
+  async function raw(path) {
+    const headers = { "user-agent": UA }; if (key) headers.authorization = `Bearer ${key}`;
+    let r; try { r = await fetch(base + path, { headers }); } catch (e) { return text({ error: "unreachable", message: `${base} did not answer: ${e.message}` }); }
+    const body = await r.text();
+    if (!r.ok) return text({ error: `HTTP ${r.status}`, message: body.slice(0, 300) });
+    return text(body);
+  }
   const q = (o) => { const s = new URLSearchParams(Object.entries(o).filter(([, v]) => v !== undefined && v !== null && v !== "").map(([k, v]) => [k, String(v)])).toString(); return s ? `?${s}` : ""; };
   const pkg = z.string().describe("Android package name, e.g. com.solflare.mobile");
   const t = (name, desc, shape, fn) => server.tool(name, desc, shape, fn);
@@ -116,6 +124,19 @@ export function registerApiTools(server, env = process.env) {
     { limit: z.number().int().min(1).max(500).optional() }, async (a) => call(`/v1/payments/found${q(a)}`));
   t("api_found_analytics", "Analytics for one app's found-in-code wallets from their FULL payment history: first and last payment, monthly series with new and returning payers and USD on the day paid, last 12 weeks, repeat payers, top-payer concentration, and how much history has been read. Free.",
     { package: pkg }, async ({ package: p }) => call(`/v1/payments/found/${enc(p)}`));
+  // ---- Review analytics, every source (12 Oct 2026) ------------------------------------------------------------------
+  const src = z.enum(["store", "all", "organic", "pro", "promoted", "quick", "other", "ours"]).optional().describe("default store");
+  t("api_review_analytics", "Review analytics for one source, told apart and never mixed: store = the dApp Store's own reviews (counts, means and shares only), or the signed reviews by class (all | organic | pro | promoted | quick | other | ours). Reviews, mean, stars, replied and short shares, categories with change, the most-reviewed dApps and a series per day|week|month over a window; narrow with category or package. Free.",
+    { source: src, window: z.enum(["7d", "30d", "90d", "1y", "all"]).optional().describe("default all"), by: z.enum(["day", "week", "month"]).optional(), category: z.string().optional(), package: pkg.optional(), limit: z.number().int().min(1).max(500).optional() },
+    async (a) => call(`/v1/reviews/analytics${q(a)}`));
+  t("api_review_analytics_csv", "The same review analytics as CSV text (categories, apps, series). Free.",
+    { source: src, window: z.enum(["7d", "30d", "90d", "1y", "all"]).optional(), category: z.string().optional(), package: pkg.optional() }, async (a) => raw(`/v1/reviews/analytics.csv${q(a)}`));
+  t("api_store_reviews_csv", "Raw rows of the dApp Store reviews read so far: package, name, category, stars, created, words, from_skr_name, publisher_replied; no text and no wallet. 5,000 rows free, all with a pass.",
+    {}, async () => raw(`/v1/reviews/store.csv`));
+  const REVIEW_CHARTS = { categories: "/v1/reviews/chart/categories.svg", apps: "/v1/reviews/chart/apps.svg", series: "/v1/reviews/chart/series.svg", stars: "/v1/reviews/chart/stars.svg" };
+  t("api_review_chart", "One review-analytics chart as SVG text: kind = categories | apps | series | stars, for a source and window (category, package, n for apps). Free; embeds anywhere.",
+    { kind: z.enum(["categories", "apps", "series", "stars"]), source: src, window: z.enum(["7d", "30d", "90d", "1y", "all"]).optional(), category: z.string().optional(), package: pkg.optional(), n: z.number().int().min(1).max(25).optional() },
+    async ({ kind, ...a }) => raw(`${REVIEW_CHARTS[kind]}${q(a)}`));
   const win = z.enum(["7d", "30d", "90d", "1y", "all"]).optional().describe("default 30d");
   t("api_payments_leaderboard", "dApps ranked by USD received in a window across CONFIRMED treasuries and wallets FOUND in app code (include = confirmed | found | all; always say which). Rails, payers, new payers, a weekly series each. Gross receipts, never revenue.",
     { window: win, include: z.enum(["confirmed", "found", "all"]).optional(), limit: z.number().int().min(1).max(500).optional() }, async (a) => call(`/v1/payments/leaderboard${q(a)}`));
