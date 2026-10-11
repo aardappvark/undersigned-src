@@ -125,6 +125,9 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
 
     /** True when [out] is plausibly in [lang]: for a language with its own script, at least one character of it. */
     fun inLanguage(out: String, lang: String): Boolean = SCRIPTS[lang.substringBefore('-')]?.containsMatchIn(out) ?: true
+    /** Whether [text] is probably already in [lang]: a scripted language by its script, a Latin-script one by the absence of any other script. */
+    fun sameLanguageLikely(text: String, lang: String): Boolean = SCRIPTS[lang.substringBefore('-')]?.containsMatchIn(text)
+        ?: !Regex("[\\p{IsHan}\\p{IsHiragana}\\p{IsKatakana}\\p{IsHangul}\\p{IsCyrillic}\\p{IsGreek}\\p{IsArabic}\\p{IsDevanagari}\\p{IsBengali}\\p{IsThai}]").containsMatchIn(text)
 
     private val SCRIPTS: Map<String, Regex> = mapOf(
         "ja" to Regex("[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]"), "zh" to Regex("\\p{IsHan}"), "ko" to Regex("\\p{IsHangul}"),

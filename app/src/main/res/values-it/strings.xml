@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Da sempre</string>
     <string name="pa_loading">Lettura dei pagamenti…</string>
     <string name="pa_offline">L’analisi dei pagamenti non è disponibile offline.</string>
+    <string name="translate_same">Già nella tua lingua.</string>
     <string name="abuse_blocked">Questo testo contiene un linguaggio che Undersigned non pubblica (%1$s). Modificalo per firmare.</string>
     <string name="mod_ban">Escludi questo wallet (abuso)</string>
     <string name="wallet_banned">Escluso da un moderatore per abuso: i record di questo wallet restano su Solana e qui non sono mostrati.</string>

@@ -1185,6 +1185,7 @@
     <string name="pa_window_all">Gesamter Zeitraum</string>
     <string name="pa_loading">Zahlungen werden gelesen…</string>
     <string name="pa_offline">Die Zahlungsanalyse ist offline nicht verfügbar.</string>
+    <string name="translate_same">Bereits in Ihrer Sprache.</string>
     <string name="abuse_blocked">Dieser Text enthält Sprache, die Undersigned nicht veröffentlicht (%1$s). Bearbeiten Sie ihn, um zu signieren.</string>
     <string name="mod_ban">Diese Wallet ausschließen (Missbrauch)</string>
     <string name="wallet_banned">Von einem Moderator wegen Missbrauchs ausgeschlossen: die Einträge dieser Wallet bleiben auf Solana und werden hier nirgends gezeigt.</string>

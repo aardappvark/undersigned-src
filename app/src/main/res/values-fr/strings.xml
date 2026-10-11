@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Depuis le début</string>
     <string name="pa_loading">Lecture des paiements…</string>
     <string name="pa_offline">L’analyse des paiements n’est pas disponible hors ligne.</string>
+    <string name="translate_same">Déjà dans votre langue.</string>
     <string name="abuse_blocked">Ce texte contient des termes qu’Undersigned ne publie pas (%1$s). Modifiez-le pour signer.</string>
     <string name="mod_ban">Exclure ce portefeuille (abus)</string>
     <string name="wallet_banned">Exclu par un modérateur pour abus : ses enregistrements restent sur Solana et ne sont affichés nulle part ici.</string>

@@ -1168,6 +1168,7 @@
     <string name="pa_window_all">पूरा समय</string>
     <string name="pa_loading">भुगतान पढ़े जा रहे हैं…</string>
     <string name="pa_offline">भुगतान विश्लेषण ऑफ़लाइन उपलब्ध नहीं है।</string>
+    <string name="translate_same">पहले से आपकी भाषा में है।</string>
     <string name="abuse_blocked">इस पाठ में ऐसी भाषा है जिसे Undersigned प्रकाशित नहीं करता (%1$s)। हस्ताक्षर के लिए इसे संपादित करें।</string>
     <string name="mod_ban">इस वॉलेट को बाहर करें (दुर्व्यवहार)</string>
     <string name="wallet_banned">दुर्व्यवहार के लिए मॉडरेटर द्वारा बाहर किया गया: इस वॉलेट के रिकॉर्ड Solana पर रहते हैं, यहाँ कहीं नहीं दिखते।</string>

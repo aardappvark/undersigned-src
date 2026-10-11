@@ -1149,6 +1149,7 @@
     <string name="pa_window_all">全部時間</string>
     <string name="pa_loading">正在讀取付款…</string>
     <string name="pa_offline">付款分析在離線時無法使用。</string>
+    <string name="translate_same">已是你的語言。</string>
     <string name="abuse_blocked">此文字包含 Undersigned 不予發布的用語（%1$s）。請修改後再簽署。</string>
     <string name="mod_ban">排除此錢包（濫用）</string>
     <string name="wallet_banned">因濫用被審核員排除：此錢包的記錄仍在 Solana 上，但此處不予顯示。</string>

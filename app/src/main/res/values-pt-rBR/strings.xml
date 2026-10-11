@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Todo o período</string>
     <string name="pa_loading">Lendo pagamentos…</string>
     <string name="pa_offline">A análise de pagamentos não está disponível offline.</string>
+    <string name="translate_same">Já está no seu idioma.</string>
     <string name="abuse_blocked">Este texto contém linguagem que a Undersigned não publica (%1$s). Edite-o para assinar.</string>
     <string name="mod_ban">Excluir esta carteira (abuso)</string>
     <string name="wallet_banned">Excluída por um moderador por abuso: os registros desta carteira ficam na Solana e não aparecem aqui.</string>

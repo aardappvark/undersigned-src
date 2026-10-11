@@ -693,10 +693,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 val ok = c.responseCode == 200
                 val body = (if (ok) c.inputStream else c.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
                 if (!ok) error(runCatching { org.json.JSONObject(body).optString("message") }.getOrNull()?.ifBlank { null } ?: "HTTP ${c.responseCode}")
-                org.json.JSONObject(body).getString("text")
+                val j = org.json.JSONObject(body)
+                if (j.optBoolean("same_language")) SAME_LANGUAGE else j.getString("text")
             } finally { c.disconnect() }
         }
     }
+    /** What [suggestedTranslation] returns when the text is already in the reader's language (shown as a note, not as a translation). */
+    val SAME_LANGUAGE = "\u0000same-language"
 
     private suspend fun postJson(path: String, body: org.json.JSONObject): org.json.JSONObject = withContext(Dispatchers.IO) {
         val c = java.net.URL("${com.undersigned.app.AppConfig.Site.URL}$path").openConnection() as java.net.HttpURLConnection

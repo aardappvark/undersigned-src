@@ -1165,6 +1165,7 @@
     <string name="pa_window_all">Όλη η περίοδος</string>
     <string name="pa_loading">Ανάγνωση πληρωμών…</string>
     <string name="pa_offline">Η ανάλυση πληρωμών δεν είναι διαθέσιμη εκτός σύνδεσης.</string>
+    <string name="translate_same">Είναι ήδη στη γλώσσα σας.</string>
     <string name="abuse_blocked">Το κείμενο περιέχει γλώσσα που το Undersigned δεν δημοσιεύει (%1$s). Επεξεργαστείτε το για να υπογράψετε.</string>
     <string name="mod_ban">Αποκλεισμός αυτού του πορτοφολιού (κατάχρηση)</string>
     <string name="wallet_banned">Αποκλείστηκε από συντονιστή για κατάχρηση: οι εγγραφές του μένουν στο Solana και δεν εμφανίζονται πουθενά εδώ.</string>

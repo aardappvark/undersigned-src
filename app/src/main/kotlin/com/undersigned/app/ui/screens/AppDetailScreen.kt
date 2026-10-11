@@ -86,8 +86,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     fun TranslateControl(id: String, proActive: Boolean, fetch: suspend () -> Result<String>) {
         translations[id]?.let { t ->
             Spacer(Modifier.height(4.dp))
-            Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
-            Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+            if (t == vm.SAME_LANGUAGE) Text(stringResource(R.string.translate_same), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+            else { Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp); Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) }
         } ?: run {
             if (proActive && autoTranslate && translateError?.first != id) LaunchedEffect(id) { translateNow(id, fetch) }
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50))

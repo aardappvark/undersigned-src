@@ -1236,6 +1236,7 @@
     <string name="pa_window_all">كل الوقت</string>
     <string name="pa_loading">جارٍ قراءة المدفوعات…</string>
     <string name="pa_offline">تحليلات المدفوعات غير متاحة دون اتصال.</string>
+    <string name="translate_same">بلغتك بالفعل.</string>
     <string name="abuse_blocked">يحتوي هذا النص على لغة لا تنشرها Undersigned (%1$s). عدّله للتوقيع.</string>
     <string name="mod_ban">استبعاد هذه المحفظة (إساءة)</string>
     <string name="wallet_banned">مستبعدة من قِبل مشرف بسبب الإساءة: تبقى سجلات هذه المحفظة على سولانا ولا تُعرض هنا.</string>

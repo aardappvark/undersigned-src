@@ -65,7 +65,10 @@ class Api(private val views: Views, private val billing: Billing, private val in
                 .put("message", "Suggested translations are a Pro feature: hold Pro in the wallet you pass as ?wallet=, or use an API pass or pay-per-call credits.").put("pricing", pricing()))
             val e = indexer.state.entries.firstOrNull { it.signature == r.params["id"] } ?: return@route notFound("no such record")
             val text = views.visibleText(e) ?: return@route notFound("this record has no text to translate")
-            val out = ai.translate(e.signature, text, lang) ?: return@route Response(503, JSONObject().put("error", "unavailable").put("message", "the translation could not be made right now; try again"))
+            val out = ai.translate(e.signature, text, lang)
+            // A note already in the target language comes back unchanged and is cleaned away: say so instead of failing (found on a device, 11 Oct 2026).
+            if (out == null && ai.sameLanguageLikely(text, lang)) return@route ok(JSONObject().put("id", e.signature).put("lang", lang).put("same_language", true).put("text", text).put("label", "Already in this language."))
+            if (out == null) return@route Response(503, JSONObject().put("error", "unavailable").put("message", "the translation could not be made right now; try again"))
             ok(JSONObject().put("id", e.signature).put("lang", lang).put("text", out).put("label", "Suggested translation, by AI. The original is the author's own words.").put("model", Config.AI_MODEL))
         }
         // Pro: a store review's text into your language, and a reply you drafted into the language of the review it answers.

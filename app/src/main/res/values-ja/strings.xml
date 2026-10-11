@@ -1141,6 +1141,7 @@
     <string name="pa_window_all">全期間</string>
     <string name="pa_loading">支払いを読み込み中…</string>
     <string name="pa_offline">支払い分析はオフラインでは利用できません。</string>
+    <string name="translate_same">すでにあなたの言語です。</string>
     <string name="abuse_blocked">このテキストには Undersigned が公開しない表現が含まれます（%1$s）。署名するには編集してください。</string>
     <string name="mod_ban">このウォレットを除外（不適切行為）</string>
     <string name="wallet_banned">不適切行為のためモデレーターにより除外されました。このウォレットの記録は Solana に残りますが、ここには表示されません。</string>

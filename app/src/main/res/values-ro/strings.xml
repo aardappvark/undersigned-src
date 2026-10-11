@@ -1183,6 +1183,7 @@
     <string name="pa_window_all">Toată perioada</string>
     <string name="pa_loading">Se citesc plățile…</string>
     <string name="pa_offline">Analiza plăților nu este disponibilă offline.</string>
+    <string name="translate_same">Deja în limba dvs.</string>
     <string name="abuse_blocked">Textul conține un limbaj pe care Undersigned nu îl publică (%1$s). Editați-l pentru a semna.</string>
     <string name="mod_ban">Exclude acest portofel (abuz)</string>
     <string name="wallet_banned">Exclus de un moderator pentru abuz: înregistrările acestui portofel rămân pe Solana și nu sunt afișate aici.</string>

@@ -1142,6 +1142,7 @@
     <string name="pa_window_all">전체 기간</string>
     <string name="pa_loading">결제 읽는 중…</string>
     <string name="pa_offline">결제 분석은 오프라인에서 사용할 수 없습니다.</string>
+    <string name="translate_same">이미 사용 중인 언어입니다.</string>
     <string name="abuse_blocked">이 텍스트에는 Undersigned가 게시하지 않는 표현이 있습니다(%1$s). 수정 후 서명하세요.</string>
     <string name="mod_ban">이 지갑 제외(악용)</string>
     <string name="wallet_banned">악용으로 운영자가 제외했습니다. 이 지갑의 기록은 Solana에 남지만 여기에는 표시되지 않습니다.</string>

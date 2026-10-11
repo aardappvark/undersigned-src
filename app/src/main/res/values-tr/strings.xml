@@ -1165,6 +1165,7 @@
     <string name="pa_window_all">Tüm zamanlar</string>
     <string name="pa_loading">Ödemeler okunuyor…</string>
     <string name="pa_offline">Ödeme analizi çevrimdışı kullanılamaz.</string>
+    <string name="translate_same">Zaten sizin dilinizde.</string>
     <string name="abuse_blocked">Bu metin Undersigned’ın yayımlamadığı ifadeler içeriyor (%1$s). İmzalamak için düzenleyin.</string>
     <string name="mod_ban">Bu cüzdanı hariç tut (kötüye kullanım)</string>
     <string name="wallet_banned">Kötüye kullanım nedeniyle bir moderatör tarafından hariç tutuldu: bu cüzdanın kayıtları Solana’da kalır, burada gösterilmez.</string>

@@ -1134,6 +1134,7 @@
     <string name="pa_window_all">ตลอดเวลา</string>
     <string name="pa_loading">กำลังอ่านการชำระเงิน…</string>
     <string name="pa_offline">การวิเคราะห์การชำระเงินใช้ไม่ได้เมื่อออฟไลน์</string>
+    <string name="translate_same">เป็นภาษาของคุณอยู่แล้ว</string>
     <string name="abuse_blocked">ข้อความนี้มีถ้อยคำที่ Undersigned ไม่เผยแพร่ (%1$s) แก้ไขเพื่อลงนาม</string>
     <string name="mod_ban">ตัดกระเป๋านี้ออก (การละเมิด)</string>
     <string name="wallet_banned">ถูกผู้ดูแลตัดออกเพราะการละเมิด: บันทึกของกระเป๋านี้ยังอยู่บน Solana แต่ไม่แสดงที่นี่</string>

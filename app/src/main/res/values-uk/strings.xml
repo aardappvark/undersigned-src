@@ -1202,6 +1202,7 @@
     <string name="pa_window_all">За весь час</string>
     <string name="pa_loading">Читаємо платежі…</string>
     <string name="pa_offline">Аналітика платежів недоступна офлайн.</string>
+    <string name="translate_same">Уже вашою мовою.</string>
     <string name="abuse_blocked">Текст містить вислови, яких Undersigned не публікує (%1$s). Відредагуйте, щоб підписати.</string>
     <string name="mod_ban">Виключити цей гаманець (зловживання)</string>
     <string name="wallet_banned">Виключено модератором за зловживання: записи цього гаманця лишаються в Solana і тут ніде не показуються.</string>

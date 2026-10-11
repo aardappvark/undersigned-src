@@ -1168,6 +1168,7 @@
     <string name="pa_window_all">تمام وقت</string>
     <string name="pa_loading">ادائیگیاں پڑھی جا رہی ہیں…</string>
     <string name="pa_offline">ادائیگیوں کا تجزیہ آف لائن دستیاب نہیں۔</string>
+    <string name="translate_same">پہلے ہی آپ کی زبان میں ہے۔</string>
     <string name="abuse_blocked">اس متن میں ایسی زبان ہے جو Undersigned شائع نہیں کرتا (%1$s)۔ دستخط کے لیے ترمیم کریں۔</string>
     <string name="mod_ban">اس والٹ کو خارج کریں (بدسلوکی)</string>
     <string name="wallet_banned">بدسلوکی پر ایک ماڈریٹر نے خارج کیا: اس والٹ کے ریکارڈ Solana پر رہتے ہیں اور یہاں کہیں نہیں دکھائے جاتے۔</string>

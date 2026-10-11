@@ -1195,6 +1195,7 @@
     <string name="pa_window_all">Celé období</string>
     <string name="pa_loading">Načítání plateb…</string>
     <string name="pa_offline">Analýza plateb není offline k dispozici.</string>
+    <string name="translate_same">Už je ve vašem jazyce.</string>
     <string name="abuse_blocked">Tento text obsahuje výrazy, které Undersigned nezveřejňuje (%1$s). Upravte ho, aby šel podepsat.</string>
     <string name="mod_ban">Vyloučit tuto peněženku (zneužití)</string>
     <string name="wallet_banned">Vyloučena moderátorem za zneužívání: záznamy této peněženky zůstávají na Solaně a zde se nikde nezobrazují.</string>
