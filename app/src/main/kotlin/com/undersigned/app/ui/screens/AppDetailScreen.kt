@@ -1006,23 +1006,6 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
         var reason by remember { mutableStateOf(R.string.report_illegal) }
         var note by remember { mutableStateOf("") }
         val target = remember(sig) { vm.entryOf(sig) }
-    fixTarget?.let { target ->
-        var vc by remember(target) { mutableStateOf(vm.currentVersion(pkg)?.toString() ?: "") }
-        var note by remember(target) { mutableStateOf("") }
-        AlertDialog(onDismissRequest = { fixTarget = null }, containerColor = RbColors.surface,
-            title = { Text(stringResource(R.string.mark_fixed_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
-            text = { Column {
-                Text(stringResource(R.string.mark_fixed_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
-                OutlinedTextField(vc, { vc = it.filter(Char::isDigit).take(10) }, label = { Text(stringResource(R.string.mark_fixed_version)) }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
-                OutlinedTextField(note, { note = it.replace('\n', ' ').replace('|', '/').take(ReviewMemo.MAX_TEXT_CHARS) }, label = { Text(stringResource(R.string.mark_fixed_note)) }, modifier = Modifier.fillMaxWidth().padding(top = 8.dp), maxLines = 3)
-                Text(stringResource(R.string.mark_fixed_public), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp))
-            } },
-            confirmButton = { TextButton(enabled = (vc.toLongOrNull() ?: 0) > 0, onClick = {
-                val v = vc.toLong(); fixTarget = null
-                sign(ReviewMemo.Fixed(target, v, note.trim().ifEmpty { null })) { ok -> if (ok) copyToStore(context.getString(R.string.fixed_store_reply, v.toString()) + (note.trim().takeIf { it.isNotEmpty() }?.let { " $it" } ?: "")) }
-            }) { Text(stringResource(R.string.mark_fixed_sign), color = RbColors.green) } },
-            dismissButton = { TextButton(onClick = { fixTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
-    }
 
         AlertDialog(onDismissRequest = { reportTarget = null }, containerColor = RbColors.surface,
             title = { Text(stringResource(R.string.report_title), color = RbColors.textPrimary) },
@@ -1044,6 +1027,24 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             } },
             confirmButton = { TextButton(onClick = { sendReport(sig, context.getString(reason), note); reportTarget = null }) { Text(stringResource(R.string.report_write), color = RbColors.purpleLight) } },
             dismissButton = { TextButton(onClick = { reportTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
+
+    fixTarget?.let { target ->
+        var vc by remember(target) { mutableStateOf(vm.currentVersion(pkg)?.toString() ?: "") }
+        var note by remember(target) { mutableStateOf("") }
+        AlertDialog(onDismissRequest = { fixTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.mark_fixed_title), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
+            text = { Column {
+                Text(stringResource(R.string.mark_fixed_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                OutlinedTextField(vc, { vc = it.filter(Char::isDigit).take(10) }, label = { Text(stringResource(R.string.mark_fixed_version)) }, singleLine = true, modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+                OutlinedTextField(note, { note = it.replace('\n', ' ').replace('|', '/').take(ReviewMemo.MAX_TEXT_CHARS) }, label = { Text(stringResource(R.string.mark_fixed_note)) }, modifier = Modifier.fillMaxWidth().padding(top = 8.dp), maxLines = 3)
+                Text(stringResource(R.string.mark_fixed_public), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp))
+            } },
+            confirmButton = { TextButton(enabled = (vc.toLongOrNull() ?: 0) > 0, onClick = {
+                val v = vc.toLong(); fixTarget = null
+                sign(ReviewMemo.Fixed(target, v, note.trim().ifEmpty { null })) { ok -> if (ok) copyToStore(context.getString(R.string.fixed_store_reply, v.toString()) + (note.trim().takeIf { it.isNotEmpty() }?.let { " $it" } ?: "")) }
+            }) { Text(stringResource(R.string.mark_fixed_sign), color = RbColors.green) } },
+            dismissButton = { TextButton(onClick = { fixTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
     standingFor?.let { w ->
