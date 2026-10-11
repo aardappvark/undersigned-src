@@ -265,7 +265,7 @@ class Analytics(private val db: Db, private val prices: Prices, private val boar
 
     // ---- Charts: plain SVG, dark, no script, so they embed anywhere and screenshot cleanly ---------------------------
 
-    private fun esc(s: String) = s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;")
+    private fun esc(s: String) = s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;")   // attributes are single-quoted (audit, 12 Oct 2026)
     private fun money(v: Double) = when { v >= 1_000_000 -> "$%.1fM".format(java.util.Locale.US, v / 1e6); v >= 10_000 -> "$%,.0fk".format(java.util.Locale.US, v / 1e3); v >= 1000 -> "$%,.1fk".format(java.util.Locale.US, v / 1e3); else -> "$%,.0f".format(java.util.Locale.US, v) }
     private val FONT = "font-family='Manrope, -apple-system, Segoe UI, Roboto, sans-serif'"
 

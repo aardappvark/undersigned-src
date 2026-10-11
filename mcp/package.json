@@ -17,5 +17,9 @@
   },
   "scripts": {
     "test": "node --test --test-force-exit test/*.test.js"
+  },
+  "overrides": {
+    "stream-json": "^3.5.0",
+    "uuid": "^11.1.1"
   }
 }

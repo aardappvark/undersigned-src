@@ -139,6 +139,8 @@ object Config {
 
     /** Bounded reads of other people's bytes. */
     const val MAX_PROOF_BYTES = 64 * 1024
+    /** Calls a day to RPC endpoints that carry a key; beyond it the public pools serve the rest of the day (audit, 12 Oct 2026). */
+    val RPC_KEYED_DAILY_BUDGET: Long = System.getenv("RPC_KEYED_DAILY_BUDGET")?.toLongOrNull() ?: 400_000L
     const val MAX_APK_BYTES = 300L * 1024 * 1024
     val testPrices: Boolean get() = TEST_SOL != null || TEST_SKR != null
     val passSol: Double get() = TEST_SOL ?: PASS_SOL

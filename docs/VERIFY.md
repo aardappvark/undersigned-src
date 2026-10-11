@@ -9,13 +9,13 @@ tip of `main` on 12 October 2026. Everything below was measured on that commit o
 ```bash
 git clone git@github.com:aardappvark/Undersigned.git && cd Undersigned
 export JAVA_HOME=/path/to/jdk-21            # Android Studio's bundled JBR works: .../Android Studio.app/Contents/jbr/Contents/Home
-./gradlew :protocol:test :api:test :app:testDebugUnitTest   # 303 tests
+./gradlew :protocol:test :api:test :app:testDebugUnitTest   # 305 tests
 ./gradlew :app:assembleRelease                              # needs the signing key; use :app:assembleDebug for an installable debug build
 ./gradlew :api:installDist && api/build/install/api/bin/api verify   # recompute every score from mainnet and diff the live dataset
 ```
 
-The release APK we submitted is `assets/submission/Undersigned-1.1.27-vc38.apk` (also at
-https://undersigned.provenby.dev/download/Undersigned-1.1.27-vc38.apk and on the GitHub release `v1.1.27`); its
+The release APK we submitted is `assets/submission/Undersigned-1.1.28-vc39.apk` (also at
+https://undersigned.provenby.dev/download/Undersigned-1.1.28-vc39.apk and on the GitHub release `v1.1.27`); its
 SHA-256 is beside it. It is signed with the fleet key (certificate SHA-256 `ac6932…100b`, the same key as our 28 live
 store apps) and installs with Play Protect `result=ALLOW`.
 
@@ -26,11 +26,11 @@ store apps) and installs with Play Protect `result=ALLOW`.
 | `protocol/` | 2,189 | pure Kotlin/JVM, no Android: the memo codec, ranking and weighting, threads, reputation, moderation, payments, publisher proof, abuse list. Shared byte-for-byte by the app, the server and `api verify`. |
 | `api/` | 6,094 | the JVM server: chain indexer, views, REST, MCP, web pages, analytics, payments board, relayer, hooks, `verify` |
 | `app/` | 14,648 | the Android app (Jetpack Compose): MWA signing, Seed Vault flow, device facts, screens, notifications, 28 locales |
-| tests | 4,276 | 303 tests: protocol 123, api 106, app 74 |
+| tests | 4,276 | 305 tests: protocol 125, api 106, app 74 |
 
 ## Test results (12 Oct 2026, fresh run)
 
-`./gradlew :protocol:test :api:test :app:testDebugUnitTest` → **303 tests, 0 failures** (reports under
+`./gradlew :protocol:test :api:test :app:testDebugUnitTest` → **305 tests, 0 failures** (reports under
 `*/build/test-results/`). Among them: `protocol/.../ProtocolTest.kt` (codec round trips, every limit),
 `api/.../TxGoldenTest.kt` (the app and the server build identical transaction bytes for the same record),
 `api/.../VerifyTest.kt` (the verifier fails on a tampered score, count or record), `protocol/.../WeightingTest.kt`,

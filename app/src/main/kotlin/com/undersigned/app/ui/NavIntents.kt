@@ -29,7 +29,7 @@ object NavIntents {
 
     fun consume(intent: Intent?) {
         intent ?: return
-        intent.getStringExtra("pkg")?.takeIf { it.isNotBlank() }?.let { pendingPackage.value = it }
+        intent.getStringExtra("pkg")?.takeIf { it.length <= 100 && PACKAGE.matches(it) }?.let { pendingPackage.value = it }   // any app can send this extra (audit, 12 Oct 2026)
         intent.getStringExtra("screen")?.takeIf { it.isNotBlank() }?.let { pendingScreen.value = it }
         intent.getStringExtra("review")?.takeIf { PACKAGE.matches(it) }?.let { pendingReview.value = it }
         if (intent.action == Intent.ACTION_SEND) {

@@ -111,7 +111,7 @@ class State(
     companion object { val EMPTY = State(emptyList(), emptyMap(), emptyMap(), emptyMap(), emptyMap(), emptyList(), emptyMap(), 0L) }
 }
 
-class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val store: Store = Store()) {
+class Indexer(private val db: Db, val rpc: Rpc = Rpc(), private val store: Store = Store()) {
     val names = Names(db, rpc)
     @Volatile var state: State = State.EMPTY; private set
     @Volatile var lastLedgerSync: Long = 0L; private set
@@ -227,8 +227,17 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         val now = System.currentTimeMillis(); val c0 = bodies[url]
         if (c0 != null && now - c0.at < (if (c0.body != null) 6 * 3600_000L else 10 * 60_000L)) return c0.body ?: c0.lastGood
         val body = runCatching {
-            val c = URL(url).openConnection() as HttpURLConnection
-            try { c.connectTimeout = 8000; c.readTimeout = 8000; c.instanceFollowRedirects = true
+            // Audit, 12 Oct 2026: a publisher-controlled URL never reaches a private network, and every redirect hop is checked the same way.
+            var target = url; var c: HttpURLConnection? = null
+            for (hop in 0..3) {
+                val u = URL(target); require(u.protocol == "https") { "https only" }
+                require(java.net.InetAddress.getAllByName(u.host).none { Hooks.isPrivate(it) }) { "private address" }
+                val cc = u.openConnection() as HttpURLConnection; cc.instanceFollowRedirects = false; cc.connectTimeout = 8000; cc.readTimeout = 8000
+                if (cc.responseCode in 300..399) { target = cc.getHeaderField("Location")?.let { URL(u, it).toString() } ?: return@runCatching null; cc.disconnect(); continue }
+                c = cc; break
+            }
+            c ?: return@runCatching null
+            try {
                 if (c.responseCode !in 200..299) null else c.inputStream.use { inp -> val b = inp.readNBytes(Config.MAX_PROOF_BYTES + 1); if (b.size > Config.MAX_PROOF_BYTES) null else String(b, Charsets.UTF_8) } } finally { c.disconnect() }
         }.getOrNull()
         bodies[url] = Proof(now, body, body ?: c0?.lastGood)
@@ -469,7 +478,7 @@ class Indexer(private val db: Db, private val rpc: Rpc = Rpc(), private val stor
         }
         val hides = operatorHidden().filterKeys { id -> pkgOfRecord(id)?.let { com.undersigned.protocol.Operator.publishes(it, verified) } != true }
         // A moderator's signed ban drops that wallet's records before anything is scored or shown (protocol Moderation, 11 Oct 2026).
-        state = State(com.undersigned.protocol.Moderation.excludeBanned(entries), meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides, reviewStake)
+        state = State(com.undersigned.protocol.Moderation.excludeBanned(entries, verifiedPublishers = verified), meta, facts, verified, since, loadCatalogue(), details, System.currentTimeMillis(), how, hides, reviewStake)
         if (before.builtAt > 0) { val had = before.entries.map { it.signature }.toHashSet(); entries.filter { it.signature !in had }.let { fresh -> runCatching { onRebuilt?.invoke(fresh) }.onFailure { log("after rebuild: ${it.message?.take(80)}") } } }
     }
 

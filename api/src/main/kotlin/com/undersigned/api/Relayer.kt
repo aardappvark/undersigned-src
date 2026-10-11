@@ -38,6 +38,9 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         /** One IPv6 /64 is one network (an address there is free to change); IPv4 stays per address. Audit, 10 Oct 2026. */
         fun network(ip: String): String = runCatching { java.net.InetAddress.getByName(ip).address }.getOrNull()?.let { b ->
             if (b.size == 16) (0 until 8 step 2).joinToString(":") { i -> "%x".format(((b[i].toInt() and 0xff) shl 8) or (b[i + 1].toInt() and 0xff)) } + "::/64" else null } ?: ip
+        /** What is written to disk for a client network: a keyed daily hash, never the address (privacy policy: addresses are not written to disk). */
+        private val salt = System.getenv("UNDERSIGNED_IP_SALT")?.takeIf { it.isNotBlank() } ?: java.util.UUID.randomUUID().toString()
+        fun hashNet(ip: String): String = java.security.MessageDigest.getInstance("SHA-256").digest((salt + "|" + java.time.LocalDate.now(java.time.ZoneOffset.UTC) + "|" + network(ip)).toByteArray()).joinToString("") { "%02x".format(it) }.take(24)
         const val FEE_LAMPORTS = 10_000L   // two signatures (relayer + app key) at 5,000 each; measured on mainnet 9 Oct 2026
         private val ALLOWED = setOf(ReviewMemo.Review::class, ReviewMemo.Quick::class, ReviewMemo.Use::class, ReviewMemo.Time::class, ReviewMemo.Activity::class,
             ReviewMemo.LongTextHead::class, ReviewMemo.TextPart::class, ReviewMemo.FollowUp::class,
@@ -122,8 +125,13 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
         if (!Signature.getInstance("Ed25519").run { initVerify(pub); update(p.message); verify(p.signatures[1]) }) throw Refused(400, "the app key's signature does not match")
         // Limits: per app key, per network (hour and day), per day for everyone. The counts and the reservation are one
         // transaction, so parallel requests cannot overshoot; a send that fails releases its reservation.
-        val today = day(); val net = network(ip); val nowS = System.currentTimeMillis() / 1000
-        val reservation = "pending:" + Base64.getEncoder().encodeToString(p.signatures[1]).take(40)
+        val today = day(); val net = hashNet(ip); val nowS = System.currentTimeMillis() / 1000
+        db.exec("DELETE FROM relay_log WHERE at < ?", nowS - 2 * 86_400)   // nothing older than two days is kept (audit, 12 Oct 2026)
+        // The relayer's signature IS the transaction signature (it is the fee payer): computed first, so a replay of the same bytes
+        // finds its own row and gets the same answer instead of a second send (audit, 12 Oct 2026).
+        val sig = Signature.getInstance("Ed25519").run { initSign(priv); update(p.message); sign() }
+        val reservation = Base58.encode(sig)
+        if (count("SELECT count(*) FROM relay_log WHERE sig = ?", reservation) > 0) return reservation
         db.tx {
             if (count("SELECT count(*) FROM relay_log WHERE day = ?", today) >= GLOBAL_TX_DAY) throw Refused(429, "quick reviews are paused for today; they resume at 00:00 UTC, or sign with your wallet")
             if (count("SELECT count(*) FROM relay_log WHERE day = ? AND ip = ?", today, net) >= PER_IP_TX_DAY) throw Refused(429, "too many quick reviews from this network today")
@@ -131,13 +139,14 @@ class Relayer(private val db: Db, private val rpc: Rpc, keyFile: File, val addre
             if (count("SELECT count(*) FROM relay_log WHERE day = ? AND app_key = ?", today, appKey) >= PER_KEY_TX_DAY ||
                 (reviews == 1 && count("SELECT coalesce(sum(reviews), 0) FROM relay_log WHERE day = ? AND app_key = ?", today, appKey) >= PER_KEY_REVIEWS_DAY))
                 throw Refused(429, "$PER_KEY_REVIEWS_DAY quick reviews a day from one phone")
-            db.exec("INSERT OR IGNORE INTO relay_log (sig, day, app_key, ip, reviews, at) VALUES (?, ?, ?, ?, ?, ?)", reservation, today, appKey, net, reviews, nowS)
+            // A plain INSERT: the same transaction submitted twice at once is refused instead of two requests sharing one reservation.
+            try { db.exec("INSERT INTO relay_log (sig, day, app_key, ip, reviews, at) VALUES (?, ?, ?, ?, ?, ?)", reservation, today, appKey, net, reviews, nowS) }
+            catch (e: Exception) { throw Refused(409, "this transaction is already being relayed") }
         }
-        val sig = Signature.getInstance("Ed25519").run { initSign(priv); update(p.message); sign() }
         val out = ByteArrayOutputStream().apply { write(2); write(sig); write(p.signatures[1]); write(p.message) }.toByteArray()
         val txSig = runCatching { rpc.sendTransaction(Base64.getEncoder().encodeToString(out)) }.getOrElse {
             db.exec("DELETE FROM relay_log WHERE sig = ?", reservation); throw Refused(502, "the network did not take it: ${it.message?.take(120)}") }
-        db.exec("UPDATE relay_log SET sig = ? WHERE sig = ?", txSig, reservation)
+        if (txSig != reservation) db.exec("UPDATE relay_log SET sig = ? WHERE sig = ?", txSig, reservation)
         return txSig
     }
 

@@ -65,6 +65,15 @@ EnvironmentFile=/opt/undersigned/env
 ExecStart=/opt/undersigned/bin/api
 Restart=always
 RestartSec=5
+# Hardening (audit, 12 Oct 2026): the service writes only under /opt/undersigned; the crawl files are read-only to it.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/undersigned
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
 [Install]
 WantedBy=multi-user.target
 UNIT

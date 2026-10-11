@@ -52,6 +52,15 @@ const PROJECT_META = {
 // together and this worker must go live BEFORE any APK that sends a new name.
 // ============================================================
 
+// Per-network token bucket, per isolate (no KV: the account is at its D1 cap). 60 a minute is far above any honest app.
+const buckets = new Map();
+function allow(ip) {
+  const now = Date.now(); const b = buckets.get(ip) || { n: 0, at: now };
+  if (now - b.at > 60_000) { b.n = 0; b.at = now; }
+  b.n += 1; buckets.set(ip, b); if (buckets.size > 5000) buckets.clear();
+  return b.n <= 60;
+}
+
 const ALLOWED_EVENTS = [
   'app_open',
   'onboarding_complete',
@@ -114,6 +123,9 @@ export default {
 async function handleTrack(request, env) {
   const apiKey = request.headers.get('X-API-Key');
   if (!apiKey || apiKey !== env.API_KEY) return json({ error: 'Unauthorized' }, 401);
+  // The key ships inside the APK, so it is public by design (audit, 12 Oct 2026): what protects the counts is server-side —
+  // a per-network minute limit in this isolate and a hard cap on any one row's count a day.
+  if (!allow(request.headers.get('CF-Connecting-IP') || 'none')) return json({ error: 'Too many requests' }, 429);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'Invalid JSON' }, 400); }
@@ -131,7 +143,7 @@ async function handleTrack(request, env) {
       INSERT INTO fleet_events (app, date, event_type, country, count)
       VALUES (?, ?, ?, ?, 1)
       ON CONFLICT(app, date, event_type, country)
-      DO UPDATE SET count = count + 1
+      DO UPDATE SET count = MIN(count + 1, 50000)
     `).bind(APP, date, eventType, country).run();
     return json({ ok: true });
   } catch (err) {
@@ -142,7 +154,7 @@ async function handleTrack(request, env) {
 
 async function handleStats(request, env) {
   const apiKey = request.headers.get('X-API-Key');
-  if (!apiKey || apiKey !== env.API_KEY) return json({ error: 'Unauthorized' }, 401);
+  if (!apiKey || apiKey !== (env.STATS_KEY || env.API_KEY)) return json({ error: 'Unauthorized' }, 401);   // STATS_KEY: a separate read secret once set (audit, 12 Oct 2026)
 
   const url = new URL(request.url);
   const days = Math.min(parseInt(url.searchParams.get('period')) || 30, 365);

@@ -76,7 +76,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val granters: StateFlow<Set<String>> = UserPreferences.granters
     /** Wallets a moderator has excluded (protocol Moderation.banned): their records are dropped as the ledger is read (owner, 11 Oct 2026). */
     val bannedWallets = MutableStateFlow<Set<String>>(emptySet())
-    private fun honourBans(list: List<LedgerEntry>): List<LedgerEntry> { val b = com.undersigned.protocol.Moderation.banned(list); bannedWallets.value = b; return if (b.isEmpty()) list else list.filter { it.signer !in b } }
+    private fun honourBans(list: List<LedgerEntry>): List<LedgerEntry> {
+        // Recusal (audit, 12 Oct 2026): a ban never removes a wallet's records about an app the banning moderator publishes.
+        val vp = verifiedPublishers.value
+        bannedWallets.value = com.undersigned.protocol.Moderation.bans(list).keys
+        return com.undersigned.protocol.Moderation.excludeBanned(list, verifiedPublishers = vp)
+    }
     /** The shared abusive-language rule, applied before anything is signed: the reason, or null when the text is clean. */
     private fun abuseRefusal(m: ReviewMemo): String? {
         val text = when (m) { is ReviewMemo.Review -> m.text; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Fixed -> m.text; is ReviewMemo.Ack -> m.text; is ReviewMemo.CustomTags -> m.tags.joinToString(" "); is ReviewMemo.Ban -> m.reason.wire; else -> null }

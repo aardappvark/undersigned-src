@@ -60,6 +60,7 @@ class Ai(private val db: Db, private val key: String? = Config.ANTHROPIC_KEY, pr
             if (usedToday(c.id) >= c.limit) throw AllowanceUsed(c, "today's AI allowance for this caller is used (${c.limit} fresh answers a day; cached answers stay free). It resets at 00:00 UTC; per-call credits have no daily limit.")
             c.debit?.let { if (!it()) throw AllowanceUsed(c, "no calls left on this key for an AI answer (each fresh one uses one extra call)") }
             db.exec("INSERT INTO ai_caller (day, id, calls) VALUES (?, ?, 1) ON CONFLICT(day, id) DO UPDATE SET calls = calls + 1", today(), c.id)
+            db.exec("DELETE FROM ai_caller WHERE day < ?", java.time.LocalDate.now(java.time.ZoneOffset.UTC).minusDays(2).toString())   // two days, then gone (privacy policy)
         }
         db.exec("INSERT INTO ai_usage (day, calls) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET calls = calls + 1", today())
         db.exec("INSERT INTO ai_segment (day, segment, calls) VALUES (?, ?, 1) ON CONFLICT(day, segment) DO UPDATE SET calls = calls + 1", today(), segment)

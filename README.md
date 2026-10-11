@@ -16,7 +16,7 @@ The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 
 | | |
 |---|---|
-| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.27-vc38.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
+| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.28-vc39.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
 | **The site and API** | https://undersigned.provenby.dev · [`/payments`](https://undersigned.provenby.dev/payments) · [`/v1/stats`](https://undersigned.provenby.dev/v1/stats) · MCP at `/mcp` |
 | **One review, on-chain** | Jupiter Mobile, signed on a Seeker with the Seed Vault: [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5) (an operator wallet: shown, never counted) |
 | **Recompute it yourself** | `api/build/install/api/bin/api verify` reads the registry from the chain into a throwaway database, scores it with the protocol module, and diffs the live dataset (exit 0 on a match) |
@@ -106,7 +106,7 @@ verify, it is not a safety verdict.**
 
 ## State today (measured 11 Oct 2026)
 
-- Release **1.1.27** (versionCode 38). 212 commits on 19 days (UTC) since 7 Sep 2026; 21,780 lines of Kotlin plus 4,165 lines of tests;
+- Release **1.1.28** (versionCode 39). 212 commits on 19 days (UTC) since 7 Sep 2026; 21,780 lines of Kotlin plus 4,165 lines of tests;
   295 Kotlin tests (119 protocol, 102 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
 - Ledger: 101 records, publisher claims proven for all 28 of our store apps, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed

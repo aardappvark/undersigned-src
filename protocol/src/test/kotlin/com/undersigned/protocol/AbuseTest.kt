@@ -56,4 +56,13 @@ class AbuseTest {
         assertFalse(Abuse.blocked("Jaap is the same person"))
         assertEquals(listOf("fuck"), Abuse.match("fuuuck this"))
     }
+
+    @Test fun `disguises through other scripts, invisible marks and joiners are still caught`() {
+        // Cyrillic с, zero-width space, soft hyphen, combining acute, bidi override, a hyphen or a dot inside the word, fullwidth letters (audit, 12 Oct 2026).
+        for (t in listOf("fu\u0441k", "fu\u200Bck", "fu\u00ADck", "fu\u0301ck", "fu\u202Eck", "fu-ck", "f.u.ck", "\uFF46\uFF55\uFF43\uFF4B", "\u0444uck"))
+            assertTrue(Abuse.blocked("this app is $t"), "not caught: " + t.map { it.code.toString(16) })
+        // Hyphenated ordinary words are not words on the list.
+        assertFalse(Abuse.blocked("a well-known, first-class wallet"))
+        assertFalse(Abuse.blocked("naïve café résumé"))
+    }
 }

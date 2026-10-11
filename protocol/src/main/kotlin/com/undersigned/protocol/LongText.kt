@@ -20,9 +20,12 @@ object LongText {
 
     fun hash(text: String): String = MessageDigest.getInstance("SHA-256").digest(text.toByteArray(StandardCharsets.UTF_8)).take(8).joinToString("") { "%02x".format(it) }
 
-    /** Keeps line breaks, drops other control characters, trims, and caps at [MAX_CHARS] / [MAX_BYTES]. */
+    /** Bidi overrides and zero-width characters that reorder or hide text on screen (audit, 12 Oct 2026); joiners used by scripts (ZWJ, ZWNJ) stay. */
+    private val SPOOFING = setOf('\u200B', '\u200E', '\u200F', '\u202A', '\u202B', '\u202C', '\u202D', '\u202E', '\u2066', '\u2067', '\u2068', '\u2069', '\uFEFF', '\u00AD', '\u061C', '\u180E')
+    fun stripSpoofing(text: String): String = text.filterNot { it in SPOOFING }
+    /** Keeps line breaks, drops other control characters and spoofing marks, trims, and caps at [MAX_CHARS] / [MAX_BYTES]. */
     fun clean(text: String): String {
-        var t = text.replace("\r\n", "\n").filter { it == '\n' || !it.isISOControl() }.trim().take(MAX_CHARS)
+        var t = stripSpoofing(text.replace("\r\n", "\n")).filter { it == '\n' || !it.isISOControl() }.trim().take(MAX_CHARS)
         while (t.toByteArray(StandardCharsets.UTF_8).size > MAX_BYTES) t = t.dropLast(1)
         return t
     }

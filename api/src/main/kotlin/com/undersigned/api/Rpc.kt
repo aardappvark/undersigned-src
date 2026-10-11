@@ -141,10 +141,29 @@ open class Rpc(private val endpoints: List<String> = Config.RPC) {
         ch.mapIndexed { i, k -> k to v.optJSONObject(i)?.let { o -> Brief(o.optString("owner"), o.optBoolean("executable"), o.optLong("lamports")) } }
     }.toMap()
 
+    /** Calls per UTC day to endpoints that carry a key (a path or query, i.e. a paid plan); past [Config.RPC_KEYED_DAILY_BUDGET] those are skipped for the day. Audit, 12 Oct 2026. */
+    private val keyedCalls = java.util.concurrent.atomic.AtomicLong(0); @Volatile private var keyedDay = ""
+    private fun keyed(endpoint: String) = endpoint.substringAfter("://").contains('/') && endpoint.substringAfter("://").substringAfter('/').isNotEmpty() || endpoint.contains('?')
+    private fun overBudget(endpoint: String): Boolean {
+        if (!keyed(endpoint)) return false
+        val d = java.time.LocalDate.now(java.time.ZoneOffset.UTC).toString(); if (d != keyedDay) { keyedDay = d; keyedCalls.set(0) }
+        return keyedCalls.incrementAndGet() > Config.RPC_KEYED_DAILY_BUDGET
+    }
+    /** The app's read-only JSON-RPC proxy (audit, 12 Oct 2026: the paid key stays here): one whitelisted method per request, the raw answer returned. */
+    fun proxy(body: String): JSONObject {
+        val o = runCatching { JSONObject(body) }.getOrNull() ?: throw RpcException("bad request")
+        val method = o.optString("method"); require(PROXY_METHOD.matches(method) && method !in PROXY_DENIED) { "method not allowed" }
+        var last: Exception? = null
+        for (endpoint in endpoints) { if (overBudget(endpoint)) continue; try { return post(endpoint, o.toString()) } catch (e: Exception) { last = e } }
+        throw last ?: RpcException("All RPC endpoints failed")
+    }
+    private val PROXY_METHOD = Regex("^(get|simulate|send|is|request)[A-Za-z0-9]{2,48}$")
+    private val PROXY_DENIED = setOf("requestAirdrop")
     private fun call(method: String, params: JSONArray): JSONObject {
         val body = JSONObject().put("jsonrpc", "2.0").put("id", 1).put("method", method).put("params", params).toString()
         var last: Exception? = null
         for (endpoint in endpoints) {
+            if (overBudget(endpoint)) continue
             try {
                 val resp = post(endpoint, body)
                 if (!resp.isNull("error")) throw RpcException(resp.optJSONObject("error")?.optString("message") ?: "RPC error")

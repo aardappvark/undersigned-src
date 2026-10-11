@@ -132,8 +132,11 @@ object UserPreferences {
      * silently and the wallet goes straight to the transaction. Cleared whenever the wallet is signed out.
      */
     var authToken: String?
-        get() = prefs?.getString(KEY_AUTH_TOKEN, null)
-        set(v) { prefs?.edit()?.putString(KEY_AUTH_TOKEN, v)?.apply() }
+        get() = prefs?.let { p ->
+            p.getString(KEY_AUTH_TOKEN + "_sealed", null)?.let { com.undersigned.app.device.Seal.openText(it) }
+                ?: p.getString(KEY_AUTH_TOKEN, null)?.also { plain -> p.edit().putString(KEY_AUTH_TOKEN + "_sealed", com.undersigned.app.device.Seal.sealText(plain)).remove(KEY_AUTH_TOKEN).apply() }   // a token written in the clear by an earlier build is sealed on first read
+        }
+        set(v) { prefs?.edit()?.remove(KEY_AUTH_TOKEN)?.let { e -> if (v == null) e.remove(KEY_AUTH_TOKEN + "_sealed") else e.putString(KEY_AUTH_TOKEN + "_sealed", com.undersigned.app.device.Seal.sealText(v)) }?.apply() }   // sealed under the Android Keystore (audit, 12 Oct 2026)
     fun setOnboardingSeen(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ONBOARDING_SEEN, v)?.apply(); _onboardingSeen.value = v }
 
     fun hide(signature: String) { val s = _hidden.value + signature; prefs?.edit()?.putStringSet(KEY_HIDDEN, s)?.apply(); _hidden.value = s }

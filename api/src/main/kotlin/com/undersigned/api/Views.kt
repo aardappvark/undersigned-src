@@ -499,6 +499,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     /** Payment analytics over confirmed treasuries and found wallets (Analytics.kt); its own five-minute cache. */
     val analytics: Analytics by lazy { Analytics(db, Prices(db), boards, { found }, { foundRowsAll() }, { s.catalogue.associate { it.packageName to it.category } }) }
     /** Review analytics over every source: the store crawl and the ledger's live reviews by class (see [ReviewAnalytics]). */
+    /** The chain client, for the app's read-only proxy (its key stays on the server). */
+    val rpc: Rpc get() = indexer.rpc
     val reviewAnalytics: ReviewAnalytics by lazy { ReviewAnalytics(java.io.File(Config.STORE_REVIEWS_DIR), { s.catalogue.associate { it.packageName to it.category } }, { s.catalogue.associate { it.packageName to it.name } }, { signedRows() }) }
 
     /** Every live signed review (the latest per wallet per app, withdrawn out) with the classes the protocol computes for it. */
@@ -530,7 +532,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
     private fun <T : Any> cached5(key: String, build: () -> T): T {
         val now = System.currentTimeMillis(); val c = heavy[key]
         @Suppress("UNCHECKED_CAST") if (c != null && now - c.first < 300_000) return c.second as T
-        return build().also { heavy[key] = now to it }
+        return build().also { heavy[key] = now to it; if (heavy.size > 500) heavy.entries.removeIf { now - it.value.first >= 300_000 } }   // bounded: expired answers are evicted (audit, 12 Oct 2026)
     }
 
     fun foundTrends(): JSONObject = cached5("trends") { foundTrendsNow() }

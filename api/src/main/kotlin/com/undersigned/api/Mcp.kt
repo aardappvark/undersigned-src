@@ -117,7 +117,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
             obj("package" to str("Android package name"), required = listOf("package"))) { a, _ -> views.bursts(pkg(a)) },
         Tool("get_wallet", "A wallet's public record on the ledger: attested device, stake as last read (shown, never weighed), standing (counts only), reviews, publisher claims, Pro licence.",
             obj("address" to str("Solana wallet address (base58)"), required = listOf("address"))) { a, c ->
-            views.wallet(a.optString("address").trim().also { require(it.length in 32..44) { "address must be a base58 Solana address" } }, c.paid) },
+            views.wallet(a.optString("address").trim().also { require(it.length in 32..44 && runCatching { Base58.decode(it).size == 32 }.getOrDefault(false)) { "address must be a base58 Solana address" } }, c.paid) },
         Tool("leaderboard", "Apps ranked by a metric.", obj("metric" to str("What to rank by", Views.METRICS), "category" to str("Store category"),
             "limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.leaderboard(a.optString("metric").ifEmpty { "signed_score" }, a.optString("category").ifEmpty { null }, if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },

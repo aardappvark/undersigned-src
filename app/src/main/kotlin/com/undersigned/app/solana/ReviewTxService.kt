@@ -19,6 +19,8 @@ class ReviewTxService(private val rpc: SolanaRpcClient = SolanaRpcClient()) {
     sealed class Stage { object Simulating : Stage(); object Signing : Stage(); object Confirming : Stage() }
 
     suspend fun publish(adapter: MobileWalletAdapter, sender: ActivityResultSender, signerAddress: String, memoText: String, onStage: (Stage) -> Unit): Result<String> {
+
+        check(com.undersigned.app.AppConfig.registryOk) { "registry mismatch; nothing is posted" }
         val signer = Base58.decode(signerAddress); require(signer.size == 32)
         onStage(Stage.Simulating)
         val sim = rpc.simulateTransaction(TxBuilder.reviewTransaction(signer, memoText, TxBuilder.ZERO_BLOCKHASH), replaceBlockhash = true)

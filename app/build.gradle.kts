@@ -23,12 +23,12 @@ android {
         applicationId = "com.undersigned.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 38
-        versionName = "1.1.27"
+        versionCode = 39
+        versionName = "1.1.28"
         // Keyed RPC provider from local.properties — never in source control. Empty = public pools only.
-        resValue("string", "helius_api_key", localProperties.getProperty("HELIUS_API_KEY", ""))
+        resValue("string", "helius_api_key", "")   // audit, 12 Oct 2026: no paid key ships in the APK; keyed reads go through the API's /v1/rpc proxy
         // Fleet last-resort key: lives ONLY in ~/.gradle/gradle.properties (never committed). Appended LAST.
-        resValue("string", "helius_api_key_3", (project.findProperty("HELIUS_API_KEY_3") as? String) ?: localProperties.getProperty("HELIUS_API_KEY_3", ""))
+        resValue("string", "helius_api_key_3", "")
         // Fleet analytics worker key (undersigned-analytics.aardappvark.workers.dev) from local.properties — never in source control.
         // Empty = GeoAnalyticsService.track() is a no-op. Rebuild with :app:clean after changing it: the value inlines into the APK.
         resValue("string", "analytics_api_key", localProperties.getProperty("ANALYTICS_API_KEY", ""))
@@ -93,7 +93,7 @@ dependencies {
     // dApp icons from the store's icon URIs (Toolkit pattern)
     implementation("io.coil-kt:coil-compose:2.7.0")
     // Ed25519 for the phone's quick-review app key (lightweight API only; R8 keeps what is used).
-    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.86")
     // Seeker Genesis Token check (fleet library, read-only)
     implementation("com.github.aardappvark:seeker-verify:1.1.0")
     testImplementation("org.json:json:20240303")   // the real org.json: Android's is a stub in JVM tests

@@ -33,10 +33,19 @@ object Abuse {
     private val ACCENTS = mapOf('à' to 'a', 'á' to 'a', 'â' to 'a', 'ä' to 'a', 'ã' to 'a', 'å' to 'a', 'è' to 'e', 'é' to 'e', 'ê' to 'e', 'ë' to 'e', 'ì' to 'i', 'í' to 'i', 'î' to 'i', 'ï' to 'i',
         'ò' to 'o', 'ó' to 'o', 'ô' to 'o', 'ö' to 'o', 'õ' to 'o', 'ù' to 'u', 'ú' to 'u', 'û' to 'u', 'ü' to 'u', 'ç' to 'c', 'ñ' to 'n', 'ß' to 's')
 
-    /** Lower case, leet and accents folded, letters only (others become spaces), runs of a letter collapsed to two, single spaces. */
+    /** Look-alike letters from other scripts folded to Latin (audit, 12 Oct 2026): "fuсk" with a Cyrillic с reads as the English word. */
+    private val CONFUSABLES = mapOf('а' to 'a', 'е' to 'e', 'о' to 'o', 'р' to 'p', 'с' to 'c', 'у' to 'y', 'х' to 'x', 'к' to 'k', 'н' to 'h', 'м' to 'm', 'т' to 't', 'і' to 'i', 'ј' to 'j', 'ѕ' to 's', 'ѵ' to 'v', 'в' to 'b', 'ф' to 'f', 'ғ' to 'f', 'ԍ' to 'g', 'ⅰ' to 'i', 'ⅼ' to 'l', 'ԁ' to 'd', 'ԛ' to 'q', 'ѡ' to 'w', 'ԝ' to 'w', 'ɡ' to 'g', 'ʏ' to 'y',
+        'α' to 'a', 'ε' to 'e', 'ο' to 'o', 'ρ' to 'p', 'ν' to 'v', 'ι' to 'i', 'κ' to 'k', 'τ' to 't', 'υ' to 'u', 'η' to 'n', 'ϲ' to 'c', 'ѕ' to 's', 'ʜ' to 'h', 'ɴ' to 'n')
+    /** Characters that are invisible or change nothing on screen: format controls (zero-width, bidi), combining marks, the soft hyphen. */
+    private fun invisible(c: Char): Boolean = c == '\u00AD' || Character.getType(c).let { it == Character.FORMAT.toInt() || it == Character.NON_SPACING_MARK.toInt() || it == Character.ENCLOSING_MARK.toInt() }
+    /** Lower case, compatibility-normalised (fullwidth and the like), invisible marks dropped, look-alikes and leet and accents folded, joiners inside a word removed ("fu-ck"), letters only, runs of a letter collapsed to two, single spaces. */
     fun normalise(text: String): String {
-        val sb = StringBuilder(text.length)
-        for (ch in text.lowercase()) {
+        val folded = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKC).lowercase()
+            .replace(Regex("(?<=\\p{L})[-._'’`]+(?=\\p{L})"), "")   // a joiner between letters is a disguise, never a word break
+        val sb = StringBuilder(folded.length)
+        for (ch0 in folded) {
+            if (invisible(ch0)) continue
+            val ch = CONFUSABLES[ch0] ?: ch0
             val c = LEET[ch] ?: ACCENTS[ch] ?: ch
             // A masking character inside a word ("f*ck", "sh#t") is kept as '*' so [match] can treat it as a wildcard.
             sb.append(if (c.isLetter()) c else if (c == '*' || c == '#' || c == '•') '*' else ' ')

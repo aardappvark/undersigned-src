@@ -267,6 +267,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
             svg(views.reviewAnalytics.chartSeries("Reviews over time · ${ReviewAnalytics.label(src(r))}${r.query["category"]?.let { " · $it" } ?: ""}${r.query["package"]?.let { p -> " · " + (views.appRow(p).optString("name")) } ?: ""}", "${views.analytics.label(rwin(r))}, per ${rby(r)} · columns: reviews · line: mean stars", pts, src(r), "undersigned.provenby.dev/reviews")) }
         route("GET", "/v1/reviews/chart/stars.svg", Tier.FREE, "Chart: the star distribution of a source over a window (category, package), as SVG") { r -> val o = ra(r)
             svg(views.reviewAnalytics.chartStars("Stars · ${ReviewAnalytics.label(src(r))}", "${views.analytics.label(rwin(r))} · ${"%,d".format(java.util.Locale.US, o.getInt("reviews"))} reviews · ${o.optDouble("with_text_share", 0.0)}% carry text, ${o.optDouble("short_share", 0.0)}% three words or fewer, ${o.optDouble("replied_share", 0.0)}% answered", o.getJSONArray("stars"), src(r), "undersigned.provenby.dev/reviews")) }
+        route("POST", "/v1/rpc", Tier.FREE, "JSON-RPC read proxy for the app (one call a request, read and send methods only): the keyed provider's key stays on the server; 120 a minute and 20,000 a day per network") { r ->
+            limiter.take("rpc:" + Relayer.network(r.ip), 120, 20_000)?.let { w -> return@route Response(429, JSONObject().put("error", "rate_limited").put("message", "rpc proxy: $w budget used"), mapOf("Retry-After" to if (w == "minute") "60" else "3600")) }
+            runCatching { views.rpc.proxy(r.body) }.fold({ ok(it) }, { Response(400, JSONObject().put("jsonrpc", "2.0").put("error", JSONObject().put("code", -32600).put("message", it.message?.take(80) ?: "rejected"))) }) }
         route("GET", "/v1/payments/leaderboard", Tier.LIMITED, "dApps ranked by USD received in a window (7d|30d|90d|1y|all) across confirmed treasuries and found wallets (include=confirmed|found|all; rail=sol|skr|usdc to count one rail only), with rails, payers, new payers and a weekly series each") { r ->
             val inc = r.query["include"]?.takeIf { it in listOf("confirmed", "found", "all") } ?: "all"; val lim = rows(r, Config.FREE_ROWS, 500)
             ok(views.memo5("lb:${win(r)}:$inc:$lim:${rail(r)}") { views.analytics.leaderboard(win(r), inc, lim, rail = rail(r)) }) }
@@ -306,7 +309,8 @@ class Api(private val views: Views, private val billing: Billing, private val in
             ?: return notFound("no such endpoint; see /v1/openapi.json")
         val (rt, m) = match
         val key = auth?.removePrefix("Bearer ")?.trim()?.takeIf { auth.startsWith("Bearer ") && it.isNotEmpty() }
-        fun ipBudget(): Response? = limiter.take("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)?.let { w ->
+        val ipKey = "ip:" + Relayer.network(ip)   // one IPv6 /64 is one bucket (audit, 12 Oct 2026)
+        fun ipBudget(): Response? = limiter.take(ipKey, Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)?.let { w ->
             Response(429, JSONObject().put("error", "rate_limited").put("message", "free tier: ${Config.FREE_PER_MINUTE} per minute and ${Config.FREE_PER_DAY} per day per IP ($w used up); a pass lifts it").put("pricing", pricing()),
                 mapOf("Retry-After" to if (w == "minute") "60" else "3600")) }
         // A key opens the metered lane only once it is known to exist: a made-up key costs its sender the IP budget, not a
@@ -329,7 +333,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
         Ai.who.set(when {
             known && key != null && billing.kind(key) == "credits" -> Ai.Caller("key:${Billing.hashKey(key)}", Int.MAX_VALUE, "credits") { billing.consume(key) }
             known && key != null -> Ai.Caller("key:${Billing.hashKey(key)}", Config.AI_PER_PASS_DAY, "pass")
-            else -> Ai.Caller("ip:$ip", Config.AI_PER_IP_DAY, "anon")
+            else -> Ai.Caller("ip:" + Relayer.hashNet(ip), Config.AI_PER_IP_DAY, "anon")   // never the address itself on disk (privacy policy)
         })
         val params = (pathNames[rt] ?: emptyList()).mapIndexed { i, n -> n to m.groupValues[i + 1] }.toMap()   // URI.path arrives decoded
         // Rate-limit headers on every metered answer (9 Oct 2026): what is left, and when it resets.
@@ -342,7 +346,7 @@ class Api(private val views: Views, private val billing: Billing, private val in
                 limiter.remaining("key:${Billing.hashKey(caller.key)}", perMinute, null).let { h["X-RateLimit-Remaining"] = it["minute_remaining"].toString(); h["X-RateLimit-Reset"] = it["minute_reset"].toString() }
                 left?.let { h["X-Pass-Requests-Left"] = it.requestsLeft.toString(); h["X-Pass-Ends-At"] = it.endsAt.toString() }
             } else {
-                val l = limiter.remaining("ip:$ip", Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)
+                val l = limiter.remaining(ipKey, Config.FREE_PER_MINUTE, Config.FREE_PER_DAY)
                 h["X-RateLimit-Limit"] = Config.FREE_PER_DAY.toString(); h["X-RateLimit-Remaining"] = l["day_remaining"].toString(); h["X-RateLimit-Reset"] = l["day_reset"].toString()
                 h["X-RateLimit-Minute-Limit"] = Config.FREE_PER_MINUTE.toString(); h["X-RateLimit-Minute-Remaining"] = l["minute_remaining"].toString()
             }
@@ -625,10 +629,19 @@ class Api(private val views: Views, private val billing: Billing, private val in
             val body = if (ex.requestMethod == "POST") ex.requestBody.use { String(it.readNBytes(16_384)) } else ""
             val ip = clientIp(ex.remoteAddress.address.hostAddress, ex.requestHeaders.getFirst("X-Forwarded-For"), Config.TRUST_PROXY)
             val head = ex.requestMethod == "HEAD"
+            // Plain http through the proxy is answered with a redirect to https (audit, 12 Oct 2026); the tunnel itself is always TLS.
+            if (Config.TRUST_PROXY && ex.requestHeaders.getFirst("X-Forwarded-Proto") == "http") {
+                val host = ex.requestHeaders.getFirst("Host") ?: "undersigned.provenby.dev"
+                ex.responseHeaders.add("Location", "https://" + host + ex.requestURI.toString()); ex.responseHeaders.add("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+                ex.sendResponseHeaders(301, -1); return
+            }
             val r = if (query == null) Response(400, JSONObject().put("error", "bad_query").put("message", "a percent-escape in the query is malformed"))
                 else handle(if (head) "GET" else ex.requestMethod, ex.requestURI.path.trimEnd('/').ifEmpty { "/" }, query, body, ex.requestHeaders.getFirst("Authorization"), ip, ex.requestHeaders.getFirst("Accept-Language"))
             val bytes = if (r.status == 204 || head) ByteArray(0) else r.raw ?: r.body.toString(if (query?.get("pretty") == "1") 2 else 0).toByteArray()
             ex.responseHeaders.add("Content-Type", r.contentType)
+            // Audit, 12 Oct 2026: HSTS on the public host; a sandboxing CSP on every SVG (charts, badges), so a crafted label can never run as this origin.
+            if (Config.PUBLIC) ex.responseHeaders.add("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+            if (r.contentType.startsWith("image/svg+xml")) ex.responseHeaders.add("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; sandbox")
             ex.responseHeaders.add("Access-Control-Allow-Origin", "*")
             ex.responseHeaders.add("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, Mcp-Protocol-Version, Mcp-Session-Id")
             ex.responseHeaders.add("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")

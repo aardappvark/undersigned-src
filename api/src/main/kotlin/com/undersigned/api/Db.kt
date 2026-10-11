@@ -53,7 +53,7 @@ class Db(path: String = Config.DB_PATH) {
     /** A consistent copy of the whole database into [file] (SQLite VACUUM INTO): passes and redemptions are the one thing the chain cannot rebuild. */
     @Synchronized fun backupTo(file: java.io.File) {
         file.parentFile?.mkdirs(); file.parentFile?.let { privately(it) }; file.delete()
-        c.createStatement().use { it.execute("VACUUM INTO '" + file.path.replace("'", "''") + "'") }
+        c.prepareStatement("VACUUM INTO ?").use { it.setString(1, file.path); it.execute() }   // bound, never concatenated (the path is the operator's own config)
         privately(file)
     }
 

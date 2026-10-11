@@ -99,3 +99,14 @@ Review `2zuU…` → withdrawal `3aTw…` → re-review `3mMg…`, all from the 
   (`ReviewAnalyticsScreen`): source and window chips, totals, stars, by category (tap to narrow), by dApp, over time
   (columns and mean line), links to the JSON, CSV and raw rows; signed sources computed on the phone, the store source
   from the API with an offline fallback to the tallies read on the phone. Docs: DEVELOPERS.md and API.md sections.
+- **1.1.28** (versionCode 39, 12 Oct, security release): see `docs/SECURITY.md`. App: the quick-review seed and the wallet's MWA
+  token sealed under an Android Keystore AES key (`device/Seal.kt`, `QuickKey.kt`), `dataExtractionRules`, no provider key in
+  the APK (reads go through the API's `/v1/rpc` proxy), BouncyCastle 1.86, the abuse normaliser with NFKC, invisible marks and
+  confusables, bidi/zero-width characters stripped from record text, the `pkg` intent extra validated, the registry
+  re-derived at start, a confirmation before a moderator's exclusion, ban recusal on the moderator's own apps. Server: SVG
+  escaping and a sandbox CSP, HSTS and the HTTPS redirect, hashed two-day relay and AI ledgers, cache eviction, the proof
+  fetch guarded against private networks and redirects, the relayer keyed on its own signature, a keyed-RPC daily budget,
+  MCP address decoding, systemd sandboxing, the Dockerfile pinned and non-root. Worker: per-network limit, row cap, a
+  separate stats key. Docs: SECURITY, PAYMENTS, SCOPE, VERIFY, ONCHAIN, PRIVACY_MODEL, METRICS; the privacy policy says
+  exactly what the App sends.
+

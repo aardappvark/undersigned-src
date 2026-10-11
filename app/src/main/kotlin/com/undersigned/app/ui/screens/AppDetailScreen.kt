@@ -165,6 +165,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val consensusHidden by vm.hiddenByConsensus.collectAsState()
     val modHidden by vm.modHidden.collectAsState()
     var modTarget by remember { mutableStateOf<String?>(null) }
+    var banTarget by remember { mutableStateOf<String?>(null) }   // a ban is confirmed before it is signed (audit, 12 Oct 2026)
     var revealed by remember { mutableStateOf<Set<String>>(emptySet()) }
     var flagTarget by remember { mutableStateOf<String?>(null) }
     // The second round (owner, 10 Oct 2026): fix notices and follow-ups.
@@ -709,7 +710,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                             if (vm.myModeration(e.signature)) MenuRow(Icons.Default.Visibility, stringResource(R.string.mod_unhide), tint = RbColors.purpleLight) { menu = false; sign(ReviewMemo.Unmoderate(e.signature)) }
                                             else MenuRow(Icons.Default.Shield, stringResource(R.string.mod_hide), tint = RbColors.purpleLight) { menu = false; dialogError = null; modTarget = e.signature }
                                             // Exclude the wallet (owner, 11 Oct 2026): a moderator's signed ban that every reader honours; the records stay on-chain.
-                                            if (vm.isModerator(wallet) && e.signer != wallet && !vm.isModerator(e.signer)) MenuRow(Icons.Default.Block, stringResource(R.string.mod_ban), tint = RbColors.purpleLight) { menu = false; sign(ReviewMemo.Ban(e.signer, ReviewMemo.ModReason.ABUSE)) }
+                                            if (vm.isModerator(wallet) && e.signer != wallet && !vm.isModerator(e.signer)) MenuRow(Icons.Default.Block, stringResource(R.string.mod_ban), tint = RbColors.purpleLight) { menu = false; banTarget = e.signer }
                                         }
                                         HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 4.dp))
                                         MenuRow(Icons.Default.Flag, stringResource(R.string.review_report), tint = RbColors.negative) { menu = false; report(e.signature) }
@@ -1260,6 +1261,13 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             dismissButton = { TextButton(enabled = flagStage == null, onClick = { flagTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
     }
 
+    banTarget?.let { w ->
+        AlertDialog(onDismissRequest = { banTarget = null }, containerColor = RbColors.surface,
+            title = { Text(stringResource(R.string.mod_ban), color = RbColors.textPrimary, fontWeight = FontWeight.Bold) },
+            text = { Text(stringResource(R.string.mod_ban_confirm, w.take(6) + "…" + w.takeLast(4)), color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) },
+            confirmButton = { TextButton(onClick = { banTarget = null; sign(ReviewMemo.Ban(w, ReviewMemo.ModReason.ABUSE)) }) { Text(stringResource(R.string.mod_ban_do), color = RbColors.negative, fontWeight = FontWeight.Bold) } },
+            dismissButton = { TextButton(onClick = { banTarget = null }) { Text(stringResource(R.string.cancel), color = RbColors.textSecondary) } })
+    }
     modTarget?.let { target ->
         var reason by remember(target) { mutableStateOf(ReviewMemo.ModReason.ILLEGAL) }
         AlertDialog(onDismissRequest = { if (simpleStage == null) modTarget = null }, containerColor = RbColors.surface,

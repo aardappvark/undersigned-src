@@ -145,7 +145,7 @@ class ReviewAnalytics(private val dir: File, private val categories: () -> Map<S
 
     // ---- Charts: plain SVG, dark, the palette of the payment charts; no script, so they embed anywhere -------------
 
-    private fun esc(s: String) = s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;")
+    private fun esc(s: String) = s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;")   // attributes are single-quoted (audit, 12 Oct 2026)
     private val FONT = "font-family='Manrope, -apple-system, Segoe UI, Roboto, sans-serif'"
     private fun f1(v: Double) = "%.1f".format(java.util.Locale.US, v)
     private fun n(v: Int) = "%,d".format(java.util.Locale.US, v)

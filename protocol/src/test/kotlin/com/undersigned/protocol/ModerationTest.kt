@@ -47,4 +47,16 @@ class ModerationTest {
         val score = Ranking.score(e, emptyMap()) { SignerFacts(true, 0.0) }.single()
         assertEquals(1, score.countedReviews); assertEquals(2.0, score.weightedMean)
     }
+
+    @Test fun `a ban never removes the wallet's records about an app the banning moderator publishes`() {
+        val ban = LedgerEntry(id('Z'), mod, 9, ReviewMemo.Ban("alice", ReviewMemo.ModReason.ABUSE))
+        val otherApp = LedgerEntry(id('Y'), "alice", 1, ReviewMemo.Review("com.other", 1, listOf(ReviewMemo.Tag.CRASHES), 1, null))
+        val e = listOf(review, reply, otherApp, ban)
+        // No recusal: everything alice signed is dropped; bob's reply is his own record and stays, as before.
+        assertEquals(listOf(id('B'), id('Z')), Moderation.excludeBanned(e, moderators = setOf(mod)).map { it.signature })
+        // The moderator publishes com.x: alice's review of com.x (and its reply) stays; her review of com.other goes.
+        val kept = Moderation.excludeBanned(e, moderators = setOf(mod), verifiedPublishers = mapOf("com.x" to setOf(mod))).map { it.signature }
+        assertEquals(listOf(id('A'), id('B'), id('Z')), kept)
+        assertEquals(mapOf("alice" to setOf(mod)), Moderation.bans(e, moderators = setOf(mod)))
+    }
 }

@@ -19,6 +19,9 @@ object AppConfig {
         const val HOST = "aardappvark.github.io"
     }
 
+    /** False only if the registry constant does not re-derive at start; then nothing is posted (see UndersignedApp). */
+    @Volatile var registryOk: Boolean = true
+
     object Api {
         private val PUBLIC_ENDPOINTS = listOf(
             "https://api.mainnet-beta.solana.com",

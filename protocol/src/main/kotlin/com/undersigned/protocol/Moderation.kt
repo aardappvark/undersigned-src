@@ -65,8 +65,30 @@ object Moderation {
     }
 
     /** [entries] without any record signed by a banned wallet; the moderators' own records stay, so the ban can be read back. */
-    fun excludeBanned(entries: List<LedgerEntry>, moderators: Set<String> = MODERATORS): List<LedgerEntry> {
-        val b = banned(entries, moderators); if (b.isEmpty()) return entries
-        return entries.filter { it.signer !in b }
+    /** Who banned whom (latest standing ban per moderator). */
+    fun bans(entries: List<LedgerEntry>, moderators: Set<String> = MODERATORS): Map<String, Set<String>> {
+        val latest = HashMap<Pair<String, String>, LedgerEntry>()
+        entries.filter { it.signer in moderators && (it.memo is ReviewMemo.Ban || it.memo is ReviewMemo.Unban) }
+            .sortedWith(compareBy<LedgerEntry> { it.blockTime }.thenBy { it.signature })
+            .forEach { e -> val w = (e.memo as? ReviewMemo.Ban)?.wallet ?: (e.memo as ReviewMemo.Unban).wallet; latest[e.signer to w] = e }
+        val out = HashMap<String, MutableSet<String>>()
+        latest.values.filter { it.memo is ReviewMemo.Ban }.forEach { e -> val w = (e.memo as ReviewMemo.Ban).wallet; if (w !in moderators && !Operator.isOperator(w)) out.getOrPut(w) { HashSet() } += e.signer }
+        return out
     }
+    /**
+     * The entries a reader keeps. Recusal (audit, 12 Oct 2026): a moderator's ban never removes the wallet's records about an app
+     * that moderator publishes (the operator sells apps reviewed here); only another moderator's ban reaches those. The ban
+     * record itself stays public on-chain, so the recusal is checkable.
+     */
+    fun excludeBanned(entries: List<LedgerEntry>, moderators: Set<String> = MODERATORS, verifiedPublishers: Map<String, Set<String>> = emptyMap()): List<LedgerEntry> {
+        val b = bans(entries, moderators); if (b.isEmpty()) return entries
+        val pkgOf = entries.associate { it.signature to pkgOfMemo(it.memo) }
+        return entries.filter { e ->
+            val by = b[e.signer] ?: return@filter true
+            val pkg = pkgOfMemo(e.memo) ?: (e.memo as? ReviewMemo.Reply)?.let { pkgOf[it.reviewSignature] } ?: return@filter false
+            // Kept only when EVERY banning moderator is recused for this app.
+            by.all { mod -> Operator.isOperator(mod) && Operator.publishes(pkg, verifiedPublishers) || mod in verifiedPublishers[pkg].orEmpty() }
+        }
+    }
+    private fun pkgOfMemo(m: ReviewMemo): String? = when (m) { is ReviewMemo.Review -> m.packageName; is ReviewMemo.Claim -> m.packageName; is ReviewMemo.Use -> m.packageName; is ReviewMemo.Time -> m.packageName; is ReviewMemo.Activity -> m.packageName; is ReviewMemo.CustomTags -> m.packageName; is ReviewMemo.Request -> m.packageName; else -> null }
 }

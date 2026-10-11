@@ -1197,6 +1197,8 @@
     <string name="translate_same">Already in your language.</string>
     <string name="abuse_blocked">This text contains language Undersigned doesn’t publish (%1$s). Edit it to sign.</string>
     <string name="mod_ban">Exclude this wallet (abuse)</string>
+    <string name="mod_ban_confirm">Sign a public record excluding %1$s for abuse? Every reader drops that wallet\'s records, except on apps you publish. The record stays on-chain and can be lifted later.</string>
+    <string name="mod_ban_do">Sign the exclusion</string>
     <string name="wallet_banned">Excluded by a moderator for abuse: this wallet’s records stay on Solana and are shown nowhere here.</string>
     <string name="translate_now">Translate</string>
     <string name="translate_pro">Translate · Pro</string>

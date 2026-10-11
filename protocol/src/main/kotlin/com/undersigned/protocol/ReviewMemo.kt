@@ -185,7 +185,7 @@ sealed class ReviewMemo {
                 require(m.rating in 1..5) { "rating 1..5" }
                 require(m.tags.size in 1..MAX_TAGS && m.tags.toSet().size == m.tags.size) { "1..$MAX_TAGS distinct tags" }
                 require(m.versionCode > 0) { "versionCode" }
-                val text = m.text?.trim()?.takeIf { it.isNotEmpty() }
+                val text = m.text?.let { LongText.stripSpoofing(it) }?.trim()?.takeIf { it.isNotEmpty() }
                 require(text == null || text.length <= MAX_TEXT_CHARS) { "text ≤ $MAX_TEXT_CHARS chars" }
                 require(text == null || text.toByteArray(StandardCharsets.UTF_8).size <= MAX_TEXT_BYTES) { "text ≤ $MAX_TEXT_BYTES bytes" }
                 require(text == null || text.none { it == '|' || it == '\n' || it == '\r' }) { "text chars" }

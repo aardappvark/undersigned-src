@@ -30,9 +30,14 @@ class UndersignedApp : Application(), coil.ImageLoaderFactory {
         com.undersigned.app.util.NetStatus.watch(this)
         try {
             fun keyed(res: Int): String? = getString(res).trim().takeIf { it.isNotBlank() }?.let { "https://mainnet.helius-rpc.com/?api-key=$it" }
-            val primary = keyed(R.string.helius_api_key)
+            // Audit, 12 Oct 2026: the keyed provider is reached through our API's read-only proxy (its key never ships); public pools follow.
+            val primary = keyed(R.string.helius_api_key) ?: (AppConfig.Site.URL + "/v1/rpc")
             val lastResort = keyed(R.string.helius_api_key_3)
             AppConfig.Api.configure(primary, lastResort)
+            // The registry is re-derived here and compared with the constant every reader and writer uses: a mismatch stops posting (audit, 12 Oct 2026).
+            val derived = com.undersigned.app.util.Base58.encode(com.undersigned.app.solana.Pda.find(com.undersigned.protocol.Registry.REGISTRY_SEEDS.map { it.toByteArray() }, com.undersigned.app.util.Base58.decode(com.undersigned.protocol.Registry.MEMO_PROGRAM)))
+            AppConfig.registryOk = derived == com.undersigned.protocol.Registry.REGISTRY_REFERENCE
+            if (!AppConfig.registryOk) android.util.Log.wtf("UndersignedApp", "registry mismatch: derived $derived")
             android.util.Log.i("UndersignedApp", "rpc pool: ${AppConfig.Api.RPC_ENDPOINTS.size} endpoints (keyed primary=${primary != null}, last-resort=${lastResort != null})")
         } catch (_: Exception) { }
     }
