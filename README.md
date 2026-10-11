@@ -16,7 +16,7 @@ The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 
 | | |
 |---|---|
-| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.7-vc18.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
+| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.8-vc19.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
 | **The site and API** | https://undersigned.provenby.dev · [`/payments`](https://undersigned.provenby.dev/payments) · [`/v1/stats`](https://undersigned.provenby.dev/v1/stats) · MCP at `/mcp` |
 | **One review, on-chain** | Jupiter Mobile, signed on a Seeker with the Seed Vault: [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5) (an operator wallet: shown, never counted) |
 | **Recompute it yourself** | `api/build/install/api/bin/api verify` reads the registry from the chain into a throwaway database, scores it with the protocol module, and diffs the live dataset (exit 0 on a match) |
@@ -55,7 +55,8 @@ Everything else hangs off that loop:
 - **Reviews from wallets without a Genesis Token**, and from Undersigned's own wallets: shown, **not counted**.
 - **Promoted reviews**: their author paid to promote them. Counted **once, at the same weight** as if unpaid; the
   payment buys only a labelled place **after** organic reviews, never first, never weight.
-- **Pro members' reviews**: counted like everyone's, and also shown as their own labelled score.
+- **Similar text, named**: a review whose note matches another's (6+ words at 60 % overlap, or an identical note of 20+ characters by another wallet) carries "Similar text to a review of X signed D", and "within 3 days" when so. A label that names its match; it never hides a review and never says why.
+- **Pro members' reviews**: counted like everyone's, and also shown as their own labelled score. Pro reviewers may add up to two **tags of their own** beside the fixed vocabulary (`SRL1|ctg`), shown on the review and counted on the app's page; no score reads them.
 - **Reviews by holders of a Pro seat gifted by the app's publisher**: labelled, counted in no score.
 
 Rules: [integrity policy](https://aardappvark.github.io/undersigned-legal/integrity.html), `protocol/.../Weighting.kt`.
@@ -101,8 +102,8 @@ verify, it is not a safety verdict.**
 
 ## State today (measured 11 Oct 2026)
 
-- Release **1.1.7** (versionCode 18). 195 commits on 19 days (UTC) since 7 Sep 2026; 21,397 lines of Kotlin plus 3,911 lines of tests;
-  281 Kotlin tests (108 protocol, 99 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
+- Release **1.1.8** (versionCode 19). 196 commits on 19 days (UTC) since 7 Sep 2026; 21,543 lines of Kotlin plus 4,047 lines of tests;
+  288 Kotlin tests (114 protocol, 100 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
 - Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
   scores fill as Seeker owners sign.

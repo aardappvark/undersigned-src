@@ -92,6 +92,8 @@ class State(
     val usage = Usage.index(entries)
     val useTimes = Usage.time(entries)
     val activity = Usage.activity(entries)
+    /** A Pro reviewer's own tags per review (`ctg`); from a wallet without Pro at the time they are not here at all. */
+    val customTags = Usage.proCustomTags(entries, paidRecord)
     val fixes = com.undersigned.protocol.Threads.fixes(entries, verified)
     val rounds = com.undersigned.protocol.Threads.rounds(entries, verified)
     val longTexts = com.undersigned.protocol.LongText.assemble(entries)

@@ -1168,6 +1168,15 @@
     <string name="pa_window_all">تمام وقت</string>
     <string name="pa_loading">ادائیگیاں پڑھی جا رہی ہیں…</string>
     <string name="pa_offline">ادائیگیوں کا تجزیہ آف لائن دستیاب نہیں۔</string>
+    <string name="similar_to_one">%2$s کو دستخط شدہ %1$s کے ایک جائزے جیسا متن</string>
+    <string name="similar_to_one_recent">%2$s کو دستخط شدہ %1$s کے ایک جائزے جیسا متن، 3 دن کے اندر</string>
+    <string name="similar_to_more">%2$s کو دستخط شدہ %1$s کے ایک جائزے اور %3$d مزید جیسا متن</string>
+    <string name="fp_own_tags">جائزے پر آپ کے اپنے ٹیگ (زیادہ سے زیادہ 2)</string>
+    <string name="ctg_title">آپ کے اپنے ٹیگ</string>
+    <string name="ctg_hint">آپ کے اپنے زیادہ سے زیادہ دو الفاظ، مثلاً offline-maps dark-mode</string>
+    <string name="ctg_invalid">اجازت نہیں: %1$s۔ ہر ٹیگ 2–20 چھوٹے لاطینی حروف، ہندسے یا ہائفن کا ہو، اور کوئی مقررہ ٹیگ یا بلاک شدہ لفظ نہ ہو۔</string>
+    <string name="ctg_pro_body">Pro جائزہ نگار اپنے زیادہ سے زیادہ دو ٹیگ شامل کرتے ہیں؛ وہ جائزے اور ایپ کے صفحے پر دکھتے ہیں اور کوئی اسکور نہیں بدلتے۔</string>
+    <string name="ctg_note">آپ کے جائزے اور ایپ کے صفحے پر آپ کے اپنے کے طور پر دکھتے ہیں۔ کوئی اسکور نہیں بدلتے۔</string>
     <string name="pa_unavailable">ادائیگیوں کا تجزیہ ابھی لوڈ نہیں ہو سکا۔ تھوڑی دیر بعد دوبارہ کوشش کریں۔</string>
     <string name="pa_label">ملے ہوئے والیٹ ایپ کے کوڈ سے لیے گئے ہیں اور تصدیق شدہ نہیں۔ رقمیں ادائیگی کے دن کی مجموعی وصولیاں ہیں، آمدنی نہیں۔</string>
     <string name="pa_coverage">اب تک ملی %2$s ٹرانزیکشنز میں سے %1$s پڑھی گئیں؛ ملے ہوئے والیٹس کے اعداد نامکمل ہو سکتے ہیں۔</string>

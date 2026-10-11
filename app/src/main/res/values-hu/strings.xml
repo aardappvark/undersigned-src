@@ -1165,6 +1165,15 @@
     <string name="pa_window_all">Teljes időszak</string>
     <string name="pa_loading">Fizetések beolvasása…</string>
     <string name="pa_offline">A fizetési elemzés offline nem érhető el.</string>
+    <string name="similar_to_one">Hasonló szöveg a(z) %1$s egy %2$s-kor aláírt értékeléséhez</string>
+    <string name="similar_to_one_recent">Hasonló szöveg a(z) %1$s egy %2$s-kor aláírt értékeléséhez, 3 napon belül</string>
+    <string name="similar_to_more">Hasonló szöveg a(z) %1$s egy %2$s-kor aláírt értékeléséhez és %3$d továbbihoz</string>
+    <string name="fp_own_tags">Saját címkék egy értékelésen (legfeljebb 2)</string>
+    <string name="ctg_title">Saját címkéi</string>
+    <string name="ctg_hint">Legfeljebb két saját szó, pl. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Nem engedett: %1$s. Minden címke 2–20 kisbetű, számjegy vagy kötőjel, és nem rögzített címke vagy tiltott szó.</string>
+    <string name="ctg_pro_body">A Pro értékelők legfeljebb két saját címkét adnak hozzá; az értékelésen és az app oldalán jelennek meg, és nem változtatnak pontszámot.</string>
+    <string name="ctg_note">Az értékelésén és az app oldalán jelennek meg, sajátként jelölve. Nem változtatnak pontszámot.</string>
     <string name="pa_unavailable">A fizetési elemzés most nem tölthető be. Próbálja újra egy pillanat múlva.</string>
     <string name="pa_label">A talált tárcák az alkalmazás kódjából származnak, nincsenek megerősítve. Az összegek bruttó befizetések a fizetés napján, nem bevétel.</string>
     <string name="pa_coverage">Eddig %2$s talált tranzakcióból %1$s beolvasva; a talált tárcák adatai hiányosak lehetnek.</string>

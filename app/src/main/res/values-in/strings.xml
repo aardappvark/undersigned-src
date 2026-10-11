@@ -1150,6 +1150,15 @@
     <string name="pa_window_all">Sepanjang waktu</string>
     <string name="pa_loading">Membaca pembayaran…</string>
     <string name="pa_offline">Analitik pembayaran tidak tersedia secara offline.</string>
+    <string name="similar_to_one">Teks mirip dengan ulasan %1$s yang ditandatangani %2$s</string>
+    <string name="similar_to_one_recent">Teks mirip dengan ulasan %1$s yang ditandatangani %2$s, dalam 3 hari</string>
+    <string name="similar_to_more">Teks mirip dengan ulasan %1$s yang ditandatangani %2$s dan %3$d lainnya</string>
+    <string name="fp_own_tags">Tag Anda sendiri pada ulasan (maks. 2)</string>
+    <string name="ctg_title">Tag Anda sendiri</string>
+    <string name="ctg_hint">Maksimal dua kata Anda sendiri, mis. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Tidak diizinkan: %1$s. Setiap tag 2–20 huruf kecil, angka, atau tanda hubung, bukan tag tetap atau kata yang diblokir.</string>
+    <string name="ctg_pro_body">Pengulas Pro menambahkan hingga dua tag sendiri; tampil di ulasan dan halaman aplikasi, dan tidak mengubah skor apa pun.</string>
+    <string name="ctg_note">Tampil di ulasan Anda dan halaman aplikasi, ditandai sebagai milik Anda. Tidak mengubah skor apa pun.</string>
     <string name="pa_unavailable">Analitik pembayaran tidak dapat dimuat saat ini. Coba lagi sebentar lagi.</string>
     <string name="pa_label">Wallet yang ditemukan berasal dari kode aplikasi dan belum dikonfirmasi. Angka adalah penerimaan kotor pada hari pembayaran, bukan pendapatan.</string>
     <string name="pa_coverage">Terbaca %1$s dari %2$s transaksi yang ditemukan; angka untuk wallet yang ditemukan mungkin belum lengkap.</string>

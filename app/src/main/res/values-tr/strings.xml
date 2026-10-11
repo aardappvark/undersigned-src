@@ -1165,6 +1165,15 @@
     <string name="pa_window_all">Tüm zamanlar</string>
     <string name="pa_loading">Ödemeler okunuyor…</string>
     <string name="pa_offline">Ödeme analizi çevrimdışı kullanılamaz.</string>
+    <string name="similar_to_one">%2$s tarihinde imzalanan bir %1$s yorumuna benzer metin</string>
+    <string name="similar_to_one_recent">%2$s tarihinde imzalanan bir %1$s yorumuna benzer metin, 3 gün içinde</string>
+    <string name="similar_to_more">%2$s tarihinde imzalanan bir %1$s yorumuna ve %3$d yoruma daha benzer metin</string>
+    <string name="fp_own_tags">Bir yorumda kendi etiketleriniz (en fazla 2)</string>
+    <string name="ctg_title">Kendi etiketleriniz</string>
+    <string name="ctg_hint">Kendi en fazla iki sözcüğünüz, örn. offline-maps dark-mode</string>
+    <string name="ctg_invalid">İzin verilmez: %1$s. Her etiket 2–20 küçük harf, rakam veya tireden oluşur; sabit bir etiket veya engellenen bir sözcük olamaz.</string>
+    <string name="ctg_pro_body">Pro yorumcular en fazla iki kendi etiketini ekler; yorumda ve uygulama sayfasında görünür, hiçbir puanı değiştirmez.</string>
+    <string name="ctg_note">Yorumunuzda ve uygulama sayfasında sizin olarak işaretli görünür. Hiçbir puanı değiştirmez.</string>
     <string name="pa_unavailable">Ödeme analizi şu anda yüklenemedi. Biraz sonra yeniden deneyin.</string>
     <string name="pa_label">Bulunan cüzdanlar uygulama kodundan gelir ve onaylanmamıştır. Rakamlar ödeme günündeki brüt tahsilatlardır, gelir değildir.</string>
     <string name="pa_coverage">Şimdiye kadar bulunan %2$s işlemden %1$s tanesi okundu; bulunan cüzdanların rakamları eksik olabilir.</string>

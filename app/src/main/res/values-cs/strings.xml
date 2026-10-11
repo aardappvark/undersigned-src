@@ -1195,6 +1195,15 @@
     <string name="pa_window_all">Celé období</string>
     <string name="pa_loading">Načítání plateb…</string>
     <string name="pa_offline">Analýza plateb není offline k dispozici.</string>
+    <string name="similar_to_one">Text podobný recenzi aplikace %1$s podepsané %2$s</string>
+    <string name="similar_to_one_recent">Text podobný recenzi aplikace %1$s podepsané %2$s, do 3 dnů</string>
+    <string name="similar_to_more">Text podobný recenzi aplikace %1$s podepsané %2$s a %3$d dalším</string>
+    <string name="fp_own_tags">Vlastní štítky u recenze (až 2)</string>
+    <string name="ctg_title">Vaše vlastní štítky</string>
+    <string name="ctg_hint">Až dvě vlastní slova, např. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Nepovoleno: %1$s. Každý štítek má 2–20 malých písmen, číslic nebo pomlček a není pevným štítkem ani blokovaným slovem.</string>
+    <string name="ctg_pro_body">Recenzenti Pro přidávají až dva vlastní štítky; zobrazí se u recenze i na stránce aplikace a nemění žádné skóre.</string>
+    <string name="ctg_note">Zobrazí se u vaší recenze a na stránce aplikace, označené jako vaše vlastní. Nemění žádné skóre.</string>
     <string name="pa_unavailable">Analýzu plateb se teď nepodařilo načíst. Zkuste to za chvíli znovu.</string>
     <string name="pa_label">Nalezené peněženky pocházejí z kódu aplikace a nejsou potvrzené. Částky jsou hrubé příjmy v den platby, ne tržby.</string>
     <string name="pa_coverage">Přečteno %1$s z %2$s dosud nalezených transakcí; údaje nalezených peněženek mohou být neúplné.</string>

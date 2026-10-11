@@ -20,11 +20,16 @@ import com.undersigned.app.ui.theme.RbColors
  * The one way a Pro tool is offered (owner, 10 Oct 2026): a small card in place of the gated control, never a modal, at most
  * one per screen and never on a free screen (Browse, app pages, the composer, flags). What the tool does in one line, the
  * price read from AppConfig, a "Get Pro" button that opens the Pro tab (pushed, so back returns here), and the quiet note
- * that Pro never changes a score. Without a wallet it says to connect one first. Callers show it only when Pro is not active.
+ * that Pro never changes a score. Without a wallet it says to connect one first. Callers show it only when Pro is not active,
+ * and the card also hides ITSELF the moment Pro turns active ([ProSignal], owner, 11 Oct 2026: "dynamically disappears once
+ * Pro is enabled"), so no screen can keep offering what the wallet already has. The one exception to "never on the
+ * composer" is [ProPromptLine] for a Pro-only control that lives there (the reviewer's own tags).
  */
 @Composable
 fun ProPrompt(feature: String, body: String, onGetPro: () -> Unit, modifier: Modifier = Modifier) {
     val wallet by UserPreferences.walletAddress.collectAsState()
+    val active by ProSignal.active.collectAsState()
+    if (active) return
     GlassCard(modifier, accent = RbColors.purple.copy(alpha = 0.6f)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Pill(stringResource(R.string.pro_badge), RbColors.purpleLight)
@@ -39,5 +44,27 @@ fun ProPrompt(feature: String, body: String, onGetPro: () -> Unit, modifier: Mod
         Spacer(Modifier.height(10.dp))
         SecondaryButton(stringResource(R.string.pro_get_short), onClick = onGetPro)
         Text(stringResource(R.string.pro_prompt_never), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 8.dp))
+    }
+}
+
+/** Whether the signed-in wallet's Pro is active right now; set by the view model whenever the licence is recomputed. */
+object ProSignal { val active = kotlinx.coroutines.flow.MutableStateFlow(false) }
+
+/**
+ * The compact form: one line in place of a Pro-only control, with the price and a Get Pro button; hides itself when Pro is
+ * active, like [ProPrompt].
+ */
+@Composable
+fun ProPromptLine(feature: String, body: String, onGetPro: () -> Unit, modifier: Modifier = Modifier) {
+    val active by ProSignal.active.collectAsState()
+    if (active) return
+    // A Column, not a Row: SecondaryButton fills its width, and beside a weighted column that left the text zero wide, which
+    // laid out one glyph per line and swallowed the rest of the composer (emulator, 11 Oct 2026).
+    Column(modifier.fillMaxWidth().padding(vertical = 6.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) { Pill(stringResource(R.string.pro_badge), RbColors.purpleLight); Spacer(Modifier.width(8.dp)); Text(feature, color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Bold) }
+        Text(body, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 2.dp))
+        Text(stringResource(R.string.pro_prompt_price, AppConfig.Payment.solLabel(), AppConfig.Payment.skrLabel()), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+        Spacer(Modifier.height(6.dp))
+        SecondaryButton(stringResource(R.string.pro_get_short), onClick = onGetPro)
     }
 }

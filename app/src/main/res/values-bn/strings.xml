@@ -1161,6 +1161,15 @@
     <string name="pa_window_all">সব সময়</string>
     <string name="pa_loading">পেমেন্ট পড়া হচ্ছে…</string>
     <string name="pa_offline">পেমেন্ট বিশ্লেষণ অফলাইনে পাওয়া যায় না।</string>
+    <string name="similar_to_one">%2$s-এ স্বাক্ষরিত %1$s-এর একটি রিভিউর মতো লেখা</string>
+    <string name="similar_to_one_recent">%2$s-এ স্বাক্ষরিত %1$s-এর একটি রিভিউর মতো লেখা, ৩ দিনের মধ্যে</string>
+    <string name="similar_to_more">%2$s-এ স্বাক্ষরিত %1$s-এর একটি রিভিউ ও আরও %3$d-এর মতো লেখা</string>
+    <string name="fp_own_tags">রিভিউতে আপনার নিজের ট্যাগ (সর্বোচ্চ ২)</string>
+    <string name="ctg_title">আপনার নিজের ট্যাগ</string>
+    <string name="ctg_hint">আপনার নিজের সর্বোচ্চ দুটি শব্দ, যেমন offline-maps dark-mode</string>
+    <string name="ctg_invalid">অনুমোদিত নয়: %1$s। প্রতিটি ট্যাগ ২–২০টি ছোট হাতের লাতিন অক্ষর, সংখ্যা বা হাইফেন; নির্দিষ্ট ট্যাগ বা নিষিদ্ধ শব্দ নয়।</string>
+    <string name="ctg_pro_body">Pro রিভিউয়াররা নিজের সর্বোচ্চ দুটি ট্যাগ যোগ করতে পারেন; এগুলো রিভিউ ও অ্যাপের পেজে দেখায় এবং কোনো স্কোর বদলায় না।</string>
+    <string name="ctg_note">আপনার রিভিউ ও অ্যাপের পেজে আপনার নিজের বলে চিহ্নিত হয়ে দেখায়। কোনো স্কোর বদলায় না।</string>
     <string name="pa_unavailable">পেমেন্ট বিশ্লেষণ এখন লোড করা যায়নি। কিছুক্ষণ পরে আবার চেষ্টা করুন।</string>
     <string name="pa_label">পাওয়া ওয়ালেটগুলো অ্যাপের কোড থেকে নেওয়া, নিশ্চিত নয়। অঙ্কগুলো পেমেন্টের দিনের মোট প্রাপ্তি, আয় নয়।</string>
     <string name="pa_coverage">এ পর্যন্ত পাওয়া %2$sটি লেনদেনের মধ্যে %1$sটি পড়া হয়েছে; পাওয়া ওয়ালেটের অঙ্ক অসম্পূর্ণ হতে পারে।</string>

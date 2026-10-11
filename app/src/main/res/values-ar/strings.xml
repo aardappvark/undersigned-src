@@ -1236,6 +1236,15 @@
     <string name="pa_window_all">كل الوقت</string>
     <string name="pa_loading">جارٍ قراءة المدفوعات…</string>
     <string name="pa_offline">تحليلات المدفوعات غير متاحة دون اتصال.</string>
+    <string name="similar_to_one">نص مشابه لمراجعة %1$s الموقّعة في %2$s</string>
+    <string name="similar_to_one_recent">نص مشابه لمراجعة %1$s الموقّعة في %2$s، خلال 3 أيام</string>
+    <string name="similar_to_more">نص مشابه لمراجعة %1$s الموقّعة في %2$s و%3$d أخرى</string>
+    <string name="fp_own_tags">علاماتك الخاصة على المراجعة (حتى 2)</string>
+    <string name="ctg_title">علاماتك الخاصة</string>
+    <string name="ctg_hint">حتى كلمتين من اختيارك، مثل offline-maps dark-mode</string>
+    <string name="ctg_invalid">غير مسموح: %1$s. كل علامة من 2 إلى 20 حرفًا لاتينيًا صغيرًا أو رقمًا أو شرطة، وليست علامة ثابتة أو كلمة محجوبة.</string>
+    <string name="ctg_pro_body">يضيف مراجعو Pro حتى علامتين من اختيارهم؛ تظهر على المراجعة وصفحة التطبيق ولا تغيّر أي تقييم.</string>
+    <string name="ctg_note">تظهر على مراجعتك وصفحة التطبيق مميزةً كعلاماتك الخاصة. لا تغيّر أي تقييم.</string>
     <string name="pa_unavailable">تعذّر تحميل تحليلات المدفوعات الآن. حاول مرة أخرى بعد قليل.</string>
     <string name="pa_label">المحافظ المعثور عليها مأخوذة من شيفرة التطبيق وغير مؤكدة. الأرقام إيصالات إجمالية في يوم الدفع، وليست إيرادات.</string>
     <string name="pa_coverage">تمت قراءة %1$s من %2$s معاملة معثور عليها حتى الآن؛ قد تكون أرقام المحافظ المعثور عليها غير مكتملة.</string>

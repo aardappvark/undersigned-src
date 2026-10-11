@@ -1,9 +1,9 @@
-# Undersigned — dApp Store listing (1.1.7, updated 11 Oct 2026)
+# Undersigned — dApp Store listing (1.1.8, updated 11 Oct 2026)
 
 The source of truth for the Publisher Portal fields. Nothing here is submitted until the owner says so.
 
 ## Build
-- APK: `app/build/outputs/apk/release/app-release.apk`, `com.undersigned.app`, versionCode **18**, versionName **1.1.7**
+- APK: `app/build/outputs/apk/release/app-release.apk`, `com.undersigned.app`, versionCode **19**, versionName **1.1.8**
 - Signed v2 + v3 with the fleet key, cert SHA-256 `ac693213aec9befa200be59881b9decd37646b1761591edc9bc6c144192d100b`
   (CN=MidMightBit Games), the same key as 28 of the fleet's live apps.
 - The manifest names its publishers: `undersigned.publisher` = `DD4a…Wq2Q,HVXV…yDaD` (publisher proof by the store's build).
@@ -42,6 +42,10 @@ One Seeker, one voice: only wallets holding a Seeker Genesis Token are counted, 
 
 Undersigned never holds your keys or funds and moves nothing from your wallet that you have not signed for. Not affiliated with Solana Mobile.
 
+### What's new (1.1.8)
+
+Pro reviewers can add up to two tags of their own beside the fixed ones; they show on the review and on the app's page and change no score. Pro offers now disappear the moment your Pro is active. When a review's text matches another's, the card now names which review and when, as a fact.
+
 ### What's new (1.1.7)
 
 Sign in with your wallet from the review form itself. Payments analytics try again as the network returns, and say when a load failed for another reason. The reviews timeline draws its days in your time zone, matching the dates on the cards.
@@ -73,6 +77,6 @@ Icon `assets/store/icon_512.png`, banner `assets/store/banner_1200x600.png`.
 
 ## Publishing (after the owner's OK)
 1. Publisher Portal (logged in as DD4a): New app → `com.undersigned.app`, the fields above, screenshots, icon, banner → mint the App NFT.
-2. `dapp-store --apk-file app/build/outputs/apk/release/app-release.apk --whats-new "<above>" --keypair ~/.config/dappstore/publisher.json --idempotency-key com.undersigned.app-vc18`
+2. `dapp-store --apk-file app/build/outputs/apk/release/app-release.apk --whats-new "<above>" --keypair ~/.config/dappstore/publisher.json --idempotency-key com.undersigned.app-vc19`
    (API key from `~/.config/dappstore/env`). Cost about 0.021 SOL from DD4a (release NFT rent + fee), measured on the fleet 19 Aug.
-3. A retry after a rollback needs a NEW idempotency key (`…-vc18-r2`).
+3. A retry after a rollback needs a NEW idempotency key (`…-vc19-r2`).

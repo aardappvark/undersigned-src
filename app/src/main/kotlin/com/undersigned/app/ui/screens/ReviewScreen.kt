@@ -106,7 +106,15 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
         text = { Text(stringResource(R.string.discard_body), color = RbColors.textSecondary, fontSize = 13.sp) },
         confirmButton = { TextButton(onClick = { confirmLeave = false; onBack() }) { Text(stringResource(R.string.discard), color = RbColors.negative) } },
         dismissButton = { TextButton(onClick = { confirmLeave = false }) { Text(stringResource(R.string.keep_editing), color = RbColors.purpleLight) } })
-    val canSubmit = gate == null && rating in 1..5 && tags.isNotEmpty() && textOk && (text.isEmpty() || consent) && stage == null && done == null && sender != null
+    // Own tags (Pro): typed as words separated by spaces or commas; at most two, each checked by the protocol's rule.
+    val proNow by vm.pro.collectAsState()
+    var ownTagsText by rememberSaveable(pkg) { mutableStateOf(existing?.let { vm.customTags.value[vm.myReview(pkg)?.signature]?.joinToString(" ") } ?: "") }
+    val ownTokens = remember(ownTagsText) { ownTagsText.split(' ', ',', ';').map { it.trim() }.filter { it.isNotEmpty() } }
+    val ownTags = remember(ownTokens) { ownTokens.filter { ReviewMemo.validCustomTag(it) }.distinct() }
+    val ownTagsBad = remember(ownTokens) { ownTokens.filter { !ReviewMemo.validCustomTag(it) } + (if (ownTokens.distinct().size > ReviewMemo.MAX_CUSTOM_TAGS) ownTokens.distinct().drop(ReviewMemo.MAX_CUSTOM_TAGS) else emptyList()) }
+    val ownTagsOk = proNow?.active != true || ownTagsBad.isEmpty()
+    val ownTagsToSend = if (proNow?.active == true && ownTagsBad.isEmpty()) ownTags.take(ReviewMemo.MAX_CUSTOM_TAGS).takeIf { it.isNotEmpty() } else null
+    val canSubmit = gate == null && rating in 1..5 && tags.isNotEmpty() && textOk && ownTagsOk && (text.isEmpty() || consent) && stage == null && done == null && sender != null
 
     // A failed or declined publish is said at the bottom of the screen, where it is seen (judge, 10 Oct 2026: it was text
     // under the buttons, below the fold).
@@ -141,7 +149,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     PrimaryButton(stage ?: stringResource(R.string.resign_button, installedVersion), enabled = gate == null && stage == null && sender != null, loading = stage != null, onClick = {
                         val s = sender ?: return@PrimaryButton
                         error = null
-                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, onStage = { st ->
+                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, customTags = ownTagsToSend, onStage = { st ->
                             stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                         }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
                     })
@@ -152,6 +160,17 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             RatingInput(rating, enabled = stage == null) { rating = it }
             SectionTitle(stringResource(R.string.review_tags))
             TagPicker(tags, enabled = stage == null, collapsible = true) { tags = it }
+            // The reviewer's own tags (owner, 11 Oct 2026): a Pro tool. Without Pro a one-line offer stands in for the field and
+            // goes the moment Pro turns active; with Pro, up to two words of their own, checked as typed.
+            if (proNow?.active == true) {
+                SectionTitle(stringResource(R.string.ctg_title))
+                OutlinedTextField(value = ownTagsText, onValueChange = { if (stage == null) ownTagsText = it.lowercase().take(48) }, singleLine = true, isError = ownTagsBad.isNotEmpty(),
+                    supportingText = if (ownTagsBad.isNotEmpty()) { { Text(stringResource(R.string.ctg_invalid, ownTagsBad.joinToString(", ")), color = RbColors.negative, fontSize = 11.sp, lineHeight = 15.sp) } } else null,
+                    placeholder = { Text(stringResource(R.string.ctg_hint), color = RbColors.textTertiary, fontSize = 13.sp) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp),
+                    colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight))
+                if (ownTags.isNotEmpty() && ownTagsBad.isEmpty()) { Spacer(Modifier.height(6.dp)); FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { ownTags.forEach { TagChip(it, selected = true) } } }
+                Text(stringResource(R.string.ctg_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp, modifier = Modifier.padding(top = 4.dp))
+            } else ProPromptLine(stringResource(R.string.ctg_title), stringResource(R.string.ctg_pro_body), onGetPro = onPro)
             // "Optional note" as the heading, the count under the field (1.1.5: "(2000 chars, 4800 bytes left)" read as a heading).
             SectionTitle(stringResource(R.string.review_note_title))
             if (com.undersigned.protocol.LongText.needsParts(com.undersigned.protocol.LongText.clean(text))) Text(stringResource(R.string.review_long_note, com.undersigned.protocol.LongText.split(com.undersigned.protocol.LongText.clean(text)).size), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
@@ -219,7 +238,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 error = null
                 val full = com.undersigned.protocol.LongText.clean(text)
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, full.takeIf { it.isNotEmpty() }?.let { com.undersigned.protocol.LongText.preview(it) })
-                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, longText = full.takeIf { com.undersigned.protocol.LongText.needsParts(it) }, onStage = { st ->
+                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, longText = full.takeIf { com.undersigned.protocol.LongText.needsParts(it) }, customTags = ownTagsToSend, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
             })

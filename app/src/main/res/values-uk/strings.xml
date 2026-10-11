@@ -1202,6 +1202,15 @@
     <string name="pa_window_all">За весь час</string>
     <string name="pa_loading">Читаємо платежі…</string>
     <string name="pa_offline">Аналітика платежів недоступна офлайн.</string>
+    <string name="similar_to_one">Текст схожий на відгук про %1$s, підписаний %2$s</string>
+    <string name="similar_to_one_recent">Текст схожий на відгук про %1$s, підписаний %2$s, у межах 3 днів</string>
+    <string name="similar_to_more">Текст схожий на відгук про %1$s, підписаний %2$s, і ще %3$d</string>
+    <string name="fp_own_tags">Власні теги до відгуку (до 2)</string>
+    <string name="ctg_title">Ваші власні теги</string>
+    <string name="ctg_hint">До двох власних слів, напр. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Не дозволено: %1$s. Кожен тег — 2–20 малих латинських літер, цифр або дефісів, не фіксований тег і не заблоковане слово.</string>
+    <string name="ctg_pro_body">Рецензенти Pro додають до двох власних тегів; вони видні у відгуку та на сторінці застосунку й не змінюють оцінку.</string>
+    <string name="ctg_note">Видні у вашому відгуку та на сторінці застосунку як ваші. Оцінку не змінюють.</string>
     <string name="pa_unavailable">Не вдалося завантажити аналітику платежів. Спробуйте ще раз за хвилину.</string>
     <string name="pa_label">Знайдені гаманці взято з коду застосунку, їх не підтверджено. Суми — валові надходження в день платежу, а не виручка.</string>
     <string name="pa_coverage">Прочитано %1$s із %2$s знайдених транзакцій; дані щодо знайдених гаманців можуть бути неповними.</string>

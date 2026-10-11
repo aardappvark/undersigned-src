@@ -1174,6 +1174,15 @@
     <string name="pa_window_all">Altijd</string>
     <string name="pa_loading">Betalingen worden gelezen…</string>
     <string name="pa_offline">Betalingsanalyse is offline niet beschikbaar.</string>
+    <string name="similar_to_one">Tekst lijkt op een review van %1$s, ondertekend op %2$s</string>
+    <string name="similar_to_one_recent">Tekst lijkt op een review van %1$s, ondertekend op %2$s, binnen 3 dagen</string>
+    <string name="similar_to_more">Tekst lijkt op een review van %1$s, ondertekend op %2$s, en %3$d andere</string>
+    <string name="fp_own_tags">Eigen tags bij een review (tot 2)</string>
+    <string name="ctg_title">Uw eigen tags</string>
+    <string name="ctg_hint">Tot twee eigen woorden, bv. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Niet toegestaan: %1$s. Elke tag is 2–20 kleine letters, cijfers of koppeltekens en geen vaste tag of geblokkeerd woord.</string>
+    <string name="ctg_pro_body">Pro-reviewers voegen tot twee eigen tags toe; ze staan bij de review en op de app-pagina en veranderen geen score.</string>
+    <string name="ctg_note">Staan bij uw review en op de app-pagina, gemarkeerd als de uwe. Ze veranderen geen score.</string>
     <string name="pa_unavailable">De betalingsanalyse kon nu niet worden geladen. Probeer het zo opnieuw.</string>
     <string name="pa_label">Gevonden wallets komen uit de app-code en zijn niet bevestigd. Bedragen zijn bruto-ontvangsten op de dag van betaling, geen omzet.</string>
     <string name="pa_coverage">%1$s van %2$s gevonden transacties gelezen; cijfers voor gevonden wallets kunnen onvolledig zijn.</string>

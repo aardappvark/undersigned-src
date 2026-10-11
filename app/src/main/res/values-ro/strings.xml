@@ -1183,6 +1183,15 @@
     <string name="pa_window_all">Toată perioada</string>
     <string name="pa_loading">Se citesc plățile…</string>
     <string name="pa_offline">Analiza plăților nu este disponibilă offline.</string>
+    <string name="similar_to_one">Text asemănător cu o recenzie a %1$s semnată la %2$s</string>
+    <string name="similar_to_one_recent">Text asemănător cu o recenzie a %1$s semnată la %2$s, în 3 zile</string>
+    <string name="similar_to_more">Text asemănător cu o recenzie a %1$s semnată la %2$s și cu alte %3$d</string>
+    <string name="fp_own_tags">Etichetele tale la o recenzie (până la 2)</string>
+    <string name="ctg_title">Etichetele tale</string>
+    <string name="ctg_hint">Până la două cuvinte ale tale, de ex. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Nepermis: %1$s. Fiecare etichetă are 2–20 litere mici, cifre sau cratime și nu este o etichetă fixă sau un cuvânt blocat.</string>
+    <string name="ctg_pro_body">Recenzenții Pro adaugă până la două etichete proprii; apar la recenzie și pe pagina aplicației și nu schimbă niciun scor.</string>
+    <string name="ctg_note">Apar la recenzia ta și pe pagina aplicației, marcate ca ale tale. Nu schimbă niciun scor.</string>
     <string name="pa_unavailable">Analiza plăților nu a putut fi încărcată acum. Încercați din nou în câteva momente.</string>
     <string name="pa_label">Portofelele găsite provin din codul aplicației și nu sunt confirmate. Sumele sunt încasări brute în ziua plății, nu venituri.</string>
     <string name="pa_coverage">Citite %1$s din %2$s tranzacții găsite până acum; cifrele portofelelor găsite pot fi incomplete.</string>

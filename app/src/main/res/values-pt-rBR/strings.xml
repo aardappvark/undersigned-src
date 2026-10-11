@@ -1194,6 +1194,15 @@
     <string name="pa_window_all">Todo o período</string>
     <string name="pa_loading">Lendo pagamentos…</string>
     <string name="pa_offline">A análise de pagamentos não está disponível offline.</string>
+    <string name="similar_to_one">Texto semelhante a uma avaliação de %1$s assinada em %2$s</string>
+    <string name="similar_to_one_recent">Texto semelhante a uma avaliação de %1$s assinada em %2$s, em até 3 dias</string>
+    <string name="similar_to_more">Texto semelhante a uma avaliação de %1$s assinada em %2$s e a outras %3$d</string>
+    <string name="fp_own_tags">Suas próprias tags em uma avaliação (até 2)</string>
+    <string name="ctg_title">Suas próprias tags</string>
+    <string name="ctg_hint">Até duas palavras suas, ex.: offline-maps dark-mode</string>
+    <string name="ctg_invalid">Não permitido: %1$s. Cada tag tem de 2 a 20 letras minúsculas, dígitos ou hifens, e não é uma tag fixa nem uma palavra bloqueada.</string>
+    <string name="ctg_pro_body">Avaliadores Pro adicionam até duas tags próprias; aparecem na avaliação e na página do app e não mudam nenhuma nota.</string>
+    <string name="ctg_note">Aparecem na sua avaliação e na página do app, marcadas como suas. Não mudam nenhuma nota.</string>
     <string name="pa_unavailable">Não foi possível carregar a análise de pagamentos agora. Tente de novo em instantes.</string>
     <string name="pa_label">Carteiras encontradas vêm do código do app e não são confirmadas. Os valores são recebimentos brutos no dia do pagamento, não receita líquida.</string>
     <string name="pa_coverage">Lidas %1$s de %2$s transações encontradas até agora; os números das carteiras encontradas podem estar incompletos.</string>

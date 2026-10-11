@@ -1194,6 +1194,15 @@
     <string name="pa_window_all">Todo el periodo</string>
     <string name="pa_loading">Leyendo pagos…</string>
     <string name="pa_offline">El análisis de pagos no está disponible sin conexión.</string>
+    <string name="similar_to_one">Texto similar a una reseña de %1$s firmada el %2$s</string>
+    <string name="similar_to_one_recent">Texto similar a una reseña de %1$s firmada el %2$s, en menos de 3 días</string>
+    <string name="similar_to_more">Texto similar a una reseña de %1$s firmada el %2$s y %3$d más</string>
+    <string name="fp_own_tags">Tus propias etiquetas en una reseña (hasta 2)</string>
+    <string name="ctg_title">Tus propias etiquetas</string>
+    <string name="ctg_hint">Hasta dos palabras tuyas, p. ej. offline-maps dark-mode</string>
+    <string name="ctg_invalid">No permitido: %1$s. Cada etiqueta tiene de 2 a 20 letras minúsculas, dígitos o guiones, y no es una etiqueta fija ni una palabra bloqueada.</string>
+    <string name="ctg_pro_body">Los reseñadores Pro añaden hasta dos etiquetas propias; se muestran en la reseña y en la página de la app y no cambian ninguna puntuación.</string>
+    <string name="ctg_note">Se muestran en tu reseña y en la página de la app, marcadas como tuyas. No cambian ninguna puntuación.</string>
     <string name="pa_unavailable">No se pudo cargar el análisis de pagos ahora mismo. Inténtalo de nuevo en un momento.</string>
     <string name="pa_label">Las wallets encontradas proceden del código de la app y no están confirmadas. Las cifras son ingresos brutos del día del pago, no ventas netas.</string>
     <string name="pa_coverage">Leídas %1$s de %2$s transacciones encontradas hasta ahora; las cifras de wallets encontradas pueden estar incompletas.</string>

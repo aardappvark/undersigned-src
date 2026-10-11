@@ -106,6 +106,14 @@ sealed class ReviewMemo {
      * usage access, in the review's own transaction like [Time]; the device's report, read by no score or weight.
      */
     data class Activity(val packageName: String, val monthsActive: Int, val recency: Recency, val reinstalls: Int) : ReviewMemo()
+    /**
+     * `SRL1|ctg|<package>|<tag,tag>` (owner, 11 Oct 2026: "custom tags for the Pro tier"): up to [MAX_CUSTOM_TAGS] words of
+     * the reviewer's own, beside the fixed vocabulary, riding in the review's own transaction like [Activity]. Each is
+     * 2–20 lowercase letters, digits or hyphens ([CUSTOM_TAG]), not a fixed [Tag]'s wire and not a blocked word
+     * ([CUSTOM_TAG_BLOCKED]). Readers show them only for a reviewer who held Pro when the review was signed
+     * (Weighting.proAt); no score, weight or tag statistic reads them.
+     */
+    data class CustomTags(val packageName: String, val tags: List<String>) : ReviewMemo()
     data class StoreNote(val packageName: String, val reviewId: String, val text: String) : ReviewMemo()
     data class Treasury(val packageName: String, val code: String) : ReviewMemo()
     data class Untreasury(val packageName: String) : ReviewMemo()
@@ -139,6 +147,13 @@ sealed class ReviewMemo {
         const val MAX_TEXT_BYTES = 280
         const val MAX_PACKAGE_CHARS = 100
         const val MAX_TAGS = 3
+        const val MAX_CUSTOM_TAGS = 2
+        val CUSTOM_TAG = Regex("^[a-z0-9][a-z0-9-]{1,19}$")
+        /** Words a custom tag may not be: verdicts and finance words the product never uses (CLAUDE_DESIGN_PROMPT), plus the fixed tags' wires. */
+        val CUSTOM_TAG_BLOCKED: Set<String> = setOf("earn", "earns", "earning", "earnings", "reward", "rewards", "points", "yield", "apy", "apr", "invest", "investment",
+            "safe", "unsafe", "scam", "scams", "fraud", "verified", "guaranteed", "profit", "airdrop", "free-money") + Tag.entries.map { it.wire }
+        fun validCustomTag(s: String): Boolean = CUSTOM_TAG.matches(s) && s !in CUSTOM_TAG_BLOCKED && !s.endsWith("-")
+        fun validCustomTags(tags: List<String>): Boolean = tags.size in 1..MAX_CUSTOM_TAGS && tags.toSet().size == tags.size && tags.all(::validCustomTag)
         const val MAX_PRO_MONTHS = 120
         private val PACKAGE = Regex("^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$")
         /** A record id: the transaction signature, plus ":<n>" for the n-th memo of a batched (import) transaction. */
@@ -196,6 +211,11 @@ sealed class ReviewMemo {
                 require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }
                 require(m.monthsActive in 0..Usage.ACTIVE_MONTHS_WINDOW && m.reinstalls in 0..Usage.MAX_REINSTALLS) { "bad activity" }
                 "${Registry.PROTOCOL}|act|${m.packageName}|m${m.monthsActive}|${m.recency.wire}|i${m.reinstalls}"
+            }
+            is CustomTags -> {
+                require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }
+                require(validCustomTags(m.tags)) { "1..$MAX_CUSTOM_TAGS custom tags, each 2–20 of a-z 0-9 -, no fixed or blocked word" }
+                "${Registry.PROTOCOL}|ctg|${m.packageName}|${m.tags.joinToString(",")}"
             }
             is Treasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; "${Registry.PROTOCOL}|trs|${m.packageName}|${m.code}" }
             is Moderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|mod|${m.recordId}|${m.reason.wire}" }
@@ -271,6 +291,12 @@ sealed class ReviewMemo {
                     val months = f[3].removePrefix("m").takeIf { f[3].startsWith("m") }?.toIntOrNull()?.takeIf { it in 0..Usage.ACTIVE_MONTHS_WINDOW } ?: return null
                     val re = f[5].removePrefix("i").takeIf { f[5].startsWith("i") }?.toIntOrNull()?.takeIf { it in 0..Usage.MAX_REINSTALLS } ?: return null
                     Recency.fromWire(f[4])?.let { Activity(f[2], months, it, re) }
+                }
+                "ctg" -> {
+                    if (f.size != 4 || f[2].length > MAX_PACKAGE_CHARS || !PACKAGE.matches(f[2])) return null
+                    val tags = f[3].split(',')
+                    if (!validCustomTags(tags)) return null
+                    CustomTags(f[2], tags)
                 }
                 "trs" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3])) Treasury(f[2], f[3]) else null
                 "mod" -> if (f.size == 4 && SIGNATURE.matches(f[2])) ModReason.fromWire(f[3])?.let { Moderate(f[2], it) } else null

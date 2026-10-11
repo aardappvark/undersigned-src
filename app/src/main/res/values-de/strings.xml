@@ -1185,6 +1185,15 @@
     <string name="pa_window_all">Gesamter Zeitraum</string>
     <string name="pa_loading">Zahlungen werden gelesen…</string>
     <string name="pa_offline">Die Zahlungsanalyse ist offline nicht verfügbar.</string>
+    <string name="similar_to_one">Ähnlicher Text wie eine Bewertung von %1$s, signiert am %2$s</string>
+    <string name="similar_to_one_recent">Ähnlicher Text wie eine Bewertung von %1$s, signiert am %2$s, innerhalb von 3 Tagen</string>
+    <string name="similar_to_more">Ähnlicher Text wie eine Bewertung von %1$s, signiert am %2$s, und %3$d weitere</string>
+    <string name="fp_own_tags">Eigene Tags an einer Bewertung (bis zu 2)</string>
+    <string name="ctg_title">Ihre eigenen Tags</string>
+    <string name="ctg_hint">Bis zu zwei eigene Wörter, z. B. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Nicht erlaubt: %1$s. Jeder Tag hat 2–20 Kleinbuchstaben, Ziffern oder Bindestriche und ist kein fester Tag und kein gesperrtes Wort.</string>
+    <string name="ctg_pro_body">Pro-Rezensenten fügen bis zu zwei eigene Tags hinzu; sie erscheinen an der Bewertung und auf der App-Seite und ändern keine Wertung.</string>
+    <string name="ctg_note">Erscheinen an Ihrer Bewertung und auf der App-Seite, als Ihre eigenen markiert. Sie ändern keine Wertung.</string>
     <string name="pa_unavailable">Die Zahlungsanalyse konnte gerade nicht geladen werden. Versuchen Sie es gleich noch einmal.</string>
     <string name="pa_label">Gefundene Wallets stammen aus dem App-Code und sind nicht bestätigt. Beträge sind Bruttoeingänge am Zahltag, kein Umsatz.</string>
     <string name="pa_coverage">%1$s von %2$s gefundenen Transaktionen gelesen; die Zahlen für gefundene Wallets können unvollständig sein.</string>

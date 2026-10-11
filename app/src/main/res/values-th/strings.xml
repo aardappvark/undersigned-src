@@ -1134,6 +1134,15 @@
     <string name="pa_window_all">ตลอดเวลา</string>
     <string name="pa_loading">กำลังอ่านการชำระเงิน…</string>
     <string name="pa_offline">การวิเคราะห์การชำระเงินใช้ไม่ได้เมื่อออฟไลน์</string>
+    <string name="similar_to_one">ข้อความคล้ายรีวิวของ %1$s ที่ลงนามเมื่อ %2$s</string>
+    <string name="similar_to_one_recent">ข้อความคล้ายรีวิวของ %1$s ที่ลงนามเมื่อ %2$s ภายใน 3 วัน</string>
+    <string name="similar_to_more">ข้อความคล้ายรีวิวของ %1$s ที่ลงนามเมื่อ %2$s และอีก %3$d รายการ</string>
+    <string name="fp_own_tags">แท็กของคุณเองในรีวิว (สูงสุด 2)</string>
+    <string name="ctg_title">แท็กของคุณเอง</string>
+    <string name="ctg_hint">คำของคุณเองสูงสุดสองคำ เช่น offline-maps dark-mode</string>
+    <string name="ctg_invalid">ไม่อนุญาต: %1$s แต่ละแท็กต้องเป็นตัวพิมพ์เล็ก ตัวเลข หรือยัติภังค์ 2–20 ตัว และไม่ใช่แท็กคงที่หรือคำที่ถูกบล็อก</string>
+    <string name="ctg_pro_body">ผู้รีวิว Pro เพิ่มแท็กของตนเองได้สูงสุดสองแท็ก แสดงในรีวิวและหน้าแอป และไม่เปลี่ยนคะแนนใด</string>
+    <string name="ctg_note">แสดงในรีวิวของคุณและหน้าแอป โดยระบุว่าเป็นของคุณเอง ไม่เปลี่ยนคะแนนใด</string>
     <string name="pa_unavailable">ไม่สามารถโหลดการวิเคราะห์การชำระเงินได้ในขณะนี้ ลองอีกครั้งในอีกสักครู่</string>
     <string name="pa_label">กระเป๋าที่พบมาจากโค้ดของแอปและยังไม่ได้รับการยืนยัน ตัวเลขเป็นยอดรับรวมในวันที่ชำระ ไม่ใช่รายได้</string>
     <string name="pa_coverage">อ่านแล้ว %1$s จาก %2$s ธุรกรรมที่พบ ตัวเลขของกระเป๋าที่พบอาจยังไม่ครบ</string>

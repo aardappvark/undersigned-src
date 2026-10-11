@@ -1149,6 +1149,15 @@
     <string name="pa_window_all">全部时间</string>
     <string name="pa_loading">正在读取付款…</string>
     <string name="pa_offline">付款分析在离线时不可用。</string>
+    <string name="similar_to_one">与 %2$s 签署的一条 %1$s 评论文字相似</string>
+    <string name="similar_to_one_recent">与 %2$s 签署的一条 %1$s 评论文字相似（3 天内）</string>
+    <string name="similar_to_more">与 %2$s 签署的一条 %1$s 评论及另外 %3$d 条文字相似</string>
+    <string name="fp_own_tags">评论中的自定义标签（最多 2 个）</string>
+    <string name="ctg_title">你的自定义标签</string>
+    <string name="ctg_hint">最多两个你自己的词，例如 offline-maps dark-mode</string>
+    <string name="ctg_invalid">不允许：%1$s。每个标签为 2–20 个小写字母、数字或连字符，且不能是固定标签或被屏蔽的词。</string>
+    <string name="ctg_pro_body">Pro 评论者可添加最多两个自定义标签；显示在评论和应用页面上，不改变任何评分。</string>
+    <string name="ctg_note">显示在你的评论和应用页面上，标记为你自己的标签。不改变任何评分。</string>
     <string name="pa_unavailable">目前无法加载付款分析。请稍后再试。</string>
     <string name="pa_label">找到的钱包来自应用代码，未经确认。金额为付款当日的总收款，不是收入。</string>
     <string name="pa_coverage">已读取找到的 %2$s 笔交易中的 %1$s 笔；找到的钱包数据可能不完整。</string>

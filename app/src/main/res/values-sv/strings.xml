@@ -1166,6 +1166,15 @@
     <string name="pa_window_all">Hela tiden</string>
     <string name="pa_loading">Läser betalningar…</string>
     <string name="pa_offline">Betalningsanalysen är inte tillgänglig offline.</string>
+    <string name="similar_to_one">Text som liknar en recension av %1$s signerad %2$s</string>
+    <string name="similar_to_one_recent">Text som liknar en recension av %1$s signerad %2$s, inom 3 dagar</string>
+    <string name="similar_to_more">Text som liknar en recension av %1$s signerad %2$s och %3$d till</string>
+    <string name="fp_own_tags">Egna taggar på en recension (upp till 2)</string>
+    <string name="ctg_title">Dina egna taggar</string>
+    <string name="ctg_hint">Upp till två egna ord, t.ex. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Inte tillåtet: %1$s. Varje tagg är 2–20 små bokstäver, siffror eller bindestreck och inte en fast tagg eller ett blockerat ord.</string>
+    <string name="ctg_pro_body">Pro-recensenter lägger till upp till två egna taggar; de visas på recensionen och appens sida och ändrar inget betyg.</string>
+    <string name="ctg_note">Visas på din recension och appens sida, markerade som dina. De ändrar inget betyg.</string>
     <string name="pa_unavailable">Betalningsanalysen kunde inte läsas in just nu. Försök igen om en stund.</string>
     <string name="pa_label">Hittade plånböcker kommer från appens kod och är inte bekräftade. Belopp är bruttoinbetalningar på betalningsdagen, inte intäkter.</string>
     <string name="pa_coverage">Läst %1$s av %2$s hittade transaktioner hittills; siffrorna för hittade plånböcker kan vara ofullständiga.</string>

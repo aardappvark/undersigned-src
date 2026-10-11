@@ -197,6 +197,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     }
     val hiddenCount = remember(entries, hidden) { entries.count { it.signature in hidden && (it.memo as? ReviewMemo.Review)?.packageName == pkg } }
     val pro by vm.pro.collectAsState()
+    val customTags by vm.customTags.collectAsState()
     var copyMsg by remember { mutableStateOf<String?>(null) }
     var handoffText by remember { mutableStateOf<String?>(null) }
     var handoffOpen by remember { mutableStateOf(false) }
@@ -438,7 +439,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     disputesMap[e.signature]?.let { d -> Text(stringResource(R.string.disputed_note, (d.memo as ReviewMemo.Dispute).text), color = RbColors.textSecondary, fontSize = 11.sp) }
                     if (vm.isSelfPublished(e)) Text(stringResource(R.string.review_self_published), color = RbColors.textTertiary, fontSize = 11.sp)
                     Spacer(Modifier.height(6.dp))
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) { r.tags.forEach { TagChip(it.label()) } }
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        r.tags.forEach { TagChip(it.label()) }
+                        // The reviewer's own tags (Pro at the time), marked apart from the fixed vocabulary.
+                        customTags[e.signature]?.forEach { TagChip(it, selected = true) }
+                    }
                     // A note from a wallet that is not counted stays folded until asked for: anyone can sign text for one network
                     // fee, and an uncounted wallet's words should not sit on an app's page by default.
                     modHidden[e.signature]?.let { reason -> Spacer(Modifier.height(6.dp)); ModHiddenText(reason, 13) }
@@ -469,7 +474,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     }
                     // Tier 3, context: season, then similar wording (amber: that one is unusual). Text, not pills.
                     val seasonText = vm.seasonAt(e.blockTime)?.let { stringResource(R.string.season_pill, it.label) }
-                    val similarText = similar[e.signature]?.let { stringResource(if (it.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge) }
+                    // Names the match (owner, 11 Oct 2026): "similar text to a review of X signed D", a fact, never an accusation.
+                    val similarText = similar[e.signature]?.let { f -> val m = f.matches.firstOrNull()
+                        if (m == null) stringResource(if (f.copiedAcrossApps) R.string.similar_copied else R.string.similar_badge)
+                        else { val d = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(m.time * 1000)); val nm = vm.labelFor(m.packageName, m.packageName)
+                            when { f.matches.size > 1 -> stringResource(R.string.similar_to_more, nm, d, f.matches.size - 1); f.recent -> stringResource(R.string.similar_to_one_recent, nm, d); else -> stringResource(R.string.similar_to_one, nm, d) } } }
                     if (seasonText != null || similarText != null) {
                         Spacer(Modifier.height(6.dp))
                         Text(androidx.compose.ui.text.buildAnnotatedString {

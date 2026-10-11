@@ -1203,6 +1203,15 @@
     <string name="pa_window_all">Cały okres</string>
     <string name="pa_loading">Odczytywanie płatności…</string>
     <string name="pa_offline">Analiza płatności nie jest dostępna offline.</string>
+    <string name="similar_to_one">Tekst podobny do recenzji %1$s podpisanej %2$s</string>
+    <string name="similar_to_one_recent">Tekst podobny do recenzji %1$s podpisanej %2$s, w ciągu 3 dni</string>
+    <string name="similar_to_more">Tekst podobny do recenzji %1$s podpisanej %2$s i %3$d innych</string>
+    <string name="fp_own_tags">Własne tagi przy recenzji (do 2)</string>
+    <string name="ctg_title">Twoje własne tagi</string>
+    <string name="ctg_hint">Do dwóch własnych słów, np. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Niedozwolone: %1$s. Każdy tag ma 2–20 małych liter, cyfr lub łączników i nie jest stałym tagiem ani zablokowanym słowem.</string>
+    <string name="ctg_pro_body">Recenzenci Pro dodają do dwóch własnych tagów; widać je przy recenzji i na stronie aplikacji, nie zmieniają żadnego wyniku.</string>
+    <string name="ctg_note">Widoczne przy Twojej recenzji i na stronie aplikacji, oznaczone jako Twoje. Nie zmieniają żadnego wyniku.</string>
     <string name="pa_unavailable">Nie udało się teraz wczytać analizy płatności. Spróbuj ponownie za chwilę.</string>
     <string name="pa_label">Znalezione portfele pochodzą z kodu aplikacji i nie są potwierdzone. Kwoty to wpływy brutto z dnia płatności, nie przychód.</string>
     <string name="pa_coverage">Odczytano %1$s z %2$s znalezionych transakcji; dane znalezionych portfeli mogą być niepełne.</string>

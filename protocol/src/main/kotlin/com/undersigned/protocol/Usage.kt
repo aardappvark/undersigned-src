@@ -102,4 +102,28 @@ object Usage {
         }
         return out
     }
+
+    /** Review record id → the reviewer's own tags its transaction carried (`ctg`); same attachment rule as [index]. Pro gating is the reader's (Weighting.proAt). */
+    fun customTags(entries: List<LedgerEntry>): Map<String, List<String>> {
+        val ctgs = entries.filter { it.memo is ReviewMemo.CustomTags }.groupBy { it.signature.substringBefore(':') }
+        if (ctgs.isEmpty()) return emptyMap()
+        val out = HashMap<String, List<String>>()
+        for (e in entries) {
+            val r = e.memo as? ReviewMemo.Review ?: continue
+            val c = ctgs[e.signature.substringBefore(':')]?.firstOrNull { it.signer == e.signer && (it.memo as ReviewMemo.CustomTags).packageName == r.packageName } ?: continue
+            out[e.signature] = (c.memo as ReviewMemo.CustomTags).tags
+        }
+        return out
+    }
+
+    /**
+     * [customTags] kept only where the reviewer held Pro when the review was signed ([Weighting.proAt] with the reader's
+     * [paid]); a `ctg` record from anyone else is ignored everywhere.
+     */
+    fun proCustomTags(entries: List<LedgerEntry>, paid: (LedgerEntry) -> Boolean): Map<String, List<String>> {
+        val all = customTags(entries)
+        if (all.isEmpty()) return emptyMap()
+        val byId = entries.associateBy { it.signature }
+        return all.filterKeys { id -> byId[id]?.let { e -> Weighting.proAt(entries, e.signer, e.blockTime, paid) } == true }
+    }
 }

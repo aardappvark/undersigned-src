@@ -23,12 +23,12 @@ caller's own device is available (install age and usage time exist only as what 
 | Data | Endpoint | Tier |
 |---|---|---|
 | Signed score: rank score (shrunk toward 3.0, for ordering), weighted mean (for display), counted reviews, star distribution, tag counts, latest version reviewed; beside it `pro_members` and `promoted` as their own scores with counts (never part of the signed score) and `operator_publishes`; each review carries `weight`, `weight_parts` (device, quality, pro_member, promoted), `counted`, and `related` (`operator`, `pro_from_publisher` or null; related reviews count in no score) | `GET /v1/apps/{pkg}` | F |
-| Signed reviews, each with: rating, tags, text, version, signer, attested device, weight, staked SKR and SOL now and as read when the review appeared (`stake_at_review`, shown, never weighed), `.skr` name, install age on their phone (`use`), usage time (`tim`), reward season, "paid for this app", similar-text finding, flags, helpful weight, dispute, hidden-by-consensus, withdrawn, replies (publisher badge), self-published exclusion | `GET /v1/apps/{pkg}/reviews` | F (first 20) / P (all) |
+| Signed reviews, each with: rating, tags, text, version, signer, attested device, weight, staked SKR and SOL now and as read when the review appeared (`stake_at_review`, shown, never weighed), `.skr` name, install age on their phone (`use`), usage time (`tim`), the reviewer's own tags when they held Pro (`custom_tags`, from `ctg`; also counted per app in `signed.custom_tags`), reward season, "paid for this app", similar-text finding, flags, helpful weight, dispute, hidden-by-consensus, withdrawn, replies (publisher badge), self-published exclusion | `GET /v1/apps/{pkg}/reviews` | F (first 20) / P (all) |
 | Scores per version (mean and count per versionCode) | `GET /v1/apps/{pkg}/versions` | P |
 | Review bursts: 5★/1★ clusters vs the app's median pace, window, count vs expected, multiple (×), attested share, same-text count, season overlap, 30-day daily sparkline | `GET /v1/apps/{pkg}/bursts` | F |
 | Install-age and usage-time distributions of reviewers (buckets d0…m3, t0…t4) | inside `/v1/apps/{pkg}` | F |
 | Publisher responsiveness: answered/total, reply-time bucket | inside `/v1/apps/{pkg}` | F |
-| Copy-paste findings: reviews whose text matches others (same app or across apps) | `GET /v1/apps/{pkg}/similar` | P |
+| Copy-paste findings: reviews whose text matches others (same app or across apps); from 11 Oct 2026 an identical note of 20+ characters by another wallet counts however short, each finding names its matches (`similar.matches`: record, package, name, signer, time) and says whether one was signed within 3 days (`recent`). A label, never a verdict. | `GET /v1/apps/{pkg}/similar` (findings) and `similar` on each review | P / F |
 
 ### C. The dApp Store, mirrored read-only
 | Data | Endpoint | Tier |

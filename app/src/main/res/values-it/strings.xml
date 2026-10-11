@@ -1194,6 +1194,15 @@
     <string name="pa_window_all">Da sempre</string>
     <string name="pa_loading">Lettura dei pagamenti…</string>
     <string name="pa_offline">L’analisi dei pagamenti non è disponibile offline.</string>
+    <string name="similar_to_one">Testo simile a una recensione di %1$s firmata il %2$s</string>
+    <string name="similar_to_one_recent">Testo simile a una recensione di %1$s firmata il %2$s, entro 3 giorni</string>
+    <string name="similar_to_more">Testo simile a una recensione di %1$s firmata il %2$s e ad altre %3$d</string>
+    <string name="fp_own_tags">I tuoi tag su una recensione (fino a 2)</string>
+    <string name="ctg_title">I tuoi tag</string>
+    <string name="ctg_hint">Fino a due parole tue, es. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Non consentito: %1$s. Ogni tag ha 2–20 lettere minuscole, cifre o trattini, e non è un tag fisso né una parola bloccata.</string>
+    <string name="ctg_pro_body">I recensori Pro aggiungono fino a due tag propri; compaiono sulla recensione e sulla pagina dell’app e non cambiano alcun punteggio.</string>
+    <string name="ctg_note">Compaiono sulla tua recensione e sulla pagina dell’app, segnati come tuoi. Non cambiano alcun punteggio.</string>
     <string name="pa_unavailable">Al momento non è stato possibile caricare l’analisi dei pagamenti. Riprova tra poco.</string>
     <string name="pa_label">I wallet trovati provengono dal codice dell’app e non sono confermati. Gli importi sono incassi lordi nel giorno del pagamento, non fatturato.</string>
     <string name="pa_coverage">Lette %1$s di %2$s transazioni trovate finora; i dati dei wallet trovati possono essere incompleti.</string>

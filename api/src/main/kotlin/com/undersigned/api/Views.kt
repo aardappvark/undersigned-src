@@ -202,7 +202,9 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             // The operator also publishes apps in this store; on its own apps the page says so (protocol Operator).
             .put("operator_publishes", com.undersigned.protocol.Operator.publishes(pkg, st.verified))
             .put("install_age", JSONObject(live.mapNotNull { st.usage[it.signature]?.wire }.groupingBy { it }.eachCount()))
-            .put("usage_time", JSONObject(live.mapNotNull { st.useTimes[it.signature]?.wire }.groupingBy { it }.eachCount())))
+            .put("usage_time", JSONObject(live.mapNotNull { st.useTimes[it.signature]?.wire }.groupingBy { it }.eachCount()))
+            // Pro reviewers' own tags across this app's live reviews, most used first (owner, 11 Oct 2026).
+            .put("custom_tags", JSONObject(live.flatMap { st.customTags[it.signature].orEmpty() }.groupingBy { it }.eachCount())))
         st.details[pkg]?.let { d -> o.put("store", JSONObject().put("version", d.versionCode).put("certificate_sha256", d.certFingerprint ?: JSONObject.NULL)
             .put("publisher", d.publisherName ?: JSONObject.NULL).put("website", d.website ?: JSONObject.NULL).put("support_email", d.supportEmail ?: JSONObject.NULL)
             .put("whats_new", d.newInVersion ?: JSONObject.NULL)) }
@@ -260,9 +262,12 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
                 .put("fixed", st.fixes[e.signature]?.let { f -> JSONObject().put("version_code", f.versionCode).put("note", f.text ?: JSONObject.NULL).put("by", f.entry.signer).put("record", f.entry.signature).put("time", f.entry.blockTime) } ?: JSONObject.NULL)
                 .put("follow_up_of", st.rounds[e.signature]?.let { rd -> JSONObject().put("original", rd.original.signature).put("stars_before", rd.before).put("stars_after", rd.after).put("change", rd.delta).put("after_fix_version", rd.fix?.versionCode ?: JSONObject.NULL) } ?: JSONObject.NULL)
                 .put("activity", st.activity[e.signature]?.let { a -> JSONObject().put("months_active_of_6", a.monthsActive).put("last_used", a.recency.name.lowercase()).put("reinstalls", a.reinstalls) } ?: JSONObject.NULL)
+                .put("custom_tags", st.customTags[e.signature]?.let { JSONArray(it) } ?: JSONObject.NULL)
                 .put("season", Seasons.at(e.blockTime)?.let { JSONObject().put("id", it.id).put("label", it.label) } ?: JSONObject.NULL)
                 .put("paid_for_app", e.signer in paid)
-                .put("similar", st.similarity[e.signature]?.let { JSONObject().put("to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } ?: JSONObject.NULL)
+                .put("similar", st.similarity[e.signature]?.let { f -> JSONObject().put("to", JSONArray(f.similarTo)).put("across_apps", f.copiedAcrossApps).put("recent", f.recent)
+                    // Who it resembles, so a reader can say "similar text to a review of X signed D" (a fact, not an accusation).
+                    .put("matches", JSONArray(f.matches.map { m -> JSONObject().put("record", m.recordId).put("package", m.packageName).put("name", st.byPackage[m.packageName]?.name ?: JSONObject.NULL).put("signer", m.signer).put("time", m.time) })) } ?: JSONObject.NULL)
                 .put("flaggers", st.flaggers[e.signature]?.size ?: 0).put("hidden_by_consensus", e.signature in st.hidden)
                 .put("helpful_weight", r2(st.helpful[e.signature] ?: 0.0)).put("disputed", st.disputes.containsKey(e.signature))
                 .put("replies", JSONArray((byTarget[e.signature] ?: emptyList()).sortedBy { it.blockTime }.filter { it.signature !in st.hidden }.map { rp ->
@@ -276,7 +281,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         Reputation.byVersion(st.entries, pkg, st.verified) { st.countsFor(it) }.map { JSONObject().put("version", it.versionCode).put("mean", r2(it.mean)).put("count", it.count) })) }
 
     fun similar(pkg: String): JSONObject { val st = s; return JSONObject().put("package", pkg).put("findings", JSONArray(liveReviews(pkg, st).mapNotNull { e ->
-        st.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps) } }))
+        st.similarity[e.signature]?.let { JSONObject().put("review", e.signature).put("similar_to", JSONArray(it.similarTo)).put("across_apps", it.copiedAcrossApps).put("recent", it.recent) } }))
         // Beyond exact copies: groups an AI suggests say the same thing in near-identical words. A suggestion, never a finding.
         .put("suggested_paraphrase_groups", ai?.paraphrases(pkg, liveReviews(pkg, st).mapNotNull { e -> visibleText(e, st)?.let { e.signature to it } }) ?: JSONArray())
         .put("suggested_label", "Suggested by AI: reviews in a group use near-identical words. A fact about wording, not a verdict about anyone.") }

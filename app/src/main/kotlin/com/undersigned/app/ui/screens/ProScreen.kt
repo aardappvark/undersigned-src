@@ -110,7 +110,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> U
                     Text(stringResource(R.string.fp_free), color = RbColors.textTertiary, fontSize = 11.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.width(col))
                     Text(stringResource(R.string.fp_pro), color = RbColors.purpleLight, fontSize = 11.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.width(col))
                 }
-                row(R.string.fp_read, "✓", "✓"); row(R.string.fp_sign, "✓", "✓"); row(R.string.fp_facts, "✓", "✓"); row(R.string.fp_claim, "✓", "✓")
+                row(R.string.fp_read, "✓", "✓"); row(R.string.fp_sign, "✓", "✓"); row(R.string.fp_facts, "✓", "✓"); row(R.string.fp_own_tags, "—", "✓"); row(R.string.fp_claim, "✓", "✓")
                 // One review at a time is free (feature review, 9 Oct 2026); Pro copies them all in one pass.
                 row(R.string.fp_copy, stringResource(R.string.fp_import_free), "✓"); row(R.string.fp_import, stringResource(R.string.fp_import_free), stringResource(R.string.fp_import_pro))
                 row(R.string.fp_desk, "—", "✓"); row(R.string.fp_export, "—", "✓"); row(R.string.fp_watch, stringResource(R.string.fp_watch_free), stringResource(R.string.fp_watch_pro))

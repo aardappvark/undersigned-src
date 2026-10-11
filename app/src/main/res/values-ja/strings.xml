@@ -1141,6 +1141,15 @@
     <string name="pa_window_all">全期間</string>
     <string name="pa_loading">支払いを読み込み中…</string>
     <string name="pa_offline">支払い分析はオフラインでは利用できません。</string>
+    <string name="similar_to_one">%2$s に署名された %1$s のレビューと似た文章</string>
+    <string name="similar_to_one_recent">%2$s に署名された %1$s のレビューと似た文章（3日以内）</string>
+    <string name="similar_to_more">%2$s に署名された %1$s のレビューほか %3$d 件と似た文章</string>
+    <string name="fp_own_tags">レビューに自分のタグ（2つまで）</string>
+    <string name="ctg_title">自分のタグ</string>
+    <string name="ctg_hint">自分の言葉を2つまで。例: offline-maps dark-mode</string>
+    <string name="ctg_invalid">使用不可: %1$s。各タグは2〜20文字の小文字英字・数字・ハイフンで、固定タグや禁止語は使えません。</string>
+    <string name="ctg_pro_body">Proのレビュアーは自分のタグを2つまで追加できます。レビューとアプリのページに表示され、スコアは変わりません。</string>
+    <string name="ctg_note">あなたのレビューとアプリのページに、あなた自身のタグとして表示されます。スコアは変わりません。</string>
     <string name="pa_unavailable">支払い分析を今は読み込めませんでした。しばらくしてからもう一度お試しください。</string>
     <string name="pa_label">見つかったウォレットはアプリのコードから見つかったもので、確認されていません。金額は支払日の総受取額で、収益ではありません。</string>
     <string name="pa_coverage">これまでに見つかった%2$s件の取引のうち%1$s件を読み込みました。見つかったウォレットの数値は不完全な場合があります。</string>

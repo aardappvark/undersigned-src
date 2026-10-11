@@ -1191,6 +1191,15 @@
     <string name="pa_window_all">All time</string>
     <string name="pa_loading">Reading payments…</string>
     <string name="pa_offline">Payments analytics are not available offline.</string>
+    <string name="similar_to_one">Similar text to a review of %1$s signed %2$s</string>
+    <string name="similar_to_one_recent">Similar text to a review of %1$s signed %2$s, within 3 days</string>
+    <string name="similar_to_more">Similar text to a review of %1$s signed %2$s and %3$d more</string>
+    <string name="fp_own_tags">Your own tags on a review (up to 2)</string>
+    <string name="ctg_title">Your own tags</string>
+    <string name="ctg_hint">Up to two words of your own, e.g. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Not allowed: %1$s. Each tag is 2–20 lowercase letters, digits or hyphens, not a fixed tag or a blocked word.</string>
+    <string name="ctg_pro_body">Pro reviewers add up to two tags of their own; they show on the review and on the app\u2019s page, and change no score.</string>
+    <string name="ctg_note">Shown on your review and on the app\u2019s page, marked as your own. They change no score.</string>
     <string name="pa_unavailable">Payments analytics could not be loaded just now. Try again in a moment.</string>
     <string name="pa_label">Found wallets are found in app code, not confirmed. Figures are gross receipts on the day paid, not revenue.</string>
     <string name="pa_coverage">Read %1$s of %2$s transactions found so far; figures for found wallets may be incomplete.</string>

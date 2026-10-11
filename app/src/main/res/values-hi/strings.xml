@@ -1168,6 +1168,15 @@
     <string name="pa_window_all">पूरा समय</string>
     <string name="pa_loading">भुगतान पढ़े जा रहे हैं…</string>
     <string name="pa_offline">भुगतान विश्लेषण ऑफ़लाइन उपलब्ध नहीं है।</string>
+    <string name="similar_to_one">%2$s को हस्ताक्षरित %1$s की एक समीक्षा जैसा पाठ</string>
+    <string name="similar_to_one_recent">%2$s को हस्ताक्षरित %1$s की एक समीक्षा जैसा पाठ, 3 दिनों के भीतर</string>
+    <string name="similar_to_more">%2$s को हस्ताक्षरित %1$s की एक समीक्षा और %3$d अन्य जैसा पाठ</string>
+    <string name="fp_own_tags">समीक्षा पर आपके अपने टैग (अधिकतम 2)</string>
+    <string name="ctg_title">आपके अपने टैग</string>
+    <string name="ctg_hint">अपने अधिकतम दो शब्द, जैसे offline-maps dark-mode</string>
+    <string name="ctg_invalid">अनुमति नहीं: %1$s। हर टैग 2–20 छोटे लैटिन अक्षर, अंक या हाइफ़न का हो, और कोई निश्चित टैग या अवरुद्ध शब्द न हो।</string>
+    <string name="ctg_pro_body">Pro समीक्षक अपने अधिकतम दो टैग जोड़ते हैं; वे समीक्षा और ऐप पेज पर दिखते हैं और कोई स्कोर नहीं बदलते।</string>
+    <string name="ctg_note">आपकी समीक्षा और ऐप पेज पर आपके अपने के रूप में चिह्नित दिखते हैं। कोई स्कोर नहीं बदलते।</string>
     <string name="pa_unavailable">भुगतान विश्लेषण अभी लोड नहीं हो सका। थोड़ी देर में फिर कोशिश करें।</string>
     <string name="pa_label">मिले हुए वॉलेट ऐप के कोड से लिए गए हैं और पुष्ट नहीं हैं। आंकड़े भुगतान के दिन की सकल प्राप्तियां हैं, राजस्व नहीं।</string>
     <string name="pa_coverage">अब तक मिले %2$s लेन-देन में से %1$s पढ़े गए; मिले हुए वॉलेट के आंकड़े अधूरे हो सकते हैं।</string>

@@ -1186,6 +1186,15 @@
     <string name="pa_window_all">За всё время</string>
     <string name="pa_loading">Читаем платежи…</string>
     <string name="pa_offline">Аналитика платежей недоступна офлайн.</string>
+    <string name="similar_to_one">Текст похож на отзыв о %1$s, подписанный %2$s</string>
+    <string name="similar_to_one_recent">Текст похож на отзыв о %1$s, подписанный %2$s, в пределах 3 дней</string>
+    <string name="similar_to_more">Текст похож на отзыв о %1$s, подписанный %2$s, и ещё %3$d</string>
+    <string name="fp_own_tags">Свои теги к отзыву (до 2)</string>
+    <string name="ctg_title">Ваши теги</string>
+    <string name="ctg_hint">До двух своих слов, напр. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Нельзя: %1$s. Каждый тег — 2–20 строчных латинских букв, цифр или дефисов, не фиксированный тег и не заблокированное слово.</string>
+    <string name="ctg_pro_body">Рецензенты Pro добавляют до двух своих тегов; они видны в отзыве и на странице приложения и не меняют оценку.</string>
+    <string name="ctg_note">Видны в вашем отзыве и на странице приложения как ваши. Оценку не меняют.</string>
     <string name="pa_unavailable">Не удалось загрузить аналитику платежей. Повторите попытку через минуту.</string>
     <string name="pa_label">Найденные кошельки взяты из кода приложения и не подтверждены. Суммы — валовые поступления на день платежа, а не выручка.</string>
     <string name="pa_coverage">Прочитано %1$s из %2$s найденных транзакций; данные по найденным кошелькам могут быть неполными.</string>

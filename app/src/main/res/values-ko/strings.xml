@@ -1142,6 +1142,15 @@
     <string name="pa_window_all">전체 기간</string>
     <string name="pa_loading">결제 읽는 중…</string>
     <string name="pa_offline">결제 분석은 오프라인에서 사용할 수 없습니다.</string>
+    <string name="similar_to_one">%2$s에 서명된 %1$s 리뷰와 비슷한 텍스트</string>
+    <string name="similar_to_one_recent">%2$s에 서명된 %1$s 리뷰와 비슷한 텍스트(3일 이내)</string>
+    <string name="similar_to_more">%2$s에 서명된 %1$s 리뷰 외 %3$d개와 비슷한 텍스트</string>
+    <string name="fp_own_tags">리뷰에 내 태그 추가(최대 2개)</string>
+    <string name="ctg_title">내 태그</string>
+    <string name="ctg_hint">내 단어 최대 2개, 예: offline-maps dark-mode</string>
+    <string name="ctg_invalid">사용할 수 없음: %1$s. 각 태그는 2~20자의 소문자, 숫자 또는 하이픈이며 고정 태그나 차단된 단어는 안 됩니다.</string>
+    <string name="ctg_pro_body">Pro 리뷰어는 내 태그를 최대 2개 추가합니다. 리뷰와 앱 페이지에 표시되며 점수는 바뀌지 않습니다.</string>
+    <string name="ctg_note">내 리뷰와 앱 페이지에 내 태그로 표시됩니다. 점수는 바뀌지 않습니다.</string>
     <string name="pa_unavailable">결제 분석을 지금 불러올 수 없습니다. 잠시 후 다시 시도하세요.</string>
     <string name="pa_label">발견된 지갑은 앱 코드에서 찾은 것이며 확인되지 않았습니다. 금액은 결제일의 총 수령액이며 수익이 아닙니다.</string>
     <string name="pa_coverage">지금까지 발견된 거래 %2$s건 중 %1$s건을 읽었습니다. 발견된 지갑의 수치는 불완전할 수 있습니다.</string>

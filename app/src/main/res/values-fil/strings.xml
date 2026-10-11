@@ -1169,6 +1169,15 @@
     <string name="pa_window_all">Lahat ng panahon</string>
     <string name="pa_loading">Binabasa ang mga bayad…</string>
     <string name="pa_offline">Hindi available offline ang analytics ng mga bayad.</string>
+    <string name="similar_to_one">Katulad na teksto ng review ng %1$s na nilagdaan noong %2$s</string>
+    <string name="similar_to_one_recent">Katulad na teksto ng review ng %1$s na nilagdaan noong %2$s, sa loob ng 3 araw</string>
+    <string name="similar_to_more">Katulad na teksto ng review ng %1$s na nilagdaan noong %2$s at %3$d pa</string>
+    <string name="fp_own_tags">Sarili mong mga tag sa review (hanggang 2)</string>
+    <string name="ctg_title">Sarili mong mga tag</string>
+    <string name="ctg_hint">Hanggang dalawang sariling salita, hal. offline-maps dark-mode</string>
+    <string name="ctg_invalid">Hindi pinapayagan: %1$s. Bawat tag ay 2–20 maliliit na titik, numero o gitling, at hindi fixed tag o naka-block na salita.</string>
+    <string name="ctg_pro_body">Nagdaragdag ang mga Pro reviewer ng hanggang dalawang sariling tag; lumalabas ito sa review at sa page ng app at walang binabagong score.</string>
+    <string name="ctg_note">Lumalabas sa review mo at sa page ng app, minarkahang sa iyo. Walang binabagong score.</string>
     <string name="pa_unavailable">Hindi ma-load ang analytics ng mga bayad ngayon. Subukan ulit sandali.</string>
     <string name="pa_label">Ang mga nahanap na wallet ay mula sa code ng app at hindi kumpirmado. Ang mga halaga ay gross na natanggap sa araw ng bayad, hindi kita.</string>
     <string name="pa_coverage">Nabasa ang %1$s sa %2$s na nahanap na transaksyon; maaaring kulang pa ang mga numero ng nahanap na wallet.</string>
