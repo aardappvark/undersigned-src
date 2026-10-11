@@ -1285,4 +1285,6 @@
     <string name="notif_ch_reminders_desc">การเตือนรีวิวรายสัปดาห์และการชวนให้รีวิว</string>
     <string name="desk_pay_30d">ได้รับใน 30 วันที่ผ่านมา: %1$s (USD ณ วันที่ชำระ)</string>
     <string name="desk_pay_12w">USD ต่อสัปดาห์ 12 สัปดาห์ล่าสุด</string>
+    <string name="settings_analytics">สถิติการใช้งานแบบไม่ระบุตัวตน</string>
+    <string name="settings_analytics_hint">หนึ่งชื่อเหตุการณ์ต่อหนึ่งการกระทำ ไม่มีตัวระบุตัวตน ระบุแค่ระดับประเทศ ปิดไว้ก็จะไม่ส่งอะไรเลย</string>
 </resources>

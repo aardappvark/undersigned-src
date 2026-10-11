@@ -1345,4 +1345,6 @@
     <string name="notif_ch_reminders_desc">Le rappel d\'avis hebdomadaire et les incitations à donner un avis.</string>
     <string name="desk_pay_30d">Reçu sur les 30 derniers jours : %1$s (USD au jour du paiement)</string>
     <string name="desk_pay_12w">USD par semaine, 12 dernières semaines</string>
+    <string name="settings_analytics">Statistiques d\'usage anonymes</string>
+    <string name="settings_analytics_hint">Un nom d\'événement par action, aucun identifiant, au niveau du pays seulement. Désactivé signifie que rien n\'est envoyé.</string>
 </resources>

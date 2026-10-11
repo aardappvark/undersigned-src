@@ -19,6 +19,13 @@ Moderation on Undersigned hides **text**, never a voice.
 - **Separate:** the website operator's own hide list (`bin/api hide`) affects only the website and API.
 
 
+## Measured against the store (12 Oct 2026)
+
+The shared list was run over 2,754 reviews read from the store's own GraphQL feed (125 dApps, three pages of ten each, until the
+store began answering 403): one review would be refused or hidden, a 2★ note reading "Pretty s*it if you ask me" (the masked
+word is folded to `shit`). No slur or threat was found in the sample; the store's text is mostly clean, and the filter's job is
+the rare case. Method: the protocol's `Abuse.match` over each note and publisher reply, nothing else.
+
 ## Automatic hiding and exclusion (11 Oct 2026)
 
 - **Abusive language is hidden automatically.** One list ships in the protocol module (`protocol/.../Abuse.kt`: slurs, strong

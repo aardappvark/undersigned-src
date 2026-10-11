@@ -1336,4 +1336,6 @@
     <string name="notif_ch_reminders_desc">Die wöchentliche Bewertungserinnerung und Bewertungshinweise.</string>
     <string name="desk_pay_30d">In den letzten 30 Tagen erhalten: %1$s (USD am Zahlungstag)</string>
     <string name="desk_pay_12w">USD pro Woche, letzte 12 Wochen</string>
+    <string name="settings_analytics">Anonyme Nutzungsstatistik</string>
+    <string name="settings_analytics_hint">Ein Ereignisname pro Aktion, keine Kennungen, nur auf Länderebene. Aus heißt: es wird nichts gesendet.</string>
 </resources>

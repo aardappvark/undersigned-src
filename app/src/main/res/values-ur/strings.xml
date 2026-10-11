@@ -1319,4 +1319,6 @@
     <string name="notif_ch_reminders_desc">ہفتہ وار ریویو یاد دہانی اور ریویو کی ترغیب۔</string>
     <string name="desk_pay_30d">پچھلے 30 دنوں میں موصول: %1$s (ادائیگی کے دن کا USD)</string>
     <string name="desk_pay_12w">فی ہفتہ USD، پچھلے 12 ہفتے</string>
+    <string name="settings_analytics">گمنام استعمالی تجزیات</string>
+    <string name="settings_analytics_hint">ہر عمل کے لیے ایک ایونٹ نام، کوئی شناخت کنندہ نہیں، صرف ملکی سطح تک۔ بند کا مطلب ہے کچھ بھی نہیں بھیجا جاتا۔</string>
 </resources>

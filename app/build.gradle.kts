@@ -23,12 +23,15 @@ android {
         applicationId = "com.undersigned.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 25
-        versionName = "1.1.14"
+        versionCode = 27
+        versionName = "1.1.16"
         // Keyed RPC provider from local.properties — never in source control. Empty = public pools only.
         resValue("string", "helius_api_key", localProperties.getProperty("HELIUS_API_KEY", ""))
         // Fleet last-resort key: lives ONLY in ~/.gradle/gradle.properties (never committed). Appended LAST.
         resValue("string", "helius_api_key_3", (project.findProperty("HELIUS_API_KEY_3") as? String) ?: localProperties.getProperty("HELIUS_API_KEY_3", ""))
+        // Fleet analytics worker key (undersigned-analytics.aardappvark.workers.dev) from local.properties — never in source control.
+        // Empty = GeoAnalyticsService.track() is a no-op. Rebuild with :app:clean after changing it: the value inlines into the APK.
+        resValue("string", "analytics_api_key", localProperties.getProperty("ANALYTICS_API_KEY", ""))
     }
 
     signingConfigs {

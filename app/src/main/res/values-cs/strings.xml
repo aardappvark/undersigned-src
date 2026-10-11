@@ -1346,4 +1346,6 @@
     <string name="notif_ch_reminders_desc">Týdenní připomínka recenzí a pobídky k recenzi.</string>
     <string name="desk_pay_30d">Přijato za posledních 30 dní: %1$s (USD v den platby)</string>
     <string name="desk_pay_12w">USD za týden, posledních 12 týdnů</string>
+    <string name="settings_analytics">Anonymní analytika používání</string>
+    <string name="settings_analytics_hint">Jeden název události na akci, žádné identifikátory, jen úroveň země. Vypnuto znamená, že se neodesílá nic.</string>
 </resources>

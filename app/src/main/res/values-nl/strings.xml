@@ -1325,4 +1325,6 @@
     <string name="notif_ch_reminders_desc">De wekelijkse reviewherinnering en reviewsuggesties.</string>
     <string name="desk_pay_30d">Ontvangen in de laatste 30 dagen: %1$s (USD op de dag van betaling)</string>
     <string name="desk_pay_12w">USD per week, laatste 12 weken</string>
+    <string name="settings_analytics">Anonieme gebruiksstatistieken</string>
+    <string name="settings_analytics_hint">Eén gebeurtenisnaam per actie, geen identificatoren, alleen op landniveau. Uit betekent dat er niets wordt verstuurd.</string>
 </resources>

@@ -1300,4 +1300,6 @@
     <string name="notif_ch_reminders_desc">每週評論提醒和評論提示。</string>
     <string name="desk_pay_30d">過去 30 天收到:%1$s(按付款當日的美元計)</string>
     <string name="desk_pay_12w">每週美元,最近 12 週</string>
+    <string name="settings_analytics">匿名使用統計</string>
+    <string name="settings_analytics_hint">每個操作只回報一個事件名稱,不含任何識別碼,只精確到國家。關閉後,不會傳送任何內容。</string>
 </resources>

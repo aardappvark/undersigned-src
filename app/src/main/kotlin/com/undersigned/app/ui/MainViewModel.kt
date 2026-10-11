@@ -301,6 +301,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             // The user's own stake is read here, once per load, for Settings (shown, never weighed).
             selfFacts.value = runCatching { factsService.facts(address, force = true) }.getOrNull()?.let { f ->
                 if (!f.hasGenesisToken) f else runCatching { factsService.stakeNow(address) }.getOrNull()?.let { k -> f.copy(stakedSkr = k.skr, stakedSol = k.sol) } ?: f }
+            if (selfFacts.value?.hasGenesisToken == true) com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.SGT_VERIFIED)
             selfFactsLoading.value = false
         }
     }
@@ -612,6 +613,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 val r = txService.publishChunks(adapter, sender, w, chunks, onStage)
                 r.onSuccess { sigs ->
                     UserPreferences.follow(memo.packageName)
+                    com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.REVIEW_SIGNED)
                     val now = System.currentTimeMillis() / 1000
                     val fresh = ArrayList<LedgerEntry>()
                     sigs.forEach { (sig, chunk) -> chunk.forEachIndexed { idx, t -> ReviewMemo.decode(t)?.let { fresh.add(LedgerEntry(ReviewMemo.recordId(sig, idx), w, now, it)) } } }
@@ -626,13 +628,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         // The review and its extras must share ONE transaction; drop extras from the end until they fit.
         var texts = runCatching { (listOf<ReviewMemo>(memo) + extras).map { ReviewMemo.encode(it) } }.getOrElse { return onResult(Result.failure(it)) }
         while (texts.size > 1 && com.undersigned.app.solana.TxBuilder.chunkForBatches(signer, texts).size != 1) texts = texts.dropLast(1)
-        if (texts.size == 1) return publish(sender, memo, onStage, onResult)
+        if (texts.size == 1) return publish(sender, memo, onStage) { r -> r.onSuccess { com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.REVIEW_SIGNED) }; onResult(r) }
         viewModelScope.launch {
             if (com.undersigned.app.util.WalletScreening.isSanctioned(w)) return@launch onResult(Result.failure(Exception(getApplication<Application>().getString(com.undersigned.app.R.string.wallet_sanctioned))))
             val r = txService.publishBatch(adapter, sender, w, texts, onStage)
             r.onSuccess { sigs ->
                 val sig = sigs.first().first
                 UserPreferences.follow(memo.packageName)
+                com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.REVIEW_SIGNED)
                 val now = System.currentTimeMillis() / 1000
                 val fresh = texts.mapIndexedNotNull { i, t -> ReviewMemo.decode(t)?.let { LedgerEntry(ReviewMemo.recordId(sig, i), w, now, it) } }
                 entries.value = honourBans((fresh + entries.value).distinctBy { it.signature })
@@ -660,6 +663,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, rc.paidLamports, rc.paidSkr))
                 ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
                 launch(Dispatchers.IO) { rank() }
+                com.undersigned.app.service.GeoAnalyticsService.track(if (rc.rail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) com.undersigned.app.service.GeoAnalyticsService.Events.PAYMENT_SOL else com.undersigned.app.service.GeoAnalyticsService.Events.PAYMENT_SKR)
+                com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.REVIEW_BOOSTED)
                 Log.i("MainViewModel", "paid promotion ${rc.signature} (${rc.rail}) on $reviewId")
             }
             onResult(r.map { it.signature })
@@ -895,6 +900,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 entries.value = (listOf(LedgerEntry(ReviewMemo.recordId(rc.signature, 1), w, System.currentTimeMillis() / 1000, memo)) + entries.value).distinctBy { it.signature }
                 txMeta.value = txMeta.value + (rc.signature to TxMeta(0L, true, rc.paidLamports, rc.paidSkr))
                 ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
+                com.undersigned.app.service.GeoAnalyticsService.track(if (rc.rail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) com.undersigned.app.service.GeoAnalyticsService.Events.PAYMENT_SOL else com.undersigned.app.service.GeoAnalyticsService.Events.PAYMENT_SKR)
                 Log.i("MainViewModel", "paid listing ${rc.signature} (${rc.rail})")
             }
             onResult(r.map { it.signature })
@@ -1422,6 +1428,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 ledgerCache.save(entries.value); ledgerCache.saveMeta(txMeta.value)
                 recomputePro()
                 if (UserPreferences.alertsEnabled.value) com.undersigned.app.notify.LedgerWatchWorker.schedule(getApplication(), runNow = false)
+                com.undersigned.app.service.GeoAnalyticsService.track(if (rc.rail == com.undersigned.app.solana.ProPaymentService.Rail.SOL) com.undersigned.app.service.GeoAnalyticsService.Events.PAYMENT_SOL else com.undersigned.app.service.GeoAnalyticsService.Events.PAYMENT_SKR)
                 Log.i("MainViewModel", "pro licence ${rc.signature} (${rc.rail})")
             }
             onResult(r.map { it.signature })

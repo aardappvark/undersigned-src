@@ -1334,4 +1334,6 @@
     <string name="notif_ch_reminders_desc">Mementoul săptămânal de recenzie și îndemnurile de a recenza.</string>
     <string name="desk_pay_30d">Primit în ultimele 30 de zile: %1$s (USD din ziua plății)</string>
     <string name="desk_pay_12w">USD pe săptămână, ultimele 12 săptămâni</string>
+    <string name="settings_analytics">Analiză anonimă de utilizare</string>
+    <string name="settings_analytics_hint">Un nume de eveniment pe acțiune, fără identificatori, doar la nivel de țară. Oprit înseamnă că nu se trimite nimic.</string>
 </resources>

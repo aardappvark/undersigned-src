@@ -61,7 +61,7 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
             WalletSession.signIn(sender, consentStatement).fold(
                 onSuccess = {
                     if (WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned)
-                    else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address); onAccepted() }
+                    else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.TERMS_ACCEPTED); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.WALLET_CONNECTED); onAccepted() }
                 },
                 onFailure = { error = context.errorText(it) },
             )
@@ -116,7 +116,7 @@ fun TermsAcceptanceScreen(activityResultSender: ActivityResultSender?, onAccepte
                 Text(stringResource(R.string.terms_checkbox), color = RbColors.textSecondary, fontSize = 12.sp)
             }
             Spacer(Modifier.height(10.dp))
-            PrimaryButton(stringResource(R.string.terms_accept_continue), enabled = accepted, onClick = { termsService.recordConsentWithoutSignature(); onAccepted() })
+            PrimaryButton(stringResource(R.string.terms_accept_continue), enabled = accepted, onClick = { termsService.recordConsentWithoutSignature(); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.TERMS_ACCEPTED); onAccepted() })
             Spacer(Modifier.height(6.dp))
             Text(stringResource(R.string.terms_preview_only_note), color = RbColors.textTertiary, fontSize = 11.sp, textAlign = TextAlign.Center)
         }

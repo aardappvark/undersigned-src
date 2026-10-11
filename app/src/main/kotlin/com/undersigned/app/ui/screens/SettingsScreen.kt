@@ -58,6 +58,8 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
     val hidden by vm.hidden.collectAsState()
     val follows by vm.follows.collectAsState()
     val alerts by UserPreferences.alertsEnabled.collectAsState()
+    val analyticsOn by UserPreferences.analyticsEnabled.collectAsState()
+    LaunchedEffect(Unit) { com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.SETTINGS_OPENED) }
     val dense by UserPreferences.dense.collectAsState()
     val pro by vm.pro.collectAsState()
     val entries by vm.entries.collectAsState()
@@ -115,7 +117,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
         val s = sender ?: return; signing = true; error = null
         scope.launch {
             WalletSession.signIn(s, termsService.generateConsentMessage("(pending)")).fold(
-                onSuccess = { if (WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned) else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address) } },
+                onSuccess = { if (WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned) else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.WALLET_CONNECTED) } },
                 onFailure = { error = context.errorText(it) },
             ); signing = false
         }
@@ -131,7 +133,7 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
             GlassCard {
                 Text(wallet?.let { shortKey(it, 8, 8) } ?: stringResource(R.string.settings_no_wallet), color = RbColors.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(10.dp))
-                if (wallet != null) SecondaryButton(stringResource(R.string.disconnect_wallet), onClick = { confirm = Confirm(R.string.disconnect_wallet, R.string.confirm_disconnect_body, R.string.disconnect_wallet) { UserPreferences.setWallet(null) } })
+                if (wallet != null) SecondaryButton(stringResource(R.string.disconnect_wallet), onClick = { confirm = Confirm(R.string.disconnect_wallet, R.string.confirm_disconnect_body, R.string.disconnect_wallet) { UserPreferences.setWallet(null); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.WALLET_DISCONNECTED) } })
                 else SecondaryButton(if (signing) stringResource(R.string.terms_signing) else stringResource(R.string.settings_signin), enabled = !signing && sender != null, onClick = { signIn() })
                 error?.let { Spacer(Modifier.height(6.dp)); Text(it, color = RbColors.negative, fontSize = 12.sp) }
             }
@@ -446,6 +448,15 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
 
             SectionTitle(stringResource(R.string.settings_data))
             GlassCard {
+                // Fleet analytics opt-out (default on): one event name per action, no identifier; off means nothing is sent.
+                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(value = analyticsOn, role = androidx.compose.ui.semantics.Role.Switch) { UserPreferences.setAnalytics(it) }, verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.settings_analytics), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.settings_analytics_hint), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    }
+                    Switch(checked = analyticsOn, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                }
+                Spacer(Modifier.height(10.dp))
                 Text(stringResource(R.string.settings_data_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
                 Spacer(Modifier.height(10.dp))
                 SecondaryButton(stringResource(R.string.settings_export_consent), onClick = {

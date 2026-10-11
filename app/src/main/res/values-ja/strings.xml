@@ -1292,4 +1292,6 @@
     <string name="notif_ch_reminders_desc">毎週のレビューリマインダーとレビューのお知らせ。</string>
     <string name="desk_pay_30d">過去30日間の受取額: %1$s(支払日のUSD)</string>
     <string name="desk_pay_12w">週ごとのUSD、過去12週間</string>
+    <string name="settings_analytics">匿名の利用状況データ</string>
+    <string name="settings_analytics_hint">操作ごとにイベント名を1つ、識別子はなし、国レベルのみ。オフにすると、何も送信されません。</string>
 </resources>

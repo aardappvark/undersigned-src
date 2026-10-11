@@ -31,11 +31,16 @@ class MainActivity : ComponentActivity() {
         // was in light mode, so the clock vanished (UI review 6 Oct 2026, emulator in light mode).
         try { enableEdgeToEdge(statusBarStyle = androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT), navigationBarStyle = androidx.activity.SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)) } catch (_: Exception) { }
         NavIntents.consume(intent)
+        // init + opt-out ran in UndersignedApp.onCreate; only the screen event belongs here. Region check once, outside
+        // composition, so geo_blocked is counted once per launch rather than per recomposition.
+        com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.APP_OPEN)
+        val geoBlocker = try { GeoBlocker(this) } catch (_: Exception) { null }
+        val blocked = geoBlocker?.isBlocked() == true
+        if (blocked) com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.GEO_BLOCKED)
         setContent {
             UndersignedTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = RbColors.background) {
-                    val geoBlocker = try { GeoBlocker(this) } catch (_: Exception) { null }
-                    if (geoBlocker?.isBlocked() == true) BlockedRegionScreen(detectedRegion = geoBlocker.getDetectedRegion())
+                    if (blocked && geoBlocker != null) BlockedRegionScreen(detectedRegion = geoBlocker.getDetectedRegion())
                     else UndersignedNavHost(activityResultSender = activityResultSender)
                 }
             }

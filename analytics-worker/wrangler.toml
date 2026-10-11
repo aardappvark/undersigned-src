@@ -1,0 +1,13 @@
+name = "undersigned-analytics"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# NOTE: this binds the STILLPOINT database, not a Undersigned-specific one.
+# The Cloudflare account is at its 10/10 D1 cap (verified 2026-08-24), so Undersigned
+# shares the multi-tenant `fleet_events` table that fleet-analytics already owns,
+# discriminated by app = 'undersigned'. Nothing here touches stillpoint's own `events`
+# table, which lives in the same database.
+[[d1_databases]]
+binding = "DB"
+database_name = "stillpoint-analytics"
+database_id = "21bb41de-88b4-45f3-a073-7175340acdeb"

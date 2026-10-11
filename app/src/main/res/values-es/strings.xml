@@ -1345,4 +1345,6 @@
     <string name="notif_ch_reminders_desc">El recordatorio semanal de reseñas y los avisos para reseñar.</string>
     <string name="desk_pay_30d">Recibido en los últimos 30 días: %1$s (USD del día del pago)</string>
     <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
+    <string name="settings_analytics">Analítica de uso anónima</string>
+    <string name="settings_analytics_hint">Un nombre de evento por acción, sin identificadores, solo a nivel de país. Desactivado significa que no se envía nada.</string>
 </resources>

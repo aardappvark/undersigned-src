@@ -37,6 +37,7 @@ object UserPreferences {
     private const val KEY_WATCH_HOURS = "watch_interval_hours"
     private const val KEY_GRANTERS = "pro_granters"          // wallets this device was told may share Pro with it
     private const val KEY_SEAT_LABELS = "pro_seat_labels"    // tag → the wallet it was granted to, kept locally so the list is readable
+    private const val KEY_ANALYTICS = "analytics_enabled"    // fleet opt-OUT (default on): anonymous event counts, see GeoAnalyticsService
     private const val FACTS_TTL_MS = 6L * 3600L * 1000L
 
     private var prefs: SharedPreferences? = null
@@ -59,6 +60,8 @@ object UserPreferences {
     val howToSeen: StateFlow<Boolean> = _howToSeen
     private val _granters = MutableStateFlow<Set<String>>(emptySet())
     val granters: StateFlow<Set<String>> = _granters
+    private val _analyticsEnabled = MutableStateFlow(true)
+    val analyticsEnabled: StateFlow<Boolean> = _analyticsEnabled
 
     fun init(context: Context) {
         val p = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -72,7 +75,16 @@ object UserPreferences {
         _dense.value = p.getBoolean(KEY_DENSE, false)
         _howToSeen.value = p.getBoolean(KEY_HOWTO_SEEN, false)
         _granters.value = p.getStringSet(KEY_GRANTERS, emptySet()) ?: emptySet()
+        _analyticsEnabled.value = p.getBoolean(KEY_ANALYTICS, true)
     }
+
+    /** Persist the choice AND apply it at once, so the very next track() obeys it. Default on: the counts carry no identifier. */
+    fun setAnalytics(v: Boolean) { prefs?.edit()?.putBoolean(KEY_ANALYTICS, v)?.apply(); _analyticsEnabled.value = v; com.undersigned.app.service.GeoAnalyticsService.setEnabled(v) }
+    /**
+     * Apply the stored choice to the service. MUST run at process start, after GeoAnalyticsService.init() and BEFORE any
+     * event can fire (the fleet cold-start hole: the service defaults to on, so an opt-out applied later has already leaked app_open).
+     */
+    fun applyAnalyticsPreference() = com.undersigned.app.service.GeoAnalyticsService.setEnabled(prefs?.getBoolean(KEY_ANALYTICS, true) ?: true)
 
     fun toggleStar(id: String) { val s = if (id in _starred.value) _starred.value - id else _starred.value + id; prefs?.edit()?.putStringSet(KEY_STARRED, s)?.apply(); _starred.value = s }
     fun follow(pkg: String) { val s = _follows.value + pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
@@ -344,5 +356,5 @@ object UserPreferences {
         get() = prefs?.getString("install_presence", null)
         set(v) { prefs?.edit()?.putString("install_presence", v)?.apply() }
 
-    fun clearAll() { prefs?.edit()?.clear()?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false; _dense.value = false; _howToSeen.value = false; _granters.value = emptySet() }
+    fun clearAll() { val keepOptOut = !_analyticsEnabled.value; prefs?.edit()?.clear()?.apply(); if (keepOptOut) prefs?.edit()?.putBoolean(KEY_ANALYTICS, false)?.apply(); _walletAddress.value = null; _hidden.value = emptySet(); _onboardingSeen.value = false; _follows.value = emptySet(); _alertsEnabled.value = false; _dense.value = false; _howToSeen.value = false; _granters.value = emptySet() }
 }

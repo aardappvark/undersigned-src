@@ -62,10 +62,10 @@ fun UndersignedNavHost(activityResultSender: ActivityResultSender?) {
     // One opening set on a first run: the five slides with the sign-in gate as the last page. Consent is the
     // only thing that cannot be skipped. Replay (Settings) shows the slides alone; the how-to lives in Settings.
     if (!consentGiven) {
-        OnboardingScreen(onDone = {}, gate = { TermsAcceptanceScreen(activityResultSender = activityResultSender, onAccepted = { UserPreferences.setOnboardingSeen(true); UserPreferences.setHowToSeen(true); consentGiven = true }) })
+        OnboardingScreen(onDone = {}, gate = { TermsAcceptanceScreen(activityResultSender = activityResultSender, onAccepted = { UserPreferences.setOnboardingSeen(true); UserPreferences.setHowToSeen(true); consentGiven = true; com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.ONBOARDING_COMPLETE) }) })
         return
     }
-    if (!onboardingSeen) { OnboardingScreen(onDone = { UserPreferences.setOnboardingSeen(true) }); return }
+    if (!onboardingSeen) { OnboardingScreen(onDone = { UserPreferences.setOnboardingSeen(true); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.ONBOARDING_COMPLETE) }); return }
 
     val nav = rememberNavController()
     val vm: MainViewModel = viewModel()

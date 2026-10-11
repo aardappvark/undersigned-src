@@ -1300,4 +1300,6 @@
     <string name="notif_ch_reminders_desc">每周评价提醒和评价提示。</string>
     <string name="desk_pay_30d">过去 30 天收到:%1$s(按付款当日的美元计)</string>
     <string name="desk_pay_12w">每周美元,最近 12 周</string>
+    <string name="settings_analytics">匿名使用统计</string>
+    <string name="settings_analytics_hint">每个操作只上报一个事件名,不含任何标识符,只精确到国家。关闭后,不会发送任何内容。</string>
 </resources>

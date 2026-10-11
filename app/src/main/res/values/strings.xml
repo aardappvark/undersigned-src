@@ -974,6 +974,8 @@
     <string name="nudge_body">It has been on this phone for a while. One Seeker, one voice: say what you found, signed by your wallet.</string>
     <string name="nudge_setting">Review nudges</string>
     <string name="nudge_setting_body">At most one a day: a notification naming one app from the store that has been here a week or used for an hour and has no review from you. Each app is asked about once. Off unless you turn it on.</string>
+    <string name="settings_analytics">Anonymous usage analytics</string>
+    <string name="settings_analytics_hint">One event name per action, no identifiers, country-level only. Off means nothing is sent.</string>
     <string name="badge_copy">Copy the badge for your website</string>
     <string name="badge_copied">Badge code copied. Paste it into your website or README.</string>
 

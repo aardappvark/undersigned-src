@@ -119,10 +119,10 @@
     </nav>
     <main>
         <h2>Privacy Policy</h2>
-        <p class="updated">Last updated: 7 October 2026</p>
+        <p class="updated">Last updated: 12 October 2026</p>
 
         <h3>1. Introduction</h3>
-        <p>Undersigned ("the App") is developed by MidMightBit Games, trading as ADappvark ("we", "us"). This policy explains what the App does and does not do with data. The short version: there is no account, no analytics, no advertising and no server of ours in the loop. The App talks to public blockchain infrastructure and the Solana dApp Store's own public feed directly from your device.</p>
+        <p>Undersigned ("the App") is developed by MidMightBit Games, trading as ADappvark ("we", "us"). This policy explains what the App does and does not do with data. The short version: there is no account and no advertising. The App talks to public blockchain infrastructure and the Solana dApp Store's own public feed directly from your device. Two things do reach servers we run, and both are described below: anonymous usage counts (one event name per action, no identifier of any kind, switchable off in Settings, section 5B), and a few features that read from our own website API (section 5A).</p>
 
         <h3>2. Information We Do Not Collect</h3>
         <ul>
@@ -130,7 +130,7 @@
             <li>No private keys or seed phrases &mdash; the App never asks for them and cannot see them</li>
             <li>No device identifier, advertising identifier, install id or session id</li>
             <li>No location data &mdash; region screening (section 12) runs on-device and sends nothing</li>
-            <li>No usage analytics, crash reports or telemetry of any kind</li>
+            <li>No crash reports, and no personally identifiable usage analytics. The App sends only anonymous aggregate event counts, with no identifier attached, and you can switch them off in Settings (section 5B)</li>
         </ul>
 
         <h3>3. On-Device Data Storage</h3>
@@ -177,22 +177,35 @@
             <li><strong>solanaappstore.com</strong> &mdash; the dApp Store's own download host, contacted only when you tap &ldquo;Check the store's build&rdquo; on an app's page: the App downloads that app's install file, reads the publisher line and signing certificate from it on your device, and deletes the file.</li>
         </ul>
         <ul>
-            <li>None of these requests pass through any server we operate. The App does not use our website or API (section 5A).</li>
+            <li><strong>undersigned.provenby.dev</strong> &mdash; our own website API (section 5A), used by the App for a few features only: the store-wide payments analytics on the Payments tab (the request carries the window or package being looked at and nothing about you); Suggested translation, for Pro (the record id, your App language and your wallet address, to check Pro on the public ledger); and the weekly digest, for Pro with alerts on (your wallet address, to check Pro). Everything else the App shows is read from the chain and the store directly, as listed above.</li>
+            <li><strong>undersigned-analytics.aardappvark.workers.dev</strong> &mdash; our anonymous usage counter (section 5B). Each request carries one event name and nothing else; your IP address is seen at the edge to derive a country and is not stored.</li>
+        </ul>
+        <ul>
+            <li>Apart from the two hosts just named, none of these requests pass through any server we operate.</li>
             <li>Every host you contact necessarily receives your IP address. See each provider's own privacy policy for how it handles requests.</li>
             <li>Your wallet app (for example the Seeker's built-in wallet) makes its own network requests when it simulates and submits a transaction; those are governed by its privacy policy.</li>
         </ul>
 
-        <h3 id="web">5A. The Website and API (not used by the App)</h3>
-        <p>If you visit the Undersigned website or call its API, a server we operate answers. This is what it holds and sees:</p>
+        <h3 id="web">5A. The Website and API</h3>
+        <p>If you visit the Undersigned website or call its API, a server we operate answers. The App itself calls this API only for the features named in section 5 (payments analytics, Suggested translation and the weekly digest). This is what the server holds and sees:</p>
         <ul>
             <li><strong>Public data it copies:</strong> the ledger's records (which include wallet addresses and any text their authors signed), on-chain facts about those wallets (Genesis Token, staked SKR, <code>.skr</code> name), the dApp Store's public catalogue, star counts and listing details, and payments received by treasuries that publishers listed. All of it is public elsewhere; the server only indexes it.</li>
             <li><strong>Your IP address</strong> is used to count requests against the rate limits and is held in memory only, for at most a day; it is not written to disk or to logs.</li>
             <li><strong>If you buy an API pass:</strong> the paying wallet's address, the payment's transaction signature, the pass key, how many requests remain and when it ends. If you create webhooks: the addresses you ask us to call, the apps you watch, and a log of deliveries kept for 30 days.</li>
             <li><strong>If you sign from the website:</strong> the server receives your wallet's public address to build the transaction and sends it to TRM Labs' sanctions screening, as the App does. Your wallet, not the server, signs and submits.</li>
-            <li><strong>No cookies, no analytics, no advertising.</strong> The signing pages load the wallet libraries from <strong>cdn.jsdelivr.net</strong>, which therefore sees your IP address when you open those pages.</li>
+            <li><strong>No cookies, no advertising, and no analytics on the website itself.</strong> (The App's anonymous counts go to a separate counter, section 5B, never to this server.) The signing pages load the wallet libraries from <strong>cdn.jsdelivr.net</strong>, which therefore sees your IP address when you open those pages.</li>
             <li><strong>Hidden text:</strong> where we stop the website showing a record's text, we keep the record's identifier and the reason.</li>
         </ul>
         <p>Legal basis (GDPR): our legitimate interest in running and protecting the service (Article 6(1)(f)) for the public index and rate limiting; performance of a contract (Article 6(1)(b)) for API passes and webhooks. To ask about content shown on the website, use its &ldquo;Report content&rdquo; page.</p>
+
+        <h3 id="counts">5B. Anonymous Usage Counts</h3>
+        <p>So that we can see whether the App is used at all, and roughly where, the App sends an anonymous event to a Cloudflare Worker we run (<strong>undersigned-analytics.aardappvark.workers.dev</strong>) when certain things happen: the App is opened, onboarding or the terms are completed, a wallet is connected or disconnected, a Genesis Token is found for the connected wallet, a review is signed or promoted, a review is copied for the dApp Store, a publisher claim verifies, Settings or the Pro screen is opened, a Pro licence, listing or promotion is paid (which rail, never the amount or the wallet), or the App refuses to run in a restricted region.</p>
+        <ul>
+            <li><strong>What is sent:</strong> the event name, and nothing else. No wallet address, no device or install identifier, no session id, no fingerprint, no app contents.</li>
+            <li><strong>What is stored:</strong> one count per day, per event name, per country. The country is derived at Cloudflare's edge from the connecting IP address; the IP address itself is never written down. City is not recorded. Because no record relates to an identifiable person, this is anonymous data outside the GDPR (Recital 26); to the extent any processing occurs at the edge, our legal basis is legitimate interest, Article 6(1)(f).</li>
+            <li><strong>Switching it off:</strong> Settings &rarr; &ldquo;Anonymous usage analytics&rdquo;. Off means nothing is sent, from the next action onward. The choice is stored on your device only.</li>
+            <li><strong>Verification:</strong> the same aggregate totals are published at <code>https://undersigned-analytics.aardappvark.workers.dev/public-stats</code>, so anyone can see exactly what is counted.</li>
+        </ul>
 
         <h3>6. Reading Public Data</h3>
         <p>The review ledger, the dApp Store's public catalogue, and on-chain facts such as Genesis Token ownership, staked SKR, and <code>.skr</code> names are all public blockchain or public API data. Reading them &mdash; including data about wallets other than your own &mdash; does not require your own wallet's involvement and reveals nothing about you beyond the network requests described in section 5.</p>
@@ -255,9 +268,15 @@ directly at <a href="mailto:aardappvark@proton.me">aardappvark@proton.me</a> abo
 reads, and any wallet public address you connect) &mdash; processed to perform the contract with you,
 Article 6(1)(b). This stays in app-private storage on your device. We do not receive it and cannot
 read it.</li>
-<li><strong>We do not collect anonymous usage counts, aggregated statistics, or any other telemetry.</strong>
-There is no analytics event of any kind in the App, and consequently no legitimate-interest processing
-of that kind to describe.</li>
+<li><strong>Anonymous usage counts</strong> (section 5B) &mdash; one event name per action, no
+identifier, aggregated per day and country at Cloudflare's edge, with the IP address never stored. This is
+anonymous data outside the GDPR (Recital 26); for the momentary handling at the edge our basis is
+legitimate interest, Article 6(1)(f). You can switch it off in Settings at any time.</li>
+<li><strong>Requests the App makes to our own API</strong> (sections 5 and 5A) &mdash; the Payments tab's
+store-wide analytics carry nothing about you; Suggested translation and the weekly digest, both Pro features,
+send your wallet's public address so the server can check Pro on the public ledger. Processed to perform the
+contract with you, Article 6(1)(b); the address is used for that check and is not stored beyond ordinary
+in-memory rate limiting (section 5A).</li>
 <li><strong>Sanctions and region screening</strong> &mdash; carried out on your device to comply with
 legal obligations to which we are subject, Article 6(1)(c), and our legitimate interest in not
 supplying restricted jurisdictions, Article 6(1)(f). The result is a yes or no evaluated on your

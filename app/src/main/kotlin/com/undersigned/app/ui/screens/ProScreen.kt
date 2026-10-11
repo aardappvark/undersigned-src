@@ -52,6 +52,7 @@ fun ProScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: (() -> U
     val df = remember { DateFormat.getDateInstance(DateFormat.MEDIUM) }
     fun open(url: String) { try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Exception) { } }
     val price = if (rail == ProPaymentService.Rail.SKR) AppConfig.Payment.skrLabel() else AppConfig.Payment.solLabel()
+    LaunchedEffect(Unit) { com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.UPGRADE_VIEWED) }
 
     Column(Modifier.fillMaxSize().background(RbColors.background)) {
         PhotoBackdrop(R.drawable.photo_pro_hero, Modifier.fillMaxWidth().heightIn(min = 240.dp), fadeFrom = 0.25f) {

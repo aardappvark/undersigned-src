@@ -1319,4 +1319,6 @@
     <string name="notif_ch_reminders_desc">साप्ताहिक रिव्यू रिमाइंडर और रिव्यू के संकेत।</string>
     <string name="desk_pay_30d">पिछले 30 दिनों में प्राप्त: %1$s (भुगतान के दिन का USD)</string>
     <string name="desk_pay_12w">प्रति सप्ताह USD, पिछले 12 सप्ताह</string>
+    <string name="settings_analytics">अनाम उपयोग विश्लेषण</string>
+    <string name="settings_analytics_hint">हर क्रिया के लिए एक इवेंट नाम, कोई पहचानकर्ता नहीं, केवल देश-स्तर तक। बंद का अर्थ है कुछ भी नहीं भेजा जाता।</string>
 </resources>

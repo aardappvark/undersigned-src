@@ -94,7 +94,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
         val s = sender ?: return; signingIn = true; error = null
         signInScope.launch {
             com.undersigned.app.wallet.WalletSession.signIn(s, termsService.generateConsentMessage("(pending)")).fold(
-                onSuccess = { if (com.undersigned.app.util.WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned) else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address) } },
+                onSuccess = { if (com.undersigned.app.util.WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned) else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address); com.undersigned.app.service.GeoAnalyticsService.track(com.undersigned.app.service.GeoAnalyticsService.Events.WALLET_CONNECTED) } },
                 onFailure = { error = context.errorText(it) },
             ); signingIn = false
         }

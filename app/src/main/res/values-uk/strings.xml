@@ -1353,4 +1353,6 @@
     <string name="notif_ch_reminders_desc">Щотижневе нагадування про відгуки та підказки залишити відгук.</string>
     <string name="desk_pay_30d">Отримано за останні 30 днів: %1$s (USD на день платежу)</string>
     <string name="desk_pay_12w">USD на тиждень, останні 12 тижнів</string>
+    <string name="settings_analytics">Анонімна аналітика використання</string>
+    <string name="settings_analytics_hint">По одній назві події на дію, без ідентифікаторів, лише рівень країни. Вимкнено — не надсилається нічого.</string>
 </resources>

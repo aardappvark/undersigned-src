@@ -1320,4 +1320,6 @@
     <string name="notif_ch_reminders_desc">Ang lingguhang paalala sa review at mga paalala na mag-review.</string>
     <string name="desk_pay_30d">Natanggap sa nakaraang 30 araw: %1$s (USD sa araw ng bayad)</string>
     <string name="desk_pay_12w">USD bawat linggo, huling 12 linggo</string>
+    <string name="settings_analytics">Hindi nagpapakilalang usage analytics</string>
+    <string name="settings_analytics_hint">Isang pangalan ng event bawat aksyon, walang identifier, antas-bansa lang. Ang naka-off ay nangangahulugang walang ipinapadala.</string>
 </resources>

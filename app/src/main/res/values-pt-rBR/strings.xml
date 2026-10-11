@@ -1345,4 +1345,6 @@
     <string name="notif_ch_reminders_desc">O lembrete semanal de avaliação e os incentivos para avaliar.</string>
     <string name="desk_pay_30d">Recebido nos últimos 30 dias: %1$s (USD do dia do pagamento)</string>
     <string name="desk_pay_12w">USD por semana, últimas 12 semanas</string>
+    <string name="settings_analytics">Análise de uso anônima</string>
+    <string name="settings_analytics_hint">Um nome de evento por ação, sem identificadores, apenas em nível de país. Desligado significa que nada é enviado.</string>
 </resources>

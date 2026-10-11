@@ -1387,4 +1387,6 @@
     <string name="notif_ch_reminders_desc">تذكير المراجعة الأسبوعي وتنبيهات المراجعة.</string>
     <string name="desk_pay_30d">المستلم في آخر 30 يومًا: %1$s (بالدولار يوم الدفع)</string>
     <string name="desk_pay_12w">دولار في الأسبوع، آخر 12 أسبوعًا</string>
+    <string name="settings_analytics">تحليلات استخدام مجهولة</string>
+    <string name="settings_analytics_hint">اسم حدث واحد لكل إجراء، بلا معرّفات، وعلى مستوى الدولة فقط. الإيقاف يعني ألا يُرسل شيء.</string>
 </resources>

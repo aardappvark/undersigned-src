@@ -94,7 +94,7 @@ Added 5 Oct 2026:
 | **Open dataset**: every decoded record, every app's signed score, every signer's public facts; built once per rebuild | `/v1/dataset.json` | F |
 | **Tag groups and opposite pairs** on the web composer, as in the app (protocol `TagGroups`) | `/review` | F |
 
-Still later: x402 pay-per-call, fully translated pages (only the shared vocabulary is localised today).
+Pay-per-call credits in the x402 shape are live (`/v1/pricing` → `pay_per_call`, 0.00001 SOL a call). Still later: fully translated pages (only the shared vocabulary is localised today).
 
 ## 2. Gating with SOL/SKR
 
@@ -149,7 +149,7 @@ Two MCP servers, for two audiences (full setup in [DEVELOPERS.md](DEVELOPERS.md)
 HTTP, one JSON-RPC message per POST (batches are refused, so every call is metered), protocol 2025-06-18 / 2025-03-26 /
 2024-11-05. It is read-only: no tool drafts, signs or submits a review, flag or vote.
 - **Tools, free:** `search_apps`, `get_app`, `get_reviews` (sort and, with a pass, offset), `get_bursts`, `get_wallet`, `get_record`,
-`list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags` and `get_pricing`.
+`list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `get_apps` (many packages in one call), `found_treasuries`, `payments_analytics`, `plan_report` and `scoring_help`.
 - **AI tools, labelled suggestions:** `app_summary` (free), `translate_review` and `weekly_digest` (Pro wallet or a key).
 - **Tools, with a pass:** `store_watch`, `app_changes`, `version_scores`, `similar_reviews` and `store_rating_history`.
 - **Resources:** `undersigned://policy`, `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.

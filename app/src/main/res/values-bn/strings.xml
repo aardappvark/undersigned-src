@@ -1312,4 +1312,6 @@
     <string name="notif_ch_reminders_desc">সাপ্তাহিক রিভিউ অনুস্মারক ও রিভিউ মনে করানো।</string>
     <string name="desk_pay_30d">গত ৩০ দিনে প্রাপ্ত: %1$s (প্রদানের দিনের USD)</string>
     <string name="desk_pay_12w">প্রতি সপ্তাহে USD, গত ১২ সপ্তাহ</string>
+    <string name="settings_analytics">বেনামি ব্যবহার-বিশ্লেষণ</string>
+    <string name="settings_analytics_hint">প্রতিটি ক্রিয়ার জন্য একটি ইভেন্ট নাম, কোনো শনাক্তকারী নয়, শুধু দেশ-স্তর পর্যন্ত। বন্ধ মানে কিছুই পাঠানো হয় না।</string>
 </resources>

@@ -78,34 +78,43 @@ Maalej 2019) · Seeker $450 early pre-order, $500 retail · $843 a year · 127 l
 
 Reply **approve** (with any edits) and I generate the Gracie lines, rebuild the motion to this script, and send the result.
 
-## Cut v3 — built 11 Oct 2026 late, 2:56, `assets/video/undersigned-demo-v3.mp4` (TEMPORARY Gordon voice)
+## Cut v3 — rebuilt 12 Oct 2026, 2:58, `assets/video/undersigned-demo-v3.mp4` (TEMPORARY Gordon voice)
 
-Built by `assets/video/build3.py` from the 1.1.14 takes (`assets/video/takes2/`), the motion bookends, the eight comparison
-frames and the stills. Every line below is spoken as written ("dApp" fed as "dapp"); each ends before the next cue. **Owner
-to approve these lines before any Gracie credit**; then `VOICE` swaps and the cut is rebuilt without re-filming.
+Built by `assets/video/build3.py` from the 1.1.16 takes and stills (`assets/video/takes2/`, `assets/submission/shots/`), the
+logo card at both ends, the motion bookends (scene 6 reworded: the store already costs a Seeker per review; Undersigned adds
+the proof), the eight comparison frames and the feature-audit beats (batch signing, Pro paid in SKR, store-review import,
+quick reviews, the Changes tab, the publisher desk). Every line below is spoken as written ("dApp" fed as "dapp"); each ends
+before the next cue. **Owner to approve these lines before any Gracie credit**; then `VOICE` swaps and the cut is rebuilt.
 
 | At | On screen | Line |
 |---|---|---|
-| 0:00 | motion 0.0–9s | Undersigned. Fifteen hundred dapps, half a million star ratings. How many came from a real Seeker owner? The listing cannot say. |
-| 0:09 | jup_lens.png | One app took eight five-star store reviews in two days. Undersigned shows the burst as a fact. |
+| 0:02 | motion 0–9s | Undersigned. Fifteen hundred dapps, half a million star ratings. How many came from a real Seeker owner? The listing cannot say. |
+| 0:11 | jup_lens.png | One app took eight five-star store reviews in two days. Undersigned shows the burst as a fact. |
 | 0:15 | compare-7.png | A developer fixes the bug. In the store the stars stay. Here the fix is signed, and the reviewer follows up. |
-| 0:22 | tour2.mp4 | Open it fresh: a tour of thirteen steps, every dapp in the store, and the signed score beside the store's own rating. |
-| 0:31 | browse.mp4 | Flick the rail, search by name, filter by what is installed. |
-| 0:36 | apppage.mp4 | An app's page: the store rating credited, the signed score, reviews over time, and what this phone can check about the build. |
-| 0:45 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. No wallet yet? The form offers Sign in with wallet. |
-| 0:57 | w_sheet.png | The Seeker Wallet shows the fee. A double tap on the sensor signs it in the Seed Vault. The app never sees a key. |
-| 1:06 | record.mp4 | Back on the page the review carries its marks. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
-| 1:16 | web_app.png | The same record on the web, through the API and MCP, and on Solscan: one transaction nobody can edit. |
-| 1:24 | thread.mp4 | Signed on mainnet today: a four-star crash report, the publisher's Fixed in version one sixty-eight, and a five-star follow-up. Plus one, in public. |
-| 1:33 | compare-1..8 (2 s each) | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms, problems found in a minute. |
-| 1:49 | translate.mp4 | Pro translates any review or reply with one tap, labelled as a suggestion by AI. |
-| 1:57 | settings.mp4 | Alerts per action, auto translate, offline said so. |
-| 2:01 | abuse_block.png | Abusive language is refused as you type and hidden wherever reviews are read. A moderator can exclude a wallet, on-chain, in public. |
-| 2:10 | payments.mp4 | Because it reads the ledger, it shows what the store's dapps are paid: leaderboards, categories, what is rising; proven treasuries kept apart from wallets found in code. |
-| 2:21 | motion 50.0–61s | In a twenty nineteen study a fake review for an Android app cost about two dollars. Here, every extra voice on an app needs another Seeker. |
-| 2:32 | motion 90.0–100s | It runs on about eight hundred dollars a year. A hundred and twenty-seven Pro licences cover it. The target is about two hundred thousand a year. |
-| 2:42 | web_status.png | Every score is recomputed from the chain alone, six-hourly, and the status page says so. |
-| 2:48 | motion 104.0–112s | Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone. |
+| 0:22 | tour2.mp4 | Open it fresh: a tour, every dapp in the store, updated every Monday, the signed score beside the store's own rating. |
+| 0:29 | browse.mp4 | Flick the rail, search by name, sort by signed score, filter by tag. |
+| 0:33 | apppage.mp4 | An app's page: the store rating credited, the signed score, scores per version, reviews over time, and what this phone can check about the build. |
+| 0:41 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. No wallet yet? The form offers Sign in with wallet. |
+| 0:51 | w_sheet.png | The Seeker Wallet shows the fee. A double tap on the sensor signs it in the Seed Vault. The app never sees a key. |
+| 0:59 | batch_list.png | Or tick the apps this phone has used and sign them together: eight reviews, one double tap. |
+| 1:05 | record.mp4 | Back on the page the review carries its marks; staked SKR is shown, never weighed. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
+| 1:13 | web_app.png | The same record on the web, through the API and MCP, and on Solscan: one transaction nobody can edit. |
+| 1:20 | thread.mp4 | Signed on mainnet: a four-star crash report, the publisher's Fixed in version one sixty-eight, and a five-star follow-up. Our own thread, labelled, never counted. |
+| 1:28 | desk.png | A publisher desk on the phone: unanswered reviews, reply speed, a developer kit. |
+| 1:32 | compare-1.png | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms, problems found in a minute. |
+| 1:46 | pro_pay.png | Pro is paid in SOL or SKR, three hundred thirty-two with a Genesis Token, the licence written to the ledger. |
+| 1:51 | translate.mp4 | Then any review or reply reads in your language with one tap, labelled as a suggestion by AI, plus two tags of your own. |
+| 1:58 | myreviews.png | Your store reviews come across in one approval, signed beside the originals. |
+| 2:01 | review_gate_emulator.png | No Seeker? A quick review, shown apart, never counted. |
+| 2:05 | changes.png | When an installed app's certificate or permissions change, Changes says so. |
+| 2:08 | settings.mp4 | Alerts per action, auto translate, twenty-eight languages. |
+| 2:12 | abuse_block.png | Abusive language is refused as you type and hidden wherever reviews are read. A moderator can exclude a wallet, on-chain, in public. |
+| 2:19 | payments.mp4 | Because it reads the ledger, it shows what the store's dapps are paid: leaderboards, categories, what is rising; proven treasuries kept apart from wallets found in code. |
+| 2:28 | motion 50–59s | A fake Android review costs about two dollars. On this store every review already costs a Seeker; the listing cannot show it. Undersigned shows the Genesis Token behind each wallet. |
+| 2:37 | motion 90–98s | It runs on about eight hundred dollars a year; a hundred and twenty-seven Pro licences cover it. |
+| 2:45 | web_status.png | Every score is recomputed from the chain alone, six-hourly; a browser viewer reads the chain with no server at all. |
+| 2:50 | motion 104–112s | Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone. |
 
-Known limits of this draft: the motion scenes still carry v1 figures (1,543 dApps; "$194,002 at 10%" where the deck says
-"target"); no captions; no music; the double-tap is the 8 Oct wallet stills, not a camera take. Nothing in it is 1.0.0.
+Known limits of this draft: motion scenes 1 and 9 still carry v1 figures (1,543 dApps; "$194,002 at 10%" where the deck says
+"target"); no captions; no music; the double-tap is the 8 Oct wallet stills, not a camera take. The abuse line will carry the
+full store-crawl figure once the server-side crawl of every dApp's reviews finishes. Nothing in it is 1.0.0.

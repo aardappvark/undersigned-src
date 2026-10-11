@@ -1293,4 +1293,6 @@
     <string name="notif_ch_reminders_desc">주간 리뷰 알림과 리뷰 권유.</string>
     <string name="desk_pay_30d">최근 30일 수령액: %1$s (결제일 기준 USD)</string>
     <string name="desk_pay_12w">주별 USD, 최근 12주</string>
+    <string name="settings_analytics">익명 사용 통계</string>
+    <string name="settings_analytics_hint">동작마다 이벤트 이름 하나, 식별자 없음, 국가 단위만. 끄면 아무것도 전송되지 않아요.</string>
 </resources>

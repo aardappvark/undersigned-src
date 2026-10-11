@@ -1337,4 +1337,6 @@
     <string name="notif_ch_reminders_desc">Еженедельное напоминание об отзывах и подсказки оставить отзыв.</string>
     <string name="desk_pay_30d">Получено за последние 30 дней: %1$s (USD на день платежа)</string>
     <string name="desk_pay_12w">USD в неделю, последние 12 недель</string>
+    <string name="settings_analytics">Анонимная аналитика использования</string>
+    <string name="settings_analytics_hint">По одному имени события на действие, без идентификаторов, только уровень страны. Выключено — не отправляется ничего.</string>
 </resources>

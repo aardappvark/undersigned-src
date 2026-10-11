@@ -16,6 +16,13 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.filled.Block
+import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Schedule
@@ -82,6 +89,14 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
      * one tap (or automatically, Settings); without Pro the same button opens the Pro tab. The translation is labelled AI;
      * the author's own words stay above it.
      */
+    /** One menu row: icon, label, 48 dp tall, the tint for the icon and the text together. */
+    @Composable
+    fun MenuRow(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, tint: androidx.compose.ui.graphics.Color = RbColors.textPrimary, onClick: () -> Unit) {
+        DropdownMenuItem(text = { Text(label, color = tint, fontSize = 15.sp) },
+            leadingIcon = { Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(20.dp)) },
+            onClick = onClick, modifier = Modifier.heightIn(min = 48.dp), contentPadding = PaddingValues(horizontal = 16.dp))
+    }
+
     @Composable
     fun TranslateControl(id: String, proActive: Boolean, fetch: suspend () -> Result<String>) {
         translations[id]?.let { t ->
@@ -656,22 +671,28 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         var menu by remember(e.signature) { mutableStateOf(false) }
                         Box {
                             IconButton(onClick = { menu = true }, modifier = Modifier.size(48.dp)) { Icon(Icons.Default.MoreHoriz, contentDescription = stringResource(R.string.more_actions), tint = RbColors.textTertiary) }
-                            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, modifier = Modifier.background(RbColors.surface)) {
-                                DropdownMenuItem(text = { Text(stringResource(if (e.signature in starred) R.string.unstar else R.string.star)) }, onClick = { menu = false; vm.toggleStar(e.signature) })
-                                DropdownMenuItem(text = { Text(stringResource(R.string.share)) }, onClick = { menu = false; com.undersigned.app.ui.components.Share.review(context, name, e, hideText = e.signature in modHidden) })
-                                if (e.signer != wallet) {
-                                    // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
-                                    if (wallet != null && !flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
-                                        DropdownMenuItem(text = { Text(stringResource(R.string.clear)) }, onClick = { menu = false; sign(ReviewMemo.Clear(e.signature)) })
-                                    DropdownMenuItem(text = { Text(stringResource(R.string.review_hide)) }, onClick = { menu = false; vm.hide(e.signature) })
-                                    // Moderators only: hide this review's text for everyone (rating and tags still count), or undo it.
-                                    if (vm.isModerator(wallet) && r.text != null) {
-                                        if (vm.myModeration(e.signature)) DropdownMenuItem(text = { Text(stringResource(R.string.mod_unhide)) }, onClick = { menu = false; sign(ReviewMemo.Unmoderate(e.signature)) })
-                                        else DropdownMenuItem(text = { Text(stringResource(R.string.mod_hide)) }, onClick = { menu = false; dialogError = null; modTarget = e.signature })
-                                        // Exclude the wallet (owner, 11 Oct 2026): a moderator's signed ban that every reader honours; the records stay on-chain.
-                                        if (vm.isModerator(wallet) && e.signer != wallet && !vm.isModerator(e.signer)) DropdownMenuItem(text = { Text(stringResource(R.string.mod_ban)) }, onClick = { menu = false; sign(ReviewMemo.Ban(e.signer, ReviewMemo.ModReason.ABUSE)) })
+                            // The review's menu (owner, 12 Oct 2026: "more beautiful"): a rounded card, an icon on every row, the
+                            // reader's own actions first, the moderator's rows after a divider, Report last in the warning colour.
+                            MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                                DropdownMenu(expanded = menu, onDismissRequest = { menu = false }, modifier = Modifier.background(RbColors.surface).widthIn(min = 236.dp)) {
+                                    MenuRow(if (e.signature in starred) Icons.Default.Star else Icons.Default.StarBorder, stringResource(if (e.signature in starred) R.string.unstar else R.string.star), tint = if (e.signature in starred) RbColors.warning else RbColors.textPrimary) { menu = false; vm.toggleStar(e.signature) }
+                                    MenuRow(Icons.Default.Share, stringResource(R.string.share)) { menu = false; com.undersigned.app.ui.components.Share.review(context, name, e, hideText = e.signature in modHidden) }
+                                    if (e.signer != wallet) {
+                                        // "Looks genuine" is the opposite of a flag, so it is never offered to someone currently flagging it.
+                                        if (wallet != null && !flagged && (flagWeights[e.signature] ?: 0.0) > 0 && !vm.myClear(e.signature))
+                                            MenuRow(Icons.Default.ThumbUp, stringResource(R.string.clear), tint = RbColors.green) { menu = false; sign(ReviewMemo.Clear(e.signature)) }
+                                        MenuRow(Icons.Default.VisibilityOff, stringResource(R.string.review_hide)) { menu = false; vm.hide(e.signature) }
+                                        // Moderators only: hide this review's text for everyone (rating and tags still count), or undo it.
+                                        if (vm.isModerator(wallet) && r.text != null) {
+                                            HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 4.dp))
+                                            if (vm.myModeration(e.signature)) MenuRow(Icons.Default.Visibility, stringResource(R.string.mod_unhide), tint = RbColors.purpleLight) { menu = false; sign(ReviewMemo.Unmoderate(e.signature)) }
+                                            else MenuRow(Icons.Default.Shield, stringResource(R.string.mod_hide), tint = RbColors.purpleLight) { menu = false; dialogError = null; modTarget = e.signature }
+                                            // Exclude the wallet (owner, 11 Oct 2026): a moderator's signed ban that every reader honours; the records stay on-chain.
+                                            if (vm.isModerator(wallet) && e.signer != wallet && !vm.isModerator(e.signer)) MenuRow(Icons.Default.Block, stringResource(R.string.mod_ban), tint = RbColors.purpleLight) { menu = false; sign(ReviewMemo.Ban(e.signer, ReviewMemo.ModReason.ABUSE)) }
+                                        }
+                                        HorizontalDivider(color = RbColors.surfaceVariant, modifier = Modifier.padding(vertical = 4.dp))
+                                        MenuRow(Icons.Default.Flag, stringResource(R.string.review_report), tint = RbColors.negative) { menu = false; report(e.signature) }
                                     }
-                                    DropdownMenuItem(text = { Text(stringResource(R.string.review_report)) }, onClick = { menu = false; report(e.signature) })
                                 }
                             }
                         }
@@ -858,6 +879,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                 }
                                 Text(reply, color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp, maxLines = if (open) Int.MAX_VALUE else 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
                                 if (reply.length > 160) ShowMore(open) { open = !open }
+                                // The store's reply in the reader's language too (owner, 11 Oct 2026: a Polish reply helps nobody untranslated).
+                                TranslateControl("storereply:${r.id}", pro?.active == true) { vm.suggestedStoreTranslation(reply) }
                             }
                         }
                         // The verified publisher's SIGNED note (protocol StoreNotes): green outline, the mark, "signed on-chain".

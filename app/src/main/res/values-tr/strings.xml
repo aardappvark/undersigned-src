@@ -1316,4 +1316,6 @@
     <string name="notif_ch_reminders_desc">Haftalık yorum hatırlatıcısı ve yorum dürtmeleri.</string>
     <string name="desk_pay_30d">Son 30 günde alınan: %1$s (ödeme günündeki USD)</string>
     <string name="desk_pay_12w">Haftalık USD, son 12 hafta</string>
+    <string name="settings_analytics">Anonim kullanım analitiği</string>
+    <string name="settings_analytics_hint">Eylem başına tek olay adı, kimlik bilgisi yok, yalnızca ülke düzeyinde. Kapalıysa hiçbir şey gönderilmez.</string>
 </resources>
