@@ -662,7 +662,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     FlowRow {
                         if (wallet != null) CardAction(stringResource(R.string.reply), RbColors.purpleLight) { replyTo = e.signature; replyText = ""; replyConsent = false; replyError = null }
                         // Publisher: say it is fixed, once per review. Reviewer: follow up once it is.
-                        if (wallet != null && e.signer != wallet && wallet in verified[pkg].orEmpty() && fixes[e.signature] == null)
+                        // A publisher may sign the fix again (a later version, or a mistyped one): readers take the latest record (12 Oct 2026).
+                        if (wallet != null && e.signer != wallet && wallet in verified[pkg].orEmpty())
                             CardAction(stringResource(R.string.mark_fixed), RbColors.green) { fixTarget = e.signature }
                         // A feature request: the publisher signs a decision, will or will not build (owner, 12 Oct 2026); the hours to decide and to deliver are public.
                         if (wallet != null && e.signer != wallet && wallet in verified[pkg].orEmpty() && ReviewMemo.Tag.FEATURE_REQUEST in r.tags && decisions[e.signature] == null) {
