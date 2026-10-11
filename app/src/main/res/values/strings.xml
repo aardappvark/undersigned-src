@@ -1191,6 +1191,10 @@
     <string name="pa_window_all">All time</string>
     <string name="pa_loading">Reading payments…</string>
     <string name="pa_offline">Payments analytics are not available offline.</string>
+    <string name="standing_card">%1$d signed · %2$d apps · %3$d follow-ups</string>
+    <string name="standing_fixes_confirmed">%1$d fixes confirmed</string>
+    <string name="standing_since_short">since %1$s</string>
+    <string name="standing_record">Apps reviewed: %1$d · Follow-ups: %2$d, %3$d after a fix, %4$d confirming it · Flags upheld: %5$d of %6$d</string>
     <string name="similar_to_one">Similar text to a review of %1$s signed %2$s</string>
     <string name="similar_to_one_recent">Similar text to a review of %1$s signed %2$s, within 3 days</string>
     <string name="similar_to_more">Similar text to a review of %1$s signed %2$s and %3$d more</string>

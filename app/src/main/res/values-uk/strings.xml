@@ -1202,6 +1202,10 @@
     <string name="pa_window_all">За весь час</string>
     <string name="pa_loading">Читаємо платежі…</string>
     <string name="pa_offline">Аналітика платежів недоступна офлайн.</string>
+    <string name="standing_card">%1$d підписано · %2$d застосунків · %3$d продовжень</string>
+    <string name="standing_fixes_confirmed">%1$d виправлень підтверджено</string>
+    <string name="standing_since_short">з %1$s</string>
+    <string name="standing_record">Оцінено застосунків: %1$d · Продовжень: %2$d, з них %3$d після виправлення і %4$d його підтверджують · Прийнятих скарг: %5$d з %6$d</string>
     <string name="similar_to_one">Текст схожий на відгук про %1$s, підписаний %2$s</string>
     <string name="similar_to_one_recent">Текст схожий на відгук про %1$s, підписаний %2$s, у межах 3 днів</string>
     <string name="similar_to_more">Текст схожий на відгук про %1$s, підписаний %2$s, і ще %3$d</string>

@@ -396,7 +396,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                         // An operator wallet never counts, so its standing is its label, not "0 signed" (1.1.5).
                         val operator = com.undersigned.protocol.Operator.isOperator(e.signer)
                         standings[e.signer]?.let { st -> Box(Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50)).clickable { onProfile(e.signer) }.padding(horizontal = 4.dp), contentAlignment = Alignment.Center) {
-                            Text(if (operator) stringResource(R.string.related_operator_pill) else stringResource(R.string.row_signed_count, st.countedReviews), color = RbColors.textTertiary, fontSize = 11.sp) } }
+                            // The reviewer's record in one line (owner, 11 Oct 2026): counts a reader can weigh, never a weight we apply.
+                            Text(if (operator) stringResource(R.string.related_operator_pill) else if (st.countedReviews == 0) stringResource(R.string.row_signed_count, 0)
+                                else stringResource(R.string.standing_card, st.countedReviews, st.appsReviewed, st.followUps) + (if (st.fixesConfirmed > 0) " · " + stringResource(R.string.standing_fixes_confirmed, st.fixesConfirmed) else "") +
+                                    (if (st.firstSeen > 0) " · " + stringResource(R.string.standing_since_short, java.text.SimpleDateFormat("MMM yyyy", java.util.Locale.getDefault()).format(java.util.Date(st.firstSeen * 1000))) else ""),
+                                color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp) } }
                     }
                     val paidReviewer = boardRow?.payers?.contains(e.signer) == true
                     val isPublisher = vm.isVerifiedPublisher(pkg, e.signer)
@@ -1022,6 +1026,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                 Text(domainNames[w]?.takeIf { it.isNotEmpty() } ?: shortKey(w, 6, 6), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                 if (st != null) {
                     Text(stringResource(R.string.standing_line, st.countedReviews, st.withdrawn, st.repliesReceived, st.repliesGiven), color = RbColors.textSecondary, fontSize = 12.sp)
+                    Text(stringResource(R.string.standing_record, st.appsReviewed, st.followUps, st.followUpsAfterFix, st.fixesConfirmed, st.flagsUpheld, st.flagsGiven), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
                     st.agreement?.let { Text(stringResource(R.string.standing_agreement, String.format(java.util.Locale.US, "%.0f%%", it * 100)), color = RbColors.textSecondary, fontSize = 12.sp) }
                     if (st.firstSeen > 0) Text(stringResource(R.string.standing_since, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(st.firstSeen * 1000))), color = RbColors.textTertiary, fontSize = 11.sp)
                 }

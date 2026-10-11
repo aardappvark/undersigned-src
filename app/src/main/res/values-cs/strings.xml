@@ -1195,6 +1195,10 @@
     <string name="pa_window_all">Celé období</string>
     <string name="pa_loading">Načítání plateb…</string>
     <string name="pa_offline">Analýza plateb není offline k dispozici.</string>
+    <string name="standing_card">%1$d podepsaných · %2$d aplikací · %3$d navazujících</string>
+    <string name="standing_fixes_confirmed">%1$d potvrzených oprav</string>
+    <string name="standing_since_short">od %1$s</string>
+    <string name="standing_record">Hodnocené aplikace: %1$d · Navazující recenze: %2$d, z toho %3$d po opravě a %4$d ji potvrzující · Uznané příznaky: %5$d z %6$d</string>
     <string name="similar_to_one">Text podobný recenzi aplikace %1$s podepsané %2$s</string>
     <string name="similar_to_one_recent">Text podobný recenzi aplikace %1$s podepsané %2$s, do 3 dnů</string>
     <string name="similar_to_more">Text podobný recenzi aplikace %1$s podepsané %2$s a %3$d dalším</string>

@@ -1150,6 +1150,10 @@
     <string name="pa_window_all">Toàn bộ thời gian</string>
     <string name="pa_loading">Đang đọc các khoản thanh toán…</string>
     <string name="pa_offline">Phân tích thanh toán không khả dụng khi ngoại tuyến.</string>
+    <string name="standing_card">%1$d đã ký · %2$d ứng dụng · %3$d bài theo dõi</string>
+    <string name="standing_fixes_confirmed">%1$d bản sửa được xác nhận</string>
+    <string name="standing_since_short">từ %1$s</string>
+    <string name="standing_record">Ứng dụng đã đánh giá: %1$d · Bài theo dõi: %2$d, %3$d sau bản sửa, %4$d xác nhận bản sửa · Cờ được chấp nhận: %5$d trên %6$d</string>
     <string name="similar_to_one">Văn bản giống một bài đánh giá về %1$s ký ngày %2$s</string>
     <string name="similar_to_one_recent">Văn bản giống một bài đánh giá về %1$s ký ngày %2$s, trong vòng 3 ngày</string>
     <string name="similar_to_more">Văn bản giống một bài đánh giá về %1$s ký ngày %2$s và %3$d bài khác</string>

@@ -1165,6 +1165,10 @@
     <string name="pa_window_all">Teljes időszak</string>
     <string name="pa_loading">Fizetések beolvasása…</string>
     <string name="pa_offline">A fizetési elemzés offline nem érhető el.</string>
+    <string name="standing_card">%1$d aláírt · %2$d app · %3$d folytatás</string>
+    <string name="standing_fixes_confirmed">%1$d javítás megerősítve</string>
+    <string name="standing_since_short">%1$s óta</string>
+    <string name="standing_record">Értékelt appok: %1$d · Folytatások: %2$d, ebből %3$d javítás után, %4$d megerősíti · Elfogadott jelzések: %5$d / %6$d</string>
     <string name="similar_to_one">Hasonló szöveg a(z) %1$s egy %2$s-kor aláírt értékeléséhez</string>
     <string name="similar_to_one_recent">Hasonló szöveg a(z) %1$s egy %2$s-kor aláírt értékeléséhez, 3 napon belül</string>
     <string name="similar_to_more">Hasonló szöveg a(z) %1$s egy %2$s-kor aláírt értékeléséhez és %3$d továbbihoz</string>

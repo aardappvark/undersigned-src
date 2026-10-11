@@ -1203,6 +1203,10 @@
     <string name="pa_window_all">Cały okres</string>
     <string name="pa_loading">Odczytywanie płatności…</string>
     <string name="pa_offline">Analiza płatności nie jest dostępna offline.</string>
+    <string name="standing_card">%1$d podpisanych · %2$d aplikacji · %3$d kontynuacji</string>
+    <string name="standing_fixes_confirmed">%1$d potwierdzonych poprawek</string>
+    <string name="standing_since_short">od %1$s</string>
+    <string name="standing_record">Ocenione aplikacje: %1$d · Kontynuacje: %2$d, w tym %3$d po poprawce i %4$d ją potwierdzających · Uznane zgłoszenia: %5$d z %6$d</string>
     <string name="similar_to_one">Tekst podobny do recenzji %1$s podpisanej %2$s</string>
     <string name="similar_to_one_recent">Tekst podobny do recenzji %1$s podpisanej %2$s, w ciągu 3 dni</string>
     <string name="similar_to_more">Tekst podobny do recenzji %1$s podpisanej %2$s i %3$d innych</string>

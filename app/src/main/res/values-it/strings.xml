@@ -1194,6 +1194,10 @@
     <string name="pa_window_all">Da sempre</string>
     <string name="pa_loading">Lettura dei pagamenti…</string>
     <string name="pa_offline">L’analisi dei pagamenti non è disponibile offline.</string>
+    <string name="standing_card">%1$d firmate · %2$d app · %3$d seguiti</string>
+    <string name="standing_fixes_confirmed">%1$d correzioni confermate</string>
+    <string name="standing_since_short">dal %1$s</string>
+    <string name="standing_record">App recensite: %1$d · Seguiti: %2$d, %3$d dopo una correzione, %4$d che la confermano · Segnalazioni accolte: %5$d su %6$d</string>
     <string name="similar_to_one">Testo simile a una recensione di %1$s firmata il %2$s</string>
     <string name="similar_to_one_recent">Testo simile a una recensione di %1$s firmata il %2$s, entro 3 giorni</string>
     <string name="similar_to_more">Testo simile a una recensione di %1$s firmata il %2$s e ad altre %3$d</string>

@@ -1161,6 +1161,10 @@
     <string name="pa_window_all">সব সময়</string>
     <string name="pa_loading">পেমেন্ট পড়া হচ্ছে…</string>
     <string name="pa_offline">পেমেন্ট বিশ্লেষণ অফলাইনে পাওয়া যায় না।</string>
+    <string name="standing_card">%1$d স্বাক্ষরিত · %2$d অ্যাপ · %3$d ফলো-আপ</string>
+    <string name="standing_fixes_confirmed">%1$d সমাধান নিশ্চিত</string>
+    <string name="standing_since_short">%1$s থেকে</string>
+    <string name="standing_record">রিভিউ করা অ্যাপ: %1$d · ফলো-আপ: %2$d, সমাধানের পরে %3$d, নিশ্চিত %4$d · গৃহীত ফ্ল্যাগ: %6$d-এর মধ্যে %5$d</string>
     <string name="similar_to_one">%2$s-এ স্বাক্ষরিত %1$s-এর একটি রিভিউর মতো লেখা</string>
     <string name="similar_to_one_recent">%2$s-এ স্বাক্ষরিত %1$s-এর একটি রিভিউর মতো লেখা, ৩ দিনের মধ্যে</string>
     <string name="similar_to_more">%2$s-এ স্বাক্ষরিত %1$s-এর একটি রিভিউ ও আরও %3$d-এর মতো লেখা</string>

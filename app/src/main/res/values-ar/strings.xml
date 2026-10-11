@@ -1236,6 +1236,10 @@
     <string name="pa_window_all">كل الوقت</string>
     <string name="pa_loading">جارٍ قراءة المدفوعات…</string>
     <string name="pa_offline">تحليلات المدفوعات غير متاحة دون اتصال.</string>
+    <string name="standing_card">%1$d موقّعة · %2$d تطبيقات · %3$d متابعات</string>
+    <string name="standing_fixes_confirmed">%1$d إصلاحات مؤكدة</string>
+    <string name="standing_since_short">منذ %1$s</string>
+    <string name="standing_record">التطبيقات المراجَعة: %1$d · المتابعات: %2$d، منها %3$d بعد إصلاح و%4$d تؤكده · البلاغات المقبولة: %5$d من %6$d</string>
     <string name="similar_to_one">نص مشابه لمراجعة %1$s الموقّعة في %2$s</string>
     <string name="similar_to_one_recent">نص مشابه لمراجعة %1$s الموقّعة في %2$s، خلال 3 أيام</string>
     <string name="similar_to_more">نص مشابه لمراجعة %1$s الموقّعة في %2$s و%3$d أخرى</string>

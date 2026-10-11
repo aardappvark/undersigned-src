@@ -1134,6 +1134,10 @@
     <string name="pa_window_all">ตลอดเวลา</string>
     <string name="pa_loading">กำลังอ่านการชำระเงิน…</string>
     <string name="pa_offline">การวิเคราะห์การชำระเงินใช้ไม่ได้เมื่อออฟไลน์</string>
+    <string name="standing_card">ลงนาม %1$d · แอป %2$d · ติดตามผล %3$d</string>
+    <string name="standing_fixes_confirmed">ยืนยันการแก้ไข %1$d</string>
+    <string name="standing_since_short">ตั้งแต่ %1$s</string>
+    <string name="standing_record">แอปที่รีวิว: %1$d · ติดตามผล: %2$d, หลังแก้ไข %3$d, ยืนยันการแก้ไข %4$d · การแจ้งที่ยอมรับ: %5$d จาก %6$d</string>
     <string name="similar_to_one">ข้อความคล้ายรีวิวของ %1$s ที่ลงนามเมื่อ %2$s</string>
     <string name="similar_to_one_recent">ข้อความคล้ายรีวิวของ %1$s ที่ลงนามเมื่อ %2$s ภายใน 3 วัน</string>
     <string name="similar_to_more">ข้อความคล้ายรีวิวของ %1$s ที่ลงนามเมื่อ %2$s และอีก %3$d รายการ</string>

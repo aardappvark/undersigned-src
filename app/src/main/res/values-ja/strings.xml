@@ -1141,6 +1141,10 @@
     <string name="pa_window_all">全期間</string>
     <string name="pa_loading">支払いを読み込み中…</string>
     <string name="pa_offline">支払い分析はオフラインでは利用できません。</string>
+    <string name="standing_card">署名 %1$d · アプリ %2$d · フォローアップ %3$d</string>
+    <string name="standing_fixes_confirmed">修正確認 %1$d</string>
+    <string name="standing_since_short">%1$s から</string>
+    <string name="standing_record">レビューしたアプリ: %1$d · フォローアップ: %2$d（修正後 %3$d、うち修正を確認 %4$d）· 認められたフラグ: %6$d 件中 %5$d</string>
     <string name="similar_to_one">%2$s に署名された %1$s のレビューと似た文章</string>
     <string name="similar_to_one_recent">%2$s に署名された %1$s のレビューと似た文章（3日以内）</string>
     <string name="similar_to_more">%2$s に署名された %1$s のレビューほか %3$d 件と似た文章</string>

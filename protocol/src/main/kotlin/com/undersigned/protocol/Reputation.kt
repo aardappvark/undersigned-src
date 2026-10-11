@@ -17,6 +17,11 @@ data class SignerStanding(
     val recordsHidden: Int,       // their records that reached consensus
     val repliedToReplies: Double?, // reviewer responsiveness: share of replies on their reviews they answered; null if none received
     val helpfulReceived: Double = 0.0, // Genesis-weighted upvotes on their records, self excluded
+    // The reviewer's record, shown beside every review (owner, 11 Oct 2026: "credibility"): counts only, never a weight.
+    val appsReviewed: Int = 0,         // distinct apps among their counted reviews
+    val followUps: Int = 0,            // second-round reviews they signed (Threads.rounds)
+    val followUpsAfterFix: Int = 0,    // of those, after a verified publisher signed "fixed"
+    val fixesConfirmed: Int = 0,       // of those, with more stars than before: the fix held
 )
 
 /** How quickly a verified publisher answers signed reviews of one package. */
@@ -136,8 +141,10 @@ object Reputation {
         val tagsByApp = counted.groupBy { (it.memo as ReviewMemo.Review).packageName }
         val replies = entries.filter { it.memo is ReviewMemo.Reply }
         val helpful = helpfulWeights(entries, facts)
+        val rounds = Threads.rounds(entries, verifiedPublishers).values
         return entries.map { it.signer }.distinct().associateWith { w ->
             val mine = counted.filter { it.signer == w }
+            val myRounds = rounds.filter { it.followUp.signer == w }
             var overlapPossible = 0; var agreed = 0
             for (e in mine) {
                 val r = e.memo as ReviewMemo.Review
@@ -168,6 +175,10 @@ object Reputation {
                 recordsHidden = myRecords.count { it in hidden },
                 repliedToReplies = if (threads.isEmpty()) null else answeredThreads.toDouble() / threads.size,
                 helpfulReceived = myRecords.sumOf { helpful[it] ?: 0.0 },
+                appsReviewed = mine.map { (it.memo as ReviewMemo.Review).packageName }.distinct().size,
+                followUps = myRounds.size,
+                followUpsAfterFix = myRounds.count { it.fix != null },
+                fixesConfirmed = myRounds.count { it.fix != null && it.delta > 0 },
             )
         }
     }

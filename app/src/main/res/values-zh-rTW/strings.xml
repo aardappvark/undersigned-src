@@ -1149,6 +1149,10 @@
     <string name="pa_window_all">全部時間</string>
     <string name="pa_loading">正在讀取付款…</string>
     <string name="pa_offline">付款分析在離線時無法使用。</string>
+    <string name="standing_card">已簽署 %1$d · %2$d 個應用程式 · %3$d 則後續</string>
+    <string name="standing_fixes_confirmed">%1$d 項修復已確認</string>
+    <string name="standing_since_short">自 %1$s</string>
+    <string name="standing_record">已評論應用程式：%1$d · 後續評論：%2$d，其中修復後 %3$d，確認修復 %4$d · 獲採納的標記：%6$d 中 %5$d</string>
     <string name="similar_to_one">與 %2$s 簽署的一則 %1$s 評論文字相似</string>
     <string name="similar_to_one_recent">與 %2$s 簽署的一則 %1$s 評論文字相似（3 天內）</string>
     <string name="similar_to_more">與 %2$s 簽署的一則 %1$s 評論及另外 %3$d 則文字相似</string>

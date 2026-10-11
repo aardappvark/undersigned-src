@@ -1168,6 +1168,10 @@
     <string name="pa_window_all">पूरा समय</string>
     <string name="pa_loading">भुगतान पढ़े जा रहे हैं…</string>
     <string name="pa_offline">भुगतान विश्लेषण ऑफ़लाइन उपलब्ध नहीं है।</string>
+    <string name="standing_card">%1$d हस्ताक्षरित · %2$d ऐप · %3$d फ़ॉलो-अप</string>
+    <string name="standing_fixes_confirmed">%1$d सुधार पुष्ट</string>
+    <string name="standing_since_short">%1$s से</string>
+    <string name="standing_record">समीक्षित ऐप: %1$d · फ़ॉलो-अप: %2$d, सुधार के बाद %3$d, पुष्टि करने वाले %4$d · स्वीकृत फ़्लैग: %6$d में से %5$d</string>
     <string name="similar_to_one">%2$s को हस्ताक्षरित %1$s की एक समीक्षा जैसा पाठ</string>
     <string name="similar_to_one_recent">%2$s को हस्ताक्षरित %1$s की एक समीक्षा जैसा पाठ, 3 दिनों के भीतर</string>
     <string name="similar_to_more">%2$s को हस्ताक्षरित %1$s की एक समीक्षा और %3$d अन्य जैसा पाठ</string>

@@ -1165,6 +1165,10 @@
     <string name="pa_window_all">Tüm zamanlar</string>
     <string name="pa_loading">Ödemeler okunuyor…</string>
     <string name="pa_offline">Ödeme analizi çevrimdışı kullanılamaz.</string>
+    <string name="standing_card">%1$d imzalı · %2$d uygulama · %3$d takip</string>
+    <string name="standing_fixes_confirmed">%1$d düzeltme doğrulandı</string>
+    <string name="standing_since_short">%1$s tarihinden beri</string>
+    <string name="standing_record">İncelenen uygulamalar: %1$d · Takipler: %2$d, %3$d düzeltme sonrası, %4$d doğrulayan · Kabul edilen bayraklar: %6$d içinden %5$d</string>
     <string name="similar_to_one">%2$s tarihinde imzalanan bir %1$s yorumuna benzer metin</string>
     <string name="similar_to_one_recent">%2$s tarihinde imzalanan bir %1$s yorumuna benzer metin, 3 gün içinde</string>
     <string name="similar_to_more">%2$s tarihinde imzalanan bir %1$s yorumuna ve %3$d yoruma daha benzer metin</string>

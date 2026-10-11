@@ -1168,6 +1168,10 @@
     <string name="pa_window_all">تمام وقت</string>
     <string name="pa_loading">ادائیگیاں پڑھی جا رہی ہیں…</string>
     <string name="pa_offline">ادائیگیوں کا تجزیہ آف لائن دستیاب نہیں۔</string>
+    <string name="standing_card">%1$d دستخط شدہ · %2$d ایپس · %3$d فالو اپ</string>
+    <string name="standing_fixes_confirmed">%1$d اصلاحات کی تصدیق</string>
+    <string name="standing_since_short">%1$s سے</string>
+    <string name="standing_record">جائزہ شدہ ایپس: %1$d · فالو اپ: %2$d، اصلاح کے بعد %3$d، تصدیق کرنے والے %4$d · منظور شدہ فلیگ: %6$d میں سے %5$d</string>
     <string name="similar_to_one">%2$s کو دستخط شدہ %1$s کے ایک جائزے جیسا متن</string>
     <string name="similar_to_one_recent">%2$s کو دستخط شدہ %1$s کے ایک جائزے جیسا متن، 3 دن کے اندر</string>
     <string name="similar_to_more">%2$s کو دستخط شدہ %1$s کے ایک جائزے اور %3$d مزید جیسا متن</string>

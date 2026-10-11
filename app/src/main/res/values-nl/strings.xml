@@ -1174,6 +1174,10 @@
     <string name="pa_window_all">Altijd</string>
     <string name="pa_loading">Betalingen worden gelezen…</string>
     <string name="pa_offline">Betalingsanalyse is offline niet beschikbaar.</string>
+    <string name="standing_card">%1$d ondertekend · %2$d apps · %3$d vervolgen</string>
+    <string name="standing_fixes_confirmed">%1$d fixes bevestigd</string>
+    <string name="standing_since_short">sinds %1$s</string>
+    <string name="standing_record">Beoordeelde apps: %1$d · Vervolgen: %2$d, %3$d na een fix, %4$d die hem bevestigen · Gegronde meldingen: %5$d van %6$d</string>
     <string name="similar_to_one">Tekst lijkt op een review van %1$s, ondertekend op %2$s</string>
     <string name="similar_to_one_recent">Tekst lijkt op een review van %1$s, ondertekend op %2$s, binnen 3 dagen</string>
     <string name="similar_to_more">Tekst lijkt op een review van %1$s, ondertekend op %2$s, en %3$d andere</string>

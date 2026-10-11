@@ -1165,6 +1165,10 @@
     <string name="pa_window_all">Όλη η περίοδος</string>
     <string name="pa_loading">Ανάγνωση πληρωμών…</string>
     <string name="pa_offline">Η ανάλυση πληρωμών δεν είναι διαθέσιμη εκτός σύνδεσης.</string>
+    <string name="standing_card">%1$d υπογεγραμμένες · %2$d εφαρμογές · %3$d συνέχειες</string>
+    <string name="standing_fixes_confirmed">%1$d διορθώσεις επιβεβαιωμένες</string>
+    <string name="standing_since_short">από %1$s</string>
+    <string name="standing_record">Εφαρμογές που κρίθηκαν: %1$d · Συνέχειες: %2$d, %3$d μετά από διόρθωση, %4$d που την επιβεβαιώνουν · Αποδεκτές σημάνσεις: %5$d από %6$d</string>
     <string name="similar_to_one">Παρόμοιο κείμενο με κριτική του %1$s υπογεγραμμένη %2$s</string>
     <string name="similar_to_one_recent">Παρόμοιο κείμενο με κριτική του %1$s υπογεγραμμένη %2$s, μέσα σε 3 ημέρες</string>
     <string name="similar_to_more">Παρόμοιο κείμενο με κριτική του %1$s υπογεγραμμένη %2$s και %3$d ακόμη</string>

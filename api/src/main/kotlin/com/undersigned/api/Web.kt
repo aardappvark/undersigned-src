@@ -223,6 +223,10 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             else if (!r.isNull("hidden_by_moderator") && r.has("hidden_by_moderator")) sb.append("<p class=meta><i>Text hidden by a moderator: ${esc(modReason(r.optString("hidden_by_moderator")))}</i> (<a href='/moderation'>policy</a>). Rating and tags still count.</p>")
             else if (r.optBoolean("hidden_by_operator")) sb.append("<p class=meta>Text not shown on this site (<a href='/report'>why</a>). The on-chain record is unchanged.</p>")
             val facts = ArrayList<String>()
+            // The reviewer's record, counts only (owner, 11 Oct 2026): what this wallet has signed, so a reader can weigh the voice.
+            who.optJSONObject("standing")?.takeIf { it.optInt("counted_reviews") > 0 && !com.undersigned.protocol.Operator.isOperator(r.getString("signer")) }?.let { sd ->
+                facts += "Reviewer: ${sd.optInt("counted_reviews")} signed · ${sd.optInt("apps_reviewed")} apps" + (if (sd.optInt("follow_ups") > 0) " · ${sd.optInt("follow_ups")} follow-ups" else "") +
+                    (if (sd.optInt("fixes_confirmed") > 0) " · ${sd.optInt("fixes_confirmed")} fixes confirmed" else "") + (if (sd.optLong("first_seen") > 0) " · since ${day(sd.optLong("first_seen")).take(7)}" else "") }
             if (!r.isNull("install_age")) facts += "On their phone: ${I18n.use(lang, r.optString("install_age"))}"
             if (!r.isNull("usage_time")) facts += "Used: ${I18n.time(lang, r.optString("usage_time"))}"
             r.optJSONObject("season")?.let { facts += "During ${it.optString("label")}" }
@@ -768,6 +772,7 @@ $('go').onclick = async () => {
             return sb.toString()
         }
         sb.append("<div class=stat><b>${if (j.optBoolean("attested_device")) "Yes" else "No"}</b><span>attested device</span></div><div class=stat><b>${j.opt("weight")}×</b><span>how much each review counts</span></div><div class=stat><b>${j.optInt("reviews")}</b><span>live reviews</span></div>")
+        j.optJSONObject("standing")?.let { sd -> sb.append("<div class=stat><b>${sd.optInt("apps_reviewed")}</b><span>apps reviewed</span></div><div class=stat><b>${sd.optInt("follow_ups")}</b><span>follow-ups, ${sd.optInt("fixes_confirmed")} confirming a fix</span></div><div class=stat><b>${sd.optInt("flags_upheld")}</b><span>flags upheld of ${sd.optInt("flags_given")}</span></div>") }
         sb.append("</div></div>")
         val pubs = j.optJSONArray("publisher_of") ?: JSONArray()
         if (pubs.length() > 0) sb.append("<p>Proven publisher of: ${(0 until pubs.length()).joinToString(", ") { "<a href='/app/${enc(pubs.getString(it))}'>${esc(pubs.getString(it))}</a>" }}</p>")

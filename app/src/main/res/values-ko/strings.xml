@@ -1142,6 +1142,10 @@
     <string name="pa_window_all">전체 기간</string>
     <string name="pa_loading">결제 읽는 중…</string>
     <string name="pa_offline">결제 분석은 오프라인에서 사용할 수 없습니다.</string>
+    <string name="standing_card">서명 %1$d · 앱 %2$d · 후속 리뷰 %3$d</string>
+    <string name="standing_fixes_confirmed">수정 확인 %1$d</string>
+    <string name="standing_since_short">%1$s부터</string>
+    <string name="standing_record">리뷰한 앱: %1$d · 후속 리뷰: %2$d, 수정 후 %3$d, 수정 확인 %4$d · 인정된 신고: %6$d 중 %5$d</string>
     <string name="similar_to_one">%2$s에 서명된 %1$s 리뷰와 비슷한 텍스트</string>
     <string name="similar_to_one_recent">%2$s에 서명된 %1$s 리뷰와 비슷한 텍스트(3일 이내)</string>
     <string name="similar_to_more">%2$s에 서명된 %1$s 리뷰 외 %3$d개와 비슷한 텍스트</string>

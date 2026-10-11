@@ -1169,6 +1169,10 @@
     <string name="pa_window_all">Lahat ng panahon</string>
     <string name="pa_loading">Binabasa ang mga bayad…</string>
     <string name="pa_offline">Hindi available offline ang analytics ng mga bayad.</string>
+    <string name="standing_card">%1$d nilagdaan · %2$d app · %3$d follow-up</string>
+    <string name="standing_fixes_confirmed">%1$d ayos na nakumpirma</string>
+    <string name="standing_since_short">mula %1$s</string>
+    <string name="standing_record">Mga app na na-review: %1$d · Follow-up: %2$d, %3$d pagkatapos ng ayos, %4$d na nagkumpirma · Mga flag na tinanggap: %5$d sa %6$d</string>
     <string name="similar_to_one">Katulad na teksto ng review ng %1$s na nilagdaan noong %2$s</string>
     <string name="similar_to_one_recent">Katulad na teksto ng review ng %1$s na nilagdaan noong %2$s, sa loob ng 3 araw</string>
     <string name="similar_to_more">Katulad na teksto ng review ng %1$s na nilagdaan noong %2$s at %3$d pa</string>

@@ -1183,6 +1183,10 @@
     <string name="pa_window_all">Toată perioada</string>
     <string name="pa_loading">Se citesc plățile…</string>
     <string name="pa_offline">Analiza plăților nu este disponibilă offline.</string>
+    <string name="standing_card">%1$d semnate · %2$d aplicații · %3$d urmări</string>
+    <string name="standing_fixes_confirmed">%1$d remedieri confirmate</string>
+    <string name="standing_since_short">din %1$s</string>
+    <string name="standing_record">Aplicații recenzate: %1$d · Urmări: %2$d, %3$d după o remediere, %4$d care o confirmă · Semnalări admise: %5$d din %6$d</string>
     <string name="similar_to_one">Text asemănător cu o recenzie a %1$s semnată la %2$s</string>
     <string name="similar_to_one_recent">Text asemănător cu o recenzie a %1$s semnată la %2$s, în 3 zile</string>
     <string name="similar_to_more">Text asemănător cu o recenzie a %1$s semnată la %2$s și cu alte %3$d</string>

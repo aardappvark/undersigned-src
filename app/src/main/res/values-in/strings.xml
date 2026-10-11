@@ -1150,6 +1150,10 @@
     <string name="pa_window_all">Sepanjang waktu</string>
     <string name="pa_loading">Membaca pembayaran…</string>
     <string name="pa_offline">Analitik pembayaran tidak tersedia secara offline.</string>
+    <string name="standing_card">%1$d ditandatangani · %2$d aplikasi · %3$d tindak lanjut</string>
+    <string name="standing_fixes_confirmed">%1$d perbaikan terkonfirmasi</string>
+    <string name="standing_since_short">sejak %1$s</string>
+    <string name="standing_record">Aplikasi diulas: %1$d · Tindak lanjut: %2$d, %3$d setelah perbaikan, %4$d mengonfirmasinya · Laporan diterima: %5$d dari %6$d</string>
     <string name="similar_to_one">Teks mirip dengan ulasan %1$s yang ditandatangani %2$s</string>
     <string name="similar_to_one_recent">Teks mirip dengan ulasan %1$s yang ditandatangani %2$s, dalam 3 hari</string>
     <string name="similar_to_more">Teks mirip dengan ulasan %1$s yang ditandatangani %2$s dan %3$d lainnya</string>

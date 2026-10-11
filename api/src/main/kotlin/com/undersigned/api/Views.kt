@@ -249,7 +249,9 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         val vp = st.verified[pkg].orEmpty()
         val list = all.drop(offset).take(limit).map { e ->
             val r = e.memo as ReviewMemo.Review; val f = st.factsOf(e.signer)
-            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken).put("staked_skr", latestStake(st, e.signer)?.let { r2(it.skr) } ?: JSONObject.NULL).put("staked_sol", latestStake(st, e.signer)?.sol?.let(::r2) ?: JSONObject.NULL)
+            record(e, st).put("reviewer", JSONObject().put("wallet", e.signer).put("skr_name", indexer.names.nameOf(e.signer) ?: JSONObject.NULL).put("attested_device", f.hasGenesisToken)
+                    // The reviewer's record (counts only, never a weight): what a reader can weigh for themselves.
+                    .put("standing", st.standings[e.signer]?.let { sd -> JSONObject().put("counted_reviews", sd.countedReviews).put("apps_reviewed", sd.appsReviewed).put("follow_ups", sd.followUps).put("follow_ups_after_fix", sd.followUpsAfterFix).put("fixes_confirmed", sd.fixesConfirmed).put("flags_upheld", sd.flagsUpheld).put("helpful_received", r2(sd.helpfulReceived)).put("first_seen", sd.firstSeen) } ?: JSONObject.NULL).put("staked_skr", latestStake(st, e.signer)?.let { r2(it.skr) } ?: JSONObject.NULL).put("staked_sol", latestStake(st, e.signer)?.sol?.let(::r2) ?: JSONObject.NULL)
                     // Shown for transparency, never weighed: the stake as first read after this review appeared, and when.
                     .put("stake_at_review", st.reviewStake[e.signature]?.let { k -> JSONObject().put("skr", r2(k.skr)).put("sol", k.sol?.let(::r2) ?: JSONObject.NULL).put("read_at", k.readAt) } ?: JSONObject.NULL)
                     .put("weight", r2(st.weighting.parts(e).weight)).put("weight_parts", st.weighting.parts(e).let { w -> JSONObject().put("device", r2(w.device)).put("quality", r2(w.quality)).put("pro_member", w.pro).put("promoted", w.promoted) })
@@ -431,7 +433,8 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
             .put("attested_device", f?.hasGenesisToken ?: JSONObject.NULL).put("staked_skr", latestStake(st, addr)?.let { r2(it.skr) } ?: JSONObject.NULL).put("staked_sol", latestStake(st, addr)?.sol?.let(::r2) ?: JSONObject.NULL).put("weight", f?.let { r2(com.undersigned.protocol.Ranking.weight(it)) } ?: JSONObject.NULL)
             .put("standing", stand?.let { JSONObject().put("counted_reviews", it.countedReviews).put("withdrawn", it.withdrawn)
                 .put("flags_given", it.flagsGiven).put("flags_upheld", it.flagsUpheld).put("flags_received", it.flagsReceived).put("records_hidden", it.recordsHidden)
-                .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen) } ?: JSONObject.NULL)
+                .put("helpful_received", r2(it.helpfulReceived)).put("replies_given", it.repliesGiven).put("replies_received", it.repliesReceived).put("first_seen", it.firstSeen)
+                .put("apps_reviewed", it.appsReviewed).put("follow_ups", it.followUps).put("follow_ups_after_fix", it.followUpsAfterFix).put("fixes_confirmed", it.fixesConfirmed) } ?: JSONObject.NULL)
             .put("reviews", reviews.size).put("publisher_of", JSONArray(st.verified.filterValues { addr in it }.keys.sorted()))
             .put("treasury_listings", JSONArray(st.claims.filter { it.treasury == addr }.map { JSONObject().put("package", it.packageName).put("code", it.code) }))
             .put("pro_licence", mine.filter { it.memo is ReviewMemo.Pro }.maxByOrNull { it.blockTime }?.let { e -> JSONObject().put("paid_at", e.blockTime).put("months", (e.memo as ReviewMemo.Pro).months).put("ends_at", java.time.Instant.ofEpochSecond(e.blockTime).atZone(java.time.ZoneOffset.UTC).plusMonths((e.memo as ReviewMemo.Pro).months.toLong()).toEpochSecond()) } ?: JSONObject.NULL)

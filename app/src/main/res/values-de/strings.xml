@@ -1185,6 +1185,10 @@
     <string name="pa_window_all">Gesamter Zeitraum</string>
     <string name="pa_loading">Zahlungen werden gelesen…</string>
     <string name="pa_offline">Die Zahlungsanalyse ist offline nicht verfügbar.</string>
+    <string name="standing_card">%1$d signiert · %2$d Apps · %3$d Nachträge</string>
+    <string name="standing_fixes_confirmed">%1$d bestätigte Fixes</string>
+    <string name="standing_since_short">seit %1$s</string>
+    <string name="standing_record">Bewertete Apps: %1$d · Nachträge: %2$d, davon %3$d nach einem Fix und %4$d, die ihn bestätigen · Bestätigte Meldungen: %5$d von %6$d</string>
     <string name="similar_to_one">Ähnlicher Text wie eine Bewertung von %1$s, signiert am %2$s</string>
     <string name="similar_to_one_recent">Ähnlicher Text wie eine Bewertung von %1$s, signiert am %2$s, innerhalb von 3 Tagen</string>
     <string name="similar_to_more">Ähnlicher Text wie eine Bewertung von %1$s, signiert am %2$s, und %3$d weitere</string>

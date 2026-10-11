@@ -57,7 +57,8 @@ fun ProfileScreen(vm: MainViewModel, wallet: String, onBack: () -> Unit, onOpen:
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column {
                         if (st == null) Text(stringResource(R.string.loading), color = RbColors.textSecondary, fontSize = 12.sp)
-                        st?.let { Text(stringResource(R.string.standing_line, it.countedReviews, it.withdrawn, it.repliesReceived, it.repliesGiven), color = RbColors.textSecondary, fontSize = 12.sp) }
+                        st?.let { Text(stringResource(R.string.standing_line, it.countedReviews, it.withdrawn, it.repliesReceived, it.repliesGiven), color = RbColors.textSecondary, fontSize = 12.sp)
+                            Text(stringResource(R.string.standing_record, it.appsReviewed, it.followUps, it.followUpsAfterFix, it.fixesConfirmed, it.flagsUpheld, it.flagsGiven), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp) }
                         st?.let { Text(stringResource(R.string.profile_flags, it.flagsGiven, it.flagsUpheld, it.flagsReceived, it.recordsHidden), color = RbColors.textSecondary, fontSize = 12.sp) }
                         st?.agreement?.let { Text(stringResource(R.string.standing_agreement, String.format(java.util.Locale.US, "%.0f%%", it * 100)), color = RbColors.textSecondary, fontSize = 12.sp) }
                         st?.repliedToReplies?.let { Text(stringResource(R.string.profile_replied, String.format(java.util.Locale.US, "%.0f%%", it * 100)), color = RbColors.textSecondary, fontSize = 12.sp) }

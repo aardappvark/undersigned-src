@@ -1194,6 +1194,10 @@
     <string name="pa_window_all">Depuis le début</string>
     <string name="pa_loading">Lecture des paiements…</string>
     <string name="pa_offline">L’analyse des paiements n’est pas disponible hors ligne.</string>
+    <string name="standing_card">%1$d signés · %2$d apps · %3$d suites</string>
+    <string name="standing_fixes_confirmed">%1$d correctifs confirmés</string>
+    <string name="standing_since_short">depuis %1$s</string>
+    <string name="standing_record">Apps évaluées : %1$d · Suites : %2$d, dont %3$d après un correctif et %4$d le confirmant · Signalements retenus : %5$d sur %6$d</string>
     <string name="similar_to_one">Texte similaire à un avis sur %1$s signé le %2$s</string>
     <string name="similar_to_one_recent">Texte similaire à un avis sur %1$s signé le %2$s, à moins de 3 jours</string>
     <string name="similar_to_more">Texte similaire à un avis sur %1$s signé le %2$s et %3$d autres</string>
