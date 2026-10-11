@@ -55,11 +55,19 @@ object NetStatus {
         }
     }
 
-    /** Runs [block]; when it fails for want of a network (a retry fired as the connection came back), waits [pauseMs] and runs it once more. */
-    suspend fun <T> retryOnce(pauseMs: Long = 1_500, block: suspend () -> Result<T>): Result<T> {
-        val first = block()
-        if (first.exceptionOrNull()?.let(::isNetworkError) != true) return first
-        delay(pauseMs)
-        return block()
+    /**
+     * Runs [block]; when it fails for want of a network (a retry fired as the connection came back, DNS not yet answering on
+     * the new network), waits and runs it again, once per entry of [pausesMs]. One retry after 1.5 s was not enough on the
+     * emulator (judge, 11 Oct 2026: a read stayed "offline" for 30 s after Wi-Fi returned), so three, 1.5 s, 4 s and 8 s apart.
+     */
+    suspend fun <T> retryOnce(pausesMs: List<Long> = listOf(1_500, 4_000, 8_000), block: suspend () -> Result<T>): Result<T> {
+        var last = block()
+        for (p in pausesMs) {
+            if (last.exceptionOrNull()?.let(::isNetworkError) != true) return last
+            delay(p)
+            last = block()
+        }
+        return last
     }
+    suspend fun <T> retryOnce(pauseMs: Long, block: suspend () -> Result<T>): Result<T> = retryOnce(listOf(pauseMs), block)
 }

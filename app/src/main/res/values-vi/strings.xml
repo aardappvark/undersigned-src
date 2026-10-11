@@ -1150,6 +1150,7 @@
     <string name="pa_window_all">Toàn bộ thời gian</string>
     <string name="pa_loading">Đang đọc các khoản thanh toán…</string>
     <string name="pa_offline">Phân tích thanh toán không khả dụng khi ngoại tuyến.</string>
+    <string name="pa_unavailable">Hiện không tải được phân tích thanh toán. Hãy thử lại sau một lát.</string>
     <string name="pa_label">Ví được tìm thấy lấy từ mã của ứng dụng và chưa được xác nhận. Số liệu là tổng tiền nhận trong ngày thanh toán, không phải doanh thu.</string>
     <string name="pa_coverage">Đã đọc %1$s trên %2$s giao dịch tìm thấy; số liệu của ví được tìm thấy có thể chưa đầy đủ.</string>
     <string name="pa_received">Đã nhận</string>

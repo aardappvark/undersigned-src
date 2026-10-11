@@ -1236,6 +1236,7 @@
     <string name="pa_window_all">كل الوقت</string>
     <string name="pa_loading">جارٍ قراءة المدفوعات…</string>
     <string name="pa_offline">تحليلات المدفوعات غير متاحة دون اتصال.</string>
+    <string name="pa_unavailable">تعذّر تحميل تحليلات المدفوعات الآن. حاول مرة أخرى بعد قليل.</string>
     <string name="pa_label">المحافظ المعثور عليها مأخوذة من شيفرة التطبيق وغير مؤكدة. الأرقام إيصالات إجمالية في يوم الدفع، وليست إيرادات.</string>
     <string name="pa_coverage">تمت قراءة %1$s من %2$s معاملة معثور عليها حتى الآن؛ قد تكون أرقام المحافظ المعثور عليها غير مكتملة.</string>
     <string name="pa_received">المستلَم</string>

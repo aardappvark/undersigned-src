@@ -1174,6 +1174,7 @@
     <string name="pa_window_all">Altijd</string>
     <string name="pa_loading">Betalingen worden gelezen…</string>
     <string name="pa_offline">Betalingsanalyse is offline niet beschikbaar.</string>
+    <string name="pa_unavailable">De betalingsanalyse kon nu niet worden geladen. Probeer het zo opnieuw.</string>
     <string name="pa_label">Gevonden wallets komen uit de app-code en zijn niet bevestigd. Bedragen zijn bruto-ontvangsten op de dag van betaling, geen omzet.</string>
     <string name="pa_coverage">%1$s van %2$s gevonden transacties gelezen; cijfers voor gevonden wallets kunnen onvolledig zijn.</string>
     <string name="pa_received">Ontvangen</string>

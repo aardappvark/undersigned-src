@@ -1186,6 +1186,7 @@
     <string name="pa_window_all">За всё время</string>
     <string name="pa_loading">Читаем платежи…</string>
     <string name="pa_offline">Аналитика платежей недоступна офлайн.</string>
+    <string name="pa_unavailable">Не удалось загрузить аналитику платежей. Повторите попытку через минуту.</string>
     <string name="pa_label">Найденные кошельки взяты из кода приложения и не подтверждены. Суммы — валовые поступления на день платежа, а не выручка.</string>
     <string name="pa_coverage">Прочитано %1$s из %2$s найденных транзакций; данные по найденным кошелькам могут быть неполными.</string>
     <string name="pa_received">Получено</string>

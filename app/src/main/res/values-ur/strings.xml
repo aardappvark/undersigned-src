@@ -1168,6 +1168,7 @@
     <string name="pa_window_all">تمام وقت</string>
     <string name="pa_loading">ادائیگیاں پڑھی جا رہی ہیں…</string>
     <string name="pa_offline">ادائیگیوں کا تجزیہ آف لائن دستیاب نہیں۔</string>
+    <string name="pa_unavailable">ادائیگیوں کا تجزیہ ابھی لوڈ نہیں ہو سکا۔ تھوڑی دیر بعد دوبارہ کوشش کریں۔</string>
     <string name="pa_label">ملے ہوئے والیٹ ایپ کے کوڈ سے لیے گئے ہیں اور تصدیق شدہ نہیں۔ رقمیں ادائیگی کے دن کی مجموعی وصولیاں ہیں، آمدنی نہیں۔</string>
     <string name="pa_coverage">اب تک ملی %2$s ٹرانزیکشنز میں سے %1$s پڑھی گئیں؛ ملے ہوئے والیٹس کے اعداد نامکمل ہو سکتے ہیں۔</string>
     <string name="pa_received">وصول شدہ</string>

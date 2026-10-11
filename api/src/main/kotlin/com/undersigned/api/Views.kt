@@ -146,7 +146,7 @@ class Views(private val indexer: Indexer, private val boards: Boards, private va
         return JSONObject().put("records", all.size).put("reviews_live", live.size).put("reviews_counted", countedTotal).put("signers", signers.size)
             .put("attested_signers", signers.count { st.factsOf(it).hasGenesisToken && it !in com.undersigned.protocol.Operator.WALLETS }).put("apps_reviewed", live.map { (it.memo as ReviewMemo.Review).packageName }.toSet().size)
             .put("apps_scored", st.scores.values.count { it.countedReviews > 0 }).put("replies", replies.size).put("publisher_replies", pub)
-            .put("claims", all.count { it.memo is ReviewMemo.Claim }).put("claims_verified", st.verified.values.sumOf { it.size })
+            .put("claims", all.count { it.memo is ReviewMemo.Claim }).put("claims_proven", st.verified.values.sumOf { it.size })
             .put("flags", all.count { it.memo is ReviewMemo.Flag }).put("clears", all.count { it.memo is ReviewMemo.Clear }).put("disputes", all.count { it.memo is ReviewMemo.Dispute })
             .put("hidden_by_consensus", st.hidden.size).put("withdrawn", st.revoked.size).put("licences", all.count { it.memo is ReviewMemo.Pro })
             .put("treasury_listings", st.claims.size).put("first_record", dated.minOfOrNull { it.blockTime } ?: JSONObject.NULL).put("latest_record", dated.maxOfOrNull { it.blockTime } ?: JSONObject.NULL)

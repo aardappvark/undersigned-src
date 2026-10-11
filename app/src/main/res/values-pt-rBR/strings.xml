@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Todo o período</string>
     <string name="pa_loading">Lendo pagamentos…</string>
     <string name="pa_offline">A análise de pagamentos não está disponível offline.</string>
+    <string name="pa_unavailable">Não foi possível carregar a análise de pagamentos agora. Tente de novo em instantes.</string>
     <string name="pa_label">Carteiras encontradas vêm do código do app e não são confirmadas. Os valores são recebimentos brutos no dia do pagamento, não receita líquida.</string>
     <string name="pa_coverage">Lidas %1$s de %2$s transações encontradas até agora; os números das carteiras encontradas podem estar incompletos.</string>
     <string name="pa_received">Recebido</string>

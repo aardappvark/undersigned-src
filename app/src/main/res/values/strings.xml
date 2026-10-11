@@ -1191,6 +1191,7 @@
     <string name="pa_window_all">All time</string>
     <string name="pa_loading">Reading payments…</string>
     <string name="pa_offline">Payments analytics are not available offline.</string>
+    <string name="pa_unavailable">Payments analytics could not be loaded just now. Try again in a moment.</string>
     <string name="pa_label">Found wallets are found in app code, not confirmed. Figures are gross receipts on the day paid, not revenue.</string>
     <string name="pa_coverage">Read %1$s of %2$s transactions found so far; figures for found wallets may be incomplete.</string>
     <string name="pa_received">Received</string>

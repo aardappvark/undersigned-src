@@ -1169,6 +1169,7 @@
     <string name="pa_window_all">Lahat ng panahon</string>
     <string name="pa_loading">Binabasa ang mga bayad…</string>
     <string name="pa_offline">Hindi available offline ang analytics ng mga bayad.</string>
+    <string name="pa_unavailable">Hindi ma-load ang analytics ng mga bayad ngayon. Subukan ulit sandali.</string>
     <string name="pa_label">Ang mga nahanap na wallet ay mula sa code ng app at hindi kumpirmado. Ang mga halaga ay gross na natanggap sa araw ng bayad, hindi kita.</string>
     <string name="pa_coverage">Nabasa ang %1$s sa %2$s na nahanap na transaksyon; maaaring kulang pa ang mga numero ng nahanap na wallet.</string>
     <string name="pa_received">Natanggap</string>

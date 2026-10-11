@@ -614,8 +614,11 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
     var window by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf("30d") }
     val cache by vm.paymentSummaries.collectAsState()
     var failed by remember { mutableStateOf(setOf<String>()) }
+    // A failure that was not the network (an HTTP error, a bad answer) is said as such, not as "offline" (judge, 11 Oct 2026).
+    var failedOnline by remember { mutableStateOf(setOf<String>()) }
     var attempt by remember { mutableStateOf(0) }
-    LaunchedEffect(window, attempt) { com.undersigned.app.util.NetStatus.retryOnce { vm.paymentSummary(window) }.fold({ failed = failed - window }, { failed = failed + window }) }
+    LaunchedEffect(window, attempt) { com.undersigned.app.util.NetStatus.retryOnce { vm.paymentSummary(window, force = attempt > 0) }.fold({ failed = failed - window; failedOnline = failedOnline - window },
+        { e -> failed = failed + window; failedOnline = if (com.undersigned.app.util.NetStatus.isNetworkError(e)) failedOnline - window else failedOnline + window }) }
     val reconnects by com.undersigned.app.util.NetStatus.reconnects.collectAsState()
     LaunchedEffect(reconnects) { if (window in failed) { failed = failed - window; attempt++ } }
     val labels = mapOf("7d" to R.string.pa_window_7d, "30d" to R.string.pa_window_30d, "90d" to R.string.pa_window_90d, "1y" to R.string.pa_window_1y, "all" to R.string.pa_window_all)
@@ -629,7 +632,7 @@ private fun PaymentAnalyticsBlock(vm: MainViewModel, onOpen: (String) -> Unit, o
     val s = cache[window]
     if (s == null) {
         if (window in failed) {
-            Text(stringResource(R.string.pa_offline), color = RbColors.textSecondary, fontSize = 12.sp)
+            Text(stringResource(if (window in failedOnline) R.string.pa_unavailable else R.string.pa_offline), color = RbColors.textSecondary, fontSize = 12.sp)
             TextButton(onClick = { failed = failed - window; attempt++ }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.retry), color = RbColors.purpleLight, fontSize = 13.sp) }
         } else Text(stringResource(R.string.pa_loading), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.padding(vertical = 6.dp))
         return

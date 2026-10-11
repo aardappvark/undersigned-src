@@ -115,7 +115,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
         Tool("leaderboard", "Apps ranked by a metric.", obj("metric" to str("What to rank by", Views.METRICS), "category" to str("Store category"),
             "limit" to int("Rows (free: up to ${Config.FREE_TOP})", 1, 500))) { a, c ->
             views.leaderboard(a.optString("metric").ifEmpty { "signed_score" }, a.optString("category").ifEmpty { null }, if (c.paid) a.optInt("limit", 50).coerceIn(1, 500) else a.optInt("limit", Config.FREE_TOP).coerceIn(1, Config.FREE_TOP)) },
-        Tool("ledger_stats", "Totals for the whole ledger: records, attested signers, verified claims, hidden records, catalogue size.", obj()) { _, _ -> views.stats() },
+        Tool("ledger_stats", "Totals for the whole ledger: records, attested signers, proven publisher claims, hidden records, catalogue size.", obj()) { _, _ -> views.stats() },
         Tool("review_tags", "The fixed review tag vocabulary with how often each tag is used.", obj()) { _, _ -> views.tags() },
         Tool("store_watch", "Store-wide rating bursts in the last N days. Needs a pass.", obj("days" to int("Days to look back", 1, 30)), paid = true) { a, _ ->
             views.watch(a.optInt("days", 3).coerceIn(1, 30)) },

@@ -1185,6 +1185,7 @@
     <string name="pa_window_all">Gesamter Zeitraum</string>
     <string name="pa_loading">Zahlungen werden gelesen…</string>
     <string name="pa_offline">Die Zahlungsanalyse ist offline nicht verfügbar.</string>
+    <string name="pa_unavailable">Die Zahlungsanalyse konnte gerade nicht geladen werden. Versuchen Sie es gleich noch einmal.</string>
     <string name="pa_label">Gefundene Wallets stammen aus dem App-Code und sind nicht bestätigt. Beträge sind Bruttoeingänge am Zahltag, kein Umsatz.</string>
     <string name="pa_coverage">%1$s von %2$s gefundenen Transaktionen gelesen; die Zahlen für gefundene Wallets können unvollständig sein.</string>
     <string name="pa_received">Erhalten</string>

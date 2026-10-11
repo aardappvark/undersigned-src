@@ -671,6 +671,37 @@ fun main(args: Array<String>) {
 }
 
 
+/** What the chain read says, in the shape the diff needs: per-app (counted, mean, rank score) and every record id with its block time. */
+data class ChainRead(val scores: Map<String, Triple<Int, Double, Double>>, val ids: Map<String, Long>)
+
+/** The outcome of one verify run; [summary] is the line /status shows. */
+data class VerifyReport(val diffs: List<String>, val scoredChain: Int, val scoredLive: Int, val recordsChain: Int, val recordsLive: Int, val pending: Int) {
+    val ok get() = diffs.isEmpty()
+    fun summary(): String = if (ok) "OK: $scoredChain scored apps compared, $recordsChain records matched" + (if (pending > 0) " ($pending newer than the grace period, not indexed yet)" else "")
+        else "${diffs.size} difference(s) between the chain read and the live dataset"
+}
+
+/**
+ * Diffs a chain read against the live dataset. A difference is: a score that does not match; a scored app the chain read does
+ * not have; a record the live dataset shows that is not on the chain (whatever its age); a chain record the live dataset lacks
+ * once it is older than [graceSec] (the live index runs a few minutes behind the chain; younger ones are [VerifyReport.pending]).
+ * Record counts are therefore compared id by id, not as totals (judge, 11 Oct 2026).
+ */
+fun verifyDiff(chain: ChainRead, live: JSONObject, nowSec: Long = System.currentTimeMillis() / 1000, graceSec: Long = 15 * 60): VerifyReport {
+    val diffs = mutableListOf<String>()
+    val apps = live.optJSONArray("apps") ?: JSONArray()
+    val theirs = (0 until apps.length()).map { apps.getJSONObject(it) }.associate { it.getString("package") to it }
+    for ((pkg, m) in chain.scores) { val t = theirs[pkg]; val tc = t?.optInt("counted_reviews") ?: 0; val tm = t?.optDouble("mean", Double.NaN) ?: Double.NaN
+        if (tc != m.first || (m.first > 0 && tm != m.second)) diffs += "$pkg: chain counted=${m.first} mean=${m.second} · live counted=$tc mean=$tm" }
+    for (pkg in theirs.keys - chain.scores.keys) if (theirs[pkg]!!.optInt("counted_reviews") > 0) diffs += "$pkg: live has a score, the chain read does not"
+    val recs = live.optJSONArray("records") ?: JSONArray()
+    val liveIds = (0 until recs.length()).map { recs.getJSONObject(it).getString("id") }.toSet()
+    for (id in liveIds - chain.ids.keys) diffs += "record ${id.take(12)}… is in the live dataset but not on the chain"
+    var pending = 0
+    for ((id, t) in chain.ids) if (id !in liveIds) { if (nowSec - t > graceSec) diffs += "record ${id.take(12)}… (${(nowSec - t) / 60} min old) is on the chain but not in the live dataset" else pending++ }
+    return VerifyReport(diffs, chain.scores.count { it.value.first > 0 }, theirs.values.count { it.optInt("counted_reviews") > 0 }, chain.ids.size, liveIds.size, pending)
+}
+
 /** Reads the registry from the chain into a fresh database, scores it with the protocol module, and diffs the live dataset. */
 fun verifyAgainstChain(rpcUrl: String?): Int {
     val tmp = java.io.File.createTempFile("undersigned-verify", ".db").apply { deleteOnExit() }
@@ -679,17 +710,14 @@ fun verifyAgainstChain(rpcUrl: String?): Int {
     println("reading the registry ${Config.REGISTRY} from the chain …")
     val n = ix.syncLedger(); println("  $n records"); ix.rebuild()
     val st = ix.state
-    val mine = st.scores.values.associate { it.packageName to Triple(it.countedReviews, Views.r2(it.weightedMean), Views.r2(it.weightedRating)) }
+    val chain = ChainRead(st.scores.values.associate { it.packageName to Triple(it.countedReviews, Views.r2(it.weightedMean), Views.r2(it.weightedRating)) }, st.entries.associate { it.signature to it.blockTime })
     println("fetching the live dataset ${Config.PUBLIC_URL}/v1/dataset.json …")
     val live = JSONObject(java.net.URI("${Config.PUBLIC_URL}/v1/dataset.json").toURL().openConnection().apply { setRequestProperty("User-Agent", "undersigned-verify") }.getInputStream().bufferedReader().use { it.readText() })
-    val apps = live.getJSONArray("apps"); var diffs = 0
-    val theirs = (0 until apps.length()).map { apps.getJSONObject(it) }.associate { it.getString("package") to it }
-    for ((pkg, m) in mine) { val t = theirs[pkg]; val tc = t?.optInt("counted_reviews") ?: 0; val tm = t?.optDouble("mean", Double.NaN) ?: Double.NaN
-        if (tc != m.first || (m.first > 0 && tm != m.second)) { diffs++; println("  DIFF $pkg: chain counted=${m.first} mean=${m.second} · live counted=$tc mean=$tm") } }
-    for (pkg in theirs.keys - mine.keys) if (theirs[pkg]!!.optInt("counted_reviews") > 0) { diffs++; println("  DIFF $pkg: live has a score, the chain read does not") }
-    val recs = live.getJSONArray("records").length()
-    println("records: chain ${st.entries.size} · live $recs${if (st.entries.size != recs) "  (the live index may be ahead or behind by the last few minutes)" else ""}")
-    println("apps scored: chain ${mine.count { it.value.first > 0 }} · live ${theirs.values.count { it.optInt("counted_reviews") > 0 }}")
-    println(if (diffs == 0) "OK: every score recomputed from the chain matches the live dataset" else "$diffs difference(s); publisher proof (website or store build) is not read here, which can explain a self-review exclusion")
-    return if (diffs == 0) 0 else 1
+    val r = verifyDiff(chain, live)
+    r.diffs.forEach { println("  DIFF $it") }
+    println("records: chain ${r.recordsChain} · live ${r.recordsLive}${if (r.pending > 0) " · ${r.pending} not indexed yet (under 15 min old)" else ""}")
+    println("apps scored: chain ${r.scoredChain} · live ${r.scoredLive}")
+    if (!r.ok) println("publisher proof (website or store build) is not read here, which can explain a self-review exclusion")
+    println(r.summary())
+    return if (r.ok) 0 else 1
 }

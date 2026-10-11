@@ -33,6 +33,7 @@ import com.undersigned.app.ui.components.label
 import com.undersigned.app.ui.theme.RbColors
 import com.undersigned.protocol.ReviewMemo
 import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -82,6 +83,19 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
         selfLoading || selfFacts == null -> stringResource(R.string.review_checking_sgt)
         selfFacts?.hasGenesisToken != true -> stringResource(R.string.review_needs_sgt)
         else -> null
+    }
+    // Sign in from here (judge, 11 Oct 2026): the consent message is signed, the address screened, then kept, as on the Me tab.
+    var signingIn by remember { mutableStateOf(false) }
+    val termsService = remember { com.undersigned.app.data.TermsAcceptanceService(context) }
+    val signInScope = rememberCoroutineScope()
+    fun signIn() {
+        val s = sender ?: return; signingIn = true; error = null
+        signInScope.launch {
+            com.undersigned.app.wallet.WalletSession.signIn(s, termsService.generateConsentMessage("(pending)")).fold(
+                onSuccess = { if (com.undersigned.app.util.WalletScreening.isSanctioned(it.address)) error = context.getString(R.string.wallet_sanctioned) else { termsService.recordConsentWithSignature(it.address, it.signature, it.signedMessage); UserPreferences.setWallet(it.address) } },
+                onFailure = { error = context.errorText(it) },
+            ); signingIn = false
+        }
     }
     // Back while signing would lose the outcome; back with unsaved changes asks first.
     val dirty = done == null && (rating != (existing?.rating ?: 0) || tags != (existing?.tags ?: emptyList<ReviewMemo.Tag>()) || text != (existing?.text ?: ""))
@@ -193,7 +207,11 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 }
             }
             Spacer(Modifier.height(14.dp))
-            gate?.let { GlassCard { Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp) }; Spacer(Modifier.height(10.dp)) }
+            gate?.let { GlassCard {
+                Text(it, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+                // No wallet was a dead end: the line said "sign in" with nothing to tap (judge, 11 Oct 2026). Same flow as Me.
+                if (wallet == null) { Spacer(Modifier.height(10.dp)); SecondaryButton(if (signingIn) stringResource(R.string.terms_signing) else stringResource(R.string.settings_signin), enabled = !signingIn && sender != null, onClick = { signIn() }) }
+            }; Spacer(Modifier.height(10.dp)) }
             Text(stringResource(R.string.review_fee_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             Spacer(Modifier.height(12.dp))
             PrimaryButton(stage ?: stringResource(R.string.review_submit), enabled = canSubmit, loading = stage != null, onClick = {

@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Da sempre</string>
     <string name="pa_loading">Lettura dei pagamenti…</string>
     <string name="pa_offline">L’analisi dei pagamenti non è disponibile offline.</string>
+    <string name="pa_unavailable">Al momento non è stato possibile caricare l’analisi dei pagamenti. Riprova tra poco.</string>
     <string name="pa_label">I wallet trovati provengono dal codice dell’app e non sono confermati. Gli importi sono incassi lordi nel giorno del pagamento, non fatturato.</string>
     <string name="pa_coverage">Lette %1$s di %2$s transazioni trovate finora; i dati dei wallet trovati possono essere incompleti.</string>
     <string name="pa_received">Ricevuto</string>

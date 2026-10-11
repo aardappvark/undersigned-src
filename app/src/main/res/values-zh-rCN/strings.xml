@@ -1149,6 +1149,7 @@
     <string name="pa_window_all">全部时间</string>
     <string name="pa_loading">正在读取付款…</string>
     <string name="pa_offline">付款分析在离线时不可用。</string>
+    <string name="pa_unavailable">目前无法加载付款分析。请稍后再试。</string>
     <string name="pa_label">找到的钱包来自应用代码，未经确认。金额为付款当日的总收款，不是收入。</string>
     <string name="pa_coverage">已读取找到的 %2$s 笔交易中的 %1$s 笔；找到的钱包数据可能不完整。</string>
     <string name="pa_received">已收款</string>

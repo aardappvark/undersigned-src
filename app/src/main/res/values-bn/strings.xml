@@ -1161,6 +1161,7 @@
     <string name="pa_window_all">সব সময়</string>
     <string name="pa_loading">পেমেন্ট পড়া হচ্ছে…</string>
     <string name="pa_offline">পেমেন্ট বিশ্লেষণ অফলাইনে পাওয়া যায় না।</string>
+    <string name="pa_unavailable">পেমেন্ট বিশ্লেষণ এখন লোড করা যায়নি। কিছুক্ষণ পরে আবার চেষ্টা করুন।</string>
     <string name="pa_label">পাওয়া ওয়ালেটগুলো অ্যাপের কোড থেকে নেওয়া, নিশ্চিত নয়। অঙ্কগুলো পেমেন্টের দিনের মোট প্রাপ্তি, আয় নয়।</string>
     <string name="pa_coverage">এ পর্যন্ত পাওয়া %2$sটি লেনদেনের মধ্যে %1$sটি পড়া হয়েছে; পাওয়া ওয়ালেটের অঙ্ক অসম্পূর্ণ হতে পারে।</string>
     <string name="pa_received">প্রাপ্ত</string>

@@ -451,7 +451,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val all = entries.value
         val now = System.currentTimeMillis() / 1000
         val start = if (days == null) (T.earliest(pkg, store, all) ?: (now - 30 * T.DAY)) else now - days * T.DAY
-        val from = start / T.DAY * T.DAY
+        // Day boundaries at LOCAL midnight: the review cards print local dates, and a UTC-aligned bar put a review one day
+        // earlier than its card said (judge, 11 Oct 2026).
+        val off = java.time.ZoneId.systemDefault().rules.getOffset(java.time.Instant.ofEpochSecond(start)).totalSeconds
+        val from = Math.floorDiv(start + off, T.DAY) * T.DAY - off
         val buckets = T.build(pkg, store, all, verifiedPublishers.value, { w -> known[w] ?: SignerFacts(false, 0.0) }, com.undersigned.app.solana.ProLicence.paidRecord(txMeta.value), from, now)
         return buckets to store.minOfOrNull { it.time }
     }

@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Todo el periodo</string>
     <string name="pa_loading">Leyendo pagos…</string>
     <string name="pa_offline">El análisis de pagos no está disponible sin conexión.</string>
+    <string name="pa_unavailable">No se pudo cargar el análisis de pagos ahora mismo. Inténtalo de nuevo en un momento.</string>
     <string name="pa_label">Las wallets encontradas proceden del código de la app y no están confirmadas. Las cifras son ingresos brutos del día del pago, no ventas netas.</string>
     <string name="pa_coverage">Leídas %1$s de %2$s transacciones encontradas hasta ahora; las cifras de wallets encontradas pueden estar incompletas.</string>
     <string name="pa_received">Recibido</string>

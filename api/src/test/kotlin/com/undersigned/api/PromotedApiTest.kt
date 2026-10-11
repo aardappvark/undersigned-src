@@ -57,7 +57,7 @@ class PromotedApiTest {
         val k = mine.getJSONObject("stake_at_review")
         assertEquals(50000.0, k.getDouble("skr"), 1e-9); assertEquals(12.5, k.getDouble("sol"), 1e-9); assertEquals(1_760_000_000L, k.getLong("read_at"))
         assertEquals(1.0, mine.getJSONObject("weight_parts").getDouble("device"), 1e-9)   // a big stake, the same device weight
-        assertTrue("Staked 50,000 SKR · 12.50 SOL · read" in String(web.handle("/app/com.a.b", emptyMap()).raw!!))
+        assertTrue("Staked 50,000 SKR · 12.50 SOL when the review was read, 2025-10-09" in String(web.handle("/app/com.a.b", emptyMap()).raw!!))
         // sorting by stake: most first, unread SOL last; it reorders and never changes a score
         val bySkr = v.reviews("com.a.b", 10, 0, "skr").getJSONArray("reviews"); assertEquals(member, bySkr.getJSONObject(0).getString("signer"))
         val bySol = v.reviews("com.a.b", 10, 0, "sol").getJSONArray("reviews"); assertEquals(other, bySol.getJSONObject(1).getString("signer"))

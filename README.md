@@ -7,7 +7,7 @@ owner signs in their own wallet with the Seed Vault double-tap. It counts only w
 Genesis Token, so a review farm needs a farm of phones, at US$450–500 each (early pre-order and retail price). Ranking is deterministic from the chain;
 anyone can recompute it. No token, no prizes, nothing staked or moved by the app.
 
-CLOCK IN hackathon entry (Solana Mobile). First commit 8 Sep 2026; submissions close Mon 12 Oct 2026, 11:59 UTC.
+CLOCK IN hackathon entry (Solana Mobile). First commit 7 Sep 2026 (UTC); submissions close Mon 12 Oct 2026, 11:59 UTC.
 Submission pack: [docs/SUBMISSION.md](docs/SUBMISSION.md). Protocol: [docs/SPEC.md](docs/SPEC.md).
 Developers (API, MCP): [docs/DEVELOPERS.md](docs/DEVELOPERS.md). What was built when: [docs/HISTORY.md](docs/HISTORY.md).
 The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
@@ -16,7 +16,7 @@ The numbers: [docs/FINANCIAL_CASE.md](docs/FINANCIAL_CASE.md).
 
 | | |
 |---|---|
-| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.6-vc17.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
+| **APK** (signed with the fleet key) | [`assets/submission/Undersigned-1.1.7-vc18.apk`](assets/submission/) with its SHA-256 beside it; works on any Seeker |
 | **The site and API** | https://undersigned.provenby.dev · [`/payments`](https://undersigned.provenby.dev/payments) · [`/v1/stats`](https://undersigned.provenby.dev/v1/stats) · MCP at `/mcp` |
 | **One review, on-chain** | Jupiter Mobile, signed on a Seeker with the Seed Vault: [4Eqgb1ex…odmNXXL5](https://solscan.io/tx/4Eqgb1exXvtVofUzh6SuGLEatr876qwLgjm5cr37bdXCRzEemMGbA2v65GbzQKaLs93QDSMPir7ys1XwodmNXXL5) (an operator wallet: shown, never counted) |
 | **Recompute it yourself** | `api/build/install/api/bin/api verify` reads the registry from the chain into a throwaway database, scores it with the protocol module, and diffs the live dataset (exit 0 on a match) |
@@ -42,7 +42,7 @@ Everything else hangs off that loop:
 
 | For | What |
 |---|---|
-| Seeker owners | Browse all 1,543 dApps with the store's rating beside the signed score; follow apps; per-action notifications; review nudges; import existing store reviews in one approval; a second round when a publisher says a problem is fixed; facts the phone can prove (certificate matches the store's, permission drift), never verdicts; 28 languages; a guided tour. |
+| Seeker owners | Browse all 1,547 dApps with the store's rating beside the signed score; follow apps; per-action notifications; review nudges; import existing store reviews in one approval; a second round when a publisher says a problem is fixed; facts the phone can prove (certificate matches the store's, permission drift), never verdicts; 28 languages; a guided tour. |
 | Publishers | Prove an app is yours (a signed claim checked against the website the store lists or the manifest of the store's own build); reply on-chain under a Publisher mark; sign "fixed in version N" and see who followed up; responsiveness shown publicly; per-version scores; desk, webhooks, badge, MCP. |
 | Integrity | Genesis-weighted flags and "looks genuine" clears; author disputes; near-duplicate labels; store review bursts and no-Genesis waves shown as facts; moderation hides text for four narrow reasons, never a voice ([docs/MODERATION.md](docs/MODERATION.md)). |
 | Payments board | Treasuries proven by the publisher, payments counted per app and over time, a leaderboard; wallets found in app code listed apart as unconfirmed. |
@@ -99,10 +99,10 @@ verify, it is not a safety verdict.**
 - **Quick-review relayer**: a fee-payer wallet the server holds, which can only co-sign quick reviews (memo + one
   0-lamport self-transfer); 10,000 lamports per review, limits per phone, per network and per day.
 
-## State today (measured 10 Oct 2026)
+## State today (measured 11 Oct 2026)
 
-- Release **1.1.6** (versionCode 17). 180 commits on 18 days; about 18,800 lines of Kotlin plus 3,400 lines of tests;
-  273 Kotlin tests and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
+- Release **1.1.7** (versionCode 18). 195 commits on 19 days (UTC) since 7 Sep 2026; 21,397 lines of Kotlin plus 3,911 lines of tests;
+  281 Kotlin tests (108 protocol, 99 API, 74 app) and 8 MCP tests; 144 of 144 live checks against the public API and MCP.
 - Ledger: 77 records, 29 proven publisher claims, 28 treasury listings, one Pro licence paid in SKR (a self-paid test). All from Undersigned's own wallets. **0 counted reviews
   so far**: the reviews on the ledger come from Undersigned's own wallets (shown, labelled, never counted). The signed
   scores fill as Seeker owners sign.

@@ -1165,6 +1165,7 @@
     <string name="pa_window_all">Teljes időszak</string>
     <string name="pa_loading">Fizetések beolvasása…</string>
     <string name="pa_offline">A fizetési elemzés offline nem érhető el.</string>
+    <string name="pa_unavailable">A fizetési elemzés most nem tölthető be. Próbálja újra egy pillanat múlva.</string>
     <string name="pa_label">A talált tárcák az alkalmazás kódjából származnak, nincsenek megerősítve. Az összegek bruttó befizetések a fizetés napján, nem bevétel.</string>
     <string name="pa_coverage">Eddig %2$s talált tranzakcióból %1$s beolvasva; a talált tárcák adatai hiányosak lehetnek.</string>
     <string name="pa_received">Beérkezett</string>

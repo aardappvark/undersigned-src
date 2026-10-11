@@ -1194,6 +1194,7 @@
     <string name="pa_window_all">Depuis le début</string>
     <string name="pa_loading">Lecture des paiements…</string>
     <string name="pa_offline">L’analyse des paiements n’est pas disponible hors ligne.</string>
+    <string name="pa_unavailable">L’analyse des paiements n’a pas pu être chargée pour le moment. Réessayez dans un instant.</string>
     <string name="pa_label">Les wallets trouvés viennent du code de l’app et ne sont pas confirmés. Les montants sont des encaissements bruts au jour du paiement, pas un chiffre d’affaires.</string>
     <string name="pa_coverage">%1$s transactions lues sur %2$s trouvées ; les chiffres des wallets trouvés peuvent être incomplets.</string>
     <string name="pa_received">Reçu</string>

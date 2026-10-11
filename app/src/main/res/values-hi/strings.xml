@@ -1168,6 +1168,7 @@
     <string name="pa_window_all">पूरा समय</string>
     <string name="pa_loading">भुगतान पढ़े जा रहे हैं…</string>
     <string name="pa_offline">भुगतान विश्लेषण ऑफ़लाइन उपलब्ध नहीं है।</string>
+    <string name="pa_unavailable">भुगतान विश्लेषण अभी लोड नहीं हो सका। थोड़ी देर में फिर कोशिश करें।</string>
     <string name="pa_label">मिले हुए वॉलेट ऐप के कोड से लिए गए हैं और पुष्ट नहीं हैं। आंकड़े भुगतान के दिन की सकल प्राप्तियां हैं, राजस्व नहीं।</string>
     <string name="pa_coverage">अब तक मिले %2$s लेन-देन में से %1$s पढ़े गए; मिले हुए वॉलेट के आंकड़े अधूरे हो सकते हैं।</string>
     <string name="pa_received">प्राप्त</string>

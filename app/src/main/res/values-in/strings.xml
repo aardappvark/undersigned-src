@@ -1150,6 +1150,7 @@
     <string name="pa_window_all">Sepanjang waktu</string>
     <string name="pa_loading">Membaca pembayaran…</string>
     <string name="pa_offline">Analitik pembayaran tidak tersedia secara offline.</string>
+    <string name="pa_unavailable">Analitik pembayaran tidak dapat dimuat saat ini. Coba lagi sebentar lagi.</string>
     <string name="pa_label">Wallet yang ditemukan berasal dari kode aplikasi dan belum dikonfirmasi. Angka adalah penerimaan kotor pada hari pembayaran, bukan pendapatan.</string>
     <string name="pa_coverage">Terbaca %1$s dari %2$s transaksi yang ditemukan; angka untuk wallet yang ditemukan mungkin belum lengkap.</string>
     <string name="pa_received">Diterima</string>

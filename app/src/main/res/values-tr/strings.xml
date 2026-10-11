@@ -1165,6 +1165,7 @@
     <string name="pa_window_all">Tüm zamanlar</string>
     <string name="pa_loading">Ödemeler okunuyor…</string>
     <string name="pa_offline">Ödeme analizi çevrimdışı kullanılamaz.</string>
+    <string name="pa_unavailable">Ödeme analizi şu anda yüklenemedi. Biraz sonra yeniden deneyin.</string>
     <string name="pa_label">Bulunan cüzdanlar uygulama kodundan gelir ve onaylanmamıştır. Rakamlar ödeme günündeki brüt tahsilatlardır, gelir değildir.</string>
     <string name="pa_coverage">Şimdiye kadar bulunan %2$s işlemden %1$s tanesi okundu; bulunan cüzdanların rakamları eksik olabilir.</string>
     <string name="pa_received">Alınan</string>

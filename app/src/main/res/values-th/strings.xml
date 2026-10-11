@@ -1134,6 +1134,7 @@
     <string name="pa_window_all">ตลอดเวลา</string>
     <string name="pa_loading">กำลังอ่านการชำระเงิน…</string>
     <string name="pa_offline">การวิเคราะห์การชำระเงินใช้ไม่ได้เมื่อออฟไลน์</string>
+    <string name="pa_unavailable">ไม่สามารถโหลดการวิเคราะห์การชำระเงินได้ในขณะนี้ ลองอีกครั้งในอีกสักครู่</string>
     <string name="pa_label">กระเป๋าที่พบมาจากโค้ดของแอปและยังไม่ได้รับการยืนยัน ตัวเลขเป็นยอดรับรวมในวันที่ชำระ ไม่ใช่รายได้</string>
     <string name="pa_coverage">อ่านแล้ว %1$s จาก %2$s ธุรกรรมที่พบ ตัวเลขของกระเป๋าที่พบอาจยังไม่ครบ</string>
     <string name="pa_received">ได้รับ</string>

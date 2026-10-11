@@ -1202,6 +1202,7 @@
     <string name="pa_window_all">За весь час</string>
     <string name="pa_loading">Читаємо платежі…</string>
     <string name="pa_offline">Аналітика платежів недоступна офлайн.</string>
+    <string name="pa_unavailable">Не вдалося завантажити аналітику платежів. Спробуйте ще раз за хвилину.</string>
     <string name="pa_label">Знайдені гаманці взято з коду застосунку, їх не підтверджено. Суми — валові надходження в день платежу, а не виручка.</string>
     <string name="pa_coverage">Прочитано %1$s із %2$s знайдених транзакцій; дані щодо знайдених гаманців можуть бути неповними.</string>
     <string name="pa_received">Отримано</string>

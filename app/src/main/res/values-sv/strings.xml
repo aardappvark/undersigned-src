@@ -1166,6 +1166,7 @@
     <string name="pa_window_all">Hela tiden</string>
     <string name="pa_loading">Läser betalningar…</string>
     <string name="pa_offline">Betalningsanalysen är inte tillgänglig offline.</string>
+    <string name="pa_unavailable">Betalningsanalysen kunde inte läsas in just nu. Försök igen om en stund.</string>
     <string name="pa_label">Hittade plånböcker kommer från appens kod och är inte bekräftade. Belopp är bruttoinbetalningar på betalningsdagen, inte intäkter.</string>
     <string name="pa_coverage">Läst %1$s av %2$s hittade transaktioner hittills; siffrorna för hittade plånböcker kan vara ofullständiga.</string>
     <string name="pa_received">Mottaget</string>
