@@ -67,7 +67,7 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
                 "app_series" -> an.appSeries(a.optString("package"), "week") ?: JSONObject().put("error", "no payments seen for that package")
                 else -> an.summary(w)
             } },
-        Tool("publisher_report", "Publisher plan: one app's report (reviews waiting for an answer, the store rating's trend, bursts, certificate and permission changes, scores by version, the category benchmark, payments over time). Needs a publisher key with a live plan for that app (POST /v1/checkout {publisher} then /v1/publisher/plan).",
+        Tool("plan_report", "Publisher plan: one app's report (reviews waiting for an answer, the store rating's trend, bursts, certificate and permission changes, scores by version, the category benchmark, payments over time). Needs a publisher key with a live plan for that app (POST /v1/checkout {publisher} then /v1/publisher/plan).",
             obj("package" to str("The app's package")), paid = true) { a, c ->
             report(a.optString("package"), c.key) ?: JSONObject().put("error", "no_plan").put("message", "this key holds no live publisher plan for ${a.optString("package")}; see /plans") },
         Tool("found_treasuries", "Wallets FOUND IN APPS' CODE that received payments from 5+ wallets, NOT confirmed by the publisher: a separate list by app name, never ranked with payments_board. Say 'found in the app's code, not confirmed' whenever you mention one; it may not be the app's treasury.",
