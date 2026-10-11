@@ -67,7 +67,7 @@ Maalej 2019) · Seeker $450 early pre-order, $500 retail · $843 a year · 127 l
 
 ## Still to decide (owner)
 
-1. Scene 10 says "28 apps". The deck says 28; `/v1/stats` counts 29 proven claims because Undersigned itself is one. Keep 28?
+1. **Decided (owner, 11 Oct): 28 apps** everywhere. `/v1/stats` counts 29 proven claims because Undersigned itself is one; say "28 apps we publish" and never 29.
 2. The close has no "find it on the dApp Store" line because Undersigned is not listed yet. Add it only once it is.
 3. Music: a 90–100 BPM bed at about −20 dB under the voice, ticks on count-ups, a soft thunk on the double-tap. Yes or no?
 4. Exports after approval: this 1:50 master at 10 Mbps; a 45 s 4:5 cut with burned-in captions for X (scenes 1, 2, 4, 5, 11); a 30 s 16:9 cut for Discord.

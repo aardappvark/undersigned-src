@@ -150,7 +150,7 @@ by about nine times.
 
 - **Undersigned:** no paid sales yet from anyone outside the team. Its one Pro licence (276 SKR, 15 Sep 2026) was paid by
   the operator to test the flow end to end.
-- **The AardAppvark fleet (29 apps, same payment rails):** 94 payments into its proven treasuries, Aug–Oct 2026, about
+- **The AardAppvark fleet (28 published apps plus Undersigned, 29 proven claims, same payment rails):** 94 payments into its proven treasuries, Aug–Oct 2026, about
   US$205 at the day of payment (server payment history). Small, and real: the rails work and are read back from chain.
 
 ## 7. Giving back (options, not commitments)

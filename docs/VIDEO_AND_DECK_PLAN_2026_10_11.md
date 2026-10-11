@@ -46,7 +46,7 @@ Still open on the deck (needs fresh shots, 1–1.5 h):
   Crop above the stake line or shoot a review without it.
 - Slide 11 reuses `jup_store.png`; shoot "Copy this review to the dApp Store" instead.
 - Slide 10 would carry one screenshot of Claude or Cursor calling an MCP tool.
-- Decide 28 vs 29 apps (28 published; 29 claims because Undersigned itself is one). The deck says 28 throughout.
+- Decided (owner, 11 Oct): 28 apps everywhere; 29 is the count of proven claims, which includes Undersigned itself.
 
 ## 2b. Side-by-side comparisons (built 11 Oct, late)
 
@@ -108,7 +108,7 @@ Nothing before 1:30 is optional. If the cut runs long, quick reviews and device 
 
 | # | Task | Est. | Who |
 |---|---|---|---|
-| 1 | Ask one or more real Seeker owners (users of our 28 apps, the community) to install 1.1.8 and sign one review each. Unpaid; it costs them about 0.0001 SOL. Do this first; it runs in the background. | 1 h ask | owner |
+| 1 | ~~Ask independent Seeker owners to sign~~ Decided against (owner, 11 Oct): no outside users before submission. The record stays operator-only, labelled as such. | — | — |
 | 2 | Capture the 1.1.8 footage from the shot list: about 12 takes over adb screenrecord on a Seeker whose launcher is in front, plus the camera take of the double-tap and the two-Seeker fix → follow-up. | 3 h | me (adb), owner (sensor taps) |
 | 3 | Capture the stills: store listing with a reply, Pro tags with Pro active, Settings switches, batch sign, viewer, /status, three payment charts; replace the four deck shots in §2. | 1.5 h | me |
 | 4 | Edit the 3:00 cut: ffmpeg concat of takes with the existing motion scenes re-timed as in §3. | 3 h | me |
