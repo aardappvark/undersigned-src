@@ -80,7 +80,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     /** The shared abusive-language rule, applied before anything is signed: the reason, or null when the text is clean. */
     private fun abuseRefusal(m: ReviewMemo): String? {
         val text = when (m) { is ReviewMemo.Review -> m.text; is ReviewMemo.Reply -> m.text; is ReviewMemo.Dispute -> m.text; is ReviewMemo.StoreNote -> m.text; is ReviewMemo.Fixed -> m.text; is ReviewMemo.CustomTags -> m.tags.joinToString(" "); is ReviewMemo.Ban -> m.reason.wire; else -> null }
-        val hits = com.undersigned.protocol.Abuse.match(text); return if (hits.isEmpty()) null else getApplication<Application>().getString(com.undersigned.app.R.string.abuse_blocked, hits.joinToString(", "))
+        val hits = com.undersigned.protocol.Abuse.masked(text); return if (hits.isEmpty()) null else getApplication<Application>().getString(com.undersigned.app.R.string.abuse_blocked, hits.joinToString(", "))
     }
     /** A typed wallet address or `.skr` name → the address, or null. */
     suspend fun resolveWallet(input: String): String? {

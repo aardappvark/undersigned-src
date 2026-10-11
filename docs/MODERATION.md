@@ -24,7 +24,7 @@ Moderation on Undersigned hides **text**, never a voice.
 The shared list was run over 2,754 reviews read from the store's own GraphQL feed (125 dApps, three pages of ten each, until the
 store began answering 403): one review would be refused or hidden, a 2★ note reading "Pretty s*it if you ask me" (the masked
 word is folded to `sh*t`). No slur or threat was found in the sample; the store's text is mostly clean, and the filter's job is
-the rare case. Method: the protocol's `Abuse.match` over each note and publisher reply, nothing else. Since 1.1.19 the app applies the same
+the rare case. Method: the protocol's `Abuse.match` over each note and publisher reply, nothing else. Wherever a caught word is shown to a person (the composer's refusal, this document, the deck) it is masked: `Abuse.mask` stars the first vowel, "sh*t". Since 1.1.19 the app applies the same
 list to the store's own review text and publisher replies as it mirrors them: a match is shown as "Text hidden by a
 moderator: Abuse or harassment" in place of the words, the stars still count in the store's tally. A later full crawl from
 the server (every dApp, every page) found 4 such reviews in 22,263 read across 127 dApps, e.g. a masked "sh*t".

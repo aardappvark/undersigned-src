@@ -46,4 +46,9 @@ class AbuseTest {
         val e4 = listOf(LedgerEntry(sig('y'), mod, 100, ReviewMemo.Ban(mod, ReviewMemo.ModReason.ABUSE)))
         assertTrue(Moderation.banned(e4).isEmpty(), "a moderator is never banned")
     }
+
+    @Test fun maskedForReaders() {
+        assertEquals("sh*t", Abuse.mask("shit")); assertEquals("f*cking", Abuse.mask("fucking"))
+        assertEquals(listOf("sh*t", "f*cking"), Abuse.masked("This app is sh1t and the dev is f*cking slow"))
+    }
 }

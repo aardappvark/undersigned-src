@@ -185,7 +185,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                 colors = OutlinedTextFieldDefaults.colors(focusedTextColor = RbColors.textPrimary, unfocusedTextColor = RbColors.textPrimary, focusedBorderColor = RbColors.purple, unfocusedBorderColor = RbColors.glassBorder, cursorColor = RbColors.purpleLight, errorBorderColor = RbColors.negative),
             )
             com.undersigned.app.ui.components.CharCounter(text.length, com.undersigned.protocol.LongText.MAX_CHARS)
-            if (abuseHits.isNotEmpty()) Text(stringResource(R.string.abuse_blocked, abuseHits.joinToString(", ")), color = RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 4.dp))
+            if (abuseHits.isNotEmpty()) Text(stringResource(R.string.abuse_blocked, abuseHits.joinToString(", ") { com.undersigned.protocol.Abuse.mask(it) }), color = RbColors.negative, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(top = 4.dp))
             val looksCopied = remember(text) { vm.draftLooksCopied(text, pkg) }
             if (looksCopied) { Spacer(Modifier.height(8.dp)); Text(stringResource(R.string.compose_similar_warning), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp) }
             // Design review 28 Sep 2026 (handoff 2, F5–F6): what the phone adds, as one card of switch rows with the value as

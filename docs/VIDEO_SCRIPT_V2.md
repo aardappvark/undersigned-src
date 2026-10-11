@@ -93,27 +93,28 @@ approve these lines before any Gracie credit**; then `VOICE` swaps and the cut i
 | 0:11 | jup_lens.png | One app took eight five-star store reviews in two days. Undersigned shows the burst as a fact. |
 | 0:15 | compare-7.png | A developer fixes the bug. In the store the stars stay. Here the fix is signed, and the reviewer follows up. |
 | 0:22 | tour2.mp4 | Open it fresh: a tour, every dapp in the store, updated every Monday, the signed score beside the store's own rating. |
-| 0:28 | browse.mp4 | Flick the rail, search by name, sort by signed score, filter by tag. |
-| 0:32 | apppage.mp4 | An app's page: the store rating credited, the signed score, scores per version, reviews over time, and what this phone can check about the build. |
-| 0:39 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. No wallet yet? The form offers Sign in with wallet. |
-| 0:48 | w_sheet.png | The Seeker Wallet shows the fee. A double tap on the sensor signs it in the Seed Vault. The app never sees a key. |
-| 0:55 | batch_list.png | Or tick the apps this phone has used and sign them together: eight reviews, one double tap. |
-| 1:00 | record.mp4 | Back on the page the review carries its marks; staked SKR is shown, never weighed. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
-| 1:08 | web_app.png | The same record on the web, through the API and MCP, and on Solscan: one transaction nobody can edit. |
-| 1:15 | term_api.png | And it answers: the API, every review with every signal, no key to start; and the MCP server, one URL in Claude or Cursor, twenty-five read-only tools. |
-| 1:24 | thread.mp4 | Signed on mainnet: a four-star crash report, the publisher's Fixed in version one sixty-eight, and a five-star follow-up. Our own thread, labelled, never counted. |
-| 1:32 | desk.png | A publisher desk on the phone: unanswered reviews, reply speed, a developer kit. |
-| 1:37 | compare-1.png | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms, problems found in a minute. |
-| 1:49 | pro_pay.png | Pro is paid in SOL or SKR, three hundred thirty-two with a Genesis Token, the licence written to the ledger. |
-| 1:53 | translate.mp4 | Then any review or reply reads in your language with one tap, labelled as a suggestion by AI, plus two tags of your own. |
-| 2:03 | myreviews.png | Your store reviews come across in one approval, signed beside the originals. |
-| 2:07 | review_gate_emulator.png | No Seeker? A quick review, shown apart, never counted. |
-| 2:10 | changes.png | When an installed app's certificate or permissions change, Changes says so. |
-| 2:14 | settings.mp4 | Alerts per action, auto translate, twenty-eight languages. |
-| 2:18 | abuse_block.png | Abusive language is refused as you type and hidden wherever reviews are read; a moderator can exclude a wallet, on-chain. |
-| 2:25 | store_hidden.png | The same list reads the store's own reviews: a note posted there is hidden here, with the reason. |
-| 2:29 | payments.mp4 | Because it reads the ledger, it shows what the store's dapps are paid: leaderboards, categories, what is rising; proven treasuries kept apart from wallets found in code. |
-| 2:37 | motion 90–98s | It runs on about eight hundred dollars a year; a hundred and twenty-seven Pro licences cover it. |
+| 0:27 | browse.mp4 | Flick the rail, search by name, sort by signed score, filter by tag. |
+| 0:31 | apppage.mp4 | An app's page: the store rating credited, the signed score, scores per version, reviews over time, and what this phone can check about the build. |
+| 0:38 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. No wallet yet? The form offers Sign in with wallet. |
+| 0:46 | w_sheet.png | The Seeker Wallet shows the fee. A double tap on the sensor signs it in the Seed Vault. The app never sees a key. |
+| 0:54 | batch_list.png | Or tick the apps this phone has used and sign them together: eight reviews, one double tap. |
+| 0:58 | record.mp4 | Back on the page the review carries its marks; staked SKR is shown, never weighed. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
+| 1:06 | web_app.png | The same record on the web, through the API and MCP, and on Solscan: one transaction nobody can edit. |
+| 1:13 | term_api.png | And it answers: the API, every review with every signal, no key to start; and the MCP server, one URL in Claude or Cursor, twenty-five read-only tools. |
+| 1:22 | thread.mp4 | Signed on mainnet: a four-star crash report, the publisher's Fixed in version one sixty-eight, and a five-star follow-up. Our own thread, labelled, never counted. |
+| 1:30 | desk.png | A publisher desk on the phone: unanswered reviews, reply speed, a developer kit. |
+| 1:34 | compare-1.png | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms, problems found in a minute. |
+| 1:45 | pro_pay.png | Pro is paid in SOL or SKR, three hundred thirty-two with a Genesis Token, the licence written to the ledger. |
+| 1:50 | translate.mp4 | Then any review or reply reads in your language with one tap, labelled as a suggestion by AI, plus two tags of your own. |
+| 2:00 | myreviews.png | Your store reviews come across in one approval, signed beside the originals. |
+| 2:03 | review_gate_emulator.png | No Seeker? A quick review, shown apart, never counted. |
+| 2:07 | changes.png | When an installed app's certificate or permissions change, Changes says so. |
+| 2:11 | settings.mp4 | Alerts per action, auto translate, twenty-eight languages. |
+| 2:14 | abuse_block.png | Abusive language is refused as you type and hidden wherever reviews are read; a moderator can exclude a wallet, on-chain. |
+| 2:20 | caught.png | Read from the store today: of twenty-seven thousand reviews, four would be hidden here, words masked. |
+| 2:26 | store_hidden.png | On the app's page the store review stays, its text replaced by the reason. |
+| 2:30 | payments.mp4 | Because it reads the ledger, it shows what the store's dapps are paid: leaderboards, categories, what is rising; proven treasuries kept apart from wallets found in code. |
+| 2:38 | motion 90–97s | It runs on about eight hundred dollars a year; a hundred and twenty-seven Pro licences cover it. |
 | 2:45 | web_status.png | Every score is recomputed from the chain alone, six-hourly; a browser viewer reads the chain with no server at all. |
 | 2:50 | motion 104–112s | Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone. |
 

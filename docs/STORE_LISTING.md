@@ -1,9 +1,9 @@
-# Undersigned — dApp Store listing (1.1.19, updated 12 Oct 2026)
+# Undersigned — dApp Store listing (1.1.20, updated 12 Oct 2026)
 
 The source of truth for the Publisher Portal fields. Nothing here is submitted until the owner says so.
 
 ## Build
-- APK: `app/build/outputs/apk/release/app-release.apk`, `com.undersigned.app`, versionCode **30**, versionName **1.1.19**
+- APK: `app/build/outputs/apk/release/app-release.apk`, `com.undersigned.app`, versionCode **31**, versionName **1.1.20**
 - Signed v2 + v3 with the fleet key, cert SHA-256 `ac693213aec9befa200be59881b9decd37646b1761591edc9bc6c144192d100b`
   (CN=MidMightBit Games), the same key as 28 of the fleet's live apps.
 - The manifest names its publishers: `undersigned.publisher` = `DD4a…Wq2Q,HVXV…yDaD` (publisher proof by the store's build).
@@ -42,7 +42,7 @@ One Seeker, one voice: only wallets holding a Seeker Genesis Token are counted, 
 
 Undersigned never holds your keys or funds and moves nothing from your wallet that you have not signed for. Not affiliated with Solana Mobile.
 
-### What's new (1.1.19)
+### What's new (1.1.20)
 
 Abusive language posted in the dApp Store is hidden here with the reason. The publisher desk shows the treasury from the ledger at once and the last 12 weeks received. Anonymous usage counts, with a switch in Settings. The store's publisher replies translate too, and a review's menu is tidier: icons, the moderator's rows apart, Report last. Translating a note that is already in your language now says so instead of failing. Abusive language (slurs, strong profanity, threats) is refused as you type and hidden automatically wherever reviews are read; the rating still counts. A moderator can exclude a wallet with a signed, public record.
 
@@ -97,6 +97,6 @@ Icon `assets/store/icon_512.png`, banner `assets/store/banner_1200x600.png`.
 
 ## Publishing (after the owner's OK)
 1. Publisher Portal (logged in as DD4a): New app → `com.undersigned.app`, the fields above, screenshots, icon, banner → mint the App NFT.
-2. `dapp-store --apk-file app/build/outputs/apk/release/app-release.apk --whats-new "<above>" --keypair ~/.config/dappstore/publisher.json --idempotency-key com.undersigned.app-vc30`
+2. `dapp-store --apk-file app/build/outputs/apk/release/app-release.apk --whats-new "<above>" --keypair ~/.config/dappstore/publisher.json --idempotency-key com.undersigned.app-vc31`
    (API key from `~/.config/dappstore/env`). Cost about 0.021 SOL from DD4a (release NFT rent + fee), measured on the fleet 19 Aug.
-3. A retry after a rollback needs a NEW idempotency key (`…-vc30-r2`).
+3. A retry after a rollback needs a NEW idempotency key (`…-vc31-r2`).

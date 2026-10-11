@@ -67,4 +67,11 @@ object Abuse {
     }
 
     fun blocked(text: String?): Boolean = match(text).isNotEmpty()
+
+    /** A listed word written for a reader: its first vowel starred ("sh*t", "f*cking"); a phrase is masked word by word. Never shown in full (owner, 12 Oct 2026). */
+    fun mask(word: String): String = word.split(' ').joinToString(" ") { w ->
+        val i = w.indexOfFirst { it in "aeiouAEIOU" }
+        if (w.length < 3) w else if (i >= 0) w.substring(0, i) + "*" + w.substring(i + 1) else w.substring(0, 1) + "*" + w.substring(2)
+    }
+    fun masked(text: String?): List<String> = match(text).map(::mask)
 }
