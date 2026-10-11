@@ -314,6 +314,16 @@ fun SettingsScreen(vm: MainViewModel, sender: ActivityResultSender?, onBack: () 
                     }
                     Switch(checked = remind, onCheckedChange = null, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
                 }
+                // Auto-translate (Pro): every note and reply as it is shown, each an AI call, labelled a suggestion (owner, 11 Oct 2026).
+                var autoTr by remember { mutableStateOf(UserPreferences.autoTranslate) }
+                Spacer(Modifier.height(10.dp))
+                Row(Modifier.toggleable(value = autoTr, enabled = pro?.active == true, role = androidx.compose.ui.semantics.Role.Switch) { autoTr = it; UserPreferences.autoTranslate = it }, verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) { Text(stringResource(R.string.settings_auto_translate), color = RbColors.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold); Spacer(Modifier.width(8.dp)); Pill(stringResource(R.string.pro_badge), RbColors.purpleLight) }
+                        Text(stringResource(R.string.settings_auto_translate_body), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 17.sp)
+                    }
+                    Switch(checked = autoTr && pro?.active == true, onCheckedChange = null, enabled = pro?.active == true, colors = SwitchDefaults.colors(checkedThumbColor = RbColors.green, checkedTrackColor = RbColors.green.copy(alpha = 0.4f)))
+                }
             }
 
             // Review nudges: one app a day at most, each asked about once, off by default (feature list, 8 Oct 2026).

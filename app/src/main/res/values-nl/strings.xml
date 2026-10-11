@@ -1174,6 +1174,10 @@
     <string name="pa_window_all">Altijd</string>
     <string name="pa_loading">Betalingen worden gelezen…</string>
     <string name="pa_offline">Betalingsanalyse is offline niet beschikbaar.</string>
+    <string name="translate_now">Vertalen</string>
+    <string name="translate_pro">Vertalen · Pro</string>
+    <string name="settings_auto_translate">Notities en antwoorden automatisch vertalen</string>
+    <string name="settings_auto_translate_body">Haalt een voorgestelde vertaling op voor elke getoonde notitie en elk antwoord. Elk is een AI-aanroep, gemarkeerd als suggestie; de eigen woorden van de auteur blijven erboven.</string>
     <string name="signed_by_stars">Ondertekende reviews per ster · tik op een rij om ze te lezen</string>
     <string name="stars_filter_on">Alleen reviews met %1$d sterren</string>
     <string name="stars_filter_all">Alle sterren</string>

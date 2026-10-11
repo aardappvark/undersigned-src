@@ -1191,6 +1191,10 @@
     <string name="pa_window_all">All time</string>
     <string name="pa_loading">Reading payments…</string>
     <string name="pa_offline">Payments analytics are not available offline.</string>
+    <string name="translate_now">Translate</string>
+    <string name="translate_pro">Translate · Pro</string>
+    <string name="settings_auto_translate">Auto-translate notes and replies</string>
+    <string name="settings_auto_translate_body">Fetch a suggested translation for every note and reply as it is shown. Each is an AI call, labelled as a suggestion; the author’s own words stay above it.</string>
     <string name="signed_by_stars">Signed reviews by stars · tap a row to read them</string>
     <string name="stars_filter_on">Showing %1$d-star reviews only</string>
     <string name="stars_filter_all">All stars</string>

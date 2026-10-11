@@ -1166,6 +1166,10 @@
     <string name="pa_window_all">Hela tiden</string>
     <string name="pa_loading">Läser betalningar…</string>
     <string name="pa_offline">Betalningsanalysen är inte tillgänglig offline.</string>
+    <string name="translate_now">Översätt</string>
+    <string name="translate_pro">Översätt · Pro</string>
+    <string name="settings_auto_translate">Översätt anteckningar och svar automatiskt</string>
+    <string name="settings_auto_translate_body">Hämtar en föreslagen översättning för varje anteckning och svar som visas. Varje är ett AI-anrop markerat som förslag; författarens egna ord står kvar ovanför.</string>
     <string name="signed_by_stars">Signerade recensioner per stjärna · tryck på en rad för att läsa</string>
     <string name="stars_filter_on">Endast recensioner med %1$d stjärnor</string>
     <string name="stars_filter_all">Alla stjärnor</string>

@@ -1134,6 +1134,10 @@
     <string name="pa_window_all">ตลอดเวลา</string>
     <string name="pa_loading">กำลังอ่านการชำระเงิน…</string>
     <string name="pa_offline">การวิเคราะห์การชำระเงินใช้ไม่ได้เมื่อออฟไลน์</string>
+    <string name="translate_now">แปล</string>
+    <string name="translate_pro">แปล · Pro</string>
+    <string name="settings_auto_translate">แปลโน้ตและคำตอบอัตโนมัติ</string>
+    <string name="settings_auto_translate_body">ดึงคำแปลที่แนะนำสำหรับทุกโน้ตและคำตอบที่แสดง แต่ละรายการเป็นการเรียก AI และระบุว่าเป็นคำแนะนำ ข้อความต้นฉบับของผู้เขียนยังอยู่ด้านบน</string>
     <string name="signed_by_stars">รีวิวที่ลงนามตามดาว · แตะแถวเพื่ออ่าน</string>
     <string name="stars_filter_on">แสดงเฉพาะรีวิว %1$d ดาว</string>
     <string name="stars_filter_all">ทุกดาว</string>

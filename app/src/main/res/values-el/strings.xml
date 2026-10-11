@@ -1165,6 +1165,10 @@
     <string name="pa_window_all">Όλη η περίοδος</string>
     <string name="pa_loading">Ανάγνωση πληρωμών…</string>
     <string name="pa_offline">Η ανάλυση πληρωμών δεν είναι διαθέσιμη εκτός σύνδεσης.</string>
+    <string name="translate_now">Μετάφραση</string>
+    <string name="translate_pro">Μετάφραση · Pro</string>
+    <string name="settings_auto_translate">Αυτόματη μετάφραση σημειώσεων και απαντήσεων</string>
+    <string name="settings_auto_translate_body">Φέρνει προτεινόμενη μετάφραση για κάθε σημείωση και απάντηση όταν εμφανίζεται. Κάθε μία είναι κλήση AI, σημειωμένη ως πρόταση· τα λόγια του συγγραφέα μένουν από πάνω.</string>
     <string name="signed_by_stars">Υπογεγραμμένες κριτικές ανά αστέρια · πατήστε μια σειρά για να τις διαβάσετε</string>
     <string name="stars_filter_on">Μόνο κριτικές με %1$d αστέρια</string>
     <string name="stars_filter_all">Όλα τα αστέρια</string>

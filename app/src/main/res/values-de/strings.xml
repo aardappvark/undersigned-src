@@ -1185,6 +1185,10 @@
     <string name="pa_window_all">Gesamter Zeitraum</string>
     <string name="pa_loading">Zahlungen werden gelesen…</string>
     <string name="pa_offline">Die Zahlungsanalyse ist offline nicht verfügbar.</string>
+    <string name="translate_now">Übersetzen</string>
+    <string name="translate_pro">Übersetzen · Pro</string>
+    <string name="settings_auto_translate">Notizen und Antworten automatisch übersetzen</string>
+    <string name="settings_auto_translate_body">Holt für jede angezeigte Notiz und Antwort eine vorgeschlagene Übersetzung. Jede ist ein KI-Aufruf, als Vorschlag gekennzeichnet; die eigenen Worte des Autors bleiben darüber.</string>
     <string name="signed_by_stars">Signierte Bewertungen nach Sternen · Zeile antippen, um sie zu lesen</string>
     <string name="stars_filter_on">Nur Bewertungen mit %1$d Sternen</string>
     <string name="stars_filter_all">Alle Sterne</string>

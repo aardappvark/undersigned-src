@@ -1203,6 +1203,10 @@
     <string name="pa_window_all">Cały okres</string>
     <string name="pa_loading">Odczytywanie płatności…</string>
     <string name="pa_offline">Analiza płatności nie jest dostępna offline.</string>
+    <string name="translate_now">Przetłumacz</string>
+    <string name="translate_pro">Przetłumacz · Pro</string>
+    <string name="settings_auto_translate">Automatycznie tłumacz notatki i odpowiedzi</string>
+    <string name="settings_auto_translate_body">Pobiera sugerowane tłumaczenie każdej wyświetlanej notatki i odpowiedzi. Każde to wywołanie AI oznaczone jako sugestia; własne słowa autora zostają nad nim.</string>
     <string name="signed_by_stars">Podpisane recenzje wg gwiazdek · dotknij wiersza, aby je przeczytać</string>
     <string name="stars_filter_on">Tylko recenzje %1$d-gwiazdkowe</string>
     <string name="stars_filter_all">Wszystkie gwiazdki</string>

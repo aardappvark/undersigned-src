@@ -1194,6 +1194,10 @@
     <string name="pa_window_all">Todo el periodo</string>
     <string name="pa_loading">Leyendo pagos…</string>
     <string name="pa_offline">El análisis de pagos no está disponible sin conexión.</string>
+    <string name="translate_now">Traducir</string>
+    <string name="translate_pro">Traducir · Pro</string>
+    <string name="settings_auto_translate">Traducir automáticamente notas y respuestas</string>
+    <string name="settings_auto_translate_body">Obtiene una traducción sugerida para cada nota y respuesta al mostrarse. Cada una es una llamada a IA, marcada como sugerencia; las palabras del autor quedan encima.</string>
     <string name="signed_by_stars">Reseñas firmadas por estrellas · toca una fila para leerlas</string>
     <string name="stars_filter_on">Solo reseñas de %1$d estrellas</string>
     <string name="stars_filter_all">Todas las estrellas</string>

@@ -1165,6 +1165,10 @@
     <string name="pa_window_all">Teljes időszak</string>
     <string name="pa_loading">Fizetések beolvasása…</string>
     <string name="pa_offline">A fizetési elemzés offline nem érhető el.</string>
+    <string name="translate_now">Fordítás</string>
+    <string name="translate_pro">Fordítás · Pro</string>
+    <string name="settings_auto_translate">Jegyzetek és válaszok automatikus fordítása</string>
+    <string name="settings_auto_translate_body">Minden megjelenő jegyzethez és válaszhoz javasolt fordítást kér le. Mindegyik egy AI-hívás, javaslatként jelölve; a szerző saját szavai felette maradnak.</string>
     <string name="signed_by_stars">Aláírt értékelések csillagok szerint · koppintson egy sorra az olvasáshoz</string>
     <string name="stars_filter_on">Csak %1$d csillagos értékelések</string>
     <string name="stars_filter_all">Minden csillag</string>

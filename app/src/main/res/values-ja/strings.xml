@@ -1141,6 +1141,10 @@
     <string name="pa_window_all">全期間</string>
     <string name="pa_loading">支払いを読み込み中…</string>
     <string name="pa_offline">支払い分析はオフラインでは利用できません。</string>
+    <string name="translate_now">翻訳</string>
+    <string name="translate_pro">翻訳 · Pro</string>
+    <string name="settings_auto_translate">メモと返信を自動翻訳</string>
+    <string name="settings_auto_translate_body">表示されたメモと返信ごとに翻訳案を取得します。それぞれ AI 呼び出しで、提案として表示されます。著者自身の言葉はその上に残ります。</string>
     <string name="signed_by_stars">星別の署名レビュー · 行をタップして読む</string>
     <string name="stars_filter_on">%1$d つ星のレビューのみ表示</string>
     <string name="stars_filter_all">すべての星</string>

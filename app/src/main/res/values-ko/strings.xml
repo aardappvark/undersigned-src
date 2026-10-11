@@ -1142,6 +1142,10 @@
     <string name="pa_window_all">전체 기간</string>
     <string name="pa_loading">결제 읽는 중…</string>
     <string name="pa_offline">결제 분석은 오프라인에서 사용할 수 없습니다.</string>
+    <string name="translate_now">번역</string>
+    <string name="translate_pro">번역 · Pro</string>
+    <string name="settings_auto_translate">메모와 답글 자동 번역</string>
+    <string name="settings_auto_translate_body">표시되는 모든 메모와 답글에 대해 제안 번역을 가져옵니다. 각각 AI 호출이며 제안으로 표시됩니다. 작성자의 원문은 위에 그대로 남습니다.</string>
     <string name="signed_by_stars">별점별 서명 리뷰 · 행을 탭해 읽기</string>
     <string name="stars_filter_on">%1$d점 리뷰만 표시</string>
     <string name="stars_filter_all">모든 별점</string>

@@ -1150,6 +1150,10 @@
     <string name="pa_window_all">Sepanjang waktu</string>
     <string name="pa_loading">Membaca pembayaran…</string>
     <string name="pa_offline">Analitik pembayaran tidak tersedia secara offline.</string>
+    <string name="translate_now">Terjemahkan</string>
+    <string name="translate_pro">Terjemahkan · Pro</string>
+    <string name="settings_auto_translate">Terjemahkan catatan dan balasan otomatis</string>
+    <string name="settings_auto_translate_body">Mengambil terjemahan yang disarankan untuk setiap catatan dan balasan saat ditampilkan. Masing-masing adalah panggilan AI, ditandai sebagai saran; kata-kata penulis tetap di atasnya.</string>
     <string name="signed_by_stars">Ulasan bertanda tangan menurut bintang · ketuk baris untuk membaca</string>
     <string name="stars_filter_on">Hanya ulasan %1$d bintang</string>
     <string name="stars_filter_all">Semua bintang</string>

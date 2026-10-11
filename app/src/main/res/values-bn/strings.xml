@@ -1161,6 +1161,10 @@
     <string name="pa_window_all">সব সময়</string>
     <string name="pa_loading">পেমেন্ট পড়া হচ্ছে…</string>
     <string name="pa_offline">পেমেন্ট বিশ্লেষণ অফলাইনে পাওয়া যায় না।</string>
+    <string name="translate_now">অনুবাদ</string>
+    <string name="translate_pro">অনুবাদ · Pro</string>
+    <string name="settings_auto_translate">নোট ও উত্তর স্বয়ংক্রিয়ভাবে অনুবাদ</string>
+    <string name="settings_auto_translate_body">প্রতিটি নোট ও উত্তর দেখানোর সময় প্রস্তাবিত অনুবাদ আনা হয়। প্রতিটি একটি AI কল, প্রস্তাব হিসেবে চিহ্নিত; লেখকের নিজের কথা উপরে থাকে।</string>
     <string name="signed_by_stars">তারকা অনুযায়ী স্বাক্ষরিত রিভিউ · পড়তে একটি সারিতে ট্যাপ করুন</string>
     <string name="stars_filter_on">শুধু %1$d-তারকা রিভিউ দেখানো হচ্ছে</string>
     <string name="stars_filter_all">সব তারকা</string>

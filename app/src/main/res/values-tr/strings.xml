@@ -1165,6 +1165,10 @@
     <string name="pa_window_all">Tüm zamanlar</string>
     <string name="pa_loading">Ödemeler okunuyor…</string>
     <string name="pa_offline">Ödeme analizi çevrimdışı kullanılamaz.</string>
+    <string name="translate_now">Çevir</string>
+    <string name="translate_pro">Çevir · Pro</string>
+    <string name="settings_auto_translate">Notları ve yanıtları otomatik çevir</string>
+    <string name="settings_auto_translate_body">Gösterilen her not ve yanıt için önerilen bir çeviri getirir. Her biri öneri olarak işaretlenmiş bir yapay zekâ çağrısıdır; yazarın kendi sözleri üstte kalır.</string>
     <string name="signed_by_stars">Yıldıza göre imzalı yorumlar · okumak için bir satıra dokunun</string>
     <string name="stars_filter_on">Yalnızca %1$d yıldızlı yorumlar</string>
     <string name="stars_filter_all">Tüm yıldızlar</string>

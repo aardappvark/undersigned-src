@@ -1168,6 +1168,10 @@
     <string name="pa_window_all">تمام وقت</string>
     <string name="pa_loading">ادائیگیاں پڑھی جا رہی ہیں…</string>
     <string name="pa_offline">ادائیگیوں کا تجزیہ آف لائن دستیاب نہیں۔</string>
+    <string name="translate_now">ترجمہ کریں</string>
+    <string name="translate_pro">ترجمہ · Pro</string>
+    <string name="settings_auto_translate">نوٹس اور جوابات کا خودکار ترجمہ</string>
+    <string name="settings_auto_translate_body">ہر دکھائے گئے نوٹ اور جواب کے لیے تجویز کردہ ترجمہ لاتا ہے۔ ہر ایک AI کال ہے، تجویز کے طور پر نشان زد؛ مصنف کے اپنے الفاظ اوپر رہتے ہیں۔</string>
     <string name="signed_by_stars">ستاروں کے لحاظ سے دستخط شدہ جائزے · پڑھنے کے لیے قطار پر ٹیپ کریں</string>
     <string name="stars_filter_on">صرف %1$d ستارہ جائزے</string>
     <string name="stars_filter_all">تمام ستارے</string>

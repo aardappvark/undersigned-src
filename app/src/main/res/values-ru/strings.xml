@@ -1186,6 +1186,10 @@
     <string name="pa_window_all">За всё время</string>
     <string name="pa_loading">Читаем платежи…</string>
     <string name="pa_offline">Аналитика платежей недоступна офлайн.</string>
+    <string name="translate_now">Перевести</string>
+    <string name="translate_pro">Перевести · Pro</string>
+    <string name="settings_auto_translate">Автоматически переводить заметки и ответы</string>
+    <string name="settings_auto_translate_body">Запрашивает предлагаемый перевод для каждой показанной заметки и ответа. Каждый — вызов ИИ, помеченный как предложение; слова автора остаются выше.</string>
     <string name="signed_by_stars">Подписанные отзывы по звёздам · нажмите строку, чтобы прочитать</string>
     <string name="stars_filter_on">Только отзывы на %1$d звёзд</string>
     <string name="stars_filter_all">Все звёзды</string>

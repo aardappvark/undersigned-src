@@ -1150,6 +1150,10 @@
     <string name="pa_window_all">Toàn bộ thời gian</string>
     <string name="pa_loading">Đang đọc các khoản thanh toán…</string>
     <string name="pa_offline">Phân tích thanh toán không khả dụng khi ngoại tuyến.</string>
+    <string name="translate_now">Dịch</string>
+    <string name="translate_pro">Dịch · Pro</string>
+    <string name="settings_auto_translate">Tự động dịch ghi chú và phản hồi</string>
+    <string name="settings_auto_translate_body">Lấy bản dịch gợi ý cho mỗi ghi chú và phản hồi khi hiển thị. Mỗi lần là một lệnh gọi AI, được ghi là gợi ý; lời của tác giả vẫn ở phía trên.</string>
     <string name="signed_by_stars">Bài đánh giá đã ký theo sao · chạm một hàng để đọc</string>
     <string name="stars_filter_on">Chỉ hiện bài %1$d sao</string>
     <string name="stars_filter_all">Tất cả số sao</string>

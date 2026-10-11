@@ -1202,6 +1202,10 @@
     <string name="pa_window_all">За весь час</string>
     <string name="pa_loading">Читаємо платежі…</string>
     <string name="pa_offline">Аналітика платежів недоступна офлайн.</string>
+    <string name="translate_now">Перекласти</string>
+    <string name="translate_pro">Перекласти · Pro</string>
+    <string name="settings_auto_translate">Автоматично перекладати нотатки й відповіді</string>
+    <string name="settings_auto_translate_body">Отримує запропонований переклад для кожної показаної нотатки й відповіді. Кожен — виклик ШІ, позначений як пропозиція; слова автора лишаються вище.</string>
     <string name="signed_by_stars">Підписані відгуки за зірками · торкніться рядка, щоб прочитати</string>
     <string name="stars_filter_on">Лише відгуки на %1$d зірок</string>
     <string name="stars_filter_all">Усі зірки</string>

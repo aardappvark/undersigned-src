@@ -28,6 +28,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.foundation.layout.size
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,7 +61,7 @@ import java.util.Date
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onFollowUp: (String) -> Unit = {}) {
+fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, onBack: () -> Unit, onReview: () -> Unit, onProfile: (String) -> Unit = {}, onFollowUp: (String) -> Unit = {}, onPro: () -> Unit = {}) {
     val context = LocalContext.current
     val catalogue by vm.catalogue.collectAsState()
     val installed by vm.installed.collectAsState()
@@ -71,6 +73,31 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     val scope = androidx.compose.runtime.rememberCoroutineScope()
     var translating by remember { mutableStateOf<String?>(null) }
     var translateError by remember { mutableStateOf<Pair<String, String>?>(null) }
+    val autoTranslate = remember { com.undersigned.app.data.UserPreferences.autoTranslate }
+    /** Fetches a suggested translation for [id] with [fetch]; one at a time, errors kept per record. */
+    fun translateNow(id: String, fetch: suspend () -> Result<String>) { if (translating != null) return; translating = id; translateError = null
+        scope.launch { fetch().fold({ translations[id] = it }, { translateError = id to (it.message ?: "") }); translating = null } }
+    /**
+     * The Translate button (owner, 11 Oct 2026: "reviews and comments should have a translate button"): Pro translates with
+     * one tap (or automatically, Settings); without Pro the same button opens the Pro tab. The translation is labelled AI;
+     * the author's own words stay above it.
+     */
+    @Composable
+    fun TranslateControl(id: String, proActive: Boolean, fetch: suspend () -> Result<String>) {
+        translations[id]?.let { t ->
+            Spacer(Modifier.height(4.dp))
+            Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
+            Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
+        } ?: run {
+            if (proActive && autoTranslate && translateError?.first != id) LaunchedEffect(id) { translateNow(id, fetch) }
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(50))
+                .clickable(enabled = translating == null) { if (proActive) translateNow(id, fetch) else onPro() }.padding(horizontal = 4.dp)) {
+                Icon(Icons.Default.Translate, contentDescription = null, tint = RbColors.purpleLight, modifier = Modifier.size(16.dp)); Spacer(Modifier.width(6.dp))
+                Text(if (translating == id) "…" else stringResource(if (proActive) R.string.translate_now else R.string.translate_pro), color = RbColors.purpleLight, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+            }
+            translateError?.takeIf { it.first == id }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
+        }
+    }
     var boostFor by remember { mutableStateOf<String?>(null) }
     var boostStage by remember { mutableStateOf<String?>(null) }
     var boostMsg by remember { mutableStateOf<Pair<String, String>?>(null) }
@@ -480,20 +507,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             if (!whole) Text(stringResource(R.string.show_more), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { whole = true }.padding(vertical = 14.dp)) }
                         else Text(stringResource(R.string.review_show_note), color = RbColors.purpleLight, fontSize = 12.sp, modifier = Modifier.heightIn(min = 48.dp).clickable { shown = true }.padding(vertical = 14.dp))
                         // A suggested translation, Pro (owner, 9 Oct 2026): labelled as AI, the author's own words stay above it.
-                        if (shown) {
-                            translations[e.signature]?.let { t ->
-                                Spacer(Modifier.height(4.dp))
-                                Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp)
-                                Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
-                            } ?: run {
-                                if (pro?.active == true) Text(if (translating == e.signature) "…" else stringResource(R.string.translate_button), color = RbColors.purpleLight, fontSize = 12.sp,
-                                    modifier = Modifier.heightIn(min = 48.dp).clickable(enabled = translating == null) {
-                                        translating = e.signature; translateError = null
-                                        scope.launch { vm.suggestedTranslation(e.signature).fold({ translations[e.signature] = it }, { translateError = e.signature to (it.message ?: "") }); translating = null }
-                                    }.padding(vertical = 14.dp))
-                                translateError?.takeIf { it.first == e.signature }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
-                            }
-                        }
+                        if (shown) TranslateControl(e.signature, pro?.active == true) { vm.suggestedTranslation(e.signature) }
                     }
                     // Tier 3, context: season, then similar wording (amber: that one is unusual). Text, not pills.
                     val seasonText = vm.seasonAt(e.blockTime)?.let { stringResource(R.string.season_pill, it.label) }
@@ -590,7 +604,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                                 Text((if (rp.signer == wallet) stringResource(R.string.review_by_you) else (domainNames[rp.signer]?.takeIf { it.isNotEmpty() } ?: shortKey(rp.signer, 4, 4))) + " · " + DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(rp.blockTime * 1000)), color = RbColors.textTertiary, fontSize = 11.sp, modifier = Modifier.weight(1f))
                                 if (vm.isVerifiedPublisher(pkg, rp.signer)) Pill(stringResource(R.string.publisher_badge), RbColors.green)
                             }
-                            modHidden[rp.signature]?.let { ModHiddenText(it) } ?: Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                            modHidden[rp.signature]?.let { ModHiddenText(it) } ?: run {
+                                Text((rp.memo as ReviewMemo.Reply).text, color = RbColors.textPrimary, fontSize = 12.sp, lineHeight = 17.sp)
+                                // Replies translate too (owner, 11 Oct 2026); the server reads a reply's text by its record id.
+                                TranslateControl(rp.signature, pro?.active == true) { vm.suggestedTranslation(rp.signature) }
+                            }
                             if (vm.isModerator(wallet) && rp.signer != wallet) CardAction(stringResource(if (vm.myModeration(rp.signature)) R.string.mod_unhide else R.string.mod_hide), RbColors.textSecondary, enabled = simpleStage == null) {
                                 if (vm.myModeration(rp.signature)) sign(ReviewMemo.Unmoderate(rp.signature)) else { dialogError = null; modTarget = rp.signature } }
                             if (wallet != null && rp.signer != wallet) FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp))  {
@@ -825,17 +843,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                             Text(t, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, maxLines = if (full) Int.MAX_VALUE else 4, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.padding(top = 6.dp))
                             if (t.length > 220) ShowMore(full) { full = !full }
                             // Pro: the store review in the app's language, labelled as a suggestion; the words above stay.
-                            translations["store:${r.id}"]?.let { tr ->
-                                Text(tr, color = RbColors.textSecondary, fontSize = 13.sp, lineHeight = 18.sp, modifier = Modifier.padding(top = 4.dp))
-                                Text(stringResource(R.string.translate_label), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
-                            } ?: run {
-                                if (pro?.active == true) Text(if (translating == "store:${r.id}") "…" else stringResource(R.string.translate_button), color = RbColors.purpleLight, fontSize = 12.sp,
-                                    modifier = Modifier.heightIn(min = 48.dp).clickable(enabled = translating == null) {
-                                        translating = "store:${r.id}"; translateError = null
-                                        scope.launch { vm.suggestedStoreTranslation(t).fold({ translations["store:${r.id}"] = it }, { translateError = "store:${r.id}" to (it.message ?: "") }); translating = null }
-                                    }.padding(vertical = 14.dp))
-                                translateError?.takeIf { it.first == "store:${r.id}" }?.let { Text(stringResource(R.string.translate_failed), color = RbColors.negative, fontSize = 11.sp) }
-                            }
+                            TranslateControl("store:${r.id}", pro?.active == true) { vm.suggestedStoreTranslation(t) }
                         }
                         // The store's own reply: flat, blue, "from the dApp Store".
                         r.publisherReply?.takeIf { it.isNotBlank() }?.let { reply ->

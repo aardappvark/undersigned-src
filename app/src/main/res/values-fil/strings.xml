@@ -1169,6 +1169,10 @@
     <string name="pa_window_all">Lahat ng panahon</string>
     <string name="pa_loading">Binabasa ang mga bayad…</string>
     <string name="pa_offline">Hindi available offline ang analytics ng mga bayad.</string>
+    <string name="translate_now">Isalin</string>
+    <string name="translate_pro">Isalin · Pro</string>
+    <string name="settings_auto_translate">Awtomatikong isalin ang mga note at reply</string>
+    <string name="settings_auto_translate_body">Kumukuha ng mungkahing salin para sa bawat note at reply habang ipinapakita. Bawat isa ay AI call na may markang mungkahi; nananatili sa itaas ang sariling salita ng may-akda.</string>
     <string name="signed_by_stars">Mga nilagdaang review ayon sa bituin · i-tap ang row para basahin</string>
     <string name="stars_filter_on">Mga %1$d-bituin na review lang</string>
     <string name="stars_filter_all">Lahat ng bituin</string>

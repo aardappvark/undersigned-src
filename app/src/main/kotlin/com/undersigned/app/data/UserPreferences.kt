@@ -316,6 +316,10 @@ object UserPreferences {
     var addActivity: Boolean
         get() = prefs?.getBoolean("fact_activity", false) ?: false
         set(v) { prefs?.edit()?.putBoolean("fact_activity", v)?.apply() }
+    /** Pro: fetch a suggested translation for every note and reply as it is shown (owner, 11 Oct 2026). Off by default: each is an AI call. */
+    var autoTranslate: Boolean
+        get() = prefs?.getBoolean("auto_translate", false) ?: false
+        set(v) { prefs?.edit()?.putBoolean("auto_translate", v)?.apply() }
     /** The one-time "turn alerts on" card after the first signed review has been shown. */
     var alertOfferShown: Boolean
         get() = prefs?.getBoolean("alert_offer_shown", false) ?: false

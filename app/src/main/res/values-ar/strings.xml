@@ -1236,6 +1236,10 @@
     <string name="pa_window_all">كل الوقت</string>
     <string name="pa_loading">جارٍ قراءة المدفوعات…</string>
     <string name="pa_offline">تحليلات المدفوعات غير متاحة دون اتصال.</string>
+    <string name="translate_now">ترجمة</string>
+    <string name="translate_pro">ترجمة · Pro</string>
+    <string name="settings_auto_translate">ترجمة الملاحظات والردود تلقائيًا</string>
+    <string name="settings_auto_translate_body">جلب ترجمة مقترحة لكل ملاحظة ورد عند عرضه. كل منها استدعاء ذكاء اصطناعي موسوم كاقتراح؛ تبقى كلمات الكاتب فوقه.</string>
     <string name="signed_by_stars">المراجعات الموقّعة حسب النجوم · انقر صفًا لقراءتها</string>
     <string name="stars_filter_on">عرض مراجعات %1$d نجوم فقط</string>
     <string name="stars_filter_all">كل النجوم</string>

@@ -1149,6 +1149,10 @@
     <string name="pa_window_all">全部时间</string>
     <string name="pa_loading">正在读取付款…</string>
     <string name="pa_offline">付款分析在离线时不可用。</string>
+    <string name="translate_now">翻译</string>
+    <string name="translate_pro">翻译 · Pro</string>
+    <string name="settings_auto_translate">自动翻译备注和回复</string>
+    <string name="settings_auto_translate_body">为显示的每条备注和回复获取建议译文。每次都是一次 AI 调用，标记为建议；作者原文保留在上方。</string>
     <string name="signed_by_stars">按星级查看签名评论 · 点按一行即可阅读</string>
     <string name="stars_filter_on">仅显示 %1$d 星评论</string>
     <string name="stars_filter_all">全部星级</string>
