@@ -34,7 +34,9 @@ class Api(private val views: Views, private val billing: Billing, private val in
     }
 
     private val routes = ArrayList<Route>()
-    private val mcp = Mcp(views) { pricing() }
+    private val mcp = Mcp(views, { pricing() }) { pkg, key ->
+        val p = key?.let { billing.pass(it) }
+        if (key == null || p == null || billing.kind(key) != "publisher" || p.wallet !in indexer.state.verified[pkg].orEmpty() || !billing.planActive(pkg)) null else views.publisherReport(pkg) }
     private fun route(method: String, path: String, tier: Tier, summary: String, handler: (Req) -> Response) {
         val names = Regex("\\{(\\w+)}").findAll(path).map { it.groupValues[1] }.toList()
         val rx = Regex("^" + path.replace(Regex("\\{\\w+}"), "([^/]+)") + "$")

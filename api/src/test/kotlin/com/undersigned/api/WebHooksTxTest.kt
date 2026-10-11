@@ -128,10 +128,14 @@ class HooksTest {
         f.db.exec("INSERT INTO passes (key, wallet, requests_left, ends_at, created) VALUES (?, 'w', 10, ?, 0)", Billing.hashKey("us_a"), now + 3600)
         val sent = ArrayList<Triple<String, String, Map<String, String>>>()
         val hooks = Hooks(f.db, f.billing) { url, body, hs -> sent += Triple(url, body, hs); 200 }
-        val h = hooks.create("us_a", "http://localhost:9999/hook", listOf("review"), listOf("com.a.b"))
+        val h = hooks.create("us_a", "http://localhost:9999/hook", listOf("review", "fixed", "follow_up"), listOf("com.a.b"))
         val review = LedgerEntry(sigOf('n'), REVIEWER, now, ReviewMemo.Review("com.a.b", 5, listOf(ReviewMemo.Tag.FAST), 42, null))
         val other = LedgerEntry(sigOf('o'), REVIEWER, now, ReviewMemo.Review("com.x.y", 5, listOf(ReviewMemo.Tag.FAST), 42, null))
-        hooks.dispatch(listOf(review, other), emptyList(), emptyList(), now); hooks.deliverDue(now)
+        // The second round rides the same hook: a fix notice and a follow-up on the watched app's review are events of their own.
+        val fixed = LedgerEntry(sigOf('p'), "PUBLISHER", now + 1, ReviewMemo.Fixed(review.signature, 43, null))
+        val followUp = LedgerEntry(sigOf('q'), REVIEWER, now + 2, ReviewMemo.FollowUp(review.signature))
+        val all = listOf(review, other, fixed, followUp)
+        hooks.dispatch(all, emptyList(), emptyList(), now, byId = { id -> all.firstOrNull { it.signature == id } }); hooks.deliverDue(now)
         assertEquals(1, sent.size)
         val (_, body, hs) = sent.single()
         assertEquals(Hooks.sign(h.secret, body), hs["X-Undersigned-Signature"])
@@ -142,7 +146,8 @@ class HooksTest {
         assertEquals(200, hooks.test("us_a", h.id)); assertEquals(null, hooks.test("us_other", h.id))
         assertTrue(hooks.deliveries("us_a", h.id)!!.length() >= 2)
         val ev = JSONObject(body).getJSONArray("events")
-        assertEquals(1, ev.length()); assertEquals("com.a.b", ev.getJSONObject(0).getString("package"))
+        assertEquals(listOf("review", "fixed", "follow_up"), (0 until ev.length()).map { ev.getJSONObject(it).getString("type") })   // the other app's review is not sent
+        assertTrue((0 until ev.length()).all { ev.getJSONObject(it).getString("package") == "com.a.b" })
         // The pass ends: nothing more is sent.
         f.db.exec("UPDATE passes SET ends_at = ? WHERE key = ?", now - 1, Billing.hashKey("us_a"))
         hooks.dispatch(listOf(review), emptyList(), emptyList(), now); hooks.deliverDue(now)

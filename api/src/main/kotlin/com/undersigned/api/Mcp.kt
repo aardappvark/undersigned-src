@@ -16,7 +16,9 @@ import org.json.JSONObject
  * READ-ONLY on purpose. There is no tool that drafts, builds or submits a review, flag or vote: a review is a person's own
  * signed opinion from their phone, and an agent writing them is the fake-review case the integrity policy forbids.
  */
-class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JSONObject() }) {
+class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JSONObject() },
+          /** The publisher plan's report for (package, bearer key), or null when the key holds no live plan for it (Server wires Billing in). */
+          private val report: (String, String?) -> JSONObject? = { _, _ -> null }) {
     private class Tool(val name: String, val description: String, val schema: JSONObject, val paid: Boolean = false, val run: (JSONObject, Api.Caller) -> JSONObject)
 
     private fun obj(vararg props: Pair<String, JSONObject>, required: List<String> = emptyList()) =
@@ -65,6 +67,9 @@ class Mcp(private val views: Views, private val pricing: () -> JSONObject = { JS
                 "app_series" -> an.appSeries(a.optString("package"), "week") ?: JSONObject().put("error", "no payments seen for that package")
                 else -> an.summary(w)
             } },
+        Tool("publisher_report", "Publisher plan: one app's report (reviews waiting for an answer, the store rating's trend, bursts, certificate and permission changes, scores by version, the category benchmark, payments over time). Needs a publisher key with a live plan for that app (POST /v1/checkout {publisher} then /v1/publisher/plan).",
+            obj("package" to str("The app's package")), paid = true) { a, c ->
+            report(a.optString("package"), c.key) ?: JSONObject().put("error", "no_plan").put("message", "this key holds no live publisher plan for ${a.optString("package")}; see /plans") },
         Tool("found_treasuries", "Wallets FOUND IN APPS' CODE that received payments from 5+ wallets, NOT confirmed by the publisher: a separate list by app name, never ranked with payments_board. Say 'found in the app's code, not confirmed' whenever you mention one; it may not be the app's treasury.",
             obj("limit" to int("Rows (free: up to ${Config.FREE_ROWS})", 1, 500), "package" to str("Optional: one app, for its full-history analytics (dates, monthly series, new and returning payers, concentration)"),
                 "trends" to bool("Optional: store-wide monthly totals instead of the list"))) { a, c ->

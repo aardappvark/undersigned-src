@@ -61,6 +61,9 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
                 is ReviewMemo.Reply -> "reply" to (byId(m.reviewSignature)?.memo as? ReviewMemo.Review)?.packageName
                 is ReviewMemo.Flag -> "flag" to (byId(m.recordId)?.memo as? ReviewMemo.Review)?.packageName
                 is ReviewMemo.Claim -> "claim" to m.packageName
+                // The second round (11 Oct 2026): a publisher's "fixed in version N" and a reviewer's follow-up, for the plan's webhooks.
+                is ReviewMemo.Fixed -> "fixed" to (byId(m.reviewSignature)?.memo as? ReviewMemo.Review)?.packageName
+                is ReviewMemo.FollowUp -> "follow_up" to (byId(m.originalSignature)?.memo as? ReviewMemo.Review)?.packageName
                 else -> continue
             }
             pkg ?: continue
@@ -169,7 +172,7 @@ class Hooks(private val db: Db, private val billing: Billing, private val post: 
     }
 
     companion object {
-        val EVENTS = setOf("review", "reply", "store_note", "flag", "claim", "burst", "version", "release", "certificate", "digest")
+        val EVENTS = setOf("review", "reply", "store_note", "flag", "claim", "fixed", "follow_up", "burst", "version", "release", "certificate", "digest")
 
         /** Seconds before each retry: 1 min, 5 min, 30 min, 2 h, 6 h, 15 h (six tries over about 24 hours). */
         val RETRY_DELAYS = longArrayOf(60, 300, 1_800, 7_200, 21_600, 54_000)

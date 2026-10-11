@@ -10,7 +10,7 @@ export const VERSION = "0.2.0";
 const UA = `undersigned-mcp/${VERSION} (+https://undersigned.provenby.dev/api)`;
 const text = (s) => ({ content: [{ type: "text", text: typeof s === "string" ? s : JSON.stringify(s, null, 2) }] });
 const LANGS = ["en", "ar", "bn", "cs", "de", "el", "es", "fil", "fr", "hi", "hu", "id", "it", "ja", "ko", "nl", "pl", "pt", "ro", "ru", "sv", "th", "tr", "uk", "ur", "vi", "zh-CN", "zh-TW"];
-export const EVENTS = ["review", "reply", "store_note", "flag", "claim", "burst", "version", "release", "certificate", "digest"];
+export const EVENTS = ["review", "reply", "store_note", "flag", "claim", "fixed", "follow_up", "burst", "version", "release", "certificate", "digest"];
 const enc = encodeURIComponent;
 
 /**
