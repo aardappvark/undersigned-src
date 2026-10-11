@@ -15,3 +15,6 @@ assets/video/*.mp4
 assets/video/takes/
 assets/video/motion/*.mp4
 tools/.tts
+assets/video/seg3/
+assets/video/vo3/
+assets/video/concat3.txt

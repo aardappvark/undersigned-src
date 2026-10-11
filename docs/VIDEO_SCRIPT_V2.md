@@ -77,3 +77,35 @@ Maalej 2019) · Seeker $450 early pre-order, $500 retail · $843 a year · 127 l
 4. Exports after approval: this 1:50 master at 10 Mbps; a 45 s 4:5 cut with burned-in captions for X (scenes 1, 2, 4, 5, 11); a 30 s 16:9 cut for Discord.
 
 Reply **approve** (with any edits) and I generate the Gracie lines, rebuild the motion to this script, and send the result.
+
+## Cut v3 — built 11 Oct 2026 late, 2:56, `assets/video/undersigned-demo-v3.mp4` (TEMPORARY Gordon voice)
+
+Built by `assets/video/build3.py` from the 1.1.14 takes (`assets/video/takes2/`), the motion bookends, the eight comparison
+frames and the stills. Every line below is spoken as written ("dApp" fed as "dapp"); each ends before the next cue. **Owner
+to approve these lines before any Gracie credit**; then `VOICE` swaps and the cut is rebuilt without re-filming.
+
+| At | On screen | Line |
+|---|---|---|
+| 0:00 | motion 0.0–9s | Undersigned. Fifteen hundred dapps, half a million star ratings. How many came from a real Seeker owner? The listing cannot say. |
+| 0:09 | jup_lens.png | One app took eight five-star store reviews in two days. Undersigned shows the burst as a fact. |
+| 0:15 | compare-7.png | A developer fixes the bug. In the store the stars stay. Here the fix is signed, and the reviewer follows up. |
+| 0:22 | tour2.mp4 | Open it fresh: a tour of thirteen steps, every dapp in the store, and the signed score beside the store's own rating. |
+| 0:31 | browse.mp4 | Flick the rail, search by name, filter by what is installed. |
+| 0:36 | apppage.mp4 | An app's page: the store rating credited, the signed score, reviews over time, and what this phone can check about the build. |
+| 0:45 | compose.mp4 | Write a review: stars, tags from a fixed vocabulary, your own words, and device facts you choose to attach. No wallet yet? The form offers Sign in with wallet. |
+| 0:57 | w_sheet.png | The Seeker Wallet shows the fee. A double tap on the sensor signs it in the Seed Vault. The app never sees a key. |
+| 1:06 | record.mp4 | Back on the page the review carries its marks. Tap a star row to read only those reviews. Tap a reviewer for everything they have signed. |
+| 1:16 | web_app.png | The same record on the web, through the API and MCP, and on Solscan: one transaction nobody can edit. |
+| 1:24 | thread.mp4 | Signed on mainnet today: a four-star crash report, the publisher's Fixed in version one sixty-eight, and a five-star follow-up. Plus one, in public. |
+| 1:33 | compare-1..8 (2 s each) | Beside the store: one phone, one voice. Tags and your words. Tap a star to read why. Copies named, bursts shown. A publisher proven, an answer that lasts, a fix the reviewer confirms, problems found in a minute. |
+| 1:49 | translate.mp4 | Pro translates any review or reply with one tap, labelled as a suggestion by AI. |
+| 1:57 | settings.mp4 | Alerts per action, auto translate, offline said so. |
+| 2:01 | abuse_block.png | Abusive language is refused as you type and hidden wherever reviews are read. A moderator can exclude a wallet, on-chain, in public. |
+| 2:10 | payments.mp4 | Because it reads the ledger, it shows what the store's dapps are paid: leaderboards, categories, what is rising; proven treasuries kept apart from wallets found in code. |
+| 2:21 | motion 50.0–61s | In a twenty nineteen study a fake review for an Android app cost about two dollars. Here, every extra voice on an app needs another Seeker. |
+| 2:32 | motion 90.0–100s | It runs on about eight hundred dollars a year. A hundred and twenty-seven Pro licences cover it. The target is about two hundred thousand a year. |
+| 2:42 | web_status.png | Every score is recomputed from the chain alone, six-hourly, and the status page says so. |
+| 2:48 | motion 104.0–112s | Undersigned. One Seeker, one voice. Written to Solana. Readable by anyone. |
+
+Known limits of this draft: the motion scenes still carry v1 figures (1,543 dApps; "$194,002 at 10%" where the deck says
+"target"); no captions; no music; the double-tap is the 8 Oct wallet stills, not a camera take. Nothing in it is 1.0.0.

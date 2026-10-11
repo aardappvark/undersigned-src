@@ -5,6 +5,9 @@ video, and the only cut that exists (`assets/video/undersigned-demo.mp4`, 2:29, 
 that no longer exists ("weighted by staked SKR, capped at three times") and says "reward". It must not be submitted, not
 even as a fallback. The motion piece (1:52) has no device footage. The v2 script (`docs/VIDEO_SCRIPT_V2.md`) is parked.
 
+**Update 11 Oct, late:** cut v3 exists (`assets/video/undersigned-demo-v3.mp4`, 2:56, 1.1.14 takes, temporary Gordon voice; lines in
+`docs/VIDEO_SCRIPT_V2.md` "Cut v3"). Waiting on the owner's approval of the lines before Gracie.
+
 **Verdict in one line.** The deck was good and is now fixed (see §2); the video is the blocker and the single
 highest-value task left. One independent counted review, signed before filming, is the only thing that would lift three
 criteria at once, and it is the one thing only the owner can arrange.
