@@ -187,7 +187,7 @@
         </ul>
 
         <h3 id="web">5A. The Website and API</h3>
-        <p>If you visit the Undersigned website or call its API, a server we operate answers. The App itself calls this API only for the features named in section 5 (payments analytics, Suggested translation and the weekly digest). This is what the server holds and sees:</p>
+        <p>The website and API also publish review analytics: aggregate statistics (counts, means and shares) of the dApp Store's public reviews, read from the store's public lists, and of the signed reviews on the ledger. No store review text and no wallet address is republished in those figures; the raw rows we offer carry only the app, the stars, the date, a word count and whether a .skr name was shown. If you visit the Undersigned website or call its API, a server we operate answers. The App itself calls this API only for the features named in section 5 (payments analytics, Suggested translation and the weekly digest). This is what the server holds and sees:</p>
         <ul>
             <li><strong>Public data it copies:</strong> the ledger's records (which include wallet addresses and any text their authors signed), on-chain facts about those wallets (Genesis Token, staked SKR, <code>.skr</code> name), the dApp Store's public catalogue, star counts and listing details, and payments received by treasuries that publishers listed. All of it is public elsewhere; the server only indexes it.</li>
             <li><strong>Your IP address</strong> is used to count requests against the rate limits and is held in memory only, for at most a day; it is not written to disk or to logs.</li>
