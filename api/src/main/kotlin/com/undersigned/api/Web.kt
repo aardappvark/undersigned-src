@@ -27,6 +27,7 @@ class Web(private val views: Views, private val indexer: Indexer, private val ex
             path.startsWith("/wallet/") -> dec(path.removePrefix("/wallet/")).let { w -> if (runCatching { Base58.decode(w).size }.getOrNull() == 32) page("Wallet ${short(w)} — Undersigned", wallet(w)) else notFound() }
             // The app's own font (OFL, licence beside it) and photographs, served from here: no third-party requests.
             path.startsWith("/assets/") -> asset(path.removePrefix("/assets/")) ?: notFound()
+            path.startsWith("/download/") -> download(path.removePrefix("/download/")) ?: notFound()
             path == "/icon.svg" -> Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=86400"), ICON.toByteArray(), "image/svg+xml; charset=utf-8")
             // Discovery for agents and directories (9 Oct 2026): a plain-text map of the API and MCP, and an MCP server card at
             // both paths SEP-2127 has used while it settles.
@@ -872,6 +873,14 @@ $('go').onclick = async () => {
         val bytes = Web::class.java.getResourceAsStream("/web/$name")?.use { it.readBytes() } ?: return null
         val type = when (name.substringAfterLast('.')) { "ttf" -> "font/ttf"; "jpg" -> "image/jpeg"; else -> "text/plain; charset=utf-8" }
         return Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=604800"), bytes, type)
+    }
+
+    /** Files the operator placed in `Config.DOWNLOAD_DIR` (the submission APK and deck): a plain public URL for judges and the store. */
+    private fun download(name: String): Api.Response? {
+        if (!Regex("^[A-Za-z0-9._-]+\\.(apk|pdf|sha256)$").matches(name)) return null
+        val f = java.io.File(Config.DOWNLOAD_DIR, name); if (!f.isFile) return null
+        val type = when (name.substringAfterLast('.')) { "apk" -> "application/vnd.android.package-archive"; "pdf" -> "application/pdf"; else -> "text/plain; charset=utf-8" }
+        return Api.Response(200, JSONObject(), mapOf("Cache-Control" to "public, max-age=300", "Content-Disposition" to "attachment; filename=\"$name\""), f.readBytes(), type)
     }
 
     private fun notFound() = page("Not found — Undersigned", "<h1>Not found</h1><p><a href='/'>Back to Undersigned</a></p>", 404)

@@ -20,6 +20,8 @@ object Config {
     val DB_PATH: String = System.getenv("UNDERSIGNED_DB") ?: "undersigned-api.db"
     /** Where the paced store-review crawl writes `reviews*.jsonl` (read for review analytics; aggregates only leave the server). */
     val STORE_REVIEWS_DIR: String = System.getenv("STORE_REVIEWS_DIR") ?: "/opt/storescan"
+    /** Files served at /download/<name> (the submission APK and deck). */
+    val DOWNLOAD_DIR: String = System.getenv("UNDERSIGNED_DOWNLOADS") ?: "/opt/undersigned/downloads"
     /** Comma-separated RPC URLs, keyed provider first. Public pools refuse some methods; the client fails over. */
     val RPC: List<String> = System.getenv("UNDERSIGNED_RPC")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }
         ?: listOf("https://api.mainnet-beta.solana.com", "https://solana-rpc.publicnode.com")
