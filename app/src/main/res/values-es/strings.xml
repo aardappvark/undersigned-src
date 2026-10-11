@@ -1356,4 +1356,19 @@
     <string name="delivered_line">Entregado en la versión %1$s · %2$s tras la petición</string>
     <string name="stats_requests">Peticiones de función: %1$d de %2$d respondidas · mediana para decidir %3$s · %4$d entregadas, mediana %5$s</string>
     <string name="stats_crashes">Fallos notificados: %1$d · %2$d corregidos · mediana para corregir %3$s</string>
+    <string name="req_category_title">¿Qué tipo de petición?</string>
+    <string name="req_cat_design">Diseño</string>
+    <string name="req_cat_speed">Velocidad</string>
+    <string name="req_cat_wallet">Cartera</string>
+    <string name="req_cat_payments">Pagos</string>
+    <string name="req_cat_alerts">Notificaciones</string>
+    <string name="req_cat_offline">Sin conexión</string>
+    <string name="req_cat_integration">Integración</string>
+    <string name="req_cat_other">Otro</string>
+    <string name="req_pill">Petición · %1$s</string>
+    <string name="stats_requests_by_category">Peticiones por categoría: %1$s</string>
+    <string name="notify_update_switch">Avísame cuando esta dApp se actualice</string>
+    <string name="notif_store_update_title">%1$s se actualizó en la dApp Store (versión %2$d)</string>
+    <string name="notif_store_update_body">Ábrela para ver qué cambió y valora esta versión.</string>
+    <string name="sign_needs_consent">Marca la casilla «permanente» de arriba para firmar la nota</string>
 </resources>

@@ -31,6 +31,7 @@ object TagGroups {
     fun toggle(selected: List<ReviewMemo.Tag>, t: ReviewMemo.Tag): List<ReviewMemo.Tag> {
         if (t in selected) return selected - t
         val without = selected - setOfNotNull(opposites[t])
-        return if (without.size < ReviewMemo.MAX_TAGS) without + t else selected
+        // At the limit the oldest pick gives way (owner, 12 Oct 2026: a fourth tap on an existing review 'doesn't allow' was this rule ignoring it).
+        return if (without.size < ReviewMemo.MAX_TAGS) without + t else without.drop(1) + t
     }
 }

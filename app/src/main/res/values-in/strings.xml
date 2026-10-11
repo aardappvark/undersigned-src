@@ -1312,4 +1312,19 @@
     <string name="delivered_line">Dikirim di versi %1$s · %2$s setelah permintaan</string>
     <string name="stats_requests">Permintaan fitur: %1$d dari %2$d dijawab · median keputusan %3$s · %4$d dikirim, median %5$s</string>
     <string name="stats_crashes">Crash dilaporkan: %1$d · %2$d diperbaiki · median perbaikan %3$s</string>
+    <string name="req_category_title">Jenis permintaan apa?</string>
+    <string name="req_cat_design">Desain</string>
+    <string name="req_cat_speed">Kecepatan</string>
+    <string name="req_cat_wallet">Dompet</string>
+    <string name="req_cat_payments">Pembayaran</string>
+    <string name="req_cat_alerts">Notifikasi</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integrasi</string>
+    <string name="req_cat_other">Lainnya</string>
+    <string name="req_pill">Permintaan · %1$s</string>
+    <string name="stats_requests_by_category">Permintaan per kategori: %1$s</string>
+    <string name="notify_update_switch">Beri tahu saat dApp ini diperbarui</string>
+    <string name="notif_store_update_title">%1$s diperbarui di dApp Store (versi %2$d)</string>
+    <string name="notif_store_update_body">Buka untuk melihat perubahannya dan nilai versi ini.</string>
+    <string name="sign_needs_consent">Centang kotak “permanen” di atas untuk menandatangani catatan</string>
 </resources>

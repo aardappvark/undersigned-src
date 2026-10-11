@@ -1327,4 +1327,19 @@
     <string name="delivered_line">%1$s sürümünde sunuldu · istekten %2$s sonra</string>
     <string name="stats_requests">Özellik istekleri: %2$d istekten %1$d yanıtlandı · karar medyanı %3$s · %4$d sunuldu, medyan %5$s</string>
     <string name="stats_crashes">Bildirilen çökmeler: %1$d · %2$d düzeltildi · düzeltme medyanı %3$s</string>
+    <string name="req_category_title">Ne tür bir istek?</string>
+    <string name="req_cat_design">Tasarım</string>
+    <string name="req_cat_speed">Hız</string>
+    <string name="req_cat_wallet">Cüzdan</string>
+    <string name="req_cat_payments">Ödemeler</string>
+    <string name="req_cat_alerts">Bildirimler</string>
+    <string name="req_cat_offline">Çevrimdışı</string>
+    <string name="req_cat_integration">Entegrasyon</string>
+    <string name="req_cat_other">Diğer</string>
+    <string name="req_pill">İstek · %1$s</string>
+    <string name="stats_requests_by_category">Kategoriye göre istekler: %1$s</string>
+    <string name="notify_update_switch">Bu dApp güncellenince haber ver</string>
+    <string name="notif_store_update_title">%1$s dApp Store\'da güncellendi (sürüm %2$d)</string>
+    <string name="notif_store_update_body">Neyin değiştiğini görmek için açın ve bu sürümü puanlayın.</string>
+    <string name="sign_needs_consent">Notu imzalamak için yukarıdaki “kalıcı” kutusunu işaretleyin</string>
 </resources>

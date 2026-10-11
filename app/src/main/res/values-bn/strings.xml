@@ -1323,4 +1323,19 @@
     <string name="delivered_line">সংস্করণ %1$s-এ দেওয়া হয়েছে · অনুরোধের %2$s পরে</string>
     <string name="stats_requests">ফিচার অনুরোধ: %2$d-এর %1$d উত্তর · সিদ্ধান্তের মধ্যমা %3$s · %4$d দেওয়া, মধ্যমা %5$s</string>
     <string name="stats_crashes">ক্র্যাশ রিপোর্ট: %1$d · %2$d ঠিক · ঠিক করার মধ্যমা %3$s</string>
+    <string name="req_category_title">কোন ধরনের অনুরোধ?</string>
+    <string name="req_cat_design">ডিজাইন</string>
+    <string name="req_cat_speed">গতি</string>
+    <string name="req_cat_wallet">ওয়ালেট</string>
+    <string name="req_cat_payments">পেমেন্ট</string>
+    <string name="req_cat_alerts">নোটিফিকেশন</string>
+    <string name="req_cat_offline">অফলাইন</string>
+    <string name="req_cat_integration">ইন্টিগ্রেশন</string>
+    <string name="req_cat_other">অন্যান্য</string>
+    <string name="req_pill">অনুরোধ · %1$s</string>
+    <string name="stats_requests_by_category">বিভাগ অনুযায়ী অনুরোধ: %1$s</string>
+    <string name="notify_update_switch">এই dApp আপডেট হলে জানাও</string>
+    <string name="notif_store_update_title">%1$s dApp স্টোরে আপডেট হয়েছে (সংস্করণ %2$d)</string>
+    <string name="notif_store_update_body">কী বদলেছে দেখতে খুলুন এবং এই সংস্করণ রেট করুন।</string>
+    <string name="sign_needs_consent">নোট সই করতে উপরের «স্থায়ী» বাক্সে টিক দিন</string>
 </resources>

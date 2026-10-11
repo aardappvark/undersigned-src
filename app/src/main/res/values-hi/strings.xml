@@ -1330,4 +1330,19 @@
     <string name="delivered_line">संस्करण %1$s में दिया गया · अनुरोध के %2$s बाद</string>
     <string name="stats_requests">फ़ीचर अनुरोध: %2$d में से %1$d उत्तरित · निर्णय का माध्यिका %3$s · %4$d दिए गए, माध्यिका %5$s</string>
     <string name="stats_crashes">क्रैश रिपोर्ट: %1$d · %2$d ठीक · ठीक करने का माध्यिका %3$s</string>
+    <string name="req_category_title">किस तरह का अनुरोध?</string>
+    <string name="req_cat_design">डिज़ाइन</string>
+    <string name="req_cat_speed">गति</string>
+    <string name="req_cat_wallet">वॉलेट</string>
+    <string name="req_cat_payments">भुगतान</string>
+    <string name="req_cat_alerts">सूचनाएँ</string>
+    <string name="req_cat_offline">ऑफ़लाइन</string>
+    <string name="req_cat_integration">एकीकरण</string>
+    <string name="req_cat_other">अन्य</string>
+    <string name="req_pill">अनुरोध · %1$s</string>
+    <string name="stats_requests_by_category">श्रेणी के अनुसार अनुरोध: %1$s</string>
+    <string name="notify_update_switch">इस dApp के अपडेट होने पर बताएँ</string>
+    <string name="notif_store_update_title">%1$s dApp Store में अपडेट हुआ (संस्करण %2$d)</string>
+    <string name="notif_store_update_body">बदलाव देखने और इस संस्करण को रेट करने के लिए खोलें।</string>
+    <string name="sign_needs_consent">नोट पर हस्ताक्षर करने के लिए ऊपर «स्थायी» बॉक्स पर टिक करें</string>
 </resources>

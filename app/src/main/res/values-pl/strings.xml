@@ -1365,4 +1365,19 @@
     <string name="delivered_line">Dostarczono w wersji %1$s · %2$s po prośbie</string>
     <string name="stats_requests">Prośby o funkcje: %1$d z %2$d z odpowiedzią · mediana decyzji %3$s · %4$d dostarczono, mediana %5$s</string>
     <string name="stats_crashes">Zgłoszone awarie: %1$d · %2$d naprawiono · mediana naprawy %3$s</string>
+    <string name="req_category_title">Jaki rodzaj prośby?</string>
+    <string name="req_cat_design">Wygląd</string>
+    <string name="req_cat_speed">Szybkość</string>
+    <string name="req_cat_wallet">Portfel</string>
+    <string name="req_cat_payments">Płatności</string>
+    <string name="req_cat_alerts">Powiadomienia</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integracja</string>
+    <string name="req_cat_other">Inne</string>
+    <string name="req_pill">Prośba · %1$s</string>
+    <string name="stats_requests_by_category">Prośby według kategorii: %1$s</string>
+    <string name="notify_update_switch">Powiadom, gdy ta dApp się zaktualizuje</string>
+    <string name="notif_store_update_title">%1$s zaktualizowano w dApp Store (wersja %2$d)</string>
+    <string name="notif_store_update_body">Otwórz, aby zobaczyć zmiany, i oceń tę wersję.</string>
+    <string name="sign_needs_consent">Zaznacz pole „trwałe” powyżej, aby podpisać notatkę</string>
 </resources>

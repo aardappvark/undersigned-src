@@ -1353,4 +1353,19 @@
     <string name="delivered_line">Delivered in version %1$s · %2$s after the request</string>
     <string name="stats_requests">Feature requests: %1$d of %2$d answered · median %3$s to decide · %4$d delivered, median %5$s</string>
     <string name="stats_crashes">Crashes reported: %1$d · %2$d fixed · median %3$s to fix</string>
+    <string name="req_category_title">What kind of request?</string>
+    <string name="req_cat_design">Design</string>
+    <string name="req_cat_speed">Speed</string>
+    <string name="req_cat_wallet">Wallet</string>
+    <string name="req_cat_payments">Payments</string>
+    <string name="req_cat_alerts">Notifications</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integration</string>
+    <string name="req_cat_other">Other</string>
+    <string name="req_pill">Request · %1$s</string>
+    <string name="stats_requests_by_category">Requests by category: %1$s</string>
+    <string name="notify_update_switch">Tell me when this dApp updates</string>
+    <string name="notif_store_update_title">%1$s updated in the dApp Store (version %2$d)</string>
+    <string name="notif_store_update_body">Open it to see what changed and rate this version.</string>
+    <string name="sign_needs_consent">Tick the “permanent” box above to sign the note</string>
 </resources>

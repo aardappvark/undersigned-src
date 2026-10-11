@@ -170,6 +170,8 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
     // The second round (owner, 10 Oct 2026): fix notices and follow-ups.
     val fixes by vm.fixes.collectAsState()
     val decisions by vm.decisions.collectAsState()
+    val requestCategories by vm.requestCategories.collectAsState()
+    val updateAlerts by com.undersigned.app.data.UserPreferences.updateAlerts.collectAsState()
     val rounds by vm.rounds.collectAsState()
     var fixTarget by remember { mutableStateOf<String?>(null) }
     var flagStage by remember { mutableStateOf<String?>(null) }
@@ -280,6 +282,11 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
             }
         }
         com.undersigned.app.ui.components.OfflineBanner(vm.offline.collectAsState().value)
+        // Per-dApp update alert (owner, 12 Oct 2026): a switch, independent of following; the watch posts when the store's version moves.
+        Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp).heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(stringResource(R.string.notify_update_switch), color = RbColors.textSecondary, fontSize = 13.sp, modifier = Modifier.weight(1f))
+            Switch(checked = pkg in updateAlerts, onCheckedChange = { com.undersigned.app.data.UserPreferences.toggleUpdateAlert(pkg) })
+        }
         val pageScroll = rememberScrollState(); val pageScope = rememberCoroutineScope(); var reviewsY by remember { mutableStateOf(0) }
         Column(Modifier.verticalScroll(pageScroll).padding(horizontal = 20.dp)) {
             Spacer(Modifier.height(6.dp))
@@ -507,6 +514,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     Spacer(Modifier.height(6.dp))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         r.tags.forEach { TagChip(it.label()) }
+                        requestCategories[e.signature]?.let { TagChip(stringResource(R.string.req_pill, stringResource(com.undersigned.app.ui.screens.requestCategoryRes(it))), selected = true) }
                         // The reviewer's own tags (Pro at the time), marked apart from the fixed vocabulary.
                         customTags[e.signature]?.forEach { TagChip(it, selected = true) }
                     }
@@ -749,6 +757,7 @@ fun AppDetailScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender
                     // What reviewers raised and how fast the publisher moved on it: requests decided and delivered, crashes fixed (owner, 12 Oct 2026).
                     val rq = remember(entries, verified) { vm.requests(pkg) }; val cr = remember(entries, verified) { vm.crashes(pkg) }
                     if (rq.total > 0) Text(stringResource(R.string.stats_requests, rq.answered, rq.total, rq.medianDecisionHours?.let { hoursLabel(it) } ?: "—", rq.delivered, rq.medianDeliverHours?.let { hoursLabel(it) } ?: "—"), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
+                    if (rq.byCategory.isNotEmpty()) Text(stringResource(R.string.stats_requests_by_category, rq.byCategory.entries.sortedByDescending { it.value }.joinToString(" · ") { (c, n) -> context.getString(com.undersigned.app.ui.screens.requestCategoryRes(c)) + " $n" }), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
                     if (cr.total > 0) Text(stringResource(R.string.stats_crashes, cr.total, cr.fixed, cr.medianFixHours?.let { hoursLabel(it) } ?: "—"), color = RbColors.textSecondary, fontSize = 12.sp, lineHeight = 16.sp)
                     // How the publisher reacts to what reviewers raise: fixes announced, follow-ups, the star change after a fix.
                     val fs = remember(entries, verified) { vm.fixStats(pkg) }

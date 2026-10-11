@@ -1328,4 +1328,19 @@
     <string name="delivered_line">Levererat i version %1$s · %2$s efter önskemålet</string>
     <string name="stats_requests">Funktionsönskemål: %1$d av %2$d besvarade · median till beslut %3$s · %4$d levererade, median %5$s</string>
     <string name="stats_crashes">Rapporterade krascher: %1$d · %2$d åtgärdade · median till fix %3$s</string>
+    <string name="req_category_title">Vilken typ av önskemål?</string>
+    <string name="req_cat_design">Design</string>
+    <string name="req_cat_speed">Hastighet</string>
+    <string name="req_cat_wallet">Plånbok</string>
+    <string name="req_cat_payments">Betalningar</string>
+    <string name="req_cat_alerts">Aviseringar</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integration</string>
+    <string name="req_cat_other">Övrigt</string>
+    <string name="req_pill">Önskemål · %1$s</string>
+    <string name="stats_requests_by_category">Önskemål per kategori: %1$s</string>
+    <string name="notify_update_switch">Säg till när denna dApp uppdateras</string>
+    <string name="notif_store_update_title">%1$s uppdaterades i dApp Store (version %2$d)</string>
+    <string name="notif_store_update_body">Öppna för att se vad som ändrats och betygsätt den här versionen.</string>
+    <string name="sign_needs_consent">Kryssa i rutan ”permanent” ovan för att signera anteckningen</string>
 </resources>

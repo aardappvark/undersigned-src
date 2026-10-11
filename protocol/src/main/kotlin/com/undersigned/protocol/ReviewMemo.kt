@@ -71,6 +71,11 @@ sealed class ReviewMemo {
     data class Fixed(val reviewSignature: String, val versionCode: Long, val text: String?) : ReviewMemo()
     /** `SRL1|ack|<review sig>|<y|n>|<text b64>`: the publisher's answer to a feature request (a review tagged `feature`): will build it, or will not. Counted only from a proven publisher. */
     data class Ack(val reviewSignature: String, val will: Boolean, val text: String?) : ReviewMemo()
+    /** What kind of feature request: a fixed list a publisher can report against. */
+    enum class RequestCategory(val wire: String) { DESIGN("design"), SPEED("speed"), WALLET("wallet"), PAYMENTS("payments"), ALERTS("alerts"), OFFLINE("offline"), INTEGRATION("integration"), OTHER("other");
+        companion object { private val byWire = entries.associateBy { it.wire }; fun fromWire(s: String) = byWire[s] } }
+    /** `SRL1|req|<package>|<category>`: rides beside a review tagged `feature`, in the same transaction, naming the request's category. */
+    data class Request(val packageName: String, val category: RequestCategory) : ReviewMemo()
     /**
      * `SRL1|fup|<original review>`: rides beside a review in the SAME transaction and marks it as the signer's follow-up to
      * their own earlier review of the same app (a second round, usually after a fix). The new review counts as their
@@ -234,6 +239,7 @@ sealed class ReviewMemo {
             is Unmoderate -> { require(SIGNATURE.matches(m.recordId)) { "record id" }; "${Registry.PROTOCOL}|umd|${m.recordId}" }
             is TreasuryFor -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; require(Payments.validCode(m.code)) { "code" }; require(Payments.isReference(m.treasury)) { "treasury address" }; "${Registry.PROTOCOL}|trd|${m.packageName}|${m.code}|${m.treasury}" }
             is Untreasury -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|trx|${m.packageName}" }
+            is Request -> { require(m.packageName.length <= MAX_PACKAGE_CHARS && PACKAGE.matches(m.packageName)) { "bad package" }; "${Registry.PROTOCOL}|req|${m.packageName}|${m.category.wire}" }
             is Ack -> {
                 require(SIGNATURE.matches(m.reviewSignature)) { "ack" }
                 val t = m.text?.trim()?.takeIf { it.isNotEmpty() }
@@ -323,6 +329,7 @@ sealed class ReviewMemo {
                 "umd" -> if (f.size == 3 && SIGNATURE.matches(f[2])) Unmoderate(f[2]) else null
                 "trd" -> if (f.size == 5 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2]) && Payments.validCode(f[3]) && Payments.isReference(f[4])) TreasuryFor(f[2], f[3], f[4]) else null
                 "trx" -> if (f.size == 3 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) Untreasury(f[2]) else null
+                "req" -> if (f.size == 4 && f[2].length <= MAX_PACKAGE_CHARS && PACKAGE.matches(f[2])) RequestCategory.fromWire(f[3])?.let { Request(f[2], it) } else null
                 "ack" -> {
                     if (f.size != 5 || !SIGNATURE.matches(f[2]) || f[3] !in setOf("y", "n")) return null
                     val t = if (f[4].isEmpty()) null else runCatching { Base64.getUrlDecoder().decode(f[4]) }.getOrNull()?.takeIf { it.size <= MAX_TEXT_BYTES }

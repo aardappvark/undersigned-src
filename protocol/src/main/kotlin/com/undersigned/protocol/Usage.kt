@@ -104,6 +104,19 @@ object Usage {
     }
 
     /** Review record id → the reviewer's own tags its transaction carried (`ctg`); same attachment rule as [index]. Pro gating is the reader's (Weighting.proAt). */
+    /** The request category riding beside each review tagged `feature` (same transaction, same signer, same app), by review signature. */
+    fun requestCategories(entries: List<LedgerEntry>): Map<String, ReviewMemo.RequestCategory> {
+        val reqs = entries.filter { it.memo is ReviewMemo.Request }.groupBy { it.signature.substringBefore(':') }
+        if (reqs.isEmpty()) return emptyMap()
+        val out = HashMap<String, ReviewMemo.RequestCategory>()
+        for (e in entries) {
+            val r = e.memo as? ReviewMemo.Review ?: continue
+            if (ReviewMemo.Tag.FEATURE_REQUEST !in r.tags) continue
+            val q = reqs[e.signature.substringBefore(':')]?.firstOrNull { it.signer == e.signer && (it.memo as ReviewMemo.Request).packageName == r.packageName } ?: continue
+            out[e.signature] = (q.memo as ReviewMemo.Request).category
+        }
+        return out
+    }
     fun customTags(entries: List<LedgerEntry>): Map<String, List<String>> {
         val ctgs = entries.filter { it.memo is ReviewMemo.CustomTags }.groupBy { it.signature.substringBefore(':') }
         if (ctgs.isEmpty()) return emptyMap()

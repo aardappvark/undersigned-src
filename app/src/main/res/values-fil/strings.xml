@@ -1331,4 +1331,19 @@
     <string name="delivered_line">Naihatid sa bersyon %1$s · %2$s matapos ang hiling</string>
     <string name="stats_requests">Mga hiling na feature: %1$d sa %2$d nasagot · median na pagpapasya %3$s · %4$d naihatid, median %5$s</string>
     <string name="stats_crashes">Naiulat na crash: %1$d · %2$d naayos · median na pag-aayos %3$s</string>
+    <string name="req_category_title">Anong uri ng hiling?</string>
+    <string name="req_cat_design">Disenyo</string>
+    <string name="req_cat_speed">Bilis</string>
+    <string name="req_cat_wallet">Wallet</string>
+    <string name="req_cat_payments">Mga bayad</string>
+    <string name="req_cat_alerts">Mga abiso</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integrasyon</string>
+    <string name="req_cat_other">Iba pa</string>
+    <string name="req_pill">Hiling · %1$s</string>
+    <string name="stats_requests_by_category">Mga hiling ayon sa kategorya: %1$s</string>
+    <string name="notify_update_switch">Sabihan ako kapag na-update ang dApp na ito</string>
+    <string name="notif_store_update_title">Na-update ang %1$s sa dApp Store (bersyon %2$d)</string>
+    <string name="notif_store_update_body">Buksan para makita kung ano ang nagbago at i-rate ang bersyong ito.</string>
+    <string name="sign_needs_consent">Lagyan ng tsek ang kahong “permanente” sa itaas para lagdaan ang tala</string>
 </resources>

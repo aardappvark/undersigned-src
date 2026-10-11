@@ -70,6 +70,7 @@ object UserPreferences {
         _onboardingSeen.value = p.getBoolean(KEY_ONBOARDING_SEEN, false)
         _hidden.value = p.getStringSet(KEY_HIDDEN, emptySet()) ?: emptySet()
         _follows.value = p.getStringSet(KEY_FOLLOWS, emptySet()) ?: emptySet()
+        _updateAlerts.value = p.getStringSet(KEY_UPDATE_ALERTS, emptySet()) ?: emptySet()
         _starred.value = p.getStringSet(KEY_STARRED, emptySet()) ?: emptySet()
         _alertsEnabled.value = p.getBoolean(KEY_ALERTS, false)
         _dense.value = p.getBoolean(KEY_DENSE, false)
@@ -87,6 +88,14 @@ object UserPreferences {
     fun applyAnalyticsPreference() = com.undersigned.app.service.GeoAnalyticsService.setEnabled(prefs?.getBoolean(KEY_ANALYTICS, true) ?: true)
 
     fun toggleStar(id: String) { val s = if (id in _starred.value) _starred.value - id else _starred.value + id; prefs?.edit()?.putStringSet(KEY_STARRED, s)?.apply(); _starred.value = s }
+    // Per-dApp "tell me when this dApp updates" (owner, 12 Oct 2026): an explicit opt-in per app, independent of following.
+    private const val KEY_UPDATE_ALERTS = "update_alerts"
+    private val _updateAlerts = MutableStateFlow<Set<String>>(emptySet())
+    val updateAlerts: StateFlow<Set<String>> get() = _updateAlerts
+    fun toggleUpdateAlert(pkg: String) { val s = if (pkg in _updateAlerts.value) _updateAlerts.value - pkg else _updateAlerts.value + pkg; prefs?.edit()?.putStringSet(KEY_UPDATE_ALERTS, s)?.apply(); _updateAlerts.value = s }
+    /** The store versionCode last seen for a watched dApp; null until the first read after opting in. */
+    fun updateSeen(pkg: String): Long? = prefs?.getLong("update_seen:$pkg", -1L)?.takeIf { it >= 0 }
+    fun setUpdateSeen(pkg: String, vc: Long) { prefs?.edit()?.putLong("update_seen:$pkg", vc)?.apply() }
     fun follow(pkg: String) { val s = _follows.value + pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
     fun unfollow(pkg: String) { val s = _follows.value - pkg; prefs?.edit()?.putStringSet(KEY_FOLLOWS, s)?.apply(); _follows.value = s }
     /** The period the ledger watch was last scheduled with; a change means UPDATE rather than KEEP. */

@@ -1311,4 +1311,19 @@
     <string name="delivered_line">已在版本 %1$s 中提供 · 请求后 %2$s</string>
     <string name="stats_requests">功能请求:%2$d 个中 %1$d 个已答复 · 决定中位 %3$s · %4$d 个已提供,中位 %5$s</string>
     <string name="stats_crashes">崩溃报告:%1$d · 已修复 %2$d · 修复中位 %3$s</string>
+    <string name="req_category_title">哪一类请求?</string>
+    <string name="req_cat_design">设计</string>
+    <string name="req_cat_speed">速度</string>
+    <string name="req_cat_wallet">钱包</string>
+    <string name="req_cat_payments">支付</string>
+    <string name="req_cat_alerts">通知</string>
+    <string name="req_cat_offline">离线</string>
+    <string name="req_cat_integration">集成</string>
+    <string name="req_cat_other">其他</string>
+    <string name="req_pill">请求 · %1$s</string>
+    <string name="stats_requests_by_category">按类别的请求:%1$s</string>
+    <string name="notify_update_switch">此 dApp 更新时通知我</string>
+    <string name="notif_store_update_title">%1$s 已在 dApp Store 更新(版本 %2$d)</string>
+    <string name="notif_store_update_body">打开查看变化并为此版本评分。</string>
+    <string name="sign_needs_consent">勾选上方的「永久」框以签署备注</string>
 </resources>

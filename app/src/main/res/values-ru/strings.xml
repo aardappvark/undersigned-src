@@ -1348,4 +1348,19 @@
     <string name="delivered_line">Сделано в версии %1$s · через %2$s после запроса</string>
     <string name="stats_requests">Запросы функций: отвечено %1$d из %2$d · медиана решения %3$s · сделано %4$d, медиана %5$s</string>
     <string name="stats_crashes">Сообщений о сбоях: %1$d · исправлено %2$d · медиана исправления %3$s</string>
+    <string name="req_category_title">Какой это запрос?</string>
+    <string name="req_cat_design">Дизайн</string>
+    <string name="req_cat_speed">Скорость</string>
+    <string name="req_cat_wallet">Кошелёк</string>
+    <string name="req_cat_payments">Платежи</string>
+    <string name="req_cat_alerts">Уведомления</string>
+    <string name="req_cat_offline">Офлайн</string>
+    <string name="req_cat_integration">Интеграция</string>
+    <string name="req_cat_other">Другое</string>
+    <string name="req_pill">Запрос · %1$s</string>
+    <string name="stats_requests_by_category">Запросы по категориям: %1$s</string>
+    <string name="notify_update_switch">Сообщать, когда это dApp обновится</string>
+    <string name="notif_store_update_title">%1$s обновлено в dApp Store (версия %2$d)</string>
+    <string name="notif_store_update_body">Откройте, чтобы увидеть изменения, и оцените эту версию.</string>
+    <string name="sign_needs_consent">Чтобы подписать заметку, отметьте «навсегда» выше</string>
 </resources>

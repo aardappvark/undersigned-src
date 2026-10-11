@@ -1327,4 +1327,19 @@
     <string name="delivered_line">Kész a(z) %1$s verzióban · %2$s a kérés után</string>
     <string name="stats_requests">Funkciókérések: %1$d / %2$d megválaszolva · döntés mediánja %3$s · %4$d elkészült, medián %5$s</string>
     <string name="stats_crashes">Jelentett összeomlások: %1$d · %2$d javítva · javítás mediánja %3$s</string>
+    <string name="req_category_title">Milyen kérés?</string>
+    <string name="req_cat_design">Dizájn</string>
+    <string name="req_cat_speed">Sebesség</string>
+    <string name="req_cat_wallet">Tárca</string>
+    <string name="req_cat_payments">Fizetések</string>
+    <string name="req_cat_alerts">Értesítések</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integráció</string>
+    <string name="req_cat_other">Egyéb</string>
+    <string name="req_pill">Kérés · %1$s</string>
+    <string name="stats_requests_by_category">Kérések kategóriánként: %1$s</string>
+    <string name="notify_update_switch">Szólj, ha ez a dApp frissül</string>
+    <string name="notif_store_update_title">%1$s frissült a dApp Store-ban (%2$d verzió)</string>
+    <string name="notif_store_update_body">Nyisd meg, nézd meg, mi változott, és értékeld ezt a verziót.</string>
+    <string name="sign_needs_consent">A jegyzet aláírásához pipáld be fent a „végleges” mezőt</string>
 </resources>

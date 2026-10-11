@@ -26,7 +26,7 @@ data class SignerStanding(
 
 
 /** Feature requests (reviews tagged `feature`) of one package and how the proven publisher handled them: decided (ack), promised, delivered (a `fix` after the request). Hours are medians. */
-data class Requests(val packageName: String, val total: Int, val answered: Int, val medianDecisionHours: Double?, val willBuild: Int, val delivered: Int, val medianDeliverHours: Double?)
+data class Requests(val packageName: String, val total: Int, val answered: Int, val medianDecisionHours: Double?, val willBuild: Int, val delivered: Int, val medianDeliverHours: Double?, val byCategory: Map<ReviewMemo.RequestCategory, Int> = emptyMap())
 /** Crash reports (reviews tagged `crashes`) of one package and how fast the proven publisher signed a fix for them. */
 data class Crashes(val packageName: String, val total: Int, val fixed: Int, val medianFixHours: Double?)
 /** How quickly a verified publisher answers signed reviews of one package. */
@@ -225,7 +225,9 @@ object Reputation {
             if ((ack.memo as ReviewMemo.Ack).will) { will++
                 fixes.filter { (it.memo as ReviewMemo.Fixed).reviewSignature == r.signature && it.blockTime >= ack.blockTime }.minOfOrNull { it.blockTime }?.let { deliver += (it - r.blockTime) / 3600.0 } }
         }
-        return Requests(packageName, threads.size, decide.size, median(decide), will, deliver.size, median(deliver))
+        val cats = Usage.requestCategories(entries)
+        val byCat = threads.groupingBy { cats[it.signature] ?: ReviewMemo.RequestCategory.OTHER }.eachCount()
+        return Requests(packageName, threads.size, decide.size, median(decide), will, deliver.size, median(deliver), byCat)
     }
     /** Crash reports and how fast a proven publisher signed "fixed in version N" for them. */
     fun crashes(entries: List<LedgerEntry>, packageName: String, verifiedPublishers: Set<String>): Crashes {

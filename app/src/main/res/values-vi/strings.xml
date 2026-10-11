@@ -1312,4 +1312,19 @@
     <string name="delivered_line">Đã có trong phiên bản %1$s · %2$s sau yêu cầu</string>
     <string name="stats_requests">Yêu cầu tính năng: %1$d/%2$d được trả lời · trung vị quyết định %3$s · %4$d đã có, trung vị %5$s</string>
     <string name="stats_crashes">Sự cố được báo: %1$d · %2$d đã sửa · trung vị sửa %3$s</string>
+    <string name="req_category_title">Loại yêu cầu nào?</string>
+    <string name="req_cat_design">Thiết kế</string>
+    <string name="req_cat_speed">Tốc độ</string>
+    <string name="req_cat_wallet">Ví</string>
+    <string name="req_cat_payments">Thanh toán</string>
+    <string name="req_cat_alerts">Thông báo</string>
+    <string name="req_cat_offline">Ngoại tuyến</string>
+    <string name="req_cat_integration">Tích hợp</string>
+    <string name="req_cat_other">Khác</string>
+    <string name="req_pill">Yêu cầu · %1$s</string>
+    <string name="stats_requests_by_category">Yêu cầu theo danh mục: %1$s</string>
+    <string name="notify_update_switch">Báo tôi khi dApp này cập nhật</string>
+    <string name="notif_store_update_title">%1$s đã cập nhật trên dApp Store (phiên bản %2$d)</string>
+    <string name="notif_store_update_body">Mở để xem thay đổi và đánh giá phiên bản này.</string>
+    <string name="sign_needs_consent">Đánh dấu ô “vĩnh viễn” ở trên để ký ghi chú</string>
 </resources>

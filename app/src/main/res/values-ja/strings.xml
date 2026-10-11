@@ -1303,4 +1303,19 @@
     <string name="delivered_line">バージョン%1$sで提供 · リクエストから%2$s</string>
     <string name="stats_requests">機能リクエスト: %2$d件中%1$d件に回答 · 判断の中央値%3$s · %4$d件提供、中央値%5$s</string>
     <string name="stats_crashes">クラッシュ報告: %1$d件 · %2$d件修正 · 修正の中央値%3$s</string>
+    <string name="req_category_title">どんなリクエスト?</string>
+    <string name="req_cat_design">デザイン</string>
+    <string name="req_cat_speed">速度</string>
+    <string name="req_cat_wallet">ウォレット</string>
+    <string name="req_cat_payments">支払い</string>
+    <string name="req_cat_alerts">通知</string>
+    <string name="req_cat_offline">オフライン</string>
+    <string name="req_cat_integration">連携</string>
+    <string name="req_cat_other">その他</string>
+    <string name="req_pill">リクエスト · %1$s</string>
+    <string name="stats_requests_by_category">カテゴリ別リクエスト: %1$s</string>
+    <string name="notify_update_switch">このdAppが更新されたら知らせる</string>
+    <string name="notif_store_update_title">%1$sがdApp Storeで更新されました(バージョン%2$d)</string>
+    <string name="notif_store_update_body">開いて変更点を確認し、このバージョンを評価しましょう。</string>
+    <string name="sign_needs_consent">メモに署名するには上の「永久」のボックスにチェックを入れてください</string>
 </resources>

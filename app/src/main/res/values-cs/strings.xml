@@ -1357,4 +1357,19 @@
     <string name="delivered_line">Dodáno ve verzi %1$s · %2$s po žádosti</string>
     <string name="stats_requests">Žádosti o funkce: zodpovězeno %1$d z %2$d · medián rozhodnutí %3$s · dodáno %4$d, medián %5$s</string>
     <string name="stats_crashes">Nahlášené pády: %1$d · opraveno %2$d · medián opravy %3$s</string>
+    <string name="req_category_title">Jaký druh žádosti?</string>
+    <string name="req_cat_design">Design</string>
+    <string name="req_cat_speed">Rychlost</string>
+    <string name="req_cat_wallet">Peněženka</string>
+    <string name="req_cat_payments">Platby</string>
+    <string name="req_cat_alerts">Oznámení</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integrace</string>
+    <string name="req_cat_other">Jiné</string>
+    <string name="req_pill">Žádost · %1$s</string>
+    <string name="stats_requests_by_category">Žádosti podle kategorie: %1$s</string>
+    <string name="notify_update_switch">Dát vědět, když se tato dApp aktualizuje</string>
+    <string name="notif_store_update_title">%1$s se aktualizovala v dApp Store (verze %2$d)</string>
+    <string name="notif_store_update_body">Otevřete a podívejte se, co se změnilo, a ohodnoťte tuto verzi.</string>
+    <string name="sign_needs_consent">Pro podpis poznámky zaškrtněte políčko „trvalé“ výše</string>
 </resources>

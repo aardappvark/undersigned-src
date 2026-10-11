@@ -1296,4 +1296,19 @@
     <string name="delivered_line">ส่งมอบในเวอร์ชัน %1$s · %2$s หลังคำขอ</string>
     <string name="stats_requests">คำขอฟีเจอร์: ตอบ %1$d จาก %2$d · มัธยฐานการตัดสินใจ %3$s · ส่งมอบ %4$d มัธยฐาน %5$s</string>
     <string name="stats_crashes">รายงานแครช: %1$d · แก้แล้ว %2$d · มัธยฐานการแก้ %3$s</string>
+    <string name="req_category_title">คำขอประเภทใด?</string>
+    <string name="req_cat_design">ดีไซน์</string>
+    <string name="req_cat_speed">ความเร็ว</string>
+    <string name="req_cat_wallet">กระเป๋า</string>
+    <string name="req_cat_payments">การชำระเงิน</string>
+    <string name="req_cat_alerts">การแจ้งเตือน</string>
+    <string name="req_cat_offline">ออฟไลน์</string>
+    <string name="req_cat_integration">การเชื่อมต่อ</string>
+    <string name="req_cat_other">อื่น ๆ</string>
+    <string name="req_pill">คำขอ · %1$s</string>
+    <string name="stats_requests_by_category">คำขอตามหมวดหมู่: %1$s</string>
+    <string name="notify_update_switch">แจ้งเมื่อ dApp นี้อัปเดต</string>
+    <string name="notif_store_update_title">%1$s อัปเดตใน dApp Store แล้ว (เวอร์ชัน %2$d)</string>
+    <string name="notif_store_update_body">เปิดดูว่ามีอะไรเปลี่ยน แล้วให้คะแนนเวอร์ชันนี้</string>
+    <string name="sign_needs_consent">ติ๊กช่อง “ถาวร” ด้านบนเพื่อเซ็นบันทึก</string>
 </resources>

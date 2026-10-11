@@ -19,6 +19,7 @@ class RequestsTest {
         val alice = "A".repeat(44); val bob = "B".repeat(44); val pub = "P".repeat(44); val h = 3600L
         val entries = listOf(
             LedgerEntry(sig('a'), alice, 1000, ReviewMemo.Review("com.x", 4, listOf(ReviewMemo.Tag.FEATURE_REQUEST), 1, "dark mode please")),
+            LedgerEntry(sig('a') + ":1", alice, 1000, ReviewMemo.Request("com.x", ReviewMemo.RequestCategory.DESIGN)),
             LedgerEntry(sig('k'), pub, 1000 + 3 * h, ReviewMemo.Ack(sig('a'), true, "on the list")),
             LedgerEntry(sig('f'), pub, 1000 + 48 * h, ReviewMemo.Fixed(sig('a'), 2, "dark mode in 1.3")),
             LedgerEntry(sig('b'), bob, 2000, ReviewMemo.Review("com.x", 3, listOf(ReviewMemo.Tag.FEATURE_REQUEST), 1, "widgets")),
@@ -30,6 +31,8 @@ class RequestsTest {
         assertEquals(2, r.total); assertEquals(2, r.answered); assertEquals(1, r.willBuild); assertEquals(1, r.delivered)
         assertEquals((3.0 + 1000 / 3600.0) / 2, r.medianDecisionHours!!, 1e-9)
         assertEquals(48.0, r.medianDeliverHours!!, 1e-9)
+        assertEquals(mapOf(ReviewMemo.RequestCategory.DESIGN to 1, ReviewMemo.RequestCategory.OTHER to 1), r.byCategory)
+        assertEquals(ReviewMemo.Request("com.x", ReviewMemo.RequestCategory.WALLET), ReviewMemo.decode("SRL1|req|com.x|wallet"))
         val c = Reputation.crashes(entries, "com.x", setOf(pub))
         assertEquals(1, c.total); assertEquals(1, c.fixed); assertEquals(17.0, c.medianFixHours!!, 1e-9)
         // Nothing counts from a wallet that is not the proven publisher.

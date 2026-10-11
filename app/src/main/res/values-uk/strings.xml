@@ -1364,4 +1364,19 @@
     <string name="delivered_line">Зроблено у версії %1$s · через %2$s після запиту</string>
     <string name="stats_requests">Запити функцій: відповідь на %1$d з %2$d · медіана рішення %3$s · зроблено %4$d, медіана %5$s</string>
     <string name="stats_crashes">Повідомлень про збої: %1$d · виправлено %2$d · медіана виправлення %3$s</string>
+    <string name="req_category_title">Який це запит?</string>
+    <string name="req_cat_design">Дизайн</string>
+    <string name="req_cat_speed">Швидкість</string>
+    <string name="req_cat_wallet">Гаманець</string>
+    <string name="req_cat_payments">Платежі</string>
+    <string name="req_cat_alerts">Сповіщення</string>
+    <string name="req_cat_offline">Офлайн</string>
+    <string name="req_cat_integration">Інтеграція</string>
+    <string name="req_cat_other">Інше</string>
+    <string name="req_pill">Запит · %1$s</string>
+    <string name="stats_requests_by_category">Запити за категоріями: %1$s</string>
+    <string name="notify_update_switch">Повідомляти, коли цей dApp оновиться</string>
+    <string name="notif_store_update_title">%1$s оновлено в dApp Store (версія %2$d)</string>
+    <string name="notif_store_update_body">Відкрийте, щоб побачити зміни, і оцініть цю версію.</string>
+    <string name="sign_needs_consent">Щоб підписати нотатку, поставте позначку «назавжди» вище</string>
 </resources>

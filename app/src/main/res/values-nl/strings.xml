@@ -1336,4 +1336,19 @@
     <string name="delivered_line">Geleverd in versie %1$s · %2$s na het verzoek</string>
     <string name="stats_requests">Functieverzoeken: %1$d van %2$d beantwoord · mediaan tot besluit %3$s · %4$d geleverd, mediaan %5$s</string>
     <string name="stats_crashes">Gemelde crashes: %1$d · %2$d opgelost · mediaan tot fix %3$s</string>
+    <string name="req_category_title">Wat voor verzoek?</string>
+    <string name="req_cat_design">Ontwerp</string>
+    <string name="req_cat_speed">Snelheid</string>
+    <string name="req_cat_wallet">Wallet</string>
+    <string name="req_cat_payments">Betalingen</string>
+    <string name="req_cat_alerts">Meldingen</string>
+    <string name="req_cat_offline">Offline</string>
+    <string name="req_cat_integration">Integratie</string>
+    <string name="req_cat_other">Overig</string>
+    <string name="req_pill">Verzoek · %1$s</string>
+    <string name="stats_requests_by_category">Verzoeken per categorie: %1$s</string>
+    <string name="notify_update_switch">Zeg het als deze dApp bijgewerkt wordt</string>
+    <string name="notif_store_update_title">%1$s is bijgewerkt in de dApp Store (versie %2$d)</string>
+    <string name="notif_store_update_body">Open hem om te zien wat er veranderd is en beoordeel deze versie.</string>
+    <string name="sign_needs_consent">Vink het vakje ‘permanent’ hierboven aan om de notitie te ondertekenen</string>
 </resources>

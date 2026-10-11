@@ -373,7 +373,7 @@ class TagGroupsTest {
         assertEquals(listOf(W), TagGroups.toggle(emptyList(), W))
         assertEquals(listOf(C), TagGroups.toggle(listOf(W), C))                 // swap, never both
         assertEquals(listOf(F, A, C), TagGroups.toggle(listOf(W, F, A), C))     // a full set still swaps a tag for its opposite
-        assertEquals(listOf(W, F, A), TagGroups.toggle(listOf(W, F, A), ReviewMemo.Tag.PAYWALL))   // full: a fourth is ignored
+        assertEquals(listOf(F, A, ReviewMemo.Tag.PAYWALL), TagGroups.toggle(listOf(W, F, A), ReviewMemo.Tag.PAYWALL))   // at the limit the oldest pick gives way (12 Oct 2026)
         assertEquals(listOf(F), TagGroups.toggle(listOf(W, F), W))               // tapping a chosen tag removes it
         TagGroups.opposites.forEach { (a, b) -> assertEquals(a, TagGroups.opposites[b]) }
     }

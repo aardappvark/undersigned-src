@@ -53,9 +53,11 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
     // Saveable: signing hops to the wallet app, and Android may stop this one meanwhile; a typed review must survive it.
     var rating by rememberSaveable(pkg) { mutableStateOf(existing?.rating ?: 0) }
     var tags by rememberSaveable(pkg, stateSaver = TagListSaver) { mutableStateOf(existing?.tags ?: emptyList()) }
+    var reqCategory by rememberSaveable(pkg) { mutableStateOf(ReviewMemo.RequestCategory.OTHER) }
     // Long text (owner, 10 Oct 2026): up to 2,000 characters, line breaks kept; past 140 it rides on-chain in pieces, same approval.
     var text by rememberSaveable(pkg) { mutableStateOf(if (existing != null) vm.myReviewText(pkg) ?: "" else "") }
-    var consent by rememberSaveable(pkg) { mutableStateOf(false) }
+    // An existing note was consented to when it was first signed; editing it keeps the tick (owner, 12 Oct 2026: 'doesn't allow' modifying an existing review).
+    var consent by rememberSaveable(pkg) { mutableStateOf(existing?.text != null) }
     var confirmLeave by remember { mutableStateOf(false) }
     var stage by remember { mutableStateOf<String?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -151,7 +153,7 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
                     PrimaryButton(stage ?: stringResource(R.string.resign_button, installedVersion), enabled = gate == null && stage == null && sender != null, loading = stage != null, onClick = {
                         val s = sender ?: return@PrimaryButton
                         error = null
-                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, customTags = ownTagsToSend, onStage = { st ->
+                        vm.publishReview(s, ReviewMemo.Review(pkg, existing.rating, existing.tags, installedVersion, existing.text), installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, customTags = ownTagsToSend, requestCategory = reqCategory, onStage = { st ->
                             stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                         }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
                     })
@@ -162,6 +164,15 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             RatingInput(rating, enabled = stage == null) { rating = it }
             SectionTitle(stringResource(R.string.review_tags))
             TagPicker(tags, enabled = stage == null, collapsible = true) { tags = it }
+            // A feature request names its kind (owner, 12 Oct 2026): one of eight categories a publisher can report against.
+            if (ReviewMemo.Tag.FEATURE_REQUEST in tags) {
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.req_category_title), color = RbColors.textSecondary, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                Spacer(Modifier.height(6.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    ReviewMemo.RequestCategory.entries.forEach { c -> TagChip(stringResource(requestCategoryRes(c)), selected = reqCategory == c, onClick = { if (stage == null) reqCategory = c }) }
+                }
+            }
             // The reviewer's own tags (owner, 11 Oct 2026): a Pro tool. Without Pro a one-line offer stands in for the field and
             // goes the moment Pro turns active; with Pro, up to two words of their own, checked as typed.
             if (proNow?.active == true) {
@@ -236,12 +247,13 @@ fun ReviewScreen(vm: MainViewModel, pkg: String, sender: ActivityResultSender?, 
             }; Spacer(Modifier.height(10.dp)) }
             Text(stringResource(R.string.review_fee_note), color = RbColors.textTertiary, fontSize = 11.sp, lineHeight = 15.sp)
             Spacer(Modifier.height(12.dp))
+            if (text.isNotEmpty() && !consent && stage == null && done == null) Text(stringResource(R.string.sign_needs_consent), color = RbColors.warning, fontSize = 12.sp, lineHeight = 16.sp, modifier = Modifier.padding(bottom = 6.dp))
             PrimaryButton(stage ?: stringResource(R.string.review_submit), enabled = canSubmit, loading = stage != null, onClick = {
                 val s = sender ?: return@PrimaryButton
                 error = null
                 val full = com.undersigned.protocol.LongText.clean(text)
                 val memo = ReviewMemo.Review(pkg, rating, tags, versionCode, full.takeIf { it.isNotEmpty() }?.let { com.undersigned.protocol.LongText.preview(it) })
-                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, longText = full.takeIf { com.undersigned.protocol.LongText.needsParts(it) }, customTags = ownTagsToSend, onStage = { st ->
+                vm.publishReview(s, memo, installAge?.takeIf { addAge }, useTime?.takeIf { addTime }, activity?.takeIf { addActivity }, followUpOf = followUpOf, longText = full.takeIf { com.undersigned.protocol.LongText.needsParts(it) }, customTags = ownTagsToSend, requestCategory = reqCategory, onStage = { st ->
                     stage = when (st) { ReviewTxService.Stage.Simulating -> context.getString(R.string.review_simulating); ReviewTxService.Stage.Signing -> context.getString(R.string.review_signing); ReviewTxService.Stage.Confirming -> context.getString(R.string.review_confirming) }
                 }) { r -> stage = null; r.fold(onSuccess = { done = it }, onFailure = { error = context.errorText(it) }) }
             })
@@ -322,3 +334,9 @@ private fun ExtraRow(label: String, value: String, on: Boolean, enabled: Boolean
 /** Saves the chosen tags across process death by their wire names. */
 internal val TagListSaver = androidx.compose.runtime.saveable.listSaver<List<ReviewMemo.Tag>, String>(
     save = { l -> l.map { it.wire } }, restore = { l -> l.mapNotNull { ReviewMemo.Tag.fromWire(it) } })
+
+fun requestCategoryRes(c: ReviewMemo.RequestCategory): Int = when (c) {
+    ReviewMemo.RequestCategory.DESIGN -> R.string.req_cat_design; ReviewMemo.RequestCategory.SPEED -> R.string.req_cat_speed; ReviewMemo.RequestCategory.WALLET -> R.string.req_cat_wallet
+    ReviewMemo.RequestCategory.PAYMENTS -> R.string.req_cat_payments; ReviewMemo.RequestCategory.ALERTS -> R.string.req_cat_alerts; ReviewMemo.RequestCategory.OFFLINE -> R.string.req_cat_offline
+    ReviewMemo.RequestCategory.INTEGRATION -> R.string.req_cat_integration; ReviewMemo.RequestCategory.OTHER -> R.string.req_cat_other
+}

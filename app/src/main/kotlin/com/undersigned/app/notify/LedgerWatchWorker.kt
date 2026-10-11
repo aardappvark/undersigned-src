@@ -95,6 +95,17 @@ class LedgerWatchWorker(ctx: Context, params: WorkerParameters) : CoroutineWorke
             Log.i(TAG, "update prompts: ${updated.size}")
             updated.forEach { c -> post(NotifKind.UPDATES, "upd:${c.packageName}:${c.versionCode}", ctx.getString(R.string.notif_update_title, names[c.packageName] ?: c.packageName, c.versionCode), ctx.getString(R.string.notif_update_body), c.packageName) }
         }.onFailure { Log.w(TAG, "update-prompt pass failed: ${it.message?.take(80)}") }
+        // (a2) dApps the owner asked to be told about (per-app switch on the app page): the store's release versionCode moved.
+        runCatching {
+            val watch = UserPreferences.updateAlerts.value
+            if (watch.isNotEmpty()) { val sc = StoreReviewsClient()
+                for (pkg in watch) {
+                    val vc = sc.details(pkg)?.versionCode?.takeIf { it > 0 } ?: continue
+                    val seen = UserPreferences.updateSeen(pkg)
+                    if (seen != null && vc > seen && notify(ctx, NotifChannel.STORE, "supd:$pkg:$vc", ctx.getString(R.string.notif_store_update_title, names[pkg] ?: pkg, vc), ctx.getString(R.string.notif_store_update_body), pkg)) posted++
+                    if (seen == null || vc > seen) UserPreferences.setUpdateSeen(pkg, vc)
+                } }
+        }.onFailure { Log.w(TAG, "update-alert pass failed: ${it.message?.take(80)}") }
         // (b) Signed vs store divergence and store review waves, for followed apps only (bounded RPC use).
         runCatching {
             val store = StoreReviewsClient()
