@@ -30,3 +30,17 @@ once owners arrive.
 | Developers acting on signed reviews | `fix` and `ack` records by proven publishers other than ours: `/v1/records?type=fix` filtered by signer |
 
 All of it is public and recomputable from the chain; see `docs/ONCHAIN.md`.
+
+## Conversion figures that do exist (all from the founding team's own activity, 12 Oct 2026)
+
+| Measure | Value | Read from |
+|---|---|---|
+| Publisher claim conversion | 28 of 28 of our store apps claimed and proven; 0 publishers outside the team yet | `/v1/stats` `claims_proven` |
+| Follow-up rate after a publisher fix | 2 fixes signed on mainnet, 2 follow-ups signed by the reviewer (4★ → 5★ both times) | `/v1/records?type=fix`, `type=fup` |
+| Feature-request conversion | 1 request → "will build" in 45 minutes → delivered within the hour | `/v1/apps/com.seekerverify.app` → `publisher.feature_requests` |
+| Publisher reply speed | median 17.3 h on the Toolkit's two signed reviews, 1 of 2 answered | `/v1/apps/com.adappvark.toolkit` → `publisher.responsiveness` |
+| Notification open rates | not collected: there is no identifier to tie an open to; the on-chain follow-up or reply signed after an alert is the only trace we keep | `docs/PRIVACY_MODEL.md` |
+| Weekly active reviewers | 3 wallets (ours) this week; the figure is public and will read the same way for strangers | `/v1/records?since=` grouped by signer |
+
+Nothing here is independent usage, and it is not presented as such.
+

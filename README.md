@@ -1,5 +1,22 @@
 # Undersigned
 
+> **For auditors and judges (12 Oct 2026).** Public, code-only mirror: https://github.com/aardappvark/undersigned-src (the same
+> commits; media, mockups and the signing keystore removed so scanners read the code). There is **no custom Solana program by
+> design**: every record is an SPL Memo transaction that references one off-curve registry address, and every reader recomputes
+> the scores from those transactions — schema, addresses and the verification path in [docs/ONCHAIN.md](docs/ONCHAIN.md).
+> Build, test counts and the module map: [docs/VERIFY.md](docs/VERIFY.md). Security audit and fixes: [docs/SECURITY.md](docs/SECURITY.md).
+> Keys and phone facts: [docs/PRIVACY_MODEL.md](docs/PRIVACY_MODEL.md). Measured usage, honestly: [docs/METRICS.md](docs/METRICS.md).
+>
+> | Path | What | Scan it as |
+> |---|---|---|
+> | `protocol/` | pure Kotlin/JVM: record codec, ranking, weighting, threads, moderation, payments, publisher proof | Gradle/Kotlin, no Android |
+> | `app/` | the Android app (Jetpack Compose, Mobile Wallet Adapter, Seed Vault signing) | Android/Gradle, `minSdk 26`, `targetSdk 35` |
+> | `api/` | the JVM server: chain indexer, REST, hosted MCP, web pages, analytics, relayer, `verify` | Gradle/Kotlin, JDK 21 |
+> | `mcp/` | the local publisher MCP server for developers | Node (`npm test`) |
+> | `analytics-worker/` | the anonymous-counts Cloudflare Worker | JavaScript |
+> | `docs/` | specification and the documents above | Markdown |
+
+
 **Signed reviews from Seeker owners. One Seeker, one voice, written to Solana, readable by anyone.**
 
 A Seeker dApp that puts a sybil-resistant review layer beside the Solana dApp Store. A review is a memo transaction the

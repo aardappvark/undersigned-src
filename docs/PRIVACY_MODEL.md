@@ -33,3 +33,15 @@ Rules that hold everywhere:
 Code: `app/.../device/InstalledApps.kt` and `InstallHistory.kt` (PackageManager facts, install age), `app/.../device/UsageTime.kt` (usage stats, opt-in), `protocol/.../SafetyFacts.kt` (certificate and permission facts),
 `protocol/.../ReviewMemo.kt` (`Use`, `Time`, `Activity` wire), `app/.../ui/screens/ReviewScreen.kt` (the consent
 and the "Your phone adds" switches). Policy: https://aardappvark.github.io/undersigned-legal/privacy.html.
+
+## Keys and tokens on the phone
+
+| Secret | Where it lives | Protection | What it can do |
+|---|---|---|---|
+| The owner's wallet keys | the Seed Vault, through the Seeker Wallet | never in the App; every signature is a Mobile Wallet Adapter request the owner approves with a double-tap | everything that counts: reviews, replies, fixes, claims, payments |
+| The Mobile Wallet Adapter auth token | `SharedPreferences`, sealed with AES-256-GCM under an Android Keystore key (`device/Seal.kt`) | hardware-backed where the device has it, never exportable; excluded from backup and device transfer; cleared on sign-out | lets the wallet skip its Connect sheet; can never approve a transaction |
+| The quick-review key (one random Ed25519 seed per install) | `SharedPreferences`, sealed the same way (`device/QuickKey.kt`) | as above; a seed written in the clear by a build before 1.1.28 is re-sealed on first read | signs only quick-review records that the relayer pays for; counted in no score; holds nothing |
+| Pro, plans, passes | not on the phone at all: the payment on the chain is the licence | read back from the chain by every reader | — |
+
+How opt-in works for phone facts: the composer shows a "Your phone adds" switch per fact with the exact value it will attach; nothing is attached while the switch is off; usage facts additionally need Android's Usage Access permission, which the owner grants in system settings and can revoke there.
+

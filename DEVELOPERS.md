@@ -1,0 +1,279 @@
+# Building on Undersigned
+
+Undersigned has a public HTTP API and an MCP server for AI agents. Both read the same index of the on-chain ledger. The
+API's own description is at [`/v1/openapi.json`](https://undersigned.provenby.dev/v1/openapi.json), and the human page is
+[undersigned.provenby.dev/api](https://undersigned.provenby.dev/api). Field-by-field detail is in [API.md](API.md).
+
+Base URL: `https://undersigned.provenby.dev`
+
+## 1. Call it
+
+You don't need a key or a sign-up to start. Every answer is JSON; add `?pretty=1` to read it.
+
+```bash
+curl "https://undersigned.provenby.dev/v1/apps?q=wallet&limit=5"
+curl "https://undersigned.provenby.dev/v1/apps/com.solflare.mobile"
+curl "https://undersigned.provenby.dev/v1/apps/com.solflare.mobile/reviews?sort=newest"
+```
+
+```js
+const app = await (await fetch("https://undersigned.provenby.dev/v1/apps/com.solflare.mobile")).json();
+console.log(app.signed.mean, app.signed.counted_reviews, app.store_rating);
+```
+
+```python
+import requests
+app = requests.get("https://undersigned.provenby.dev/v1/apps/com.solflare.mobile").json()
+print(app["signed"]["mean"], app["signed"]["counted_reviews"])
+```
+
+From scripts, send a `User-Agent` header (`requests`, `fetch`, axios, Go and curl all do by default).
+
+## 2. What you get
+
+| Free, no key | Free within limits (20 rows) | With a pass |
+|---|---|---|
+| `/v1/apps/{pkg}`: signed score and count, Pro members' and promoted scores shown apart, the store's own rating, publisher proof, payments | `/v1/apps`: catalogue search; `?packages=a,b,c` reads many apps in one call (20 free, 100 with a key) | `/v1/watch`: store-wide rating bursts |
+| `/v1/apps/{pkg}/bursts`: review and rating bursts | `/v1/apps/{pkg}/reviews`: every signal per review, `sort=newest\|helpful\|skr\|sol` | `/v1/changes`: new releases across the whole store, version and certificate changes |
+| `/v1/dataset.json`: the whole ledger with scores | `/v1/records`: decoded records, filterable | `/v1/apps/{pkg}/versions`, `/similar`, `/store-ratings`, `/payments` |
+| `/v1/records/{id}`, `/v1/stats`, `/v1/tags`, `/v1/health` | `/v1/wallets/{address}`, `/v1/leaderboard`, `/v1/payments`, `/v1/payments/found` (wallets found in app code, not confirmed) | `/v1/hooks`: signed webhooks (review, reply, store_note, flag, claim, burst, release, version, certificate, digest) |
+
+Answers:
+- **200**: the data.
+- **402**: needs a pass. The body carries the price and Solana Pay links, so an agent can act on it.
+- **429**: over the limit. A `Retry-After` header says when to try again.
+- **404**: unknown.
+
+How the numbers are made:
+- One voice per attested device (Seeker Genesis Token). Each review is weighted only by what it carries: install time, usage, a written note.
+- No payment and no token balance changes a score.
+- Stake is shown beside each review for transparency and never weighed.
+- Bursts and similarity are facts about timing and wording, not verdicts.
+- The rules are in the [Review Integrity Policy](https://aardappvark.github.io/undersigned-legal/integrity.html).
+
+### AI suggestions (labelled)
+
+Each of these is made by AI (Claude Haiku), cached, and labelled a suggestion. None changes a review, weight, order or score.
+
+| Endpoint | What it gives | Access |
+|---|---|---|
+| `GET /v1/records/{id}/translation?lang=` | Suggested translation of a review's or reply's text | Pro wallet (`&wallet=`), or a pass or credits key |
+| `GET /v1/apps/{pkg}/summary` | Suggested summary: the points mentioned most in counted reviews, each with its count and review ids (needs 3 or more) | free |
+| `GET /v1/apps/{pkg}/similar` | Adds `suggested_paraphrase_groups`: reviews using near-identical words | pass |
+| `GET /v1/changes` | Adds a `suggested_note` per change, in plain words | pass |
+| `POST /v1/ask {question}` | Docs helper: answers from the published docs only | free |
+| `POST /v1/help {question, lang}` | How scoring works: answers from the Review Integrity Policy only, in the reader's language. The app's "Ask how scoring works" button | free |
+| `GET /v1/digest` | This week on the store: store-wide rating bursts and app updates in plain words, with the counts it was written from. Also sent once a week as the `digest` webhook event and as a Pro notification in the app | Pro wallet (`?wallet=`), or a pass or credits key |
+
+Hidden text is never translated. Each caller has a daily allowance of fresh AI answers (UTC day): 200 per pass key, 50 per Pro wallet, 20 per IP without a key (and 300 a day shared by everyone without a key); per-call keys have no daily limit and pay one extra call for each fresh answer. Cached answers are always free. Past the allowance the answer is `429` with `error: ai_allowance` and a `Retry-After` to midnight UTC.
+
+### Payment analytics (10 Oct 2026)
+
+What the store's apps are paid, read from the Solana ledger: confirmed treasuries (listed and proven by their publishers) and
+wallets **found in app code** (paid by 5+ wallets, confirmed by no one; always labelled apart, a suspicion, never a fact).
+Windows `7d|30d|90d|1y|all`; USD on the day paid; gross receipts, never revenue.
+
+| Route | What |
+|---|---|
+| `GET /v1/payments/leaderboard?window=30d&include=all` | dApps ranked by USD, with rails, payers, new payers, a weekly series each |
+| `GET /v1/payments/categories?window=` | categories ranked, with the change against the window before and three leaders each |
+| `GET /v1/payments/trending?window=` | rising, falling and new dApps (a $20 base to be ranked) |
+| `GET /v1/payments/patterns?window=` | rails, repeat payers, concentration, payment sizes, payments by hour (UTC) and weekday |
+| `GET /v1/payments/treasuries?window=` | wallets ranked, each with the dApps it was listed for or found in |
+| `GET /v1/payments/series?window=&by=day\|week\|month`, `/v1/payments/app/{pkg}/series` | time series, confirmed and found apart (free) |
+| `GET /v1/payments/summary?window=` | all of the above in one answer |
+| `GET /v1/payments/chart/top.svg`, `store.svg`, `app/{pkg}.svg` | charts as SVG, cached five minutes, free to embed |
+
+The page: [`/payments`](https://undersigned.provenby.dev/payments). MCP: `payments_analytics` (hosted), `api_payments_*` (local).
+
+### Review analytics, every source (12 Oct 2026)
+
+What the reviews say, by category, by dApp and over time, with every source told apart and never mixed. `source=`:
+
+| Source | What it is |
+|---|---|
+| `store` | the dApp Store's own reviews, read by a paced crawl of its public lists (148,000+ so far across 500+ dApps; the crawl continues). Only counts, means and shares are published; the text stays the store's and the reviewer's |
+| `all` | every live signed review on Undersigned (the latest per wallet per app; withdrawn ones out) |
+| `organic` | signed by a Seeker wallet holding a Genesis Token, counted, not promoted |
+| `pro` | the reviewer held Pro when signing (counted like everyone's; its own mean) |
+| `promoted` | the author paid to promote it (counted once, after the organic ones) |
+| `quick` | a quick review without a wallet: shown apart, never counted |
+| `other` | a wallet without a Genesis Token: shown, never counted |
+| `ours` | Undersigned's own wallets: labelled, never counted |
+
+Windows `7d|30d|90d|1y|all` (default `all`); series per `day|week|month` (default by window); narrow with `category=` or `package=`.
+Every answer carries reviews, mean stars, the 1–5 star distribution, the share answered by the publisher, the share with three
+words or fewer (low effort), the share with text, the change of the last 30 days against the 30 before, the categories
+(count, dApps, mean, change), the most-reviewed dApps and the series. Nothing here weighs a review.
+
+| Route | What |
+|---|---|
+| `GET /v1/reviews/analytics?source=store&window=all` | the whole answer for one source (JSON) |
+| `GET /v1/reviews/analytics.csv?source=&window=` | the same as CSV: categories, apps, series |
+| `GET /v1/reviews/store.csv` | **raw rows** of the store reviews read so far: package, name, category, stars, created, words, from_skr_name, publisher_replied (5,000 rows free, all with a pass); no text, no wallet |
+| `GET /v1/records?type=rev`, `GET /v1/apps/{pkg}/reviews`, `/v1/dataset.json` | raw signed reviews, every signal, from the ledger |
+| `GET /v1/reviews/chart/categories.svg`, `apps.svg`, `series.svg`, `stars.svg` | charts as SVG (`?source=&window=&category=&package=&n=`), cached five minutes, free to embed |
+
+The page: [`/reviews`](https://undersigned.provenby.dev/reviews). MCP: `review_analytics` (hosted) takes the same arguments.
+The app's Analytics screen (Me → Analytics) draws the same figures on the phone and filters by the same sources.
+
+### Check the scores yourself
+
+`./gradlew :api:installDist && api/build/install/api/bin/api verify [--rpc <url>]` reads every record at the registry
+address from the chain into a temporary database, scores it with the same `:protocol` module the app uses, and compares
+every app's counted reviews and mean with `/v1/dataset.json`. Nothing of ours is trusted in that run but the code, which
+is in this repository.
+
+## 3. Limits, the pass, and pay per call
+
+| | Free | Pass | Pay per call (agents) |
+|---|---|---|---|
+| Requests | 30 a minute, 1,000 a day per IP | 100,000 over 30 days, 600 a minute | as many calls as you paid for, valid a year, 600 a minute |
+| List rows | 20 (leaderboard 10) | up to 500, with paging | up to 500, with paging |
+| Endpoints | free and limited | all, including webhooks | all, including webhooks |
+| Price | free | 0.0607 SOL, or 369 SKR (332 SKR with a Seeker Genesis Token) | 0.00001 SOL or 0.06 SKR a call, from 0.001 SOL or 6 SKR |
+
+Two plans sit above the pass (10 Oct 2026), bought the same way and also from the [`/plans`](https://undersigned.provenby.dev/plans) page:
+
+| | Publisher plan | Data plan |
+|---|---|---|
+| For | an app's proven publisher | analysts, wallets, funds, Guardians |
+| Price | 0.0607 SOL, 369 SKR (332 with a Genesis Token) per app per 30 days; up to 12 months a payment | 0.607 SOL, 3,690 SKR (3,320) per 30 days |
+| Gets | `GET /v1/publisher/{pkg}/report` (reviews waiting for an answer, the store rating's trend, bursts, certificate, version and permission changes, scores by version, the category benchmark), webhooks for the app, the API | 2,000,000 requests at 3,000 a minute, `GET /v1/export/{ratings\|changes\|apps\|found}` as CSV |
+| Checkout | `POST /v1/checkout {"publisher": "<pkg>", "months": N}`, pay from the publisher wallet, `POST /v1/publisher/plan {signature, package, secret}` | `POST /v1/checkout {"plan": "data"}`, pay, `POST /v1/keys` |
+
+No plan changes a score, a weight or an order. `GET /v1/publisher/{pkg}/plan` says whether an app's plan is live.
+
+SKR prices are 10% below SOL at the rate on the day they were set. The live figures are always at
+[`/v1/pricing`](https://undersigned.provenby.dev/v1/pricing). Every metered answer carries:
+- `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`.
+- For keys, `X-Pass-Requests-Left` and `X-Pass-Ends-At`.
+
+To get a key:
+
+1. **Checkout.** `POST /v1/checkout` returns a secret and ready Solana Pay URLs. For per-call credits, send `{"calls": N}` instead. The payment carries the API reference and memo `UNS:<commitment>`.
+2. **Pay** one of the URLs from any wallet. The payment goes straight to the treasury.
+3. **Redeem.** `POST /v1/keys` with `{"signature": "<payment tx>", "secret": "<from checkout>"}`. Every redemption returns a
+   **new key** for the pass and retires the previous one (webhooks follow it), so proving the same payment again recovers
+   a lost key. Keys are stored hashed. What you get depends on the amount:
+   - the pass price or more buys a pass;
+   - less buys calls at the per-call rate;
+   - paying again tops up the same pass or credits.
+4. **Call** with `Authorization: Bearer <key>`. `GET /v1/keys/me` shows what is left.
+
+When a call needs a key, the 402 answer carries the pricing and an `accepts` list: both ways to pay, in the shape x402 uses. An agent can pay and retry without reading these docs.
+
+Payers are screened against sanctions lists. If the screen cannot run, no key is issued until it can.
+
+### Webhooks
+
+`POST /v1/hooks {url, packages[], events[]}` creates a webhook (https only). Each delivery carries:
+- **`X-Undersigned-Signature-V2: t=<unix>,v1=<hex HMAC-SHA256 of "<t>.<body>">`.** Reject a `t` more than 5 minutes old, so a captured delivery can't be replayed.
+- **`X-Undersigned-Signature: sha256=<hex HMAC of the body>`,** for receivers built earlier.
+
+Delivery:
+- **Retries.** A receiver that is down or fails is retried six times over about 24 hours.
+- **Duplicates.** Events carry ids, so drop repeats.
+- **Testing.** `POST /v1/hooks/{id}/test` sends a signed ping now. `GET /v1/hooks/{id}/deliveries` lists the last 100 attempts with the receiver's status.
+
+Checking a delivery (verify against the RAW body, before parsing it):
+
+```js
+import crypto from "node:crypto";
+function verify(secret, rawBody, header) {           // header: X-Undersigned-Signature-V2
+  const { t, v1 } = Object.fromEntries(header.split(",").map((p) => p.split("=")));
+  if (Math.abs(Date.now() / 1000 - Number(t)) > 300) return false;   // replayed or stale
+  const mac = crypto.createHmac("sha256", secret).update(`${t}.${rawBody}`).digest();
+  const got = Buffer.from(v1, "hex");
+  return got.length === mac.length && crypto.timingSafeEqual(got, mac);
+}
+```
+
+```python
+import hmac, hashlib, time
+def verify(secret: str, raw_body: bytes, header: str) -> bool:   # header: X-Undersigned-Signature-V2
+    parts = dict(p.split("=", 1) for p in header.split(","))
+    if abs(time.time() - int(parts["t"])) > 300:
+        return False                                              # replayed or stale
+    mac = hmac.new(secret.encode(), f"{parts['t']}.".encode() + raw_body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(mac, parts["v1"])
+```
+
+## 4. AI agents (MCP)
+
+The API is also a [Model Context Protocol](https://modelcontextprotocol.io) server. You don't install a package; add the URL.
+
+- **Claude Code**
+
+  ```bash
+  claude mcp add --transport http undersigned https://undersigned.provenby.dev/mcp
+  ```
+
+- **Cursor and other clients** (`mcp.json`). The `headers` line is only needed for the pass-only tools.
+
+  ```json
+  {
+    "mcpServers": {
+      "undersigned": {
+        "url": "https://undersigned.provenby.dev/mcp",
+        "headers": { "Authorization": "Bearer YOUR_KEY" }
+      }
+    }
+  }
+  ```
+
+- **Claude (web or desktop)**: Settings → Connectors → add a custom connector with `https://undersigned.provenby.dev/mcp`.
+
+Everything the server offers is read-only:
+
+| Free | With a pass |
+|---|---|
+| `search_apps`, `get_app`, `get_apps` (several at once), `scoring_help`, `get_reviews` (`sort` newest / helpful / staked SKR / staked SOL; `offset` with a pass), `get_bursts`, `get_wallet`, `get_record`, `list_records`, `leaderboard`, `payments_board`, `ledger_stats`, `review_tags`, `get_pricing`, `app_summary`, `found_treasuries` (list, one app's analytics, or store-wide trends), `translate_review` and `weekly_digest` (Pro wallet or key) | `store_watch`, `app_changes`, `version_scores`, `similar_reviews`, `store_rating_history` |
+
+Besides tools:
+
+- **Resources:** `undersigned://policy` (the integrity rules, for the model to read before describing a score), `undersigned://pricing`, `undersigned://tags`, and the template `undersigned://app/{package}`.
+- **Prompts:** `audit_app_reputation(package)` and `compare_apps(package_a, package_b)`. Both tell the model to quote counts and to treat bursts as facts, not verdicts.
+- **What changed:** [`/v1/changelog`](https://undersigned.provenby.dev/v1/changelog) (and the page [`/changelog`](https://undersigned.provenby.dev/changelog)); uptime at [`/status`](https://undersigned.provenby.dev/status). Hosting: a Hetzner Cloud server behind a Cloudflare tunnel (`docs/DEPLOY.md`); if it is ever down, every record is still on Solana and the [browser viewer](https://aardappvark.github.io/undersigned-viewer/) reads it with no server.
+- **Discovery:** [`/llms.txt`](https://undersigned.provenby.dev/llms.txt) and [`/.well-known/mcp/server-card.json`](https://undersigned.provenby.dev/.well-known/mcp/server-card.json).
+
+How the server works:
+
+- **Read-only by design.** No tool drafts, signs or submits a review, flag or vote. A review is a person's own signed opinion from their phone.
+- **Transport.** Stateless Streamable HTTP: one JSON-RPC message per `POST /mcp`. Batches are refused, so every call is metered. Protocol versions `2025-06-18`, `2025-03-26` and `2024-11-05` are supported.
+
+### Publishers: the local MCP server
+
+The repository also ships a local stdio server for publishers (`mcp/`, Node 18+). Run it on your own machine:
+
+```bash
+cd mcp && npm install
+UNDERSIGNED_API_URL=https://undersigned.provenby.dev node server.js
+```
+
+It gives your agent a publisher desk, and every API route as a tool (42, on by default against the public API; `UNDERSIGNED_API_URL=off` to leave them out):
+
+- **Inbox and watch.** New reviews of your apps and replies to them, with live watch and macOS notifications.
+- **Profiles.** The store's reviews beside the signed ones.
+- **Reply and action hand-offs.** These return an `undersigned://` link that opens on your Seeker for you to sign. Nothing is signed for you.
+- **`sign_reply`.** Signs your own reply locally, and only if you set `UNDERSIGNED_KEYPAIR`.
+- **The API as tools.** All of it, including pass checkout and webhooks.
+
+Raw check:
+
+```bash
+curl -s https://undersigned.provenby.dev/mcp -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_app","arguments":{"package":"com.solflare.mobile"}}}'
+```
+
+## 5. Writing reviews (people, not agents)
+
+A review is a memo transaction signed in the reviewer's own wallet. The API only builds the unsigned transaction, and the wallet signs and sends it:
+- **Web wallets:** `POST /v1/tx/review`.
+- **Phone wallets:** `/v1/pay/review` (Solana Pay transaction request).
+
+Only wallets holding a Seeker Genesis Token count, one voice per device. The record format is in [SPEC.md](SPEC.md).
+
+## 6. Data licence
+
+The ledger is public on-chain data: use it freely. Store data shown alongside it (catalogue, star ratings, store reviews) belongs to the Solana dApp Store.

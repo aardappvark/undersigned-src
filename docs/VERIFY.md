@@ -1,7 +1,8 @@
 # Verify this submission: build it, run the tests, read the on-chain modules
 
-**Public source:** https://github.com/aardappvark/undersigned-src (the same history with the signing keystore removed from
-every commit; anyone can clone it). The private original is https://github.com/aardappvark/Undersigned. **Audit commit:** the
+**Public source:** https://github.com/aardappvark/undersigned-src: the same commits as the private original with the signing
+keystore, media assets and design mockups removed from every commit, so a scanner reads code only (about 2,000 files; the
+assets live in the private original). Anyone can clone it. The private original is https://github.com/aardappvark/Undersigned. **Audit commit:** the
 tip of `main` on 12 October 2026. Everything below was measured on that commit on 12 October 2026.
 
 ## Build and test (10 minutes on a Mac or Linux box)
