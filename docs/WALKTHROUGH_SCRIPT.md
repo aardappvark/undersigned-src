@@ -7,7 +7,8 @@ publisher's part done by hand on a second Seeker. Three files, all from the same
 |---|---|---|
 | `assets/video/walkthrough-uncut-2026-10-12.mp4` | 23:27 | the raw recording, nothing removed (the proof; kept on the build machine, 639 MB) |
 | `assets/video/walkthrough-cut-2026-10-12.mp4` | 7:33 | the same take with every static stretch shortened to two seconds; order and actions untouched |
-| `assets/video/walkthrough-3min-2026-10-12.mp4` | 3:07 | fourteen stretches of the take in order, narrated and subtitled (`assets/video/build_walk.py`) |
+| `assets/video/walkthrough-3min-2026-10-12.mp4` | 3:07 | fourteen stretches of the take in order, narrated and subtitled (`assets/video/build_walk.py`; `CANVAS=1` renders the 1080p version) |
+| `assets/video/undersigned-demo-plus-walkthrough-2026-10-12.mp4` | 6:13 | the submitted upload: the 2:59 demo unchanged, a two-second gap, a "Part 2" card, then the 3:07 walkthrough (the form takes one video link) |
 
 Transactions in the take, all on mainnet: the review `3uE3NujR…FnDZPARb` (4★, Slow, usage 1–3 months, v277), the
 publisher's fix `3EoXRgpa…` ("made all changes"), the follow-up `gxU7uXjM…` (5★, "4★ → 5★ (+1)").
