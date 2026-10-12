@@ -5,7 +5,7 @@
 > design**: every record is an SPL Memo transaction that references one off-curve registry address, and every reader recomputes
 > the scores from those transactions — schema, addresses and the verification path in [docs/ONCHAIN.md](docs/ONCHAIN.md).
 > Build, test counts and the module map: [docs/VERIFY.md](docs/VERIFY.md). Security audit and fixes: [docs/SECURITY.md](docs/SECURITY.md).
-> Keys and phone facts: [docs/PRIVACY_MODEL.md](docs/PRIVACY_MODEL.md). Measured usage, honestly: [docs/METRICS.md](docs/METRICS.md).
+> Keys and phone facts: [docs/PRIVACY_MODEL.md](docs/PRIVACY_MODEL.md). Measured usage, honestly: [docs/METRICS.md](docs/METRICS.md). Demo video transcript: [docs/VIDEO_TRANSCRIPT.md](docs/VIDEO_TRANSCRIPT.md).
 >
 > | Path | What | Scan it as |
 > |---|---|---|
