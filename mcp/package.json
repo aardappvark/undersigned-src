@@ -2,10 +2,33 @@
   "name": "undersigned-mcp",
   "version": "0.2.0",
   "description": "MCP server for the Undersigned review ledger: publisher desk (inbox, profiles, store mirror, reply hand-off to the Seeker, optional local signing, live watch) plus every Undersigned API route as tools.",
+  "license": "MIT",
+  "author": "AardAppvark",
+  "homepage": "https://undersigned.provenby.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aardappvark/undersigned-src.git",
+    "directory": "mcp"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "solana",
+    "seeker",
+    "reviews",
+    "undersigned"
+  ],
   "type": "module",
   "bin": {
     "undersigned-mcp": "server.js"
   },
+  "files": [
+    "server.js",
+    "api.js",
+    "ledger.js",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=18"
   },

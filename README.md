@@ -158,3 +158,10 @@ Build and test everything:
    analysis (a software licence fee, as in every other fleet app). First licence paid on mainnet 15 Sep (276 SKR, from the operator's own wallet: an end-to-end test).
 4. **Package visibility** — `QUERY_ALL_PACKAGES` with a disclosure (the Toolkit precedent) or a generated
    `<queries>` list from the catalogue. The former is simpler and already store-approved in the fleet.
+
+## Licence
+
+`protocol/` (the record format, ranking, weighting and moderation rules) and `mcp/` (the MCP server, published on npm as
+`undersigned-mcp`) are released under the MIT licence: see [protocol/LICENSE](protocol/LICENSE) and [mcp/LICENSE](mcp/LICENSE).
+Everything else in this repository (the Android app, the API server, the analytics worker, the viewer, the documents and
+media) is © 2026 AardAppvark, all rights reserved; it is published so it can be read and audited.

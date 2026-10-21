@@ -37,3 +37,7 @@ Tests: `npm test` runs the webhook checks, a coverage check that every API route
 `sign_reply` is for a publisher who chooses to sign from this machine: it is off unless `UNDERSIGNED_KEYPAIR` points at a keypair file.
 
 `reply_handoff` copies an `undersigned://reply?target=…&text=…` link to the clipboard; with Universal Clipboard on, paste it on the Seeker and the app opens the reply pre-filled for the owner to check and sign with the double-tap. The Mac never sends anything in that mode.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).
