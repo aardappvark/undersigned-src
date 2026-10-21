@@ -6,7 +6,7 @@
 import { z } from "zod";
 import crypto from "node:crypto";
 
-export const VERSION = "0.2.0";
+export const VERSION = "0.2.1";
 const UA = `undersigned-mcp/${VERSION} (+https://undersigned.provenby.dev/api)`;
 const text = (s) => ({ content: [{ type: "text", text: typeof s === "string" ? s : JSON.stringify(s, null, 2) }] });
 const LANGS = ["en", "ar", "bn", "cs", "de", "el", "es", "fil", "fr", "hi", "hu", "id", "it", "ja", "ko", "nl", "pl", "pt", "ro", "ru", "sv", "th", "tr", "uk", "ur", "vi", "zh-CN", "zh-TW"];

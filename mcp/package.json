@@ -1,6 +1,6 @@
 {
   "name": "@aardappvark/undersigned-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for the Undersigned review ledger: publisher desk (inbox, profiles, store mirror, reply hand-off to the Seeker, optional local signing, live watch) plus every Undersigned API route as tools.",
   "license": "MIT",
   "author": "AardAppvark",
@@ -34,9 +34,19 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
-    "@solana/web3.js": "^1.95.0",
     "ws": "^8.18.0",
     "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "@solana/web3.js": "^1.95.0"
+  },
+  "peerDependenciesMeta": {
+    "@solana/web3.js": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@solana/web3.js": "^1.95.0"
   },
   "scripts": {
     "test": "node --test --test-force-exit test/*.test.js"

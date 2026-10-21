@@ -36,7 +36,7 @@ These tools never sign and never pay. A tool that needs a key answers with how t
 
 Tests: `npm test` runs the webhook checks, a coverage check that every API route has a tool (against the live OpenAPI spec), and a live smoke test that starts the server over stdio and calls every free tool.
 
-`sign_reply` is for a publisher who chooses to sign from this machine: it is off unless `UNDERSIGNED_KEYPAIR` points at a keypair file.
+`sign_reply` is for a publisher who chooses to sign from this machine: it is off unless `UNDERSIGNED_KEYPAIR` points at a keypair file. It also needs `@solana/web3.js`, an optional peer dependency since 0.2.1 (`npm install @solana/web3.js`); nothing else uses it, so a plain install stays small.
 
 `reply_handoff` copies an `undersigned://reply?target=…&text=…` link to the clipboard; with Universal Clipboard on, paste it on the Seeker and the app opens the reply pre-filled for the owner to check and sign with the double-tap. The Mac never sends anything in that mode.
 

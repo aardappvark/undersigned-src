@@ -101,7 +101,7 @@ server.tool("action_handoff", "Prepare a helpful vote, a flag or a dispute to si
 
 server.tool("sign_reply", "Sign and send a reply from THIS machine using the keypair file in UNDERSIGNED_KEYPAIR (a publisher wallet). Not available unless the operator configured that file. A reply from a non-Genesis wallet still shows the Publisher badge if the wallet's claim is verified.", { id: z.string(), text: z.string() }, async ({ id, text: t }) => {
   const kp = process.env.UNDERSIGNED_KEYPAIR; if (!kp || !fs.existsSync(kp)) return text("UNDERSIGNED_KEYPAIR is not set or the file does not exist. Use reply_handoff to sign on the Seeker instead.");
-  const web3 = await import("@solana/web3.js");
+  let web3; try { web3 = await import("@solana/web3.js"); } catch { return text("Local signing needs @solana/web3.js, which is no longer installed by default: run `npm install @solana/web3.js` beside this server, or use reply_handoff to sign on the Seeker."); }
   const secret = Uint8Array.from(JSON.parse(fs.readFileSync(kp, "utf8"))); const signer = web3.Keypair.fromSecretKey(secret);
   const memo = L.encodeReply(id, t);
   const conn = new web3.Connection(L.RPCS[0], "confirmed");
