@@ -162,6 +162,6 @@ Build and test everything:
 ## Licence
 
 `protocol/` (the record format, ranking, weighting and moderation rules) and `mcp/` (the MCP server, published on npm as
-`undersigned-mcp`) are released under the MIT licence: see [protocol/LICENSE](protocol/LICENSE) and [mcp/LICENSE](mcp/LICENSE).
+`@aardappvark/undersigned-mcp`) are released under the MIT licence: see [protocol/LICENSE](protocol/LICENSE) and [mcp/LICENSE](mcp/LICENSE).
 Everything else in this repository (the Android app, the API server, the analytics worker, the viewer, the documents and
 media) is © 2026 AardAppvark, all rights reserved; it is published so it can be read and audited.

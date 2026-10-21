@@ -1,5 +1,5 @@
 {
-  "name": "undersigned-mcp",
+  "name": "@aardappvark/undersigned-mcp",
   "version": "0.2.0",
   "description": "MCP server for the Undersigned review ledger: publisher desk (inbox, profiles, store mirror, reply hand-off to the Seeker, optional local signing, live watch) plus every Undersigned API route as tools.",
   "license": "MIT",

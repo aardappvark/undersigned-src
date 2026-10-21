@@ -1,16 +1,18 @@
-# undersigned-mcp
+# @aardappvark/undersigned-mcp
 
 A Model Context Protocol server so a developer can work the Undersigned ledger from a Mac in Claude Desktop (or any MCP client): see unanswered signed reviews on their apps the moment they land, read profiles and the store's public reviews, star things, and reply — either by handing the reply to the Seeker to sign (the default) or, if they choose, by signing from a local keypair.
 
+Runs straight from npm (Node 18+), nothing to clone:
+
 ```bash
-cd mcp && npm install
+npx -y @aardappvark/undersigned-mcp
 ```
 
 Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
 
 ```json
 { "mcpServers": { "undersigned": {
-  "command": "node", "args": ["/ABSOLUTE/PATH/Undersigned/mcp/server.js"],
+  "command": "npx", "args": ["-y", "@aardappvark/undersigned-mcp"],
   "env": { "UNDERSIGNED_WALLETS": "HVXVfQDD1jrt6kBFRNDFcftDE2usWbyWzEDWs367yDaD", "UNDERSIGNED_RPC": "https://mainnet.helius-rpc.com/?api-key=…" }
 } } }
 ```
